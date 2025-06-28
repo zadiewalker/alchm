@@ -1,5 +1,5 @@
 // Update the import path if the file is located elsewhere, for example:
-import { getMessages } from '@/utils/getMessages';
+import { getMessages } from "../../messages/getMessages";
 // Or create the file at src/utils/getMessages.ts if it doesn't exist.
 import JournalPage from './journal/page';
 

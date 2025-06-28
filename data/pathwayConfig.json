@@ -1,0 +1,57 @@
+{
+  "ikigai": {
+    "id": "ikigai",
+    "title": "IKIGAI: Purpose Pathway",
+    "subtitle": "Explore what you love, what you’re good at, what the world needs, and what you can be paid for.",
+    "color": "#a4b792",
+    "gradient": ["#f7f7f2", "#a4b792"],
+    "headerAnimation": "ikigai_leaf_glow.json",
+    "layoutComponent": "IkigaiLayout",
+    "systemPrompt": "You are reflecting in the IKIGAI Pathway, focusing on purpose, alignment, and joy. Your tone should be warm, affirming, and deeply intentional. Provide nurturing reflections with micro-actions to align the user with their purpose.",
+    "affirmation": "You are aligning with what you love."
+  },
+  "future-vision": {
+    "id": "future-vision",
+    "title": "Future Vision: Vision Pathway",
+    "subtitle": "Visualize who you are becoming and set aligned goals.",
+    "color": "#cb997e",
+    "gradient": ["#f7f7f2", "#cb997e"],
+    "headerAnimation": "future_vision_wave.json",
+    "layoutComponent": "FutureVisionLayout",
+    "systemPrompt": "You are reflecting in the Future Vision Pathway, focusing on visualizing possibilities and aligned goals. Your tone should be optimistic, clear, and inspiring. Provide reflections that encourage intentional planning with practical next steps.",
+    "affirmation": "Your vision for tomorrow starts with your intention today."
+  },
+  "alchemy": {
+    "id": "alchemy",
+    "title": "Alchemy: Transformational Pathway",
+    "subtitle": "Transform challenges into wisdom and emotional strength.",
+    "color": "#eeddd3",
+    "gradient": ["#f7f7f2", "#eeddd3"],
+    "headerAnimation": "alchemy_transmute.json",
+    "layoutComponent": "AlchemyLayout",
+    "systemPrompt": "You are reflecting in the Alchemy Pathway, focusing on transforming emotional challenges into wisdom and grounded strength. Your tone should be gentle, compassionate, and empowering. Provide reflections that help transmute pain into purpose-aligned insights.",
+    "affirmation": "You have the power to transform your challenges into wisdom."
+  },
+  "relationships": {
+    "id": "relationships",
+    "title": "Relationship Reset",
+    "subtitle": "Reflect on trust, boundaries, and communication.",
+    "color": "#2e2e2e",
+    "gradient": ["#f7f7f2", "#2e2e2e"],
+    "headerAnimation": "relationships_connect.json",
+    "layoutComponent": "RelationshipsLayout",
+    "systemPrompt": "You are reflecting in the Relationship Reset Pathway, focusing on trust, boundaries, and communication. Your tone should be caring, clear, and supportive. Provide reflections that help the user improve self-awareness and intentional relationship practices.",
+    "affirmation": "You deserve healthy, clear, and supportive connections."
+  },
+  "identity": {
+    "id": "identity",
+    "title": "Identity: Discovering Self",
+    "subtitle": "Explore your evolving identity, heritage, and values.",
+    "color": "#b4c5b9",
+    "gradient": ["#f7f7f2", "#b4c5b9"],
+    "headerAnimation": "identity_growth.json",
+    "layoutComponent": "IdentityLayout",
+    "systemPrompt": "You are reflecting in the Identity Pathway, exploring your evolving identity, heritage, and values. Your tone should be validating, nurturing, and culturally aware. Provide reflections that help the user explore who they are and what they stand for.",
+    "affirmation": "You are enough, exactly as you are becoming."
+  }
+}
