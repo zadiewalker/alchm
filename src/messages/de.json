@@ -1,0 +1,11 @@
+{
+  "title": "ALCHM Journal",
+  "emotionPlaceholder": "Wie fühlst du dich?",
+  "contentPlaceholder": "Schreibe hier deine Gedanken...",
+  "saveButton": "Speichern",
+  "successMessage": "✅ Eintrag erfolgreich gespeichert!",
+  "quotePlaceholder": "Schreibe ein Zitat, das dich bewegt...",
+  "quoteSaveButton": "Zitat speichern",
+  "quoteSuccessMessage": "✅ Zitat erfolgreich gespeichert!",
+  "quoteErrorMessage": "❌ Zitat konnte nicht gespeichert werden. Bitte versuche es erneut."
+}

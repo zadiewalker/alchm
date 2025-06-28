@@ -1,0 +1,12 @@
+{
+  "title": "ALCHM 저널",
+  "emotionPlaceholder": "기분이 어떤가요?",
+  "contentPlaceholder": "여기에 당신의 생각을 적어보세요...",
+  "saveButton": "저장",
+  "successMessage": "✅ 항목이 성공적으로 저장되었습니다!",
+  "quotePlaceholder": "당신에게 와닿는 인용문을 작성하세요...",
+  "quoteSaveButton": "인용문 저장",
+  "quoteSuccessMessage": "✅ 인용문이 성공적으로 저장되었습니다!",
+  "quoteErrorMessage": "❌ 인용문을 저장할 수 없습니다. 다시 시도해주세요."
+}
+

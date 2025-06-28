@@ -1,0 +1,12 @@
+{
+  "title": "ALCHM जर्नल",
+  "emotionPlaceholder": "आप कैसा महसूस कर रहे हैं?",
+  "contentPlaceholder": "यहाँ अपने विचार लिखें...",
+  "saveButton": "सहेजें",
+  "successMessage": "✅ प्रविष्टि सफलतापूर्वक सहेजी गई!",
+  "quotePlaceholder": "एक उद्धरण लिखें जो आपसे जुड़ता हो...",
+  "quoteSaveButton": "उद्धरण सहेजें",
+  "quoteSuccessMessage": "✅ उद्धरण सफलतापूर्वक सहेजा गया!",
+  "quoteErrorMessage": "❌ उद्धरण सहेजने में त्रुटि हुई। कृपया पुनः प्रयास करें।"
+}
+

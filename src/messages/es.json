@@ -1,0 +1,11 @@
+{
+  "title": "Diario ALCHM",
+  "emotionPlaceholder": "¿Cómo te sientes?",
+  "contentPlaceholder": "Escribe tus pensamientos aquí...",
+  "saveButton": "Guardar",
+  "successMessage": "✅ ¡Entrada guardada con éxito!",
+  "quotePlaceholder": "Escribe una cita que te resuene...",
+  "quoteSaveButton": "Guardar cita",
+  "quoteSuccessMessage": "✅ ¡Cita guardada con éxito!",
+  "quoteErrorMessage": "❌ No se pudo guardar la cita. Inténtalo de nuevo."
+}

@@ -1,0 +1,14 @@
+{
+  "title": "ALCHM Journal",
+  "emotionPlaceholder": "How are you feeling?",
+  "contentPlaceholder": "Write your thoughts here...",
+  "saveButton": "Save",
+  "successMessage": "✅ Entry saved successfully!",
+  "quotePlaceholder": "Write a quote that resonates with you...",
+  "quoteSaveButton": "Save Quote",
+  "quoteSuccessMessage": "✅ Quote saved successfully!",
+  "quoteErrorMessage": "❌ Could not save quote. Try again."
+}
+
+
+
