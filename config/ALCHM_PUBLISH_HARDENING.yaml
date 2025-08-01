@@ -1,0 +1,133 @@
+ALCHM_PUBLISH_HARDENING:
+  version: '1.0'
+  description: >
+    Technical hardening configuration to ensure ALCHM passes App Store/Play Store 
+    compliance, prevents 404 hydration errors, and guarantees stable deployment on Firebase + Vercel.
+
+  environment:
+    node: '>=18.17.0'
+    nextjs: '15.x'
+    firebase: 'latest'
+    typescript: '>=5.0'
+    google_genkit: '1.x'
+    ai_model: 'gemini-1.5-flash'
+    deployment: 'Firebase Hosting + Vercel CLI'
+
+  build_config:
+    package_json:
+      type: 'module'
+      scripts:
+        build: 'next build && tsc --noEmit'
+        dev: 'next dev'
+        lint: 'next lint'
+    next_config:
+      syntax: 'ESM'
+      export: 'default'
+      experimental:
+        appDir: true
+        serverActions: true
+    tsconfig:
+      compilerOptions:
+        baseUrl: './src'
+        paths:
+          '@/components/*': ['components/*']
+          '@/lib/*': ['lib/*']
+          '@/styles/*': ['styles/*']
+
+  authentication:
+    model: 'server-first'
+    flow:
+      - client_obtains_firebase_id_token
+      - call_api: '/api/auth/session'
+      - set_http_only_cookie: true
+      - validate_cookie_on_server: true
+    protected_routes:
+      middleware: 'validateSessionCookie'
+      fallback_redirect: '/auth/login'
+    firebase_custom_claims:
+      enabled: true
+      roles: ['threshold', 'rooted', 'admin']
+
+  data_fetching:
+    strategy: 'server-first'
+    rules:
+      - 'All dashboard pages: Server Components'
+      - 'No client-side fetching for core data'
+    hydration_prevention:
+      enforce_identical_server_client_html: true
+    ai_reflections:
+      entry_trigger: 'Firestore journal entry write'
+      process_flow: 'reflectOnJournal Genkit flow'
+      schema: 'Zod validated JSON'
+
+  security_privacy:
+    compliance:
+      - FERPA
+      - COPPA
+      - GDPR
+    firestore_rules:
+      mode: 'strict'
+      isolation: 'per-user'
+      claims_based_access: true
+    cookies:
+      http_only: true
+      same_site: 'Strict'
+      secure: true
+    privacy_policy:
+      hosted: 'https://alchm.app/trust'
+    data_opt_out:
+      enabled: true
+      endpoint: '/api/user/delete-account'
+
+  ui_hydration:
+    known_issues:
+      DashboardHeader:
+        greeting: 'time-based mismatch'
+        fix: 'client-only render post-mount'
+    enforce_server_client_html_match: true
+
+  devops_pipeline:
+    ci:
+      tests:
+        - 'npm run lint'
+        - 'npm run build'
+        - 'pnpm test:e2e'
+      firebase_emulator_tests: true
+    cd:
+      firebase_deploy:
+        steps:
+          - build
+          - lint
+          - test
+          - firebase deploy --only hosting,functions,firestore
+
+  app_store_submission:
+    apple:
+      privacy_form:
+        collect_data: true
+        types: ['Email', 'Journal Input', 'Usage Data']
+        tracking: false
+        ads: false
+      pitch_alignment:
+        categories: ['Mindfulness & Wellness']
+        feature_pitch: 'Trauma-informed, culturally fluent AI journaling app'
+    google_play:
+      data_safety_form:
+        encrypted_in_transit: true
+        data_deletion_path: '/api/user/delete-account'
+        third_party_sharing: false
+
+  monitoring:
+    error_reporting: 'Firebase Crashlytics'
+    performance: 'Firebase Performance Monitoring'
+    logging: 'Structured JSON logs via Cloud Functions'
+    alerts:
+      slack: 'team-engineering'
+      email: 'devops@alchm.app'
+
+  acceptance_criteria:
+    - No 404 hydration errors on protected routes
+    - All builds succeed on CI before deploy
+    - Firestore rules pass audit
+    - Privacy policy and App Store Data Forms match actual implementation
+    - App store listings (iOS + Android) validated against compliance checklists

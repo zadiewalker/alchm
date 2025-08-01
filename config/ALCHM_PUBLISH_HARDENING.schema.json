@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ALCHM Publish Hardening Schema",
+  "type": "object",
+  "required": [
+    "version",
+    "environment",
+    "build_config",
+    "authentication",
+    "data_fetching",
+    "security_privacy",
+    "ui_hydration",
+    "devops_pipeline",
+    "app_store_submission",
+    "acceptance_criteria"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "node",
+        "nextjs",
+        "firebase",
+        "typescript",
+        "google_genkit",
+        "ai_model",
+        "deployment"
+      ],
+      "properties": {
+        "node": { "type": "string" },
+        "nextjs": { "type": "string" },
+        "firebase": { "type": "string" },
+        "typescript": { "type": "string" },
+        "google_genkit": { "type": "string" },
+        "ai_model": { "type": "string" },
+        "deployment": { "type": "string" }
+      }
+    },
+    "build_config": {
+      "type": "object",
+      "required": ["package_json", "next_config", "tsconfig"],
+      "properties": {
+        "package_json": {
+          "type": "object",
+          "required": ["type", "scripts"],
+          "properties": {
+            "type": { "enum": ["module"] },
+            "scripts": {
+              "type": "object",
+              "required": ["build", "dev", "lint"],
+              "properties": {
+                "build": { "type": "string" },
+                "dev": { "type": "string" },
+                "lint": { "type": "string" }
+              }
+            }
+          }
+        },
+        "next_config": {
+          "type": "object",
+          "required": ["syntax", "export", "experimental"],
+          "properties": {
+            "syntax": { "enum": ["ESM"] },
+            "export": { "enum": ["default"] },
+            "experimental": {
+              "type": "object",
+              "required": ["appDir", "serverActions"],
+              "properties": {
+                "appDir": { "type": "boolean" },
+                "serverActions": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "tsconfig": {
+          "type": "object",
+          "required": ["compilerOptions"],
+          "properties": {
+            "compilerOptions": {
+              "type": "object",
+              "required": ["baseUrl", "paths"],
+              "properties": {
+                "baseUrl": { "type": "string" },
+                "paths": { "type": "object" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "required": ["model", "flow", "protected_routes"],
+      "properties": {
+        "model": { "enum": ["server-first"] },
+        "flow": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 3
+        },
+        "protected_routes": { "type": "object" }
+      }
+    },
+    "data_fetching": {
+      "type": "object",
+      "required": ["strategy", "rules", "hydration_prevention"],
+      "properties": {
+        "strategy": { "enum": ["server-first"] },
+        "rules": { "type": "array", "items": { "type": "string" } },
+        "hydration_prevention": { "type": "object" }
+      }
+    },
+    "security_privacy": {
+      "type": "object",
+      "required": [
+        "compliance",
+        "firestore_rules",
+        "cookies",
+        "privacy_policy",
+        "data_opt_out"
+      ],
+      "properties": {
+        "compliance": {
+          "type": "array",
+          "items": { "enum": ["FERPA", "COPPA", "GDPR"] }
+        },
+        "firestore_rules": { "type": "object" },
+        "cookies": { "type": "object" },
+        "privacy_policy": { "type": "object" },
+        "data_opt_out": { "type": "object" }
+      }
+    },
+    "ui_hydration": {
+      "type": "object",
+      "required": ["enforce_server_client_html_match"],
+      "properties": {
+        "enforce_server_client_html_match": { "type": "boolean" }
+      }
+    },
+    "devops_pipeline": {
+      "type": "object",
+      "required": ["ci", "cd"],
+      "properties": {
+        "ci": { "type": "object" },
+        "cd": { "type": "object" }
+      }
+    },
+    "app_store_submission": {
+      "type": "object",
+      "required": ["apple", "google_play"],
+      "properties": {
+        "apple": { "type": "object" },
+        "google_play": { "type": "object" }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 3
+    }
+  }
+}
