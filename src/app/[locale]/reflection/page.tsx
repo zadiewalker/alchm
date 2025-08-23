@@ -44,7 +44,7 @@ export default async function ReflectionPage({ params }: ReflectionPageProps) {
                 {translations.navigation?.journals || 'Journals'}
               </a>
               <a
-                href={`/${params.locale}/dashboard`}
+                href={`/${params.locale}`}
                 className="text-gray-600 hover:text-gray-900 transition-colors"
               >
                 {translations.navigation?.home || 'Home'}
