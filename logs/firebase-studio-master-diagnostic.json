@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "generated": "2025-08-23T16:49:54.004Z",
+    "project": "ALCHM Digital Sanctuary",
+    "buildId": "a-s5vuflksjhy",
+    "diagnosticVersion": "2.0.0",
+    "errorType": "Firebase Studio Pack Build Failure - Route Layout Missing"
+  },
+  "analysis": {
+    "buildId": "a-s5vuflksjhy",
+    "errorType": "Firebase Studio Pack Build Failure - Route Layout Missing",
+    "criticalIssues": [
+      {
+        "type": "MISSING_ROOT_LAYOUT",
+        "route": "/journal",
+        "file": "(app)/journal/page.tsx",
+        "severity": "CRITICAL",
+        "description": "Next.js requires root layout for all page routes"
+      }
+    ],
+    "routingProblems": [
+      {
+        "type": "MISSING_ROUTE_PAGE",
+        "path": "src/app/journal/page.tsx",
+        "severity": "CRITICAL",
+        "description": "Journal route referenced but page file missing"
+      },
+      {
+        "type": "ROUTE_NAME_CONFUSION",
+        "existing": "src/app/journals/page.tsx",
+        "missing": "src/app/journal/page.tsx",
+        "severity": "HIGH",
+        "description": "Journal vs Journals naming inconsistency causing routing errors"
+      },
+      {
+        "type": "LOCALE_ROUTING_CONFLICT",
+        "path": "src/app/[locale].disabled",
+        "severity": "MEDIUM",
+        "description": "Disabled locale routes may cause build confusion"
+      }
+    ],
+    "configurationIssues": [
+      {
+        "type": "MODULE_PARSING_ERROR",
+        "file": "next.config.js",
+        "severity": "HIGH",
+        "issues": [
+          "MODULE_TYPELESS_PACKAGE_JSON Warning",
+          "Invalid next.config.js options: __esModule, default",
+          "Firebase Studio overrides causing ES module conflicts"
+        ]
+      }
+    ],
+    "dependencyWarnings": [],
+    "configurationAnalysis": {
+      "nextConfig": {
+        "exists": true,
+        "outputMode": "standalone",
+        "moduleFormat": "commonjs",
+        "firebaseCompatible": true
+      },
+      "appHosting": {
+        "exists": true,
+        "runtime": "nodejs20",
+        "configType": "minimal",
+        "hasBuildCommands": false
+      },
+      "packageJson": {
+        "moduleType": "commonjs",
+        "nextVersion": "^15.4.6",
+        "firebaseCompatible": true
+      }
+    }
+  },
+  "repairs": [
+    {
+      "type": "CREATE_MISSING_PAGE",
+      "file": "/Users/zadiewalker/Desktop/alchm/src/app/journal/page.tsx",
+      "action": "Created journal page with redirect to journals",
+      "status": "SUCCESS"
+    },
+    {
+      "type": "FIX_ROUTE_NAMING",
+      "action": "Created route mapping file",
+      "status": "SUCCESS"
+    },
+    {
+      "type": "OPTIMIZE_CONFIG",
+      "file": "next.config.js",
+      "action": "Applied Firebase Studio optimizations",
+      "status": "SUCCESS"
+    },
+    {
+      "type": "CLEANUP_DEPENDENCIES",
+      "action": "Created .npmrc for cleaner builds",
+      "status": "SUCCESS"
+    }
+  ],
+  "recommendations": [
+    "Monitor Firebase Studio build logs for successful deployment",
+    "Test journal and journals routes after deployment",
+    "Verify all navigation links work correctly",
+    "Consider implementing comprehensive route testing"
+  ],
+  "nextSteps": [
+    "Commit all diagnostic repairs to git",
+    "Push changes to trigger new Firebase Studio build",
+    "Monitor build progress in Firebase Console",
+    "Validate application functionality post-deployment"
+  ]
+}
