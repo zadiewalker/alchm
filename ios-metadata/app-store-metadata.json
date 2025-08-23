@@ -1,0 +1,15 @@
+{
+  "appName": "ALCHM - Trauma-Informed Journaling",
+  "subtitle": "Heal, Grow, Transform Through Sacred Reflection",
+  "description": "ALCHM is a trauma-informed, AI-powered journaling platform designed to support healing, growth, and transformation through sacred reflection.\n\n🌟 KEY FEATURES:\n• Trauma-Informed Design: Built with sensitivity to trauma survivors\n• AI-Powered Insights: Gentle guidance without replacing professional care  \n• Sacred Reflection Tools: Culturally-informed healing practices\n• Privacy-First: End-to-end encryption protects your journal entries\n• Mood Tracking: Monitor emotional patterns and growth over time\n• IKIGAI Discovery: Find your purpose through guided self-reflection\n• Offline Access: Journal anywhere, sync when ready\n\n🏥 IMPORTANT NOTICE:\nThis app is designed to supplement, not replace, professional mental health care. If you're experiencing a mental health crisis, please contact emergency services or a mental health professional immediately.\n\nALCHM combines ancient wisdom with modern technology to create a safe space for healing and personal growth. Your journey matters, and your story is sacred.",
+  "keywords": "journaling,mental health,trauma recovery,mindfulness,self-care,wellness,reflection,healing,growth,therapy",
+  "category": "Health & Fitness",
+  "contentRating": "17+",
+  "privacyPolicyURL": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+  "supportURL": "https://alchm-digital-sanctuary.web.app/support",
+  "marketingURL": "https://alchm-digital-sanctuary.web.app",
+  "releaseNotes": {
+    "en-US": "Initial TestFlight release of ALCHM - Trauma-Informed Journaling platform. Features include secure journaling, mood tracking, and AI-powered insights for mental health and personal growth."
+  },
+  "reviewNotes": "This is a mental health journaling app with trauma-informed design. All user data is encrypted and stored securely. The app includes appropriate content warnings and does not replace professional medical care."
+}

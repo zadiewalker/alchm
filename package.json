@@ -42,6 +42,11 @@
     "capacitor:run:ios": "npx cap run ios",
     "capacitor:run:android": "npx cap run android",
     
+    "ios:build": "./scripts/build-ios-testflight.sh",
+    "ios:testflight": "cd ios && fastlane beta",
+    "ios:screenshots": "cd ios && fastlane screenshots",
+    "testflight:prepare": "node scripts/testflight-preparation.js",
+    
     "deploy": "./scripts/deploy.sh",
     "deploy:all": "npm run build && firebase deploy && vercel --prod",
     "deploy:functions": "cd functions && pnpm run build && cd .. && firebase deploy --only functions",

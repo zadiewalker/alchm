@@ -1,0 +1,26 @@
+{
+  "contentWarnings": [
+    "This app contains content related to mental health and trauma recovery",
+    "Users should consult healthcare professionals for serious mental health concerns",
+    "This app is not a substitute for professional medical advice"
+  ],
+  "ageRating": {
+    "rating": "17+",
+    "reasons": [
+      "Frequent/Intense Medical/Treatment Information",
+      "Infrequent/Mild Mature/Suggestive Themes"
+    ]
+  },
+  "privacyCompliance": {
+    "dataCollection": "Personal journal entries, mood tracking, user preferences",
+    "dataSharing": "No data sharing with third parties",
+    "dataRetention": "User-controlled data retention with secure deletion",
+    "encryption": "End-to-end encryption for all user data"
+  },
+  "accessibilityFeatures": [
+    "VoiceOver support",
+    "Dynamic Type support",
+    "High contrast mode",
+    "Trauma-informed design principles"
+  ]
+}
