@@ -122,8 +122,8 @@ export default function LoginPage() {
     try {
       await signIn(email, password, rememberMe);
       
-      // Redirect to intended page or dashboard
-      const redirectUrl = searchParams.get('redirect') || '/dashboard';
+      // Redirect to intended page or journals
+      const redirectUrl = searchParams.get('redirect') || '/journals';
       router.push(redirectUrl);
       
     } catch (err: any) {

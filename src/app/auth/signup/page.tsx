@@ -158,8 +158,8 @@ export default function SignupPage() {
     try {
       await signUp(formData.email, formData.password, formData.displayName);
       
-      // Redirect to dashboard after successful signup
-      router.push('/dashboard');
+      // Redirect to journals after successful signup
+      router.push('/journals');
       
     } catch (err: any) {
       console.error('Signup error:', err);
