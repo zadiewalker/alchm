@@ -14,10 +14,10 @@ console.log('🔍 Verifying ALCHM build configuration...\n');
 const nextConfigPath = path.join(__dirname, 'next.config.js');
 if (fs.existsSync(nextConfigPath)) {
   const nextConfigContent = fs.readFileSync(nextConfigPath, 'utf8');
-  if (nextConfigContent.includes('output: \'export\'')) {
-    console.log('✅ next.config.js: Static export configured correctly');
+  if (nextConfigContent.includes('output: \'standalone\'')) {
+    console.log('✅ next.config.js: Standalone mode configured for Firebase');
   } else {
-    console.log('❌ next.config.js: Missing static export configuration');
+    console.log('❌ next.config.js: Missing standalone configuration');
   }
 } else {
   console.log('❌ next.config.js: File not found');
@@ -40,10 +40,10 @@ if (fs.existsSync(packageJsonPath)) {
 const apphostingPath = path.join(__dirname, 'apphosting.yaml');
 if (fs.existsSync(apphostingPath)) {
   const apphostingContent = fs.readFileSync(apphostingPath, 'utf8');
-  if (apphostingContent.includes('source: out')) {
-    console.log('✅ apphosting.yaml: Static export output configured');
+  if (apphostingContent.includes('runtime: nodejs20')) {
+    console.log('✅ apphosting.yaml: Firebase runtime configured');
   } else {
-    console.log('❌ apphosting.yaml: Missing static export output configuration');
+    console.log('❌ apphosting.yaml: Missing Firebase runtime configuration');
   }
 } else {
   console.log('❌ apphosting.yaml: File not found');
