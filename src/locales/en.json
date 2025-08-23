@@ -1,0 +1,187 @@
+{
+  "common": {
+    "welcome": "Welcome home",
+    "loading": "Loading...",
+    "error": "Let's navigate this together",
+    "retry": "Explore another path",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation_guidance": {
+    "connection_pause": "Taking a mindful pause to refresh connection",
+    "path_exploration": "Let's explore a different path together",
+    "preparation_needed": "This area invites deeper preparation",
+    "sanctuary_refresh": "Refreshing your sanctuary experience",
+    "offline_reflection": "Your sacred space is preparing for offline reflection"
+  },
+  "strength_based": {
+    "exploration": "What would you like to explore?",
+    "growth_opportunity": "This could be a growth opportunity",
+    "navigation_support": "How can we navigate this together?",
+    "wisdom_seeking": "What wisdom does this experience offer?",
+    "support_invitation": "Support is available when you're ready",
+    "complexity_honor": "Navigating life's sacred complexity",
+    "transformation_space": "Creating space for transformation"
+  },
+  "navigation": {
+    "home": "Home",
+    "journals": "Journals",
+    "reflection": "Reflection",
+    "khepera": "KHEPERA",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Sign Out"
+  },
+  "onboarding": {
+    "title": "Welcome to Your Digital Sanctuary",
+    "subtitle": "A trauma-informed space for healing, reflection, and growth",
+    "step1": {
+      "title": "Choose Your Language",
+      "description": "ALCHM speaks your language, honors your culture"
+    },
+    "step2": {
+      "title": "Set Your Intention",
+      "description": "What brings you to this sacred space?"
+    },
+    "step3": {
+      "title": "Meet KHEPERA",
+      "description": "Your AI companion for emotional intelligence and growth"
+    },
+    "getStarted": "Begin Your Journey"
+  },
+  "identity": {
+    "welcome_authentic_self": "Welcome to your authentic self's sanctuary",
+    "chosen_family": "chosen family",
+    "identity_celebration": "Your identity is a gift to the world",
+    "pronouns_respect": "Pronouns are a form of respect and recognition",
+    "pride_affirmation": "Your pride and joy in who you are is sacred",
+    "intersectional_beauty": "The complexity of your identity brings unique wisdom",
+    "authentic_expression": "Your authentic expression creates space for others",
+    "community_belonging": "You belong in communities that celebrate your full self"
+  },
+  "pronouns": {
+    "selection_title": "How would you like to be referred to?",
+    "selection_description": "Your pronouns help us create a more personalized and respectful experience",
+    "privacy_profile": "Show pronouns in my profile",
+    "privacy_ai": "Use my pronouns in AI responses",
+    "custom_pronouns": "Define your custom pronouns",
+    "example_preview": "Preview"
+  },
+  "lgbtq_affirmation": {
+    "pride_reflection": "What aspects of your identity fill you with joy and pride today?",
+    "authentic_expression": "How are you expressing your most authentic self?",
+    "community_belonging": "Where do you feel the deepest sense of belonging?",
+    "identity_celebration": "What would you celebrate about yourself right now?",
+    "resilience_recognition": "What inner strengths have you discovered through your journey?",
+    "intersectional_wisdom": "How do the different aspects of your identity weave together beautifully?"
+  },
+  "safe_space": {
+    "commitment": "Safe Space Commitment",
+    "description": "ALCHM celebrates and affirms all identities, orientations, and expressions",
+    "inclusive_environment": "This is a space where every part of you is welcomed and celebrated"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account..."
+  },
+  "dashboard": {
+    "title": "Your Sacred Space",
+    "todaysReflection": "Today's Reflection",
+    "recentJournals": "Recent Journals",
+    "kheperaInsight": "KHEPERA's Insight",
+    "startJournal": "Start New Journal",
+    "viewAll": "View All"
+  },
+  "journals": {
+    "title": "Your Journals",
+    "newEntry": "New Entry",
+    "searchPlaceholder": "Search your reflections...",
+    "noEntries": "Your journey begins with the first word",
+    "writeFirst": "Write Your First Entry",
+    "entryCount": "{count} entries",
+    "lastUpdated": "Last updated {date}",
+    "tags": "Tags"
+  },
+  "reflection": {
+    "title": "Sacred Reflection",
+    "prompt": "What's present in your heart today?",
+    "placeholder": "Let your thoughts flow freely here...",
+    "kheperaPrompt": "Would you like KHEPERA's perspective?",
+    "askKhepera": "Ask KHEPERA",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "wordCount": "{count} words"
+  },
+  "khepera": {
+    "title": "KHEPERA - Your AI Companion",
+    "subtitle": "Trauma-informed emotional intelligence",
+    "archetypes": {
+      "mirror": "Mirror - Honest reflection",
+      "inner_child": "Inner Child - Gentle nurturing",
+      "future_you": "Future You - Wise guidance",
+      "poet_mentor": "Poet Mentor - Creative insight",
+      "older_sibling": "Older Sibling - Caring directness",
+      "spark": "Spark - Energetic awakening",
+      "ancestor": "Ancestor - Ancient wisdom"
+    },
+    "responses": {
+      "somatic": "Body Wisdom",
+      "psychotherapeutic": "Understanding Patterns",
+      "integrative": "Holistic Healing",
+      "nurturing": "Gentle Care",
+      "accountability": "Loving Challenge"
+    },
+    "generating": "KHEPERA is reflecting...",
+    "error": "KHEPERA is resting. Please try again."
+  },
+  "profile": {
+    "title": "Your Profile",
+    "personalInfo": "Personal Information",
+    "preferences": "Preferences",
+    "language": "Language",
+    "timezone": "Timezone",
+    "culturalContext": "Cultural Context",
+    "kheperaSettings": "KHEPERA Settings",
+    "defaultArchetype": "Default Archetype",
+    "responseStyle": "Response Style"
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "privacy": "Privacy & Security",
+    "notifications": "Notifications",
+    "dataExport": "Export Data",
+    "deleteAccount": "Delete Account",
+    "dangerZone": "Danger Zone"
+  },
+  "errors": {
+    "generic": "Something unexpected happened",
+    "network": "Check your internet connection",
+    "auth": "Authentication failed",
+    "notFound": "Page not found",
+    "forbidden": "You don't have permission",
+    "server": "Server error occurred"
+  },
+  "culturalGreetings": {
+    "morning": "Good morning, beautiful soul",
+    "afternoon": "Good afternoon, cherished one",
+    "evening": "Good evening, beloved",
+    "night": "Rest well, dear heart"
+  }
+}

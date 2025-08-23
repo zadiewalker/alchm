@@ -1,0 +1,92 @@
+[
+  {
+    "text": "You showed up and did the work. That counts.",
+    "archetype_suitability": ["all"],
+    "tone": "acknowledgment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You're exactly where you are. Now decide where you want to go next.",
+    "archetype_suitability": ["all"],
+    "tone": "accountability",
+    "ceremonial_weight": "action-oriented"
+  },
+  {
+    "text": "You said what needed to be said. Own it.",
+    "archetype_suitability": ["mirror_self", "challenger", "truth_teller"],
+    "tone": "empowerment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You told the truth. That's how change starts.",
+    "archetype_suitability": ["truth_teller", "grounded_guide"],
+    "tone": "accountability",
+    "ceremonial_weight": "action-oriented"
+  },
+  {
+    "text": "You know what you know. Stop second-guessing yourself.",
+    "archetype_suitability": ["all"],
+    "tone": "empowerment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You got real with yourself. Don't back down from that.",
+    "archetype_suitability": ["challenger", "reality_checker", "mirror"],
+    "tone": "empowerment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You faced something difficult. Most people won't do that.",
+    "archetype_suitability": ["all"],
+    "tone": "acknowledgment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You looked at the hard stuff. Now what are you going to do about it?",
+    "archetype_suitability": ["truth_teller", "movement_motivator", "mirror"],
+    "tone": "accountability",
+    "ceremonial_weight": "action-oriented"
+  },
+  {
+    "text": "You told your story. No one else can tell it for you.",
+    "archetype_suitability": ["all"],
+    "tone": "empowerment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You asked the right questions. Trust your ability to find answers.",
+    "archetype_suitability": ["challenger", "reality_revealer", "pattern_breaker"],
+    "tone": "empowerment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You looked at the patterns. What are you going to change?",
+    "archetype_suitability": ["pattern_breaker", "movement_motivator", "truth_teller"],
+    "tone": "accountability",
+    "ceremonial_weight": "action-oriented"
+  },
+  {
+    "text": "You processed what you needed to process. Good.",
+    "archetype_suitability": ["all"],
+    "tone": "acknowledgment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You spoke up for yourself. Keep doing that.",
+    "archetype_suitability": ["all"],
+    "tone": "empowerment",
+    "ceremonial_weight": "action-oriented"
+  },
+  {
+    "text": "You're not all good or all bad. You're human. Accept it.",
+    "archetype_suitability": ["mirror", "truth_teller", "challenger"],
+    "tone": "acknowledgment",
+    "ceremonial_weight": "direct"
+  },
+  {
+    "text": "You planted some ideas. Now water them with action.",
+    "archetype_suitability": ["grounded_guide", "reality_checker", "challenger"],
+    "tone": "accountability",
+    "ceremonial_weight": "action-oriented"
+  }
+]

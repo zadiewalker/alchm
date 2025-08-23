@@ -1,0 +1,479 @@
+/* ALCHM Sacred Utility Classes */
+/* Atomic sacred classes for rapid, emotionally-coherent interface construction */
+/* Each utility carries sacred intention, not just visual effect */
+
+/* ===== SACRED SPACING UTILITIES ===== */
+/* Margin utilities - breathing space around sacred elements */
+.m-whisper { margin: var(--space-whisper); }
+.m-breath { margin: var(--space-breath); }
+.m-gentle { margin: var(--space-gentle); }
+.m-ritual { margin: var(--space-ritual); }
+.m-sacred { margin: var(--space-sacred); }
+.m-sanctuary { margin: var(--space-sanctuary); }
+
+/* Directional margins */
+.mt-whisper { margin-top: var(--space-whisper); }
+.mt-breath { margin-top: var(--space-breath); }
+.mt-gentle { margin-top: var(--space-gentle); }
+.mt-ritual { margin-top: var(--space-ritual); }
+.mt-sacred { margin-top: var(--space-sacred); }
+.mt-sanctuary { margin-top: var(--space-sanctuary); }
+
+.mb-whisper { margin-bottom: var(--space-whisper); }
+.mb-breath { margin-bottom: var(--space-breath); }
+.mb-gentle { margin-bottom: var(--space-gentle); }
+.mb-ritual { margin-bottom: var(--space-ritual); }
+.mb-sacred { margin-bottom: var(--space-sacred); }
+.mb-sanctuary { margin-bottom: var(--space-sanctuary); }
+
+.ml-whisper { margin-left: var(--space-whisper); }
+.ml-breath { margin-left: var(--space-breath); }
+.ml-gentle { margin-left: var(--space-gentle); }
+.ml-ritual { margin-left: var(--space-ritual); }
+.ml-sacred { margin-left: var(--space-sacred); }
+.ml-sanctuary { margin-left: var(--space-sanctuary); }
+
+.mr-whisper { margin-right: var(--space-whisper); }
+.mr-breath { margin-right: var(--space-breath); }
+.mr-gentle { margin-right: var(--space-gentle); }
+.mr-ritual { margin-right: var(--space-ritual); }
+.mr-sacred { margin-right: var(--space-sacred); }
+.mr-sanctuary { margin-right: var(--space-sanctuary); }
+
+/* Padding utilities - inner breathing space for sacred content */
+.p-whisper { padding: var(--space-whisper); }
+.p-breath { padding: var(--space-breath); }
+.p-gentle { padding: var(--space-gentle); }
+.p-ritual { padding: var(--space-ritual); }
+.p-sacred { padding: var(--space-sacred); }
+.p-sanctuary { padding: var(--space-sanctuary); }
+
+/* Directional padding */
+.pt-whisper { padding-top: var(--space-whisper); }
+.pt-breath { padding-top: var(--space-breath); }
+.pt-gentle { padding-top: var(--space-gentle); }
+.pt-ritual { padding-top: var(--space-ritual); }
+.pt-sacred { padding-top: var(--space-sacred); }
+.pt-sanctuary { padding-top: var(--space-sanctuary); }
+
+.pb-whisper { padding-bottom: var(--space-whisper); }
+.pb-breath { padding-bottom: var(--space-breath); }
+.pb-gentle { padding-bottom: var(--space-gentle); }
+.pb-ritual { padding-bottom: var(--space-ritual); }
+.pb-sacred { padding-bottom: var(--space-sacred); }
+.pb-sanctuary { padding-bottom: var(--space-sanctuary); }
+
+.pl-whisper { padding-left: var(--space-whisper); }
+.pl-breath { padding-left: var(--space-breath); }
+.pl-gentle { padding-left: var(--space-gentle); }
+.pl-ritual { padding-left: var(--space-ritual); }
+.pl-sacred { padding-left: var(--space-sacred); }
+.pl-sanctuary { padding-left: var(--space-sanctuary); }
+
+.pr-whisper { padding-right: var(--space-whisper); }
+.pr-breath { padding-right: var(--space-breath); }
+.pr-gentle { padding-right: var(--space-gentle); }
+.pr-ritual { padding-right: var(--space-ritual); }
+.pr-sacred { padding-right: var(--space-sacred); }
+.pr-sanctuary { padding-right: var(--space-sanctuary); }
+
+/* Gap utilities for flexbox/grid - space between sacred siblings */
+.gap-whisper { gap: var(--space-whisper); }
+.gap-breath { gap: var(--space-breath); }
+.gap-gentle { gap: var(--space-gentle); }
+.gap-ritual { gap: var(--space-ritual); }
+.gap-sacred { gap: var(--space-sacred); }
+.gap-sanctuary { gap: var(--space-sanctuary); }
+
+/* ===== SACRED TEXT UTILITIES ===== */
+/* Typography scales - the voice hierarchy of the sanctuary */
+.text-whisper {
+  font-size: var(--text-whisper);
+  line-height: var(--leading-intimate);
+  font-weight: var(--weight-breath);
+}
+
+.text-breath {
+  font-size: var(--text-breath);
+  line-height: var(--leading-natural);
+  font-weight: var(--weight-breath);
+}
+
+.text-presence {
+  font-size: var(--text-presence);
+  line-height: var(--leading-natural);
+  font-weight: var(--weight-breath);
+}
+
+.text-grounding {
+  font-size: var(--text-grounding);
+  line-height: var(--leading-spacious);
+  font-weight: var(--weight-presence);
+}
+
+.text-sacred {
+  font-size: var(--text-sacred);
+  line-height: var(--leading-spacious);
+  font-weight: var(--weight-grounding);
+}
+
+.text-ceremonial {
+  font-size: var(--text-ceremonial);
+  line-height: var(--leading-ceremonial);
+  font-weight: var(--weight-grounding);
+}
+
+.text-invocation {
+  font-size: var(--text-invocation);
+  line-height: var(--leading-ceremonial);
+  font-weight: var(--weight-sacred);
+}
+
+.text-manifestation {
+  font-size: var(--text-manifestation);
+  line-height: var(--leading-ceremonial);
+  font-weight: var(--weight-sacred);
+  letter-spacing: 0.05em;
+}
+
+/* Font weight utilities - the energy of sacred words */
+.weight-whisper { font-weight: var(--weight-whisper); }
+.weight-breath { font-weight: var(--weight-breath); }
+.weight-presence { font-weight: var(--weight-presence); }
+.weight-grounding { font-weight: var(--weight-grounding); }
+.weight-sacred { font-weight: var(--weight-sacred); }
+
+/* Text color utilities - the emotional resonance of words */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-subtle { color: var(--text-subtle); }
+.text-whisper-color { color: var(--text-whisper); }
+.text-inverse { color: var(--text-inverse); }
+.text-sacred-color { color: var(--text-sacred); }
+.text-grounding-color { color: var(--text-grounding); }
+
+/* Text alignment utilities - the flow of sacred expression */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* ===== SACRED BACKGROUND UTILITIES ===== */
+/* Background colors - the sacred canvases */
+.bg-sanctuary { background: var(--surface-sanctuary); }
+.bg-grounding-field { background: var(--surface-grounding-field); }
+.bg-breathing-space { background: var(--surface-breathing-space); }
+.bg-sacred-canvas { background: var(--surface-sacred-canvas); }
+
+.bg-elevated-gentle { background: var(--surface-elevated-gentle); }
+.bg-elevated-warm { background: var(--surface-elevated-warm); }
+.bg-elevated-sacred { background: var(--surface-elevated-sacred); }
+.bg-elevated-deep { background: var(--surface-elevated-deep); }
+
+.bg-card-gentle { background: var(--surface-card-gentle); }
+.bg-card-warm { background: var(--surface-card-warm); }
+.bg-card-sacred { background: var(--surface-card-sacred); }
+.bg-card-grounding { background: var(--surface-card-grounding); }
+
+/* Sacred color backgrounds */
+.bg-primary { background: var(--color-primary); }
+.bg-off-white { background: var(--color-off-white); }
+.bg-warm-terra { background: var(--color-warm-terra); }
+.bg-charcoal { background: var(--color-charcoal); }
+.bg-soft-blush { background: var(--color-soft-blush); }
+.bg-healing-mist { background: var(--color-healing-mist); }
+.bg-tender-embrace { background: var(--color-tender-embrace); }
+.bg-deep-presence { background: var(--color-deep-presence); }
+.bg-grounding-earth { background: var(--color-grounding-earth); }
+
+/* ===== SACRED BORDER UTILITIES ===== */
+/* Border radius utilities - the curves that embrace content */
+.rounded-whisper { border-radius: var(--radius-whisper); }
+.rounded-breath { border-radius: var(--radius-breath); }
+.rounded-gentle { border-radius: var(--radius-gentle); }
+.rounded-embrace { border-radius: var(--radius-embrace); }
+.rounded-sacred { border-radius: var(--radius-sacred); }
+.rounded-sanctuary { border-radius: var(--radius-sanctuary); }
+.rounded-infinite { border-radius: var(--radius-infinite); }
+
+/* Border utilities - sacred boundaries */
+.border-none { border: none; }
+.border-whisper { border: 1px solid var(--color-healing-mist); }
+.border-breath { border: 1px solid var(--color-tender-embrace); }
+.border-gentle { border: 2px solid var(--color-tender-embrace); }
+.border-sacred { border: 2px solid var(--color-primary); }
+.border-grounding { border: 2px solid var(--color-warm-terra); }
+.border-deep { border: 2px solid var(--color-deep-presence); }
+
+/* ===== SACRED SHADOW UTILITIES ===== */
+/* Shadow utilities - the play of light and mystery */
+.shadow-none { box-shadow: none; }
+.shadow-whisper { box-shadow: var(--shadow-whisper); }
+.shadow-breath { box-shadow: var(--shadow-breath); }
+.shadow-presence { box-shadow: var(--shadow-presence); }
+.shadow-sacred { box-shadow: var(--shadow-sacred); }
+.shadow-sanctuary { box-shadow: var(--shadow-sanctuary); }
+
+/* Glow utilities - inner light emanating */
+.glow-sacred { box-shadow: var(--glow-sacred); }
+.glow-grounding { box-shadow: var(--glow-grounding); }
+.glow-gentle { box-shadow: var(--glow-gentle); }
+.glow-protection { box-shadow: var(--glow-protection); }
+
+/* ===== SACRED OPACITY UTILITIES ===== */
+/* Opacity utilities - the veil between visible and invisible */
+.opacity-whisper { opacity: var(--opacity-whisper); }
+.opacity-breath { opacity: var(--opacity-breath); }
+.opacity-subtle { opacity: var(--opacity-subtle); }
+.opacity-soft { opacity: var(--opacity-soft); }
+.opacity-medium { opacity: var(--opacity-medium); }
+.opacity-strong { opacity: var(--opacity-strong); }
+.opacity-deep { opacity: var(--opacity-deep); }
+.opacity-solid { opacity: var(--opacity-solid); }
+
+/* ===== SACRED LAYOUT UTILITIES ===== */
+/* Flexbox utilities - sacred flow and alignment */
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+/* Justify content - horizontal sacred alignment */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+/* Align items - vertical sacred alignment */
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+.items-baseline { align-items: baseline; }
+
+/* Grid utilities - sacred grid layouts */
+.grid { display: grid; }
+.inline-grid { display: inline-grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+
+/* ===== SACRED POSITIONING UTILITIES ===== */
+/* Position utilities - sacred spatial relationships */
+.static { position: static; }
+.fixed { position: fixed; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.sticky { position: sticky; }
+
+/* Z-index utilities - sacred depth hierarchy */
+.z-foundation { z-index: var(--layer-foundation); }
+.z-surface { z-index: var(--layer-surface); }
+.z-elevated { z-index: var(--layer-elevated); }
+.z-floating { z-index: var(--layer-floating); }
+.z-modal { z-index: var(--layer-modal); }
+.z-sacred { z-index: var(--layer-sacred); }
+
+/* ===== SACRED INTERACTION UTILITIES ===== */
+/* Cursor utilities - sacred interaction indicators */
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-text { cursor: text; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-wait { cursor: wait; }
+.cursor-help { cursor: help; }
+
+/* User select utilities - sacred content protection */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+.select-auto { user-select: auto; }
+
+/* ===== SACRED VISIBILITY UTILITIES ===== */
+/* Display utilities - sacred presence states */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.hidden { display: none; }
+.invisible { visibility: hidden; }
+.visible { visibility: visible; }
+
+/* ===== SACRED STATE UTILITIES ===== */
+/* Emotional state utilities - sacred emotional expressions */
+.state-reflecting {
+  background: var(--emotion-reflecting-primary);
+  border: 1px solid var(--emotion-reflecting-border);
+  color: var(--emotion-reflecting-text);
+}
+
+.state-celebrating {
+  background: var(--celebration-inner-growth-primary);
+  border: 1px solid var(--celebration-inner-growth-border);
+  color: var(--celebration-inner-growth-text);
+}
+
+.state-alert {
+  background: var(--alert-sacred-boundary-primary);
+  border: 1px solid var(--alert-sacred-boundary-border);
+  color: var(--alert-sacred-boundary-text);
+}
+
+.state-interrupted {
+  background: var(--error-ritual-interrupted-primary);
+  border: 1px solid var(--error-ritual-interrupted-border);
+  color: var(--error-ritual-interrupted-text);
+}
+
+/* ===== SACRED TRANSITION UTILITIES ===== */
+/* Transition utilities - sacred timing and easing */
+.transition-instant {
+  transition: all var(--timing-instant) var(--ease-sacred-flow);
+}
+
+.transition-breath {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.transition-pause {
+  transition: all var(--timing-pause) var(--ease-sacred-flow);
+}
+
+.transition-contemplation {
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.transition-ritual {
+  transition: all var(--timing-ritual) var(--ease-sacred-flow);
+}
+
+.transition-transformation {
+  transition: all var(--timing-transformation) var(--ease-sacred-flow);
+}
+
+/* Easing utilities - sacred motion personality */
+.ease-breath-in { transition-timing-function: var(--ease-breath-in); }
+.ease-breath-out { transition-timing-function: var(--ease-breath-out); }
+.ease-heart-beat { transition-timing-function: var(--ease-heart-beat); }
+.ease-sacred-flow { transition-timing-function: var(--ease-sacred-flow); }
+.ease-earth-settle { transition-timing-function: var(--ease-earth-settle); }
+
+/* Transform utilities - sacred spatial transformations */
+.transform { transform: var(--tw-transform); }
+.transform-none { transform: none; }
+
+.scale-whisper { --tw-scale-x: 0.95; --tw-scale-y: 0.95; transform: scale(var(--tw-scale-x), var(--tw-scale-y)); }
+.scale-breath { --tw-scale-x: 0.98; --tw-scale-y: 0.98; transform: scale(var(--tw-scale-x), var(--tw-scale-y)); }
+.scale-presence { --tw-scale-x: 1.02; --tw-scale-y: 1.02; transform: scale(var(--tw-scale-x), var(--tw-scale-y)); }
+.scale-sacred { --tw-scale-x: 1.05; --tw-scale-y: 1.05; transform: scale(var(--tw-scale-x), var(--tw-scale-y)); }
+
+.translate-breath { transform: translateY(-2px); }
+.translate-gentle { transform: translateY(-4px); }
+.translate-sacred { transform: translateY(-8px); }
+
+/* ===== SACRED RESPONSIVE UTILITIES ===== */
+/* Responsive prefixes for sacred breakpoints */
+@media (min-width: 320px) {
+  .intimate\:block { display: block; }
+  .intimate\:hidden { display: none; }
+  .intimate\:text-whisper { font-size: var(--text-whisper); }
+  .intimate\:p-whisper { padding: var(--space-whisper); }
+  .intimate\:m-whisper { margin: var(--space-whisper); }
+}
+
+@media (min-width: 480px) {
+  .personal\:block { display: block; }
+  .personal\:hidden { display: none; }
+  .personal\:text-breath { font-size: var(--text-breath); }
+  .personal\:p-breath { padding: var(--space-breath); }
+  .personal\:m-breath { margin: var(--space-breath); }
+}
+
+@media (min-width: 768px) {
+  .comfortable\:block { display: block; }
+  .comfortable\:hidden { display: none; }
+  .comfortable\:text-presence { font-size: var(--text-presence); }
+  .comfortable\:p-gentle { padding: var(--space-gentle); }
+  .comfortable\:m-gentle { margin: var(--space-gentle); }
+}
+
+@media (min-width: 1024px) {
+  .spacious\:block { display: block; }
+  .spacious\:hidden { display: none; }
+  .spacious\:text-sacred { font-size: var(--text-sacred); }
+  .spacious\:p-ritual { padding: var(--space-ritual); }
+  .spacious\:m-ritual { margin: var(--space-ritual); }
+}
+
+@media (min-width: 1280px) {
+  .expansive\:block { display: block; }
+  .expansive\:hidden { display: none; }
+  .expansive\:text-ceremonial { font-size: var(--text-ceremonial); }
+  .expansive\:p-sacred { padding: var(--space-sacred); }
+  .expansive\:m-sacred { margin: var(--space-sacred); }
+}
+
+@media (min-width: 1920px) {
+  .sanctuary\:block { display: block; }
+  .sanctuary\:hidden { display: none; }
+  .sanctuary\:text-manifestation { font-size: var(--text-manifestation); }
+  .sanctuary\:p-sanctuary { padding: var(--space-sanctuary); }
+  .sanctuary\:m-sanctuary { margin: var(--space-sanctuary); }
+}
+
+/* ===== SACRED ACCESSIBILITY UTILITIES ===== */
+/* Screen reader utilities - sacred accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Focus utilities - sacred focus states */
+.focus\:outline-none:focus { outline: 0; }
+.focus\:ring-sacred:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.5);
+}
+
+.focus\:ring-grounding:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(203, 153, 126, 0.5);
+}
+
+/* ===== SACRED PRINT UTILITIES ===== */
+/* Print utilities - sacred words on paper */
+@media print {
+  .print\:hidden { display: none !important; }
+  .print\:block { display: block !important; }
+  .print\:text-black { color: #000000 !important; }
+  .print\:bg-white { background: #ffffff !important; }
+  .print\:shadow-none { box-shadow: none !important; }
+}

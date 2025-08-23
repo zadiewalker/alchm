@@ -1,0 +1,369 @@
+// ALCHM Sacred UI Extensions - Advanced Component Styling
+// Extends the Sacred UX Grammar with specific component behaviors
+
+// ===== SACRED ACCESSIBILITY EXTENSIONS =====
+
+// High contrast mode
+.high-contrast {
+  --sacred-canvas: #ffffff;
+  --grounding-earth: #8b4513;
+  --tender-embrace: #f5f5dc;
+  --deep-presence: #000000;
+  --healing-mist: #f0f8ff;
+  
+  filter: contrast(1.2);
+}
+
+// Breathing mode - simplified interface
+.breathing-mode {
+  .ritual-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: none;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sacred-button {
+    box-shadow: none;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// Reduce motion preferences
+.reduce-motion {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ===== SACRED LOADING STATES =====
+
+.sacred-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: sacred-spin 1s linear infinite;
+}
+
+@keyframes sacred-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sacred-button {
+  &.loading {
+    cursor: not-allowed;
+    opacity: 0.8;
+    
+    .sacred-button__loading {
+      display: flex;
+      align-items: center;
+      gap: var(--space-gentle);
+    }
+  }
+}
+
+// ===== SACRED INPUT EXTENSIONS =====
+
+.sacred-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-gentle);
+  
+  .sacred-input__label {
+    font-family: var(--font-primary);
+    font-weight: var(--weight-presence);
+    color: var(--deep-presence);
+    font-size: 0.875rem;
+    letter-spacing: var(--letter-breath-gentle);
+  }
+  
+  .sacred-input__help {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    color: var(--color-text-subtle);
+    line-height: var(--line-gentle);
+  }
+  
+  .sacred-input__error {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    color: var(--color-error);
+    font-weight: var(--weight-presence);
+  }
+}
+
+.sacred-input {
+  &--error {
+    border-color: var(--color-error);
+    background: rgba(239, 68, 68, 0.05);
+    
+    &:focus {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+// ===== SACRED ACCESSIBILITY CONTROLS =====
+
+.sacred-accessibility-controls {
+  background: rgba(240, 244, 241, 0.6);
+  border: 1px solid rgba(156, 175, 136, 0.2);
+  border-radius: 12px;
+  padding: var(--space-ritual);
+  
+  h3 {
+    margin-bottom: var(--space-breath);
+    color: var(--deep-presence);
+  }
+}
+
+.sacred-controls-grid {
+  display: grid;
+  gap: var(--space-breath);
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.sacred-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-whisper);
+  cursor: pointer;
+  padding: var(--space-breath);
+  border: 1px solid rgba(203, 153, 126, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(203, 153, 126, 0.4);
+  }
+  
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    
+    &:checked + span {
+      color: var(--grounding-earth);
+      font-weight: var(--weight-presence);
+    }
+    
+    &:focus-visible + span {
+      outline: 2px solid var(--grounding-earth);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+  
+  span:first-of-type {
+    font-family: var(--font-primary);
+    font-weight: var(--weight-breath);
+    color: var(--deep-presence);
+    transition: all 0.3s ease;
+  }
+  
+  .sacred-control__description {
+    font-family: var(--font-accent);
+    font-size: 0.75rem;
+    color: var(--color-text-subtle);
+    line-height: var(--line-gentle);
+  }
+}
+
+// ===== SACRED GRID SYSTEM =====
+
+.sacred-grid {
+  display: grid;
+  
+  // Grid column variations
+  &--columns-auto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  &--columns-1 {
+    grid-template-columns: 1fr;
+  }
+  
+  &--columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+    
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+    
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  &--columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+    
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  // Grid gap variations
+  &--gap-gentle {
+    gap: var(--space-gentle);
+  }
+  
+  &--gap-breath {
+    gap: var(--space-breath);
+  }
+  
+  &--gap-ritual {
+    gap: var(--space-ritual);
+  }
+  
+  &--gap-sacred {
+    gap: var(--space-sacred);
+  }
+}
+
+// ===== SACRED INTERACTIVE STATES =====
+
+.ritual-card {
+  &--interactive {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover {
+      border-color: rgba(203, 153, 126, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    &:focus-visible {
+      outline: none;
+      border-color: var(--grounding-earth);
+      box-shadow: 0 0 0 3px rgba(203, 153, 126, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// ===== SACRED CONTAINER VARIATIONS =====
+
+.sacred-container {
+  &--compact {
+    max-width: 480px;
+    padding: var(--space-breath);
+  }
+  
+  &--comfortable {
+    max-width: 680px;
+    padding: var(--space-sacred);
+  }
+  
+  &--spacious {
+    max-width: 960px;
+    padding: var(--space-pause);
+  }
+}
+
+// ===== SACRED FOCUS MANAGEMENT =====
+
+// Enhanced focus indicators for better accessibility
+:focus-visible {
+  outline: 2px solid var(--grounding-earth);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+// Custom focus for sacred buttons
+.sacred-button:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px rgba(203, 153, 126, 0.3),
+    0 0 0 6px rgba(203, 153, 126, 0.1);
+}
+
+// ===== SACRED DARK MODE SUPPORT =====
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sacred-canvas: #1a1a1a;
+    --grounding-earth: #d4a574;
+    --tender-embrace: #2a2520;
+    --deep-presence: #f5f5f5;
+    --healing-mist: #1e2220;
+    --sanctuary-white: #2a2a2a;
+    --color-text: #f5f5f5;
+    --color-text-subtle: #a3a3a3;
+    --color-text-muted: #737373;
+  }
+  
+  .ritual-card {
+    background: rgba(42, 42, 42, 0.8);
+    border-color: rgba(212, 165, 116, 0.2);
+  }
+  
+  .sacred-input {
+    background: rgba(42, 42, 42, 0.8);
+    border-color: rgba(212, 165, 116, 0.3);
+    color: var(--color-text);
+    
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+  }
+}
+
+// ===== SACRED PRINT STYLES =====
+
+@media print {
+  .sacred-accessibility-controls,
+  .sacred-button,
+  .sacred-control {
+    display: none !important;
+  }
+  
+  .ritual-card {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+  
+  .sacred-text--hero,
+  .sacred-text--title {
+    color: black !important;
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+  }
+}

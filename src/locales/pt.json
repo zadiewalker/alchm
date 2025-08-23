@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Bem-vindo ao lar",
+    "loading": "Carregando...",
+    "error": "Algo deu errado",
+    "retry": "Tentar novamente", 
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "save": "Salvar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "close": "Fechar",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "navigation": {
+    "home": "Início",
+    "journals": "Diários",
+    "reflection": "Reflexão",
+    "khepera": "KHEPERA", 
+    "profile": "Perfil",
+    "settings": "Configurações",
+    "logout": "Sair"
+  },
+  "onboarding": {
+    "title": "Bem-vindo ao Seu Santuário Digital",
+    "subtitle": "Um espaço consciente sobre trauma para cura, reflexão e crescimento",
+    "intro": "Você entrou num santuário digital sagrado.",
+    "reflection_prompt": "Comece sua primeira reflexão da alma",
+    "contract": "Sua história é sagrada. Seu crescimento pertence só a você.",
+    "disclaimer": "ALCHM é terapêutico, mas não é terapia profissional.",
+    "crisis": "Se você está em crise, por favor procure ajuda agora.",
+    "step1": {
+      "title": "Escolha Seu Idioma",
+      "description": "ALCHM fala sua língua, honra sua cultura"
+    },
+    "step2": {
+      "title": "Defina Sua Intenção",
+      "description": "O que te traz a este espaço sagrado?"
+    },
+    "step3": {
+      "title": "Conheça KHEPERA",
+      "description": "Seu companheiro de IA para inteligência emocional e crescimento"
+    },
+    "getStarted": "Comece Sua Jornada Sagrada"
+  },
+  "culturalGreetings": {
+    "morning": "Bom dia, alma bela",
+    "afternoon": "Boa tarde, coração corajoso",
+    "evening": "Boa noite, ser luminoso", 
+    "night": "Descanse bem, espírito querido"
+  },
+  "sacredLanguage": {
+    "blessing": "Que seu caminho seja cheio de luz e cura",
+    "protection": "Este é seu espaço sagrado e protegido",
+    "growth": "Sua evolução espiritual é honrada aqui",
+    "community": "Você pertence a esta comunidade de corações curadores"
+  }
+}

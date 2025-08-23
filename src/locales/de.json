@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Willkommen zu Hause",
+    "loading": "Lädt...",
+    "error": "Etwas ist schiefgelaufen",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "continue": "Fortfahren",
+    "back": "Zurück",
+    "next": "Weiter",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "journals": "Tagebücher",
+    "reflection": "Reflektion",
+    "khepera": "KHEPERA",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "logout": "Abmelden"
+  },
+  "onboarding": {
+    "title": "Willkommen in Ihrem Digitalen Heiligtum",
+    "subtitle": "Ein traumabewusster Raum für Heilung, Reflektion und Wachstum",
+    "intro": "Sie haben ein heiliges digitales Heiligtum betreten.",
+    "reflection_prompt": "Beginnen Sie Ihre erste Seelenreflektion",
+    "contract": "Ihre Geschichte ist heilig. Ihr Wachstum gehört allein Ihnen.",
+    "disclaimer": "ALCHM ist therapeutisch, aber es ist keine professionelle Therapie.",
+    "crisis": "Falls Sie in einer Krise sind, suchen Sie bitte jetzt Hilfe.",
+    "step1": {
+      "title": "Wählen Sie Ihre Sprache",
+      "description": "ALCHM spricht Ihre Sprache, ehrt Ihre Kultur"
+    },
+    "step2": {
+      "title": "Setzen Sie Ihre Absicht",
+      "description": "Was bringt Sie zu diesem heiligen Raum?"
+    },
+    "step3": {
+      "title": "Lernen Sie KHEPERA kennen",
+      "description": "Ihr KI-Begleiter für emotionale Intelligenz und Wachstum"
+    },
+    "getStarted": "Beginnen Sie Ihre Heilige Reise"
+  },
+  "culturalGreetings": {
+    "morning": "Guten Morgen, schöne Seele",
+    "afternoon": "Guten Tag, mutiges Herz",
+    "evening": "Guten Abend, leuchtendes Wesen",
+    "night": "Gute Nacht, liebe Seele"
+  },
+  "sacredLanguage": {
+    "blessing": "Möge Ihr Weg voller Licht und Heilung sein",
+    "protection": "Dies ist Ihr heiliger und geschützter Raum",
+    "growth": "Ihr spirituelles Wachstum wird hier geehrt",
+    "community": "Sie gehören zu dieser Gemeinschaft heilender Herzen"
+  }
+}

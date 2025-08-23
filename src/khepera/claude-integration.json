@@ -1,0 +1,411 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "KHEPERA Mood-Based Archetype Routing Engine",
+    "version": "1.0.0",
+    "description": "AI-powered affective routing system for therapeutic journaling with cultural sensitivity and trauma-informed practices. Compatible with OpenAI, Claude, and Gemini APIs."
+  },
+  "servers": [
+    {
+      "url": "https://api.alchm-digital-sanctuary.com/v1",
+      "description": "ALCHM Production Server"
+    },
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Development Server"
+    }
+  ],
+  "paths": {
+    "/khepera/route-mood": {
+      "post": {
+        "summary": "Route user mood to therapeutic archetype",
+        "description": "Maps emotional states to culturally-appropriate KHEPERA archetypes with trauma-informed journaling prompts",
+        "operationId": "routeMoodToArchetype",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MoodRoutingRequest"
+              },
+              "examples": {
+                "anxious_user": {
+                  "value": {
+                    "mood": "anxious",
+                    "context": {
+                      "time_of_day": "evening",
+                      "session_type": "check_in"
+                    }
+                  }
+                },
+                "cultural_context": {
+                  "value": {
+                    "mood": "joyful",
+                    "context": {
+                      "user_cultural_background": "indigenous_wisdom",
+                      "time_of_day": "morning"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful archetype routing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MoodRoutingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid mood state or context",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MoodRoutingRequest": {
+        "type": "object",
+        "required": ["mood"],
+        "properties": {
+          "mood": {
+            "type": "string",
+            "enum": ["joyful", "anxious", "grieving", "stuck", "angry", "hopeful", "ashamed", "neutral"],
+            "description": "Primary emotional state for archetype routing"
+          },
+          "context": {
+            "$ref": "#/components/schemas/RoutingContext"
+          }
+        }
+      },
+      "RoutingContext": {
+        "type": "object",
+        "properties": {
+          "user_cultural_background": {
+            "type": "string",
+            "enum": ["eastern_wisdom", "indigenous_wisdom", "mystical_traditions", "scientific_worldview"],
+            "description": "User's cultural framework for adaptation"
+          },
+          "session_history": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["joyful", "anxious", "grieving", "stuck", "angry", "hopeful", "ashamed", "neutral"]
+            },
+            "maxItems": 10,
+            "description": "Previous mood states for pattern recognition"
+          },
+          "therapeutic_goals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "description": "User's therapeutic objectives"
+          },
+          "time_of_day": {
+            "type": "string",
+            "enum": ["morning", "afternoon", "evening", "night"],
+            "description": "Time context for prompt adaptation"
+          },
+          "session_type": {
+            "type": "string",
+            "enum": ["check_in", "deep_work", "maintenance", "crisis"],
+            "description": "Type of therapeutic session"
+          },
+          "user_name": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "User's preferred name for personalization"
+          }
+        }
+      },
+      "MoodRoutingResponse": {
+        "type": "object",
+        "required": ["mood", "archetype", "journaling_prompt", "confidence_score"],
+        "properties": {
+          "mood": {
+            "type": "string",
+            "enum": ["joyful", "anxious", "grieving", "stuck", "angry", "hopeful", "ashamed", "neutral"],
+            "description": "Confirmed mood state"
+          },
+          "archetype": {
+            "type": "string",
+            "enum": ["sage_oracle", "mystic_healer", "earth_guardian", "star_navigator", "trickster_fool", "cosmic_dancer", "dream_weaver", "mirror_self"],
+            "description": "Selected KHEPERA archetype ID"
+          },
+          "journaling_prompt": {
+            "type": "string",
+            "description": "Culturally-adapted, trauma-informed journaling prompt"
+          },
+          "confidence_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "multipleOf": 0.01,
+            "description": "Confidence in archetype routing decision (0.00-1.00)"
+          },
+          "fallback_reason": {
+            "type": "string",
+            "description": "Explanation if fallback routing was used"
+          },
+          "safety_flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["crisis_intervention_needed", "shame_spiral_pattern", "anxiety_regulation", "grounding_techniques", "anger_management", "grief_support", "self_compassion_needed"]
+            },
+            "description": "Therapeutic safety considerations"
+          },
+          "cultural_context": {
+            "type": "string",
+            "description": "Applied cultural adaptation framework"
+          },
+          "therapeutic_focus": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Key therapeutic objectives for this routing"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error", "message"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message"
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional error context"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "name": "route_mood_to_archetype",
+      "description": "Routes user emotional state to appropriate KHEPERA therapeutic archetype with culturally-sensitive journaling prompt",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mood": {
+            "type": "string",
+            "enum": ["joyful", "anxious", "grieving", "stuck", "angry", "hopeful", "ashamed", "neutral"],
+            "description": "User's primary emotional state"
+          },
+          "context": {
+            "type": "object",
+            "properties": {
+              "user_cultural_background": {
+                "type": "string",
+                "enum": ["eastern_wisdom", "indigenous_wisdom", "mystical_traditions", "scientific_worldview"]
+              },
+              "time_of_day": {
+                "type": "string",
+                "enum": ["morning", "afternoon", "evening", "night"]
+              },
+              "session_type": {
+                "type": "string",
+                "enum": ["check_in", "deep_work", "maintenance", "crisis"]
+              },
+              "session_history": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["joyful", "anxious", "grieving", "stuck", "angry", "hopeful", "ashamed", "neutral"]
+                }
+              }
+            }
+          }
+        },
+        "required": ["mood"]
+      }
+    }
+  ],
+  "examples": {
+    "requests": {
+      "anxious_evening_checkin": {
+        "mood": "anxious",
+        "context": {
+          "time_of_day": "evening",
+          "session_type": "check_in"
+        }
+      },
+      "joyful_cultural_adaptation": {
+        "mood": "joyful",
+        "context": {
+          "user_cultural_background": "indigenous_wisdom",
+          "time_of_day": "morning",
+          "user_name": "Sarah"
+        }
+      },
+      "stuck_pattern_recognition": {
+        "mood": "stuck",
+        "context": {
+          "session_history": ["stuck", "stuck", "anxious"],
+          "session_type": "deep_work"
+        }
+      },
+      "crisis_intervention": {
+        "mood": "ashamed",
+        "context": {
+          "session_type": "crisis",
+          "session_history": ["ashamed", "ashamed"]
+        }
+      }
+    },
+    "responses": {
+      "anxious_evening_response": {
+        "mood": "anxious",
+        "archetype": "mystic_healer",
+        "journaling_prompt": "🌿 *creates sacred healing space*\n\nBeloved soul, you are held in love exactly as you are...\n\nIn the quiet sanctuary of night, your tender heart deserves the softest healing. I see you, brave soul, carrying that flutter of worry in your chest. This anxiety holds important information - it's your system trying to protect you. Let's listen to its whispers with gentle curiosity. What is this tender guardian trying to tell you? 🌿💚\n\n*Gentle reminder: Healing happens at your own pace - honor your rhythm*\n\nYour healing ripples out like blessed water, touching all you encounter. You are loved beyond measure. 💧❤️",
+        "confidence_score": 0.85,
+        "safety_flags": ["anxiety_regulation", "grounding_techniques"],
+        "therapeutic_focus": ["nervous system regulation", "safety", "grounding"]
+      },
+      "joyful_cultural_response": {
+        "mood": "joyful",
+        "archetype": "cosmic_dancer",
+        "journaling_prompt": "💃 *begins sacred movement*\n\nBeautiful mover, your life is a dance of divine expression...\n\nSarah, as this new day dawns, your joy honors your ancestors and blesses your community. Dance your gratitude for all who lifted you here. Your soul dances with this beautiful celebration - each feeling a unique rhythm in the cosmic choreography. What movement wants to emerge? How does your body wisdom guide this dance?\n\nYour life is poetry in motion, each step a prayer. Keep dancing the sacred dance of being! 🌟💃",
+        "confidence_score": 0.92,
+        "cultural_context": "indigenous_wisdom",
+        "therapeutic_focus": ["celebration", "embodiment", "gratitude", "ancestral_connection"]
+      },
+      "crisis_intervention_response": {
+        "mood": "ashamed",
+        "archetype": "mystic_healer",
+        "journaling_prompt": "Right now, you are enough. Exactly as you are, in this moment, you are worthy of love and belonging. That voice of shame is not the truth of who you are. You are infinitely precious, even - especially - in your imperfection. Your wounds can become windows for compassion to flow. What one small act of self-compassion can you offer yourself? 💚🕊️",
+        "confidence_score": 0.95,
+        "safety_flags": ["crisis_intervention_needed", "shame_spiral_pattern", "self_compassion_needed"],
+        "therapeutic_focus": ["self_compassion", "worth_restoration", "crisis_support"]
+      }
+    }
+  },
+  "metadata": {
+    "archetype_mappings": {
+      "joyful": {
+        "primary": "cosmic_dancer",
+        "fallbacks": ["sage_oracle", "star_navigator"],
+        "therapeutic_focus": ["celebration", "embodiment", "gratitude"]
+      },
+      "anxious": {
+        "primary": "mystic_healer", 
+        "fallbacks": ["earth_guardian", "dream_weaver"],
+        "therapeutic_focus": ["nervous_system_regulation", "safety", "grounding"]
+      },
+      "grieving": {
+        "primary": "sage_oracle",
+        "fallbacks": ["mystic_healer", "dream_weaver"], 
+        "therapeutic_focus": ["meaning_making", "sacred_witnessing", "wisdom_integration"]
+      },
+      "stuck": {
+        "primary": "trickster_fool",
+        "fallbacks": ["star_navigator", "cosmic_dancer"],
+        "therapeutic_focus": ["pattern_disruption", "creative_solutions", "perspective_shifts"]
+      },
+      "angry": {
+        "primary": "earth_guardian",
+        "fallbacks": ["sage_oracle", "mystic_healer"],
+        "therapeutic_focus": ["boundary_setting", "values_clarification", "protective_energy"]
+      },
+      "hopeful": {
+        "primary": "star_navigator", 
+        "fallbacks": ["cosmic_dancer", "sage_oracle"],
+        "therapeutic_focus": ["vision_support", "future_planning", "possibility_exploration"]
+      },
+      "ashamed": {
+        "primary": "mystic_healer",
+        "fallbacks": ["sage_oracle", "dream_weaver"],
+        "therapeutic_focus": ["self_compassion", "worth_restoration", "healing_integration"]
+      },
+      "neutral": {
+        "primary": "dream_weaver",
+        "fallbacks": ["sage_oracle", "mystic_healer"],
+        "therapeutic_focus": ["gentle_exploration", "receptive_awareness", "inner_listening"]
+      }
+    },
+    "cultural_frameworks": {
+      "eastern_wisdom": {
+        "symbols": ["☯️", "🕉️", "🧘‍♀️"],
+        "philosophies": ["taoism", "buddhism", "hinduism"],
+        "adaptations": "balance, non-attachment, mindfulness practices"
+      },
+      "indigenous_wisdom": {
+        "symbols": ["🦅", "🐺", "🌿"],
+        "philosophies": ["animism", "shamanism", "earth_connection"],
+        "adaptations": "ancestral honor, seven generations, earth connection"
+      },
+      "mystical_traditions": {
+        "symbols": ["🔮", "⭐", "🌙"],
+        "philosophies": ["hermeticism", "kabbalah", "sufism"],
+        "adaptations": "sacred geometry, divine union, mystical symbolism"
+      },
+      "scientific_worldview": {
+        "symbols": ["🔬", "🌌", "⚛️"],
+        "philosophies": ["systems_thinking", "emergence_theory", "quantum_mechanics"],
+        "adaptations": "evidence-based language, systems approach, empirical curiosity"
+      }
+    },
+    "safety_protocols": {
+      "crisis_triggers": ["session_type_crisis", "repeated_patterns", "safety_concerns"],
+      "therapeutic_boundaries": ["validate_experience", "cultural_respect", "trauma_informed", "support_agency"],
+      "required_flags_by_mood": {
+        "ashamed": ["shame_spiral_pattern", "self_compassion_needed"],
+        "angry": ["anger_management", "boundary_work_needed"],
+        "grieving": ["grief_support", "meaning_making_support"],
+        "anxious": ["anxiety_regulation", "grounding_techniques"]
+      }
+    },
+    "api_compatibility": {
+      "openai": {
+        "function_calling": true,
+        "structured_outputs": true,
+        "json_mode": true
+      },
+      "claude": {
+        "tool_use": true,
+        "json_parsing": true,
+        "context_awareness": true
+      },
+      "gemini": {
+        "function_declarations": true,
+        "structured_generation": true,
+        "safety_filters": true
+      }
+    },
+    "implementation_details": {
+      "typescript_modules": [
+        "mood-routing-engine.ts",
+        "routing-decision-tree.ts", 
+        "prompt-shells.ts",
+        "archetype-config.ts"
+      ],
+      "main_function": "route_mood_to_archetype",
+      "prompt_generator": "generate_contextual_prompt",
+      "archetype_library": "KHEPERA_ARCHETYPES"
+    }
+  }
+}

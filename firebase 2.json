@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": ".next",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "chatWithGemini"
+      },
+      {
+        "source": "**",
+        "function": "nextApp"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions"
+  }
+}

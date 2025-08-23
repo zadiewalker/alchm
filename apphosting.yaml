@@ -1,0 +1,36 @@
+# Firebase App Hosting Configuration for ALCHM
+# Next.js 15 standalone with API routes support
+
+runConfig:
+  runtime: nodejs20
+  memory: 1GB
+  concurrency: 1000
+  minInstances: 0
+  maxInstances: 100
+  timeout: 60s
+  
+  env:
+    NODE_ENV: production
+    NEXT_TELEMETRY_DISABLED: "1"
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: alchm-digital-sanctuary
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: alchm-digital-sanctuary.firebaseapp.com
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: alchm-digital-sanctuary.appspot.com
+
+# Build configuration
+build:
+  commands:
+    - npm ci
+    - npm run build
+  
+# Serve configuration for standalone Next.js
+serve:
+  # Serve the standalone server
+  runtime: nodejs20
+  entryPoint: .next/standalone/server.js
+  
+  # Static assets
+  staticAssets:
+    - source: .next/static
+      destination: /_next/static
+    - source: public
+      destination: /

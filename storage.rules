@@ -1,0 +1,278 @@
+// ALCHM Storage Security Rules - Enterprise-Grade with Tier Validation
+// Supports 10M+ users with intelligent file management and trauma-informed access controls
+
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // ===== HELPER FUNCTIONS =====
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserId() {
+      return request.auth.uid;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && getUserId() == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.admin == true || 
+              request.auth.token.role == 'admin');
+    }
+    
+    // Get user tier from Firestore (checks both premium and standard collections)
+    function getUserTier(userId) {
+      return firestore.get(/databases/(default)/documents/users_premium/$(userId)).data.tier ||
+             firestore.get(/databases/(default)/documents/users_standard/$(userId)).data.tier ||
+             'free';
+    }
+    
+    function hasMinimumTier(userId, requiredTier) {
+      let userTier = getUserTier(userId);
+      let tierLevels = {
+        'free': 1,
+        'deep-cut': 2,
+        'oracle': 3
+      };
+      return tierLevels[userTier] >= tierLevels[requiredTier];
+    }
+    
+    // File validation helpers
+    function isValidImageFile(resource) {
+      return resource.contentType.matches('image/.*') &&
+             resource.size <= 10 * 1024 * 1024; // 10MB limit
+    }
+    
+    function isValidAudioFile(resource) {
+      return resource.contentType.matches('audio/.*') &&
+             resource.size <= 50 * 1024 * 1024; // 50MB limit
+    }
+    
+    function isValidDocumentFile(resource) {
+      return (resource.contentType.matches('application/pdf') ||
+              resource.contentType.matches('text/.*') ||
+              resource.contentType.matches('application/.*')) &&
+             resource.size <= 25 * 1024 * 1024; // 25MB limit
+    }
+    
+    // Check tier-based upload quotas
+    function checkUploadQuota(userId, fileSize) {
+      let userTier = getUserTier(userId);
+      let quotas = {
+        'free': 100 * 1024 * 1024, // 100MB
+        'deep-cut': 1024 * 1024 * 1024, // 1GB
+        'oracle': 5 * 1024 * 1024 * 1024 // 5GB
+      };
+      
+      // In production, would check current usage against quota
+      // For now, allow uploads within file size limits
+      return fileSize <= quotas[userTier];
+    }
+    
+    // ===== USER PROFILE IMAGES =====
+    
+    match /users/{userId}/profile/{imageId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId) &&
+                      isValidImageFile(resource) &&
+                      checkUploadQuota(userId, resource.size);
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // ===== JOURNAL ATTACHMENTS (TIER-BASED) =====
+    
+    // Free tier - basic image attachments only
+    match /journal_attachments/{userId}/free/{entryId}/{attachmentId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId) &&
+                      getUserTier(userId) == 'free' &&
+                      isValidImageFile(resource) &&
+                      resource.size <= 5 * 1024 * 1024 && // 5MB limit for free tier
+                      checkUploadQuota(userId, resource.size);
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Deep Cut tier - images, audio recordings, documents
+    match /journal_attachments/{userId}/deep_cut/{entryId}/{attachmentId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId) &&
+                      hasMinimumTier(userId, 'deep-cut') &&
+                      (isValidImageFile(resource) || 
+                       isValidAudioFile(resource) || 
+                       isValidDocumentFile(resource)) &&
+                      checkUploadQuota(userId, resource.size);
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // Oracle tier - all file types with higher limits
+    match /journal_attachments/{userId}/oracle/{entryId}/{attachmentId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId) &&
+                      hasMinimumTier(userId, 'oracle') &&
+                      (isValidImageFile(resource) || 
+                       isValidAudioFile(resource) || 
+                       isValidDocumentFile(resource)) &&
+                      resource.size <= 100 * 1024 * 1024 && // 100MB per file for Oracle
+                      checkUploadQuota(userId, resource.size);
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // ===== AI CONVERSATION EXPORTS (ORACLE ONLY) =====
+    
+    match /ai_exports/{userId}/{exportId} {
+      allow read: if isOwner(userId) && hasMinimumTier(userId, 'oracle');
+      
+      // Only Cloud Functions can create exports
+      allow write: if false;
+      
+      allow delete: if isOwner(userId) && hasMinimumTier(userId, 'oracle');
+    }
+    
+    // ===== DATA EXPORTS (GDPR/CCPA COMPLIANCE) =====
+    
+    match /data_exports/{userId}/{exportId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Only Cloud Functions can create data exports
+      allow write: if false;
+      
+      // Auto-delete after 30 days (handled by Cloud Functions)
+      allow delete: if isAdmin();
+    }
+    
+    // ===== CRISIS SUPPORT RESOURCES =====
+    
+    match /crisis_resources/{resourceId} {
+      // Public read access for crisis resources
+      allow read: if true;
+      
+      // Only admins can manage crisis resources
+      allow write: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // ===== BACKUP AND ARCHIVE STORAGE =====
+    
+    // User data backups (system managed)
+    match /backups/{userId}/{backupId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Only Cloud Functions can create backups
+      allow write: if false;
+      
+      // Only system can delete backups
+      allow delete: if isAdmin();
+    }
+    
+    // Archived journal entries for premium users
+    match /archives/{userId}/{archiveId} {
+      allow read: if isOwner(userId) && hasMinimumTier(userId, 'deep-cut');
+      
+      // Only Cloud Functions can create archives
+      allow write: if false;
+      
+      allow delete: if isOwner(userId) && hasMinimumTier(userId, 'deep-cut');
+    }
+    
+    // ===== SYSTEM AND ADMIN FILES =====
+    
+    // System configuration files
+    match /system/{configId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // Analytics exports for business intelligence
+    match /analytics_exports/{exportId} {
+      allow read: if isAdmin() || 
+                     (isAuthenticated() && request.auth.token.investor_access == true);
+      
+      // Only Cloud Functions can create analytics exports
+      allow write: if false;
+      allow delete: if isAdmin();
+    }
+    
+    // Security audit files
+    match /security_audit/{auditId} {
+      allow read: if isAdmin() && request.auth.token.security_access == true;
+      
+      // Only Cloud Functions can create audit files
+      allow write: if false;
+      allow delete: if false; // Audit files are immutable
+    }
+    
+    // ===== TEMPORARY UPLOADS =====
+    
+    // Temporary upload staging area (24 hour TTL)
+    match /temp_uploads/{userId}/{uploadId} {
+      allow read: if isOwner(userId);
+      
+      allow write: if isOwner(userId) &&
+                      resource.size <= 100 * 1024 * 1024 && // 100MB temp limit
+                      checkUploadQuota(userId, resource.size);
+      
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    
+    // ===== SHARED CONTENT (ORACLE TIER) =====
+    
+    // Inner circle shared files (Oracle tier only)
+    match /shared_content/{userId}/{contentId} {
+      allow read: if hasMinimumTier(request.auth.uid, 'oracle') &&
+                     // Additional access control would be checked in Firestore
+                     firestore.exists(/databases/(default)/documents/inner_circle/$(request.auth.uid));
+      
+      allow write: if isOwner(userId) &&
+                      hasMinimumTier(userId, 'oracle') &&
+                      (isValidImageFile(resource) || 
+                       isValidAudioFile(resource) || 
+                       isValidDocumentFile(resource));
+      
+      allow delete: if isOwner(userId) && hasMinimumTier(userId, 'oracle');
+    }
+    
+    // ===== APP ASSETS AND PUBLIC CONTENT =====
+    
+    // Public app assets (logos, themes, etc.)
+    match /public/{assetPath=**} {
+      allow read: if true;
+      
+      // Only admins can update public assets
+      allow write: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    // User-generated content for community features (Oracle tier)
+    match /community/{contentId} {
+      allow read: if hasMinimumTier(request.auth.uid, 'oracle');
+      
+      allow write: if hasMinimumTier(request.auth.uid, 'oracle') &&
+                      isValidImageFile(resource) &&
+                      resource.size <= 10 * 1024 * 1024; // 10MB for community content
+      
+      allow delete: if request.auth.uid == resource.metadata.createdBy || isAdmin();
+    }
+    
+    // ===== FALLBACK RULES =====
+    
+    // Default deny for any unmatched paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

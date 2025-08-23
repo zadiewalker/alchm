@@ -1,0 +1,629 @@
+/* ALCHM Sacred Motion & Transition Blueprint */
+/* Emotional regulation through gentle, therapeutic movement patterns */
+/* Designed to soothe the nervous system, not stimulate it */
+
+/* ===== CORE MOTION PHILOSOPHY ===== */
+
+/*
+Sacred Motion Principles:
+1. Transitions soothe and regulate, never startle
+2. All movement follows natural breathing rhythms
+3. Motion supports focus and presence, not distraction
+4. Respect trauma responses - no sudden or jarring changes
+5. Movement honors cultural pacing and contemplation
+6. Accessible motion that doesn't exclude or overwhelm
+*/
+
+/* ===== FOUNDATIONAL MOTION TOKENS ===== */
+
+:root {
+  /* ===== TIMING TOKENS ===== */
+  
+  /* Breath-aligned timing (based on natural breathing rhythms) */
+  --motion-breath: 150ms;           /* Quick breath - hover states */
+  --motion-inhale: 200ms;           /* Inhale timing - micro-interactions */
+  --motion-exhale: 300ms;           /* Exhale timing - main transitions */
+  --motion-pause: 500ms;            /* Natural pause - contemplative states */
+  --motion-meditation: 800ms;       /* Deep breath - major state changes */
+  --motion-ritual: 1200ms;          /* Ceremonial timing - sacred moments */
+  
+  /* Specific interaction timing */
+  --motion-hover: 150ms;            /* Hover responses */
+  --motion-fade: 300ms;             /* Page transitions and fades */
+  --motion-confirmation: 400ms;     /* Form confirmations and success states */
+  --motion-page: 300ms;             /* Page navigation */
+  --motion-focus: 200ms;            /* Focus state changes */
+  --motion-load: 600ms;             /* Loading and data states */
+  
+  /* ===== EASING TOKENS ===== */
+  
+  /* Therapeutic easing curves (no aggressive acceleration) */
+  --ease-sacred-flow: cubic-bezier(0.25, 0.46, 0.45, 0.94);    /* Gentle flow */
+  --ease-healing-breath: cubic-bezier(0.4, 0.0, 0.2, 1);       /* Natural breath */
+  --ease-contemplation: cubic-bezier(0.25, 0.1, 0.25, 1);      /* Contemplative pause */
+  --ease-presence: cubic-bezier(0.4, 0.0, 0.6, 1);             /* Grounded presence */
+  --ease-ceremony: cubic-bezier(0.0, 0.0, 0.2, 1);             /* Ceremonial reverence */
+  --ease-gentleness: cubic-bezier(0.4, 0.0, 1, 1);             /* Pure gentleness */
+  
+  /* Standard easing for different interaction types */
+  --ease-hover: ease-out;           /* Hover responses */
+  --ease-focus: ease-in-out;        /* Focus transitions */
+  --ease-confirmation: ease-out;    /* Success and confirmation */
+  --ease-page: ease-in-out;         /* Page transitions */
+  
+  /* ===== MOTION PROPERTIES ===== */
+  
+  /* Gentle movement distances */
+  --motion-lift-subtle: -1px;       /* Barely perceptible lift */
+  --motion-lift-gentle: -2px;       /* Gentle hover lift */
+  --motion-lift-presence: -4px;     /* Noticeable but calm */
+  --motion-shift-whisper: 2px;      /* Whisper-soft horizontal shift */
+  --motion-shift-breath: 4px;       /* Breath-like movement */
+  --motion-shift-gentle: 8px;       /* Gentle repositioning */
+  
+  /* Scale factors for non-aggressive growth */
+  --motion-scale-whisper: 1.01;     /* Barely noticeable */
+  --motion-scale-breath: 1.02;      /* Breathing expansion */
+  --motion-scale-gentle: 1.05;      /* Gentle growth */
+  --motion-scale-presence: 1.08;    /* Confident but calm */
+  
+  /* Opacity levels for fading */
+  --motion-opacity-whisper: 0.1;    /* Barely visible */
+  --motion-opacity-breath: 0.3;     /* Gentle presence */
+  --motion-opacity-visible: 0.6;    /* Clearly visible */
+  --motion-opacity-full: 1.0;       /* Full opacity */
+  
+  /* ===== GLOW AND PULSE TOKENS ===== */
+  
+  /* Gentle glow properties (no harsh effects) */
+  --glow-radius-whisper: 2px;       /* Subtle glow */
+  --glow-radius-breath: 4px;        /* Breathing glow */
+  --glow-radius-gentle: 8px;        /* Gentle illumination */
+  --glow-radius-presence: 12px;     /* Confident glow */
+  --glow-radius-sacred: 16px;       /* Sacred illumination */
+  
+  /* Glow colors (using existing sacred color tokens) */
+  --glow-color-primary: rgba(164, 183, 146, 0.3);      /* Primary gentle glow */
+  --glow-color-warm: rgba(203, 153, 126, 0.25);        /* Warm terra glow */
+  --glow-color-soft: rgba(238, 221, 211, 0.2);         /* Soft blush glow */
+  --glow-color-healing: rgba(249, 246, 241, 0.15);     /* Healing whisper glow */
+  --glow-color-focus: rgba(164, 183, 146, 0.4);        /* Focus state glow */
+  
+  /* ===== ANIMATION DIRECTION TOKENS ===== */
+  
+  /* Entrance animations (things appearing) */
+  --motion-enter-fade: fadeIn;          /* Simple fade in */
+  --motion-enter-rise: riseGently;      /* Gentle upward motion */
+  --motion-enter-bloom: bloomSoftly;    /* Gentle scaling in */
+  --motion-enter-breathe: breatheIn;    /* Breathing entrance */
+  
+  /* Exit animations (things disappearing) */
+  --motion-exit-fade: fadeOut;          /* Simple fade out */
+  --motion-exit-settle: settleDown;     /* Gentle downward motion */
+  --motion-exit-rest: restGently;       /* Gentle scaling out */
+  --motion-exit-release: breatheOut;    /* Breathing exit */
+  
+  /* ===== REDUCED MOTION TOKENS ===== */
+  
+  /* Alternative properties for users who prefer reduced motion */
+  --motion-reduced-timing: 50ms;        /* Minimal timing for reduced motion */
+  --motion-reduced-distance: 0px;       /* No movement for reduced motion */
+  --motion-reduced-scale: 1.0;          /* No scaling for reduced motion */
+  --motion-reduced-opacity: 1.0;        /* Direct opacity changes */
+}
+
+/* ===== CORE ANIMATION KEYFRAMES ===== */
+
+/* Gentle fade animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(var(--motion-shift-whisper));
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(var(--motion-shift-whisper));
+  }
+}
+
+/* Gentle vertical movement */
+@keyframes riseGently {
+  from { 
+    opacity: 0; 
+    transform: translateY(var(--motion-shift-gentle));
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes settleDown {
+  from { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(var(--motion-shift-gentle));
+  }
+}
+
+/* Gentle scaling animations */
+@keyframes bloomSoftly {
+  from { 
+    opacity: 0; 
+    transform: scale(var(--motion-scale-whisper));
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+}
+
+@keyframes restGently {
+  from { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  to { 
+    opacity: 0; 
+    transform: scale(var(--motion-scale-whisper));
+  }
+}
+
+/* Breathing animations */
+@keyframes breatheIn {
+  from { 
+    opacity: 0; 
+    transform: scale(var(--motion-scale-breath));
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+}
+
+@keyframes breatheOut {
+  from { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  to { 
+    opacity: 0; 
+    transform: scale(var(--motion-scale-breath));
+  }
+}
+
+/* Gentle pulse animation (for confirmations and loading) */
+@keyframes gentlePulse {
+  0%, 100% { 
+    opacity: var(--motion-opacity-full);
+    transform: scale(1);
+  }
+  50% { 
+    opacity: var(--motion-opacity-breath);
+    transform: scale(var(--motion-scale-whisper));
+  }
+}
+
+/* Soft glow pulse (for focus and confirmation states) */
+@keyframes softGlowPulse {
+  0%, 100% { 
+    box-shadow: 0 0 var(--glow-radius-whisper) var(--glow-color-primary);
+  }
+  50% { 
+    box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-primary);
+  }
+}
+
+/* Sacred presence pulse (for important states) */
+@keyframes sacredPresence {
+  0%, 100% { 
+    box-shadow: 
+      0 0 var(--glow-radius-breath) var(--glow-color-primary),
+      inset 0 0 var(--glow-radius-whisper) var(--glow-color-healing);
+  }
+  50% { 
+    box-shadow: 
+      0 0 var(--glow-radius-presence) var(--glow-color-primary),
+      inset 0 0 var(--glow-radius-breath) var(--glow-color-healing);
+  }
+}
+
+/* Page turn animation (for navigation) */
+@keyframes pageNTurn {
+  0% { 
+    opacity: 1; 
+    transform: rotateY(0deg);
+  }
+  50% { 
+    opacity: var(--motion-opacity-breath); 
+    transform: rotateY(-5deg);
+  }
+  100% { 
+    opacity: 1; 
+    transform: rotateY(0deg);
+  }
+}
+
+/* Scroll-linked opacity (for progress indication) */
+@keyframes scrollReveal {
+  from { 
+    opacity: var(--motion-opacity-whisper);
+    transform: translateY(var(--motion-shift-breath));
+  }
+  to { 
+    opacity: var(--motion-opacity-full);
+    transform: translateY(0);
+  }
+}
+
+/* Gentle loading animation */
+@keyframes gentleLoading {
+  0% { 
+    opacity: var(--motion-opacity-breath);
+    transform: translateX(-100%);
+  }
+  50% { 
+    opacity: var(--motion-opacity-visible);
+    transform: translateX(0%);
+  }
+  100% { 
+    opacity: var(--motion-opacity-breath);
+    transform: translateX(100%);
+  }
+}
+
+/* ===== INTERACTION-SPECIFIC MOTION CLASSES ===== */
+
+/* Hover states - gentle elevation and glow */
+.sacred-hover {
+  transition: 
+    transform var(--motion-hover) var(--ease-hover),
+    box-shadow var(--motion-hover) var(--ease-hover),
+    opacity var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-hover:hover {
+  transform: translateY(var(--motion-lift-gentle));
+  box-shadow: 0 var(--glow-radius-breath) var(--glow-radius-gentle) var(--glow-color-primary);
+}
+
+/* Focus states - soft glow without jarring changes */
+.sacred-focus {
+  transition: 
+    box-shadow var(--motion-focus) var(--ease-focus),
+    border-color var(--motion-focus) var(--ease-focus);
+}
+
+.sacred-focus:focus {
+  box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-focus);
+  outline: none;
+}
+
+/* Confirmation states - soft glow pulse */
+.sacred-confirmation {
+  animation: softGlowPulse var(--motion-confirmation) var(--ease-confirmation) 2;
+}
+
+/* Page transitions - fade only */
+.sacred-page-enter {
+  animation: var(--motion-enter-fade) var(--motion-page) var(--ease-page);
+}
+
+.sacred-page-exit {
+  animation: var(--motion-exit-fade) var(--motion-page) var(--ease-page);
+}
+
+/* Loading states - gentle progress indication */
+.sacred-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 50%,
+    transparent 100%
+  );
+  animation: gentleLoading var(--motion-load) var(--ease-sacred-flow) infinite;
+}
+
+/* Form validation - gentle indication without aggression */
+.sacred-validation-success {
+  border-color: var(--color-primary);
+  animation: softGlowPulse var(--motion-confirmation) var(--ease-confirmation) 1;
+}
+
+.sacred-validation-error {
+  border-color: var(--color-warm-terra);
+  animation: gentlePulse var(--motion-confirmation) var(--ease-contemplation) 2;
+}
+
+/* Button press states - gentle response */
+.sacred-button-press {
+  transform: translateY(1px) scale(var(--motion-scale-whisper));
+  transition: transform var(--motion-breath) var(--ease-presence);
+}
+
+/* Modal and overlay entrance */
+.sacred-modal-enter {
+  animation: 
+    var(--motion-enter-fade) var(--motion-fade) var(--ease-sacred-flow),
+    var(--motion-enter-bloom) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-modal-exit {
+  animation: 
+    var(--motion-exit-fade) var(--motion-fade) var(--ease-sacred-flow),
+    var(--motion-exit-rest) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+/* ===== CONTEXTUAL MOTION PATTERNS ===== */
+
+/* Sacred ceremony timing (for important moments) */
+.sacred-ceremony {
+  transition: all var(--motion-ritual) var(--ease-ceremony);
+}
+
+/* Contemplative states (for reflection interfaces) */
+.sacred-contemplation {
+  transition: all var(--motion-meditation) var(--ease-contemplation);
+}
+
+/* Breathing rhythm (for synchronized animations) */
+.sacred-breathing {
+  animation: gentlePulse 4s var(--ease-healing-breath) infinite;
+}
+
+/* Presence indication (for active states) */
+.sacred-presence {
+  animation: sacredPresence 3s var(--ease-presence) infinite;
+}
+
+/* ===== SCROLL-LINKED ANIMATIONS ===== */
+
+/* Progressive reveal on scroll */
+.sacred-scroll-reveal {
+  opacity: var(--motion-opacity-whisper);
+  transform: translateY(var(--motion-shift-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-scroll-reveal.in-view {
+  opacity: var(--motion-opacity-full);
+  transform: translateY(0);
+}
+
+/* Page turn effect for navigation */
+.sacred-page-turn {
+  transition: 
+    opacity var(--motion-page) var(--ease-page),
+    transform var(--motion-page) var(--ease-page);
+}
+
+.sacred-page-turn.turning {
+  animation: pageNTurn var(--motion-page) var(--ease-page);
+}
+
+/* ===== CULTURAL MOTION ADAPTATIONS ===== */
+
+/* Slower, more contemplative timing for certain cultural contexts */
+.sacred-motion-contemplative {
+  --motion-hover: 200ms;
+  --motion-fade: 400ms;
+  --motion-page: 400ms;
+  --motion-confirmation: 500ms;
+}
+
+/* Faster, more responsive timing for action-oriented contexts */
+.sacred-motion-responsive {
+  --motion-hover: 100ms;
+  --motion-fade: 250ms;
+  --motion-page: 250ms;
+  --motion-confirmation: 300ms;
+}
+
+/* ===== ACCESSIBILITY AND REDUCED MOTION ===== */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* Override all timing to be minimal */
+    --motion-hover: var(--motion-reduced-timing);
+    --motion-fade: var(--motion-reduced-timing);
+    --motion-page: var(--motion-reduced-timing);
+    --motion-confirmation: var(--motion-reduced-timing);
+    --motion-focus: var(--motion-reduced-timing);
+    --motion-load: var(--motion-reduced-timing);
+    
+    /* Remove all movement */
+    --motion-lift-subtle: var(--motion-reduced-distance);
+    --motion-lift-gentle: var(--motion-reduced-distance);
+    --motion-lift-presence: var(--motion-reduced-distance);
+    --motion-shift-whisper: var(--motion-reduced-distance);
+    --motion-shift-breath: var(--motion-reduced-distance);
+    --motion-shift-gentle: var(--motion-reduced-distance);
+    
+    /* Remove scaling */
+    --motion-scale-whisper: var(--motion-reduced-scale);
+    --motion-scale-breath: var(--motion-reduced-scale);
+    --motion-scale-gentle: var(--motion-reduced-scale);
+    --motion-scale-presence: var(--motion-reduced-scale);
+  }
+  
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Remove all transform animations */
+  .sacred-hover:hover {
+    transform: none;
+  }
+  
+  .sacred-page-turn.turning {
+    animation: none;
+  }
+  
+  .sacred-breathing,
+  .sacred-presence {
+    animation: none;
+  }
+}
+
+/* High contrast mode adaptations */
+@media (prefers-contrast: high) {
+  :root {
+    /* Increase glow visibility in high contrast */
+    --glow-color-primary: rgba(164, 183, 146, 0.6);
+    --glow-color-warm: rgba(203, 153, 126, 0.5);
+    --glow-color-soft: rgba(238, 221, 211, 0.4);
+    --glow-color-focus: rgba(164, 183, 146, 0.8);
+  }
+}
+
+/* ===== COMPONENT-SPECIFIC MOTION APPLICATIONS ===== */
+
+/* Apply sacred hover to all interactive elements */
+button,
+.sacred-button,
+[role="button"],
+a[href] {
+  @extend .sacred-hover;
+}
+
+/* Apply sacred focus to all focusable elements */
+input,
+textarea,
+select,
+button,
+[tabindex]:not([tabindex="-1"]) {
+  @extend .sacred-focus;
+}
+
+/* Apply page transitions to main content areas */
+main,
+.page-content,
+.sacred-page {
+  @extend .sacred-page-enter;
+}
+
+/* Apply gentle loading to loading states */
+.loading,
+.sacred-loading,
+[aria-busy="true"] {
+  @extend .sacred-loading;
+}
+
+/* ===== MOTION UTILITY CLASSES ===== */
+
+/* Quick application classes for common motion patterns */
+.motion-none {
+  transition: none !important;
+  animation: none !important;
+}
+
+.motion-gentle {
+  transition: all var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.motion-breath {
+  transition: all var(--motion-breath) var(--ease-healing-breath);
+}
+
+.motion-ceremony {
+  transition: all var(--motion-ritual) var(--ease-ceremony);
+}
+
+.motion-hover-lift {
+  transition: transform var(--motion-hover) var(--ease-hover);
+}
+
+.motion-hover-lift:hover {
+  transform: translateY(var(--motion-lift-gentle));
+}
+
+.motion-hover-glow {
+  transition: box-shadow var(--motion-hover) var(--ease-hover);
+}
+
+.motion-hover-glow:hover {
+  box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-primary);
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Use GPU acceleration for smooth animations */
+.sacred-hover,
+.sacred-page-turn,
+.sacred-modal-enter,
+.sacred-modal-exit {
+  will-change: transform, opacity;
+}
+
+/* Contain animations to prevent layout thrashing */
+.sacred-loading::before,
+.sacred-breathing,
+.sacred-presence {
+  contain: layout style paint;
+}
+
+/* ===== DEBUGGING AND DEVELOPMENT ===== */
+
+/* Development class to visualize motion timing */
+.debug-motion {
+  outline: 2px dashed var(--color-warm-terra);
+  transition: outline-color var(--motion-fade) linear;
+}
+
+.debug-motion:hover {
+  outline-color: var(--color-primary);
+}
+
+/* ===== EXPORT MOTION TOKENS FOR JAVASCRIPT ===== */
+
+/* These custom properties can be accessed in JavaScript for programmatic animations */
+.motion-tokens-export {
+  /* Timing values */
+  --js-motion-hover: 150;
+  --js-motion-fade: 300;
+  --js-motion-page: 300;
+  --js-motion-confirmation: 400;
+  
+  /* Easing curves */
+  --js-ease-sacred: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --js-ease-breath: cubic-bezier(0.4, 0.0, 0.2, 1);
+  
+  /* Movement distances */
+  --js-motion-lift: 2;
+  --js-motion-shift: 4;
+  --js-motion-scale: 1.02;
+}

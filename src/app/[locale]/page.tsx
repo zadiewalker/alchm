@@ -1,19 +1,11 @@
-// Update the import path if the file is located elsewhere, for example:
-import { getMessages } from '../../messages/getMessages';
-// Or create the file at src/utils/getMessages.ts if it doesn't exist.
-import JournalPage from './journal/page';
+import { redirect } from 'next/navigation';
+import { SupportedLocale } from '@/lib/i18n';
 
-type Params = {
-  params: {
-    locale: string;
-  };
-};
+interface LocaleHomePageProps {
+  params: { locale: SupportedLocale };
+}
 
-export default async function LocalePage({ params }: Params) {
-  const messages = await getMessages(params.locale);
-
-  // 🛠 Optional Debug Print
-  console.log('[LocalePage] Loaded messages:', messages);
-
-  return <JournalPage messages={messages} />;
+// Root locale page redirects to onboarding
+export default function LocaleHomePage({ params }: LocaleHomePageProps) {
+  redirect(`/${params.locale}/onboarding`);
 }

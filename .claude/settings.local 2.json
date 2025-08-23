@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx firebase-tools:*)",
+      "WebFetch(domain:alchm-digital-sanctuary.web.app)",
+      "Bash(pnpm run:*)",
+      "Bash(node:*)",
+      "Bash(grep:*)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(xattr:*)",
+      "WebFetch(domain:localhost)",
+      "WebFetch(domain:localhost)",
+      "Bash(find:*)",
+      "WebSearch"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "acceptEdits"
+  }
+}

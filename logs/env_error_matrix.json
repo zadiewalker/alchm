@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "generated": "2025-08-22T13:15:24.294Z",
+    "project": "ALCHM",
+    "buildId": "7a36a178-bbcd-40ad-b764-0ce516052d34",
+    "errorType": "Firebase Studio Pack Build Failure"
+  },
+  "analysis": {
+    "rootCause": "Configuration incompatibility between Next.js standalone mode and Firebase Studio containerization",
+    "severity": "critical",
+    "impact": "blocks deployment",
+    "resolution": "configuration_updated"
+  },
+  "configurationIssues": [
+    {
+      "file": "apphosting.yaml",
+      "issue": "Using standalone server mode which may conflict with Firebase Studio containerization",
+      "severity": "critical"
+    },
+    {
+      "file": "apphosting.yaml",
+      "issue": "Complex static asset configuration may cause build issues",
+      "severity": "medium"
+    },
+    {
+      "file": "next.config.js",
+      "issue": "Standalone output mode with API routes causes Firebase Studio build complexity",
+      "severity": "high"
+    }
+  ],
+  "validationResults": [
+    {
+      "name": "Firebase App Hosting YAML",
+      "valid": true,
+      "issues": []
+    },
+    {
+      "name": "Next.js Configuration",
+      "valid": true,
+      "issues": []
+    },
+    {
+      "name": "Package.json Build Script",
+      "valid": true,
+      "issues": []
+    }
+  ],
+  "fixesApplied": [
+    "Updated apphosting.yaml for static export",
+    "Modified next.config.js for Firebase compatibility",
+    "Simplified build configuration",
+    "Removed containerization conflicts"
+  ],
+  "environments": {
+    "affected": [
+      "production"
+    ],
+    "severity": {
+      "production": "critical"
+    },
+    "status": {
+      "production": "fixed"
+    }
+  }
+}

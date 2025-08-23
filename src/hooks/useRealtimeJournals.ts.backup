@@ -1,0 +1,360 @@
+'use client';
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { realtimeManager } from '@/lib/realtimeManager';
+import { journalCache } from '@/lib/cache';
+import {
+  JournalEntry,
+  SubscriptionOptions,
+  SubscriptionState,
+  DatabaseError
+} from '@/types/journal';
+
+interface UseRealtimeJournalsOptions extends SubscriptionOptions {
+  enabled?: boolean;
+  enableCache?: boolean;
+  autoRefresh?: boolean;
+  refreshInterval?: number;
+}
+
+interface UseRealtimeJournalsResult {
+  entries: JournalEntry[];
+  loading: boolean;
+  error: DatabaseError | null;
+  subscriptionState: SubscriptionState;
+  // Real-time stats
+  realtimeStats: {
+    addedCount: number;
+    modifiedCount: number;
+    removedCount: number;
+    lastUpdate: Date | null;
+    isFromCache: boolean;
+  };
+  // Actions
+  refresh: () => void;
+  clearError: () => void;
+  pause: () => void;
+  resume: () => void;
+}
+
+// Enhanced hook for real-time journal subscriptions
+export function useRealtimeJournals(
+  userId: string,
+  options: UseRealtimeJournalsOptions = {}
+): UseRealtimeJournalsResult {
+  const {
+    enabled = true,
+    enableCache = true,
+    autoRefresh = false,
+    refreshInterval = 30000,
+    ...subscriptionOptions
+  } = options;
+
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<DatabaseError | null>(null);
+  const [subscriptionState, setSubscriptionState] = useState<SubscriptionState>({
+    isActive: false,
+    isOnline: navigator.onLine,
+    lastUpdate: null,
+    error: null,
+    pendingChanges: 0
+  });
+  const [realtimeStats, setRealtimeStats] = useState({
+    addedCount: 0,
+    modifiedCount: 0,
+    removedCount: 0,
+    lastUpdate: null as Date | null,
+    isFromCache: false
+  });
+
+  const subscriptionIdRef = useRef<string | null>(null);
+  const isPausedRef = useRef(false);
+  const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Load cached entries on mount
+  useEffect(() => {
+    if (enableCache && userId) {
+      const cached = journalCache.getJournals(userId);
+      if (cached && cached.length > 0) {
+        setEntries(cached);
+        setLoading(false);
+        setRealtimeStats(prev => ({ ...prev, isFromCache: true }));
+      }
+    }
+  }, [userId, enableCache]);
+
+  // Setup real-time subscription
+  useEffect(() => {
+    if (!userId || !enabled || isPausedRef.current) {
+      return;
+    }
+
+    const setupSubscription = () => {
+      try {
+        const subscriptionId = realtimeManager.subscribeToEntries(
+          userId,
+          {
+            maxEntries: subscriptionOptions.maxEntries || 50,
+            onlyRecent: subscriptionOptions.onlyRecent,
+            updateCache: enableCache,
+            batchUpdates: true,
+            essential: false,
+            includeMetadataChanges: true
+          },
+          (changes, subscriptionError) => {
+            if (subscriptionError) {
+              setError(subscriptionError);
+              return;
+            }
+
+            setError(null);
+            setLoading(false);
+
+            // Update entries based on changes
+            setEntries(currentEntries => {
+              let updatedEntries = [...currentEntries];
+
+              // Apply removals first
+              for (const removedId of changes.removed) {
+                updatedEntries = updatedEntries.filter(e => e.id !== removedId);
+              }
+
+              // Apply modifications
+              for (const modifiedEntry of changes.modified) {
+                const index = updatedEntries.findIndex(e => e.id === modifiedEntry.id);
+                if (index >= 0) {
+                  updatedEntries[index] = modifiedEntry;
+                }
+              }
+
+              // Apply additions
+              for (const addedEntry of changes.added) {
+                const existingIndex = updatedEntries.findIndex(e => e.id === addedEntry.id);
+                if (existingIndex === -1) {
+                  // Add new entry at the appropriate position (sorted by createdAt)
+                  const insertIndex = updatedEntries.findIndex(
+                    e => e.createdAt.getTime() < addedEntry.createdAt.getTime()
+                  );
+                  if (insertIndex === -1) {
+                    updatedEntries.push(addedEntry);
+                  } else {
+                    updatedEntries.splice(insertIndex, 0, addedEntry);
+                  }
+                }
+              }
+
+              return updatedEntries;
+            });
+
+            // Update real-time stats
+            setRealtimeStats(prev => ({
+              addedCount: prev.addedCount + changes.added.length,
+              modifiedCount: prev.modifiedCount + changes.modified.length,
+              removedCount: prev.removedCount + changes.removed.length,
+              lastUpdate: new Date(),
+              isFromCache: false
+            }));
+          }
+        );
+
+        subscriptionIdRef.current = subscriptionId;
+        console.log('[useRealtimeJournals] Subscription started:', subscriptionId);
+      } catch (err) {
+        console.error('[useRealtimeJournals] Failed to start subscription:', err);
+        setError(err as DatabaseError);
+        setLoading(false);
+      }
+    };
+
+    setupSubscription();
+
+    // Cleanup subscription
+    return () => {
+      if (subscriptionIdRef.current) {
+        realtimeManager.unsubscribe(subscriptionIdRef.current);
+        subscriptionIdRef.current = null;
+      }
+    };
+  }, [userId, enabled, JSON.stringify(subscriptionOptions), enableCache]);
+
+  // Subscribe to subscription state changes
+  useEffect(() => {
+    const unsubscribe = realtimeManager.onStateChange((newState) => {
+      setSubscriptionState(newState);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  // Setup auto-refresh if enabled
+  useEffect(() => {
+    if (!autoRefresh || refreshInterval <= 0) {
+      return;
+    }
+
+    refreshTimeoutRef.current = setInterval(() => {
+      if (!isPausedRef.current && subscriptionState.isOnline) {
+        refresh();
+      }
+    }, refreshInterval);
+
+    return () => {
+      if (refreshTimeoutRef.current) {
+        clearInterval(refreshTimeoutRef.current);
+        refreshTimeoutRef.current = null;
+      }
+    };
+  }, [autoRefresh, refreshInterval, subscriptionState.isOnline]);
+
+  // Handle page visibility changes
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        pause();
+      } else {
+        resume();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  // Refresh entries manually
+  const refresh = useCallback(() => {
+    if (!userId || !subscriptionIdRef.current) return;
+
+    // Restart subscription to get fresh data
+    realtimeManager.unsubscribe(subscriptionIdRef.current);
+    subscriptionIdRef.current = null;
+
+    // Clear cache to force fresh data
+    if (enableCache) {
+      journalCache.invalidateJournals(userId);
+    }
+
+    // Reset stats
+    setRealtimeStats({
+      addedCount: 0,
+      modifiedCount: 0,
+      removedCount: 0,
+      lastUpdate: null,
+      isFromCache: false
+    });
+
+    setLoading(true);
+    
+    // Restart subscription will happen due to useEffect dependency
+  }, [userId, enableCache]);
+
+  // Clear error
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
+
+  // Pause subscription
+  const pause = useCallback(() => {
+    if (subscriptionIdRef.current && !isPausedRef.current) {
+      realtimeManager.unsubscribe(subscriptionIdRef.current);
+      subscriptionIdRef.current = null;
+      isPausedRef.current = true;
+      console.log('[useRealtimeJournals] Subscription paused');
+    }
+  }, []);
+
+  // Resume subscription
+  const resume = useCallback(() => {
+    if (isPausedRef.current) {
+      isPausedRef.current = false;
+      console.log('[useRealtimeJournals] Subscription resumed');
+      // Subscription will restart due to useEffect
+    }
+  }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (subscriptionIdRef.current) {
+        realtimeManager.unsubscribe(subscriptionIdRef.current);
+      }
+      if (refreshTimeoutRef.current) {
+        clearInterval(refreshTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  return {
+    entries,
+    loading,
+    error,
+    subscriptionState,
+    realtimeStats,
+    refresh,
+    clearError,
+    pause,
+    resume
+  };
+}
+
+// Hook for monitoring real-time connection health
+export function useRealtimeConnection() {
+  const [connectionMetrics, setConnectionMetrics] = useState({
+    isConnected: true,
+    latency: 0,
+    reconnectAttempts: 0,
+    activeSubscriptions: 0,
+    lastHeartbeat: new Date()
+  });
+
+  useEffect(() => {
+    const updateMetrics = () => {
+      setConnectionMetrics(realtimeManager.getConnectionMetrics());
+    };
+
+    // Update metrics initially
+    updateMetrics();
+
+    // Update metrics periodically
+    const interval = setInterval(updateMetrics, 5000);
+
+    // Subscribe to state changes for immediate updates
+    const unsubscribe = realtimeManager.onStateChange(updateMetrics);
+
+    return () => {
+      clearInterval(interval);
+      unsubscribe();
+    };
+  }, []);
+
+  return {
+    connectionMetrics,
+    subscriptionInfo: realtimeManager.getSubscriptionInfo()
+  };
+}
+
+// Hook for managing subscription lifecycle
+export function useSubscriptionManager() {
+  const pauseAllSubscriptions = useCallback(() => {
+    // This would require extending the realtimeManager API
+    console.log('[useSubscriptionManager] Pausing all subscriptions');
+  }, []);
+
+  const resumeAllSubscriptions = useCallback(() => {
+    // This would require extending the realtimeManager API
+    console.log('[useSubscriptionManager] Resuming all subscriptions');
+  }, []);
+
+  const getSubscriptionStats = useCallback(() => {
+    return {
+      activeCount: realtimeManager.getSubscriptionInfo().length,
+      connectionMetrics: realtimeManager.getConnectionMetrics()
+    };
+  }, []);
+
+  return {
+    pauseAllSubscriptions,
+    resumeAllSubscriptions,
+    getSubscriptionStats
+  };
+}

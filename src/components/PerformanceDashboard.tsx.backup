@@ -1,0 +1,333 @@
+// Performance monitoring dashboard component for ALCHM
+'use client'
+
+import { useState, useEffect } from 'react'
+import { usePerformanceMonitor } from '@/lib/performance'
+import { useCoreWebVitals } from '@/lib/coreWebVitals'
+import { getCacheStrategies } from '@/lib/cacheStrategies'
+import { ImagePerformanceMonitor } from '@/lib/imageOptimization'
+import { AssetOptimizationManager } from '@/lib/assetOptimization'
+
+interface PerformanceMetrics {
+  cls?: number
+  fid?: number
+  inp?: number
+  lcp?: number
+  fcp?: number
+  ttfb?: number
+}
+
+interface CacheStats {
+  memorySize: number
+  memoryHitRate: number
+  storageSize: number
+}
+
+const PerformanceDashboard = () => {
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeTab, setActiveTab] = useState<'vitals' | 'cache' | 'images' | 'assets'>('vitals')
+  const [metrics, setMetrics] = useState<PerformanceMetrics>({})
+  const [cacheStats, setCacheStats] = useState<CacheStats>({ memorySize: 0, memoryHitRate: 0, storageSize: 0 })
+
+  const performanceMonitor = usePerformanceMonitor()
+  const coreWebVitals = useCoreWebVitals()
+
+  useEffect(() => {
+    // Update metrics every 5 seconds
+    const interval = setInterval(() => {
+      const vitalsData = coreWebVitals.getVitalsData()
+      setMetrics(vitalsData)
+
+      const cacheStrategies = getCacheStrategies()
+      setCacheStats(cacheStrategies.getCacheStats())
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [coreWebVitals])
+
+  // Get metric status color
+  const getMetricStatusColor = (metric: string, value: number | undefined): string => {
+    if (value === undefined) return 'text-gray-400'
+
+    const thresholds: Record<string, { good: number; needsImprovement: number }> = {
+      cls: { good: 0.1, needsImprovement: 0.25 },
+      fid: { good: 100, needsImprovement: 300 },
+      inp: { good: 200, needsImprovement: 500 },
+      lcp: { good: 2500, needsImprovement: 4000 },
+      fcp: { good: 1800, needsImprovement: 3000 },
+      ttfb: { good: 800, needsImprovement: 1800 }
+    }
+
+    const threshold = thresholds[metric]
+    if (!threshold) return 'text-gray-400'
+
+    if (value <= threshold.good) return 'text-green-600'
+    if (value <= threshold.needsImprovement) return 'text-yellow-600'
+    return 'text-red-600'
+  }
+
+  // Format metric value
+  const formatMetricValue = (metric: string, value: number | undefined): string => {
+    if (value === undefined) return 'N/A'
+    
+    if (metric === 'cls') {
+      return value.toFixed(3)
+    }
+    return `${Math.round(value)}ms`
+  }
+
+  // Get metric icon
+  const getMetricIcon = (metric: string, value: number | undefined): string => {
+    if (value === undefined) return '⏳'
+
+    const color = getMetricStatusColor(metric, value)
+    if (color.includes('green')) return '✅'
+    if (color.includes('yellow')) return '⚠️'
+    return '❌'
+  }
+
+  const MetricCard = ({ 
+    title, 
+    metric, 
+    value, 
+    description 
+  }: { 
+    title: string
+    metric: string
+    value: number | undefined
+    description: string 
+  }) => (
+    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-sm font-medium text-gray-700">{title}</h3>
+        <span className="text-lg">{getMetricIcon(metric, value)}</span>
+      </div>
+      <div className={`text-2xl font-bold ${getMetricStatusColor(metric, value)}`}>
+        {formatMetricValue(metric, value)}
+      </div>
+      <p className="text-xs text-gray-500 mt-1">{description}</p>
+    </div>
+  )
+
+  const CoreWebVitalsTab = () => (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <MetricCard
+          title="CLS"
+          metric="cls"
+          value={metrics.cls}
+          description="Cumulative Layout Shift"
+        />
+        <MetricCard
+          title="LCP"
+          metric="lcp"
+          value={metrics.lcp}
+          description="Largest Contentful Paint"
+        />
+        <MetricCard
+          title="FID"
+          metric="fid"
+          value={metrics.fid}
+          description="First Input Delay"
+        />
+        <MetricCard
+          title="INP"
+          metric="inp"
+          value={metrics.inp}
+          description="Interaction to Next Paint"
+        />
+        <MetricCard
+          title="FCP"
+          metric="fcp"
+          value={metrics.fcp}
+          description="First Contentful Paint"
+        />
+        <MetricCard
+          title="TTFB"
+          metric="ttfb"
+          value={metrics.ttfb}
+          description="Time to First Byte"
+        />
+      </div>
+
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h4 className="font-medium text-gray-700 mb-2">Recommendations</h4>
+        <div className="space-y-2">
+          {coreWebVitals.getRecommendations().map((rec, index) => (
+            <div key={index} className="text-sm">
+              <div className={`font-medium ${
+                rec.impact === 'high' ? 'text-red-600' : 
+                rec.impact === 'medium' ? 'text-yellow-600' : 'text-green-600'
+              }`}>
+                {rec.metric}: {rec.current.toFixed(0)} → {rec.target}
+              </div>
+              <ul className="mt-1 text-gray-600 text-xs">
+                {rec.recommendations.slice(0, 2).map((recommendation, i) => (
+                  <li key={i} className="ml-2">• {recommendation}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+
+  const CacheTab = () => (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Memory Cache</h3>
+          <div className="text-2xl font-bold text-blue-600">{cacheStats.memorySize}</div>
+          <p className="text-xs text-gray-500">Entries</p>
+        </div>
+        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Storage Size</h3>
+          <div className="text-2xl font-bold text-green-600">
+            {(cacheStats.storageSize / 1024).toFixed(1)}KB
+          </div>
+          <p className="text-xs text-gray-500">Browser Storage</p>
+        </div>
+      </div>
+
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h4 className="font-medium text-gray-700 mb-2">Cache Performance</h4>
+        <div className="space-y-2 text-sm text-gray-600">
+          <div>Memory cache entries: {cacheStats.memorySize}</div>
+          <div>Storage usage: {(cacheStats.storageSize / 1024).toFixed(1)}KB</div>
+          <div>Hit rate: {(cacheStats.memoryHitRate * 100).toFixed(1)}%</div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const ImagesTab = () => {
+    const imageStats = ImagePerformanceMonitor.getStats()
+    
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Avg Load Time</h3>
+            <div className="text-2xl font-bold text-blue-600">
+              {Math.round(imageStats.averageLoadTime)}ms
+            </div>
+            <p className="text-xs text-gray-500">Image Loading</p>
+          </div>
+          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Failed Images</h3>
+            <div className="text-2xl font-bold text-red-600">{imageStats.failedImages.length}</div>
+            <p className="text-xs text-gray-500">Load Errors</p>
+          </div>
+        </div>
+
+        {imageStats.slowImages.length > 0 && (
+          <div className="bg-gray-50 rounded-lg p-4">
+            <h4 className="font-medium text-gray-700 mb-2">Slow Images (&gt;2s)</h4>
+            <div className="space-y-1 text-xs text-gray-600">
+              {imageStats.slowImages.slice(0, 3).map((img, index) => (
+                <div key={index} className="flex justify-between">
+                  <span className="truncate flex-1">{img.src.split('/').pop()}</span>
+                  <span className="ml-2 font-mono">{Math.round(img.loadTime)}ms</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  const AssetsTab = () => (
+    <div className="space-y-4">
+      <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+        <h3 className="text-sm font-medium text-gray-700 mb-2">Asset Optimization</h3>
+        <div className="text-sm text-gray-600">
+          <div>✅ Fonts preloaded</div>
+          <div>✅ Critical CSS inlined</div>
+          <div>✅ Resource hints enabled</div>
+          <div>✅ Compression active</div>
+        </div>
+      </div>
+
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h4 className="font-medium text-gray-700 mb-2">Optimization Report</h4>
+        <pre className="text-xs text-gray-600 whitespace-pre-wrap font-mono">
+          {AssetOptimizationManager.generateReport()}
+        </pre>
+      </div>
+    </div>
+  )
+
+  if (!isVisible) {
+    return (
+      <button
+        onClick={() => setIsVisible(true)}
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors z-50"
+        title="Show Performance Dashboard"
+      >
+        📊
+      </button>
+    )
+  }
+
+  return (
+    <div className="fixed bottom-4 right-4 w-96 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <h2 className="text-lg font-semibold text-gray-800">Performance Dashboard</h2>
+        <button
+          onClick={() => setIsVisible(false)}
+          className="text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="flex border-b border-gray-200">
+        {[
+          { id: 'vitals', label: 'Core Web Vitals', icon: '🎯' },
+          { id: 'cache', label: 'Cache', icon: '💾' },
+          { id: 'images', label: 'Images', icon: '🖼️' },
+          { id: 'assets', label: 'Assets', icon: '📦' }
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`flex-1 p-3 text-sm font-medium border-r border-gray-200 last:border-r-0 transition-colors ${
+              activeTab === tab.id
+                ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <span className="block">{tab.icon}</span>
+            <span className="text-xs">{tab.label}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="p-4 max-h-96 overflow-y-auto">
+        {activeTab === 'vitals' && <CoreWebVitalsTab />}
+        {activeTab === 'cache' && <CacheTab />}
+        {activeTab === 'images' && <ImagesTab />}
+        {activeTab === 'assets' && <AssetsTab />}
+      </div>
+
+      <div className="p-4 border-t border-gray-200 bg-gray-50 rounded-b-lg">
+        <div className="flex justify-between items-center text-xs text-gray-500">
+          <span>Updated every 5s</span>
+          <button
+            onClick={() => {
+              console.log('🔄 Refreshing performance data...')
+              window.location.reload()
+            }}
+            className="text-blue-600 hover:text-blue-700"
+          >
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default PerformanceDashboard

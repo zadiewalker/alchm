@@ -1,0 +1,563 @@
+/* ALCHM Sacred Component Token Architecture */
+/* Component-specific token definitions that extend the sacred theme foundation */
+/* These tokens breathe life into specific UI patterns while maintaining sacred coherence */
+
+/* ===== SACRED BUTTON COMPONENT TOKENS ===== */
+.sacred-button {
+  /* Base button essence - the foundation of all sacred interactions */
+  --button-padding-horizontal: var(--space-ritual);
+  --button-padding-vertical: var(--space-gentle);
+  --button-border-radius: var(--radius-embrace);
+  --button-font-family: var(--font-sacred-primary);
+  --button-font-weight: var(--weight-presence);
+  --button-font-size: var(--text-presence);
+  --button-line-height: var(--leading-natural);
+  --button-transition-duration: var(--timing-breath);
+  --button-transition-easing: var(--ease-sacred-flow);
+  --button-min-height: 44px; /* Sacred accessibility minimum */
+  --button-letter-spacing: 0.025em; /* Gentle spacing for sacred words */
+
+  /* Button size variations - different energies of invitation */
+  &.size-whisper {
+    --button-padding-horizontal: var(--space-breath);
+    --button-padding-vertical: var(--space-whisper);
+    --button-font-size: var(--text-whisper);
+    --button-font-weight: var(--weight-breath);
+    --button-min-height: 32px;
+  }
+
+  &.size-intimate {
+    --button-padding-horizontal: var(--space-gentle);
+    --button-padding-vertical: var(--space-breath);
+    --button-font-size: var(--text-breath);
+    --button-min-height: 36px;
+  }
+
+  &.size-comfortable {
+    --button-padding-horizontal: var(--space-ritual);
+    --button-padding-vertical: var(--space-gentle);
+    --button-font-size: var(--text-presence);
+    --button-min-height: 44px;
+  }
+
+  &.size-expansive {
+    --button-padding-horizontal: var(--space-sacred);
+    --button-padding-vertical: var(--space-ritual);
+    --button-font-size: var(--text-grounding);
+    --button-font-weight: var(--weight-grounding);
+    --button-min-height: 52px;
+  }
+
+  &.size-ceremonial {
+    --button-padding-horizontal: var(--space-sanctuary);
+    --button-padding-vertical: var(--space-sacred);
+    --button-font-size: var(--text-sacred);
+    --button-font-weight: var(--weight-sacred);
+    --button-min-height: 60px;
+    --button-letter-spacing: 0.05em;
+  }
+}
+
+/* ===== SACRED CARD COMPONENT TOKENS ===== */
+.sacred-card {
+  /* Base card essence - containers for sacred content */
+  --card-padding: var(--space-ritual);
+  --card-border-radius: var(--radius-sacred);
+  --card-border: 1px solid transparent;
+  --card-shadow: var(--shadow-breath);
+  --card-transition-duration: var(--timing-pause);
+  --card-transition-easing: var(--ease-sacred-flow);
+
+  /* Card elevation variations - different levels of sacred presence */
+  &.elevation-resting {
+    --card-shadow: var(--shadow-whisper);
+    --card-background: var(--surface-card-gentle);
+  }
+
+  &.elevation-floating {
+    --card-shadow: var(--shadow-breath);
+    --card-background: var(--surface-card-warm);
+  }
+
+  &.elevation-ascending {
+    --card-shadow: var(--shadow-presence);
+    --card-background: var(--surface-card-sacred);
+  }
+
+  &.elevation-sacred {
+    --card-shadow: var(--shadow-sacred);
+    --card-background: var(--surface-card-grounding);
+    --card-border: 1px solid rgba(164, 183, 146, 0.2);
+  }
+
+  /* Card intention variations - different purposes of sacred containers */
+  &.intention-gentle {
+    --card-background: var(--surface-card-gentle);
+    --card-border: 1px solid var(--color-healing-mist);
+  }
+
+  &.intention-warm {
+    --card-background: var(--surface-card-warm);
+    --card-border: 1px solid rgba(203, 153, 126, 0.15);
+  }
+
+  &.intention-sacred {
+    --card-background: var(--surface-card-sacred);
+    --card-border: 1px solid rgba(164, 183, 146, 0.2);
+    --card-glow: var(--glow-sacred);
+  }
+
+  &.intention-grounding {
+    --card-background: var(--surface-card-grounding);
+    --card-border: 1px solid rgba(203, 153, 126, 0.2);
+  }
+
+  &.intention-protective {
+    --card-background: var(--surface-elevated-deep);
+    --card-border: 2px solid var(--color-deep-presence);
+    --card-shadow: var(--shadow-sanctuary);
+  }
+
+  /* Sacred card states - how cards respond to interaction */
+  &:hover {
+    --card-shadow: var(--shadow-presence);
+    transform: translateY(-2px);
+  }
+
+  &.state-reflecting {
+    --card-background: var(--emotion-reflecting-primary);
+    --card-border: 1px solid var(--emotion-reflecting-border);
+    --card-glow: var(--emotion-reflecting-shadow);
+  }
+
+  &.state-celebrating {
+    --card-background: var(--celebration-inner-growth-primary);
+    --card-border: 1px solid var(--celebration-inner-growth-border);
+    --card-glow: var(--celebration-inner-growth-shadow);
+  }
+
+  &.state-alert {
+    --card-background: var(--alert-sacred-boundary-primary);
+    --card-border: 2px solid var(--alert-sacred-boundary-border);
+    --card-glow: var(--alert-sacred-boundary-shadow);
+  }
+
+  &.state-interrupted {
+    --card-background: var(--error-ritual-interrupted-primary);
+    --card-border: 1px solid var(--error-ritual-interrupted-border);
+    --card-glow: var(--error-ritual-interrupted-shadow);
+  }
+}
+
+/* ===== SACRED INPUT COMPONENT TOKENS ===== */
+.sacred-input {
+  /* Base input essence - vessels for sacred expression */
+  --input-padding: var(--space-gentle);
+  --input-border-radius: var(--radius-gentle);
+  --input-border: 2px solid var(--color-healing-mist);
+  --input-background: var(--color-off-white);
+  --input-font-family: var(--font-sacred-primary);
+  --input-font-size: var(--text-presence);
+  --input-font-weight: var(--weight-breath);
+  --input-line-height: var(--leading-natural);
+  --input-color: var(--text-primary);
+  --input-placeholder-color: var(--text-subtle);
+  --input-transition-duration: var(--timing-pause);
+  --input-transition-easing: var(--ease-sacred-flow);
+  --input-min-height: 44px;
+
+  /* Input states - how sacred vessels respond to interaction */
+  &:focus {
+    --input-border: 2px solid var(--color-primary);
+    --input-background: white;
+    --input-shadow: 0 0 0 3px rgba(164, 183, 146, 0.1);
+  }
+
+  &:hover {
+    --input-border: 2px solid rgba(164, 183, 146, 0.5);
+  }
+
+  &.state-valid {
+    --input-border: 2px solid var(--color-primary);
+    --input-background: var(--emotion-reflecting-secondary);
+  }
+
+  &.state-invalid {
+    --input-border: 2px solid var(--error-ritual-interrupted-accent);
+    --input-background: var(--error-ritual-interrupted-secondary);
+  }
+
+  &.state-warning {
+    --input-border: 2px solid var(--alert-sacred-boundary-accent);
+    --input-background: var(--alert-sacred-boundary-secondary);
+  }
+
+  /* Textarea sacred vessels - for longer sacred expressions */
+  &.vessel-expanded {
+    --input-min-height: 120px;
+    --input-line-height: var(--leading-spacious);
+    resize: vertical;
+  }
+
+  &.vessel-sanctuary {
+    --input-min-height: 200px;
+    --input-padding: var(--space-ritual);
+    --input-border-radius: var(--radius-sacred);
+    --input-line-height: var(--leading-ceremonial);
+  }
+}
+
+/* ===== SACRED MODAL COMPONENT TOKENS ===== */
+.sacred-modal {
+  /* Base modal essence - veils between realms */
+  --modal-backdrop: var(--surface-modal-backdrop);
+  --modal-container: var(--surface-modal-container);
+  --modal-padding: var(--space-sacred);
+  --modal-border-radius: var(--radius-sanctuary);
+  --modal-shadow: var(--shadow-sanctuary);
+  --modal-transition-duration: var(--timing-contemplation);
+  --modal-transition-easing: var(--ease-sacred-flow);
+  --modal-max-width: 500px;
+  --modal-max-height: 90vh;
+
+  /* Modal size variations - different scales of sacred dialogue */
+  &.size-intimate {
+    --modal-max-width: 320px;
+    --modal-padding: var(--space-ritual);
+  }
+
+  &.size-comfortable {
+    --modal-max-width: 500px;
+    --modal-padding: var(--space-sacred);
+  }
+
+  &.size-expansive {
+    --modal-max-width: 800px;
+    --modal-padding: var(--space-sanctuary);
+  }
+
+  &.size-sanctuary {
+    --modal-max-width: 1200px;
+    --modal-max-height: 95vh;
+    --modal-padding: var(--space-sanctuary);
+  }
+
+  /* Modal intention variations - different purposes of sacred veils */
+  &.intention-gentle {
+    --modal-container: var(--surface-card-gentle);
+    --modal-shadow: var(--shadow-presence);
+  }
+
+  &.intention-sacred {
+    --modal-container: var(--surface-card-sacred);
+    --modal-shadow: var(--shadow-sacred);
+    --modal-glow: var(--glow-sacred);
+  }
+
+  &.intention-protective {
+    --modal-backdrop: rgba(45, 74, 62, 0.6);
+    --modal-container: var(--surface-elevated-deep);
+    --modal-shadow: var(--shadow-sanctuary);
+    --modal-glow: var(--glow-protection);
+  }
+
+  &.intention-alert {
+    --modal-container: var(--alert-sacred-boundary-primary);
+    --modal-shadow: var(--alert-sacred-boundary-shadow);
+  }
+}
+
+/* ===== SACRED NAVIGATION COMPONENT TOKENS ===== */
+.sacred-navigation {
+  /* Base navigation essence - pathways through the sanctuary */
+  --nav-background: var(--surface-elevated-gentle);
+  --nav-padding: var(--space-gentle);
+  --nav-border-radius: var(--radius-embrace);
+  --nav-shadow: var(--shadow-whisper);
+  --nav-item-padding: var(--space-breath) var(--space-gentle);
+  --nav-item-border-radius: var(--radius-gentle);
+  --nav-item-transition: var(--timing-breath) var(--ease-sacred-flow);
+
+  /* Navigation states - how pathways respond to sacred intention */
+  .nav-item {
+    --nav-item-color: var(--text-secondary);
+    --nav-item-background: transparent;
+    
+    &:hover {
+      --nav-item-color: var(--text-primary);
+      --nav-item-background: var(--surface-elevated-warm);
+    }
+
+    &.active {
+      --nav-item-color: var(--color-primary);
+      --nav-item-background: rgba(164, 183, 146, 0.1);
+      --nav-item-border: 1px solid rgba(164, 183, 146, 0.3);
+    }
+
+    &.sacred-path {
+      --nav-item-color: var(--color-primary);
+      --nav-item-background: var(--emotion-reflecting-secondary);
+      --nav-item-glow: var(--glow-sacred);
+    }
+  }
+}
+
+/* ===== SACRED TOOLTIP COMPONENT TOKENS ===== */
+.sacred-tooltip {
+  /* Base tooltip essence - whispered guidance */
+  --tooltip-background: var(--color-charcoal);
+  --tooltip-color: var(--text-inverse);
+  --tooltip-padding: var(--space-breath) var(--space-gentle);
+  --tooltip-border-radius: var(--radius-gentle);
+  --tooltip-font-size: var(--text-whisper);
+  --tooltip-font-weight: var(--weight-breath);
+  --tooltip-line-height: var(--leading-intimate);
+  --tooltip-shadow: var(--shadow-presence);
+  --tooltip-arrow-size: 6px;
+  --tooltip-z-index: var(--layer-floating);
+  --tooltip-transition: var(--timing-breath) var(--ease-sacred-flow);
+  --tooltip-max-width: 200px;
+
+  /* Tooltip intention variations - different types of sacred guidance */
+  &.intention-gentle {
+    --tooltip-background: var(--color-soft-blush);
+    --tooltip-color: var(--text-primary);
+  }
+
+  &.intention-sacred {
+    --tooltip-background: var(--color-primary);
+    --tooltip-color: white;
+    --tooltip-glow: var(--glow-sacred);
+  }
+
+  &.intention-warning {
+    --tooltip-background: var(--alert-sacred-boundary-accent);
+    --tooltip-color: var(--color-off-white);
+  }
+
+  &.intention-error {
+    --tooltip-background: var(--error-ritual-interrupted-accent);
+    --tooltip-color: var(--color-off-white);
+  }
+}
+
+/* ===== SACRED PROGRESS COMPONENT TOKENS ===== */
+.sacred-progress {
+  /* Base progress essence - journey visualization */
+  --progress-track-background: var(--color-healing-mist);
+  --progress-track-height: 8px;
+  --progress-track-border-radius: var(--radius-infinite);
+  --progress-fill-background: var(--color-primary);
+  --progress-fill-border-radius: var(--radius-infinite);
+  --progress-transition: var(--timing-ritual) var(--ease-earth-settle);
+  --progress-glow: var(--glow-sacred);
+
+  /* Progress intention variations - different types of sacred journeys */
+  &.intention-gentle {
+    --progress-fill-background: var(--color-soft-blush);
+    --progress-track-height: 6px;
+  }
+
+  &.intention-grounding {
+    --progress-fill-background: var(--color-warm-terra);
+    --progress-glow: var(--glow-grounding);
+  }
+
+  &.intention-sacred {
+    --progress-fill-background: linear-gradient(90deg, var(--color-primary), var(--color-deep-presence));
+    --progress-track-height: 10px;
+    --progress-glow: var(--glow-sacred);
+  }
+
+  /* Progress states - different moments in the sacred journey */
+  &.state-reflecting {
+    --progress-fill-background: var(--emotion-reflecting-accent);
+  }
+
+  &.state-celebrating {
+    --progress-fill-background: var(--celebration-inner-growth-accent);
+    --progress-glow: var(--celebration-inner-growth-shadow);
+  }
+
+  &.state-interrupted {
+    --progress-fill-background: var(--error-ritual-interrupted-accent);
+    --progress-track-background: var(--error-ritual-interrupted-secondary);
+  }
+}
+
+/* ===== SACRED TOGGLE COMPONENT TOKENS ===== */
+.sacred-toggle {
+  /* Base toggle essence - binary sacred choices */
+  --toggle-track-width: 48px;
+  --toggle-track-height: 24px;
+  --toggle-track-border-radius: var(--radius-infinite);
+  --toggle-track-background-off: var(--color-healing-mist);
+  --toggle-track-background-on: var(--color-primary);
+  --toggle-thumb-size: 20px;
+  --toggle-thumb-background: white;
+  --toggle-thumb-border-radius: var(--radius-infinite);
+  --toggle-thumb-shadow: var(--shadow-whisper);
+  --toggle-transition: var(--timing-pause) var(--ease-sacred-flow);
+  --toggle-focus-ring: 0 0 0 3px rgba(164, 183, 146, 0.3);
+
+  /* Toggle states - different sacred choices */
+  &.state-sacred {
+    --toggle-track-background-on: var(--color-primary);
+    --toggle-glow: var(--glow-sacred);
+  }
+
+  &.state-grounding {
+    --toggle-track-background-on: var(--color-warm-terra);
+    --toggle-glow: var(--glow-grounding);
+  }
+
+  &.state-gentle {
+    --toggle-track-background-on: var(--color-soft-blush);
+    --toggle-thumb-background: var(--color-deep-presence);
+  }
+
+  /* Toggle sizes - different scales of sacred binary choices */
+  &.size-whisper {
+    --toggle-track-width: 32px;
+    --toggle-track-height: 16px;
+    --toggle-thumb-size: 12px;
+  }
+
+  &.size-comfortable {
+    --toggle-track-width: 48px;
+    --toggle-track-height: 24px;
+    --toggle-thumb-size: 20px;
+  }
+
+  &.size-expansive {
+    --toggle-track-width: 64px;
+    --toggle-track-height: 32px;
+    --toggle-thumb-size: 28px;
+  }
+}
+
+/* ===== SACRED BADGE COMPONENT TOKENS ===== */
+.sacred-badge {
+  /* Base badge essence - sacred markers and indicators */
+  --badge-padding: var(--space-whisper) var(--space-breath);
+  --badge-border-radius: var(--radius-infinite);
+  --badge-font-size: var(--text-whisper);
+  --badge-font-weight: var(--weight-grounding);
+  --badge-line-height: var(--leading-intimate);
+  --badge-letter-spacing: 0.05em;
+  --badge-background: var(--color-primary);
+  --badge-color: white;
+  --badge-shadow: var(--shadow-whisper);
+  --badge-min-width: 20px;
+  --badge-height: 20px;
+
+  /* Badge intention variations - different types of sacred markers */
+  &.intention-gentle {
+    --badge-background: var(--color-soft-blush);
+    --badge-color: var(--color-deep-presence);
+  }
+
+  &.intention-grounding {
+    --badge-background: var(--color-warm-terra);
+    --badge-color: white;
+  }
+
+  &.intention-sacred {
+    --badge-background: var(--color-primary);
+    --badge-color: white;
+    --badge-glow: var(--glow-sacred);
+  }
+
+  &.intention-alert {
+    --badge-background: var(--alert-sacred-boundary-accent);
+    --badge-color: white;
+  }
+
+  &.intention-error {
+    --badge-background: var(--error-ritual-interrupted-accent);
+    --badge-color: white;
+  }
+
+  &.intention-celebrating {
+    --badge-background: var(--celebration-inner-growth-accent);
+    --badge-color: white;
+    --badge-glow: var(--celebration-inner-growth-shadow);
+  }
+
+  /* Badge sizes - different scales of sacred markers */
+  &.size-whisper {
+    --badge-padding: var(--space-whisper) var(--space-whisper);
+    --badge-font-size: 10px;
+    --badge-min-width: 16px;
+    --badge-height: 16px;
+  }
+
+  &.size-comfortable {
+    --badge-padding: var(--space-whisper) var(--space-breath);
+    --badge-min-width: 20px;
+    --badge-height: 20px;
+  }
+
+  &.size-expansive {
+    --badge-padding: var(--space-breath) var(--space-gentle);
+    --badge-font-size: var(--text-breath);
+    --badge-min-width: 24px;
+    --badge-height: 24px;
+  }
+}
+
+/* ===== SACRED DIVIDER COMPONENT TOKENS ===== */
+.sacred-divider {
+  /* Base divider essence - sacred boundaries and separations */
+  --divider-color: var(--color-healing-mist);
+  --divider-thickness: 1px;
+  --divider-style: solid;
+  --divider-opacity: var(--opacity-soft);
+  --divider-margin: var(--space-ritual) 0;
+
+  /* Divider intention variations - different types of sacred boundaries */
+  &.intention-gentle {
+    --divider-color: var(--color-tender-embrace);
+    --divider-thickness: 1px;
+    --divider-opacity: var(--opacity-medium);
+  }
+
+  &.intention-sacred {
+    --divider-color: var(--color-primary);
+    --divider-thickness: 2px;
+    --divider-opacity: var(--opacity-soft);
+  }
+
+  &.intention-grounding {
+    --divider-color: var(--color-warm-terra);
+    --divider-thickness: 1px;
+    --divider-opacity: var(--opacity-medium);
+  }
+
+  &.intention-ceremonial {
+    --divider-color: var(--color-deep-presence);
+    --divider-thickness: 3px;
+    --divider-style: double;
+    --divider-opacity: var(--opacity-strong);
+  }
+
+  /* Divider styles - different expressions of sacred boundaries */
+  &.style-dotted {
+    --divider-style: dotted;
+    --divider-thickness: 2px;
+  }
+
+  &.style-dashed {
+    --divider-style: dashed;
+    --divider-thickness: 1px;
+  }
+
+  &.style-gradient {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      var(--divider-color) 50%, 
+      transparent 100%
+    );
+    border: none;
+  }
+}

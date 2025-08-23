@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "name": "alchm",
+  "alias": ["alchm.app", "www.alchm.app"],
+  "regions": ["iad1", "sfo1", "fra1"],
+  
+  "build": {
+    "env": {
+      "NEXT_TELEMETRY_DISABLED": "1",
+      "NODE_ENV": "production"
+    }
+  },
+
+  "buildCommand": "npm run build",
+  "outputDirectory": "out",
+  "installCommand": "npm ci",
+
+  "functions": {
+    "pages/api/**/*.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    },
+    "pages/api/**/*.js": {
+      "runtime": "nodejs20.x", 
+      "maxDuration": 30
+    }
+  },
+
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy", 
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    }
+  ],
+
+  "redirects": [
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-of-service", 
+      "permanent": true
+    }
+  ],
+
+  "rewrites": [
+    {
+      "source": "/api/firebase/(.*)",
+      "destination": "https://alchm-digital-sanctuary.cloudfunctions.net/$1"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/api/robots"
+    }
+  ],
+
+  "env": {
+    "NEXT_PUBLIC_VERCEL_URL": "@vercel-url",
+    "NEXT_PUBLIC_VERCEL_ENV": "@vercel-env"
+  },
+
+  "cleanUrls": true,
+  "trailingSlash": false,
+  
+  "framework": "nextjs",
+
+  "crons": [
+    {
+      "path": "/api/cron/health-check",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/analytics-sync", 
+      "schedule": "0 2 * * *"
+    }
+  ]
+}

@@ -1,0 +1,507 @@
+/* ALCHM Khepera Emotional Mirror Styles */
+/* Sacred animations and visual elements for the AI reflection guide */
+
+/* ===== KHEPERA BREATHING ANIMATION SYSTEM ===== */
+
+@keyframes sacred-breathing {
+  0% { 
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  25% { /* Inhale */
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  50% { /* Pause in */
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+  75% { /* Exhale */
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% { /* Pause out */
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+@keyframes scarab-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(164, 183, 146, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(164, 183, 146, 0.6));
+  }
+}
+
+@keyframes sun-rays-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sacred-presence {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* ===== KHEPERA AVATAR CONTAINER ===== */
+
+.khepera-emotional-mirror {
+  --khepera-sage: #a4b792;
+  --khepera-terra: #cb997e;
+  --khepera-blush: #eeddd3;
+  --khepera-shadow: rgba(45, 74, 62, 0.1);
+  --breath-timing: 10s; /* 6 breaths per minute */
+}
+
+.khepera-scarab-avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-gentle);
+}
+
+.khepera-breathing-aura {
+  animation: sacred-breathing var(--breath-timing) ease-in-out infinite;
+  pointer-events: none;
+}
+
+.khepera-scarab-svg {
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.khepera-scarab-svg:hover {
+  transform: scale(1.05);
+}
+
+.sun-rays {
+  animation: sun-rays-rotation 60s linear infinite;
+  transform-origin: 40px 40px;
+}
+
+.sacred-circle {
+  animation: sacred-presence 8s ease-in-out infinite;
+}
+
+/* ===== KHEPERA MODE VARIATIONS ===== */
+
+.khepera-mode-reflective .khepera-breathing-aura {
+  background: radial-gradient(circle, rgba(164, 183, 146, 0.2) 0%, transparent 70%);
+}
+
+.khepera-mode-present .khepera-breathing-aura {
+  background: radial-gradient(circle, rgba(203, 153, 126, 0.2) 0%, transparent 70%);
+}
+
+.khepera-mode-affirming .khepera-breathing-aura {
+  background: radial-gradient(circle, rgba(238, 221, 211, 0.2) 0%, transparent 70%);
+}
+
+/* ===== REFLECTION MIRROR ANIMATIONS ===== */
+
+.reflection-mirror {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all var(--timing-ritual) var(--ease-earth-settle);
+}
+
+.reflection-mirror.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.user-reflection {
+  position: relative;
+}
+
+.user-words {
+  position: relative;
+  overflow: hidden;
+}
+
+.user-words::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(
+    to bottom,
+    var(--khepera-sage),
+    var(--khepera-terra),
+    var(--khepera-blush)
+  );
+  opacity: 0.8;
+}
+
+/* ===== KHEPERA MIRROR BUBBLE ANIMATIONS ===== */
+
+.khepera-mirror-bubble {
+  position: relative;
+}
+
+.emotional-acknowledgment {
+  animation: fadeInUp var(--timing-pause) var(--ease-sacred-flow);
+}
+
+.khepera-response-container {
+  animation: fadeInUp var(--timing-contemplation) var(--ease-sacred-flow) 0.5s;
+}
+
+.khepera-mini-presence {
+  position: relative;
+}
+
+.khepera-mini-presence::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--khepera-sage) 0%, transparent 70%);
+  opacity: 0.3;
+  animation: sacred-presence 4s ease-in-out infinite;
+}
+
+.cultural-wisdom {
+  animation: fadeIn var(--timing-contemplation) var(--ease-sacred-flow) 1s;
+}
+
+/* ===== SACRED REFLECTION INPUT STYLING ===== */
+
+.sacred-reflection-input {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(247, 247, 242, 0.95) 0%,
+    rgba(240, 244, 237, 0.98) 100%
+  );
+  backdrop-filter: blur(8px);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.input-container:focus-within {
+  box-shadow: 
+    0 0 0 1px var(--khepera-sage),
+    0 0 20px rgba(164, 183, 146, 0.1);
+  transform: translateY(-2px);
+}
+
+.input-container textarea {
+  font-family: var(--font-sacred-primary);
+  font-weight: var(--weight-breath);
+  line-height: var(--leading-spacious);
+  color: var(--text-primary);
+}
+
+.input-container textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.input-footer {
+  background: rgba(240, 244, 237, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+/* ===== BREATHING GUIDANCE INDICATOR ===== */
+
+.khepera-breathing-indicator {
+  position: relative;
+}
+
+.khepera-breathing-indicator > div:first-child {
+  position: relative;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+/* Breathing phase specific animations */
+.breath-phase-inhale .khepera-breathing-indicator > div:first-child {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(164, 183, 146, 0.5);
+}
+
+.breath-phase-exhale .khepera-breathing-indicator > div:first-child {
+  transform: scale(0.8);
+  box-shadow: 0 0 4px rgba(164, 183, 146, 0.3);
+}
+
+.breath-phase-pause .khepera-breathing-indicator > div:first-child {
+  transform: scale(1);
+  box-shadow: 0 0 6px rgba(164, 183, 146, 0.4);
+}
+
+/* ===== KHEPERA PROCESSING STATE ===== */
+
+.khepera-processing-state {
+  position: relative;
+  padding: var(--space-ritual);
+}
+
+.processing-indicator {
+  background: rgba(240, 244, 237, 0.5);
+  padding: var(--space-gentle);
+  border-radius: var(--radius-gentle);
+  backdrop-filter: blur(8px);
+}
+
+.scarab-pulse {
+  position: relative;
+}
+
+.scarab-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--khepera-sage) 0%, transparent 70%);
+  opacity: 0.4;
+  animation: sacred-breathing 3s ease-in-out infinite;
+}
+
+.processing-text {
+  text-align: center;
+}
+
+/* ===== FADE IN ANIMATIONS ===== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== SACRED MICROINTERACTIONS ===== */
+
+.khepera-summon-button {
+  position: relative;
+  overflow: hidden;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.khepera-summon-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(164, 183, 146, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.khepera-summon-button:hover::before {
+  opacity: 1;
+}
+
+.khepera-summon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(164, 183, 146, 0.2);
+}
+
+/* ===== THERAPEUTIC NEUTRALITY STYLES ===== */
+
+.reflection-metadata {
+  opacity: 0.6;
+  transition: opacity var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.user-reflection:hover .reflection-metadata {
+  opacity: 0.8;
+}
+
+/* Non-threatening, gentle hover states */
+.khepera-mirror-bubble:hover {
+  transform: translateY(-1px);
+  transition: transform var(--timing-breath) var(--ease-sacred-flow);
+}
+
+/* ===== CULTURAL ADAPTATION STYLES ===== */
+
+.cultural-wisdom {
+  position: relative;
+  padding: var(--space-breath);
+  border-radius: var(--radius-breath);
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.3) 0%,
+    rgba(240, 244, 237, 0.3) 100%
+  );
+}
+
+.cultural-wisdom::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--khepera-terra),
+    var(--khepera-blush)
+  );
+  border-radius: 1px;
+}
+
+/* ===== SACRED STILLNESS EMPHASIS ===== */
+
+.khepera-emotional-mirror * {
+  /* Gentle, non-jarring transitions throughout */
+  transition-duration: var(--timing-breath);
+  transition-timing-function: var(--ease-sacred-flow);
+}
+
+/* No sudden movements or aggressive animations */
+.khepera-emotional-mirror button {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.khepera-emotional-mirror button:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ===== RESPONSIVE BREATHING ADAPTATIONS ===== */
+
+@media (max-width: 768px) {
+  .khepera-scarab-avatar {
+    padding: var(--space-breath);
+  }
+  
+  .khepera-scarab-container {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .khepera-scarab-svg {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .khepera-breathing-aura {
+    width: 100px;
+    height: 100px;
+    top: -10px;
+    left: -10px;
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .khepera-breathing-aura,
+  .sun-rays,
+  .sacred-circle,
+  .scarab-pulse::before {
+    animation: none;
+  }
+  
+  .khepera-mini-presence::before {
+    animation: none;
+    opacity: 0.5;
+  }
+  
+  /* Maintain presence without movement */
+  .khepera-breathing-aura {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-contrast: high) {
+  .input-container {
+    border-width: 2px;
+  }
+  
+  .input-container:focus-within {
+    border-width: 3px;
+  }
+  
+  .user-words::before {
+    width: 6px;
+  }
+}
+
+/* ===== DARK MODE ADAPTATIONS ===== */
+
+@media (prefers-color-scheme: dark) {
+  .khepera-emotional-mirror {
+    --khepera-shadow: rgba(164, 183, 146, 0.2);
+  }
+  
+  .input-container {
+    background: linear-gradient(
+      135deg,
+      rgba(26, 26, 22, 0.95) 0%,
+      rgba(42, 42, 36, 0.98) 100%
+    );
+  }
+  
+  .processing-indicator {
+    background: rgba(42, 42, 36, 0.8);
+  }
+  
+  .cultural-wisdom {
+    background: linear-gradient(
+      135deg,
+      rgba(166, 124, 90, 0.1) 0%,
+      rgba(42, 42, 36, 0.2) 100%
+    );
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .khepera-scarab-avatar,
+  .khepera-processing-state,
+  .sacred-reflection-input {
+    display: none;
+  }
+  
+  .reflection-mirror {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  
+  .user-words,
+  .khepera-response-container {
+    border: 1px solid #000;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}

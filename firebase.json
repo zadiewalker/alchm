@@ -1,0 +1,155 @@
+{
+  "hosting": {
+    "site": "alchm-digital-sanctuary",
+    "public": "out",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.map"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/khepera/**",
+        "function": "chatWithGemini"
+      },
+      {
+        "source": "/api/auth/**",
+        "function": "authHandler"
+      },
+      {
+        "source": "/api/stripe/**", 
+        "function": "stripeHandler"
+      },
+      {
+        "source": "/api/crisis/**",
+        "function": "crisisSupport"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/_next/static/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css|woff|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control", 
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "X-Content-Type-Options", 
+            "value": "nosniff"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=()"
+          }
+        ]
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
+  },
+  
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "cd functions && npm run build"
+      ],
+      "runtime": "nodejs20",
+      "memory": "1GB",
+      "timeout": "60s",
+      "minInstances": 0,
+      "maxInstances": 1000,
+      "concurrency": 80,
+      "cpu": 1,
+      "environmentVariables": {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+
+  "storage": {
+    "rules": "storage.rules"
+  },
+
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    },
+    "singleProjectMode": true,
+    "logging": {
+      "level": "DEBUG"
+    }
+  },
+
+  "extensions": {
+    "firestore-send-email": "firebase/firestore-send-email@0.1.32",
+    "firestore-stripe-payments": "stripe/firestore-stripe-payments@0.3.7",
+    "storage-resize-images": "firebase/storage-resize-images@0.2.5",
+    "firestore-translate-text": "firebase/firestore-translate-text@0.1.25"
+  }
+}

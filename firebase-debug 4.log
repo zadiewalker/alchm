@@ -1,0 +1,16 @@
+[debug] [2025-08-17T05:51:47.906Z] ----------------------------------------------------------------------
+[debug] [2025-08-17T05:51:47.910Z] Command:       /Users/zadiewalker/.nvm/versions/node/v20.19.4/bin/node /Users/zadiewalker/.nvm/versions/node/v20.19.4/bin/firebase hosting:sites:list
+[debug] [2025-08-17T05:51:47.910Z] CLI Version:   14.11.1
+[debug] [2025-08-17T05:51:47.910Z] Platform:      darwin
+[debug] [2025-08-17T05:51:47.910Z] Node Version:  v20.19.4
+[debug] [2025-08-17T05:51:47.911Z] Time:          Sun Aug 17 2025 01:51:47 GMT-0400 (Eastern Daylight Time)
+[debug] [2025-08-17T05:51:47.911Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-08-17T05:51:48.161Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-17T05:51:48.161Z] > authorizing via signed-in user (zadiewalker@gmail.com)
+[debug] [2025-08-17T05:51:48.162Z] [iam] checking project alchm-digital-sanctuary for permissions ["firebase.projects.get","firebasehosting.sites.get"]
+[debug] [2025-08-17T05:51:48.163Z] Checked if tokens are valid: true, expires at: 1755413501757
+[debug] [2025-08-17T05:51:48.163Z] Checked if tokens are valid: true, expires at: 1755413501757
+[debug] [2025-08-17T05:51:48.165Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions [none]
+[debug] [2025-08-17T05:51:48.165Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions x-goog-quota-user=projects/alchm-digital-sanctuary
+[debug] [2025-08-17T05:51:48.165Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.get"]}

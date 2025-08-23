@@ -1,20 +1,39 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  // Use standalone for Firebase App Hosting with API routes
+  output: 'standalone',
+  
+  // Disable trailing slash to prevent 404s
+  trailingSlash: false,
+  
+  // Disable image optimization for Firebase compatibility
   images: {
-    domains: [
-      'your-supabase-bucket.vercel.app',
-      'firebasestorage.googleapis.com',
-      'lh3.googleusercontent.com', // Google profile images if using Google Auth
-      'avatars.githubusercontent.com', // GitHub profile images if using GitHub Auth
-    ],
+    unoptimized: true
   },
-  eslint: {
-    ignoreDuringBuilds: true, // if Vercel is blocked by eslint warnings
+  
+  // Experimental features for Firebase compatibility
+  experimental: {
+    outputFileTracingIncludes: {
+      '/api/**/*': ['./node_modules/**/*'],
+    },
   },
-  typescript: {
-    ignoreBuildErrors: false,
+  
+  // Server configuration
+  serverExternalPackages: ['firebase-admin'],
+  
+  // Environment variables
+  env: {
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: 'alchm-digital-sanctuary',
   },
+  
+  // Optimize for Firebase Functions
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push('firebase-admin');
+    }
+    return config;
+  }
 };
 
 module.exports = nextConfig;

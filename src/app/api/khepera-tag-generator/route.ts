@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       ],
     });
 
-    const tagsText = completion.choices[0].message.content?.trim();
+    const tagsText = completion.choices[0]?.message.content?.trim();
     let tags: string[] = [];
 
     try {

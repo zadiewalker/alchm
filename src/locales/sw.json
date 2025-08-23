@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Karibu nyumbani",
+    "loading": "Inapakia...",
+    "error": "Kuna tatizo",
+    "retry": "Jaribu tena",
+    "cancel": "Ghairi", 
+    "continue": "Endelea",
+    "back": "Rudi",
+    "next": "Ifuatayo",
+    "save": "Hifadhi",
+    "delete": "Futa", 
+    "edit": "Hariri",
+    "close": "Funga",
+    "yes": "Ndio",
+    "no": "Hapana"
+  },
+  "navigation": {
+    "home": "Nyumbani",
+    "journals": "Kumbukumbu",
+    "reflection": "Tafakari",
+    "khepera": "KHEPERA",
+    "profile": "Wasifu",
+    "settings": "Mipangilio", 
+    "logout": "Ondoka"
+  },
+  "onboarding": {
+    "title": "Karibu Kwenye Patakatifu Lako la Kidijitali",
+    "subtitle": "Nafasi ya uongozi wa trauma kwa uponyaji, tafakari na ukuaji",
+    "intro": "Umeingia katika patakatifu takatifu la kidijitali.",
+    "reflection_prompt": "Anza tafakari yako ya kwanza ya roho",
+    "contract": "Hadithi yako ni takatifu. Ukuaji wako ni wako peke yako.",
+    "disclaimer": "ALCHM ni ya kiponyaji, lakini si tiba ya kitaalamu.",
+    "crisis": "Ikiwa uko katika shida, tafadhali omba msaada sasa.",
+    "step1": {
+      "title": "Chagua Lugha Yako",
+      "description": "ALCHM inazungumza lugha yako, inaheshimu utamaduni wako"
+    },
+    "step2": {
+      "title": "Weka Nia Yako", 
+      "description": "Ni nini kinakufikisha katika nafasi hii takatifu?"
+    },
+    "step3": {
+      "title": "Kutana na KHEPERA",
+      "description": "Mshirika wako wa AI kwa akili ya kihisia na ukuaji"
+    },
+    "getStarted": "Anza Safari Yako Takatifu"
+  },
+  "culturalGreetings": {
+    "morning": "Habari za asubuhi, roho nzuri",
+    "afternoon": "Habari za mchana, moyo shujaa",
+    "evening": "Habari za jioni, kiumbe mwenye mwanga",
+    "night": "Lala salama, roho mpendwa"
+  },
+  "sacredLanguage": {
+    "blessing": "Njia yako ijae mwanga na uponyaji",
+    "protection": "Hapa ni nafasi yako takatifu na salama",
+    "growth": "Maendeleo yako ya kiroho yanaheshimiwa hapa", 
+    "community": "Wewe ni wa jamii hii ya mioyo inayoponya"
+  }
+}

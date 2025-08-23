@@ -1,0 +1,172 @@
+.
+├── android
+│   ├── app
+│   │   ├── build
+│   │   ├── build.gradle
+│   │   ├── proguard-rules.pro
+│   │   └── src
+│   ├── build.gradle
+│   ├── gradle
+│   │   └── wrapper
+│   ├── gradle.properties
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── settings.gradle
+│   └── variables.gradle
+├── api
+│   └── khepera
+│       └── route.ts
+├── app
+│   ├── api
+│   │   └── auth
+│   └── login
+│       └── page.tsx
+├── apphosting.yaml
+├── capacitor.config.ts
+├── config
+│   ├── ALCHM_PUBLISH_HARDENING.schema.json
+│   └── ALCHM_PUBLISH_HARDENING.yaml
+├── data
+│   └── pathwayConfig.json
+├── eslint.config.js
+├── eslint.config.mjs
+├── firebase-debug 2.log
+├── firebase.json
+├── firestore.rules
+├── functions
+│   ├── index.js
+│   ├── lib
+│   │   └── index.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+│   │   └── index.ts
+│   └── tsconfig.json
+├── google-cloud-sdk
+│   ├── bin
+│   │   ├── anthoscli
+│   │   ├── bootstrapping
+│   │   ├── bq
+│   │   ├── dev_appserver.py
+│   │   ├── docker-credential-gcloud
+│   │   ├── gcloud
+│   │   ├── gcloud-crc32c
+│   │   ├── git-credential-gcloud.sh
+│   │   ├── gsutil
+│   │   └── java_dev_appserver.sh
+│   ├── completion.bash.inc
+│   ├── completion.zsh.inc
+│   ├── data
+│   │   └── cli
+│   ├── deb
+│   │   └── mapping
+│   ├── install.bat
+│   ├── install.sh
+│   ├── lib
+│   │   ├── __pycache__
+│   │   ├── gcloud.py
+│   │   ├── googlecloudsdk
+│   │   ├── surface
+│   │   └── third_party
+│   ├── LICENSE
+│   ├── path.bash.inc
+│   ├── path.fish.inc
+│   ├── path.zsh.inc
+│   ├── platform
+│   │   ├── anthoscli_licenses
+│   │   ├── bq
+│   │   ├── ext-runtime
+│   │   ├── gcloud-crc32c_licenses
+│   │   └── gsutil
+│   ├── properties
+│   ├── README
+│   ├── RELEASE_NOTES
+│   ├── rpm
+│   │   └── mapping
+│   └── VERSION
+├── google-cloud-sdk-460.0.0-darwin-arm.tar.gz
+├── ios
+│   ├── App
+│   │   ├── App
+│   │   ├── App.xcodeproj
+│   │   ├── App.xcworkspace
+│   │   └── Podfile
+│   └── capacitor-cordova-ios-plugins
+│       ├── CordovaPluginsResources.podspec
+│       ├── resources
+│       └── sources
+├── middleware.ts
+├── next-env.d.ts
+├── next.config.js
+├── package-lock 2.json
+├── package-lock 3.json
+├── package-lock.json
+├── package.json
+├── pages
+│   └── api
+│       ├── auth
+│       └── reflection.js
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── postcss.config.mjs
+├── prepublish-audit.sh
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── middleware.ts
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── publish.sh
+├── README.md
+├── src
+│   ├── ai
+│   │   └── genkit.ts
+│   ├── animations
+│   │   ├── alchemy_fire_transmute.json
+│   │   ├── future_vision_light_wave.json
+│   │   ├── identity_butterfly_morph.json
+│   │   ├── ikigai_leaf_glow.json
+│   │   └── relationships_heart_sync.json
+│   ├── app
+│   │   ├── [locale]
+│   │   ├── api
+│   │   ├── favicon.ico
+│   │   ├── firebase.ts
+│   │   ├── firebaseConfig.ts
+│   │   ├── globals.css
+│   │   ├── journals
+│   │   ├── layout.tsx
+│   │   ├── lib
+│   │   ├── middleware.ts
+│   │   ├── page.tsx
+│   │   ├── pricing
+│   │   └── reflection-test
+│   ├── components
+│   │   └── Providers.tsx
+│   ├── lib
+│   │   ├── env-check.ts
+│   │   ├── firebase.ts
+│   │   ├── firebaseAdmin.ts
+│   │   ├── stripe.ts
+│   │   ├── useJournals.ts
+│   │   └── validateSession.ts
+│   ├── locales
+│   │   ├── en.json
+│   │   └── es.json
+│   ├── messages
+│   │   ├── getMessages.ts
+│   │   └── messagesProvider.tsx
+│   ├── styles
+│   │   ├── globals.css
+│   │   └── tailwind.config.ts
+│   └── types
+│       └── index.d.ts
+├── storage.rules
+├── structure.txt
+├── tailwind.config.ts
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+└── vercel.json
+
+66 directories, 104 files

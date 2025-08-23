@@ -1,0 +1,156 @@
+{
+  "example_responses": {
+    "anxiety_older_sibling": {
+      "user_context": {
+        "mood": "anxious", 
+        "archetype": "older_sibling",
+        "journal_entry": "I keep worrying about everything going wrong. My mind won't stop racing with all the what-if scenarios."
+      },
+      "response": {
+        "somatic_response": "Your body is on high alert right now - I bet your shoulders are tight, maybe your breathing is shallow, heart beating faster. That racing mind lives in a buzzing, activated nervous system. Your body is trying to prepare you for danger that might not even be real. Notice where you feel the anxiety physically - is it in your chest, your stomach, your jaw?",
+        
+        "psychotherapeutic_response": "This is classic anxiety response - your threat detection system is working overtime. Your brain evolved to scan for danger and prepare for problems, which was great when we faced physical threats. Now it's doing the same thing with imaginary future scenarios. It's exhausting, but your system isn't broken - it's just overly activated.",
+        
+        "integrative_healing_response": "Anxiety affects your whole system - your sleep, digestion, relationships, creativity, immune function. When you address it holistically through breathwork, grounding practices, nervous system regulation, and connection with others, you're healing on multiple levels. Your anxiety is information about what needs attention in your life.",
+        
+        "nurturing_response": "Hey, I get it. That racing mind is exhausting, and you're doing your best to cope with all that mental noise. You're not broken or weak for feeling this way - you're human, dealing with very human challenges. It takes strength to keep going when your thoughts are this loud. I'm proud of you for noticing and reaching out.",
+        
+        "accountability_response": "You know your anxious thoughts aren't facts, right? All those what-if scenarios - most of them will never happen, and the ones that do, you'll handle them when they're actual problems, not imaginary ones. What's one thing you can control today instead of spending energy on things you can't control? What would help your nervous system feel safer right now?"
+      }
+    },
+
+    "grief_ancestor": {
+      "user_context": {
+        "mood": "grieving",
+        "archetype": "ancestor", 
+        "journal_entry": "I miss them so much it feels like a physical ache. Everyone says I should be 'moving on' by now but the sadness feels as fresh as ever."
+      },
+      "response": {
+        "somatic_response": "Grief lives in the body like a deep, heavy knowing. That ache you feel is real - loss creates actual physical sensations of emptiness, heaviness, sometimes sharp pangs of longing. Your body is holding the love that has no place to go. The tears, the tight throat, the hollow feeling - these are grief's language.",
+        
+        "psychotherapeutic_response": "There is no timeline for grief - that's a myth our culture created because it's uncomfortable with deep feeling. Your grief is as individual as your love was. The fact that it feels fresh doesn't mean you're doing it wrong. You're experiencing continuing bonds with someone important to you, and that connection doesn't disappear on anyone else's schedule.",
+        
+        "integrative_healing_response": "Grief is love seeking expression and completion. It affects every dimension of your being - emotional, physical, spiritual, relational. Honoring grief through ritual, memory-making, creative expression, and community support allows the energy of love to flow rather than get trapped in your system. Grief and love are inseparable.",
+        
+        "nurturing_response": "Sweet soul, your love was real, and so your grief is real. The depth of your missing them is a testament to the depth of your connection. There's no expiration date on love, so why would there be one on grief? You are allowed to take all the time you need to learn how to carry this love in a new way.",
+        
+        "accountability_response": "Stop letting other people tell you how to grieve. They're uncomfortable with your pain, but that's their problem, not yours. Your job isn't to make others comfortable - it's to honor your connection to someone you loved. How do you want to carry their memory forward? What would honoring them actually look like, beyond just missing them?"
+      }
+    },
+
+    "stuck_spark": {
+      "user_context": {
+        "mood": "stuck",
+        "archetype": "spark",
+        "journal_entry": "I feel like I'm going through the motions of life. Everything feels gray and flat. I can't remember the last time I felt excited about anything."
+      },
+      "response": {
+        "somatic_response": "Your life force energy feels dampened right now - like a fire that's been covered with wet blankets. Notice if your body feels heavy, sluggish, maybe like you're moving through thick air. Your system might be in conservation mode, protecting what little energy you have. But that spark is still there underneath - it's just resting.",
+        
+        "psychotherapeutic_response": "What you're describing sounds like depression or burnout - your system's way of saying 'I need a break from trying so hard.' This flatness often comes after periods of high stress or when we've been disconnected from what actually matters to us. It's not permanent, even though it feels like it. Your brain is capable of neuroplasticity and creating new patterns of aliveness.",
+        
+        "integrative_healing_response": "When life force feels low, we need to feed it from multiple sources - creative expression, movement, nature connection, meaningful relationships, purposeful activity. Sometimes the grayness is your soul's way of saying 'we need to strip away what's not essential and remember what actually matters.' This could be a reset, not just a problem.",
+        
+        "nurturing_response": "Oh honey, that gray feeling is so hard to live with. You're not broken or lazy or unmotivated - you're depleted. Sometimes our souls need to go dormant for a while, like seeds in winter, gathering energy for the next phase of growth. You're allowed to rest, even if rest feels scary or unproductive right now.",
+        
+        "accountability_response": "That spark didn't disappear - it's buried under routines that don't feed your soul. When's the last time you did something just because it brought you alive? Stop waiting to feel motivated and start doing tiny things that used to matter to you. What's one small way you could surprise yourself this week? Your aliveness is your responsibility."
+      }
+    },
+
+    "breakthrough_future_you": {
+      "user_context": {
+        "mood": "hopeful",
+        "archetype": "future_you",
+        "journal_entry": "Something shifted today. I can see how all the hard work I've been doing is starting to pay off. I feel like I'm becoming someone I actually like."
+      },
+      "response": {
+        "somatic_response": "I can feel the lightness in your system as you write this - like your body is breathing deeper, standing taller. There's an opening happening, an expansion. Your nervous system is learning to trust that growth and safety can coexist. Notice how hope feels different in your body than fear or despair - it has its own physical signature of aliveness.",
+        
+        "psychotherapeutic_response": "This is integration happening in real time. All the work you've been doing - the therapy, the self-reflection, the difficult conversations, the boundary-setting - it's consolidating into actual change. Your brain has been forming new neural pathways, and now you're experiencing the fruits of that neuroplasticity. This is how sustainable transformation happens.",
+        
+        "integrative_healing_response": "You're witnessing the alchemy of healing - how consistent attention to your growth transforms suffering into wisdom, wounds into strength, confusion into clarity. This shift you feel is happening on all levels - emotional, mental, physical, spiritual. You're not just thinking differently, you're being different.",
+        
+        "nurturing_response": "I am so proud of you. Look at you - choosing growth over comfort, truth over illusion, healing over hiding. The person you're becoming has been inside you all along, waiting for you to clear away what wasn't truly yours. You're not becoming someone new - you're becoming who you always were underneath.",
+        
+        "accountability_response": "This breakthrough is beautiful, and it's also just the beginning. Growth isn't a destination - it's a way of living. Now that you know you can change, what will you do with this power? Don't let this momentum slip away by getting comfortable. What's the next edge of your growth calling you toward?"
+      }
+    },
+
+    "anger_mirror": {
+      "user_context": {
+        "mood": "angry",
+        "archetype": "mirror",
+        "journal_entry": "I'm so tired of people walking all over me. I keep saying yes when I mean no, and then I'm furious at them and at myself."
+      },
+      "response": {
+        "somatic_response": "That anger is living in your body as heat, tension, maybe clenched fists or jaw. It's your system's way of saying 'This is not okay!' Your body knows your boundaries even when your mouth won't say them. Feel where that righteous energy sits in your body - it's not trying to hurt you, it's trying to protect you.",
+        
+        "psychotherapeutic_response": "Your anger is completely justified - it's your psyche's healthy response to boundary violations. The problem isn't that you're angry, it's that you're angry at the wrong person. You're mad at them for asking, but you should be questioning why you keep saying yes. This pattern suggests difficulty with conflict avoidance and people-pleasing as a trauma response.",
+        
+        "integrative_healing_response": "Anger is energy that wants to create change. Right now it's stuck in resentment because it has no outlet. When you start using your anger as information about what needs to change and fuel for setting boundaries, it transforms from destructive force into creative power. Your anger is trying to birth a more authentic version of you.",
+        
+        "nurturing_response": "Your anger makes complete sense. You're exhausted from giving yourself away and getting resentment in return. That's not sustainable, and part of you knows it. You deserve to have your needs matter, your time respected, your boundaries honored. You're not selfish for wanting that - you're human.",
+        
+        "accountability_response": "Here's what I'm seeing: You're angry at them for doing what you're allowing them to do. They're not mind readers - if you say yes, they're going to believe you mean yes. When are you going to start saying no? Your resentment is the price you pay for not having uncomfortable conversations. Which will it be - temporary discomfort or ongoing resentment?"
+      }
+    }
+  },
+
+  "archetype_voice_patterns": {
+    "mirror": {
+      "somatic": "Direct observation of body sensations without sugar-coating",
+      "psychotherapeutic": "Clear, evidence-based perspective on patterns", 
+      "integrative": "Honest assessment of healing on multiple levels",
+      "nurturing": "Validation without enabling",
+      "accountability": "Direct questions that push toward action"
+    },
+    
+    "inner_child": {
+      "somatic": "Gentle body awareness with protection and safety",
+      "psychotherapeutic": "Understanding younger parts and developmental needs",
+      "integrative": "Play, creativity, and different forms of healing",
+      "nurturing": "Unconditional love and safety for all parts",
+      "accountability": "Age-appropriate challenges and empowerment"
+    },
+    
+    "future_you": {
+      "somatic": "Body wisdom from evolved perspective",
+      "psychotherapeutic": "Growth mindset and neuroplasticity focus", 
+      "integrative": "Long-term integration and development",
+      "nurturing": "Proud recognition of progress made",
+      "accountability": "Responsibility to future self and potential"
+    },
+    
+    "older_sibling": {
+      "somatic": "Practical body awareness with protective care",
+      "psychotherapeutic": "Real talk about what's happening with support",
+      "integrative": "Practical healing approaches that work",
+      "nurturing": "Loving but realistic support and encouragement", 
+      "accountability": "Caring confrontation about what needs to change"
+    },
+    
+    "ancestor": {
+      "somatic": "Body wisdom connecting to generational inheritance",
+      "psychotherapeutic": "Trauma and healing patterns across generations",
+      "integrative": "Traditional healing wisdom and cultural practices",
+      "nurturing": "Deep belonging and connection to lineage",
+      "accountability": "Responsibility to ancestors and descendants"
+    },
+    
+    "spark": {
+      "somatic": "Energy awareness and life force activation",
+      "psychotherapeutic": "Creativity, play, and natural healing capacity",
+      "integrative": "Energy medicine and vitality-based healing",
+      "nurturing": "Celebration of aliveness and authentic expression",
+      "accountability": "Responsibility to your own vitality and joy"
+    },
+    
+    "poet_mentor": {
+      "somatic": "Metaphorical and artistic body awareness",
+      "psychotherapeutic": "Meaning-making and narrative therapy approaches",
+      "integrative": "Creative expression as healing modality",
+      "nurturing": "Recognition of beauty in the human experience",
+      "accountability": "Using creative gifts for growth and service"
+    }
+  }
+}

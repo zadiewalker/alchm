@@ -1,0 +1,923 @@
+{
+  "firestoreSchema": {
+    "users/{userId}/identity": {
+      "description": "Identity journey data with privacy controls and cultural context",
+      "fields": {
+        "identityMap": {
+          "type": "object",
+          "description": "User's identity elements organized by category",
+          "properties": {
+            "personal": {
+              "type": "array",
+              "description": "Personal identity elements",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "category": { 
+                    "type": "string", 
+                    "enum": ["core_values", "personality_traits", "life_experiences", "relationships", "achievements", "challenges"],
+                    "required": true 
+                  },
+                  "description": { "type": "string", "required": true },
+                  "significance": { "type": "number", "minimum": 1, "maximum": 10, "required": true },
+                  "visibility": { 
+                    "type": "string", 
+                    "enum": ["public", "community", "mentors_only", "private"],
+                    "default": "private",
+                    "required": true 
+                  },
+                  "emotionalResonance": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "stabilityLevel": { 
+                    "type": "string", 
+                    "enum": ["unchanging_core", "evolving", "situational", "emerging"] 
+                  },
+                  "narrativeRole": { 
+                    "type": "string", 
+                    "enum": ["defining_moment", "ongoing_theme", "growth_area", "strength", "complexity"] 
+                  },
+                  "biasCheckRequired": { "type": "boolean", "default": false },
+                  "reflectionPrompts": { "type": "array", "items": { "type": "string" } },
+                  "supportingEvidence": { "type": "array", "items": { "type": "string" } },
+                  "challengingQuestions": { "type": "array", "items": { "type": "string" } },
+                  "growthOpportunities": { "type": "array", "items": { "type": "string" } },
+                  "connectedElements": { 
+                    "type": "array", 
+                    "description": "IDs of related identity elements",
+                    "items": { "type": "string" } 
+                  },
+                  "aiInsights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" },
+                        "content": { "type": "string" },
+                        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+                        "generatedAt": { "type": "timestamp" }
+                      }
+                    }
+                  },
+                  "userNotes": { "type": "string" },
+                  "lastReflectedOn": { "type": "timestamp" },
+                  "createdAt": { "type": "timestamp", "serverTimestamp": true },
+                  "updatedAt": { "type": "timestamp", "serverTimestamp": true }
+                }
+              }
+            },
+            "cultural": {
+              "type": "array",
+              "description": "Cultural identity elements",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "culturalDimension": { 
+                    "type": "string", 
+                    "enum": ["ethnicity", "nationality", "religion", "language", "socioeconomic", "family_structure", "gender", "orientation", "ability", "generation", "geography", "profession", "other"],
+                    "required": true 
+                  },
+                  "identification": { "type": "string", "required": true },
+                  "significance": { "type": "number", "minimum": 1, "maximum": 10, "required": true },
+                  "visibility": { 
+                    "type": "string", 
+                    "enum": ["public", "community", "mentors_only", "private"],
+                    "default": "private",
+                    "required": true 
+                  },
+                  "prideLevels": {
+                    "type": "object",
+                    "properties": {
+                      "heritage": { "type": "number", "minimum": 1, "maximum": 10 },
+                      "current_expression": { "type": "number", "minimum": 1, "maximum": 10 },
+                      "community_connection": { "type": "number", "minimum": 1, "maximum": 10 }
+                    }
+                  },
+                  "challenges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "challenge": { "type": "string" },
+                        "impact": { "type": "number", "minimum": 1, "maximum": 10 },
+                        "coping_strategies": { "type": "array", "items": { "type": "string" } },
+                        "support_needed": { "type": "array", "items": { "type": "string" } }
+                      }
+                    }
+                  },
+                  "strengths": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "strength": { "type": "string" },
+                        "impact": { "type": "number", "minimum": 1, "maximum": 10 },
+                        "how_expressed": { "type": "array", "items": { "type": "string" } },
+                        "community_value": { "type": "number", "minimum": 1, "maximum": 10 }
+                      }
+                    }
+                  },
+                  "intersectionalComplexity": {
+                    "type": "object",
+                    "properties": {
+                      "complexity_level": { "type": "number", "minimum": 1, "maximum": 10 },
+                      "intersecting_identities": { "type": "array", "items": { "type": "string" } },
+                      "unique_experiences": { "type": "array", "items": { "type": "string" } },
+                      "compound_effects": { "type": "array", "items": { "type": "string" } }
+                    }
+                  },
+                  "communityConnections": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "community_type": { "type": "string" },
+                        "connection_strength": { "type": "number", "minimum": 1, "maximum": 10 },
+                        "role_in_community": { "type": "string" },
+                        "contributions": { "type": "array", "items": { "type": "string" } },
+                        "support_received": { "type": "array", "items": { "type": "string" } }
+                      }
+                    }
+                  },
+                  "biasExperiences": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "bias_type": { "type": "string" },
+                        "frequency": { "type": "string" },
+                        "impact": { "type": "number", "minimum": 1, "maximum": 10 },
+                        "coping_mechanisms": { "type": "array", "items": { "type": "string" } },
+                        "advocacy_responses": { "type": "array", "items": { "type": "string" } }
+                      }
+                    }
+                  },
+                  "allyshipOpportunities": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "opportunity": { "type": "string" },
+                        "target_community": { "type": "string" },
+                        "actions_available": { "type": "array", "items": { "type": "string" } },
+                        "readiness_level": { "type": "number", "minimum": 1, "maximum": 10 }
+                      }
+                    }
+                  },
+                  "culturalWisdom": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "wisdom_source": { "type": "string" },
+                        "teaching": { "type": "string" },
+                        "application": { "type": "string" },
+                        "sharing_permission": { "type": "boolean", "default": false }
+                      }
+                    }
+                  },
+                  "safetyConsiderations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "consideration": { "type": "string" },
+                        "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
+                        "mitigation_strategies": { "type": "array", "items": { "type": "string" } },
+                        "support_resources": { "type": "array", "items": { "type": "string" } }
+                      }
+                    }
+                  },
+                  "createdAt": { "type": "timestamp", "serverTimestamp": true },
+                  "updatedAt": { "type": "timestamp", "serverTimestamp": true }
+                }
+              }
+            },
+            "aspirational": {
+              "type": "array",
+              "description": "Aspirational identity elements and goals",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "aspiration": { "type": "string", "required": true },
+                  "category": { 
+                    "type": "string", 
+                    "enum": ["personal_growth", "cultural_integration", "social_impact", "relationship_building", "skill_development", "leadership", "advocacy", "healing", "creativity"],
+                    "required": true 
+                  },
+                  "motivation": { "type": "string", "required": true },
+                  "currentGap": { "type": "string" },
+                  "culturalAlignment": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "socialImpactPotential": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "developmentPlan": {
+                    "type": "object",
+                    "properties": {
+                      "steps": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "step": { "type": "string" },
+                            "timeframe": { "type": "string" },
+                            "resources_needed": { "type": "array", "items": { "type": "string" } },
+                            "success_criteria": { "type": "array", "items": { "type": "string" } }
+                          }
+                        }
+                      },
+                      "timeline": { "type": "string" },
+                      "milestones": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "milestone": { "type": "string" },
+                            "target_date": { "type": "string" },
+                            "success_indicators": { "type": "array", "items": { "type": "string" } }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "obstacles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "obstacle": { "type": "string" },
+                        "impact": { "type": "number", "minimum": 1, "maximum": 10 },
+                        "mitigation_strategies": { "type": "array", "items": { "type": "string" } }
+                      }
+                    }
+                  },
+                  "supportNeeded": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "support_type": { "type": "string" },
+                        "description": { "type": "string" },
+                        "priority": { "type": "string", "enum": ["high", "medium", "low"] }
+                      }
+                    }
+                  },
+                  "isPublicGoal": { "type": "boolean", "default": false },
+                  "createdAt": { "type": "timestamp", "serverTimestamp": true },
+                  "updatedAt": { "type": "timestamp", "serverTimestamp": true }
+                }
+              }
+            },
+            "intersections": {
+              "type": "array",
+              "description": "Identity intersections and their significance",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "elements": { 
+                    "type": "array", 
+                    "description": "IDs of intersecting elements",
+                    "items": { "type": "string" },
+                    "required": true 
+                  },
+                  "intersectionType": { 
+                    "type": "string", 
+                    "enum": ["reinforcing", "challenging", "complex", "evolving", "hidden"],
+                    "required": true 
+                  },
+                  "description": { "type": "string", "required": true },
+                  "strength": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "visibility": { 
+                    "type": "string", 
+                    "enum": ["public", "community", "private"],
+                    "default": "private" 
+                  },
+                  "narrativeSignificance": { "type": "string" },
+                  "growthOpportunity": { "type": "string" },
+                  "biasRisk": {
+                    "type": "object",
+                    "properties": {
+                      "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
+                      "risk_factors": { "type": "array", "items": { "type": "string" } },
+                      "mitigation_strategies": { "type": "array", "items": { "type": "string" } }
+                    }
+                  },
+                  "empathyOpportunity": {
+                    "type": "object",
+                    "properties": {
+                      "opportunity": { "type": "string" },
+                      "target_population": { "type": "string" },
+                      "engagement_level": { "type": "string", "enum": ["awareness", "understanding", "action", "advocacy"] }
+                    }
+                  },
+                  "culturalNegotiation": {
+                    "type": "object",
+                    "properties": {
+                      "negotiation_areas": { "type": "array", "items": { "type": "string" } },
+                      "strategies": { "type": "array", "items": { "type": "string" } },
+                      "support_needed": { "type": "array", "items": { "type": "string" } }
+                    }
+                  },
+                  "createdAt": { "type": "timestamp", "serverTimestamp": true },
+                  "updatedAt": { "type": "timestamp", "serverTimestamp": true }
+                }
+              }
+            },
+            "hiddenElements": {
+              "type": "array",
+              "description": "Identity elements user isn't ready to explore publicly",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "category": { "type": "string", "required": true },
+                  "reason_hidden": { "type": "string" },
+                  "exploration_readiness": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "support_needed": { "type": "array", "items": { "type": "string" } },
+                  "safety_concerns": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            },
+            "evolutionTimeline": {
+              "type": "array",
+              "description": "How identity has evolved over time",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string", "required": true },
+                  "timeframe": { "type": "string", "required": true },
+                  "major_changes": { "type": "array", "items": { "type": "string" } },
+                  "catalysts": { "type": "array", "items": { "type": "string" } },
+                  "impact": { "type": "string" },
+                  "lessons_learned": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "biasReflections": {
+          "type": "array",
+          "description": "Bias awareness and reflection entries",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "required": true },
+              "promptId": { "type": "string", "required": true },
+              "userResponse": { "type": "string", "required": true },
+              "biasType": { 
+                "type": "string", 
+                "enum": ["implicit", "explicit", "confirmation", "cultural", "intersectional", "systemic"],
+                "required": true 
+              },
+              "biasCategory": { 
+                "type": "string", 
+                "enum": ["racial", "gender", "cultural", "socioeconomic", "ability", "age", "orientation", "religion", "appearance", "other"],
+                "required": true 
+              },
+              "detectionMethod": { 
+                "type": "string", 
+                "enum": ["ai_analysis", "self_reflection", "community_feedback", "mentor_guidance"],
+                "required": true 
+              },
+              "resolved": { "type": "boolean", "default": false },
+              "resolutionPath": {
+                "type": "object",
+                "properties": {
+                  "steps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "step": { "type": "string" },
+                        "completed": { "type": "boolean", "default": false },
+                        "completion_date": { "type": "timestamp" },
+                        "notes": { "type": "string" }
+                      }
+                    }
+                  },
+                  "timeframe": { "type": "string" },
+                  "support_needed": { "type": "array", "items": { "type": "string" } },
+                  "success_indicators": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "culturalContext": {
+                "type": "object",
+                "properties": {
+                  "cultural_factors": { "type": "array", "items": { "type": "string" } },
+                  "cultural_impact": { "type": "string" },
+                  "cultural_wisdom_applied": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "emotionalResponse": {
+                "type": "object",
+                "properties": {
+                  "initial_emotion": { "type": "string" },
+                  "emotional_journey": { "type": "array", "items": { "type": "string" } },
+                  "current_emotional_state": { "type": "string" },
+                  "emotional_support_needed": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "learningOutcome": {
+                "type": "object",
+                "properties": {
+                  "key_insights": { "type": "array", "items": { "type": "string" } },
+                  "behavior_changes": { "type": "array", "items": { "type": "string" } },
+                  "ongoing_commitments": { "type": "array", "items": { "type": "string" } },
+                  "sharing_permission": { "type": "boolean", "default": false }
+                }
+              },
+              "empathyConnection": {
+                "type": "object",
+                "properties": {
+                  "connection_made": { "type": "string" },
+                  "target_population": { "type": "string" },
+                  "empathy_growth": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "action_inspired": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "communityImpact": {
+                "type": "object",
+                "properties": {
+                  "potential_sharing": { "type": "boolean", "default": false },
+                  "community_learning_value": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "advocacy_potential": { "type": "number", "minimum": 1, "maximum": 10 }
+                }
+              },
+              "followUpScheduled": { "type": "timestamp" },
+              "supportResourcesUsed": { "type": "array", "items": { "type": "string" } },
+              "aiInsights": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "insight_type": { "type": "string" },
+                    "content": { "type": "string" },
+                    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+                    "cultural_context": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              },
+              "privacyLevel": { 
+                "type": "string", 
+                "enum": ["private", "mentor_shared", "community_anonymous", "public_learning"],
+                "default": "private" 
+              },
+              "triggerWarnings": { "type": "array", "items": { "type": "string" } },
+              "healingProgress": {
+                "type": "object",
+                "properties": {
+                  "healing_stage": { "type": "string" },
+                  "progress_indicators": { "type": "array", "items": { "type": "string" } },
+                  "support_received": { "type": "array", "items": { "type": "string" } },
+                  "next_healing_steps": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "date": { "type": "timestamp", "required": true },
+              "lastReflectedOn": { "type": "timestamp" }
+            }
+          }
+        },
+        "empathyGrowthScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Overall empathy growth score based on identity work",
+          "default": 5
+        },
+        "communityThreads": {
+          "type": "array",
+          "description": "References to community discussions and connections",
+          "items": {
+            "type": "string",
+            "description": "Document reference to community thread"
+          }
+        },
+        "narrativeEvolution": {
+          "type": "object",
+          "description": "Evolution of user's identity narrative",
+          "properties": {
+            "coreNarrative": { "type": "string" },
+            "evolutionStages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "stage": { "type": "string" },
+                  "timeframe": { "type": "string" },
+                  "key_themes": { "type": "array", "items": { "type": "string" } },
+                  "major_insights": { "type": "array", "items": { "type": "string" } },
+                  "growth_areas": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            },
+            "currentThemes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "theme": { "type": "string" },
+                  "significance": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "cultural_context": { "type": "array", "items": { "type": "string" } },
+                  "growth_potential": { "type": "number", "minimum": 1, "maximum": 10 }
+                }
+              }
+            },
+            "narrativeCoherence": { "type": "number", "minimum": 1, "maximum": 10 },
+            "narrativeComplexity": { "type": "number", "minimum": 1, "maximum": 10 },
+            "strengthNarratives": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "strength": { "type": "string" },
+                  "story": { "type": "string" },
+                  "impact": { "type": "string" },
+                  "sharing_permission": { "type": "boolean", "default": false }
+                }
+              }
+            },
+            "healingNarratives": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "healing_area": { "type": "string" },
+                  "journey": { "type": "string" },
+                  "wisdom_gained": { "type": "string" },
+                  "sharing_permission": { "type": "boolean", "default": false }
+                }
+              }
+            }
+          }
+        },
+        "culturalFluencyLevel": {
+          "type": "object",
+          "description": "Cultural fluency and cross-cultural competency",
+          "properties": {
+            "overallLevel": { "type": "number", "minimum": 1, "maximum": 10 },
+            "crossCulturalCompetency": { "type": "number", "minimum": 1, "maximum": 10 },
+            "culturalHumility": { "type": "number", "minimum": 1, "maximum": 10 },
+            "biasAwareness": { "type": "number", "minimum": 1, "maximum": 10 },
+            "empathicPerspectiveTaking": { "type": "number", "minimum": 1, "maximum": 10 },
+            "inclusiveAction": { "type": "number", "minimum": 1, "maximum": 10 },
+            "culturalBridgeBuilding": { "type": "number", "minimum": 1, "maximum": 10 },
+            "privilegeAwareness": { "type": "number", "minimum": 1, "maximum": 10 },
+            "allyshipSkills": { "type": "number", "minimum": 1, "maximum": 10 },
+            "intersectionalThinking": { "type": "number", "minimum": 1, "maximum": 10 },
+            "developmentAreas": { "type": "array", "items": { "type": "string" } },
+            "strengthAreas": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "socialAwarenessMetrics": {
+          "type": "object",
+          "description": "Social awareness and community engagement metrics",
+          "properties": {
+            "empathyGrowthScore": { "type": "number", "minimum": 1, "maximum": 10 },
+            "biasReductionScore": { "type": "number", "minimum": 1, "maximum": 10 },
+            "inclusionActionsCount": { "type": "number", "minimum": 0 },
+            "communityEngagementLevel": { "type": "number", "minimum": 1, "maximum": 10 },
+            "culturalBridgeBuildingInstances": { "type": "number", "minimum": 0 },
+            "marginalizedVoicesAmplified": { "type": "number", "minimum": 0 },
+            "allyshipActivations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "action": { "type": "string" },
+                  "target_community": { "type": "string" },
+                  "impact": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "date": { "type": "timestamp" }
+                }
+              }
+            },
+            "empathyExpansionMoments": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "moment": { "type": "string" },
+                  "empathy_target": { "type": "string" },
+                  "growth": { "type": "number", "minimum": 1, "maximum": 10 },
+                  "date": { "type": "timestamp" }
+                }
+              }
+            }
+          }
+        },
+        "privacySettings": {
+          "type": "object",
+          "description": "User privacy settings and controls",
+          "properties": {
+            "defaultVisibility": { 
+              "type": "string", 
+              "enum": ["public", "community", "mentors_only", "private"],
+              "default": "private" 
+            },
+            "biasReflectionSharing": { 
+              "type": "string", 
+              "enum": ["never", "anonymous_learning", "mentor_guidance", "community_support"],
+              "default": "never" 
+            },
+            "narrativeSharing": { 
+              "type": "string", 
+              "enum": ["private", "selective", "community", "public_advocacy"],
+              "default": "private" 
+            },
+            "culturalElementSharing": { 
+              "type": "string", 
+              "enum": ["protected", "selective", "community", "public_education"],
+              "default": "protected" 
+            },
+            "mentorshipVisibility": { "type": "boolean", "default": false },
+            "communityDiscourseParticipation": { 
+              "type": "string", 
+              "enum": ["anonymous", "pseudonym", "verified_identity"],
+              "default": "anonymous" 
+            },
+            "aiDataUsage": { 
+              "type": "string", 
+              "enum": ["minimal", "learning_enhancement", "community_benefit", "research_contribution"],
+              "default": "learning_enhancement" 
+            },
+            "rightToBeForgettenActivated": { "type": "boolean", "default": false }
+          }
+        },
+        "mentorshipConnections": {
+          "type": "array",
+          "description": "Mentorship relationships and connections",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "required": true },
+              "connectionType": { 
+                "type": "string", 
+                "enum": ["identity_mentor", "cultural_guide", "bias_accountability_partner", "empathy_coach", "narrative_witness", "intersectional_support"],
+                "required": true 
+              },
+              "connectionStatus": { 
+                "type": "string", 
+                "enum": ["requested", "matched", "active", "paused", "completed", "ended"],
+                "required": true 
+              },
+              "matchingScore": { "type": "number", "minimum": 0, "maximum": 1 },
+              "focusAreas": { "type": "array", "items": { "type": "string" } },
+              "culturalConsiderations": { "type": "array", "items": { "type": "string" } },
+              "boundariesAndExpectations": { "type": "array", "items": { "type": "string" } },
+              "startDate": { "type": "timestamp" },
+              "expectedDuration": { "type": "string" },
+              "lastInteraction": { "type": "timestamp" },
+              "isAnonymous": { "type": "boolean", "default": false }
+            }
+          }
+        },
+        "traumaInformedNotes": {
+          "type": "array",
+          "description": "Trauma-informed notes and considerations",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "required": true },
+              "type": { 
+                "type": "string", 
+                "enum": ["safety_check", "trigger_warning", "choice_emphasis", "strength_focus", "cultural_safety", "healing_support"],
+                "required": true 
+              },
+              "content": { "type": "string", "required": true },
+              "severity": { 
+                "type": "string", 
+                "enum": ["info", "caution", "important", "critical"],
+                "required": true 
+              },
+              "actionRequired": { "type": "boolean", "default": false },
+              "culturalConsiderations": { "type": "array", "items": { "type": "string" } },
+              "supportResources": { "type": "array", "items": { "type": "string" } },
+              "followUpRequired": { "type": "boolean", "default": false },
+              "createdAt": { "type": "timestamp", "serverTimestamp": true }
+            }
+          }
+        },
+        "createdAt": { "type": "timestamp", "serverTimestamp": true },
+        "updatedAt": { "type": "timestamp", "serverTimestamp": true },
+        "completedSections": { 
+          "type": "array", 
+          "items": { "type": "string" },
+          "description": "Sections of identity journey completed" 
+        },
+        "isActive": { "type": "boolean", "default": true }
+      }
+    },
+    "identity-hub-groups/{groupId}": {
+      "description": "Community groups for identity exploration and discourse",
+      "fields": {
+        "groupType": { 
+          "type": "string", 
+          "enum": ["cultural_affinity", "intersectional_support", "bias_accountability", "empathy_building", "narrative_sharing", "allyship_action", "healing_circles", "identity_exploration"],
+          "required": true 
+        },
+        "name": { "type": "string", "required": true },
+        "description": { "type": "string", "required": true },
+        "culturalFocusAreas": { "type": "array", "items": { "type": "string" } },
+        "identityDimensions": { "type": "array", "items": { "type": "string" } },
+        "participantCriteria": {
+          "type": "object",
+          "properties": {
+            "open_to_all": { "type": "boolean", "default": true },
+            "identity_requirements": { "type": "array", "items": { "type": "string" } },
+            "experience_requirements": { "type": "array", "items": { "type": "string" } },
+            "safety_requirements": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "privacyLevel": { 
+          "type": "string", 
+          "enum": ["anonymous", "pseudonymous", "verified", "invitation_only"],
+          "required": true 
+        },
+        "moderationLevel": { 
+          "type": "string", 
+          "enum": ["self_moderated", "peer_moderated", "professionally_moderated", "ai_assisted"],
+          "required": true 
+        },
+        "safetyProtocols": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "protocol": { "type": "string" },
+              "description": { "type": "string" },
+              "enforcement": { "type": "string" }
+            }
+          }
+        },
+        "culturalGuidelines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "guideline": { "type": "string" },
+              "cultural_context": { "type": "string" },
+              "examples": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "traumaInformedPractices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "practice": { "type": "string" },
+              "implementation": { "type": "string" },
+              "support_resources": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "participantCount": { "type": "number", "minimum": 0, "default": 0 },
+        "activeDiscussions": { "type": "number", "minimum": 0, "default": 0 },
+        "engagementLevel": { "type": "number", "minimum": 1, "maximum": 10, "default": 5 },
+        "impactMetrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metric": { "type": "string" },
+              "value": { "type": "number" },
+              "measurement_period": { "type": "string" },
+              "positive_impact": { "type": "boolean" }
+            }
+          }
+        },
+        "createdAt": { "type": "timestamp", "serverTimestamp": true },
+        "lastActive": { "type": "timestamp" },
+        "isActive": { "type": "boolean", "default": true }
+      }
+    },
+    "identity-hub-groups/{groupId}/discussions/{discussionId}": {
+      "description": "Community discussions within identity hub groups",
+      "fields": {
+        "authorId": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "content": { "type": "string", "required": true },
+        "discussionType": { 
+          "type": "string", 
+          "enum": ["narrative_sharing", "bias_processing", "cultural_exploration", "empathy_building", "intersectional_dialogue", "healing_support", "advocacy_planning", "celebration", "learning_together"],
+          "required": true 
+        },
+        "culturalContext": { "type": "array", "items": { "type": "string" } },
+        "identityDimensions": { "type": "array", "items": { "type": "string" } },
+        "contentWarnings": { "type": "array", "items": { "type": "string" } },
+        "aiModeration": {
+          "type": "object",
+          "properties": {
+            "moderation_score": { "type": "number", "minimum": 0, "maximum": 1 },
+            "flagged_content": { "type": "array", "items": { "type": "string" } },
+            "cultural_sensitivity": { "type": "number", "minimum": 0, "maximum": 1 },
+            "trauma_informed": { "type": "boolean" },
+            "bias_detected": { "type": "array", "items": { "type": "string" } },
+            "empathy_potential": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "responses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "required": true },
+              "authorId": { "type": "string", "required": true },
+              "content": { "type": "string", "required": true },
+              "responseType": { 
+                "type": "string", 
+                "enum": ["supportive_sharing", "empathy_offering", "wisdom_sharing", "resource_sharing", "challenge_with_care", "celebration", "healing_witness"],
+                "required": true 
+              },
+              "empathyLevel": { "type": "number", "minimum": 1, "maximum": 10 },
+              "supportLevel": { "type": "number", "minimum": 1, "maximum": 10 },
+              "learningContribution": { "type": "number", "minimum": 1, "maximum": 10 },
+              "healingPotential": { "type": "number", "minimum": 1, "maximum": 10 },
+              "connectionOffered": { "type": "boolean", "default": false },
+              "createdAt": { "type": "timestamp", "serverTimestamp": true }
+            }
+          }
+        },
+        "empathyMetrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metric": { "type": "string" },
+              "value": { "type": "number" },
+              "contributor": { "type": "string" }
+            }
+          }
+        },
+        "learningOutcomes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "outcome": { "type": "string" },
+              "participants_impacted": { "type": "number" },
+              "learning_type": { "type": "string" }
+            }
+          }
+        },
+        "culturalBridges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bridge_description": { "type": "string" },
+              "cultures_connected": { "type": "array", "items": { "type": "string" } },
+              "impact": { "type": "string" }
+            }
+          }
+        },
+        "supportOffered": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "support_type": { "type": "string" },
+              "description": { "type": "string" },
+              "provider": { "type": "string" },
+              "recipient": { "type": "string" }
+            }
+          }
+        },
+        "wisdomShared": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "wisdom": { "type": "string" },
+              "cultural_origin": { "type": "string" },
+              "application": { "type": "string" },
+              "sharer": { "type": "string" }
+            }
+          }
+        },
+        "visibility": { 
+          "type": "string", 
+          "enum": ["group_only", "cross_group", "platform_wide"],
+          "default": "group_only" 
+        },
+        "anonymityLevel": { 
+          "type": "string", 
+          "enum": ["fully_anonymous", "consistent_pseudonym", "verified_member"],
+          "required": true 
+        },
+        "engagementLevel": { "type": "number", "minimum": 1, "maximum": 10 },
+        "impactScore": { "type": "number", "minimum": 1, "maximum": 10 },
+        "culturalSensitivityScore": { "type": "number", "minimum": 0, "maximum": 1 },
+        "traumaInformedScore": { "type": "number", "minimum": 0, "maximum": 1 },
+        "createdAt": { "type": "timestamp", "serverTimestamp": true },
+        "lastUpdated": { "type": "timestamp", "serverTimestamp": true },
+        "isActive": { "type": "boolean", "default": true },
+        "isArchived": { "type": "boolean", "default": false }
+      }
+    }
+  }
+}

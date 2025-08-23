@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "projectName": "alchm",
+    "projectPath": "/Users/zadiewalker/Desktop/alchm",
+    "generated": "2025-08-21T08:14:17.253Z",
+    "toolVersion": "1.0.0"
+  },
+  "summary": {
+    "overallScore": 520,
+    "maxPossible": 600,
+    "healthPercentage": 87,
+    "totalFindings": 4,
+    "criticalIssues": 0,
+    "highIssues": 4,
+    "mediumIssues": 0,
+    "lowIssues": 0
+  },
+  "moduleScores": [
+    {
+      "module": "initialization",
+      "score": 110,
+      "maxScore": 100,
+      "percentage": 110,
+      "status": "good"
+    },
+    {
+      "module": "hosting",
+      "score": 90,
+      "maxScore": 100,
+      "percentage": 90,
+      "status": "good"
+    },
+    {
+      "module": "emulator",
+      "score": 65,
+      "maxScore": 100,
+      "percentage": 65,
+      "status": "fair"
+    },
+    {
+      "module": "build",
+      "score": 75,
+      "maxScore": 100,
+      "percentage": 75,
+      "status": "fair"
+    },
+    {
+      "module": "terminal",
+      "score": 70,
+      "maxScore": 100,
+      "percentage": 70,
+      "status": "fair"
+    },
+    {
+      "module": "security",
+      "score": 110,
+      "maxScore": 100,
+      "percentage": 110,
+      "status": "good"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "high",
+      "module": "hosting",
+      "title": "Local hosting failure",
+      "description": "HTTP 403",
+      "timestamp": "2025-08-21T08:12:58.384Z"
+    },
+    {
+      "severity": "high",
+      "module": "emulator",
+      "title": "Emulator startup failure",
+      "description": "Exit code 1: i  emulators: Shutting down emulators.\n\nError: Process `java -version` has exited with code 1. Please make sure Java is installed and on your system PATH.\n-----Original stdout-----\n-----Original stderr-----\nThe operation couldn’t be completed. Unable to locate a Java Runtime.\nPlease visit http://www.java.com for information on installing Java.\n\n\n",
+      "timestamp": "2025-08-21T08:13:01.041Z"
+    },
+    {
+      "severity": "high",
+      "module": "build",
+      "title": "Deployment issues",
+      "description": "spawnSync /bin/sh ETIMEDOUT",
+      "timestamp": "2025-08-21T08:14:07.888Z"
+    },
+    {
+      "severity": "high",
+      "module": "terminal",
+      "title": "Network connectivity",
+      "description": "Command failed: curl -I --connect-timeout 5 https://firebase.googleapis.com/\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0\ncurl: (28) SSL connection timeout\n",
+      "timestamp": "2025-08-21T08:14:15.265Z"
+    }
+  ],
+  "remediation": [],
+  "systemInfo": {
+    "nodeVersion": "v20.19.4",
+    "firebaseCLIVersion": "14.11.1",
+    "platform": "darwin",
+    "architecture": "x64"
+  },
+  "configFiles": [
+    {
+      "file": "firebase.json",
+      "exists": true,
+      "size": 1788
+    },
+    {
+      "file": ".firebaserc",
+      "exists": true,
+      "size": 138
+    },
+    {
+      "file": "package.json",
+      "exists": true,
+      "size": 2945
+    },
+    {
+      "file": "firestore.rules",
+      "exists": true,
+      "size": 13975
+    },
+    {
+      "file": "storage.rules",
+      "exists": true,
+      "size": 9475
+    }
+  ],
+  "testEndpoints": {
+    "local": {
+      "hosting": "http://localhost:5000",
+      "functions": "http://localhost:5001",
+      "firestore": "http://localhost:8080",
+      "auth": "http://localhost:9099"
+    },
+    "production": "https://alchm-digital-sanctuary.web.app"
+  }
+}

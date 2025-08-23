@@ -1,0 +1,24 @@
+# Firebase App Hosting Configuration for ALCHM
+# Next.js 15 + Firebase integration
+
+runConfig:
+  runtime: nodejs20
+  env:
+    - name: NODE_ENV
+      value: "production"
+    - name: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+      value: "alchm-digital-sanctuary"
+
+build:
+  commands:
+    - npm install
+    - npm run build
+
+serve:
+  staticAssets:
+    - source: ".next/static"
+      destination: "/_next/static"
+  appConfig:
+    runtime: nodejs20
+    entryPoint: ".next/standalone/server.js"
+    concurrency: 1000

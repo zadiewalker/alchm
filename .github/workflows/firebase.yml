@@ -1,0 +1,269 @@
+name: 🔥 ALCHM Firebase + Vercel CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths: 
+      - 'apps/web/**'
+      - 'functions/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/web/**' 
+      - 'functions/**'
+  release:
+    types: [published]
+
+env:
+  NODE_VERSION: '20'
+  FIREBASE_PROJECT_ID: 'alchm-digital-sanctuary'
+
+jobs:
+  # ============================================
+  # 🧪 TEST & VALIDATE
+  # ============================================
+  test:
+    name: 🧪 Test & Validate
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📋 Install dependencies
+        run: |
+          npm ci
+          cd functions && npm ci
+
+      - name: 🔍 Lint & Type Check
+        run: |
+          npm run lint
+          npm run typecheck
+
+      - name: 🧪 Run tests
+        run: |
+          npm test
+          cd functions && npm test
+
+      - name: 🏗️ Test build
+        run: npm run build
+
+      - name: 🔥 Firebase Studio diagnostic
+        run: node scripts/quick-firebase-studio-check.js
+
+  # ============================================
+  # 🌐 DEPLOY WEB TO VERCEL
+  # ============================================
+  deploy-web:
+    name: 🌐 Deploy Web App to Vercel
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/')
+    
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📋 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build web app
+        run: npm run build
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+
+      - name: 🚀 Deploy to Vercel
+        id: deploy
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          vercel-args: '--prod'
+
+      - name: 📊 Deployment Summary
+        run: |
+          echo "🌐 Web App deployed successfully!"
+          echo "🔗 URL: ${{ steps.deploy.outputs.url }}"
+
+  # ============================================
+  # 🔥 DEPLOY FIREBASE FUNCTIONS
+  # ============================================
+  deploy-firebase:
+    name: 🔥 Deploy Firebase Functions
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.event_name == 'release'
+
+    environment:
+      name: production
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📋 Install dependencies
+        run: |
+          npm ci
+          cd functions && npm ci
+
+      - name: 🏗️ Build functions
+        run: cd functions && npm run build
+
+      - name: 🔑 Authenticate with Firebase
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 🔧 Setup Firebase CLI
+        uses: w9jds/setup-firebase@main
+        with:
+          tools: cli
+          firebase_token: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: 🔥 Deploy to Firebase
+        run: |
+          firebase use ${{ env.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --only functions --token ${{ secrets.FIREBASE_TOKEN }} --force
+
+      - name: 📊 Firebase Deployment Summary
+        run: |
+          echo "🔥 Firebase Functions deployed successfully!"
+          echo "🎯 Project: ${{ env.FIREBASE_PROJECT_ID }}"
+
+  # ============================================
+  # 🔥 DEPLOY FIREBASE HOSTING (Backup)
+  # ============================================
+  deploy-firebase-hosting:
+    name: 🔥 Deploy Firebase Hosting (Backup)
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'release'
+
+    environment:
+      name: production-backup
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📋 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build for Firebase Hosting
+        run: |
+          npm run build:firebase
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+          NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+
+      - name: 🔑 Authenticate with Firebase
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: 🔧 Setup Firebase CLI
+        uses: w9jds/setup-firebase@main
+        with:
+          tools: cli
+          firebase_token: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: 🔥 Deploy to Firebase Hosting
+        run: |
+          firebase use ${{ env.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
+
+  # ============================================
+  # 📱 TRIGGER MOBILE BUILDS (Optional)
+  # ============================================
+  trigger-mobile-builds:
+    name: 📱 Trigger Mobile App Builds
+    runs-on: ubuntu-latest
+    needs: [deploy-web, deploy-firebase]
+    if: github.event_name == 'release'
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📱 Trigger iOS Build
+        run: |
+          echo "🍎 iOS build would be triggered here"
+          # Add your iOS build trigger logic (e.g., Fastlane, Xcode Cloud)
+
+      - name: 🤖 Trigger Android Build  
+        run: |
+          echo "🤖 Android build would be triggered here"
+          # Add your Android build trigger logic (e.g., Fastlane, Play Console)
+
+  # ============================================
+  # 📊 DEPLOYMENT NOTIFICATIONS
+  # ============================================
+  notify:
+    name: 📊 Deployment Notifications
+    runs-on: ubuntu-latest
+    needs: [deploy-web, deploy-firebase]
+    if: always()
+
+    steps:
+      - name: 📊 Success Notification
+        if: needs.deploy-web.result == 'success' && needs.deploy-firebase.result == 'success'
+        run: |
+          echo "🎉 ALCHM deployment completed successfully!"
+          echo "🌐 Web: Deployed to Vercel"
+          echo "🔥 Functions: Deployed to Firebase"
+          
+      - name: ❌ Failure Notification
+        if: needs.deploy-web.result == 'failure' || needs.deploy-firebase.result == 'failure'
+        run: |
+          echo "❌ ALCHM deployment failed!"
+          echo "🌐 Web Status: ${{ needs.deploy-web.result }}"
+          echo "🔥 Firebase Status: ${{ needs.deploy-firebase.result }}"
+
+      # Optional: Add Slack/Discord notifications
+      # - name: 📢 Slack Notification
+      #   uses: 8398a7/action-slack@v3
+      #   with:
+      #     status: ${{ job.status }}
+      #     webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #   if: always()

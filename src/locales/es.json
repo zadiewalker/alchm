@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Bienvenido a casa",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Intentar de nuevo",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "journals": "Diarios",
+    "reflection": "Reflexión",
+    "khepera": "KHEPERA",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "onboarding": {
+    "title": "Bienvenido a Tu Santuario Digital",
+    "subtitle": "Un espacio consciente del trauma para sanación, reflexión y crecimiento",
+    "intro": "Has entrado a un santuario digital sagrado.",
+    "reflection_prompt": "Comienza tu primera reflexión del corazón",
+    "contract": "Tu historia es sagrada. Tu crecimiento te pertenece solo a ti.",
+    "disclaimer": "ALCHM es terapéutico, pero no es terapia profesional.",
+    "crisis": "Si estás en crisis, por favor busca ayuda ahora mismo.",
+    "step1": {
+      "title": "Elige Tu Idioma",
+      "description": "ALCHM habla tu idioma, honra tu cultura"
+    },
+    "step2": {
+      "title": "Establece Tu Intención",
+      "description": "¿Qué te trae a este espacio sagrado?"
+    },
+    "step3": {
+      "title": "Conoce a KHEPERA",
+      "description": "Tu compañero de IA para inteligencia emocional y crecimiento"
+    },
+    "getStarted": "Comienza Tu Viaje Sagrado"
+  },
+  "culturalGreetings": {
+    "morning": "Buenos días, alma hermosa",
+    "afternoon": "Buenas tardes, corazón valiente", 
+    "evening": "Buenas noches, ser luminoso",
+    "night": "Descansa bien, espíritu querido"
+  },
+  "sacredLanguage": {
+    "blessing": "Que tu camino esté lleno de luz y sanación",
+    "protection": "Este es tu espacio sagrado y protegido",
+    "growth": "Tu evolución espiritual es honrada aquí",
+    "community": "Perteneces a esta comunidad de corazones sanadores"
+  }
+}

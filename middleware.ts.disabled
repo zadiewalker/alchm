@@ -1,0 +1,40 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { auth } from '@/lib/firebaseAdmin';
+
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const sessionCookie = req.cookies.get('alchm_session')?.value;
+
+  // List of routes that require authentication
+  const protectedRoutes = ['/dashboard', '/journal', '/profile', '/settings'];
+
+  // If accessing a protected route without a cookie → redirect to login
+  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+    if (!sessionCookie) {
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
+
+    try {
+      // Verify Firebase Admin session cookie
+      await auth.verifySessionCookie(sessionCookie, true);
+      return NextResponse.next();
+    } catch (error) {
+      console.error('Invalid session cookie:', error);
+      return NextResponse.redirect(new URL('/login', req.url));
+    }
+  }
+
+  // Allow access to non-protected routes
+  return NextResponse.next();
+}
+
+// Middleware should only run on these routes
+export const config = {
+  matcher: [
+    '/dashboard/:path*',
+    '/journal/:path*',
+    '/profile/:path*',
+    '/settings/:path*',
+  ],
+};

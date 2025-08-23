@@ -1,0 +1,706 @@
+/* ALCHM Social Justice Reflection Interface Styles */
+/* Trauma-informed design for justice education and critical consciousness building */
+
+/* ===== SOCIAL JUSTICE REFLECTION FOUNDATION ===== */
+
+.social-justice-reflection-interface {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(247, 247, 242, 0.95) 0%,
+    rgba(238, 221, 211, 0.98) 50%,
+    rgba(240, 244, 237, 0.95) 100%
+  );
+  padding: var(--space-ritual);
+}
+
+/* ===== JUSTICE CIRCLE HEADER ===== */
+
+.justice-circle-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--space-ritual);
+}
+
+.justice-circle-header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle at center,
+    rgba(164, 183, 146, 0.1) 0%,
+    rgba(203, 153, 126, 0.05) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.justice-circle-title {
+  background: linear-gradient(
+    135deg,
+    var(--color-warm-terra) 0%,
+    var(--color-primary) 50%,
+    var(--color-soft-blush) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== SACRED AGREEMENTS SECTION ===== */
+
+.sacred-agreements {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.3) 0%,
+    rgba(238, 221, 211, 0.1) 100%
+  );
+  border: 1px solid rgba(203, 153, 126, 0.2);
+  border-radius: var(--radius-gentle);
+  backdrop-filter: blur(8px);
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.sacred-agreements:hover {
+  border-color: rgba(203, 153, 126, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.4) 0%,
+    rgba(238, 221, 211, 0.2) 100%
+  );
+}
+
+.sacred-agreements-content {
+  animation: fadeInUp var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.sacred-agreements ul li {
+  position: relative;
+  padding-left: var(--space-gentle);
+}
+
+.sacred-agreements ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, var(--color-warm-terra), var(--color-soft-blush));
+  border-radius: 50%;
+}
+
+/* ===== TIME SELECTION GRID ===== */
+
+.time-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-breath);
+}
+
+.time-option {
+  position: relative;
+  overflow: hidden;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.time-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(164, 183, 146, 0.1) 50%,
+    transparent 100%
+  );
+  transition: left var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.time-option:hover::before {
+  left: 100%;
+}
+
+.time-option.selected {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 20px rgba(164, 183, 146, 0.2),
+    0 0 0 1px var(--color-primary);
+}
+
+/* ===== FOCUS AREA SELECTION ===== */
+
+.focus-area-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-breath);
+}
+
+.focus-area-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.focus-area-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(164, 183, 146, 0.05) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.focus-area-card:hover::after {
+  opacity: 1;
+}
+
+.focus-area-card.selected {
+  border-color: var(--color-primary);
+  background: var(--emotion-celebrating);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.2);
+}
+
+.focus-area-icon {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.focus-area-card:hover .focus-area-icon {
+  transform: scale(1.1);
+  color: var(--color-warm-terra);
+}
+
+/* ===== SAFETY ACKNOWLEDGMENT ===== */
+
+.safety-acknowledgment {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(249, 246, 241, 0.9) 0%,
+    rgba(240, 244, 237, 0.95) 100%
+  );
+  border: 2px solid rgba(164, 183, 146, 0.3);
+  border-radius: var(--radius-gentle);
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 32px rgba(164, 183, 146, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.safety-acknowledgment::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.3) 0%,
+    rgba(203, 153, 126, 0.2) 50%,
+    rgba(238, 221, 211, 0.3) 100%
+  );
+  border-radius: var(--radius-gentle);
+  z-index: -1;
+}
+
+.safety-points {
+  list-style: none;
+  padding: 0;
+}
+
+.safety-points li {
+  position: relative;
+  padding-left: var(--space-gentle);
+  margin-bottom: var(--space-whisper);
+}
+
+.safety-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  background: var(--color-warm-terra);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(203, 153, 126, 0.4);
+}
+
+/* ===== ACTIVITY HEADER ===== */
+
+.activity-header {
+  position: relative;
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  overflow: hidden;
+}
+
+.activity-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-warm-terra) 0%,
+    var(--color-primary) 50%,
+    var(--color-soft-blush) 100%
+  );
+}
+
+.activity-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-whisper);
+  padding: var(--space-whisper) var(--space-breath);
+  background: rgba(203, 153, 126, 0.1);
+  color: var(--color-warm-terra);
+  border-radius: var(--radius-breath);
+  font-size: var(--text-whisper);
+  font-weight: var(--weight-presence);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== MAIN PROMPT STYLING ===== */
+
+.sacred-invitation {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.3) 0%,
+    rgba(238, 221, 211, 0.1) 100%
+  );
+  border-left: 4px solid;
+  border-image: linear-gradient(
+    to bottom,
+    var(--color-warm-terra),
+    var(--color-soft-blush)
+  ) 1;
+  border-radius: 0 var(--radius-gentle) var(--radius-gentle) 0;
+  padding: var(--space-gentle);
+}
+
+.sacred-invitation::before {
+  content: '"';
+  position: absolute;
+  top: -8px;
+  left: var(--space-breath);
+  font-size: 3rem;
+  color: var(--color-warm-terra);
+  opacity: 0.3;
+  font-family: serif;
+  line-height: 1;
+}
+
+.sacred-invitation::after {
+  content: '"';
+  position: absolute;
+  bottom: -16px;
+  right: var(--space-breath);
+  font-size: 3rem;
+  color: var(--color-warm-terra);
+  opacity: 0.3;
+  font-family: serif;
+  line-height: 1;
+}
+
+/* ===== REFLECTION PATHWAYS ===== */
+
+.reflection-pathways {
+  space-y: var(--space-gentle);
+}
+
+.pathway-question {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.pathway-question:hover {
+  transform: translateX(var(--space-whisper));
+}
+
+.pathway-number {
+  position: relative;
+  background: var(--emotion-celebrating);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--weight-presence);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.pathway-question:hover .pathway-number {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.reflection-textarea {
+  font-family: var(--font-sacred-primary);
+  font-size: var(--text-breath);
+  line-height: var(--leading-spacious);
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+  resize: vertical;
+  min-height: 120px;
+}
+
+.reflection-textarea:focus {
+  border-color: var(--color-primary);
+  background: var(--emotion-reflecting);
+  box-shadow: 
+    0 0 0 3px rgba(164, 183, 146, 0.1),
+    0 4px 12px rgba(164, 183, 146, 0.1);
+  outline: none;
+}
+
+.reflection-textarea::placeholder {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* ===== EXPANDABLE SECTIONS ===== */
+
+.expandable-section {
+  border-radius: var(--radius-gentle);
+  overflow: hidden;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.expandable-section.safety {
+  background: rgba(249, 246, 241, 0.3);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+}
+
+.expandable-section.actions {
+  background: rgba(164, 183, 146, 0.1);
+  border: 1px solid rgba(164, 183, 146, 0.3);
+}
+
+.expandable-header {
+  cursor: pointer;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.expandable-header:hover {
+  background: rgba(164, 183, 146, 0.05);
+}
+
+.expandable-content {
+  animation: slideDown var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+.expandable-list {
+  list-style: none;
+  padding: 0;
+}
+
+.expandable-list li {
+  position: relative;
+  padding-left: var(--space-gentle);
+  margin-bottom: var(--space-whisper);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.expandable-list li:hover {
+  transform: translateX(var(--space-whisper));
+}
+
+/* ===== ACTION BUTTONS ===== */
+
+.reflection-actions {
+  border-top: 1px solid var(--color-healing-mist);
+  padding-top: var(--space-gentle);
+  margin-top: var(--space-ritual);
+}
+
+.reflection-actions .sacred-button {
+  position: relative;
+  overflow: hidden;
+  font-weight: var(--weight-presence);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.reflection-actions .sacred-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transform: translateY(-50%);
+  transition: left var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.reflection-actions .sacred-button:hover::before {
+  left: 100%;
+}
+
+.reflection-actions .sacred-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.reflection-actions .sacred-button:disabled::before {
+  display: none;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 1024px) {
+  .focus-area-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .time-selection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .social-justice-reflection-interface {
+    padding: var(--space-gentle);
+  }
+  
+  .time-selection-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .reflection-actions {
+    flex-direction: column;
+  }
+  
+  .reflection-actions .sacred-button {
+    width: 100%;
+  }
+  
+  .activity-header {
+    padding: var(--space-breath);
+  }
+  
+  .sacred-invitation {
+    padding: var(--space-breath);
+  }
+  
+  .sacred-invitation::before,
+  .sacred-invitation::after {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pathway-question {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-breath);
+  }
+  
+  .pathway-number {
+    align-self: flex-start;
+  }
+  
+  .reflection-textarea {
+    min-height: 100px;
+    font-size: var(--text-breath);
+  }
+  
+  .expandable-list li {
+    padding-left: var(--space-breath);
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .social-justice-reflection-interface *,
+  .expandable-content,
+  .reflection-textarea,
+  .focus-area-card,
+  .time-option {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .time-option::before,
+  .focus-area-card::after,
+  .reflection-actions .sacred-button::before {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .safety-acknowledgment {
+    border-width: 3px;
+  }
+  
+  .activity-header::before {
+    height: 4px;
+  }
+  
+  .sacred-invitation {
+    border-left-width: 6px;
+  }
+  
+  .expandable-section {
+    border-width: 2px;
+  }
+  
+  .reflection-textarea:focus {
+    border-width: 3px;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .social-justice-reflection-interface {
+    background: white;
+    padding: 1rem;
+  }
+  
+  .expandable-section,
+  .reflection-actions,
+  .time-selection-grid {
+    display: none;
+  }
+  
+  .activity-header,
+  .sacred-invitation,
+  .reflection-textarea {
+    border: 2px solid #000;
+    background: white;
+    page-break-inside: avoid;
+  }
+  
+  .reflection-textarea {
+    min-height: 200px;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  .pathway-question {
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }
+}
+
+/* ===== DARK MODE ADAPTATIONS ===== */
+
+@media (prefers-color-scheme: dark) {
+  .social-justice-reflection-interface {
+    background: linear-gradient(
+      135deg,
+      rgba(26, 26, 22, 0.95) 0%,
+      rgba(42, 35, 30, 0.98) 50%,
+      rgba(34, 34, 28, 0.95) 100%
+    );
+  }
+  
+  .activity-header,
+  .expandable-section,
+  .reflection-textarea {
+    background: rgba(26, 26, 22, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+  }
+  
+  .sacred-invitation {
+    background: linear-gradient(
+      135deg,
+      rgba(203, 153, 126, 0.1) 0%,
+      rgba(203, 153, 126, 0.05) 100%
+    );
+  }
+  
+  .safety-acknowledgment {
+    background: linear-gradient(
+      135deg,
+      rgba(42, 42, 36, 0.9) 0%,
+      rgba(34, 34, 28, 0.95) 100%
+    );
+    border-color: rgba(164, 183, 146, 0.3);
+  }
+  
+  .focus-area-card,
+  .time-option {
+    background: rgba(26, 26, 22, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+  }
+  
+  .focus-area-card.selected,
+  .time-option.selected {
+    background: rgba(164, 183, 146, 0.1);
+    border-color: var(--color-primary);
+  }
+}
+
+/* ===== SACRED STILLNESS EMPHASIS ===== */
+
+.social-justice-reflection-interface * {
+  /* Gentle, non-aggressive interactions throughout */
+  transition-timing-function: var(--ease-sacred-flow);
+}
+
+/* No jarring or sudden state changes */
+.social-justice-reflection-interface input,
+.social-justice-reflection-interface button,
+.social-justice-reflection-interface textarea {
+  transition-duration: var(--timing-breath);
+}
+
+/* Sacred hover states - subtle and respectful */
+.social-justice-reflection-interface button:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus states that don't startle */
+.social-justice-reflection-interface *:focus {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+/* Ensuring all interactions honor the contemplative pace */
+.social-justice-reflection-interface .sacred-button {
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+}

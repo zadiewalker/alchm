@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Káàbọ̀ sí ilé",
+    "loading": "Ń gbé sórí...", 
+    "error": "Nkankań ti ṣẹlẹ̀",
+    "retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+    "cancel": "Parí rẹ̀",
+    "continue": "Tẹ̀síwájú", 
+    "back": "Padà",
+    "next": "Tókàn",
+    "save": "Fi pamọ́",
+    "delete": "Pa rẹ̀",
+    "edit": "Ṣàtúnṣe", 
+    "close": "Ti",
+    "yes": "Bẹ́ẹ̀ni",
+    "no": "Rárá"
+  },
+  "navigation": {
+    "home": "Ilé",
+    "journals": "Ìwé-ìròyìn",
+    "reflection": "Ìrònú",
+    "khepera": "KHEPERA",
+    "profile": "Àpèjúwe",
+    "settings": "Ètò",
+    "logout": "Jáde"
+  },
+  "onboarding": {
+    "title": "Káàbọ̀ Sí Ibi Mímọ́ Rẹ Ti Ayélujára",
+    "subtitle": "Àyè tí a mọ̀ nípa ìpalára fún ìwòsàn, ìrònú àti ìdàgbàsókè", 
+    "intro": "O ti wọ inú ibi mímọ́ ayélujára kan.",
+    "reflection_prompt": "Bẹ̀rẹ̀ ìrònú àkọ́kọ́ rẹ ti ẹ̀mí",
+    "contract": "Ìtàn rẹ jẹ́ mímọ́. Ìdàgbàsókè rẹ jẹ́ tirẹ nìkan.",
+    "disclaimer": "ALCHM jẹ́ ìtọ́jú, ṣùgbọ́n kì í ṣe ìtọ́jú alágbàtó.",
+    "crisis": "Tí o bá wà nínú ìpọ́njú, jọ̀wọ́ wa ìrànlọ́wọ́ nísinsin yìí.",
+    "step1": {
+      "title": "Yan Èdè Rẹ",
+      "description": "ALCHM ń sọ èdè rẹ, ó sì bọ̀wọ̀ fún àṣà rẹ"
+    },
+    "step2": {
+      "title": "Gbé Èrò Rẹ Kalẹ̀",
+      "description": "Kíni ó mú ọ wá sí àyè mímọ́ yìí?"
+    },
+    "step3": {
+      "title": "Pàdé KHEPERA",
+      "description": "Ẹlẹgbẹ́ AI rẹ fún ọgbọ́n ẹ̀dùn àti ìdàgbàsókè"
+    },
+    "getStarted": "Bẹ̀rẹ̀ Ìrìn-àjò Mímọ́ Rẹ"
+  },
+  "culturalGreetings": {
+    "morning": "Kú àárọ̀, ẹ̀mí rẹwà",
+    "afternoon": "Kú ọ̀sán, ọkàn akíkanjú",
+    "evening": "Kú alẹ́, ènìyàn tí ń tàn ìmọ́lẹ̀", 
+    "night": "Sun dáadáa, ẹ̀mí olùfẹ́"
+  },
+  "sacredLanguage": {
+    "blessing": "Kí ọ̀nà rẹ kún fún ìmọ́lẹ̀ àti ìwòsàn",
+    "protection": "Èyí ni àyè mímọ́ àti aabo rẹ",
+    "growth": "A bọ̀wọ̀ fún ìdàgbàsókè ẹ̀mí rẹ níhìn-ín",
+    "community": "O jẹ́ ara àwùjọ yìí ti àwọn ọkàn apòrànná"
+  }
+}

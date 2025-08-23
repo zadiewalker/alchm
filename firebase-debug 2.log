@@ -1,0 +1,21 @@
+[debug] [2025-07-29T04:25:08.068Z] ----------------------------------------------------------------------
+[debug] [2025-07-29T04:25:08.071Z] Command:       /Users/zadiewalker/.nvm/versions/node/v20.19.4/bin/node /Users/zadiewalker/.nvm/versions/node/v20.19.4/bin/firebase hosting:channel:deploy preview-ssr
+[debug] [2025-07-29T04:25:08.072Z] CLI Version:   14.11.1
+[debug] [2025-07-29T04:25:08.072Z] Platform:      darwin
+[debug] [2025-07-29T04:25:08.072Z] Node Version:  v20.19.4
+[debug] [2025-07-29T04:25:08.072Z] Time:          Tue Jul 29 2025 00:25:08 GMT-0400 (Eastern Daylight Time)
+[debug] [2025-07-29T04:25:08.072Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-29T04:25:08.333Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-29T04:25:08.334Z] > authorizing via signed-in user (zadiewalker@gmail.com)
+[debug] [2025-07-29T04:25:08.334Z] [iam] checking project alchm-digital-sanctuary for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-07-29T04:25:08.335Z] Checked if tokens are valid: false, expires at: 1753721698562
+[debug] [2025-07-29T04:25:08.335Z] Checked if tokens are valid: false, expires at: 1753721698562
+[debug] [2025-07-29T04:25:08.336Z] > refreshing access token with scopes: []
+[debug] [2025-07-29T04:25:08.338Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-29T04:25:08.338Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-29T04:25:08.537Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-07-29T04:25:08.537Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-29T04:25:08.582Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions [none]
+[debug] [2025-07-29T04:25:08.582Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions x-goog-quota-user=projects/alchm-digital-sanctuary
+[debug] [2025-07-29T04:25:08.582Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/alchm-digital-sanctuary:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

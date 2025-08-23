@@ -1,0 +1,396 @@
+// ALCHM Sacred UX Grammar - Design System Foundation
+// A living doctrine of emotional interface design
+
+// ===== SACRED COLOR PALETTE =====
+
+:root {
+  // Primary Sacred Palette
+  --sacred-canvas: #f7f7f2;      // Digital breath baseline
+  --grounding-earth: #cb997e;     // Warmth and stability
+  --tender-embrace: #eeddd3;      // Gentle comfort
+  --deep-presence: #3a3a3a;       // Grounded authority
+  --healing-mist: #f0f4f1;        // Tranquil moments
+  
+  // Extended Emotional Palette
+  --sanctuary-white: #fefefe;     // Pure digital light
+  --wisdom-bronze: #b8860b;       // Ancient knowledge
+  --soul-lavender: #e6e6fa;       // Spiritual connection
+  --compassion-rose: #f4c2c2;     // Loving kindness
+  --strength-sage: #9caf88;       // Resilient growth
+  
+  // Semantic Color Mapping
+  --color-primary: var(--grounding-earth);
+  --color-secondary: var(--tender-embrace);
+  --color-background: var(--sacred-canvas);
+  --color-surface: var(--sanctuary-white);
+  --color-text: var(--deep-presence);
+  --color-text-subtle: #6b7280;
+  --color-text-muted: #9ca3af;
+  
+  // Sacred State Colors
+  --color-success: var(--strength-sage);
+  --color-warning: var(--wisdom-bronze);
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+}
+
+// ===== SACRED SPACING SYSTEM =====
+
+:root {
+  // Sacred Spacing Scale (based on breathing rhythms)
+  --space-whisper: 4px;    // Intimate details
+  --space-gentle: 8px;     // Subtle element spacing
+  --space-breath: 16px;    // Comfortable spacing
+  --space-ritual: 24px;    // Intentional separation
+  --space-sacred: 32px;    // Primary content breathing room
+  --space-pause: 48px;     // Thoughtful transitions
+  --space-sanctuary: 64px; // Major section breaks
+  --space-vast: 96px;      // Page-level breathing room
+}
+
+// ===== SACRED TYPOGRAPHY =====
+
+:root {
+  // Font Families
+  --font-primary: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-secondary: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  --font-accent: 'Inter', 'Helvetica Neue', sans-serif;
+  
+  // Sacred Letter Spacing (expanded for breath)
+  --letter-breath-deep: 0.05em;    // Headlines and sacred moments
+  --letter-breath-gentle: 0.02em;  // Body text breathing room
+  --letter-breath-whisper: 0.01em; // Subtle details
+  
+  // Sacred Line Heights (generous for emotional safety)
+  --line-sacred: 1.618;    // Golden ratio for primary content
+  --line-gentle: 1.5;      // Comfortable reading
+  --line-intimate: 1.4;    // Compact but not cramped
+  
+  // Font Weights
+  --weight-whisper: 300;   // Light, gentle presence
+  --weight-breath: 400;    // Regular, natural flow
+  --weight-presence: 500;  // Medium, confident
+  --weight-sacred: 600;    // Semibold, intentional
+  --weight-deep: 700;      // Bold, grounding
+}
+
+// ===== SACRED TYPOGRAPHY CLASSES =====
+
+.sacred-text {
+  &--hero {
+    font-family: var(--font-primary);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: var(--weight-deep);
+    line-height: var(--line-intimate);
+    letter-spacing: var(--letter-breath-deep);
+    color: var(--deep-presence);
+    
+    @media (prefers-reduced-motion: no-preference) {
+      background: linear-gradient(135deg, var(--deep-presence) 0%, var(--grounding-earth) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  &--title {
+    font-family: var(--font-primary);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: var(--weight-sacred);
+    line-height: var(--line-gentle);
+    letter-spacing: var(--letter-breath-gentle);
+    color: var(--deep-presence);
+  }
+  
+  &--body {
+    font-family: var(--font-secondary);
+    font-size: 1.125rem;
+    font-weight: var(--weight-breath);
+    line-height: var(--line-sacred);
+    letter-spacing: var(--letter-breath-gentle);
+    color: var(--color-text);
+  }
+  
+  &--caption {
+    font-family: var(--font-accent);
+    font-size: 0.875rem;
+    font-weight: var(--weight-whisper);
+    line-height: var(--line-gentle);
+    letter-spacing: var(--letter-breath-whisper);
+    color: var(--color-text-subtle);
+  }
+  
+  &--sacred {
+    font-family: var(--font-secondary);
+    font-size: 1.25rem;
+    font-weight: var(--weight-presence);
+    line-height: var(--line-sacred);
+    letter-spacing: var(--letter-breath-deep);
+    color: var(--grounding-earth);
+    font-style: italic;
+  }
+}
+
+// ===== SACRED LAYOUT FOUNDATIONS =====
+
+.sacred-container {
+  max-width: 680px;  // Optimal reading measure
+  margin: 0 auto;
+  padding: var(--space-sacred);
+  background: var(--sacred-canvas);
+  
+  // Gentle content flow
+  > * + * {
+    margin-top: var(--space-ritual);
+  }
+}
+
+.ritual-section {
+  padding: var(--space-sanctuary) 0;
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(203, 153, 126, 0.1);
+  }
+}
+
+// ===== SACRED CARD COMPONENTS =====
+
+.ritual-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: var(--space-ritual);
+  border: 1px solid rgba(238, 221, 211, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  
+  // Breathing animation
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.08),
+      0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+  
+  // Sacred card variants
+  &--gentle {
+    background: rgba(240, 244, 241, 0.6);
+    border-color: rgba(156, 175, 136, 0.2);
+  }
+  
+  &--warm {
+    background: rgba(238, 221, 211, 0.6);
+    border-color: rgba(203, 153, 126, 0.2);
+  }
+  
+  &--sacred {
+    background: linear-gradient(135deg, 
+      rgba(238, 221, 211, 0.3) 0%, 
+      rgba(240, 244, 241, 0.3) 100%);
+    border: 2px solid rgba(203, 153, 126, 0.2);
+  }
+}
+
+// ===== SACRED BUTTON SYSTEM =====
+
+.sacred-button {
+  // Base styling
+  font-family: var(--font-primary);
+  font-weight: var(--weight-presence);
+  letter-spacing: var(--letter-breath-gentle);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // Focus management
+  &:focus-visible {
+    outline: 2px solid var(--grounding-earth);
+    outline-offset: 2px;
+  }
+  
+  // Sacred button sizes
+  &--intimate {
+    padding: var(--space-gentle) var(--space-breath);
+    font-size: 0.875rem;
+  }
+  
+  &--comfortable {
+    padding: var(--space-breath) var(--space-ritual);
+    font-size: 1rem;
+  }
+  
+  &--spacious {
+    padding: var(--space-ritual) var(--space-sacred);
+    font-size: 1.125rem;
+  }
+  
+  // Sacred button intentions
+  &--primary {
+    background: linear-gradient(135deg, var(--grounding-earth) 0%, #a67c52 100%);
+    color: white;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(203, 153, 126, 0.4);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  &--gentle {
+    background: var(--tender-embrace);
+    color: var(--deep-presence);
+    
+    &:hover {
+      background: #e5d5c8;
+      transform: translateY(-1px);
+    }
+  }
+  
+  &--grounding {
+    background: transparent;
+    color: var(--grounding-earth);
+    border: 2px solid var(--grounding-earth);
+    
+    &:hover {
+      background: var(--grounding-earth);
+      color: white;
+    }
+  }
+  
+  &--release {
+    background: transparent;
+    color: var(--color-text-subtle);
+    
+    &:hover {
+      color: var(--deep-presence);
+      background: rgba(58, 58, 58, 0.05);
+    }
+  }
+}
+
+// ===== SACRED FORM ELEMENTS =====
+
+.sacred-input {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: var(--weight-breath);
+  line-height: var(--line-gentle);
+  padding: var(--space-breath) var(--space-ritual);
+  border: 2px solid rgba(203, 153, 126, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--grounding-earth);
+    box-shadow: 0 0 0 3px rgba(203, 153, 126, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  &--sacred {
+    min-height: 120px;
+    resize: vertical;
+    font-family: var(--font-secondary);
+    line-height: var(--line-sacred);
+  }
+}
+
+// ===== SACRED ANIMATIONS =====
+
+@keyframes gentle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+// Respect motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ===== SACRED UTILITY CLASSES =====
+
+.breathe {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: breathing 4s ease-in-out infinite;
+  }
+}
+
+.gentle-enter {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: gentle-fade-in 0.6s ease-out;
+  }
+}
+
+.sacred-spacing {
+  &--whisper { margin: var(--space-whisper); }
+  &--gentle { margin: var(--space-gentle); }
+  &--breath { margin: var(--space-breath); }
+  &--ritual { margin: var(--space-ritual); }
+  &--sacred { margin: var(--space-sacred); }
+  &--pause { margin: var(--space-pause); }
+  &--sanctuary { margin: var(--space-sanctuary); }
+  &--vast { margin: var(--space-vast); }
+}
+
+// ===== SACRED RESPONSIVE HARMONY =====
+
+// Sacred breakpoints based on natural reading experiences
+@media (max-width: 480px) {
+  .sacred-container {
+    padding: var(--space-breath);
+  }
+  
+  .ritual-card {
+    padding: var(--space-breath);
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sacred-container {
+    padding: var(--space-sacred);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sacred-container {
+    padding: var(--space-pause);
+  }
+}

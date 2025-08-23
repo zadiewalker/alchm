@@ -1,0 +1,588 @@
+/* ALCHM Sacred Theme Index */
+/* Central import hub for the complete Sacred Theme Token Architecture */
+/* This file orchestrates the sacred design language across the entire digital sanctuary */
+
+/* ===== CORE SACRED FOUNDATION ===== */
+/* The foundational tokens that establish the sacred vocabulary */
+@import './sacred-theme-tokens.css';
+
+/* ===== COMPONENT-SPECIFIC EXTENSIONS ===== */
+/* Component tokens that breathe life into specific UI patterns */
+@import './sacred-component-tokens.css';
+
+/* ===== ATOMIC SACRED UTILITIES ===== */
+/* Utility classes for rapid, emotionally-coherent interface construction */
+@import './sacred-utility-classes.css';
+
+/* ===== GLOBAL SACRED FOUNDATION CLASSES ===== */
+/* Base sacred styles that establish the sanctuary-wide emotional atmosphere */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; /* Sacred base size */
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sacred-primary);
+  font-size: var(--text-presence);
+  font-weight: var(--weight-breath);
+  line-height: var(--leading-natural);
+  color: var(--text-primary);
+  background: var(--surface-sanctuary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ===== SACRED SELECTION STYLES ===== */
+/* How selected text appears in the sanctuary */
+::selection {
+  background: rgba(164, 183, 146, 0.3);
+  color: var(--color-deep-presence);
+}
+
+::-moz-selection {
+  background: rgba(164, 183, 146, 0.3);
+  color: var(--color-deep-presence);
+}
+
+/* ===== SACRED SCROLLBAR STYLES ===== */
+/* Sacred scrollbar appearance for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-healing-mist);
+  border-radius: var(--radius-breath);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(164, 183, 146, 0.5);
+  border-radius: var(--radius-breath);
+  transition: background var(--timing-breath) var(--ease-sacred-flow);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(164, 183, 146, 0.7);
+}
+
+/* Firefox scrollbar styling */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(164, 183, 146, 0.5) var(--color-healing-mist);
+}
+
+/* ===== SACRED FOCUS STYLES ===== */
+/* Universal sacred focus indicators for accessibility */
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-breath);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-breath);
+}
+
+/* ===== SACRED LINK STYLES ===== */
+/* How links appear and behave in the sanctuary */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--timing-breath) var(--ease-sacred-flow);
+}
+
+a:hover {
+  color: var(--color-deep-presence);
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-breath);
+}
+
+/* ===== SACRED HEADING HIERARCHY ===== */
+/* Default heading styles that can be overridden by components */
+h1, .h1 {
+  font-size: var(--text-manifestation);
+  font-weight: var(--weight-sacred);
+  line-height: var(--leading-ceremonial);
+  color: var(--text-primary);
+  margin-bottom: var(--space-ritual);
+  letter-spacing: 0.02em;
+}
+
+h2, .h2 {
+  font-size: var(--text-invocation);
+  font-weight: var(--weight-grounding);
+  line-height: var(--leading-ceremonial);
+  color: var(--text-primary);
+  margin-bottom: var(--space-gentle);
+  letter-spacing: 0.01em;
+}
+
+h3, .h3 {
+  font-size: var(--text-ceremonial);
+  font-weight: var(--weight-grounding);
+  line-height: var(--leading-spacious);
+  color: var(--text-primary);
+  margin-bottom: var(--space-breath);
+}
+
+h4, .h4 {
+  font-size: var(--text-sacred);
+  font-weight: var(--weight-presence);
+  line-height: var(--leading-spacious);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-breath);
+}
+
+h5, .h5 {
+  font-size: var(--text-grounding);
+  font-weight: var(--weight-presence);
+  line-height: var(--leading-natural);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-whisper);
+}
+
+h6, .h6 {
+  font-size: var(--text-presence);
+  font-weight: var(--weight-presence);
+  line-height: var(--leading-natural);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-whisper);
+}
+
+/* ===== SACRED PARAGRAPH STYLES ===== */
+/* How body text flows in the sanctuary */
+p {
+  margin-bottom: var(--space-gentle);
+  line-height: var(--leading-spacious);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== SACRED LIST STYLES ===== */
+/* How information is organized in sacred lists */
+ul, ol {
+  margin-bottom: var(--space-gentle);
+  padding-left: var(--space-ritual);
+}
+
+li {
+  margin-bottom: var(--space-whisper);
+  line-height: var(--leading-spacious);
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
+
+/* Sacred list markers */
+ul {
+  list-style-type: none;
+}
+
+ul li::before {
+  content: '•';
+  color: var(--color-primary);
+  font-weight: var(--weight-grounding);
+  position: absolute;
+  margin-left: calc(-1 * var(--space-gentle));
+}
+
+ol {
+  counter-reset: sacred-counter;
+}
+
+ol li {
+  counter-increment: sacred-counter;
+  position: relative;
+}
+
+ol li::before {
+  content: counter(sacred-counter) '.';
+  color: var(--color-primary);
+  font-weight: var(--weight-grounding);
+  position: absolute;
+  margin-left: calc(-1 * var(--space-ritual));
+}
+
+/* ===== SACRED TABLE STYLES ===== */
+/* How data is presented in sacred tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--space-gentle);
+  background: var(--surface-card-gentle);
+  border-radius: var(--radius-gentle);
+  overflow: hidden;
+  box-shadow: var(--shadow-breath);
+}
+
+thead {
+  background: var(--surface-elevated-sacred);
+}
+
+th, td {
+  padding: var(--space-breath) var(--space-gentle);
+  text-align: left;
+  border-bottom: 1px solid var(--color-healing-mist);
+}
+
+th {
+  font-weight: var(--weight-grounding);
+  color: var(--text-primary);
+  background: rgba(164, 183, 146, 0.05);
+}
+
+tr:hover {
+  background: var(--surface-elevated-gentle);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== SACRED CODE STYLES ===== */
+/* How code appears in the sanctuary */
+code {
+  font-family: var(--font-sacred-mono);
+  font-size: 0.9em;
+  background: var(--color-healing-mist);
+  padding: var(--space-whisper) var(--space-breath);
+  border-radius: var(--radius-breath);
+  color: var(--color-deep-presence);
+}
+
+pre {
+  font-family: var(--font-sacred-mono);
+  background: var(--surface-card-gentle);
+  padding: var(--space-gentle);
+  border-radius: var(--radius-gentle);
+  border: 1px solid var(--color-healing-mist);
+  overflow-x: auto;
+  margin-bottom: var(--space-gentle);
+  line-height: var(--leading-natural);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ===== SACRED BLOCKQUOTE STYLES ===== */
+/* How wisdom and quotes are presented */
+blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: var(--space-gentle);
+  margin: var(--space-gentle) 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  background: var(--surface-elevated-gentle);
+  border-radius: 0 var(--radius-gentle) var(--radius-gentle) 0;
+  padding: var(--space-gentle);
+}
+
+blockquote p {
+  margin-bottom: var(--space-breath);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== SACRED FORM ELEMENT DEFAULTS ===== */
+/* Base styling for form elements (enhanced by component tokens) */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ===== SACRED IMAGE STYLES ===== */
+/* How images are presented in the sanctuary */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-gentle);
+}
+
+figure {
+  margin: var(--space-gentle) 0;
+}
+
+figcaption {
+  font-size: var(--text-breath);
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-top: var(--space-breath);
+  font-style: italic;
+}
+
+/* ===== SACRED RESPONSIVE FOUNDATION ===== */
+/* Base responsive behavior for the sanctuary */
+
+/* Mobile-first approach with sacred breakpoints */
+@media (max-width: 479px) {
+  html { font-size: 14px; }
+  
+  h1, .h1 { 
+    font-size: var(--text-invocation); 
+    margin-bottom: var(--space-gentle);
+  }
+  
+  h2, .h2 { 
+    font-size: var(--text-ceremonial); 
+    margin-bottom: var(--space-breath);
+  }
+  
+  body {
+    padding: var(--space-breath);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  html { font-size: 15px; }
+}
+
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+}
+
+@media (min-width: 1280px) {
+  html { font-size: 17px; }
+}
+
+@media (min-width: 1920px) {
+  html { font-size: 18px; }
+}
+
+/* ===== SACRED ANIMATION FRAMEWORK ===== */
+/* Base animation classes for sacred motion */
+@keyframes sacred-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-breath));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sacred-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sacred-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes sacred-glow {
+  0%, 100% {
+    box-shadow: var(--glow-sacred);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(164, 183, 146, 0.5);
+  }
+}
+
+/* Sacred animation utility classes */
+.animate-fade-in {
+  animation: sacred-fade-in var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+.animate-scale-in {
+  animation: sacred-scale-in var(--timing-pause) var(--ease-earth-settle);
+}
+
+.animate-breathe {
+  animation: sacred-breathe var(--timing-transformation) var(--ease-sacred-flow) infinite;
+}
+
+.animate-glow {
+  animation: sacred-glow 3s var(--ease-sacred-flow) infinite;
+}
+
+/* ===== SACRED ACCESSIBILITY ENHANCEMENTS ===== */
+/* Enhanced accessibility for the sacred sanctuary */
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-breathe,
+  .animate-glow {
+    animation: none !important;
+  }
+}
+
+/* Enhanced focus for keyboard navigation */
+@media (prefers-reduced-motion: no-preference) {
+  :focus-visible {
+    transition: outline var(--timing-breath) var(--ease-sacred-flow);
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  :focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+}
+
+/* ===== SACRED PRINT STYLES ===== */
+/* How the sanctuary appears on paper */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+    color: black;
+  }
+  
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  a {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ===== SACRED LOADING STATES ===== */
+/* How loading and skeleton states appear */
+.sacred-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-healing-mist) 25%,
+    var(--color-tender-embrace) 50%,
+    var(--color-healing-mist) 75%
+  );
+  background-size: 200% 100%;
+  animation: sacred-shimmer 1.5s infinite var(--ease-sacred-flow);
+  border-radius: var(--radius-breath);
+}
+
+@keyframes sacred-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===== SACRED DARK MODE FOUNDATION ===== */
+/* Dark sanctuary base adjustments */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--surface-sanctuary);
+  }
+  
+  ::selection {
+    background: rgba(164, 183, 146, 0.4);
+    color: var(--color-off-white);
+  }
+  
+  ::-moz-selection {
+    background: rgba(164, 183, 146, 0.4);
+    color: var(--color-off-white);
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-healing-mist);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(164, 183, 146, 0.6);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(164, 183, 146, 0.8);
+  }
+}
+
+/* Export statement for modular usage */
+/* This allows individual components to import specific parts if needed */
+/*
+@import url('./sacred-theme-index.css') layer(sacred-foundation);
+*/

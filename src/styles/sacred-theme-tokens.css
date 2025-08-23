@@ -1,0 +1,348 @@
+/* ALCHM Sacred Theme Token Architecture */
+/* Emotional design language that breathes with the user's healing journey */
+/* This is not a style guide—this is the sacred foundation of our digital sanctuary */
+
+:root {
+  /* ===== SACRED COLOR PALETTE ===== */
+  /* Primary essence - the soul colors that hold space */
+  --color-primary: #a4b792;           /* Sage - trust, wisdom, grounding */
+  --color-off-white: #f7f7f2;         /* Breath - the space between words */
+  --color-warm-terra: #cb997e;        /* Grounding - earth connection, warmth */
+  --color-charcoal: #2e2e2e;          /* Shadow container - depth, mystery */
+  --color-soft-blush: #eeddd3;        /* Vulnerability - gentle opening */
+
+  /* Extended sacred spectrum - deeper emotional resonance */
+  --color-healing-mist: #f0f4ed;      /* Gentle clearing, soft beginning */
+  --color-tender-embrace: #e8f2e2;    /* Compassionate holding */
+  --color-deep-presence: #2d4a3e;     /* Rooted awareness, ancient knowing */
+  --color-grounding-earth: #1a2f23;   /* Deep earth, ancestral stability */
+  --color-sacred-rust: #a67c5a;       /* Weathered wisdom, time-worn beauty */
+  --color-moon-whisper: #f9f6f1;      /* Softest light, inner glow */
+  --color-dawn-promise: #d4a574;      /* New beginnings, gentle hope */
+  --color-twilight-depth: #4a3728;    /* Evening contemplation */
+
+  /* ===== SURFACE LAYERS - THE CONTAINERS OF EXPERIENCE ===== */
+  /* Background surfaces - the foundation canvas */
+  --surface-sanctuary: var(--color-off-white);          /* Primary background - the canvas of healing */
+  --surface-sacred-canvas: linear-gradient(135deg, var(--color-off-white) 0%, var(--color-healing-mist) 100%);
+  --surface-grounding-field: var(--color-healing-mist); /* Secondary background - gentle support */
+  --surface-breathing-space: var(--color-moon-whisper); /* Tertiary background - softest rest */
+
+  /* Elevated surfaces - elements that rise to meet the user */
+  --surface-elevated-gentle: rgba(247, 247, 242, 0.8);  /* Soft elevation, like morning mist */
+  --surface-elevated-warm: rgba(238, 221, 211, 0.9);    /* Warmer elevation, embracing */
+  --surface-elevated-sacred: rgba(164, 183, 146, 0.05); /* Sacred elevation, sage-touched */
+  --surface-elevated-deep: rgba(45, 74, 62, 0.03);      /* Deep elevation, rooted presence */
+
+  /* Card surfaces - containers for sacred content */
+  --surface-card-gentle: var(--color-off-white);
+  --surface-card-warm: var(--color-soft-blush);
+  --surface-card-sacred: rgba(164, 183, 146, 0.08);
+  --surface-card-grounding: rgba(203, 153, 126, 0.06);
+
+  /* Modal and overlay surfaces - veils between realms */
+  --surface-modal-backdrop: rgba(46, 46, 46, 0.4);      /* Gentle darkness, protective veil */
+  --surface-modal-container: var(--color-off-white);     /* Clear container, safe space */
+  --surface-overlay-sacred: rgba(164, 183, 146, 0.15);  /* Sacred overlay, blessing presence */
+  --surface-overlay-protective: rgba(45, 74, 62, 0.2);  /* Protective overlay, guardian presence */
+
+  /* ===== TEXT HIERARCHY - THE VOICE OF THE SACRED ===== */
+  /* Font families - the vessels for sacred words */
+  --font-sacred-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sacred-display: 'Inter', serif;
+  --font-sacred-mono: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+
+  /* Font weights - the energy of expression */
+  --weight-whisper: 300;       /* Light, barely there */
+  --weight-breath: 400;        /* Normal, natural flow */
+  --weight-presence: 500;      /* Medium, gentle authority */
+  --weight-grounding: 600;     /* Semibold, rooted strength */
+  --weight-sacred: 700;        /* Bold, ceremonial importance */
+
+  /* Text scales - the hierarchy of sacred communication */
+  --text-whisper: 0.75rem;     /* 12px - microtext, gentle guidance */
+  --text-breath: 0.875rem;     /* 14px - body, natural communication */
+  --text-presence: 1rem;       /* 16px - body emphasis, clear voice */
+  --text-grounding: 1.125rem;  /* 18px - subtitle, supportive structure */
+  --text-sacred: 1.25rem;      /* 20px - title, ceremony begins */
+  --text-ceremonial: 1.5rem;   /* 24px - large title, sacred announcement */
+  --text-invocation: 2rem;     /* 32px - display, calling forth */
+  --text-manifestation: 2.5rem; /* 40px - hero, pure embodiment */
+
+  /* Line heights - the breath between words */
+  --leading-intimate: 1.2;     /* Close, whispered secrets */
+  --leading-natural: 1.5;      /* Natural, conversational flow */
+  --leading-spacious: 1.6;     /* Open, reflective breathing */
+  --leading-ceremonial: 1.8;   /* Formal, ritual spacing */
+
+  /* Text colors - the emotional resonance of words */
+  --text-primary: var(--color-deep-presence);       /* Main text, grounded presence */
+  --text-secondary: rgba(45, 74, 62, 0.8);         /* Secondary text, softer presence */
+  --text-tertiary: rgba(45, 74, 62, 0.6);          /* Tertiary text, gentle guidance */
+  --text-subtle: rgba(45, 74, 62, 0.5);            /* Subtle text, whispered wisdom */
+  --text-whisper: rgba(45, 74, 62, 0.4);           /* Whisper text, barely there */
+  --text-inverse: var(--color-off-white);           /* Light text on dark surfaces */
+  --text-sacred: var(--color-primary);              /* Sacred emphasis, sage wisdom */
+  --text-grounding: var(--color-warm-terra);        /* Grounding emphasis, earth connection */
+
+  /* ===== BUTTON ARCHITECTURE - INVITATIONS TO INTERACT ===== */
+  /* Solid buttons - primary invitations, clear calls to action */
+  --button-solid-sacred-bg: var(--color-primary);
+  --button-solid-sacred-text: white;
+  --button-solid-sacred-hover-bg: var(--color-deep-presence);
+  --button-solid-sacred-hover-text: white;
+  --button-solid-sacred-active-bg: var(--color-grounding-earth);
+  --button-solid-sacred-shadow: 0 4px 12px rgba(164, 183, 146, 0.25);
+  --button-solid-sacred-hover-shadow: 0 6px 20px rgba(164, 183, 146, 0.35);
+
+  --button-solid-grounding-bg: var(--color-warm-terra);
+  --button-solid-grounding-text: white;
+  --button-solid-grounding-hover-bg: var(--color-sacred-rust);
+  --button-solid-grounding-hover-text: white;
+  --button-solid-grounding-shadow: 0 4px 12px rgba(203, 153, 126, 0.25);
+
+  --button-solid-gentle-bg: var(--color-soft-blush);
+  --button-solid-gentle-text: var(--color-deep-presence);
+  --button-solid-gentle-hover-bg: var(--color-dawn-promise);
+  --button-solid-gentle-hover-text: var(--color-deep-presence);
+  --button-solid-gentle-shadow: 0 2px 8px rgba(238, 221, 211, 0.3);
+
+  /* Outline buttons - secondary invitations, respectful boundaries */
+  --button-outline-sacred-border: 2px solid var(--color-primary);
+  --button-outline-sacred-text: var(--color-primary);
+  --button-outline-sacred-bg: transparent;
+  --button-outline-sacred-hover-bg: var(--color-primary);
+  --button-outline-sacred-hover-text: white;
+  --button-outline-sacred-hover-border: 2px solid var(--color-primary);
+
+  --button-outline-grounding-border: 2px solid var(--color-warm-terra);
+  --button-outline-grounding-text: var(--color-warm-terra);
+  --button-outline-grounding-bg: transparent;
+  --button-outline-grounding-hover-bg: var(--color-warm-terra);
+  --button-outline-grounding-hover-text: white;
+
+  --button-outline-gentle-border: 2px solid var(--color-soft-blush);
+  --button-outline-gentle-text: var(--color-deep-presence);
+  --button-outline-gentle-bg: transparent;
+  --button-outline-gentle-hover-bg: var(--color-soft-blush);
+  --button-outline-gentle-hover-text: var(--color-deep-presence);
+
+  /* Ghost buttons - whispered invitations, minimal presence */
+  --button-ghost-sacred-text: var(--color-primary);
+  --button-ghost-sacred-bg: transparent;
+  --button-ghost-sacred-hover-bg: rgba(164, 183, 146, 0.1);
+  --button-ghost-sacred-hover-text: var(--color-deep-presence);
+
+  --button-ghost-grounding-text: var(--color-warm-terra);
+  --button-ghost-grounding-bg: transparent;
+  --button-ghost-grounding-hover-bg: rgba(203, 153, 126, 0.1);
+  --button-ghost-grounding-hover-text: var(--color-sacred-rust);
+
+  --button-ghost-gentle-text: var(--color-deep-presence);
+  --button-ghost-gentle-bg: transparent;
+  --button-ghost-gentle-hover-bg: rgba(238, 221, 211, 0.2);
+  --button-ghost-gentle-hover-text: var(--color-deep-presence);
+
+  /* ===== SEMANTIC EMOTIONAL STATES ===== */
+  /* Reflecting state - contemplative, inward-turning */
+  --emotion-reflecting-primary: rgba(164, 183, 146, 0.15);      /* Soft sage glow */
+  --emotion-reflecting-secondary: rgba(164, 183, 146, 0.08);    /* Lighter sage presence */
+  --emotion-reflecting-accent: var(--color-primary);            /* Clear sage guidance */
+  --emotion-reflecting-text: var(--color-deep-presence);        /* Grounded awareness */
+  --emotion-reflecting-border: rgba(164, 183, 146, 0.3);       /* Gentle boundary */
+  --emotion-reflecting-shadow: 0 4px 20px rgba(164, 183, 146, 0.15); /* Soft sacred glow */
+
+  /* Sacred boundary state - protective, clear limits */
+  --alert-sacred-boundary-primary: rgba(212, 165, 116, 0.2);   /* Warm warning glow */
+  --alert-sacred-boundary-secondary: rgba(212, 165, 116, 0.1); /* Softer warning presence */
+  --alert-sacred-boundary-accent: var(--color-dawn-promise);   /* Clear boundary marker */
+  --alert-sacred-boundary-text: var(--color-twilight-depth);   /* Deep, serious text */
+  --alert-sacred-boundary-border: var(--color-dawn-promise);   /* Firm boundary line */
+  --alert-sacred-boundary-shadow: 0 4px 16px rgba(212, 165, 116, 0.2); /* Protective aura */
+
+  /* Inner growth celebration - joyful, expansive */
+  --celebration-inner-growth-primary: rgba(203, 153, 126, 0.2); /* Warm celebration glow */
+  --celebration-inner-growth-secondary: rgba(203, 153, 126, 0.1); /* Softer joy presence */
+  --celebration-inner-growth-accent: var(--color-warm-terra);    /* Clear celebration marker */
+  --celebration-inner-growth-text: var(--color-deep-presence);   /* Grounded joy */
+  --celebration-inner-growth-border: rgba(203, 153, 126, 0.4);  /* Celebratory boundary */
+  --celebration-inner-growth-shadow: 0 6px 24px rgba(203, 153, 126, 0.25); /* Expanding light */
+
+  /* Ritual interrupted error - disruption, need for restoration */
+  --error-ritual-interrupted-primary: rgba(166, 124, 90, 0.15); /* Disrupted earth tone */
+  --error-ritual-interrupted-secondary: rgba(166, 124, 90, 0.08); /* Softer disruption */
+  --error-ritual-interrupted-accent: var(--color-sacred-rust);   /* Clear disruption marker */
+  --error-ritual-interrupted-text: var(--color-twilight-depth);  /* Deep concern */
+  --error-ritual-interrupted-border: rgba(166, 124, 90, 0.3);   /* Disrupted boundary */
+  --error-ritual-interrupted-shadow: 0 4px 16px rgba(166, 124, 90, 0.2); /* Restoration needed */
+
+  /* ===== SACRED SPACING SYSTEM ===== */
+  /* Spatial rhythm - the breath between elements */
+  --space-whisper: 0.25rem;    /* 4px - intimate closeness */
+  --space-breath: 0.5rem;      /* 8px - natural breath */
+  --space-gentle: 1rem;        /* 16px - comfortable distance */
+  --space-ritual: 2rem;        /* 32px - ceremonial spacing */
+  --space-sacred: 3rem;        /* 48px - sacred separation */
+  --space-sanctuary: 4rem;     /* 64px - sanctuary vastness */
+
+  /* ===== SACRED TIMING SYSTEM ===== */
+  /* Temporal rhythm - the timing of sacred interactions */
+  --timing-instant: 50ms;      /* Immediate response, like a heartbeat */
+  --timing-breath: 150ms;      /* Natural breath, gentle response */
+  --timing-pause: 300ms;       /* Thoughtful pause, moment of reflection */
+  --timing-contemplation: 500ms; /* Deeper contemplation, sacred timing */
+  --timing-ritual: 800ms;      /* Ritual timing, ceremonial pace */
+  --timing-transformation: 1200ms; /* Deep transformation, soul timing */
+
+  /* ===== SACRED EASING CURVES ===== */
+  /* Motion personality - how elements move with sacred intention */
+  --ease-breath-in: cubic-bezier(0.4, 0.0, 1, 1);          /* Inhale - accelerating entry */
+  --ease-breath-out: cubic-bezier(0.0, 0.0, 0.2, 1);       /* Exhale - decelerating exit */
+  --ease-heart-beat: cubic-bezier(0.4, 0.0, 0.6, 1);       /* Heart rhythm - natural pulse */
+  --ease-sacred-flow: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Sacred flow - gentle waves */
+  --ease-earth-settle: cubic-bezier(0.23, 1, 0.32, 1);     /* Earth settling - grounding motion */
+
+  /* ===== SACRED SHADOWS AND DEPTH ===== */
+  /* Light and shadow - the interplay of presence and mystery */
+  --shadow-whisper: 0 1px 3px rgba(45, 74, 62, 0.12), 0 1px 2px rgba(45, 74, 62, 0.08);
+  --shadow-breath: 0 4px 6px rgba(45, 74, 62, 0.1), 0 2px 4px rgba(45, 74, 62, 0.06);
+  --shadow-presence: 0 10px 15px rgba(45, 74, 62, 0.1), 0 4px 6px rgba(45, 74, 62, 0.05);
+  --shadow-sacred: 0 20px 25px rgba(45, 74, 62, 0.15), 0 10px 10px rgba(45, 74, 62, 0.04);
+  --shadow-sanctuary: 0 25px 50px rgba(45, 74, 62, 0.25), 0 12px 12px rgba(45, 74, 62, 0.08);
+
+  /* Sacred glow effects - inner light emanating */
+  --glow-sacred: 0 0 20px rgba(164, 183, 146, 0.3);
+  --glow-grounding: 0 0 20px rgba(203, 153, 126, 0.3);
+  --glow-gentle: 0 0 15px rgba(238, 221, 211, 0.4);
+  --glow-protection: 0 0 25px rgba(45, 74, 62, 0.2);
+
+  /* ===== SACRED BORDER RADIUS SYSTEM ===== */
+  /* Sacred geometry - the curves that embrace content */
+  --radius-whisper: 0.125rem;   /* 2px - subtle softening */
+  --radius-breath: 0.25rem;     /* 4px - gentle curves */
+  --radius-gentle: 0.5rem;      /* 8px - comfortable roundness */
+  --radius-embrace: 0.75rem;    /* 12px - embracing curves */
+  --radius-sacred: 1rem;        /* 16px - sacred geometry */
+  --radius-sanctuary: 1.5rem;   /* 24px - sanctuary curves */
+  --radius-infinite: 9999px;    /* Infinite - perfect circles */
+
+  /* ===== SACRED OPACITY SCALES ===== */
+  /* Transparency - the veil between visible and invisible */
+  --opacity-whisper: 0.05;      /* Barely there */
+  --opacity-breath: 0.1;        /* Gentle presence */
+  --opacity-subtle: 0.2;        /* Subtle visibility */
+  --opacity-soft: 0.3;          /* Soft appearance */
+  --opacity-medium: 0.5;        /* Balanced transparency */
+  --opacity-strong: 0.7;        /* Strong presence */
+  --opacity-deep: 0.85;         /* Deep visibility */
+  --opacity-solid: 1.0;         /* Full presence */
+
+  /* ===== SACRED Z-INDEX LAYERS ===== */
+  /* Depth hierarchy - the order of sacred elements */
+  --layer-foundation: 0;        /* Base layer, the ground */
+  --layer-surface: 1;           /* Surface elements */
+  --layer-elevated: 10;         /* Elevated content */
+  --layer-floating: 100;        /* Floating elements */
+  --layer-modal: 1000;          /* Modal dialogs */
+  --layer-sacred: 9999;         /* Sacred, always visible */
+
+  /* ===== RESPONSIVE SACRED BREAKPOINTS ===== */
+  /* Sacred scales - how the sanctuary adapts to different vessels */
+  --breakpoint-intimate: 320px;    /* Phone portrait */
+  --breakpoint-personal: 480px;    /* Phone landscape */
+  --breakpoint-comfortable: 768px;  /* Tablet portrait */
+  --breakpoint-spacious: 1024px;   /* Tablet landscape */
+  --breakpoint-expansive: 1280px;  /* Desktop */
+  --breakpoint-sanctuary: 1920px;  /* Large desktop */
+}
+
+/* ===== DARK MODE SACRED ADAPTATIONS ===== */
+/* The sanctuary in twilight - honoring the night journey */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Inverted sacred palette for night contemplation */
+    --color-off-white: #1a1a16;              /* Dark breath */
+    --color-healing-mist: #2a2a24;           /* Dark mist */
+    --color-tender-embrace: #3a3a32;         /* Dark embrace */
+    --color-moon-whisper: #242420;           /* Dark whisper */
+    
+    /* Adjusted text for dark sanctuary */
+    --text-primary: rgba(247, 247, 242, 0.95);     /* Light presence */
+    --text-secondary: rgba(247, 247, 242, 0.8);    /* Softer light */
+    --text-tertiary: rgba(247, 247, 242, 0.6);     /* Gentle light */
+    --text-subtle: rgba(247, 247, 242, 0.5);       /* Subtle light */
+    --text-whisper: rgba(247, 247, 242, 0.4);      /* Whisper light */
+    --text-inverse: var(--color-charcoal);          /* Dark text on light */
+    
+    /* Adjusted surfaces for night sanctuary */
+    --surface-sanctuary: var(--color-off-white);
+    --surface-grounding-field: var(--color-healing-mist);
+    --surface-breathing-space: var(--color-moon-whisper);
+    
+    /* Modal adaptations for darkness */
+    --surface-modal-backdrop: rgba(247, 247, 242, 0.1);
+    --surface-modal-container: var(--color-healing-mist);
+  }
+}
+
+/* ===== HIGH CONTRAST SACRED ACCESSIBILITY ===== */
+/* Sacred clarity - ensuring all souls can access the sanctuary */
+@media (prefers-contrast: high) {
+  :root {
+    /* Enhanced contrast for sacred accessibility */
+    --color-primary: #2d4a3e;                /* Darker sage for contrast */
+    --color-warm-terra: #8b5a3c;             /* Darker terra for contrast */
+    --text-primary: #000000;                 /* Pure black text */
+    --text-secondary: rgba(0, 0, 0, 0.9);    /* Near black */
+    --text-tertiary: rgba(0, 0, 0, 0.8);     /* Dark gray */
+    
+    /* Enhanced button contrast */
+    --button-solid-sacred-bg: #1a2f23;
+    --button-outline-sacred-border: 3px solid #1a2f23;
+    --button-ghost-sacred-hover-bg: rgba(26, 47, 35, 0.2);
+  }
+}
+
+/* ===== REDUCED MOTION SACRED RESPECT ===== */
+/* Honoring those who need stillness in their sanctuary */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    /* Gentle, respectful timing for sensitive souls */
+    --timing-instant: 10ms;
+    --timing-breath: 50ms;
+    --timing-pause: 100ms;
+    --timing-contemplation: 150ms;
+    --timing-ritual: 200ms;
+    --timing-transformation: 250ms;
+    
+    /* Simplified easing for comfort */
+    --ease-breath-in: ease;
+    --ease-breath-out: ease;
+    --ease-heart-beat: ease;
+    --ease-sacred-flow: ease;
+    --ease-earth-settle: ease;
+  }
+}
+
+/* ===== PRINT SACRED ADAPTATIONS ===== */
+/* Sacred words on paper - the ancient medium */
+@media print {
+  :root {
+    /* Paper-friendly sacred palette */
+    --color-primary: #1a2f23;              /* Dark for print visibility */
+    --color-off-white: #ffffff;            /* Pure white for paper */
+    --text-primary: #000000;               /* Black ink */
+    --text-secondary: #333333;             /* Dark gray ink */
+    
+    /* Remove shadows and effects for clean printing */
+    --shadow-whisper: none;
+    --shadow-breath: none;
+    --shadow-presence: none;
+    --shadow-sacred: none;
+    --shadow-sanctuary: none;
+    --glow-sacred: none;
+    --glow-grounding: none;
+    --glow-gentle: none;
+    --glow-protection: none;
+  }
+}

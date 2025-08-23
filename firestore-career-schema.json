@@ -1,0 +1,1083 @@
+{
+  "description": "ALCHM Career & Future Readiness Firestore Schema - Comprehensive career development and opportunity management",
+  "version": "1.0.0",
+  "collections": {
+    "users/{uid}/career": {
+      "description": "Main career journey data for each user",
+      "fields": {
+        "userId": {
+          "type": "string",
+          "required": true,
+          "description": "Unique user identifier"
+        },
+        "journeyId": {
+          "type": "string",
+          "required": true,
+          "description": "Unique career journey identifier"
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "category": { "type": "string", "enum": ["artistic", "scientific", "social", "enterprising", "conventional", "realistic"] },
+              "subcategory": { "type": "string" },
+              "interestName": { "type": "string" },
+              "intensityLevel": { "type": "number", "min": 1, "max": 10 },
+              "discoverySource": { "type": "string", "enum": ["journaling", "assessment", "experience", "exploration", "reflection"] },
+              "evidencePoints": { "type": "array", "items": { "type": "string" } },
+              "culturalRelevance": { "type": "number", "min": 0, "max": 1 },
+              "identityConnection": { "type": "array", "items": { "type": "string" } },
+              "futureGrowthPotential": { "type": "number", "min": 0, "max": 1 },
+              "skillRequirements": { "type": "array", "items": { "type": "string" } },
+              "valueAlignment": { "type": "number", "min": 0, "max": 1 },
+              "marketDemand": {
+                "type": "object",
+                "properties": {
+                  "currentDemand": { "type": "number" },
+                  "projectedGrowth": { "type": "number" },
+                  "salaryRange": {
+                    "type": "object",
+                    "properties": {
+                      "min": { "type": "number" },
+                      "max": { "type": "number" },
+                      "median": { "type": "number" }
+                    }
+                  },
+                  "geographicAvailability": { "type": "array", "items": { "type": "string" } }
+                }
+              },
+              "relatedCareers": { "type": "array", "items": { "type": "string" } },
+              "firstIdentified": { "type": "timestamp" },
+              "lastUpdated": { "type": "timestamp" },
+              "confidence": { "type": "number", "min": 0, "max": 1 },
+              "persistence": { "type": "number", "min": 0, "max": 1 }
+            }
+          }
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "category": { "type": "string", "enum": ["cognitive", "interpersonal", "leadership", "creative", "technical", "adaptive", "emotional"] },
+              "strengthName": { "type": "string" },
+              "proficiencyLevel": { "type": "number", "min": 1, "max": 10 },
+              "evidenceType": { "type": "string", "enum": ["demonstrated", "potential", "feedback_based", "assessment_based"] },
+              "evidencePoints": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "evidenceId": { "type": "string" },
+                    "description": { "type": "string" },
+                    "context": { "type": "string" },
+                    "date": { "type": "timestamp" },
+                    "witness": { "type": "string" },
+                    "impact": { "type": "string" },
+                    "skillLevel": { "type": "number" }
+                  }
+                }
+              },
+              "developmentStage": { "type": "string", "enum": ["emerging", "developing", "proficient", "advanced", "expert"] },
+              "transferability": { "type": "number", "min": 0, "max": 1 },
+              "marketValue": { "type": "number", "min": 0, "max": 1 },
+              "culturalExpression": {
+                "type": "object",
+                "properties": {
+                  "culturalOrigin": { "type": "array", "items": { "type": "string" } },
+                  "culturalAdaptation": { "type": "string" },
+                  "crossCulturalTransferability": { "type": "number" }
+                }
+              },
+              "identityFoundation": { "type": "array", "items": { "type": "string" } },
+              "growthTrajectory": {
+                "type": "object",
+                "properties": {
+                  "currentLevel": { "type": "number" },
+                  "projectedLevel": { "type": "number" },
+                  "developmentPlan": { "type": "string" },
+                  "timeframe": { "type": "string" }
+                }
+              },
+              "applicationAreas": { "type": "array", "items": { "type": "string" } },
+              "complementaryStrengths": { "type": "array", "items": { "type": "string" } },
+              "developmentNeeds": { "type": "array", "items": { "type": "string" } },
+              "firstIdentified": { "type": "timestamp" },
+              "lastDemonstrated": { "type": "timestamp" },
+              "confidence": { "type": "number", "min": 0, "max": 1 }
+            }
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "category": { "type": "string", "enum": ["purpose", "autonomy", "mastery", "security", "social_impact", "creativity", "balance", "recognition", "growth", "stability"] },
+              "valueName": { "type": "string" },
+              "importance": { "type": "number", "min": 1, "max": 10 },
+              "currentSatisfaction": { "type": "number", "min": 1, "max": 10 },
+              "culturalOrigin": { "type": "array", "items": { "type": "string" } },
+              "identityConnection": { "type": "array", "items": { "type": "string" } },
+              "lifeExperienceRoot": { "type": "array", "items": { "type": "string" } },
+              "tradeoffWillingness": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "againstValue": { "type": "string" },
+                    "willingness": { "type": "number" },
+                    "conditions": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              },
+              "manifestationPreferences": { "type": "array", "items": { "type": "string" } },
+              "dealBreakers": { "type": "array", "items": { "type": "string" } },
+              "flexibilityLevel": { "type": "number", "min": 0, "max": 1 },
+              "evolutionOverTime": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "timepoint": { "type": "timestamp" },
+                    "importance": { "type": "number" },
+                    "context": { "type": "string" },
+                    "trigger": { "type": "string" }
+                  }
+                }
+              },
+              "careersAligned": { "type": "array", "items": { "type": "string" } },
+              "workEnvironmentImplications": { "type": "array", "items": { "type": "string" } },
+              "decisionMakingWeight": { "type": "number", "min": 0, "max": 1 },
+              "firstIdentified": { "type": "timestamp" },
+              "lastReflectedOn": { "type": "timestamp" }
+            }
+          }
+        },
+        "workStyle": {
+          "type": "object",
+          "properties": {
+            "collaborationStyle": { "type": "string", "enum": ["highly_collaborative", "team_oriented", "independent_contributor", "leadership_focused", "flexible"] },
+            "communicationStyle": { "type": "string", "enum": ["direct", "diplomatic", "analytical", "creative", "empathetic"] },
+            "decisionMakingStyle": { "type": "string", "enum": ["analytical", "intuitive", "consultative", "decisive", "collaborative"] },
+            "learningStyle": { "type": "string", "enum": ["visual", "auditory", "kinesthetic", "reading_writing", "multimodal"] },
+            "stressManagementStyle": { "type": "string", "enum": ["proactive", "adaptive", "supportive", "analytical", "creative"] },
+            "workEnvironmentPreference": {
+              "type": "object",
+              "properties": {
+                "physicalEnvironment": { "type": "string", "enum": ["office", "remote", "hybrid", "field", "lab", "creative_space"] },
+                "teamSize": { "type": "string", "enum": ["individual", "small_team", "large_team", "varies"] },
+                "organizationSize": { "type": "string", "enum": ["startup", "small", "medium", "large", "enterprise"] },
+                "industry": { "type": "array", "items": { "type": "string" } },
+                "culture": { "type": "array", "items": { "type": "string" } },
+                "diversity": { "type": "number", "min": 0, "max": 1 },
+                "innovation": { "type": "number", "min": 0, "max": 1 },
+                "structure": { "type": "string", "enum": ["highly_structured", "moderately_structured", "flexible", "autonomous"] },
+                "pace": { "type": "string", "enum": ["slow_steady", "moderate", "fast_paced", "variable"] }
+              }
+            },
+            "schedulePreference": {
+              "type": "object",
+              "properties": {
+                "flexibility": { "type": "string", "enum": ["fixed", "flexible", "very_flexible"] },
+                "hoursPreference": { "type": "string", "enum": ["standard", "early", "late", "variable"] },
+                "workLifeBalance": { "type": "number", "min": 1, "max": 10 }
+              }
+            },
+            "feedbackPreference": {
+              "type": "object",
+              "properties": {
+                "frequency": { "type": "string", "enum": ["daily", "weekly", "monthly", "quarterly"] },
+                "style": { "type": "string", "enum": ["direct", "supportive", "detailed", "high_level"] },
+                "source": { "type": "string", "enum": ["manager", "peers", "team", "self"] }
+              }
+            },
+            "growthOrientation": {
+              "type": "object",
+              "properties": {
+                "learningSpeed": { "type": "string", "enum": ["fast", "moderate", "deliberate"] },
+                "riskTaking": { "type": "number", "min": 1, "max": 10 },
+                "changeAdaptability": { "type": "number", "min": 1, "max": 10 },
+                "innovationComfort": { "type": "number", "min": 1, "max": 10 }
+              }
+            },
+            "culturalWorkValues": {
+              "type": "object",
+              "properties": {
+                "collectivismIndividualism": { "type": "number", "min": -1, "max": 1 },
+                "hierarchyEgalitarian": { "type": "number", "min": -1, "max": 1 },
+                "uncertaintyAvoidance": { "type": "number", "min": 0, "max": 1 },
+                "longTermOrientation": { "type": "number", "min": 0, "max": 1 }
+              }
+            }
+          }
+        },
+        "careerPersonality": {
+          "type": "object",
+          "properties": {
+            "hollandCode": { "type": "string" },
+            "mbtiType": { "type": "string" },
+            "bigFiveScores": {
+              "type": "object",
+              "properties": {
+                "openness": { "type": "number", "min": 0, "max": 1 },
+                "conscientiousness": { "type": "number", "min": 0, "max": 1 },
+                "extraversion": { "type": "number", "min": 0, "max": 1 },
+                "agreeableness": { "type": "number", "min": 0, "max": 1 },
+                "neuroticism": { "type": "number", "min": 0, "max": 1 }
+              }
+            },
+            "motivationProfile": {
+              "type": "object",
+              "properties": {
+                "achievementOrientation": { "type": "number", "min": 0, "max": 1 },
+                "affiliationNeed": { "type": "number", "min": 0, "max": 1 },
+                "powerMotivation": { "type": "number", "min": 0, "max": 1 },
+                "autonomyDesire": { "type": "number", "min": 0, "max": 1 }
+              }
+            }
+          }
+        },
+        "matchedRoles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "roleId": { "type": "string" },
+              "matchScore": { "type": "number", "min": 0, "max": 1 },
+              "requiredSkills": { "type": "array", "items": { "type": "string" } },
+              "roleName": { "type": "string" },
+              "onetSocCode": { "type": "string" },
+              "industryAlignment": { "type": "number", "min": 0, "max": 1 },
+              "valueAlignment": { "type": "number", "min": 0, "max": 1 },
+              "skillGapAnalysis": {
+                "type": "object",
+                "properties": {
+                  "criticalGaps": { "type": "array", "items": { "type": "string" } },
+                  "developableGaps": { "type": "array", "items": { "type": "string" } },
+                  "timeToReadiness": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "careerVisionBoard": {
+          "type": "object",
+          "properties": {
+            "boardId": { "type": "string" },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "visionElements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "elementId": { "type": "string" },
+                  "type": { "type": "string", "enum": ["central_vision", "aspirational_role", "lifestyle_goal", "impact_vision", "skill_milestone", "network_goal"] },
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "position": {
+                    "type": "object",
+                    "properties": {
+                      "x": { "type": "number" },
+                      "y": { "type": "number" }
+                    }
+                  },
+                  "timeframe": { "type": "string", "enum": ["1_year", "3_years", "5_years", "10_years", "lifetime"] },
+                  "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+                  "feasibility": { "type": "number", "min": 0, "max": 1 },
+                  "emotionalResonance": { "type": "number", "min": 0, "max": 1 },
+                  "culturalAlignment": { "type": "number", "min": 0, "max": 1 },
+                  "identityConnection": { "type": "array", "items": { "type": "string" } },
+                  "resourceNeeds": { "type": "array", "items": { "type": "string" } },
+                  "connectedGoals": { "type": "array", "items": { "type": "string" } },
+                  "progressIndicators": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "indicator": { "type": "string" },
+                        "currentValue": { "type": "number" },
+                        "targetValue": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "createdAt": { "type": "timestamp" },
+            "updatedAt": { "type": "timestamp" }
+          }
+        },
+        "smartGoals": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "progressTracking": {
+          "type": "object",
+          "properties": {
+            "currentPhase": { "type": "string" },
+            "overallProgress": { "type": "number", "min": 0, "max": 1 },
+            "skillDevelopmentProgress": {
+              "type": "object",
+              "properties": {
+                "technicalSkills": { "type": "number", "min": 0, "max": 1 },
+                "softSkills": { "type": "number", "min": 0, "max": 1 },
+                "leadershipSkills": { "type": "number", "min": 0, "max": 1 },
+                "culturalCompetency": { "type": "number", "min": 0, "max": 1 }
+              }
+            },
+            "networkGrowth": {
+              "type": "object",
+              "properties": {
+                "professionalConnections": { "type": "number" },
+                "mentorRelationships": { "type": "number" },
+                "industryConnections": { "type": "number" },
+                "communityConnections": { "type": "number" }
+              }
+            },
+            "experienceGain": {
+              "type": "object",
+              "properties": {
+                "internships": { "type": "number" },
+                "volunteerHours": { "type": "number" },
+                "projectsCompleted": { "type": "number" },
+                "leadershipRoles": { "type": "number" }
+              }
+            }
+          }
+        },
+        "culturalContext": {
+          "type": "object",
+          "properties": {
+            "culturalBackground": { "type": "array", "items": { "type": "string" } },
+            "languagesSpoken": { "type": "array", "items": { "type": "string" } },
+            "culturalCareerExpectations": { "type": "array", "items": { "type": "string" } },
+            "familyCareerInfluences": { "type": "array", "items": { "type": "string" } },
+            "culturalNetworks": { "type": "array", "items": { "type": "string" } },
+            "culturalBarriers": { "type": "array", "items": { "type": "string" } },
+            "culturalAssets": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "identityAlignment": {
+          "type": "object",
+          "properties": {
+            "personalIdentityElements": { "type": "array", "items": { "type": "string" } },
+            "culturalIdentityElements": { "type": "array", "items": { "type": "string" } },
+            "aspirationalIdentityElements": { "type": "array", "items": { "type": "string" } },
+            "identityCareerIntegration": { "type": "number", "min": 0, "max": 1 },
+            "authenticityInCareer": { "type": "number", "min": 1, "max": 10 }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true },
+        "lastActiveAt": { "type": "timestamp" },
+        "isActive": { "type": "boolean", "default": true }
+      },
+      "indexes": [
+        { "fields": ["userId"], "queryScope": "collection" },
+        { "fields": ["updatedAt"], "queryScope": "collection" },
+        { "fields": ["isActive", "updatedAt"], "queryScope": "collection" }
+      ],
+      "security": {
+        "read": ["owner", "mentor_with_permission"],
+        "write": ["owner"],
+        "privacy_controls": {
+          "default_visibility": "private",
+          "shareable_elements": ["interests", "strengths", "values", "career_goals"],
+          "mentor_access_level": "guided_sharing",
+          "community_sharing": "opt_in_only"
+        }
+      }
+    },
+    "users/{uid}/career/smartGoals/{goalId}": {
+      "description": "Individual SMART goals with detailed tracking and coaching",
+      "fields": {
+        "goalId": { "type": "string", "required": true },
+        "userId": { "type": "string", "required": true },
+        "category": { "type": "string", "enum": ["skill_development", "experience_gain", "network_building", "education", "project_completion", "career_transition", "leadership_growth", "creative_pursuit", "impact_creation", "personal_brand"] },
+        "goalTitle": { "type": "string", "required": true },
+        "goalDescription": { "type": "string", "required": true },
+        "specific": {
+          "type": "object",
+          "properties": {
+            "whatSpecifically": { "type": "string" },
+            "whyImportant": { "type": "string" },
+            "whoInvolved": { "type": "array", "items": { "type": "string" } },
+            "whereOccurs": { "type": "string" },
+            "whichResources": { "type": "array", "items": { "type": "string" } },
+            "constraints": { "type": "array", "items": { "type": "string" } },
+            "requirements": { "type": "array", "items": { "type": "string" } },
+            "scope": { "type": "string" },
+            "boundaries": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "measurable": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metricName": { "type": "string" },
+              "metricType": { "type": "string", "enum": ["quantitative", "qualitative", "binary", "milestone"] },
+              "currentValue": { "type": "string" },
+              "targetValue": { "type": "string" },
+              "unit": { "type": "string" },
+              "measurementMethod": { "type": "string" },
+              "frequency": { "type": "string" },
+              "trackingTools": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "achievable": {
+          "type": "object",
+          "properties": {
+            "feasibilityScore": { "type": "number", "min": 0, "max": 1 },
+            "resourceAvailability": {
+              "type": "object",
+              "properties": {
+                "available": { "type": "array", "items": { "type": "string" } },
+                "required": { "type": "array", "items": { "type": "string" } },
+                "gaps": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "skillRequirements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "skillName": { "type": "string" },
+                  "currentLevel": { "type": "number" },
+                  "requiredLevel": { "type": "number" },
+                  "developmentPlan": { "type": "string" },
+                  "timeline": { "type": "string" }
+                }
+              }
+            },
+            "supportSystemNeeds": { "type": "array", "items": { "type": "string" } },
+            "riskFactors": { "type": "array", "items": { "type": "string" } },
+            "contingencyPlans": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "relevant": {
+          "type": "object",
+          "properties": {
+            "careerGoalsAlignment": { "type": "number", "min": 0, "max": 1 },
+            "personalValuesAlignment": { "type": "number", "min": 0, "max": 1 },
+            "culturalAlignment": { "type": "number", "min": 0, "max": 1 },
+            "identityAlignment": { "type": "number", "min": 0, "max": 1 },
+            "marketRelevance": { "type": "number", "min": 0, "max": 1 },
+            "timingAppropriate": { "type": "boolean" },
+            "priorityLevel": { "type": "string", "enum": ["critical", "high", "medium", "low"] }
+          }
+        },
+        "timeBound": {
+          "type": "object",
+          "properties": {
+            "startDate": { "type": "timestamp" },
+            "targetEndDate": { "type": "timestamp" },
+            "totalDuration": { "type": "string" },
+            "phaseBreakdown": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "phaseName": { "type": "string" },
+                  "duration": { "type": "string" },
+                  "objectives": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            },
+            "checkpoints": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "date": { "type": "timestamp" },
+                  "milestone": { "type": "string" },
+                  "completed": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "status": { "type": "string", "enum": ["draft", "active", "on_track", "behind_schedule", "completed", "paused", "cancelled"], "default": "draft" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"], "default": "medium" },
+        "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "expert"], "default": "intermediate" },
+        "confidence": { "type": "number", "min": 0, "max": 1 },
+        "motivation": { "type": "number", "min": 1, "max": 10 },
+        "progressTracking": {
+          "type": "object",
+          "properties": {
+            "currentProgress": { "type": "number", "min": 0, "max": 1 },
+            "milestonesCompleted": { "type": "number" },
+            "timeInvested": { "type": "number" },
+            "lastUpdated": { "type": "timestamp" }
+          }
+        },
+        "mentorshipNeeds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "skillArea": { "type": "string" },
+              "mentorType": { "type": "string" },
+              "frequency": { "type": "string" },
+              "duration": { "type": "string" }
+            }
+          }
+        },
+        "communitySupport": {
+          "type": "object",
+          "properties": {
+            "desiredSupport": { "type": "array", "items": { "type": "string" } },
+            "shareProgress": { "type": "boolean" },
+            "seekAccountability": { "type": "boolean" }
+          }
+        },
+        "culturalConsiderations": {
+          "type": "object",
+          "properties": {
+            "culturalValues": { "type": "array", "items": { "type": "string" } },
+            "familyConsiderations": { "type": "array", "items": { "type": "string" } },
+            "culturalBarriers": { "type": "array", "items": { "type": "string" } },
+            "culturalAssets": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true },
+        "targetCompletionDate": { "type": "timestamp" },
+        "actualCompletionDate": { "type": "timestamp" }
+      },
+      "indexes": [
+        { "fields": ["userId", "status"], "queryScope": "collection" },
+        { "fields": ["userId", "category"], "queryScope": "collection" },
+        { "fields": ["userId", "priority", "updatedAt"], "queryScope": "collection" },
+        { "fields": ["targetCompletionDate"], "queryScope": "collection" }
+      ]
+    },
+    "users/{uid}/career/projects/{projectId}": {
+      "description": "Project-based learning and portfolio development",
+      "fields": {
+        "projectId": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "description": { "type": "string", "required": true },
+        "category": { "type": "string", "enum": ["skill_building", "portfolio_piece", "real_world_application", "community_impact", "creative_expression", "research", "collaboration", "entrepreneurial"] },
+        "status": { "type": "string", "enum": ["ideation", "planning", "in_progress", "completed", "on_hold", "cancelled"], "default": "ideation" },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "startDate": { "type": "timestamp" },
+            "estimatedEndDate": { "type": "timestamp" },
+            "actualEndDate": { "type": "timestamp" },
+            "phases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "phaseName": { "type": "string" },
+                  "startDate": { "type": "timestamp" },
+                  "endDate": { "type": "timestamp" },
+                  "deliverables": { "type": "array", "items": { "type": "string" } },
+                  "completed": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "objectiveId": { "type": "string" },
+              "description": { "type": "string" },
+              "category": { "type": "string" },
+              "completed": { "type": "boolean" },
+              "completionDate": { "type": "timestamp" }
+            }
+          }
+        },
+        "skillsApplied": { "type": "array", "items": { "type": "string" } },
+        "skillsDeveloped": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "skillName": { "type": "string" },
+              "levelBefore": { "type": "number" },
+              "levelAfter": { "type": "number" },
+              "evidenceOfGrowth": { "type": "string" }
+            }
+          }
+        },
+        "stakeholders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "role": { "type": "string" },
+              "organization": { "type": "string" },
+              "contact": { "type": "string" }
+            }
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "resourceType": { "type": "string" },
+              "name": { "type": "string" },
+              "url": { "type": "string" },
+              "cost": { "type": "number" },
+              "acquired": { "type": "boolean" }
+            }
+          }
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deliverableId": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "format": { "type": "string" },
+              "url": { "type": "string" },
+              "completed": { "type": "boolean" },
+              "completionDate": { "type": "timestamp" }
+            }
+          }
+        },
+        "outcomes": {
+          "type": "object",
+          "properties": {
+            "learningOutcomes": { "type": "array", "items": { "type": "string" } },
+            "skillGains": { "type": "array", "items": { "type": "string" } },
+            "networkExpansion": { "type": "array", "items": { "type": "string" } },
+            "portfolioContributions": { "type": "array", "items": { "type": "string" } },
+            "impactMeasured": {
+              "type": "object",
+              "properties": {
+                "quantitativeImpact": { "type": "string" },
+                "qualitativeImpact": { "type": "string" },
+                "beneficiaries": { "type": "number" },
+                "feedbackReceived": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "culturalIntegration": {
+          "type": "object",
+          "properties": {
+            "culturalElements": { "type": "array", "items": { "type": "string" } },
+            "communityBenefit": { "type": "string" },
+            "culturalLearnings": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "mentorInvolvement": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "mentorId": { "type": "string" },
+              "mentorName": { "type": "string" },
+              "roleInProject": { "type": "string" },
+              "contributionType": { "type": "string" },
+              "frequency": { "type": "string" }
+            }
+          }
+        },
+        "reflections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "reflectionId": { "type": "string" },
+              "date": { "type": "timestamp" },
+              "content": { "type": "string" },
+              "insights": { "type": "array", "items": { "type": "string" } },
+              "challengesFaced": { "type": "array", "items": { "type": "string" } },
+              "lessonsLearned": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      },
+      "indexes": [
+        { "fields": ["userId", "status"], "queryScope": "collection" },
+        { "fields": ["userId", "category"], "queryScope": "collection" },
+        { "fields": ["updatedAt"], "queryScope": "collection" }
+      ]
+    },
+    "users/{uid}/career/opportunities/{opportunityId}": {
+      "description": "Real-world opportunities including internships, volunteering, shadowing",
+      "fields": {
+        "opportunityId": { "type": "string", "required": true },
+        "type": { "type": "string", "enum": ["internship", "volunteer", "shadow", "project", "competition", "conference", "workshop", "mentorship", "networking_event", "job", "freelance"], "required": true },
+        "title": { "type": "string", "required": true },
+        "description": { "type": "string", "required": true },
+        "organization": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "type": "string" },
+            "industry": { "type": "string" },
+            "size": { "type": "string" },
+            "mission": { "type": "string" },
+            "website": { "type": "string" },
+            "diversityCommitment": { "type": "string" },
+            "accessibilitySupport": { "type": "string" }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["onsite", "remote", "hybrid"] },
+            "address": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "country": { "type": "string" },
+            "coordinates": {
+              "type": "object",
+              "properties": {
+                "lat": { "type": "number" },
+                "lng": { "type": "number" }
+              }
+            },
+            "accessibility": {
+              "type": "object",
+              "properties": {
+                "publicTransportAccess": { "type": "boolean" },
+                "parkingAvailable": { "type": "boolean" },
+                "wheelchairAccessible": { "type": "boolean" }
+              }
+            }
+          }
+        },
+        "timeCommitment": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["full_time", "part_time", "project_based", "flexible"] },
+            "hoursPerWeek": { "type": "number" },
+            "duration": { "type": "string" },
+            "schedule": { "type": "string" },
+            "startDate": { "type": "timestamp" },
+            "endDate": { "type": "timestamp" }
+          }
+        },
+        "compensation": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["paid", "unpaid", "stipend", "academic_credit"] },
+            "amount": { "type": "number" },
+            "currency": { "type": "string" },
+            "frequency": { "type": "string" },
+            "benefits": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["skill", "education", "experience", "certification", "other"] },
+              "requirement": { "type": "string" },
+              "level": { "type": "string", "enum": ["required", "preferred", "nice_to_have"] },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "skillName": { "type": "string" },
+              "importance": { "type": "string", "enum": ["high", "medium", "low"] },
+              "proficiencyRequired": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "expert"] },
+              "developmentSupported": { "type": "boolean" }
+            }
+          }
+        },
+        "benefits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string", "enum": ["learning", "networking", "experience", "professional", "personal"] },
+              "benefit": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "applicationProcess": {
+          "type": "object",
+          "properties": {
+            "method": { "type": "string", "enum": ["online", "email", "in_person", "referral"] },
+            "steps": { "type": "array", "items": { "type": "string" } },
+            "timeToHear": { "type": "string" },
+            "applicationMaterials": { "type": "array", "items": { "type": "string" } },
+            "applicationUrl": { "type": "string" },
+            "contactEmail": { "type": "string" },
+            "contactPhone": { "type": "string" }
+          }
+        },
+        "deadline": { "type": "timestamp" },
+        "startDate": { "type": "timestamp" },
+        "duration": { "type": "string" },
+        "matchScore": { "type": "number", "min": 0, "max": 1 },
+        "matchReasons": { "type": "array", "items": { "type": "string" } },
+        "culturalFit": { "type": "number", "min": 0, "max": 1 },
+        "identityAlignment": { "type": "number", "min": 0, "max": 1 },
+        "careerRelevance": { "type": "number", "min": 0, "max": 1 },
+        "learningPotential": { "type": "number", "min": 0, "max": 1 },
+        "networkingValue": { "type": "number", "min": 0, "max": 1 },
+        "impactPotential": { "type": "number", "min": 0, "max": 1 },
+        "accessibilityScore": { "type": "number", "min": 0, "max": 1 },
+        "source": {
+          "type": "object",
+          "properties": {
+            "platform": { "type": "string" },
+            "url": { "type": "string" },
+            "postedDate": { "type": "timestamp" },
+            "reliability": { "type": "number", "min": 0, "max": 1 }
+          }
+        },
+        "applicationStatus": { "type": "string", "enum": ["not_applied", "considering", "applied", "interviewed", "offered", "accepted", "declined", "completed"], "default": "not_applied" },
+        "userNotes": { "type": "string" },
+        "preparationNeeds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "need": { "type": "string" },
+              "priority": { "type": "string", "enum": ["high", "medium", "low"] },
+              "timeline": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true },
+        "expiresAt": { "type": "timestamp" }
+      },
+      "indexes": [
+        { "fields": ["userId", "type"], "queryScope": "collection" },
+        { "fields": ["userId", "applicationStatus"], "queryScope": "collection" },
+        { "fields": ["matchScore"], "queryScope": "collection", "order": "desc" },
+        { "fields": ["deadline"], "queryScope": "collection" },
+        { "fields": ["location.city", "type"], "queryScope": "collection" }
+      ]
+    },
+    "users/{uid}/career/mentorship/{relationshipId}": {
+      "description": "AI mentor persona relationships and coaching sessions",
+      "fields": {
+        "relationshipId": { "type": "string", "required": true },
+        "mentorPersonaId": { "type": "string", "required": true },
+        "mentorPersona": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "role": { "type": "string" },
+            "background": { "type": "string" },
+            "expertise": { "type": "array", "items": { "type": "string" } },
+            "communicationStyle": { "type": "string" },
+            "culturalBackground": { "type": "array", "items": { "type": "string" } },
+            "approach": { "type": "string" },
+            "specializations": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "relationshipStartDate": { "type": "timestamp" },
+        "relationshipDepth": { "type": "string", "enum": ["surface", "developing", "established", "deep"], "default": "surface" },
+        "totalSessions": { "type": "number", "default": 0 },
+        "lastSessionDate": { "type": "timestamp" },
+        "trustLevel": { "type": "number", "min": 0, "max": 1, "default": 0.5 },
+        "effectivenessRating": { "type": "number", "min": 0, "max": 1 },
+        "focusAreas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "area": { "type": "string" },
+              "priority": { "type": "string", "enum": ["high", "medium", "low"] },
+              "progress": { "type": "number", "min": 0, "max": 1 }
+            }
+          }
+        },
+        "personalizedAdaptations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "adaptationType": { "type": "string" },
+              "description": { "type": "string" },
+              "implementedDate": { "type": "timestamp" }
+            }
+          }
+        },
+        "sharedGoals": { "type": "array", "items": { "type": "string" } },
+        "relationshipHealth": {
+          "type": "object",
+          "properties": {
+            "satisfaction": { "type": "number", "min": 1, "max": 10 },
+            "engagement": { "type": "number", "min": 1, "max": 10 },
+            "progress": { "type": "number", "min": 1, "max": 10 },
+            "culturalSensitivity": { "type": "number", "min": 1, "max": 10 }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      },
+      "indexes": [
+        { "fields": ["userId", "mentorPersonaId"], "queryScope": "collection" },
+        { "fields": ["lastSessionDate"], "queryScope": "collection" },
+        { "fields": ["effectivenessRating"], "queryScope": "collection", "order": "desc" }
+      ]
+    },
+    "users/{uid}/career/mentorship/{relationshipId}/sessions/{sessionId}": {
+      "description": "Individual coaching sessions with AI mentors",
+      "fields": {
+        "sessionId": { "type": "string", "required": true },
+        "sessionType": { "type": "string", "enum": ["goal_planning", "progress_check", "problem_solving", "skill_development", "confidence_building", "career_exploration"], "required": true },
+        "sessionDate": { "type": "timestamp", "required": true },
+        "duration": { "type": "number" },
+        "sessionSummary": { "type": "string" },
+        "keyInsights": { "type": "array", "items": { "type": "string" } },
+        "actionItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": { "type": "string" },
+              "deadline": { "type": "timestamp" },
+              "priority": { "type": "string", "enum": ["high", "medium", "low"] },
+              "completed": { "type": "boolean", "default": false }
+            }
+          }
+        },
+        "skillsAddressed": { "type": "array", "items": { "type": "string" } },
+        "emotionalSupport": {
+          "type": "object",
+          "properties": {
+            "encouragementProvided": { "type": "boolean" },
+            "confidenceBoosted": { "type": "boolean" },
+            "stressAddressed": { "type": "boolean" },
+            "motivationIncreased": { "type": "boolean" }
+          }
+        },
+        "culturalElementsDiscussed": { "type": "array", "items": { "type": "string" } },
+        "breakthroughMoments": { "type": "array", "items": { "type": "string" } },
+        "challengesAddressed": { "type": "array", "items": { "type": "string" } },
+        "resourcesShared": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "resourceType": { "type": "string" },
+              "title": { "type": "string" },
+              "url": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "userFeedback": {
+          "type": "object",
+          "properties": {
+            "helpfulness": { "type": "number", "min": 1, "max": 10 },
+            "culturalSensitivity": { "type": "number", "min": 1, "max": 10 },
+            "actionableAdvice": { "type": "number", "min": 1, "max": 10 },
+            "emotionalSupport": { "type": "number", "min": 1, "max": 10 },
+            "overallRating": { "type": "number", "min": 1, "max": 10 },
+            "comments": { "type": "string" }
+          }
+        },
+        "followUpScheduled": {
+          "type": "object",
+          "properties": {
+            "scheduledDate": { "type": "timestamp" },
+            "focusArea": { "type": "string" },
+            "preparationNeeded": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "createdAt": { "type": "timestamp", "required": true }
+      },
+      "indexes": [
+        { "fields": ["userId", "sessionDate"], "queryScope": "collection" },
+        { "fields": ["sessionType", "sessionDate"], "queryScope": "collection" }
+      ]
+    }
+  },
+  "security_rules": {
+    "description": "Comprehensive security rules for career data protection",
+    "rules": [
+      {
+        "path": "users/{userId}/career",
+        "allow": {
+          "read": ["if request.auth != null && request.auth.uid == userId"],
+          "write": ["if request.auth != null && request.auth.uid == userId && isValidCareerData(request.resource.data)"]
+        }
+      },
+      {
+        "path": "users/{userId}/career/{document=**}",
+        "allow": {
+          "read": ["if request.auth != null && request.auth.uid == userId"],
+          "write": ["if request.auth != null && request.auth.uid == userId"]
+        }
+      }
+    ],
+    "functions": {
+      "isValidCareerData": {
+        "description": "Validates career data structure and content",
+        "logic": "return data.keys().hasAll(['userId', 'createdAt', 'updatedAt']) && data.userId == userId"
+      }
+    }
+  },
+  "data_privacy": {
+    "classification": "highly_sensitive",
+    "retention_policy": "7_years_after_account_closure",
+    "sharing_permissions": {
+      "mentor_access": "user_controlled_granular",
+      "community_sharing": "opt_in_only",
+      "analytics": "anonymized_aggregated_only",
+      "research": "explicit_consent_required"
+    },
+    "compliance": {
+      "gdpr": "full_compliance",
+      "ccpa": "full_compliance",
+      "coppa": "age_verification_required",
+      "ferpa": "educational_data_protected"
+    },
+    "encryption": {
+      "at_rest": "AES_256",
+      "in_transit": "TLS_1_3",
+      "field_level": "sensitive_fields_encrypted"
+    }
+  },
+  "performance_optimization": {
+    "indexing_strategy": "composite_indexes_for_common_queries",
+    "caching": "aggressive_caching_with_invalidation",
+    "pagination": "cursor_based_pagination",
+    "data_loading": "lazy_loading_with_prefetch",
+    "query_optimization": "denormalization_for_read_performance"
+  },
+  "scalability_considerations": {
+    "sharding_strategy": "user_based_sharding",
+    "collection_limits": "subcollections_for_large_datasets",
+    "document_size": "max_1mb_per_document",
+    "concurrent_users": "designed_for_100k_concurrent",
+    "growth_projections": "linear_scaling_architecture"
+  },
+  "backup_and_recovery": {
+    "backup_frequency": "daily_automated_backups",
+    "retention_period": "30_days_point_in_time_recovery",
+    "disaster_recovery": "multi_region_redundancy",
+    "data_export": "user_initiated_data_export_available"
+  }
+}

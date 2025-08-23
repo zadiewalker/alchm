@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "Bienvenue à la maison",
+    "loading": "Chargement en cours...",
+    "error": "Quelque chose s'est mal passé",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "continue": "Continuer", 
+    "back": "Retour",
+    "next": "Suivant",
+    "save": "Sauvegarder",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "journals": "Journaux",
+    "reflection": "Réflexion", 
+    "khepera": "KHEPERA",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "logout": "Se déconnecter"
+  },
+  "onboarding": {
+    "title": "Bienvenue dans Votre Sanctuaire Numérique",
+    "subtitle": "Un espace sensible au trauma pour la guérison, la réflexion et la croissance",
+    "intro": "Vous êtes entré dans un sanctuaire numérique sacré.",
+    "reflection_prompt": "Commencez votre première réflexion de l'âme",
+    "contract": "Votre histoire est sacrée. Votre croissance vous appartient seule.",
+    "disclaimer": "ALCHM est thérapeutique, mais ce n'est pas une thérapie professionnelle.",
+    "crisis": "Si vous êtes en crise, s'il vous plaît cherchez de l'aide maintenant.",
+    "step1": {
+      "title": "Choisissez Votre Langue",
+      "description": "ALCHM parle votre langue, honore votre culture"
+    },
+    "step2": {
+      "title": "Définissez Votre Intention",
+      "description": "Qu'est-ce qui vous amène dans cet espace sacré ?"
+    },
+    "step3": {
+      "title": "Rencontrez KHEPERA",
+      "description": "Votre compagnon d'IA pour l'intelligence émotionnelle et la croissance"
+    },
+    "getStarted": "Commencez Votre Voyage Sacré"
+  },
+  "culturalGreetings": {
+    "morning": "Bonjour, belle âme",
+    "afternoon": "Bon après-midi, cœur courageux",
+    "evening": "Bonsoir, être lumineux", 
+    "night": "Bonne nuit, esprit cher"
+  },
+  "sacredLanguage": {
+    "blessing": "Que votre chemin soit rempli de lumière et de guérison",
+    "protection": "Ceci est votre espace sacré et protégé",
+    "growth": "Votre évolution spirituelle est honorée ici",
+    "community": "Vous appartenez à cette communauté de cœurs guérisseurs"
+  }
+}

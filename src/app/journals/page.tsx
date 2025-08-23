@@ -1,29 +1,35 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { JournalEntry } from '@/lib/useJournals';
-import useJournals from '@/lib/useJournals';
+import React from 'react';
+import { useJournals } from '@/lib/useJournals';
+
+type JournalEntry = {
+  id?: string;
+  createdAt?: string | number | Date;
+  text?: string;
+};
 
 export default function JournalsPage() {
-  const { entries, loading } = useJournals();
+  // Hook returns an array; make sure we always have an array
+  const entries = (useJournals() as unknown as JournalEntry[]) ?? [];
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-semibold mb-4">Your Journals</h1>
-      {loading ? (
-        <p>Loading your reflections...</p>
+    <main className="mx-auto max-w-xl p-6">
+      <h1 className="text-xl font-semibold">Your Journals</h1>
+
+      {entries.length === 0 ? (
+        <div className="mt-4 opacity-70">No entries yet.</div>
       ) : (
-        <div className="space-y-4">
-          {entries.map((entry) => (
-            <div key={entry.id} className="border p-4 rounded bg-white shadow">
-              <p className="mb-2">{entry.reflection}</p>
-              <div className="text-sm text-gray-500 flex justify-between">
-                <span>{entry.createdAt}</span>
-                <span>{entry.tags?.join(', ')}</span>
+        <ul className="mt-4 space-y-2">
+          {entries.map((entry, i) => (
+            <li key={entry?.id ?? i} className="rounded border p-3">
+              <div className="text-sm opacity-70">
+                {String(entry?.createdAt ?? '')}
               </div>
-            </div>
+              <div className="mt-1">{entry?.text ?? ''}</div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </main>
   );

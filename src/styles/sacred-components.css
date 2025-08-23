@@ -1,0 +1,920 @@
+/* ALCHM Sacred Components Styles */
+/* Styles for components that embody ritual and emotional containers */
+
+/* Import sacred foundations */
+@import url('./sacred-motion-tokens.css');
+@import url('./sacred-motion-applications.css');
+
+/* ===== SANCTUARY SHELL - Foundation Container ===== */
+
+.sanctuary-shell {
+  min-height: 100vh;
+  position: relative;
+  background: var(--color-healing-whisper);
+  transition: all var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sanctuary-shell.sacred-space {
+  position: relative;
+  overflow: hidden;
+}
+
+.sanctuary-shell.sacred-space::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(164, 183, 146, 0.05) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    circle at 70% 80%,
+    rgba(203, 153, 126, 0.03) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sanctuary-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.sacred-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.02) 0%,
+    rgba(203, 153, 126, 0.01) 50%,
+    rgba(238, 221, 211, 0.02) 100%
+  );
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Energy level variations */
+.sanctuary-shell.energy-gentle {
+  background: var(--color-healing-whisper);
+}
+
+.sanctuary-shell.energy-presence {
+  background: linear-gradient(
+    to bottom,
+    var(--color-healing-whisper) 0%,
+    var(--color-primary-whisper) 100%
+  );
+}
+
+.sanctuary-shell.energy-ceremony {
+  background: linear-gradient(
+    135deg,
+    var(--color-healing-whisper) 0%,
+    var(--color-primary-whisper) 30%,
+    var(--color-soft-blush-whisper) 70%,
+    var(--color-healing-whisper) 100%
+  );
+}
+
+.sanctuary-shell.energy-ritual {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-whisper) 0%,
+    var(--color-soft-blush-whisper) 25%,
+    var(--color-healing-whisper) 50%,
+    var(--color-primary-whisper) 75%,
+    var(--color-soft-blush-whisper) 100%
+  );
+  animation: sacredBreathing 8s ease-in-out infinite;
+}
+
+/* Consciousness state variations */
+.sanctuary-shell.consciousness-grounding {
+  border-bottom: 3px solid var(--color-warm-terra);
+}
+
+.sanctuary-shell.consciousness-opening {
+  border-top: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-warm-terra);
+}
+
+.sanctuary-shell.consciousness-integrating {
+  border: 1px solid var(--color-primary);
+  box-shadow: inset 0 0 20px rgba(164, 183, 146, 0.1);
+}
+
+.sanctuary-shell.consciousness-celebrating {
+  border: 2px solid var(--color-soft-blush);
+  box-shadow: 
+    inset 0 0 30px rgba(238, 221, 211, 0.2),
+    0 0 40px rgba(164, 183, 146, 0.1);
+}
+
+/* ===== RITUAL GATE - Modal/Dialog ===== */
+
+.ritual-veil {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  animation: veilAppear var(--motion-fade) var(--ease-sacred-flow) forwards;
+}
+
+.ritual-gate {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    0 0 40px rgba(164, 183, 146, 0.1);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9) translateY(20px);
+  animation: gateAppear var(--motion-fade) var(--ease-sacred-flow) forwards;
+}
+
+.ritual-gate.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1) translateY(0);
+}
+
+.gate-content {
+  position: relative;
+  padding: var(--space-ritual);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.gate-close-intention {
+  position: absolute;
+  top: var(--space-gentle);
+  right: var(--space-gentle);
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-whisper);
+  border-radius: var(--radius-breath);
+  transition: all var(--motion-hover) var(--ease-hover);
+  z-index: 10;
+}
+
+.gate-close-intention:hover {
+  background: var(--emotion-processing);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.gate-energy-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-warm-terra) 50%,
+    var(--color-soft-blush) 100%
+  );
+  overflow: hidden;
+}
+
+.energy-pulse {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  animation: energyFlow 3s linear infinite;
+}
+
+.energy-pulse.energy-2 {
+  animation-delay: 1s;
+}
+
+.energy-pulse.energy-3 {
+  animation-delay: 2s;
+}
+
+/* Ceremony variations */
+.ritual-gate.ceremony-gentle {
+  background: var(--color-healing-whisper);
+  border-color: var(--color-healing-mist);
+}
+
+.ritual-gate.ceremony-presence {
+  background: linear-gradient(
+    135deg,
+    var(--color-healing-whisper) 0%,
+    var(--color-primary-whisper) 100%
+  );
+  border-color: var(--color-primary-mist);
+}
+
+.ritual-gate.ceremony-sacred {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-whisper) 0%,
+    var(--color-soft-blush-whisper) 50%,
+    var(--color-healing-whisper) 100%
+  );
+  border: 2px solid var(--color-primary);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 60px rgba(164, 183, 146, 0.2);
+}
+
+.ritual-gate.ceremony-transformative {
+  background: linear-gradient(
+    45deg,
+    var(--color-primary-whisper) 0%,
+    var(--color-soft-blush-whisper) 25%,
+    var(--color-healing-whisper) 50%,
+    var(--color-primary-whisper) 75%,
+    var(--color-soft-blush-whisper) 100%
+  );
+  border: 2px solid var(--color-soft-blush);
+  box-shadow: 
+    0 25px 80px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(238, 221, 211, 0.3);
+  animation: transformativeGlow 4s ease-in-out infinite;
+}
+
+/* Heart Conversation variant */
+.heart-conversation {
+  border-radius: var(--radius-presence);
+  border: 2px solid var(--color-soft-blush-mist);
+}
+
+.heart-space {
+  position: relative;
+  padding: var(--space-gentle);
+}
+
+.conversation-aura {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    circle,
+    rgba(238, 221, 211, 0.3) 0%,
+    rgba(238, 221, 211, 0.1) 50%,
+    transparent 100%
+  );
+  border-radius: var(--radius-presence);
+  z-index: -1;
+}
+
+/* ===== INTENTION GEM - Sacred Button ===== */
+
+.intention-gem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-breath) var(--space-gentle);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-breath);
+  color: var(--text-primary);
+  font-family: var(--font-presence);
+  font-weight: var(--weight-presence);
+  font-size: var(--text-breath);
+  cursor: pointer;
+  transition: all var(--motion-hover) var(--ease-hover);
+  overflow: hidden;
+  user-select: none;
+  outline: none;
+}
+
+.intention-gem:hover {
+  transform: translateY(var(--motion-lift-gentle));
+  box-shadow: 0 var(--glow-radius-breath) var(--glow-radius-gentle) var(--glow-color-primary);
+  border-color: var(--color-primary-mist);
+}
+
+.intention-gem:active {
+  transform: translateY(var(--motion-lift-subtle)) scale(var(--motion-scale-whisper));
+  transition-duration: var(--motion-breath);
+}
+
+.intention-gem:focus-visible {
+  box-shadow: 
+    0 0 var(--glow-radius-gentle) var(--glow-color-focus),
+    0 var(--glow-radius-breath) var(--glow-radius-gentle) var(--glow-color-primary);
+}
+
+.gem-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-whisper);
+  z-index: 2;
+}
+
+.gem-content {
+  position: relative;
+  z-index: 3;
+}
+
+.gem-aura {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border-radius: var(--radius-breath);
+  z-index: 1;
+}
+
+/* Intent variations */
+.intention-gem.intent-healing {
+  background: linear-gradient(135deg, var(--color-primary-whisper), var(--color-primary-mist));
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.intention-gem.intent-growth {
+  background: linear-gradient(135deg, var(--color-warm-terra-whisper), var(--color-warm-terra-mist));
+  border-color: var(--color-warm-terra);
+  color: var(--color-warm-terra);
+}
+
+.intention-gem.intent-connection {
+  background: linear-gradient(135deg, var(--color-soft-blush-whisper), var(--color-soft-blush-mist));
+  border-color: var(--color-soft-blush);
+  color: var(--text-primary);
+}
+
+.intention-gem.intent-wisdom {
+  background: linear-gradient(135deg, var(--color-healing-whisper), var(--color-healing-mist));
+  border-color: var(--color-primary-mist);
+  color: var(--text-primary);
+}
+
+.intention-gem.intent-transformation {
+  background: linear-gradient(
+    135deg, 
+    var(--color-primary-whisper), 
+    var(--color-soft-blush-whisper), 
+    var(--color-warm-terra-whisper)
+  );
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--weight-ceremony);
+}
+
+.intention-gem.intent-celebration {
+  background: linear-gradient(
+    45deg,
+    var(--color-soft-blush-whisper) 0%,
+    var(--color-primary-whisper) 50%,
+    var(--color-soft-blush-whisper) 100%
+  );
+  border: 2px solid var(--color-soft-blush);
+  color: var(--text-primary);
+  animation: celebrationShimmer 2s ease-in-out infinite;
+}
+
+/* Sacred gem variation */
+.intention-gem.sacred-gem {
+  border: 2px solid var(--color-primary);
+  box-shadow: 
+    0 0 var(--glow-radius-gentle) var(--glow-color-primary),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.sacred-indicator {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  z-index: 4;
+}
+
+.sacred-glow {
+  width: 100%;
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-primary);
+  animation: sacredPulse 2s ease-in-out infinite;
+}
+
+/* Loading state */
+.intention-gem.gem-activating {
+  cursor: wait;
+}
+
+.gem-activation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+}
+
+.activation-pulse {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-primary);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Disabled state */
+.intention-gem.gem-dormant {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Sacred ripple effect */
+.sacred-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(164, 183, 146, 0.3) 0%,
+    rgba(164, 183, 146, 0.1) 50%,
+    transparent 100%
+  );
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ===== SOUL CANVAS - Sacred Textarea ===== */
+
+.soul-canvas-container {
+  position: relative;
+  width: 100%;
+}
+
+.canvas-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-gentle);
+}
+
+.soul-canvas {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-gentle);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  color: var(--text-primary);
+  font-family: var(--font-breath);
+  font-size: var(--text-breath);
+  line-height: var(--leading-spacious);
+  resize: vertical;
+  transition: all var(--motion-focus) var(--ease-focus);
+  outline: none;
+}
+
+.soul-canvas::placeholder {
+  color: var(--text-tertiary);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.soul-canvas:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-focus);
+  background: var(--emotion-reflecting);
+}
+
+.soul-canvas.canvas-focused {
+  border-color: var(--color-primary);
+}
+
+/* Soul depth variations */
+.soul-canvas.soul-depth-surface {
+  background: var(--color-healing-whisper);
+  border-color: var(--color-healing-mist);
+}
+
+.soul-canvas.soul-depth-heart {
+  background: linear-gradient(
+    135deg,
+    var(--color-soft-blush-whisper) 0%,
+    var(--color-healing-whisper) 100%
+  );
+  border-color: var(--color-soft-blush-mist);
+}
+
+.soul-canvas.soul-depth-soul {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-whisper) 0%,
+    var(--color-healing-whisper) 50%,
+    var(--color-soft-blush-whisper) 100%
+  );
+  border-color: var(--color-primary-mist);
+}
+
+.soul-canvas.soul-depth-spirit {
+  background: linear-gradient(
+    45deg,
+    var(--color-primary-whisper) 0%,
+    var(--color-soft-blush-whisper) 25%,
+    var(--color-healing-whisper) 50%,
+    var(--color-primary-whisper) 75%,
+    var(--color-soft-blush-whisper) 100%
+  );
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-primary);
+}
+
+/* Sacred canvas */
+.soul-canvas.sacred-canvas {
+  border: 2px solid var(--color-primary-mist);
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.05) 0%,
+    rgba(238, 221, 211, 0.03) 50%,
+    rgba(249, 246, 241, 0.95) 100%
+  );
+}
+
+.sacred-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.energy-flow {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 50%,
+    transparent 100%
+  );
+  animation: energyFlow 4s linear infinite;
+}
+
+.energy-flow.energy-1 {
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.energy-flow.energy-2 {
+  top: 50%;
+  animation-delay: 1.3s;
+}
+
+.energy-flow.energy-3 {
+  top: 80%;
+  animation-delay: 2.6s;
+}
+
+.canvas-breath {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(164, 183, 146, 0.1) 0%,
+    rgba(164, 183, 146, 0.05) 30%,
+    transparent 70%
+  );
+  animation: breathingGlow 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.breath-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: gentlePulse var(--motion-healing-breath) ease-in-out infinite;
+}
+
+/* Canvas info and metrics */
+.canvas-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-breath);
+  padding-top: var(--space-breath);
+  border-top: 1px solid var(--color-healing-mist);
+}
+
+.canvas-metrics {
+  display: flex;
+  gap: var(--space-gentle);
+  font-size: var(--text-whisper);
+  color: var(--text-secondary);
+}
+
+.metric-label {
+  font-weight: var(--weight-presence);
+}
+
+.metric-value {
+  color: var(--text-primary);
+  font-weight: var(--weight-breath);
+}
+
+.metric-value.approaching-limit {
+  color: var(--color-warm-terra);
+  font-weight: var(--weight-presence);
+}
+
+.sacred-moments {
+  display: flex;
+  align-items: center;
+  gap: var(--space-whisper);
+  color: var(--color-primary);
+}
+
+.sacred-sparkle {
+  animation: gentleSparkle 2s ease-in-out infinite;
+}
+
+/* Sacred guidance */
+.sacred-guidance,
+.breakthrough-indicator {
+  margin-top: var(--space-breath);
+  padding: var(--space-breath);
+  background: var(--color-primary-whisper);
+  border: 1px solid var(--color-primary-mist);
+  border-radius: var(--radius-breath);
+  font-size: var(--text-whisper);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.breakthrough-indicator {
+  background: var(--color-soft-blush-whisper);
+  border-color: var(--color-soft-blush-mist);
+  color: var(--color-primary);
+  animation: softGlow 3s ease-in-out infinite;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes veilAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gateAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+  }
+}
+
+@keyframes energyFlow {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes transformativeGlow {
+  0%, 100% {
+    box-shadow: 
+      0 25px 80px rgba(0, 0, 0, 0.4),
+      0 0 80px rgba(238, 221, 211, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 25px 80px rgba(0, 0, 0, 0.4),
+      0 0 100px rgba(238, 221, 211, 0.4);
+  }
+}
+
+@keyframes celebrationShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes sacredPulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes rippleEffect {
+  from {
+    opacity: 0.6;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+@keyframes breathingGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes gentleSparkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes softGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(238, 221, 211, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(238, 221, 211, 0.5);
+  }
+}
+
+@keyframes sacredBreathing {
+  0%, 100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 110% 110%;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .energy-pulse,
+  .energy-flow,
+  .sacred-glow,
+  .activation-pulse,
+  .breath-pulse,
+  .sacred-sparkle {
+    animation: none !important;
+  }
+  
+  .intention-gem:hover,
+  .soul-canvas:focus {
+    transform: none !important;
+  }
+  
+  .ritual-gate.ceremony-transformative,
+  .breakthrough-indicator {
+    animation: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .sanctuary-shell,
+  .ritual-gate,
+  .intention-gem,
+  .soul-canvas {
+    border-width: 2px !important;
+  }
+  
+  .sacred-aura,
+  .conversation-aura,
+  .gem-aura,
+  .sacred-field {
+    display: none !important;
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 768px) {
+  .ritual-gate {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  
+  .gate-content {
+    padding: var(--space-gentle);
+  }
+  
+  .intention-gem {
+    padding: var(--space-breath) var(--space-breath);
+    font-size: var(--text-whisper);
+  }
+  
+  .soul-canvas {
+    font-size: var(--text-whisper);
+    padding: var(--space-breath);
+  }
+}
+
+@media (max-width: 480px) {
+  .canvas-metrics {
+    flex-direction: column;
+    gap: var(--space-whisper);
+  }
+  
+  .sacred-guidance,
+  .breakthrough-indicator {
+    padding: var(--space-whisper);
+    font-size: calc(var(--text-whisper) * 0.9);
+  }
+}

@@ -1,0 +1,209 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { auth } from '@/lib/firebaseAdmin';
+
+// Enhanced authentication middleware with comprehensive edge case handling
+export async function middleware(req: NextRequest) {
+  const { pathname, search } = req.nextUrl;
+  const sessionCookie = req.cookies.get('alchm_session')?.value;
+  const refreshToken = req.cookies.get('alchm_refresh')?.value;
+  
+  // Enhanced protected routes with granular matching
+  const protectedRoutes = [
+    '/dashboard',
+    '/journal', 
+    '/journals',
+    '/profile',
+    '/settings',
+    '/badges',
+    '/api/save',
+    '/api/journals',
+    '/api/user'
+  ];
+
+  // API routes that require authentication
+  const protectedApiRoutes = ['/api/save', '/api/journals', '/api/user'];
+  
+  // Routes that should redirect authenticated users away
+  const authRoutes = ['/auth/login', '/auth/signup', '/login', '/signup'];
+  
+  // Public routes that never require authentication
+  const publicRoutes = [
+    '/',
+    '/about',
+    '/privacy',
+    '/terms',
+    '/contact',
+    '/api/health',
+    '/api/khepera',
+    '/api/create-checkout-session',
+    '/api/stripe-webhook'
+  ];
+
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+  const isProtectedApiRoute = protectedApiRoutes.some(route => pathname.startsWith(route));
+  const isAuthRoute = authRoutes.some(route => pathname.startsWith(route));
+  const isPublicRoute = publicRoutes.some(route => pathname === route || pathname.startsWith(route));
+
+  // Skip middleware for public routes and static assets
+  if (isPublicRoute || 
+      pathname.startsWith('/_next/') ||
+      pathname.startsWith('/favicon') ||
+      pathname.includes('.')) {
+    return NextResponse.next();
+  }
+
+  // Handle authentication routes - redirect if already authenticated
+  if (isAuthRoute && sessionCookie) {
+    try {
+      await auth.verifySessionCookie(sessionCookie, true);
+      // User is authenticated, redirect to dashboard
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    } catch (error) {
+      // Invalid session, clear cookies and allow access to auth routes
+      const response = NextResponse.next();
+      response.cookies.delete('alchm_session');
+      response.cookies.delete('alchm_refresh');
+      return response;
+    }
+  }
+
+  // Handle protected routes
+  if (isProtectedRoute || isProtectedApiRoute) {
+    // No session cookie - attempt refresh or redirect to login
+    if (!sessionCookie) {
+      return handleUnauthenticatedRequest(req, isProtectedApiRoute);
+    }
+
+    try {
+      // Verify session cookie
+      const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
+      
+      // Check if session is close to expiry (within 1 hour)
+      const expiryTime = decodedClaims.exp * 1000;
+      const currentTime = Date.now();
+      const oneHour = 60 * 60 * 1000;
+      
+      if (expiryTime - currentTime < oneHour && refreshToken) {
+        // Attempt to refresh session in the background
+        console.log('[Middleware] Session expiring soon, refresh recommended');
+      }
+
+      // Session is valid - add user context to request
+      const response = NextResponse.next();
+      response.headers.set('x-user-id', decodedClaims.uid);
+      response.headers.set('x-user-email', decodedClaims.email || '');
+      response.headers.set('x-session-exp', decodedClaims.exp.toString());
+      
+      // Add security headers
+      response.headers.set('x-auth-status', 'authenticated');
+      response.headers.set('x-auth-time', decodedClaims.auth_time?.toString() || '');
+      
+      return response;
+      
+    } catch (error) {
+      console.error('[Middleware] Session verification failed:', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        pathname,
+        userAgent: req.headers.get('user-agent'),
+        timestamp: new Date().toISOString()
+      });
+
+      // Attempt session refresh if refresh token exists
+      if (refreshToken && !isProtectedApiRoute) {
+        return handleSessionRefresh(req, refreshToken);
+      }
+
+      // Clear invalid cookies and redirect/return error
+      if (isProtectedApiRoute) {
+        return new NextResponse(
+          JSON.stringify({ 
+            error: 'Authentication required',
+            code: 'AUTH_REQUIRED',
+            message: 'Please log in to access this resource'
+          }), 
+          { 
+            status: 401,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
+
+      return handleAuthenticationFailure(req, 'session_invalid');
+    }
+  }
+
+  // Allow access to non-protected routes
+  return NextResponse.next();
+}
+
+// Handle unauthenticated requests
+function handleUnauthenticatedRequest(req: NextRequest, isApiRoute: boolean): NextResponse {
+  if (isApiRoute) {
+    return new NextResponse(
+      JSON.stringify({ 
+        error: 'Authentication required',
+        code: 'NO_SESSION',
+        message: 'Please log in to access this resource'
+      }), 
+      { 
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
+
+  // Store intended destination for redirect after login
+  const loginUrl = new URL('/auth/login', req.url);
+  loginUrl.searchParams.set('redirect', req.nextUrl.pathname + req.nextUrl.search);
+  loginUrl.searchParams.set('reason', 'no_session');
+  
+  return NextResponse.redirect(loginUrl);
+}
+
+// Handle authentication failures with context
+function handleAuthenticationFailure(req: NextRequest, reason: string): NextResponse {
+  const response = NextResponse.redirect(
+    new URL(`/auth/login?reason=${reason}&redirect=${encodeURIComponent(req.nextUrl.pathname)}`, req.url)
+  );
+  
+  // Clear invalid cookies
+  response.cookies.delete('alchm_session');
+  response.cookies.delete('alchm_refresh');
+  
+  return response;
+}
+
+// Handle session refresh attempts
+function handleSessionRefresh(req: NextRequest, refreshToken: string): NextResponse {
+  // For now, redirect to login with refresh parameter
+  // In a full implementation, this would attempt to refresh the session
+  const loginUrl = new URL('/auth/login', req.url);
+  loginUrl.searchParams.set('redirect', req.nextUrl.pathname + req.nextUrl.search);
+  loginUrl.searchParams.set('reason', 'session_expired');
+  loginUrl.searchParams.set('refresh', 'true');
+  
+  const response = NextResponse.redirect(loginUrl);
+  
+  // Keep refresh token for potential use in login page
+  // Clear only the session cookie
+  response.cookies.delete('alchm_session');
+  
+  return response;
+}
+
+// Comprehensive middleware configuration
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api/health (health checks)
+     * - api/stripe-webhook (webhooks)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public assets
+     */
+    '/((?!api/health|api/stripe-webhook|api/khepera|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot)$).*)',
+  ],
+};

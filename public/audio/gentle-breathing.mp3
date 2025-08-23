@@ -1,0 +1,24 @@
+# Audio Placeholder File
+
+This file represents the gentle breathing audio that would be used in the sacred onboarding ceremony.
+
+## Audio Specifications:
+- Format: MP3 and OGG for browser compatibility
+- Duration: 4-6 seconds (one breath cycle)
+- Loop: Designed to loop seamlessly
+- Content: Soft inhale/exhale sounds or nature-inspired breathing guide
+- Volume: Very low, ambient level
+- Frequency: Calming, low frequencies to promote relaxation
+
+## Implementation Notes:
+- Audio is optional and user-controlled
+- Includes accessibility considerations for hearing-impaired users
+- Respects user preferences for audio/visual feedback
+- Falls back gracefully if audio fails to load
+
+## Production Requirements:
+Replace this placeholder with actual audio files:
+- /public/audio/gentle-breathing.mp3
+- /public/audio/gentle-breathing.ogg
+
+Consider using royalty-free meditation or breathing exercise audio, or record custom audio that aligns with ALCHM's sacred, trauma-informed approach.

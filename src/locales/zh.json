@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "欢迎回家",
+    "loading": "正在加载...",
+    "error": "出现了问题",
+    "retry": "重试",
+    "cancel": "取消",
+    "continue": "继续",
+    "back": "返回", 
+    "next": "下一步",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "yes": "是",
+    "no": "否"
+  },
+  "navigation": {
+    "home": "首页",
+    "journals": "日记",
+    "reflection": "反思",
+    "khepera": "凯佩拉",
+    "profile": "个人资料", 
+    "settings": "设置",
+    "logout": "退出登录"
+  },
+  "onboarding": {
+    "title": "欢迎来到您的数字圣境",
+    "subtitle": "一个创伤知情的空间，用于疗愈、反思和成长",
+    "intro": "您已进入一个神圣的数字圣境。",
+    "reflection_prompt": "开始您的第一次心灵反思",
+    "contract": "您的故事是神圣的。您的成长只属于您。",
+    "disclaimer": "ALCHM具有治疗性，但它不是专业治疗。",
+    "crisis": "如果您正处于危机中，请立即寻求帮助。",
+    "step1": {
+      "title": "选择您的语言",
+      "description": "ALCHM说您的语言，尊重您的文化"
+    },
+    "step2": {
+      "title": "设定您的意向",
+      "description": "是什么带您来到这个神圣的空间？"
+    },
+    "step3": {
+      "title": "认识凯佩拉",
+      "description": "您的AI伴侣，提供情商和成长支持"
+    },
+    "getStarted": "开始您的神圣之旅"
+  },
+  "culturalGreetings": {
+    "morning": "早上好，美丽的灵魂",
+    "afternoon": "下午好，勇敢的心",
+    "evening": "晚上好，光明的存在",
+    "night": "晚安，亲爱的灵魂"
+  },
+  "sacredLanguage": {
+    "blessing": "愿您的道路充满光明与疗愈",
+    "protection": "这是您神圣而安全的空间",
+    "growth": "您的心灵成长在此得到尊重",
+    "community": "您属于这个疗愈心灵的社区"
+  }
+}

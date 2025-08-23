@@ -1,0 +1,359 @@
+// ALCHM Identity Journey Firestore Security Rules
+// Comprehensive privacy protection with cultural safety and trauma-informed access controls
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions for identity data access control
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+    
+    function hasValidSession() {
+      return request.auth != null && 
+             request.auth.token != null && 
+             request.auth.token.email_verified == true;
+    }
+    
+    function isVerifiedUser() {
+      return request.auth != null && 
+             request.auth.token.email_verified == true &&
+             ('alchm_verified' in request.auth.token.custom_claims);
+    }
+    
+    function isModerator() {
+      return request.auth != null && 
+             ('moderator' in request.auth.token.custom_claims) &&
+             request.auth.token.custom_claims.moderator == true;
+    }
+    
+    function isCommunityMember() {
+      return request.auth != null && 
+             ('community_member' in request.auth.token.custom_claims) &&
+             request.auth.token.custom_claims.community_member == true;
+    }
+    
+    function hasTraumaInformedTraining() {
+      return request.auth != null && 
+             ('trauma_informed_certified' in request.auth.token.custom_claims) &&
+             request.auth.token.custom_claims.trauma_informed_certified == true;
+    }
+    
+    function canAccessPrivateData(resource) {
+      // Only owner can access private data
+      return isOwner(resource.data.userId) ||
+             // Or data explicitly allows sharing
+             (resource.data.privacySettings.defaultVisibility != 'private');
+    }
+    
+    function canAccessCommunityData(resource) {
+      return canAccessPrivateData(resource) ||
+             (resource.data.privacySettings.defaultVisibility == 'community' && isCommunityMember());
+    }
+    
+    function canAccessMentorData(resource) {
+      return canAccessCommunityData(resource) ||
+             (resource.data.privacySettings.defaultVisibility == 'mentors_only' && hasMentorAccess(resource));
+    }
+    
+    function hasMentorAccess(resource) {
+      // Check if user is an active mentor for this person
+      return exists(/databases/$(database)/documents/users/$(resource.data.userId)/identity/mentorshipConnections/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(resource.data.userId)/identity/mentorshipConnections/$(request.auth.uid)).data.connectionStatus == 'active';
+    }
+    
+    function respectsPrivacySettings(resource, fieldName) {
+      // Check field-specific privacy settings
+      return (fieldName in resource.data.privacySettings.elementSpecificSettings) ?
+             checkElementSpecificPrivacy(resource, fieldName) :
+             checkDefaultPrivacy(resource);
+    }
+    
+    function checkElementSpecificPrivacy(resource, fieldName) {
+      let privacySetting = resource.data.privacySettings.elementSpecificSettings[fieldName];
+      return privacySetting == 'public' ||
+             (privacySetting == 'community' && isCommunityMember()) ||
+             (privacySetting == 'mentors_only' && hasMentorAccess(resource)) ||
+             isOwner(resource.data.userId);
+    }
+    
+    function checkDefaultPrivacy(resource) {
+      let defaultSetting = resource.data.privacySettings.defaultVisibility;
+      return defaultSetting == 'public' ||
+             (defaultSetting == 'community' && isCommunityMember()) ||
+             (defaultSetting == 'mentors_only' && hasMentorAccess(resource)) ||
+             isOwner(resource.data.userId);
+    }
+    
+    function isValidIdentityData(data) {
+      // Validate identity data structure and content
+      return data.keys().hasAll(['identityMap', 'biasReflections', 'empathyGrowthScore']) &&
+             data.empathyGrowthScore is number &&
+             data.empathyGrowthScore >= 0 && data.empathyGrowthScore <= 10;
+    }
+    
+    function isValidBiasReflection(reflection) {
+      // Validate bias reflection data
+      return reflection.keys().hasAll(['id', 'promptId', 'userResponse', 'biasType', 'biasCategory', 'resolved', 'date']) &&
+             reflection.biasType in ['implicit', 'explicit', 'confirmation', 'cultural', 'intersectional', 'systemic'] &&
+             reflection.biasCategory in ['racial', 'gender', 'cultural', 'socioeconomic', 'ability', 'age', 'orientation', 'religion', 'appearance', 'other'] &&
+             reflection.resolved is bool &&
+             reflection.date is timestamp;
+    }
+    
+    function isValidPrivacySettings(privacySettings) {
+      // Validate privacy settings
+      return privacySettings.defaultVisibility in ['public', 'community', 'mentors_only', 'private'] &&
+             privacySettings.biasReflectionSharing in ['never', 'anonymous_learning', 'mentor_guidance', 'community_support'] &&
+             privacySettings.narrativeSharing in ['private', 'selective', 'community', 'public_advocacy'] &&
+             privacySettings.culturalElementSharing in ['protected', 'selective', 'community', 'public_education'];
+    }
+    
+    function respectsTraumaInformedPrinciples(data) {
+      // Ensure trauma-informed principles are followed
+      return (!('traumaInformedNotes' in data) || 
+              data.traumaInformedNotes is list) &&
+             // No forced sharing of trauma-related content
+             (!('healingNarratives' in data.narrativeEvolution) ||
+              data.narrativeEvolution.healingNarratives.size() == 0 ||
+              data.narrativeEvolution.healingNarratives[0].sharing_permission == true);
+    }
+    
+    function isSafeForCommunity(data) {
+      // Check if data is safe for community sharing
+      return !('triggerWarnings' in data) || 
+             data.triggerWarnings.size() == 0 ||
+             data.privacyLevel in ['community_anonymous', 'public_learning'];
+    }
+    
+    // Main identity document access rules
+    match /users/{userId}/identity {
+      // Read access with privacy controls
+      allow read: if hasValidSession() && 
+                     (isOwner(userId) || 
+                      canAccessMentorData(resource) ||
+                      (resource.data.privacySettings.defaultVisibility == 'public'));
+      
+      // Write access - only owner can modify their identity data
+      allow create: if hasValidSession() && 
+                       isOwner(userId) &&
+                       isValidIdentityData(request.resource.data) &&
+                       isValidPrivacySettings(request.resource.data.privacySettings) &&
+                       respectsTraumaInformedPrinciples(request.resource.data);
+      
+      allow update: if hasValidSession() && 
+                       isOwner(userId) &&
+                       isValidIdentityData(request.resource.data) &&
+                       isValidPrivacySettings(request.resource.data.privacySettings) &&
+                       respectsTraumaInformedPrinciples(request.resource.data) &&
+                       // Prevent unauthorized changes to sensitive fields
+                       (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['userId', 'createdAt']));
+      
+      // Delete access - only owner can delete, with safety checks
+      allow delete: if hasValidSession() && 
+                       isOwner(userId) &&
+                       // Ensure no active mentorship connections
+                       (!exists(/databases/$(database)/documents/users/$(userId)/identity/mentorshipConnections) ||
+                        get(/databases/$(database)/documents/users/$(userId)/identity).data.mentorshipConnections.size() == 0);
+    }
+    
+    // Bias reflections subcollection with enhanced privacy
+    match /users/{userId}/identity/biasReflections/{reflectionId} {
+      allow read: if hasValidSession() && 
+                     (isOwner(userId) ||
+                      // Mentors can read if sharing level allows
+                      (hasMentorAccess(get(/databases/$(database)/documents/users/$(userId)/identity)) &&
+                       resource.data.privacyLevel in ['mentor_shared', 'community_anonymous', 'public_learning']) ||
+                      // Community can read anonymous learning content
+                      (isCommunityMember() &&
+                       resource.data.privacyLevel in ['community_anonymous', 'public_learning']) ||
+                      // Public learning content
+                      (resource.data.privacyLevel == 'public_learning'));
+      
+      allow create, update: if hasValidSession() && 
+                               isOwner(userId) &&
+                               isValidBiasReflection(request.resource.data) &&
+                               // Ensure privacy level is appropriate
+                               request.resource.data.privacyLevel in ['private', 'mentor_shared', 'community_anonymous', 'public_learning'];
+      
+      allow delete: if hasValidSession() && 
+                       isOwner(userId);
+    }
+    
+    // Mentorship connections with mutual consent
+    match /users/{userId}/identity/mentorshipConnections/{connectionId} {
+      allow read: if hasValidSession() && 
+                     (isOwner(userId) ||
+                      // Both parties in mentorship can read
+                      (connectionId == request.auth.uid) ||
+                      // Moderators can read for safety purposes
+                      (isModerator() && hasTraumaInformedTraining()));
+      
+      allow create: if hasValidSession() && 
+                       (isOwner(userId) || connectionId == request.auth.uid) &&
+                       request.resource.data.connectionStatus in ['requested', 'matched'] &&
+                       // Validate connection type
+                       request.resource.data.connectionType in ['identity_mentor', 'cultural_guide', 'bias_accountability_partner', 'empathy_coach', 'narrative_witness', 'intersectional_support'];
+      
+      allow update: if hasValidSession() && 
+                       (isOwner(userId) || connectionId == request.auth.uid) &&
+                       // Prevent unauthorized status changes
+                       (request.resource.data.connectionStatus != 'active' || 
+                        resource.data.connectionStatus == 'matched') &&
+                       // Both parties must agree to activate
+                       (request.resource.data.connectionStatus != 'active' ||
+                        request.resource.data.mutualConsent == true);
+      
+      allow delete: if hasValidSession() && 
+                       (isOwner(userId) || connectionId == request.auth.uid) &&
+                       // Cannot delete active connections without proper termination
+                       (resource.data.connectionStatus != 'active' ||
+                        request.resource.data.connectionStatus == 'ended');
+    }
+    
+    // Identity Hub Groups - Community spaces
+    match /identity-hub-groups/{groupId} {
+      // Read access for discovering groups
+      allow read: if hasValidSession() && 
+                     (resource.data.privacyLevel in ['anonymous', 'pseudonymous'] ||
+                      (resource.data.privacyLevel == 'verified' && isVerifiedUser()) ||
+                      (resource.data.privacyLevel == 'invitation_only' && isGroupMember(groupId)));
+      
+      // Create groups with proper validation
+      allow create: if hasValidSession() && 
+                       isVerifiedUser() &&
+                       request.resource.data.groupType in ['cultural_affinity', 'intersectional_support', 'bias_accountability', 'empathy_building', 'narrative_sharing', 'allyship_action', 'healing_circles', 'identity_exploration'] &&
+                       request.resource.data.privacyLevel in ['anonymous', 'pseudonymous', 'verified', 'invitation_only'] &&
+                       request.resource.data.moderationLevel in ['self_moderated', 'peer_moderated', 'professionally_moderated', 'ai_assisted'] &&
+                       // Healing circles require trauma-informed certification
+                       (request.resource.data.groupType != 'healing_circles' || hasTraumaInformedTraining());
+      
+      // Update groups - only moderators
+      allow update: if hasValidSession() && 
+                       (isModerator() || isGroupOwner(groupId)) &&
+                       // Cannot change core safety settings without proper certification
+                       (request.resource.data.groupType == resource.data.groupType ||
+                        (request.resource.data.groupType == 'healing_circles' && hasTraumaInformedTraining()));
+      
+      // Delete groups with safety checks
+      allow delete: if hasValidSession() && 
+                       (isModerator() || isGroupOwner(groupId)) &&
+                       // Must have no active discussions with trauma content
+                       (!hasActiveTraumaDiscussions(groupId));
+    }
+    
+    function isGroupMember(groupId) {
+      return exists(/databases/$(database)/documents/identity-hub-groups/$(groupId)/members/$(request.auth.uid));
+    }
+    
+    function isGroupOwner(groupId) {
+      return exists(/databases/$(database)/documents/identity-hub-groups/$(groupId)) &&
+             get(/databases/$(database)/documents/identity-hub-groups/$(groupId)).data.ownerId == request.auth.uid;
+    }
+    
+    function hasActiveTraumaDiscussions(groupId) {
+      // This would need to be implemented with a more complex query
+      // For now, return false as a placeholder
+      return false;
+    }
+    
+    // Group discussions with content moderation
+    match /identity-hub-groups/{groupId}/discussions/{discussionId} {
+      // Read access based on group membership and content sensitivity
+      allow read: if hasValidSession() && 
+                     isGroupMember(groupId) &&
+                     // Additional checks for sensitive content
+                     (resource.data.traumaInformedScore >= 0.7 || hasTraumaInformedTraining()) &&
+                     // Check content warnings
+                     (resource.data.contentWarnings.size() == 0 || 
+                      hasConsentedToContentWarnings(resource.data.contentWarnings));
+      
+      // Create discussions with validation and moderation
+      allow create: if hasValidSession() && 
+                       isGroupMember(groupId) &&
+                       isVerifiedUser() &&
+                       request.resource.data.discussionType in ['narrative_sharing', 'bias_processing', 'cultural_exploration', 'empathy_building', 'intersectional_dialogue', 'healing_support', 'advocacy_planning', 'celebration', 'learning_together'] &&
+                       request.resource.data.anonymityLevel in ['fully_anonymous', 'consistent_pseudonym', 'verified_member'] &&
+                       // AI moderation passed
+                       request.resource.data.aiModeration.moderation_score >= 0.7 &&
+                       request.resource.data.aiModeration.cultural_sensitivity >= 0.8 &&
+                       // Trauma-informed content for healing discussions
+                       (request.resource.data.discussionType != 'healing_support' || 
+                        request.resource.data.aiModeration.trauma_informed == true) &&
+                       // Proper content warnings for sensitive topics
+                       isSafeForCommunity(request.resource.data);
+      
+      // Update discussions - limited to author and moderators
+      allow update: if hasValidSession() && 
+                       (request.resource.data.authorId == request.auth.uid ||
+                        isModerator()) &&
+                       // Cannot change core content after responses
+                       (resource.data.responses.size() == 0 ||
+                        request.resource.data.content == resource.data.content);
+      
+      // Delete discussions with safety considerations
+      allow delete: if hasValidSession() && 
+                       (request.resource.data.authorId == request.auth.uid ||
+                        isModerator()) &&
+                       // Cannot delete discussions with significant community value
+                       (resource.data.learningOutcomes.size() == 0 ||
+                        isModerator());
+    }
+    
+    function hasConsentedToContentWarnings(warnings) {
+      // This would check user's content warning preferences
+      // For now, return true as placeholder
+      return true;
+    }
+    
+    // Discussion responses with empathy and safety focus
+    match /identity-hub-groups/{groupId}/discussions/{discussionId}/responses/{responseId} {
+      allow read: if hasValidSession() && 
+                     isGroupMember(groupId);
+      
+      allow create: if hasValidSession() && 
+                       isGroupMember(groupId) &&
+                       isVerifiedUser() &&
+                       request.resource.data.responseType in ['supportive_sharing', 'empathy_offering', 'wisdom_sharing', 'resource_sharing', 'challenge_with_care', 'celebration', 'healing_witness'] &&
+                       // Minimum empathy and support levels
+                       request.resource.data.empathyLevel >= 3 &&
+                       request.resource.data.supportLevel >= 3 &&
+                       // AI moderation for harmful content
+                       (!('aiModeration' in request.resource.data) ||
+                        request.resource.data.aiModeration.moderation_score >= 0.8);
+      
+      allow update: if hasValidSession() && 
+                       request.resource.data.authorId == request.auth.uid &&
+                       // Limited editing to prevent manipulation
+                       (timestamp.now() - resource.data.createdAt < duration.value(1, 'h'));
+      
+      allow delete: if hasValidSession() && 
+                       (request.resource.data.authorId == request.auth.uid ||
+                        isModerator());
+    }
+    
+    // Analytics and reporting with privacy protection
+    match /identity-analytics/{analyticsId} {
+      // Only aggregated, anonymized analytics can be read by researchers
+      allow read: if hasValidSession() && 
+                     ('researcher' in request.auth.token.custom_claims) &&
+                     request.auth.token.custom_claims.researcher == true &&
+                     // Ensure data is properly anonymized
+                     (!('userId' in resource.data) || resource.data.userId == 'anonymous');
+      
+      // Analytics can only be created by the system
+      allow create, update: if false; // System-only operations
+      
+      allow delete: if hasValidSession() && 
+                       isModerator() &&
+                       // Right to be forgotten compliance
+                       resource.data.userId != 'anonymous';
+    }
+    
+    // Fallback rule - deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

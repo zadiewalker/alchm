@@ -1,0 +1,112 @@
+// Firestore Security Rules Template for ALCHM
+// Production-ready security rules with proper authentication and authorization
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions for authentication and authorization
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidUser() {
+      return isAuthenticated() && request.auth.uid != null;
+    }
+    
+    function isValidTimestamp(timestamp) {
+      return timestamp is timestamp;
+    }
+    
+    function isValidString(str, minLength, maxLength) {
+      return str is string && str.size() >= minLength && str.size() <= maxLength;
+    }
+    
+    // User profiles - users can only access their own profile
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+      
+      // Validate user data structure
+      allow create, update: if isAuthenticated() && isOwner(userId)
+        && request.resource.data.keys().hasAll(['email', 'createdAt', 'updatedAt'])
+        && isValidString(request.resource.data.email, 5, 100)
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.updatedAt);
+    }
+    
+    // Journal entries - users can only access their own journals
+    match /journals/{journalId} {
+      allow read, write: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'content', 'createdAt', 'updatedAt'])
+        && isValidString(request.resource.data.content, 1, 10000)
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.updatedAt);
+      
+      allow update: if isAuthenticated()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
+        && isValidTimestamp(request.resource.data.updatedAt);
+      
+      allow delete: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+    }
+    
+    // User sessions - for session management
+    match /sessions/{sessionId} {
+      allow read, write: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.expiresAt);
+    }
+    
+    // Error logs - only allow creation for authenticated users
+    match /errorLogs/{logId} {
+      allow create: if isAuthenticated()
+        && request.resource.data.keys().hasAll(['timestamp', 'level', 'message'])
+        && isValidTimestamp(request.resource.data.timestamp);
+      
+      // Only admins can read error logs (implement admin check as needed)
+      allow read: if false; // Implement admin authorization
+    }
+    
+    // Health checks - allow system to create health check documents
+    match /health_checks/{checkId} {
+      allow create: if true; // System health checks
+      allow read: if false;  // Prevent public access
+      allow delete: if true; // Allow cleanup
+    }
+    
+    // System configuration - read-only for authenticated users
+    match /system/{doc} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only allow through admin SDK
+    }
+    
+    // Analytics data - users can only access their own analytics
+    match /analytics/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // Subscription data - users can only access their own subscription
+    match /subscriptions/{userId} {
+      allow read: if isAuthenticated() && isOwner(userId);
+      allow write: if false; // Only allow through admin SDK for security
+    }
+    
+    // Default deny rule - explicitly deny access to any other documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

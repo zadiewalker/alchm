@@ -1,0 +1,61 @@
+// Storage Security Rules Template for ALCHM
+// Production-ready storage rules with proper authentication and file validation
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    function isValidImageSize() {
+      return resource.size < 5 * 1024 * 1024; // 5MB limit
+    }
+    
+    function isValidImageType() {
+      return resource.contentType.matches('image/.*');
+    }
+    
+    function isValidDocumentType() {
+      return resource.contentType in ['application/pdf', 'text/plain', 'application/msword'];
+    }
+    
+    // User profile images
+    match /users/{userId}/profile/{fileName} {
+      allow read: if isAuthenticated(); // Profile images can be read by any authenticated user
+      allow write: if isAuthenticated() && isOwner(userId) 
+        && isValidImageSize() && isValidImageType();
+      allow delete: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // Journal attachments
+    match /journals/{userId}/attachments/{fileName} {
+      allow read, write, delete: if isAuthenticated() && isOwner(userId)
+        && (isValidImageType() || isValidDocumentType())
+        && resource.size < 10 * 1024 * 1024; // 10MB limit for journal attachments
+    }
+    
+    // Temporary uploads
+    match /temp/{userId}/{fileName} {
+      allow write: if isAuthenticated() && isOwner(userId)
+        && resource.size < 20 * 1024 * 1024; // 20MB limit for temp files
+      allow read, delete: if isAuthenticated() && isOwner(userId);
+    }
+    
+    // System files - only allow admin access
+    match /system/{fileName} {
+      allow read, write: if false; // Only admin SDK access
+    }
+    
+    // Default deny rule
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

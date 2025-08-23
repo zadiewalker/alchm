@@ -1,36 +1,50 @@
-# dependencies
-/node_modules
-.pnpm
-.pnp.*
-.yarn/*
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Dependency locks
+pnpm-lock.yaml
+yarn.lock
 
-# next.js
-.next
-/out
+# Build outputs
+.next/
+dist/
+out/
+coverage/
 
-# production
-/build
+# Conflicting Next.js config files (Firebase App Hosting requires CommonJS)
+next.config.mjs
+next.config.performance.mjs
 
-# misc
+# Firebase
+.firebaserc
+firebase-debug.log
+
+# IDE and system files
+.vscode/
 .DS_Store
-*.pem
 
-# debug logs
+# Env and Secrets - NEVER COMMIT
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*-key.json
+serviceAccountKey.json
+service-account-*.json
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
-pnpm-debug.log*
 yarn-error.log*
 
-# env files
-.env*
-.vercel
+# Others
+node_modules/
+serviceAccountKey.json
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-.env.local
+# Google Cloud SDK (EXCLUDE THESE LARGE FILES)
+google-cloud-sdk/
+google-cloud-sdk*/
+*.tar.gz
+
+# Mobile assets causing LFS issues
 android/
 ios/

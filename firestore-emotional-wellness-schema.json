@@ -1,0 +1,735 @@
+{
+  "collections": {
+    "users/{uid}/emotions/{entryId}": {
+      "description": "Individual emotional wellness entries as specified in Prompt 5",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "timestamp", "order": "DESCENDING" },
+            { "fieldPath": "userId", "order": "ASCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "activity", "order": "ASCENDING" },
+            { "fieldPath": "timestamp", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "moodAfter", "order": "DESCENDING" },
+            { "fieldPath": "timestamp", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "stressLevel", "order": "DESCENDING" },
+            { "fieldPath": "timestamp", "order": "DESCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "entryId": "string",
+        "userId": "string",
+        "timestamp": "timestamp",
+        "moodBefore": "number",
+        "moodAfter": "number", 
+        "activity": "string",
+        "reflectionText": "string",
+        "aiInsight": "string",
+        "emotionalState": {
+          "primaryEmotion": "string",
+          "secondaryEmotions": "array<string>",
+          "emotionIntensity": "number",
+          "emotionClarity": "number",
+          "emotionAcceptance": "number",
+          "conflictingEmotions": "array<object>",
+          "emotionalNuance": "array<object>",
+          "culturalEmotionalExpression": "array<object>",
+          "bodyAwareness": "object",
+          "breathAwareness": "object",
+          "tensionAreas": "array<object>",
+          "energeticState": "object",
+          "mentalClarity": "number",
+          "cognitiveLoad": "number",
+          "mindfulnessLevel": "number",
+          "presentMomentAwareness": "number",
+          "connectionToSelf": "number",
+          "connectionToOthers": "number",
+          "connectionToNature": "number",
+          "connectionToPurpose": "number",
+          "connectionToAncestors": "number"
+        },
+        "triggers": "array<object>",
+        "physicalSensations": "array<object>",
+        "thoughtPatterns": "array<object>",
+        "breathworkSession": {
+          "sessionId": "string",
+          "technique": "object",
+          "duration": "number",
+          "guidanceType": "string",
+          "phases": "array<object>",
+          "breathPattern": "object",
+          "heartRateVariability": "object",
+          "physicalSensations": "array<object>",
+          "emotionalShifts": "array<object>",
+          "visualizations": "array<object>",
+          "insights": "array<object>",
+          "relaxationAchieved": "number",
+          "clarityGained": "number",
+          "emotionalRelease": "number",
+          "energyShift": "object",
+          "culturalBreathPractice": "object",
+          "ancestralConnection": "object",
+          "traumaInformedModifications": "array<object>",
+          "safetyChecks": "array<object>",
+          "groundingTechniques": "array<object>",
+          "immediateAftereffects": "array<object>",
+          "integrationPractice": "array<object>",
+          "homewardBound": "array<object>",
+          "startTime": "timestamp",
+          "endTime": "timestamp",
+          "effectiveness": "number",
+          "wouldRepeat": "boolean",
+          "recommendedFrequency": "string"
+        },
+        "movementSession": {
+          "sessionId": "string",
+          "movementType": "object",
+          "duration": "number",
+          "intensity": "string",
+          "category": "string",
+          "style": "object",
+          "guidance": "object",
+          "emotionsMoved": "array<object>",
+          "physicalReleases": "array<object>",
+          "energyCirculation": "array<object>",
+          "blockageClearing": "array<object>",
+          "bodyDialogue": "array<object>",
+          "muscularTension": "array<object>",
+          "fasicalRelease": "array<object>",
+          "nervousSystemRegulation": "object",
+          "culturalMovement": "object",
+          "traditionalForms": "array<object>",
+          "ancestralMovement": "array<object>",
+          "movementInsights": "array<object>",
+          "bodyWisdom": "array<object>",
+          "integrationActions": "array<object>",
+          "physicalLimitations": "array<object>",
+          "traumaInformedAdaptations": "array<object>",
+          "accessibilityModifications": "array<object>",
+          "physicalOutcomes": "array<object>",
+          "emotionalOutcomes": "array<object>",
+          "spiritualOutcomes": "array<object>",
+          "environment": "object",
+          "equipment": "array<object>",
+          "companionship": "object",
+          "effectiveness": "number",
+          "enjoyment": "number",
+          "willingness_to_repeat": "number"
+        },
+        "ritualSession": {
+          "sessionId": "string",
+          "ritualType": "object",
+          "duration": "number",
+          "intention": "object",
+          "preparation": "object",
+          "opening": "object",
+          "mainPractice": "object",
+          "integration": "object",
+          "closing": "object",
+          "elements": "array<object>",
+          "tools": "array<object>",
+          "offerings": "array<object>",
+          "symbols": "array<object>",
+          "culturalTradition": "object",
+          "spiritualFramework": "object",
+          "ancestralHonoring": "array<object>",
+          "emotionToTransform": "string",
+          "transformationProcess": "array<object>",
+          "alchemicalElements": "array<object>",
+          "symbolicActions": "array<object>",
+          "witnesses": "array<object>",
+          "communitySupport": "array<object>",
+          "sharingCircle": "object",
+          "naturalElements": "array<object>",
+          "seasonalAlignment": "object",
+          "lunarPhase": "string",
+          "locationEnergy": "object",
+          "transformationAchieved": "number",
+          "spiritualConnection": "number",
+          "communityConnection": "number",
+          "healingOccurred": "array<object>",
+          "wisdomReceived": "array<object>",
+          "dailyPractices": "array<object>",
+          "weeklyPractices": "array<object>",
+          "seasonalPractices": "array<object>",
+          "effectiveness": "number",
+          "meaningfulness": "number",
+          "culturalResonance": "number",
+          "accessibilityAdaptations": "array<object>"
+        },
+        "creativePractice": {
+          "practiceId": "string",
+          "creativeType": "string",
+          "medium": "array<string>",
+          "duration": "number",
+          "initialEmotion": "string",
+          "creativeFlow": "array<object>",
+          "expressiveElements": "array<object>",
+          "symbolicContent": "array<object>",
+          "therapeuticGoals": "array<object>",
+          "emotionalProcessing": "array<object>",
+          "traumaProcessing": "array<object>",
+          "healingThroughArt": "array<object>",
+          "culturalInfluences": "array<object>",
+          "traditionalArtForms": "array<object>",
+          "ancestralCreativity": "array<object>",
+          "communityArtPractices": "array<object>",
+          "creativeArtifacts": "array<object>",
+          "emotionalBreakthroughs": "array<object>",
+          "insights": "array<object>",
+          "sharingIntention": "object",
+          "dailyCreativePractice": "array<object>",
+          "creativeRituals": "array<object>",
+          "artisticGrowth": "array<object>",
+          "effectiveness": "number",
+          "satisfaction": "number",
+          "therapeuticValue": "number"
+        },
+        "somaticPractice": {
+          "practiceId": "string",
+          "practiceType": "string",
+          "duration": "number",
+          "bodyAwareness": "object",
+          "physicalSensations": "array<object>",
+          "emotionalReleases": "array<object>",
+          "nervousSystemRegulation": "object",
+          "traumaProcessing": "object",
+          "effectiveness": "number"
+        },
+        "alchemyProcess": {
+          "processId": "string",
+          "alchemicalStage": "string",
+          "nigredo": "object",
+          "albedo": "object", 
+          "citrinitas": "object",
+          "rubedo": "object",
+          "emotionalMatter": "object",
+          "transformativeElements": "array<object>",
+          "catalysts": "array<object>",
+          "vessels": "array<object>",
+          "dissolutionPhase": "object",
+          "coagulationPhase": "object",
+          "sublimationPhase": "object",
+          "projectionPhase": "object",
+          "embodimentPractices": "array<object>",
+          "integrationRituals": "array<object>",
+          "wisdomDistillation": "array<object>",
+          "culturalTransformation": "array<object>",
+          "ancestralAlchemy": "array<object>",
+          "communityAlchemy": "array<object>",
+          "transformationDepth": "number",
+          "integrationLevel": "number",
+          "wisdomGained": "number",
+          "healingAchieved": "number",
+          "startDate": "timestamp",
+          "currentPhase": "string",
+          "completionDate": "timestamp",
+          "cyclic": "boolean"
+        },
+        "breakthrough": {
+          "breakthroughId": "string",
+          "breakthroughType": "string",
+          "description": "string",
+          "significanceLevel": "number",
+          "transformationDepth": "number",
+          "integrationNeeded": "array<object>",
+          "sharingDesire": "string",
+          "communityValue": "number",
+          "culturalSignificance": "object",
+          "ongoingImpact": "array<object>"
+        },
+        "integration": {
+          "integrationId": "string",
+          "practicesIntegrated": "array<object>",
+          "wisdomGained": "array<object>",
+          "lifeChanges": "array<object>",
+          "ongoingPractices": "array<object>"
+        },
+        "culturalHealing": "array<object>",
+        "identityWork": "array<object>",
+        "ancestralWisdom": "array<object>",
+        "stressLevel": "number",
+        "energyLevel": "number", 
+        "clarityLevel": "number",
+        "connectionLevel": "number",
+        "resilienceGrowth": "number",
+        "sharingLevel": "string",
+        "supportReceived": "array<object>",
+        "wisdomShared": "array<object>",
+        "followUpNeeded": "boolean",
+        "continuationPlan": "object",
+        "nextPracticeRecommendation": "array<object>",
+        "location": "object",
+        "environment": "object",
+        "lifeContext": "object",
+        "seasonalInfluence": "object",
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp",
+        "archivedAt": "timestamp"
+      }
+    },
+
+    "users/{uid}/emotionalPatterns/{patternId}": {
+      "description": "Detected emotional patterns for stress analysis and trajectory scoring",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "confidence", "order": "DESCENDING" },
+            { "fieldPath": "lastOccurrence", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "patternType", "order": "ASCENDING" },
+            { "fieldPath": "isActive", "order": "ASCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "patternId": "string",
+        "userId": "string",
+        "patternType": "string",
+        "triggers": "array<object>",
+        "emotionalSequence": "array<object>",
+        "behavioralResponses": "array<object>",
+        "physicalManifestations": "array<object>",
+        "timeOfDayPatterns": "array<object>",
+        "weeklyPatterns": "array<object>",
+        "monthlyPatterns": "array<object>",
+        "seasonalPatterns": "array<object>",
+        "lunarPatterns": "array<object>",
+        "locationPatterns": "array<object>",
+        "weatherPatterns": "array<object>",
+        "socialPatterns": "array<object>",
+        "workPatterns": "array<object>",
+        "stressPatterns": "array<object>",
+        "recoveryPatterns": "array<object>",
+        "resilience": "array<object>",
+        "vulnerabilities": "array<object>",
+        "culturalPatterns": "array<object>",
+        "identityPatterns": "array<object>",
+        "intergenerationalPatterns": "array<object>",
+        "growthPatterns": "array<object>",
+        "learningPatterns": "array<object>",
+        "breakthroughPatterns": "array<object>",
+        "integrationPatterns": "array<object>",
+        "confidence": "number",
+        "severity": "string",
+        "actionability": "object",
+        "interventionRecommendations": "array<object>",
+        "patternEvolution": "array<object>",
+        "patternInterruption": "array<object>",
+        "patternTransformation": "array<object>",
+        "firstDetected": "timestamp",
+        "lastOccurrence": "timestamp",
+        "frequency": "string",
+        "isActive": "boolean"
+      }
+    },
+
+    "users/{uid}/aiInsights/{insightId}": {
+      "description": "AI-generated insights for emotional trajectory analysis",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "confidence", "order": "DESCENDING" },
+            { "fieldPath": "generatedAt", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "insightType", "order": "ASCENDING" },
+            { "fieldPath": "generatedAt", "order": "DESCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "insightId": "string",
+        "entryId": "string",
+        "userId": "string",
+        "insightType": "string",
+        "insight": "string",
+        "confidence": "number",
+        "evidence": "array<object>",
+        "correlations": "array<object>",
+        "immediateRecommendations": "array<object>",
+        "longTermRecommendations": "array<object>",
+        "practiceRecommendations": "array<object>",
+        "trajectoryAnalysis": "object",
+        "trendPrediction": "array<object>",
+        "riskAssessment": "array<object>",
+        "culturalContext": "object",
+        "culturalAdaptations": "array<object>",
+        "culturalWisdomIntegration": "array<object>",
+        "traumaInformedInsights": "array<object>",
+        "safetyConsiderations": "array<object>",
+        "gentleApproaches": "array<object>",
+        "communitySupport": "array<object>",
+        "mentorshipNeeds": "array<object>",
+        "sharingOpportunities": "array<object>",
+        "actionSteps": "array<object>",
+        "integrationPractices": "array<object>",
+        "followUpNeeded": "boolean",
+        "followUpTimeline": "string",
+        "generatedAt": "timestamp",
+        "updatedAt": "timestamp",
+        "userFeedback": "object"
+      }
+    },
+
+    "users/{uid}/wellnessMetrics/{metricId}": {
+      "description": "Comprehensive wellness tracking and measurement",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "assessmentDate", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "overallWellnessScore", "order": "DESCENDING" },
+            { "fieldPath": "assessmentDate", "order": "DESCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "metricsId": "string",
+        "userId": "string",
+        "assessmentDate": "timestamp",
+        "emotionalWellness": "object",
+        "physicalWellness": "object",
+        "mentalWellness": "object",
+        "spiritualWellness": "object",
+        "socialWellness": "object",
+        "culturalWellness": "object",
+        "resilience": "object",
+        "adaptability": "object",
+        "postTraumaticGrowth": "object",
+        "stressManagement": "object",
+        "practiceConsistency": "object",
+        "practiceEffectiveness": "array<object>",
+        "practiceEvolution": "array<object>",
+        "practicePersonalization": "array<object>",
+        "emotionalIntelligence": "object",
+        "selfAwareness": "object",
+        "selfRegulation": "object",
+        "empathy": "object",
+        "relationshipQuality": "object",
+        "socialSupport": "object",
+        "communityConnection": "object",
+        "culturalBelonging": "object",
+        "wellnessTrends": "array<object>",
+        "improvementAreas": "array<object>",
+        "strengthAreas": "array<object>",
+        "overallWellnessScore": "number",
+        "wellnessGrowthTrajectory": "object",
+        "nextAssessmentDate": "timestamp"
+      }
+    },
+
+    "users/{uid}/wellnessPrompts/{promptId}": {
+      "description": "AI-generated wellness prompts and interventions",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "generatedAt", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "promptType", "order": "ASCENDING" },
+            { "fieldPath": "priority", "order": "DESCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "promptId": "string",
+        "userId": "string",
+        "promptType": "string",
+        "emotionalTrigger": "object",
+        "title": "string",
+        "message": "string",
+        "tone": "string",
+        "urgency": "string",
+        "breathworkSuggestions": "array<object>",
+        "movementSuggestions": "array<object>",
+        "ritualSuggestions": "array<object>",
+        "creativeSuggestions": "array<object>",
+        "journalingSuggestions": "array<object>",
+        "somaticSuggestions": "array<object>",
+        "communityConnectionSuggestions": "array<object>",
+        "natureSuggestions": "array<object>",
+        "nourishmentSuggestions": "array<object>",
+        "restSuggestions": "array<object>",
+        "culturalAdaptations": "array<object>",
+        "personalizations": "array<object>",
+        "traumaInformedModifications": "array<object>",
+        "accessibilityModifications": "array<object>",
+        "optimalTiming": "object",
+        "contextualFactors": "array<object>",
+        "environmentalConsiderations": "array<object>",
+        "aiReasoning": "string",
+        "expectedOutcome": "object",
+        "alternativePrompts": "array<object>",
+        "followUpPrompts": "array<object>",
+        "confidenceScore": "number",
+        "relevanceScore": "number",
+        "culturalSensitivityScore": "number",
+        "traumaInformedScore": "number",
+        "personalizationScore": "number",
+        "generatedAt": "timestamp",
+        "expiresAt": "timestamp",
+        "priority": "string",
+        "category": "array<string>",
+        "tags": "array<string>",
+        "userResponse": "object",
+        "effectiveness": "object",
+        "feedbackReceived": "object"
+      }
+    },
+
+    "users/{uid}/trajectoryAnalysis/{analysisId}": {
+      "description": "Comprehensive emotional trajectory analysis results",
+      "indexes": [
+        {
+          "fields": [
+            { "fieldPath": "analysisTimestamp", "order": "DESCENDING" }
+          ]
+        },
+        {
+          "fields": [
+            { "fieldPath": "analysisConfidence", "order": "DESCENDING" },
+            { "fieldPath": "analysisTimestamp", "order": "DESCENDING" }
+          ]
+        }
+      ],
+      "schema": {
+        "analysisId": "string",
+        "userId": "string",
+        "analysisTimestamp": "timestamp",
+        "timeRange": "object",
+        "overallTrajectory": "object",
+        "emotionalVelocity": "object",
+        "moodStability": "object",
+        "resiliencePattern": "object",
+        "detectedPatterns": "array<object>",
+        "emergingPatterns": "array<object>",
+        "diminishingPatterns": "array<object>",
+        "cyclicalPatterns": "array<object>",
+        "stressPatterns": "array<object>",
+        "recoveryPatterns": "array<object>",
+        "wellnessTrends": "array<object>",
+        "vulnerabilityWindows": "array<object>",
+        "alchemicalProgression": "array<object>",
+        "breakthroughPotential": "array<object>",
+        "integrationOpportunities": "array<object>",
+        "transformationReadiness": "object",
+        "culturalHealingJourney": "object",
+        "spiritualEvolution": "object",
+        "ancestralWisdomIntegration": "array<object>",
+        "communityHealingContribution": "object",
+        "trajectoryPrediction": "array<object>",
+        "riskFactors": "array<object>",
+        "protectiveFactors": "array<object>",
+        "interventionRecommendations": "array<object>",
+        "somaticPatterns": "array<object>",
+        "embodimentProgress": "array<object>",
+        "bodyWisdomIntegration": "array<object>",
+        "nervousSystemRegulation": "object",
+        "aiInsights": "array<object>",
+        "practiceRecommendations": "array<object>",
+        "communitySupport": "array<object>",
+        "mentorshipNeeds": "array<object>",
+        "analysisConfidence": "number",
+        "dataQuality": "object",
+        "culturalSensitivityScore": "number",
+        "traumaInformedScore": "number",
+        "nextAnalysisRecommendedDate": "timestamp",
+        "followUpActions": "array<object>"
+      }
+    },
+
+    "emotionalWellnessAggregates/patterns": {
+      "description": "Aggregated anonymous patterns for community insights",
+      "schema": {
+        "patternType": "string",
+        "frequency": "number",
+        "effectiveInterventions": "array<object>",
+        "culturalVariations": "array<object>",
+        "anonymizedData": "array<object>",
+        "lastUpdated": "timestamp"
+      }
+    },
+
+    "emotionalWellnessAggregates/wellnessPrompts": {
+      "description": "Effectiveness tracking for wellness prompts",
+      "schema": {
+        "promptType": "string",
+        "averageEffectiveness": "number",
+        "userEngagementRate": "number",
+        "culturalAdaptationEffectiveness": "object",
+        "lastUpdated": "timestamp"
+      }
+    }
+  },
+
+  "rules": {
+    "description": "Firestore security rules for emotional wellness data",
+    "content": "rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    // Users can only access their own emotional wellness data\n    match /users/{uid}/emotions/{entryId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    match /users/{uid}/emotionalPatterns/{patternId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    match /users/{uid}/aiInsights/{insightId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    match /users/{uid}/wellnessMetrics/{metricId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    match /users/{uid}/wellnessPrompts/{promptId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    match /users/{uid}/trajectoryAnalysis/{analysisId} {\n      allow read, write: if request.auth != null && request.auth.uid == uid;\n    }\n    \n    // Aggregated data is read-only for authenticated users\n    match /emotionalWellnessAggregates/{document=**} {\n      allow read: if request.auth != null;\n      allow write: if false; // Only server can write aggregates\n    }\n  }\n}"
+  },
+
+  "indexes": {
+    "description": "Additional composite indexes for complex queries",
+    "compositeIndexes": [
+      {
+        "collectionGroup": "emotions",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "activity", "order": "ASCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "emotions", 
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "emotionalState.primaryEmotion", "order": "ASCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "emotions",
+        "queryScope": "COLLECTION", 
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "stressLevel", "order": "DESCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "emotionalPatterns",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "patternType", "order": "ASCENDING" },
+          { "fieldPath": "confidence", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "aiInsights",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "insightType", "order": "ASCENDING" },
+          { "fieldPath": "confidence", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "wellnessPrompts",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "userId", "order": "ASCENDING" },
+          { "fieldPath": "promptType", "order": "ASCENDING" },
+          { "fieldPath": "priority", "order": "DESCENDING" },
+          { "fieldPath": "generatedAt", "order": "DESCENDING" }
+        ]
+      }
+    ]
+  },
+
+  "dataRetention": {
+    "description": "Data retention policies for emotional wellness data",
+    "policies": [
+      {
+        "collection": "users/{uid}/emotions/{entryId}",
+        "retentionPeriod": "7 years",
+        "archiveAfter": "2 years",
+        "anonymizeAfter": "5 years"
+      },
+      {
+        "collection": "users/{uid}/emotionalPatterns/{patternId}",
+        "retentionPeriod": "5 years",
+        "updateFrequency": "monthly"
+      },
+      {
+        "collection": "users/{uid}/aiInsights/{insightId}",
+        "retentionPeriod": "3 years",
+        "relevancyCheck": "quarterly"
+      },
+      {
+        "collection": "users/{uid}/wellnessPrompts/{promptId}",
+        "retentionPeriod": "1 year",
+        "cleanupAfter": "30 days if not engaged"
+      }
+    ]
+  },
+
+  "privacyConsiderations": {
+    "description": "Privacy and security considerations for emotional wellness data",
+    "principles": [
+      "User owns all their emotional wellness data",
+      "Data is encrypted at rest and in transit",
+      "No personally identifiable information in aggregates",
+      "User can export or delete all data at any time",
+      "AI insights are generated locally when possible",
+      "Cultural context data is handled with special sensitivity",
+      "Trauma-informed data handling throughout system",
+      "Community sharing is opt-in only with granular controls"
+    ],
+    "dataMinimization": {
+      "collectOnlyNecessary": true,
+      "purposeLimitation": true,
+      "storageMinimization": true,
+      "accessControls": "strict"
+    },
+    "userRights": [
+      "Right to access all data",
+      "Right to export data in portable format",
+      "Right to delete all data",
+      "Right to correct inaccurate data",
+      "Right to restrict processing",
+      "Right to data portability",
+      "Right to object to automated decision-making"
+    ]
+  },
+
+  "implementationNotes": {
+    "description": "Important implementation considerations",
+    "notes": [
+      "All timestamps should be stored in UTC",
+      "Emotional state data should be validated on client and server",
+      "AI insights should include confidence scores and explanations",
+      "Cultural context should be handled with cultural competence",
+      "Trauma-informed approaches should be built into data handling",
+      "Pattern detection should account for cultural differences",
+      "Wellness prompts should be personalized and culturally adapted",
+      "Community features should prioritize safety and consent",
+      "Data export should be comprehensive and user-friendly",
+      "Analytics should focus on individual growth, not comparison"
+    ],
+    "performanceOptimizations": [
+      "Use subcollections for large datasets",
+      "Implement pagination for data queries", 
+      "Cache frequently accessed patterns and insights",
+      "Use background functions for heavy AI processing",
+      "Implement real-time listeners efficiently",
+      "Optimize indexes for common query patterns",
+      "Use batch operations for bulk updates",
+      "Implement proper error handling and retry logic"
+    ]
+  }
+}

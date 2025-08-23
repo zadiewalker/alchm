@@ -1,0 +1,54 @@
+# Firebase Studio App Hosting YAML Config for Gemini-Powered Next.js App
+# ALCHM: Digital Sanctuary — Built for the Future, Deployed with Precision
+
+name: alchm-digital-sanctuary
+version: 0.1.0
+
+environment:
+  node: 18
+  env_vars:
+    NODE_ENV: "production"
+    FIREBASE_CONFIG: '{"projectId":"alchm-digital-sanctuary","storageBucket":"alchm-digital-sanctuary.appspot.com"}'
+    FIREBASE_WEBAPP_CONFIG: '{"apiKey":"YOUR_API_KEY","authDomain":"alchm-digital-sanctuary.firebaseapp.com","projectId":"alchm-digital-sanctuary"}'
+
+build:
+  command: npm run build:studio
+  dir: .
+  env:
+    - NODE_ENV=production
+
+functions:
+  nextServer:
+    entry: functions/index.js
+    runtime: nodejs18
+    include:
+      - functions/**
+    secrets:
+      - FIREBASE_API_KEY
+      - GEMINI_API_KEY
+
+hosting:
+  site: alchm-digital-sanctuary
+  public: .next
+  ignore:
+    - "**/.*"
+    - "**/node_modules/**"
+    - "firebase.json"
+  rewrites:
+    - source: "**"
+      function: nextServer
+
+# Build hooks: install dependencies for both app & functions
+hooks:
+  prebuild:
+    - echo "🔥 Installing root dependencies"
+    - npm install
+    - echo "🔥 Installing functions dependencies"
+    - cd functions && npm install && cd ..
+  postbuild:
+    - echo "✅ Build complete"
+
+# Optional: health checks
+health:
+  check: true
+  path: "/"

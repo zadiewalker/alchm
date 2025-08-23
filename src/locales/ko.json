@@ -1,0 +1,61 @@
+{
+  "common": {
+    "welcome": "집에 오신 것을 환영합니다",
+    "loading": "로딩 중...",
+    "error": "문제가 발생했습니다",
+    "retry": "다시 시도",
+    "cancel": "취소",
+    "continue": "계속",
+    "back": "뒤로",
+    "next": "다음",
+    "save": "저장",
+    "delete": "삭제", 
+    "edit": "편집",
+    "close": "닫기",
+    "yes": "네",
+    "no": "아니요"
+  },
+  "navigation": {
+    "home": "홈",
+    "journals": "일기",
+    "reflection": "성찰",
+    "khepera": "케페라",
+    "profile": "프로필",
+    "settings": "설정",
+    "logout": "로그아웃"
+  },
+  "onboarding": {
+    "title": "당신의 디지털 성역에 오신 것을 환영합니다",
+    "subtitle": "트라우마를 이해하는 치유, 성찰, 성장의 공간",
+    "intro": "당신은 신성한 디지털 성역에 들어오셨습니다.",
+    "reflection_prompt": "첫 번째 영혼의 성찰을 시작하세요",
+    "contract": "당신의 이야기는 신성합니다. 당신의 성장은 오직 당신의 것입니다.",
+    "disclaimer": "ALCHM은 치료적이지만 전문 치료는 아닙니다.",
+    "crisis": "위기 상황이시면 지금 도움을 요청해 주세요.",
+    "step1": {
+      "title": "언어를 선택하세요",
+      "description": "ALCHM은 당신의 언어를 구사하고 당신의 문화를 존중합니다"
+    },
+    "step2": {
+      "title": "의도를 설정하세요",
+      "description": "무엇이 당신을 이 신성한 공간으로 이끌었나요?"
+    },
+    "step3": {
+      "title": "케페라를 만나보세요",
+      "description": "감정 지능과 성장을 위한 당신의 AI 동반자"
+    },
+    "getStarted": "신성한 여행을 시작하세요"
+  },
+  "culturalGreetings": {
+    "morning": "좋은 아침, 아름다운 영혼",
+    "afternoon": "좋은 오후, 용감한 마음",
+    "evening": "좋은 저녁, 빛나는 존재",
+    "night": "안녕히 주무세요, 소중한 영혼"
+  },
+  "sacredLanguage": {
+    "blessing": "당신의 길이 빛과 치유로 가득하기를",
+    "protection": "이곳은 당신의 신성하고 안전한 공간입니다",
+    "growth": "당신의 영적 성장이 여기서 존중받습니다", 
+    "community": "당신은 치유하는 마음들의 공동체에 속합니다"
+  }
+}

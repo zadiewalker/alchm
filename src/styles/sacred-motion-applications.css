@@ -1,0 +1,630 @@
+/* ALCHM Sacred Motion Applications */
+/* Specific motion implementations for ALCHM components */
+/* Applies motion tokens to create consistent, therapeutic interactions */
+
+/* Import the motion tokens */
+@import url('./sacred-motion-tokens.css');
+
+/* ===== PAGE TRANSITION APPLICATIONS ===== */
+
+/* Main page container transitions */
+.page-container {
+  animation: var(--motion-enter-fade) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.page-container.exiting {
+  animation: var(--motion-exit-fade) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+/* Route-specific page transitions */
+.route-enter {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-breath));
+  transition: 
+    opacity var(--motion-page) var(--ease-page),
+    transform var(--motion-page) var(--ease-page);
+}
+
+.route-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.route-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    opacity var(--motion-page) var(--ease-page),
+    transform var(--motion-page) var(--ease-page);
+}
+
+.route-exit-active {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-breath));
+}
+
+/* ===== SACRED BUTTON MOTION ===== */
+
+.sacred-button {
+  position: relative;
+  transition: 
+    transform var(--motion-hover) var(--ease-hover),
+    box-shadow var(--motion-hover) var(--ease-hover),
+    background-color var(--motion-hover) var(--ease-hover),
+    border-color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-button:hover {
+  transform: translateY(var(--motion-lift-gentle));
+  box-shadow: 0 var(--glow-radius-breath) var(--glow-radius-gentle) var(--glow-color-primary);
+}
+
+.sacred-button:active {
+  transform: translateY(var(--motion-lift-subtle)) scale(var(--motion-scale-whisper));
+  transition-duration: var(--motion-breath);
+}
+
+.sacred-button:focus {
+  box-shadow: 
+    0 0 var(--glow-radius-gentle) var(--glow-color-focus),
+    0 var(--glow-radius-breath) var(--glow-radius-gentle) var(--glow-color-primary);
+  outline: none;
+}
+
+/* Button confirmation states */
+.sacred-button.confirming {
+  animation: softGlowPulse var(--motion-confirmation) var(--ease-confirmation) 2;
+}
+
+.sacred-button.success {
+  background-color: var(--emotion-celebrating);
+  border-color: var(--color-primary);
+  animation: gentlePulse var(--motion-confirmation) var(--ease-gentleness) 1;
+}
+
+.sacred-button.error {
+  background-color: var(--emotion-processing);
+  border-color: var(--color-warm-terra);
+  animation: gentlePulse var(--motion-confirmation) var(--ease-contemplation) 2;
+}
+
+/* ===== FORM INPUT MOTION ===== */
+
+.sacred-input,
+.sacred-textarea,
+.sacred-select {
+  transition: 
+    border-color var(--motion-focus) var(--ease-focus),
+    box-shadow var(--motion-focus) var(--ease-focus),
+    background-color var(--motion-focus) var(--ease-focus);
+}
+
+.sacred-input:focus,
+.sacred-textarea:focus,
+.sacred-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 var(--glow-radius-gentle) var(--glow-color-focus);
+  background-color: var(--emotion-reflecting);
+  outline: none;
+}
+
+.sacred-input:hover,
+.sacred-textarea:hover,
+.sacred-select:hover {
+  border-color: var(--color-warm-terra);
+  transition-duration: var(--motion-hover);
+}
+
+/* Form validation states */
+.sacred-input.valid,
+.sacred-textarea.valid {
+  border-color: var(--color-primary);
+  animation: softGlowPulse var(--motion-confirmation) var(--ease-confirmation) 1;
+}
+
+.sacred-input.invalid,
+.sacred-textarea.invalid {
+  border-color: var(--color-warm-terra);
+  animation: gentlePulse var(--motion-confirmation) var(--ease-contemplation) 2;
+}
+
+/* ===== MODAL AND OVERLAY MOTION ===== */
+
+.sacred-modal-overlay {
+  opacity: 0;
+  backdrop-filter: blur(0px);
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    backdrop-filter var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-modal-overlay.active {
+  opacity: 1;
+  backdrop-filter: blur(4px);
+}
+
+.sacred-modal {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-gentle)) scale(var(--motion-scale-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-modal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Modal entrance animation */
+.sacred-modal.entering {
+  animation: var(--motion-enter-bloom) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-modal.exiting {
+  animation: var(--motion-exit-rest) var(--motion-fade) var(--ease-sacred-flow);
+}
+
+/* ===== CARD AND CONTAINER MOTION ===== */
+
+.sacred-card {
+  transition: 
+    transform var(--motion-hover) var(--ease-hover),
+    box-shadow var(--motion-hover) var(--ease-hover),
+    border-color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-card:hover {
+  transform: translateY(var(--motion-lift-gentle));
+  box-shadow: 
+    0 var(--glow-radius-breath) var(--glow-radius-presence) var(--glow-color-primary),
+    0 0 0 1px rgba(164, 183, 146, 0.1);
+  border-color: var(--color-primary);
+}
+
+.sacred-card.interactive:active {
+  transform: translateY(var(--motion-lift-subtle)) scale(var(--motion-scale-whisper));
+  transition-duration: var(--motion-breath);
+}
+
+/* ===== NAVIGATION MOTION ===== */
+
+.sacred-nav-item {
+  position: relative;
+  transition: 
+    color var(--motion-hover) var(--ease-hover),
+    background-color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-nav-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-warm-terra));
+  border-radius: 1px;
+  transition: 
+    width var(--motion-hover) var(--ease-hover),
+    left var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-nav-item:hover::before,
+.sacred-nav-item.active::before {
+  width: 100%;
+  left: 0;
+}
+
+.sacred-nav-item:hover {
+  color: var(--color-primary);
+  background-color: var(--emotion-reflecting);
+}
+
+/* ===== LOADING STATES MOTION ===== */
+
+.sacred-loading-spinner {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-loading-spinner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 20%,
+    var(--color-warm-terra) 50%,
+    var(--color-soft-blush) 80%,
+    transparent 100%
+  );
+  animation: gentleLoading var(--motion-load) var(--ease-sacred-flow) infinite;
+  border-radius: 1px;
+}
+
+.sacred-loading-pulse {
+  animation: gentlePulse var(--motion-load) var(--ease-healing-breath) infinite;
+}
+
+.sacred-loading-breathe {
+  animation: breatheIn var(--motion-load) var(--ease-healing-breath) infinite alternate;
+}
+
+/* ===== SCROLL REVEAL MOTION ===== */
+
+.sacred-scroll-fade {
+  opacity: var(--motion-opacity-whisper);
+  transform: translateY(var(--motion-shift-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-scroll-fade.revealed {
+  opacity: var(--motion-opacity-full);
+  transform: translateY(0);
+}
+
+.sacred-scroll-slide {
+  opacity: var(--motion-opacity-whisper);
+  transform: translateX(var(--motion-shift-gentle));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-scroll-slide.revealed {
+  opacity: var(--motion-opacity-full);
+  transform: translateX(0);
+}
+
+.sacred-scroll-bloom {
+  opacity: var(--motion-opacity-whisper);
+  transform: scale(var(--motion-scale-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-scroll-bloom.revealed {
+  opacity: var(--motion-opacity-full);
+  transform: scale(1);
+}
+
+/* ===== NOTIFICATION MOTION ===== */
+
+.sacred-notification {
+  opacity: 0;
+  transform: translateX(100%) scale(var(--motion-scale-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-notification.entering {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.sacred-notification.exiting {
+  opacity: 0;
+  transform: translateX(100%) scale(var(--motion-scale-whisper));
+}
+
+/* Success notification */
+.sacred-notification.success {
+  border-left: 4px solid var(--color-primary);
+  animation: softGlowPulse var(--motion-confirmation) var(--ease-confirmation) 1;
+}
+
+/* Error notification */
+.sacred-notification.error {
+  border-left: 4px solid var(--color-warm-terra);
+  animation: gentlePulse var(--motion-confirmation) var(--ease-contemplation) 2;
+}
+
+/* ===== DROPDOWN MOTION ===== */
+
+.sacred-dropdown {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-whisper)) scale(var(--motion-scale-breath));
+  transition: 
+    opacity var(--motion-hover) var(--ease-hover),
+    transform var(--motion-hover) var(--ease-hover);
+  transform-origin: top center;
+}
+
+.sacred-dropdown.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.sacred-dropdown-item {
+  transition: 
+    background-color var(--motion-hover) var(--ease-hover),
+    color var(--motion-hover) var(--ease-hover),
+    padding-left var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-dropdown-item:hover {
+  background-color: var(--emotion-reflecting);
+  color: var(--color-primary);
+  padding-left: calc(var(--space-breath) + var(--motion-shift-whisper));
+}
+
+/* ===== TOOLTIP MOTION ===== */
+
+.sacred-tooltip {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-whisper)) scale(var(--motion-scale-whisper));
+  transition: 
+    opacity var(--motion-hover) var(--ease-hover),
+    transform var(--motion-hover) var(--ease-hover);
+  pointer-events: none;
+}
+
+.sacred-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* ===== PROGRESS INDICATOR MOTION ===== */
+
+.sacred-progress-bar {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-healing-mist);
+  border-radius: var(--radius-breath);
+}
+
+.sacred-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-warm-terra) 50%,
+    var(--color-soft-blush) 100%
+  );
+  border-radius: var(--radius-breath);
+  transition: width var(--motion-fade) var(--ease-sacred-flow);
+  transform-origin: left center;
+}
+
+.sacred-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: gentleLoading calc(var(--motion-load) * 2) var(--ease-sacred-flow) infinite;
+}
+
+/* ===== TABBED INTERFACE MOTION ===== */
+
+.sacred-tab {
+  position: relative;
+  transition: 
+    color var(--motion-hover) var(--ease-hover),
+    background-color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-tab::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transition: transform var(--motion-hover) var(--ease-hover);
+  transform-origin: left center;
+  border-radius: 1px;
+}
+
+.sacred-tab.active::before {
+  transform: scaleX(1);
+}
+
+.sacred-tab:hover {
+  color: var(--color-primary);
+  background-color: var(--emotion-reflecting);
+}
+
+.sacred-tab-content {
+  opacity: 0;
+  transform: translateY(var(--motion-shift-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-tab-content.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== ACCORDION MOTION ===== */
+
+.sacred-accordion-header {
+  transition: 
+    background-color var(--motion-hover) var(--ease-hover),
+    color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-accordion-header:hover {
+  background-color: var(--emotion-reflecting);
+  color: var(--color-primary);
+}
+
+.sacred-accordion-icon {
+  transition: transform var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-accordion-header.expanded .sacred-accordion-icon {
+  transform: rotate(180deg);
+}
+
+.sacred-accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: 
+    max-height var(--motion-fade) var(--ease-sacred-flow),
+    padding var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-accordion-content.expanded {
+  max-height: 1000px; /* Large enough value */
+}
+
+/* ===== IMAGE AND MEDIA MOTION ===== */
+
+.sacred-image {
+  transition: 
+    transform var(--motion-hover) var(--ease-hover),
+    filter var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-image:hover {
+  transform: scale(var(--motion-scale-whisper));
+  filter: brightness(1.05) saturate(1.1);
+}
+
+.sacred-image-lazy {
+  opacity: 0;
+  transform: scale(var(--motion-scale-breath));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow);
+}
+
+.sacred-image-lazy.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ===== LIST ITEM MOTION ===== */
+
+.sacred-list-item {
+  opacity: 0;
+  transform: translateX(var(--motion-shift-gentle));
+  transition: 
+    opacity var(--motion-fade) var(--ease-sacred-flow),
+    transform var(--motion-fade) var(--ease-sacred-flow),
+    background-color var(--motion-hover) var(--ease-hover);
+}
+
+.sacred-list-item.animated {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sacred-list-item:hover {
+  background-color: var(--emotion-reflecting);
+  transform: translateX(var(--motion-shift-whisper));
+}
+
+/* Staggered list animation */
+.sacred-list-item:nth-child(1) { transition-delay: 0ms; }
+.sacred-list-item:nth-child(2) { transition-delay: 50ms; }
+.sacred-list-item:nth-child(3) { transition-delay: 100ms; }
+.sacred-list-item:nth-child(4) { transition-delay: 150ms; }
+.sacred-list-item:nth-child(5) { transition-delay: 200ms; }
+.sacred-list-item:nth-child(n+6) { transition-delay: 250ms; }
+
+/* ===== CULTURAL MOTION VARIATIONS ===== */
+
+/* Contemplative pacing for certain cultural contexts */
+.sacred-motion-contemplative .sacred-button,
+.sacred-motion-contemplative .sacred-card,
+.sacred-motion-contemplative .sacred-input {
+  transition-duration: calc(var(--motion-hover) * 1.5);
+}
+
+.sacred-motion-contemplative .route-enter,
+.sacred-motion-contemplative .route-exit,
+.sacred-motion-contemplative .sacred-modal {
+  transition-duration: calc(var(--motion-fade) * 1.3);
+}
+
+/* Ceremonial timing for sacred moments */
+.sacred-motion-ceremonial .sacred-button,
+.sacred-motion-ceremonial .sacred-card {
+  transition-duration: var(--motion-ritual);
+  transition-timing-function: var(--ease-ceremony);
+}
+
+/* ===== NERVOUS SYSTEM STATE ADAPTATIONS ===== */
+
+/* Activated nervous system - faster, less movement */
+.nervous-system-activated .sacred-card:hover {
+  transform: translateY(calc(var(--motion-lift-gentle) / 2));
+}
+
+.nervous-system-activated .sacred-button:hover {
+  transform: translateY(calc(var(--motion-lift-gentle) / 2));
+}
+
+.nervous-system-activated .route-enter,
+.nervous-system-activated .route-exit {
+  transition-duration: calc(var(--motion-page) * 0.7);
+}
+
+/* Dorsal nervous system - slower, more gentle */
+.nervous-system-dorsal .sacred-card:hover {
+  transform: translateY(calc(var(--motion-lift-gentle) * 0.5));
+  transition-duration: calc(var(--motion-hover) * 1.3);
+}
+
+.nervous-system-dorsal .sacred-button:hover {
+  transform: translateY(calc(var(--motion-lift-gentle) * 0.5));
+  transition-duration: calc(var(--motion-hover) * 1.3);
+}
+
+.nervous-system-dorsal .route-enter,
+.nervous-system-dorsal .route-exit {
+  transition-duration: calc(var(--motion-page) * 1.3);
+}
+
+/* ===== PERFORMANCE OPTIMIZATION ===== */
+
+/* GPU acceleration for smooth animations */
+.sacred-button,
+.sacred-card,
+.sacred-modal,
+.route-enter,
+.route-exit,
+.sacred-scroll-fade,
+.sacred-notification {
+  will-change: transform, opacity;
+}
+
+/* Contain layout for animated elements */
+.sacred-loading-spinner::before,
+.sacred-progress-fill::after {
+  contain: layout style paint;
+}
+
+/* ===== DEBUGGING HELPERS ===== */
+
+.debug-motion * {
+  outline: 1px dashed rgba(164, 183, 146, 0.3) !important;
+  transition: outline-color 200ms linear !important;
+}
+
+.debug-motion *:hover {
+  outline-color: rgba(164, 183, 146, 0.8) !important;
+}

@@ -1,0 +1,969 @@
+/* ALCHM Collaborative Reflection Hub Styles */
+/* Sacred peer learning spaces with trauma-informed design */
+
+/* ===== COLLABORATIVE REFLECTION FOUNDATION ===== */
+
+.collaborative-reflection-hub {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(247, 247, 242, 0.95) 0%,
+    rgba(240, 244, 237, 0.98) 25%,
+    rgba(238, 221, 211, 0.96) 75%,
+    rgba(249, 246, 241, 0.95) 100%
+  );
+  padding: var(--space-ritual);
+}
+
+/* ===== SACRED LEARNING CIRCLES HEADER ===== */
+
+.learning-circles-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--space-ritual);
+}
+
+.learning-circles-header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle at center,
+    rgba(164, 183, 146, 0.08) 0%,
+    rgba(203, 153, 126, 0.04) 30%,
+    rgba(238, 221, 211, 0.02) 60%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.learning-circles-title {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-warm-terra) 40%,
+    var(--color-soft-blush) 80%,
+    var(--color-primary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gentleShimmer 6s ease-in-out infinite;
+}
+
+@keyframes gentleShimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* ===== COMMUNITY AGREEMENTS SECTION ===== */
+
+.community-agreements {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.4) 0%,
+    rgba(238, 221, 211, 0.2) 50%,
+    rgba(249, 246, 241, 0.3) 100%
+  );
+  border: 1px solid rgba(203, 153, 126, 0.3);
+  border-radius: var(--radius-gentle);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.community-agreements::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-warm-terra) 0%,
+    var(--color-soft-blush) 50%,
+    var(--color-warm-terra) 100%
+  );
+}
+
+.community-agreements .agreement-point {
+  position: relative;
+  padding-left: var(--space-gentle);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.community-agreements .agreement-point::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, var(--color-warm-terra) 0%, var(--color-soft-blush) 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(203, 153, 126, 0.3);
+}
+
+.community-agreements .agreement-point:hover {
+  transform: translateX(var(--space-whisper));
+  color: var(--color-warm-terra);
+}
+
+/* ===== SPACE CARDS GRID ===== */
+
+.spaces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-gentle);
+}
+
+.space-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+  position: relative;
+  overflow: hidden;
+}
+
+.space-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(164, 183, 146, 0.03) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+  pointer-events: none;
+}
+
+.space-card:hover::before {
+  transform: rotate(45deg) translate(10%, 10%);
+}
+
+.space-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: 
+    0 8px 32px rgba(164, 183, 146, 0.15),
+    0 0 0 1px rgba(164, 183, 146, 0.1);
+}
+
+.space-type-icon {
+  padding: var(--space-breath);
+  border-radius: var(--radius-breath);
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.1) 0%,
+    rgba(203, 153, 126, 0.05) 100%
+  );
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.space-info-tags {
+  display: flex;
+  gap: var(--space-breath);
+  flex-wrap: wrap;
+}
+
+.space-tag {
+  padding: var(--space-whisper) var(--space-breath);
+  border-radius: var(--radius-breath);
+  font-size: var(--text-whisper);
+  font-weight: var(--weight-presence);
+  text-transform: capitalize;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.space-tag.duration {
+  background: rgba(203, 153, 126, 0.1);
+  color: var(--color-warm-terra);
+  border: 1px solid rgba(203, 153, 126, 0.2);
+}
+
+.space-tag.capacity {
+  background: rgba(164, 183, 146, 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+}
+
+.space-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== ACTIVE SPACE INTERFACE ===== */
+
+.collaborative-reflection-hub.active-space {
+  background: linear-gradient(
+    135deg,
+    rgba(240, 244, 237, 0.98) 0%,
+    rgba(249, 246, 241, 0.96) 50%,
+    rgba(247, 247, 242, 0.98) 100%
+  );
+}
+
+.active-space-header {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  position: relative;
+  overflow: hidden;
+}
+
+.active-space-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-warm-terra) 33%,
+    var(--color-soft-blush) 66%,
+    var(--color-primary) 100%
+  );
+}
+
+.cultural-protocols {
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.1) 0%,
+    rgba(164, 183, 146, 0.05) 100%
+  );
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: var(--radius-breath);
+  padding: var(--space-breath);
+  margin-top: var(--space-breath);
+}
+
+/* ===== PARTICIPATION MODE SELECTION ===== */
+
+.participation-mode-selector {
+  background: linear-gradient(
+    135deg,
+    rgba(249, 246, 241, 0.8) 0%,
+    rgba(240, 244, 237, 0.9) 100%
+  );
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+}
+
+.participation-modes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-breath);
+}
+
+.participation-mode-card {
+  position: relative;
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+  cursor: pointer;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.participation-mode-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.05) 0%,
+    transparent 50%,
+    rgba(203, 153, 126, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--timing-breath) var(--ease-sacred-flow);
+  border-radius: var(--radius-gentle);
+}
+
+.participation-mode-card:hover::before {
+  opacity: 1;
+}
+
+.participation-mode-card.selected {
+  border-color: var(--color-primary);
+  background: var(--emotion-celebrating);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.2);
+}
+
+.participation-mode-card.selected::before {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(164, 183, 146, 0.1) 0%,
+    rgba(164, 183, 146, 0.05) 100%
+  );
+}
+
+.participation-icon {
+  padding: var(--space-breath);
+  border-radius: var(--radius-breath);
+  background: rgba(164, 183, 146, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-breath);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.participation-mode-card:hover .participation-icon {
+  background: rgba(203, 153, 126, 0.2);
+  transform: scale(1.1);
+}
+
+/* ===== REFLECTION SHARING INTERFACE ===== */
+
+.reflection-sharing-interface {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+  position: relative;
+}
+
+.reflection-sharing-interface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 20%,
+    var(--color-warm-terra) 50%,
+    var(--color-soft-blush) 80%,
+    transparent 100%
+  );
+  border-radius: var(--radius-gentle) var(--radius-gentle) 0 0;
+}
+
+.reflection-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: var(--space-gentle);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  background: var(--surface-elevated);
+  font-family: var(--font-sacred-primary);
+  font-size: var(--text-breath);
+  line-height: var(--leading-spacious);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.reflection-textarea:focus {
+  border-color: var(--color-primary);
+  background: var(--emotion-reflecting);
+  box-shadow: 
+    0 0 0 3px rgba(164, 183, 146, 0.1),
+    0 4px 12px rgba(164, 183, 146, 0.1);
+  outline: none;
+}
+
+.reflection-textarea::placeholder {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.sharing-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-gentle);
+  padding-top: var(--space-gentle);
+  border-top: 1px solid var(--color-healing-mist);
+}
+
+.privacy-selector {
+  padding: var(--space-breath);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-breath);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  font-size: var(--text-breath);
+}
+
+/* ===== REFLECTION CARDS ===== */
+
+.reflection-card {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.3) 0%,
+    rgba(238, 221, 211, 0.1) 100%
+  );
+  border: 1px solid rgba(203, 153, 126, 0.2);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+  margin-bottom: var(--space-breath);
+  position: relative;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.reflection-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-warm-terra) 0%,
+    var(--color-soft-blush) 50%,
+    var(--color-warm-terra) 100%
+  );
+  border-radius: 0 var(--radius-breath) var(--radius-breath) 0;
+}
+
+.reflection-card:hover {
+  transform: translateX(var(--space-whisper));
+  border-color: rgba(203, 153, 126, 0.4);
+  box-shadow: 0 4px 16px rgba(203, 153, 126, 0.1);
+}
+
+.reflection-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-breath);
+  margin-bottom: var(--space-breath);
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--color-warm-terra) 0%,
+    var(--color-soft-blush) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: var(--weight-presence);
+  font-size: var(--text-whisper);
+  box-shadow: 0 2px 8px rgba(203, 153, 126, 0.2);
+}
+
+.author-info {
+  flex-1;
+}
+
+.author-name {
+  font-weight: var(--weight-presence);
+  color: var(--text-primary);
+  font-size: var(--text-breath);
+}
+
+.reflection-timestamp {
+  color: var(--text-tertiary);
+  font-size: var(--text-whisper);
+}
+
+.content-guidance-tag {
+  background: rgba(249, 246, 241, 0.8);
+  color: var(--text-secondary);
+  padding: var(--space-whisper) var(--space-breath);
+  border-radius: var(--radius-breath);
+  font-size: var(--text-whisper);
+  border: 1px solid var(--color-healing-mist);
+}
+
+.reflection-content {
+  color: var(--text-primary);
+  line-height: var(--leading-spacious);
+  margin-bottom: var(--space-gentle);
+  font-size: var(--text-breath);
+}
+
+.reflection-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-breath);
+  padding-top: var(--space-breath);
+  border-top: 1px solid rgba(203, 153, 126, 0.1);
+}
+
+.reflection-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-whisper);
+  padding: var(--space-whisper) var(--space-breath);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--text-whisper);
+  border-radius: var(--radius-breath);
+  cursor: pointer;
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.reflection-action:hover {
+  color: var(--color-warm-terra);
+  background: rgba(203, 153, 126, 0.1);
+  transform: translateY(-1px);
+}
+
+.reflection-action svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ===== SIDEBAR COMPONENTS ===== */
+
+.sidebar-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-gentle);
+  margin-bottom: var(--space-gentle);
+}
+
+.sidebar-card h4 {
+  color: var(--text-primary);
+  font-weight: var(--weight-presence);
+  margin-bottom: var(--space-breath);
+  padding-bottom: var(--space-breath);
+  border-bottom: 1px solid var(--color-healing-mist);
+}
+
+.participants-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-breath);
+  padding: var(--space-whisper) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-breath);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.participant-item:hover {
+  color: var(--text-primary);
+  transform: translateX(var(--space-whisper));
+}
+
+.participant-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(164, 183, 146, 0.4);
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+.support-resources {
+  background: linear-gradient(
+    135deg,
+    rgba(249, 246, 241, 0.5) 0%,
+    rgba(240, 244, 237, 0.3) 100%
+  );
+}
+
+.support-resource-link {
+  display: block;
+  padding: var(--space-whisper) 0;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: var(--text-breath);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+  border-radius: var(--radius-breath);
+}
+
+.support-resource-link:hover {
+  color: var(--color-warm-terra);
+  background: rgba(203, 153, 126, 0.1);
+  padding-left: var(--space-breath);
+}
+
+.circle-guidelines {
+  background: linear-gradient(
+    135deg,
+    rgba(238, 221, 211, 0.2) 0%,
+    rgba(238, 221, 211, 0.1) 100%
+  );
+}
+
+.guideline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-whisper);
+  margin-bottom: var(--space-whisper);
+  color: var(--text-secondary);
+  font-size: var(--text-breath);
+  line-height: var(--leading-relaxed);
+}
+
+.guideline-item::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--color-warm-terra);
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ===== SPACE GUIDELINES MODAL ===== */
+
+.guidelines-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-gentle);
+  animation: fadeIn var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.guidelines-modal {
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-gentle);
+  padding: var(--space-ritual);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp var(--timing-contemplation) var(--ease-sacred-flow);
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+.guidelines-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-gentle);
+  padding-bottom: var(--space-gentle);
+  border-bottom: 1px solid var(--color-healing-mist);
+}
+
+.guidelines-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-whisper);
+  border-radius: var(--radius-breath);
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+.guidelines-modal-close:hover {
+  color: var(--text-primary);
+  background: var(--color-healing-mist);
+}
+
+.guidelines-section {
+  margin-bottom: var(--space-gentle);
+}
+
+.guidelines-section h3 {
+  color: var(--text-primary);
+  font-weight: var(--weight-presence);
+  margin-bottom: var(--space-breath);
+}
+
+.participation-mode-info {
+  border: 1px solid var(--color-healing-mist);
+  border-radius: var(--radius-breath);
+  padding: var(--space-breath);
+  margin-bottom: var(--space-breath);
+  background: rgba(240, 244, 237, 0.3);
+}
+
+.participation-mode-info h4 {
+  color: var(--text-primary);
+  font-weight: var(--weight-presence);
+  margin-bottom: var(--space-whisper);
+}
+
+.participation-mode-info p {
+  color: var(--text-secondary);
+  font-size: var(--text-breath);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 1024px) {
+  .spaces-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .active-space-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-gentle);
+  }
+  
+  .sidebar-cards {
+    order: -1; /* Show above main content on mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .collaborative-reflection-hub {
+    padding: var(--space-gentle);
+  }
+  
+  .participation-modes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sharing-controls {
+    flex-direction: column;
+    gap: var(--space-breath);
+    align-items: stretch;
+  }
+  
+  .reflection-actions {
+    flex-wrap: wrap;
+    gap: var(--space-breath);
+  }
+  
+  .guidelines-modal {
+    padding: var(--space-gentle);
+    margin: var(--space-breath);
+  }
+}
+
+@media (max-width: 480px) {
+  .community-agreements .agreement-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .space-info-tags {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .reflection-author {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-breath);
+  }
+  
+  .reflection-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .collaborative-reflection-hub *,
+  .space-card,
+  .reflection-card,
+  .participation-mode-card,
+  .reflection-action {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .participant-indicator,
+  .learning-circles-title {
+    animation: none !important;
+  }
+  
+  .space-card::before,
+  .reflection-card::before {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .space-card,
+  .reflection-card,
+  .participation-mode-card,
+  .sidebar-card {
+    border-width: 2px;
+  }
+  
+  .space-card:hover,
+  .reflection-card:hover,
+  .participation-mode-card.selected {
+    border-width: 3px;
+  }
+  
+  .reflection-card::before,
+  .active-space-header::before {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .agreement-point::before,
+  .guideline-item::before {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+
+@media print {
+  .collaborative-reflection-hub {
+    background: white;
+    padding: 1rem;
+  }
+  
+  .sidebar-cards,
+  .sharing-controls,
+  .reflection-actions,
+  .guidelines-modal-overlay {
+    display: none;
+  }
+  
+  .space-card,
+  .reflection-card {
+    border: 2px solid #000;
+    background: white;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  
+  .reflection-content {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+  }
+}
+
+/* ===== DARK MODE ADAPTATIONS ===== */
+
+@media (prefers-color-scheme: dark) {
+  .collaborative-reflection-hub {
+    background: linear-gradient(
+      135deg,
+      rgba(26, 26, 22, 0.95) 0%,
+      rgba(34, 34, 28, 0.98) 25%,
+      rgba(42, 35, 30, 0.96) 75%,
+      rgba(26, 26, 22, 0.95) 100%
+    );
+  }
+  
+  .space-card,
+  .reflection-card,
+  .participation-mode-card,
+  .sidebar-card,
+  .guidelines-modal {
+    background: rgba(26, 26, 22, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+  }
+  
+  .community-agreements {
+    background: linear-gradient(
+      135deg,
+      rgba(42, 35, 30, 0.4) 0%,
+      rgba(42, 35, 30, 0.2) 50%,
+      rgba(26, 26, 22, 0.3) 100%
+    );
+    border-color: rgba(203, 153, 126, 0.3);
+  }
+  
+  .reflection-sharing-interface {
+    background: rgba(26, 26, 22, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+  }
+  
+  .reflection-textarea {
+    background: rgba(34, 34, 28, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+    color: var(--text-primary);
+  }
+  
+  .reflection-textarea:focus {
+    background: rgba(42, 42, 36, 0.8);
+    border-color: var(--color-primary);
+  }
+}
+
+/* ===== SACRED STILLNESS EMPHASIS ===== */
+
+.collaborative-reflection-hub * {
+  /* Gentle, non-aggressive interactions throughout */
+  transition-timing-function: var(--ease-sacred-flow);
+}
+
+/* No jarring or sudden state changes */
+.collaborative-reflection-hub input,
+.collaborative-reflection-hub button,
+.collaborative-reflection-hub textarea,
+.collaborative-reflection-hub select {
+  transition-duration: var(--timing-breath);
+}
+
+/* Sacred hover states - subtle and respectful */
+.collaborative-reflection-hub button:hover,
+.collaborative-reflection-hub .space-card:hover,
+.collaborative-reflection-hub .reflection-card:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus states that don't startle */
+.collaborative-reflection-hub *:focus {
+  transition: all var(--timing-breath) var(--ease-sacred-flow);
+}
+
+/* Ensuring all interactions honor the contemplative pace */
+.collaborative-reflection-hub .sacred-button {
+  transition: all var(--timing-contemplation) var(--ease-sacred-flow);
+}
