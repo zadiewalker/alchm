@@ -3,6 +3,20 @@
 
 runConfig:
   runtime: nodejs20
+  memory: 1GB
+  concurrency: 1000
+  minInstances: 0
+  maxInstances: 100
+  timeout: 60s
+
+env:
+  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: "1"
+
+build:
+  commands:
+    - npm ci
+    - npm run build
 
 serve:
   staticAssets:
