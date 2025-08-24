@@ -1,0 +1,35 @@
+// Firebase App Hosting Compatible Configuration
+// Simple CommonJS format that works with Firebase Studio overrides
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Standalone mode for Firebase App Hosting
+  output: 'standalone',
+  
+  // Disable trailing slash
+  trailingSlash: false,
+  
+  // Disable image optimization for Firebase compatibility
+  images: {
+    unoptimized: true
+  },
+  
+  // Experimental features for Firebase Studio
+  experimental: {
+    serverComponentsExternalPackages: ['firebase-admin'],
+    outputFileTracingIncludes: {
+      '/': ['./public/**/*']
+    }
+  },
+  
+  // Webpack configuration for Firebase
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals = config.externals || [];
+      config.externals.push('firebase-admin');
+    }
+    return config;
+  }
+};
+
+module.exports = nextConfig;

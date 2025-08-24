@@ -2,7 +2,7 @@
   "name": "alchm",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "description": "ALCHM — Trauma-informed, AI-powered journaling OS",
   "author": "Zadie Walker",
   "license": "MIT",
