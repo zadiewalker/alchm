@@ -1,39 +1,28 @@
-# Firebase App Hosting Nuclear Configuration v4.0
-# Forces Next.js 15 compatibility and prevents config corruption
-
+# Firebase App Hosting - Next.js 14 Compatible Configuration
 runConfig:
   runtime: nodejs20
   
-# Environment variables to prevent corruption
+# Environment for Next.js 14
 env:
   - variable: NODE_ENV
     value: production
   - variable: NEXT_TELEMETRY_DISABLED
     value: "1"
-  - variable: FIREBASE_STUDIO_BYPASS
-    value: "true"
-  - variable: FORCE_NEXT_15
-    value: "true"
 
-# Simplified build commands to prevent corruption
+# Simple build commands for Next.js 14
 buildConfig:
   commands:
-    - npm ci --quiet --no-fund --no-audit
+    - npm ci --quiet
     - npm run build
 
 startCommand: npm start
 
-# Resource allocation for Next.js 15
+# Resource allocation
 resources:
   cpu: 1
-  memoryGb: 2
+  memoryGb: 1
   
-# Network settings
+# Scaling
 minInstances: 0
 maxInstances: 10
 concurrency: 80
-
-# Firebase Studio bypass settings
-env:
-  - variable: DISABLE_CONFIG_OVERRIDE
-    value: "true"
