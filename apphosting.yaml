@@ -1,3 +1,28 @@
 # Firebase App Hosting Configuration for ALCHM
 runConfig:
   runtime: nodejs20
+  
+# Build configuration for Firebase Studio
+env:
+  - variable: NODE_ENV
+    value: production
+  - variable: NEXT_TELEMETRY_DISABLED
+    value: "1"
+
+# Build and start commands
+buildConfig:
+  commands:
+    - npm install
+    - npm run build
+
+startCommand: npm start
+
+# Resource allocation
+resources:
+  cpu: 1
+  memoryGb: 1
+  
+# Networking
+minInstances: 0
+maxInstances: 10
+concurrency: 80
