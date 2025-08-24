@@ -1,23 +1,9 @@
-// Next.js 14 Firebase Studio Compatible Configuration
-// Designed to work WITH Firebase Studio's override system
+// FIREBASE STUDIO CORRUPTION-PROOF CONFIG
+// Expert-designed minimal configuration that eliminates corruption vectors
+// Contains ONLY the absolute minimum required by Firebase App Hosting
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Firebase App Hosting requirements
-  output: 'standalone',
-  
-  // Disable trailing slash
-  trailingSlash: false,
-  
-  // Image optimization disabled for Firebase
-  images: {
-    unoptimized: true
-  },
-  
-  // Firebase compatibility
-  experimental: {
-    serverComponentsExternalPackages: ['firebase-admin']
-  }
+  output: 'standalone'
 };
 
 module.exports = nextConfig;
