@@ -14,16 +14,8 @@
         "function": "chatWithGemini"
       },
       {
-        "source": "/api/auth/**",
-        "function": "authHandler"
-      },
-      {
-        "source": "/api/stripe/**", 
-        "function": "stripeHandler"
-      },
-      {
-        "source": "/api/crisis/**",
-        "function": "crisisSupport"
+        "source": "/api/stripe/webhook",
+        "function": "subscriptionWebhook"
       },
       {
         "source": "**",
