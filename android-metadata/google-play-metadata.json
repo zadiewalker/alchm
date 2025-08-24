@@ -1,0 +1,43 @@
+{
+  "appName": "ALCHM - Trauma-Informed Journaling",
+  "shortDescription": "Sacred space for healing, growth, and transformation through mindful reflection",
+  "fullDescription": "ALCHM is a trauma-informed, AI-powered journaling platform designed to support healing, growth, and transformation through sacred reflection.\n\n🌟 KEY FEATURES:\n• Trauma-Informed Design: Built with sensitivity and care for trauma survivors\n• AI-Powered Insights: Gentle, personalized guidance that supplements professional care\n• Sacred Reflection Tools: Culturally-informed practices for healing and growth\n• Privacy-First Architecture: End-to-end encryption protects your personal content\n• Mood & Wellness Tracking: Monitor emotional patterns and celebrate progress\n• IKIGAI Purpose Discovery: Find meaning through guided self-reflection\n• Offline Journaling: Write anywhere, sync securely when you're ready\n• Accessibility Features: Designed for users with diverse needs and abilities\n\n🏥 IMPORTANT MENTAL HEALTH NOTICE:\nALCHM is designed to complement, not replace, professional mental health care. This app provides supportive tools for self-reflection and personal growth, but it is not a substitute for therapy, counseling, or medical treatment.\n\nIf you're experiencing a mental health crisis, please:\n• Contact emergency services (911/local emergency number)\n• Call a mental health crisis hotline\n• Reach out to a qualified mental health professional\n• Visit your nearest emergency room\n\n🔒 YOUR PRIVACY & SECURITY:\n• All journal entries are encrypted end-to-end\n• Your data is never shared without your explicit consent\n• You control your information with secure deletion options\n• HIPAA-informed design principles protect your privacy\n\n🌍 CULTURALLY INFORMED HEALING:\nALCHM honors diverse cultural approaches to healing and growth. Our tools incorporate wisdom from various traditions while respecting individual cultural backgrounds and healing journeys.\n\n✨ TRAUMA-INFORMED PRINCIPLES:\n• Safety: Physical and psychological safety in all features\n• Trustworthiness: Transparent policies and reliable functionality\n• Choice: User control over experience and data\n• Collaboration: You guide your own healing journey\n• Empowerment: Building on your existing strengths and resilience\n\nYour healing journey is sacred. Your story matters. ALCHM provides a safe, supportive space for reflection, growth, and transformation.\n\nFor support: support@alchm.app\nPrivacy Policy: https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+  "category": "Health & Fitness",
+  "contentRating": "Mature 17+",
+  "targetAudience": "Adults seeking mental health support and trauma recovery",
+  "keywords": "journaling, mental health, trauma recovery, mindfulness, wellness, healing, therapy, self-care",
+  "privacyPolicyURL": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+  "developerWebsite": "https://alchm-digital-sanctuary.web.app",
+  "supportEmail": "support@alchm.app",
+  "dataHandling": {
+    "collectsData": true,
+    "dataTypes": [
+      "Personal info",
+      "Health and fitness",
+      "App activity"
+    ],
+    "dataSecurity": "Data encrypted in transit and at rest",
+    "dataSharing": "No data shared with third parties"
+  },
+  "releaseNotes": {
+    "en-US": "Initial release of ALCHM - Trauma-Informed Journaling platform. Features secure journaling, mood tracking, AI-powered insights, and comprehensive accessibility support for mental health and personal growth."
+  },
+  "screenshots": {
+    "requirements": [
+      "Phone screenshots: 16:9 or 9:16 aspect ratio",
+      "7-inch tablet screenshots: 16:10 or 10:16 aspect ratio",
+      "10-inch tablet screenshots: 16:10 or 10:16 aspect ratio",
+      "Minimum 2 screenshots, maximum 8 per device type"
+    ]
+  },
+  "contentRatingQuestionnaire": {
+    "violence": "None",
+    "bloodGore": "None",
+    "sexualContent": "None",
+    "profanity": "None",
+    "drugsAlcohol": "None",
+    "gamblingSimulated": "None",
+    "userGeneratedContent": "Yes - User journal entries",
+    "medicalHealth": "Yes - Mental health and trauma recovery content"
+  }
+}

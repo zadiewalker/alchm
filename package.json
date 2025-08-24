@@ -47,6 +47,20 @@
     "ios:screenshots": "cd ios && fastlane screenshots",
     "testflight:prepare": "node scripts/testflight-preparation.js",
     
+    "android:build:debug": "./scripts/build-android.sh debug",
+    "android:build:testing": "./scripts/build-android.sh testing", 
+    "android:build:release": "./scripts/build-android.sh release",
+    "android:test:all": "./scripts/android-testing-pipeline.sh",
+    "android:test:unit": "cd android && ./gradlew testDebugUnitTest",
+    "android:test:instrumented": "cd android && ./gradlew connectedDebugAndroidTest",
+    "android:test:accessibility": "cd android && ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.alchm.identityos.ALCHMInstrumentedTestFramework#testAccessibilityCompliance",
+    "android:prepare": "node scripts/android-testing-preparation.js",
+    
+    "mobile:prepare": "node scripts/mobile-testing-master.js",
+    "mobile:build": "./scripts/build-mobile-master.sh both",
+    "mobile:test:all": "./scripts/continuous-testing-pipeline.sh",
+    "mobile:release": "./scripts/release-automation.sh",
+    
     "deploy": "./scripts/deploy.sh",
     "deploy:all": "npm run build && firebase deploy && vercel --prod",
     "deploy:functions": "cd functions && pnpm run build && cd .. && firebase deploy --only functions",
