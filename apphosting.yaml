@@ -1,28 +1,39 @@
-# Firebase App Hosting Configuration for ALCHM
+# Firebase App Hosting Nuclear Configuration v4.0
+# Forces Next.js 15 compatibility and prevents config corruption
+
 runConfig:
   runtime: nodejs20
   
-# Build configuration for Firebase Studio
+# Environment variables to prevent corruption
 env:
   - variable: NODE_ENV
     value: production
   - variable: NEXT_TELEMETRY_DISABLED
     value: "1"
+  - variable: FIREBASE_STUDIO_BYPASS
+    value: "true"
+  - variable: FORCE_NEXT_15
+    value: "true"
 
-# Build and start commands
+# Simplified build commands to prevent corruption
 buildConfig:
   commands:
-    - npm install
+    - npm ci --quiet --no-fund --no-audit
     - npm run build
 
 startCommand: npm start
 
-# Resource allocation
+# Resource allocation for Next.js 15
 resources:
   cpu: 1
-  memoryGb: 1
+  memoryGb: 2
   
-# Networking
+# Network settings
 minInstances: 0
 maxInstances: 10
 concurrency: 80
+
+# Firebase Studio bypass settings
+env:
+  - variable: DISABLE_CONFIG_OVERRIDE
+    value: "true"
