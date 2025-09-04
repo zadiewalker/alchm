@@ -1,56 +1,112 @@
-// Import polyfills first to ensure browser globals are available in server environment
-import '../polyfills.js';
-
 import React from 'react';
-import { generateMetadata, generateStructuredData } from '@/lib/seo';
-import { SECURITY_HEADERS } from '@/lib/security';
+import '../styles/globals.css';
+import '../styles/jony-ive-sage-system.css';
+import '../styles/mobile-trauma-informed.css';
+import '../styles/sacred-utility-classes.css';
+import MobileOptimizationProvider from '../components/MobileOptimizationProvider';
 
-export const metadata = generateMetadata({});
+export const metadata = {
+  title: 'ALCHM - Your Digital Sanctuary for Healing',
+  description: 'Trauma-informed AI-powered journaling platform for healing, reflection, and personal growth. Write it raw. Turn it gold. Ages 17+.',
+  keywords: 'trauma-informed, journaling, mental health, AI, healing, resilience, privacy, self-reflection, therapy journal, emotional wellness, crisis support, mental health app',
+  authors: [{ name: 'ALCHM Team' }],
+  creator: 'ALCHM',
+  publisher: 'ALCHM',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: 'ALCHM - Your Digital Sanctuary for Healing',
+    description: 'Trauma-informed AI-powered journaling for healing, reflection, and personal growth. Private, secure, and designed for ages 17+.',
+    url: 'https://alchm-digital-sanctuary.web.app',
+    siteName: 'ALCHM',
+    images: [
+      {
+        url: 'https://alchm-digital-sanctuary.web.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ALCHM - Trauma-Informed AI Journaling Platform',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ALCHM - Your Digital Sanctuary',
+    description: 'Trauma-informed AI journaling for healing and growth. Private, secure, ages 17+.',
+    images: ['https://alchm-digital-sanctuary.web.app/twitter-card.png'],
+    creator: '@alchm_app',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // Add verification codes when available
+    google: 'verification-code-here',
+  },
+  category: 'health',
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const structuredData = generateStructuredData();
   
   return (
-    <html lang="en" className="h-full">
+    <html lang="en">
       <head>
-        {/* Security Headers via Meta Tags */}
-        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-        <meta httpEquiv="X-Frame-Options" content="DENY" />
-        <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
-        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
         
-        {/* Performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.googleapis.com" />
-        <link rel="dns-prefetch" href="https://firebaseio.com" />
+        {/* Mobile Cache Busting */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        <meta name="cache-bust" content={Date.now().toString()} />
         
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+        {/* PWA Manifest */}
+        <link rel="manifest" href={`/manifest.json?v=${Date.now()}`} />
+        <meta name="theme-color" content="#a4b792" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="ALCHM" />
+        
+        {/* Crisis Support Meta */}
+        <meta name="crisis-support" content="988" />
+        <meta name="emergency-accessible" content="true" />
+        
+        {/* PWA Icons */}
+        <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
+        
+        {/* Prefetch critical crisis resources */}
+        <link rel="prefetch" href="/crisis-resources" />
+        
+        {/* Mobile Cache Clear Script */}
+        <script src="/mobile-cache-clear.js" async></script>
+        {/* NUCLEAR OPTION - Complete cache destruction */}
+        <script src="/nuclear-cache-clear.js" async></script>
+        {/* MOBILE SAGE GREEN ENFORCER - Highest priority */}
+        <script src="/mobile-sage-enforcer.js"></script>
       </head>
-      <body className="h-full bg-white text-gray-900 antialiased flex flex-col min-h-screen">
-        <main className="flex-1">
+      <body className="trauma-informed-mobile-ux">
+        <MobileOptimizationProvider>
           {children}
-        </main>
-        <footer className="bg-gray-50 border-t border-gray-200 py-4 px-6 text-center text-sm text-gray-600">
-          <p>© 2025 ALCHM. All rights reserved.</p>
-          <p className="mt-2">
-            <a href='/privacy-policy.html' target='_blank' className="text-blue-600 hover:text-blue-800 underline">
-              Privacy Policy
-            </a>
-            {' | '}
-            <a href="mailto:support@alchm.com" className="text-blue-600 hover:text-blue-800 underline">
-              Support
-            </a>
-          </p>
-        </footer>
+        </MobileOptimizationProvider>
       </body>
     </html>
   );
