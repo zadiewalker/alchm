@@ -1,28 +1,67 @@
-# Firebase App Hosting - Next.js 14 Compatible Configuration
+# Firebase App Hosting Configuration for ALCHM
+# Trauma-informed, AI-powered journaling OS with Next.js SSR support
+
 runConfig:
-  runtime: nodejs20
+  runtime: nodejs18
+  cpu: 1
+  memory: 2048Mi
+  minInstances: 0
+  maxInstances: 100
+  concurrency: 1000
+  timeoutSeconds: 60
   
-# Environment for Next.js 14
 env:
   - variable: NODE_ENV
     value: production
-  - variable: NEXT_TELEMETRY_DISABLED
-    value: "1"
+  - variable: BUILD_TARGET
+    value: firebase-app-hosting
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    secret: NEXT_PUBLIC_FIREBASE_API_KEY
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN  
+    secret: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    secret: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    secret: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    secret: NEXT_PUBLIC_FIREBASE_APP_ID
+  - variable: STRIPE_SECRET_KEY
+    secret: STRIPE_SECRET_KEY
+  - variable: STRIPE_PUBLISHABLE_KEY
+    secret: STRIPE_PUBLISHABLE_KEY
 
-# Simple build commands for Next.js 14
+# Optimized build configuration for Next.js standalone
 buildConfig:
+  runtime: nodejs18
   commands:
-    - npm ci --quiet
-    - npm run build
+    # Clean previous builds and install dependencies
+    - rm -rf .next out node_modules/.cache
+    - npm ci --prefer-offline --no-audit --no-fund
+    # Skip tests during production build to prevent worker crashes
+    - npm run typecheck
+    - NODE_ENV=production npm run build
+    # Verify build artifacts exist
+    - test -d .next || (echo "Next.js build failed - .next directory missing" && exit 1)
+    - test -f .next/standalone/server.js || (echo "Standalone server.js missing" && exit 1)
+    - echo "Firebase App Hosting build completed successfully"
 
-startCommand: npm start
+# Traffic configuration
+trafficConfig:
+  split:
+    - identifier: main
+      percent: 100
 
-# Resource allocation
-resources:
-  cpu: 1
-  memoryGb: 1
+# Health check configuration
+healthCheck:
+  path: "/api/health/ping"
   
-# Scaling
-minInstances: 0
-maxInstances: 10
-concurrency: 80
+# Custom headers for security
+headers:
+  - key: X-Frame-Options
+    value: DENY
+  - key: X-Content-Type-Options
+    value: nosniff
+  - key: Referrer-Policy
+    value: strict-origin-when-cross-origin
