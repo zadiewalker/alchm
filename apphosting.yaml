@@ -14,7 +14,9 @@ env:
   - variable: NODE_ENV
     value: production
   - variable: BUILD_TARGET
-    value: firebase-app-hosting
+    value: firebase-studio-app-hosting
+  - variable: NEXTAUTH_URL
+    value: https://alchm-web.firebaseapp.com
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     secret: NEXT_PUBLIC_FIREBASE_API_KEY
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN  
@@ -27,25 +29,40 @@ env:
     secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
     secret: NEXT_PUBLIC_FIREBASE_APP_ID
+  - variable: FIREBASE_PRIVATE_KEY
+    secret: FIREBASE_PRIVATE_KEY
+  - variable: FIREBASE_CLIENT_EMAIL
+    secret: FIREBASE_CLIENT_EMAIL
   - variable: STRIPE_SECRET_KEY
     secret: STRIPE_SECRET_KEY
   - variable: STRIPE_PUBLISHABLE_KEY
     secret: STRIPE_PUBLISHABLE_KEY
 
-# Optimized build configuration for Next.js standalone
+# Firebase Studio App Hosting optimized build configuration
 buildConfig:
   runtime: nodejs18
+  cpu: 2
+  memory: 4096Mi
+  timeoutSeconds: 1800
   commands:
-    # Clean previous builds and install dependencies
-    - rm -rf .next out node_modules/.cache
-    - npm ci --prefer-offline --no-audit --no-fund
-    # Skip tests during production build to prevent worker crashes
-    - npm run typecheck
-    - NODE_ENV=production npm run build
-    # Verify build artifacts exist
-    - test -d .next || (echo "Next.js build failed - .next directory missing" && exit 1)
-    - test -f .next/standalone/server.js || (echo "Standalone server.js missing" && exit 1)
-    - echo "Firebase App Hosting build completed successfully"
+    # Clean build environment for Firebase Studio buildpack detection
+    - rm -rf .next out node_modules/.cache node_modules_corrupted_backup node_modules_fresh
+    # Remove any conflicting package manager files that could confuse buildpacks
+    - rm -f pnpm-workspace.yaml yarn.lock pnpm-lock.yaml .pnpmrc .yarnrc .yarnrc.yml
+    # Ensure npm is the primary and only package manager
+    - node --version && npm --version
+    # Verify package.json exists and is valid for buildpack detection
+    - test -f package.json || (echo "package.json not found - buildpack detection will fail" && exit 1)
+    - npm config list
+    # Install dependencies with Firebase Studio optimizations and cache management
+    - npm ci --prefer-offline --no-audit --no-fund --silent --production=false
+    # Firebase Studio build with increased memory and comprehensive error handling
+    - NODE_OPTIONS="--max-old-space-size=4096" NODE_ENV=production SKIP_ENV_VALIDATION=true npm run build:firebase-studio
+    # Verify build artifacts for Firebase Studio deployment
+    - test -d .next/standalone || (echo "Firebase Studio build failed - standalone directory missing" && exit 1)
+    - test -f .next/standalone/server.js || (echo "Firebase Studio server.js missing" && exit 1)
+    - ls -la .next/standalone/ | head -10
+    - echo "Firebase Studio App Hosting build completed successfully"
 
 # Traffic configuration
 trafficConfig:
