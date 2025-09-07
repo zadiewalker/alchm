@@ -13,7 +13,14 @@
 [[build.buildpacks]]
   uri = "google/nodejs"
 
-[build.env]
-  NPM_CONFIG_PACKAGE_MANAGER_STRICT = "true"
-  NPM_CONFIG_ENGINE_STRICT = "true"
-  SKIP_PNPM = "true"
+[[build.env]]
+  name = "NPM_CONFIG_PACKAGE_MANAGER_STRICT"
+  value = "true"
+
+[[build.env]]
+  name = "NPM_CONFIG_ENGINE_STRICT"
+  value = "true"
+
+[[build.env]]
+  name = "SKIP_PNPM"
+  value = "true"

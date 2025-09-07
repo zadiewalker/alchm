@@ -19,7 +19,8 @@
     "typecheck": "echo 'TypeScript check passed - using Next.js build for validation'",
     "firebase:emulators": "firebase emulators:start",
     "build:standalone": "NODE_ENV=production next build",
-    "gcp-build": "npm run build"
+    "gcp-build": "npm run build",
+    "validate:toml": "node scripts/validate-toml.js"
   },
   "dependencies": {
     "@opentelemetry/exporter-jaeger": "^2.1.0",
