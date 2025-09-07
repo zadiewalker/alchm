@@ -1,0 +1,19 @@
+# Firebase Studio Buildpack Configuration - NUCLEAR NPM ENFORCEMENT
+# This file explicitly tells Firebase Studio to use npm, not pnpm
+
+[build]
+  exclude = [
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    ".pnpm-store/",
+    "yarn.lock",
+    ".yarnrc.yml"
+  ]
+
+[[build.buildpacks]]
+  uri = "google/nodejs"
+
+[build.env]
+  NPM_CONFIG_PACKAGE_MANAGER_STRICT = "true"
+  NPM_CONFIG_ENGINE_STRICT = "true"
+  SKIP_PNPM = "true"

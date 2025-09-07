@@ -17,6 +17,16 @@ env:
   - variable: BUILD_TARGET
     value: firebase-studio-minimal
   
+  # NUCLEAR NPM ENFORCEMENT - Force npm, block pnpm
+  - variable: NPM_CONFIG_PACKAGE_MANAGER_STRICT
+    value: "true"
+  - variable: NPM_CONFIG_ENGINE_STRICT  
+    value: "true"
+  - variable: SKIP_PNPM
+    value: "true"
+  - variable: DISABLE_PNPM
+    value: "true"
+  
   # Firebase Public Configuration (Safe to hardcode)
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     value: AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w

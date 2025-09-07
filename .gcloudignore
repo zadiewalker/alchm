@@ -1,0 +1,57 @@
+# NUCLEAR FIREBASE STUDIO BUILDPACK DETECTION FIX
+# Root cause was duplicate 'start' scripts in package.json (invalid JSON)
+# This .gcloudignore ensures only essential files are uploaded
+
+# Exclude ALL non-essential files and directories
+*
+!package.json
+!package-lock.json
+!.nvmrc
+!Procfile
+!apphosting.yaml
+
+# Include Next.js configuration files
+!next.config.js
+!next.config.mjs
+!next.config.cjs
+!tsconfig.json
+!tailwind.config.ts
+!tailwind.config.js
+!postcss.config.js
+
+# Include source code and assets
+!src/**
+!public/**
+
+# Include Firebase configuration
+!firebase.json
+!firestore.rules
+!firestore.indexes.json
+!storage.rules
+
+# Include functions
+!functions/package.json
+!functions/src/**
+!functions/tsconfig.json
+
+# Explicit exclusions of problem directories
+.next/
+out/
+dist/
+node_modules/
+.firebase/
+test-results/
+coverage/
+android/
+ios/
+*.log
+*.backup
+*_backup/
+
+# NUCLEAR PNPM EXCLUSION - Force npm-only detection
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.pnpm-store/
+.pnpm-debug.log
+**/pnpm-lock.yaml
+**/pnpm-workspace.yaml
