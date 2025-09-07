@@ -10,6 +10,7 @@
     "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "build:firebase-studio": "NODE_OPTIONS='--max-old-space-size=4096' SKIP_ENV_VALIDATION=true next build",
     "start": "next start -p 3001",
+    "start:standalone": "node .next/standalone/server.js",
     "lint": "next lint",
     "test": "jest --passWithNoTests --maxWorkers=1 --forceExit",
     "test:ci": "jest --passWithNoTests --maxWorkers=1 --forceExit --bail --no-coverage",
@@ -17,7 +18,8 @@
     "firebase:deploy": "firebase deploy",
     "typecheck": "echo 'TypeScript check passed - using Next.js build for validation'",
     "firebase:emulators": "firebase emulators:start",
-    "build:standalone": "NODE_ENV=production next build"
+    "build:standalone": "NODE_ENV=production next build",
+    "gcp-build": "npm run build"
   },
   "dependencies": {
     "@opentelemetry/exporter-jaeger": "^2.1.0",
@@ -67,8 +69,7 @@
     }
   },
   "engines": {
-    "node": "18.20.4",
-    "npm": "10.2.4"
-  },
-  "packageManager": "npm@10.2.4"
+    "node": ">=18.0.0 <21.0.0",
+    "npm": ">=8.0.0"
+  }
 }
