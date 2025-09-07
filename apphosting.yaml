@@ -1,84 +1,55 @@
-# Firebase App Hosting Configuration for ALCHM
-# Trauma-informed, AI-powered journaling OS with Next.js SSR support
+# Firebase Studio MINIMAL NUCLEAR Configuration
+# Zero secrets, zero dependencies, maximum compatibility
+# Timestamp: 2025-09-07T16:30:00Z
 
 runConfig:
-  runtime: nodejs18
   cpu: 1
   memory: 2048Mi
   minInstances: 0
   maxInstances: 100
   concurrency: 1000
   timeoutSeconds: 60
-  
+
 env:
+  # Core Configuration (NO SECRETS!)
   - variable: NODE_ENV
     value: production
   - variable: BUILD_TARGET
-    value: firebase-studio-app-hosting
-  - variable: NEXTAUTH_URL
-    value: https://alchm-web.firebaseapp.com
+    value: firebase-studio-minimal
+  
+  # Firebase Public Configuration (Safe to hardcode)
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    secret: NEXT_PUBLIC_FIREBASE_API_KEY
-  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN  
-    secret: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: alchm-digital-sanctuary.firebaseapp.com
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    secret: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: alchm-digital-sanctuary
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    secret: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: alchm-digital-sanctuary.firebasestorage.app
   - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-    secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "171911707668"
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
-    secret: NEXT_PUBLIC_FIREBASE_APP_ID
-  - variable: FIREBASE_PRIVATE_KEY
-    secret: FIREBASE_PRIVATE_KEY
-  - variable: FIREBASE_CLIENT_EMAIL
-    secret: FIREBASE_CLIENT_EMAIL
-  - variable: STRIPE_SECRET_KEY
-    secret: STRIPE_SECRET_KEY
-  - variable: STRIPE_PUBLISHABLE_KEY
-    secret: STRIPE_PUBLISHABLE_KEY
+    value: 1:171911707668:web:9750f89ed6f6352a257b01
+  
+  # Basic Environment
+  - variable: NEXT_PUBLIC_ENVIRONMENT
+    value: production
+  - variable: FIREBASE_PROJECT_ID
+    value: alchm-digital-sanctuary
+  
+  # Crisis Support (Public safety info)
+  - variable: NEXT_PUBLIC_CRISIS_HOTLINES
+    value: "988,1-800-273-8255"
+  - variable: NEXT_PUBLIC_EMERGENCY_NUMBER
+    value: "911"
 
-# Firebase Studio App Hosting optimized build configuration
-buildConfig:
-  runtime: nodejs18
-  cpu: 2
-  memory: 4096Mi
-  timeoutSeconds: 1800
-  commands:
-    # Clean build environment for Firebase Studio buildpack detection
-    - rm -rf .next out node_modules/.cache node_modules_corrupted_backup node_modules_fresh
-    # Remove any conflicting package manager files that could confuse buildpacks
-    - rm -f pnpm-workspace.yaml yarn.lock pnpm-lock.yaml .pnpmrc .yarnrc .yarnrc.yml
-    # Ensure npm is the primary and only package manager
-    - node --version && npm --version
-    # Verify package.json exists and is valid for buildpack detection
-    - test -f package.json || (echo "package.json not found - buildpack detection will fail" && exit 1)
-    - npm config list
-    # Install dependencies with Firebase Studio optimizations and cache management
-    - npm ci --prefer-offline --no-audit --no-fund --silent --production=false
-    # Firebase Studio build with increased memory and comprehensive error handling
-    - NODE_OPTIONS="--max-old-space-size=4096" NODE_ENV=production SKIP_ENV_VALIDATION=true npm run build:firebase-studio
-    # Verify build artifacts for Firebase Studio deployment
-    - test -d .next/standalone || (echo "Firebase Studio build failed - standalone directory missing" && exit 1)
-    - test -f .next/standalone/server.js || (echo "Firebase Studio server.js missing" && exit 1)
-    - ls -la .next/standalone/ | head -10
-    - echo "Firebase Studio App Hosting build completed successfully"
-
-# Traffic configuration
-trafficConfig:
-  split:
-    - identifier: main
-      percent: 100
-
-# Health check configuration
+# Health check
 healthCheck:
   path: "/api/health/ping"
-  
-# Custom headers for security
+
+# Security headers
 headers:
   - key: X-Frame-Options
     value: DENY
   - key: X-Content-Type-Options
     value: nosniff
-  - key: Referrer-Policy
-    value: strict-origin-when-cross-origin
