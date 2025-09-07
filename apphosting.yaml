@@ -1,6 +1,6 @@
 # Firebase Studio MINIMAL NUCLEAR Configuration
 # Zero secrets, zero dependencies, maximum compatibility
-# Timestamp: 2025-09-07T16:30:00Z
+# Timestamp: 2025-09-07T19:58:45Z - Triggering fresh rebuild
 
 runConfig:
   cpu: 1
