@@ -1,5 +1,6 @@
-# Firebase Studio Buildpack Configuration - NUCLEAR NPM ENFORCEMENT
-# This file explicitly tells Firebase Studio to use npm, not pnpm
+# Firebase Studio Build Configuration - NPM ENFORCEMENT
+# This file configures Firebase Studio to use npm over pnpm/yarn
+# Auto-detection will identify Node.js based on package.json
 
 [build]
   exclude = [
@@ -10,8 +11,12 @@
     ".yarnrc.yml"
   ]
 
-[[build.buildpacks]]
-  uri = "google/nodejs"
+# Auto-detect Node.js buildpack instead of explicit specification
+# Firebase Studio will use Google Cloud buildpacks based on package.json
+#
+# Alternative: If auto-detection fails, uncomment the following:
+# [[build.buildpacks]]
+#   uri = "gcr.io/buildpacks/nodejs"
 
 [[build.env]]
   name = "NPM_CONFIG_PACKAGE_MANAGER_STRICT"
