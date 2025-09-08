@@ -18,8 +18,6 @@ env:
     value: firebase-studio-minimal
   
   # NUCLEAR NPM ENFORCEMENT - Force npm, block pnpm
-  - variable: NPM_CONFIG_PACKAGE_MANAGER_STRICT
-    value: "true"
   - variable: NPM_CONFIG_ENGINE_STRICT  
     value: "true"
   - variable: SKIP_PNPM

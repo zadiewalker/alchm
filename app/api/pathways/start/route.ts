@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDb, getUidFromSessionCookie } from "@/lib/firebaseAdmin";
+import { getDb, getUidFromSessionCookie } from "../../../../src/lib/firebaseAdmin";
 export async function POST(req: NextRequest) {
   const { slug } = await req.json().catch(() => ({}));
   if (!slug) return NextResponse.json({ error: "missing_slug" }, { status: 400 });

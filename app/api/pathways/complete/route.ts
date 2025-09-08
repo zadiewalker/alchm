@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDb, getUidFromSessionCookie } from "@/lib/firebaseAdmin";
+import { getDb, getUidFromSessionCookie } from "../../../../src/lib/firebaseAdmin";
 import * as admin from "firebase-admin";
 export async function POST(req: NextRequest) {
   const { slug, day } = await req.json().catch(() => ({}));
