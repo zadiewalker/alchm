@@ -145,7 +145,7 @@ export default function RootLayout({
             
             /* Button optimization for LCP */
             .btn-primary {
-              background: #3b82f6;
+              background: #a4b792;
               color: white;
               padding: 12px 24px;
               border-radius: 8px;
