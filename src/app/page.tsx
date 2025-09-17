@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Suspense } from 'react';
+import ElegantCrisisFooter from '@/components/ui/ElegantCrisisFooter';
 
 // Simplified primary journey button
 function PrimaryJourneyButton() {
@@ -112,16 +113,8 @@ function HomeContent() {
         </div>
       </section>
 
-      {/* Crisis Support */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <a 
-          href="tel:988" 
-          className="bg-red-500 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors"
-          aria-label="Crisis support - Call 988"
-        >
-          🆘
-        </a>
-      </div>
+      {/* Elegant Crisis Support - Jony Ive Design */}
+      <ElegantCrisisFooter autoDetect={true} position="floating" theme="minimal" />
 
       {/* Enhanced Footer with Prominent Legal Links */}
       <footer className="absolute bottom-0 left-0 right-0 py-4 px-4">

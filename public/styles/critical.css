@@ -1,0 +1,670 @@
+/* CRITICAL CSS - Must be inlined for FCP optimization */
+/* These styles are needed for initial page render to prevent FOUC */
+
+/* Core layout and typography - immediate render */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  line-height: 1.5;
+  color: #ffffff;
+  background: #a4b792;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Critical gradient for immediate rendering */
+.gradient-sanctuary {
+  background: linear-gradient(135deg, #a4b792 0%, #93a682 50%, #7a8c6a 100%);
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Essential layout utilities */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.opacity-90 {
+  opacity: 0.9;
+}
+
+.opacity-95 {
+  opacity: 0.95;
+}
+
+/* Critical typography */
+.wordmark-sacred {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+}
+
+.text-heading {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.text-body {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.text-supporting {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Critical button styles for immediate interactivity */
+.btn-primary {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  min-height: 52px;
+  min-width: 200px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.2);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Critical crisis button styles */
+.crisis-button,
+.emergency-button {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3) !important;
+  min-height: 64px !important;
+  min-width: 200px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border-radius: 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.crisis-button:hover,
+.emergency-button:hover {
+  background: #b91c1c !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Touch-safe interactions */
+.touch-safe {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.2);
+}
+
+/* Large touch targets for crisis situations */
+.touch-target-large {
+  min-height: 72px;
+  min-width: 72px;
+  padding: 16px;
+}
+
+/* Critical loading animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-gentle {
+  animation: spin 2s linear infinite;
+}
+
+/* Essential spacing utilities */
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-xl { margin-bottom: 2.5rem; }
+.mb-2xl { margin-bottom: 3rem; }
+.mt-3xl { margin-top: 4rem; }
+
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+
+/* Critical positioning */
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.top-0 { top: 0; }
+.left-0 { left: 0; }
+.right-0 { right: 0; }
+.bottom-0 { bottom: 0; }
+
+.z-10 { z-index: 10; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+/* Container utilities */
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-xl {
+  max-width: 36rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Critical responsive design */
+@media (min-width: 640px) {
+  .sm\:text-4xl {
+    font-size: 2.25rem;
+  }
+  
+  .sm\:mb-8 {
+    margin-bottom: 2rem;
+  }
+  
+  .sm\:mb-12 {
+    margin-bottom: 3rem;
+  }
+  
+  .sm\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .sm\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .sm\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .sm\:pb-6 {
+    padding-bottom: 1.5rem;
+  }
+  
+  .sm\:text-xs {
+    font-size: 0.75rem;
+  }
+  
+  .sm\:text-lg {
+    font-size: 1.125rem;
+  }
+  
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+  
+  .sm\:gap-4 > * + * {
+    margin-left: 1rem;
+  }
+  
+  .sm\:max-w-none {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Critical performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Crisis-specific optimizations */
+.crisis-optimized * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.crisis-optimized .btn-primary {
+  transition: none !important;
+}
+
+.crisis-optimized .crisis-button,
+.crisis-optimized .emergency-button {
+  transition: background-color 0.1s ease !important;
+}
+
+/* Very low-end device optimizations */
+.very-low-end-device * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+}
+
+.very-low-end-device .gradient-sanctuary {
+  background: #a4b792 !important; /* Solid color fallback */
+}
+
+/* Low-end device optimizations */
+.low-end-device .btn-primary {
+  transition: background-color 0.1s ease;
+}
+
+.low-end-device .loading-gentle {
+  animation-duration: 3s;
+}
+
+/* Offline mode indicators */
+.offline-mode {
+  --offline-indicator: 'OFFLINE';
+}
+
+/* Container mobile optimization */
+.container-mobile {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-mobile {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Layout centered utility */
+.layout-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* Opacity utilities */
+.opacity-subtle {
+  opacity: 0.75;
+}
+
+/* Essential transition utilities */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Transform utilities */
+.translate-y-0 {
+  transform: translateY(0);
+}
+
+.translate-y-4 {
+  transform: translateY(1rem);
+}
+
+/* Backdrop utilities for immediate rendering */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+/* Border utilities */
+.border {
+  border-width: 1px;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-3 {
+  border-width: 3px;
+}
+
+.border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.border-white\/30 {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.border-white\/40 {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.border-red-400\/30 {
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.border-red-500 {
+  border-color: #ef4444;
+}
+
+/* Background utilities */
+.bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bg-white\/15 {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.bg-white\/20 {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.bg-white\/30 {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.bg-red-600 {
+  background-color: #dc2626;
+}
+
+.bg-red-700 {
+  background-color: #b91c1c;
+}
+
+.bg-red-500\/20 {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+.bg-orange-600 {
+  background-color: #ea580c;
+}
+
+/* Text color utilities */
+.text-white\/50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.text-white\/60 {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.text-white\/70 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.text-white\/80 {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.text-white\/90 {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.text-white\/95 {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.text-white\/30 {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.text-red-600 {
+  color: #dc2626;
+}
+
+/* Border radius utilities */
+.rounded-lg {
+  border-radius: 8px;
+}
+
+.rounded-xl {
+  border-radius: 12px;
+}
+
+.rounded-2xl {
+  border-radius: 16px;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Font size utilities */
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-6xl {
+  font-size: 4rem;
+}
+
+/* Font weight utilities */
+.font-light {
+  font-weight: 300;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Letter spacing utilities */
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+/* Line height utilities */
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+/* Text decoration utilities */
+.underline {
+  text-decoration: underline;
+}
+
+/* Essential hover states */
+.hover\:text-white:hover {
+  color: #ffffff;
+}
+
+.hover\:text-white\/70:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hover\:bg-white\/10:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hover\:bg-white\/20:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hover\:bg-white\/30:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.hover\:bg-red-700:hover {
+  background-color: #b91c1c;
+}
+
+.hover\:border-white\/40:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.hover\:border-red-400:hover {
+  border-color: #f87171;
+}
+
+/* Focus states for accessibility */
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+/* Disabled states */
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
+/* Critical utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

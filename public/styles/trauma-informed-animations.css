@@ -1,0 +1,130 @@
+/* ALCHM Trauma-Informed Animations */
+/* Gentle, calming animations that respect trauma survivors' nervous systems */
+
+/* Reduced motion support - critical for trauma-informed design */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Gentle fade-in for elements */
+@keyframes gentle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Breathing animation for calming effects */
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+/* Gentle pulse for crisis elements */
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+}
+
+/* Soft slide-up for modals */
+@keyframes soft-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes for trauma-informed animations */
+.animate-gentle-fade {
+  animation: gentle-fade-in 0.6s ease-out;
+}
+
+.animate-breathing {
+  animation: breathing 4s ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.animate-soft-slide {
+  animation: soft-slide-up 0.4s ease-out;
+}
+
+/* Hover states - gentle and predictable */
+.hover-gentle {
+  transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.hover-gentle:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus states - clear but not jarring */
+.focus-gentle {
+  transition: box-shadow 200ms ease-out;
+}
+
+.focus-gentle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.3);
+}
+
+/* Loading states - calming */
+.loading-gentle {
+  opacity: 0.8;
+  animation: breathing 2s infinite;
+}
+
+/* Smooth transitions for all interactive elements */
+button, input, textarea, select, a {
+  transition: all 200ms ease-out;
+}
+
+/* Container animations that respect motion preferences */
+.container-gentle-enter {
+  animation: gentle-fade-in 0.8s ease-out;
+}
+
+/* Crisis-specific animations */
+.crisis-urgent {
+  animation: gentle-pulse 1.5s ease-in-out infinite;
+}
+
+.crisis-gentle {
+  animation: breathing 3s ease-in-out infinite;
+}
+
+/* Page transition animations */
+.page-transition-enter {
+  animation: gentle-fade-in 0.5s ease-out;
+}
+
+.page-transition-exit {
+  animation: gentle-fade-in 0.3s ease-out reverse;
+}
