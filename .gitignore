@@ -20,16 +20,40 @@ firebase-debug.log
 .vscode/
 .DS_Store
 
-# Env and Secrets - NEVER COMMIT
+# Env and Secrets - NEVER COMMIT THESE
 .env
 .env.local
 .env.*.local
+.env.production
+.env.staging
+.env.development
 *.key
 *.pem
 *.p12
 *-key.json
 serviceAccountKey.json
 service-account-*.json
+firebase-adminsdk-*.json
+google-services.json
+GoogleService-Info.plist
+
+# Security sensitive files
+secrets/
+private-keys/
+certificates/
+.secrets
+*.crt
+*.csr
+auth.json
+credentials.json
+
+# Backup files that might contain secrets
+*.bak
+*.backup
+*.swp
+*.tmp
+.env.local.backup*
+.env.local.secure*
 
 # Logs
 npm-debug.log*
