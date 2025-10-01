@@ -314,6 +314,36 @@ export default function JournalPage() {
 
   // Initialize auth and load saved content
   useEffect(() => {
+    // CRISIS-CRITICAL: Check for emergency session first
+    const checkEmergencySession = () => {
+      try {
+        const emergencySession = sessionStorage.getItem('alchm_emergency_session') || 
+                                localStorage.getItem('alchm_emergency_backup');
+        
+        if (emergencySession) {
+          const emergency = JSON.parse(emergencySession);
+          if (emergency.isEmergency && emergency.skipVerification) {
+            console.log('🚨 EMERGENCY SESSION DETECTED - Bypassing authentication');
+            setUser({ 
+              uid: 'emergency_user', 
+              email: 'emergency@alchm.app',
+              displayName: 'Emergency User'
+            } as User);
+            setLoading(false);
+            setEmergencyMode(true);
+            return true;
+          }
+        }
+      } catch (error) {
+        console.error('Emergency session check failed:', error);
+      }
+      return false;
+    };
+
+    if (checkEmergencySession()) {
+      return; // Skip normal auth if emergency session active
+    }
+
     const initializeAuth = async () => {
       try {
         const auth = await getFirebaseAuth();

@@ -13,13 +13,37 @@ import {
   signInWithAppleMobile
 } from '@/lib/auth/authFunctions';
 import { detectMobileCapabilities } from '@/lib/auth/mobileAuthUtils';
+import EmergencyAuthWrapper from '@/components/auth/EmergencyAuthWrapper';
 
-export default function SignupPage() {
+function SignupPageContent() {
   const router = useRouter();
-  // Simplified privacy compliance for now
-  const ageVerified = true;
-  const isCompliant = true;
-  const validateFeatureAccess = async (feature: string) => true;
+  
+  // CRISIS-CRITICAL: Proper age verification integration
+  const getAgeVerificationState = () => {
+    if (typeof window === 'undefined') return { ageVerified: false, isCompliant: false };
+    
+    try {
+      const stored = sessionStorage.getItem('alchm_age_verification');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return {
+          ageVerified: parsed.isVerified || false,
+          isCompliant: parsed.isVerified || false,
+          ageGroup: parsed.ageGroup,
+          requiresParentalConsent: parsed.requiresParentalConsent || false
+        };
+      }
+    } catch (error) {
+      console.error('Error reading age verification:', error);
+    }
+    
+    return { ageVerified: false, isCompliant: false };
+  };
+  
+  const validateFeatureAccess = async (feature: string) => {
+    const { ageVerified, isCompliant } = getAgeVerificationState();
+    return ageVerified && isCompliant;
+  };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -41,7 +65,8 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    // Privacy compliance check
+    // CRISIS-CRITICAL: Privacy compliance check with proper verification
+    const { ageVerified, isCompliant } = getAgeVerificationState();
     if (!ageVerified || !isCompliant) {
       setError('Age verification and privacy consent required before account creation.');
       setLoading(false);
@@ -86,7 +111,8 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    // Privacy compliance check
+    // CRISIS-CRITICAL: Privacy compliance check with proper verification
+    const { ageVerified, isCompliant } = getAgeVerificationState();
     if (!ageVerified || !isCompliant) {
       setError('Age verification and privacy consent required before account creation.');
       setLoading(false);
@@ -152,7 +178,8 @@ export default function SignupPage() {
     setLoading(true);
     setError(null);
 
-    // Privacy compliance check
+    // CRISIS-CRITICAL: Privacy compliance check with proper verification
+    const { ageVerified, isCompliant } = getAgeVerificationState();
     if (!ageVerified || !isCompliant) {
       setError('Age verification and privacy consent required before account creation.');
       setLoading(false);
@@ -427,11 +454,14 @@ export default function SignupPage() {
           <a href="/terms" className="underline">Terms of Service</a>{' '}
           and{' '}
           <a href="/privacy-policy.html" className="underline">Privacy Policy</a>. 
-          {!ageVerified && (
-            <span className="text-red-300 font-medium">
-              {' '}Age verification required before account creation.
-            </span>
-          )}
+          {(() => {
+            const { ageVerified } = getAgeVerificationState();
+            return !ageVerified && (
+              <span className="text-red-300 font-medium">
+                {' '}Age verification required before account creation.
+              </span>
+            );
+          })()}
         </p>
       </div>
 
@@ -472,5 +502,14 @@ export default function SignupPage() {
         </p>
       </div>
     </>
+  );
+}
+
+// CRISIS-CRITICAL: Wrap with emergency auth that includes age verification
+export default function SignupPage() {
+  return (
+    <EmergencyAuthWrapper requiresAgeVerification={true}>
+      <SignupPageContent />
+    </EmergencyAuthWrapper>
   );
 }

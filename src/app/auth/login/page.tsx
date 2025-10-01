@@ -10,6 +10,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import EmergencyAuthWrapper from '@/components/auth/EmergencyAuthWrapper';
 
 // EMERGENCY: Minimal inline styles to avoid CSS bundle bloat
 const emergencyStyles = {
@@ -68,7 +69,7 @@ const emergencyStyles = {
   },
 };
 
-export default function EmergencyLoginPage() {
+function EmergencyLoginPageContent() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -323,5 +324,14 @@ export default function EmergencyLoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// CRISIS-CRITICAL: Wrap with emergency auth that includes age verification for new users
+export default function EmergencyLoginPage() {
+  return (
+    <EmergencyAuthWrapper requiresAgeVerification={false}>
+      <EmergencyLoginPageContent />
+    </EmergencyAuthWrapper>
   );
 }
