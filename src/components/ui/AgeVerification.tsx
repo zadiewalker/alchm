@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { auth } from '@/lib/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 interface AgeVerificationProps {
   onVerified?: (ageStatus: 'adult' | 'teen' | 'minor' | 'emergency_access') => void;
@@ -299,15 +298,35 @@ export default function AgeVerification({
     };
 
     // Check authentication state
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      checkExistingVerification();
-    }, (error) => {
-      console.warn('Auth state check failed, proceeding with local verification:', error);
-      checkExistingVerification();
+    const setupAuthListener = async () => {
+      try {
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const auth = await getFirebaseAuth();
+        
+        return onAuthStateChanged(auth, (user) => {
+          checkExistingVerification();
+        }, (error) => {
+          console.warn('Auth state check failed, proceeding with local verification:', error);
+          checkExistingVerification();
+        });
+      } catch (error) {
+        console.warn('Firebase Auth initialization failed, proceeding with local verification:', error);
+        checkExistingVerification();
+        return () => {}; // Return empty unsubscribe function
+      }
+    };
+    
+    let unsubscribe: (() => void) | null = null;
+    setupAuthListener().then(unsub => {
+      unsubscribe = unsub;
     });
 
     checkExistingVerification();
-    return () => unsubscribe();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [onVerified]);
 
   // Handle age verification input

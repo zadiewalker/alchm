@@ -8,7 +8,7 @@
   "src/app/[locale]/auth/login/LoginClientOptimized.tsx -> @/components/ui/CrisisFloatingButton": {
     "id": 174,
     "files": [
-      "static/chunks/nextjs-vendor-27f02048-926da34bc6ad9b2d.js",
+      "static/chunks/nextjs-vendor-27f02048-8a735014359d4a11.js",
       "static/chunks/nextjs-vendor-4a7382ad-74afa654597d02b9.js",
       "static/chunks/nextjs-vendor-4e8e7ca0-f732294a4fffc4c1.js",
       "static/chunks/nextjs-vendor-fc717cc5-ddb2a4d3f18aa784.js",
@@ -34,15 +34,28 @@
   "src/app/[locale]/auth/login/LoginClientOptimized.tsx -> @/lib/auth/domain-aware-auth": {
     "id": 3149,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js",
-      "static/chunks/3149.6215ba128c4a057b.js"
+      "static/chunks/3149.b3bc11df5cb1a66d.js"
+    ]
+  },
+  "src/app/[locale]/auth/signup/SignupClient.tsx -> firebase/auth": {
+    "id": 3301,
+    "files": [
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
+      "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
+      "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
+      "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
   },
   "src/app/[locale]/emergency/page.tsx -> @/lib/firebase": {
@@ -54,12 +67,12 @@
   "src/app/[locale]/emergency/page.tsx -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -73,12 +86,12 @@
   "src/app/auth/login/page.tsx -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -99,9 +112,9 @@
     "id": 6617,
     "files": [
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js",
       "static/chunks/6617.dc1d8ca1f1dbc457.js"
@@ -215,9 +228,9 @@
       "static/chunks/motion-vendor-4305cb47.2ea62ada48c45a8f.js",
       "static/chunks/motion-vendor-6ed9541f.0e63f0e40797b115.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js",
       "static/chunks/2945.8ed2f4b3f2445589.js"
@@ -232,19 +245,19 @@
   "src/lib/analytics-service.ts -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js"
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js"
     ]
   },
   "src/lib/auth/authFunctions.ts -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -252,25 +265,31 @@
   "src/lib/auth/authFunctions.ts -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
+    ]
+  },
+  "src/lib/auth/domain-aware-auth.ts -> @/lib/privacy/mobile-age-verification-service": {
+    "id": 4375,
+    "files": [
+      "static/chunks/4375.c72424b7197b5678.js"
     ]
   },
   "src/lib/auth/mobileAuthUtils.ts -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -278,26 +297,26 @@
   "src/lib/firebase-dynamic.ts -> firebase/app": {
     "id": 738,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js"
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js"
     ]
   },
   "src/lib/firebase-dynamic.ts -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js"
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js"
     ]
   },
   "src/lib/firebase-dynamic.ts -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -305,12 +324,12 @@
   "src/lib/firebase.ts -> firebase/app": {
     "id": 738,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -318,12 +337,12 @@
   "src/lib/firebase.ts -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -331,12 +350,12 @@
   "src/lib/firebase.ts -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]
@@ -344,19 +363,19 @@
   "src/lib/useAuth.ts -> firebase/auth": {
     "id": 3301,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js"
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js"
     ]
   },
   "src/lib/useAuth.ts -> firebase/firestore": {
     "id": 5978,
     "files": [
-      "static/chunks/firebase-vendor-6bc75065.d3c7d650a2d2811a.js",
-      "static/chunks/firebase-vendor-19a23e25.56c7979c1cb4a35a.js",
+      "static/chunks/firebase-vendor-6bc75065.633ad8c44e673312.js",
+      "static/chunks/firebase-vendor-19a23e25.b20a9bcae28cae2f.js",
       "static/chunks/vendor-misc-a18dd2d1.3fe51845789beab5.js",
-      "static/chunks/vendor-misc-6bc75065.8786e146fff3c1ae.js",
-      "static/chunks/vendor-misc-c9fdbed0.d7c1e4bf8e839938.js",
-      "static/chunks/vendor-misc-fbd0cf1f.9ccb6c77511fac4e.js",
+      "static/chunks/vendor-misc-6bc75065.cc25e8d528c251a1.js",
+      "static/chunks/vendor-misc-c9fdbed0.5dc7d820d3e1a0fd.js",
+      "static/chunks/vendor-misc-fbd0cf1f.ce7c7493105c36e3.js",
       "static/chunks/vendor-misc-37a93c5f.786021b0e78d7a0b.js",
       "static/chunks/vendor-misc-f945abb9.2535504fe55c5897.js"
     ]

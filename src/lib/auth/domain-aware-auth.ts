@@ -425,11 +425,72 @@ export async function signOutUser(): Promise<{ success: boolean; error: string |
 
 /**
  * COPPA Compliance: Check if user requires age verification
+ * EMERGENCY FIX: Mobile-aware age verification with bypass for technical failures
  */
 async function checkAgeVerificationRequired(user: User): Promise<boolean> {
-  // Implementation would check user metadata for age verification status
-  // For now, assume all new users need age verification
-  return true;
+  // Check if user has existing age verification
+  try {
+    // Import mobile verification service
+    const { getMobileVerificationStatus } = await import('@/lib/privacy/mobile-age-verification-service');
+    const mobileStatus = getMobileVerificationStatus();
+    
+    if (mobileStatus.isVerified) {
+      console.log('📱 Mobile age verification found - bypassing additional verification');
+      return false;
+    }
+    
+    // Check if this is a mobile device with known compatibility issues
+    if (typeof window !== 'undefined') {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      const isIOS = /iphone|ipad|ipod/.test(userAgent);
+      
+      // For iOS Safari, which has known popup/session storage issues
+      if (isIOS && userAgent.includes('safari') && !userAgent.includes('chrome')) {
+        console.log('📱 iOS Safari detected - age verification may be bypassed for compatibility');
+        // Still require verification but with mobile-friendly fallback
+        return true;
+      }
+      
+      // For mobile Chrome in private browsing
+      if (isMobile && userAgent.includes('chrome')) {
+        try {
+          localStorage.setItem('__privacy_test__', 'test');
+          localStorage.removeItem('__privacy_test__');
+        } catch {
+          console.log('📱 Mobile private browsing detected - enabling emergency bypass option');
+          return true;
+        }
+      }
+    }
+    
+    // Check if user has verification metadata from previous sessions
+    const userId = user.uid;
+    const storedVerification = typeof window !== 'undefined' ? 
+      sessionStorage.getItem(`alchm_age_verified_${userId}`) : null;
+    
+    if (storedVerification) {
+      try {
+        const verificationData = JSON.parse(storedVerification);
+        const verificationAge = Date.now() - verificationData.timestamp;
+        const VERIFICATION_VALIDITY = 24 * 60 * 60 * 1000; // 24 hours
+        
+        if (verificationAge < VERIFICATION_VALIDITY) {
+          console.log('🔒 Valid age verification found in session storage');
+          return false;
+        }
+      } catch {
+        // Invalid verification data, require new verification
+      }
+    }
+    
+    // Default: require age verification for new users
+    return true;
+    
+  } catch (error) {
+    console.warn('⚠️ Age verification check failed, defaulting to required:', error);
+    return true;
+  }
 }
 
 /**

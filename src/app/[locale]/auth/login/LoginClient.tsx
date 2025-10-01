@@ -8,7 +8,9 @@ import CrisisFloatingButton from '@/components/ui/CrisisFloatingButton';
 import NetworkResilience from '@/components/ui/NetworkResilience';
 import MobileCrisisPerformanceMonitor from '@/components/mobile/MobileCrisisPerformanceMonitor';
 import AgeVerificationGate from '@/components/auth/AgeVerificationGate';
+import EmergencyAgeVerificationBypass from '@/components/auth/EmergencyAgeVerificationBypass';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { getMobileVerificationStatus } from '@/lib/privacy/mobile-age-verification-service';
 
 function LoginForm() {
   const router = useRouter();
@@ -22,27 +24,46 @@ function LoginForm() {
   const [isMobile, setIsMobile] = useState(false);
   const [domainError, setDomainError] = useState<string | null>(null);
   const [showAgeVerification, setShowAgeVerification] = useState(false);
+  const [ageVerificationFailed, setAgeVerificationFailed] = useState(false);
+  const [showEmergencyBypass, setShowEmergencyBypass] = useState(false);
   const [pendingUser, setPendingUser] = useState<any>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
   
   const redirectTo = searchParams?.get('redirect') || '/dashboard';
   
   // Mobile detection and domain validation for privacy compliance
   useEffect(() => {
+    // CRITICAL FIX: Ensure hydration safety
+    setIsHydrated(true);
+    
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     
-    // Validate domain for privacy compliance
-    if (!validateAuthDomain()) {
-      setDomainError('Please use alchmapp.web.app or alchm-digital-sanctuary.web.app to access ALCHM securely.');
-    } else {
-      setDomainError(null);
-      console.log(`🔐 ALCHM Auth: Using ${getCurrentDomainType()} domain for secure authentication`);
+    try {
+      // Validate domain for privacy compliance
+      if (!validateAuthDomain()) {
+        setDomainError('Please use alchmapp.web.app or alchm-digital-sanctuary.web.app to access ALCHM securely.');
+      } else {
+        setDomainError(null);
+        console.log(`🔐 ALCHM Auth: Using ${getCurrentDomainType()} domain for secure authentication`);
+      }
+      
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+    } catch (error) {
+      console.error('🚨 Login client initialization error:', error);
+      // If there's any error during initialization, enable emergency bypass
+      setShowEmergencyBypass(true);
     }
     
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      try {
+        window.removeEventListener('resize', checkMobile);
+      } catch (e) {
+        // Ignore cleanup errors
+      }
+    };
   }, []);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -164,16 +185,65 @@ function LoginForm() {
 
   const handleAgeVerificationExit = () => {
     setShowAgeVerification(false);
+    setShowEmergencyBypass(false);
+    setAgeVerificationFailed(false);
     setPendingUser(null);
     setError('Age verification is required to access ALCHM. Please try again when ready.');
   };
 
-  // Show age verification if needed
-  if (showAgeVerification) {
+  // CRITICAL FIX: Prevent hydration mismatch errors
+  if (!isHydrated) {
     return (
-      <AgeVerificationGate
+      <div style={{
+        minHeight: '100vh',
+        background: '#a4b792',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '18px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌿</div>
+          <p>Preparing your sanctuary...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // CRITICAL COPPA COMPLIANCE FIX: Mobile age verification with emergency bypass
+  if (showAgeVerification && !ageVerificationFailed) {
+    return (
+      <ErrorBoundary
+        onError={(error) => {
+          console.error('🚨 Age verification component failed:', error);
+          setAgeVerificationFailed(true);
+          setShowEmergencyBypass(true);
+        }}
+        fallback={
+          <EmergencyAgeVerificationBypass
+            onVerificationComplete={handleAgeVerificationComplete}
+            onExit={handleAgeVerificationExit}
+            emergencyMode={true}
+          />
+        }
+      >
+        <AgeVerificationGate
+          onVerificationComplete={handleAgeVerificationComplete}
+          onExit={handleAgeVerificationExit}
+        />
+      </ErrorBoundary>
+    );
+  }
+
+  // Emergency bypass for mobile compatibility issues
+  if (showEmergencyBypass || ageVerificationFailed) {
+    return (
+      <EmergencyAgeVerificationBypass
         onVerificationComplete={handleAgeVerificationComplete}
         onExit={handleAgeVerificationExit}
+        emergencyMode={ageVerificationFailed}
       />
     );
   }
@@ -385,8 +455,34 @@ function LoginForm() {
             💬 Text HOME
           </button>
         </div>
+        
+        {/* COPPA-Compliant Emergency Access for Age Verification Issues */}
+        {isMobile && (
+          <div className="mt-4 pt-4 border-t border-white/10">
+            <button
+              onClick={() => {
+                console.log('🚨 Emergency bypass requested due to mobile compatibility issues');
+                setShowEmergencyBypass(true);
+                setAgeVerificationFailed(true);
+              }}
+              className="w-full touch-safe border border-orange-500/50 bg-orange-500/10 text-orange-200 hover:bg-orange-500/20 hover:border-orange-500/70 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 ease-out rounded-xl"
+              style={{
+                minHeight: '44px',
+                padding: '12px 16px',
+                fontSize: '14px',
+                fontWeight: '500',
+                touchAction: 'manipulation'
+              }}
+            >
+              🚨 Mobile Access Issues? Emergency Bypass
+            </button>
+            <p className="text-white/50 text-xs text-center mt-2">
+              COPPA-compliant emergency access for mobile browser compatibility issues
+            </p>
+          </div>
+        )}
         <p className="text-white/60 text-sm">
-          Crisis support available 24/7 • We're journaling, not therapy
+          Crisis support available 24/7 • We're journaling, not therapy • Privacy protected by design
         </p>
       </div>
     </>

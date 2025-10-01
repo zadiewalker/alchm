@@ -5,12 +5,12 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/0uffE_JM8_WnJfCWBefeT/_buildManifest.js",
-    "static/0uffE_JM8_WnJfCWBefeT/_ssgManifest.js"
+    "static/u7zDydatupFj115_cJliV/_buildManifest.js",
+    "static/u7zDydatupFj115_cJliV/_ssgManifest.js"
   ],
   "rootMainFiles": [
-    "static/chunks/runtime-265a7b27180165c2.js",
-    "static/chunks/nextjs-vendor-27f02048-926da34bc6ad9b2d.js",
+    "static/chunks/runtime-2faca36e58022969.js",
+    "static/chunks/nextjs-vendor-27f02048-8a735014359d4a11.js",
     "static/chunks/nextjs-vendor-4a7382ad-74afa654597d02b9.js",
     "static/chunks/nextjs-vendor-4e8e7ca0-f732294a4fffc4c1.js",
     "static/chunks/nextjs-vendor-fc717cc5-ddb2a4d3f18aa784.js",
@@ -28,9 +28,9 @@
   ],
   "pages": {
     "/_app": [
-      "static/chunks/runtime-265a7b27180165c2.js",
+      "static/chunks/runtime-2faca36e58022969.js",
       "static/chunks/react-vendor-43c5f4e31018a533.js",
-      "static/chunks/nextjs-vendor-27f02048-926da34bc6ad9b2d.js",
+      "static/chunks/nextjs-vendor-27f02048-8a735014359d4a11.js",
       "static/chunks/nextjs-vendor-4a7382ad-74afa654597d02b9.js",
       "static/chunks/nextjs-vendor-4e8e7ca0-f732294a4fffc4c1.js",
       "static/chunks/nextjs-vendor-fc717cc5-ddb2a4d3f18aa784.js",
@@ -48,9 +48,9 @@
       "static/chunks/pages/_app-26dfe5a2c244ccd3.js"
     ],
     "/_error": [
-      "static/chunks/runtime-265a7b27180165c2.js",
+      "static/chunks/runtime-2faca36e58022969.js",
       "static/chunks/react-vendor-43c5f4e31018a533.js",
-      "static/chunks/nextjs-vendor-27f02048-926da34bc6ad9b2d.js",
+      "static/chunks/nextjs-vendor-27f02048-8a735014359d4a11.js",
       "static/chunks/nextjs-vendor-4a7382ad-74afa654597d02b9.js",
       "static/chunks/nextjs-vendor-4e8e7ca0-f732294a4fffc4c1.js",
       "static/chunks/nextjs-vendor-fc717cc5-ddb2a4d3f18aa784.js",

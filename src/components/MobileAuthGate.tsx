@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { auth } from '@/lib/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 interface MobileAuthGateProps {
   children: React.ReactNode;
@@ -20,17 +19,39 @@ export default function MobileAuthGate({ children }: MobileAuthGateProps) {
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user as any);
-      setLoading(false);
+    let unsubscribe: (() => void) | null = null;
+    
+    const setupAuthListener = async () => {
+      try {
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const auth = await getFirebaseAuth();
+        
+        unsubscribe = onAuthStateChanged(auth, (user) => {
+          setUser(user as any);
+          setLoading(false);
 
-      // If this is a protected route and user is not authenticated, redirect to login
-      if (isProtectedRoute && !user) {
-        router.push('/auth');
+          // If this is a protected route and user is not authenticated, redirect to login
+          if (isProtectedRoute && !user) {
+            router.push('/auth');
+          }
+        });
+      } catch (error) {
+        console.warn('Firebase Auth initialization failed in MobileAuthGate:', error);
+        setLoading(false);
+        // If auth fails and this is a protected route, redirect to login
+        if (isProtectedRoute) {
+          router.push('/auth');
+        }
       }
-    });
+    };
 
-    return () => unsubscribe();
+    setupAuthListener();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [isProtectedRoute, router]);
 
   // Show loading spinner while checking auth

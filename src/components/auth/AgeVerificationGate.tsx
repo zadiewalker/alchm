@@ -6,21 +6,27 @@ import { Card } from '@/components/ui/card';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import dynamic from 'next/dynamic';
 
-// Lazy load the safe fallback component
-const AgeVerificationGateSafe = dynamic(
-  () => import('./AgeVerificationGateSafe'),
+// CRITICAL FIX: Use mobile-safe fallback component for better error handling
+const MobileSafeAgeVerification = dynamic(
+  () => import('./MobileSafeAgeVerification'),
   { 
     ssr: false,
     loading: () => (
       <div style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #a4b792 0%, #93a682 100%)',
+        background: '#a4b792',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
         fontSize: '18px',
-        fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif'
+        fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999
       }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌿</div>
@@ -509,15 +515,35 @@ function AgeVerificationGateMain({ onVerificationComplete, onExit }: AgeVerifica
 export default function AgeVerificationGate(props: AgeVerificationGateProps) {
   return (
     <ErrorBoundary
-      fallback={<AgeVerificationGateSafe {...props} />}
+      fallback={<MobileSafeAgeVerification {...props} />}
       onError={(error, errorInfo) => {
         console.error('🚨 AgeVerificationGate Error:', error);
         console.error('📊 Error Info:', errorInfo);
+        console.error('📱 Component Stack:', errorInfo.componentStack);
+        console.error('📱 Error Stack:', error.stack);
         
-        // In a real app, you might send this to an error reporting service
+        // Enhanced error logging for mobile debugging
         if (typeof window !== 'undefined') {
-          // Report to analytics
-          console.log('📈 Age verification error logged for debugging');
+          console.log('📈 Age verification error details:', {
+            userAgent: navigator.userAgent,
+            url: window.location.href,
+            timestamp: new Date().toISOString(),
+            errorMessage: error.message,
+            errorName: error.name,
+            isMobile: /Mobi|Android/i.test(navigator.userAgent),
+            isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent)
+          });
+          
+          // Store error for debugging
+          try {
+            localStorage.setItem('alchm_age_verification_error', JSON.stringify({
+              error: error.message,
+              timestamp: new Date().toISOString(),
+              userAgent: navigator.userAgent
+            }));
+          } catch (e) {
+            console.warn('Failed to store error in localStorage:', e);
+          }
         }
       }}
     >

@@ -1,0 +1,132 @@
+{
+  "timestamp": "2025-10-01T19:31:06.366Z",
+  "summary": {
+    "passed": 23,
+    "failed": 0,
+    "successRate": 100
+  },
+  "tests": [
+    {
+      "name": "Emergency Mobile Age Verification Component",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Error Boundary Component",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Layout Configuration Updated",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Crisis Resources in Components",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Touch Target Specifications",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Error Boundary Fallback Implementation",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Inline Styles Usage",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Local Storage Error Handling",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Development Server Mobile Response",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Viewport Meta Tags",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Crisis Mode CSS Classes",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Diagnostic Test Page",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Emergency Mobile Age Verification Component",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Error Boundary Component",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Layout Configuration Updated",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Crisis Resources in Components",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Touch Target Specifications",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Error Boundary Fallback Implementation",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Inline Styles Usage",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Local Storage Error Handling",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Viewport Configuration",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Crisis Mode CSS Classes",
+      "status": "PASS",
+      "details": true
+    },
+    {
+      "name": "Mobile Diagnostic Test Page",
+      "status": "PASS",
+      "details": true
+    }
+  ],
+  "recommendations": [
+    "Test on physical mobile devices",
+    "Validate crisis resource accessibility",
+    "Check performance under network stress",
+    "Verify accessibility compliance",
+    "Test with various mobile browsers"
+  ]
+}

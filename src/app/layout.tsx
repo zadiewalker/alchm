@@ -14,16 +14,78 @@ const EmergencyClientProviders = dynamic(
   }
 );
 
-// HYDRATION-SAFE: Age verification with proper SSR fallback
+// HYDRATION-SAFE: Emergency mobile-optimized age verification
 const EmergencyAgeVerification = dynamic(
-  () => import('@/components/auth/SimpleAgeVerification'), 
+  () => import('@/components/auth/EmergencyMobileAgeVerification'), 
   { 
     ssr: true,
     loading: () => (
-      <div className="fixed inset-0 z-50 bg-gradient-to-br from-[#a4b792] to-[#93a682] flex items-center justify-center">
-        <div className="text-center text-white">
-          <div className="text-6xl mb-4 animate-pulse">🌿</div>
-          <div className="text-xl font-light">Loading sanctuary...</div>
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 999999,
+        background: 'linear-gradient(135deg, #a4b792 0%, #93a682 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+        color: 'white'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '64px', marginBottom: '16px' }}>🌿</div>
+          <div style={{ fontSize: '18px', fontWeight: '300' }}>Loading sanctuary...</div>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            margin: '16px auto 0',
+            border: '3px solid rgba(255,255,255,0.3)',
+            borderTop: '3px solid white',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite'
+          }}></div>
+        </div>
+        {/* Crisis support always available during loading */}
+        <div style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '24px',
+          right: '24px',
+          display: 'flex',
+          gap: '12px'
+        }}>
+          <a href="tel:988" style={{
+            flex: 1,
+            padding: '16px 12px',
+            background: '#dc2626',
+            color: 'white',
+            textDecoration: 'none',
+            borderRadius: '12px',
+            fontSize: '14px',
+            fontWeight: '600',
+            textAlign: 'center',
+            minHeight: '56px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>📞 988</a>
+          <a href="sms:741741&body=HOME" style={{
+            flex: 1,
+            padding: '16px 12px',
+            background: '#dc2626',
+            color: 'white',
+            textDecoration: 'none',
+            borderRadius: '12px',
+            fontSize: '14px',
+            fontWeight: '600',
+            textAlign: 'center',
+            minHeight: '56px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>💬 HOME</a>
         </div>
       </div>
     )

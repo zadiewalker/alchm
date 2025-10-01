@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <title>Mobile Age Verification Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a4b792, #93a682);
+            color: white;
+            min-height: 100vh;
+        }
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+        .test-button {
+            width: 100%;
+            padding: 16px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            min-height: 56px;
+            touch-action: manipulation;
+        }
+        .error-log {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        select {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            min-height: 56px;
+            appearance: none;
+        }
+        option {
+            background: #2a2d2a;
+            color: white;
+        }
+        .status {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        .crisis-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .crisis-button {
+            flex: 1;
+            padding: 16px;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚨 Mobile Age Verification Diagnostics</h1>
+        
+        <div class="test-section">
+            <h3>1. Age Verification Component Test</h3>
+            <div id="age-verification-container">
+                <label for="birth-year-test">Birth Year:</label>
+                <select id="birth-year-test">
+                    <option value="">Choose year...</option>
+                </select>
+                <button class="test-button" onclick="testAgeVerification()">Test Age Verification</button>
+            </div>
+            <div id="age-status" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>2. JavaScript Error Detection</h3>
+            <button class="test-button" onclick="testJavaScriptErrors()">Check for JS Errors</button>
+            <div id="js-errors" class="error-log" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Touch Target Tests</h3>
+            <button class="test-button" onclick="testTouchTargets()">Test Touch Targets</button>
+            <div id="touch-results" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Mobile Browser Detection</h3>
+            <button class="test-button" onclick="detectMobileBrowser()">Detect Mobile Browser</button>
+            <div id="browser-info" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Network & Performance</h3>
+            <button class="test-button" onclick="testNetworkPerformance()">Test Network Performance</button>
+            <div id="network-results" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Crisis Accessibility Test</h3>
+            <button class="test-button" onclick="testCrisisAccessibility()">Test Crisis Features</button>
+            <div id="crisis-results" class="status" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>7. Direct Age Verification Page Test</h3>
+            <button class="test-button" onclick="window.open('/en/auth/login', '_blank')">Open Age Verification Page</button>
+        </div>
+    </div>
+
+    <!-- Crisis buttons always accessible -->
+    <div class="crisis-buttons">
+        <a href="tel:988" class="crisis-button">📞 988</a>
+        <a href="sms:741741&body=HOME" class="crisis-button">💬 HOME</a>
+    </div>
+
+    <script>
+        // Global error capturing
+        const errorLog = [];
+        
+        window.addEventListener('error', (e) => {
+            errorLog.push({
+                type: 'JavaScript Error',
+                message: e.message,
+                filename: e.filename,
+                lineno: e.lineno,
+                colno: e.colno,
+                stack: e.error ? e.error.stack : 'No stack available',
+                timestamp: new Date().toISOString()
+            });
+            console.error('Captured error:', e);
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            errorLog.push({
+                type: 'Unhandled Promise Rejection',
+                message: e.reason.toString(),
+                timestamp: new Date().toISOString()
+            });
+            console.error('Captured promise rejection:', e);
+        });
+
+        // Populate birth year select
+        function populateBirthYears() {
+            const select = document.getElementById('birth-year-test');
+            const currentYear = new Date().getFullYear();
+            
+            for (let i = 0; i < 100; i++) {
+                const year = currentYear - i;
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                select.appendChild(option);
+            }
+        }
+
+        function testAgeVerification() {
+            const statusDiv = document.getElementById('age-status');
+            const selectedYear = document.getElementById('birth-year-test').value;
+            
+            statusDiv.style.display = 'block';
+            
+            if (!selectedYear) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Error: No year selected';
+                return;
+            }
+
+            const age = new Date().getFullYear() - parseInt(selectedYear);
+            
+            try {
+                // Test localStorage functionality
+                localStorage.setItem('test_age_verification', 'true');
+                localStorage.removeItem('test_age_verification');
+                
+                if (age < 18) {
+                    statusDiv.className = 'status error';
+                    statusDiv.textContent = `❌ Under 18 (${age} years old) - Would redirect to age-appropriate resources`;
+                } else {
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = `✅ Adult verification successful (${age} years old)`;
+                }
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = `❌ LocalStorage error: ${error.message}`;
+                errorLog.push({
+                    type: 'LocalStorage Error',
+                    message: error.message,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        function testJavaScriptErrors() {
+            const errorDiv = document.getElementById('js-errors');
+            errorDiv.style.display = 'block';
+            
+            if (errorLog.length === 0) {
+                errorDiv.innerHTML = '<div style="color: #22c55e;">✅ No JavaScript errors detected</div>';
+            } else {
+                errorDiv.innerHTML = '<div style="color: #ef4444;">❌ JavaScript Errors Found:</div>' +
+                    errorLog.map(error => 
+                        `<div style="margin: 8px 0; padding: 8px; background: rgba(0,0,0,0.2);">
+                            <strong>${error.type}:</strong> ${error.message}<br>
+                            <small>Time: ${error.timestamp}</small>
+                            ${error.stack ? `<br><small>Stack: ${error.stack.substring(0, 200)}...</small>` : ''}
+                        </div>`
+                    ).join('');
+            }
+        }
+
+        function testTouchTargets() {
+            const resultsDiv = document.getElementById('touch-results');
+            resultsDiv.style.display = 'block';
+            
+            const buttons = document.querySelectorAll('button, a, select');
+            const touchTargetIssues = [];
+            
+            buttons.forEach((element, index) => {
+                const rect = element.getBoundingClientRect();
+                const minSize = 48; // Minimum touch target size
+                
+                if (rect.width < minSize || rect.height < minSize) {
+                    touchTargetIssues.push(`Element ${index + 1}: ${Math.round(rect.width)}x${Math.round(rect.height)}px (too small)`);
+                }
+            });
+            
+            if (touchTargetIssues.length === 0) {
+                resultsDiv.className = 'status success';
+                resultsDiv.textContent = '✅ All touch targets meet minimum size requirements (48px)';
+            } else {
+                resultsDiv.className = 'status error';
+                resultsDiv.innerHTML = '❌ Touch target issues found:<br>' + touchTargetIssues.join('<br>');
+            }
+        }
+
+        function detectMobileBrowser() {
+            const infoDiv = document.getElementById('browser-info');
+            infoDiv.style.display = 'block';
+            infoDiv.className = 'status';
+            
+            const userAgent = navigator.userAgent;
+            const isMobile = /iPhone|iPad|iPod|Android|BlackBerry|Opera Mini|IEMobile|WPDesktop/i.test(userAgent);
+            const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+            const isAndroid = /Android/.test(userAgent);
+            const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+            
+            const deviceInfo = {
+                userAgent: userAgent,
+                isMobile: isMobile,
+                isIOS: isIOS,
+                isAndroid: isAndroid,
+                isSafari: isSafari,
+                screenSize: `${screen.width}x${screen.height}`,
+                viewportSize: `${window.innerWidth}x${window.innerHeight}`,
+                devicePixelRatio: window.devicePixelRatio,
+                touchSupport: 'ontouchstart' in window,
+                cookiesEnabled: navigator.cookieEnabled,
+                onlineStatus: navigator.onLine
+            };
+            
+            infoDiv.innerHTML = Object.entries(deviceInfo)
+                .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                .join('<br>');
+        }
+
+        function testNetworkPerformance() {
+            const resultsDiv = document.getElementById('network-results');
+            resultsDiv.style.display = 'block';
+            
+            const startTime = performance.now();
+            
+            // Test fetch performance
+            fetch(window.location.href, { method: 'HEAD' })
+                .then(() => {
+                    const endTime = performance.now();
+                    const responseTime = Math.round(endTime - startTime);
+                    
+                    let status = 'success';
+                    let message = `✅ Network response time: ${responseTime}ms`;
+                    
+                    if (responseTime > 3000) {
+                        status = 'error';
+                        message = `❌ Slow network detected: ${responseTime}ms (>3s)`;
+                    } else if (responseTime > 1000) {
+                        message = `⚠️ Moderate network speed: ${responseTime}ms`;
+                    }
+                    
+                    // Add connection info if available
+                    if (navigator.connection) {
+                        const conn = navigator.connection;
+                        message += `<br>Connection: ${conn.effectiveType || 'unknown'} (${conn.downlink || 'unknown'} Mbps)`;
+                    }
+                    
+                    resultsDiv.className = `status ${status}`;
+                    resultsDiv.innerHTML = message;
+                })
+                .catch(error => {
+                    resultsDiv.className = 'status error';
+                    resultsDiv.textContent = `❌ Network test failed: ${error.message}`;
+                });
+        }
+
+        function testCrisisAccessibility() {
+            const resultsDiv = document.getElementById('crisis-results');
+            resultsDiv.style.display = 'block';
+            
+            const crisisFeatures = [];
+            
+            // Test crisis button accessibility
+            const crisisButtons = document.querySelectorAll('.crisis-button');
+            crisisFeatures.push(`Crisis buttons: ${crisisButtons.length} found`);
+            
+            // Test tel: protocol support
+            try {
+                const telLink = document.createElement('a');
+                telLink.href = 'tel:988';
+                crisisFeatures.push(`Tel protocol: ${telLink.protocol === 'tel:' ? 'Supported' : 'Not supported'}`);
+            } catch (e) {
+                crisisFeatures.push(`Tel protocol: Error testing`);
+            }
+            
+            // Test SMS protocol support
+            try {
+                const smsLink = document.createElement('a');
+                smsLink.href = 'sms:741741';
+                crisisFeatures.push(`SMS protocol: ${smsLink.protocol === 'sms:' ? 'Supported' : 'Not supported'}`);
+            } catch (e) {
+                crisisFeatures.push(`SMS protocol: Error testing`);
+            }
+            
+            // Test button positioning
+            const crisisContainer = document.querySelector('.crisis-buttons');
+            if (crisisContainer) {
+                const rect = crisisContainer.getBoundingClientRect();
+                const isFixed = window.getComputedStyle(crisisContainer).position === 'fixed';
+                crisisFeatures.push(`Crisis buttons position: ${isFixed ? 'Fixed (always visible)' : 'Not fixed'}`);
+            }
+            
+            resultsDiv.className = 'status success';
+            resultsDiv.innerHTML = '✅ Crisis accessibility results:<br>' + crisisFeatures.join('<br>');
+        }
+
+        // Initialize
+        populateBirthYears();
+        
+        // Test for immediate errors
+        setTimeout(() => {
+            if (errorLog.length > 0) {
+                const errorDiv = document.getElementById('js-errors');
+                errorDiv.style.display = 'block';
+                errorDiv.innerHTML = '<div style="color: #ef4444;">⚠️ Immediate errors detected - check error log</div>';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* CRITICAL FIX: Add emergency utility classes first */
+@layer utilities {
+  /* Emergency sanctuary styles if CSS fails to load */
+  .sanctuary-emergency {
+    background: #a4b792 !important;
+    color: white !important;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .sanctuary-card-emergency {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 16px !important;
+    padding: 32px !important;
+    max-width: 400px !important;
+    width: 100% !important;
+    color: #2e2e2e !important;
+    text-align: center !important;
+  }
+  
+  .sanctuary-button-emergency {
+    background: #a4b792 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 16px 24px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    min-height: 56px !important;
+    margin: 8px 0 !important;
+  }
+}
+
 /* Import Premium Digital Sanctuary Design System */
 @import '../styles/premium-digital-sanctuary.css';
 

@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 export default function SignupClient() {
   const router = useRouter();
@@ -50,6 +49,9 @@ export default function SignupClient() {
     }
 
     try {
+      const { createUserWithEmailAndPassword } = await import('firebase/auth');
+      const auth = await getFirebaseAuth();
+      
       await createUserWithEmailAndPassword(auth, email, password);
       
       // Success haptic feedback
@@ -75,6 +77,9 @@ export default function SignupClient() {
     }
 
     try {
+      const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
+      const auth = await getFirebaseAuth();
+      
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
       
