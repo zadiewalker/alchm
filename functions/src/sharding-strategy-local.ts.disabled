@@ -1,0 +1,407 @@
+// Local sharding strategy for Firebase Functions
+// Simplified version of the main sharding strategy without external dependencies
+
+import * as admin from 'firebase-admin';
+
+const db = admin.firestore();
+
+export interface UserActivityProfile {
+  userId: string;
+  entriesPerWeek: number;
+  aiRequestsPerDay: number;
+  realtimeConnections: number;
+  lastActiveDate: Date;
+  region: string;
+  tier: 'free' | 'premium' | 'enterprise';
+}
+
+export interface ShardMetrics {
+  shardId: string;
+  userCount: number;
+  writeRate: number;
+  readRate: number;
+  latencyP95: number;
+  errorRate: number;
+  capacity: number;
+}
+
+// Simple logging function
+function log(level: 'info' | 'error', message: string, data?: any) {
+  console.log(`[${level.toUpperCase()}] ${message}`, data || '');
+}
+
+export class IntelligentSharding {
+  private static readonly MAX_USERS_PER_SHARD = 50000;
+  private static readonly HIGH_ACTIVITY_THRESHOLD = 20;
+  
+  static async getOptimalShard(userProfile: UserActivityProfile): Promise<string> {
+    const { region, tier, entriesPerWeek } = userProfile;
+    
+    if (tier === 'enterprise') {
+      return await this.getEnterpriseShardId(userProfile);
+    }
+    
+    if (entriesPerWeek >= this.HIGH_ACTIVITY_THRESHOLD || tier === 'premium') {
+      return await this.getPowerShardId(region);
+    }
+    
+    return await this.getStandardShardId(region);
+  }
+  
+  private static async getPowerShardId(region: string): Promise<string> {
+    const powerShards = await this.getShardsByPattern(`users_power_${region}_*`);
+    const optimalShard = await this.findLeastLoadedShard(powerShards);
+    
+    if (!optimalShard || optimalShard.userCount >= this.MAX_USERS_PER_SHARD * 0.8) {
+      return await this.createNewPowerShard(region);
+    }
+    
+    return optimalShard.shardId;
+  }
+  
+  private static async getStandardShardId(region: string): Promise<string> {
+    const standardShards = await this.getShardsByPattern(`users_standard_${region}_*`);
+    const optimalShard = await this.findLeastLoadedShard(standardShards);
+    
+    if (!optimalShard || optimalShard.userCount >= this.MAX_USERS_PER_SHARD) {
+      return await this.createNewStandardShard(region);
+    }
+    
+    return optimalShard.shardId;
+  }
+  
+  private static async getEnterpriseShardId(userProfile: UserActivityProfile): Promise<string> {
+    const orgId = userProfile.userId.split('_')[0];
+    return `users_enterprise_${orgId}_${userProfile.region}`;
+  }
+  
+  private static async findLeastLoadedShard(shards: ShardMetrics[]): Promise<ShardMetrics | null> {
+    if (shards.length === 0) return null;
+    
+    return shards.sort((a, b) => {
+      if (a.capacity !== b.capacity) return a.capacity - b.capacity;
+      return a.latencyP95 - b.latencyP95;
+    })[0];
+  }
+  
+  private static async createNewPowerShard(region: string): Promise<string> {
+    const shardNumber = await this.getNextShardNumber('power', region);
+    const shardId = `users_power_${region}_${shardNumber}`;
+    
+    await this.initializeShard(shardId, 'power');
+    
+    log('info', 'Created new power shard', { shardId, region, type: 'power' });
+    
+    return shardId;
+  }
+  
+  private static async createNewStandardShard(region: string): Promise<string> {
+    const shardNumber = await this.getNextShardNumber('standard', region);
+    const shardId = `users_standard_${region}_${shardNumber}`;
+    
+    await this.initializeShard(shardId, 'standard');
+    
+    log('info', 'Created new standard shard', { shardId, region, type: 'standard' });
+    
+    return shardId;
+  }
+  
+  private static async initializeShard(shardId: string, type: 'power' | 'standard' | 'enterprise'): Promise<void> {
+    await db.collection('shard_metadata').doc(shardId).set({
+      shardId,
+      type,
+      createdAt: new Date(),
+      userCount: 0,
+      maxCapacity: this.MAX_USERS_PER_SHARD,
+      status: 'active',
+      indexes: await this.getRequiredIndexes(type)
+    });
+    
+    await this.initializeShardMonitoring(shardId);
+  }
+  
+  private static async getRequiredIndexes(type: string): Promise<string[]> {
+    const baseIndexes = [
+      'userId,timestamp',
+      'userId,entryDate,mood',
+      'userId,riskLevel,timestamp',
+      'userId,emotionalTags,timestamp'
+    ];
+    
+    if (type === 'power') {
+      return [
+        ...baseIndexes,
+        'userId,aiRequestCount,timestamp',
+        'userId,realtimeConnections,timestamp'
+      ];
+    }
+    
+    return baseIndexes;
+  }
+  
+  private static async getShardsByPattern(pattern: string): Promise<ShardMetrics[]> {
+    const regex = new RegExp(pattern.replace('*', '.*'));
+    
+    const shardsSnapshot = await db.collection('shard_metadata')
+      .where('status', '==', 'active')
+      .get();
+    
+    const matchingShards: ShardMetrics[] = [];
+    
+    for (const doc of shardsSnapshot.docs) {
+      const data = doc.data();
+      if (regex.test(data.shardId)) {
+        const metrics = await this.getShardMetrics(data.shardId);
+        matchingShards.push(metrics);
+      }
+    }
+    
+    return matchingShards;
+  }
+  
+  private static async getShardMetrics(shardId: string): Promise<ShardMetrics> {
+    const metricsSnapshot = await db.collection('shard_performance').doc(shardId).get();
+    const metrics = metricsSnapshot.data();
+    
+    return {
+      shardId,
+      userCount: metrics?.userCount || 0,
+      writeRate: metrics?.writeRate || 0,
+      readRate: metrics?.readRate || 0,
+      latencyP95: metrics?.latencyP95 || 0,
+      errorRate: metrics?.errorRate || 0,
+      capacity: metrics?.capacity || 0
+    };
+  }
+  
+  private static async getNextShardNumber(type: string, region: string): Promise<number> {
+    const pattern = `users_${type}_${region}_`;
+    const shards = await this.getShardsByPattern(`${pattern}*`);
+    
+    const shardNumbers = shards
+      .map(shard => parseInt(shard.shardId.replace(pattern, '')))
+      .filter(num => !isNaN(num))
+      .sort((a, b) => a - b);
+    
+    return shardNumbers.length > 0 ? Math.max(...shardNumbers) + 1 : 1;
+  }
+  
+  private static async initializeShardMonitoring(shardId: string): Promise<void> {
+    await db.collection('shard_performance').doc(shardId).set({
+      shardId,
+      userCount: 0,
+      writeRate: 0,
+      readRate: 0,
+      latencyP95: 0,
+      errorRate: 0,
+      capacity: 0,
+      lastUpdated: new Date(),
+      alerts: {
+        highLatency: false,
+        highErrorRate: false,
+        nearCapacity: false
+      }
+    });
+  }
+}
+
+export class ShardMigrationService {
+  private static readonly MIGRATION_THRESHOLD = 0.85;
+  private static readonly COOLING_PERIOD = 24 * 60 * 60 * 1000;
+  
+  static async analyzeAndMigrate(): Promise<void> {
+    try {
+      const allShards = await this.getAllActiveShards();
+      const migrationCandidates = await this.identifyMigrationCandidates(allShards);
+      
+      for (const candidate of migrationCandidates) {
+        await this.executeMigration(candidate);
+      }
+      
+      log('info', 'Shard migration analysis completed', {
+        totalShards: allShards.length,
+        migrationsExecuted: migrationCandidates.length
+      });
+      
+    } catch (error) {
+      log('error', 'Error in shard migration analysis', error);
+    }
+  }
+  
+  private static async getAllActiveShards(): Promise<ShardMetrics[]> {
+    const shardsSnapshot = await db.collection('shard_metadata')
+      .where('status', '==', 'active')
+      .get();
+    
+    const shards: ShardMetrics[] = [];
+    
+    for (const doc of shardsSnapshot.docs) {
+      const data = doc.data();
+      const metrics = await IntelligentSharding['getShardMetrics'](data.shardId);
+      shards.push(metrics);
+    }
+    
+    return shards;
+  }
+  
+  private static async identifyMigrationCandidates(shards: ShardMetrics[]): Promise<ShardMetrics[]> {
+    return shards.filter(shard => {
+      return shard.capacity > this.MIGRATION_THRESHOLD || 
+             shard.latencyP95 > 300 || 
+             shard.errorRate > 0.01;
+    });
+  }
+  
+  private static async executeMigration(overloadedShard: ShardMetrics): Promise<void> {
+    const lastMigration = await this.getLastMigrationTime(overloadedShard.shardId);
+    if (lastMigration && Date.now() - lastMigration.getTime() < this.COOLING_PERIOD) {
+      return;
+    }
+    
+    const usersToMigrate = await this.selectUsersForMigration(overloadedShard.shardId);
+    const destinationShards = await this.findDestinationShards(usersToMigrate);
+    
+    await this.migrateUsers(usersToMigrate, destinationShards);
+    await this.recordMigration(overloadedShard.shardId, usersToMigrate.length);
+    
+    log('info', 'Shard migration completed', {
+      sourceShardId: overloadedShard.shardId,
+      usersMigrated: usersToMigrate.length,
+      destinationShards: destinationShards.map(s => s.shardId)
+    });
+  }
+  
+  private static async selectUsersForMigration(shardId: string): Promise<UserActivityProfile[]> {
+    const usersSnapshot = await db.collection(shardId)
+      .orderBy('lastActiveDate', 'asc')
+      .limit(1000)
+      .get();
+    
+    return usersSnapshot.docs.map(doc => ({
+      userId: doc.id,
+      ...doc.data()
+    } as UserActivityProfile));
+  }
+  
+  private static async findDestinationShards(users: UserActivityProfile[]): Promise<ShardMetrics[]> {
+    const destinations: ShardMetrics[] = [];
+    
+    for (const user of users) {
+      const optimalShardId = await IntelligentSharding.getOptimalShard(user);
+      const shardMetrics = await IntelligentSharding['getShardMetrics'](optimalShardId);
+      
+      if (!destinations.find(d => d.shardId === shardMetrics.shardId)) {
+        destinations.push(shardMetrics);
+      }
+    }
+    
+    return destinations;
+  }
+  
+  private static async migrateUsers(
+    users: UserActivityProfile[], 
+    destinationShards: ShardMetrics[]
+  ): Promise<void> {
+    const batch = db.batch();
+    
+    for (const user of users) {
+      const newShardId = await IntelligentSharding.getOptimalShard(user);
+      
+      const newUserRef = db.collection(newShardId).doc(user.userId);
+      batch.set(newUserRef, user);
+      
+      const oldUserRef = db.collection(user.userId.split('_')[0]).doc(user.userId);
+      batch.delete(oldUserRef);
+    }
+    
+    await batch.commit();
+  }
+  
+  private static async getLastMigrationTime(shardId: string): Promise<Date | null> {
+    const migrationSnapshot = await db.collection('migration_history')
+      .where('shardId', '==', shardId)
+      .orderBy('timestamp', 'desc')
+      .limit(1)
+      .get();
+    
+    if (migrationSnapshot.empty) return null;
+    
+    return migrationSnapshot.docs[0].data().timestamp.toDate();
+  }
+  
+  private static async recordMigration(shardId: string, userCount: number): Promise<void> {
+    await db.collection('migration_history').add({
+      shardId,
+      userCount,
+      timestamp: new Date(),
+      type: 'auto_migration',
+      reason: 'capacity_optimization'
+    });
+  }
+}
+
+export class ShardRouter {
+  private static shardCache = new Map<string, string>();
+  private static cacheExpiry = new Map<string, number>();
+  private static readonly CACHE_TTL = 5 * 60 * 1000;
+  
+  static async getShardForUser(userId: string): Promise<string> {
+    const cached = this.shardCache.get(userId);
+    const expiry = this.cacheExpiry.get(userId);
+    
+    if (cached && expiry && Date.now() < expiry) {
+      return cached;
+    }
+    
+    const userShardSnapshot = await db.collection('user_shard_mapping').doc(userId).get();
+    
+    let shardId: string;
+    
+    if (userShardSnapshot.exists) {
+      shardId = userShardSnapshot.data()!.shardId;
+    } else {
+      const userProfile = await this.getUserProfile(userId);
+      shardId = await IntelligentSharding.getOptimalShard(userProfile);
+      
+      await db.collection('user_shard_mapping').doc(userId).set({
+        userId,
+        shardId,
+        assignedAt: new Date(),
+        lastUpdated: new Date()
+      });
+    }
+    
+    this.shardCache.set(userId, shardId);
+    this.cacheExpiry.set(userId, Date.now() + this.CACHE_TTL);
+    
+    return shardId;
+  }
+  
+  private static async getUserProfile(userId: string): Promise<UserActivityProfile> {
+    return {
+      userId,
+      entriesPerWeek: 0,
+      aiRequestsPerDay: 0,
+      realtimeConnections: 0,
+      lastActiveDate: new Date(),
+      region: this.getUserRegion(userId),
+      tier: 'free'
+    };
+  }
+  
+  private static getUserRegion(userId: string): string {
+    const regionCode = userId.slice(-2);
+    
+    switch (regionCode) {
+      case 'us': return 'us-central1';
+      case 'eu': return 'europe-west1';
+      case 'ap': return 'asia-southeast1';
+      default: return 'us-central1';
+    }
+  }
+  
+  static clearUserCache(userId: string): void {
+    this.shardCache.delete(userId);
+    this.cacheExpiry.delete(userId);
+  }
+}

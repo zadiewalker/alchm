@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-09-15T13:28:25.636Z",
+  "overallScore": 86,
+  "assessment": "GOOD",
+  "scores": {
+    "singleCTA": 100,
+    "whitespace": 100,
+    "typography": 100,
+    "crisisPlacement": 100,
+    "touchTargets": 60,
+    "mobileOptimization": 80,
+    "contrast": 70,
+    "keyboardNav": 100,
+    "ariaSupport": 100,
+    "loadTime": 80,
+    "optimizations": 75,
+    "traumaLanguage": 100,
+    "inclusivity": 100,
+    "healingInvitation": 60,
+    "sanctuaryDesign": 66.68
+  },
+  "strengths": [
+    "✅ Single dominant CTA achieved",
+    "✅ Excellent whitespace usage: 64.1%",
+    "✅ Typography constraint respected: 1 weights",
+    "✅ Crisis support discretely placed in corner",
+    "✅ Trauma-informed mobile optimizations detected",
+    "✅ Single-handed operation support detected",
+    "✅ Keyboard navigation supported (6 focusable elements)",
+    "✅ All interactive elements have proper labels",
+    "✅ Acceptable loading time: 2032ms",
+    "✅ Good performance optimizations: 75%",
+    "✅ Strong trauma-informed language (5 indicators)",
+    "✅ Inclusive language detected (3 indicators)"
+  ],
+  "issues": [
+    "❌ 6 touch targets below 72px minimum",
+    "❌ Potential contrast issues: 7",
+    "❌ Weak healing invitation (2 indicators)"
+  ],
+  "recommendations": [
+    "💡 Enhance sanctuary visual elements: 66.68%"
+  ]
+}

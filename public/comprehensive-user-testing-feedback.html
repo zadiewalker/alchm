@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Comprehensive User Testing Protocol</title>
+    <style>
+        :root {
+            --sage-primary: #a4b792;
+            --sage-hover: #93a682;
+            --sage-light: #f8faf7;
+            --sage-subtle: #e8ede5;
+            --sage-ultra-light: #f0f3ee;
+            --sage-barely-there: #ebefe7;
+            --sage-whisper: #e6ebe0;
+            --sage-mist: #e1e7da;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --surface-white: #ffffff;
+            --surface-gray: #f5f5f7;
+            --border-light: #d2d2d7;
+            --border-sage: #d4ddd0;
+            --shadow-subtle: rgba(0, 0, 0, 0.04);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+            --shadow-sage: rgba(164, 183, 146, 0.08);
+            --crisis-red: #dc2626;
+            --crisis-light: #fef2f2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 50%, var(--sage-subtle) 100%);
+            color: var(--text-primary);
+            line-height: 1.47059;
+            font-size: 17px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--sage-ultra-light);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px var(--shadow-sage), 0 0 0 3px rgba(164, 183, 146, 0.15), 0 8px 32px rgba(164, 183, 146, 0.05);
+            overflow: hidden;
+            opacity: 0;
+            animation: materialAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            border: 2px solid rgba(164, 183, 146, 0.2);
+        }
+
+        @keyframes materialAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--sage-primary), var(--sage-hover));
+            padding: 48px 40px 32px;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+
+        .crisis-exit {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--crisis-red);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 36px;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        .crisis-exit:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+
+        .quick-exit {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 36px;
+            line-height: 1;
+        }
+
+        .quick-exit:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.125;
+            margin-bottom: 8px;
+            color: white;
+            letter-spacing: -0.005em;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 19px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            line-height: 1.42105;
+        }
+
+        .safety-notice {
+            background: var(--crisis-light);
+            border: 2px solid var(--crisis-red);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px;
+            font-size: 15px;
+            color: var(--crisis-red);
+            font-weight: 500;
+            line-height: 1.46667;
+        }
+
+        .form-container {
+            padding: 40px;
+            background: linear-gradient(180deg, var(--sage-barely-there) 0%, var(--sage-ultra-light) 100%);
+        }
+
+        .questionnaire-section {
+            background: var(--surface-white);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-sage);
+            box-shadow: 0 2px 12px var(--shadow-sage);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--sage-primary), var(--sage-hover));
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-group.critical {
+            background: var(--crisis-light);
+            border: 1px solid var(--crisis-red);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 1.29412;
+        }
+
+        .required-label::after {
+            content: " *";
+            color: var(--crisis-red);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            border: 1px solid var(--border-sage);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--sage-whisper);
+            transition: all 0.2s ease;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input, select {
+            height: 48px;
+            padding: 0 16px;
+        }
+
+        textarea {
+            padding: 16px;
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.47059;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--sage-primary);
+            box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.15);
+            background: var(--sage-barely-there);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2386868b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 44px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border-sage);
+            border-radius: 8px;
+            background: var(--sage-whisper);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--sage-primary);
+            background: var(--sage-barely-there);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--border-sage);
+            border-radius: 8px;
+            background: var(--sage-whisper);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .radio-item:hover {
+            border-color: var(--sage-primary);
+            background: var(--sage-barely-there);
+        }
+
+        .radio-item input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding: 16px;
+            background: var(--sage-whisper);
+            border-radius: 12px;
+            border: 1px solid var(--border-sage);
+        }
+
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            min-width: 60px;
+        }
+
+        .rating-option:hover {
+            background: var(--sage-light);
+        }
+
+        .rating-number {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--border-sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .rating-option.selected .rating-number {
+            border-color: var(--sage-primary);
+            background: var(--sage-primary);
+            color: white;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .crisis-resources {
+            background: var(--crisis-light);
+            border: 1px solid var(--crisis-red);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .crisis-title {
+            color: var(--crisis-red);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .crisis-info {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .submit-section {
+            background: var(--surface-white);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+            text-align: center;
+            border: 1px solid var(--border-sage);
+            box-shadow: 0 2px 12px var(--shadow-sage);
+        }
+
+        .submit-button {
+            width: 100%;
+            max-width: 300px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--sage-primary), var(--sage-hover));
+            box-shadow: 0 4px 12px rgba(164, 183, 146, 0.3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin: 16px auto;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, var(--sage-hover), #7a936a);
+            box-shadow: 0 6px 16px rgba(164, 183, 146, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .progress-indicator {
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            background: var(--surface-white);
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid var(--border-sage);
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px var(--shadow-sage);
+        }
+
+        .progress-bar {
+            background: var(--sage-subtle);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--sage-primary), var(--sage-hover));
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 32px 24px 24px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .form-container {
+                padding: 24px;
+            }
+
+            .questionnaire-section {
+                padding: 24px;
+                margin-bottom: 24px;
+            }
+
+            .rating-scale {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .rating-option {
+                min-width: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="crisis-exit" onclick="window.open('tel:988')" title="Crisis Hotline: 988">🚨 Crisis: 988</button>
+            <button class="quick-exit" onclick="quickExit()">Exit</button>
+            <h1>ALCHM Testing Protocol</h1>
+            <p>Safety-First Comprehensive User Testing</p>
+        </div>
+
+        <div class="safety-notice">
+            <strong>🛡️ Safety First:</strong> If you're experiencing a mental health crisis, please contact 988 (Suicide & Crisis Lifeline) or emergency services immediately. This testing protocol includes safety screening and ongoing mental health monitoring.
+        </div>
+
+        <div class="form-container">
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Starting comprehensive testing protocol...</div>
+            </div>
+
+            <form id="testingForm">
+                <!-- Phase 1: Safety Assessment -->
+                <div class="questionnaire-section" id="safety-assessment">
+                    <div class="section-header">
+                        <div class="section-title">Phase 1: Pre-Testing Safety Assessment</div>
+                        <div class="section-subtitle">Required safety screening - conducted with mental health professional</div>
+                    </div>
+
+                    <div class="form-group critical">
+                        <label class="required-label">Current Mental Health Stability</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="mental_health_stability" value="very_stable" required>
+                                Very stable - I feel emotionally balanced most days
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="mental_health_stability" value="mostly_stable" required>
+                                Mostly stable - I have occasional difficult days but manage well
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="mental_health_stability" value="somewhat_stable" required>
+                                Somewhat stable - I have regular ups and downs but am managing
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="mental_health_stability" value="struggling" required>
+                                Struggling - I'm having frequent difficult days but getting support
+                            </label>
+                            <label class="radio-item" style="background: var(--crisis-light); border-color: var(--crisis-red);">
+                                <input type="radio" name="mental_health_stability" value="in_crisis" required>
+                                In crisis - I'm having thoughts of self-harm or feeling unsafe
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-label">Current Mental Health Support</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="therapy">
+                                Regular therapy sessions
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="medication">
+                                Medication management
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="support_group">
+                                Support group participation
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="crisis_counseling">
+                                Crisis counseling
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="informal_support">
+                                Informal support systems
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="current_support" value="no_support">
+                                No support currently
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group critical">
+                        <label class="required-label">Self-Harm Thoughts (Past 30 Days)</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="self_harm_thoughts" value="none" required>
+                                No thoughts of self-harm
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="self_harm_thoughts" value="fleeting" required>
+                                Fleeting thoughts but no plans or intent
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="self_harm_thoughts" value="persistent" required>
+                                Persistent thoughts but no specific plans
+                            </label>
+                            <label class="radio-item" style="background: var(--crisis-light); border-color: var(--crisis-red);">
+                                <input type="radio" name="self_harm_thoughts" value="plans_no_intent" required>
+                                Thoughts with some planning but no intent to act
+                            </label>
+                            <label class="radio-item" style="background: var(--crisis-light); border-color: var(--crisis-red);">
+                                <input type="radio" name="self_harm_thoughts" value="active_plans" required>
+                                Active thoughts with plans - I need immediate support
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="crisis-resources">
+                        <div class="crisis-title">🆘 Crisis Resources Available 24/7</div>
+                        <div class="crisis-info">
+                            • <strong>988 Suicide & Crisis Lifeline:</strong> Call or text 988<br>
+                            • <strong>Crisis Text Line:</strong> Text HOME to 741741<br>
+                            • <strong>Trevor Project (LGBTQ+):</strong> 1-866-488-7386<br>
+                            • <strong>Trans Lifeline:</strong> 877-565-8860
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Technology Comfort Level</label>
+                        <div class="rating-scale">
+                            <div class="rating-option" data-value="1">
+                                <div class="rating-number">1</div>
+                                <div class="rating-label">Very<br>Uncomfortable</div>
+                            </div>
+                            <div class="rating-option" data-value="2">
+                                <div class="rating-number">2</div>
+                                <div class="rating-label">Somewhat<br>Uncomfortable</div>
+                            </div>
+                            <div class="rating-option" data-value="3">
+                                <div class="rating-number">3</div>
+                                <div class="rating-label">Neutral</div>
+                            </div>
+                            <div class="rating-option" data-value="4">
+                                <div class="rating-number">4</div>
+                                <div class="rating-label">Comfortable</div>
+                            </div>
+                            <div class="rating-option" data-value="5">
+                                <div class="rating-number">5</div>
+                                <div class="rating-label">Very<br>Comfortable</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="tech_comfort" id="tech_comfort">
+                    </div>
+                </div>
+
+                <!-- Phase 2: Demographics & Cultural Context -->
+                <div class="questionnaire-section" id="demographics">
+                    <div class="section-header">
+                        <div class="section-title">Cultural Context & Demographics</div>
+                        <div class="section-subtitle">Optional - helps us validate cultural resources</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Age Range</label>
+                        <select name="age_range">
+                            <option value="">Select age range (optional)</option>
+                            <option value="16-18">16-18</option>
+                            <option value="19-25">19-25</option>
+                            <option value="26-35">26-35</option>
+                            <option value="36-45">36-45</option>
+                            <option value="46-55">46-55</option>
+                            <option value="56+">56+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender Identity (Optional)</label>
+                        <input type="text" name="gender_identity" placeholder="Share if comfortable">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sexual Orientation (Optional)</label>
+                        <input type="text" name="sexual_orientation" placeholder="Share if comfortable">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Racial/Ethnic Identity (Optional)</label>
+                        <input type="text" name="racial_ethnic_identity" placeholder="Share if comfortable">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Primary Language</label>
+                        <select name="primary_language">
+                            <option value="">Select primary language</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="korean">Korean</option>
+                            <option value="portuguese">Portuguese</option>
+                            <option value="hindi">Hindi</option>
+                            <option value="german">German</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Religious/Spiritual Identity (Optional)</label>
+                        <input type="text" name="religious_identity" placeholder="Share if comfortable">
+                    </div>
+                </div>
+
+                <!-- Phase 3: Emergency Contacts -->
+                <div class="questionnaire-section" id="emergency-contacts">
+                    <div class="section-header">
+                        <div class="section-title">Emergency Contacts</div>
+                        <div class="section-subtitle">Required for safety protocol</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-label">Primary Emergency Contact Name</label>
+                        <input type="text" name="emergency_contact_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-label">Emergency Contact Phone</label>
+                        <input type="tel" name="emergency_contact_phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-label">Relationship</label>
+                        <input type="text" name="emergency_contact_relationship" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mental Health Provider (Optional)</label>
+                        <input type="text" name="mental_health_provider" placeholder="Name/Organization">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Provider Phone (Optional)</label>
+                        <input type="tel" name="provider_phone">
+                    </div>
+                </div>
+
+                <!-- Phase 4: Weekly Check-In -->
+                <div class="questionnaire-section" id="weekly-checkin">
+                    <div class="section-header">
+                        <div class="section-title">Weekly Experience Check-In</div>
+                        <div class="section-subtitle">How has your week been with ALCHM?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mental Health This Week</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="week_mental_health" value="better">
+                                Better than usual
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="week_mental_health" value="same">
+                                About the same as usual
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="week_mental_health" value="worse">
+                                Worse than usual
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="week_mental_health" value="much_worse">
+                                Much worse than usual
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ALCHM Usage Frequency</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="usage_frequency" value="daily">
+                                Daily
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="usage_frequency" value="4-6_times">
+                                4-6 times this week
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="usage_frequency" value="2-3_times">
+                                2-3 times this week
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="usage_frequency" value="once">
+                                Once this week
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="usage_frequency" value="not_at_all">
+                                Not at all this week
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ease of Use Rating</label>
+                        <div class="rating-scale">
+                            <div class="rating-option" data-value="1">
+                                <div class="rating-number">1</div>
+                                <div class="rating-label">Very<br>Difficult</div>
+                            </div>
+                            <div class="rating-option" data-value="2">
+                                <div class="rating-number">2</div>
+                                <div class="rating-label">Difficult</div>
+                            </div>
+                            <div class="rating-option" data-value="3">
+                                <div class="rating-number">3</div>
+                                <div class="rating-label">Neutral</div>
+                            </div>
+                            <div class="rating-option" data-value="4">
+                                <div class="rating-number">4</div>
+                                <div class="rating-label">Easy</div>
+                            </div>
+                            <div class="rating-option" data-value="5">
+                                <div class="rating-number">5</div>
+                                <div class="rating-label">Very<br>Easy</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="ease_of_use" id="ease_of_use">
+                    </div>
+                </div>
+
+                <!-- Phase 5: Cultural Responsiveness -->
+                <div class="questionnaire-section" id="cultural-assessment">
+                    <div class="section-header">
+                        <div class="section-title">Cultural Responsiveness Assessment</div>
+                        <div class="section-subtitle">How well does ALCHM understand your community?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cultural Background Inclusion</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="cultural_inclusion" value="definitely_yes">
+                                Definitely yes - feels very inclusive
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="cultural_inclusion" value="mostly_yes">
+                                Mostly yes - generally inclusive with minor gaps
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="cultural_inclusion" value="somewhat">
+                                Somewhat - some aspects feel inclusive, others don't
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="cultural_inclusion" value="not_really">
+                                Not really - feels designed for mainstream users
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="cultural_inclusion" value="definitely_not">
+                                Definitely not - feels exclusionary or inappropriate
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Crisis Resources Cultural Understanding</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_cultural_fit" value="excellent">
+                                Excellent understanding - resources are culturally informed
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_cultural_fit" value="good">
+                                Good understanding - mostly appropriate resources
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_cultural_fit" value="fair">
+                                Fair understanding - some resources fit, others don't
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_cultural_fit" value="poor">
+                                Poor understanding - resources feel generic or inappropriate
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_cultural_fit" value="no_understanding">
+                                No understanding - resources completely miss our experiences
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Recommendation Likelihood</label>
+                        <div class="rating-scale">
+                            <div class="rating-option" data-value="1">
+                                <div class="rating-number">1</div>
+                                <div class="rating-label">Definitely<br>Would Not</div>
+                            </div>
+                            <div class="rating-option" data-value="5">
+                                <div class="rating-number">5</div>
+                                <div class="rating-label">Probably<br>Not</div>
+                            </div>
+                            <div class="rating-option" data-value="10">
+                                <div class="rating-number">10</div>
+                                <div class="rating-label">Definitely<br>Would</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="recommendation_likelihood" id="recommendation_likelihood">
+                    </div>
+                </div>
+
+                <!-- Phase 6: Trauma-Informed UX -->
+                <div class="questionnaire-section" id="trauma-ux">
+                    <div class="section-header">
+                        <div class="section-title">Trauma-Informed UX Evaluation</div>
+                        <div class="section-subtitle">How does the design support you during difficult moments?</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sage Green Color Impact</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="color_impact" value="very_calming">
+                                Very calming and therapeutic
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="color_impact" value="somewhat_calming">
+                                Somewhat calming
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="color_impact" value="neutral">
+                                Neutral - doesn't bother me
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="color_impact" value="somewhat_uncomfortable">
+                                Somewhat jarring or uncomfortable
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="color_impact" value="very_uncomfortable">
+                                Very uncomfortable or triggering
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Emotional Safety Using ALCHM</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="emotional_safety" value="very_safe">
+                                Very safe - I feel completely protected
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="emotional_safety" value="mostly_safe">
+                                Mostly safe - generally comfortable with minor concerns
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="emotional_safety" value="somewhat_safe">
+                                Somewhat safe - mixed feelings about safety
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="emotional_safety" value="not_very_safe">
+                                Not very safe - several concerns about safety
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="emotional_safety" value="unsafe">
+                                Unsafe - I don't feel protected using this app
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Navigation During Distress</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="distress_navigation" value="very_easy">
+                                Very easy - clear and simple even during panic
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="distress_navigation" value="easy">
+                                Easy - manageable with some effort
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="distress_navigation" value="moderate">
+                                Moderate - requires focus but doable
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="distress_navigation" value="difficult">
+                                Difficult - hard to navigate when distressed
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="distress_navigation" value="very_difficult">
+                                Very difficult - nearly impossible during panic
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Evaluation -->
+                <div class="questionnaire-section" id="final-evaluation">
+                    <div class="section-header">
+                        <div class="section-title">Final Evaluation</div>
+                        <div class="section-subtitle">Your overall ALCHM testing experience</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Overall Testing Experience Rating</label>
+                        <div class="rating-scale">
+                            <div class="rating-option" data-value="1">
+                                <div class="rating-number">1</div>
+                                <div class="rating-label">Very<br>Poor</div>
+                            </div>
+                            <div class="rating-option" data-value="5">
+                                <div class="rating-number">5</div>
+                                <div class="rating-label">Fair</div>
+                            </div>
+                            <div class="rating-option" data-value="10">
+                                <div class="rating-number">10</div>
+                                <div class="rating-label">Excellent</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="overall_rating" id="overall_rating">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Crisis Detection Accuracy</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_detection_accuracy" value="very_accurate">
+                                Very accurate - caught concerning patterns appropriately
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_detection_accuracy" value="mostly_accurate">
+                                Mostly accurate - occasional misses but generally good
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_detection_accuracy" value="somewhat_accurate">
+                                Somewhat accurate - mixed results
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_detection_accuracy" value="not_very_accurate">
+                                Not very accurate - often missed or over-detected
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="crisis_detection_accuracy" value="inaccurate">
+                                Inaccurate - frequently wrong in both directions
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Continue Using After Beta?</label>
+                        <div class="radio-group">
+                            <label class="radio-item">
+                                <input type="radio" name="continue_using" value="definitely_will">
+                                Definitely will continue using
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="continue_using" value="probably_will">
+                                Probably will continue using
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="continue_using" value="might">
+                                Might continue using
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="continue_using" value="probably_wont">
+                                Probably won't continue using
+                            </label>
+                            <label class="radio-item">
+                                <input type="radio" name="continue_using" value="definitely_wont">
+                                Definitely won't continue using
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What worked best about ALCHM?</label>
+                        <textarea name="what_worked_well" placeholder="Share what aspects of ALCHM were most helpful or effective for you..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What needs improvement?</label>
+                        <textarea name="needs_improvement" placeholder="What changes would make ALCHM significantly better for you and others?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Final thoughts or recommendations</label>
+                        <textarea name="final_thoughts" placeholder="Anything else you'd like us to know about your ALCHM experience? What would you tell someone considering using ALCHM?"></textarea>
+                    </div>
+                </div>
+
+                <!-- Consent & Future Participation -->
+                <div class="questionnaire-section">
+                    <div class="section-header">
+                        <div class="section-title">Informed Consent & Future Participation</div>
+                        <div class="section-subtitle">Your ongoing involvement with ALCHM research</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="consent" value="ai_analysis" required>
+                                I understand ALCHM uses AI to analyze journal summaries for crisis detection
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="consent" value="crisis_intervention" required>
+                                I understand crisis detection may trigger immediate mental health resources
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="consent" value="data_collection" required>
+                                I consent to anonymous data collection for research purposes
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="consent" value="withdrawal_right" required>
+                                I understand I can withdraw from testing at any time
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Future Participation Interest</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="continued_beta">
+                                Continued beta testing of new features
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="focus_groups">
+                                Participating in focus groups
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="research_interviews">
+                                Being interviewed by mental health researchers
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="community_outreach">
+                                Helping with community outreach
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="professional_consultation">
+                                Professional consultation opportunities
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="future_participation" value="no_further">
+                                No further involvement
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-button" id="submitButton">
+                        🌱 Submit Testing Feedback
+                    </button>
+                    <div style="margin-top: 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                        Your comprehensive feedback helps create a safer, more inclusive healing space for everyone. Thank you for your courage and time.
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyATJ3mBomWkJCJxvdDPgkmdOJcJhNdxmwI",
+            authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+            projectId: "alchm-digital-sanctuary",
+            storageBucket: "alchm-digital-sanctuary.appspot.com",
+            messagingSenderId: "745417685785",
+            appId: "1:745417685785:web:bb9b90bb5f1b4a04e0cb49"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Rating system for scales
+        document.querySelectorAll('.rating-scale').forEach(scale => {
+            const hiddenInput = scale.nextElementSibling;
+            scale.addEventListener('click', (e) => {
+                const option = e.target.closest('.rating-option');
+                if (option) {
+                    // Remove previous selections
+                    scale.querySelectorAll('.rating-option').forEach(opt => opt.classList.remove('selected'));
+                    // Add selection
+                    option.classList.add('selected');
+                    // Update hidden input
+                    hiddenInput.value = option.getAttribute('data-value');
+                }
+            });
+        });
+
+        // Progress tracking
+        function updateProgress() {
+            const sections = document.querySelectorAll('.questionnaire-section');
+            let completed = 0;
+            
+            sections.forEach(section => {
+                const requiredInputs = section.querySelectorAll('input[required], select[required]');
+                const filledInputs = Array.from(requiredInputs).filter(input => {
+                    if (input.type === 'radio' || input.type === 'checkbox') {
+                        const name = input.name;
+                        return section.querySelector(`input[name="${name}"]:checked`);
+                    }
+                    return input.value.trim() !== '';
+                });
+                
+                if (requiredInputs.length > 0 && filledInputs.length === requiredInputs.length) {
+                    completed++;
+                }
+            });
+            
+            const percentage = (completed / sections.length) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `${completed} of ${sections.length} sections completed`;
+        }
+
+        // Safety check for crisis responses
+        function checkCrisisResponses() {
+            const crisisInputs = [
+                'input[name="mental_health_stability"][value="in_crisis"]',
+                'input[name="self_harm_thoughts"][value="plans_no_intent"]',
+                'input[name="self_harm_thoughts"][value="active_plans"]'
+            ];
+            
+            const hasCrisisResponse = crisisInputs.some(selector => 
+                document.querySelector(selector + ':checked')
+            );
+            
+            if (hasCrisisResponse) {
+                alert('⚠️ IMMEDIATE SUPPORT NEEDED\n\nBased on your responses, please contact:\n• 988 Suicide & Crisis Lifeline\n• Emergency services (911)\n• Your emergency contact\n\nYour safety is the most important thing.');
+                
+                // Highlight crisis resources
+                document.querySelectorAll('.crisis-resources').forEach(resource => {
+                    resource.style.animation = 'pulse 1s infinite';
+                });
+            }
+        }
+
+        // Auto-save functionality
+        let saveTimeout;
+        function autoSave() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                const formData = new FormData(document.getElementById('testingForm'));
+                const data = Object.fromEntries(formData.entries());
+                localStorage.setItem('alchm_comprehensive_testing_data', JSON.stringify(data));
+            }, 1000);
+        }
+
+        // Event listeners for all form inputs
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('change', () => {
+                updateProgress();
+                autoSave();
+                if (input.type === 'radio' && input.name.includes('mental_health') || input.name.includes('self_harm')) {
+                    setTimeout(checkCrisisResponses, 100);
+                }
+            });
+            input.addEventListener('input', autoSave);
+        });
+
+        // Form submission
+        document.getElementById('testingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Add metadata
+            data.submittedAt = firebase.firestore.FieldValue.serverTimestamp();
+            data.testingType = 'comprehensive_protocol';
+            data.sessionId = Math.random().toString(36).substring(2, 15);
+            data.userAgent = navigator.userAgent;
+            data.id = 'comprehensive_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+            
+            try {
+                document.getElementById('submitButton').disabled = true;
+                document.getElementById('submitButton').textContent = 'Submitting...';
+                
+                await Promise.all([
+                    db.collection('comprehensive_user_testing').add(data),
+                    db.collection('user_testing_feedback').add({
+                        ...data,
+                        source: 'comprehensive_protocol'
+                    })
+                ]);
+                
+                alert('✅ Thank you! Your comprehensive feedback has been submitted safely. Your contribution helps make ALCHM safer for everyone.');
+                localStorage.removeItem('alchm_comprehensive_testing_data');
+                
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an issue submitting your feedback. Your responses have been saved locally and we\'ll try again.');
+                document.getElementById('submitButton').disabled = false;
+                document.getElementById('submitButton').textContent = '🌱 Submit Testing Feedback';
+            }
+        });
+
+        // Quick exit function
+        function quickExit() {
+            if (confirm('Your progress is automatically saved. You can return to continue anytime. Exit now?')) {
+                window.close() || (window.location.href = 'about:blank');
+            }
+        }
+
+        // Restore saved data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('alchm_comprehensive_testing_data');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.entries(data).forEach(([key, value]) => {
+                        const input = document.querySelector(`[name="${key}"]`);
+                        if (input) {
+                            if (input.type === 'radio' || input.type === 'checkbox') {
+                                const specific = document.querySelector(`[name="${key}"][value="${value}"]`);
+                                if (specific) specific.checked = true;
+                            } else {
+                                input.value = value;
+                            }
+                        }
+                    });
+                    updateProgress();
+                } catch (error) {
+                    console.error('Error restoring data:', error);
+                }
+            }
+        });
+
+        // CSS for pulsing animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

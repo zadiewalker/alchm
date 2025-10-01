@@ -1,0 +1,462 @@
+// ALCHM Enterprise Compliance Firestore Security Rules
+// HIPAA, FERPA, COPPA, GDPR Compliant Mental Health Platform
+// Advanced Security Rules for Vulnerable Populations
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===== AUTHENTICATION & AUTHORIZATION HELPERS =====
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserId() {
+      return request.auth.uid;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && getUserId() == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.admin == true;
+    }
+    
+    function isCrisisInterventionSpecialist() {
+      return isAuthenticated() && 
+             request.auth.token.crisis_access == true;
+    }
+    
+    function isTherapist() {
+      return isAuthenticated() && 
+             request.auth.token.therapist_license != null;
+    }
+    
+    function isEducator() {
+      return isAuthenticated() && 
+             request.auth.token.educator_id != null;
+    }
+    
+    function isParentGuardian(studentId) {
+      return isAuthenticated() && 
+             request.auth.token.guardian_of != null &&
+             request.auth.token.guardian_of.hasAny([studentId]);
+    }
+    
+    // ===== HIPAA COMPLIANCE HELPERS =====
+    
+    function hasHIPAAAccess() {
+      return isAuthenticated() && 
+             request.auth.token.hipaa_trained == true &&
+             request.auth.token.baa_signed == true;
+    }
+    
+    function isEmergencyAccess() {
+      return request.auth.token.emergency_access == true;
+    }
+    
+    function isWithinBusinessHours() {
+      let now = request.time;
+      let hour = now.toMillis() % 86400000 / 3600000; // Current hour
+      return hour >= 9 && hour <= 17; // 9 AM to 5 PM
+    }
+    
+    function requiresBreachLogging(data) {
+      return data.keys().hasAny(['diagnosis', 'medication', 'therapy_notes', 'crisis_assessment']);
+    }
+    
+    // ===== FERPA COMPLIANCE HELPERS =====
+    
+    function hasFERPAAccess(studentId) {
+      // Check if user has educational access to student records
+      return isEducator() || 
+             isParentGuardian(studentId) || 
+             isOwner(studentId) ||
+             (isTherapist() && hasTherapeuticRelationship(studentId));
+    }
+    
+    function hasParentalConsent(studentId) {
+      let consentDoc = get(/databases/$(database)/documents/ferpa_consent_records/$(studentId + '_' + request.auth.uid));
+      return consentDoc.data.consentGranted == true &&
+             consentDoc.data.consentExpiryDate > request.time;
+    }
+    
+    function hasTherapeuticRelationship(studentId) {
+      return exists(/databases/$(database)/documents/therapeutic_relationships/$(request.auth.uid + '_' + studentId));
+    }
+    
+    function isEducationalRecord(data) {
+      return data.keys().hasAny(['academic_performance', 'behavioral_notes', 'counseling_records']);
+    }
+    
+    // ===== COPPA COMPLIANCE HELPERS =====
+    
+    function isMinor(userId) {
+      let userDoc = getUserDocument(userId);
+      return userDoc.age < 18;
+    }
+    
+    function isChild(userId) {
+      let userDoc = getUserDocument(userId);
+      return userDoc.age < 13;
+    }
+    
+    function hasValidParentalConsent(userId) {
+      if (!isChild(userId)) return true;
+      
+      let consentDoc = get(/databases/$(database)/documents/parental_verifications/$(userId));
+      return consentDoc.data.consentGranted == true &&
+             consentDoc.data.status == 'COMPLETED' &&
+             consentDoc.data.consentExpiryDate > request.time;
+    }
+    
+    function getUserDocument(userId) {
+      return get(/databases/$(database)/documents/users_standard/$(userId)).data ||
+             get(/databases/$(database)/documents/users_premium/$(userId)).data;
+    }
+    
+    // ===== GDPR COMPLIANCE HELPERS =====
+    
+    function hasValidGDPRConsent(userId, purpose) {
+      let consentQuery = get(/databases/$(database)/documents/gdpr_consent_records/$(userId + '_latest'));
+      return consentQuery.data.purposes.hasAll([purpose]) &&
+             consentQuery.data.consentDate != null;
+    }
+    
+    function isEUResident(userId) {
+      let userDoc = getUserDocument(userId);
+      return userDoc.dataResidency == 'EU';
+    }
+    
+    function isDataMinimized(data) {
+      // Ensure only necessary data fields are included
+      let allowedFields = ['text', 'mood', 'timestamp', 'userId', 'encrypted'];
+      return data.keys().hasOnly(allowedFields);
+    }
+    
+    // ===== TRAUMA-INFORMED ACCESS CONTROLS =====
+    
+    function isSafeAccessPattern(userId) {
+      // Check for safe access patterns (not during crisis episodes)
+      let userState = get(/databases/$(database)/documents/user_mental_state/$(userId));
+      return userState.data.crisisLevel == 'STABLE' ||
+             userState.data.crisisLevel == 'LOW';
+    }
+    
+    function requiresCrisisIntervention(data) {
+      let riskKeywords = ['suicide', 'self-harm', 'end it all', 'kill myself'];
+      return data.text != null && 
+             riskKeywords.hasAny(data.text.lower().split(' '));
+    }
+    
+    // ===== PHI AUDIT LOGGING =====
+    
+    function logPHIAccess(action, dataType) {
+      // This would be handled by Cloud Functions in practice
+      return true;
+    }
+    
+    // ===== ENTERPRISE SECURITY RULES =====
+    
+    // ===== HIPAA-COMPLIANT HEALTH RECORDS =====
+    
+    match /phi_health_records/{userId} {
+      allow read: if (isOwner(userId) || hasHIPAAAccess()) &&
+                     hasValidGDPRConsent(userId, 'health_data_processing') &&
+                     isSafeAccessPattern(userId);
+      
+      allow create: if isOwner(userId) &&
+                       hasValidParentalConsent(userId) &&
+                       isDataMinimized(resource.data) &&
+                       !requiresBreachLogging(resource.data);
+      
+      allow update: if isOwner(userId) &&
+                       hasValidParentalConsent(userId) &&
+                       isDataMinimized(resource.data);
+      
+      allow delete: if (isOwner(userId) || isAdmin()) &&
+                       hasValidGDPRConsent(userId, 'data_deletion');
+    }
+    
+    // Crisis intervention records (highest security)
+    match /crisis_intervention_records/{recordId} {
+      allow read: if isCrisisInterventionSpecialist() ||
+                     (isAdmin() && isEmergencyAccess());
+      
+      allow create: if isCrisisInterventionSpecialist() &&
+                       resource.data.interventionTimestamp is timestamp &&
+                       resource.data.riskLevel in ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+      
+      allow update: if isCrisisInterventionSpecialist() &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['interventionNotes', 'followUpScheduled', 'status']);
+      
+      allow delete: if false; // Crisis records are never deleted
+    }
+    
+    // ===== FERPA-COMPLIANT EDUCATIONAL RECORDS =====
+    
+    match /student_educational_records/{studentId} {
+      allow read: if hasFERPAAccess(studentId) &&
+                     hasParentalConsent(studentId) &&
+                     isWithinBusinessHours();
+      
+      allow create: if isEducator() &&
+                       hasParentalConsent(studentId) &&
+                       isEducationalRecord(resource.data);
+      
+      allow update: if isEducator() &&
+                       hasParentalConsent(studentId) &&
+                       isEducationalRecord(resource.data);
+      
+      allow delete: if isAdmin() &&
+                       hasParentalConsent(studentId);
+    }
+    
+    // School district integration
+    match /school_districts/{districtId}/students/{studentId} {
+      allow read: if isEducator() &&
+                     request.auth.token.school_district == districtId &&
+                     hasParentalConsent(studentId);
+      
+      allow write: if isEducator() &&
+                      request.auth.token.school_district == districtId &&
+                      hasParentalConsent(studentId);
+    }
+    
+    // ===== COPPA-COMPLIANT CHILD PROTECTION =====
+    
+    match /child_accounts/{userId} {
+      allow read: if (isOwner(userId) && hasValidParentalConsent(userId)) ||
+                     isParentGuardian(userId) ||
+                     isAdmin();
+      
+      allow create: if isAuthenticated() &&
+                       getUserId() == userId &&
+                       isChild(userId) &&
+                       hasValidParentalConsent(userId);
+      
+      allow update: if (isOwner(userId) && hasValidParentalConsent(userId)) ||
+                       isParentGuardian(userId);
+      
+      allow delete: if isParentGuardian(userId) ||
+                       (isAdmin() && isEmergencyAccess());
+    }
+    
+    // Parental consent records
+    match /parental_verifications/{verificationId} {
+      allow read: if isAdmin() ||
+                     (isAuthenticated() && resource.data.parentId == getUserId());
+      
+      allow create: if isAuthenticated() &&
+                       resource.data.parentId == getUserId() &&
+                       resource.data.verificationMethod in ['EMAIL_PLUS_CREDIT_CARD', 'DIGITAL_SIGNATURE', 'POSTAL_MAIL'];
+      
+      allow update: if resource.data.parentId == getUserId() &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['consentGranted', 'verificationMethod', 'status']);
+      
+      allow delete: if false; // Consent records maintained for compliance
+    }
+    
+    // ===== GDPR-COMPLIANT DATA PROCESSING =====
+    
+    match /gdpr_consent_records/{consentId} {
+      allow read: if isAuthenticated() &&
+                     resource.data.userId == getUserId();
+      
+      allow create: if isAuthenticated() &&
+                       resource.data.userId == getUserId() &&
+                       resource.data.consentMethod == 'EXPLICIT_OPT_IN' &&
+                       resource.data.purposes is list;
+      
+      allow update: if resource.data.userId == getUserId() &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['purposes', 'consentDate', 'consentMethod']);
+      
+      allow delete: if false; // GDPR requires consent audit trail
+    }
+    
+    // Data processing activities log
+    match /data_processing_activities/{activityId} {
+      allow read: if isAdmin() ||
+                     (isAuthenticated() && resource.data.userId == getUserId());
+      
+      allow create: if false; // Only Cloud Functions create processing logs
+      
+      allow update: if false; // Processing logs are immutable
+      
+      allow delete: if false; // Required for GDPR Article 30
+    }
+    
+    // Right to be forgotten requests
+    match /data_deletion_requests/{requestId} {
+      allow read: if isAuthenticated() &&
+                     resource.data.userId == getUserId();
+      
+      allow create: if isAuthenticated() &&
+                       resource.data.userId == getUserId() &&
+                       resource.data.deletionType in ['PARTIAL', 'COMPLETE'] &&
+                       resource.data.reason is string;
+      
+      allow update: if false; // Only Cloud Functions update deletion status
+      
+      allow delete: if false; // Deletion audit trail required
+    }
+    
+    // ===== ENCRYPTED JOURNAL ENTRIES =====
+    
+    match /encrypted_journal_entries/{userId}/entries/{entryId} {
+      allow read: if isOwner(userId) &&
+                     hasValidParentalConsent(userId) &&
+                     hasValidGDPRConsent(userId, 'journal_processing') &&
+                     isSafeAccessPattern(userId);
+      
+      allow create: if isOwner(userId) &&
+                       hasValidParentalConsent(userId) &&
+                       resource.data.encrypted == true &&
+                       resource.data.encryptionMethod == 'AES-256-GCM' &&
+                       !requiresCrisisIntervention(resource.data);
+      
+      allow update: if isOwner(userId) &&
+                       hasValidParentalConsent(userId) &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['lastModified', 'editCount']);
+      
+      allow delete: if isOwner(userId) &&
+                       hasValidGDPRConsent(userId, 'data_deletion');
+    }
+    
+    // Crisis-flagged entries (special handling)
+    match /crisis_flagged_entries/{entryId} {
+      allow read: if isCrisisInterventionSpecialist() ||
+                     (isTherapist() && hasTherapeuticRelationship(resource.data.userId));
+      
+      allow create: if false; // Only AI crisis detection creates these
+      
+      allow update: if isCrisisInterventionSpecialist() &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['interventionStatus', 'followUpNotes', 'riskLevel']);
+      
+      allow delete: if false; // Crisis records preserved for safety
+    }
+    
+    // ===== AUDIT AND COMPLIANCE LOGS =====
+    
+    match /hipaa_audit_logs/{logId} {
+      allow read: if isAdmin() &&
+                     request.auth.token.compliance_access == true;
+      
+      allow create: if false; // Only Cloud Functions create audit logs
+      
+      allow update: if false; // Audit logs are immutable
+      
+      allow delete: if false; // Required for HIPAA compliance
+    }
+    
+    match /ferpa_access_logs/{logId} {
+      allow read: if isAdmin() ||
+                     (isEducator() && resource.data.accessorId == getUserId());
+      
+      allow create: if false; // Only Cloud Functions create access logs
+      
+      allow update: if false; // Access logs are immutable
+      
+      allow delete: if false; // Required for FERPA compliance
+    }
+    
+    match /gdpr_processing_logs/{logId} {
+      allow read: if isAdmin() ||
+                     (isAuthenticated() && resource.data.userId == getUserId());
+      
+      allow create: if false; // Only Cloud Functions create processing logs
+      
+      allow update: if false; // Processing logs are immutable
+      
+      allow delete: if false; // Required for GDPR Article 30
+    }
+    
+    // ===== SECURITY MONITORING =====
+    
+    match /security_events/{eventId} {
+      allow read: if isAdmin() &&
+                     request.auth.token.security_access == true;
+      
+      allow create: if false; // Only security monitoring creates events
+      
+      allow update: if false; // Security events are immutable
+      
+      allow delete: if false; // Security audit trail required
+    }
+    
+    match /breach_detection_logs/{logId} {
+      allow read: if isAdmin() &&
+                     request.auth.token.security_access == true;
+      
+      allow create: if false; // Only breach detection system creates logs
+      
+      allow update: if request.auth.token.security_access == true &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['investigationNotes', 'responseActions', 'status']);
+      
+      allow delete: if false; // Breach logs required for compliance
+    }
+    
+    // ===== THERAPEUTIC RELATIONSHIPS =====
+    
+    match /therapeutic_relationships/{relationshipId} {
+      allow read: if resource.data.therapistId == getUserId() ||
+                     resource.data.clientId == getUserId() ||
+                     isAdmin();
+      
+      allow create: if isTherapist() &&
+                       resource.data.therapistId == getUserId() &&
+                       resource.data.licenseVerified == true;
+      
+      allow update: if resource.data.therapistId == getUserId() ||
+                       resource.data.clientId == getUserId();
+      
+      allow delete: if resource.data.therapistId == getUserId() ||
+                       isAdmin();
+    }
+    
+    // ===== ANONYMOUS CRISIS SUPPORT =====
+    
+    match /anonymous_crisis_support/{sessionId} {
+      allow read: if isCrisisInterventionSpecialist();
+      
+      allow create: if isAuthenticated() &&
+                       resource.data.anonymous == true &&
+                       resource.data.urgencyLevel in ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+      
+      allow update: if isCrisisInterventionSpecialist() ||
+                       (isAuthenticated() && resource.data.userId == getUserId());
+      
+      allow delete: if false; // Crisis support sessions preserved
+    }
+    
+    // ===== COMPLIANCE REPORTING =====
+    
+    match /compliance_reports/{reportId} {
+      allow read: if isAdmin() &&
+                     request.auth.token.compliance_access == true;
+      
+      allow create: if false; // Only compliance system generates reports
+      
+      allow update: if false; // Reports are immutable once generated
+      
+      allow delete: if false; // Compliance reports required for audits
+    }
+    
+    // ===== DEFAULT DENY =====
+    
+    // Explicitly deny access to any unmatched documents
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

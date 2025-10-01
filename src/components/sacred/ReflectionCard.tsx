@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Component: ReflectionCard
 // Sacred mirror for inner contemplation
 // Replaces: JournalEntry

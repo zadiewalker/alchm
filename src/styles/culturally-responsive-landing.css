@@ -1,0 +1,290 @@
+/**
+ * Culturally Responsive Landing Page Styles
+ * 
+ * Enhances the landing page to be welcoming across cultures while maintaining
+ * the clean, trauma-informed design. Focuses on accessibility and inclusivity.
+ */
+
+/* =============================================================================
+   Economic Justice Banner
+   ============================================================================= */
+
+.economic-justice-banner {
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,     /* Blue - Trust, peace (universal) */
+    #8b5cf6 33%,    /* Purple - Spirituality, wisdom (many cultures) */
+    #059669 66%,    /* Green - Growth, healing (universal) */
+    #dc2626 100%    /* Red - Strength, life force (many cultures) */
+  );
+  
+  /* Ensure banner is readable in all lighting conditions */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  
+  /* Animation that respects reduced motion preference */
+  background-size: 200% 100%;
+  animation: gentle-gradient 8s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .economic-justice-banner {
+    animation: none;
+    background: #3b82f6; /* Fallback to single color */
+  }
+}
+
+@keyframes gentle-gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* =============================================================================
+   Healing Traditions Display
+   ============================================================================= */
+
+.healing-traditions-minimal {
+  /* Subtle indication that doesn't overwhelm */
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.healing-traditions-minimal:hover {
+  opacity: 1;
+}
+
+.healing-traditions-carousel {
+  /* Gentle breathing animation */
+  animation: healing-breathe 6s ease-in-out infinite;
+}
+
+@keyframes healing-breathe {
+  0%, 100% {
+    transform: scale(1);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    transform: scale(1.01);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.healing-traditions-grid .tradition-card {
+  transition: all 0.3s ease;
+}
+
+.healing-traditions-grid .tradition-card:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =============================================================================
+   Crisis Resources Panel Enhancement
+   ============================================================================= */
+
+.crisis-resources-panel {
+  /* Ensure high contrast for emergency situations */
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  
+  /* Gentle border radius that feels welcoming */
+  border-radius: 16px;
+  
+  /* Backdrop blur for better readability */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Cultural focus indicators */
+.crisis-resources-panel .cultural-indicator {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Contact buttons with improved accessibility */
+.crisis-resources-panel a {
+  min-height: 44px; /* WCAG AA minimum touch target */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.crisis-resources-panel a:focus {
+  outline: 3px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   Cultural Color Adaptations
+   ============================================================================= */
+
+/* Enhanced gradient that works across cultures */
+.landing-progressive-enhancement {
+  background: linear-gradient(
+    135deg,
+    #a4b792 0%,      /* Sage - calming, neutral */
+    #93a682 25%,     /* Deeper sage */
+    #8aa074 50%,     /* Earth green */
+    #7a8c6a 75%,     /* Forest green */
+    #6b7c5c 100%     /* Deep earth */
+  );
+  
+  /* Subtle texture that doesn't interfere with readability */
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+
+/* =============================================================================
+   Typography Enhancements for Cultural Inclusion
+   ============================================================================= */
+
+/* Enhanced readability for diverse languages */
+.landing-primary-text {
+  /* Better letter spacing for non-Latin scripts */
+  letter-spacing: 0.01em;
+  
+  /* Line height that works well across writing systems */
+  line-height: 1.6;
+  
+  /* Text rendering optimized for clarity */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.landing-secondary-text {
+  /* Slightly more generous spacing for secondary text */
+  letter-spacing: 0.015em;
+  line-height: 1.65;
+}
+
+/* =============================================================================
+   Accessibility and Cultural Sensitivity Enhancements
+   ============================================================================= */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .landing-progressive-enhancement {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #000000;
+  }
+  
+  .landing-primary-text,
+  .landing-secondary-text {
+    color: #000000;
+    text-shadow: none;
+  }
+  
+  .economic-justice-banner {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Dark mode considerations */
+@media (prefers-color-scheme: dark) {
+  .crisis-resources-panel {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(75, 85, 99, 0.3);
+  }
+}
+
+/* RTL language support */
+[dir="rtl"] .healing-traditions-minimal {
+  direction: rtl;
+}
+
+[dir="rtl"] .crisis-resources-panel {
+  text-align: right;
+}
+
+/* =============================================================================
+   Mobile Cultural Responsiveness
+   ============================================================================= */
+
+@media (max-width: 640px) {
+  /* Ensure economic justice banner is readable on small screens */
+  .economic-justice-banner {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  
+  /* Stack healing traditions vertically on mobile */
+  .healing-traditions-minimal .tradition-items {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* Enhanced crisis panel for mobile */
+  .crisis-resources-panel {
+    max-width: calc(100vw - 32px);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+/* =============================================================================
+   Focus and Interaction States
+   ============================================================================= */
+
+/* Enhanced focus indicators for all interactive elements */
+.landing-cta-button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
+  box-shadow: 
+    0 0 0 6px rgba(164, 183, 146, 0.3),
+    0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Gentle hover states that work across cultures */
+.tradition-card:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
+
+/* =============================================================================
+   Performance Optimizations
+   ============================================================================= */
+
+/* Optimize animations for different performance levels */
+.perf-tier-low .healing-traditions-carousel {
+  animation-duration: 0.5s;
+}
+
+.perf-tier-ultra-low .healing-traditions-carousel {
+  animation: none;
+}
+
+/* Reduce complexity on slow connections */
+.slow-connection .economic-justice-banner {
+  background: #3b82f6;
+  animation: none;
+}
+
+/* =============================================================================
+   Print Styles (for accessibility)
+   ============================================================================= */
+
+@media print {
+  .economic-justice-banner,
+  .crisis-resources-panel {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+  
+  .healing-traditions-minimal {
+    opacity: 1 !important;
+  }
+}

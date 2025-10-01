@@ -44,9 +44,14 @@ function validateTOML() {
         error: 'Do not mix [build.env] map syntax with [[build.env]] array syntax'
       },
       {
-        name: 'Buildpack URI is specified',
-        test: () => content.includes('[[build.buildpacks]]') && content.includes('uri ='),
-        error: 'Buildpack URI must be specified in [[build.buildpacks]] section'
+        name: 'Buildpack configuration is valid',
+        test: () => {
+          // Either has explicit buildpack URI or relies on auto-detection
+          const hasExplicitBuildpack = content.includes('[[build.buildpacks]]') && content.includes('uri =');
+          const hasPackageJson = fs.existsSync(path.join(__dirname, '..', 'package.json'));
+          return hasExplicitBuildpack || hasPackageJson;
+        },
+        error: 'Either explicit buildpack URI must be specified or package.json must exist for auto-detection'
       }
     ];
 

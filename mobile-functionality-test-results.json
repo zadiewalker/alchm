@@ -1,0 +1,94 @@
+{
+  "healthScore": 91,
+  "results": {
+    "crisisResources": {
+      "/crisis-resources.json": {
+        "status": 200,
+        "accessible": true,
+        "contentType": "application/json",
+        "responseTime": 256
+      },
+      "/emergency-crisis.html": {
+        "status": 301,
+        "accessible": false,
+        "contentType": "text/plain; charset=utf-8",
+        "responseTime": 116
+      },
+      "/crisis-mobile-manifest.json": {
+        "status": 200,
+        "accessible": true,
+        "contentType": "application/json",
+        "responseTime": 150
+      },
+      "/crisis-sw.js": {
+        "status": 200,
+        "accessible": true,
+        "contentType": "text/javascript; charset=utf-8",
+        "responseTime": 234
+      }
+    },
+    "navigation": {
+      "/": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 226,
+        "mobileOptimized": false
+      },
+      "/en": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 166,
+        "mobileOptimized": false
+      },
+      "/en/journal": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 165,
+        "mobileOptimized": false
+      },
+      "/en/dashboard": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 194,
+        "mobileOptimized": false
+      },
+      "/en/pathways": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 178,
+        "mobileOptimized": false
+      },
+      "/en/pricing": {
+        "status": 200,
+        "accessible": true,
+        "responseTime": 208,
+        "mobileOptimized": false
+      }
+    },
+    "performance": {
+      "totalLoadTime": 166,
+      "serverResponseTime": 60,
+      "status": 200,
+      "cacheHeaders": {
+        "cacheControl": "max-age=3600",
+        "etag": "\"5ed2dcdf80581f9bb3cc6095cfa78126d045297c6118db3592e41099837c54fc\""
+      },
+      "performanceBudget": {
+        "underBudget": true,
+        "criticalResource": true
+      }
+    },
+    "accessibility": {
+      "crisisDetection": {
+        "apiAccessible": true,
+        "status": 200,
+        "responseTime": 152
+      }
+    }
+  },
+  "summary": {
+    "crisisResources": "3/4",
+    "navigation": "6/6",
+    "performance": "166ms"
+  }
+}

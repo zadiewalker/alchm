@@ -18,7 +18,7 @@ export const getApps = jest.fn(() => [])
 
 // Auth Admin Mock
 export const auth = jest.fn(() => ({
-  verifyIdToken: jest.fn((token: string) => Promise.resolve({
+  verifyIdToken: jest.fn((_token: string) => Promise.resolve({
     uid: 'test-user-id',
     email: 'test@example.com',
     aud: 'test-project',
@@ -179,7 +179,7 @@ export const Timestamp = {
 
 // Functions Admin Mock
 export const functions = jest.fn(() => ({
-  httpsCallable: jest.fn((name: string) => jest.fn((data: any) => Promise.resolve({
+  httpsCallable: jest.fn((_name: string) => jest.fn((_data: any) => Promise.resolve({
     data: { result: 'mock-result' }
   })))
 }))

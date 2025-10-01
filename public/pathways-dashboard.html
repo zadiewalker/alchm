@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Pathways Dashboard - Sacred Healing Journeys</title>
+    <meta name="description" content="Discover your personalized healing pathways through trauma-informed, culturally-responsive journeys that honor diverse spiritual traditions and meaning-making approaches.">
+    
+    <!-- Performance and PWA Meta -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Crisis Support Resources (Pre-loaded) -->
+    <link rel="prefetch" href="tel:988" aria-label="Crisis Lifeline">
+    <link rel="prefetch" href="sms:741741" aria-label="Crisis Text Line">
+    <link rel="preload" href="/crisis-resources.json" as="fetch" crossorigin="anonymous">
+    
+    <!-- Comprehensive Crisis Support System -->
+    <script src="/js/crisis-support-system.js" defer></script>
+    <link rel="stylesheet" href="/css/crisis-support-styles.css">
+    
+    <style>
+        /* === ALCHM JONY IVE FOUNDATION === */
+        :root {
+            /* Sage Green System - Spiritual & Healing */
+            --sage-primary: #a4b792;
+            --sage-hover: #93a682;
+            --sage-active: #7a8c6a;
+            --sage-light: #f6f8f4;
+            --sage-muted: #d6e0cd;
+            
+            /* Sanctuary Colors */
+            --sanctuary: #fefcfb;
+            --sanctuary-glass: rgba(254, 252, 251, 0.90);
+            --sanctuary-mist: rgba(254, 252, 251, 0.05);
+            
+            /* Spiritual Path Colors */
+            --spiritual-gold: #d4af37;
+            --wisdom-purple: #8b7ba8;
+            --healing-blue: #7fb3d3;
+            --earth-brown: #8b7355;
+            --compassion-rose: #d4a5a5;
+            
+            /* Typography */
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            
+            /* Spacing - Sacred Geometry */
+            --space-unit: 8px;
+            --space-xs: calc(var(--space-unit) * 1);
+            --space-sm: calc(var(--space-unit) * 2);
+            --space-md: calc(var(--space-unit) * 3);
+            --space-lg: calc(var(--space-unit) * 4);
+            --space-xl: calc(var(--space-unit) * 6);
+            
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            /* Animation - Gentle & Mindful */
+            --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --duration-fast: 200ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --duration-breathing: 4000ms;
+        }
+
+        /* === CORE FOUNDATION === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-family: var(--font-system);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+            min-height: 100vh;
+            color: var(--sanctuary);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* === LAYOUT SYSTEM === */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .dashboard-header {
+            padding: var(--space-xl) 0 var(--space-lg);
+            text-align: center;
+            position: relative;
+        }
+
+        .dashboard-title {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: var(--font-weight-light);
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .dashboard-subtitle {
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: var(--font-weight-regular);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--space-md);
+        }
+
+        /* === SPIRITUAL PREFERENCE SELECTOR === */
+        .spiritual-preferences {
+            background: var(--sanctuary-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+        }
+
+        .preference-title {
+            color: var(--sage-active);
+            font-size: 18px;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-md);
+        }
+
+        .preference-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            justify-content: center;
+        }
+
+        .preference-chip {
+            background: transparent;
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            color: var(--sage-active);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-sanctuary);
+            font-size: 14px;
+            font-weight: var(--font-weight-regular);
+        }
+
+        .preference-chip:hover,
+        .preference-chip.active {
+            background: var(--sage-primary);
+            color: var(--sanctuary);
+            border-color: var(--sage-primary);
+            transform: translateY(-1px);
+        }
+
+        /* === PATHWAY CATEGORIES === */
+        .pathway-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .category-card {
+            background: var(--sanctuary-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            transition: all var(--duration-base) var(--ease-sanctuary);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+            border-color: rgba(164, 183, 146, 0.4);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto var(--space-md);
+            background: var(--sage-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .category-title {
+            color: var(--sage-active);
+            font-size: 20px;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-sm);
+            text-align: center;
+        }
+
+        .category-description {
+            color: var(--sage-active);
+            opacity: 0.8;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        .category-pathways-count {
+            background: var(--sage-muted);
+            color: var(--sage-active);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: var(--font-weight-medium);
+            text-align: center;
+        }
+
+        /* === PATHWAY VISUALIZATION === */
+        .pathway-visualization {
+            background: var(--sanctuary-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            position: relative;
+            min-height: 500px;
+        }
+
+        .pathway-map {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pathway-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--sanctuary);
+            border: 3px solid var(--sage-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--duration-base) var(--ease-sanctuary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            font-weight: var(--font-weight-medium);
+            color: var(--sage-active);
+        }
+
+        .pathway-node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .pathway-node.completed {
+            background: var(--sage-primary);
+            color: var(--sanctuary);
+        }
+
+        .pathway-node.current {
+            background: var(--spiritual-gold);
+            color: var(--sanctuary);
+            animation: gentle-pulse var(--duration-breathing) infinite;
+        }
+
+        .pathway-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--sage-muted), var(--sage-primary));
+            opacity: 0.6;
+            transform-origin: left center;
+        }
+
+        .pathway-connection.completed {
+            background: var(--sage-primary);
+            opacity: 1;
+        }
+
+        /* === INDIVIDUAL PATHWAYS === */
+        .pathways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .pathway-card {
+            background: var(--sanctuary-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            transition: all var(--duration-base) var(--ease-sanctuary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pathway-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        .pathway-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .pathway-symbol {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--sage-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sanctuary);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .pathway-info {
+            flex: 1;
+        }
+
+        .pathway-title {
+            color: var(--sage-active);
+            font-size: 18px;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xs);
+        }
+
+        .pathway-subtitle {
+            color: var(--sage-active);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .pathway-description {
+            color: var(--sage-active);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        .pathway-progress {
+            margin-bottom: var(--space-md);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(164, 183, 146, 0.2);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: var(--space-xs);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--sage-primary), var(--spiritual-gold));
+            border-radius: var(--radius-sm);
+            transition: width var(--duration-slow) var(--ease-sanctuary);
+        }
+
+        .progress-text {
+            color: var(--sage-active);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .pathway-meta {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .meta-chip {
+            background: rgba(164, 183, 146, 0.1);
+            color: var(--sage-active);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .pathway-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-sanctuary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--sage-primary);
+            color: var(--sanctuary);
+        }
+
+        .btn-primary:hover {
+            background: var(--sage-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sage-active);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(164, 183, 146, 0.1);
+        }
+
+        /* === ENHANCED CRISIS SUPPORT === */
+        .crisis-support {
+            position: fixed;
+            bottom: var(--space-lg);
+            right: var(--space-lg);
+            z-index: 1000;
+        }
+
+        .crisis-button {
+            background: var(--compassion-rose);
+            color: var(--sanctuary);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: all var(--duration-fast) var(--ease-sanctuary);
+        }
+
+        .crisis-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Pathway-specific crisis warnings */
+        .pathway-warning {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            display: none;
+        }
+        
+        .pathway-warning.visible {
+            display: block;
+            animation: gentle-fade-in 0.5s ease;
+        }
+        
+        .pathway-warning-content {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+        
+        .pathway-warning-icon {
+            color: var(--compassion-rose);
+            font-size: 1.25rem;
+            margin-top: 2px;
+        }
+        
+        .pathway-warning-text h4 {
+            color: var(--compassion-rose);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-xs);
+            font-size: 14px;
+        }
+        
+        .pathway-warning-text p {
+            color: var(--sage-active);
+            opacity: 0.8;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .pathway-warning-actions {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        
+        .warning-btn {
+            padding: var(--space-xs) var(--space-sm);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            background: transparent;
+            color: var(--sage-active);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-sanctuary);
+        }
+        
+        .warning-btn:hover {
+            background: rgba(164, 183, 146, 0.1);
+        }
+        
+        .warning-btn.crisis {
+            background: var(--compassion-rose);
+            color: var(--sanctuary);
+            border-color: var(--compassion-rose);
+        }
+        
+        .warning-btn.crisis:hover {
+            opacity: 0.9;
+        }
+        
+        @keyframes gentle-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === BREATHING ANIMATIONS === */
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+
+        .breathing-element {
+            animation: breathing var(--duration-breathing) infinite;
+        }
+
+        /* === MOBILE RESPONSIVE === */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+
+            .dashboard-header {
+                padding: var(--space-lg) 0;
+            }
+
+            .pathway-categories {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .pathways-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .pathway-visualization {
+                padding: var(--space-lg);
+            }
+
+            .pathway-map {
+                height: 300px;
+            }
+
+            .pathway-node {
+                width: 50px;
+                height: 50px;
+                font-size: 14px;
+            }
+
+            .preference-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .preference-chip {
+                min-width: 200px;
+                text-align: center;
+            }
+
+            .pathway-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        /* === ACCESSIBILITY === */
+        @media (prefers-contrast: high) {
+            .category-card,
+            .pathway-card,
+            .spiritual-preferences,
+            .pathway-visualization {
+                border: 2px solid var(--sage-active);
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* === FADE IN ANIMATIONS === */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s var(--ease-sanctuary) forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        .fade-in-delay-3 { animation-delay: 0.3s; }
+        .fade-in-delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <!-- Dashboard Header -->
+        <header class="dashboard-header fade-in">
+            <h1 class="dashboard-title">Sacred Pathways to Healing</h1>
+            <p class="dashboard-subtitle">
+                Discover your unique journey through trauma-informed healing practices that honor your spiritual and cultural background
+            </p>
+        </header>
+
+        <!-- Spiritual Preferences -->
+        <section class="spiritual-preferences fade-in fade-in-delay-1" aria-labelledby="preferences-title">
+            <h2 id="preferences-title" class="preference-title">Choose Your Meaning-Making Approach</h2>
+            <div class="preference-options" role="group" aria-label="Spiritual and philosophical preferences">
+                <button class="preference-chip active" data-approach="inclusive">
+                    🌍 Universal & Inclusive
+                </button>
+                <button class="preference-chip" data-approach="spiritual">
+                    ✨ Spiritual & Sacred
+                </button>
+                <button class="preference-chip" data-approach="secular">
+                    🧠 Secular & Philosophical
+                </button>
+                <button class="preference-chip" data-approach="religious">
+                    🙏 Faith-Based Traditions
+                </button>
+                <button class="preference-chip" data-approach="indigenous">
+                    🌿 Indigenous Wisdom
+                </button>
+                <button class="preference-chip" data-approach="creative">
+                    🎨 Creative & Artistic
+                </button>
+            </div>
+        </section>
+
+        <!-- Pathway Categories -->
+        <section class="pathway-categories fade-in fade-in-delay-2" aria-labelledby="categories-title">
+            <h2 id="categories-title" class="sr-only">Healing Pathway Categories</h2>
+            
+            <article class="category-card" data-category="trauma-informed">
+                <div class="category-icon">🛡️</div>
+                <h3 class="category-title">Trauma-Informed Healing</h3>
+                <p class="category-description">
+                    Gentle approaches to processing difficult experiences with safety and self-compassion at the center
+                </p>
+                <div class="category-pathways-count">4 pathways available</div>
+            </article>
+
+            <article class="category-card" data-category="spiritual-meaning">
+                <div class="category-icon">🌟</div>
+                <h3 class="category-title">Spiritual & Meaning-Making</h3>
+                <p class="category-description">
+                    Explore purpose, connection to something greater, and sacred practices from diverse traditions
+                </p>
+                <div class="category-pathways-count">6 pathways available</div>
+            </article>
+
+            <article class="category-card" data-category="universal-human">
+                <div class="category-icon">💝</div>
+                <h3 class="category-title">Universal Human Connection</h3>
+                <p class="category-description">
+                    Build relationships, express creativity, and contribute to your community and the world
+                </p>
+                <div class="category-pathways-count">5 pathways available</div>
+            </article>
+        </section>
+
+        <!-- Current Journey Visualization -->
+        <section class="pathway-visualization fade-in fade-in-delay-3" aria-labelledby="visualization-title">
+            <h2 id="visualization-title" class="preference-title">Your Current Journey Map</h2>
+            <div class="pathway-map" role="img" aria-label="Interactive pathway progress visualization">
+                <!-- SVG-based pathway visualization will be generated here -->
+                <div class="pathway-node completed" style="left: 10%; top: 50%;" data-step="1">
+                    ✓
+                </div>
+                <div class="pathway-connection completed" style="left: 13%; top: 50%; width: 15%; transform: translateY(-1px);"></div>
+                
+                <div class="pathway-node completed" style="left: 25%; top: 30%;" data-step="2">
+                    ✓
+                </div>
+                <div class="pathway-connection completed" style="left: 28%; top: 30%; width: 15%; transform: rotate(20deg) translateY(-1px);"></div>
+                
+                <div class="pathway-node current" style="left: 40%; top: 20%;" data-step="3">
+                    3
+                </div>
+                <div class="pathway-connection" style="left: 43%; top: 20%; width: 15%; transform: rotate(-10deg) translateY(-1px);"></div>
+                
+                <div class="pathway-node" style="left: 55%; top: 40%;" data-step="4">
+                    4
+                </div>
+                <div class="pathway-connection" style="left: 58%; top: 40%; width: 15%; transform: rotate(15deg) translateY(-1px);"></div>
+                
+                <div class="pathway-node" style="left: 70%; top: 60%;" data-step="5">
+                    5
+                </div>
+                <div class="pathway-connection" style="left: 73%; top: 60%; width: 15%; transform: rotate(-20deg) translateY(-1px);"></div>
+                
+                <div class="pathway-node" style="left: 85%; top: 50%;" data-step="6">
+                    ✨
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Pathways -->
+        <section class="pathways-grid fade-in fade-in-delay-4" aria-labelledby="pathways-title">
+            <h2 id="pathways-title" class="sr-only">Available Healing Pathways</h2>
+            
+            <!-- Shadow Work & Integration -->
+            <article class="pathway-card">
+                <!-- Pathway-specific warning for intensive work -->
+                <div class="pathway-warning" id="shadow-work-warning">
+                    <div class="pathway-warning-content">
+                        <div class="pathway-warning-icon">⚠️</div>
+                        <div>
+                            <div class="pathway-warning-text">
+                                <h4>Intensive Healing Work</h4>
+                                <p>Shadow work can bring up difficult emotions. Please ensure you have support systems in place.</p>
+                                <div class="pathway-warning-actions">
+                                    <button class="warning-btn" onclick="hidePathwayWarning('shadow-work-warning')">I understand</button>
+                                    <button class="warning-btn crisis" onclick="showPathwayCrisisSupport()">Get Support</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway-header">
+                    <div class="pathway-symbol">🌑</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Shadow Work & Integration</h3>
+                        <p class="pathway-subtitle">Depth Psychology Approach</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Explore the hidden aspects of yourself with gentle curiosity, integrating all parts of your experience into wholeness.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%;"></div>
+                    </div>
+                    <div class="progress-text">Step 3 of 8 • 30% complete</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Transformative</span>
+                    <span class="meta-chip">8 weeks</span>
+                    <span class="meta-chip">Trauma-informed</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Continue Journey</button>
+                    <button class="btn btn-secondary">View Details</button>
+                </div>
+            </article>
+
+            <!-- Mindfulness & Present Moment -->
+            <article class="pathway-card">
+                <div class="pathway-header">
+                    <div class="pathway-symbol">🧘</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Mindfulness & Present Moment</h3>
+                        <p class="pathway-subtitle">Buddhist-Influenced Practice</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Cultivate awareness and peace through mindfulness practices adapted for trauma survivors and modern life.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Ready to begin</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Gentle</span>
+                    <span class="meta-chip">6 weeks</span>
+                    <span class="meta-chip">Daily practice</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Start Pathway</button>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+            </article>
+
+            <!-- Sacred Activism -->
+            <article class="pathway-card">
+                <div class="pathway-header">
+                    <div class="pathway-symbol">✊</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Sacred Activism & Purpose</h3>
+                        <p class="pathway-subtitle">Healing Through Service</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Transform personal healing into collective action, finding purpose through service to justice and community.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Ready to begin</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Empowering</span>
+                    <span class="meta-chip">10 weeks</span>
+                    <span class="meta-chip">Community-focused</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Start Pathway</button>
+                    <button class="btn btn-secondary">Prerequisites</button>
+                </div>
+            </article>
+
+            <!-- Somatic Healing -->
+            <article class="pathway-card">
+                <!-- Somatic work warning -->
+                <div class="pathway-warning" id="somatic-warning">
+                    <div class="pathway-warning-content">
+                        <div class="pathway-warning-icon">💙</div>
+                        <div>
+                            <div class="pathway-warning-text">
+                                <h4>Body-Based Healing</h4>
+                                <p>Somatic work can surface stored trauma. Go at your own pace and honor your body's wisdom.</p>
+                                <div class="pathway-warning-actions">
+                                    <button class="warning-btn" onclick="hidePathwayWarning('somatic-warning')">I'm ready</button>
+                                    <button class="warning-btn" onclick="showBreathingSupport()">Breathing help</button>
+                                    <button class="warning-btn crisis" onclick="showPathwayCrisisSupport()">Crisis support</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pathway-header">
+                    <div class="pathway-symbol">🌊</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Somatic Healing & Body Wisdom</h3>
+                        <p class="pathway-subtitle">Embodiment Focus</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Reconnect with your body's natural healing wisdom through gentle movement, breath, and somatic practices.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Ready to begin</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Gentle</span>
+                    <span class="meta-chip">8 weeks</span>
+                    <span class="meta-chip">Body-based</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Start Pathway</button>
+                    <button class="btn btn-secondary">Safety Info</button>
+                </div>
+            </article>
+
+            <!-- Creative Expression -->
+            <article class="pathway-card">
+                <div class="pathway-header">
+                    <div class="pathway-symbol">🎨</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Creative Expression & Art Healing</h3>
+                        <p class="pathway-subtitle">Artistic Healing Journey</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Express and process emotions through various art forms, discovering healing through creative practice.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Ready to begin</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Expressive</span>
+                    <span class="meta-chip">6 weeks</span>
+                    <span class="meta-chip">Creative tools</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Start Pathway</button>
+                    <button class="btn btn-secondary">Materials List</button>
+                </div>
+            </article>
+
+            <!-- Ancestral Wisdom -->
+            <article class="pathway-card">
+                <div class="pathway-header">
+                    <div class="pathway-symbol">🌿</div>
+                    <div class="pathway-info">
+                        <h3 class="pathway-title">Ancestral Wisdom & Cultural Healing</h3>
+                        <p class="pathway-subtitle">Honoring Lineage</p>
+                    </div>
+                </div>
+                <p class="pathway-description">
+                    Connect with the wisdom of your ancestors and cultural traditions for healing and strength.
+                </p>
+                <div class="pathway-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text">Ready to begin</div>
+                </div>
+                <div class="pathway-meta">
+                    <span class="meta-chip">Cultural</span>
+                    <span class="meta-chip">Flexible timing</span>
+                    <span class="meta-chip">Personalized</span>
+                </div>
+                <div class="pathway-actions">
+                    <button class="btn btn-primary">Start Pathway</button>
+                    <button class="btn btn-secondary">Cultural Guide</button>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- Crisis Support - will be automatically created by crisis-support-system.js -->
+
+    <script>
+        // === ALCHM PATHWAYS DASHBOARD INTELLIGENCE === 
+        
+        class PathwaysDashboard {
+            constructor() {
+                this.currentApproach = 'inclusive';
+                this.userProgress = this.loadUserProgress();
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.initializeAnimations();
+                this.loadPathwayRecommendations();
+                this.setupAccessibility();
+                
+                // Respect user motion preferences
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    this.disableAnimations();
+                }
+            }
+
+            setupEventListeners() {
+                // Spiritual preference selection
+                document.querySelectorAll('.preference-chip').forEach(chip => {
+                    chip.addEventListener('click', (e) => {
+                        this.selectApproach(e.target.dataset.approach);
+                    });
+                });
+
+                // Category selection
+                document.querySelectorAll('.category-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        this.selectCategory(e.currentTarget.dataset.category);
+                    });
+                });
+
+                // Pathway actions
+                document.querySelectorAll('.btn-primary').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.handlePathwayAction(e.target);
+                    });
+                });
+
+                // Pathway node interactions
+                document.querySelectorAll('.pathway-node').forEach(node => {
+                    node.addEventListener('click', (e) => {
+                        this.showStepDetails(e.target.dataset.step);
+                    });
+                });
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    this.handleKeyboardNavigation(e);
+                });
+            }
+
+            selectApproach(approach) {
+                // Update active state
+                document.querySelectorAll('.preference-chip').forEach(chip => {
+                    chip.classList.remove('active');
+                });
+                document.querySelector(`[data-approach="${approach}"]`).classList.add('active');
+
+                this.currentApproach = approach;
+                this.adaptContentForApproach(approach);
+                this.saveUserPreferences();
+            }
+
+            adaptContentForApproach(approach) {
+                const adaptations = {
+                    'inclusive': {
+                        language: 'universal',
+                        symbols: '🌍',
+                        focus: 'Human experience and growth'
+                    },
+                    'spiritual': {
+                        language: 'sacred',
+                        symbols: '✨',
+                        focus: 'Sacred practices and divine connection'
+                    },
+                    'secular': {
+                        language: 'philosophical',
+                        symbols: '🧠',
+                        focus: 'Evidence-based and rational approaches'
+                    },
+                    'religious': {
+                        language: 'faith-based',
+                        symbols: '🙏',
+                        focus: 'Traditional religious practices'
+                    },
+                    'indigenous': {
+                        language: 'ancestral',
+                        symbols: '🌿',
+                        focus: 'Indigenous wisdom and earth connection'
+                    },
+                    'creative': {
+                        language: 'artistic',
+                        symbols: '🎨',
+                        focus: 'Creative expression and artistic healing'
+                    }
+                };
+
+                const adaptation = adaptations[approach];
+                if (adaptation) {
+                    this.updatePathwayLanguage(adaptation);
+                    this.filterRelevantPathways(approach);
+                }
+            }
+
+            updatePathwayLanguage(adaptation) {
+                // Update pathway descriptions based on chosen approach
+                document.querySelectorAll('.pathway-description').forEach(desc => {
+                    const originalText = desc.textContent;
+                    // This would connect to a more sophisticated adaptation system
+                    // For now, we'll add approach-specific context
+                    if (adaptation.language === 'sacred') {
+                        // Add spiritual language nuances
+                    } else if (adaptation.language === 'secular') {
+                        // Add scientific/philosophical framing
+                    }
+                });
+            }
+
+            selectCategory(category) {
+                // Highlight selected category
+                document.querySelectorAll('.category-card').forEach(card => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '';
+                });
+
+                const selectedCard = document.querySelector(`[data-category="${category}"]`);
+                selectedCard.style.transform = 'translateY(-8px)';
+                selectedCard.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.2)';
+
+                // Filter pathways by category
+                this.filterPathwaysByCategory(category);
+                
+                // Smooth scroll to pathways
+                document.querySelector('.pathways-grid').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            filterPathwaysByCategory(category) {
+                const categoryMappings = {
+                    'trauma-informed': ['Shadow Work & Integration', 'Somatic Healing & Body Wisdom'],
+                    'spiritual-meaning': ['Mindfulness & Present Moment', 'Sacred Activism & Purpose', 'Ancestral Wisdom & Cultural Healing'],
+                    'universal-human': ['Creative Expression & Art Healing', 'Relationship & Connection', 'Service & Contribution']
+                };
+
+                const relevantPathways = categoryMappings[category] || [];
+                
+                document.querySelectorAll('.pathway-card').forEach(card => {
+                    const title = card.querySelector('.pathway-title').textContent;
+                    if (relevantPathways.some(pathway => title.includes(pathway.split(' &')[0]))) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        card.style.opacity = '0.5';
+                    }
+                });
+            }
+
+            handlePathwayAction(button) {
+                const card = button.closest('.pathway-card');
+                const title = card.querySelector('.pathway-title').textContent;
+                const action = button.textContent;
+                
+                // Check if this pathway requires crisis warning
+                const needsWarning = this.pathwayNeedsWarning(title);
+                if (needsWarning && (action.includes('Start') || action.includes('Continue'))) {
+                    this.showPathwayWarning(title, card);
+                    return;
+                }
+
+                if (action.includes('Continue')) {
+                    this.continuePathway(title);
+                } else if (action.includes('Start')) {
+                    this.startPathway(title);
+                } else {
+                    this.showPathwayDetails(title);
+                }
+            }
+            
+            pathwayNeedsWarning(title) {
+                const intensivePathways = [
+                    'Shadow Work & Integration',
+                    'Somatic Healing & Body Wisdom',
+                    'Trauma-Informed Healing'
+                ];
+                
+                return intensivePathways.some(pathway => title.includes(pathway.split(' &')[0]));
+            }
+            
+            showPathwayWarning(title, card) {
+                let warningId = null;
+                
+                if (title.includes('Shadow Work')) {
+                    warningId = 'shadow-work-warning';
+                } else if (title.includes('Somatic')) {
+                    warningId = 'somatic-warning';
+                }
+                
+                if (warningId) {
+                    const warning = card.querySelector(`#${warningId}`);
+                    if (warning) {
+                        warning.classList.add('visible');
+                        
+                        // Scroll warning into view
+                        warning.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                        
+                        // Announce to screen readers
+                        const announcement = document.createElement('div');
+                        announcement.setAttribute('aria-live', 'polite');
+                        announcement.style.position = 'absolute';
+                        announcement.style.left = '-10000px';
+                        announcement.textContent = 'Important pathway safety information is now displayed.';
+                        document.body.appendChild(announcement);
+                        
+                        setTimeout(() => {
+                            announcement.remove();
+                        }, 1000);
+                    }
+                }
+            }
+
+            startPathway(pathwayTitle) {
+                // Show pathway introduction with cultural adaptations
+                this.showPathwayIntroduction(pathwayTitle);
+            }
+
+            continuePathway(pathwayTitle) {
+                // Resume current pathway
+                this.navigateToCurrentStep(pathwayTitle);
+            }
+
+            showPathwayIntroduction(pathwayTitle) {
+                // Create modal or navigate to pathway page
+                const approach = this.currentApproach;
+                
+                // This would show a culturally-adapted introduction
+                alert(`Starting ${pathwayTitle} with ${approach} approach. This would show a proper introduction modal with cultural adaptations.`);
+            }
+
+            showStepDetails(stepNumber) {
+                // Show details for specific pathway step
+                const stepDetails = {
+                    '1': 'Foundation: Setting intentions and creating safety',
+                    '2': 'Awareness: Beginning to notice patterns',
+                    '3': 'Exploration: Diving deeper with support',
+                    '4': 'Integration: Connecting insights to life',
+                    '5': 'Practice: Building new habits',
+                    '6': 'Celebration: Honoring your journey'
+                };
+
+                const detail = stepDetails[stepNumber];
+                if (detail) {
+                    // This would show a proper modal
+                    this.showTooltip(`Step ${stepNumber}: ${detail}`);
+                }
+            }
+
+            showTooltip(message) {
+                // Simple tooltip implementation
+                const tooltip = document.createElement('div');
+                tooltip.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--sanctuary-glass);
+                    backdrop-filter: blur(20px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: var(--radius-xl);
+                    padding: var(--space-lg);
+                    color: var(--sage-active);
+                    z-index: 1000;
+                    max-width: 400px;
+                    text-align: center;
+                `;
+                tooltip.textContent = message;
+                
+                document.body.appendChild(tooltip);
+                
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 3000);
+            }
+
+            initializeAnimations() {
+                // Add staggered fade-in animations
+                const elements = document.querySelectorAll('.fade-in');
+                elements.forEach((el, index) => {
+                    el.style.animationDelay = `${index * 0.1}s`;
+                });
+
+                // Initialize breathing animations for current pathway node
+                const currentNode = document.querySelector('.pathway-node.current');
+                if (currentNode) {
+                    currentNode.classList.add('breathing-element');
+                }
+            }
+
+            loadPathwayRecommendations() {
+                // This would connect to the backend pathway recommendation system
+                // For now, we'll simulate recommendations based on user approach
+                const recommendations = this.getRecommendationsForApproach(this.currentApproach);
+                this.highlightRecommendedPathways(recommendations);
+            }
+
+            getRecommendationsForApproach(approach) {
+                const recommendations = {
+                    'inclusive': ['Mindfulness & Present Moment', 'Creative Expression & Art Healing'],
+                    'spiritual': ['Sacred Activism & Purpose', 'Ancestral Wisdom & Cultural Healing'],
+                    'secular': ['Shadow Work & Integration', 'Somatic Healing & Body Wisdom'],
+                    'religious': ['Mindfulness & Present Moment', 'Sacred Activism & Purpose'],
+                    'indigenous': ['Ancestral Wisdom & Cultural Healing', 'Somatic Healing & Body Wisdom'],
+                    'creative': ['Creative Expression & Art Healing', 'Shadow Work & Integration']
+                };
+
+                return recommendations[approach] || [];
+            }
+
+            highlightRecommendedPathways(recommendations) {
+                document.querySelectorAll('.pathway-card').forEach(card => {
+                    const title = card.querySelector('.pathway-title').textContent;
+                    if (recommendations.some(rec => title.includes(rec.split(' &')[0]))) {
+                        // Add subtle highlight
+                        card.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+                        
+                        // Add recommendation badge
+                        if (!card.querySelector('.recommendation-badge')) {
+                            const badge = document.createElement('div');
+                            badge.className = 'recommendation-badge';
+                            badge.style.cssText = `
+                                position: absolute;
+                                top: var(--space-sm);
+                                right: var(--space-sm);
+                                background: var(--spiritual-gold);
+                                color: var(--sanctuary);
+                                padding: var(--space-xs) var(--space-sm);
+                                border-radius: var(--radius-sm);
+                                font-size: 12px;
+                                font-weight: var(--font-weight-medium);
+                            `;
+                            badge.textContent = 'Recommended';
+                            card.style.position = 'relative';
+                            card.appendChild(badge);
+                        }
+                    }
+                });
+            }
+
+            setupAccessibility() {
+                // Enhanced keyboard navigation
+                const focusableElements = document.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+
+                // Add focus indicators
+                focusableElements.forEach(el => {
+                    el.addEventListener('focus', () => {
+                        el.style.outline = '2px solid var(--spiritual-gold)';
+                        el.style.outlineOffset = '2px';
+                    });
+
+                    el.addEventListener('blur', () => {
+                        el.style.outline = '';
+                        el.style.outlineOffset = '';
+                    });
+                });
+            }
+
+            handleKeyboardNavigation(e) {
+                // Escape key to close modals or return to overview
+                if (e.key === 'Escape') {
+                    this.resetFilters();
+                }
+
+                // Space/Enter on pathway cards
+                if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('pathway-card')) {
+                    e.preventDefault();
+                    this.selectPathway(e.target);
+                }
+            }
+
+            resetFilters() {
+                // Reset all pathway visibility
+                document.querySelectorAll('.pathway-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.display = 'block';
+                });
+
+                // Reset category highlighting
+                document.querySelectorAll('.category-card').forEach(card => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '';
+                });
+            }
+
+            disableAnimations() {
+                // Disable animations for users who prefer reduced motion
+                const style = document.createElement('style');
+                style.textContent = `
+                    *, *::before, *::after {
+                        animation-duration: 0.01ms !important;
+                        animation-iteration-count: 1 !important;
+                        transition-duration: 0.01ms !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            loadUserProgress() {
+                // Load from localStorage or API
+                const saved = localStorage.getItem('alchm-pathway-progress');
+                return saved ? JSON.parse(saved) : {
+                    completedSteps: 2,
+                    currentPathway: 'Shadow Work & Integration',
+                    approach: 'inclusive'
+                };
+            }
+
+            saveUserPreferences() {
+                const preferences = {
+                    approach: this.currentApproach,
+                    lastVisit: new Date().toISOString()
+                };
+                localStorage.setItem('alchm-user-preferences', JSON.stringify(preferences));
+            }
+        }
+
+        // Enhanced Crisis Support Functions
+        function showCrisisSupport() {
+            // Use comprehensive crisis support system if available
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.openCrisisSupport();
+                return;
+            }
+            
+            // Fallback crisis modal for pathways context
+            const crisisModal = document.createElement('div');
+            crisisModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                padding: var(--space-lg);
+            `;
+
+            crisisModal.innerHTML = `
+                <div style="
+                    background: var(--sanctuary);
+                    border-radius: var(--radius-xl);
+                    padding: var(--space-xl);
+                    max-width: 500px;
+                    text-align: center;
+                    color: var(--sage-active);
+                ">
+                    <h2 style="margin-bottom: var(--space-md); color: var(--compassion-rose);">
+                        💝 Immediate Support Available
+                    </h2>
+                    <p style="margin-bottom: var(--space-lg); line-height: 1.6;">
+                        Healing journeys can bring up difficult emotions. You are not alone - support is available 24/7.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                        <a href="tel:988" class="btn btn-primary" style="text-decoration: none;">
+                            📞 Call Crisis Lifeline: 988
+                        </a>
+                        <a href="sms:741741" class="btn btn-primary" style="text-decoration: none;">
+                            💬 Text HOME to 741741
+                        </a>
+                        <button class="btn btn-secondary" onclick="startPathwayBreathing(); this.closest('div').remove();">
+                            🫁 Breathing Exercise
+                        </button>
+                        <button class="btn btn-secondary" onclick="this.closest('div').remove();">
+                            Return to Pathways
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(crisisModal);
+
+            // Close on escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    crisisModal.remove();
+                }
+            });
+
+            // Close on backdrop click
+            crisisModal.addEventListener('click', function(e) {
+                if (e.target === crisisModal) {
+                    crisisModal.remove();
+                }
+            });
+        }
+        
+        function showPathwayCrisisSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'support',
+                    title: 'Support during healing work',
+                    message: 'Healing pathways can bring up intense emotions. This is normal and you have support available.',
+                    showResources: true,
+                    showTechniques: true,
+                    actions: [
+                        { text: 'Call 988', action: 'call988' },
+                        { text: 'Text Crisis Line', action: 'text741741' },
+                        { text: 'Breathing exercise', action: 'grounding' },
+                        { text: 'Close', action: 'dismiss' }
+                    ]
+                });
+            } else {
+                showCrisisSupport();
+            }
+        }
+        
+        function showBreathingSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.startGuidedTechnique('Box Breathing');
+            } else {
+                startPathwayBreathing();
+            }
+        }
+        
+        function startPathwayBreathing() {
+            alert('Take a moment to breathe slowly and deeply.\n\nIn for 4... Hold for 4... Out for 4... Hold for 4...\n\nRepeat as needed. You are safe.');
+        }
+        
+        function hidePathwayWarning(warningId) {
+            const warning = document.getElementById(warningId);
+            if (warning) {
+                warning.classList.remove('visible');
+            }
+        }
+
+        // Initialize Dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            new PathwaysDashboard();
+            
+            // Initialize pathway-aware crisis monitoring
+            initializePathwayCrisisMonitoring();
+        });
+        
+        function initializePathwayCrisisMonitoring() {
+            // Monitor for signs that user may need extra support during pathway work
+            let pathwayEngagementTime = 0;
+            let intensivePathwaySelected = false;
+            
+            // Track time spent on intensive pathways
+            const intensivePathways = document.querySelectorAll('.pathway-card');
+            intensivePathways.forEach(card => {
+                const title = card.querySelector('.pathway-title').textContent;
+                if (title.includes('Shadow Work') || title.includes('Somatic')) {
+                    card.addEventListener('mouseenter', () => {
+                        pathwayEngagementTime = Date.now();
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        const timeSpent = Date.now() - pathwayEngagementTime;
+                        if (timeSpent > 30000) { // 30 seconds of consideration
+                            showGentleCheckIn();
+                        }
+                    });
+                }
+            });
+        }
+        
+        function showGentleCheckIn() {
+            // Only show once per session
+            if (sessionStorage.getItem('pathway-checkin-shown')) return;
+            
+            setTimeout(() => {
+                if (window.ALCHMCrisis) {
+                    window.ALCHMCrisis.showCrisisModal({
+                        type: 'gentle',
+                        title: 'Taking your time with this choice?',
+                        message: 'Deep healing work is a big step. How are you feeling right now?',
+                        actions: [
+                            { text: 'I\'m ready', action: 'dismiss' },
+                            { text: 'I need support', action: 'resources' },
+                            { text: 'Breathing space', action: 'grounding' }
+                        ]
+                    });
+                }
+                
+                sessionStorage.setItem('pathway-checkin-shown', 'true');
+            }, 5000);
+        }
+
+        // Service Worker for Offline Crisis Resources
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
+                console.log('Service worker registration failed:', err);
+            });
+        }
+        
+        // Pathway-specific crisis keyword monitoring
+        const pathwayDescriptions = document.querySelectorAll('.pathway-description');
+        pathwayDescriptions.forEach(desc => {
+            // Monitor if user spends extended time reading about intensive pathways
+            let readingStartTime = 0;
+            
+            desc.addEventListener('mouseenter', () => {
+                readingStartTime = Date.now();
+            });
+            
+            desc.addEventListener('mouseleave', () => {
+                const readingTime = Date.now() - readingStartTime;
+                if (readingTime > 15000) { // 15 seconds of reading
+                    const pathwayTitle = desc.closest('.pathway-card').querySelector('.pathway-title').textContent;
+                    if (pathwayTitle.includes('Shadow Work') || pathwayTitle.includes('Trauma')) {
+                        // Gentle reminder that support is available
+                        if (!sessionStorage.getItem('support-reminder-shown')) {
+                            setTimeout(() => {
+                                showSupportReminder();
+                                sessionStorage.setItem('support-reminder-shown', 'true');
+                            }, 2000);
+                        }
+                    }
+                }
+            });
+        });
+        
+        function showSupportReminder() {
+            const reminder = document.createElement('div');
+            reminder.style.cssText = `
+                position: fixed;
+                bottom: 120px;
+                right: var(--space-lg);
+                background: var(--sanctuary-glass);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(164, 183, 146, 0.3);
+                border-radius: var(--radius-lg);
+                padding: var(--space-md);
+                color: var(--sage-active);
+                font-size: 14px;
+                max-width: 280px;
+                z-index: 1000;
+                animation: gentle-fade-in 0.5s ease;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            `;
+            
+            reminder.innerHTML = `
+                <div style="display: flex; align-items: flex-start; gap: var(--space-sm);">
+                    <span style="font-size: 16px;">💝</span>
+                    <div>
+                        <p style="margin: 0 0 var(--space-xs) 0; font-weight: var(--font-weight-medium);">Support is here</p>
+                        <p style="margin: 0; opacity: 0.8; font-size: 13px; line-height: 1.4;">Healing work takes courage. Remember that support is available whenever you need it.</p>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="
+                            background: none;
+                            border: none;
+                            color: var(--sage-active);
+                            font-size: 12px;
+                            cursor: pointer;
+                            margin-top: var(--space-xs);
+                            opacity: 0.7;
+                        ">✕ Close</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(reminder);
+            
+            // Auto remove after 10 seconds
+            setTimeout(() => {
+                if (document.body.contains(reminder)) {
+                    reminder.remove();
+                }
+            }, 10000);
+        }
+    </script>
+</body>
+</html>

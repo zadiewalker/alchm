@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "timestamp": "2025-09-25T16:33:46.596Z",
+    "duration": "59s",
+    "environment": "development"
+  },
+  "results": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "successRate": 0
+  },
+  "issues": {
+    "critical": [
+      "Test suite failed: Dependency Validation"
+    ],
+    "warnings": [
+      "TypeScript compilation errors found"
+    ],
+    "recommendations": [
+      "🚨 Fix critical issues before deployment",
+      "Run \"npm run stubs:generate\" to fix import issues",
+      "⚠️  Address warnings to improve stability"
+    ]
+  },
+  "artifacts": {
+    "screenshots": false,
+    "videos": false,
+    "traces": false
+  }
+}

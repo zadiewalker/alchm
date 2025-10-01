@@ -1,0 +1,205 @@
+/**
+ * ALCHM Secure Khepera AI Integration
+ * Google AI-powered therapeutic companion with trauma-informed responses
+ * 
+ * CRITICAL: This system provides AI guidance to vulnerable users
+ * Responses must be therapeutic, culturally sensitive, and crisis-aware
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getServerConfig } from '@/lib/config';
+
+// Trauma-informed system prompt for Khepera
+const KHEPERA_SYSTEM_PROMPT = `You are Khepera, a wise, trauma-informed AI companion for the ALCHM mental health platform. Your role is to:
+
+CORE PRINCIPLES:
+- Provide compassionate, non-judgmental support
+- Recognize trauma responses and validate experiences
+- Encourage professional help when appropriate
+- Be culturally sensitive and inclusive
+- NEVER provide medical or crisis intervention advice
+- Always prioritize user safety and wellbeing
+
+RESPONSE STYLE:
+- Warm, wise, and gentle tone
+- Use metaphors of transformation (scarab beetle, alchemy)
+- Acknowledge pain without minimizing it
+- Offer hope while being realistic
+- Keep responses concise but meaningful (2-3 paragraphs max)
+
+CRISIS SAFETY:
+If you detect any signs of:
+- Suicidal ideation
+- Self-harm thoughts
+- Immediate danger
+- Severe mental health crisis
+
+Respond with: "I notice you're going through an incredibly difficult time. Your safety is most important right now. Please reach out to:"
+- 988 Suicide & Crisis Lifeline (call or text 988)
+- Crisis Text Line (text HOME to 741741)
+- Emergency services (911) if in immediate danger
+
+BOUNDARIES:
+- You are NOT a therapist or medical professional
+- Encourage professional support for ongoing mental health needs
+- Don't attempt to diagnose or treat mental health conditions
+- Refer complex trauma to qualified professionals
+
+Remember: You are a supportive companion on the healing journey, not a replacement for professional care.`;
+
+// Initialize Google AI with secure configuration
+function getGoogleAI(): GoogleGenerativeAI {
+  try {
+    const serverConfig = getServerConfig();
+    return new GoogleGenerativeAI(serverConfig.ai.googleApiKey);
+  } catch (error) {
+    console.error('Failed to initialize Google AI:', error);
+    throw new Error('Khepera AI service configuration error');
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { message, conversationHistory, userId } = await request.json();
+
+    if (!message || typeof message !== 'string') {
+      return NextResponse.json(
+        { error: 'Message is required' },
+        { status: 400 }
+      );
+    }
+
+    // Initialize Google AI
+    const genAI = getGoogleAI();
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash', // Fast, efficient for therapeutic conversations
+      generationConfig: {
+        temperature: 0.7, // Balanced creativity and consistency
+        topP: 0.8,
+        topK: 40,
+        maxOutputTokens: 500, // Keep responses concise
+      },
+      safetySettings: [
+        {
+          category: 'HARM_CATEGORY_HARASSMENT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_HATE_SPEECH',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+        {
+          category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+          threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+        },
+      ],
+    });
+
+    // Build conversation context (limit for privacy and performance)
+    let conversationContext = KHEPERA_SYSTEM_PROMPT + '\n\n';
+    
+    if (conversationHistory && Array.isArray(conversationHistory)) {
+      const recentHistory = conversationHistory.slice(-6); // Last 3 exchanges
+      for (const exchange of recentHistory) {
+        conversationContext += `User: ${exchange.user}\nKhepera: ${exchange.khepera}\n\n`;
+      }
+    }
+    
+    conversationContext += `User: ${message}\nKhepera:`;
+
+    // Generate response
+    const result = await model.generateContent(conversationContext);
+    const response = result.response;
+    const responseText = response.text();
+
+    // Crisis detection check
+    const containsCrisisResponse = responseText.toLowerCase().includes('988') || 
+                                 responseText.toLowerCase().includes('crisis') ||
+                                 responseText.toLowerCase().includes('emergency');
+
+    // Log interaction metadata (NO content) for monitoring
+    console.log('Khepera interaction:', {
+      userId: userId ? 'user-present' : 'anonymous',
+      messageLength: message.length,
+      responseLength: responseText.length,
+      crisisResponseTriggered: containsCrisisResponse,
+      timestamp: new Date().toISOString(),
+      // NO ACTUAL CONVERSATION CONTENT LOGGED
+    });
+
+    return NextResponse.json({
+      response: responseText,
+      timestamp: new Date().toISOString(),
+      model: 'gemini-1.5-flash',
+      crisisResourcesProvided: containsCrisisResponse,
+    });
+
+  } catch (error) {
+    console.error('Khepera AI error:', error);
+    
+    // Provide fallback therapeutic response
+    const fallbackResponse = `I'm experiencing some technical difficulties right now, but I want you to know that your feelings and experiences are valid. 
+
+    If you're in crisis or need immediate support, please reach out to:
+    - 988 Suicide & Crisis Lifeline (call or text 988)
+    - Crisis Text Line (text HOME to 741741)
+    
+    I'll be back soon to continue supporting your healing journey. Take care of yourself. 🌟`;
+
+    return NextResponse.json({
+      response: fallbackResponse,
+      error: 'AI service temporarily unavailable',
+      fallback: true,
+      crisisResourcesProvided: true,
+      timestamp: new Date().toISOString(),
+    });
+  }
+}
+
+// Health check for Khepera service
+export async function GET() {
+  try {
+    const serverConfig = getServerConfig();
+    const hasValidConfig = !!(serverConfig.ai.googleApiKey);
+    
+    return NextResponse.json({
+      status: 'operational',
+      service: 'khepera-ai',
+      model: 'gemini-1.5-flash',
+      configValid: hasValidConfig,
+      traumaInformed: true,
+      crisisAware: true,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        status: 'error',
+        service: 'khepera-ai',
+        error: 'AI service unavailable',
+        fallbackAvailable: true,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Security: Only allow POST and GET
+export async function PUT() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}

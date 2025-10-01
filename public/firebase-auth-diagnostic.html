@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firebase Auth Diagnostic - ALCHM</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body class="min-h-screen bg-gray-50 py-8">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">🔍 Firebase Auth Diagnostic Suite</h1>
+        <p class="text-gray-600">Comprehensive Google OAuth debugging for ALCHM</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Diagnostic Results -->
+        <div class="space-y-4">
+          <h2 class="text-xl font-semibold text-gray-900">🧪 Diagnostic Results</h2>
+          <div id="diagnostic-results" class="space-y-2">
+            <div class="p-3 bg-blue-50 rounded-lg text-blue-800 text-sm">
+              Running comprehensive diagnostics...
+            </div>
+          </div>
+        </div>
+
+        <!-- Test Controls -->
+        <div class="space-y-4">
+          <h2 class="text-xl font-semibold text-gray-900">🎛️ Test Controls</h2>
+          
+          <div class="space-y-3">
+            <button id="run-full-diagnostic" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              Run Full Diagnostic Suite
+            </button>
+            
+            <button id="test-firebase-config" class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors">
+              Test Firebase Configuration
+            </button>
+            
+            <button id="test-google-oauth" class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+              Test Google OAuth Setup
+            </button>
+            
+            <button id="test-popup-auth" class="w-full bg-yellow-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-yellow-700 transition-colors">
+              Test Popup Authentication
+            </button>
+            
+            <button id="test-redirect-auth" class="w-full bg-red-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-red-700 transition-colors">
+              Test Redirect Authentication
+            </button>
+            
+            <button id="clear-results" class="w-full bg-gray-500 text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-600 transition-colors">
+              Clear Results
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Logs -->
+      <div class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">📋 Detailed Logs</h2>
+        <div id="detailed-logs" class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm h-64 overflow-y-auto">
+          <div class="text-yellow-400">[SYSTEM] Firebase Auth Diagnostic Suite initialized</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Firebase with ALCHM configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+      authDomain: "alchm-digital-sanctuary.firebaseapp.com", 
+      projectId: "alchm-digital-sanctuary",
+      storageBucket: "alchm-digital-sanctuary.firebasestorage.app",
+      messagingSenderId: "171911707668",
+      appId: "1:171911707668:web:9750f89ed6f6352a257b01",
+      measurementId: "G-8YE7D8RQ0P"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    
+    // Diagnostic state
+    let diagnosticResults = [];
+    let testNumber = 0;
+    
+    // Logging functions
+    function addResult(type, title, message, details = null) {
+      const result = {
+        id: ++testNumber,
+        type, // 'success', 'error', 'warning', 'info'
+        title,
+        message,
+        details,
+        timestamp: new Date().toISOString()
+      };
+      
+      diagnosticResults.push(result);
+      updateResultsDisplay();
+      addDetailedLog(`[${type.toUpperCase()}] ${title}: ${message}`);
+      if (details) {
+        addDetailedLog(`[DETAILS] ${JSON.stringify(details, null, 2)}`);
+      }
+    }
+    
+    function addDetailedLog(message) {
+      const logsDiv = document.getElementById('detailed-logs');
+      const timestamp = new Date().toLocaleTimeString();
+      logsDiv.innerHTML += `<div class="text-gray-300">[${timestamp}] ${message}</div>`;
+      logsDiv.scrollTop = logsDiv.scrollHeight;
+    }
+    
+    function updateResultsDisplay() {
+      const resultsDiv = document.getElementById('diagnostic-results');
+      resultsDiv.innerHTML = '';
+      
+      diagnosticResults.forEach(result => {
+        const colorClass = {
+          'success': 'bg-green-50 border-green-200 text-green-800',
+          'error': 'bg-red-50 border-red-200 text-red-800',
+          'warning': 'bg-yellow-50 border-yellow-200 text-yellow-800',
+          'info': 'bg-blue-50 border-blue-200 text-blue-800'
+        }[result.type];
+        
+        const icon = {
+          'success': '✅',
+          'error': '❌',
+          'warning': '⚠️',
+          'info': 'ℹ️'
+        }[result.type];
+        
+        resultsDiv.innerHTML += `
+          <div class="p-3 border rounded-lg ${colorClass}">
+            <div class="font-medium">${icon} ${result.title}</div>
+            <div class="text-sm mt-1">${result.message}</div>
+          </div>
+        `;
+      });
+    }
+    
+    // Test Functions
+    async function testFirebaseConfiguration() {
+      addResult('info', 'Firebase Config Test', 'Starting Firebase configuration validation...');
+      
+      try {
+        // Test Firebase app initialization
+        const app = firebase.app();
+        addResult('success', 'Firebase App', 'Firebase app initialized successfully');
+        addResult('info', 'Project ID', `Connected to project: ${app.options.projectId}`);
+        addResult('info', 'Auth Domain', `Auth domain: ${app.options.authDomain}`);
+        
+        // Test Auth service
+        const authService = firebase.auth();
+        if (authService) {
+          addResult('success', 'Auth Service', 'Firebase Auth service available');
+        } else {
+          addResult('error', 'Auth Service', 'Firebase Auth service not available');
+          return false;
+        }
+        
+        // Test network connectivity to Firebase
+        try {
+          await authService.signInAnonymously();
+          await authService.signOut();
+          addResult('success', 'Network Connectivity', 'Firebase Auth network connectivity confirmed');
+        } catch (error) {
+          addResult('error', 'Network Connectivity', 'Failed to connect to Firebase Auth', error);
+          return false;
+        }
+        
+        return true;
+      } catch (error) {
+        addResult('error', 'Firebase Config', 'Firebase configuration failed', error);
+        return false;
+      }
+    }
+    
+    async function testGoogleOAuthSetup() {
+      addResult('info', 'Google OAuth Test', 'Starting Google OAuth configuration validation...');
+      
+      try {
+        // Test Google Auth Provider creation
+        const provider = new firebase.auth.GoogleAuthProvider();
+        addResult('success', 'Google Provider', 'Google Auth Provider created successfully');
+        
+        // Configure provider
+        provider.addScope('profile');
+        provider.addScope('email');
+        provider.setCustomParameters({
+          prompt: 'select_account'
+        });
+        addResult('success', 'Provider Config', 'Google OAuth scopes and parameters configured');
+        
+        // Test domain authorization by attempting to get redirect URL
+        try {
+          const redirectUrl = await auth.getRedirectResult();
+          addResult('success', 'Domain Authorization', 'Domain is properly configured for OAuth');
+        } catch (error) {
+          if (error.code === 'auth/unauthorized-domain') {
+            addResult('error', 'Domain Authorization', 'Domain not authorized in Firebase Console', error);
+            return false;
+          } else {
+            addResult('warning', 'Domain Check', 'Could not verify domain authorization', error);
+          }
+        }
+        
+        return true;
+      } catch (error) {
+        addResult('error', 'Google OAuth Setup', 'Google OAuth configuration failed', error);
+        return false;
+      }
+    }
+    
+    async function testPopupAuthentication() {
+      addResult('info', 'Popup Auth Test', 'Starting popup authentication test...');
+      
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('profile');
+        provider.addScope('email');
+        provider.setCustomParameters({
+          prompt: 'select_account'
+        });
+        
+        addResult('info', 'Popup Test', 'Attempting Google sign-in via popup...');
+        
+        const result = await auth.signInWithPopup(provider);
+        
+        if (result && result.user) {
+          addResult('success', 'Popup Authentication', `Successfully signed in: ${result.user.email}`);
+          addResult('info', 'User Details', `Name: ${result.user.displayName}, UID: ${result.user.uid}`);
+          
+          // Test sign out
+          await auth.signOut();
+          addResult('success', 'Sign Out', 'Successfully signed out');
+          
+          return true;
+        } else {
+          addResult('error', 'Popup Authentication', 'Popup returned no user result');
+          return false;
+        }
+        
+      } catch (error) {
+        let errorMessage = 'Popup authentication failed';
+        
+        if (error.code === 'auth/popup-blocked') {
+          errorMessage = 'Popup was blocked by browser - check popup settings';
+        } else if (error.code === 'auth/popup-closed-by-user') {
+          errorMessage = 'User closed the popup before completing sign-in';
+        } else if (error.code === 'auth/cancelled-popup-request') {
+          errorMessage = 'Another popup request is already pending';
+        }
+        
+        addResult('error', 'Popup Authentication', errorMessage, error);
+        return false;
+      }
+    }
+    
+    async function testRedirectAuthentication() {
+      addResult('info', 'Redirect Auth Test', 'Starting redirect authentication test...');
+      
+      try {
+        // First check if there's a pending redirect result
+        const redirectResult = await auth.getRedirectResult();
+        if (redirectResult && redirectResult.user) {
+          addResult('success', 'Redirect Result', `Found redirect result: ${redirectResult.user.email}`);
+          await auth.signOut();
+          return true;
+        }
+        
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('profile');
+        provider.addScope('email');
+        
+        addResult('info', 'Redirect Test', 'Initiating redirect authentication...');
+        
+        // This will redirect the page
+        await auth.signInWithRedirect(provider);
+        
+        // This won't execute due to redirect
+        return true;
+        
+      } catch (error) {
+        addResult('error', 'Redirect Authentication', 'Redirect authentication failed', error);
+        return false;
+      }
+    }
+    
+    function checkSecurityHeaders() {
+      addResult('info', 'Security Headers', 'Checking COEP/CORP headers...');
+      
+      // Check if page was loaded with restrictive headers
+      const coep = document.querySelector('meta[http-equiv="Cross-Origin-Embedder-Policy"]');
+      const coop = document.querySelector('meta[http-equiv="Cross-Origin-Opener-Policy"]');
+      
+      if (coep) {
+        addResult('warning', 'COEP Header', `Found COEP: ${coep.content} - may block OAuth`);
+      } else {
+        addResult('info', 'COEP Header', 'No COEP meta tag found in document');
+      }
+      
+      if (coop) {
+        addResult('warning', 'COOP Header', `Found COOP: ${coop.content} - may block OAuth`);
+      } else {
+        addResult('info', 'COOP Header', 'No COOP meta tag found in document');
+      }
+    }
+    
+    function checkBrowserCompatibility() {
+      addResult('info', 'Browser Check', 'Checking browser compatibility...');
+      
+      const userAgent = navigator.userAgent;
+      addResult('info', 'User Agent', userAgent);
+      
+      // Check popup support
+      if (typeof window.open === 'function') {
+        addResult('success', 'Popup Support', 'Browser supports popup windows');
+      } else {
+        addResult('error', 'Popup Support', 'Browser does not support popup windows');
+      }
+      
+      // Check localStorage for auth persistence
+      try {
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        addResult('success', 'LocalStorage', 'LocalStorage available for auth persistence');
+      } catch (e) {
+        addResult('error', 'LocalStorage', 'LocalStorage not available - auth won\'t persist');
+      }
+    }
+    
+    async function runFullDiagnostic() {
+      addResult('info', 'Full Diagnostic', 'Starting comprehensive Firebase Auth diagnostic...');
+      
+      checkBrowserCompatibility();
+      checkSecurityHeaders();
+      
+      const configOk = await testFirebaseConfiguration();
+      if (!configOk) {
+        addResult('error', 'Diagnostic Failed', 'Firebase configuration failed - stopping diagnostic');
+        return;
+      }
+      
+      const oauthOk = await testGoogleOAuthSetup();
+      if (!oauthOk) {
+        addResult('error', 'Diagnostic Failed', 'Google OAuth setup failed - stopping diagnostic');
+        return;
+      }
+      
+      // Only test popup if previous tests passed
+      await testPopupAuthentication();
+      
+      addResult('success', 'Diagnostic Complete', 'Full diagnostic suite completed');
+    }
+    
+    // Event listeners
+    document.getElementById('run-full-diagnostic').addEventListener('click', runFullDiagnostic);
+    document.getElementById('test-firebase-config').addEventListener('click', testFirebaseConfiguration);
+    document.getElementById('test-google-oauth').addEventListener('click', testGoogleOAuthSetup);
+    document.getElementById('test-popup-auth').addEventListener('click', testPopupAuthentication);
+    document.getElementById('test-redirect-auth').addEventListener('click', testRedirectAuthentication);
+    
+    document.getElementById('clear-results').addEventListener('click', () => {
+      diagnosticResults = [];
+      testNumber = 0;
+      updateResultsDisplay();
+      document.getElementById('detailed-logs').innerHTML = '<div class="text-yellow-400">[SYSTEM] Logs cleared</div>';
+    });
+    
+    // Auto-run basic checks on page load
+    setTimeout(() => {
+      addResult('info', 'Auto Diagnostic', 'Running initial checks...');
+      checkBrowserCompatibility();
+      checkSecurityHeaders();
+    }, 1000);
+    
+  </script>
+</body>
+</html>

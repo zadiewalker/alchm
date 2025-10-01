@@ -1,0 +1,55 @@
+# Firebase Studio MINIMAL NUCLEAR Configuration
+# Zero secrets, zero dependencies, maximum compatibility
+# Timestamp: 2025-09-07T16:30:00Z
+
+runConfig:
+  cpu: 1
+  memory: 2048Mi
+  minInstances: 0
+  maxInstances: 100
+  concurrency: 1000
+  timeoutSeconds: 60
+
+env:
+  # Core Configuration (NO SECRETS!)
+  - variable: NODE_ENV
+    value: production
+  - variable: BUILD_TARGET
+    value: firebase-studio-minimal
+  
+  # Firebase Public Configuration (Safe to hardcode)
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: alchm-digital-sanctuary.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: alchm-digital-sanctuary
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: alchm-digital-sanctuary.firebasestorage.app
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "171911707668"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:171911707668:web:9750f89ed6f6352a257b01
+  
+  # Basic Environment
+  - variable: NEXT_PUBLIC_ENVIRONMENT
+    value: production
+  - variable: FIREBASE_PROJECT_ID
+    value: alchm-digital-sanctuary
+  
+  # Crisis Support (Public safety info)
+  - variable: NEXT_PUBLIC_CRISIS_HOTLINES
+    value: "988,1-800-273-8255"
+  - variable: NEXT_PUBLIC_EMERGENCY_NUMBER
+    value: "911"
+
+# Health check
+healthCheck:
+  path: "/api/health/ping"
+
+# Security headers
+headers:
+  - key: X-Frame-Options
+    value: DENY
+  - key: X-Content-Type-Options
+    value: nosniff

@@ -379,7 +379,7 @@ export class ContextualPromptChainer {
       sage_oracle: "Ancient wisdom stirs in your bones, ready to speak through your voice.",
       mystic_healer: "The wounded healer in you recognizes the sacred medicine hidden in your pain.", 
       earth_guardian: "Your connection to the living world calls you to deeper rootedness.",
-      star_navigator: "The cosmic dreamer in you remembers possibilities beyond current circumstances.",
+      star_typeof window !== 'undefined' && navigator: "The cosmic dreamer in you remembers possibilities beyond current circumstances.",
       trickster_fool: "Your inner trickster grins, ready to shake loose what's gotten too serious.",
       cosmic_dancer: "Your body holds rhythms that your mind has forgotten.",
       dream_weaver: "The dream keeper in you knows the symbolic language of the unconscious.",

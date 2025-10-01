@@ -1,0 +1,112 @@
+{
+  "score": 86,
+  "results": {
+    "foundation": {
+      "coreFiles": {
+        "foundation": true,
+        "layout": true,
+        "globals": true
+      },
+      "designTokens": {
+        "sageColors": true,
+        "spacingSystem": true,
+        "touchTargets": true,
+        "animations": true,
+        "crisisColors": true
+      },
+      "imports": {
+        "foundationImported": true,
+        "layoutImported": true
+      }
+    },
+    "components": {
+      "SacredLayout": {
+        "exists": true,
+        "implemented": true,
+        "principles": {
+          "sacredNaming": true,
+          "traumaInformed": false,
+          "gentleAnimations": true,
+          "accessibilityFirst": true,
+          "crisisAware": true
+        }
+      },
+      "button": {
+        "exists": true,
+        "implemented": true,
+        "principles": {
+          "sacredNaming": true,
+          "traumaInformed": true,
+          "gentleAnimations": true,
+          "accessibilityFirst": false,
+          "crisisAware": true
+        }
+      },
+      "card": {
+        "exists": true,
+        "implemented": true,
+        "principles": {
+          "sacredNaming": true,
+          "traumaInformed": false,
+          "gentleAnimations": false,
+          "accessibilityFirst": false,
+          "crisisAware": false
+        }
+      }
+    },
+    "pages": {
+      "landing": {
+        "exists": true,
+        "principles": {
+          "radicalSimplification": true,
+          "singlePrimaryAction": true,
+          "materialHonesty": true,
+          "attentionToDetail": true,
+          "traumaInformed": true
+        }
+      },
+      "journal": {
+        "exists": true,
+        "principles": {
+          "radicalSimplification": true,
+          "singlePrimaryAction": true,
+          "materialHonesty": true,
+          "attentionToDetail": true,
+          "traumaInformed": true
+        }
+      },
+      "pricing": {
+        "exists": true,
+        "principles": {
+          "radicalSimplification": true,
+          "singlePrimaryAction": false,
+          "materialHonesty": true,
+          "attentionToDetail": true,
+          "traumaInformed": true
+        }
+      }
+    },
+    "accessibility": {
+      "reducedMotion": true,
+      "highContrast": true,
+      "focusVisible": true,
+      "touchTargets": true,
+      "crisisAccessibility": true,
+      "emergencyMode": true
+    },
+    "performance": {
+      "gentleAnimations": true,
+      "batteryOptimization": true,
+      "systemFonts": true,
+      "mobileBatteryConscious": true,
+      "reducedAnimationIntensity": true
+    }
+  },
+  "summary": {
+    "foundation": 3,
+    "components": 3,
+    "pages": 3,
+    "accessibility": 6,
+    "performance": 5
+  }
+}

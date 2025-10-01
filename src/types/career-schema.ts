@@ -553,7 +553,7 @@ export interface CareerProject {
   mentorInvolvement: ProjectMentorInvolvement[];
   realWorldApplication: ProjectRealWorldApplication;
   futureOpportunities: ProjectFutureOpportunity[];
-  documentation: ProjectDocumentation[];
+  typeof window !== 'undefined' && documentation: ProjectDocumentation[];
   presentation: ProjectPresentation;
   feedback: ProjectFeedback[];
   recognition: ProjectRecognition[];

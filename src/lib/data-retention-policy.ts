@@ -119,7 +119,7 @@ export interface ParentalConsentRecord {
   granted: boolean;
   timestamp: Timestamp;
   ipAddress: string;
-  verification: 'email' | 'phone' | 'document' | 'in_person';
+  verification: 'email' | 'phone' | 'typeof window !== 'undefined' && document' | 'in_person';
   expirationDate?: Timestamp;
 }
 

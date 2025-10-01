@@ -1,0 +1,864 @@
+/* ALCHM Jony Ive Design Foundation CSS */
+/* "Simplicity is the ultimate sophistication" - Leonardo da Vinci */
+/* Premium Digital Sanctuary - Trauma-Informed Design System */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES SYSTEM
+======================================== */
+
+:root {
+  /* Sage Green System - Primary Brand Identity */
+  --sage-50: #f8f9f7;
+  --sage-100: #f0f3ed;
+  --sage-200: #e1e8db;
+  --sage-300: #c9d5be;
+  --sage-400: #a4b792;  /* PRIMARY BRAND - Use thoughtfully */
+  --sage-500: #93a682;
+  --sage-600: #7a8c6a;
+  --sage-700: #5f6b52;
+  --sage-800: #4a5340;
+  --sage-900: #3a4233;
+
+  /* Sanctuary Neutrals - Premium Grays */
+  --sanctuary-white: #fefcfb;
+  --sanctuary-gray-50: #f9f9f8;
+  --sanctuary-gray-100: #f3f3f2;
+  --sanctuary-gray-200: #e5e5e4;
+  --sanctuary-gray-300: #d1d1cf;
+  --sanctuary-gray-400: #9e9e9b;
+  --sanctuary-gray-500: #7c7c79;
+  --sanctuary-gray-600: #6b6b68;
+  --sanctuary-gray-700: #4a4a48;
+  --sanctuary-gray-800: #2e2e2d;
+  --sanctuary-gray-900: #1a1a19;
+
+  /* Crisis Support Colors - Elegant but Urgent */
+  --crisis-red: #dc2626;
+  --crisis-red-hover: #b91c1c;
+  --crisis-amber: #f59e0b;
+  --crisis-green: var(--sage-600);
+
+  /* Typography System - Limited Jony Ive Approach */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  
+  /* Font Weights - Only 3 for Premium Feel */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+
+  /* Spacing System - Mathematical 8px Grid Progression */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px - Base unit */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+
+  /* Border Radius Hierarchy */
+  --radius-sm: 0.375rem;   /* 6px - Small elements */
+  --radius-md: 0.5rem;     /* 8px - Standard buttons */
+  --radius-lg: 0.75rem;    /* 12px - Input fields */
+  --radius-xl: 1rem;       /* 16px - Primary buttons */
+  --radius-2xl: 1.5rem;    /* 24px - Cards */
+  --radius-3xl: 2rem;      /* 32px - Large containers */
+  --radius-full: 9999px;   /* Circular elements */
+
+  /* Shadow System - Subtle and Sophisticated */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Glass Morphism Shadows */
+  --shadow-glass: 0 8px 32px 0 rgba(164, 183, 146, 0.15);
+  --shadow-glass-hover: 0 16px 48px 0 rgba(164, 183, 146, 0.2);
+
+  /* Animation System - Trauma-Informed Timing */
+  --duration-fast: 150ms;      /* Immediate feedback */
+  --duration-normal: 300ms;    /* Standard interactions */
+  --duration-slow: 500ms;      /* Page transitions */
+  --duration-breathing: 4000ms; /* Calming effects */
+  
+  /* Easing Curves - Natural, Calming */
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1); /* Primary curve */
+  --ease-breathing: cubic-bezier(0.4, 0, 0.6, 1);
+
+  /* Touch Targets - Trauma-Informed Sizing */
+  --touch-target-sm: 48px;   /* WCAG AA minimum */
+  --touch-target-md: 52px;   /* ALCHM standard */
+  --touch-target-lg: 60px;   /* Crisis scenarios */
+  --touch-target-xl: 72px;   /* Emergency mode */
+
+  /* Page Background Gradient */
+  --gradient-sanctuary: linear-gradient(135deg, var(--sage-400) 0%, var(--sage-500) 25%, var(--sage-600) 50%, var(--sage-700) 75%, var(--sage-800) 100%);
+}
+
+/* ========================================
+   BASE STYLES & RESET
+======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px; /* Prevents iOS zoom on input focus */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  color: var(--sanctuary-gray-900);
+  background: var(--gradient-sanctuary);
+  min-height: 100vh;
+}
+
+/* Remove default margins from headings and paragraphs */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ========================================
+   TYPOGRAPHY SYSTEM
+======================================== */
+
+/* Typography Scale */
+.text-xs {
+  font-size: 0.75rem;    /* 12px */
+  line-height: 1rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;   /* 14px */
+  line-height: 1.25rem;
+}
+
+.text-base {
+  font-size: 1rem;       /* 16px - Base */
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;   /* 18px */
+  line-height: 1.75rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;    /* 20px */
+  line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;     /* 24px */
+  line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;   /* 30px */
+  line-height: 2.25rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;    /* 36px */
+  line-height: 2.5rem;
+}
+
+.text-5xl {
+  font-size: 3rem;       /* 48px */
+  line-height: 1;
+}
+
+/* Font Weights - Limited to 3 for Premium Feel */
+.font-light {
+  font-weight: var(--font-light);
+}
+
+.font-regular {
+  font-weight: var(--font-regular);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+/* Text Colors */
+.text-white { color: white; }
+.text-sage-400 { color: var(--sage-400); }
+.text-sage-600 { color: var(--sage-600); }
+.text-sage-700 { color: var(--sage-700); }
+.text-gray-400 { color: var(--sanctuary-gray-400); }
+.text-gray-600 { color: var(--sanctuary-gray-600); }
+.text-gray-700 { color: var(--sanctuary-gray-700); }
+.text-gray-900 { color: var(--sanctuary-gray-900); }
+
+/* Text Alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* ========================================
+   PREMIUM BUTTON SYSTEM
+======================================== */
+
+/* Primary Button - Sage Green CTA */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-md);
+  padding: var(--space-3) var(--space-6);
+  background: var(--sage-400);
+  color: white;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: var(--sage-500);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background: var(--sage-600);
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: var(--shadow-lg), 0 0 0 3px rgba(164, 183, 146, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  background: var(--sanctuary-gray-400);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-md);
+  padding: var(--space-3) var(--space-6);
+  background: var(--sanctuary-white);
+  color: var(--sage-600);
+  border: 1px solid var(--sage-300);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--sage-50);
+  border-color: var(--sage-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: var(--shadow-md), 0 0 0 3px rgba(164, 183, 146, 0.3);
+}
+
+/* Crisis Button - Elegant but Urgent */
+.btn-crisis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-lg);
+  padding: var(--space-4) var(--space-6);
+  background: var(--crisis-red);
+  color: white;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out-cubic);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-crisis:hover {
+  background: var(--crisis-red-hover);
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+.btn-crisis:focus {
+  outline: none;
+  box-shadow: var(--shadow-xl), 0 0 0 3px rgba(220, 38, 38, 0.3);
+}
+
+/* Button Size Variants */
+.btn-sm {
+  min-height: var(--touch-target-sm);
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  min-height: var(--touch-target-lg);
+  padding: var(--space-4) var(--space-8);
+  font-size: 1.125rem;
+}
+
+.btn-xl {
+  min-height: var(--touch-target-xl);
+  padding: var(--space-5) var(--space-10);
+  font-size: 1.25rem;
+}
+
+/* ========================================
+   GLASS MORPHISM CARD SYSTEM
+======================================== */
+
+/* Sanctuary Card - Primary Content Container */
+.card-sanctuary {
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+}
+
+.card-sanctuary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(164, 183, 146, 0.3);
+}
+
+/* Glass Morphism Card */
+.card-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-glass);
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+}
+
+.card-glass:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: rgba(164, 183, 146, 0.4);
+}
+
+/* Card Content Structure */
+.card-header {
+  margin-bottom: var(--space-4);
+}
+
+.card-content {
+  margin-bottom: var(--space-6);
+}
+
+.card-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* ========================================
+   PREMIUM INPUT SYSTEM
+======================================== */
+
+/* Trauma-Informed Form Fields */
+.input-sanctuary {
+  width: 100%;
+  min-height: var(--touch-target-md);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(164, 183, 146, 0.2);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--sanctuary-gray-900);
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+}
+
+.input-sanctuary:focus {
+  outline: none;
+  border-color: var(--sage-400);
+  box-shadow: 0 0 0 4px rgba(164, 183, 146, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.input-sanctuary::placeholder {
+  color: var(--sanctuary-gray-400);
+}
+
+/* Textarea Variant */
+.textarea-sanctuary {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Select Dropdown */
+.select-sanctuary {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+  appearance: none;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: var(--font-medium);
+  color: var(--sanctuary-gray-700);
+  margin-bottom: var(--space-2);
+}
+
+/* ========================================
+   LAYOUT SYSTEM
+======================================== */
+
+/* Container System - Mobile-First */
+.container {
+  width: 100%;
+  max-width: 428px; /* iPhone 14 Pro Max optimized */
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.container-sm { max-width: 640px; }
+.container-md { max-width: 768px; }
+.container-lg { max-width: 1024px; }
+.container-xl { max-width: 1280px; }
+.container-2xl { max-width: 1536px; }
+
+/* Safe Area Insets for iOS */
+.layout-safe {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Centered Layout */
+.layout-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+}
+
+/* Page Background */
+.page-background {
+  background: var(--gradient-sanctuary);
+  min-height: 100vh;
+}
+
+/* Content Overlay */
+.content-sanctuary {
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-2xl);
+  margin: var(--space-6);
+  padding: var(--space-8);
+}
+
+/* ========================================
+   FLEXBOX & GRID UTILITIES
+======================================== */
+
+/* Display */
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+.hidden { display: none; }
+
+/* Flex Direction */
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+
+/* Align Items */
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+
+/* Justify Content */
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+/* Gap */
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* ========================================
+   SPACING UTILITIES
+======================================== */
+
+/* Margin */
+.m-0 { margin: 0; }
+.m-2 { margin: var(--space-2); }
+.m-4 { margin: var(--space-4); }
+.m-6 { margin: var(--space-6); }
+.m-8 { margin: var(--space-8); }
+
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mt-12 { margin-top: var(--space-12); }
+.mt-16 { margin-top: var(--space-16); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mb-12 { margin-bottom: var(--space-12); }
+
+.ml-0 { margin-left: 0; }
+.ml-2 { margin-left: var(--space-2); }
+.ml-4 { margin-left: var(--space-4); }
+.mr-0 { margin-right: 0; }
+.mr-2 { margin-right: var(--space-2); }
+.mr-4 { margin-right: var(--space-4); }
+
+/* Padding */
+.p-0 { padding: 0; }
+.p-2 { padding: var(--space-2); }
+.p-4 { padding: var(--space-4); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+.px-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+.px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+.py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+.py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+
+/* ========================================
+   SIZE UTILITIES
+======================================== */
+
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+.min-h-screen { min-height: 100vh; }
+
+/* ========================================
+   TRAUMA-INFORMED ANIMATIONS
+======================================== */
+
+/* Gentle fade-in for page elements */
+@keyframes gentle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Breathing animation for calming effects */
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+/* Gentle pulse for crisis elements */
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Animation Utility Classes */
+.animate-gentle-fade {
+  animation: gentle-fade-in 0.6s var(--ease-out-cubic);
+}
+
+.animate-breathing {
+  animation: breathing var(--duration-breathing) ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Hover Utilities */
+.hover-gentle {
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+}
+
+.hover-gentle:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus Utilities */
+.focus-gentle {
+  transition: box-shadow var(--duration-fast) ease-out;
+}
+
+.focus-gentle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.3);
+}
+
+/* ========================================
+   CRISIS SUPPORT COMPONENTS
+======================================== */
+
+/* Floating Crisis Button */
+.crisis-floating {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: 1000;
+  background: var(--sage-400);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  width: var(--touch-target-lg);
+  height: var(--touch-target-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--duration-normal) var(--ease-out-cubic);
+  text-decoration: none;
+}
+
+.crisis-floating:hover {
+  background: var(--sage-500);
+  box-shadow: var(--shadow-xl);
+  transform: scale(1.05);
+}
+
+/* ========================================
+   ACCESSIBILITY & RESPONSIVE DESIGN
+======================================== */
+
+/* Reduced Motion Support - Critical for Trauma-Informed Design */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  :root {
+    --sage-400: #2d5016;
+    --sanctuary-gray-600: #000000;
+    --sanctuary-gray-900: #000000;
+  }
+  
+  .btn-primary, .btn-secondary {
+    border: 2px solid var(--sanctuary-gray-900);
+  }
+  
+  .card-sanctuary, .card-glass {
+    border: 2px solid var(--sanctuary-gray-600);
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sanctuary-white: #1a1a19;
+    --sanctuary-gray-50: #2e2e2d;
+    --sanctuary-gray-100: #3a3a38;
+    --sanctuary-gray-200: #4a4a48;
+    --sanctuary-gray-900: #f9f9f8;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+  
+  .layout-centered {
+    padding: var(--space-4);
+  }
+  
+  .content-sanctuary {
+    margin: var(--space-4);
+    padding: var(--space-6);
+  }
+  
+  /* Larger touch targets on mobile */
+  .btn-primary,
+  .btn-secondary {
+    min-height: var(--touch-target-lg);
+    padding: var(--space-4) var(--space-8);
+  }
+  
+  .btn-crisis {
+    min-height: var(--touch-target-xl);
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    max-width: 768px;
+    padding: 0 var(--space-6);
+  }
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1025px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 var(--space-8);
+  }
+  
+  .content-sanctuary {
+    margin: var(--space-8);
+    padding: var(--space-12);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+/* Opacity */
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* Border Radius */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-3xl { border-radius: var(--radius-3xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Box Shadow */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-2xl { box-shadow: var(--shadow-2xl); }
+.shadow-glass { box-shadow: var(--shadow-glass); }
+
+/* Background Colors */
+.bg-white { background-color: var(--sanctuary-white); }
+.bg-gray-50 { background-color: var(--sanctuary-gray-50); }
+.bg-gray-100 { background-color: var(--sanctuary-gray-100); }
+.bg-sage-400 { background-color: var(--sage-400); }
+.bg-sage-50 { background-color: var(--sage-50); }
+
+/* Border Colors */
+.border-gray-200 { border-color: var(--sanctuary-gray-200); }
+.border-sage-300 { border-color: var(--sage-300); }
+.border-sage-400 { border-color: var(--sage-400); }
+
+/* Cursor */
+.cursor-pointer { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* Overflow */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+
+/* Position */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+
+/* Z-Index */
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-50 { z-index: 50; }
+.z-1000 { z-index: 1000; }

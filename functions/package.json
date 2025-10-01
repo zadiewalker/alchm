@@ -1,47 +1,31 @@
 {
   "name": "functions",
-  "description": "Firebase Cloud Functions with Next.js SSR and Gemini AI",
+  "description": "ALCHM Firebase Cloud Functions - Minimal Production Setup",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "type": "commonjs",
   "engines": {
     "node": "20"
   },
   "scripts": {
-    "build": "pnpm exec tsc",
-    "build:watch": "pnpm exec tsc --watch",
+    "build": "npm exec tsc",
+    "build:watch": "npm exec tsc --watch",
     "prebuild": "rm -rf lib",
     "postbuild": "echo '✅ Functions build completed'",
-    "copy-next": "rm -rf .next && rsync -av --exclude='node_modules' ../.next . && echo '✅ Copied .next from parent directory'",
-    "serve": "pnpm run build && firebase emulators:start --only functions",
-    "shell": "pnpm run build && firebase functions:shell",
-    "start": "pnpm run shell",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log",
-    "test": "pnpm run build && mocha test/**/*.test.js --timeout 10000",
-    "test:integration": "pnpm run test",
-    "test:watch": "pnpm run build && mocha test/**/*.test.js --watch --timeout 10000",
-    "test:coverage": "pnpm run build && nyc mocha test/**/*.test.js --timeout 10000"
+    "logs": "firebase functions:log"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.15.0",
-    "dotenv": "^16.6.1",
     "firebase-admin": "^12.1.0",
     "firebase-functions": "^5.0.1",
-    "next": "15.4.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "14.2.32"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",
-    "firebase-functions-test": "^3.1.0",
-    "typescript": "^5.5.2",
-    "mocha": "^10.2.0",
-    "chai": "^4.3.8",
-    "supertest": "^6.3.3",
-    "express": "^4.18.2",
-    "nyc": "^15.1.0"
+    "typescript": "^5.5.2"
   },
-  "private": true,
-  "packageManager": "pnpm@8.15.6"
+  "private": true
 }

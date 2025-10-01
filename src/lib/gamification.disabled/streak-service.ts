@@ -1,0 +1,433 @@
+'use client';
+
+/**
+ * ALCHM Streak Service
+ * Handles persistence and updates for grace-based streak system
+ */
+
+import { 
+  doc, 
+  getDoc, 
+  setDoc, 
+  updateDoc, 
+  increment,
+  serverTimestamp,
+  Timestamp 
+} from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { 
+  StreakData, 
+  GraceToken, 
+  KindnessBreak, 
+  GraceStreakManager 
+} from './grace-streaks';
+
+export class StreakService {
+  private static readonly COLLECTION = 'userStreaks';
+  
+  /**
+   * Get user's streak data with safe defaults
+   */
+  static async getUserStreakData(userId: string): Promise<StreakData> {
+    try {
+      const docRef = doc(db, this.COLLECTION, userId);
+      const docSnap = await getDoc(docRef);
+      
+      if (!docSnap.exists()) {
+        // Initialize with safe defaults
+        const defaultData: StreakData = {
+          currentStreak: 0,
+          longestStreak: 0,
+          totalEntries: 0,
+          graceTokens: [],
+          kindnessBreaks: []
+        };
+        
+        await setDoc(docRef, {
+          ...defaultData,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        
+        return defaultData;
+      }
+      
+      const data = docSnap.data();
+      return {
+        currentStreak: data.currentStreak || 0,
+        longestStreak: data.longestStreak || 0,
+        totalEntries: data.totalEntries || 0,
+        graceTokens: (data.graceTokens || []).map(this.deserializeGraceToken),
+        kindnessBreaks: (data.kindnessBreaks || []).map(this.deserializeKindnessBreak),
+        lastEntryDate: data.lastEntryDate?.toDate(),
+        streakStartDate: data.streakStartDate?.toDate(),
+        pausedUntil: data.pausedUntil?.toDate()
+      };
+    } catch (error) {
+      console.error('Error fetching streak data:', error);
+      // Return safe defaults on error
+      return {
+        currentStreak: 0,
+        longestStreak: 0,
+        totalEntries: 0,
+        graceTokens: [],
+        kindnessBreaks: []
+      };
+    }
+  }
+  
+  /**
+   * Record a new journal entry and update streak
+   */
+  static async recordJournalEntry(
+    userId: string, 
+    entryDate: Date = new Date()
+  ): Promise<{ 
+    success: boolean; 
+    streakData: StreakData; 
+    celebration?: string;
+    isNewStreak?: boolean;
+  }> {
+    try {
+      const currentData = await this.getUserStreakData(userId);
+      const docRef = doc(db, this.COLLECTION, userId);
+      
+      // Calculate new streak based on grace mechanics
+      const daysSinceLastEntry = currentData.lastEntryDate 
+        ? this.getDaysSince(currentData.lastEntryDate) 
+        : 0;
+      
+      let newStreak: number;
+      let isNewStreak = false;
+      let streakStartDate = currentData.streakStartDate;
+      
+      // Same day - no streak increment
+      if (daysSinceLastEntry === 0) {
+        newStreak = currentData.currentStreak;
+      }
+      // Yesterday or continuous - increment streak
+      else if (daysSinceLastEntry <= 1) {
+        newStreak = currentData.currentStreak + 1;
+        if (!streakStartDate) {
+          streakStartDate = entryDate;
+          isNewStreak = true;
+        }
+      }
+      // Gap but within grace period - maintain streak
+      else if (daysSinceLastEntry <= 2) {
+        newStreak = currentData.currentStreak;
+      }
+      // Beyond grace - restart
+      else {
+        newStreak = 1;
+        streakStartDate = entryDate;
+        isNewStreak = true;
+      }
+      
+      const updatedData: StreakData = {
+        ...currentData,
+        currentStreak: newStreak,
+        longestStreak: Math.max(currentData.longestStreak, newStreak),
+        totalEntries: currentData.totalEntries + 1,
+        lastEntryDate: entryDate,
+        streakStartDate
+      };
+      
+      // Update Firestore
+      await updateDoc(docRef, {
+        currentStreak: newStreak,
+        longestStreak: Math.max(currentData.longestStreak, newStreak),
+        totalEntries: increment(1),
+        lastEntryDate: Timestamp.fromDate(entryDate),
+        streakStartDate: streakStartDate ? Timestamp.fromDate(streakStartDate) : null,
+        updatedAt: serverTimestamp()
+      });
+      
+      // Generate celebration message
+      const celebration = newStreak > 0 
+        ? GraceStreakManager.generateCelebrationMessage(newStreak)
+        : undefined;
+      
+      return {
+        success: true,
+        streakData: updatedData,
+        celebration,
+        isNewStreak
+      };
+      
+    } catch (error) {
+      console.error('Error recording journal entry:', error);
+      return {
+        success: false,
+        streakData: await this.getUserStreakData(userId) // Return current data
+      };
+    }
+  }
+  
+  /**
+   * Use a grace token to maintain streak
+   */
+  static async useGraceToken(
+    userId: string,
+    reason?: string
+  ): Promise<{
+    success: boolean;
+    message: string;
+    streakData: StreakData;
+  }> {
+    try {
+      const currentData = await this.getUserStreakData(userId);
+      const result = GraceStreakManager.useGraceToken(currentData, reason);
+      
+      if (!result.success) {
+        return {
+          success: result.success,
+          message: result.message,
+          streakData: result.updatedData
+        };
+      }
+      
+      const docRef = doc(db, this.COLLECTION, userId);
+      await updateDoc(docRef, {
+        graceTokens: result.updatedData.graceTokens.map(this.serializeGraceToken),
+        lastEntryDate: Timestamp.fromDate(result.updatedData.lastEntryDate!),
+        updatedAt: serverTimestamp()
+      });
+      
+      return {
+        success: result.success,
+        message: result.message,
+        streakData: result.updatedData
+      };
+      
+    } catch (error) {
+      console.error('Error using grace token:', error);
+      return {
+        success: false,
+        message: 'Unable to apply grace right now. Your journey continues.',
+        streakData: await this.getUserStreakData(userId)
+      };
+    }
+  }
+  
+  /**
+   * Start a kindness break
+   */
+  static async startKindnessBreak(
+    userId: string,
+    reason: KindnessBreak['reason'],
+    selfCompassionNote?: string
+  ): Promise<{
+    success: boolean;
+    streakData: StreakData;
+  }> {
+    try {
+      const currentData = await this.getUserStreakData(userId);
+      const updatedData = GraceStreakManager.startKindnessBreak(
+        currentData, 
+        reason, 
+        selfCompassionNote
+      );
+      
+      const docRef = doc(db, this.COLLECTION, userId);
+      await updateDoc(docRef, {
+        kindnessBreaks: updatedData.kindnessBreaks.map(this.serializeKindnessBreak),
+        pausedUntil: updatedData.pausedUntil ? Timestamp.fromDate(updatedData.pausedUntil) : null,
+        updatedAt: serverTimestamp()
+      });
+      
+      return {
+        success: true,
+        streakData: updatedData
+      };
+      
+    } catch (error) {
+      console.error('Error starting kindness break:', error);
+      return {
+        success: false,
+        streakData: await this.getUserStreakData(userId)
+      };
+    }
+  }
+  
+  /**
+   * End a kindness break
+   */
+  static async endKindnessBreak(
+    userId: string,
+    breakId: string
+  ): Promise<{
+    success: boolean;
+    streakData: StreakData;
+  }> {
+    try {
+      const currentData = await this.getUserStreakData(userId);
+      const updatedData = GraceStreakManager.endKindnessBreak(currentData, breakId);
+      
+      const docRef = doc(db, this.COLLECTION, userId);
+      await updateDoc(docRef, {
+        kindnessBreaks: updatedData.kindnessBreaks.map(this.serializeKindnessBreak),
+        pausedUntil: null,
+        updatedAt: serverTimestamp()
+      });
+      
+      return {
+        success: true,
+        streakData: updatedData
+      };
+      
+    } catch (error) {
+      console.error('Error ending kindness break:', error);
+      return {
+        success: false,
+        streakData: await this.getUserStreakData(userId)
+      };
+    }
+  }
+  
+  // Serialization helpers for Firestore
+  private static serializeGraceToken(token: GraceToken) {
+    return {
+      ...token,
+      grantedAt: Timestamp.fromDate(token.grantedAt),
+      usedAt: token.usedAt ? Timestamp.fromDate(token.usedAt) : null
+    };
+  }
+  
+  private static deserializeGraceToken(data: any): GraceToken {
+    return {
+      ...data,
+      grantedAt: data.grantedAt?.toDate() || new Date(),
+      usedAt: data.usedAt?.toDate() || undefined
+    };
+  }
+  
+  private static serializeKindnessBreak(breakItem: KindnessBreak) {
+    return {
+      ...breakItem,
+      startDate: Timestamp.fromDate(breakItem.startDate),
+      endDate: breakItem.endDate ? Timestamp.fromDate(breakItem.endDate) : null
+    };
+  }
+  
+  private static deserializeKindnessBreak(data: any): KindnessBreak {
+    return {
+      ...data,
+      startDate: data.startDate?.toDate() || new Date(),
+      endDate: data.endDate?.toDate() || undefined
+    };
+  }
+  
+  private static getDaysSince(date: Date): number {
+    const now = new Date();
+    const timeDiff = now.getTime() - date.getTime();
+    return Math.floor(timeDiff / (1000 * 3600 * 24));
+  }
+}
+
+/**
+ * React Hook for streak data management
+ */
+import { useState, useEffect } from 'react';
+
+export function useStreakData(userId: string | null) {
+  const [streakData, setStreakData] = useState<StreakData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+    
+    const loadStreakData = async () => {
+      try {
+        setLoading(true);
+        const data = await StreakService.getUserStreakData(userId);
+        setStreakData(data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load streak data');
+        console.error('Streak data load error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadStreakData();
+  }, [userId]);
+  
+  const recordEntry = async (entryDate?: Date) => {
+    if (!userId) return null;
+    
+    try {
+      const result = await StreakService.recordJournalEntry(userId, entryDate);
+      if (result.success) {
+        setStreakData(result.streakData);
+      }
+      return result;
+    } catch (err) {
+      setError('Failed to record entry');
+      return null;
+    }
+  };
+  
+  const useGrace = async (reason?: string) => {
+    if (!userId || !streakData) return null;
+    
+    try {
+      const result = await StreakService.useGraceToken(userId, reason);
+      if (result.success) {
+        setStreakData(result.streakData);
+      }
+      return result;
+    } catch (err) {
+      setError('Failed to use grace token');
+      return null;
+    }
+  };
+  
+  const startKindness = async (
+    reason: KindnessBreak['reason'], 
+    note?: string
+  ) => {
+    if (!userId) return null;
+    
+    try {
+      const result = await StreakService.startKindnessBreak(userId, reason, note);
+      if (result.success) {
+        setStreakData(result.streakData);
+      }
+      return result;
+    } catch (err) {
+      setError('Failed to start kindness break');
+      return null;
+    }
+  };
+  
+  const endKindness = async (breakId: string) => {
+    if (!userId) return null;
+    
+    try {
+      const result = await StreakService.endKindnessBreak(userId, breakId);
+      if (result.success) {
+        setStreakData(result.streakData);
+      }
+      return result;
+    } catch (err) {
+      setError('Failed to end kindness break');
+      return null;
+    }
+  };
+  
+  return {
+    streakData,
+    loading,
+    error,
+    recordEntry,
+    useGrace,
+    startKindness,
+    endKindness
+  };
+}

@@ -9,16 +9,6 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
-  moduleNameMapping: {
-    // Handle module aliases (tsconfig paths)
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
-    '^@/components/(.*)$': '<rootDir>/src/components/$1',
-    '^@/types/(.*)$': '<rootDir>/src/types/$1',
-    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    '^@/contexts/(.*)$': '<rootDir>/src/contexts/$1',
-    '^@/utils/(.*)$': '<rootDir>/src/utils/$1'
-  },
   testEnvironment: 'jest-environment-jsdom',
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
@@ -48,9 +38,16 @@ const customJestConfig = {
   },
   coverageReporters: ['text', 'lcov', 'html'],
   testTimeout: 10000,
-  // Mock Firebase modules
-  moduleNameMapping: {
-    ...require('./jest.config.mocks.js')
+  // Mock Firebase modules - merge with existing module name mappings
+  moduleNameMapper: {
+    // Handle module aliases (tsconfig paths)
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/types/(.*)$': '<rootDir>/src/types/$1',
+    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@/contexts/(.*)$': '<rootDir>/src/contexts/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1'
   },
   globals: {
     'ts-jest': {

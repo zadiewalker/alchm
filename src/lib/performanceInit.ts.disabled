@@ -1,0 +1,195 @@
+// Performance monitoring initialization
+import { getAnalyticsInstance } from '@/lib/analytics';
+
+// Global performance monitoring setup
+export function initializePerformanceMonitoring() {
+  if (typeof window === 'undefined') return;
+  
+  // Initialize Web Vitals tracking
+  initializeWebVitals();
+  
+  // Set up basic performance observers
+  setupBasicPerformanceObservers();
+  
+  // Track page visibility changes
+  setupVisibilityTracking();
+  
+  console.log('🔍 ALCHM Performance Monitoring Initialized');
+}
+
+// Web Vitals tracking with enhanced reporting
+function initializeWebVitals() {
+  import('web-vitals').then(({ getCLS, getFCP, getFID, getLCP, getTTFB }) => {
+    const sendToAnalytics = (metric: any) => {
+      // Send to Google Analytics
+      getAnalyticsInstance().then(analytics => {
+        if (analytics) {
+          analytics.logEvent('web_vital', {
+            metric_name: metric.name,
+            metric_value: metric.value,
+            metric_rating: metric.rating,
+            page_path: window.location.pathname
+          });
+        }
+      });
+      
+      // Send to server for monitoring
+      fetch('/api/monitoring/performance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'web_vital',
+          name: metric.name,
+          value: metric.value,
+          rating: metric.rating,
+          timestamp: Date.now(),
+          url: window.location.href
+        })
+      }).catch(() => {}); // Fail silently
+    };
+    
+    getCLS(sendToAnalytics);
+    getFCP(sendToAnalytics);
+    getFID(sendToAnalytics);
+    getLCP(sendToAnalytics);
+    getTTFB(sendToAnalytics);
+  });
+}
+
+// Basic performance observers
+function setupBasicPerformanceObservers() {
+  if (!('PerformanceObserver' in window)) return;
+  
+  // Long task monitoring
+  try {
+    const longTaskObserver = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.duration > 100) { // Tasks longer than 100ms
+          console.warn(`Long task detected: ${entry.duration}ms`);
+          
+          // Send to analytics
+          getAnalyticsInstance().then(analytics => {
+            if (analytics) {
+              analytics.logEvent('long_task', {
+                duration: entry.duration,
+                page_path: window.location.pathname
+              });
+            }
+          });
+        }
+      }
+    });
+    
+    longTaskObserver.observe({ entryTypes: ['longtask'] });
+  } catch (error) {
+    console.warn('Long task observer not supported');
+  }
+}
+
+// Track page visibility for better session understanding
+function setupVisibilityTracking() {
+  let visibilityStartTime = Date.now();
+  let totalVisibleTime = 0;
+  
+  const trackVisibilityChange = () => {
+    const now = Date.now();
+    
+    if (document.hidden) {
+      // Page became hidden
+      totalVisibleTime += now - visibilityStartTime;
+      
+      getAnalyticsInstance().then(analytics => {
+        if (analytics) {
+          analytics.logEvent('page_visibility', {
+            event: 'hidden',
+            visible_time: totalVisibleTime,
+            page_path: window.location.pathname
+          });
+        }
+      });
+    } else {
+      // Page became visible
+      visibilityStartTime = now;
+      
+      getAnalyticsInstance().then(analytics => {
+        if (analytics) {
+          analytics.logEvent('page_visibility', {
+            event: 'visible',
+            page_path: window.location.pathname
+          });
+        }
+      });
+    }
+  };
+  
+  document.addEventListener('visibilitychange', trackVisibilityChange);
+  
+  // Track when user leaves the page
+  window.addEventListener('beforeunload', () => {
+    if (!document.hidden) {
+      totalVisibleTime += Date.now() - visibilityStartTime;
+    }
+    
+    getAnalyticsInstance().then(analytics => {
+      if (analytics) {
+        analytics.logEvent('page_unload', {
+          total_visible_time: totalVisibleTime,
+          page_path: window.location.pathname
+        });
+      }
+    });
+  });
+}
+
+
+// Export utility functions
+export function trackCustomPerformanceMetric(name: string, value: number, context?: Record<string, any>) {
+  getAnalyticsInstance().then(analytics => {
+    if (analytics) {
+      analytics.logEvent('custom_performance_metric', {
+        metric_name: name,
+        metric_value: value,
+        page_path: window.location.pathname,
+        ...context
+      });
+    }
+  });
+}
+
+export function trackUserTimingMetric(name: string, startTime: number, endTime?: number) {
+  const finalEndTime = endTime || performance.now();
+  const duration = finalEndTime - startTime;
+  
+  trackCustomPerformanceMetric(`user_timing_${name}`, duration, {
+    start_time: startTime,
+    end_time: finalEndTime
+  });
+}
+
+export function measureAsyncOperation<T>(
+  name: string,
+  operation: () => Promise<T>
+): Promise<T> {
+  const startTime = performance.now();
+  
+  return operation().then(
+    (result) => {
+      trackUserTimingMetric(name, startTime);
+      return result;
+    },
+    (error) => {
+      trackUserTimingMetric(`${name}_error`, startTime);
+      throw error;
+    }
+  );
+}
+
+// Auto-initialize if we're in the browser
+if (typeof window !== 'undefined') {
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePerformanceMonitoring);
+  } else {
+    initializePerformanceMonitoring();
+  }
+}

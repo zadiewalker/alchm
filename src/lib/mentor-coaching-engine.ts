@@ -609,7 +609,7 @@ Also, given your background and experience, what approaches have worked for you 
   }
 
   private addCulturalMentors(library: MentorPersonaLibrary): void {
-    library.culturalMentors.set('multicultural_navigator', {
+    library.culturalMentors.set('multicultural_typeof window !== 'undefined' && navigator', {
       personaId: 'multicultural_001',
       name: 'Dr. Maria Rodriguez',
       role: 'Cultural Integration Specialist',

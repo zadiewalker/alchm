@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Diagnostic Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #a4b792;
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .test-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .test-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 ALCHM Diagnostic Test</h1>
+        <div class="status">
+            <p><strong>Current URL:</strong> <span id="current-url"></span></p>
+            <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+            <p><strong>Screen Size:</strong> <span id="screen-size"></span></p>
+        </div>
+        
+        <h2>Test Navigation</h2>
+        <a href="/" class="test-button">Go to Homepage</a>
+        <a href="/auth/login" class="test-button">Go to Login</a>
+        <a href="/dashboard" class="test-button">Go to Dashboard</a>
+        
+        <h2>What are you experiencing?</h2>
+        <div style="text-align: left; max-width: 400px; margin: 0 auto;">
+            <p><strong>1. Homepage Issues:</strong></p>
+            <ul>
+                <li>Infinite loading?</li>
+                <li>Blank white screen?</li>
+                <li>Blocking overlay/modal?</li>
+                <li>Can't click buttons?</li>
+                <li>JavaScript errors?</li>
+            </ul>
+            
+            <p><strong>2. Authentication Issues:</strong></p>
+            <ul>
+                <li>Can't see sign-in buttons?</li>
+                <li>Buttons don't respond?</li>
+                <li>Popup blocked?</li>
+                <li>Authentication fails?</li>
+            </ul>
+        </div>
+        
+        <div class="status">
+            <p><strong>If you can see this page, static hosting is working.</strong></p>
+            <p>The issue is likely with the Next.js app routing or JavaScript.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 100) + '...';
+        document.getElementById('screen-size').textContent = window.innerWidth + ' x ' + window.innerHeight;
+        
+        console.log('🔍 ALCHM Diagnostic Test Loaded');
+        console.log('Current URL:', window.location.href);
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Local Storage:', localStorage.length + ' items');
+        console.log('Session Storage:', sessionStorage.length + ' items');
+    </script>
+</body>
+</html>

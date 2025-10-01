@@ -5,14 +5,15 @@ export const SUPPORTED_LOCALES = [
   'en', // English (default)
   'es', // Spanish
   'pt', // Portuguese 
-  'sw', // Swahili
-  'ar', // Arabic
-  'hi', // Hindi
-  'zh', // Chinese (Simplified)
-  'fr', // French
-  'yo', // Yoruba
   'ko', // Korean
+  'hi', // Hindi
   'de', // German
+  // Advanced locales (planned for future release)
+  // 'sw', // Swahili
+  // 'ar', // Arabic
+  // 'zh', // Chinese (Simplified)
+  // 'fr', // French
+  // 'yo', // Yoruba
 ] as const;
 
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
@@ -132,15 +133,58 @@ export const LOCALE_CONFIG = {
   }
 } as const;
 
-// Translation loading utilities
+// Translation loading utilities with error handling
 export async function loadTranslations(locale: SupportedLocale) {
   try {
-    const translations = await import(`@/locales/${locale}.json`);
-    return translations.default;
+    // For initial launch, use English as base
+    if (locale === 'en') {
+      return {
+        common: {
+          welcome: 'Welcome to ALCHM',
+          loading: 'Loading...',
+          error: 'Something went wrong',
+          retry: 'Try again'
+        },
+        navigation: {
+          home: 'Home',
+          journal: 'Journal',
+          dashboard: 'Dashboard',
+          pricing: 'Pricing'
+        }
+      };
+    }
+    
+    // For other locales, return basic fallback
+    return {
+      common: {
+        welcome: 'Welcome to ALCHM',
+        loading: 'Loading...',
+        error: 'Something went wrong',
+        retry: 'Try again'
+      },
+      navigation: {
+        home: 'Home',
+        journal: 'Journal', 
+        dashboard: 'Dashboard',
+        pricing: 'Pricing'
+      }
+    };
   } catch (error) {
-    console.warn(`Failed to load translations for ${locale}, falling back to ${DEFAULT_LOCALE}`);
-    const fallback = await import(`@/locales/${DEFAULT_LOCALE}.json`);
-    return fallback.default;
+    console.warn(`Failed to load translations for ${locale}, using fallback`);
+    return {
+      common: {
+        welcome: 'Welcome to ALCHM',
+        loading: 'Loading...',
+        error: 'Something went wrong',
+        retry: 'Try again'
+      },
+      navigation: {
+        home: 'Home',
+        journal: 'Journal',
+        dashboard: 'Dashboard', 
+        pricing: 'Pricing'
+      }
+    };
   }
 }
 

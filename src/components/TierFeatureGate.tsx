@@ -1,5 +1,6 @@
-// Tier Feature Gate - Controls access to premium features
-// Ensures proper tier-based access control with upgrade prompts
+// Sanctuary Feature Gate - Investment-Based Access with Compassion
+// Gentle invitations to expand sanctuary, never blocking with shame
+// Legacy compatibility maintained while transitioning to sanctuary model
 
 'use client';
 
@@ -10,11 +11,13 @@ import { Badge } from '@/components/ui/badge';
 import { Lock, Crown, Sparkles, ArrowRight } from 'lucide-react';
 
 interface TierFeatureGateProps {
-  userTier: 'free' | 'deep-cut' | 'oracle';
-  requiredTier: 'deep-cut' | 'oracle';
+  userTier: 'essential' | 'premium' | 'sanctuary' | 'deep-cut' | 'oracle'; // Legacy support
+  requiredTier: 'premium' | 'deep-cut' | 'oracle';
   children: React.ReactNode;
   showUpgrade?: boolean;
   className?: string;
+  emotionalState?: 'crisis' | 'difficult' | 'neutral' | 'good';
+  sanctuaryMessage?: string;
 }
 
 export function TierFeatureGate({ 
@@ -22,52 +25,59 @@ export function TierFeatureGate({
   requiredTier, 
   children, 
   showUpgrade = true,
-  className = ""
+  className = "",
+  emotionalState = 'neutral'
 }: TierFeatureGateProps) {
   
   const getTierLevel = (tier: string) => {
     switch (tier) {
       case 'oracle': return 3;
+      case 'premium':
       case 'deep-cut': return 2;
-      case 'free': return 1;
+      case 'essential':
+      case 'sanctuary': return 1;
       default: return 0;
     }
   };
 
   const hasAccess = getTierLevel(userTier) >= getTierLevel(requiredTier);
 
+  // Respect emotional state - never show upgrade prompts during crisis or difficult times
+  const shouldShowUpgrade = showUpgrade && !(['crisis', 'difficult'].includes(emotionalState));
+
   const getTierInfo = () => {
     switch (requiredTier) {
       case 'oracle':
         return {
-          name: 'Oracle',
+          name: 'Oracle Sanctuary',
           icon: Crown,
-          color: 'text-gold-400',
-          bgColor: 'from-gold-900/20 to-amber-900/20',
-          borderColor: 'border-gold-500/30',
+          color: 'text-sage-400',
+          bgColor: 'from-sage-100/30 to-sage-200/20',
+          borderColor: 'border-sage-400/30',
           price: '$14.99/mo',
           benefits: [
-            'AI Mentor conversations',
-            'Inner circle sharing',
-            'Executive coaching',
-            'Unlimited storage',
-            'Priority support'
+            'Complete healing ecosystem',
+            'Professional integration tools',
+            'Advanced crisis prevention',
+            'Holistic wellness tracking',
+            'White-glove sanctuary support'
           ]
         };
+      case 'premium':
       case 'deep-cut':
         return {
-          name: 'Deep Cut',
+          name: 'Premium Sanctuary',
           icon: Sparkles,
-          color: 'text-purple-400',
-          bgColor: 'from-purple-900/20 to-pink-900/20',
-          borderColor: 'border-purple-500/30',
+          color: 'text-sage-400',
+          bgColor: 'from-sage-100/30 to-sage-200/20',
+          borderColor: 'border-sage-400/30',
           price: '$7.99/mo',
           benefits: [
-            'Advanced pattern analysis',
-            'Unlimited storage',
-            'Export capabilities',
-            'Auto-save',
-            'Enhanced insights'
+            'Enhanced emotional wisdom mapping',
+            'Unlimited Khepera conversations',
+            'Advanced healing achievement garden',
+            'Neuroplasticity habit cultivation',
+            'Priority sanctuary support'
           ]
         };
     }
@@ -77,7 +87,7 @@ export function TierFeatureGate({
     return <div className={className}>{children}</div>;
   }
 
-  if (!showUpgrade) {
+  if (!shouldShowUpgrade) {
     return null;
   }
 
@@ -94,49 +104,45 @@ export function TierFeatureGate({
               variant="outline" 
               className={`${tierInfo.borderColor} ${tierInfo.color} border-opacity-50`}
             >
-              {tierInfo.name} Feature
+              {tierInfo.name} Enhancement
             </Badge>
           </div>
           
-          <h3 className="font-medium text-white mb-2">
-            Unlock {tierInfo.name} Features
+          <h3 className="font-medium text-sanctuary-gray-800 mb-2">
+            Expand Your {tierInfo.name}
           </h3>
           
-          <p className="text-sm text-gray-300 mb-4">
-            This feature is available with {tierInfo.name} tier ({tierInfo.price})
+          <p className="text-sm text-sanctuary-gray-600 mb-4">
+            This sanctuary enhancement is available with {tierInfo.name} investment ({tierInfo.price})
           </p>
           
           <div className="space-y-2 mb-4">
             {tierInfo.benefits.slice(0, 3).map((benefit, index) => (
-              <div key={index} className="flex items-center gap-2 text-xs text-gray-300">
+              <div key={index} className="flex items-center gap-2 text-xs text-sanctuary-gray-600">
                 <div className={`w-1.5 h-1.5 rounded-full ${tierInfo.color.replace('text-', 'bg-')}`}></div>
                 <span>{benefit}</span>
               </div>
             ))}
             {tierInfo.benefits.length > 3 && (
-              <div className="text-xs text-gray-400">
-                +{tierInfo.benefits.length - 3} more features...
+              <div className="text-xs text-sanctuary-gray-500">
+                +{tierInfo.benefits.length - 3} more sanctuary enhancements...
               </div>
             )}
           </div>
           
           <Button 
-            className={`w-full ${
-              requiredTier === 'oracle' 
-                ? 'bg-gold-600 hover:bg-gold-700 text-black' 
-                : 'bg-purple-600 hover:bg-purple-700 text-white'
-            } font-medium`}
+            variant="primary"
+            className="w-full font-medium"
             onClick={() => {
-              // In a real app, this would navigate to the upgrade flow
-              console.log(`Upgrade to ${tierInfo.name} tier`);
+              window.location.href = '/pricing';
             }}
           >
             <ArrowRight className="h-4 w-4 mr-2" />
-            Upgrade to {tierInfo.name}
+            Invest in {tierInfo.name}
           </Button>
           
-          <p className="text-xs text-gray-500 mt-2">
-            Cancel anytime • 7-day free trial
+          <p className="text-xs text-sanctuary-gray-500 mt-2">
+            Cancel anytime • Essential Sanctuary always available
           </p>
         </div>
       </CardContent>
@@ -170,16 +176,31 @@ export function TierBadge({
   );
 }
 
-// Hook for checking tier access
-export function useTierAccess(userTier: 'free' | 'deep-cut' | 'oracle') {
-  const hasDeepCutAccess = ['deep-cut', 'oracle'].includes(userTier);
+// Hook for checking sanctuary access
+export function useSanctuaryAccess(userTier: 'essential' | 'premium' | 'sanctuary' | 'deep-cut' | 'oracle') {
+  const hasEssentialAccess = ['essential', 'premium', 'sanctuary', 'deep-cut', 'oracle'].includes(userTier);
+  const hasPremiumAccess = ['premium', 'deep-cut', 'oracle'].includes(userTier);
   const hasOracleAccess = userTier === 'oracle';
   
   return {
-    hasDeepCutAccess,
+    hasEssentialAccess,
+    hasPremiumAccess,
     hasOracleAccess,
-    canAccess: (requiredTier: 'deep-cut' | 'oracle') => {
-      return requiredTier === 'deep-cut' ? hasDeepCutAccess : hasOracleAccess;
+    isEssentialTier: ['essential', 'sanctuary'].includes(userTier),
+    isPremiumTier: ['premium', 'deep-cut'].includes(userTier),
+    canAccess: (requiredTier: 'premium' | 'deep-cut' | 'oracle') => {
+      switch (requiredTier) {
+        case 'premium':
+        case 'deep-cut':
+          return hasPremiumAccess;
+        case 'oracle':
+          return hasOracleAccess;
+        default:
+          return false;
+      }
     }
   };
 }
+
+// Legacy export for backwards compatibility
+export const useTierAccess = useSanctuaryAccess;

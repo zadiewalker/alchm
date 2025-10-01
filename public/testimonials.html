@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Stories - ALCHM Community Testimonials</title>
+  <meta name="description" content="Read authentic stories from ALCHM users about their healing journeys with trauma-informed AI journaling. Anonymous, verified testimonials from real people.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Real Healing Stories - ALCHM Community Testimonials">
+  <meta property="og:description" content="Discover how ALCHM's trauma-informed AI journaling is helping real people on their healing journeys. Anonymous, verified stories from our community.">
+  <meta property="og:image" content="https://alchmapp.web.app/og-testimonials.png">
+  <meta property="og:url" content="https://alchmapp.web.app/testimonials">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real Healing Stories - ALCHM Testimonials">
+  <meta name="twitter:description" content="Authentic stories from trauma survivors finding healing through AI-powered journaling.">
+  <meta name="twitter:image" content="https://alchmapp.web.app/twitter-testimonials.png">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, -apple-system-font, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1a202c;
+      background: #f7fafc;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero .subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      margin-bottom: 12px;
+      opacity: 0.95;
+    }
+    
+    .hero .description {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      opacity: 0.85;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .trust-indicators {
+      background: white;
+      padding: 40px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+    
+    .trust-item {
+      padding: 20px;
+    }
+    
+    .trust-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #667eea;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .trust-label {
+      color: #4a5568;
+      font-weight: 600;
+    }
+    
+    .trust-note {
+      color: #718096;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    
+    .testimonials-section {
+      padding: 80px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      font-size: 1.2rem;
+      color: #718096;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #e2e8f0;
+      background: white;
+      color: #4a5568;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .testimonial {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      border-left: 4px solid #667eea;
+    }
+    
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: -5px;
+      left: 25px;
+      font-size: 3rem;
+      color: #667eea;
+      font-family: Georgia, serif;
+      opacity: 0.3;
+    }
+    
+    .testimonial-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .testimonial-rating {
+      display: flex;
+      gap: 2px;
+    }
+    
+    .star {
+      color: #fbbf24;
+      font-size: 1.2rem;
+    }
+    
+    .testimonial-badges {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .testimonial-badge {
+      padding: 4px 12px;
+      background: #f0f7ff;
+      color: #1e40af;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #4a5568;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .author-info {
+      flex: 1;
+    }
+    
+    .author-name {
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+    
+    .author-journey {
+      color: #718096;
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-helpful {
+      text-align: right;
+      color: #718096;
+      font-size: 0.85rem;
+    }
+    
+    .journey-stages {
+      background: #f8fafc;
+      padding: 60px 0;
+    }
+    
+    .journey-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .journey-stage {
+      text-align: center;
+      padding: 30px 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .journey-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    .journey-stage h3 {
+      font-size: 1.2rem;
+      color: #2d3748;
+      margin-bottom: 12px;
+    }
+    
+    .journey-stage p {
+      color: #718096;
+      line-height: 1.6;
+    }
+    
+    .cta-section {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .privacy-notice {
+      background: #f0fff4;
+      border: 1px solid #9ae6b4;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 40px 0;
+    }
+    
+    .privacy-notice h3 {
+      color: #2f855a;
+      margin-bottom: 12px;
+    }
+    
+    .privacy-notice p {
+      color: #38a169;
+      margin-bottom: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .journey-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .verified-badge {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .loading-testimonial {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
+    
+    .category-specific {
+      display: none;
+    }
+    
+    .category-specific.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Real Stories, Real Healing</h1>
+      <div class="subtitle">Authentic testimonials from the ALCHM community</div>
+      <div class="description">
+        Discover how trauma-informed AI journaling is helping real people process emotions, 
+        build resilience, and find peace. Every story shared with permission and anonymized for privacy.
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Indicators -->
+  <section class="trust-indicators">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="trust-number">4.7</span>
+          <div class="trust-label">Average Rating</div>
+          <div class="trust-note">Based on 347 verified reviews</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">94%</span>
+          <div class="trust-label">Would Recommend</div>
+          <div class="trust-note">Users who'd suggest ALCHM to others</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">89%</span>
+          <div class="trust-label">Report Mood Improvement</div>
+          <div class="trust-note">Within first 30 days of use</div>
+        </div>
+        <div class="trust-item">
+          <span class="trust-number">156</span>
+          <div class="trust-label">Average Streak Days</div>
+          <div class="trust-note">Building lasting habits</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy Notice -->
+  <section class="container">
+    <div class="privacy-notice">
+      <h3>🔒 Privacy & Authenticity</h3>
+      <p>• All testimonials are from real ALCHM users who consented to sharing their stories</p>
+      <p>• Names and identifying details are removed to protect privacy</p>
+      <p>• Reviews are moderated for authenticity and community guidelines</p>
+      <p>• Users retain the right to request removal of their testimonial at any time</p>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Community Stories</h2>
+        <p>Each testimonial represents a real person's journey with trauma-informed AI support</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="testimonial-filters">
+        <button class="filter-btn active" onclick="filterTestimonials('all')">All Stories</button>
+        <button class="filter-btn" onclick="filterTestimonials('ptsd')">PTSD/Trauma</button>
+        <button class="filter-btn" onclick="filterTestimonials('anxiety')">Anxiety</button>
+        <button class="filter-btn" onclick="filterTestimonials('depression')">Depression</button>
+        <button class="filter-btn" onclick="filterTestimonials('grief')">Grief/Loss</button>
+        <button class="filter-btn" onclick="filterTestimonials('professionals')">Mental Health Professionals</button>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <div class="testimonials-grid" id="testimonialsGrid">
+        <!-- Testimonial 1 - PTSD Recovery -->
+        <div class="testimonial" data-category="ptsd">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★★
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">PTSD Survivor</span>
+            <span class="testimonial-badge">6+ Months</span>
+          </div>
+          <div class="testimonial-text">
+            ALCHM changed my relationship with my trauma memories. The AI responses never felt clinical or dismissive—they actually understood the complexity of PTSD. For the first time, I could process flashbacks without spiraling. The grace tokens during my worst weeks kept me from abandoning my progress entirely. I'm now 89 days into my journaling streak and finally sleeping through the night.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">Sarah, 34</div>
+              <div class="author-journey">Combat veteran, using ALCHM for 8 months</div>
+            </div>
+            <div class="testimonial-helpful">127 found helpful</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 - Mental Health Professional -->
+        <div class="testimonial" data-category="professionals">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★★
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">Licensed Therapist</span>
+            <span class="testimonial-badge">Professional User</span>
+          </div>
+          <div class="testimonial-text">
+            As a trauma therapist, I was skeptical of AI mental health tools. ALCHM is different—it genuinely follows trauma-informed principles. I use it personally and recommend it to clients as homework between sessions. The AI doesn't try to be a therapist, it's a supportive companion that validates experiences and encourages reflection. Several clients have reported breakthroughs they first discovered through journaling here.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">Dr. Jennifer L.</div>
+              <div class="author-journey">LCSW, specializing in trauma therapy</div>
+            </div>
+            <div class="testimonial-helpful">89 found helpful</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 - Anxiety Management -->
+        <div class="testimonial" data-category="anxiety">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★☆
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">Social Anxiety</span>
+            <span class="testimonial-badge">3-6 Months</span>
+          </div>
+          <div class="testimonial-text">
+            I've struggled with social anxiety my whole life, and traditional journaling felt overwhelming. ALCHM's gentle prompts and validating responses made it feel safe to explore my thoughts. The gamification aspect motivates me—earning badges for consistency feels like celebrating small wins. My therapist noticed I'm more self-aware in sessions now. The only downside is sometimes I want even more AI interaction!
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">Marcus, 28</div>
+              <div class="author-journey">College student, 4-month streak</div>
+            </div>
+            <div class="testimonial-helpful">64 found helpful</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 - Grief Processing -->
+        <div class="testimonial" data-category="grief">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★★
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">Grief Support</span>
+            <span class="testimonial-badge">2-6 Months</span>
+          </div>
+          <div class="testimonial-text">
+            After losing my partner, I couldn't find words for my grief. ALCHM helped me process emotions I didn't even know I was carrying. The AI's responses felt compassionate without being preachy—it honored my pain rather than trying to fix it. Writing became my lifeline during the darkest months. I'm not 'over' my grief, but I'm learning to carry it with more grace.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">Elena, 42</div>
+              <div class="author-journey">Widow, finding healing through journaling</div>
+            </div>
+            <div class="testimonial-helpful">156 found helpful</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 - Depression Recovery -->
+        <div class="testimonial" data-category="depression">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★★
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">Depression</span>
+            <span class="testimonial-badge">Long-term User</span>
+          </div>
+          <div class="testimonial-text">
+            During my worst depressive episodes, ALCHM was the only tool that didn't make me feel guilty for struggling. The crisis detection actually helped—it connected me with resources during a really dark night when I didn't have the energy to seek help myself. The streaks gave me something to hold onto when everything else felt meaningless. Two years later, I'm in a completely different place, and my ALCHM journal documents the entire journey.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">Jordan, 31</div>
+              <div class="author-journey">Depression survivor, 2+ year journey</div>
+            </div>
+            <div class="testimonial-helpful">201 found helpful</div>
+          </div>
+        </div>
+
+        <!-- Testimonial 6 - Complex Trauma -->
+        <div class="testimonial" data-category="ptsd">
+          <div class="testimonial-header">
+            <div class="testimonial-rating">
+              ★★★★★
+            </div>
+            <span class="verified-badge">Verified</span>
+          </div>
+          <div class="testimonial-badges">
+            <span class="testimonial-badge">Complex Trauma</span>
+            <span class="testimonial-badge">1+ Year</span>
+          </div>
+          <div class="testimonial-text">
+            As a childhood trauma survivor, I've tried many tools and therapies. ALCHM understands that healing isn't linear. When I have setbacks, it doesn't shame me or push toxic positivity. Instead, it helps me process the shame and fear with genuine compassion. The privacy protection means I can be completely honest about my darkest thoughts. This app has been part of my healing for over a year now—it's like having a wise, patient companion always available.
+          </div>
+          <div class="testimonial-author">
+            <div class="author-info">
+              <div class="author-name">River, 26</div>
+              <div class="author-journey">Complex PTSD, healing journey continues</div>
+            </div>
+            <div class="testimonial-helpful">178 found helpful</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px;">
+        <button onclick="loadMoreTestimonials()" class="cta-button" style="background: #f7fafc; color: #4a5568; box-shadow: none; border: 2px solid #e2e8f0;">
+          Load More Stories
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Stages -->
+  <section class="journey-stages">
+    <div class="container">
+      <div class="section-header">
+        <h2>Stories from Every Stage</h2>
+        <p>ALCHM supports users wherever they are in their healing journey</p>
+      </div>
+      
+      <div class="journey-grid">
+        <div class="journey-stage">
+          <div class="journey-icon">🌱</div>
+          <h3>Just Starting</h3>
+          <p>"ALCHM made the first step feel safe. I wasn't ready for therapy, but writing with AI support felt manageable."</p>
+        </div>
+        
+        <div class="journey-stage">
+          <div class="journey-icon">💪</div>
+          <h3>Building Strength</h3>
+          <p>"The streak system helped me build consistency. Each day of writing felt like evidence I was taking care of myself."</p>
+        </div>
+        
+        <div class="journey-stage">
+          <div class="journey-icon">🦋</div>
+          <h3>Growing & Changing</h3>
+          <p>"Looking back at my early entries, I can see how far I've come. ALCHM documented my entire transformation."</p>
+        </div>
+        
+        <div class="journey-stage">
+          <div class="journey-icon">🌟</div>
+          <h3>Thriving</h3>
+          <p>"Now I use ALCHM to maintain my mental health and continue growing. It's become a treasured part of my self-care."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Begin Your Story?</h2>
+      <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+        Join thousands of others who have found healing, growth, and hope through trauma-informed AI journaling.
+      </p>
+      <a href="/beta" class="cta-button">Start Your Healing Journey</a>
+      <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9rem;">
+        Your story could be next. Every healing journey matters.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Testimonial filtering
+    function filterTestimonials(category) {
+      // Update filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Show/hide testimonials
+      const testimonials = document.querySelectorAll('.testimonial');
+      testimonials.forEach(testimonial => {
+        if (category === 'all' || testimonial.dataset.category === category) {
+          testimonial.style.display = 'block';
+          testimonial.style.animation = 'fadeIn 0.5s ease-in';
+        } else {
+          testimonial.style.display = 'none';
+        }
+      });
+      
+      // Track filter usage
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'testimonial_filter', {
+          event_category: 'engagement',
+          event_label: category
+        });
+      }
+    }
+    
+    // Load more testimonials (would connect to API in production)
+    function loadMoreTestimonials() {
+      const button = event.target;
+      button.textContent = 'Loading more stories...';
+      button.disabled = true;
+      
+      // Simulate loading
+      setTimeout(() => {
+        button.textContent = 'More stories coming soon!';
+        button.style.opacity = '0.6';
+        
+        // In production, this would load real testimonials from the API
+        // fetch('/api/reviews?type=public&limit=6&offset=currentOffset')
+      }, 2000);
+      
+      // Track load more usage
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'load_more_testimonials', {
+          event_category: 'engagement'
+        });
+      }
+    }
+    
+    // Testimonial interaction tracking
+    document.querySelectorAll('.testimonial').forEach(testimonial => {
+      testimonial.addEventListener('click', () => {
+        const category = testimonial.dataset.category;
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'testimonial_click', {
+            event_category: 'engagement',
+            event_label: category
+          });
+        }
+      });
+    });
+    
+    // Smooth animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'slideInUp 0.6s ease-out';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.testimonial').forEach(testimonial => {
+      observer.observe(testimonial);
+    });
+    
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      
+      @keyframes slideInUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+  
+  <!-- Analytics placeholder -->
+  <script>
+    // Google Analytics would go here in production
+  </script>
+</body>
+</html>

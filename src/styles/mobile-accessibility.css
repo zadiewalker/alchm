@@ -1,0 +1,653 @@
+/* ==========================================================================
+   Mobile Accessibility Styles for Trauma-Informed Design
+   Supporting users with motor limitations, tremors, and crisis situations
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Custom Properties for Dynamic Accessibility
+   ========================================================================== */
+
+:root {
+  /* Touch target sizes based on accessibility needs */
+  --touch-size-default: 52px;
+  --touch-size-large: 64px;
+  --touch-size-tremor: 72px;
+  --touch-size-emergency: 80px;
+  
+  /* Animation speeds for different accessibility needs */
+  --animation-speed-default: 300ms;
+  --animation-speed-reduced: 150ms;
+  --animation-speed-none: 0ms;
+  
+  /* Spacing for motor difficulties */
+  --spacing-default: 12px;
+  --spacing-moderate: 16px;
+  --spacing-severe: 24px;
+  
+  /* Timeout multipliers */
+  --timeout-default: 1;
+  --timeout-extended: 3;
+  --timeout-crisis: 5;
+  
+  /* Colors for high contrast and crisis modes */
+  --accessibility-focus: #dc2626;
+  --accessibility-border: #374151;
+  --accessibility-bg-crisis: #fef2f2;
+  --accessibility-bg-emergency: #fee2e2;
+  
+  /* Default accessibility values */
+  --accessibility-touch-size: var(--touch-size-default);
+  --accessibility-animation-speed: var(--animation-speed-default);
+  --accessibility-spacing: var(--spacing-default);
+  --accessibility-timeout-multiplier: var(--timeout-default);
+}
+
+/* ==========================================================================
+   Tremor Compensation Styles
+   ========================================================================== */
+
+.tremor-compensation {
+  --accessibility-touch-size: var(--touch-size-tremor);
+  --accessibility-spacing: var(--spacing-moderate);
+}
+
+.tremor-compensation button,
+.tremor-compensation a,
+.tremor-compensation input,
+.tremor-compensation textarea,
+.tremor-compensation select,
+.tremor-compensation .touch-target {
+  min-height: var(--accessibility-touch-size) !important;
+  min-width: var(--accessibility-touch-size) !important;
+  padding: calc(var(--accessibility-spacing) * 1.5) !important;
+  margin: var(--accessibility-spacing) !important;
+  border: 3px solid rgba(75, 85, 99, 0.3) !important;
+  border-radius: 16px !important;
+  font-size: 1.125rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
+}
+
+.tremor-compensation .tremor-safe-zone {
+  padding: calc(var(--accessibility-spacing) * 2);
+  margin: var(--accessibility-spacing);
+  border: 2px dashed rgba(164, 183, 146, 0.5);
+  border-radius: 20px;
+  background: rgba(164, 183, 146, 0.05);
+}
+
+/* Enhanced hover states for tremor compensation */
+.tremor-compensation button:hover,
+.tremor-compensation a:hover,
+.tremor-compensation .touch-target:hover {
+  transform: scale(1.05) !important;
+  border-color: rgba(164, 183, 146, 0.6) !important;
+  box-shadow: 0 8px 16px rgba(164, 183, 146, 0.2) !important;
+  transition: all 200ms ease-out !important;
+}
+
+.tremor-compensation button:active,
+.tremor-compensation a:active,
+.tremor-compensation .touch-target:active {
+  transform: scale(1.02) !important;
+  transition: all 100ms ease-out !important;
+}
+
+/* ==========================================================================
+   One-Handed Mode Styles
+   ========================================================================== */
+
+.one-handed-mode {
+  --accessibility-max-width: 320px;
+}
+
+.one-handed-mode .container,
+.one-handed-mode .main-content,
+.one-handed-mode .content-area {
+  max-width: var(--accessibility-max-width) !important;
+  margin-left: auto !important;
+  margin-right: 16px !important;
+}
+
+.one-handed-mode .navigation,
+.one-handed-mode .menu {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  width: var(--accessibility-max-width);
+  transform: translateX(-16px);
+}
+
+.one-handed-mode .floating-action,
+.one-handed-mode .crisis-button {
+  bottom: max(80px, env(safe-area-inset-bottom, 80px)) !important;
+  right: max(24px, env(safe-area-inset-right, 24px)) !important;
+}
+
+/* Left-handed mode adjustments */
+.left-handed-mode .container,
+.left-handed-mode .main-content,
+.left-handed-mode .content-area {
+  margin-left: 16px !important;
+  margin-right: auto !important;
+}
+
+.left-handed-mode .navigation,
+.left-handed-mode .menu {
+  left: 0;
+  right: auto;
+  transform: translateX(16px);
+}
+
+.left-handed-mode .floating-action,
+.left-handed-mode .crisis-button {
+  left: max(24px, env(safe-area-inset-left, 24px)) !important;
+  right: auto !important;
+}
+
+/* ==========================================================================
+   Large Touch Targets
+   ========================================================================== */
+
+.large-touch-targets {
+  --accessibility-touch-size: var(--touch-size-large);
+}
+
+.large-touch-targets button,
+.large-touch-targets a,
+.large-touch-targets input,
+.large-touch-targets textarea,
+.large-touch-targets select,
+.large-touch-targets .touch-target,
+.large-touch-targets .clickable {
+  min-height: var(--accessibility-touch-size) !important;
+  min-width: var(--accessibility-touch-size) !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+}
+
+.large-touch-targets .btn-primary,
+.large-touch-targets .primary-action {
+  min-height: calc(var(--accessibility-touch-size) + 8px) !important;
+  min-width: calc(var(--accessibility-touch-size) * 3) !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+}
+
+/* Ensure adequate spacing between touch targets */
+.large-touch-targets .button-group > *,
+.large-touch-targets .action-group > * {
+  margin: 8px !important;
+}
+
+.large-touch-targets .button-group,
+.large-touch-targets .action-group {
+  gap: 16px !important;
+}
+
+/* ==========================================================================
+   High Contrast Mode
+   ========================================================================== */
+
+.high-contrast-mode {
+  --accessibility-border: #000000;
+  --accessibility-focus: #000000;
+}
+
+.high-contrast-mode * {
+  border-color: var(--accessibility-border) !important;
+}
+
+.high-contrast-mode button,
+.high-contrast-mode a,
+.high-contrast-mode input,
+.high-contrast-mode textarea,
+.high-contrast-mode select {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.high-contrast-mode .btn-primary,
+.high-contrast-mode .primary-action {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+}
+
+.high-contrast-mode .crisis-button,
+.high-contrast-mode .emergency-action {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 4px solid #ffffff !important;
+  box-shadow: 0 0 0 2px #000000 !important;
+}
+
+.high-contrast-mode *:focus {
+  outline: 4px solid #000000 !important;
+  outline-offset: 4px !important;
+  background: #ffff00 !important;
+  color: #000000 !important;
+}
+
+/* ==========================================================================
+   Large Text Mode
+   ========================================================================== */
+
+.large-text-mode {
+  font-size: 1.25rem !important;
+  line-height: 1.7 !important;
+}
+
+.large-text-mode h1,
+.large-text-mode .text-heading {
+  font-size: 3rem !important;
+  line-height: 1.3 !important;
+}
+
+.large-text-mode h2,
+.large-text-mode .text-subheading {
+  font-size: 2.5rem !important;
+  line-height: 1.4 !important;
+}
+
+.large-text-mode h3,
+.large-text-mode .text-title {
+  font-size: 2rem !important;
+  line-height: 1.5 !important;
+}
+
+.large-text-mode p,
+.large-text-mode .text-body {
+  font-size: 1.5rem !important;
+  line-height: 1.7 !important;
+}
+
+.large-text-mode small,
+.large-text-mode .text-small {
+  font-size: 1.25rem !important;
+  line-height: 1.6 !important;
+}
+
+.large-text-mode button,
+.large-text-mode a,
+.large-text-mode input,
+.large-text-mode textarea {
+  font-size: 1.375rem !important;
+  line-height: 1.6 !important;
+}
+
+/* ==========================================================================
+   Reduced Motion Mode
+   ========================================================================== */
+
+.reduced-motion-mode *,
+.reduced-motion-mode *::before,
+.reduced-motion-mode *::after {
+  animation-duration: 0ms !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0ms !important;
+  transition-delay: 0ms !important;
+  transform: none !important;
+}
+
+/* Maintain essential feedback without motion */
+.reduced-motion-mode button:active,
+.reduced-motion-mode a:active,
+.reduced-motion-mode .touch-target:active {
+  background-color: rgba(164, 183, 146, 0.2) !important;
+  border-color: rgba(164, 183, 146, 0.6) !important;
+}
+
+.reduced-motion-mode .loading,
+.reduced-motion-mode .spinner {
+  animation: none !important;
+}
+
+.reduced-motion-mode .loading::after {
+  content: 'Loading...' !important;
+  animation: none !important;
+}
+
+/* ==========================================================================
+   Motor Difficulty Levels
+   ========================================================================== */
+
+.motor-difficulty-mild {
+  --accessibility-touch-size: var(--touch-size-large);
+  --accessibility-spacing: var(--spacing-moderate);
+  --accessibility-timeout-multiplier: 2;
+}
+
+.motor-difficulty-moderate {
+  --accessibility-touch-size: var(--touch-size-tremor);
+  --accessibility-spacing: var(--spacing-moderate);
+  --accessibility-timeout-multiplier: 3;
+}
+
+.motor-difficulty-moderate button,
+.motor-difficulty-moderate a,
+.motor-difficulty-moderate .touch-target {
+  border: 3px solid rgba(164, 183, 146, 0.5) !important;
+  font-weight: 600 !important;
+}
+
+.motor-difficulty-severe {
+  --accessibility-touch-size: var(--touch-size-emergency);
+  --accessibility-spacing: var(--spacing-severe);
+  --accessibility-timeout-multiplier: 5;
+}
+
+.motor-difficulty-severe button,
+.motor-difficulty-severe a,
+.motor-difficulty-severe .touch-target {
+  border: 4px solid rgba(164, 183, 146, 0.7) !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.motor-difficulty-severe .simplified-ui {
+  display: block !important;
+}
+
+.motor-difficulty-severe .complex-ui {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Simplified UI Mode
+   ========================================================================== */
+
+.simplified-ui-mode .non-essential,
+.simplified-ui-mode .decorative,
+.simplified-ui-mode .secondary-action {
+  display: none !important;
+}
+
+.simplified-ui-mode .main-content {
+  padding: var(--accessibility-spacing) !important;
+  gap: calc(var(--accessibility-spacing) * 2) !important;
+}
+
+.simplified-ui-mode .form-group,
+.simplified-ui-mode .input-group {
+  margin-bottom: calc(var(--accessibility-spacing) * 2) !important;
+}
+
+.simplified-ui-mode label {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-bottom: var(--accessibility-spacing) !important;
+  display: block !important;
+}
+
+.simplified-ui-mode .button-group {
+  flex-direction: column !important;
+  gap: var(--accessibility-spacing) !important;
+}
+
+/* ==========================================================================
+   Crisis Accessibility Mode
+   ========================================================================== */
+
+.crisis-accessibility-mode {
+  --accessibility-touch-size: var(--touch-size-tremor);
+  --accessibility-spacing: var(--spacing-moderate);
+  --accessibility-timeout-multiplier: var(--timeout-crisis);
+  background: var(--accessibility-bg-crisis) !important;
+}
+
+.crisis-accessibility-mode .crisis-priority {
+  order: -1 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  background: #dc2626 !important;
+  color: white !important;
+  padding: calc(var(--accessibility-spacing) * 2) !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.crisis-accessibility-mode button,
+.crisis-accessibility-mode a,
+.crisis-accessibility-mode .touch-target {
+  border: 3px solid rgba(220, 38, 38, 0.3) !important;
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2) !important;
+}
+
+.crisis-accessibility-mode .crisis-action {
+  background: #dc2626 !important;
+  color: white !important;
+  border: 3px solid #ffffff !important;
+  min-height: var(--touch-size-emergency) !important;
+  font-size: 1.375rem !important;
+  font-weight: 700 !important;
+}
+
+.crisis-accessibility-mode *:focus {
+  outline: 4px solid #dc2626 !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 8px rgba(220, 38, 38, 0.3) !important;
+}
+
+/* ==========================================================================
+   Emergency Accessibility Mode (Maximum Support)
+   ========================================================================== */
+
+.emergency-accessibility-mode {
+  --accessibility-touch-size: var(--touch-size-emergency);
+  --accessibility-spacing: var(--spacing-severe);
+  --accessibility-timeout-multiplier: var(--timeout-crisis);
+  background: var(--accessibility-bg-emergency) !important;
+  color: #000000 !important;
+}
+
+.emergency-accessibility-mode * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.emergency-accessibility-mode button,
+.emergency-accessibility-mode a,
+.emergency-accessibility-mode .touch-target {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 4px solid #000000 !important;
+  min-height: var(--touch-size-emergency) !important;
+  min-width: var(--touch-size-emergency) !important;
+  font-size: 1.5rem !important;
+  font-weight: 800 !important;
+  border-radius: 20px !important;
+  margin: calc(var(--accessibility-spacing) * 1.5) !important;
+}
+
+.emergency-accessibility-mode .primary-action,
+.emergency-accessibility-mode .crisis-action {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border: 6px solid #ffffff !important;
+  box-shadow: 0 0 0 4px #dc2626 !important;
+  min-height: calc(var(--touch-size-emergency) + 16px) !important;
+  font-size: 1.75rem !important;
+}
+
+.emergency-accessibility-mode *:focus {
+  outline: 6px solid #dc2626 !important;
+  outline-offset: 6px !important;
+  box-shadow: 0 0 0 12px rgba(220, 38, 38, 0.5) !important;
+}
+
+/* Emergency mode: Hide everything except essential actions */
+.emergency-accessibility-mode .non-critical {
+  display: none !important;
+}
+
+.emergency-accessibility-mode .emergency-only {
+  display: block !important;
+}
+
+/* ==========================================================================
+   Interaction Speed Modes
+   ========================================================================== */
+
+.slow-interaction-mode {
+  --accessibility-timeout-multiplier: 5;
+}
+
+.slow-interaction-mode *:hover,
+.slow-interaction-mode *:focus {
+  transition: all 500ms ease !important;
+}
+
+.slow-interaction-mode .tooltip,
+.slow-interaction-mode .help-text {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition-delay: 1s !important;
+}
+
+/* ==========================================================================
+   Battery-Aware Optimizations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body[style*="--accessibility-battery-level: 1"] .battery-intensive,
+  body[style*="--accessibility-battery-level: 2"] .battery-intensive {
+    display: none !important;
+  }
+  
+  body[style*="--accessibility-battery-level: 1"] *,
+  body[style*="--accessibility-battery-level: 2"] * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ==========================================================================
+   Screen Reader Enhancements
+   ========================================================================== */
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0.5rem !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  z-index: 9999 !important;
+}
+
+/* Enhanced focus indicators for all accessibility modes */
+.tremor-compensation *:focus,
+.motor-difficulty-mild *:focus,
+.motor-difficulty-moderate *:focus,
+.motor-difficulty-severe *:focus {
+  outline: 4px solid rgba(164, 183, 146, 0.8) !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 8px rgba(164, 183, 146, 0.3) !important;
+}
+
+/* ==========================================================================
+   Print and Export Accessibility
+   ========================================================================== */
+
+@media print {
+  .tremor-compensation,
+  .large-touch-targets,
+  .motor-difficulty-mild,
+  .motor-difficulty-moderate,
+  .motor-difficulty-severe {
+    font-size: 14pt !important;
+    line-height: 1.6 !important;
+  }
+  
+  .large-text-mode {
+    font-size: 16pt !important;
+    line-height: 1.8 !important;
+  }
+  
+  .high-contrast-mode * {
+    color: #000000 !important;
+    background: #ffffff !important;
+    border-color: #000000 !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Accessibility Adjustments
+   ========================================================================== */
+
+@media (max-width: 375px) {
+  .tremor-compensation,
+  .large-touch-targets,
+  .motor-difficulty-moderate,
+  .motor-difficulty-severe {
+    --accessibility-touch-size: 64px;
+  }
+  
+  .one-handed-mode {
+    --accessibility-max-width: 300px;
+  }
+  
+  .emergency-accessibility-mode {
+    --accessibility-touch-size: 72px;
+  }
+}
+
+@media (max-width: 320px) {
+  .tremor-compensation,
+  .large-touch-targets,
+  .motor-difficulty-moderate,
+  .motor-difficulty-severe {
+    --accessibility-touch-size: 60px;
+  }
+  
+  .emergency-accessibility-mode {
+    --accessibility-touch-size: 68px;
+  }
+}
+
+/* ==========================================================================
+   Landscape Orientation Adjustments
+   ========================================================================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .tremor-compensation,
+  .large-touch-targets,
+  .motor-difficulty-mild,
+  .motor-difficulty-moderate,
+  .motor-difficulty-severe {
+    --accessibility-touch-size: 48px;
+    --accessibility-spacing: 8px;
+  }
+  
+  .crisis-accessibility-mode .crisis-priority,
+  .emergency-accessibility-mode .emergency-priority {
+    position: relative !important;
+    padding: var(--accessibility-spacing) !important;
+  }
+}

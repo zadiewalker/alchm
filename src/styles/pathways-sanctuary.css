@@ -1,0 +1,350 @@
+/* Pathways Dashboard - Digital Sanctuary Styles */
+
+/* Glass morphism and sanctuary gradients */
+.gradient-sanctuary {
+  background: linear-gradient(135deg, 
+    #667eea 0%, 
+    #764ba2 25%, 
+    #f093fb 50%, 
+    #f5576c 75%, 
+    #4facfe 100%);
+  background-size: 400% 400%;
+  animation: sanctuary-gradient 15s ease infinite;
+}
+
+@keyframes sanctuary-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gentle animations for healing elements */
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Botanical growth animations */
+@keyframes botanical-grow {
+  0% {
+    transform: scale(0) translateY(20px);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.8) translateY(10px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.botanical-element {
+  animation: botanical-grow 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Flowing water effect for progress bars */
+@keyframes flowing-water {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.flowing-progress {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: flowing-water 3s linear infinite;
+}
+
+/* Heart sparkle effect */
+@keyframes heart-sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 4px rgba(255, 105, 135, 0.6));
+  }
+  25% {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 8px rgba(255, 105, 135, 0.8));
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+    filter: drop-shadow(0 0 12px rgba(255, 105, 135, 1));
+  }
+  75% {
+    transform: scale(1.1) rotate(-5deg);
+    filter: drop-shadow(0 0 8px rgba(255, 105, 135, 0.8));
+  }
+}
+
+.heart-sparkle {
+  animation: heart-sparkle 2s ease-in-out infinite;
+}
+
+/* Milestone celebration particles */
+@keyframes celebrate-particle {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) scale(0);
+    opacity: 0;
+  }
+}
+
+.celebration-particle {
+  animation: celebrate-particle 2s ease-out infinite;
+}
+
+/* Community wisdom card hover effects */
+.wisdom-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.wisdom-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+/* Glass morphism containers */
+.glass-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Crisis-safe color coding */
+.crisis-support {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  border: 2px solid #fecaca;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+}
+
+.crisis-support:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+}
+
+/* Gentle breathing animation for calm states */
+@keyframes gentle-breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+.breathing-element {
+  animation: gentle-breathing 4s ease-in-out infinite;
+}
+
+/* Healing momentum indicators */
+.momentum-emerging {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+.momentum-growing {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  animation: gentle-pulse 2.5s ease-in-out infinite;
+}
+
+.momentum-blooming {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.momentum-flourishing {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  animation: gentle-pulse 1.5s ease-in-out infinite;
+}
+
+/* Line clamping for text overflow */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Touch-optimized elements */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  position: relative;
+}
+
+.touch-target::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .animate-gentle-pulse,
+  .botanical-element,
+  .flowing-progress,
+  .heart-sparkle,
+  .celebration-particle,
+  .breathing-element,
+  .momentum-emerging,
+  .momentum-growing,
+  .momentum-blooming,
+  .momentum-flourishing {
+    animation: none;
+  }
+  
+  .wisdom-card {
+    transition: none;
+  }
+  
+  .gradient-sanctuary {
+    background: #667eea;
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #000;
+  }
+  
+  .wisdom-card {
+    border: 2px solid #000;
+  }
+  
+  .crisis-support {
+    border: 3px solid #000;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+.focus-visible:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Safe scrolling for crisis content */
+.crisis-scroll-safe {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+/* Community wisdom layout */
+.wisdom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .wisdom-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Milestone celebration effects */
+.milestone-celebration {
+  position: relative;
+  overflow: hidden;
+}
+
+.milestone-celebration::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    rgba(255, 215, 0, 0.1) 0%,
+    transparent 70%);
+  pointer-events: none;
+  animation: celebration-glow 3s ease-in-out infinite;
+}
+
+@keyframes celebration-glow {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Privacy and safety indicators */
+.privacy-indicator {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.safety-verified {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+/* Gentle transitions for state changes */
+.sanctuary-transition {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botanical progress elements */
+.growth-stage {
+  transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.growth-stage.emerging {
+  filter: hue-rotate(0deg) brightness(1) saturate(1);
+}
+
+.growth-stage.growing {
+  filter: hue-rotate(60deg) brightness(1.1) saturate(1.1);
+}
+
+.growth-stage.blooming {
+  filter: hue-rotate(120deg) brightness(1.2) saturate(1.2);
+}
+
+.growth-stage.flourishing {
+  filter: hue-rotate(240deg) brightness(1.3) saturate(1.3);
+}

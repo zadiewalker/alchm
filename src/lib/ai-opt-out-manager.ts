@@ -544,7 +544,7 @@ interface ConsentRecord {
 interface ParentalApproval {
   parentEmail: string;
   approvalTimestamp: string;
-  verificationMethod: 'email' | 'phone' | 'document';
+  verificationMethod: 'email' | 'phone' | 'typeof window !== 'undefined' && document';
   approvalToken: string;
 }
 

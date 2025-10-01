@@ -1,0 +1,520 @@
+/*
+ * TRAUMA-INFORMED ANIMATION GUIDELINES
+ * Designed for healing, not triggering - every transition serves user wellbeing
+ * Respects prefers-reduced-motion and provides gentle, purposeful motion
+ */
+
+/* ============================================================================
+   CORE ANIMATION PRINCIPLES
+   ============================================================================ */
+
+:root {
+  /* Timing Functions - Based on natural breathing and heartbeat rhythms */
+  --timing-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Gentle ease out */
+  --timing-breath: cubic-bezier(0.37, 0, 0.63, 1); /* Like a slow breath */
+  --timing-heartbeat: cubic-bezier(0.4, 0, 0.2, 1); /* Steady, calming */
+  --timing-grounding: cubic-bezier(0.16, 1, 0.3, 1); /* Settling motion */
+  
+  /* Duration Standards - Respects attention spans during distress */
+  --duration-micro: 150ms;   /* State changes, hover effects */
+  --duration-short: 250ms;   /* Content transitions */
+  --duration-medium: 400ms;  /* Page transitions */
+  --duration-long: 600ms;    /* Large layout changes */
+  --duration-breath: 3000ms; /* Breathing animations */
+  
+  /* Crisis Mode Overrides */
+  --crisis-duration-micro: 50ms;
+  --crisis-duration-short: 100ms;
+  --crisis-duration-medium: 150ms;
+  --crisis-duration-long: 200ms;
+  
+  /* Gentle Motion Values */
+  --scale-hover: 1.02;       /* Subtle growth on hover */
+  --scale-active: 0.98;      /* Gentle press feedback */
+  --scale-focus: 1.05;       /* Accessibility focus */
+  --translate-gentle: 2px;   /* Subtle movements */
+  --blur-gentle: 2px;        /* Soft focus effects */
+}
+
+/* ============================================================================
+   REDUCED MOTION PREFERENCES
+   ============================================================================ */
+
+/* Respect user's motion preferences completely */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Maintain essential feedback with minimal motion */
+  .touch-feedback:active {
+    transform: scale(0.99) !important;
+    transition: transform 0.05s ease !important;
+  }
+  
+  /* Keep critical accessibility animations */
+  .crisis-pulse {
+    animation: none !important;
+    border: 3px solid currentColor !important;
+  }
+}
+
+/* ============================================================================
+   CRISIS MODE ANIMATION OVERRIDES
+   ============================================================================ */
+
+.crisis-active *,
+.emergency-active *,
+.perf-tier-ultra-low *,
+.perf-tier-low * {
+  animation-duration: var(--crisis-duration-short) !important;
+  transition-duration: var(--crisis-duration-micro) !important;
+}
+
+/* Disable complex animations in crisis */
+.crisis-active .complex-animation,
+.emergency-active .complex-animation,
+.battery-saver-mode .complex-animation {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* ============================================================================
+   GENTLE HOVER AND INTERACTION STATES
+   ============================================================================ */
+
+/* Base interactive elements */
+.interactive-element,
+button,
+a[role="button"],
+.clickable {
+  transition: all var(--duration-micro) var(--timing-gentle);
+  will-change: transform, background-color, box-shadow;
+}
+
+.interactive-element:hover,
+button:hover,
+a[role="button"]:hover,
+.clickable:hover {
+  transform: scale(var(--scale-hover));
+  transition: all var(--duration-short) var(--timing-gentle);
+}
+
+.interactive-element:active,
+button:active,
+a[role="button"]:active,
+.clickable:active {
+  transform: scale(var(--scale-active));
+  transition: all var(--duration-micro) var(--timing-gentle);
+}
+
+/* Focus states for accessibility */
+.interactive-element:focus-visible,
+button:focus-visible,
+a[role="button"]:focus-visible {
+  transform: scale(var(--scale-focus));
+  transition: all var(--duration-short) var(--timing-grounding);
+}
+
+/* ============================================================================
+   SOOTHING ANIMATIONS FOR TRAUMA RECOVERY
+   ============================================================================ */
+
+/* Gentle breathing animation for grounding */
+@keyframes gentle-breath {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+.breathing-animation {
+  animation: gentle-breath var(--duration-breath) var(--timing-breath) infinite;
+}
+
+/* Soft pulsing for important elements */
+@keyframes soft-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(164, 183, 146, 0.4);
+  }
+  50% {
+    opacity: 0.9;
+    box-shadow: 0 0 0 8px rgba(164, 183, 146, 0.1);
+  }
+}
+
+.soft-pulse {
+  animation: soft-pulse 2s var(--timing-breath) infinite;
+}
+
+/* Crisis attention animation - respectful but noticeable */
+@keyframes crisis-attention {
+  0%, 100% {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+  }
+  50% {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.2);
+  }
+}
+
+.crisis-attention {
+  animation: crisis-attention 2s var(--timing-heartbeat) infinite;
+}
+
+/* Gentle fade in for new content */
+@keyframes gentle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gentle-fade-in {
+  animation: gentle-fade-in var(--duration-medium) var(--timing-grounding);
+}
+
+/* Slide in from natural reading direction */
+@keyframes slide-in-natural {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-natural {
+  animation: slide-in-natural var(--duration-medium) var(--timing-gentle);
+}
+
+/* ============================================================================
+   LOADING STATES - CALMING AND INFORMATIVE
+   ============================================================================ */
+
+/* Gentle loading pulse */
+@keyframes loading-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.loading-gentle {
+  animation: loading-pulse 1.5s var(--timing-breath) infinite;
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton-loading {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    #e0e0e0 40px,
+    #f0f0f0 80px
+  );
+  background-size: 200px 100%;
+  animation: skeleton-loading 2s var(--timing-gentle) infinite;
+}
+
+/* Crisis mode: simplified loading */
+.crisis-active .skeleton-loading,
+.emergency-active .skeleton-loading {
+  animation: none;
+  background: #e5e7eb;
+}
+
+/* ============================================================================
+   PAGE TRANSITIONS - SMOOTH AND PREDICTABLE
+   ============================================================================ */
+
+/* Page enter animation */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter var(--duration-medium) var(--timing-grounding);
+}
+
+/* Page exit animation */
+@keyframes page-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.page-exit {
+  animation: page-exit var(--duration-short) var(--timing-gentle);
+}
+
+/* Modal animations */
+@keyframes modal-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-content-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-backdrop-enter {
+  animation: modal-backdrop-enter var(--duration-medium) var(--timing-gentle);
+}
+
+.modal-content-enter {
+  animation: modal-content-enter var(--duration-medium) var(--timing-grounding);
+}
+
+/* ============================================================================
+   MICRO-INTERACTIONS - PROVIDING GENTLE FEEDBACK
+   ============================================================================ */
+
+/* Button press feedback */
+.button-press {
+  transform: scale(var(--scale-active));
+  transition: transform var(--duration-micro) var(--timing-gentle);
+}
+
+/* Gentle highlight for important actions */
+@keyframes gentle-highlight {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(164, 183, 146, 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.gentle-highlight {
+  animation: gentle-highlight var(--duration-long) var(--timing-gentle);
+}
+
+/* Success state animation */
+@keyframes success-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.success-glow {
+  animation: success-glow var(--duration-long) var(--timing-grounding);
+}
+
+/* ============================================================================
+   PROGRESS INDICATORS - SHOWING HEALING JOURNEY
+   ============================================================================ */
+
+/* Progress bar fill animation */
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.progress-fill {
+  animation: progress-fill var(--duration-long) var(--timing-grounding);
+}
+
+/* Growth rings for progress visualization */
+@keyframes growth-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.growth-ring {
+  animation: growth-ring 2s var(--timing-breath) infinite;
+}
+
+/* ============================================================================
+   ERROR STATES - GENTLE AND SUPPORTIVE
+   ============================================================================ */
+
+/* Gentle shake for form validation */
+@keyframes gentle-shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}
+
+.gentle-shake {
+  animation: gentle-shake 0.4s var(--timing-gentle);
+}
+
+/* Error attention - supportive, not alarming */
+@keyframes error-attention {
+  0%, 100% {
+    border-color: #f87171;
+    background-color: rgba(248, 113, 113, 0.05);
+  }
+  50% {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+}
+
+.error-attention {
+  animation: error-attention 2s var(--timing-gentle) 3; /* Only 3 cycles */
+}
+
+/* ============================================================================
+   ACCESSIBILITY AND PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/* Ensure animations don't interfere with screen readers */
+.sr-only:focus {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Performance optimization classes */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Disable GPU acceleration on low-end devices */
+.perf-tier-ultra-low .gpu-accelerated,
+.battery-saver-mode .gpu-accelerated {
+  transform: none;
+  backface-visibility: visible;
+  perspective: none;
+  will-change: auto;
+}
+
+/* ============================================================================
+   CONTAINER QUERIES FOR ADAPTIVE ANIMATIONS
+   ============================================================================ */
+
+/* Smaller containers get faster, simpler animations */
+@container (max-width: 320px) {
+  .adaptive-animation {
+    animation-duration: calc(var(--duration-short) * 0.7);
+  }
+}
+
+@container (max-width: 480px) {
+  .complex-animation {
+    animation: none;
+  }
+  
+  .simple-fade {
+    animation: gentle-fade-in var(--duration-short) var(--timing-gentle);
+  }
+}
+
+/* ============================================================================
+   PRINT STYLES - STATIC FOR OFFLINE ACCESS
+   ============================================================================ */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================================
+   DEVELOPER UTILITIES FOR DEBUGGING ANIMATIONS
+   ============================================================================ */
+
+.debug-animations * {
+  animation-duration: 5s !important;
+  transition-duration: 1s !important;
+  outline: 1px dashed rgba(255, 0, 0, 0.3) !important;
+}
+
+.debug-animations *:hover {
+  background-color: rgba(255, 255, 0, 0.1) !important;
+}

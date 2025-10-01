@@ -1,3 +1,5 @@
+'use client';
+
 // 404 Not Found page for ALCHM
 import Link from 'next/link'
 

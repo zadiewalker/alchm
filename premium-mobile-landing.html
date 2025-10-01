@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALCHM - Premium Mobile Landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Reset and Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Sage Green System */
+      --sage-50: #f8f9f7;
+      --sage-100: #f0f3ed;
+      --sage-200: #e1e8db;
+      --sage-300: #c9d5be;
+      --sage-400: #a4b792;
+      --sage-500: #93a682;
+      --sage-600: #7a8c6a;
+      --sage-700: #5f6b52;
+      --sage-800: #4a5340;
+      --sage-900: #3a4233;
+
+      /* Sanctuary Neutrals */
+      --sanctuary-white: #fefcfb;
+      --sanctuary-gray-50: #f9f9f8;
+      --sanctuary-gray-100: #f3f3f2;
+      --sanctuary-gray-200: #e5e5e4;
+      --sanctuary-gray-300: #d1d1cf;
+      --sanctuary-gray-400: #9e9e9b;
+      --sanctuary-gray-500: #7c7c79;
+      --sanctuary-gray-600: #6b6b68;
+      --sanctuary-gray-700: #4a4a48;
+      --sanctuary-gray-800: #2e2e2d;
+      --sanctuary-gray-900: #1a1a19;
+
+      /* Typography */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-glass: 0 8px 32px 0 rgba(164, 183, 146, 0.15);
+
+      /* Border Radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+      --radius-full: 50rem;
+
+      /* Animation */
+      --duration-fast: 150ms;
+      --duration-normal: 300ms;
+      --duration-slow: 500ms;
+      --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--sanctuary-gray-900);
+      background: var(--sanctuary-white);
+      scroll-behavior: smooth;
+    }
+
+    /* Layout */
+    .container {
+      width: 100%;
+      max-width: 428px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+
+    .layout-centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: var(--space-6);
+    }
+
+    .layout-safe {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Premium Gradient Background */
+    .gradient-sanctuary {
+      background: linear-gradient(135deg, var(--sage-400) 0%, var(--sage-600) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-sanctuary::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: gentle-float 20s ease-in-out infinite;
+    }
+
+    @keyframes gentle-float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(30px, -30px) rotate(1deg); }
+      66% { transform: translate(-20px, 20px) rotate(-1deg); }
+    }
+
+    /* Typography Scale */
+    .text-xs { font-size: 0.75rem; line-height: 1rem; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .text-base { font-size: 1rem; line-height: 1.5rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+    .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+    .text-5xl { font-size: 3rem; line-height: 1; }
+
+    /* Font Weights */
+    .font-light { font-weight: 300; }
+    .font-regular { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+
+    /* Header */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: var(--space-8) 0;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wordmark {
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: white;
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: fade-in-up 1s ease-out 0.5s forwards;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      position: relative;
+      padding: var(--space-2) 0;
+    }
+
+    .nav-link:hover {
+      color: white;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: white;
+      transition: width var(--duration-normal) var(--ease-out-cubic);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      color: white;
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      opacity: 0;
+      animation: fade-in-up 1s ease-out 1s forwards;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+      letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: var(--space-8);
+      opacity: 0.9;
+    }
+
+    .hero .description {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      margin-bottom: var(--space-10);
+      opacity: 0.8;
+    }
+
+    /* Premium Button */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: var(--space-4) var(--space-8);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-2xl);
+      font-family: var(--font-family);
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      box-shadow: var(--shadow-glass);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left var(--duration-slow) var(--ease-out-cubic);
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px 0 rgba(164, 183, 146, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* Trust Indicators */
+    .trust-indicators {
+      margin-top: var(--space-8);
+      opacity: 0;
+      animation: fade-in-up 1s ease-out 1.5s forwards;
+    }
+
+    .trust-text {
+      font-size: 0.875rem;
+      opacity: 0.7;
+      margin-bottom: var(--space-4);
+    }
+
+    .legal-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .legal-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-lg);
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .legal-link:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .wisdom-text {
+      margin-top: var(--space-6);
+      font-size: 0.875rem;
+      opacity: 0.6;
+      font-style: italic;
+    }
+
+    /* Animations */
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 var(--space-3);
+      }
+
+      .layout-centered {
+        padding: var(--space-4);
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .btn-primary {
+        min-height: 60px;
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .gradient-sanctuary::before {
+        animation: none;
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      .btn-primary {
+        background: rgba(255, 255, 255, 0.3);
+        border: 2px solid white;
+      }
+
+      .legal-link {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    /* Crisis Support Button */
+    .crisis-support {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      width: 60px;
+      height: 60px;
+      background: var(--sage-400);
+      border: none;
+      border-radius: var(--radius-full);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crisis-support:hover {
+      background: var(--sage-500);
+      transform: scale(1.05);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* Loading Animation */
+    .loading-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--sanctuary-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity var(--duration-slow) var(--ease-out-cubic);
+    }
+
+    .loading-animation.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--sage-200);
+      border-top: 2px solid var(--sage-400);
+      border-radius: var(--radius-full);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: var(--space-4);
+      color: var(--sage-600);
+      font-size: 0.875rem;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div class="loading-animation" id="loadingAnimation">
+    <div style="text-align: center;">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Preparing your sanctuary...</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="gradient-sanctuary layout-centered layout-safe">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="wordmark">ALCHM</div>
+          <nav class="nav-links">
+            <a href="#privacy" class="nav-link">Privacy</a>
+            <a href="#terms" class="nav-link">Terms</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Your safe space for emotional healing</h1>
+        <p class="subtitle">
+          Trauma-informed AI support that honors all healing traditions & identities
+        </p>
+        <p class="description">
+          Begin your journey toward emotional wellness with culturally-responsive support designed for your unique path to healing.
+        </p>
+        <a href="#" class="btn-primary" id="beginHealingBtn">
+          Begin Healing
+        </a>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="trust-indicators">
+        <p class="trust-text">Always free • All identities welcomed • Private & secure</p>
+        
+        <div class="legal-links">
+          <a href="/privacy-policy.html" class="legal-link">Privacy Policy</a>
+          <a href="/terms.html" class="legal-link">Terms of Service</a>
+        </div>
+        
+        <p class="wisdom-text">
+          Honoring all healing traditions & wisdom
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Crisis Support Button -->
+  <button class="crisis-support" id="crisisBtn" aria-label="Access crisis support - Call 988">
+    <span role="img" aria-label="Emergency help">🆘</span>
+  </button>
+
+  <script>
+    // Remove loading animation after page loads
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        const loadingAnimation = document.getElementById('loadingAnimation');
+        loadingAnimation.classList.add('hidden');
+        setTimeout(() => {
+          loadingAnimation.style.display = 'none';
+        }, 500);
+      }, 1000);
+    });
+
+    // Handle Begin Healing button
+    document.getElementById('beginHealingBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Add loading state
+      this.style.opacity = '0.7';
+      this.style.pointerEvents = 'none';
+      this.innerHTML = '<span style="opacity: 0.7;">✨ Opening sanctuary...</span>';
+      
+      // Simulate navigation delay for premium feel
+      setTimeout(() => {
+        window.location.href = '/auth/login';
+      }, 800);
+    });
+
+    // Handle Crisis Support button
+    document.getElementById('crisisBtn').addEventListener('click', function() {
+      // Haptic feedback if available
+      if ('vibrate' in navigator) {
+        navigator.vibrate([200, 100, 200]);
+      }
+      
+      // Immediate action for crisis
+      window.location.href = 'tel:988';
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Performance monitoring
+    if ('performance' in window) {
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData && perfData.loadEventEnd - perfData.loadEventStart > 3000) {
+            console.warn('Page load time exceeded 3s - consider optimization');
+          }
+        }, 0);
+      });
+    }
+
+    // Crisis keyword detection (basic implementation)
+    let lastInputTime = 0;
+    const crisisKeywords = ['help me', 'emergency', 'crisis', 'suicide', 'hurt myself'];
+    
+    document.addEventListener('input', function(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        lastInputTime = Date.now();
+        const text = e.target.value.toLowerCase();
+        
+        const hasCrisisContent = crisisKeywords.some(keyword => text.includes(keyword));
+        
+        if (hasCrisisContent) {
+          const crisisBtn = document.getElementById('crisisBtn');
+          crisisBtn.style.background = '#dc2626';
+          crisisBtn.style.animation = 'gentle-pulse 2s infinite';
+          
+          // Show immediate support message
+          if (confirm('Crisis support detected. Would you like immediate access to 988 Crisis Lifeline?')) {
+            window.location.href = 'tel:988';
+          }
+        }
+      }
+    });
+
+    // Accessibility enhancements
+    document.addEventListener('keydown', function(e) {
+      // Escape key for quick crisis access
+      if (e.key === 'Escape' && e.ctrlKey) {
+        window.location.href = 'tel:988';
+      }
+    });
+
+    // Touch optimization for mobile
+    if ('ontouchstart' in window) {
+      document.body.classList.add('touch-device');
+      
+      // Ensure touch targets are appropriate size
+      const buttons = document.querySelectorAll('button, .btn-primary, .legal-link');
+      buttons.forEach(btn => {
+        if (btn.offsetHeight < 44) {
+          btn.style.minHeight = '44px';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

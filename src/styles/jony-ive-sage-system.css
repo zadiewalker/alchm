@@ -1,0 +1,322 @@
+/*
+ * JONY IVE SAGE GREEN DESIGN SYSTEM
+ * "Radical simplicity. Obsessive attention to detail. Sage green sanctuary."
+ * 
+ * This file replaces complex CSS overrides with a single, elegant solution.
+ * Every property serves healing through design minimalism.
+ */
+
+/* === DESIGN TOKEN FOUNDATION === */
+:root {
+  /* The Primary Sage - Single Source of Truth */
+  --sage-primary: #a4b792;
+  --sage-hover: #93a682;
+  --sage-active: #7a8c6a;
+  --sage-light: #f6f8f4;
+  --sage-muted: #d6e0cd;
+  
+  /* Sanctuary Colors */
+  --sanctuary: #fefcfb;
+  --sanctuary-glass: rgba(254, 252, 251, 0.85);
+  --sanctuary-mist: rgba(254, 252, 251, 0.05);
+  
+  /* Typography - System Fonts for Performance */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  /* Maximum weight - Jony Ive restraint principle */
+  
+  /* Trauma-Informed Line Heights */
+  --line-height-relaxed: 1.7;
+  --line-height-comfortable: 1.6;
+  
+  /* Spacing - Mathematical Harmony */
+  --space-unit: 8px;
+  --space-xs: calc(var(--space-unit) * 1);    /* 8px */
+  --space-sm: calc(var(--space-unit) * 2);    /* 16px */
+  --space-md: calc(var(--space-unit) * 3);    /* 24px */
+  --space-lg: calc(var(--space-unit) * 4);    /* 32px */
+  --space-xl: calc(var(--space-unit) * 6);    /* 48px */
+  
+  /* Radii - Soft, Approachable */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  
+  /* Animation - Gentle, Never Jarring */
+  --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+}
+
+/* === CORE SANCTUARY BACKGROUNDS === */
+
+/* Global Background - The Foundation */
+html {
+  background: var(--sage-primary);
+  font-family: var(--font-system);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  color: var(--sanctuary);
+  font-size: 16px; /* iOS zoom prevention */
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container - Sacred Space */
+main {
+  background: inherit;
+  min-height: inherit;
+  color: inherit;
+}
+
+/* === COMPONENT FOUNDATIONS === */
+
+/* Buttons - Purposeful Interaction */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  min-height: 48px; /* Trauma-informed minimum */
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background: var(--sanctuary-glass);
+  color: var(--sage-active);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background: var(--sanctuary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--sanctuary);
+  border: 1px solid var(--sanctuary-glass);
+}
+
+.btn-secondary:hover {
+  background: var(--sanctuary-mist);
+  border-color: var(--sanctuary-glass);
+}
+
+/* Cards - Floating Content */
+.card {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--duration-base) var(--ease-sanctuary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Inputs - Sacred Text Entry */
+.input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--sage-active);
+  font-family: inherit;
+  font-size: 16px; /* iOS zoom prevention */
+  min-height: 48px;
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.input::placeholder {
+  color: rgba(164, 183, 146, 0.7);
+  font-style: italic;
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+
+@media (max-width: 768px) {
+  /* Larger touch targets for mobile */
+  .btn {
+    min-height: 52px;
+    min-width: 52px;
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .input {
+    min-height: 52px;
+    padding: var(--space-md);
+  }
+  
+  /* Mobile-specific spacing */
+  .container {
+    padding: var(--space-sm);
+  }
+}
+
+/* === ACCESSIBILITY === */
+
+/* Focus states that feel supportive, not aggressive */
+*:focus-visible {
+  outline: 2px solid var(--sanctuary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid var(--sage-active);
+  }
+  
+  .card {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === LAYOUT SYSTEM === */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+/* === TYPOGRAPHY SYSTEM === */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-medium); /* Jony Ive restraint */
+  line-height: 1.3;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--sanctuary);
+}
+
+h1 { font-size: clamp(28px, 5vw, 42px); }
+h2 { font-size: clamp(24px, 4vw, 32px); }
+h3 { font-size: clamp(20px, 3vw, 24px); }
+
+p {
+  margin: 0 0 var(--space-sm) 0;
+  line-height: var(--line-height-comfortable);
+  color: rgba(254, 252, 251, 0.9);
+}
+
+/* Enhanced readability for emotional content */
+.emotional-content {
+  line-height: var(--line-height-relaxed);
+  letter-spacing: 0.01em;
+}
+
+/* === UTILITY CLASSES === */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+
+/* === ANIMATION LIBRARY === */
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s var(--ease-sanctuary) forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s var(--ease-sanctuary) forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === SAGE GREEN ENFORCEMENT (Minimal) === */
+
+/* Only enforce where absolutely necessary */
+.sage-sanctuary,
+[data-sage-enforced="true"] {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%) !important;
+  color: var(--sanctuary) !important;
+}
+
+/* Mobile cache-busting for sage green */
+@media (max-width: 768px) {
+  html,
+  body,
+  main {
+    background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%) !important;
+    background-attachment: fixed;
+  }
+}

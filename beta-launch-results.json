@@ -1,0 +1,79 @@
+{
+  "score": 40,
+  "passed": 2,
+  "total": 5,
+  "criticalIssues": [
+    "Authentication system failure",
+    "Core features not working"
+  ],
+  "results": {
+    "onboarding": {
+      "status": "fail",
+      "metrics": {
+        "landingLoadTime": 3584,
+        "landingStatus": 200,
+        "signupPageTime": 3798,
+        "authPageTime": 1273,
+        "dashboardTime": 10,
+        "allPagesLoad": false,
+        "contentPresent": false
+      },
+      "issues": [
+        "Some pages failed to load",
+        "Landing page load time > 3s",
+        "Missing critical content elements"
+      ]
+    },
+    "crisis": {
+      "status": "pass",
+      "metrics": {
+        "emergencyLoadTime": 1318,
+        "emergencyStatus": 200,
+        "has988": true,
+        "hasEmergencyJournal": true,
+        "hasCrisisResources": false
+      },
+      "issues": []
+    },
+    "auth": {
+      "status": "fail",
+      "metrics": {
+        "loginLoadTime": 51,
+        "loginStatus": 200,
+        "signupLoadTime": 67,
+        "hasGoogleOAuth": false,
+        "hasEmailPassword": false
+      },
+      "issues": [
+        "No authentication methods found"
+      ]
+    },
+    "coreFeatures": {
+      "status": "fail",
+      "metrics": {
+        "journalLoadTime": 10,
+        "journalStatus": 307,
+        "dashboardLoadTime": 10,
+        "pathwaysLoadTime": 10,
+        "hasJournalEditor": false,
+        "hasDashboardContent": false
+      },
+      "issues": [
+        "Journal page not accessible",
+        "Missing core features"
+      ]
+    },
+    "mobile": {
+      "status": "pass",
+      "metrics": {
+        "mobileLoadTime": 53,
+        "hasViewportMeta": true,
+        "hasResponsiveDesign": true,
+        "traumaInformed": false
+      },
+      "issues": [
+        "Trauma-informed design elements missing"
+      ]
+    }
+  }
+}

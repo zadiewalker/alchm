@@ -1,0 +1,404 @@
+/*
+ * MOBILE LANDING PAGE OPTIMIZATIONS
+ * Trauma-informed mobile enhancements for vulnerable users
+ * Optimized for crisis situations and single-handed operation
+ */
+
+/* === CRISIS-ACCESSIBLE TOUCH TARGETS === */
+
+/* Primary CTA - Enhanced for trembling hands */
+.landing-cta-button {
+  /* Minimum 72px height for mobile accessibility */
+  min-height: 72px !important;
+  min-width: 280px !important;
+  
+  /* Generous padding for easy tapping */
+  padding: 18px 24px !important;
+  
+  /* Prevent accidental double-tap zoom */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.2);
+  
+  /* Hardware acceleration for older devices */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Gentle feedback for anxiety reduction */
+  transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (max-width: 375px) {
+  .landing-cta-button {
+    min-height: 68px !important;
+    min-width: 260px !important;
+    padding: 16px 20px !important;
+    font-size: 17px !important;
+  }
+}
+
+@media (min-width: 428px) {
+  .landing-cta-button {
+    min-height: 76px !important;
+    min-width: 320px !important;
+    padding: 20px 28px !important;
+  }
+}
+
+/* Crisis support button - Right thumb zone optimization */
+.landing-crisis-button {
+  /* Enhanced touch target for crisis situations */
+  min-height: 60px !important;
+  min-width: 140px !important;
+  
+  /* Positioned for single-handed right thumb access */
+  position: fixed !important;
+  bottom: 16px !important;
+  right: 16px !important;
+  
+  /* High contrast for visibility during panic */
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(10px) !important;
+  
+  /* Prevent iOS from styling as phone number */
+  -webkit-appearance: none !important;
+  
+  /* Crisis-level touch feedback */
+  transition: all 150ms ease-out !important;
+}
+
+.landing-crisis-button:active {
+  transform: scale(0.96) !important;
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+@media (max-width: 375px) {
+  .landing-crisis-button {
+    bottom: 12px !important;
+    right: 12px !important;
+    min-height: 56px !important;
+    min-width: 130px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* === MOBILE TYPOGRAPHY FOR EMOTIONAL STATES === */
+
+/* Primary headline - Readable during distress */
+.landing-primary-text {
+  /* Optimized for mobile reading in crisis */
+  font-size: clamp(18px, 4.5vw, 24px) !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.01em !important;
+  
+  /* High contrast for visibility through tears */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  
+  /* Breathing space for processing */
+  margin-bottom: clamp(24px, 6vw, 32px) !important;
+}
+
+/* Secondary text - Gentle and supportive */
+.landing-secondary-text {
+  font-size: clamp(15px, 3.5vw, 18px) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.005em !important;
+  
+  /* Softer contrast to avoid overwhelming */
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  
+  /* Generous spacing for emotional processing */
+  margin-bottom: clamp(32px, 8vw, 48px) !important;
+}
+
+/* Support text - Whispered reassurance */
+.landing-support-text {
+  font-size: clamp(13px, 3vw, 15px) !important;
+  line-height: 1.6 !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-weight: 400 !important;
+}
+
+/* === MOBILE LAYOUT SPACING === */
+
+/* Header breathing space */
+.landing-header-mobile {
+  padding-top: max(env(safe-area-inset-top), 20px) !important;
+  padding-bottom: 16px !important;
+}
+
+@media (max-width: 375px) {
+  .landing-header-mobile {
+    padding-top: max(env(safe-area-inset-top), 16px) !important;
+    padding-bottom: 12px !important;
+  }
+}
+
+/* Hero section mobile optimization */
+.landing-hero-mobile {
+  /* Account for mobile keyboards and safe areas */
+  min-height: 100vh !important;
+  min-height: 100dvh !important; /* Dynamic viewport height */
+  
+  /* Padding that respects device safe areas */
+  padding-top: max(env(safe-area-inset-top), 80px) !important;
+  padding-bottom: max(env(safe-area-inset-bottom), 100px) !important;
+  padding-left: max(env(safe-area-inset-left), 16px) !important;
+  padding-right: max(env(safe-area-inset-right), 16px) !important;
+}
+
+/* Footer mobile spacing */
+.landing-footer-mobile {
+  padding-bottom: max(env(safe-area-inset-bottom), 24px) !important;
+  padding-left: max(env(safe-area-inset-left), 16px) !important;
+  padding-right: max(env(safe-area-inset-right), 16px) !important;
+}
+
+/* === SINGLE-HANDED OPERATION === */
+
+/* Right thumb zone - Primary interaction area */
+.thumb-zone-primary {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 60%;
+  height: 140px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Left thumb zone - Secondary actions */
+.thumb-zone-secondary {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Elements in thumb zones get pointer events back */
+.thumb-zone-primary > *,
+.thumb-zone-secondary > * {
+  pointer-events: auto;
+}
+
+/* === OLDER DEVICE PERFORMANCE === */
+
+/* iPhone 6/7/8 and older Android optimizations */
+@media (max-width: 414px) and (-webkit-min-device-pixel-ratio: 2) {
+  .landing-cta-button,
+  .landing-crisis-button {
+    /* Simplified transitions for older devices */
+    transition-duration: 100ms !important;
+    backdrop-filter: none !important;
+    
+    /* Simpler shadows for performance */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Reduce complexity of gradients on older devices */
+  .landing-background-gradient {
+    background: #a4b792 !important;
+  }
+}
+
+/* Very old devices - Essential functionality only */
+@media (max-width: 375px) and (max-height: 667px) {
+  * {
+    /* Minimal animations for performance */
+    transition-duration: 0.1s !important;
+    animation-duration: 0.3s !important;
+  }
+  
+  .landing-cta-button,
+  .landing-crisis-button {
+    /* Remove complex effects */
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 2px solid rgba(164, 183, 146, 0.8) !important;
+    color: #7a8c6a !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .landing-cta-button {
+    border: 3px solid white !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #2d3748 !important;
+    font-weight: 600 !important;
+  }
+  
+  .landing-crisis-button {
+    border: 3px solid white !important;
+    background: rgba(220, 38, 38, 0.9) !important;
+    color: white !important;
+  }
+  
+  .landing-primary-text,
+  .landing-secondary-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+  }
+}
+
+/* Reduced motion for vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+  .landing-cta-button,
+  .landing-crisis-button,
+  .landing-hero-mobile {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  
+  .landing-cta-button:active,
+  .landing-crisis-button:active {
+    transform: none !important;
+  }
+}
+
+/* === CRISIS-SPECIFIC OPTIMIZATIONS === */
+
+/* Panic attack mode - Maximum readability */
+.crisis-mode .landing-primary-text,
+.crisis-mode .landing-secondary-text {
+  background: rgba(0, 0, 0, 0.7) !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  color: white !important;
+  text-shadow: none !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+.crisis-mode .landing-cta-button {
+  background: rgba(164, 183, 146, 0.95) !important;
+  color: white !important;
+  border: 3px solid white !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  min-height: 80px !important;
+}
+
+.crisis-mode .landing-crisis-button {
+  background: rgba(220, 38, 38, 0.95) !important;
+  border: 3px solid white !important;
+  color: white !important;
+  font-weight: 700 !important;
+  min-height: 70px !important;
+  min-width: 160px !important;
+}
+
+/* === LOADING STATE OPTIMIZATIONS === */
+
+/* Gentle loading animation for trauma-informed design */
+.landing-loading-gentle {
+  opacity: 0.8;
+  animation: landingBreathe 2.5s ease-in-out infinite;
+}
+
+@keyframes landingBreathe {
+  0%, 100% { 
+    opacity: 0.8; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.01); 
+  }
+}
+
+/* Loading text that doesn't cause anxiety */
+.landing-loading-text {
+  font-size: clamp(14px, 3.5vw, 16px) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  margin-bottom: 20px !important;
+}
+
+/* === NETWORK OPTIMIZATION === */
+
+/* Progressive enhancement for slow connections */
+.landing-progressive-enhancement {
+  /* Base experience works without images or complex CSS */
+  background-color: #a4b792 !important;
+}
+
+/* Enhanced experience for faster connections */
+@media (min-width: 768px) and (prefers-reduced-data: no-preference) {
+  .landing-progressive-enhancement {
+    background: linear-gradient(135deg, #a4b792 0%, #93a682 50%, #7a8c6a 100%) !important;
+  }
+}
+
+/* Low data mode support */
+@media (prefers-reduced-data: reduce) {
+  .landing-cta-button,
+  .landing-crisis-button {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  
+  .landing-background-gradient {
+    background: #a4b792 !important;
+  }
+}
+
+/* === ORIENTATION HANDLING === */
+
+/* Landscape mode adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .landing-hero-mobile {
+    padding-top: max(env(safe-area-inset-top), 40px) !important;
+    padding-bottom: max(env(safe-area-inset-bottom), 60px) !important;
+  }
+  
+  .landing-primary-text {
+    font-size: clamp(16px, 3.5vw, 20px) !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .landing-secondary-text {
+    font-size: clamp(14px, 3vw, 16px) !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .landing-cta-button {
+    min-height: 60px !important;
+  }
+}
+
+/* === FOCUS MANAGEMENT === */
+
+/* Enhanced focus states for screen readers */
+.landing-cta-button:focus-visible,
+.landing-crisis-button:focus-visible {
+  outline: 4px solid rgba(255, 255, 255, 0.8) !important;
+  outline-offset: 2px !important;
+  border-radius: 20px !important;
+}
+
+/* Skip link for keyboard navigation */
+.landing-skip-link {
+  position: absolute !important;
+  top: -40px !important;
+  left: 6px !important;
+  background: rgba(164, 183, 146, 0.95) !important;
+  color: white !important;
+  padding: 8px !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  z-index: 1000 !important;
+}
+
+.landing-skip-link:focus {
+  top: 6px !important;
+}

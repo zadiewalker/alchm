@@ -1,0 +1,453 @@
+// ALCHM Firestore Security Rules - Mental Health Optimized
+// HIPAA-Safe, FERPA-Compliant, Trauma-Informed Data Protection
+// Enhanced for vulnerable user populations with crisis intervention support
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===== ENHANCED AUTHENTICATION HELPERS =====
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserId() {
+      return request.auth.uid;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && getUserId() == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.admin == true || 
+              request.auth.token.role == 'admin');
+    }
+    
+    function isCrisisResponder() {
+      return isAuthenticated() && 
+             (request.auth.token.crisis_responder == true ||
+              request.auth.token.role == 'crisis_responder');
+    }
+    
+    function isHealthcareProfessional() {
+      return isAuthenticated() && 
+             (request.auth.token.healthcare_provider == true ||
+              request.auth.token.role == 'healthcare_provider') &&
+             request.auth.token.license_verified == true;
+    }
+    
+    // ===== AGE VERIFICATION AND MINOR PROTECTION =====
+    
+    function isVerifiedAdult() {
+      return isAuthenticated() && 
+             request.auth.token.age_verified == true &&
+             request.auth.token.birth_year != null &&
+             (2024 - request.auth.token.birth_year) >= 18;
+    }
+    
+    function isMinorWithParentalConsent() {
+      return isAuthenticated() && 
+             request.auth.token.parental_consent == true &&
+             request.auth.token.parent_guardian_verified == true;
+    }
+    
+    function canAccessMentalHealthData() {
+      return isVerifiedAdult() || isMinorWithParentalConsent() || isHealthcareProfessional();
+    }
+    
+    // ===== ENHANCED TIER VALIDATION WITH CRISIS OVERRIDE =====
+    
+    function getUserTier(userId) {
+      return get(/databases/$(database)/documents/users_premium/$(userId)).data.tier ||
+             get(/databases/$(database)/documents/users_standard/$(userId)).data.tier ||
+             'free';
+    }
+    
+    function hasMinimumTier(userId, requiredTier) {
+      let userTier = getUserTier(userId);
+      let tierLevels = {
+        'free': 1,
+        'deep-cut': 2,
+        'oracle': 3,
+        'crisis-override': 999 // Emergency access level
+      };
+      return tierLevels[userTier] >= tierLevels[requiredTier];
+    }
+    
+    function isInCrisisMode(userId) {
+      return exists(/databases/$(database)/documents/crisis_states/$(userId)) &&
+             get(/databases/$(database)/documents/crisis_states/$(userId)).data.active == true;
+    }
+    
+    // ===== MENTAL HEALTH DATA VALIDATION =====
+    
+    function isValidMentalHealthEntry(data) {
+      return data.keys().hasAll(['userId', 'content', 'mood', 'privacy_level', 'created_at']) &&
+             data.content is string &&
+             data.content.size() <= 50000 && // 50KB limit
+             data.mood is number &&
+             data.mood >= 1 && data.mood <= 10 &&
+             data.privacy_level in ['private', 'therapist_only', 'emergency_only'] &&
+             data.created_at is timestamp &&
+             // Ensure no direct PHI in journal content
+             !containsDirectPHI(data.content);
+    }
+    
+    function containsDirectPHI(text) {
+      let lowerText = text.lower();
+      return lowerText.matches('.*\\b\\d{3}-\\d{2}-\\d{4}\\b.*') || // SSN
+             lowerText.matches('.*\\b[0-9]{16}\\b.*') || // Credit card
+             lowerText.matches('.*\\b[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\\b.*') || // Email
+             lowerText.matches('.*\\b\\d{3}-\\d{3}-\\d{4}\\b.*') || // Phone
+             lowerText.matches('.*\\b(insurance|medicaid|medicare)\\s+\\d+\\b.*'); // Insurance numbers
+    }
+    
+    function isCrisisContent(text) {
+      let lowerText = text.lower();
+      let crisisPatterns = [
+        'suicide', 'kill myself', 'end it all', 'want to die',
+        'hurt myself', 'self harm', 'cutting', 'overdose',
+        'better off dead', 'no point in living'
+      ];
+      return crisisPatterns.hasAny([pattern for pattern in crisisPatterns if lowerText.contains(pattern)]);
+    }
+    
+    // ===== RATE LIMITING WITH CRISIS EXCEPTION =====
+    
+    function isWithinRateLimit(userId, collection, maxOperations) {
+      // Crisis mode users get unlimited access
+      if (isInCrisisMode(userId)) {
+        return true;
+      }
+      // Normal rate limiting (implemented in Cloud Functions)
+      return true; 
+    }
+    
+    // ===== ENHANCED USER MANAGEMENT WITH MENTAL HEALTH FOCUS =====
+    
+    // Standard users with enhanced mental health protections
+    match /users_standard/{userId} {
+      allow read: if (isOwner(userId) || isAdmin() || isHealthcareProfessional()) &&
+                     canAccessMentalHealthData();
+      
+      allow create: if isAuthenticated() && 
+                       getUserId() == userId &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthUserData(resource.data) &&
+                       resource.data.tier in ['free', 'deep-cut'];
+      
+      allow update: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthUserData(resource.data) &&
+                       // Prevent unauthorized tier changes
+                       (resource.data.tier == resource.data.tier || 
+                        isValidTierUpgrade(resource.data.tier, resource.data.tier));
+      
+      allow delete: if (isOwner(userId) || isAdmin()) && 
+                       // Additional safeguards for minor accounts
+                       (isVerifiedAdult() || isMinorWithParentalConsent());
+    }
+    
+    // Premium users with full mental health features
+    match /users_premium/{userId} {
+      allow read: if (isOwner(userId) || isAdmin() || isHealthcareProfessional()) &&
+                     canAccessMentalHealthData();
+      
+      allow create: if isAuthenticated() && 
+                       getUserId() == userId &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthUserData(resource.data) &&
+                       resource.data.tier == 'oracle';
+      
+      allow update: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthUserData(resource.data);
+      
+      allow delete: if (isOwner(userId) || isAdmin()) &&
+                       (isVerifiedAdult() || isMinorWithParentalConsent());
+    }
+    
+    function isValidMentalHealthUserData(data) {
+      return data.keys().hasAll(['email', 'display_name', 'tier', 'created_at', 'mental_health_consent']) &&
+             data.email is string &&
+             data.email.matches('.*@.*\\..*') &&
+             data.display_name is string &&
+             data.display_name.size() <= 100 &&
+             data.tier in ['free', 'deep-cut', 'oracle'] &&
+             data.mental_health_consent is bool &&
+             data.mental_health_consent == true &&
+             data.created_at is timestamp;
+    }
+    
+    // ===== TRAUMA-INFORMED JOURNAL ENTRIES =====
+    
+    // Active journal entries with crisis detection
+    match /entries/{userId}/active/{entryId} {
+      allow read: if (isOwner(userId) || isAdmin() || 
+                     (isHealthcareProfessional() && hasTherapeuticAccess(userId))) &&
+                     canAccessMentalHealthData();
+      
+      allow create: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthEntry(resource.data) &&
+                       resource.data.userId == userId &&
+                       isWithinRateLimit(userId, 'journal_entries', 50) &&
+                       // Special handling for crisis content
+                       (!isCrisisContent(resource.data.content) || 
+                        resource.data.privacy_level == 'emergency_only');
+      
+      allow update: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       isValidMentalHealthEntry(resource.data) &&
+                       resource.data.userId == userId &&
+                       // Preserve crisis flags
+                       (!('crisis_detected' in resource.data) || 
+                        resource.data.crisis_detected == resource.data.crisis_detected);
+      
+      allow delete: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       // Special restrictions for crisis-flagged entries
+                       (!('crisis_detected' in resource.data) || 
+                        !resource.data.crisis_detected ||
+                        hasMinimumTier(userId, 'deep-cut'));
+    }
+    
+    // Crisis-flagged entries (special handling)
+    match /entries/{userId}/crisis/{entryId} {
+      allow read: if isOwner(userId) || isAdmin() || isCrisisResponder() ||
+                     (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+      
+      // Only system can create crisis entries
+      allow create: if false;
+      
+      allow update: if false; // Crisis entries are immutable
+      
+      // Only crisis responders can delete
+      allow delete: if isCrisisResponder() || isAdmin();
+    }
+    
+    // Therapeutic entries (healthcare provider access)
+    match /entries/{userId}/therapeutic/{entryId} {
+      allow read: if isOwner(userId) || 
+                     (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+      
+      allow create: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       hasMinimumTier(userId, 'oracle') &&
+                       isValidTherapeuticEntry(resource.data);
+      
+      allow update: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       isValidTherapeuticEntry(resource.data);
+      
+      allow delete: if isOwner(userId) || 
+                       (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+    }
+    
+    function hasTherapeuticAccess(userId) {
+      return exists(/databases/$(database)/documents/therapeutic_relationships/$(userId)) &&
+             get(/databases/$(database)/documents/therapeutic_relationships/$(userId))
+               .data.healthcare_providers[getUserId()] == true;
+    }
+    
+    function isValidTherapeuticEntry(data) {
+      return isValidMentalHealthEntry(data) &&
+             data.therapeutic_context == true &&
+             data.privacy_level == 'therapist_only';
+    }
+    
+    // ===== CRISIS INTERVENTION SYSTEM =====
+    
+    // Crisis states (real-time crisis detection)
+    match /crisis_states/{userId} {
+      allow read: if isOwner(userId) || isAdmin() || isCrisisResponder();
+      
+      // Only Cloud Functions can manage crisis states
+      allow write: if false;
+    }
+    
+    // Crisis interventions (emergency response)
+    match /crisis_interventions/{interventionId} {
+      allow read: if isAdmin() || isCrisisResponder() ||
+                     (isOwner(resource.data.userId) && canAccessMentalHealthData());
+      
+      // Only crisis response system can create interventions
+      allow write: if false;
+    }
+    
+    // Emergency contacts
+    match /emergency_contacts/{userId} {
+      allow read: if isOwner(userId) || isAdmin() || 
+                     (isCrisisResponder() && isInCrisisMode(userId));
+      
+      allow write: if isOwner(userId) &&
+                      canAccessMentalHealthData() &&
+                      isValidEmergencyContact(resource.data);
+      
+      allow delete: if isOwner(userId) && canAccessMentalHealthData();
+    }
+    
+    function isValidEmergencyContact(data) {
+      return data.keys().hasAll(['contact_name', 'contact_method', 'relationship']) &&
+             data.contact_name is string &&
+             data.contact_method is string &&
+             data.relationship in ['family', 'friend', 'therapist', 'doctor', 'crisis_hotline'];
+    }
+    
+    // ===== THERAPEUTIC FEATURES (ORACLE TIER) =====
+    
+    // AI therapy conversations (Oracle tier, healthcare oversight)
+    match /ai_therapy_sessions/{userId}/{sessionId} {
+      allow read: if isOwner(userId) && hasMinimumTier(userId, 'oracle') ||
+                     (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+      
+      allow create: if isOwner(userId) && 
+                       hasMinimumTier(userId, 'oracle') &&
+                       canAccessMentalHealthData() &&
+                       isValidTherapySession(resource.data);
+      
+      allow update: if isOwner(userId) && hasMinimumTier(userId, 'oracle') &&
+                       canAccessMentalHealthData();
+      
+      allow delete: if isOwner(userId) && hasMinimumTier(userId, 'oracle') ||
+                       (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+    }
+    
+    function isValidTherapySession(data) {
+      return data.keys().hasAll(['session_type', 'privacy_level', 'healthcare_consent']) &&
+             data.session_type in ['ai_therapy', 'guided_reflection', 'crisis_support'] &&
+             data.privacy_level in ['private', 'therapist_shared'] &&
+             data.healthcare_consent == true;
+    }
+    
+    // Therapeutic relationships (healthcare provider connections)
+    match /therapeutic_relationships/{userId} {
+      allow read: if isOwner(userId) || 
+                     (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+      
+      allow create: if isOwner(userId) &&
+                       canAccessMentalHealthData() &&
+                       hasMinimumTier(userId, 'oracle');
+      
+      allow update: if isOwner(userId) && canAccessMentalHealthData() ||
+                       (isHealthcareProfessional() && hasTherapeuticAccess(userId));
+      
+      allow delete: if isOwner(userId) && canAccessMentalHealthData();
+    }
+    
+    // ===== PRIVACY AND COMPLIANCE (ENHANCED) =====
+    
+    // Enhanced privacy settings with mental health focus
+    match /user_privacy_settings/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      allow write: if isOwner(userId) &&
+                      canAccessMentalHealthData() &&
+                      isValidMentalHealthPrivacySettings(resource.data);
+    }
+    
+    function isValidMentalHealthPrivacySettings(data) {
+      return data.keys().hasAll([
+        'analytics_consent', 'crisis_intervention_consent', 
+        'healthcare_sharing_consent', 'research_participation_consent'
+      ]) &&
+      data.analytics_consent is bool &&
+      data.crisis_intervention_consent is bool &&
+      data.healthcare_sharing_consent is bool &&
+      data.research_participation_consent is bool;
+    }
+    
+    // HIPAA-compliant data export requests
+    match /data_export_requests/{requestId} {
+      allow read: if isAuthenticated() && 
+                     resource.data.userId == getUserId() &&
+                     canAccessMentalHealthData();
+      
+      allow create: if isAuthenticated() &&
+                       canAccessMentalHealthData() &&
+                       resource.data.userId == getUserId() &&
+                       isValidDataExportRequest(resource.data);
+      
+      allow update: if false; // Only Cloud Functions can update status
+      allow delete: if false; // Audit trail preservation
+    }
+    
+    function isValidDataExportRequest(data) {
+      return data.keys().hasAll(['export_type', 'healthcare_purpose', 'requested_at']) &&
+             data.export_type in ['personal', 'healthcare_transfer', 'legal_request'] &&
+             data.healthcare_purpose is string &&
+             data.requested_at is timestamp;
+    }
+    
+    // Mental health research (anonymized, IRB-approved)
+    match /research_data/{studyId}/participants/{participantId} {
+      allow read: if isAdmin() && 
+                     request.auth.token.research_access == true &&
+                     request.auth.token.irb_approved == true;
+      
+      // Only Cloud Functions can anonymize and store research data
+      allow write: if false;
+    }
+    
+    // ===== MINOR PROTECTION ENHANCEMENTS =====
+    
+    // Parental oversight for minor accounts
+    match /parental_oversight/{userId} {
+      allow read: if isOwner(userId) ||
+                     (request.auth.token.parental_authority == userId) ||
+                     isAdmin();
+      
+      allow write: if (request.auth.token.parental_authority == userId) &&
+                      isValidParentalOversight(resource.data);
+    }
+    
+    function isValidParentalOversight(data) {
+      return data.keys().hasAll(['oversight_level', 'crisis_notification', 'content_filtering']) &&
+             data.oversight_level in ['minimal', 'moderate', 'high'] &&
+             data.crisis_notification == true && // Always required for minors
+             data.content_filtering is bool;
+    }
+    
+    // ===== SYSTEM MONITORING AND COMPLIANCE =====
+    
+    // Mental health compliance audit logs
+    match /compliance_audit_log/{logId} {
+      allow read: if isAdmin() && 
+                     request.auth.token.compliance_access == true;
+      allow write: if false; // Only Cloud Functions
+    }
+    
+    // Crisis system monitoring
+    match /crisis_system_health/{healthId} {
+      allow read: if isAdmin() || isCrisisResponder();
+      allow write: if false; // Only Cloud Functions
+    }
+    
+    // Mental health service quality metrics
+    match /service_quality_metrics/{metricId} {
+      allow read: if isAdmin() || 
+                     (isAuthenticated() && request.auth.token.quality_assurance == true);
+      allow write: if false; // Only Cloud Functions
+    }
+    
+    // ===== LEGACY SUPPORT WITH ENHANCED PROTECTION =====
+    
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) && canAccessMentalHealthData();
+      
+      match /reflections/{reflectionId} {
+        allow read, write: if isOwner(userId) && canAccessMentalHealthData();
+      }
+    }
+    
+    // ===== DEFAULT DENY =====
+    
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "app": "ALCHM",
+  "category": "Health & Fitness / Medical",
+  "ageRating": "17+",
+  "lastUpdated": "2024-09-21",
+  
+  "primaryKeywords": {
+    "core": [
+      "journaling",
+      "mental health",
+      "trauma therapy",
+      "crisis support",
+      "emotional wellness"
+    ],
+    "targeting": [
+      "private journal",
+      "therapy supplement",
+      "crisis intervention",
+      "trauma informed",
+      "mental wellness"
+    ],
+    "differentiators": [
+      "LGBTQ mental health",
+      "BIPOC wellness",
+      "cultural healing",
+      "AI therapy companion",
+      "privacy first"
+    ]
+  },
+
+  "secondaryKeywords": {
+    "wellness": [
+      "mindfulness journal",
+      "mood tracker",
+      "self care app",
+      "emotional support",
+      "reflection app",
+      "wellness diary",
+      "healing journal"
+    ],
+    "technical": [
+      "encrypted journal",
+      "offline journaling",
+      "secure diary",
+      "private notes",
+      "AI insights"
+    ],
+    "demographic": [
+      "teen mental health",
+      "young adult therapy",
+      "college counseling",
+      "immigrant mental health",
+      "indigenous healing"
+    ]
+  },
+
+  "longTailKeywords": [
+    "trauma informed journaling app",
+    "culturally responsive mental health",
+    "AI therapy companion with crisis support",
+    "privacy preserving mental health app",
+    "free therapy supplement journaling",
+    "LGBTQ friendly mental health support",
+    "BIPOC trauma healing platform",
+    "crisis intervention journaling app",
+    "mental health app for teens 17+",
+    "secure private journal with AI"
+  ],
+
+  "competitorAnalysis": {
+    "directCompetitors": [
+      "Daylio",
+      "Journey",
+      "Reflectly",
+      "Sanvello",
+      "Youper"
+    ],
+    "gapOpportunities": [
+      "trauma-informed design",
+      "cultural responsiveness",
+      "crisis intervention",
+      "privacy-preserving AI",
+      "free forever model",
+      "marginalized communities focus"
+    ],
+    "differentiationKeywords": [
+      "trauma informed",
+      "crisis safe",
+      "culturally responsive",
+      "privacy preserving",
+      "all identities",
+      "professional referrals"
+    ]
+  },
+
+  "marketingKeywords": {
+    "appStore": [
+      "safe space healing",
+      "trauma recovery journal",
+      "crisis support available",
+      "private AI insights",
+      "cultural healing traditions",
+      "professional mental health",
+      "emotional intelligence",
+      "mindful journaling"
+    ],
+    "googlePlay": [
+      "mental health journaling",
+      "trauma informed therapy",
+      "crisis intervention app",
+      "cultural wellness support", 
+      "secure private journal",
+      "AI emotional insights",
+      "professional care referrals",
+      "marginalized communities"
+    ]
+  },
+
+  "keywordDensityTargets": {
+    "title": {
+      "primary": ["ALCHM", "Safe Space", "Healing", "Growth"],
+      "density": "100%"
+    },
+    "subtitle": {
+      "primary": ["journaling", "trauma", "AI", "crisis"],
+      "density": "75%"
+    },
+    "description": {
+      "primary": ["mental health", "journaling", "crisis support", "trauma informed", "AI insights"],
+      "secondary": ["privacy", "cultural", "professional care", "wellness", "healing"],
+      "density": "15-20%"
+    }
+  },
+
+  "seasonalOptimization": {
+    "backToSchool": [
+      "college mental health",
+      "student counseling",
+      "academic stress",
+      "transition support"
+    ],
+    "mentalHealthAwareness": [
+      "mental health month",
+      "therapy awareness", 
+      "crisis prevention",
+      "wellness support"
+    ],
+    "pridemonth": [
+      "LGBTQ mental health",
+      "queer therapy",
+      "identity support",
+      "inclusive healing"
+    ]
+  },
+
+  "localizedKeywords": {
+    "spanish": [
+      "salud mental",
+      "diario personal",
+      "apoyo emocional",
+      "trauma informado",
+      "crisis apoyo"
+    ],
+    "portuguese": [
+      "saúde mental",
+      "diário pessoal",
+      "apoio emocional",
+      "trauma informado",
+      "suporte crise"
+    ],
+    "korean": [
+      "정신건강",
+      "일기",
+      "감정 지원",
+      "트라우마",
+      "위기 지원"
+    ]
+  },
+
+  "complianceKeywords": {
+    "required": [
+      "not medical treatment",
+      "professional care",
+      "crisis resources",
+      "therapy supplement",
+      "wellness tool"
+    ],
+    "safety": [
+      "crisis intervention",
+      "professional referrals",
+      "emergency resources",
+      "988 support",
+      "medical disclaimers"
+    ],
+    "privacy": [
+      "data protection",
+      "privacy first",
+      "secure encryption",
+      "your data",
+      "local processing"
+    ]
+  },
+
+  "implementationStrategy": {
+    "phase1": {
+      "timeline": "Week 1-2",
+      "actions": [
+        "Update app title and subtitle with primary keywords",
+        "Optimize description with 15-20% keyword density",
+        "Implement primary keyword set in screenshots",
+        "Add compliance keywords throughout"
+      ]
+    },
+    "phase2": {
+      "timeline": "Week 3-4", 
+      "actions": [
+        "A/B testing different keyword combinations",
+        "Monitor app store ranking improvements",
+        "Adjust based on competitor keyword changes",
+        "Implement seasonal keyword optimization"
+      ]
+    },
+    "phase3": {
+      "timeline": "Month 2+",
+      "actions": [
+        "Localization keyword implementation",
+        "Long-tail keyword content creation",
+        "User review keyword mining",
+        "Continuous optimization based on performance"
+      ]
+    }
+  },
+
+  "performanceMetrics": {
+    "tracking": [
+      "App store search ranking",
+      "Keyword discovery rates", 
+      "Organic download attribution",
+      "Competitor keyword overlap",
+      "User search query analysis"
+    ],
+    "targets": {
+      "primary_keywords_top10": "80%",
+      "secondary_keywords_top25": "60%",
+      "long_tail_keywords_top50": "40%"
+    }
+  },
+
+  "riskMitigation": {
+    "keywordStuffing": "Maintain natural language flow in descriptions",
+    "complianceViolations": "Always include required medical disclaimers",
+    "competitorCopying": "Focus on unique differentiators and positioning",
+    "platformChanges": "Monitor app store algorithm updates regularly"
+  }
+}

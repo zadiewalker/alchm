@@ -1,0 +1,418 @@
+/* ALCHM Progressive Enhancement CSS */
+/* Ensures sanctuary experience across all device capabilities */
+
+/* === BASIC SUPPORT LEVEL === */
+/* For low-end devices, slow connections, crisis mode */
+
+.pe-basic {
+  /* Disable expensive effects */
+  --backdrop-filter: none;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --blur-intensity: 0px;
+  --animation-duration: 0.01ms;
+}
+
+.pe-basic .sanctuary-card {
+  background: rgba(254, 252, 251, 0.98);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: var(--box-shadow);
+}
+
+.pe-basic .animate-sanctuary-breathe,
+.pe-basic .animate-sanctuary-float,
+.pe-basic .animate-healing-pulse {
+  animation: none;
+  transform: none;
+}
+
+.pe-basic .loading-shimmer::before {
+  animation: none;
+}
+
+/* Simplified hover states for basic support */
+.pe-basic .hover-sanctuary:hover {
+  transform: none;
+  box-shadow: 0 4px 8px rgba(164, 183, 146, 0.1);
+}
+
+/* === ENHANCED SUPPORT LEVEL === */
+/* Default experience for most devices */
+
+.pe-enhanced {
+  --backdrop-filter: blur(12px);
+  --box-shadow: 0 8px 32px rgba(164, 183, 146, 0.15);
+  --blur-intensity: 12px;
+  --animation-duration: 400ms;
+}
+
+.pe-enhanced .sanctuary-card {
+  backdrop-filter: var(--backdrop-filter);
+  -webkit-backdrop-filter: var(--backdrop-filter);
+}
+
+/* === PREMIUM SUPPORT LEVEL === */
+/* For high-end devices with excellent performance */
+
+.pe-premium {
+  --backdrop-filter: blur(20px);
+  --box-shadow: 0 12px 48px rgba(164, 183, 146, 0.2);
+  --blur-intensity: 20px;
+  --animation-duration: 300ms;
+}
+
+.pe-premium .sanctuary-card {
+  backdrop-filter: var(--backdrop-filter);
+  -webkit-backdrop-filter: var(--backdrop-filter);
+  box-shadow: var(--box-shadow);
+}
+
+/* Premium-only advanced effects */
+.pe-premium .sanctuary-card::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg, transparent, rgba(164, 183, 146, 0.05), transparent);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pe-premium .sanctuary-card:hover::after {
+  opacity: 1;
+}
+
+/* === DEVICE-SPECIFIC OPTIMIZATIONS === */
+
+/* Low-end device optimizations */
+.pe-low-end {
+  /* Disable 3D transforms */
+  --use-transform3d: 0;
+}
+
+.pe-low-end * {
+  will-change: auto !important;
+  backface-visibility: visible !important;
+  perspective: none !important;
+}
+
+.pe-low-end .animate-fade-in {
+  animation: simple-fade-in 0.3s ease-out;
+}
+
+@keyframes simple-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slow connection optimizations */
+.pe-slow-connection {
+  /* Reduce visual complexity */
+  --gradient-complexity: 2;
+}
+
+.pe-slow-connection .sanctuary-card {
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.pe-slow-connection body {
+  background: var(--sage-primary);
+  background-image: none;
+}
+
+/* Limited memory optimizations */
+.pe-limited-memory {
+  /* Simplify rendering */
+  --shadow-layers: 1;
+}
+
+.pe-limited-memory .sanctuary-card {
+  box-shadow: 0 4px 12px rgba(164, 183, 146, 0.1);
+}
+
+.pe-limited-memory .animate-sanctuary-breathe,
+.pe-limited-memory .animate-sanctuary-float {
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+/* Memory pressure state */
+.pe-memory-pressure {
+  /* Emergency memory conservation */
+  --all-animations: none;
+  --all-shadows: none;
+  --all-blur: none;
+}
+
+.pe-memory-pressure * {
+  animation: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* Reduced motion support */
+.pe-reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.pe-reduced-motion .animate-fade-in {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+.pe-reduced-motion .loading-shimmer::before {
+  animation: none;
+  opacity: 0.5;
+  transform: none;
+}
+
+/* High contrast mode */
+.pe-high-contrast {
+  --sanctuary-contrast: high;
+}
+
+.pe-high-contrast .sanctuary-card {
+  background: white;
+  border: 2px solid var(--sage-active);
+  box-shadow: none;
+}
+
+.pe-high-contrast .sanctuary-button {
+  border: 2px solid white;
+  background: var(--sage-primary);
+  color: white;
+}
+
+.pe-high-contrast .sanctuary-heading,
+.pe-high-contrast .sanctuary-text {
+  color: black;
+  font-weight: 600;
+}
+
+/* === CRISIS MODE OPTIMIZATIONS === */
+
+.pe-crisis-mode {
+  /* Maximum performance, minimum distraction */
+  --crisis-optimization: enabled;
+}
+
+.pe-crisis-mode * {
+  animation: none !important;
+  transition: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  will-change: auto !important;
+}
+
+.pe-crisis-mode .sanctuary-card {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(164, 183, 146, 0.3);
+}
+
+.pe-crisis-mode .sanctuary-button {
+  min-height: 64px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: var(--crisis-red);
+  color: white;
+}
+
+.pe-crisis-mode .sanctuary-button:hover {
+  background: var(--crisis-red-hover);
+  transform: none;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+/* Crisis mode touch targets */
+.pe-crisis-mode button,
+.pe-crisis-mode a,
+.pe-crisis-mode input {
+  min-height: 64px !important;
+  min-width: 64px !important;
+  font-size: 1.125rem !important;
+  padding: 16px 24px !important;
+}
+
+/* === RESPONSIVE ENHANCEMENTS === */
+
+/* Mobile optimizations for all support levels */
+@media (max-width: 768px) {
+  .pe-basic,
+  .pe-enhanced,
+  .pe-premium {
+    /* Mobile-first optimizations */
+    --mobile-optimization: enabled;
+  }
+  
+  .pe-basic .sanctuary-card {
+    padding: var(--space-md);
+    margin: var(--space-md);
+  }
+  
+  .pe-enhanced .sanctuary-card,
+  .pe-premium .sanctuary-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Larger touch targets on mobile */
+  .sanctuary-button {
+    min-height: 56px;
+    font-size: 1.125rem;
+  }
+  
+  .pe-crisis-mode .sanctuary-button {
+    min-height: 72px;
+    font-size: 1.25rem;
+  }
+}
+
+/* Very small screens (older phones) */
+@media (max-width: 360px) {
+  .pe-basic,
+  .pe-enhanced,
+  .pe-premium {
+    /* Ultra-compact optimizations */
+    --ultra-compact: enabled;
+  }
+  
+  .sanctuary-card {
+    margin: var(--space-sm);
+    padding: var(--space-sm);
+  }
+  
+  .sanctuary-heading {
+    font-size: 1.5rem;
+  }
+  
+  .sanctuary-button {
+    min-height: 60px;
+    padding: var(--space-lg);
+  }
+}
+
+/* === LOADING STATE OPTIMIZATIONS === */
+
+/* Basic loading states */
+.pe-basic .loading-state {
+  background: rgba(164, 183, 146, 0.1);
+  animation: none;
+}
+
+.pe-basic .loading-dots {
+  animation: none;
+}
+
+.pe-basic .loading-dots::after {
+  content: '...';
+  animation: basic-dots 1s infinite;
+}
+
+@keyframes basic-dots {
+  0%, 33% { content: '.'; }
+  34%, 66% { content: '..'; }
+  67%, 100% { content: '...'; }
+}
+
+/* Enhanced loading states */
+.pe-enhanced .loading-state {
+  background: linear-gradient(90deg, transparent, rgba(164, 183, 146, 0.1), transparent);
+  animation: sanctuary-shimmer 2s linear infinite;
+}
+
+/* Premium loading states */
+.pe-premium .loading-state {
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(164, 183, 146, 0.1), 
+    rgba(164, 183, 146, 0.2),
+    rgba(164, 183, 146, 0.1),
+    transparent
+  );
+  animation: premium-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes premium-shimmer {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* === ERROR STATES === */
+
+.pe-basic .error-state,
+.pe-enhanced .error-state,
+.pe-premium .error-state {
+  background: white;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: var(--crisis-red);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.pe-crisis-mode .error-state {
+  border: 2px solid var(--crisis-red);
+  background: rgba(220, 38, 38, 0.05);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* === FEATURE DETECTION FALLBACKS === */
+
+/* No backdrop-filter support */
+@supports not (backdrop-filter: blur(1px)) {
+  .sanctuary-card {
+    background: rgba(254, 252, 251, 0.98) !important;
+    border: 1px solid rgba(164, 183, 146, 0.2);
+  }
+}
+
+/* No CSS Grid support */
+@supports not (display: grid) {
+  .grid-layout {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .grid-item {
+    flex: 1 1 100%;
+  }
+}
+
+/* No CSS Custom Properties support */
+.no-custom-properties {
+  /* Fallback colors and values */
+  --sage-primary: #a4b792;
+  --sanctuary: #fefcfb;
+  --space-md: 24px;
+  --radius-md: 12px;
+}
+
+.no-custom-properties .sanctuary-card {
+  background: rgba(254, 252, 251, 0.95);
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.no-custom-properties .sanctuary-button {
+  background: #a4b792;
+  color: #fefcfb;
+  padding: 16px 24px;
+  border-radius: 12px;
+}

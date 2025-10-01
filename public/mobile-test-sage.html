@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ALCHM Mobile Sage Test</title>
+    <style>
+        /* Base styles from our nuclear CSS */
+        html, body {
+            background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+            background-color: #a4b792 !important;
+            background-attachment: fixed !important;
+            min-height: 100vh !important;
+            min-height: 100dvh !important;
+            color: #fefcfb !important;
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+        }
+        
+        .test-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .test-card {
+            background: rgba(254, 252, 251, 0.1) !important;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(254, 252, 251, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .test-result {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #fff;
+        }
+        
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #fff;
+        }
+        
+        .info {
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+            color: #fff;
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            margin: 10px auto;
+            border: 3px solid rgba(254, 252, 251, 0.3);
+        }
+        
+        .sage-swatch {
+            background: #a4b792;
+        }
+        
+        button {
+            background: rgba(254, 252, 251, 0.2);
+            color: #fefcfb;
+            border: 1px solid rgba(254, 252, 251, 0.3);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        button:hover {
+            background: rgba(254, 252, 251, 0.3);
+        }
+        
+        .debug-info {
+            font-family: monospace;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+    
+    <!-- Load mobile sage enforcer -->
+    <script src="/mobile-sage-enforcer.js"></script>
+</head>
+<body class="trauma-informed-mobile-ux sage-enforced mobile-sage-enforced">
+    <div class="test-container">
+        <div class="test-card">
+            <h1>🌿 ALCHM Mobile Sage Test</h1>
+            <p>Testing sage green (#a4b792) display on mobile devices</p>
+            
+            <div class="color-swatch sage-swatch"></div>
+            <p>Expected Color: Sage Green (#a4b792)</p>
+        </div>
+        
+        <!-- Sacred Contract Test Section -->
+        <div class="test-card" style="
+            background: rgba(164, 183, 146, 0.15) !important;
+            backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(164, 183, 146, 0.3) !important;
+            color: #2c2c2c !important;
+        " id="sacred-contract-test">
+            <h2 style="color: #2c2c2c !important; font-weight: 300;">This is your sacred contract.</h2>
+            <p style="color: #525f44 !important; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+                You show up. You write the truth. We hold the space, protect the words, and mirror back your wisdom. No therapy. No fixing. Just you, meeting you.
+            </p>
+            <div id="sacred-contract-results" style="margin-top: 1rem;"></div>
+        </div>
+        
+        <div class="test-card">
+            <h2>Color Detection Results</h2>
+            <div id="test-results"></div>
+            
+            <button onclick="runTests()">Run All Tests</button>
+            <button onclick="forceSage()">Force Sage Colors</button>
+            <button onclick="forceSacredContractStyling()">Fix Sacred Contract</button>
+            <button onclick="clearAllCaches()">Clear Caches</button>
+        </div>
+        
+        <div class="test-card">
+            <h2>Device Info</h2>
+            <div id="device-info"></div>
+        </div>
+        
+        <div class="test-card">
+            <h2>Debug Information</h2>
+            <div id="debug-info" class="debug-info"></div>
+        </div>
+    </div>
+
+    <script>
+        function runTests() {
+            const results = document.getElementById('test-results');
+            results.innerHTML = '';
+            
+            // Test 1: Check computed background color
+            const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+            const htmlBg = window.getComputedStyle(document.documentElement).backgroundColor;
+            
+            console.log('Body background:', bodyBg);
+            console.log('HTML background:', htmlBg);
+            
+            // Test 2: Check if sage green is detected
+            const hasSageInBody = bodyBg.includes('164, 183, 146') || bodyBg.includes('#a4b792');
+            const hasSageInHtml = htmlBg.includes('164, 183, 146') || htmlBg.includes('#a4b792');
+            
+            // Test 3: Check CSS custom properties
+            const surfaceVar = getComputedStyle(document.documentElement).getPropertyValue('--surface');
+            const sageVar = getComputedStyle(document.documentElement).getPropertyValue('--sage');
+            
+            // Display results
+            addResult(hasSageInBody || hasSageInHtml ? 'success' : 'error', 
+                     `Sage Green Detection: ${hasSageInBody || hasSageInHtml ? 'FOUND' : 'NOT FOUND'}`);
+                     
+            addResult('info', `Body Background: ${bodyBg}`);
+            addResult('info', `HTML Background: ${htmlBg}`);
+            addResult('info', `--surface: ${surfaceVar}`);
+            addResult('info', `--sage: ${sageVar}`);
+            
+            // Test 4: Check mobile-specific classes
+            const hasSageClass = document.body.classList.contains('sage-enforced');
+            const hasMobileClass = document.body.classList.contains('mobile-sage-enforced');
+            
+            addResult(hasSageClass ? 'success' : 'error', `Sage Class: ${hasSageClass ? 'PRESENT' : 'MISSING'}`);
+            addResult(hasMobileClass ? 'success' : 'error', `Mobile Class: ${hasMobileClass ? 'PRESENT' : 'MISSING'}`);
+            
+            // Test 5: Check viewport
+            const viewport = document.querySelector('meta[name="viewport"]');
+            addResult('info', `Viewport: ${viewport ? viewport.content : 'Not found'}`);
+            
+            // Test 6: Sacred Contract specific testing
+            testSacredContract();
+        }
+
+        function testSacredContract() {
+            const sacredContract = document.getElementById('sacred-contract-test');
+            const contractResults = document.getElementById('sacred-contract-results');
+            contractResults.innerHTML = '';
+            
+            if (!sacredContract) {
+                addContractResult('error', 'Sacred Contract element not found');
+                return;
+            }
+            
+            // Check computed styles
+            const computedStyle = window.getComputedStyle(sacredContract);
+            const background = computedStyle.backgroundColor;
+            const backdropFilter = computedStyle.backdropFilter;
+            const border = computedStyle.border;
+            const borderColor = computedStyle.borderColor;
+            
+            console.log('🌿 Sacred Contract styles:', {
+                background,
+                backdropFilter,
+                border,
+                borderColor
+            });
+            
+            // Test background
+            const hasSageBackground = background.includes('164, 183, 146') || 
+                                    background.includes('rgba(164, 183, 146, 0.15)') ||
+                                    sacredContract.style.background.includes('164, 183, 146');
+            
+            // Test backdrop filter
+            const hasBlur = backdropFilter.includes('blur') || 
+                           sacredContract.style.backdropFilter.includes('blur');
+            
+            // Test border
+            const hasSageBorder = borderColor.includes('164, 183, 146') ||
+                                border.includes('164, 183, 146') ||
+                                sacredContract.style.border.includes('164, 183, 146');
+            
+            // Display Sacred Contract specific results
+            addContractResult(hasSageBackground ? 'success' : 'error', 
+                            `Sacred Contract Background: ${hasSageBackground ? 'SAGE GREEN ✅' : 'MISSING ❌'}`);
+            
+            addContractResult(hasBlur ? 'success' : 'info', 
+                            `Backdrop Filter: ${hasBlur ? 'BLUR ACTIVE ✅' : 'NO BLUR'}`);
+            
+            addContractResult(hasSageBorder ? 'success' : 'info', 
+                            `Border: ${hasSageBorder ? 'SAGE BORDER ✅' : 'DEFAULT BORDER'}`);
+            
+            // Overall Sacred Contract test result
+            const overallPass = hasSageBackground;
+            addContractResult(overallPass ? 'success' : 'error', 
+                            `SACRED CONTRACT TEST: ${overallPass ? 'PASS ✅' : 'FAIL ❌'}`);
+            
+            // If failed, attempt to force styling
+            if (!overallPass) {
+                setTimeout(() => {
+                    forceSacredContractStyling();
+                    setTimeout(() => testSacredContract(), 500);
+                }, 1000);
+            }
+        }
+
+        function addContractResult(type, message) {
+            const contractResults = document.getElementById('sacred-contract-results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            div.style.fontSize = '14px';
+            div.style.margin = '5px 0';
+            contractResults.appendChild(div);
+        }
+
+        function forceSacredContractStyling() {
+            console.log('🚨 EMERGENCY: Forcing Sacred Contract styling');
+            
+            const sacredContract = document.getElementById('sacred-contract-test');
+            if (sacredContract) {
+                sacredContract.style.cssText = `
+                    background: rgba(164, 183, 146, 0.15) !important;
+                    backdrop-filter: blur(8px) !important;
+                    border: 1px solid rgba(164, 183, 146, 0.3) !important;
+                    border-radius: 16px !important;
+                    padding: 20px !important;
+                    margin: 10px 0 !important;
+                    text-align: center !important;
+                    color: #2c2c2c !important;
+                    position: relative !important;
+                    z-index: 10 !important;
+                `;
+                
+                // Force text colors
+                const heading = sacredContract.querySelector('h2');
+                const paragraph = sacredContract.querySelector('p');
+                
+                if (heading) {
+                    heading.style.cssText = 'color: #2c2c2c !important; font-weight: 300 !important;';
+                }
+                
+                if (paragraph) {
+                    paragraph.style.cssText = 'color: #525f44 !important; line-height: 1.6 !important; max-width: 500px !important; margin: 0 auto !important;';
+                }
+                
+                addContractResult('success', 'EMERGENCY STYLING APPLIED ⚡');
+            }
+        }
+        
+        function addResult(type, message) {
+            const results = document.getElementById('test-results');
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+        
+        function forceSage() {
+            console.log('🚨 Force sage colors triggered');
+            
+            const SAGE_PRIMARY = '#a4b792';
+            const SAGE_SECONDARY = '#8fa37c';
+            const SAGE_GRADIENT = `linear-gradient(145deg, ${SAGE_PRIMARY} 0%, ${SAGE_SECONDARY} 100%)`;
+            
+            // Force on all elements
+            [document.documentElement, document.body].forEach(el => {
+                if (el) {
+                    el.style.background = SAGE_GRADIENT;
+                    el.style.backgroundColor = SAGE_PRIMARY;
+                }
+            });
+            
+            // Re-run tests
+            setTimeout(() => runTests(), 100);
+        }
+
+        function clearAllCaches() {
+            console.log('🧹 TRAUMA-INFORMED: Clearing all caches for vulnerable users');
+            
+            // Clear service workers
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    registrations.forEach(registration => {
+                        registration.unregister();
+                        console.log('🧹 Unregistered service worker');
+                    });
+                });
+            }
+            
+            // Clear caches
+            if ('caches' in window) {
+                caches.keys().then(cacheNames => {
+                    return Promise.all(
+                        cacheNames.map(cacheName => {
+                            console.log('🧹 Clearing cache:', cacheName);
+                            return caches.delete(cacheName);
+                        })
+                    );
+                }).then(() => {
+                    console.log('✅ All caches cleared');
+                    addResult('success', 'All caches cleared for fresh styling');
+                });
+            }
+            
+            // Clear storage
+            try {
+                localStorage.clear();
+                sessionStorage.clear();
+                console.log('🧹 Storage cleared');
+                addResult('success', 'Local storage cleared');
+            } catch (e) {
+                console.log('Storage clear failed:', e);
+                addResult('error', 'Storage clear failed: ' + e.message);
+            }
+            
+            // Force refresh stylesheets
+            document.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+                const href = link.href;
+                link.href = href + (href.includes('?') ? '&' : '?') + 'cache-bust=' + Date.now();
+                console.log('🔄 Refreshed stylesheet:', href);
+            });
+            
+            // Re-apply Sacred Contract styling and re-test
+            setTimeout(() => {
+                forceSacredContractStyling();
+                setTimeout(() => runTests(), 500);
+            }, 1000);
+        }
+        
+        function displayDeviceInfo() {
+            const info = document.getElementById('device-info');
+            
+            const deviceData = {
+                'User Agent': navigator.userAgent,
+                'Platform': navigator.platform,
+                'Screen Size': `${screen.width}x${screen.height}`,
+                'Viewport Size': `${window.innerWidth}x${window.innerHeight}`,
+                'Device Pixel Ratio': window.devicePixelRatio || 1,
+                'Touch Support': 'ontouchstart' in window ? 'Yes' : 'No',
+                'Online Status': navigator.onLine ? 'Online' : 'Offline'
+            };
+            
+            let html = '';
+            for (const [key, value] of Object.entries(deviceData)) {
+                html += `<div><strong>${key}:</strong> ${value}</div>`;
+            }
+            
+            info.innerHTML = html;
+        }
+        
+        function displayDebugInfo() {
+            const debug = document.getElementById('debug-info');
+            
+            const debugData = {
+                timestamp: new Date().toISOString(),
+                location: window.location.href,
+                sage_enforcer_loaded: typeof window.alchm_sage_enforced !== 'undefined',
+                css_loaded: document.styleSheets.length,
+                body_classes: document.body.className,
+                html_classes: document.documentElement.className
+            };
+            
+            debug.textContent = JSON.stringify(debugData, null, 2);
+        }
+        
+        // Auto-run on load
+        document.addEventListener('DOMContentLoaded', () => {
+            displayDeviceInfo();
+            displayDebugInfo();
+            
+            // Auto-run tests after a short delay
+            setTimeout(() => {
+                runTests();
+            }, 500);
+        });
+        
+        // Monitor for sage color enforcement
+        if (typeof window !== 'undefined') {
+            window.alchm_sage_enforced = true;
+        }
+    </script>
+</body>
+</html>

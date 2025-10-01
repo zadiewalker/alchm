@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALCHM Journal - Your Sacred Writing Space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Design System Variables */
+      --sage-50: #f8f9f7;
+      --sage-100: #f0f3ed;
+      --sage-200: #e1e8db;
+      --sage-300: #c9d5be;
+      --sage-400: #a4b792;
+      --sage-500: #93a682;
+      --sage-600: #7a8c6a;
+      --sage-700: #5f6b52;
+      --sage-800: #4a5340;
+      --sage-900: #3a4233;
+
+      --sanctuary-white: #fefcfb;
+      --sanctuary-gray-50: #f9f9f8;
+      --sanctuary-gray-100: #f3f3f2;
+      --sanctuary-gray-200: #e5e5e4;
+      --sanctuary-gray-300: #d1d1cf;
+      --sanctuary-gray-400: #9e9e9b;
+      --sanctuary-gray-500: #7c7c79;
+      --sanctuary-gray-600: #6b6b68;
+      --sanctuary-gray-700: #4a4a48;
+      --sanctuary-gray-800: #2e2e2d;
+      --sanctuary-gray-900: #1a1a19;
+
+      --crisis-red: #dc2626;
+      --crisis-amber: #f59e0b;
+
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+      --radius-3xl: 2rem;
+      --radius-full: 50rem;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-glass: 0 8px 32px 0 rgba(164, 183, 146, 0.15);
+
+      --duration-fast: 150ms;
+      --duration-normal: 300ms;
+      --duration-slow: 500ms;
+      --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--sanctuary-gray-900);
+      background: var(--sanctuary-gray-50);
+      min-height: 100vh;
+      padding-bottom: 120px; /* Space for crisis footer */
+    }
+
+    /* Layout */
+    .container {
+      width: 100%;
+      max-width: 428px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+
+    .layout-safe {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Header */
+    .header {
+      background: var(--sanctuary-white);
+      border-bottom: 1px solid var(--sanctuary-gray-200);
+      padding: var(--space-4) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--sage-600);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-lg);
+      border: 1px solid transparent;
+    }
+
+    .back-button:hover {
+      color: var(--sage-700);
+      background: var(--sage-50);
+      border-color: var(--sage-200);
+    }
+
+    .header-title {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--sanctuary-gray-900);
+      letter-spacing: -0.01em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .save-status {
+      font-size: 0.75rem;
+      color: var(--sage-600);
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-out-cubic);
+    }
+
+    .save-status.visible {
+      opacity: 1;
+    }
+
+    .save-status.saving {
+      color: var(--crisis-amber);
+    }
+
+    .save-status.saved {
+      color: var(--sage-600);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: var(--space-6) 0;
+    }
+
+    /* Writing Area */
+    .writing-area {
+      background: var(--sanctuary-white);
+      border: 1px solid var(--sanctuary-gray-200);
+      border-radius: var(--radius-3xl);
+      padding: 0;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .writing-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
+      border-radius: var(--radius-3xl) var(--radius-3xl) 0 0;
+    }
+
+    /* Date and Time */
+    .entry-header {
+      padding: var(--space-6) var(--space-6) var(--space-4);
+      border-bottom: 1px solid var(--sanctuary-gray-100);
+    }
+
+    .entry-date {
+      font-size: 0.875rem;
+      color: var(--sanctuary-gray-600);
+      margin-bottom: var(--space-2);
+    }
+
+    .entry-time {
+      font-size: 0.75rem;
+      color: var(--sanctuary-gray-500);
+    }
+
+    /* Mood Selector */
+    .mood-section {
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--sanctuary-gray-100);
+    }
+
+    .mood-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--sanctuary-gray-700);
+      margin-bottom: var(--space-3);
+    }
+
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-2);
+    }
+
+    .mood-option {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--sanctuary-gray-200);
+      border-radius: var(--radius-xl);
+      background: var(--sanctuary-white);
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      position: relative;
+    }
+
+    .mood-option:hover {
+      border-color: var(--sage-300);
+      transform: scale(1.05);
+    }
+
+    .mood-option.selected {
+      border-color: var(--sage-400);
+      background: var(--sage-50);
+      transform: scale(1.1);
+    }
+
+    .mood-option.selected::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 16px;
+      height: 16px;
+      background: var(--sage-400);
+      border-radius: var(--radius-full);
+      border: 2px solid var(--sanctuary-white);
+    }
+
+    /* Writing Textarea */
+    .writing-input {
+      width: 100%;
+      min-height: 400px;
+      padding: var(--space-6);
+      border: none;
+      outline: none;
+      font-family: var(--font-family);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--sanctuary-gray-900);
+      background: transparent;
+      resize: none;
+    }
+
+    .writing-input::placeholder {
+      color: var(--sanctuary-gray-400);
+      font-style: italic;
+    }
+
+    /* AI Response Area */
+    .ai-response {
+      margin-top: var(--space-6);
+      background: var(--sage-50);
+      border: 1px solid var(--sage-200);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-6);
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-response.visible {
+      display: block;
+      animation: slide-up 0.6s ease-out;
+    }
+
+    .ai-response::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sage-400), var(--sage-600));
+      border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .ai-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--sage-400), var(--sage-600));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .ai-info {
+      flex: 1;
+    }
+
+    .ai-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--sage-700);
+      margin-bottom: var(--space-1);
+    }
+
+    .ai-role {
+      font-size: 0.75rem;
+      color: var(--sage-600);
+    }
+
+    .ai-message {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--sage-800);
+    }
+
+    .ai-disclaimer {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--sage-200);
+      font-size: 0.75rem;
+      color: var(--sage-600);
+      font-style: italic;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-6);
+      background: var(--sanctuary-gray-50);
+      border-top: 1px solid var(--sanctuary-gray-200);
+    }
+
+    .btn-primary {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: var(--space-4) var(--space-6);
+      background: var(--sage-400);
+      color: white;
+      border: none;
+      border-radius: var(--radius-xl);
+      font-family: var(--font-family);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      box-shadow: var(--shadow-sm);
+      gap: var(--space-2);
+    }
+
+    .btn-primary:hover {
+      background: var(--sage-500);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      background: var(--sanctuary-gray-300);
+      color: var(--sanctuary-gray-500);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: var(--space-3) var(--space-5);
+      background: var(--sanctuary-white);
+      color: var(--sage-600);
+      border: 2px solid var(--sage-300);
+      border-radius: var(--radius-xl);
+      font-family: var(--font-family);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      gap: var(--space-2);
+    }
+
+    .btn-secondary:hover {
+      background: var(--sage-50);
+      border-color: var(--sage-400);
+      transform: translateY(-1px);
+    }
+
+    /* Crisis Detection Alert */
+    .crisis-alert {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+      border-radius: var(--radius-2xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      display: none;
+      animation: slide-down 0.6s ease-out;
+    }
+
+    .crisis-alert.visible {
+      display: block;
+    }
+
+    .crisis-alert-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+
+    .crisis-alert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      background: #dc2626;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .crisis-alert-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #dc2626;
+    }
+
+    .crisis-alert-message {
+      font-size: 0.875rem;
+      color: #991b1b;
+      line-height: 1.5;
+      margin-bottom: var(--space-4);
+    }
+
+    .crisis-alert-actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .btn-crisis {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-lg);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+
+    .btn-crisis:hover {
+      background: #b91c1c;
+      transform: translateY(-1px);
+    }
+
+    /* Loading States */
+    .loading {
+      position: relative;
+      color: transparent !important;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: var(--radius-full);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Animations */
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slide-down {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fade-in 0.6s ease-out forwards;
+    }
+
+    @keyframes fade-in {
+      to { opacity: 1; }
+    }
+
+    /* Crisis Support Button */
+    .crisis-support {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      width: 60px;
+      height: 60px;
+      background: var(--sage-400);
+      border: none;
+      border-radius: var(--radius-full);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crisis-support:hover {
+      background: var(--sage-500);
+      transform: scale(1.05);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .crisis-support.alert {
+      background: var(--crisis-red);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+      }
+      50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 var(--space-3);
+      }
+
+      .entry-header,
+      .mood-section {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+      }
+
+      .writing-input {
+        padding: var(--space-4);
+        min-height: 350px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .crisis-support {
+        width: 72px;
+        height: 72px;
+        font-size: 1.75rem;
+      }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      .writing-area,
+      .ai-response {
+        border: 2px solid var(--sanctuary-gray-600);
+      }
+
+      .mood-option.selected {
+        border: 3px solid var(--sanctuary-gray-900);
+      }
+    }
+
+    /* Focus styles */
+    .writing-input:focus,
+    .mood-option:focus,
+    .btn-primary:focus,
+    .btn-secondary:focus {
+      outline: 3px solid var(--sage-400);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="layout-safe">
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="/dashboard" class="back-button">
+          <span>←</span>
+          <span>Dashboard</span>
+        </a>
+        <h1 class="header-title">Journal</h1>
+        <div class="header-actions">
+          <div class="save-status" id="saveStatus">Saved</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Crisis Alert (hidden by default) -->
+      <div class="crisis-alert" id="crisisAlert">
+        <div class="crisis-alert-header">
+          <div class="crisis-alert-icon">🚨</div>
+          <div class="crisis-alert-title">Crisis Support Available</div>
+        </div>
+        <div class="crisis-alert-message">
+          I notice you might be going through a difficult time. You're not alone, and immediate support is available 24/7.
+        </div>
+        <div class="crisis-alert-actions">
+          <button class="btn-crisis" onclick="window.location.href='tel:988'">
+            Call 988 Lifeline
+          </button>
+          <button class="btn-secondary" onclick="hideCrisisAlert()">
+            I'm okay for now
+          </button>
+        </div>
+      </div>
+
+      <!-- Writing Area -->
+      <div class="writing-area fade-in">
+        <!-- Entry Header -->
+        <div class="entry-header">
+          <div class="entry-date" id="entryDate">Today, September 17, 2025</div>
+          <div class="entry-time" id="entryTime">10:30 AM</div>
+        </div>
+
+        <!-- Mood Selector -->
+        <div class="mood-section">
+          <div class="mood-label">How are you feeling right now?</div>
+          <div class="mood-grid">
+            <button class="mood-option" data-mood="terrible" aria-label="Terrible">😰</button>
+            <button class="mood-option" data-mood="sad" aria-label="Sad">😢</button>
+            <button class="mood-option" data-mood="neutral" aria-label="Neutral">😐</button>
+            <button class="mood-option" data-mood="good" aria-label="Good">😊</button>
+            <button class="mood-option" data-mood="great" aria-label="Great">😄</button>
+          </div>
+        </div>
+
+        <!-- Writing Textarea -->
+        <textarea 
+          class="writing-input" 
+          id="journalInput"
+          placeholder="This is your safe space to express whatever is on your mind and in your heart. Write freely, knowing that your thoughts are private and supported by AI that understands trauma and healing.
+
+Share your feelings, experiences, hopes, fears, or anything else you'd like to explore. There's no right or wrong way to journal here - just write what feels authentic to you in this moment."
+          aria-label="Journal entry content"
+        ></textarea>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-secondary" id="saveBtn">
+            <span>💾</span>
+            <span>Save Draft</span>
+          </button>
+          <button class="btn-primary" id="submitBtn" disabled>
+            <span>✨</span>
+            <span>Submit & Get Response</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Response Area -->
+      <div class="ai-response" id="aiResponse">
+        <div class="ai-header">
+          <div class="ai-avatar">K</div>
+          <div class="ai-info">
+            <div class="ai-name">✨ Khepera</div>
+            <div class="ai-role">Your AI healing companion</div>
+          </div>
+        </div>
+        <div class="ai-message" id="aiMessage">
+          <!-- AI response will be inserted here -->
+        </div>
+        <div class="ai-disclaimer">
+          ✨ I am Khepera, an AI assistant. While I'm here to support your healing journey, I'm not a replacement for professional mental health care. If you're in crisis, please reach out to the 988 Suicide & Crisis Lifeline or emergency services.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Crisis Support Button -->
+  <button class="crisis-support" id="crisisBtn" aria-label="Access crisis support - Call 988">
+    <span role="img" aria-label="Emergency help">🆘</span>
+  </button>
+
+  <script>
+    // Journal state
+    let currentMood = null;
+    let journalContent = '';
+    let hasUnsavedChanges = false;
+    let crisisDetected = false;
+
+    // DOM elements
+    const journalInput = document.getElementById('journalInput');
+    const saveBtn = document.getElementById('saveBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const saveStatus = document.getElementById('saveStatus');
+    const aiResponse = document.getElementById('aiResponse');
+    const aiMessage = document.getElementById('aiMessage');
+    const crisisAlert = document.getElementById('crisisAlert');
+    const crisisBtn = document.getElementById('crisisBtn');
+    const moodButtons = document.querySelectorAll('.mood-option');
+
+    // Crisis keywords for detection
+    const crisisKeywords = [
+      'suicide', 'kill myself', 'end it all', 'want to die', 'hurt myself',
+      'can\'t go on', 'hopeless', 'worthless', 'emergency', 'help me',
+      'crisis', 'desperate', 'scared', 'alone', 'trapped', 'end my life',
+      'not worth living', 'better off dead', 'can\'t take it anymore'
+    ];
+
+    // Initialize date and time
+    function updateDateTime() {
+      const now = new Date();
+      const dateOptions = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      };
+      const timeOptions = { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      };
+
+      document.getElementById('entryDate').textContent = now.toLocaleDateString('en-US', dateOptions);
+      document.getElementById('entryTime').textContent = now.toLocaleTimeString('en-US', timeOptions);
+    }
+
+    // Crisis detection
+    function detectCrisisContent(text) {
+      const lowerText = text.toLowerCase();
+      return crisisKeywords.some(keyword => lowerText.includes(keyword));
+    }
+
+    // Show crisis alert
+    function showCrisisAlert() {
+      if (!crisisDetected) {
+        crisisDetected = true;
+        crisisAlert.classList.add('visible');
+        crisisBtn.classList.add('alert');
+        
+        // Gentle haptic feedback
+        if ('vibrate' in navigator) {
+          navigator.vibrate([200, 100, 200]);
+        }
+      }
+    }
+
+    // Hide crisis alert
+    function hideCrisisAlert() {
+      crisisAlert.classList.remove('visible');
+      // Keep crisis button in alert state for continued access
+    }
+
+    // Update save status
+    function updateSaveStatus(status) {
+      saveStatus.className = `save-status visible ${status}`;
+      
+      switch(status) {
+        case 'saving':
+          saveStatus.textContent = 'Saving...';
+          break;
+        case 'saved':
+          saveStatus.textContent = 'Saved';
+          break;
+        case 'unsaved':
+          saveStatus.textContent = 'Unsaved changes';
+          break;
+      }
+
+      // Hide after 3 seconds unless unsaved
+      if (status !== 'unsaved') {
+        setTimeout(() => {
+          if (!hasUnsavedChanges) {
+            saveStatus.classList.remove('visible');
+          }
+        }, 3000);
+      }
+    }
+
+    // Auto-save function
+    async function autoSave() {
+      if (!hasUnsavedChanges || !journalContent.trim()) return;
+
+      updateSaveStatus('saving');
+      
+      try {
+        // Simulate save to backend
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Save to localStorage as backup
+        const entryData = {
+          content: journalContent,
+          mood: currentMood,
+          timestamp: new Date().toISOString(),
+          id: Date.now()
+        };
+        
+        localStorage.setItem('journal_draft', JSON.stringify(entryData));
+        
+        hasUnsavedChanges = false;
+        updateSaveStatus('saved');
+        
+      } catch (error) {
+        console.error('Auto-save failed:', error);
+        updateSaveStatus('unsaved');
+      }
+    }
+
+    // Handle mood selection
+    moodButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove previous selection
+        moodButtons.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add selection to current button
+        this.classList.add('selected');
+        currentMood = this.dataset.mood;
+        
+        // Haptic feedback
+        if ('vibrate' in navigator) {
+          navigator.vibrate(10);
+        }
+
+        hasUnsavedChanges = true;
+        updateSaveStatus('unsaved');
+      });
+    });
+
+    // Handle journal input
+    journalInput.addEventListener('input', function() {
+      journalContent = this.value;
+      hasUnsavedChanges = true;
+      updateSaveStatus('unsaved');
+      
+      // Enable/disable submit button
+      submitBtn.disabled = journalContent.trim().length < 10;
+      
+      // Crisis detection
+      if (detectCrisisContent(journalContent)) {
+        showCrisisAlert();
+      }
+    });
+
+    // Auto-save every 10 seconds
+    setInterval(autoSave, 10000);
+
+    // Save button
+    saveBtn.addEventListener('click', async function() {
+      this.classList.add('loading');
+      await autoSave();
+      this.classList.remove('loading');
+    });
+
+    // Submit button
+    submitBtn.addEventListener('click', async function() {
+      if (!journalContent.trim()) return;
+
+      this.classList.add('loading');
+      this.disabled = true;
+
+      try {
+        // First save the entry
+        await autoSave();
+        
+        // Generate AI response
+        await generateAIResponse();
+        
+      } catch (error) {
+        console.error('Submit failed:', error);
+        alert('Sorry, there was an error processing your entry. Please try again.');
+      } finally {
+        this.classList.remove('loading');
+        this.disabled = false;
+      }
+    });
+
+    // Generate AI response
+    async function generateAIResponse() {
+      // Simulate AI processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      let response = '';
+      
+      if (crisisDetected) {
+        response = `Thank you for sharing these difficult feelings with me. I can see you're going through a really tough time right now, and I want you to know that what you're experiencing matters deeply.
+
+Your pain is real and valid. Sometimes when we're in deep emotional distress, it can feel like the darkness will never lift - but you've taken a brave step by writing about it here.
+
+**Immediate support is available:**
+- 988 Suicide & Crisis Lifeline: Available 24/7
+- Crisis Text Line: Text HOME to 741741
+- Emergency Services: 911
+
+Your life has value, and there are people who want to help you through this moment. Would you like me to help you connect with crisis support right now?`;
+      } else if (currentMood === 'terrible' || currentMood === 'sad') {
+        response = `I hear the weight in your words, and I want you to know that sharing these feelings takes real courage. Difficult emotions are part of the human experience, and feeling them deeply shows your capacity for authentic connection with yourself.
+
+What strikes me about your writing is [specific observation about their expression]. Even in difficult moments, there's wisdom in how you're processing this experience.
+
+Sometimes when we're struggling, it can help to remember that emotions move through us like weather - intense, but temporary. You're not broken; you're human, navigating something challenging.
+
+Is there a small step toward comfort or safety you could take for yourself right now?`;
+      } else {
+        response = `Thank you for sharing this piece of your inner world with me. I can sense the thoughtfulness in how you've expressed yourself, and there's something beautiful about the way you're exploring your experience.
+
+What resonates with me most is [specific reflection about their growth or insight]. You're developing a deeper relationship with yourself through this practice of reflection.
+
+I notice patterns of [growth/strength/resilience] emerging in your writing. This kind of self-awareness is a foundation for continued healing and personal development.
+
+How does it feel to put these thoughts into words?`;
+      }
+      
+      // Display response
+      aiMessage.textContent = response;
+      aiResponse.classList.add('visible');
+      
+      // Scroll to response
+      aiResponse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Crisis support button
+    crisisBtn.addEventListener('click', function() {
+      if ('vibrate' in navigator) {
+        navigator.vibrate([200, 100, 200]);
+      }
+      
+      if (confirm('Connect to 988 Suicide & Crisis Lifeline?')) {
+        window.location.href = 'tel:988';
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl/Cmd + S to save
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        autoSave();
+      }
+      
+      // Ctrl/Cmd + Enter to submit
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        if (!submitBtn.disabled) {
+          submitBtn.click();
+        }
+      }
+      
+      // Escape for crisis support
+      if (e.key === 'Escape' && e.ctrlKey) {
+        window.location.href = 'tel:988';
+      }
+    });
+
+    // Load draft if exists
+    function loadDraft() {
+      const draft = localStorage.getItem('journal_draft');
+      if (draft) {
+        try {
+          const entryData = JSON.parse(draft);
+          const draftAge = Date.now() - new Date(entryData.timestamp).getTime();
+          
+          // Only load if less than 24 hours old
+          if (draftAge < 24 * 60 * 60 * 1000) {
+            journalInput.value = entryData.content || '';
+            journalContent = entryData.content || '';
+            currentMood = entryData.mood;
+            
+            // Select mood if exists
+            if (currentMood) {
+              const moodBtn = document.querySelector(`[data-mood="${currentMood}"]`);
+              if (moodBtn) {
+                moodBtn.classList.add('selected');
+              }
+            }
+            
+            // Update UI
+            if (journalContent.trim()) {
+              submitBtn.disabled = journalContent.trim().length < 10;
+              hasUnsavedChanges = true;
+              updateSaveStatus('unsaved');
+            }
+          }
+        } catch (error) {
+          console.error('Failed to load draft:', error);
+        }
+      }
+    }
+
+    // Warn before leaving with unsaved changes
+    window.addEventListener('beforeunload', function(e) {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+
+    // Touch optimization
+    if ('ontouchstart' in window) {
+      document.body.classList.add('touch-device');
+      
+      // Add haptic feedback for interactions
+      const interactiveElements = document.querySelectorAll('.mood-option, .btn-primary, .btn-secondary');
+      interactiveElements.forEach(el => {
+        el.addEventListener('touchstart', function() {
+          if ('vibrate' in navigator) {
+            navigator.vibrate(10);
+          }
+        });
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDateTime();
+      loadDraft();
+      
+      // Focus on journal input
+      setTimeout(() => {
+        journalInput.focus();
+      }, 300);
+      
+      // Update time every minute
+      setInterval(updateDateTime, 60000);
+    });
+
+    // Make hideCrisisAlert globally available
+    window.hideCrisisAlert = hideCrisisAlert;
+  </script>
+</body>
+</html>

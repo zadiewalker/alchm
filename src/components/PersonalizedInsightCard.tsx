@@ -99,34 +99,55 @@ export default function PersonalizedInsightCard({
   const personalizationBadge = getPersonalizationBadge();
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200 shadow-lg">
-      <CardHeader className="pb-4">
+    <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-[#a4b792]/5 to-[#a4b792]/10 border-[#a4b792]/20 shadow-lg rounded-2xl">
+      <CardHeader className="pb-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {getResponseTypeIcon()}
-            <CardTitle className="text-lg font-semibold text-gray-800">
+            <CardTitle className="text-xl font-semibold text-[#2e2e2e]">
               Your Personal Insight
             </CardTitle>
           </div>
-          <Badge className={personalizationBadge.color}>
-            {personalizationBadge.text}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge className={`${personalizationBadge.color} px-3 py-1 rounded-full text-xs font-medium`}>
+              {personalizationBadge.text}
+            </Badge>
+            <div className="text-xs text-[#a4b792] font-medium bg-[#a4b792]/10 px-2 py-1 rounded-full">
+              {(metadata.confidenceScore * 100).toFixed(0)}% confident
+            </div>
+          </div>
         </div>
       </CardHeader>
 
       <CardContent className="space-y-6">
         {/* Main Insight */}
-        <div className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-purple-400">
-          <p className="text-gray-800 leading-relaxed font-medium">
-            {insight}
-          </p>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-[#a4b792]">
+          <div className="flex justify-between items-start mb-3">
+            <p className="text-[#2e2e2e] leading-relaxed font-medium flex-1">
+              {insight}
+            </p>
+            <div className="ml-4 flex flex-col items-end gap-1">
+              <div className="text-xs text-[#a4b792] font-medium">
+                Quality Score
+              </div>
+              <div className="flex gap-1">
+                {Object.entries(metadata.qualityMetrics).slice(0, 4).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className={`w-2 h-2 rounded-full ${value ? 'bg-[#a4b792]' : 'bg-gray-200'}`}
+                    title={key}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Encouragement */}
-        <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4">
-          <div className="flex items-start gap-3">
-            <Heart className="h-5 w-5 text-pink-500 mt-0.5 flex-shrink-0" />
-            <p className="text-gray-700 italic">
+        <div className="bg-gradient-to-r from-[#a4b792]/5 to-[#a4b792]/10 rounded-xl p-6">
+          <div className="flex items-start gap-4">
+            <Heart className="h-6 w-6 text-[#a4b792] mt-0.5 flex-shrink-0" />
+            <p className="text-[#2e2e2e]/80 italic leading-relaxed">
               {encouragement}
             </p>
           </div>
@@ -134,12 +155,12 @@ export default function PersonalizedInsightCard({
 
         {/* Gentle Action */}
         {gentleAction && (
-          <div className="bg-blue-50 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <Sparkles className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+          <div className="bg-[#a4b792]/5 rounded-xl p-6 border border-[#a4b792]/20">
+            <div className="flex items-start gap-4">
+              <Sparkles className="h-6 w-6 text-[#a4b792] mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-medium text-blue-800 mb-1">Gentle Suggestion</p>
-                <p className="text-blue-700">
+                <p className="text-sm font-semibold text-[#a4b792] mb-2">Gentle Suggestion</p>
+                <p className="text-[#2e2e2e]/80 leading-relaxed">
                   {gentleAction}
                 </p>
               </div>
@@ -169,52 +190,52 @@ export default function PersonalizedInsightCard({
 
         {/* Feedback Section */}
         {!feedbackGiven ? (
-          <div className="border-t pt-4">
-            <p className="text-sm text-gray-600 mb-3">How did this insight feel for you?</p>
-            <div className="flex gap-2 flex-wrap">
+          <div className="border-t border-[#a4b792]/20 pt-6">
+            <p className="text-sm text-[#2e2e2e]/70 mb-4 font-medium">How did this insight feel for you?</p>
+            <div className="flex gap-3 flex-wrap">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => handleFeedback('perfect')}
-                className="text-green-600 border-green-200 hover:bg-green-50"
+                className="text-[#a4b792] border-[#a4b792]/30 hover:bg-[#a4b792]/10 transition-all duration-200"
               >
-                <Heart className="h-4 w-4 mr-1" />
+                <Heart className="h-4 w-4 mr-2" />
                 Perfect
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => handleFeedback('helpful')}
-                className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                className="text-[#a4b792] border-[#a4b792]/30 hover:bg-[#a4b792]/10 transition-all duration-200"
               >
-                <ThumbsUp className="h-4 w-4 mr-1" />
+                <ThumbsUp className="h-4 w-4 mr-2" />
                 Helpful
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => handleFeedback('not_helpful')}
-                className="text-gray-600 border-gray-200 hover:bg-gray-50"
+                className="text-[#2e2e2e]/60 border-[#2e2e2e]/20 hover:bg-[#2e2e2e]/5 transition-all duration-200"
               >
-                <ThumbsDown className="h-4 w-4 mr-1" />
+                <ThumbsDown className="h-4 w-4 mr-2" />
                 Not helpful
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => handleFeedback('triggering')}
-                className="text-red-600 border-red-200 hover:bg-red-50"
+                className="text-[#d4756b] border-[#d4756b]/30 hover:bg-[#d4756b]/10 transition-all duration-200"
               >
-                <AlertTriangle className="h-4 w-4 mr-1" />
+                <AlertTriangle className="h-4 w-4 mr-2" />
                 Triggering
               </Button>
             </div>
           </div>
         ) : (
-          <div className="border-t pt-4">
-            <div className="flex items-center gap-2">
-              <ThumbsUp className="h-4 w-4 text-green-500" />
-              <p className="text-sm text-gray-600">
+          <div className="border-t border-[#a4b792]/20 pt-6">
+            <div className="flex items-center gap-3">
+              <ThumbsUp className="h-5 w-5 text-[#a4b792]" />
+              <p className="text-sm text-[#2e2e2e]/70">
                 Thank you for your feedback! This helps me understand you better.
               </p>
             </div>

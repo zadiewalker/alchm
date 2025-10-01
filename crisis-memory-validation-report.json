@@ -1,0 +1,380 @@
+{
+  "timestamp": "2025-09-16T02:52:40.047Z",
+  "summary": {
+    "totalTests": 5,
+    "passed": 1,
+    "failed": 4,
+    "critical": 4
+  },
+  "config": {
+    "MAX_MEMORY_GROWTH": 0.3,
+    "MAX_PEAK_MEMORY": 80,
+    "MAX_RESPONSE_TIME": 3000,
+    "SCENARIOS": [
+      "crisis-button-stress",
+      "emergency-navigation",
+      "low-memory-device",
+      "network-interruption",
+      "extended-crisis-session"
+    ],
+    "DEVICE_PROFILES": [
+      {
+        "name": "iPhone-6",
+        "memory": "1GB",
+        "cpu": "A8"
+      },
+      {
+        "name": "Android-Low-End",
+        "memory": "2GB",
+        "cpu": "Snapdragon-400"
+      },
+      {
+        "name": "iPad-Old",
+        "memory": "1GB",
+        "cpu": "A7"
+      }
+    ]
+  },
+  "results": [
+    {
+      "name": "Crisis Button Stress Test",
+      "description": "Rapid clicking of crisis button under memory pressure",
+      "passed": false,
+      "memoryGrowth": 2.6158414323111883,
+      "peakMemory": 4.094024658203125,
+      "duration": 5.072,
+      "testData": {
+        "snapshots": [
+          {
+            "iteration": 0,
+            "memory": 3.877532958984375,
+            "timestamp": 1757991128915
+          },
+          {
+            "iteration": 1,
+            "memory": 3.8840255737304688,
+            "timestamp": 1757991129016
+          },
+          {
+            "iteration": 2,
+            "memory": 3.88812255859375,
+            "timestamp": 1757991129117
+          },
+          {
+            "iteration": 3,
+            "memory": 3.8923568725585938,
+            "timestamp": 1757991129218
+          },
+          {
+            "iteration": 4,
+            "memory": 3.896453857421875,
+            "timestamp": 1757991129319
+          },
+          {
+            "iteration": 5,
+            "memory": 3.9011688232421875,
+            "timestamp": 1757991129420
+          },
+          {
+            "iteration": 6,
+            "memory": 3.9052658081054688,
+            "timestamp": 1757991129523
+          },
+          {
+            "iteration": 7,
+            "memory": 3.9093856811523438,
+            "timestamp": 1757991129625
+          },
+          {
+            "iteration": 8,
+            "memory": 3.9133071899414062,
+            "timestamp": 1757991129725
+          },
+          {
+            "iteration": 9,
+            "memory": 3.9176559448242188,
+            "timestamp": 1757991129826
+          },
+          {
+            "iteration": 10,
+            "memory": 3.92315673828125,
+            "timestamp": 1757991129928
+          },
+          {
+            "iteration": 11,
+            "memory": 3.9274444580078125,
+            "timestamp": 1757991130029
+          },
+          {
+            "iteration": 12,
+            "memory": 3.931793212890625,
+            "timestamp": 1757991130130
+          },
+          {
+            "iteration": 13,
+            "memory": 3.9361114501953125,
+            "timestamp": 1757991130232
+          },
+          {
+            "iteration": 14,
+            "memory": 3.9402923583984375,
+            "timestamp": 1757991130333
+          },
+          {
+            "iteration": 15,
+            "memory": 3.94482421875,
+            "timestamp": 1757991130436
+          },
+          {
+            "iteration": 16,
+            "memory": 3.949005126953125,
+            "timestamp": 1757991130537
+          },
+          {
+            "iteration": 17,
+            "memory": 3.9533233642578125,
+            "timestamp": 1757991130637
+          },
+          {
+            "iteration": 18,
+            "memory": 3.9578475952148438,
+            "timestamp": 1757991130740
+          },
+          {
+            "iteration": 19,
+            "memory": 3.9621658325195312,
+            "timestamp": 1757991130842
+          },
+          {
+            "iteration": 20,
+            "memory": 3.9671630859375,
+            "timestamp": 1757991130942
+          },
+          {
+            "iteration": 21,
+            "memory": 3.9714813232421875,
+            "timestamp": 1757991131043
+          },
+          {
+            "iteration": 22,
+            "memory": 3.9756622314453125,
+            "timestamp": 1757991131143
+          },
+          {
+            "iteration": 23,
+            "memory": 3.97998046875,
+            "timestamp": 1757991131245
+          },
+          {
+            "iteration": 24,
+            "memory": 3.984161376953125,
+            "timestamp": 1757991131346
+          },
+          {
+            "iteration": 25,
+            "memory": 3.9884796142578125,
+            "timestamp": 1757991131449
+          },
+          {
+            "iteration": 26,
+            "memory": 3.9926605224609375,
+            "timestamp": 1757991131549
+          },
+          {
+            "iteration": 27,
+            "memory": 3.996978759765625,
+            "timestamp": 1757991131651
+          },
+          {
+            "iteration": 28,
+            "memory": 4.00115966796875,
+            "timestamp": 1757991131754
+          },
+          {
+            "iteration": 29,
+            "memory": 4.0054779052734375,
+            "timestamp": 1757991131855
+          },
+          {
+            "iteration": 30,
+            "memory": 4.010353088378906,
+            "timestamp": 1757991131957
+          },
+          {
+            "iteration": 31,
+            "memory": 4.014671325683594,
+            "timestamp": 1757991132059
+          },
+          {
+            "iteration": 32,
+            "memory": 4.018852233886719,
+            "timestamp": 1757991132160
+          },
+          {
+            "iteration": 33,
+            "memory": 4.023170471191406,
+            "timestamp": 1757991132260
+          },
+          {
+            "iteration": 34,
+            "memory": 4.027351379394531,
+            "timestamp": 1757991132363
+          },
+          {
+            "iteration": 35,
+            "memory": 4.031669616699219,
+            "timestamp": 1757991132464
+          },
+          {
+            "iteration": 36,
+            "memory": 4.035850524902344,
+            "timestamp": 1757991132566
+          },
+          {
+            "iteration": 37,
+            "memory": 4.040168762207031,
+            "timestamp": 1757991132668
+          },
+          {
+            "iteration": 38,
+            "memory": 4.044349670410156,
+            "timestamp": 1757991132768
+          },
+          {
+            "iteration": 39,
+            "memory": 4.048667907714844,
+            "timestamp": 1757991132870
+          },
+          {
+            "iteration": 40,
+            "memory": 4.0535430908203125,
+            "timestamp": 1757991132971
+          },
+          {
+            "iteration": 41,
+            "memory": 4.057861328125,
+            "timestamp": 1757991133074
+          },
+          {
+            "iteration": 42,
+            "memory": 4.062042236328125,
+            "timestamp": 1757991133176
+          },
+          {
+            "iteration": 43,
+            "memory": 4.0663604736328125,
+            "timestamp": 1757991133276
+          },
+          {
+            "iteration": 44,
+            "memory": 4.0711822509765625,
+            "timestamp": 1757991133377
+          },
+          {
+            "iteration": 45,
+            "memory": 4.07550048828125,
+            "timestamp": 1757991133480
+          },
+          {
+            "iteration": 46,
+            "memory": 4.079681396484375,
+            "timestamp": 1757991133580
+          },
+          {
+            "iteration": 47,
+            "memory": 4.0839996337890625,
+            "timestamp": 1757991133681
+          },
+          {
+            "iteration": 48,
+            "memory": 4.0881805419921875,
+            "timestamp": 1757991133781
+          },
+          {
+            "iteration": 49,
+            "memory": 4.092498779296875,
+            "timestamp": 1757991133883
+          }
+        ]
+      },
+      "critical": true
+    },
+    {
+      "name": "Emergency Navigation Test",
+      "description": "Navigation between crisis resources under memory constraints",
+      "passed": true,
+      "memoryGrowth": -4.640899658203125,
+      "peakMemory": 4.1802520751953125,
+      "duration": 6.039,
+      "testData": {
+        "navigationCount": 30
+      },
+      "critical": false
+    },
+    {
+      "name": "Low Memory Device Test",
+      "description": "App behavior under memory pressure (simulating old devices)",
+      "passed": false,
+      "memoryGrowth": 2.3632049560546875,
+      "peakMemory": 3.7949905395507812,
+      "duration": 3.777,
+      "testData": {
+        "operationsCompleted": 25
+      },
+      "critical": true
+    },
+    {
+      "name": "Network Interruption Test",
+      "description": "Memory stability during network failures and recovery",
+      "passed": false,
+      "memoryGrowth": 4.277186436610265,
+      "peakMemory": 4.1099395751953125,
+      "duration": 4.15,
+      "testData": {
+        "requestsHandled": 20
+      },
+      "critical": true
+    },
+    {
+      "name": "Extended Crisis Session Test",
+      "description": "Memory stability during long crisis support sessions",
+      "passed": false,
+      "memoryGrowth": 3.1602024090948833,
+      "peakMemory": 3.7044296264648438,
+      "duration": 12.06,
+      "testData": {
+        "sessionDuration": 60,
+        "interactionsProcessed": 60
+      },
+      "critical": true
+    }
+  ],
+  "criticalFailures": [
+    {
+      "test": "Crisis Button Stress",
+      "reason": "Memory growth exceeded safe limits for crisis users",
+      "impact": "Users in crisis may experience app crashes when trying to access help",
+      "severity": "CRITICAL"
+    },
+    {
+      "test": "Low Memory Device",
+      "reason": "App fails to handle memory constraints of older devices",
+      "impact": "Users with older phones cannot access crisis support",
+      "severity": "CRITICAL"
+    },
+    {
+      "test": "Extended Crisis Session",
+      "reason": "Memory accumulates during long crisis support sessions",
+      "impact": "App becomes unstable during extended crisis situations",
+      "severity": "HIGH"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "category": "Memory Management",
+      "description": "Implement more aggressive memory cleanup for crisis scenarios",
+      "action": "Review and strengthen memory management in identified components"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "configValidation": {
+    "envFileExists": true,
+    "requiredVarsPresent": true,
+    "missingVars": [],
+    "projectId": "alchm-digital-sanctuary",
+    "authDomain": "alchm-digital-sanctuary.web.app"
+  },
+  "authFlow": {
+    "exitCode": 1,
+    "success": false,
+    "output": "Initializing Firebase...\n",
+    "errors": "❌ Firebase Auth test failed: Firebase: Error (auth/invalid-api-key).\n",
+    "duration": 1759092815733
+  },
+  "performance": {},
+  "security": {
+    "httpsEnforced": false,
+    "firebaseRulesExist": true,
+    "environmentSecure": true
+  },
+  "criticalIssues": [
+    {
+      "type": "AUTH_FLOW_FAILED",
+      "message": "Firebase authentication flow test failed",
+      "impact": "CRITICAL",
+      "details": "❌ Firebase Auth test failed: Firebase: Error (auth/invalid-api-key).\n"
+    },
+    {
+      "type": "SECURITY_ISSUE",
+      "message": "Security check failed: httpsEnforced",
+      "impact": "HIGH"
+    }
+  ]
+}

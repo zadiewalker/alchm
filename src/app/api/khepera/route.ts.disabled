@@ -1,0 +1,184 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { kheperaPersonalitySystem } from '@/lib/khepera-personality-system';
+import { advancedEmotionalIntelligence } from '@/lib/advanced-emotional-intelligence-v2';
+import { culturalResponsivenessEngine } from '@/lib/cultural-responsiveness-engine';
+
+export async function POST(request: NextRequest) {
+  try {
+    const { 
+      journalText, 
+      userId, 
+      mood, 
+      userCulture,
+      preferredArchetype,
+      detectedLanguage = 'en',
+      userTier = 'free' // free, premium, oracle
+    } = await request.json();
+
+    if (!journalText || !userId) {
+      return NextResponse.json(
+        { error: 'Journal text and user ID are required' },
+        { status: 400 }
+      );
+    }
+
+    console.log('🔮 Processing Khepera request with AI wisdom expansion');
+
+    // Advanced emotional intelligence analysis
+    const emotionalAnalysis = advancedEmotionalIntelligence.analyzeEmotionalIntelligence(
+      journalText,
+      userCulture,
+      detectedLanguage
+    );
+
+    // Detect cultural context from text if not provided
+    const detectedCulture = userCulture || culturalResponsivenessEngine.detectCulturalContext(
+      journalText, 
+      detectedLanguage
+    );
+
+    // Get user's previous responses for archetype learning
+    const previousResponses = kheperaPersonalitySystem.getUserHistory(userId);
+
+    // Select appropriate archetype based on user's tier
+    const selectedArchetype = kheperaPersonalitySystem.selectArchetype(
+      journalText,
+      mood,
+      detectedCulture,
+      preferredArchetype,
+      previousResponses,
+      userTier
+    );
+
+    // Generate archetype-specific response
+    const kheperaResponse = kheperaPersonalitySystem.generateResponse(
+      selectedArchetype,
+      journalText,
+      mood,
+      detectedCulture,
+      emotionalAnalysis.traumaInformed.indicators.length > 0
+    );
+
+    // Apply cultural adaptation if relevant
+    const culturalAdaptation = culturalResponsivenessEngine.adaptToCulture({
+      originalResponse: kheperaResponse.content,
+      userCulture: detectedCulture,
+      detectedLanguage,
+      emotionalState: mood,
+      isCrisis: emotionalAnalysis.traumaInformed.indicators.length > 0
+    });
+
+    // Store response for future learning
+    kheperaPersonalitySystem.storeResponse(userId, kheperaResponse);
+
+    // Build comprehensive response
+    const response = {
+      // Core Khepera response
+      kheperaResponse: {
+        archetype: selectedArchetype,
+        content: culturalAdaptation ? culturalAdaptation.adaptedResponse : kheperaResponse.content,
+        wisdom: kheperaResponse.wisdom,
+        actionable: kheperaResponse.actionable,
+        confidence: kheperaResponse.confidence,
+        responseId: kheperaResponse.responseId
+      },
+      
+      // Emotional intelligence insights
+      emotionalIntelligence: {
+        primaryEmotions: emotionalAnalysis.primaryEmotions,
+        patterns: emotionalAnalysis.patterns,
+        insights: emotionalAnalysis.insights,
+        recommendations: emotionalAnalysis.recommendations
+      },
+      
+      // Cultural responsiveness
+      culturalAdaptation: culturalAdaptation ? {
+        tradition: culturalAdaptation.tradition.name,
+        culturalWisdom: culturalAdaptation.culturalWisdom,
+        respectfulLanguage: culturalAdaptation.respectfulLanguage,
+        communityResources: culturalAdaptation.communityResources,
+        confidence: culturalAdaptation.confidence
+      } : null,
+      
+      // Trauma-informed considerations
+      traumaInformed: emotionalAnalysis.traumaInformed,
+      
+      // Legacy analysis for backwards compatibility
+      insights: analyzeJournalEntry(journalText),
+      
+      // Metadata
+      timestamp: new Date().toISOString(),
+      aiVersion: 'khepera-v2-wisdom-expansion'
+    };
+
+    console.log(`🔮 Generated ${selectedArchetype.toUpperCase()} response with ${emotionalAnalysis.primaryEmotions.length} emotions detected`);
+
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('Khepera API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+// Simple Khepera response generator (placeholder for AI integration)
+function generateKheperaResponse(text: string): string {
+  const textLength = text.length;
+  const wordCount = text.split(/\s+/).length;
+  
+  if (textLength < 50) {
+    return "Thank you for sharing your thoughts. Every moment of reflection, no matter how brief, is valuable. Would you like to explore what's on your mind a bit more?";
+  }
+  
+  if (wordCount > 100) {
+    return "I can sense the depth in your reflection today. Your willingness to explore your inner landscape shows real courage. What stands out most to you from what you've written?";
+  }
+  
+  return "Your words carry wisdom and strength. I'm here to witness your journey without judgment. How does it feel to have expressed these thoughts?";
+}
+
+// Simple journal analysis (placeholder for advanced AI analysis)
+function analyzeJournalEntry(text: string) {
+  const textLower = text.toLowerCase();
+  
+  const emotions = {
+    positive: ['happy', 'joy', 'grateful', 'love', 'excited', 'peaceful', 'calm'].some(word => textLower.includes(word)),
+    challenging: ['sad', 'angry', 'frustrated', 'worried', 'anxious', 'stressed', 'difficult'].some(word => textLower.includes(word)),
+    reflective: ['think', 'realize', 'understand', 'learn', 'grow', 'remember', 'consider'].some(word => textLower.includes(word))
+  };
+  
+  return {
+    wordCount: text.split(/\s+/).length,
+    estimatedReadTime: Math.ceil(text.split(/\s+/).length / 200), // words per minute
+    emotionalTone: emotions,
+    themes: identifyThemes(textLower)
+  };
+}
+
+function identifyThemes(text: string): string[] {
+  const themes = [];
+  
+  if (text.includes('work') || text.includes('job') || text.includes('career')) {
+    themes.push('Work & Career');
+  }
+  
+  if (text.includes('family') || text.includes('parent') || text.includes('child')) {
+    themes.push('Family');
+  }
+  
+  if (text.includes('friend') || text.includes('relationship') || text.includes('partner')) {
+    themes.push('Relationships');
+  }
+  
+  if (text.includes('goal') || text.includes('dream') || text.includes('future')) {
+    themes.push('Goals & Aspirations');
+  }
+  
+  if (text.includes('health') || text.includes('exercise') || text.includes('sleep')) {
+    themes.push('Health & Wellness');
+  }
+  
+  return themes;
+}

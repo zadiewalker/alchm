@@ -1,0 +1,624 @@
+/**
+ * EMOTIONAL LEARNING CLOUD FUNCTIONS
+ * "Duolingo for Emotions" - Backend Processing
+ * 
+ * Firebase Cloud Functions that handle emotional learning system logic,
+ * badge unlocks, progress tracking, and community features with
+ * trauma-informed design and privacy protection.
+ */
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { Timestamp } from 'firebase-admin/firestore';
+
+// Initialize Firebase Admin if not already initialized
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
+
+const db = admin.firestore();
+
+// Types (simplified versions for Cloud Functions)
+interface EmotionalCompetency {
+  emotional_awareness: string;
+  self_regulation: string;
+  social_awareness: string;
+  relationship_skills: string;
+  responsible_decision_making: string;
+  trauma_healing: string;
+  boundary_setting: string;
+  self_compassion: string;
+}
+
+interface BadgeUnlockTrigger {
+  emotion_identified_consistently: string;
+  pause_practiced_under_pressure: string;
+  boundary_set_successfully: string;
+  vulnerability_shared_safely: string;
+  pattern_recognized_and_interrupted: string;
+  self_compassion_chosen_over_self_criticism: string;
+  support_offered_to_community: string;
+  healing_wisdom_shared_anonymously: string;
+}
+
+// Foundation badges from our badge ecosystem
+const FOUNDATION_BADGES = [
+  {
+    id: 'feeling_translator',
+    name: 'Feeling Translator',
+    description: 'Fluent in the language of emotions, able to name feelings with compassion',
+    category: 'foundation',
+    level: 1,
+    tree: 'Emotional Awareness',
+    xpAwarded: 100,
+    identityStatement: 'You are someone who understands the rich landscape of human emotion',
+    healingMilestone: 'You\'ve built emotional vocabulary that serves your healing',
+    courageAcknowledged: 'It takes courage to feel deeply in a world that often asks us to be "fine"',
+    wisdomGained: 'Emotions are information, not instructions - they guide but don\'t control you',
+    skillsDemonstrated: [
+      'Identifying specific emotions beyond "good" or "bad"',
+      'Distinguishing between thoughts and feelings',
+      'Recognizing emotional intensity levels',
+      'Naming emotions without judgment'
+    ],
+    emotionalCompetenciesBuilt: ['emotional_awareness'],
+    unlockTriggers: ['emotion_identified_consistently'],
+    minimumPracticeCount: 7,
+    consistencyRequired: 7,
+    traumaSensitive: false,
+    gentleCelebration: true,
+    honorsVulnerability: true,
+    recognizesEffort: true
+  }
+];
+
+/**
+ * Process lesson completion and update user progress
+ */
+export const processLessonCompletion = functions.https.onCall(async (data, context) => {
+  // Verify authentication
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const { lessonId, competency, completionData } = data;
+
+  try {
+    // Start a transaction to ensure data consistency
+    const result = await db.runTransaction(async (transaction) => {
+      // Get current progress
+      const progressRef = db.collection('users').doc(userId)
+        .collection('emotionalProgress').doc('current');
+      const progressDoc = await transaction.get(progressRef);
+      
+      if (!progressDoc.exists) {
+        throw new functions.https.HttpsError('not-found', 'User progress not found');
+      }
+
+      const currentProgress = progressDoc.data();
+      
+      // Update progress for this competency
+      const treeProgress = currentProgress!.treeProgress[competency];
+      const updatedTreeProgress = {
+        ...treeProgress,
+        lessonsCompleted: treeProgress.lessonsCompleted + 1,
+        lastPracticed: Timestamp.now(),
+        masteryScore: Math.min(100, treeProgress.masteryScore + 10) // Increase mastery
+      };
+
+      // Update overall progress
+      const updatedProgress = {
+        ...currentProgress,
+        treeProgress: {
+          ...currentProgress!.treeProgress,
+          [competency]: updatedTreeProgress
+        },
+        totalLessonsCompleted: currentProgress!.totalLessonsCompleted + 1,
+        averageSessionTime: calculateNewAverage(
+          currentProgress!.averageSessionTime,
+          currentProgress!.totalLessonsCompleted,
+          completionData.timeSpent
+        ),
+        lastUpdated: Timestamp.now()
+      };
+
+      // Update streak if applicable
+      if (isConsecutiveDay(currentProgress!.lastUpdated)) {
+        updatedProgress.currentStreak = currentProgress!.currentStreak + 1;
+        updatedProgress.longestStreak = Math.max(
+          currentProgress!.longestStreak,
+          updatedProgress.currentStreak
+        );
+      }
+
+      // Save updated progress
+      transaction.update(progressRef, updatedProgress);
+
+      // Record lesson completion
+      const completionRef = db.collection('users').doc(userId)
+        .collection('lessonCompletions').doc();
+      transaction.set(completionRef, {
+        lessonId,
+        competency,
+        completionData,
+        completedAt: Timestamp.now()
+      });
+
+      return { updatedProgress, lessonsCompleted: updatedProgress.totalLessonsCompleted };
+    });
+
+    // Check for badge unlocks (outside transaction)
+    const badgesUnlocked = await checkForBadgeUnlocks(userId, competency, completionData);
+
+    // Generate trauma-informed feedback
+    const feedback = generateHealingFeedback(competency, completionData, badgesUnlocked);
+
+    return {
+      success: true,
+      progressUpdated: true,
+      badgesUnlocked,
+      feedback,
+      newStats: {
+        totalLessons: result.lessonsCompleted,
+        competencyProgress: result.updatedProgress.treeProgress[competency].masteryScore
+      }
+    };
+
+  } catch (error) {
+    console.error('Error processing lesson completion:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to process lesson completion');
+  }
+});
+
+/**
+ * Check for badge unlocks based on user actions
+ */
+export const checkEmotionalBadgeUnlocks = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const { triggers, context: badgeContext } = data;
+
+  try {
+    const unlockedBadges = await checkForBadgeUnlocks(userId, null, badgeContext, triggers);
+    
+    // Award each unlocked badge
+    for (const badge of unlockedBadges) {
+      await awardBadgeToUser(userId, badge);
+    }
+
+    return {
+      success: true,
+      unlockedBadges
+    };
+
+  } catch (error) {
+    console.error('Error checking badge unlocks:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to check badge unlocks');
+  }
+});
+
+/**
+ * Generate personalized learning recommendations
+ */
+export const generateLearningRecommendations = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const { currentContext } = data;
+
+  try {
+    // Get user's progress and personalization
+    const [progressDoc, personalizationDoc] = await Promise.all([
+      db.collection('users').doc(userId).collection('emotionalProgress').doc('current').get(),
+      db.collection('users').doc(userId).collection('learningPersonalization').doc('current').get()
+    ]);
+
+    if (!progressDoc.exists || !personalizationDoc.exists) {
+      return { recommendations: [] };
+    }
+
+    const progress = progressDoc.data();
+    const personalization = personalizationDoc.data();
+
+    // Generate trauma-informed recommendations
+    const recommendations = generateAdaptiveRecommendations(progress, personalization, currentContext);
+
+    return {
+      success: true,
+      recommendations
+    };
+
+  } catch (error) {
+    console.error('Error generating recommendations:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to generate recommendations');
+  }
+});
+
+/**
+ * Update user's learning personalization based on analytics
+ */
+export const updateLearningPersonalization = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const { updates } = data;
+
+  try {
+    const personalizationRef = db.collection('users').doc(userId)
+      .collection('learningPersonalization').doc('current');
+
+    await personalizationRef.update({
+      ...updates,
+      lastUpdated: Timestamp.now()
+    });
+
+    return { success: true };
+
+  } catch (error) {
+    console.error('Error updating personalization:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to update personalization');
+  }
+});
+
+/**
+ * Create anonymous identity for community participation
+ */
+export const createAnonymousIdentity = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+
+  try {
+    // Check if user already has anonymous identity this week
+    const currentWeek = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+    const anonymousId = `anon_${userId.slice(-4)}_${currentWeek}`;
+    
+    const identityRef = db.collection('anonymousIdentities').doc(anonymousId);
+    const identityDoc = await identityRef.get();
+
+    if (identityDoc.exists) {
+      return { identity: identityDoc.data() };
+    }
+
+    // Create new anonymous identity
+    const identity = {
+      temporaryId: anonymousId,
+      healingArchetype: determineHealingArchetype(userId),
+      colorSignature: generateColorSignature(userId),
+      journeyStage: 'growing', // Would be determined from progress
+      strongCompetencies: ['emotional_awareness'], // Would be from actual progress
+      strugglingCompetencies: ['self_regulation'], // Would be from actual progress
+      visibilityLevel: 'participant',
+      sharingComfort: 'limited_sharing',
+      supportOffering: 'encouragement_only',
+      canPauseParticipation: true,
+      needsExtraPrivacy: false,
+      traumaInformed: false,
+      lastActivityReset: Timestamp.now()
+    };
+
+    await identityRef.set(identity);
+
+    return { identity };
+
+  } catch (error) {
+    console.error('Error creating anonymous identity:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to create anonymous identity');
+  }
+});
+
+/**
+ * Share wisdom anonymously in community circle
+ */
+export const shareWisdomAnonymously = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const { circleId, wisdom } = data;
+
+  try {
+    // Get user's anonymous identity
+    const currentWeek = Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000));
+    const anonymousId = `anon_${userId.slice(-4)}_${currentWeek}`;
+    
+    const identityDoc = await db.collection('anonymousIdentities').doc(anonymousId).get();
+    if (!identityDoc.exists) {
+      throw new functions.https.HttpsError('not-found', 'Anonymous identity not found');
+    }
+
+    const identity = identityDoc.data()!;
+
+    // Create wisdom share
+    const wisdomShare = {
+      anonymousAuthor: {
+        healingArchetype: identity.healingArchetype,
+        colorSignature: identity.colorSignature,
+        journeyStage: identity.journeyStage
+      },
+      timestamp: Timestamp.now(),
+      insight: wisdom.insight,
+      realWorldContext: wisdom.realWorldContext,
+      strugglesAcknowledged: wisdom.strugglesAcknowledged,
+      growthRecognized: wisdom.growthRecognized,
+      resonanceCount: 0,
+      heartsReceived: 0,
+      gentleReflections: [],
+      reportingAvailable: true,
+      moderationStatus: 'approved', // Would implement moderation
+      triggerWarnings: [],
+      healingValue: 0,
+      vulnerabilityLevel: assessVulnerabilityLevel(wisdom),
+      wisdomDepth: assessWisdomDepth(wisdom)
+    };
+
+    // Add to circle's wisdom shares
+    const shareRef = db.collection('communityCircles').doc(circleId)
+      .collection('wisdomShares').doc();
+    await shareRef.set(wisdomShare);
+
+    // Update circle participation count
+    await db.collection('communityCircles').doc(circleId).update({
+      participationCount: admin.firestore.FieldValue.increment(1)
+    });
+
+    return { success: true };
+
+  } catch (error) {
+    console.error('Error sharing wisdom:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to share wisdom');
+  }
+});
+
+/**
+ * Analyze emotional patterns from user's data
+ */
+export const analyzeEmotionalPatterns = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+
+  try {
+    // This would analyze journal entries, exercise responses, and progress data
+    // to identify emotional patterns, triggers, and growth areas
+    
+    const patterns = {
+      dominantEmotions: ['hopeful', 'overwhelmed', 'grateful'],
+      commonTriggers: ['criticism', 'overwhelm'],
+      copingStrengths: ['breathing', 'journaling'],
+      growthAreas: ['boundary_setting', 'self_regulation'],
+      healingProgress: 65, // 0-100
+      recommendedFocus: 'self_regulation'
+    };
+
+    // Update user's personalization with insights
+    await db.collection('users').doc(userId)
+      .collection('learningPersonalization').doc('current')
+      .update({
+        'emotionalPatterns.dominantEmotions': patterns.dominantEmotions,
+        'emotionalPatterns.emotionalTriggers': patterns.commonTriggers,
+        lastUpdated: Timestamp.now()
+      });
+
+    return { patterns };
+
+  } catch (error) {
+    console.error('Error analyzing emotional patterns:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to analyze patterns');
+  }
+});
+
+// Helper Functions
+
+async function checkForBadgeUnlocks(
+  userId: string,
+  competency: string | null,
+  context: any,
+  triggers?: string[]
+): Promise<any[]> {
+  try {
+    // Get user's current badges
+    const badgesSnapshot = await db.collection('users').doc(userId)
+      .collection('healingBadges').get();
+    const earnedBadgeIds = badgesSnapshot.docs.map(doc => doc.id);
+
+    // Check each foundation badge for unlock criteria
+    const unlockedBadges = [];
+    
+    for (const badge of FOUNDATION_BADGES) {
+      // Skip if already earned
+      if (earnedBadgeIds.includes(badge.id)) continue;
+
+      // Check unlock criteria
+      const shouldUnlock = await checkBadgeUnlockCriteria(userId, badge, context, triggers);
+      
+      if (shouldUnlock) {
+        unlockedBadges.push(badge);
+      }
+    }
+
+    return unlockedBadges;
+  } catch (error) {
+    console.error('Error checking badge unlocks:', error);
+    return [];
+  }
+}
+
+async function checkBadgeUnlockCriteria(
+  userId: string,
+  badge: any,
+  context: any,
+  triggers?: string[]
+): Promise<boolean> {
+  // Simplified badge unlock logic
+  // In production, this would be more sophisticated
+  
+  if (badge.id === 'feeling_translator') {
+    // Check if user has consistently identified emotions
+    const completionsSnapshot = await db.collection('users').doc(userId)
+      .collection('exerciseResponses')
+      .where('exerciseType', '==', 'emotion_identification')
+      .get();
+    
+    return completionsSnapshot.size >= badge.minimumPracticeCount;
+  }
+
+  return false;
+}
+
+async function awardBadgeToUser(userId: string, badge: any): Promise<void> {
+  try {
+    await db.collection('users').doc(userId)
+      .collection('healingBadges').doc(badge.id)
+      .set({
+        ...badge,
+        earnedAt: Timestamp.now()
+      });
+  } catch (error) {
+    console.error('Error awarding badge:', error);
+  }
+}
+
+function generateHealingFeedback(competency: string, completionData: any, badges: any[]): any {
+  // Generate trauma-informed, encouraging feedback
+  const feedback = {
+    message: 'Beautiful work! You\'ve taken another step in your emotional learning journey.',
+    insight: 'Every lesson builds your capacity for wisdom and healing.',
+    encouragement: 'You\'re growing your emotional intelligence with each practice.',
+    celebrateEffort: true,
+    honorsVulnerability: true,
+    nextStep: 'Continue practicing with the same gentle curiosity that brought you here.'
+  };
+
+  if (badges.length > 0) {
+    feedback.message = `Incredible! You've earned the ${badges[0].name} badge. ${feedback.message}`;
+    feedback.badgeCelebration = true;
+  }
+
+  return feedback;
+}
+
+function generateAdaptiveRecommendations(progress: any, personalization: any, context: any): any[] {
+  // Generate personalized, trauma-informed recommendations
+  const recommendations = [];
+
+  // Check if user needs regulation support
+  if (context?.stressLevel > 70 || context?.overwhelmed) {
+    recommendations.push({
+      type: 'lesson',
+      priority: 'high',
+      title: 'Sacred Pause - Your Superpower',
+      reason: 'Perfect for when you\'re feeling reactive or overwhelmed',
+      competency: 'self_regulation',
+      estimatedTime: 5,
+      traumaInformed: true
+    });
+  }
+
+  // Regular progression recommendations
+  const nextCompetency = findNextLearningFocus(progress);
+  if (nextCompetency) {
+    recommendations.push({
+      type: 'lesson',
+      priority: 'medium',
+      title: `Continue ${nextCompetency.replace('_', ' ')} journey`,
+      reason: 'Next step in your learning progression',
+      competency: nextCompetency,
+      estimatedTime: 4,
+      traumaInformed: personalization.traumaAdaptations.needsExtraChoice
+    });
+  }
+
+  return recommendations;
+}
+
+function findNextLearningFocus(progress: any): string | null {
+  // Find the competency with lowest mastery score that user hasn't started
+  let lowest = null;
+  let lowestScore = 100;
+
+  for (const [competency, data] of Object.entries(progress.treeProgress as any)) {
+    if (data.masteryScore < lowestScore && data.lessonsCompleted < data.totalLessons) {
+      lowest = competency;
+      lowestScore = data.masteryScore;
+    }
+  }
+
+  return lowest;
+}
+
+function calculateNewAverage(currentAvg: number, count: number, newValue: number): number {
+  return ((currentAvg * count) + newValue) / (count + 1);
+}
+
+function isConsecutiveDay(lastUpdate: any): boolean {
+  const now = new Date();
+  const last = lastUpdate.toDate();
+  const timeDiff = now.getTime() - last.getTime();
+  const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+  
+  return daysDiff === 1; // Exactly one day ago
+}
+
+function determineHealingArchetype(userId: string): string {
+  // Simple archetype assignment based on user ID
+  const archetypes = ['seeker', 'nurturer', 'warrior', 'sage', 'artist', 'connector'];
+  return archetypes[userId.charCodeAt(0) % archetypes.length];
+}
+
+function generateColorSignature(userId: string): string {
+  const colors = ['#E8F5E8', '#F0F8FF', '#FFF3E0', '#F3E5F5', '#E1F5FE'];
+  return colors[userId.charCodeAt(0) % colors.length];
+}
+
+function assessVulnerabilityLevel(wisdom: any): number {
+  // Simple vulnerability assessment
+  const vulnerabilityKeywords = ['struggle', 'difficult', 'shame', 'fear', 'hurt', 'vulnerable'];
+  let score = 0;
+  
+  const text = (wisdom.insight + ' ' + (wisdom.strugglesAcknowledged || '')).toLowerCase();
+  
+  for (const keyword of vulnerabilityKeywords) {
+    if (text.includes(keyword)) score += 10;
+  }
+  
+  return Math.min(100, score);
+}
+
+function assessWisdomDepth(wisdom: any): number {
+  // Simple wisdom depth assessment
+  const wisdomKeywords = ['learned', 'realized', 'understand', 'insight', 'pattern', 'growth'];
+  let score = 0;
+  
+  const text = (wisdom.insight + ' ' + (wisdom.growthRecognized || '')).toLowerCase();
+  
+  for (const keyword of wisdomKeywords) {
+    if (text.includes(keyword)) score += 15;
+  }
+  
+  return Math.min(100, score);
+}
+
+// Export all functions
+export {
+  processLessonCompletion,
+  checkEmotionalBadgeUnlocks,
+  generateLearningRecommendations,
+  updateLearningPersonalization,
+  createAnonymousIdentity,
+  shareWisdomAnonymously,
+  analyzeEmotionalPatterns
+};

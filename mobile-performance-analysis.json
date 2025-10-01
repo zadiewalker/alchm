@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-09-30T18:55:55.458Z",
+  "bundleAnalysis": {
+    "hasBuiltAssets": false,
+    "estimatedBundleSize": "Unknown",
+    "criticalIssues": [],
+    "sourceAnalysis": {
+      "heavyDependencies": [
+        {
+          "package": "firebase",
+          "version": "^11.10.0"
+        },
+        {
+          "package": "firebase-admin",
+          "version": "^12.7.0"
+        },
+        {
+          "package": "firebase-functions",
+          "version": "^5.1.1"
+        },
+        {
+          "package": "next",
+          "version": "14.2.32"
+        },
+        {
+          "package": "react",
+          "version": "^18.3.1"
+        },
+        {
+          "package": "react-dom",
+          "version": "^18.3.1"
+        },
+        {
+          "package": "@next/bundle-analyzer",
+          "version": "^15.5.4"
+        },
+        {
+          "package": "@types/react",
+          "version": "^18.3.3"
+        },
+        {
+          "package": "@types/react-dom",
+          "version": "^18.3.2"
+        },
+        {
+          "package": "eslint-config-next",
+          "version": "^15.1.3"
+        }
+      ],
+      "mobileOptimizations": [
+        "Code splitting configured",
+        "SWC minification enabled",
+        "Image optimization configured",
+        "Crisis-specific optimizations found"
+      ],
+      "potentialIssues": []
+    },
+    "mobileOptimized": false,
+    "recommendations": [
+      {
+        "priority": "medium",
+        "category": "Dependencies",
+        "issue": "Many heavy dependencies detected",
+        "recommendation": "Consider lighter alternatives or dynamic imports"
+      }
+    ]
+  },
+  "mobileOptimizations": {
+    "serviceWorker": true,
+    "pwa": true,
+    "mobileViewport": true,
+    "touchOptimized": true,
+    "crisisOptimized": true,
+    "score": 5,
+    "maxScore": 5,
+    "percentage": 100
+  },
+  "crisisReadiness": {
+    "offlineSupport": true,
+    "crisisCache": true,
+    "emergencyFallbacks": true,
+    "fastAccess": true,
+    "score": 4,
+    "maxScore": 4,
+    "percentage": 100
+  },
+  "traumaInformed": {
+    "touchTargets": true,
+    "readableText": true,
+    "reducedMotion": true,
+    "highContrast": true,
+    "emergencyAccess": true,
+    "score": 5,
+    "maxScore": 5,
+    "percentage": 100
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "category": "Dependencies",
+      "issue": "Many heavy dependencies detected",
+      "recommendation": "Consider lighter alternatives or dynamic imports"
+    },
+    {
+      "priority": "high",
+      "category": "Development Performance",
+      "issue": "Large bundle sizes detected in webpack warnings",
+      "recommendation": "Implement dynamic imports for non-critical code and optimize vendor chunks"
+    },
+    {
+      "priority": "medium",
+      "category": "Mobile Loading",
+      "issue": "Missing crisis-resources.json and emergency-crisis.html",
+      "recommendation": "Create static crisis resources for immediate offline access"
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "timestamp": "2025-09-12T18:54:44.945Z",
+  "domains": {
+    "https://alchm-digital-sanctuary.web.app": {
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "endpoints": {
+        "/": {
+          "responseTime": 233.26658799999998,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "13380",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"4a43089893c7084c31c0ec84bce28740c52453af5488907127f232262e992e35\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:11 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740089-EWR",
+            "x-cache": "HIT",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703285.177674,VS0,VE1",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 13378,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "B"
+        },
+        "/journal": {
+          "responseTime": 121.78763499999997,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "10281",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"0f3915caedf157ebf09805dca028c6907e0a3e4a0a14fe889872d43cec427aad\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:11 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740089-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703285.205211,VS0,VE101",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 10279,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "A"
+        },
+        "/dashboard": {
+          "responseTime": 102.29945900000007,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "10295",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"86651e273b9ddba61cfa91426c83c1ab12fa604e3d8d687d7a96df74d5856038\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:11 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740089-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703285.333595,VS0,VE86",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 10293,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "A"
+        },
+        "/auth/login": {
+          "responseTime": 89.115047,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "12919",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"ae3c2fec99e73237931ef8c4d122b6e2726e6d8887fab5f2e93ce441e97ae30f\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:11 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740089-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703285.443507,VS0,VE72",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 12917,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": true,
+          "performanceGrade": "A+"
+        }
+      },
+      "overallHealth": "CRITICAL",
+      "crisisReadiness": false
+    },
+    "https://alchmapp.web.app": {
+      "domain": "https://alchmapp.web.app",
+      "endpoints": {
+        "/": {
+          "responseTime": 154.01874700000008,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "13380",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"4a43089893c7084c31c0ec84bce28740c52453af5488907127f232262e992e35\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:09 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740096-EWR",
+            "x-cache": "HIT",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703286.673324,VS0,VE1",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 13378,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "A"
+        },
+        "/journal": {
+          "responseTime": 79.89447300000006,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "10281",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"0f3915caedf157ebf09805dca028c6907e0a3e4a0a14fe889872d43cec427aad\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:09 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740096-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703286.694754,VS0,VE62",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 10279,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": true,
+          "performanceGrade": "A+"
+        },
+        "/dashboard": {
+          "responseTime": 128.74304599999994,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "10295",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"86651e273b9ddba61cfa91426c83c1ab12fa604e3d8d687d7a96df74d5856038\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:09 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740096-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703286.776549,VS0,VE112",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 10293,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "A"
+        },
+        "/auth/login": {
+          "responseTime": 150.79834799999992,
+          "statusCode": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "12919",
+            "cache-control": "max-age=3600",
+            "content-type": "text/html; charset=utf-8",
+            "etag": "\"ae3c2fec99e73237931ef8c4d122b6e2726e6d8887fab5f2e93ce441e97ae30f\"",
+            "last-modified": "Fri, 12 Sep 2025 18:39:09 GMT",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "strict-transport-security": "max-age=31556926; includeSubDomains; preload",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "accept-ranges": "bytes",
+            "date": "Fri, 12 Sep 2025 18:54:45 GMT",
+            "x-served-by": "cache-ewr-kewr1740096-EWR",
+            "x-cache": "MISS",
+            "x-cache-hits": "0",
+            "x-timer": "S1757703286.907492,VS0,VE65",
+            "vary": "x-fh-requested-host, accept-encoding",
+            "alt-svc": "h3=\":443\";ma=86400,h3-29=\":443\";ma=86400,h3-27=\":443\";ma=86400"
+          },
+          "contentLength": 12917,
+          "hasSecurityHeaders": true,
+          "hasCrisisResources": true,
+          "isCrisisCompliant": false,
+          "performanceGrade": "A"
+        }
+      },
+      "overallHealth": "CRITICAL",
+      "crisisReadiness": false
+    }
+  },
+  "criticalIssues": [
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "endpoint": "/",
+      "responseTime": 233.26658799999998,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    },
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "endpoint": "/journal",
+      "responseTime": 121.78763499999997,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    },
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "endpoint": "/dashboard",
+      "responseTime": 102.29945900000007,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    },
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchmapp.web.app",
+      "endpoint": "/",
+      "responseTime": 154.01874700000008,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    },
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchmapp.web.app",
+      "endpoint": "/dashboard",
+      "responseTime": 128.74304599999994,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    },
+    {
+      "type": "CRISIS_PERFORMANCE_VIOLATION",
+      "domain": "https://alchmapp.web.app",
+      "endpoint": "/auth/login",
+      "responseTime": 150.79834799999992,
+      "threshold": 100,
+      "severity": "CRITICAL",
+      "impact": "Users in crisis may abandon due to slow response"
+    }
+  ],
+  "performanceReport": {
+    "summary": {
+      "totalEndpoints": 8,
+      "criticalIssues": 6,
+      "avgResponseTime": 132,
+      "crisisCompliant": false,
+      "overallGrade": "F"
+    },
+    "recommendations": [
+      {
+        "priority": "CRITICAL",
+        "action": "Optimize crisis-critical endpoints to <100ms response time",
+        "implementation": "Add CDN caching, optimize bundle size, implement service workers"
+      }
+    ],
+    "nextSteps": [
+      "Run Lighthouse audit for detailed Core Web Vitals",
+      "Implement real-time performance monitoring",
+      "Set up automated performance regression detection",
+      "Configure crisis-specific performance alerts"
+    ]
+  }
+}

@@ -1,0 +1,645 @@
+/* ==========================================================================
+   iOS Safari and Android Browser Optimizations
+   Platform-specific fixes and enhancements for mobile trauma-informed design
+   ========================================================================== */
+
+/* ==========================================================================
+   iOS Safari Specific Optimizations
+   ========================================================================== */
+
+/* iOS Safari detection and base optimizations */
+@supports (-webkit-touch-callout: none) {
+  
+  /* Safe area support for notched devices (iPhone X+) */
+  .ios-safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Fixed positioning with safe areas */
+  .ios-fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    z-index: 1000;
+  }
+  
+  .ios-fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 1000;
+  }
+  
+  /* Crisis button positioning for iOS */
+  .crisis-button-ios {
+    position: fixed;
+    bottom: max(24px, env(safe-area-inset-bottom, 24px));
+    right: max(24px, env(safe-area-inset-right, 24px));
+    z-index: 1001;
+  }
+  
+  /* Prevent zoom on input focus (accessibility consideration) */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: max(16px, 1rem) !important;
+    transform: translateZ(0); /* Force hardware acceleration */
+    -webkit-appearance: none; /* Remove iOS styling */
+  }
+  
+  /* iOS keyboard behavior optimizations */
+  .ios-input-container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Prevent viewport changes when keyboard appears */
+  .ios-keyboard-fix {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  /* iOS viewport height fix */
+  .ios-vh-fix {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+  
+  /* Optimize scrolling performance */
+  .ios-scroll-optimize {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    transform: translateZ(0);
+  }
+  
+  /* Fix for iOS momentum scrolling */
+  .ios-momentum-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
+  /* iOS status bar styling */
+  .ios-status-bar-fix {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Prevent iOS text size adjustment */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* iOS button styling fixes */
+  button,
+  .btn,
+  input[type="submit"],
+  input[type="button"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 12px; /* Override iOS default */
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+  }
+  
+  /* iOS form styling */
+  .ios-form-fix input,
+  .ios-form-fix textarea,
+  .ios-form-fix select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #ffffff;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px; /* Prevent zoom */
+  }
+  
+  /* iOS date/time input fixes */
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"] {
+    -webkit-appearance: none;
+    appearance: none;
+    min-height: 44px; /* iOS minimum touch target */
+  }
+  
+  /* iOS select styling */
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='m2 0-2 2h4zm0 5 2-2h-4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
+  }
+  
+  /* PWA specific optimizations for iOS */
+  .ios-pwa-optimizations {
+    /* Standalone mode detection */
+    display: none;
+  }
+  
+  @media (display-mode: standalone) {
+    .ios-pwa-optimizations {
+      display: block;
+    }
+    
+    /* Hide address bar space in PWA mode */
+    .ios-pwa-header {
+      padding-top: env(safe-area-inset-top);
+    }
+    
+    /* Adjust for home indicator in PWA */
+    .ios-pwa-footer {
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+  }
+  
+  /* iOS haptic feedback optimization */
+  .ios-haptic-enabled {
+    -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+    tap-highlight-color: rgba(164, 183, 146, 0.3);
+  }
+  
+  /* Crisis mode iOS optimizations */
+  .crisis-mode .ios-emergency-interface {
+    /* Maximize touch targets for crisis situations */
+    min-height: 60px;
+    min-width: 60px;
+    -webkit-tap-highlight-color: rgba(220, 38, 38, 0.4);
+  }
+  
+  /* iOS accessibility enhancements */
+  .ios-accessibility-enhanced {
+    /* VoiceOver optimizations */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .ios-accessibility-enhanced:focus {
+    outline: 3px solid #007AFF; /* iOS blue */
+    outline-offset: 2px;
+  }
+  
+  /* iOS performance optimizations */
+  .ios-performance-optimized {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+  }
+  
+  /* iOS battery-aware optimizations */
+  @media (prefers-reduced-motion: reduce) {
+    .ios-battery-conscious * {
+      -webkit-animation: none !important;
+      animation: none !important;
+      -webkit-transition: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Android Browser Specific Optimizations
+   ========================================================================== */
+
+/* Android browser detection (Chrome, Samsung Internet, etc.) */
+@media screen and (max-width: 768px) and (pointer: coarse) {
+  
+  /* Android viewport and scaling fixes */
+  .android-viewport-fix {
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
+  }
+  
+  /* Android keyboard handling */
+  .android-keyboard-fix {
+    height: 100vh;
+    height: 100dvh;
+    resize: none;
+  }
+  
+  /* Android Chrome address bar behavior */
+  .android-chrome-fix {
+    height: 100vh;
+    height: calc(100vh - env(keyboard-inset-height, 0px));
+  }
+  
+  /* Material Design touch targets */
+  .android-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    border-radius: 8px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(164, 183, 146, 0.2);
+  }
+  
+  /* Android form styling */
+  .android-form-styling input,
+  .android-form-styling textarea,
+  .android-form-styling select {
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 16px;
+    background-color: #ffffff;
+    outline: none;
+  }
+  
+  .android-form-styling input:focus,
+  .android-form-styling textarea:focus,
+  .android-form-styling select:focus {
+    border-color: #a4b792;
+    box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.2);
+  }
+  
+  /* Android button styling */
+  .android-button {
+    background: #a4b792;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    min-height: 48px;
+    min-width: 48px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background-color 200ms ease, transform 150ms ease;
+  }
+  
+  .android-button:hover {
+    background: #93a682;
+  }
+  
+  .android-button:active {
+    transform: scale(0.98);
+    background: #7a8c6a;
+  }
+  
+  /* Android scroll behavior */
+  .android-scroll-optimize {
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+  }
+  
+  /* Android hardware back button handling */
+  .android-back-button-safe {
+    /* Ensure important content isn't accidentally dismissed */
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Samsung Internet specific fixes */
+  @media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .samsung-internet-fix {
+      /* Fix for Samsung Internet rendering issues */
+      transform: translateZ(0);
+    }
+  }
+  
+  /* Android crisis mode optimizations */
+  .crisis-mode .android-emergency {
+    /* High contrast for emergency situations */
+    background: #dc2626;
+    color: white;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    min-height: 60px;
+    font-weight: bold;
+  }
+  
+  /* Android accessibility features */
+  .android-accessibility {
+    /* TalkBack optimizations */
+    outline: none;
+  }
+  
+  .android-accessibility:focus {
+    outline: 3px solid #4285F4; /* Android blue */
+    outline-offset: 2px;
+  }
+  
+  /* Android performance optimizations */
+  .android-performance {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  /* Android low-end device optimizations */
+  @media (max-width: 360px) {
+    .android-low-end {
+      /* Optimize for budget Android devices */
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .android-low-end .complex-layout {
+      display: none;
+    }
+    
+    .android-low-end .simple-layout {
+      display: block;
+    }
+  }
+  
+  /* Android data saver mode */
+  @media (prefers-reduced-data: reduce) {
+    .android-data-saver .heavy-content {
+      display: none;
+    }
+    
+    .android-data-saver .data-placeholder {
+      display: block;
+      background: #f3f4f6;
+      padding: 1rem;
+      text-align: center;
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+    }
+    
+    .android-data-saver .data-placeholder::after {
+      content: 'Tap to load content';
+      color: #6b7280;
+    }
+  }
+}
+
+/* ==========================================================================
+   Cross-Platform Mobile Optimizations
+   ========================================================================== */
+
+/* Universal mobile fixes */
+.mobile-universal {
+  /* Prevent text selection on UI elements */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  /* Optimize touch interactions */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Improve font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Allow text selection for content areas */
+.mobile-universal .selectable-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Mobile viewport units fix */
+.mobile-vh-fix {
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height */
+  height: -webkit-fill-available; /* iOS Safari */
+}
+
+/* Mobile orientation change handling */
+@media (orientation: landscape) {
+  .mobile-landscape-optimization {
+    /* Optimize for landscape on mobile */
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .mobile-landscape-optimization .header {
+    padding: 0.5rem 1rem;
+  }
+  
+  .mobile-landscape-optimization .footer {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* ==========================================================================
+   PWA Optimizations (Cross-Platform)
+   ========================================================================== */
+
+/* PWA display mode optimizations */
+@media (display-mode: standalone) {
+  .pwa-standalone {
+    /* Remove browser UI artifacts in PWA mode */
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+  
+  .pwa-standalone .header {
+    /* Account for native app header space */
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .pwa-standalone .footer {
+    /* Account for native app footer space */
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* PWA install prompt styling */
+.pwa-install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(164, 183, 146, 0.95);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 300ms ease;
+}
+
+.pwa-install-prompt.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pwa-install-prompt .install-button {
+  background: white;
+  color: #a4b792;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-left: 12px;
+  min-height: 44px;
+}
+
+/* ==========================================================================
+   Crisis Mode Cross-Platform Optimizations
+   ========================================================================== */
+
+.crisis-mode-mobile {
+  /* Ensure crisis interfaces work on all mobile platforms */
+  min-height: 60px;
+  min-width: 60px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 3px solid;
+  border-radius: 12px;
+  touch-action: manipulation;
+}
+
+/* iOS crisis mode */
+@supports (-webkit-touch-callout: none) {
+  .crisis-mode-mobile {
+    -webkit-tap-highlight-color: rgba(220, 38, 38, 0.4);
+    -webkit-touch-callout: none;
+  }
+}
+
+/* Android crisis mode */
+@media screen and (max-width: 768px) and (pointer: coarse) {
+  .crisis-mode-mobile {
+    -webkit-tap-highlight-color: rgba(220, 38, 38, 0.3);
+    tap-highlight-color: rgba(220, 38, 38, 0.3);
+  }
+}
+
+/* ==========================================================================
+   Performance Monitoring and Debug
+   ========================================================================== */
+
+/* Platform detection indicators */
+.platform-debug::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 20px;
+  z-index: 9999;
+}
+
+/* iOS indicator */
+@supports (-webkit-touch-callout: none) {
+  .platform-debug::before {
+    background: #007AFF; /* iOS blue */
+  }
+}
+
+/* Android indicator */
+@media screen and (max-width: 768px) and (pointer: coarse) {
+  .platform-debug::before {
+    background: #4285F4; /* Android blue */
+  }
+}
+
+/* ==========================================================================
+   Responsive Optimizations
+   ========================================================================== */
+
+/* Small mobile devices */
+@media (max-width: 360px) {
+  .mobile-small-screen {
+    font-size: 14px;
+    padding: 0.5rem;
+  }
+  
+  .mobile-small-screen .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 320px) {
+  .mobile-tiny-screen {
+    font-size: 13px;
+    padding: 0.25rem;
+  }
+  
+  .mobile-tiny-screen .crisis-button {
+    min-height: 56px;
+    min-width: 56px;
+    font-size: 16px;
+  }
+}
+
+/* Large mobile devices and tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mobile-tablet-optimization {
+    /* Optimize for tablet-sized mobile devices */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+}
+
+/* ==========================================================================
+   Accessibility + Platform Integration
+   ========================================================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mobile-high-contrast {
+    background: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+  }
+  
+  .mobile-high-contrast button {
+    background: black !important;
+    color: white !important;
+    border: 3px solid white !important;
+  }
+}
+
+/* Reduced motion + platform optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-reduced-motion * {
+    animation: none !important;
+    transition: background-color 0.1s ease, border-color 0.1s ease !important;
+  }
+  
+  /* iOS reduced motion */
+  @supports (-webkit-touch-callout: none) {
+    .mobile-reduced-motion {
+      -webkit-animation: none !important;
+    }
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .mobile-dark-mode {
+    background: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .mobile-dark-mode .crisis-button {
+    background: #dc2626;
+    color: white;
+    border: 2px solid #f9fafb;
+  }
+}

@@ -1,0 +1,700 @@
+// ALCHM Compliance Audit & Reporting System
+// Automated regulatory compliance monitoring and reporting
+// HIPAA, FERPA, COPPA, GDPR audit trail generation
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
+
+const db = getFirestore();
+const auth = getAuth();
+
+// ===== COMPLIANCE AUDIT INTERFACES =====
+
+interface ComplianceAuditEvent {
+  auditId: string;
+  userId: string;
+  regulation: 'HIPAA' | 'FERPA' | 'COPPA' | 'GDPR' | 'CCPA';
+  eventType: 'DATA_ACCESS' | 'CONSENT_GRANTED' | 'CONSENT_WITHDRAWN' | 'DATA_PROCESSED' | 'DATA_DELETED' | 'BREACH_DETECTED' | 'VIOLATION_DETECTED';
+  timestamp: Timestamp;
+  details: ComplianceEventDetails;
+  complianceStatus: 'COMPLIANT' | 'NON_COMPLIANT' | 'REQUIRES_REVIEW';
+  automaticallyDetected: boolean;
+  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  responseActions: string[];
+  followUpRequired: boolean;
+}
+
+interface ComplianceEventDetails {
+  dataCategory: string;
+  processingPurpose: string;
+  lawfulBasis?: string;
+  consentStatus?: string;
+  dataRetentionPeriod?: number;
+  thirdPartyInvolvement?: boolean;
+  crossBorderTransfer?: boolean;
+  encryptionStatus: boolean;
+  accessJustification: string;
+  userNotified: boolean;
+}
+
+interface ComplianceReport {
+  reportId: string;
+  reportType: 'MONTHLY' | 'QUARTERLY' | 'ANNUAL' | 'INCIDENT' | 'REGULATORY_REQUEST';
+  generatedDate: Timestamp;
+  reportingPeriod: {
+    startDate: Timestamp;
+    endDate: Timestamp;
+  };
+  regulations: string[];
+  summary: ComplianceReportSummary;
+  findings: ComplianceFinding[];
+  recommendations: ComplianceRecommendation[];
+  attachments: string[];
+  reportStatus: 'DRAFT' | 'FINAL' | 'SUBMITTED';
+}
+
+interface ComplianceReportSummary {
+  totalEvents: number;
+  complianceViolations: number;
+  criticalFindings: number;
+  dataSubjectsAffected: number;
+  regulatoryNotificationsRequired: number;
+  overallComplianceScore: number;
+  improvementActions: number;
+}
+
+interface ComplianceFinding {
+  findingId: string;
+  regulation: string;
+  severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  description: string;
+  evidence: string[];
+  affectedUsers: string[];
+  potentialImpact: string;
+  recommendedActions: string[];
+  dueDate?: Timestamp;
+  assignedTo?: string;
+  status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED' | 'ACCEPTED_RISK';
+}
+
+interface ComplianceRecommendation {
+  recommendationId: string;
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
+  category: 'TECHNICAL' | 'PROCEDURAL' | 'TRAINING' | 'POLICY';
+  description: string;
+  implementationCost: 'LOW' | 'MEDIUM' | 'HIGH';
+  expectedBenefit: string;
+  implementationTimeline: string;
+  responsibleTeam: string;
+}
+
+// ===== REAL-TIME COMPLIANCE MONITORING =====
+
+/**
+ * Monitors all data access events for compliance violations
+ */
+export const monitorDataAccess = functions
+  .runWith({ memory: '256MB' })
+  .firestore.document('{collection}/{documentId}')
+  .onRead(async (snap, context) => {
+    const { collection: collectionName, documentId } = context.params;
+    
+    // Only monitor sensitive data collections
+    const sensitiveCollections = [
+      'encrypted_journal_entries',
+      'phi_health_records',
+      'student_educational_records',
+      'crisis_intervention_records'
+    ];
+    
+    if (!sensitiveCollections.includes(collectionName)) {
+      return;
+    }
+
+    try {
+      const accessEvent = await analyzeDataAccess(snap, context);
+      await logComplianceEvent(accessEvent);
+      
+      // Check for compliance violations
+      const violations = await checkComplianceViolations(accessEvent);
+      
+      if (violations.length > 0) {
+        await handleComplianceViolations(violations, accessEvent);
+      }
+      
+    } catch (error) {
+      console.error('Error monitoring data access:', error);
+    }
+  });
+
+/**
+ * Analyzes data access patterns for compliance
+ */
+async function analyzeDataAccess(snap: any, context: functions.EventContext): Promise<ComplianceAuditEvent> {
+  const data = snap.data();
+  const userId = data?.userId || 'system';
+  
+  // Determine applicable regulations based on user profile
+  const applicableRegulations = await getApplicableRegulations(userId);
+  
+  // Check data classification
+  const dataClassification = await classifyDataSensitivity(data);
+  
+  return {
+    auditId: generateAuditId(),
+    userId,
+    regulation: applicableRegulations[0] || 'HIPAA', // Primary regulation
+    eventType: 'DATA_ACCESS',
+    timestamp: FieldValue.serverTimestamp() as Timestamp,
+    details: {
+      dataCategory: dataClassification.category,
+      processingPurpose: dataClassification.purpose,
+      lawfulBasis: await getLawfulBasis(userId, dataClassification.category),
+      consentStatus: await getConsentStatus(userId, dataClassification.category),
+      encryptionStatus: data.encrypted || false,
+      accessJustification: 'User data access',
+      userNotified: false,
+      thirdPartyInvolvement: false,
+      crossBorderTransfer: await checkCrossBorderTransfer(userId)
+    },
+    complianceStatus: 'COMPLIANT', // Will be updated by violation check
+    automaticallyDetected: true,
+    riskLevel: dataClassification.riskLevel,
+    responseActions: [],
+    followUpRequired: false
+  };
+}
+
+/**
+ * Checks for compliance violations in real-time
+ */
+async function checkComplianceViolations(auditEvent: ComplianceAuditEvent): Promise<ComplianceFinding[]> {
+  const violations: ComplianceFinding[] = [];
+  
+  // HIPAA Compliance Checks
+  if (auditEvent.regulation === 'HIPAA') {
+    violations.push(...await checkHIPAACompliance(auditEvent));
+  }
+  
+  // FERPA Compliance Checks
+  if (auditEvent.regulation === 'FERPA') {
+    violations.push(...await checkFERPACompliance(auditEvent));
+  }
+  
+  // COPPA Compliance Checks
+  if (auditEvent.regulation === 'COPPA') {
+    violations.push(...await checkCOPPACompliance(auditEvent));
+  }
+  
+  // GDPR Compliance Checks
+  if (auditEvent.regulation === 'GDPR') {
+    violations.push(...await checkGDPRCompliance(auditEvent));
+  }
+  
+  return violations;
+}
+
+/**
+ * HIPAA-specific compliance checks
+ */
+async function checkHIPAACompliance(auditEvent: ComplianceAuditEvent): Promise<ComplianceFinding[]> {
+  const violations: ComplianceFinding[] = [];
+  
+  // Check minimum necessary standard
+  if (!auditEvent.details.accessJustification || auditEvent.details.accessJustification.length < 10) {
+    violations.push({
+      findingId: generateFindingId(),
+      regulation: 'HIPAA',
+      severity: 'MEDIUM',
+      description: 'Insufficient access justification for PHI',
+      evidence: ['Missing or inadequate access justification'],
+      affectedUsers: [auditEvent.userId],
+      potentialImpact: 'Violation of minimum necessary standard',
+      recommendedActions: ['Require detailed access justification', 'Implement access controls'],
+      status: 'OPEN'
+    });
+  }
+  
+  // Check encryption requirement
+  if (!auditEvent.details.encryptionStatus) {
+    violations.push({
+      findingId: generateFindingId(),
+      regulation: 'HIPAA',
+      severity: 'HIGH',
+      description: 'PHI accessed without encryption',
+      evidence: ['Unencrypted PHI access detected'],
+      affectedUsers: [auditEvent.userId],
+      potentialImpact: 'HIPAA Security Rule violation',
+      recommendedActions: ['Implement end-to-end encryption', 'Audit encryption compliance'],
+      status: 'OPEN'
+    });
+  }
+  
+  // Check business associate agreement
+  if (auditEvent.details.thirdPartyInvolvement) {
+    const baaExists = await checkBusinessAssociateAgreement(auditEvent.userId);
+    if (!baaExists) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'HIPAA',
+        severity: 'CRITICAL',
+        description: 'Third-party PHI access without BAA',
+        evidence: ['Third-party involvement without Business Associate Agreement'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'Major HIPAA Privacy Rule violation',
+        recommendedActions: ['Establish BAA', 'Restrict third-party access', 'Legal review'],
+        status: 'OPEN'
+      });
+    }
+  }
+  
+  return violations;
+}
+
+/**
+ * FERPA-specific compliance checks
+ */
+async function checkFERPACompliance(auditEvent: ComplianceAuditEvent): Promise<ComplianceFinding[]> {
+  const violations: ComplianceFinding[] = [];
+  
+  // Check parental consent for minors
+  const userAge = await getUserAge(auditEvent.userId);
+  if (userAge < 18) {
+    const parentalConsent = await getParentalConsent(auditEvent.userId);
+    if (!parentalConsent || parentalConsent.expired) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'FERPA',
+        severity: 'HIGH',
+        description: 'Educational record access without parental consent',
+        evidence: ['Minor user educational record accessed without valid parental consent'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'FERPA violation - unauthorized educational record disclosure',
+        recommendedActions: ['Obtain parental consent', 'Restrict access until consent obtained'],
+        status: 'OPEN'
+      });
+    }
+  }
+  
+  // Check directory information limitations
+  if (auditEvent.details.dataCategory === 'DIRECTORY_INFORMATION') {
+    const directoryOptOut = await checkDirectoryOptOut(auditEvent.userId);
+    if (directoryOptOut) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'FERPA',
+        severity: 'MEDIUM',
+        description: 'Directory information access despite opt-out',
+        evidence: ['Student opted out of directory information sharing'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'FERPA directory information violation',
+        recommendedActions: ['Respect opt-out preferences', 'Update access controls'],
+        status: 'OPEN'
+      });
+    }
+  }
+  
+  return violations;
+}
+
+/**
+ * COPPA-specific compliance checks
+ */
+async function checkCOPPACompliance(auditEvent: ComplianceAuditEvent): Promise<ComplianceFinding[]> {
+  const violations: ComplianceFinding[] = [];
+  
+  const userAge = await getUserAge(auditEvent.userId);
+  if (userAge < 13) {
+    // Check verifiable parental consent
+    const parentalConsent = await getVerifiableParentalConsent(auditEvent.userId);
+    if (!parentalConsent || !parentalConsent.verified) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'COPPA',
+        severity: 'CRITICAL',
+        description: 'Child data access without verifiable parental consent',
+        evidence: ['Child under 13 data accessed without verified parental consent'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'COPPA violation - illegal collection of child data',
+        recommendedActions: ['Obtain verifiable parental consent', 'Delete child data', 'Legal review'],
+        status: 'OPEN'
+      });
+    }
+    
+    // Check data minimization for children
+    const dataMinimized = await checkChildDataMinimization(auditEvent);
+    if (!dataMinimized) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'COPPA',
+        severity: 'HIGH',
+        description: 'Excessive data collection from child',
+        evidence: ['Non-essential data collected from child under 13'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'COPPA data minimization violation',
+        recommendedActions: ['Implement data minimization', 'Review child data collection practices'],
+        status: 'OPEN'
+      });
+    }
+  }
+  
+  return violations;
+}
+
+/**
+ * GDPR-specific compliance checks
+ */
+async function checkGDPRCompliance(auditEvent: ComplianceAuditEvent): Promise<ComplianceFinding[]> {
+  const violations: ComplianceFinding[] = [];
+  
+  // Check lawful basis for processing
+  if (!auditEvent.details.lawfulBasis) {
+    violations.push({
+      findingId: generateFindingId(),
+      regulation: 'GDPR',
+      severity: 'HIGH',
+      description: 'Data processing without lawful basis',
+      evidence: ['No lawful basis identified for data processing'],
+      affectedUsers: [auditEvent.userId],
+      potentialImpact: 'GDPR Article 6 violation',
+      recommendedActions: ['Establish lawful basis', 'Document processing basis', 'Legal review'],
+      status: 'OPEN'
+    });
+  }
+  
+  // Check consent requirements
+  if (auditEvent.details.lawfulBasis === 'CONSENT') {
+    const validConsent = await checkGDPRConsent(auditEvent.userId, auditEvent.details.processingPurpose);
+    if (!validConsent) {
+      violations.push({
+        findingId: generateFindingId(),
+        regulation: 'GDPR',
+        severity: 'HIGH',
+        description: 'Data processing without valid GDPR consent',
+        evidence: ['Processing based on consent but no valid consent found'],
+        affectedUsers: [auditEvent.userId],
+        potentialImpact: 'GDPR consent violation',
+        recommendedActions: ['Obtain valid consent', 'Stop processing until consent obtained'],
+        status: 'OPEN'
+      });
+    }
+  }
+  
+  // Check data retention limits
+  const retentionCompliant = await checkDataRetentionLimits(auditEvent);
+  if (!retentionCompliant) {
+    violations.push({
+      findingId: generateFindingId(),
+      regulation: 'GDPR',
+      severity: 'MEDIUM',
+      description: 'Data retained beyond necessary period',
+      evidence: ['Data retention exceeds stated purpose requirements'],
+      affectedUsers: [auditEvent.userId],
+      potentialImpact: 'GDPR data minimization principle violation',
+      recommendedActions: ['Implement data retention schedule', 'Delete unnecessary data'],
+      status: 'OPEN'
+    });
+  }
+  
+  return violations;
+}
+
+/**
+ * Handles compliance violations with appropriate responses
+ */
+async function handleComplianceViolations(violations: ComplianceFinding[], auditEvent: ComplianceAuditEvent) {
+  for (const violation of violations) {
+    // Store violation for tracking
+    await db.collection('compliance_findings').doc(violation.findingId).set(violation);
+    
+    // Trigger immediate actions for critical violations
+    if (violation.severity === 'CRITICAL') {
+      await triggerCriticalViolationResponse(violation, auditEvent);
+    }
+    
+    // Schedule follow-up actions
+    await scheduleFollowUpActions(violation);
+    
+    // Notify compliance team
+    await notifyComplianceTeam(violation, auditEvent);
+  }
+}
+
+/**
+ * Automated compliance reporting
+ */
+export const generateComplianceReport = functions
+  .runWith({ memory: '512MB', timeoutSeconds: 540 })
+  .pubsub.schedule('0 9 1 * *') // First day of each month at 9 AM
+  .onRun(async (context) => {
+    const reportId = generateReportId();
+    const endDate = new Date();
+    const startDate = new Date(endDate.getFullYear(), endDate.getMonth() - 1, 1);
+    
+    try {
+      const report = await generateMonthlyComplianceReport(reportId, startDate, endDate);
+      
+      // Store report
+      await db.collection('compliance_reports').doc(reportId).set(report);
+      
+      // Send to compliance team
+      await sendComplianceReport(report);
+      
+      console.log(`Monthly compliance report generated: ${reportId}`);
+      
+    } catch (error) {
+      console.error('Error generating compliance report:', error);
+    }
+  });
+
+async function generateMonthlyComplianceReport(
+  reportId: string, 
+  startDate: Date, 
+  endDate: Date
+): Promise<ComplianceReport> {
+  
+  // Gather compliance events for the period
+  const events = await getComplianceEvents(startDate, endDate);
+  const findings = await getComplianceFindings(startDate, endDate);
+  
+  // Calculate summary statistics
+  const summary: ComplianceReportSummary = {
+    totalEvents: events.length,
+    complianceViolations: findings.filter(f => f.severity === 'HIGH' || f.severity === 'CRITICAL').length,
+    criticalFindings: findings.filter(f => f.severity === 'CRITICAL').length,
+    dataSubjectsAffected: new Set(events.map(e => e.userId)).size,
+    regulatoryNotificationsRequired: findings.filter(f => f.severity === 'CRITICAL').length,
+    overallComplianceScore: calculateComplianceScore(events, findings),
+    improvementActions: findings.filter(f => f.status === 'OPEN').length
+  };
+  
+  // Generate recommendations
+  const recommendations = await generateComplianceRecommendations(events, findings);
+  
+  return {
+    reportId,
+    reportType: 'MONTHLY',
+    generatedDate: FieldValue.serverTimestamp() as Timestamp,
+    reportingPeriod: {
+      startDate: Timestamp.fromDate(startDate),
+      endDate: Timestamp.fromDate(endDate)
+    },
+    regulations: ['HIPAA', 'FERPA', 'COPPA', 'GDPR'],
+    summary,
+    findings,
+    recommendations,
+    attachments: [],
+    reportStatus: 'FINAL'
+  };
+}
+
+// ===== HELPER FUNCTIONS =====
+
+function generateAuditId(): string {
+  return `audit_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function generateFindingId(): string {
+  return `finding_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function generateReportId(): string {
+  return `report_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+async function logComplianceEvent(event: ComplianceAuditEvent): Promise<void> {
+  await db.collection('compliance_audit_events').doc(event.auditId).set(event);
+}
+
+async function getApplicableRegulations(userId: string): Promise<string[]> {
+  // Determine which regulations apply based on user profile
+  const userDoc = await db.collection('users_standard').doc(userId).get();
+  const userData = userDoc.data();
+  
+  const regulations = ['HIPAA']; // Always applies for mental health data
+  
+  if (userData?.age < 18) regulations.push('FERPA');
+  if (userData?.age < 13) regulations.push('COPPA');
+  if (userData?.dataResidency === 'EU') regulations.push('GDPR');
+  
+  return regulations;
+}
+
+async function classifyDataSensitivity(data: any): Promise<{
+  category: string;
+  purpose: string;
+  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+}> {
+  // Classify data based on content and type
+  if (data.type === 'journal_entry') {
+    return {
+      category: 'MENTAL_HEALTH_DATA',
+      purpose: 'THERAPEUTIC_JOURNALING',
+      riskLevel: 'HIGH'
+    };
+  }
+  
+  return {
+    category: 'GENERAL_DATA',
+    purpose: 'APPLICATION_FUNCTIONALITY',
+    riskLevel: 'LOW'
+  };
+}
+
+async function getLawfulBasis(userId: string, dataCategory: string): Promise<string | undefined> {
+  // Get the lawful basis for processing this type of data
+  const consentDoc = await db.collection('gdpr_consent_records').doc(`${userId}_latest`).get();
+  return consentDoc.data()?.lawfulBasis;
+}
+
+async function getConsentStatus(userId: string, dataCategory: string): Promise<string | undefined> {
+  // Get consent status for this data category
+  const consentDoc = await db.collection('user_privacy_settings').doc(userId).get();
+  return consentDoc.data()?.consentStatus;
+}
+
+async function checkCrossBorderTransfer(userId: string): Promise<boolean> {
+  // Check if this involves cross-border data transfer
+  const userDoc = await db.collection('users_standard').doc(userId).get();
+  const userLocation = userDoc.data()?.dataResidency;
+  return userLocation !== 'US'; // Simplified check
+}
+
+async function getUserAge(userId: string): Promise<number> {
+  const userDoc = await db.collection('users_standard').doc(userId).get();
+  const birthDate = userDoc.data()?.dateOfBirth?.toDate();
+  if (!birthDate) return 18; // Default to adult if unknown
+  
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    return age - 1;
+  }
+  
+  return age;
+}
+
+async function getParentalConsent(userId: string): Promise<{ valid: boolean; expired: boolean } | null> {
+  const consentDoc = await db.collection('ferpa_consent_records').doc(userId).get();
+  if (!consentDoc.exists) return null;
+  
+  const data = consentDoc.data()!;
+  const expired = data.expiryDate && data.expiryDate.toDate() < new Date();
+  
+  return {
+    valid: data.consentGranted === true,
+    expired: expired || false
+  };
+}
+
+async function getVerifiableParentalConsent(userId: string): Promise<{ verified: boolean } | null> {
+  const consentDoc = await db.collection('parental_verifications').doc(userId).get();
+  if (!consentDoc.exists) return null;
+  
+  const data = consentDoc.data()!;
+  return {
+    verified: data.status === 'COMPLETED' && data.consentGranted === true
+  };
+}
+
+async function checkBusinessAssociateAgreement(userId: string): Promise<boolean> {
+  // Check if BAA exists for any third-party processors
+  return true; // Placeholder implementation
+}
+
+async function checkDirectoryOptOut(userId: string): Promise<boolean> {
+  const settingsDoc = await db.collection('user_privacy_settings').doc(userId).get();
+  return settingsDoc.data()?.directoryOptOut === true;
+}
+
+async function checkChildDataMinimization(auditEvent: ComplianceAuditEvent): Promise<boolean> {
+  // Check if only necessary data is collected for children
+  return true; // Placeholder implementation
+}
+
+async function checkGDPRConsent(userId: string, purpose: string): Promise<boolean> {
+  const consentDoc = await db.collection('gdpr_consent_records').doc(`${userId}_latest`).get();
+  if (!consentDoc.exists) return false;
+  
+  const data = consentDoc.data()!;
+  return data.purposes?.includes(purpose) === true;
+}
+
+async function checkDataRetentionLimits(auditEvent: ComplianceAuditEvent): Promise<boolean> {
+  // Check if data retention is within policy limits
+  return true; // Placeholder implementation
+}
+
+async function triggerCriticalViolationResponse(violation: ComplianceFinding, auditEvent: ComplianceAuditEvent): Promise<void> {
+  // Immediate response to critical violations
+  console.error('🚨 Critical compliance violation detected:', violation);
+}
+
+async function scheduleFollowUpActions(violation: ComplianceFinding): Promise<void> {
+  // Schedule follow-up actions for compliance violations
+}
+
+async function notifyComplianceTeam(violation: ComplianceFinding, auditEvent: ComplianceAuditEvent): Promise<void> {
+  // Notify compliance team of violations
+}
+
+async function getComplianceEvents(startDate: Date, endDate: Date): Promise<ComplianceAuditEvent[]> {
+  const query = db.collection('compliance_audit_events')
+    .where('timestamp', '>=', Timestamp.fromDate(startDate))
+    .where('timestamp', '<=', Timestamp.fromDate(endDate));
+  
+  const snapshot = await query.get();
+  return snapshot.docs.map(doc => doc.data() as ComplianceAuditEvent);
+}
+
+async function getComplianceFindings(startDate: Date, endDate: Date): Promise<ComplianceFinding[]> {
+  const query = db.collection('compliance_findings')
+    .where('status', '!=', 'RESOLVED');
+  
+  const snapshot = await query.get();
+  return snapshot.docs.map(doc => doc.data() as ComplianceFinding);
+}
+
+function calculateComplianceScore(events: ComplianceAuditEvent[], findings: ComplianceFinding[]): number {
+  const totalEvents = events.length;
+  const violations = findings.length;
+  
+  if (totalEvents === 0) return 100;
+  
+  const violationRate = violations / totalEvents;
+  return Math.max(0, Math.round((1 - violationRate) * 100));
+}
+
+async function generateComplianceRecommendations(
+  events: ComplianceAuditEvent[], 
+  findings: ComplianceFinding[]
+): Promise<ComplianceRecommendation[]> {
+  const recommendations: ComplianceRecommendation[] = [];
+  
+  // Analyze patterns and generate recommendations
+  const criticalFindings = findings.filter(f => f.severity === 'CRITICAL');
+  
+  if (criticalFindings.length > 0) {
+    recommendations.push({
+      recommendationId: generateReportId(),
+      priority: 'URGENT',
+      category: 'TECHNICAL',
+      description: 'Implement automated compliance monitoring to prevent critical violations',
+      implementationCost: 'MEDIUM',
+      expectedBenefit: 'Significant reduction in compliance violations',
+      implementationTimeline: '30 days',
+      responsibleTeam: 'Engineering'
+    });
+  }
+  
+  return recommendations;
+}
+
+async function sendComplianceReport(report: ComplianceReport): Promise<void> {
+  // Send report to compliance team and relevant stakeholders
+  console.log('📊 Compliance report generated:', report.reportId);
+}

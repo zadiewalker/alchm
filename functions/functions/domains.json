@@ -1,0 +1,11 @@
+{"users": [
+{
+  "localId": "sjmldhxuWQbhqH96asqC15BN1m72",
+  "email": "tester@alchm.dev",
+  "emailVerified": false,
+  "passwordHash": "T85+AKvR+gv5S9lBKnwe75JAEOEuEDcM89qhRJj6mYSZ2FU4Uce72Awzg67X5CI0/xz1CAkLscNIbDswPZvP2g==",
+  "salt": "5mlxbdawivLEdg==",
+  "createdAt": "1753218371220",
+  "disabled": false,
+  "providerUserInfo": []
+}]}

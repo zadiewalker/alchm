@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-09-30T18:57:01.124Z",
+  "stats": {
+    "chunks": {
+      "other": 1255278,
+      "vendor-misc": 1128917,
+      "main": 4617,
+      "react-vendor": 136135
+    },
+    "totalSize": 2524947,
+    "initialLoad": 140752,
+    "vendorSize": 1265052,
+    "crisisSize": 0
+  },
+  "budgets": {
+    "react-vendor": 80000,
+    "next-framework": 50000,
+    "firebase-critical": 60000,
+    "firebase-firestore": 80000,
+    "utilities": 30000,
+    "animations": 100000,
+    "ai-vendor": 80000,
+    "stripe": 60000,
+    "vendor-misc": 50000,
+    "webpack-runtime": 10000,
+    "main": 200000,
+    "total-initial": 400000,
+    "crisis-critical-total": 50000
+  },
+  "thresholds": {
+    "3G_LOAD_TIME": 3000,
+    "FIRST_CONTENTFUL_PAINT": 1500,
+    "LARGEST_CONTENTFUL_PAINT": 2500,
+    "CUMULATIVE_LAYOUT_SHIFT": 0.1,
+    "FIRST_INPUT_DELAY": 100
+  },
+  "recommendations": [
+    "🔧 react-vendor: Reduce by 54.8KB (currently 132.9KB)",
+    "🔧 vendor-misc: Reduce by 1053.6KB (currently 1102.5KB)",
+    "📦 Total vendor size too large: 1235.4KB. Consider more aggressive code splitting."
+  ]
+}

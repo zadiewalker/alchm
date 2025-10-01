@@ -1,0 +1,158 @@
+/**
+ * EMERGENCY SAFE PAGE
+ * Crisis-safe landing page with immediate access to resources
+ * Loads instantly and provides failsafe crisis support
+ */
+
+"use client";
+
+import React, { useEffect } from 'react';
+import { crisisResourcePreloader } from '@/lib/crisis-resource-preloader';
+
+export default function EmergencySafePage() {
+  useEffect(() => {
+    // Immediately preload crisis resources
+    crisisResourcePreloader.preloadEmergencyContacts();
+  }, []);
+
+  const handleEmergencyCall = (type: 'phone' | 'text' | 'emergency') => {
+    crisisResourcePreloader.emergencyCrisisCall(type);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center p-4">
+      <div className="max-w-2xl w-full bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 p-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-light text-gray-800 mb-2">
+            You Are Safe Here
+          </h1>
+          <p className="text-lg text-gray-600">
+            This is a safe space. You are not alone.
+          </p>
+        </div>
+
+        {/* Crisis Resources */}
+        <div className="space-y-4 mb-8">
+          <h2 className="text-xl font-medium text-gray-800 text-center mb-6">
+            Help is Available Right Now
+          </h2>
+          
+          {/* Primary crisis resources */}
+          <div className="grid gap-4">
+            <button
+              onClick={() => handleEmergencyCall('phone')}
+              className="w-full p-4 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl flex items-center gap-4 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 shadow-lg hover:shadow-xl"
+            >
+              <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <div className="font-semibold text-lg">Call 988</div>
+                <div className="text-blue-100 text-sm">Suicide & Crisis Lifeline - Free, 24/7 support</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => handleEmergencyCall('text')}
+              className="w-full p-4 bg-green-500 hover:bg-green-600 text-white rounded-2xl flex items-center gap-4 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 shadow-lg hover:shadow-xl"
+            >
+              <div className="w-12 h-12 bg-green-400 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <div className="font-semibold text-lg">Text HOME to 741741</div>
+                <div className="text-green-100 text-sm">Crisis Text Line - Text support available now</div>
+              </div>
+            </button>
+
+            <button
+              onClick={() => handleEmergencyCall('emergency')}
+              className="w-full p-4 bg-red-500 hover:bg-red-600 text-white rounded-2xl flex items-center gap-4 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 shadow-lg hover:shadow-xl"
+            >
+              <div className="w-12 h-12 bg-red-400 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <div className="font-semibold text-lg">Call 911</div>
+                <div className="text-red-100 text-sm">Emergency Services - For life-threatening situations</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Gentle message */}
+        <div className="bg-blue-50 rounded-2xl p-6 mb-6">
+          <h3 className="text-lg font-medium text-gray-800 mb-3">You Matter</h3>
+          <p className="text-gray-700 leading-relaxed">
+            Your life has value. Your feelings are valid. You deserve support and care. 
+            Crisis situations are temporary, but the support available to you is constant. 
+            You don't have to go through this alone.
+          </p>
+        </div>
+
+        {/* Additional resources */}
+        <div className="space-y-3">
+          <h3 className="text-lg font-medium text-gray-800 mb-3">Additional Support</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div className="bg-purple-50 p-3 rounded-xl">
+              <strong>LGBTQ+ Youth:</strong><br />
+              Trevor Project: 1-866-488-7386
+            </div>
+            
+            <div className="bg-pink-50 p-3 rounded-xl">
+              <strong>Trans Community:</strong><br />
+              Trans Lifeline: 877-565-8860
+            </div>
+            
+            <div className="bg-orange-50 p-3 rounded-xl">
+              <strong>Veterans:</strong><br />
+              Veterans Crisis Line: 1-800-273-8255
+            </div>
+            
+            <div className="bg-teal-50 p-3 rounded-xl">
+              <strong>Spanish Support:</strong><br />
+              Línea Nacional: 888-628-9454
+            </div>
+          </div>
+        </div>
+
+        {/* Safe navigation */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => typeof window !== 'undefined' && window.location.href = '/'}
+              className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            >
+              Return to ALCHM Home
+            </button>
+            <button
+              onClick={() => typeof window !== 'undefined' && window.location.href = '/journal'}
+              className="flex-1 px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              Safe Journal Space
+            </button>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-6 text-center text-sm text-gray-500">
+          <p>This page loads instantly and works offline for your safety.</p>
+        </div>
+      </div>
+    </div>
+  );
+}

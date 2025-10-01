@@ -149,7 +149,7 @@ export class EncryptionService {
 
   // Generate device-specific key component for additional security
   async generateDeviceFingerprint(): Promise<string> {
-    const canvas = document.createElement('canvas');
+    const canvas = typeof window !== 'undefined' && document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.textBaseline = 'top';
@@ -158,8 +158,8 @@ export class EncryptionService {
     }
     
     const fingerprint = [
-      navigator.userAgent,
-      navigator.language,
+      typeof window !== 'undefined' && navigator.userAgent,
+      typeof window !== 'undefined' && navigator.language,
       screen.width + 'x' + screen.height,
       new Date().getTimezoneOffset().toString(),
       canvas.toDataURL()

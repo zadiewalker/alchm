@@ -1,0 +1,333 @@
+/* 
+ * ALCHM Mobile Crisis Optimization CSS
+ * Critical performance styles for trauma survivors on low-end devices
+ * Targets: TTI <5s, FCP <2s, Crisis Detection <1s
+ */
+
+/* IMMEDIATE OPTIMIZATIONS - Applied before React hydration */
+:root {
+  --crisis-optimization: 0;
+  --immediate-optimization: 0;
+  --disable-non-critical: 0;
+  --very-slow-device: 0;
+}
+
+/* Very slow device optimizations */
+.very-slow-device {
+  --crisis-optimization: 1;
+  --immediate-optimization: 1;
+  --disable-non-critical: 1;
+  --very-slow-device: 1;
+}
+
+/* Disable all animations for crisis performance */
+.very-slow-device *,
+.crisis-optimized *,
+[data-crisis-optimization="1"] * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+}
+
+/* Hide non-critical elements during crisis */
+.very-slow-device .non-essential,
+.crisis-optimized .non-essential,
+[data-disable-non-critical="1"] .non-essential {
+  display: none !important;
+}
+
+/* Optimize typography for readability during crisis */
+.very-slow-device,
+.crisis-optimized {
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  text-rendering: optimizeSpeed;
+}
+
+/* CRISIS BUTTON OPTIMIZATIONS - Maximum visibility and touch area */
+.crisis-button,
+.emergency-button {
+  /* Ensure crisis buttons are always visible and accessible */
+  position: fixed !important;
+  z-index: 9999 !important;
+  min-height: 52px !important;
+  min-width: 52px !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  user-select: none !important;
+  touch-action: manipulation !important;
+}
+
+.crisis-button {
+  top: 20px !important;
+  right: 20px !important;
+}
+
+.emergency-button {
+  bottom: 20px !important;
+  right: 20px !important;
+}
+
+/* Crisis button touch states for better feedback */
+.crisis-button:active,
+.emergency-button:active {
+  transform: scale(0.95) !important;
+  background: #cc0000 !important;
+}
+
+/* HIGH CONTRAST MODE for crisis visibility */
+.crisis-optimized,
+.very-slow-device,
+[data-crisis-optimization="1"] {
+  /* High contrast colors for better visibility during distress */
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --background-primary: #ffffff;
+  --background-secondary: #f5f5f5;
+  --border-color: #000000;
+  --focus-color: #0066cc;
+  --crisis-color: #ff0000;
+}
+
+/* LARGE TOUCH TARGETS for trembling hands */
+.large-touch-targets button,
+.large-touch-targets a[role="button"],
+.large-touch-targets input[type="submit"],
+.large-touch-targets input[type="button"],
+.large-touch-targets .clickable {
+  min-height: 52px !important;
+  min-width: 52px !important;
+  padding: 16px !important;
+  margin: 8px !important;
+  font-size: 16px !important;
+}
+
+/* Extra large touch targets for primary actions */
+.large-touch-targets .primary-button,
+.large-touch-targets .submit-button,
+.large-touch-targets .journal-submit {
+  min-height: 64px !important;
+  min-width: 120px !important;
+  padding: 20px 24px !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+
+/* PERFORMANCE OPTIMIZATIONS */
+
+/* Disable GPU-accelerated effects that can slow low-end devices */
+.very-slow-device img,
+.crisis-optimized img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  will-change: auto;
+  transform: none !important;
+}
+
+/* Simplify visual effects */
+.very-slow-device .gradient,
+.very-slow-device .shadow,
+.very-slow-device .blur,
+.crisis-optimized .gradient,
+.crisis-optimized .shadow,
+.crisis-optimized .blur {
+  background: var(--background-secondary) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* LAYOUT STABILIZATION to prevent disorienting shifts */
+.layout-stabilized * {
+  min-height: 1px;
+}
+
+.layout-stabilized img {
+  aspect-ratio: attr(width) / attr(height);
+  width: 100%;
+  height: auto;
+}
+
+/* MEMORY OPTIMIZATION CLASSES */
+.memory-critical .heavy-content,
+.memory-emergency .heavy-content {
+  display: none !important;
+}
+
+.memory-emergency .non-essential,
+.crisis-only-mode .non-essential {
+  display: none !important;
+}
+
+/* SLOW CONNECTION OPTIMIZATIONS */
+.slow-connection img {
+  max-width: 400px !important;
+  height: auto !important;
+}
+
+.slow-connection video {
+  display: none !important;
+}
+
+.slow-connection .autoplay-media {
+  display: none !important;
+}
+
+/* ULTRA POWER SAVING MODE */
+.ultra-power-saving {
+  /* Reduce visual complexity to save battery */
+  filter: brightness(0.8) !important;
+}
+
+.ultra-power-saving * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* RESPONSIVE BREAKPOINTS for mobile optimization */
+
+/* Small mobile devices (crisis users may have very small screens) */
+@media (max-width: 360px) {
+  .crisis-button,
+  .emergency-button {
+    min-height: 56px !important;
+    min-width: 56px !important;
+    padding: 18px !important;
+    font-size: 18px !important;
+  }
+  
+  .large-touch-targets button,
+  .large-touch-targets a[role="button"] {
+    min-height: 56px !important;
+    padding: 18px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* Medium mobile devices */
+@media (min-width: 361px) and (max-width: 767px) {
+  .crisis-button,
+  .emergency-button {
+    min-height: 52px !important;
+    min-width: 52px !important;
+  }
+}
+
+/* ACCESSIBILITY ENHANCEMENTS for crisis situations */
+
+/* High contrast mode for better visibility */
+@media (prefers-contrast: high), 
+.high-contrast-crisis {
+  .crisis-button,
+  .emergency-button {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 0 0 4px #000000 !important;
+  }
+  
+  * {
+    color: #000000 !important;
+    background: #ffffff !important;
+    border-color: #000000 !important;
+  }
+}
+
+/* Reduced motion for users who prefer it or are in crisis */
+@media (prefers-reduced-motion: reduce),
+.reduce-motion {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* DARK MODE support (but optimized for performance) */
+@media (prefers-color-scheme: dark) {
+  .very-slow-device,
+  .crisis-optimized {
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --background-primary: #000000;
+    --background-secondary: #1a1a1a;
+    --border-color: #ffffff;
+  }
+}
+
+/* PRINT STYLES for emergency offline access */
+@media print {
+  .crisis-button,
+  .emergency-button,
+  .crisis-resources {
+    display: block !important;
+    position: static !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    page-break-inside: avoid;
+  }
+  
+  .non-essential {
+    display: none !important;
+  }
+}
+
+/* FOCUS STYLES for keyboard navigation during crisis */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+.crisis-button:focus,
+.emergency-button:focus {
+  outline: 4px solid var(--focus-color, #0066cc) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px var(--focus-color, #0066cc) !important;
+}
+
+/* LOADING STATES optimized for slow devices */
+.loading-optimized {
+  /* Simplified loading indicator that won't tax slow devices */
+  position: relative;
+}
+
+.loading-optimized::after {
+  content: "Loading...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--background-primary);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Hide complex loading animations on slow devices */
+.very-slow-device .loading-spinner,
+.very-slow-device .loading-animation,
+.crisis-optimized .loading-spinner,
+.crisis-optimized .loading-animation {
+  display: none !important;
+}

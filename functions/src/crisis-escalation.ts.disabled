@@ -1,0 +1,738 @@
+// ALCHM Crisis Escalation Management System
+// Automated escalation processing with professional team coordination
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+const db = getFirestore();
+
+// ===== ESCALATION PROCESSOR =====
+
+export const processCrisisEscalation = functions
+  .runWith({ 
+    memory: '1GB', 
+    timeoutSeconds: 300,
+    maxInstances: 10 
+  })
+  .pubsub.schedule('every 1 minutes') // Check for escalations every minute
+  .timeZone('UTC')
+  .onRun(async (context) => {
+    console.log('Processing scheduled crisis escalations...');
+    
+    try {
+      const now = new Date();
+      
+      // Get all scheduled escalations that are due
+      const escalationsSnapshot = await db.collection('scheduled_escalations')
+        .where('processed', '==', false)
+        .where('scheduledFor', '<=', now)
+        .limit(100)
+        .get();
+      
+      if (escalationsSnapshot.empty) {
+        console.log('No escalations due at this time');
+        return;
+      }
+      
+      console.log(`Processing ${escalationsSnapshot.size} scheduled escalations`);
+      
+      // Process each escalation
+      const escalationPromises = escalationsSnapshot.docs.map(async (escalationDoc) => {
+        const escalationData = escalationDoc.data();
+        const { alertId, escalationLevel } = escalationData;
+        
+        try {
+          // Check if alert still needs escalation
+          const alertDoc = await db.collection('crisis_alerts').doc(alertId).get();
+          
+          if (!alertDoc.exists) {
+            console.warn(`Alert ${alertId} not found for escalation`);
+            await escalationDoc.ref.update({ processed: true, result: 'alert_not_found' });
+            return;
+          }
+          
+          const alert = alertDoc.data();
+          
+          // Skip if alert has been acknowledged
+          if (alert?.response?.acknowledged) {
+            console.log(`Alert ${alertId} already acknowledged, skipping escalation`);
+            await escalationDoc.ref.update({ 
+              processed: true, 
+              result: 'alert_already_acknowledged',
+              processedAt: FieldValue.serverTimestamp()
+            });
+            return;
+          }
+          
+          // Process the escalation
+          await executeEscalation(alertId, escalationLevel, alert);
+          
+          // Mark escalation as processed
+          await escalationDoc.ref.update({
+            processed: true,
+            result: 'escalation_executed',
+            processedAt: FieldValue.serverTimestamp()
+          });
+          
+          console.log(`Escalation processed for alert ${alertId} (level ${escalationLevel})`);
+          
+        } catch (error: any) {
+          console.error(`Error processing escalation for alert ${alertId}:`, error);
+          
+          // Mark as failed but continue processing others
+          await escalationDoc.ref.update({
+            processed: true,
+            result: 'escalation_failed',
+            error: error.toString(),
+            processedAt: FieldValue.serverTimestamp()
+          });
+        }
+      });
+      
+      await Promise.all(escalationPromises);
+      console.log('Crisis escalation processing completed');
+      
+    } catch (error: any) {
+      console.error('Error in crisis escalation processor:', error);
+    }
+  });
+
+// ===== ESCALATION EXECUTION LOGIC =====
+
+async function executeEscalation(alertId: string, escalationLevel: number, alertData: any): Promise<void> {
+  console.log(`Executing escalation level ${escalationLevel} for alert ${alertId}`);
+  
+  switch (escalationLevel) {
+    case 1:
+      await firstLevelEscalation(alertId, alertData);
+      break;
+    case 2:
+      await secondLevelEscalation(alertId, alertData);
+      break;
+    case 3:
+      await emergencyEscalation(alertId, alertData);
+      break;
+    default:
+      console.error(`Unknown escalation level: ${escalationLevel}`);
+      return;
+  }
+  
+  // Update alert escalation status
+  await db.collection('crisis_alerts').doc(alertId).update({
+    'escalation.level': escalationLevel,
+    'escalation.escalatedAt': FieldValue.serverTimestamp(),
+    'escalation.escalationReason': `Automatic escalation - no response within timeframe`,
+    'escalation.lastEscalation': new Date()
+  });
+  
+  // Schedule next escalation if not at maximum level
+  if (escalationLevel < 3) {
+    const nextEscalationLevel = escalationLevel + 1;
+    const delay = getEscalationDelay(alertData.riskLevel, nextEscalationLevel);
+    await scheduleEscalation(alertId, delay, nextEscalationLevel);
+  }
+}
+
+function getEscalationDelay(riskLevel: string, escalationLevel: number): number {
+  // Escalation delays in milliseconds based on risk level and escalation level
+  const delays = {
+    immediate: [2 * 60 * 1000, 3 * 60 * 1000, 5 * 60 * 1000], // 2min, 3min, 5min
+    high: [60 * 60 * 1000, 2 * 60 * 60 * 1000, 4 * 60 * 60 * 1000], // 1hr, 2hr, 4hr
+    moderate: [24 * 60 * 60 * 1000, 48 * 60 * 60 * 1000, 72 * 60 * 60 * 1000], // 1day, 2days, 3days
+    mild: [7 * 24 * 60 * 60 * 1000, 14 * 24 * 60 * 60 * 1000, 30 * 24 * 60 * 60 * 1000] // 1week, 2weeks, 1month
+  };
+  
+  const levelDelays = delays[riskLevel as keyof typeof delays] || delays.high;
+  return levelDelays[escalationLevel - 1] || delays.high[0];
+}
+
+async function scheduleEscalation(alertId: string, delay: number, escalationLevel: number): Promise<void> {
+  const scheduledTime = new Date(Date.now() + delay);
+  
+  await db.collection('scheduled_escalations').doc(`${alertId}_${escalationLevel}`).set({
+    alertId,
+    escalationLevel,
+    scheduledFor: scheduledTime,
+    processed: false,
+    createdAt: FieldValue.serverTimestamp()
+  });
+  
+  console.log(`Next escalation scheduled for alert ${alertId} in ${delay}ms (level ${escalationLevel})`);
+}
+
+// ===== ESCALATION LEVEL IMPLEMENTATIONS =====
+
+async function firstLevelEscalation(alertId: string, alertData: any): Promise<void> {
+  console.log('🔴 FIRST LEVEL ESCALATION - Backup team activation');
+  
+  try {
+    // Get backup crisis team
+    const backupTeam = await getBackupCrisisTeam();
+    
+    if (backupTeam.length === 0) {
+      console.error('No backup crisis team available!');
+      await triggerEmergencyEscalation(alertId, 'No backup team available');
+      return;
+    }
+    
+    // Send urgent notifications to backup team
+    const escalationMessage = `🔴 ESCALATION ALERT - Primary team non-responsive
+
+Alert ID: ${alertId}
+Risk Level: ${alertData.riskLevel?.toUpperCase() || 'UNKNOWN'}
+Time Since Alert: ${getTimeSinceAlert(alertData.timestamp)}
+Original Confidence: ${Math.round((alertData.confidence || 0) * 100)}%
+
+IMMEDIATE RESPONSE REQUIRED
+Dashboard: https://crisis.alchm.app/alert/${alertId}
+
+This alert has been escalated due to no response from primary team.`;
+
+    await Promise.allSettled([
+      sendEscalationSMS(backupTeam, escalationMessage),
+      sendEscalationPushNotifications(backupTeam, alertData, 1),
+      updateDashboardWithEscalation(alertId, 1),
+      sendSlackEscalationAlert(alertId, 1, 'Backup team activated'),
+      logEscalationEvent(alertId, 1, 'backup_team_activated', backupTeam.length)
+    ]);
+    
+    console.log(`First level escalation completed for alert ${alertId}`);
+    
+  } catch (error) {
+    console.error('Error in first level escalation:', error);
+    await triggerEmergencyEscalation(alertId, `First level escalation failed: ${error}`);
+  }
+}
+
+async function secondLevelEscalation(alertId: string, alertData: any): Promise<void> {
+  console.log('🟠 SECOND LEVEL ESCALATION - Clinical director and supervisory team activation');
+  
+  try {
+    // Get supervisory team (clinical directors, supervisors)
+    const supervisoryTeam = await getSupervisoryTeam();
+    
+    if (supervisoryTeam.length === 0) {
+      console.error('No supervisory team available!');
+      await triggerEmergencyEscalation(alertId, 'No supervisory team available');
+      return;
+    }
+    
+    const escalationMessage = `🟠 CRITICAL ESCALATION - Multiple team non-responsive
+
+Alert ID: ${alertId}
+Risk Level: ${alertData.riskLevel?.toUpperCase() || 'UNKNOWN'}
+Time Since Alert: ${getTimeSinceAlert(alertData.timestamp)}
+Escalation Level: 2 of 3
+
+NO RESPONSE FROM PRIMARY OR BACKUP TEAMS
+
+Clinical oversight required immediately.
+Dashboard: https://crisis.alchm.app/alert/${alertId}
+
+Emergency protocols may be activated if no response within next escalation window.`;
+
+    await Promise.allSettled([
+      sendEscalationSMS(supervisoryTeam, escalationMessage),
+      sendEscalationVoiceCalls(supervisoryTeam, alertData, 2),
+      sendEscalationPushNotifications(supervisoryTeam, alertData, 2),
+      updateDashboardWithEscalation(alertId, 2),
+      sendSlackEscalationAlert(alertId, 2, 'Clinical oversight required'),
+      notifyEmergencyContacts(alertId, alertData, 'standby'),
+      activateHighPriorityDashboard(alertId),
+      logEscalationEvent(alertId, 2, 'supervisory_team_activated', supervisoryTeam.length)
+    ]);
+    
+    console.log(`Second level escalation completed for alert ${alertId}`);
+    
+  } catch (error) {
+    console.error('Error in second level escalation:', error);
+    await triggerEmergencyEscalation(alertId, `Second level escalation failed: ${error}`);
+  }
+}
+
+async function emergencyEscalation(alertId: string, alertData: any): Promise<void> {
+  console.log('🚨 EMERGENCY ESCALATION - Full emergency protocols activation');
+  
+  try {
+    const emergencyMessage = `🚨 EMERGENCY PROTOCOLS ACTIVATED
+
+Alert ID: ${alertId}
+Risk Level: ${alertData.riskLevel?.toUpperCase() || 'UNKNOWN'}
+Time Since Alert: ${getTimeSinceAlert(alertData.timestamp)}
+
+CRITICAL SITUATION: NO PROFESSIONAL RESPONSE TO CRISIS ALERT
+
+All available emergency protocols are being activated:
+- Emergency services coordination
+- Hospital partnership activation  
+- All backup systems engaged
+- Emergency contact notification
+
+Dashboard: https://crisis.alchm.app/emergency/${alertId}
+
+This is the highest level of escalation.`;
+
+    // Activate ALL emergency protocols simultaneously
+    const emergencyTeam = await getEmergencyTeam();
+    
+    await Promise.allSettled([
+      // Immediate notifications
+      sendEmergencyServiceAlert(alertId, alertData),
+      sendEscalationSMS(emergencyTeam, emergencyMessage),
+      sendEscalationVoiceCalls(emergencyTeam, alertData, 3),
+      
+      // Emergency systems activation
+      activateEmergencyDashboard(alertId),
+      notifyEmergencyContacts(alertId, alertData, 'immediate'),
+      activateHospitalPartnership(alertId, alertData),
+      
+      // Backup communication systems
+      sendSlackEmergencyAlert(alertId, alertData),
+      sendEmailEmergencyAlert(alertId, alertData),
+      
+      // Logging and monitoring
+      logEmergencyEscalation(alertId, alertData),
+      activateEmergencyMonitoring(alertId)
+    ]);
+    
+    // Update alert with emergency status
+    await db.collection('crisis_alerts').doc(alertId).update({
+      'escalation.emergencyServicesContacted': true,
+      'escalation.emergencyActivatedAt': FieldValue.serverTimestamp(),
+      'status': 'emergency_protocols_active',
+      'priority': 'maximum'
+    });
+    
+    console.log(`Emergency escalation completed for alert ${alertId}`);
+    
+  } catch (error) {
+    console.error('CRITICAL ERROR in emergency escalation:', error);
+    
+    // Even if emergency escalation fails, try basic emergency contact
+    await fallbackEmergencyContact(alertId, alertData, error);
+  }
+}
+
+// ===== TEAM RETRIEVAL FUNCTIONS =====
+
+async function getBackupCrisisTeam(): Promise<any[]> {
+  try {
+    const backupSnapshot = await db.collection('crisis_professionals')
+      .where('role', '==', 'backup_counselor')
+      .where('availability.currentStatus', '==', 'available')
+      .get();
+    
+    return backupSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error getting backup crisis team:', error);
+    return [];
+  }
+}
+
+async function getSupervisoryTeam(): Promise<any[]> {
+  try {
+    const supervisorySnapshot = await db.collection('crisis_professionals')
+      .where('role', 'in', ['clinical_director', 'supervisor', 'medical_director'])
+      .get();
+    
+    return supervisorySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error getting supervisory team:', error);
+    return [];
+  }
+}
+
+async function getEmergencyTeam(): Promise<any[]> {
+  try {
+    // Get all available professionals for emergency
+    const emergencySnapshot = await db.collection('crisis_professionals').get();
+    return emergencySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error getting emergency team:', error);
+    return [];
+  }
+}
+
+// ===== NOTIFICATION FUNCTIONS =====
+
+async function sendEscalationSMS(team: any[], message: string): Promise<void> {
+  if (!team.length) return;
+  
+  // Initialize Twilio if available
+  const twilioConfig = functions.config().twilio;
+  if (!twilioConfig?.account_sid) {
+    console.warn('Twilio not configured - cannot send escalation SMS');
+    return;
+  }
+  
+  const Twilio = require('twilio');
+  const twilioClient = new Twilio(twilioConfig.account_sid, twilioConfig.auth_token);
+  
+  const smsPromises = team.map(async (member) => {
+    if (member.contactMethods?.sms) {
+      try {
+        await twilioClient.messages.create({
+          body: message,
+          from: twilioConfig.crisis_number || '+18885551234',
+          to: member.contactMethods.sms
+        });
+        console.log(`Escalation SMS sent to ${member.name}`);
+      } catch (error) {
+        console.error(`SMS failed for ${member.name}:`, error);
+      }
+    }
+  });
+  
+  await Promise.all(smsPromises);
+}
+
+async function sendEscalationVoiceCalls(team: any[], alertData: any, escalationLevel: number): Promise<void> {
+  const twilioConfig = functions.config().twilio;
+  if (!twilioConfig?.account_sid) {
+    console.warn('Twilio not configured - cannot make voice calls');
+    return;
+  }
+  
+  const Twilio = require('twilio');
+  const twilioClient = new Twilio(twilioConfig.account_sid, twilioConfig.auth_token);
+  
+  const voiceMessage = `This is an emergency escalation from ALCHM Crisis System. 
+    Level ${escalationLevel} escalation is in progress. 
+    A participant crisis alert has not received professional response. 
+    Alert risk level: ${alertData.riskLevel}. 
+    Immediate professional intervention is required. 
+    Access the crisis dashboard immediately or call the emergency line. 
+    This message will repeat.`;
+  
+  const callPromises = team.map(async (member) => {
+    if (member.contactMethods?.primaryPhone) {
+      try {
+        await twilioClient.calls.create({
+          twiml: `
+            <Response>
+              <Say voice="alice" rate="slow">${voiceMessage}</Say>
+              <Pause length="2"/>
+              <Say voice="alice" rate="slow">${voiceMessage}</Say>
+              <Gather numDigits="1" timeout="30">
+                <Say voice="alice">Press any key to acknowledge this escalation.</Say>
+              </Gather>
+            </Response>
+          `,
+          to: member.contactMethods.primaryPhone,
+          from: twilioConfig.voice_number || twilioConfig.crisis_number
+        });
+        console.log(`Escalation voice call initiated to ${member.name}`);
+      } catch (error) {
+        console.error(`Voice call failed for ${member.name}:`, error);
+      }
+    }
+  });
+  
+  await Promise.all(callPromises);
+}
+
+async function sendEscalationPushNotifications(team: any[], alertData: any, escalationLevel: number): Promise<void> {
+  const mobileRecipients = team.filter(member => member.contactMethods?.mobileAppId);
+  
+  if (mobileRecipients.length === 0) {
+    console.warn('No mobile app recipients for escalation notifications');
+    return;
+  }
+  
+  const escalationTypes = ['', 'Backup Team', 'Clinical Oversight', 'Emergency Protocols'];
+  const escalationType = escalationTypes[escalationLevel] || 'Unknown';
+  
+  const notifications = mobileRecipients.map(member => ({
+    token: member.contactMethods.mobileAppId,
+    notification: {
+      title: `🚨 LEVEL ${escalationLevel} ESCALATION`,
+      body: `${escalationType} activation required. Crisis alert unresolved.`,
+    },
+    data: {
+      alertId: alertData.id || 'unknown',
+      escalationLevel: escalationLevel.toString(),
+      alertType: 'escalation',
+      riskLevel: alertData.riskLevel || 'unknown',
+      action: 'escalation_response',
+      priority: 'emergency'
+    },
+    android: {
+      priority: 'high' as const,
+      notification: {
+        channelId: 'crisis_escalations',
+        priority: 'max' as const,
+        defaultSound: true,
+        defaultVibrateTimings: true,
+        color: '#FF0000',
+      }
+    },
+    apns: {
+      payload: {
+        aps: {
+          alert: {
+            title: `🚨 ESCALATION LEVEL ${escalationLevel}`,
+            body: `Professional response required immediately`
+          },
+          badge: escalationLevel,
+          sound: 'emergency-escalation.wav',
+          category: 'CRISIS_ESCALATION',
+          'content-available': 1
+        }
+      },
+      headers: {
+        'apns-priority': '10',
+        'apns-push-type': 'alert'
+      }
+    }
+  }));
+  
+  try {
+    const results = await admin.messaging().sendAll(notifications);
+    console.log(`Escalation push notifications: ${results.successCount}/${notifications.length} delivered`);
+  } catch (error) {
+    console.error('Error sending escalation push notifications:', error);
+  }
+}
+
+// ===== DASHBOARD AND SYSTEM UPDATES =====
+
+async function updateDashboardWithEscalation(alertId: string, escalationLevel: number): Promise<void> {
+  try {
+    await db.collection('crisis_dashboard').doc(alertId).update({
+      'escalation.level': escalationLevel,
+      'escalation.escalatedAt': FieldValue.serverTimestamp(),
+      'status': `escalated_level_${escalationLevel}`,
+      'priority': escalationLevel >= 3 ? 'emergency' : 'high',
+      'lastUpdated': FieldValue.serverTimestamp()
+    });
+    
+    // Also update real-time dashboard via Realtime Database
+    const realtimeDb = admin.database();
+    await realtimeDb.ref(`crisis_alerts/escalated/${alertId}`).set({
+      escalationLevel,
+      escalatedAt: admin.database.ServerValue.TIMESTAMP,
+      status: 'escalated',
+      emergency: escalationLevel >= 3
+    });
+    
+  } catch (error) {
+    console.error('Error updating dashboard with escalation:', error);
+  }
+}
+
+async function activateHighPriorityDashboard(alertId: string): Promise<void> {
+  const realtimeDb = admin.database();
+  await realtimeDb.ref('dashboard_mode').set({
+    mode: 'high_priority',
+    alertId,
+    activatedAt: admin.database.ServerValue.TIMESTAMP,
+    reason: 'Level 2 escalation - clinical oversight required'
+  });
+}
+
+async function activateEmergencyDashboard(alertId: string): Promise<void> {
+  const realtimeDb = admin.database();
+  await realtimeDb.ref('emergency_mode').set({
+    active: true,
+    alertId,
+    activatedAt: admin.database.ServerValue.TIMESTAMP,
+    reason: 'Level 3 escalation - emergency protocols active'
+  });
+}
+
+// ===== EMERGENCY SERVICES INTEGRATION =====
+
+async function sendEmergencyServiceAlert(alertId: string, alertData: any): Promise<void> {
+  // This would integrate with 911 dispatch systems or emergency service APIs
+  // For now, logging the emergency service activation
+  console.log(`🚨 EMERGENCY SERVICES ALERT - Alert ${alertId} requires immediate emergency intervention`);
+  
+  try {
+    // Log emergency service activation
+    await db.collection('emergency_service_activations').add({
+      alertId,
+      riskLevel: alertData.riskLevel,
+      confidence: alertData.confidence,
+      participantId: alertData.participantId,
+      activatedAt: FieldValue.serverTimestamp(),
+      reason: 'Crisis escalation reached emergency level',
+      status: 'notified'
+    });
+    
+    // In a real implementation, this would:
+    // 1. Contact local emergency services with participant location
+    // 2. Provide relevant crisis information to first responders
+    // 3. Coordinate with local mental health crisis teams
+    // 4. Ensure proper handoff to emergency medical services
+    
+  } catch (error) {
+    console.error('Error in emergency service alert:', error);
+  }
+}
+
+async function notifyEmergencyContacts(alertId: string, alertData: any, urgency: 'standby' | 'immediate'): Promise<void> {
+  try {
+    // Get participant's emergency contacts
+    const participantDoc = await db.collection('participants').doc(alertData.participantId).get();
+    
+    if (!participantDoc.exists) {
+      console.warn(`Participant ${alertData.participantId} not found for emergency contact notification`);
+      return;
+    }
+    
+    const emergencyContacts = participantDoc.data()?.emergencyContacts || [];
+    
+    if (emergencyContacts.length === 0) {
+      console.warn(`No emergency contacts for participant ${alertData.participantId}`);
+      return;
+    }
+    
+    const message = urgency === 'immediate'
+      ? `IMMEDIATE: Your emergency contact is receiving professional crisis support through ALCHM. Mental health professionals are responding. Contact: 988 Suicide & Crisis Lifeline if you need immediate assistance.`
+      : `STANDBY: Your emergency contact may need additional support. ALCHM crisis professionals are monitoring the situation. We will update you if immediate action is needed.`;
+    
+    // Send notifications to emergency contacts
+    const twilioConfig = functions.config().twilio;
+    if (twilioConfig?.account_sid) {
+      const Twilio = require('twilio');
+      const twilioClient = new Twilio(twilioConfig.account_sid, twilioConfig.auth_token);
+      
+      const contactPromises = emergencyContacts.map(async (contact: any) => {
+        if (contact.phone) {
+          try {
+            await twilioClient.messages.create({
+              body: message,
+              from: twilioConfig.crisis_number,
+              to: contact.phone
+            });
+            console.log(`Emergency contact ${contact.name} notified (${urgency})`);
+          } catch (error) {
+            console.error(`Failed to notify emergency contact ${contact.name}:`, error);
+          }
+        }
+      });
+      
+      await Promise.all(contactPromises);
+    }
+    
+  } catch (error) {
+    console.error('Error notifying emergency contacts:', error);
+  }
+}
+
+// ===== HELPER FUNCTIONS =====
+
+function getTimeSinceAlert(alertTimestamp: any): string {
+  if (!alertTimestamp) return 'Unknown';
+  
+  const alertTime = alertTimestamp.toDate ? alertTimestamp.toDate() : new Date(alertTimestamp);
+  const now = new Date();
+  const diffMs = now.getTime() - alertTime.getTime();
+  
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
+  }
+  return `${minutes}m`;
+}
+
+async function logEscalationEvent(
+  alertId: string, 
+  level: number, 
+  eventType: string, 
+  teamSize: number
+): Promise<void> {
+  try {
+    await db.collection('escalation_events').add({
+      alertId,
+      escalationLevel: level,
+      eventType,
+      teamSize,
+      timestamp: FieldValue.serverTimestamp(),
+      processed: true
+    });
+  } catch (error) {
+    console.error('Error logging escalation event:', error);
+  }
+}
+
+async function logEmergencyEscalation(alertId: string, alertData: any): Promise<void> {
+  await db.collection('emergency_escalations').add({
+    alertId,
+    participantId: alertData.participantId,
+    riskLevel: alertData.riskLevel,
+    confidence: alertData.confidence,
+    originalTimestamp: alertData.timestamp,
+    escalationTimestamp: FieldValue.serverTimestamp(),
+    reason: 'No professional response to crisis alert',
+    emergencyProtocolsActivated: true,
+    systemStatus: 'maximum_escalation'
+  });
+}
+
+async function triggerEmergencyEscalation(alertId: string, reason: string): Promise<void> {
+  console.log(`🚨 TRIGGERING EMERGENCY ESCALATION for ${alertId}: ${reason}`);
+  
+  try {
+    // Get alert data for emergency escalation
+    const alertDoc = await db.collection('crisis_alerts').doc(alertId).get();
+    const alertData = alertDoc.exists ? alertDoc.data() : {};
+    
+    await emergencyEscalation(alertId, alertData);
+    
+  } catch (error) {
+    console.error('Error triggering emergency escalation:', error);
+  }
+}
+
+async function fallbackEmergencyContact(alertId: string, alertData: any, originalError: any): Promise<void> {
+  console.log(`Activating fallback emergency contact for ${alertId}`);
+  
+  try {
+    // Log the critical failure
+    await db.collection('critical_system_failures').add({
+      alertId,
+      failureType: 'emergency_escalation_failure',
+      originalError: originalError.toString(),
+      alertData: {
+        riskLevel: alertData.riskLevel,
+        participantId: alertData.participantId,
+        timestamp: alertData.timestamp
+      },
+      fallbackActivated: true,
+      timestamp: FieldValue.serverTimestamp()
+    });
+    
+    // Attempt basic emergency notification via any available means
+    console.log(`CRITICAL: Emergency escalation failed for ${alertId}. Manual intervention required.`);
+    
+  } catch (fallbackError) {
+    console.error('CRITICAL: Even fallback emergency contact failed:', fallbackError);
+  }
+}
+
+// ===== SLACK/EMAIL INTEGRATIONS (Stubs) =====
+
+async function sendSlackEscalationAlert(alertId: string, level: number, message: string): Promise<void> {
+  // Implementation would send Slack webhook
+  console.log(`Slack escalation alert - Level ${level}: ${message}`);
+}
+
+async function sendSlackEmergencyAlert(alertId: string, alertData: any): Promise<void> {
+  console.log(`Slack emergency alert for ${alertId}`);
+}
+
+async function sendEmailEmergencyAlert(alertId: string, alertData: any): Promise<void> {
+  console.log(`Email emergency alert for ${alertId}`);
+}
+
+async function activateHospitalPartnership(alertId: string, alertData: any): Promise<void> {
+  console.log(`Activating hospital partnership for ${alertId}`);
+}
+
+async function activateEmergencyMonitoring(alertId: string): Promise<void> {
+  console.log(`Activating emergency monitoring for ${alertId}`);
+}

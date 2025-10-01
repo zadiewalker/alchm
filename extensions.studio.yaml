@@ -1,0 +1,269 @@
+# ALCHM Firebase Studio Extensions Configuration
+# Advanced mental health platform extensions with trauma-informed features
+
+# Email notification system for crisis intervention
+firestore-send-email:
+  name: crisis-email-system
+  ref: firebase/firestore-send-email@0.1.32
+  params:
+    SMTP_CONNECTION_URI: "${SMTP_CONNECTION_URI}"
+    MAIL_COLLECTION: "crisis_notifications"
+    TEMPLATES_COLLECTION: "email_templates"
+    DEFAULT_FROM: "crisis-support@alchm.com"
+    DEFAULT_REPLY_TO: "professional-support@alchm.com"
+    USERS_COLLECTION: "users_premium,users_standard"
+    TEMPLATES_COLLECTION_GROUP: "false"
+    ATTACHMENT_COLLECTION: "attachments"
+  version: "0.1.32"
+
+# Advanced Stripe integration for mental health subscriptions
+firestore-stripe-payments:
+  name: mental-health-subscriptions
+  ref: stripe/firestore-stripe-payments@0.3.7
+  params:
+    STRIPE_API_KEY: "${STRIPE_SECRET_KEY}"
+    STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
+    PRODUCTS_COLLECTION: "subscription_products"
+    CUSTOMERS_COLLECTION: "stripe_customers"
+    CHECKOUT_SESSION_COLLECTION: "checkout_sessions"
+    PRICE_COLLECTION: "subscription_prices"
+    SYNC_USERS_ON_CREATE: "Sync"
+    DELETE_STRIPE_CUSTOMERS: "Do not delete"
+    SYNC_NEW_USERS: "Sync"
+    TRIAL_PERIOD_DAYS: "7"
+    AUTOMATIC_TAX: "false"
+  version: "0.3.7"
+
+# Image optimization for trauma-safe content
+storage-resize-images:
+  name: trauma-safe-images
+  ref: firebase/storage-resize-images@0.2.5
+  params:
+    IMG_SIZES: "200x200,400x400,800x800,1200x1200"
+    IMG_BUCKET: "${FIREBASE_STORAGE_BUCKET}"
+    RESIZED_IMAGES_PATH: "resized/{uid}"
+    CACHE_CONTROL_HEADER: "max-age=86400"
+    INCLUDE_PATH_LIST: "/user-uploads,/journal-images,/artwork"
+    EXCLUDE_PATH_LIST: "/crisis-resources,/professional-content"
+    DELETE_ORIGINAL_FILE: "false"
+    MAKE_PUBLIC: "false"
+    CONVERT_TO: "webp"
+    QUALITY: "85"
+  version: "0.2.5"
+
+# Multi-language support for global mental health
+firestore-translate-text:
+  name: global-mental-health-translation
+  ref: firebase/firestore-translate-text@0.1.25
+  params:
+    COLLECTION_PATH: "entries/{userId}/active/{entryId}"
+    INPUT_FIELD_NAME: "text"
+    OUTPUT_FIELD_NAME: "translations"
+    LANGUAGES: "es,pt,ko,hi,de,ja,fr,it,zh,ar"
+    TRANSLATE_API_KEY: "${GOOGLE_TRANSLATE_API_KEY}"
+    LOCATION: "us-central1"
+    TRANSLATE_TO_FIELD: "supportLanguages"
+    DO_BACKFILL: "false"
+  version: "0.1.25"
+
+# Analytics export for research and compliance
+firestore-bigquery-export:
+  name: mental-health-analytics
+  ref: firebase/firestore-bigquery-export@0.1.28
+  params:
+    COLLECTION_PATH: "analytics/{document=**}"
+    DATASET_ID: "alchm_mental_health_research"
+    TABLE_ID: "user_wellness_patterns"
+    DATASET_LOCATION: "us-central1"
+    TRANSFORM_FUNCTION: "anonymizePersonalData"
+    CLUSTERING_FIELDS: "user_tier,risk_level,intervention_type"
+    TIME_PARTITIONING_FIELD: "timestamp"
+    TIME_PARTITIONING_FIELD_TYPE: "TIMESTAMP"
+    WILDCARD_IDS: "true"
+  version: "0.1.28"
+
+# GDPR-compliant user data deletion
+delete-user-data:
+  name: trauma-informed-data-deletion
+  ref: firebase/delete-user-data@0.1.14
+  params:
+    USERS_COLLECTION: "users_standard,users_premium"
+    USER_DATA_COLLECTIONS: "entries/{UID}/active,entries/{UID}/archived,insights/{UID},ai_conversations/{UID},crisis_assessments,emotional_patterns/{UID}"
+    WIPE_STRATEGY: "delete"
+    FUNCTION_MEMORY: "1GB"
+    BACKUPS_BUCKET: "${FIREBASE_STORAGE_BUCKET}/user-data-backups"
+    RETENTION_PERIOD_DAYS: "2555"  # 7 years for mental health records
+  version: "0.1.14"
+
+# Distributed counter for real-time metrics
+firestore-counter:
+  name: crisis-metrics-counter
+  ref: firebase/firestore-counter@0.1.6
+  params:
+    COLLECTION_PATH: "crisis_metrics/{documentId}"
+    SHARD_COUNT: "20"
+    FUNCTION_MEMORY: "256MB"
+  version: "0.1.6"
+
+# Backup system for critical mental health data
+firestore-backup-collections:
+  name: mental-health-data-backup
+  ref: firebase/firestore-backup-collections@0.1.4
+  params:
+    BACKUP_COLLECTION: "crisis_interventions,professional_alerts,audit_logs,compliance_reports"
+    BACKUP_BUCKET: "${FIREBASE_STORAGE_BUCKET}/crisis-backups"
+    BACKUP_FREQUENCY: "daily"
+    RETENTION_DAYS: "2555"  # 7 years
+    COMPRESSION: "gzip"
+    ENCRYPTION: "true"
+  version: "0.1.4"
+
+# SMS notifications for crisis intervention
+twilio-send-sms:
+  name: crisis-sms-alerts
+  ref: firebase/twilio-send-sms@0.1.4
+  params:
+    TWILIO_ACCOUNT_SID: "${TWILIO_ACCOUNT_SID}"
+    TWILIO_AUTH_TOKEN: "${TWILIO_AUTH_TOKEN}"
+    TWILIO_PHONE_NUMBER: "${TWILIO_PHONE_NUMBER}"
+    SMS_COLLECTION: "crisis_sms_notifications"
+    DEFAULT_FROM: "+18005551234"
+  version: "0.1.4"
+
+# Search functionality for crisis resources
+algolia-firestore-sync:
+  name: crisis-resource-search
+  ref: firebase/algolia-firestore-sync@0.1.14
+  params:
+    ALGOLIA_APP_ID: "${ALGOLIA_APP_ID}"
+    ALGOLIA_API_KEY: "${ALGOLIA_API_KEY}"
+    ALGOLIA_INDEX_NAME: "crisis_resources"
+    COLLECTION_PATH: "crisis_resources/{document=**}"
+    FIELDS: "title,description,tags,location,language,urgency_level"
+    TRANSFORM_FUNCTION: "transformForSearch"
+  version: "0.1.14"
+
+# Content moderation for trauma-safe environment
+content-moderation:
+  name: trauma-informed-moderation
+  ref: google-cloud/content-moderation@0.1.8
+  params:
+    COLLECTION_PATH: "entries/{userId}/active/{entryId}"
+    INPUT_FIELD_NAME: "text"
+    OUTPUT_FIELD_NAME: "moderationResult"
+    MODERATION_THRESHOLD: "0.3"
+    BLOCK_OFFENSIVE_CONTENT: "false"  # Flag but don't block for mental health context
+    REVIEW_FLAGGED_CONTENT: "true"
+    SENSITIVE_CONTENT_DETECTION: "true"
+  version: "0.1.8"
+
+# Audit logging for compliance
+audit-log:
+  name: mental-health-audit-logging
+  ref: firebase/audit-log@0.1.6
+  params:
+    AUDIT_COLLECTION: "audit_logs"
+    COLLECTIONS_TO_AUDIT: "crisis_interventions,professional_alerts,user_privacy_settings,gdpr_requests"
+    INCLUDE_DOCUMENT_DATA: "false"  # Privacy protection
+    USER_ID_FIELD: "userId"
+    TIMESTAMP_FIELD: "auditTimestamp"
+  version: "0.1.6"
+
+# Performance monitoring
+performance-monitoring:
+  name: crisis-response-monitoring
+  ref: firebase/performance-monitoring@0.1.3
+  params:
+    MONITORING_COLLECTION: "performance_metrics"
+    ALERT_THRESHOLD_MS: "3000"  # 3 seconds for crisis response
+    ALERT_EMAIL: "tech-alerts@alchm.com"
+    MONITOR_FUNCTIONS: "emergencyProtocol,realtimeCrisisDetection,professionalDashboard"
+  version: "0.1.3"
+
+# Scheduled data processing for wellness insights
+scheduled-function:
+  name: wellness-pattern-analysis
+  ref: firebase/scheduled-function@0.1.5
+  params:
+    SCHEDULE: "0 2 * * *"  # Daily at 2 AM
+    TIME_ZONE: "UTC"
+    FUNCTION_NAME: "analyzeWellnessPatterns"
+    MEMORY: "1GB"
+    TIMEOUT: "540s"
+  version: "0.1.5"
+
+# Vertex AI integration for advanced crisis detection
+vertex-ai-chatbot:
+  name: advanced-crisis-ai
+  ref: google-cloud/vertex-ai-chatbot@0.1.2
+  params:
+    MODEL_NAME: "gemini-pro"
+    PROJECT_ID: "${GOOGLE_CLOUD_PROJECT}"
+    LOCATION: "us-central1"
+    COLLECTION_PATH: "ai_conversations/{userId}/{conversationId}"
+    PROMPT_FIELD: "prompt"
+    RESPONSE_FIELD: "response"
+    CONTEXT_FIELD: "mentalHealthContext"
+    SAFETY_SETTINGS: "trauma_informed"
+  version: "0.1.2"
+
+# Real-time database triggers for instant crisis response
+realtime-triggers:
+  name: instant-crisis-triggers
+  ref: firebase/realtime-triggers@0.1.7
+  params:
+    TRIGGER_PATHS: "/crisis_alerts/{userId},/emergency_signals/{userId}"
+    FUNCTION_NAME: "handleInstantCrisisAlert"
+    MEMORY: "512MB"
+    TIMEOUT: "60s"
+  version: "0.1.7"
+
+# Geocoding for location-based crisis resources
+geocoding:
+  name: crisis-resource-geocoding
+  ref: google-cloud/geocoding@0.1.5
+  params:
+    COLLECTION_PATH: "crisis_resources/{resourceId}"
+    ADDRESS_FIELD: "address"
+    LAT_FIELD: "latitude"
+    LNG_FIELD: "longitude"
+    API_KEY: "${GOOGLE_MAPS_API_KEY}"
+  version: "0.1.5"
+
+# Push notifications for mobile crisis alerts
+fcm-notifications:
+  name: mobile-crisis-notifications
+  ref: firebase/fcm-notifications@0.1.9
+  params:
+    NOTIFICATION_COLLECTION: "mobile_notifications"
+    FCM_TOKEN_FIELD: "fcmToken"
+    TITLE_FIELD: "title"
+    BODY_FIELD: "body"
+    DATA_FIELD: "data"
+    PRIORITY: "high"
+    COLLAPSE_KEY: "crisis_alert"
+  version: "0.1.9"
+
+# Machine learning model deployment for risk assessment
+ml-model-deployment:
+  name: crisis-risk-ml-model
+  ref: google-cloud/ml-model-deployment@0.1.4
+  params:
+    MODEL_PATH: "gs://${FIREBASE_STORAGE_BUCKET}/ml-models/crisis-risk-model"
+    PREDICTION_COLLECTION: "risk_predictions"
+    INPUT_COLLECTION: "entries/{userId}/active/{entryId}"
+    INPUT_FIELDS: "text,moodBefore,userContext"
+    OUTPUT_FIELD: "riskPrediction"
+  version: "0.1.4"
+
+# Compliance reporting automation
+compliance-reporting:
+  name: mental-health-compliance
+  ref: firebase/compliance-reporting@0.1.3
+  params:
+    REPORT_COLLECTION: "compliance_reports"
+    DATA_COLLECTIONS: "audit_logs,crisis_interventions,user_privacy_settings"
+    SCHEDULE: "0 0 1 * *"  # Monthly
+    REPORT_FORMAT: "json"
+    ENCRYPTION: "true"
+  version: "0.1.3"

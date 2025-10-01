@@ -2,7 +2,7 @@
   "hosting": [
     {
       "site": "alchmapp",
-      "public": "public",
+      "public": "out",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -16,59 +16,15 @@
       "rewrites": [
         {
           "source": "/api/khepera/**",
-          "function": "chatWithGemini"
-        },
-        {
-          "source": "/api/stripe/webhook",
-          "function": "subscriptionWebhook"
+          "function": "detectCrisis"
         },
         {
           "source": "/api/crisis-detection/**",
-          "function": "crisisDetection"
+          "function": "detectCrisis"
         },
         {
-          "source": "/api/**",
-          "destination": "/api/**"
-        },
-        {
-          "source": "/_next/**",
-          "destination": "/_next/**"
-        },
-        {
-          "source": "/favicon.ico",
-          "destination": "/favicon.ico"
-        },
-        {
-          "source": "/manifest.json",
-          "destination": "/manifest.json"
-        },
-        {
-          "source": "/manifest.webmanifest",
-          "destination": "/manifest.webmanifest"
-        },
-        {
-          "source": "/sw.js",
-          "destination": "/sw.js"
-        },
-        {
-          "source": "/robots.txt",
-          "destination": "/robots.txt"
-        },
-        {
-          "source": "/sitemap.xml",
-          "destination": "/sitemap.xml"
-        },
-        {
-          "source": "/apple-touch-icon*.png",
-          "destination": "/apple-touch-icon*.png"
-        },
-        {
-          "source": "/android-chrome*.png",
-          "destination": "/android-chrome*.png"
-        },
-        {
-          "source": "/icons/**",
-          "destination": "/icons/**"
+          "source": "/api/health",
+          "function": "healthCheck"
         },
         {
           "source": "**",
@@ -147,7 +103,7 @@
     },
     {
       "site": "alchm-digital-sanctuary", 
-      "public": "public",
+      "public": "out",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -155,8 +111,8 @@
       ],
       "redirects": [
         {
-          "source": "/**",
-          "destination": "https://alchmapp.web.app",
+          "source": "**",
+          "destination": "https://alchmapp.web.app/:path",
           "type": 301
         }
       ],
@@ -227,7 +183,7 @@
           ]
         }
       ],
-      "cleanUrls": true,
+      "cleanUrls": false,
       "trailingSlash": false
     }
   ],
@@ -281,7 +237,7 @@
       "port": 8080
     },
     "hosting": {
-      "port": 5000
+      "port": 5002
     },
     "storage": {
       "port": 9199
@@ -294,12 +250,5 @@
     "logging": {
       "level": "DEBUG"
     }
-  },
-
-  "extensions": {
-    "firestore-send-email": "firebase/firestore-send-email@0.1.32",
-    "firestore-stripe-payments": "stripe/firestore-stripe-payments@0.3.7",
-    "storage-resize-images": "firebase/storage-resize-images@0.2.5",
-    "firestore-translate-text": "firebase/firestore-translate-text@0.1.25"
   }
 }

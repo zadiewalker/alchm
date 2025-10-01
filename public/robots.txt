@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Allow access to main pages
+Allow: /
+Allow: /pricing
+Allow: /pathways/*
+Allow: /crisis-resources
+Allow: /about
+Allow: /trust
+Allow: /press
+
+# Block authentication and user-specific pages
+Disallow: /auth/
+Disallow: /dashboard
+Disallow: /journal
+Disallow: /journals
+Disallow: /onboarding
+Disallow: /account/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /debug/
+Disallow: /test*
+
+# Block sensitive or internal files
+Disallow: /*.json$
+Disallow: /firebase-debug.log
+Disallow: /.env*
+Disallow: /out/
+Disallow: /.next/
+
+# Educational platform specific directives
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://alchm-digital-sanctuary.web.app/sitemap.xml

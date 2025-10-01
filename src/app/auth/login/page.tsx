@@ -1,275 +1,326 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useSessionManager } from '@/lib/sessionManager';
-import { AuthError, AuthErrorCode } from '@/types/auth';
+// CRISIS-CRITICAL: Emergency auth optimization for immediate access
 
-// Error message components
-const ErrorAlert = ({ error, onDismiss }: { error: AuthError; onDismiss: () => void }) => (
-  <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-    <div className="flex items-start">
-      <div className="flex-shrink-0">
-        <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-        </svg>
-      </div>
-      <div className="ml-3 flex-1">
-        <h3 className="text-sm font-medium text-red-800">
-          Authentication Error
-        </h3>
-        <div className="mt-2 text-sm text-red-700">
-          {error.userMessage}
-        </div>
-        {error.canRefresh && (
-          <div className="mt-3 text-sm text-red-600">
-            Your session may have expired. Please try logging in again.
-          </div>
-        )}
-      </div>
-      <div className="ml-auto pl-3">
-        <button
-          onClick={onDismiss}
-          className="text-red-400 hover:text-red-600"
-        >
-          <span className="sr-only">Dismiss</span>
-          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-);
+/**
+ * CRISIS-CRITICAL: EMERGENCY LOGIN PAGE - MINIMAL BUNDLE SIZE
+ * Ultra-lightweight authentication for crisis situations
+ * Bundle target: <500KB - EVERY BYTE MATTERS FOR CRISIS USERS
+ */
 
-const SessionExpiredBanner = ({ onRefresh }: { onRefresh: () => void }) => (
-  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-    <div className="flex items-center">
-      <div className="flex-shrink-0">
-        <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-        </svg>
-      </div>
-      <div className="ml-3 flex-1">
-        <h3 className="text-sm font-medium text-yellow-800">
-          Session Expired
-        </h3>
-        <div className="mt-2 text-sm text-yellow-700">
-          Your session has expired for security. Please sign in again to continue.
-        </div>
-      </div>
-      <div className="ml-auto pl-3">
-        <button
-          onClick={onRefresh}
-          className="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-3 py-1 rounded text-sm font-medium"
-        >
-          Sign In Again
-        </button>
-      </div>
-    </div>
-  </div>
-);
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+// EMERGENCY: Minimal inline styles to avoid CSS bundle bloat
+const emergencyStyles = {
+  container: {
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #1e293b 0%, #334155 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '16px',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+  },
+  card: {
+    width: '100%',
+    maxWidth: '400px',
+    background: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: '16px',
+    padding: '32px',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255, 255, 255, 0.2)',
+  },
+  input: {
+    width: '100%',
+    padding: '16px',
+    fontSize: '16px',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
+    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.1)',
+    color: 'white',
+    marginBottom: '16px',
+    minHeight: '56px',
+  },
+  button: {
+    width: '100%',
+    padding: '16px',
+    fontSize: '18px',
+    border: 'none',
+    borderRadius: '8px',
+    background: '#16a34a',
+    color: 'white',
+    cursor: 'pointer',
+    minHeight: '56px',
+    marginBottom: '12px',
+  },
+  crisisButton: {
+    width: '100%',
+    padding: '16px',
+    fontSize: '18px',
+    border: 'none',
+    borderRadius: '8px',
+    background: '#dc2626',
+    color: 'white',
+    cursor: 'pointer',
+    minHeight: '56px',
+    marginTop: '20px',
+  },
+};
+
+export default function EmergencyLoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const { signIn } = useSessionManager();
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<AuthError | null>(null);
-  const [showSessionExpired, setShowSessionExpired] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Handle URL parameters for error states and redirects
-  useEffect(() => {
-    const reason = searchParams.get('reason');
-    const redirect = searchParams.get('redirect');
-    const refresh = searchParams.get('refresh');
-
-    // Show appropriate error messages based on URL parameters
-    if (reason === 'session_expired') {
-      setShowSessionExpired(true);
-    } else if (reason === 'session_invalid') {
-      setError({
-        code: AuthErrorCode.VERIFICATION_FAILED,
-        message: 'Session verification failed',
-        userMessage: 'Your session is invalid. Please sign in again.',
-        canRefresh: false
-      });
-    } else if (reason === 'no_session') {
-      setError({
-        code: AuthErrorCode.NO_SESSION,
-        message: 'No session found',
-        userMessage: 'Please sign in to access this page.',
-        canRefresh: false
-      });
-    }
-
-    // Auto-focus email field if there's an attempted refresh
-    if (refresh === 'true') {
-      setShowSessionExpired(true);
-    }
-  }, [searchParams]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Ultra-minimal email authentication
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setShowSessionExpired(false);
 
     try {
-      await signIn(email, password, rememberMe);
+      // Dynamic import only when needed - CRISIS CRITICAL BUNDLE SIZE
+      const { signInWithEmailAndPassword, getAuth } = await import('firebase/auth');
+      const { getFirebaseApp } = await import('@/lib/firebase');
       
-      // Redirect to intended page or journals
-      const redirectUrl = searchParams.get('redirect') || '/journals';
-      router.push(redirectUrl);
+      const app = await getFirebaseApp();
+      const auth = getAuth(app);
       
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      
+      if (result.user) {
+        // Create session
+        await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: result.user.uid,
+            user: {
+              uid: result.user.uid,
+              email: result.user.email,
+              displayName: result.user.displayName,
+            }
+          }),
+        });
+        
+        router.push('/dashboard');
+      }
     } catch (err: any) {
-      console.error('Login error:', err);
-      setError(err);
+      setError('Sign-in failed. Please check your credentials.');
+      console.error('Auth error:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleRefreshSession = () => {
-    setShowSessionExpired(false);
+  // Ultra-minimal Google authentication  
+  const handleGoogleLogin = async () => {
+    setLoading(true);
     setError(null);
-    // Focus on email field for re-authentication
-    document.getElementById('email')?.focus();
+
+    try {
+      // CRISIS CRITICAL: Dynamic imports to prevent massive bundle bloat
+      const [
+        { GoogleAuthProvider, signInWithPopup, getAuth },
+        { getFirebaseApp }
+      ] = await Promise.all([
+        import('firebase/auth'),
+        import('@/lib/firebase')
+      ]);
+      
+      const app = await getFirebaseApp();
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+      
+      const result = await signInWithPopup(auth, provider);
+      
+      if (result.user) {
+        // Create session
+        await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: result.user.uid,
+            user: {
+              uid: result.user.uid,
+              email: result.user.email,
+              displayName: result.user.displayName,
+            }
+          }),
+        });
+        
+        router.push('/dashboard');
+      }
+    } catch (err: any) {
+      setError('Google sign-in failed. Please try again.');
+      console.error('Google auth error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const clearError = () => {
-    setError(null);
+  // Crisis access - prioritize emergency page
+  const handleCrisisAccess = () => {
+    router.push('/emergency');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div style={emergencyStyles.container}>
+      <div style={emergencyStyles.card}>
         {/* Header */}
-        <div>
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-indigo-100">
-            <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to ALCHM
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌿</div>
+          <h2 style={{ fontSize: '24px', fontWeight: '300', color: 'white', marginBottom: '8px', margin: 0 }}>
+            Welcome to ALCHM
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Your trauma-informed journaling companion
+          <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+            Your safe space for healing
           </p>
         </div>
 
-        {/* Error Messages */}
-        {showSessionExpired && (
-          <SessionExpiredBanner onRefresh={handleRefreshSession} />
-        )}
-
+        {/* Error Display */}
         {error && (
-          <ErrorAlert error={error} onDismiss={clearError} />
+          <div style={{ 
+            background: 'rgba(239, 68, 68, 0.1)', 
+            border: '1px solid rgba(239, 68, 68, 0.3)', 
+            borderRadius: '8px', 
+            padding: '12px',
+            marginBottom: '16px' 
+          }}>
+            <p style={{ color: 'rgba(239, 68, 68, 0.9)', fontSize: '14px', textAlign: 'center', margin: 0 }}>{error}</p>
+          </div>
         )}
 
-        {/* Login Form */}
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                disabled={loading}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                disabled={loading}
-              />
-            </div>
+        {/* Crisis Support - TOP PRIORITY */}
+        <div style={{ 
+          padding: '16px 0', 
+          borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+          marginBottom: '20px'
+        }}>
+          <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '14px', textAlign: 'center', margin: '0 0 12px 0' }}>
+            Need immediate support?
+          </p>
+          
+          <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+            <button
+              onClick={() => window.location.href = 'tel:988'}
+              style={{
+                ...emergencyStyles.crisisButton,
+                background: '#dc2626',
+                marginTop: 0,
+              }}
+            >
+              📞 Call 988 - Crisis Hotline
+            </button>
+            
+            <button
+              onClick={handleCrisisAccess}
+              style={{
+                ...emergencyStyles.crisisButton,
+                background: '#ea580c',
+                marginTop: 0,
+              }}
+            >
+              🏠 Emergency Journal Access
+            </button>
+          </div>
+        </div>
+
+        {/* Authentication Form */}
+        <div>
+          {/* Google Sign-in */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={loading}
+            style={{
+              ...emergencyStyles.button,
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+            }}
+          >
+            {loading ? (
+              <span>🔄 Connecting...</span>
+            ) : (
+              <span>🔐 Continue with Google</span>
+            )}
+          </button>
+
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            margin: '16px 0',
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '14px'
+          }}>
+            <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.2)' }}></div>
+            <span style={{ padding: '0 16px' }}>or use email</span>
+            <div style={{ flex: 1, height: '1px', background: 'rgba(255, 255, 255, 0.2)' }}></div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                disabled={loading}
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Keep me signed in
-              </label>
-            </div>
+          {/* Email Login Form */}
+          <form onSubmit={handleEmailLogin}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{
+                ...emergencyStyles.input,
+                outline: 'none',
+              }}
+              placeholder="Email address"
+              required
+              disabled={loading}
+            />
+            
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                ...emergencyStyles.input,
+                outline: 'none',
+              }}
+              placeholder="Password"
+              required
+              disabled={loading}
+            />
 
-            <div className="text-sm">
-              <a href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={emergencyStyles.button}
             >
-              {loading ? (
-                <div className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Signing in...
-                </div>
-              ) : (
-                'Sign in'
-              )}
+              {loading ? '🔄 Entering...' : '✨ Enter Your Sacred Space'}
             </button>
-          </div>
+          </form>
 
-          <div className="text-center">
-            <span className="text-sm text-gray-600">
-              Don't have an account?{' '}
-              <a href="/auth/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-                Sign up here
-              </a>
+          {/* Create Account Link */}
+          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <span style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.8)' }}>
+              New to ALCHM?{' '}
+              <button 
+                type="button"
+                onClick={() => router.push('/auth/signup')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#86efac',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  padding: '8px 4px',
+                  minHeight: '32px',
+                }}
+              >
+                Create account
+              </button>
             </span>
           </div>
-        </form>
-
-        {/* Session Status Indicator */}
-        {loading && (
-          <div className="text-center text-sm text-gray-500">
-            Verifying your credentials...
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

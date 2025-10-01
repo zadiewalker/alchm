@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-09-28T19:25:14.603Z",
+  "tests": [
+    {
+      "name": "Page Load Speed",
+      "status": "PASS",
+      "value": "953ms",
+      "target": "<3000ms",
+      "critical": false
+    },
+    {
+      "name": "Crisis Button Access",
+      "status": "PASS",
+      "value": "Present",
+      "critical": false
+    },
+    {
+      "name": "Google OAuth Button",
+      "status": "CRITICAL_FAIL",
+      "value": "Missing",
+      "critical": true
+    },
+    {
+      "name": "Email Input Field",
+      "status": "CRITICAL_FAIL",
+      "value": "Missing",
+      "critical": true
+    },
+    {
+      "name": "Password Input Field",
+      "status": "CRITICAL_FAIL",
+      "value": "Missing",
+      "critical": true
+    },
+    {
+      "name": "Submit Button",
+      "status": "CRITICAL_FAIL",
+      "value": "Missing",
+      "critical": true
+    },
+    {
+      "name": "Trauma-Informed Language",
+      "status": "PASS",
+      "value": "Present",
+      "critical": false
+    },
+    {
+      "name": "JavaScript Errors",
+      "status": "FAIL",
+      "value": "2 errors",
+      "target": "0 errors",
+      "critical": true
+    },
+    {
+      "name": "Bundle Transfer Size",
+      "status": "PASS",
+      "value": "9KB",
+      "target": "<2MB",
+      "critical": false
+    },
+    {
+      "name": "DOM Content Loaded",
+      "status": "PASS",
+      "value": "0ms",
+      "target": "<2000ms",
+      "critical": false
+    }
+  ],
+  "criticalIssues": [
+    "Authentication forms not rendering - users cannot sign in",
+    "2 JavaScript errors preventing authentication"
+  ],
+  "recommendations": [],
+  "betaReadiness": false
+}

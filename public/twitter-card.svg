@@ -1,0 +1,20 @@
+
+<svg width="1024" height="512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="512" fill="#a4b792"/>
+  <rect x="40" y="40" width="944" height="432" rx="20" fill="#fefcfb"/>
+  
+  <!-- ALCHM Logo -->
+  <text x="512" y="160" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="#a4b792">ALCHM</text>
+  
+  <!-- Tagline -->
+  <text x="512" y="220" font-family="Arial, sans-serif" font-size="28" text-anchor="middle" fill="#6b7c5a">Write it raw. Turn it gold.</text>
+  
+  <!-- Description -->
+  <text x="512" y="280" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#8fa37c">Digital Sanctuary for Healing</text>
+  
+  <!-- Features -->
+  <text x="512" y="360" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#6b7c5a">Trauma-Informed • Privacy-First • Crisis-Safe</text>
+  
+  <!-- Website -->
+  <text x="512" y="400" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#8fa37c">alchmapp.web.app</text>
+</svg>

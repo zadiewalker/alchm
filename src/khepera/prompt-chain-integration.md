@@ -101,7 +101,7 @@ As you prepare to carry this medicine back into the world, what intention wants 
 ```
 🃏 *soul revolutionary awakens*
 
-Listen up, beautiful rebel - that "stuck" feeling? It's not a prison, it's a fucking cocoon. Something in you is ready to shed skin, break rules, and birth something wild.
+Listen up, beautiful rebel - that "stuck" feeling? It's not a prison, it's a transformative cocoon. Something in you is ready to shed skin, break rules, and birth something wild.
 
 What sacred rule needs to be smashed today?
 ```

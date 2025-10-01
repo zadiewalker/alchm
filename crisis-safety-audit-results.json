@@ -1,0 +1,35 @@
+{
+  "title": "ALCHM Crisis Safety Systems Audit Report",
+  "timestamp": "2025-09-17T04:01:30.129Z",
+  "summary": {
+    "timestamp": "2025-09-17T04:01:30.129Z",
+    "totalTests": 9,
+    "criticalIssuesCount": 2,
+    "warningsCount": 4,
+    "passedCount": 3,
+    "overallStatus": "CRITICAL ISSUES FOUND"
+  },
+  "criticalIssues": [
+    "🚨 CRITICAL: Crisis resource accessibility test failed: this.page.waitForTimeout is not a function",
+    "🚨 CRITICAL: Crisis button not available offline"
+  ],
+  "warnings": [
+    "⚠️ Crisis button may be too high in viewport",
+    "⚠️ No text input found for crisis keyword testing",
+    "⚠️ Emergency mode test encountered error: this.page.waitForTimeout is not a function",
+    "⚠️ Crisis performance test failed: this.page.waitForTimeout is not a function"
+  ],
+  "passed": [
+    "✅ Crisis support button is present",
+    "✅ Crisis button has proper aria-label",
+    "✅ Crisis button renders quickly (10ms)"
+  ],
+  "recommendations": [
+    "Ensure crisis support button is always visible and accessible",
+    "Test crisis keyword detection with real user scenarios",
+    "Verify all crisis resource phone numbers are current",
+    "Test offline crisis support functionality",
+    "Implement crisis intervention analytics (without storing personal data)",
+    "Regular accessibility audits for crisis support features"
+  ]
+}

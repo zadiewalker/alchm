@@ -157,7 +157,7 @@ export const PLATFORM_OPTIMIZATIONS = {
     androidChromeNavigationBar: '#0F172A'
   },
   
-  windows: {
+  typeof window !== 'undefined' && windows: {
     msTileColor: '#8B5CF6',
     msApplicationTileImage: '/icons/ms-tile-310x310.png'
   }

@@ -1,0 +1,509 @@
+/**
+ * ALCHM Premium Digital Sanctuary Design System
+ * 
+ * Transform every page and component into a cohesive "Premium Digital Sanctuary" 
+ * using Jonathan Ive's design philosophy: radical simplification, purposeful beauty, 
+ * and emotional resonance through culturally grounded, nature-inspired design.
+ */
+
+:root {
+  /* === PREMIUM DIGITAL SANCTUARY COLOR PALETTE === */
+  
+  /* Sage Green - Primary Brand & Calm Strategy */
+  --color-sage-primary: #a4b792;
+  --color-sage-light: #c4d4b8;      /* Tints for backgrounds */
+  --color-sage-lighter: #e5ede0;    /* Subtle backgrounds */
+  --color-sage-dark: #8a9e7d;       /* Emphasis & hover states */
+  --color-sage-darker: #6d7d62;     /* Text on light backgrounds */
+
+  /* Off-White - Breathing Space */
+  --color-offwhite: #f7f7f2;
+  --color-offwhite-warm: #faf9f5;   /* Slightly warmer variant */
+
+  /* Terracotta - Warmth & Humanity */
+  --color-terracotta: #cb997e;
+  --color-terracotta-light: #e4bda8;
+  --color-terracotta-dark: #b5835f;
+
+  /* Charcoal - Grounded Authority */
+  --color-charcoal: #2e2e2e;
+  --color-charcoal-medium: #4a4a4a;
+  --color-charcoal-light: #6b6b6b;
+
+  /* Soft Blush - Emotional Softness */
+  --color-blush: #eeddd3;
+  --color-blush-light: #f7f0eb;
+  --color-blush-dark: #ddc4b5;
+
+  /* === FUNCTIONAL COLOR EXTENSIONS === */
+  
+  /* States & Feedback */
+  --color-success: #8fa87d;         /* Growth green (sage-inspired) */
+  --color-warning: #d4a574;         /* Gentle amber (terracotta-inspired) */
+  --color-error: #c49090;           /* Soft rose (not alarming) */
+  --color-info: #9db4a8;            /* Calm sage-blue */
+  --color-emergency: #b87d7d;       /* Muted red (serious but not jarring) */
+
+  /* === TYPOGRAPHY SYSTEM === */
+  
+  /* Font Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 
+               'Segoe UI', 'Roboto', system-ui, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+
+  /* Type Scale & Hierarchy */
+  --font-size-hero: 48px;           /* "ALCHM" logo treatment */
+  --font-weight-hero: 200;          /* Ultra light, spaced tracking */
+  --letter-spacing-hero: 0.15em;    /* Wide tracking for sophistication */
+
+  --font-size-tagline: 20px;        /* "Premium Digital Sanctuary" */
+  --font-weight-tagline: 300;
+  --font-family-tagline: var(--font-serif);
+
+  --font-size-h1: 32px;
+  --font-weight-h1: 300;
+
+  --font-size-h2: 24px;
+  --font-weight-h2: 400;
+
+  --font-size-h3: 20px;
+  --font-weight-h3: 500;
+
+  --font-size-body: 16px;
+  --font-weight-body: 400;
+  --line-height-body: 1.6;
+
+  --font-size-small: 14px;
+  --font-size-tiny: 12px;
+
+  /* === SPACING SYSTEM - 8px Grid with Generous Breathing Room === */
+  --space-2xs: 4px;    /* Micro adjustments */
+  --space-xs: 8px;     /* Tight spacing */
+  --space-sm: 16px;    /* Default spacing */
+  --space-md: 24px;    /* Comfortable spacing */
+  --space-lg: 32px;    /* Section spacing */
+  --space-xl: 48px;    /* Major sections */
+  --space-2xl: 64px;   /* Page divisions */
+  --space-3xl: 96px;   /* Hero/landing sections */
+  --space-4xl: 128px;  /* Dramatic spacing */
+
+  /* === ANIMATION & INTERACTION TIMING === */
+  --timing-instant: 100ms;
+  --timing-fast: 200ms;
+  --timing-standard: 300ms;
+  --timing-slow: 500ms;
+
+  --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+
+  /* === RESPONSIVE DESIGN BREAKPOINTS === */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+}
+
+/* === PREMIUM DIGITAL SANCTUARY COMPONENT STYLES === */
+
+/* Base Body & HTML */
+html, body {
+  background: var(--color-offwhite);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  font-weight: var(--font-weight-body);
+}
+
+/* === BUTTON COMPONENT VARIANTS === */
+
+.btn-primary {
+  background: var(--color-sage-primary);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  transition: all var(--timing-fast) var(--easing-standard);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-sage-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(164, 183, 146, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(164, 183, 146, 0.2);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-terracotta);
+  border: 2px solid var(--color-terracotta);
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all var(--timing-fast) var(--easing-standard);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: rgba(203, 153, 126, 0.1);
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--color-sage-dark);
+  padding: 8px 16px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all var(--timing-fast) var(--easing-standard);
+}
+
+.btn-text:hover {
+  color: var(--color-sage-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* === FORM INPUT STYLES === */
+
+.form-input {
+  background: white;
+  border: 1.5px solid var(--color-sage-lighter);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 16px;
+  color: var(--color-charcoal);
+  transition: all var(--timing-fast) var(--easing-standard);
+  width: 100%;
+}
+
+.form-input:focus {
+  border-color: var(--color-sage-primary);
+  outline: 3px solid rgba(164, 183, 146, 0.15);
+  outline-offset: 2px;
+}
+
+.form-input.error {
+  border-color: var(--color-error);
+  background: rgba(196, 144, 144, 0.05);
+}
+
+/* === CARD COMPONENT VARIANTS === */
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(46, 46, 46, 0.06);
+  transition: all var(--timing-standard) var(--easing-standard);
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(46, 46, 46, 0.12);
+  transform: translateY(-2px);
+}
+
+.card-featured {
+  background: linear-gradient(135deg, 
+    rgba(164, 183, 146, 0.03) 0%,
+    white 100%
+  );
+  border: 1px solid var(--color-sage-lighter);
+  border-radius: 16px;
+  padding: var(--space-xl);
+}
+
+.card-community {
+  background: linear-gradient(135deg, 
+    rgba(203, 153, 126, 0.03) 0%,
+    white 100%
+  );
+  border-left: 3px solid var(--color-terracotta);
+  border-radius: 12px;
+  padding: var(--space-lg);
+}
+
+/* === NAVIGATION COMPONENTS === */
+
+.nav-top {
+  background: rgba(247, 247, 242, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(164, 183, 146, 0.1);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.nav-link {
+  color: var(--color-charcoal-medium);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--timing-fast) var(--easing-standard);
+}
+
+.nav-link.active {
+  color: var(--color-sage-primary);
+  border-bottom: 2px solid var(--color-sage-primary);
+}
+
+.nav-bottom {
+  background: white;
+  box-shadow: 0 -2px 12px rgba(46, 46, 46, 0.08);
+  border-top: 1px solid var(--color-sage-lighter);
+}
+
+/* === EMERGENCY/SOS BUTTON === */
+
+.emergency-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-emergency);
+  box-shadow: 0 4px 16px rgba(184, 125, 125, 0.3);
+  color: white;
+  font-weight: 600;
+  z-index: 1000;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--timing-fast) var(--easing-standard);
+}
+
+.emergency-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(184, 125, 125, 0.4);
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 4px 16px rgba(184, 125, 125, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 4px 24px rgba(184, 125, 125, 0.5); 
+  }
+}
+
+.emergency-button.pulsing {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* === MICRO-INTERACTIONS === */
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-slide-in {
+  animation: fadeSlideIn 400ms var(--easing-decelerate) forwards;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { 
+    opacity: 0.4; 
+  }
+  50% { 
+    opacity: 1; 
+  }
+}
+
+.loading-gentle {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-hero: 36px;
+    --font-size-h1: 28px;
+    --font-size-h2: 22px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 16px 24px;
+    width: 100%;
+  }
+
+  .emergency-button {
+    bottom: 16px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* === ACCESSIBILITY & REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid var(--color-charcoal);
+  }
+  
+  .form-input {
+    border: 2px solid var(--color-charcoal);
+  }
+}
+
+/* === PREMIUM SANCTUARY LOADING SCREEN === */
+
+.sanctuary-loading {
+  min-height: 100vh;
+  background: linear-gradient(180deg, 
+    #b5c4a4 0%,      /* Lighter sage at top */
+    #a4b792 50%,     /* Primary sage middle */
+    #95a885 100%     /* Slightly darker sage bottom */
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sanctuary-logo {
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-hero);
+  letter-spacing: var(--letter-spacing-hero);
+  color: var(--color-offwhite);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.sanctuary-tagline {
+  font-family: var(--font-family-tagline);
+  font-size: var(--font-size-tagline);
+  font-weight: var(--font-weight-tagline);
+  color: rgba(247, 247, 242, 0.9);
+  margin-bottom: var(--space-3xl);
+}
+
+.sanctuary-loading-text {
+  font-size: var(--font-size-body);
+  font-weight: 300;
+  color: rgba(247, 247, 242, 0.7);
+  margin-top: var(--space-3xl);
+}
+
+/* === CRISIS-SAFE MODE OVERRIDES === */
+
+.crisis-mode {
+  --space-md: 32px;  /* Increased spacing for clarity */
+  --space-lg: 48px;
+  --font-size-body: 18px;  /* Larger text for stress reading */
+  --line-height-body: 1.8;
+}
+
+.crisis-mode .btn-primary,
+.crisis-mode .btn-secondary {
+  min-height: 60px;  /* Larger touch targets */
+  font-size: 18px;
+}
+
+.crisis-mode .form-input {
+  min-height: 56px;
+  font-size: 18px;
+}
+
+/* === PREMIUM GRADIENTS & TEXTURES === */
+
+.sanctuary-gradient {
+  background: linear-gradient(135deg, 
+    var(--color-offwhite) 0%,
+    var(--color-blush-light) 100%
+  );
+}
+
+.sage-gradient {
+  background: linear-gradient(135deg, 
+    var(--color-sage-light) 0%,
+    var(--color-sage-primary) 100%
+  );
+}
+
+.terracotta-gradient {
+  background: linear-gradient(135deg, 
+    var(--color-terracotta-light) 0%,
+    var(--color-terracotta) 100%
+  );
+}
+
+/* === GLASS MORPHISM EFFECTS === */
+
+.glass-sanctuary {
+  background: rgba(247, 247, 242, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-sage {
+  background: rgba(164, 183, 146, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+}
+
+/* === UTILITY CLASSES === */
+
+.text-sage { color: var(--color-sage-primary); }
+.text-sage-dark { color: var(--color-sage-dark); }
+.text-terracotta { color: var(--color-terracotta); }
+.text-charcoal { color: var(--color-charcoal); }
+.text-blush { color: var(--color-blush-dark); }
+
+.bg-sanctuary { background: var(--color-offwhite); }
+.bg-sage { background: var(--color-sage-primary); }
+.bg-terracotta { background: var(--color-terracotta); }
+.bg-blush { background: var(--color-blush); }
+
+.border-sage { border-color: var(--color-sage-primary); }
+.border-sage-light { border-color: var(--color-sage-light); }
+.border-terracotta { border-color: var(--color-terracotta); }
+
+.shadow-sanctuary {
+  box-shadow: 0 4px 20px rgba(164, 183, 146, 0.15);
+}
+
+.shadow-soft {
+  box-shadow: 0 8px 32px rgba(46, 46, 46, 0.08);
+}
+
+/* Touch-safe interactions */
+.touch-safe {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}

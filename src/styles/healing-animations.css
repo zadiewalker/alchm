@@ -1,0 +1,329 @@
+/* ALCHM Healing Micro-Interactions - 60fps Optimized */
+/* Performance Budget: <3KB - GPU-accelerated transforms only */
+
+/* === GPU-ACCELERATED HEALING ANIMATIONS === */
+
+/* Gentle breathing for sanctuary elements */
+@keyframes sanctuary-breathe {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    opacity: 0.9;
+  }
+  50% { 
+    transform: translate3d(0, 0, 0) scale3d(1.02, 1.02, 1);
+    opacity: 1;
+  }
+}
+
+/* Sacred floating for cards and containers */
+@keyframes sanctuary-float {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0);
+  }
+  50% { 
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+/* Gentle pulse for interactive elements */
+@keyframes healing-pulse {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    opacity: 1;
+  }
+  50% { 
+    transform: translate3d(0, 0, 0) scale3d(1.05, 1.05, 1);
+    opacity: 0.8;
+  }
+}
+
+/* Smooth reveal for progressive disclosure */
+@keyframes sanctuary-reveal {
+  0% { 
+    transform: translate3d(0, 20px, 0);
+    opacity: 0;
+  }
+  100% { 
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+/* Organic growth for expanding elements */
+@keyframes organic-expand {
+  0% { 
+    transform: translate3d(0, 0, 0) scale3d(0.95, 0.95, 1);
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    opacity: 1;
+  }
+}
+
+/* Gentle shimmer for loading states */
+@keyframes sanctuary-shimmer {
+  0% { 
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% { 
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* Crisis attention animation - accessible */
+@keyframes crisis-glow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+    transform: translate3d(0, 0, 0) scale3d(1.02, 1.02, 1);
+  }
+}
+
+/* === PERFORMANCE-OPTIMIZED UTILITY CLASSES === */
+
+/* Base animation class with GPU acceleration */
+.animate-gpu {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Healing micro-interactions */
+.animate-sanctuary-breathe {
+  animation: sanctuary-breathe 4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-sanctuary-float {
+  animation: sanctuary-float 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-healing-pulse {
+  animation: healing-pulse 2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-sanctuary-reveal {
+  animation: sanctuary-reveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-organic-expand {
+  animation: organic-expand 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-crisis-glow {
+  animation: crisis-glow 1.5s ease-in-out infinite;
+  will-change: box-shadow, transform;
+}
+
+/* Loading shimmer effect */
+.loading-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.loading-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(164, 183, 146, 0.1),
+    transparent
+  );
+  animation: sanctuary-shimmer 2s linear infinite;
+  will-change: transform;
+}
+
+/* === TRAUMA-INFORMED HOVER STATES === */
+
+/* Gentle hover for interactive elements */
+.hover-sanctuary {
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, box-shadow;
+}
+
+.hover-sanctuary:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 25px rgba(164, 183, 146, 0.15);
+}
+
+/* Healing button interactions */
+.btn-healing {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, box-shadow;
+}
+
+.btn-healing::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: width, height;
+}
+
+.btn-healing:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-healing:active {
+  transform: translate3d(0, 1px, 0);
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-sanctuary-breathe,
+  .animate-sanctuary-float,
+  .animate-healing-pulse,
+  .animate-crisis-glow,
+  .loading-shimmer::before {
+    animation: none;
+  }
+  
+  .animate-sanctuary-reveal,
+  .animate-organic-expand {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .hover-sanctuary,
+  .btn-healing {
+    transition: none;
+    will-change: auto;
+  }
+  
+  .hover-sanctuary:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(164, 183, 146, 0.1);
+  }
+}
+
+/* Battery optimization for mobile devices */
+@media (max-width: 768px) {
+  .animate-sanctuary-breathe {
+    animation-duration: 6s;
+  }
+  
+  .animate-sanctuary-float {
+    animation-duration: 4s;
+  }
+  
+  .animate-healing-pulse {
+    animation-duration: 3s;
+  }
+}
+
+/* Low-end device optimizations */
+@media (max-width: 480px) {
+  .animate-gpu {
+    will-change: auto;
+  }
+  
+  .loading-shimmer::before {
+    animation-duration: 3s;
+  }
+  
+  .btn-healing::before {
+    transition-duration: 0.2s;
+  }
+}
+
+/* High contrast mode adaptations */
+@media (prefers-contrast: high) {
+  .animate-crisis-glow {
+    animation-name: none;
+    border: 2px solid #dc2626;
+  }
+  
+  .loading-shimmer::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 0, 0, 0.1),
+      transparent
+    );
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .loading-shimmer::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(164, 183, 146, 0.05),
+      transparent
+    );
+  }
+  
+  .hover-sanctuary:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* === FOCUS STATES FOR ACCESSIBILITY === */
+
+.focus-sanctuary:focus-visible {
+  outline: 2px solid var(--sage-primary);
+  outline-offset: 2px;
+  transition: outline 0.1s ease;
+}
+
+/* === STAGGER ANIMATIONS FOR LISTS === */
+
+.stagger-children > * {
+  animation-delay: var(--stagger-delay, 0ms);
+}
+
+.stagger-children > *:nth-child(1) { --stagger-delay: 0ms; }
+.stagger-children > *:nth-child(2) { --stagger-delay: 100ms; }
+.stagger-children > *:nth-child(3) { --stagger-delay: 200ms; }
+.stagger-children > *:nth-child(4) { --stagger-delay: 300ms; }
+.stagger-children > *:nth-child(5) { --stagger-delay: 400ms; }
+
+/* === PERFORMANCE MONITORING === */
+
+/* Mark animations as complete to prevent layout thrashing */
+.animation-complete {
+  animation: none;
+  will-change: auto;
+  transform: none;
+  opacity: 1;
+}
+
+/* Intersection observer ready state */
+.intersection-ready {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.intersection-ready.intersecting {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}

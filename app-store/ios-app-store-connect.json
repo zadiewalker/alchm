@@ -1,0 +1,32 @@
+{
+    "app_information": {
+        "name": "ALCHM - Your Digital Sanctuary",
+        "subtitle": "Trauma-Informed AI Journaling",
+        "category": "Health & Fitness",
+        "secondary_category": "Lifestyle"
+    },
+    "app_review_information": {
+        "contact": {
+            "first_name": "ALCHM",
+            "last_name": "Support Team", 
+            "phone": "+1-555-ALCHM-17",
+            "email": "support@alchmapp.com"
+        },
+        "demo_account": {
+            "username": "reviewer@alchmapp.com",
+            "password": "AppStore2025!",
+            "required": true
+        },
+        "notes": "ALCHM is a trauma-informed mental health journaling app with crisis detection features. The app includes comprehensive safety measures including direct access to 988 Suicide & Crisis Lifeline and crisis intervention resources. Age restriction (17+) is enforced due to mature mental health content. The app is designed to supplement, not replace, professional mental health care. Demo account provides access to all features for review purposes."
+    },
+    "version_release_type": "manual",
+    "price_and_availability": {
+        "price_tier": "Free with In-App Purchases",
+        "availability": "All territories",
+        "educational_discount": false
+    },
+    "app_privacy": {
+        "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+        "privacy_policy_text": "Required - See URL above"
+    }
+}

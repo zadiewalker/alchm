@@ -1,4 +1,6 @@
 // Firebase app mock
+import { jest } from '@jest/globals'
+
 export const initializeApp = jest.fn(() => ({
   name: 'test-app',
   options: {

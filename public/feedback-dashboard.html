@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - User Testing Feedback Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8faf7 0%, #f0f3ee 100%);
+            color: #5a6653;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(164, 183, 146, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            padding: 48px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ebefe7 0%, #e6ebe0 100%);
+            padding: 32px 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(164, 183, 146, 0.12);
+            text-align: center;
+            transition: all 200ms ease;
+            border: 1px solid rgba(164, 183, 146, 0.15);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(164, 183, 146, 0.18);
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #a4b792;
+            display: block;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            color: #6b7660;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .controls {
+            padding: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .controls select, .controls button {
+            padding: 12px 20px;
+            border: 2px solid rgba(164, 183, 146, 0.2);
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e8ede5 0%, #ebefe7 100%);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: #5a6653;
+            transition: all 200ms ease;
+        }
+
+        .controls select:hover, .controls button:hover:not(:disabled) {
+            border-color: rgba(164, 183, 146, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(164, 183, 146, 0.15);
+        }
+
+        .controls button {
+            background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+            color: white;
+            border-color: #a4b792;
+            min-height: 44px;
+            box-shadow: 0 4px 16px rgba(164, 183, 146, 0.25);
+        }
+
+        .controls button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #93a682 0%, #82956f 100%);
+            box-shadow: 0 6px 20px rgba(164, 183, 146, 0.35);
+        }
+
+        .feedback-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+        }
+
+        .feedback-item {
+            background: linear-gradient(135deg, #e8ede5 0%, #e6ebe0 100%);
+            margin-bottom: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(164, 183, 146, 0.12);
+            overflow: hidden;
+            transition: all 200ms ease;
+            border: 1px solid rgba(164, 183, 146, 0.1);
+        }
+
+        .feedback-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(164, 183, 146, 0.18);
+        }
+
+        .feedback-header {
+            background: linear-gradient(135deg, #ebefe7 0%, #e1e7da 100%);
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(164, 183, 146, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            color: #5a6653;
+        }
+
+        .stars {
+            color: #a4b792;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .test-phase {
+            background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(164, 183, 146, 0.25);
+        }
+
+        .feedback-content {
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .feedback-text {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 16px;
+            color: #5a6653;
+        }
+
+        .improvements {
+            background: linear-gradient(135deg, #f0f3ee 0%, #ebefe7 100%);
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 4px solid #a4b792;
+            margin-top: 20px;
+            box-shadow: inset 0 1px 3px rgba(164, 183, 146, 0.08);
+        }
+
+        .improvements-label {
+            font-weight: 600;
+            color: #a4b792;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .feedback-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #e6ebe0 0%, #e1e7da 100%);
+            font-size: 13px;
+            color: #6b7660;
+            border-top: 1px solid rgba(164, 183, 146, 0.15);
+            flex-wrap: wrap;
+            gap: 16px;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 48px;
+            color: #6b7660;
+            background: linear-gradient(135deg, #ebefe7 0%, #e8ede5 100%);
+            border-radius: 16px;
+            margin: 24px;
+            border: 1px solid rgba(164, 183, 146, 0.15);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(164, 183, 146, 0.2);
+            border-top: 4px solid #a4b792;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+            color: #6b7660;
+            background: linear-gradient(135deg, #ebefe7 0%, #e8ede5 100%);
+            border-radius: 16px;
+            margin: 24px;
+            border: 1px solid rgba(164, 183, 146, 0.15);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 20px;
+            color: #5a6653;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .empty-state a {
+            color: #a4b792;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 200ms ease;
+        }
+
+        .empty-state a:hover {
+            color: #93a682;
+            text-decoration: underline;
+        }
+
+        .filter-active {
+            background: linear-gradient(135deg, #f0f3ee 0%, #ebefe7 100%) !important;
+            border-color: #a4b792 !important;
+            color: #5a6653 !important;
+            box-shadow: 0 4px 16px rgba(164, 183, 146, 0.25) !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 32px 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .stats {
+                padding: 32px 20px;
+                gap: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .feedback-container {
+                padding: 0 20px 32px;
+            }
+
+            .feedback-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 20px;
+            }
+
+            .feedback-content {
+                padding: 20px;
+            }
+
+            .feedback-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 20px;
+            }
+
+            .improvements {
+                padding: 20px;
+            }
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #93a682 0%, #82956f 100%) !important;
+            border-color: #93a682 !important;
+        }
+
+        .export-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #82956f 0%, #71845e 100%) !important;
+            box-shadow: 0 6px 20px rgba(147, 166, 130, 0.35) !important;
+        }
+
+        .refresh-indicator {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌱 ALCHM Community Voices</h1>
+        <p>Healing insights from our user testing community</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <span class="stat-number" id="totalFeedback">0</span>
+            <div class="stat-label">Total Responses</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="avgRating">0.0</span>
+            <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="todayFeedback">0</span>
+            <div class="stat-label">Today's Responses</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="lastUpdated">-</span>
+            <div class="stat-label">Last Updated</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <select id="phaseFilter">
+            <option value="">All Test Phases</option>
+            <option value="navigation">Navigation & Layout</option>
+            <option value="writing">Journal Writing</option>
+            <option value="ai-insights">AI Insights</option>
+            <option value="mood-tracking">Mood Tracking</option>
+            <option value="onboarding">Getting Started</option>
+            <option value="mobile">Mobile Experience</option>
+            <option value="overall">Overall Experience</option>
+            <option value="other">Other</option>
+        </select>
+
+        <select id="ratingFilter">
+            <option value="">All Ratings</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+        </select>
+
+        <button onclick="refreshData()" id="refreshBtn">
+            Refresh Data
+        </button>
+
+        <button onclick="exportData()" class="export-btn">
+            Export CSV
+        </button>
+
+        <button onclick="toggleAutoRefresh()" id="autoRefreshBtn">
+            Auto Refresh: OFF
+        </button>
+    </div>
+
+    <div class="feedback-container">
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading feedback data...</p>
+        </div>
+
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <h3>No Feedback Yet</h3>
+            <p>User testing feedback will appear here as it's submitted.</p>
+            <p style="margin-top: 10px;">
+                <a href="user-testing-feedback.html" target="_blank" style="color: #667eea; text-decoration: none;">
+                    📝 Open Feedback Form
+                </a>
+            </p>
+        </div>
+
+        <div id="feedbackList"></div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyATJ3mBomWkJCJxvdDPgkmdOJcJhNdxmwI",
+            authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+            projectId: "alchm-digital-sanctuary",
+            storageBucket: "alchm-digital-sanctuary.appspot.com",
+            messagingSenderId: "745417685785",
+            appId: "1:745417685785:web:bb9b90bb5f1b4a04e0cb49"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let feedbackData = [];
+        let filteredData = [];
+        let autoRefreshInterval = null;
+
+        // Load feedback data
+        async function loadFeedback() {
+            try {
+                const snapshot = await db.collection('user_testing_feedback')
+                    .orderBy('submittedAt', 'desc')
+                    .limit(100)
+                    .get();
+
+                feedbackData = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    feedbackData.push(data);
+                });
+
+                applyFilters();
+                updateStats();
+                document.getElementById('loading').style.display = 'none';
+                
+                console.log(`Loaded ${feedbackData.length} feedback items`);
+                
+            } catch (error) {
+                console.error('Error loading feedback:', error);
+                document.getElementById('loading').innerHTML = 
+                    '<p style="color: #dc3545;">Error loading feedback data. Please refresh the page.</p>';
+            }
+        }
+
+        function applyFilters() {
+            const phaseFilter = document.getElementById('phaseFilter').value;
+            const ratingFilter = document.getElementById('ratingFilter').value;
+
+            filteredData = feedbackData.filter(item => {
+                if (phaseFilter && item.testPhase !== phaseFilter) return false;
+                if (ratingFilter && item.rating !== parseInt(ratingFilter)) return false;
+                return true;
+            });
+
+            displayFeedback();
+        }
+
+        function displayFeedback() {
+            const container = document.getElementById('feedbackList');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filteredData.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            
+            container.innerHTML = filteredData.map(item => {
+                const timestamp = item.submittedAt ? 
+                    new Date(item.submittedAt.seconds * 1000).toLocaleString() : 
+                    'Just now';
+                
+                const stars = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
+                
+                return `
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <div class="rating">
+                                <span class="stars">${stars}</span>
+                                <span>${item.rating}/5</span>
+                            </div>
+                            <div class="test-phase">${formatTestPhase(item.testPhase)}</div>
+                        </div>
+                        <div class="feedback-content">
+                            <div class="feedback-text">${escapeHtml(item.feedback)}</div>
+                            ${item.improvements ? `
+                                <div class="improvements">
+                                    <div class="improvements-label">💡 Suggestions for Improvement:</div>
+                                    <div>${escapeHtml(item.improvements)}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="feedback-meta">
+                            <span>👤 ${item.userId || 'Anonymous'}</span>
+                            <span>📅 ${timestamp}</span>
+                            <span>🔗 ${item.source || 'Unknown'}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            const total = feedbackData.length;
+            const avgRating = total > 0 ? 
+                (feedbackData.reduce((sum, item) => sum + item.rating, 0) / total).toFixed(1) : 
+                '0.0';
+            
+            const today = new Date().toDateString();
+            const todayCount = feedbackData.filter(item => {
+                if (!item.submittedAt) return false;
+                return new Date(item.submittedAt.seconds * 1000).toDateString() === today;
+            }).length;
+
+            document.getElementById('totalFeedback').textContent = total;
+            document.getElementById('avgRating').textContent = avgRating;
+            document.getElementById('todayFeedback').textContent = todayCount;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        }
+
+        function formatTestPhase(phase) {
+            const phases = {
+                'navigation': '🧭 Navigation',
+                'writing': '✍️ Writing',
+                'ai-insights': '🤖 AI Insights',
+                'mood-tracking': '😊 Mood Tracking',
+                'onboarding': '🚀 Onboarding',
+                'mobile': '📱 Mobile',
+                'overall': '🌟 Overall',
+                'other': '💭 Other'
+            };
+            return phases[phase] || phase;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function refreshData() {
+            const btn = document.getElementById('refreshBtn');
+            btn.innerHTML = 'Refreshing<span class="refresh-indicator"></span>';
+            btn.disabled = true;
+
+            await loadFeedback();
+
+            btn.innerHTML = 'Refresh Data';
+            btn.disabled = false;
+        }
+
+        function toggleAutoRefresh() {
+            const btn = document.getElementById('autoRefreshBtn');
+            
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+                btn.textContent = 'Auto Refresh: OFF';
+                btn.classList.remove('filter-active');
+            } else {
+                autoRefreshInterval = setInterval(loadFeedback, 30000); // Refresh every 30 seconds
+                btn.textContent = 'Auto Refresh: ON';
+                btn.classList.add('filter-active');
+            }
+        }
+
+        function exportData() {
+            if (filteredData.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            const csvContent = [
+                ['Timestamp', 'Rating', 'Test Phase', 'Feedback', 'Improvements', 'User ID', 'Source'].join(','),
+                ...filteredData.map(item => [
+                    item.submittedAt ? new Date(item.submittedAt.seconds * 1000).toISOString() : '',
+                    item.rating,
+                    item.testPhase,
+                    `"${item.feedback.replace(/"/g, '""')}"`,
+                    `"${(item.improvements || '').replace(/"/g, '""')}"`,
+                    item.userId || 'Anonymous',
+                    item.source || 'Unknown'
+                ].join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `alchm-feedback-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Event listeners
+        document.getElementById('phaseFilter').addEventListener('change', applyFilters);
+        document.getElementById('ratingFilter').addEventListener('change', applyFilters);
+
+        // Initialize
+        loadFeedback();
+
+        // Real-time listener
+        db.collection('user_testing_feedback')
+            .orderBy('submittedAt', 'desc')
+            .limit(100)
+            .onSnapshot(snapshot => {
+                console.log('Real-time update received');
+                
+                feedbackData = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    feedbackData.push(data);
+                });
+
+                applyFilters();
+                updateStats();
+                
+                if (document.getElementById('loading').style.display !== 'none') {
+                    document.getElementById('loading').style.display = 'none';
+                }
+            });
+    </script>
+</body>
+</html>

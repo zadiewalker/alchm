@@ -1,0 +1,423 @@
+/**
+ * Sacred Layout Styles - Jony Ive Design System
+ * The invisible structure that supports healing
+ */
+
+/* === SACRED LAYOUT FOUNDATION === */
+
+.sacred-layout {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.sacred-layout.sanctuary {
+  /* Primary sanctuary mode */
+}
+
+.sacred-layout.focus {
+  /* Focused content mode */
+}
+
+.sacred-layout.crisis {
+  /* Emergency crisis mode */
+  background: linear-gradient(135deg, var(--crisis-red) 0%, var(--emergency-red) 100%);
+}
+
+/* Sacred Background */
+.sacred-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  z-index: -2;
+}
+
+/* Sacred Main Container */
+.sacred-main {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sacred Ambient Elements */
+.sacred-ambient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  filter: blur(60px);
+}
+
+.ambient-glow:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-duration: 8s;
+}
+
+.ambient-glow:nth-child(2) {
+  top: 60%;
+  right: 10%;
+  animation-duration: 12s;
+}
+
+.ambient-glow:nth-child(3) {
+  bottom: 20%;
+  left: 50%;
+  animation-duration: 10s;
+  transform: translateX(-50%);
+}
+
+/* === SACRED NAVIGATION === */
+
+.sacred-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-2) 0;
+  margin-bottom: var(--space-4);
+}
+
+.sacred-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-gentle);
+}
+
+.sacred-nav-items {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.sacred-nav-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-gentle);
+  position: relative;
+}
+
+.sacred-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--sanctuary);
+  border-radius: 1px;
+  transition: width var(--duration-base) var(--ease-gentle);
+}
+
+.sacred-nav-item:hover::after,
+.sacred-nav-item.active::after {
+  width: 80%;
+}
+
+.sacred-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sacred-nav-item.active {
+  color: var(--sanctuary);
+  font-weight: 500;
+}
+
+/* === SACRED PAGE LAYOUTS === */
+
+/* Hero Section Layout */
+.sacred-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: var(--space-8) 0;
+}
+
+.sacred-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sacred-hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 200;
+  line-height: 1.2;
+  color: var(--sanctuary);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+.sacred-hero-subtitle {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: var(--space-6);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sacred-hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+  .sacred-hero-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* Content Section Layout */
+.sacred-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.sacred-content-wide {
+  max-width: 1200px;
+}
+
+.sacred-content-narrow {
+  max-width: 700px;
+}
+
+/* Grid Layouts */
+.sacred-grid-1 {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+
+.sacred-grid-2 {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.sacred-grid-3 {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.sacred-grid-4 {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Masonry Layout */
+.sacred-masonry {
+  columns: 1;
+  column-gap: var(--space-6);
+  column-fill: balance;
+}
+
+@media (min-width: 640px) {
+  .sacred-masonry {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sacred-masonry {
+    columns: 3;
+  }
+}
+
+.sacred-masonry-item {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: var(--space-4);
+  break-inside: avoid;
+}
+
+/* === RESPONSIVE LAYOUTS === */
+
+/* Mobile Optimizations */
+@media (max-width: 767px) {
+  .sacred-main {
+    padding: var(--space-2) 0;
+  }
+  
+  .sacred-hero {
+    min-height: 60vh;
+    padding: var(--space-6) 0;
+  }
+  
+  .sacred-content {
+    padding: var(--space-4) var(--space-2);
+  }
+  
+  .sacred-nav-items {
+    gap: var(--space-2);
+  }
+  
+  /* Stack navigation items on small screens */
+  .sacred-nav-items {
+    display: none;
+  }
+  
+  .sacred-nav-mobile {
+    display: flex;
+  }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sacred-grid-2,
+  .sacred-grid-3,
+  .sacred-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop Optimizations */
+@media (min-width: 1024px) {
+  .sacred-hero {
+    min-height: 80vh;
+  }
+  
+  .sacred-content {
+    padding: var(--space-8) var(--space-6);
+  }
+}
+
+/* Large Screen Optimizations */
+@media (min-width: 1440px) {
+  .sacred-main {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+}
+
+/* === SACRED SPACING SYSTEM === */
+
+/* Section Spacing */
+.sacred-section {
+  padding: var(--space-8) 0;
+}
+
+.sacred-section--large {
+  padding: var(--space-12) 0;
+}
+
+.sacred-section--small {
+  padding: var(--space-6) 0;
+}
+
+/* Content Spacing */
+.sacred-content > * + * {
+  margin-top: var(--space-6);
+}
+
+.sacred-content--tight > * + * {
+  margin-top: var(--space-4);
+}
+
+.sacred-content--loose > * + * {
+  margin-top: var(--space-8);
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* Skip Links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--sanctuary);
+  color: var(--sage-active);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Focus Management */
+.sacred-layout:focus-within .sacred-ambient {
+  opacity: 0.5;
+  transition: opacity var(--duration-base) var(--ease-gentle);
+}
+
+/* Reduced Motion Layout */
+@media (prefers-reduced-motion: reduce) {
+  .sacred-ambient {
+    display: none;
+  }
+  
+  .sacred-background {
+    animation: none;
+    background: var(--sage-primary);
+  }
+}
+
+/* High Contrast Layout */
+@media (prefers-contrast: high) {
+  .sacred-background {
+    background: var(--sage-active);
+  }
+  
+  .sacred-nav {
+    background: var(--sanctuary);
+    border-bottom: 2px solid var(--sage-active);
+  }
+  
+  .ambient-glow {
+    display: none;
+  }
+}
+
+/* Print Layout */
+@media print {
+  .sacred-background,
+  .sacred-ambient,
+  .sacred-nav {
+    display: none;
+  }
+  
+  .sacred-main {
+    background: white;
+    color: black;
+    padding: 0;
+    min-height: auto;
+  }
+}

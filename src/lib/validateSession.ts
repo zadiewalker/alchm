@@ -1,22 +1,47 @@
 import { cookies } from 'next/headers';
-import { auth } from './firebaseAdmin';
-import { AuthError, AuthErrorCode } from '../types/auth';
+import { NextRequest } from 'next/server';
+import admin from 'firebase-admin';
+
+// Initialize Firebase Admin if not already done
+if (!admin.apps.length) {
+  const serviceAccount = {
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  };
+
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: process.env.FIREBASE_PROJECT_ID,
+  });
+}
+
+const auth = admin.auth();
 
 // Enhanced session validation with comprehensive error handling
 export interface SessionValidationResult {
   valid: boolean;
-  userId?: string;
-  email?: string;
+  user?: {
+    uid: string;
+    email?: string | null;
+    displayName?: string | null;
+  };
   claims?: any;
-  error?: AuthError;
+  error?: string;
   expiresAt?: number;
   needsRefresh?: boolean;
 }
 
-export async function getSessionToken(): Promise<string | null> {
+export async function getSessionToken(request?: NextRequest): Promise<string | null> {
   try {
-    const cookieStore = await cookies();
-    return cookieStore.get('alchm_session')?.value ?? cookieStore.get('__session')?.value ?? null;
+    if (request) {
+      // Extract from request cookies
+      return request.cookies.get('session')?.value || null;
+    } else {
+      // Extract from server cookies
+      const cookieStore = await cookies();
+      return cookieStore.get('session')?.value || null;
+    }
   } catch (error) {
     console.error('[Session] getSessionToken error:', error);
     return null;
@@ -33,23 +58,19 @@ export async function getRefreshToken(): Promise<string | null> {
   }
 }
 
-export async function validateSession(): Promise<SessionValidationResult> {
-  const sessionToken = await getSessionToken();
+export async function validateSession(request?: NextRequest): Promise<SessionValidationResult> {
+  const sessionToken = await getSessionToken(request);
   
   if (!sessionToken) {
     return {
       valid: false,
-      error: {
-        code: AuthErrorCode.NO_SESSION,
-        message: 'No session token found',
-        userMessage: 'Please log in to continue'
-      }
+      error: 'No session token found'
     };
   }
 
   try {
-    // Verify the session cookie with Firebase Admin
-    const decodedClaims = await auth.verifySessionCookie(sessionToken, true);
+    // Verify the token as ID token (since we're using custom tokens)
+    const decodedClaims = await auth.verifyIdToken(sessionToken);
     
     // Check if session is close to expiry (within 1 hour)
     const expiryTime = decodedClaims.exp * 1000;
@@ -59,8 +80,11 @@ export async function validateSession(): Promise<SessionValidationResult> {
     
     return {
       valid: true,
-      userId: decodedClaims.uid,
-      email: decodedClaims.email,
+      user: {
+        uid: decodedClaims.uid,
+        email: decodedClaims.email || null,
+        displayName: decodedClaims.name || null,
+      },
       claims: decodedClaims,
       expiresAt: expiryTime,
       needsRefresh
@@ -73,42 +97,9 @@ export async function validateSession(): Promise<SessionValidationResult> {
       timestamp: new Date().toISOString()
     });
 
-    // Map Firebase Auth errors to our error types
-    let authError: AuthError;
-    
-    if (error.code === 'auth/session-cookie-expired') {
-      authError = {
-        code: AuthErrorCode.SESSION_EXPIRED,
-        message: 'Session has expired',
-        userMessage: 'Your session has expired. Please log in again.',
-        canRefresh: true
-      };
-    } else if (error.code === 'auth/session-cookie-revoked') {
-      authError = {
-        code: AuthErrorCode.SESSION_REVOKED,
-        message: 'Session was revoked',
-        userMessage: 'Your session is no longer valid. Please log in again.',
-        canRefresh: false
-      };
-    } else if (error.code === 'auth/invalid-session-cookie-claims') {
-      authError = {
-        code: AuthErrorCode.INVALID_CLAIMS,
-        message: 'Invalid session claims',
-        userMessage: 'Authentication error. Please log in again.',
-        canRefresh: false
-      };
-    } else {
-      authError = {
-        code: AuthErrorCode.VERIFICATION_FAILED,
-        message: error.message || 'Session verification failed',
-        userMessage: 'Unable to verify your session. Please try logging in again.',
-        canRefresh: true
-      };
-    }
-    
     return {
       valid: false,
-      error: authError
+      error: error.message || 'Session verification failed'
     };
   }
 }
@@ -117,7 +108,7 @@ export async function requireValidSession(): Promise<SessionValidationResult> {
   const result = await validateSession();
   
   if (!result.valid) {
-    throw new Error(result.error?.message || 'Authentication required');
+    throw new Error(result.error || 'Authentication required');
   }
   
   return result;
@@ -137,10 +128,10 @@ export async function getServerSession() {
 export async function getUserFromSession() {
   try {
     const result = await validateSession();
-    if (result.valid) {
+    if (result.valid && result.user) {
       return {
-        uid: result.userId!,
-        email: result.email,
+        uid: result.user.uid,
+        email: result.user.email,
         claims: result.claims
       };
     }

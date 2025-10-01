@@ -1,0 +1,581 @@
+/* ==========================================================================
+   Battery-Conscious Animations and Reduced Motion Support
+   Trauma-informed motion design that respects user energy and accessibility
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Custom Properties for Adaptive Animation Control
+   ========================================================================== */
+
+:root {
+  /* Battery-aware animation speeds */
+  --anim-speed-ultra-fast: 50ms;
+  --anim-speed-fast: 150ms;
+  --anim-speed-normal: 300ms;
+  --anim-speed-slow: 500ms;
+  --anim-speed-gentle: 800ms;
+  
+  /* Motion intensity levels */
+  --motion-none: 0;
+  --motion-minimal: 0.25;
+  --motion-reduced: 0.5;
+  --motion-normal: 1;
+  --motion-enhanced: 1.5;
+  
+  /* Battery level thresholds */
+  --battery-critical: 15%;
+  --battery-low: 30%;
+  --battery-medium: 60%;
+  --battery-full: 100%;
+  
+  /* Default values */
+  --current-animation-speed: var(--anim-speed-normal);
+  --current-motion-intensity: var(--motion-normal);
+  --current-battery-level: var(--battery-full);
+}
+
+/* ==========================================================================
+   Core Trauma-Informed Animation Principles
+   ========================================================================== */
+
+/* Base gentle animations that respect user state */
+.gentle-animation {
+  animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation-fill-mode: both;
+  animation-duration: var(--current-animation-speed);
+}
+
+/* Breathing animations for grounding */
+@keyframes gentle-breathing {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: scale(1.02); 
+    opacity: 1; 
+  }
+}
+
+.breathing-animation {
+  animation: gentle-breathing 4s ease-in-out infinite;
+  animation-play-state: running;
+}
+
+/* Fade animations that don't startle */
+@keyframes gentle-fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.fade-in-gentle {
+  animation: gentle-fade-in var(--current-animation-speed) ease-out;
+}
+
+/* Scale animations for interactive feedback */
+@keyframes gentle-scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.scale-gentle {
+  animation: gentle-scale var(--current-animation-speed) ease-in-out;
+}
+
+/* Pulse animations for crisis states */
+@keyframes crisis-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+}
+
+.crisis-pulse {
+  animation: crisis-pulse 2s ease-in-out infinite;
+}
+
+/* Loading animations that are calming */
+@keyframes gentle-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-gentle {
+  animation: gentle-spin 2s linear infinite;
+}
+
+/* Slide animations for navigation */
+@keyframes slide-in-right {
+  from { 
+    opacity: 0; 
+    transform: translateX(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+.slide-in-right {
+  animation: slide-in-right var(--current-animation-speed) ease-out;
+}
+
+/* ==========================================================================
+   Battery Level Responsive Animations
+   ========================================================================== */
+
+/* Critical battery (< 15%) - No animations */
+body[style*="--current-battery-level"][style*="1%"] *,
+body[style*="--current-battery-level"][style*="5%"] *,
+body[style*="--current-battery-level"][style*="10%"] *,
+body[style*="--current-battery-level"][style*="14%"] * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
+}
+
+/* Low battery (15-30%) - Minimal animations only */
+body[style*="--current-battery-level"][style*="15%"] *,
+body[style*="--current-battery-level"][style*="20%"] *,
+body[style*="--current-battery-level"][style*="25%"] *,
+body[style*="--current-battery-level"][style*="30%"] * {
+  animation-duration: var(--anim-speed-ultra-fast) !important;
+  transition-duration: var(--anim-speed-ultra-fast) !important;
+}
+
+body[style*="--current-battery-level"][style*="15%"] .non-essential-animation,
+body[style*="--current-battery-level"][style*="20%"] .non-essential-animation,
+body[style*="--current-battery-level"][style*="25%"] .non-essential-animation,
+body[style*="--current-battery-level"][style*="30%"] .non-essential-animation {
+  animation: none !important;
+}
+
+/* Medium battery (30-60%) - Reduced animations */
+body[style*="--current-battery-level"][style*="40%"] *,
+body[style*="--current-battery-level"][style*="50%"] * {
+  animation-duration: var(--anim-speed-fast) !important;
+  transition-duration: var(--anim-speed-fast) !important;
+}
+
+/* Full battery (60%+) - Normal animations */
+body[style*="--current-battery-level"][style*="70%"] *,
+body[style*="--current-battery-level"][style*="80%"] *,
+body[style*="--current-battery-level"][style*="90%"] *,
+body[style*="--current-battery-level"][style*="100%"] * {
+  animation-duration: var(--current-animation-speed) !important;
+  transition-duration: var(--current-animation-speed) !important;
+}
+
+/* ==========================================================================
+   Reduced Motion Support (Accessibility)
+   ========================================================================== */
+
+/* System preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Maintain essential feedback without motion */
+  .interactive-feedback:hover,
+  .interactive-feedback:focus {
+    background-color: rgba(164, 183, 146, 0.2) !important;
+    border-color: rgba(164, 183, 146, 0.6) !important;
+    outline: 2px solid rgba(164, 183, 146, 0.8) !important;
+  }
+  
+  .interactive-feedback:active {
+    background-color: rgba(164, 183, 146, 0.4) !important;
+  }
+  
+  /* Replace motion with color/opacity changes */
+  .loading-animation {
+    animation: none !important;
+    opacity: 0.7 !important;
+  }
+  
+  .loading-animation::after {
+    content: ' (Loading...)' !important;
+  }
+  
+  /* Static alternatives for motion-based feedback */
+  .crisis-pulse {
+    animation: none !important;
+    background-color: #dc2626 !important;
+    border: 3px solid #ffffff !important;
+  }
+  
+  .breathing-animation {
+    animation: none !important;
+    opacity: 0.9 !important;
+  }
+}
+
+/* User-controlled reduced motion class */
+.reduced-motion-mode *,
+.reduced-motion-mode *::before,
+.reduced-motion-mode *::after {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+.reduced-motion-mode .interactive-feedback:hover,
+.reduced-motion-mode .interactive-feedback:focus {
+  background-color: rgba(164, 183, 146, 0.3) !important;
+  outline: 3px solid rgba(164, 183, 146, 0.8) !important;
+}
+
+/* ==========================================================================
+   Crisis-Aware Motion Design
+   ========================================================================== */
+
+.crisis-mode {
+  --current-animation-speed: var(--anim-speed-fast);
+  --current-motion-intensity: var(--motion-reduced);
+}
+
+.crisis-mode .decorative-animation,
+.crisis-mode .background-animation {
+  animation: none !important;
+  display: none !important;
+}
+
+.crisis-mode .essential-feedback {
+  animation-duration: var(--anim-speed-fast) !important;
+  animation-iteration-count: 1 !important;
+}
+
+.emergency-mode {
+  --current-animation-speed: var(--anim-speed-ultra-fast);
+  --current-motion-intensity: var(--motion-minimal);
+}
+
+.emergency-mode * {
+  animation: none !important;
+  transition: background-color 0.1s ease, border-color 0.1s ease !important;
+}
+
+.emergency-mode .critical-animation {
+  animation: crisis-pulse 1s ease-in-out 3 !important;
+}
+
+/* ==========================================================================
+   Trauma-Informed Hover and Focus States
+   ========================================================================== */
+
+/* Gentle hover transitions that don't startle */
+.gentle-hover {
+  transition: all var(--current-animation-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gentle-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(164, 183, 146, 0.2);
+}
+
+.gentle-hover:active {
+  transform: translateY(0);
+  transition-duration: var(--anim-speed-ultra-fast);
+}
+
+/* Focus states that are calming and supportive */
+.supportive-focus {
+  transition: all var(--current-animation-speed) ease;
+}
+
+.supportive-focus:focus {
+  outline: 3px solid rgba(164, 183, 146, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(164, 183, 146, 0.2);
+}
+
+/* Crisis-safe interactive states */
+.crisis-safe-interaction {
+  transition: background-color var(--anim-speed-fast) ease;
+}
+
+.crisis-safe-interaction:hover {
+  background-color: rgba(164, 183, 146, 0.1);
+}
+
+.crisis-safe-interaction:active {
+  background-color: rgba(164, 183, 146, 0.2);
+}
+
+/* ==========================================================================
+   Device-Specific Motion Optimizations
+   ========================================================================== */
+
+/* iOS optimizations */
+@supports (-webkit-touch-callout: none) {
+  .ios-optimized-motion {
+    /* Use iOS-native animation curves */
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .ios-spring-animation {
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  /* Optimize for 120Hz ProMotion displays */
+  @media (min-resolution: 2dppx) {
+    .ios-optimized-motion {
+      animation-duration: calc(var(--current-animation-speed) * 0.8);
+    }
+  }
+}
+
+/* Android optimizations */
+@media (max-width: 768px) and (pointer: coarse) {
+  .android-optimized-motion {
+    /* Material Design motion curves */
+    animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .android-enter-animation {
+    animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+  }
+  
+  .android-exit-animation {
+    animation-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+  }
+}
+
+/* ==========================================================================
+   Performance-Aware Animation Layers
+   ========================================================================== */
+
+/* GPU-accelerated animations for capable devices */
+.gpu-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* CPU-only animations for low-end devices */
+.cpu-only {
+  will-change: auto;
+  transform: none;
+}
+
+.perf-ultra-low .gpu-accelerated {
+  will-change: auto !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.perf-low .gpu-accelerated {
+  animation-duration: var(--anim-speed-ultra-fast) !important;
+}
+
+/* ==========================================================================
+   Context-Aware Animation States
+   ========================================================================== */
+
+/* Animations during journaling (calming) */
+.journaling-context {
+  --current-animation-speed: var(--anim-speed-gentle);
+}
+
+.journaling-context .background-subtle {
+  animation: gentle-breathing 8s ease-in-out infinite;
+}
+
+/* Animations during crisis (minimal) */
+.crisis-context {
+  --current-animation-speed: var(--anim-speed-fast);
+}
+
+.crisis-context .non-essential-animation {
+  animation: none !important;
+}
+
+.crisis-context .essential-feedback {
+  animation-duration: var(--anim-speed-ultra-fast) !important;
+}
+
+/* Animations during onboarding (welcoming) */
+.onboarding-context {
+  --current-animation-speed: var(--anim-speed-slow);
+}
+
+.onboarding-context .welcome-animation {
+  animation: gentle-fade-in var(--anim-speed-slow) ease-out;
+  animation-delay: 0.2s;
+}
+
+/* ==========================================================================
+   Adaptive Loading Animations
+   ========================================================================== */
+
+/* Battery-aware loading states */
+.adaptive-loading {
+  opacity: 0.8;
+}
+
+/* High battery - Smooth loading animation */
+body[style*="--current-battery-level"][style*="80%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="90%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="100%"] .adaptive-loading {
+  animation: gentle-breathing 2s ease-in-out infinite;
+}
+
+/* Medium battery - Simple pulse */
+body[style*="--current-battery-level"][style*="40%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="50%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="60%"] .adaptive-loading {
+  animation: gentle-scale 1s ease-in-out infinite;
+}
+
+/* Low battery - Static with text indicator */
+body[style*="--current-battery-level"][style*="15%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="20%"] .adaptive-loading,
+body[style*="--current-battery-level"][style*="30%"] .adaptive-loading {
+  animation: none;
+}
+
+body[style*="--current-battery-level"][style*="15%"] .adaptive-loading::after,
+body[style*="--current-battery-level"][style*="20%"] .adaptive-loading::after,
+body[style*="--current-battery-level"][style*="30%"] .adaptive-loading::after {
+  content: ' Loading...';
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* ==========================================================================
+   Accessibility + Battery Integration
+   ========================================================================== */
+
+/* High contrast mode with reduced motion */
+.high-contrast-mode.reduced-motion-mode .interactive-element {
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+.high-contrast-mode.reduced-motion-mode .interactive-element:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #000000 !important;
+}
+
+/* Large touch targets with gentle feedback */
+.large-touch-targets .gentle-hover:hover {
+  transform: scale(1.02);
+  transition-duration: var(--anim-speed-fast);
+}
+
+.large-touch-targets .gentle-hover:active {
+  transform: scale(0.98);
+  transition-duration: var(--anim-speed-ultra-fast);
+}
+
+/* ==========================================================================
+   Print and Export Optimizations
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  .loading-animation,
+  .breathing-animation,
+  .crisis-pulse {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Debug and Development Tools
+   ========================================================================== */
+
+.animation-debug {
+  outline: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.animation-debug::before {
+  content: attr(data-animation-name);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  z-index: 9999;
+}
+
+/* Battery level indicator for debugging */
+.battery-debug::after {
+  content: 'Battery: ' attr(data-battery-level);
+  position: fixed;
+  top: 40px;
+  right: 10px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 9998;
+}
+
+/* ==========================================================================
+   Responsive Animation Adjustments
+   ========================================================================== */
+
+@media (max-width: 375px) {
+  :root {
+    --current-animation-speed: var(--anim-speed-fast);
+  }
+  
+  .complex-animation {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 320px) {
+  :root {
+    --current-animation-speed: var(--anim-speed-ultra-fast);
+  }
+  
+  .decorative-animation,
+  .background-animation {
+    display: none !important;
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .fullscreen-animation {
+    animation-duration: var(--anim-speed-fast) !important;
+  }
+  
+  .slide-animation {
+    animation: none !important;
+  }
+}

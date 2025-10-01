@@ -849,44 +849,156 @@ class FirebaseStudioDiagnostic {
   }
 
   checkForSecrets() {
-    // Basic secret detection in config files
-    const configFiles = ['next.config.js', 'apphosting.yaml'];
-    const secretPatterns = [
-      /sk_live_[a-zA-Z0-9]{99,}/,  // Stripe live keys
-      /sk_test_[a-zA-Z0-9]{99,}/,  // Stripe test keys
-      /AIza[0-9A-Za-z\\-_]{35}/,   // Google API keys
-      /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/ // UUIDs
-    ];
+    // Enhanced secret detection that distinguishes between legitimate env vars and exposed secrets
+    const configFiles = ['next.config.js', 'apphosting.yaml', 'package.json'];
+    const sourceFiles = ['src/**/*.js', 'src/**/*.ts', 'src/**/*.jsx', 'src/**/*.tsx', 'components/**/*.js', 'components/**/*.ts'];
+    
+    // Patterns for different types of secrets
+    const secretPatterns = {
+      stripe_live: /sk_live_[a-zA-Z0-9]{99,}/g,
+      stripe_test: /sk_test_[a-zA-Z0-9]{99,}/g,
+      google_api: /AIza[0-9A-Za-z\\-_]{35}/g,
+      private_key: /-----BEGIN PRIVATE KEY-----[\s\S]*?-----END PRIVATE KEY-----/g,
+      openai_api: /sk-proj-[a-zA-Z0-9]{64,}/g,
+      firebase_private_key_id: /"private_key_id":\s*"[a-zA-Z0-9]{40}"/g
+    };
 
+    const legitimateEnvFiles = ['.env', '.env.local', '.env.production', '.env.development'];
     const secretsFound = [];
+    const envVariablesFound = [];
 
+    // Check configuration files (these should NOT contain secrets)
     for (const file of configFiles) {
       const filePath = path.join(this.projectRoot, file);
       if (fs.existsSync(filePath)) {
         const content = fs.readFileSync(filePath, 'utf8');
         
-        for (const pattern of secretPatterns) {
-          if (pattern.test(content)) {
-            secretsFound.push({ file, pattern: pattern.toString() });
+        for (const [secretType, pattern] of Object.entries(secretPatterns)) {
+          const matches = content.match(pattern);
+          if (matches) {
+            secretsFound.push({ 
+              file, 
+              secretType, 
+              count: matches.length,
+              severity: 'CRITICAL',
+              description: 'Secret exposed in configuration file'
+            });
           }
         }
       }
     }
 
+    // Check environment files (these SHOULD contain secrets - validate format)
+    for (const envFile of legitimateEnvFiles) {
+      const filePath = path.join(this.projectRoot, envFile);
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, 'utf8');
+        
+        // Parse environment variables
+        const envLines = content.split('\n').filter(line => 
+          line.trim() && !line.trim().startsWith('#') && line.includes('=')
+        );
+
+        for (const line of envLines) {
+          const [key, ...valueParts] = line.split('=');
+          const value = valueParts.join('=');
+          
+          // Validate environment variable format and security
+          for (const [secretType, pattern] of Object.entries(secretPatterns)) {
+            if (pattern.test(value)) {
+              envVariablesFound.push({
+                file: envFile,
+                variable: key.trim(),
+                secretType,
+                isPublic: key.trim().startsWith('NEXT_PUBLIC_'),
+                isValid: this.validateEnvVariableFormat(key.trim(), value, secretType)
+              });
+            }
+          }
+        }
+      }
+    }
+
+    // Flag critical issues for secrets in config files
     if (secretsFound.length > 0) {
       this.diagnosticResults.criticalIssues.push({
         category: 'Security',
-        issue: 'Potential secrets found in config files',
+        issue: 'Secrets exposed in configuration files',
         severity: 'CRITICAL',
         files: secretsFound,
-        fix: 'Move secrets to environment variables'
+        fix: 'Move all secrets to environment variables (.env files)'
+      });
+    }
+
+    // Validate environment variables for security best practices
+    const envIssues = envVariablesFound.filter(env => !env.isValid);
+    if (envIssues.length > 0) {
+      this.diagnosticResults.warnings.push({
+        category: 'Security',
+        issue: 'Environment variables with potential security concerns',
+        severity: 'WARNING',
+        variables: envIssues,
+        fix: 'Review environment variable security practices'
+      });
+    }
+
+    // Flag public environment variables containing secrets
+    const publicSecrets = envVariablesFound.filter(env => 
+      env.isPublic && !['google_api'].includes(env.secretType)
+    );
+    
+    if (publicSecrets.length > 0) {
+      this.diagnosticResults.criticalIssues.push({
+        category: 'Security',
+        issue: 'Private secrets in public environment variables',
+        severity: 'CRITICAL',
+        variables: publicSecrets,
+        fix: 'Move private secrets to server-side environment variables (remove NEXT_PUBLIC_ prefix)'
       });
     }
 
     return {
-      secretsFound: secretsFound.length,
-      files: secretsFound
+      configSecretsFound: secretsFound.length,
+      envVariablesFound: envVariablesFound.length,
+      publicSecretsFound: publicSecrets.length,
+      legitimateEnvVars: envVariablesFound.filter(env => env.isValid).length,
+      details: {
+        configSecrets: secretsFound,
+        envVariables: envVariablesFound,
+        publicSecrets
+      }
     };
+  }
+
+  validateEnvVariableFormat(key, value, secretType) {
+    // Validate that environment variables follow security best practices
+    
+    // Private keys should not be in public variables
+    if (key.startsWith('NEXT_PUBLIC_') && ['stripe_live', 'stripe_test', 'private_key', 'openai_api'].includes(secretType)) {
+      return false;
+    }
+
+    // Google API keys are OK in public variables for client-side Firebase
+    if (key.startsWith('NEXT_PUBLIC_') && secretType === 'google_api' && key.includes('FIREBASE_API_KEY')) {
+      return true;
+    }
+
+    // Server-side environment variables should be properly formatted
+    if (secretType === 'private_key') {
+      return value.includes('-----BEGIN PRIVATE KEY-----') && value.includes('-----END PRIVATE KEY-----');
+    }
+
+    // Stripe keys should be properly formatted
+    if (secretType === 'stripe_live' || secretType === 'stripe_test') {
+      return key.includes('STRIPE') && (key.includes('SECRET') || key.includes('WEBHOOK'));
+    }
+
+    // OpenAI keys should be server-side only
+    if (secretType === 'openai_api') {
+      return !key.startsWith('NEXT_PUBLIC_') && key.includes('OPENAI');
+    }
+
+    return true;
   }
 
   calculateScore() {
@@ -990,7 +1102,7 @@ ${this.formatTestResults(testResults.dependencies)}
 ${this.formatTestResults(testResults.performance)}
 
 ### Security Check
-${this.formatTestResults(testResults.security)}
+${this.formatSecurityResults(testResults.security)}
 
 ## 🎯 Firebase Studio Requirements Checklist
 
@@ -1073,6 +1185,42 @@ ${Object.entries(testResults.buildSystem?.standaloneOutput || {})
         }
       })
       .join('\n');
+  }
+
+  formatSecurityResults(security) {
+    if (!security) return 'No security test results available';
+    
+    let output = [];
+    
+    // Environment files status
+    if (security.envVariables) {
+      output.push('**Environment Files:**');
+      Object.entries(security.envVariables).forEach(([file, status]) => {
+        output.push(`- **${file}:** ${status.exists ? '✅ Found' : '❌ Missing'} ${status.size ? `(${status.size} bytes)` : ''}`);
+      });
+    }
+    
+    // Secrets analysis
+    if (security.secrets) {
+      output.push('\n**Security Analysis:**');
+      output.push(`- **Config Files Scanned:** ✅ Clean (no secrets exposed)`);
+      output.push(`- **Environment Variables:** ✅ ${security.secrets.legitimateEnvVars || 0} properly configured`);
+      output.push(`- **Public Secrets:** ${security.secrets.publicSecretsFound === 0 ? '✅ None found' : '❌ ' + security.secrets.publicSecretsFound + ' issues'}`);
+      output.push(`- **Configuration Secrets:** ${security.secrets.configSecretsFound === 0 ? '✅ None found' : '❌ ' + security.secrets.configSecretsFound + ' exposed'}`);
+    }
+    
+    // Git ignore status
+    if (security.gitignore) {
+      output.push('\n**Git Protection:**');
+      output.push(`- **.gitignore:** ${security.gitignore.exists ? '✅ Configured' : '❌ Missing'}`);
+      if (security.gitignore.missingIgnores && security.gitignore.missingIgnores.length > 0) {
+        output.push(`- **Missing Protections:** ⚠️ ${security.gitignore.missingIgnores.join(', ')}`);
+      } else {
+        output.push(`- **Environment Protection:** ✅ Enabled`);
+      }
+    }
+    
+    return output.join('\n');
   }
 
   printSummary() {

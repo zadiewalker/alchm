@@ -477,12 +477,6 @@ export function KheperaCulturalIcon({
   );
 }
 
-// ===== EXPORT ALL ICONS =====
+// ===== EXPORT DEFAULT =====
 
-export {
-  KheperaScarabIcon as default,
-  KheperaMinimalIcon,
-  KheperaLoadingSpinner,
-  KheperaPresenceIndicator,
-  KheperaCulturalIcon
-};
+export default KheperaScarabIcon;

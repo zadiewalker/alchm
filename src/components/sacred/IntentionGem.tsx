@@ -51,7 +51,7 @@ export const IntentionGem = forwardRef<HTMLButtonElement, IntentionGemProps>(({
     
     // Add ceremonial ripple effect
     const gem = e.currentTarget;
-    const ripple = document.createElement('div');
+    const ripple = typeof window !== 'undefined' && document.createElement('div');
     ripple.className = 'sacred-ripple';
     
     const rect = gem.getBoundingClientRect();

@@ -1,0 +1,257 @@
+{
+  "timestamp": "2025-09-10T05:38:19.270Z",
+  "overallScore": 95.65217391304348,
+  "totalTests": 46,
+  "passedTests": 44,
+  "failedTests": 2,
+  "warnings": [
+    "Environment file found in repository - check for secrets",
+    "Consider adding responsive design breakpoints"
+  ],
+  "testSuites": {
+    "Firebase Studio Integration Tests": {
+      "totalTests": 8,
+      "passedTests": 7,
+      "failedTests": 1,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "Firebase configuration exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Firestore rules require authentication",
+          "status": "PASSED"
+        },
+        {
+          "name": "Firebase Functions entry point exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Firebase client properly initialized",
+          "status": "PASSED"
+        },
+        {
+          "name": "Next.js configured for static export",
+          "status": "PASSED"
+        },
+        {
+          "name": "Static build output generated",
+          "status": "PASSED"
+        },
+        {
+          "name": "Firebase Admin SDK configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Firebase Hosting properly configured",
+          "status": "FAILED"
+        }
+      ]
+    },
+    "App Store Compatibility Tests": {
+      "totalTests": 6,
+      "passedTests": 5,
+      "failedTests": 1,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "PWA manifest complete",
+          "status": "PASSED"
+        },
+        {
+          "name": "Sufficient icon sizes available",
+          "status": "PASSED"
+        },
+        {
+          "name": "Privacy policy comprehensive",
+          "status": "FAILED"
+        },
+        {
+          "name": "Mobile-specific styling exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "PWA configured for standalone mode",
+          "status": "PASSED"
+        },
+        {
+          "name": "App categorized appropriately",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Performance Regression Tests": {
+      "totalTests": 5,
+      "passedTests": 5,
+      "failedTests": 0,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "Bundle analyzer configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Image optimization configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Core Web Vitals monitoring active",
+          "status": "PASSED"
+        },
+        {
+          "name": "Build memory optimized",
+          "status": "PASSED"
+        },
+        {
+          "name": "Performance monitoring system active",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Security Penetration Tests": {
+      "totalTests": 6,
+      "passedTests": 6,
+      "failedTests": 0,
+      "warnings": [
+        "Environment file found in repository - check for secrets"
+      ],
+      "testDetails": [
+        {
+          "name": "Firestore rules enforce authentication",
+          "status": "PASSED"
+        },
+        {
+          "name": "Middleware configured for route protection",
+          "status": "PASSED"
+        },
+        {
+          "name": "Centralized error handling exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Security utilities configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Security headers configured",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Accessibility Compliance Tests": {
+      "totalTests": 4,
+      "passedTests": 4,
+      "failedTests": 0,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "Component structure supports accessibility",
+          "status": "PASSED"
+        },
+        {
+          "name": "Trauma-informed color scheme configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "React framework provides keyboard navigation",
+          "status": "PASSED"
+        },
+        {
+          "name": "UI components structured for screen readers",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Mental Health Safety Tests": {
+      "totalTests": 7,
+      "passedTests": 7,
+      "failedTests": 0,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "Enhanced crisis detection system active",
+          "status": "PASSED"
+        },
+        {
+          "name": "Crisis support UI components exist",
+          "status": "PASSED"
+        },
+        {
+          "name": "Cultural crisis resources configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Trauma-informed AI engine configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "Age verification component exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Medical disclaimer component exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Youth privacy protection systems active",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Cross-Platform Functionality Tests": {
+      "totalTests": 5,
+      "passedTests": 5,
+      "failedTests": 0,
+      "warnings": [
+        "Consider adding responsive design breakpoints"
+      ],
+      "testDetails": [
+        {
+          "name": "Capacitor mobile configuration exists",
+          "status": "PASSED"
+        },
+        {
+          "name": "Android manifest configured",
+          "status": "PASSED"
+        },
+        {
+          "name": "PWA configured for mobile experience",
+          "status": "PASSED"
+        },
+        {
+          "name": "Mobile-optimized styling exists",
+          "status": "PASSED"
+        }
+      ]
+    },
+    "Educational Privacy Tests": {
+      "totalTests": 5,
+      "passedTests": 5,
+      "failedTests": 0,
+      "warnings": [],
+      "testDetails": [
+        {
+          "name": "Age verification for COPPA compliance",
+          "status": "PASSED"
+        },
+        {
+          "name": "Privacy policy includes educational compliance",
+          "status": "PASSED"
+        },
+        {
+          "name": "Youth-specific privacy protections exist",
+          "status": "PASSED"
+        },
+        {
+          "name": "Age verification includes parental consent flow",
+          "status": "PASSED"
+        },
+        {
+          "name": "Student data properly secured in Firestore",
+          "status": "PASSED"
+        }
+      ]
+    }
+  }
+}

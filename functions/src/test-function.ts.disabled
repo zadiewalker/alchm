@@ -1,0 +1,11 @@
+import * as functions from 'firebase-functions';
+
+// Simple test function to verify deployment works
+export const testFunction = functions
+  .runWith({ memory: '128MB' })
+  .https.onRequest(async (req, res) => {
+    res.status(200).json({ 
+      message: 'Test function is working!',
+      timestamp: new Date().toISOString()
+    });
+  });

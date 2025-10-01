@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auth Test - ALCHM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+  <div class="min-h-screen flex items-center justify-center py-12 px-4">
+    <div class="max-w-md w-full space-y-8">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900">Auth Test - ALCHM</h2>
+        <p class="text-gray-600">Testing Authentication Flow</p>
+      </div>
+      
+      <div class="space-y-4">
+        <button id="google-signin" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+          Continue with Google
+        </button>
+        
+        <button id="test-session" class="w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" style="display:none;">
+          Test Session Creation
+        </button>
+        
+        <button id="logout" class="w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" style="display:none;">
+          Sign Out
+        </button>
+      </div>
+      
+      <div id="status" class="text-center text-sm bg-gray-100 p-4 rounded"></div>
+      <div id="debug" class="text-center text-xs bg-gray-50 p-4 rounded overflow-auto max-h-64"></div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+      authDomain: "alchm-digital-sanctuary.web.app", 
+      projectId: "alchm-digital-sanctuary",
+      storageBucket: "alchm-digital-sanctuary.appspot.com",
+      messagingSenderId: "10211111067",
+      appId: "1:10211111067:web:4f23562b8a1f63cd8c963e",
+      measurementId: "G-0RPJ2D5M1R"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    
+    const status = document.getElementById('status');
+    const debug = document.getElementById('debug');
+    const testSessionBtn = document.getElementById('test-session');
+    const logoutBtn = document.getElementById('logout');
+    
+    function log(message) {
+      console.log(message);
+      debug.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+      debug.scrollTop = debug.scrollHeight;
+    }
+    
+    log('Initializing auth test...');
+    
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        status.innerHTML = '<span class="text-green-800">✅ Signed in as ' + (user.displayName || user.email) + '</span>';
+        testSessionBtn.style.display = 'block';
+        logoutBtn.style.display = 'block';
+        log('User authenticated: ' + user.uid);
+      } else {
+        status.innerHTML = '<span class="text-gray-500">Not signed in</span>';
+        testSessionBtn.style.display = 'none';
+        logoutBtn.style.display = 'none';
+        log('User not authenticated');
+      }
+    });
+    
+    document.getElementById('google-signin').addEventListener('click', async () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      
+      log('Starting Google sign-in...');
+      
+      try {
+        const result = await auth.signInWithPopup(provider);
+        log('Sign-in successful: ' + result.user.uid);
+      } catch (error) {
+        log('Sign-in error: ' + error.message);
+        status.innerHTML = '<span class="text-red-600">❌ Sign-in failed: ' + error.message + '</span>';
+      }
+    });
+    
+    document.getElementById('test-session').addEventListener('click', async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        log('No user signed in');
+        return;
+      }
+      
+      try {
+        log('Getting ID token...');
+        const idToken = await user.getIdToken();
+        log('ID token obtained, creating session...');
+        
+        const response = await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            uid: user.uid,
+            user: {
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName
+            }
+          }),
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          log('Session created successfully: ' + JSON.stringify(result));
+          status.innerHTML = '<span class="text-green-800">✅ Session created successfully</span>';
+        } else {
+          log('Session creation failed: ' + JSON.stringify(result));
+          status.innerHTML = '<span class="text-red-600">❌ Session creation failed</span>';
+        }
+      } catch (error) {
+        log('Session test error: ' + error.message);
+        status.innerHTML = '<span class="text-red-600">❌ Session test failed</span>';
+      }
+    });
+    
+    document.getElementById('logout').addEventListener('click', async () => {
+      try {
+        await auth.signOut();
+        log('Signed out successfully');
+        
+        // Clear session cookie
+        await fetch('/api/auth/session', { method: 'DELETE' });
+        log('Session cleared');
+      } catch (error) {
+        log('Logout error: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

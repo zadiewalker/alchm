@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM User Testing Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 16px;
+            color: #2c3e2d;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(254, 252, 251, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #a4b792;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #2c3e2d;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7c6b;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: #f8f9f8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #a4b792;
+        }
+
+        .question-group {
+            margin-bottom: 32px;
+            padding: 32px;
+            background: rgba(254, 252, 251, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .question-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(164, 183, 146, 0.1);
+        }
+
+        .question-group h2 {
+            color: #a4b792;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e2d;
+        }
+
+        .required {
+            color: #d32f2f;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(254, 252, 251, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            min-height: 48px;
+            color: #2c3e2d;
+            transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(164, 183, 146, 0.6);
+            box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(164, 183, 146, 0.7);
+            font-style: italic;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .rating-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            min-height: 48px;
+            min-width: 48px;
+            background: rgba(254, 252, 251, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            touch-action: manipulation;
+        }
+
+        .rating-option:hover {
+            border-color: #a4b792;
+            background: rgba(164, 183, 146, 0.15);
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(164, 183, 146, 0.2);
+        }
+        
+        .rating-option:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .rating-option input[type="radio"] {
+            width: auto;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            min-height: 48px;
+            background: rgba(254, 252, 251, 0.6);
+            border: 1px solid rgba(164, 183, 146, 0.2);
+            border-radius: 12px;
+            transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+        
+        .checkbox-option:hover {
+            background: rgba(164, 183, 146, 0.1);
+            border-color: rgba(164, 183, 146, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: auto;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7e5;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #a4b792;
+            color: white;
+            padding: 16px 48px;
+            border: 1px solid #a4b792;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: inherit;
+            min-height: 56px;
+            min-width: 160px;
+            cursor: pointer;
+            transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 2px 8px rgba(164, 183, 146, 0.3);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: #93a682;
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 8px 32px rgba(164, 183, 146, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0) scale(0.99);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .thank-you {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #a4b792;
+            margin-bottom: 20px;
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            padding: 16px;
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(164, 183, 146, 0.3);
+            transition: all 200ms ease;
+        }
+        
+        .progress-dot.active {
+            background: #a4b792;
+            transform: scale(1.2);
+        }
+        
+        /* Take a Pause Button */
+        .pause-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(254, 252, 251, 0.8);
+            color: #a4b792;
+            padding: 8px 16px;
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 200ms ease;
+            margin-top: 16px;
+        }
+        
+        .pause-button:hover {
+            background: rgba(164, 183, 146, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        @media (prefers-contrast: high) {
+            .rating-option,
+            .checkbox-option,
+            input,
+            select,
+            textarea {
+                border: 2px solid #a4b792 !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 8px;
+            }
+            
+            .container {
+                padding: 24px;
+                margin: 8px;
+                border-radius: 16px;
+            }
+            
+            .question-group {
+                padding: 24px;
+            }
+            
+            .rating-group {
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .rating-option {
+                min-height: 52px;
+                min-width: 52px;
+                padding: 12px;
+            }
+            
+            .checkbox-option {
+                min-height: 52px;
+                padding: 16px;
+            }
+            
+            .submit-btn {
+                min-height: 60px;
+                width: 100%;
+            }
+        }
+        
+        /* Gentle animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">ALCHM</div>
+            <h1>User Testing Survey</h1>
+            <p class="subtitle">Help us improve the trauma-informed journaling experience and crisis support features</p>
+        </div>
+
+        <div class="instructions">
+            <h3 style="margin-bottom: 10px;">📋 Testing Instructions</h3>
+            <ol style="margin-left: 20px; line-height: 1.7;">
+                <li><strong>Visit:</strong> <a href="https://alchm-digital-sanctuary.web.app" target="_blank">https://alchm-digital-sanctuary.web.app</a></li>
+                <li><strong>Sign up</strong> and create an account</li>
+                <li><strong>Write</strong> at least one journal entry (can be fictional)</li>
+                <li><strong>Explore</strong> the dashboard and other features</li>
+                <li><strong>Test</strong> the mobile experience if possible</li>
+                <li><strong>Complete</strong> this survey with your honest feedback</li>
+            </ol>
+            <p style="margin-top: 20px; font-style: italic; color: #6b7c6b; line-height: 1.6;">
+                ⏱️ Estimated time: 20-30 minutes total (15 min testing + 10 min survey)<br>
+                🌿 Take your time - this survey is designed to be completed at your own pace
+            </p>
+        </div>
+        
+        <div class="progress-indicator" id="progressIndicator">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+        </div>
+
+        <form id="testingForm" action="#" method="post">
+            <!-- Demographics -->
+            <div class="question-group">
+                <h2>👤 About You</h2>
+                
+                <div class="question">
+                    <label>Name (optional):</label>
+                    <input type="text" name="name" placeholder="Your name or initials">
+                </div>
+
+                <div class="question">
+                    <label>Email (for follow-up questions):</label>
+                    <input type="email" name="email" placeholder="your@email.com">
+                </div>
+
+                <div class="question">
+                    <label>Age group: <span class="required">*</span></label>
+                    <select name="age_group" required>
+                        <option value="">Select age group</option>
+                        <option value="17-24">17-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55+">55+</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How did you test the app?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="desktop" name="device" value="desktop">
+                            <label for="desktop">Desktop/Laptop</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="mobile" name="device" value="mobile">
+                            <label for="mobile">Mobile Phone</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="tablet" name="device" value="tablet">
+                            <label for="tablet">Tablet</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- First Impressions -->
+            <div class="question-group">
+                <h2>✨ First Impressions</h2>
+                
+                <div class="question">
+                    <label>Overall first impression (1-10): <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="first_1" name="first_impression" value="1" required>
+                            <label for="first_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_2" name="first_impression" value="2">
+                            <label for="first_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_3" name="first_impression" value="3">
+                            <label for="first_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_4" name="first_impression" value="4">
+                            <label for="first_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_5" name="first_impression" value="5">
+                            <label for="first_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_6" name="first_impression" value="6">
+                            <label for="first_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_7" name="first_impression" value="7">
+                            <label for="first_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_8" name="first_impression" value="8">
+                            <label for="first_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_9" name="first_impression" value="9">
+                            <label for="first_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="first_10" name="first_impression" value="10">
+                            <label for="first_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>What was your immediate reaction when you first saw the app?</label>
+                    <textarea name="immediate_reaction" placeholder="Describe your first thoughts..."></textarea>
+                </div>
+
+                <div class="question">
+                    <label>How easy was it to understand what the app does?</label>
+                    <select name="clarity">
+                        <option value="">Select one</option>
+                        <option value="very_clear">Very clear - understood immediately</option>
+                        <option value="mostly_clear">Mostly clear - took a moment</option>
+                        <option value="somewhat_unclear">Somewhat unclear - had to explore</option>
+                        <option value="confusing">Confusing - wasn't sure</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Sign-up Experience -->
+            <div class="question-group">
+                <h2>🔐 Sign-up & Login</h2>
+                
+                <div class="question">
+                    <label>How easy was the sign-up process (1-10): <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="signup_1" name="signup_ease" value="1" required>
+                            <label for="signup_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_2" name="signup_ease" value="2">
+                            <label for="signup_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_3" name="signup_ease" value="3">
+                            <label for="signup_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_4" name="signup_ease" value="4">
+                            <label for="signup_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_5" name="signup_ease" value="5">
+                            <label for="signup_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_6" name="signup_ease" value="6">
+                            <label for="signup_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_7" name="signup_ease" value="7">
+                            <label for="signup_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_8" name="signup_ease" value="8">
+                            <label for="signup_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_9" name="signup_ease" value="9">
+                            <label for="signup_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="signup_10" name="signup_ease" value="10">
+                            <label for="signup_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>Did you encounter any issues during sign-up?</label>
+                    <textarea name="signup_issues" placeholder="Describe any problems or confusion..."></textarea>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Journaling Experience -->
+            <div class="question-group">
+                <h2>✍️ Journaling Experience</h2>
+                
+                <div class="question">
+                    <label>How intuitive was the journal writing interface (1-10): <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="journal_1" name="journal_interface" value="1" required>
+                            <label for="journal_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_2" name="journal_interface" value="2">
+                            <label for="journal_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_3" name="journal_interface" value="3">
+                            <label for="journal_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_4" name="journal_interface" value="4">
+                            <label for="journal_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_5" name="journal_interface" value="5">
+                            <label for="journal_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_6" name="journal_interface" value="6">
+                            <label for="journal_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_7" name="journal_interface" value="7">
+                            <label for="journal_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_8" name="journal_interface" value="8">
+                            <label for="journal_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_9" name="journal_interface" value="9">
+                            <label for="journal_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="journal_10" name="journal_interface" value="10">
+                            <label for="journal_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>Did you receive an AI response to your journal entry?</label>
+                    <select name="ai_response" id="ai_response">
+                        <option value="">Select one</option>
+                        <option value="yes">Yes, I received a response</option>
+                        <option value="no">No, I didn't get a response</option>
+                        <option value="partial">I got a partial or unclear response</option>
+                        <option value="error">There was an error</option>
+                    </select>
+                </div>
+
+                <div class="question" id="ai_quality_question" style="display:none;">
+                    <label>How helpful was the AI response (1-10):</label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="ai_1" name="ai_quality" value="1">
+                            <label for="ai_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_2" name="ai_quality" value="2">
+                            <label for="ai_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_3" name="ai_quality" value="3">
+                            <label for="ai_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_4" name="ai_quality" value="4">
+                            <label for="ai_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_5" name="ai_quality" value="5">
+                            <label for="ai_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_6" name="ai_quality" value="6">
+                            <label for="ai_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_7" name="ai_quality" value="7">
+                            <label for="ai_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_8" name="ai_quality" value="8">
+                            <label for="ai_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_9" name="ai_quality" value="9">
+                            <label for="ai_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="ai_10" name="ai_quality" value="10">
+                            <label for="ai_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>Describe your experience with the AI response (if you received one):</label>
+                    <textarea name="ai_experience" placeholder="Was it helpful? Relevant? How did it make you feel?"></textarea>
+                </div>
+
+                <div class="question">
+                    <label>If you wrote about difficult emotions or challenging thoughts, did the app respond appropriately?</label>
+                    <select name="difficult_emotions_response">
+                        <option value="">Select one (or N/A if didn't write about difficult topics)</option>
+                        <option value="very_appropriate">Very appropriate - felt understood and supported</option>
+                        <option value="somewhat_appropriate">Somewhat appropriate - decent response</option>
+                        <option value="neutral">Neutral - standard response regardless of content</option>
+                        <option value="inappropriate">Inappropriate - response didn't match the seriousness</option>
+                        <option value="concerning">Concerning - response was unhelpful or harmful</option>
+                        <option value="na">N/A - didn't write about difficult emotions</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Did the app seem to recognize when you might need extra support or resources?</label>
+                    <select name="support_recognition">
+                        <option value="">Select one</option>
+                        <option value="yes_appropriate">Yes, and it responded appropriately</option>
+                        <option value="yes_too_much">Yes, but the response felt overwhelming</option>
+                        <option value="yes_too_little">Yes, but didn't offer enough support</option>
+                        <option value="missed_cues">No, it missed obvious signs I might need help</option>
+                        <option value="no_difficult_content">No, I didn't write anything that would trigger support</option>
+                        <option value="unsure">Unsure - couldn't tell if it was recognizing anything</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Navigation & Design -->
+            <div class="question-group">
+                <h2>🧭 Navigation & Design</h2>
+                
+                <div class="question">
+                    <label>How easy was it to navigate the app (1-10): <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="nav_1" name="navigation" value="1" required>
+                            <label for="nav_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_2" name="navigation" value="2">
+                            <label for="nav_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_3" name="navigation" value="3">
+                            <label for="nav_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_4" name="navigation" value="4">
+                            <label for="nav_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_5" name="navigation" value="5">
+                            <label for="nav_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_6" name="navigation" value="6">
+                            <label for="nav_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_7" name="navigation" value="7">
+                            <label for="nav_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_8" name="navigation" value="8">
+                            <label for="nav_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_9" name="navigation" value="9">
+                            <label for="nav_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="nav_10" name="navigation" value="10">
+                            <label for="nav_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>How do you feel about the visual design and colors?</label>
+                    <select name="design_feeling">
+                        <option value="">Select one</option>
+                        <option value="love">Love it - very calming and welcoming</option>
+                        <option value="like">Like it - nice and professional</option>
+                        <option value="neutral">Neutral - it's fine</option>
+                        <option value="dislike">Don't like it - feels off somehow</option>
+                        <option value="hate">Really don't like it - unappealing</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Did you feel the app was designed with mental health and safety in mind?</label>
+                    <select name="mental_health_design">
+                        <option value="">Select one</option>
+                        <option value="definitely">Definitely - very thoughtful design</option>
+                        <option value="mostly">Mostly - shows some consideration</option>
+                        <option value="somewhat">Somewhat - a few good elements</option>
+                        <option value="not_really">Not really - feels generic</option>
+                        <option value="not_at_all">Not at all - concerning</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If you were feeling overwhelmed or in crisis, how usable would this interface be?</label>
+                    <select name="crisis_usability">
+                        <option value="">Select one</option>
+                        <option value="very_usable">Very usable - clear and simple even when distressed</option>
+                        <option value="mostly_usable">Mostly usable - might struggle with some elements</option>
+                        <option value="somewhat_usable">Somewhat usable - would need to focus hard</option>
+                        <option value="difficult">Difficult - too complex for crisis moments</option>
+                        <option value="unusable">Unusable - would give up trying</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Are buttons and touch targets large enough for someone with shaking hands or motor difficulties?</label>
+                    <select name="accessibility_motor">
+                        <option value="">Select one</option>
+                        <option value="excellent">Excellent - very large and easy to hit</option>
+                        <option value="good">Good - adequate size for most situations</option>
+                        <option value="acceptable">Acceptable - might struggle in crisis</option>
+                        <option value="poor">Poor - too small for steady tapping</option>
+                        <option value="very_poor">Very poor - would be impossible when shaking</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How would the app's colors and design affect someone who is feeling depressed or anxious?</label>
+                    <select name="emotional_design_impact">
+                        <option value="">Select one</option>
+                        <option value="very_calming">Very calming - would help reduce distress</option>
+                        <option value="somewhat_calming">Somewhat calming - generally soothing</option>
+                        <option value="neutral">Neutral - no particular emotional impact</option>
+                        <option value="somewhat_agitating">Somewhat agitating - might increase stress</option>
+                        <option value="very_agitating">Very agitating - would worsen emotional state</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Technical Issues -->
+            <div class="question-group">
+                <h2>⚙️ Technical Performance</h2>
+                
+                <div class="question">
+                    <label>Did you encounter any bugs or technical issues?</label>
+                    <textarea name="technical_issues" placeholder="Describe any errors, slow loading, crashes, or confusing behavior..."></textarea>
+                </div>
+
+                <div class="question">
+                    <label>How was the app's loading speed?</label>
+                    <select name="loading_speed">
+                        <option value="">Select one</option>
+                        <option value="very_fast">Very fast - loaded instantly</option>
+                        <option value="fast">Fast - loaded within 2-3 seconds</option>
+                        <option value="acceptable">Acceptable - took 5-10 seconds</option>
+                        <option value="slow">Slow - took 10-30 seconds</option>
+                        <option value="very_slow">Very slow - took more than 30 seconds</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If you tested on mobile, how was the mobile experience?</label>
+                    <select name="mobile_experience">
+                        <option value="">Select one (or N/A if didn't test mobile)</option>
+                        <option value="excellent">Excellent - worked perfectly</option>
+                        <option value="good">Good - minor issues</option>
+                        <option value="fair">Fair - several issues but usable</option>
+                        <option value="poor">Poor - hard to use</option>
+                        <option value="terrible">Terrible - barely functional</option>
+                        <option value="na">N/A - didn't test on mobile</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How important is it that crisis support features work without internet connection?</label>
+                    <select name="offline_crisis_importance">
+                        <option value="">Select one</option>
+                        <option value="critical">Critical - emergency features must work offline</option>
+                        <option value="very_important">Very important - would expect basic crisis resources offline</option>
+                        <option value="somewhat_important">Somewhat important - nice to have but not essential</option>
+                        <option value="not_important">Not important - assume internet will be available</option>
+                        <option value="unsure">Unsure - hadn't thought about this</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>In a crisis situation, how fast should emergency resources appear?</label>
+                    <select name="emergency_speed_expectation">
+                        <option value="">Select one</option>
+                        <option value="instant">Instantly - any delay could be dangerous</option>
+                        <option value="under_1_second">Under 1 second - very fast response needed</option>
+                        <option value="1_3_seconds">1-3 seconds - acceptable for crisis</option>
+                        <option value="up_to_5_seconds">Up to 5 seconds - still okay for emergency</option>
+                        <option value="more_than_5_seconds">More than 5 seconds - acceptable</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Overall Feedback -->
+            <div class="question-group">
+                <h2>💭 Overall Feedback</h2>
+                
+                <div class="question">
+                    <label>Overall satisfaction (1-10): <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" id="overall_1" name="overall_satisfaction" value="1" required>
+                            <label for="overall_1">1</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_2" name="overall_satisfaction" value="2">
+                            <label for="overall_2">2</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_3" name="overall_satisfaction" value="3">
+                            <label for="overall_3">3</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_4" name="overall_satisfaction" value="4">
+                            <label for="overall_4">4</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_5" name="overall_satisfaction" value="5">
+                            <label for="overall_5">5</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_6" name="overall_satisfaction" value="6">
+                            <label for="overall_6">6</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_7" name="overall_satisfaction" value="7">
+                            <label for="overall_7">7</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_8" name="overall_satisfaction" value="8">
+                            <label for="overall_8">8</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_9" name="overall_satisfaction" value="9">
+                            <label for="overall_9">9</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" id="overall_10" name="overall_satisfaction" value="10">
+                            <label for="overall_10">10</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>Would you recommend this app to someone who might benefit from journaling? <span class="required">*</span></label>
+                    <select name="would_recommend" required>
+                        <option value="">Select one</option>
+                        <option value="definitely">Definitely - it's great</option>
+                        <option value="probably">Probably - with some improvements</option>
+                        <option value="maybe">Maybe - it depends</option>
+                        <option value="probably_not">Probably not - has issues</option>
+                        <option value="definitely_not">Definitely not - wouldn't recommend</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>What did you like most about the app?</label>
+                    <textarea name="liked_most" placeholder="What stood out positively?"></textarea>
+                </div>
+
+                <div class="question">
+                    <label>What needs the most improvement?</label>
+                    <textarea name="needs_improvement" placeholder="What frustrated you or seemed broken?"></textarea>
+                </div>
+
+                <div class="question">
+                    <label>Would you feel safe using this app during your most vulnerable mental health moments?</label>
+                    <select name="vulnerable_moment_safety">
+                        <option value="">Select one</option>
+                        <option value="very_safe">Very safe - would definitely turn to this app</option>
+                        <option value="mostly_safe">Mostly safe - would probably use it</option>
+                        <option value="somewhat_safe">Somewhat safe - might use it depending on situation</option>
+                        <option value="not_very_safe">Not very safe - would hesitate to use it</option>
+                        <option value="unsafe">Unsafe - would avoid using during crisis</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If you were a parent/guardian, would you feel comfortable having a teen use this app?</label>
+                    <select name="teen_safety_comfort">
+                        <option value="">Select one</option>
+                        <option value="very_comfortable">Very comfortable - seems safe for teens</option>
+                        <option value="somewhat_comfortable">Somewhat comfortable - with some monitoring</option>
+                        <option value="neutral">Neutral - would need to investigate more</option>
+                        <option value="uncomfortable">Uncomfortable - has some concerns</option>
+                        <option value="very_uncomfortable">Very uncomfortable - wouldn't allow it</option>
+                        <option value="na">N/A - not applicable to my situation</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How well does the app seem to understand trauma-informed principles (safety, choice, collaboration, trustworthiness)?</label>
+                    <select name="trauma_informed_design">
+                        <option value="">Select one</option>
+                        <option value="excellent">Excellent - clearly designed with trauma survivors in mind</option>
+                        <option value="good">Good - shows understanding of trauma principles</option>
+                        <option value="basic">Basic - some awareness but could improve</option>
+                        <option value="poor">Poor - doesn't seem trauma-informed</option>
+                        <option value="concerning">Concerning - might retraumatize users</option>
+                        <option value="unsure">Unsure - unfamiliar with trauma-informed design</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Any other comments or suggestions?</label>
+                    <textarea name="other_comments" placeholder="Anything else you'd like to share?"></textarea>
+                </div>
+            </div>
+
+            <!-- Crisis Support Features -->
+            <div class="question-group">
+                <h2>🆘 Crisis Support & Safety Features</h2>
+                
+                <div style="background: #fff8e7; padding: 16px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #f39c12;">
+                    <p style="margin: 0; color: #8b4513; line-height: 1.6; font-size: 0.95rem;">
+                        <strong>Note:</strong> These questions are about safety features designed to help during crisis moments. 
+                        Please answer based on what you observed or would expect, even if you didn't test them directly.
+                        <em>Skip any questions that feel uncomfortable.</em>
+                    </p>
+                </div>
+                
+                <div class="question">
+                    <label>Did you notice any crisis support or emergency features in the app?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="crisis_button" name="crisis_features" value="crisis_button">
+                            <label for="crisis_button">Crisis support button or emergency contact option</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="hotline_numbers" name="crisis_features" value="hotline_numbers">
+                            <label for="hotline_numbers">Suicide prevention hotline (988) or crisis text line</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="safety_resources" name="crisis_features" value="safety_resources">
+                            <label for="safety_resources">Mental health resources or professional referrals</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="crisis_detection" name="crisis_features" value="crisis_detection">
+                            <label for="crisis_detection">App seemed to recognize concerning language or thoughts</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="none_noticed" name="crisis_features" value="none_noticed">
+                            <label for="none_noticed">I didn't notice any crisis support features</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>If you noticed crisis support features, how accessible did they seem?</label>
+                    <select name="crisis_accessibility">
+                        <option value="">Select one (or N/A if none noticed)</option>
+                        <option value="very_accessible">Very accessible - easy to find when needed</option>
+                        <option value="somewhat_accessible">Somewhat accessible - visible but could be clearer</option>
+                        <option value="hard_to_find">Hard to find - would struggle to locate in crisis</option>
+                        <option value="not_accessible">Not accessible - couldn't find crisis support</option>
+                        <option value="na">N/A - didn't notice any crisis features</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How quickly do you think crisis resources would load if needed urgently?</label>
+                    <select name="crisis_speed_expectation">
+                        <option value="">Select one</option>
+                        <option value="instant">Instantly - no delay expected</option>
+                        <option value="very_fast">Very fast - within 1-2 seconds</option>
+                        <option value="acceptable">Acceptable - within 3-5 seconds</option>
+                        <option value="concerning">Concerning - might take 5+ seconds</option>
+                        <option value="unknown">Unknown - couldn't tell from testing</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If someone was having thoughts of self-harm, how well do you think this app would support them?</label>
+                    <select name="crisis_support_confidence">
+                        <option value="">Select one</option>
+                        <option value="very_confident">Very confident - seems well-designed for crisis</option>
+                        <option value="somewhat_confident">Somewhat confident - has some good features</option>
+                        <option value="neutral">Neutral - not sure either way</option>
+                        <option value="not_confident">Not confident - doesn't seem equipped</option>
+                        <option value="concerning">Concerning - might not be safe</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Would you trust this app to handle sensitive mental health information appropriately?</label>
+                    <select name="mental_health_trust">
+                        <option value="">Select one</option>
+                        <option value="completely_trust">Completely trust - feels very professional</option>
+                        <option value="mostly_trust">Mostly trust - seems well-intended</option>
+                        <option value="somewhat_trust">Somewhat trust - has some good elements</option>
+                        <option value="limited_trust">Limited trust - has concerning aspects</option>
+                        <option value="no_trust">No trust - wouldn't feel safe</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If the app detected concerning language in a journal entry, how should it respond?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="gentle_resources" name="crisis_response_preference" value="gentle_resources">
+                            <label for="gentle_resources">Gently offer resources without being alarming</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="immediate_intervention" name="crisis_response_preference" value="immediate_intervention">
+                            <label for="immediate_intervention">Immediately provide crisis hotlines and support</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="check_in" name="crisis_response_preference" value="check_in">
+                            <label for="check_in">Ask if the person wants support or resources</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="professional_path" name="crisis_response_preference" value="professional_path">
+                            <label for="professional_path">Provide clear path to professional help</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="offline_support" name="crisis_response_preference" value="offline_support">
+                            <label for="offline_support">Work offline if internet connection is poor</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="cultural_appropriate_resources" name="crisis_response_preference" value="cultural_appropriate_resources">
+                            <label for="cultural_appropriate_resources">Offer culturally appropriate resources for my community</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="multilingual_support" name="crisis_response_preference" value="multilingual_support">
+                            <label for="multilingual_support">Provide resources in my native language</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="safe_contact_options" name="crisis_response_preference" value="safe_contact_options">
+                            <label for="safe_contact_options">Consider family/community safety when suggesting help</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>How important would it be for crisis resources to include community-specific organizations (LGBTQ+ centers, cultural organizations, etc.)?</label>
+                    <select name="community_specific_crisis_importance">
+                        <option value="">Select one</option>
+                        <option value="critical">Critical - mainstream resources often don't understand my community</option>
+                        <option value="very_important">Very important - would greatly increase my comfort level</option>
+                        <option value="somewhat_important">Somewhat important - nice to have but not essential</option>
+                        <option value="not_important">Not important - general resources work fine for me</option>
+                        <option value="unsure">Unsure - haven't thought about this before</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Any feedback about crisis support features or mental health safety?</label>
+                    <textarea name="crisis_feedback" placeholder="What did you notice? What would make you feel safer? Any concerns about crisis features?"></textarea>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Cultural Responsiveness & Identity Affirmation -->
+            <div class="question-group">
+                <h2>🌍 Cultural Responsiveness & Identity Affirmation</h2>
+                
+                <div style="background: #fff8e7; padding: 16px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #f39c12;">
+                    <p style="margin: 0; color: #8b4513; line-height: 1.6; font-size: 0.95rem;">
+                        <strong>Note:</strong> These questions help us understand how well ALCHM serves diverse communities and honors different healing traditions. 
+                        Please share your honest perspective. All responses are valued and help create a more inclusive experience.
+                        <em>Skip any questions that don't apply to your experience.</em>
+                    </p>
+                </div>
+
+                <div class="question">
+                    <label>Which aspects of your identity are most important to you? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="cultural_background" name="identity_aspects" value="cultural_background">
+                            <label for="cultural_background">Cultural or ethnic background</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="lgbtq_identity" name="identity_aspects" value="lgbtq_identity">
+                            <label for="lgbtq_identity">LGBTQ+ identity</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="neurodivergent" name="identity_aspects" value="neurodivergent">
+                            <label for="neurodivergent">Neurodivergent identity (ADHD, autism, etc.)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="religious_spiritual" name="identity_aspects" value="religious_spiritual">
+                            <label for="religious_spiritual">Religious or spiritual beliefs</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="immigrant_refugee" name="identity_aspects" value="immigrant_refugee">
+                            <label for="immigrant_refugee">Immigrant or refugee experience</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="disability" name="identity_aspects" value="disability">
+                            <label for="disability">Disability or chronic illness</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="socioeconomic" name="identity_aspects" value="socioeconomic">
+                            <label for="socioeconomic">Socioeconomic background</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="age_generational" name="identity_aspects" value="age_generational">
+                            <label for="age_generational">Age or generational experience</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="prefer_not_answer" name="identity_aspects" value="prefer_not_answer">
+                            <label for="prefer_not_answer">Prefer not to answer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>How well did the app's language and tone make you feel seen and respected?</label>
+                    <select name="cultural_representation_feeling">
+                        <option value="">Select one</option>
+                        <option value="completely_seen">Completely seen - felt like it was designed for people like me</option>
+                        <option value="mostly_seen">Mostly seen - good representation with room for improvement</option>
+                        <option value="somewhat_seen">Somewhat seen - some elements resonated but felt generic overall</option>
+                        <option value="barely_seen">Barely seen - felt like an afterthought or checkbox</option>
+                        <option value="not_seen">Not seen at all - felt excluded or misunderstood</option>
+                        <option value="neutral">Neutral - no particular cultural connection expected</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Did you notice any language or imagery that might be excluding or unwelcoming to certain groups?</label>
+                    <textarea name="exclusionary_elements" placeholder="Did anything feel tone-deaf, assume certain backgrounds, or use language that might alienate marginalized communities?"></textarea>
+                </div>
+
+                <div class="question">
+                    <label>How important would it be for the app to include healing approaches from your cultural background?</label>
+                    <select name="cultural_healing_importance">
+                        <option value="">Select one</option>
+                        <option value="essential">Essential - wouldn't feel complete without it</option>
+                        <option value="very_important">Very important - would significantly improve my experience</option>
+                        <option value="somewhat_important">Somewhat important - would be nice to have</option>
+                        <option value="not_important">Not important - Western approaches work fine for me</option>
+                        <option value="na">N/A - my background doesn't have specific healing traditions</option>
+                        <option value="unsure">Unsure - haven't thought about this before</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If you experience discrimination or microaggressions, how well do you think this app would understand and support you?</label>
+                    <select name="discrimination_support_confidence">
+                        <option value="">Select one</option>
+                        <option value="very_confident">Very confident - seems designed with this in mind</option>
+                        <option value="somewhat_confident">Somewhat confident - shows some awareness</option>
+                        <option value="neutral">Neutral - would need to test this specifically</option>
+                        <option value="not_confident">Not confident - seems unaware of these issues</option>
+                        <option value="concerning">Concerning - might minimize or misunderstand</option>
+                        <option value="na">N/A - don't experience discrimination</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How well did the app handle pronouns and gender identity?</label>
+                    <select name="gender_identity_handling">
+                        <option value="">Select one</option>
+                        <option value="excellent">Excellent - comprehensive and respectful options</option>
+                        <option value="good">Good - covered most needs adequately</option>
+                        <option value="basic">Basic - binary options only but respectful</option>
+                        <option value="problematic">Problematic - assumed gender or used exclusive language</option>
+                        <option value="not_addressed">Not addressed - no pronoun options noticed</option>
+                        <option value="didnt_check">Didn't check - wasn't looking for this</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>For someone from a collectivist culture (where family/community decisions are important), how well would this app work?</label>
+                    <select name="collectivist_culture_fit">
+                        <option value="">Select one</option>
+                        <option value="very_well">Very well - recognizes family/community influence</option>
+                        <option value="somewhat_well">Somewhat well - could work with adaptation</option>
+                        <option value="neutral">Neutral - would work but not culturally specific</option>
+                        <option value="poorly">Poorly - too focused on individual decisions</option>
+                        <option value="very_poorly">Very poorly - conflicts with cultural values</option>
+                        <option value="unsure">Unsure - would need more exploration</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>If you speak a language other than English, how important would multilingual support be?</label>
+                    <select name="multilingual_importance">
+                        <option value="">Select one</option>
+                        <option value="critical">Critical - some emotions only exist in my native language</option>
+                        <option value="very_important">Very important - would greatly improve expression</option>
+                        <option value="somewhat_important">Somewhat important - helpful but not essential</option>
+                        <option value="not_important">Not important - comfortable expressing in English</option>
+                        <option value="english_only">English only - no other languages needed</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Did the crisis resources seem appropriate for someone from your community?</label>
+                    <select name="culturally_appropriate_crisis_resources">
+                        <option value="">Select one</option>
+                        <option value="very_appropriate">Very appropriate - included culturally relevant resources</option>
+                        <option value="somewhat_appropriate">Somewhat appropriate - generic but accessible</option>
+                        <option value="inappropriate">Inappropriate - wouldn't work for my community</option>
+                        <option value="missing_cultural_context">Missing cultural context - needs community-specific resources</option>
+                        <option value="didnt_see_resources">Didn't see crisis resources</option>
+                        <option value="na">N/A - no specific cultural needs for crisis support</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>How comfortable would you feel recommending this app to someone from a marginalized community?</label>
+                    <select name="marginalized_community_recommendation">
+                        <option value="">Select one</option>
+                        <option value="very_comfortable">Very comfortable - feels safe and inclusive</option>
+                        <option value="somewhat_comfortable">Somewhat comfortable - with some caveats</option>
+                        <option value="neutral">Neutral - would depend on the specific person</option>
+                        <option value="somewhat_uncomfortable">Somewhat uncomfortable - has concerning elements</option>
+                        <option value="very_uncomfortable">Very uncomfortable - might cause harm</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>What cultural healing practices or wisdom would you want to see integrated? (Optional)</label>
+                    <textarea name="cultural_healing_suggestions" placeholder="e.g., specific meditation traditions, community healing practices, indigenous wisdom, spiritual approaches, etc. Please only share what you're comfortable with."></textarea>
+                </div>
+
+                <div class="question">
+                    <label>If you've experienced trauma related to discrimination, systemic oppression, or cultural persecution, did the app seem equipped to handle these complex experiences?</label>
+                    <select name="systemic_trauma_handling">
+                        <option value="">Select one</option>
+                        <option value="very_equipped">Very equipped - clearly designed with this awareness</option>
+                        <option value="somewhat_equipped">Somewhat equipped - some understanding shown</option>
+                        <option value="basic_understanding">Basic understanding - general trauma support only</option>
+                        <option value="not_equipped">Not equipped - would minimize or misunderstand</option>
+                        <option value="concerning">Concerning - might be harmful to discuss these topics</option>
+                        <option value="na">N/A - haven't experienced these types of trauma</option>
+                        <option value="prefer_not_answer">Prefer not to answer</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Any other thoughts on cultural responsiveness, inclusion, or identity affirmation?</label>
+                    <textarea name="cultural_responsiveness_feedback" placeholder="What would make you feel more seen and supported? Any concerns about cultural appropriation? Suggestions for better serving diverse communities?"></textarea>
+                </div>
+                
+                <button type="button" class="pause-button" onclick="takePause()">
+                    🌸 Take a pause if needed
+                </button>
+            </div>
+
+            <!-- Privacy & Trust -->
+            <div class="question-group">
+                <h2>🔒 Privacy & Trust</h2>
+                
+                <div class="question">
+                    <label>How comfortable would you feel sharing personal thoughts in this app?</label>
+                    <select name="privacy_comfort">
+                        <option value="">Select one</option>
+                        <option value="very_comfortable">Very comfortable - feels very secure</option>
+                        <option value="somewhat_comfortable">Somewhat comfortable - seems okay</option>
+                        <option value="neutral">Neutral - not sure</option>
+                        <option value="somewhat_uncomfortable">Somewhat uncomfortable - has concerns</option>
+                        <option value="very_uncomfortable">Very uncomfortable - wouldn't trust it</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <label>Did you notice any privacy or security information?</label>
+                    <textarea name="privacy_info" placeholder="Did you see privacy policies, security features, data handling info, etc.?"></textarea>
+                </div>
+
+                <div class="question">
+                    <label>For someone in a vulnerable mental health situation, how important are these privacy features?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="anonymous_use" name="privacy_priorities" value="anonymous_use">
+                            <label for="anonymous_use">Ability to use anonymously without personal details</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="local_storage" name="privacy_priorities" value="local_storage">
+                            <label for="local_storage">Data stored locally on device, not in cloud</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="clear_policies" name="privacy_priorities" value="clear_policies">
+                            <label for="clear_policies">Clear privacy policies in simple language</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="data_deletion" name="privacy_priorities" value="data_deletion">
+                            <label for="data_deletion">Easy way to delete all data permanently</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="no_sharing" name="privacy_priorities" value="no_sharing">
+                            <label for="no_sharing">Guarantee data won't be shared with anyone</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="cultural_privacy" name="privacy_priorities" value="cultural_privacy">
+                            <label for="cultural_privacy">Protection from cultural or religious persecution</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="family_privacy" name="privacy_priorities" value="family_privacy">
+                            <label for="family_privacy">Protection from family discovering usage (for safety)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="immigration_privacy" name="privacy_priorities" value="immigration_privacy">
+                            <label for="immigration_privacy">No data sharing with government agencies</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <label>If you're from a marginalized community, what specific privacy concerns would you have about using a mental health app?</label>
+                    <textarea name="marginalized_privacy_concerns" placeholder="e.g., concerns about data being used against immigration status, fears of discrimination, cultural stigma, family/community discovery, etc."></textarea>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <div class="thank-you">
+                    <h3>🙏 Thank You!</h3>
+                    <p>Your feedback is incredibly valuable and will help make ALCHM better for everyone who uses it for their healing journey.</p>
+                </div>
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+            </div>
+        </form>
+
+        <div id="success-message" style="display:none; text-align:center; padding:40px;">
+            <h2 style="color:#a4b792;">✅ Thank You!</h2>
+            <p>Your feedback has been recorded. We truly appreciate you taking the time to help improve ALCHM.</p>
+        </div>
+    </div>
+
+    <script>
+        // Progress tracking
+        function updateProgress() {
+            const sections = document.querySelectorAll('.question-group');
+            const dots = document.querySelectorAll('.progress-dot');
+            let completedSections = 0;
+            
+            sections.forEach((section, index) => {
+                const inputs = section.querySelectorAll('input[required], select[required]');
+                const hasRequiredFields = inputs.length > 0;
+                
+                if (hasRequiredFields) {
+                    let sectionComplete = true;
+                    inputs.forEach(input => {
+                        if (input.type === 'radio') {
+                            const radioGroup = section.querySelectorAll(`input[name="${input.name}"]`);
+                            const radioChecked = Array.from(radioGroup).some(radio => radio.checked);
+                            if (!radioChecked) sectionComplete = false;
+                        } else if (!input.value.trim()) {
+                            sectionComplete = false;
+                        }
+                    });
+                    
+                    if (sectionComplete) {
+                        completedSections++;
+                        if (dots[index]) dots[index].classList.add('active');
+                    } else {
+                        if (dots[index]) dots[index].classList.remove('active');
+                    }
+                } else {
+                    // Section without required fields is always considered complete
+                    if (dots[index]) dots[index].classList.add('active');
+                    completedSections++;
+                }
+            });
+        }
+        
+        // Take a pause functionality
+        function takePause() {
+            const pauseOverlay = document.createElement('div');
+            pauseOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(164, 183, 146, 0.95);
+                backdrop-filter: blur(10px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            pauseOverlay.innerHTML = `
+                <div style="
+                    background: rgba(254, 252, 251, 0.95);
+                    backdrop-filter: blur(20px);
+                    padding: 48px;
+                    border-radius: 24px;
+                    text-align: center;
+                    max-width: 400px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                ">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🌸</div>
+                    <h3 style="color: #a4b792; margin-bottom: 16px;">Taking a Pause</h3>
+                    <p style="color: #2c3e2d; margin-bottom: 24px; line-height: 1.6;">
+                        Take all the time you need. Your responses are automatically saved.
+                    </p>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: #a4b792;
+                        color: white;
+                        border: none;
+                        padding: 12px 24px;
+                        border-radius: 12px;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        transition: all 200ms ease;
+                    " onmouseover="this.style.background='#93a682'" onmouseout="this.style.background='#a4b792'">
+                        Continue When Ready
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(pauseOverlay);
+        }
+
+        // Show/hide AI quality question based on response
+        document.getElementById('ai_response').addEventListener('change', function() {
+            const aiQualityQuestion = document.getElementById('ai_quality_question');
+            if (this.value === 'yes') {
+                aiQualityQuestion.style.display = 'block';
+            } else {
+                aiQualityQuestion.style.display = 'none';
+            }
+            updateProgress();
+        });
+
+        // Handle form submission
+        document.getElementById('testingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            
+            // Handle multiple checkbox groups
+            const devices = [];
+            formData.getAll('device').forEach(device => devices.push(device));
+            data.devices = devices;
+            
+            const identityAspects = [];
+            formData.getAll('identity_aspects').forEach(aspect => identityAspects.push(aspect));
+            data.identity_aspects = identityAspects;
+            
+            const crisisFeatures = [];
+            formData.getAll('crisis_features').forEach(feature => crisisFeatures.push(feature));
+            data.crisis_features = crisisFeatures;
+            
+            const crisisResponsePreferences = [];
+            formData.getAll('crisis_response_preference').forEach(pref => crisisResponsePreferences.push(pref));
+            data.crisis_response_preferences = crisisResponsePreferences;
+            
+            const privacyPriorities = [];
+            formData.getAll('privacy_priorities').forEach(priority => privacyPriorities.push(priority));
+            data.privacy_priorities = privacyPriorities;
+            
+            // Collect all other form fields
+            const multiCheckboxFields = ['device', 'identity_aspects', 'crisis_features', 'crisis_response_preference', 'privacy_priorities'];
+            for (let [key, value] of formData.entries()) {
+                if (!multiCheckboxFields.includes(key)) {
+                    data[key] = value;
+                }
+            }
+            
+            // Add client-side metadata
+            data.timestamp = new Date().toISOString();
+            data.user_agent = navigator.userAgent;
+            data.screen_resolution = screen.width + 'x' + screen.height;
+            data.viewport_size = window.innerWidth + 'x' + window.innerHeight;
+            data.time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            data.language = navigator.language;
+            
+            console.log('Submitting user testing data:', data);
+            
+            // Send to Firebase Function
+            fetch('https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/collectUserTestingFeedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(result => {
+                console.log('Feedback submitted successfully:', result);
+                
+                // Store in localStorage as backup
+                const existingData = JSON.parse(localStorage.getItem('alchm_testing_data') || '[]');
+                existingData.push({ ...data, submissionId: result.feedbackId });
+                localStorage.setItem('alchm_testing_data', JSON.stringify(existingData));
+                
+                // Clear saved progress
+                localStorage.removeItem('alchm_survey_progress');
+                
+                // Show success message
+                document.querySelector('.container').innerHTML = `
+                    <div style="text-align:center; padding:40px;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                        <h2 style="color:#a4b792; margin-bottom: 15px;">Thank You!</h2>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: #2c3e2d; margin-bottom: 20px;">
+                            Your feedback has been successfully submitted and will help make ALCHM better for everyone.
+                        </p>
+                        <div style="background: #f8f9f8; padding: 20px; border-radius: 12px; border-left: 4px solid #a4b792; margin-bottom: 20px;">
+                            <p style="font-size: 0.9rem; color: #6b7c6b; margin: 0;">
+                                <strong>Submission ID:</strong> ${result.feedbackId || 'N/A'}
+                            </p>
+                        </div>
+                        <p style="color: #6b7c6b; font-size: 0.9rem;">
+                            Your responses are helping us create a more trauma-informed and healing-centered experience. 🌿
+                        </p>
+                    </div>
+                `;
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            })
+            .catch(error => {
+                console.error('Error submitting feedback:', error);
+                
+                // Store in localStorage as fallback
+                const existingData = JSON.parse(localStorage.getItem('alchm_testing_data') || '[]');
+                existingData.push({ ...data, error: error.message, offline: true });
+                localStorage.setItem('alchm_testing_data', JSON.stringify(existingData));
+                
+                // Show error message with retry option
+                alert(`Thank you for your feedback! There was a connection issue, but your responses have been saved locally. 
+                
+Your feedback ID: ${Date.now()}
+
+Please email zadiewalker@gmail.com if you'd like to ensure we received your feedback.`);
+                
+                // Reset button
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Auto-save progress with progress update
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const savedData = JSON.parse(localStorage.getItem('alchm_survey_progress') || '{}');
+                savedData[this.name] = this.type === 'checkbox' ? this.checked : this.value;
+                localStorage.setItem('alchm_survey_progress', JSON.stringify(savedData));
+                
+                // Update progress indicators
+                updateProgress();
+                
+                // Show gentle save confirmation
+                showSaveConfirmation();
+            });
+        });
+        
+        // Show gentle save confirmation
+        function showSaveConfirmation() {
+            const existing = document.querySelector('.save-indicator');
+            if (existing) existing.remove();
+            
+            const indicator = document.createElement('div');
+            indicator.className = 'save-indicator';
+            indicator.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: rgba(164, 183, 146, 0.9);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                z-index: 1000;
+                animation: fadeInOut 2s ease;
+            `;
+            indicator.textContent = '✓ Saved';
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => indicator.remove(), 2000);
+        }
+
+        // Restore progress
+        window.addEventListener('load', function() {
+            const savedData = JSON.parse(localStorage.getItem('alchm_survey_progress') || '{}');
+            for (const [name, value] of Object.entries(savedData)) {
+                const input = document.querySelector(`[name="${name}"]`);
+                if (input) {
+                    if (input.type === 'checkbox') {
+                        input.checked = value;
+                    } else {
+                        input.value = value;
+                    }
+                }
+            }
+            
+            // Trigger AI quality question display if needed
+            const aiResponse = document.getElementById('ai_response');
+            if (aiResponse.value === 'yes') {
+                document.getElementById('ai_quality_question').style.display = 'block';
+            }
+            
+            // Initialize progress tracking
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

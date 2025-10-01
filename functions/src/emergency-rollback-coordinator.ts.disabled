@@ -1,0 +1,700 @@
+/**
+ * Emergency Rollback Coordinator
+ * 
+ * CRITICAL MISSION: Coordinate emergency rollback operations when Firebase Studio
+ * diagnostic operations threaten user safety. This system can trigger immediate
+ * rollbacks and coordinate between client-side and server-side emergency responses.
+ * 
+ * This coordinator operates under the principle that user safety supersedes all
+ * other system concerns during a crisis emergency.
+ */
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+const db = getFirestore();
+
+interface EmergencyRollbackRequest {
+  triggerId: string;
+  reason: string;
+  severity: 'high' | 'critical' | 'catastrophic';
+  triggerSource: 'client' | 'server' | 'monitoring' | 'manual';
+  userSafetyImpact: boolean;
+  crisisSystemsAffected: string[];
+  requestedBy?: string;
+  automaticTrigger: boolean;
+}
+
+interface EmergencyRollbackStatus {
+  rollbackId: string;
+  status: 'initiated' | 'in_progress' | 'completed' | 'failed' | 'escalated';
+  startTime: Date;
+  completionTime?: Date;
+  rollbackDuration?: number;
+  safetyValidationPassed: boolean;
+  rollbackSteps: RollbackStep[];
+  errorDetails?: string;
+  escalationTriggered: boolean;
+}
+
+interface RollbackStep {
+  stepId: string;
+  stepName: string;
+  status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped';
+  startTime?: Date;
+  completionTime?: Date;
+  duration?: number;
+  critical: boolean;
+  errorDetails?: string;
+}
+
+interface EmergencyNotification {
+  notificationId: string;
+  rollbackId: string;
+  notificationType: 'rollback_initiated' | 'rollback_completed' | 'rollback_failed' | 'escalation_required';
+  severity: 'high' | 'critical' | 'catastrophic';
+  message: string;
+  timestamp: Date;
+  recipients: string[];
+  deliveryStatus: Record<string, boolean>;
+}
+
+/**
+ * Emergency Rollback Trigger - Callable function for immediate rollback
+ */
+export const triggerEmergencyRollback = functions
+  .runWith({ 
+    memory: '512MB', 
+    timeoutSeconds: 60,
+    maxInstances: 5 
+  })
+  .https.onCall(async (data: EmergencyRollbackRequest, context) => {
+    console.log('🚨 EMERGENCY ROLLBACK TRIGGERED');
+    console.log('Trigger Details:', {
+      triggerId: data.triggerId,
+      reason: data.reason,
+      severity: data.severity,
+      source: data.triggerSource
+    });
+    
+    const rollbackId = `emergency-rollback-${Date.now()}`;
+    const startTime = new Date();
+    
+    try {
+      // Validate emergency rollback request
+      if (!isValidEmergencyRequest(data)) {
+        throw new Error('Invalid emergency rollback request');
+      }
+      
+      // Create rollback status document
+      const rollbackStatus: EmergencyRollbackStatus = {
+        rollbackId,
+        status: 'initiated',
+        startTime,
+        safetyValidationPassed: false,
+        rollbackSteps: initializeRollbackSteps(data),
+        escalationTriggered: false
+      };
+      
+      await db.collection('emergency_rollbacks').doc(rollbackId).set({
+        ...rollbackStatus,
+        triggerData: data,
+        createdAt: FieldValue.serverTimestamp()
+      });
+      
+      // Set emergency mode immediately
+      await activateEmergencyMode(rollbackId, data.reason);
+      
+      // Send immediate notification
+      await sendEmergencyNotification({
+        notificationId: `${rollbackId}-initiated`,
+        rollbackId,
+        notificationType: 'rollback_initiated',
+        severity: data.severity,
+        message: `Emergency rollback initiated: ${data.reason}`,
+        timestamp: startTime,
+        recipients: await getEmergencyNotificationRecipients(),
+        deliveryStatus: {}
+      });
+      
+      // Execute rollback steps
+      const rollbackResult = await executeEmergencyRollbackSteps(rollbackId, data);
+      
+      if (rollbackResult.success) {
+        console.log('✅ Emergency rollback completed successfully');
+        return {
+          success: true,
+          rollbackId,
+          message: 'Emergency rollback completed successfully',
+          duration: rollbackResult.duration
+        };
+      } else {
+        console.error('❌ Emergency rollback failed');
+        await triggerEmergencyEscalation(rollbackId, rollbackResult.error);
+        return {
+          success: false,
+          rollbackId,
+          error: rollbackResult.error,
+          escalated: true
+        };
+      }
+      
+    } catch (error) {
+      console.error('💥 CRITICAL ERROR in emergency rollback coordinator:', error);
+      
+      // Update status to failed
+      await db.collection('emergency_rollbacks').doc(rollbackId).update({
+        status: 'failed',
+        errorDetails: String(error),
+        completionTime: FieldValue.serverTimestamp()
+      });
+      
+      // Trigger escalation
+      await triggerEmergencyEscalation(rollbackId, String(error));
+      
+      return {
+        success: false,
+        rollbackId,
+        error: String(error),
+        escalated: true
+      };
+    }
+  });
+
+/**
+ * Validate emergency rollback request
+ */
+function isValidEmergencyRequest(request: EmergencyRollbackRequest): boolean {
+  // Must have required fields
+  if (!request.triggerId || !request.reason || !request.severity) {
+    return false;
+  }
+  
+  // Must be a valid severity level
+  if (!['high', 'critical', 'catastrophic'].includes(request.severity)) {
+    return false;
+  }
+  
+  // Must specify if user safety is impacted
+  if (typeof request.userSafetyImpact !== 'boolean') {
+    return false;
+  }
+  
+  // If user safety is impacted, severity must be critical or catastrophic
+  if (request.userSafetyImpact && request.severity === 'high') {
+    return false;
+  }
+  
+  return true;
+}
+
+/**
+ * Initialize rollback steps based on request
+ */
+function initializeRollbackSteps(request: EmergencyRollbackRequest): RollbackStep[] {
+  const baseSteps: RollbackStep[] = [
+    {
+      stepId: 'emergency_mode_activation',
+      stepName: 'Activate Emergency Mode',
+      status: 'pending',
+      critical: true
+    },
+    {
+      stepId: 'backup_identification',
+      stepName: 'Identify Latest Safe Backup',
+      status: 'pending',
+      critical: true
+    },
+    {
+      stepId: 'configuration_restore',
+      stepName: 'Restore Firebase Configuration',
+      status: 'pending',
+      critical: true
+    },
+    {
+      stepId: 'functions_restore',
+      stepName: 'Restore Firebase Functions',
+      status: 'pending',
+      critical: true
+    },
+    {
+      stepId: 'deployment_rollback',
+      stepName: 'Deploy Restored State',
+      status: 'pending',
+      critical: true
+    },
+    {
+      stepId: 'safety_validation',
+      stepName: 'Validate System Safety',
+      status: 'pending',
+      critical: true
+    }
+  ];
+  
+  // Add additional steps based on affected systems
+  if (request.crisisSystemsAffected.includes('crisis_support')) {
+    baseSteps.push({
+      stepId: 'crisis_support_validation',
+      stepName: 'Validate Crisis Support Systems',
+      status: 'pending',
+      critical: true
+    });
+  }
+  
+  if (request.crisisSystemsAffected.includes('emergency_navigation')) {
+    baseSteps.push({
+      stepId: 'emergency_navigation_validation',
+      stepName: 'Validate Emergency Navigation',
+      status: 'pending',
+      critical: true
+    });
+  }
+  
+  return baseSteps;
+}
+
+/**
+ * Execute emergency rollback steps
+ */
+async function executeEmergencyRollbackSteps(
+  rollbackId: string, 
+  request: EmergencyRollbackRequest
+): Promise<{ success: boolean; duration?: number; error?: string }> {
+  const executionStart = Date.now();
+  
+  try {
+    // Update status to in progress
+    await db.collection('emergency_rollbacks').doc(rollbackId).update({
+      status: 'in_progress',
+      'rollbackSteps': FieldValue.arrayUnion({
+        stepId: 'execution_started',
+        stepName: 'Rollback Execution Started',
+        status: 'completed',
+        startTime: new Date(),
+        completionTime: new Date(),
+        duration: 0,
+        critical: false
+      })
+    });
+    
+    // Execute rollback through external script
+    const rollbackResult = await executeRollbackScript(rollbackId, request);
+    
+    if (rollbackResult.success) {
+      // Validate safety after rollback
+      const safetyValidation = await validatePostRollbackSafety();
+      
+      const duration = Date.now() - executionStart;
+      
+      // Update final status
+      await db.collection('emergency_rollbacks').doc(rollbackId).update({
+        status: 'completed',
+        completionTime: FieldValue.serverTimestamp(),
+        rollbackDuration: duration,
+        safetyValidationPassed: safetyValidation.passed
+      });
+      
+      // Send completion notification
+      await sendEmergencyNotification({
+        notificationId: `${rollbackId}-completed`,
+        rollbackId,
+        notificationType: 'rollback_completed',
+        severity: request.severity,
+        message: `Emergency rollback completed successfully in ${duration}ms`,
+        timestamp: new Date(),
+        recipients: await getEmergencyNotificationRecipients(),
+        deliveryStatus: {}
+      });
+      
+      if (!safetyValidation.passed) {
+        throw new Error(`Safety validation failed: ${safetyValidation.details}`);
+      }
+      
+      return { success: true, duration };
+      
+    } else {
+      throw new Error(rollbackResult.error);
+    }
+    
+  } catch (error) {
+    const duration = Date.now() - executionStart;
+    
+    await db.collection('emergency_rollbacks').doc(rollbackId).update({
+      status: 'failed',
+      completionTime: FieldValue.serverTimestamp(),
+      rollbackDuration: duration,
+      errorDetails: String(error)
+    });
+    
+    return { success: false, error: String(error) };
+  }
+}
+
+/**
+ * Execute rollback script (simulated - in production would call actual script)
+ */
+async function executeRollbackScript(
+  rollbackId: string, 
+  request: EmergencyRollbackRequest
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // In production, this would execute the actual emergency rollback script
+    // For now, simulate the rollback execution
+    
+    console.log(`Executing emergency rollback script for ${rollbackId}`);
+    
+    // Simulate rollback steps with appropriate delays
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Find backup
+    await new Promise(resolve => setTimeout(resolve, 2000)); // Restore config
+    await new Promise(resolve => setTimeout(resolve, 5000)); // Deploy
+    
+    // Simulate success (in production, would check actual script result)
+    const rollbackSuccess = Math.random() > 0.1; // 90% success rate simulation
+    
+    if (rollbackSuccess) {
+      console.log(`Emergency rollback script completed for ${rollbackId}`);
+      return { success: true };
+    } else {
+      throw new Error('Rollback script execution failed');
+    }
+    
+  } catch (error) {
+    console.error(`Emergency rollback script failed for ${rollbackId}:`, error);
+    return { success: false, error: String(error) };
+  }
+}
+
+/**
+ * Validate system safety after rollback
+ */
+async function validatePostRollbackSafety(): Promise<{ passed: boolean; details?: string }> {
+  try {
+    // Validate critical systems are functional
+    const validationChecks = [
+      { name: 'Crisis Support', check: await validateCrisisSupport() },
+      { name: 'Emergency Navigation', check: await validateEmergencyNavigation() },
+      { name: 'Crisis Hotlines', check: await validateCrisisHotlines() },
+      { name: 'Offline Cache', check: await validateOfflineCache() }
+    ];
+    
+    const failedChecks = validationChecks.filter(check => !check.check);
+    
+    if (failedChecks.length === 0) {
+      return { passed: true };
+    } else {
+      const failedNames = failedChecks.map(check => check.name).join(', ');
+      return { 
+        passed: false, 
+        details: `Failed validation checks: ${failedNames}` 
+      };
+    }
+    
+  } catch (error) {
+    return { 
+      passed: false, 
+      details: `Validation error: ${error}` 
+    };
+  }
+}
+
+/**
+ * Validation functions for critical systems
+ */
+async function validateCrisisSupport(): Promise<boolean> {
+  try {
+    // Check if crisis support configuration exists
+    const crisisConfig = await db.collection('crisis_resources').doc('configuration').get();
+    return crisisConfig.exists;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function validateEmergencyNavigation(): Promise<boolean> {
+  // Simulate emergency navigation validation
+  return true;
+}
+
+async function validateCrisisHotlines(): Promise<boolean> {
+  try {
+    // Check if crisis hotlines are configured
+    const hotlinesConfig = await db.collection('crisis_resources').doc('hotlines').get();
+    return hotlinesConfig.exists && hotlinesConfig.data()?.['988']?.active === true;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function validateOfflineCache(): Promise<boolean> {
+  // Simulate offline cache validation
+  return true;
+}
+
+/**
+ * Activate emergency mode
+ */
+async function activateEmergencyMode(rollbackId: string, reason: string): Promise<void> {
+  try {
+    // Set emergency mode in Realtime Database for immediate propagation
+    const realtimeDb = admin.database();
+    await realtimeDb.ref('emergency_mode').set({
+      active: true,
+      reason: `Emergency rollback: ${reason}`,
+      rollbackId,
+      activatedAt: admin.database.ServerValue.TIMESTAMP,
+      activatedBy: 'emergency_rollback_coordinator'
+    });
+    
+    // Also set in Firestore for persistence
+    await db.collection('system_status').doc('emergency_mode').set({
+      active: true,
+      reason,
+      rollbackId,
+      activatedAt: FieldValue.serverTimestamp()
+    });
+    
+    console.log('🚨 Emergency mode activated');
+    
+  } catch (error) {
+    console.error('Failed to activate emergency mode:', error);
+    throw error;
+  }
+}
+
+/**
+ * Trigger emergency escalation
+ */
+async function triggerEmergencyEscalation(rollbackId: string, reason: string): Promise<void> {
+  console.error('🚨🚨🚨 EMERGENCY ESCALATION TRIGGERED 🚨🚨🚨');
+  console.error(`Rollback ID: ${rollbackId}`);
+  console.error(`Reason: ${reason}`);
+  
+  try {
+    // Create escalation record
+    await db.collection('emergency_escalations').add({
+      rollbackId,
+      reason,
+      escalationType: 'rollback_failure',
+      escalatedAt: FieldValue.serverTimestamp(),
+      status: 'active',
+      severity: 'catastrophic',
+      manualInterventionRequired: true
+    });
+    
+    // Update rollback status
+    await db.collection('emergency_rollbacks').doc(rollbackId).update({
+      escalationTriggered: true,
+      status: 'escalated'
+    });
+    
+    // Send escalation notification
+    await sendEmergencyNotification({
+      notificationId: `${rollbackId}-escalation`,
+      rollbackId,
+      notificationType: 'escalation_required',
+      severity: 'catastrophic',
+      message: `CRITICAL: Emergency rollback failed. Manual intervention required. Reason: ${reason}`,
+      timestamp: new Date(),
+      recipients: await getEmergencyEscalationRecipients(),
+      deliveryStatus: {}
+    });
+    
+    // Activate maximum emergency protocols
+    await activateMaximumEmergencyProtocols(rollbackId, reason);
+    
+  } catch (error) {
+    console.error('Failed to trigger emergency escalation:', error);
+  }
+}
+
+/**
+ * Activate maximum emergency protocols when rollback fails
+ */
+async function activateMaximumEmergencyProtocols(rollbackId: string, reason: string): Promise<void> {
+  try {
+    // Set system to maximum emergency state
+    const realtimeDb = admin.database();
+    await realtimeDb.ref('maximum_emergency').set({
+      active: true,
+      rollbackId,
+      reason,
+      activatedAt: admin.database.ServerValue.TIMESTAMP,
+      message: 'SYSTEM IN MAXIMUM EMERGENCY STATE - MANUAL INTERVENTION REQUIRED',
+      crisisSupportOnly: true
+    });
+    
+    // Log critical incident
+    await db.collection('critical_incidents').add({
+      incidentType: 'rollback_failure_escalation',
+      rollbackId,
+      reason,
+      severity: 'catastrophic',
+      systemState: 'maximum_emergency',
+      manualInterventionRequired: true,
+      timestamp: FieldValue.serverTimestamp()
+    });
+    
+    console.log('🚨 Maximum emergency protocols activated');
+    
+  } catch (error) {
+    console.error('Failed to activate maximum emergency protocols:', error);
+  }
+}
+
+/**
+ * Send emergency notification
+ */
+async function sendEmergencyNotification(notification: EmergencyNotification): Promise<void> {
+  try {
+    // Store notification
+    await db.collection('emergency_notifications').doc(notification.notificationId).set({
+      ...notification,
+      sentAt: FieldValue.serverTimestamp()
+    });
+    
+    // Send actual notifications (implement based on your notification system)
+    console.log(`🚨 Emergency Notification: ${notification.message}`);
+    
+    // In production, would send to:
+    // - Email
+    // - SMS
+    // - Slack
+    // - PagerDuty
+    // - Phone calls for catastrophic events
+    
+  } catch (error) {
+    console.error('Failed to send emergency notification:', error);
+  }
+}
+
+/**
+ * Get emergency notification recipients
+ */
+async function getEmergencyNotificationRecipients(): Promise<string[]> {
+  // In production, would fetch from configuration
+  return [
+    'engineering-oncall@alchm.app',
+    'crisis-team@alchm.app',
+    'emergency-contacts@alchm.app'
+  ];
+}
+
+/**
+ * Get emergency escalation recipients (for critical failures)
+ */
+async function getEmergencyEscalationRecipients(): Promise<string[]> {
+  // In production, would fetch from configuration
+  return [
+    'cto@alchm.app',
+    'emergency-leadership@alchm.app',
+    'crisis-director@alchm.app',
+    'engineering-leadership@alchm.app'
+  ];
+}
+
+/**
+ * Check emergency rollback status
+ */
+export const checkEmergencyRollbackStatus = functions
+  .runWith({ 
+    memory: '256MB', 
+    timeoutSeconds: 10,
+    maxInstances: 10 
+  })
+  .https.onCall(async (data: { rollbackId?: string }, context) => {
+    try {
+      if (data.rollbackId) {
+        // Get specific rollback status
+        const rollbackDoc = await db.collection('emergency_rollbacks').doc(data.rollbackId).get();
+        
+        if (rollbackDoc.exists) {
+          return {
+            rollbackId: data.rollbackId,
+            ...rollbackDoc.data()
+          };
+        } else {
+          return { error: 'Rollback not found' };
+        }
+      } else {
+        // Get all active rollbacks
+        const activeRollbacks = await db.collection('emergency_rollbacks')
+          .where('status', 'in', ['initiated', 'in_progress'])
+          .orderBy('startTime', 'desc')
+          .limit(10)
+          .get();
+        
+        return {
+          activeRollbacks: activeRollbacks.docs.map(doc => ({
+            rollbackId: doc.id,
+            ...doc.data()
+          }))
+        };
+      }
+      
+    } catch (error) {
+      console.error('Failed to check rollback status:', error);
+      return { error: String(error) };
+    }
+  });
+
+/**
+ * Cancel emergency rollback (if still in progress)
+ */
+export const cancelEmergencyRollback = functions
+  .runWith({ 
+    memory: '256MB', 
+    timeoutSeconds: 30,
+    maxInstances: 5 
+  })
+  .https.onCall(async (data: { rollbackId: string; reason: string }, context) => {
+    const { rollbackId, reason } = data;
+    
+    try {
+      // Check if rollback is still in progress
+      const rollbackDoc = await db.collection('emergency_rollbacks').doc(rollbackId).get();
+      
+      if (!rollbackDoc.exists) {
+        return { success: false, error: 'Rollback not found' };
+      }
+      
+      const rollbackData = rollbackDoc.data();
+      
+      if (!['initiated', 'in_progress'].includes(rollbackData?.status)) {
+        return { success: false, error: 'Rollback cannot be cancelled in current state' };
+      }
+      
+      // Cancel the rollback
+      await db.collection('emergency_rollbacks').doc(rollbackId).update({
+        status: 'cancelled',
+        cancellationReason: reason,
+        cancelledAt: FieldValue.serverTimestamp(),
+        cancelledBy: context.auth?.uid || 'system'
+      });
+      
+      // Deactivate emergency mode if this was the only active rollback
+      const otherActiveRollbacks = await db.collection('emergency_rollbacks')
+        .where('status', 'in', ['initiated', 'in_progress'])
+        .get();
+      
+      if (otherActiveRollbacks.empty) {
+        const realtimeDb = admin.database();
+        await realtimeDb.ref('emergency_mode').remove();
+      }
+      
+      console.log(`Emergency rollback ${rollbackId} cancelled: ${reason}`);
+      
+      return { success: true, message: 'Rollback cancelled successfully' };
+      
+    } catch (error) {
+      console.error('Failed to cancel emergency rollback:', error);
+      return { success: false, error: String(error) };
+    }
+  });
+
+export {
+  EmergencyRollbackRequest,
+  EmergencyRollbackStatus,
+  RollbackStep,
+  EmergencyNotification
+};

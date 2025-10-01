@@ -64,7 +64,7 @@ export interface ValidationSchema {
 
 // Rate limiting configuration
 export interface RateLimitConfig {
-  windowMs: number;
+  typeof window !== 'undefined' && windowMs: number;
   maxRequests: number;
   keyGenerator?: (req: NextRequest) => string;
   skipSuccessfulRequests?: boolean;

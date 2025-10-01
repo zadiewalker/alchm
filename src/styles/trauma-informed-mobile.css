@@ -1,0 +1,518 @@
+/* ==========================================================================
+   Trauma-Informed Mobile UX Styles
+   Responsive to crisis states, tremors, dissociation, and emergency modes
+   ========================================================================== */
+
+/* iOS Safe Area Support for Crisis Situations */
+.trauma-informed-mobile-ux {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Keyboard overlay protection */
+@supports (-webkit-touch-callout: none) {
+  .trauma-informed-mobile-ux .crisis-accessible {
+    /* Ensure crisis button stays above iOS keyboard */
+    bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  
+  .trauma-informed-mobile-ux input,
+  .trauma-informed-mobile-ux textarea {
+    /* Prevent zoom on input focus that could hide crisis resources */
+    font-size: max(16px, 1rem);
+  }
+}
+
+/* Base trauma-informed mobile styles */
+.trauma-informed-mobile-ux {
+  --base-touch-target: 48px;
+  --crisis-touch-target: 60px;
+  --emergency-touch-target: 72px;
+  --tremor-touch-target: 64px;
+  
+  --gentle-transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --immediate-transition: 0ms;
+  --crisis-transition: 150ms ease-out;
+}
+
+/* ==========================================================================
+   Crisis Mode Styles
+   ========================================================================== */
+
+.crisis-active {
+  --primary-color: #dc2626; /* Emergency red */
+  --accent-color: #fef2f2; /* Light red background */
+  --text-color: #7f1d1d; /* Dark red text */
+}
+
+.crisis-active .touch-target,
+.crisis-active button,
+.crisis-active a {
+  min-height: var(--crisis-touch-target) !important;
+  min-width: var(--crisis-touch-target) !important;
+  border: 3px solid rgba(220, 38, 38, 0.3) !important;
+  border-radius: 16px !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+
+.crisis-active .crisis-accessible {
+  min-height: var(--emergency-touch-target) !important;
+  min-width: var(--emergency-touch-target) !important;
+  background: linear-gradient(145deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border: 4px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4) !important;
+  animation: crisis-pulse 2s infinite !important;
+}
+
+@keyframes crisis-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 48px rgba(220, 38, 38, 0.6);
+  }
+}
+
+/* Crisis text highlighting */
+.crisis-active textarea,
+.crisis-active input[type="text"] {
+  background: rgba(220, 38, 38, 0.05) !important;
+  border: 2px solid rgba(220, 38, 38, 0.3) !important;
+  font-size: 18px !important;
+}
+
+/* ==========================================================================
+   Emergency Mode Styles (Battery Conservation)
+   ========================================================================== */
+
+.emergency-active {
+  --primary-color: #d97706; /* Warning orange */
+  --accent-color: #fef3c7; /* Light orange background */
+}
+
+.emergency-active * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.emergency-active .touch-target,
+.emergency-active button,
+.emergency-active a {
+  min-height: var(--emergency-touch-target) !important;
+  min-width: var(--emergency-touch-target) !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 3px solid #d97706 !important;
+  border-radius: 12px !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+.emergency-active .non-essential {
+  display: none !important;
+}
+
+.emergency-active .battery-saver-notice {
+  display: block !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #d97706, #f59e0b);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-weight: 600;
+  z-index: 50;
+}
+
+/* ==========================================================================
+   Tremor Compensation Styles
+   ========================================================================== */
+
+.tremor-detected .touch-target,
+.tremor-detected button,
+.tremor-detected a,
+.tremor-compensation .touch-target,
+.tremor-compensation button,
+.tremor-compensation a {
+  min-height: var(--tremor-touch-target) !important;
+  min-width: var(--tremor-touch-target) !important;
+  padding: 16px !important;
+  margin: 8px !important;
+  border: 2px solid rgba(164, 183, 146, 0.5) !important;
+  border-radius: 20px !important;
+}
+
+.tremor-safe {
+  transform: scale(1.1) !important;
+  transition: transform 0.1s ease !important;
+}
+
+.tremor-detected .tremor-compensation-notice {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(164, 183, 146, 0.95);
+  color: white;
+  padding: 16px 24px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 40;
+  font-weight: 600;
+  backdrop-filter: blur(20px);
+  animation: gentle-fade-in 0.5s ease;
+}
+
+@keyframes gentle-fade-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Dissociation Support Styles
+   ========================================================================== */
+
+.dissociation-support {
+  --primary-color: #8b7355; /* Warm, grounding brown */
+  --accent-color: #faf8f5; /* Very light, calming background */
+}
+
+.dissociation-support .grounding-reminder {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(145deg, #8b7355 0%, #a0866b 100%);
+  color: white;
+  padding: 20px 32px;
+  border-radius: 24px;
+  text-align: center;
+  z-index: 45;
+  box-shadow: 0 12px 48px rgba(139, 115, 85, 0.3);
+  backdrop-filter: blur(20px);
+  max-width: 90vw;
+  animation: breathing-reminder 4s ease-in-out infinite;
+}
+
+@keyframes breathing-reminder {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 12px 48px rgba(139, 115, 85, 0.3);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.02);
+    box-shadow: 0 16px 64px rgba(139, 115, 85, 0.4);
+  }
+}
+
+.dissociation-support .grounding-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dissociation-support .grounding-icon {
+  font-size: 32px;
+  animation: gentle-sway 3s ease-in-out infinite;
+}
+
+@keyframes gentle-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.dissociation-support .grounding-dismiss {
+  background: rgba(255, 255, 255, 0.9);
+  color: #8b7355;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 100px;
+}
+
+/* Enhanced focus indicators for dissociation */
+.dissociation-support *:focus {
+  outline: 4px solid rgba(139, 115, 85, 0.6) !important;
+  outline-offset: 4px !important;
+  background: rgba(139, 115, 85, 0.1) !important;
+}
+
+/* ==========================================================================
+   Performance Tier Responsive Styles
+   ========================================================================== */
+
+/* Ultra-low performance tier */
+.perf-tier-ultra-low * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.perf-tier-ultra-low .loading-skeleton {
+  background: #e5e7eb !important;
+  animation: none !important;
+}
+
+/* Low performance tier */
+.perf-tier-low * {
+  animation-duration: 100ms !important;
+  transition-duration: 100ms !important;
+}
+
+.perf-tier-low .expensive-animation {
+  display: none !important;
+}
+
+/* Medium performance tier */
+.perf-tier-medium * {
+  animation-duration: 200ms !important;
+  transition-duration: 200ms !important;
+}
+
+/* High performance tier */
+.perf-tier-high * {
+  animation-duration: 300ms !important;
+  transition-duration: 300ms !important;
+}
+
+/* Ultra-high performance tier */
+.perf-tier-ultra-high * {
+  animation-duration: 500ms !important;
+  transition-duration: 500ms !important;
+}
+
+/* ==========================================================================
+   Battery-Specific Optimizations
+   ========================================================================== */
+
+.battery-saver-mode {
+  --primary-color: #6b7280;
+  --accent-color: #f9fafb;
+}
+
+.battery-saver-mode * {
+  animation-play-state: paused !important;
+  will-change: auto !important;
+}
+
+.battery-saver-mode .gpu-accelerated {
+  transform: none !important;
+  will-change: auto !important;
+}
+
+.battery-saver-mode .background-process {
+  display: none !important;
+}
+
+/* Low battery warning */
+.low-battery .battery-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #dc2626, #ef4444);
+  color: white;
+  text-align: center;
+  padding: 8px 16px;
+  font-weight: 600;
+  z-index: 55;
+  animation: urgent-flash 2s infinite;
+}
+
+@keyframes urgent-flash {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0.7; }
+}
+
+/* ==========================================================================
+   Network-Aware Styles
+   ========================================================================== */
+
+.slow-connection .high-bandwidth-content {
+  display: none !important;
+}
+
+.slow-connection .loading-placeholder {
+  background: #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.offline-mode {
+  filter: grayscale(0.3);
+}
+
+.offline-mode .online-only {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.offline-indicator {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(245, 158, 11, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9998;
+  backdrop-filter: blur(10px);
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .trauma-informed-mobile-ux {
+    --primary-color: #000000;
+    --accent-color: #ffffff;
+    --text-color: #000000;
+    --background-color: #ffffff;
+  }
+  
+  .touch-target,
+  button,
+  a {
+    border: 2px solid #000000 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  .crisis-accessible {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 4px solid #ffffff !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .trauma-informed-mobile-ux * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Maintain essential feedback */
+  .touch-target:active,
+  button:active,
+  a:active {
+    transition: background-color 0.05s ease !important;
+    background-color: rgba(164, 183, 146, 0.1) !important;
+  }
+}
+
+/* Large text support */
+@media (min-resolution: 2dppx) {
+  .trauma-informed-mobile-ux {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+/* ==========================================================================
+   Device-Specific Optimizations
+   ========================================================================== */
+
+/* iPhone SE and small screens */
+@media screen and (max-width: 375px) {
+  .trauma-informed-mobile-ux {
+    --base-touch-target: 44px;
+    --crisis-touch-target: 56px;
+    --emergency-touch-target: 64px;
+    --tremor-touch-target: 60px;
+  }
+  
+  .crisis-active .touch-target,
+  .emergency-active .touch-target {
+    font-size: 16px !important;
+    padding: 12px !important;
+  }
+}
+
+/* iPad and tablets */
+@media screen and (min-width: 768px) {
+  .trauma-informed-mobile-ux {
+    --base-touch-target: 44px;
+    --crisis-touch-target: 52px;
+    --emergency-touch-target: 60px;
+    --tremor-touch-target: 56px;
+  }
+}
+
+/* Landscape orientation */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .trauma-informed-mobile-ux .crisis-indicator,
+  .trauma-informed-mobile-ux .emergency-indicator {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .grounding-reminder {
+    top: 1rem !important;
+    padding: 12px 24px !important;
+  }
+}
+
+/* ==========================================================================
+   Debug and Development Styles
+   ========================================================================== */
+
+.debug-mode .touch-target::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px dashed rgba(164, 183, 146, 0.5);
+  background: rgba(164, 183, 146, 0.1);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.debug-mode .crisis-accessible::after {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+/* Performance monitoring indicator */
+.perf-monitor {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  z-index: 60;
+}

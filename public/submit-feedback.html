@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Feedback</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; text-align: center; }
+        .success { color: #4CAF50; font-size: 1.2rem; }
+        .instructions { background: #f0f8f0; padding: 20px; margin: 20px 0; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>🎉 Thank You for Testing ALCHM!</h1>
+    
+    <div class="success">
+        Your feedback has been noted!
+    </div>
+    
+    <div class="instructions">
+        <h3>📧 Please Email Your Feedback</h3>
+        <p>Since you've completed the survey, please copy your responses and email them to:</p>
+        <p><strong>zadiewalker@gmail.com</strong></p>
+        <p>Subject: "ALCHM User Testing Feedback"</p>
+    </div>
+    
+    <p>Your insights help make ALCHM better for everyone! 🙏</p>
+    
+    <script>
+        // Show the data from localStorage if available
+        const savedData = JSON.parse(localStorage.getItem('alchm_testing_data') || '[]');
+        if (savedData.length > 0) {
+            console.log('Feedback data available:', savedData);
+            
+            const latest = savedData[savedData.length - 1];
+            const emailBody = `
+ALCHM User Testing Feedback
+===========================
+
+Overall Satisfaction: ${latest.overall_satisfaction}/10
+First Impression: ${latest.first_impression}/10  
+Navigation: ${latest.navigation}/10
+Age Group: ${latest.age_group}
+Devices: ${latest.devices}
+Would Recommend: ${latest.would_recommend}
+
+What they liked: ${latest.liked_most}
+Needs improvement: ${latest.needs_improvement}
+Technical issues: ${latest.technical_issues}
+
+Timestamp: ${latest.timestamp}
+            `.trim();
+            
+            // Create mailto link
+            const mailtoLink = `mailto:zadiewalker@gmail.com?subject=ALCHM User Testing Feedback&body=${encodeURIComponent(emailBody)}`;
+            
+            document.body.innerHTML += `
+                <div style="margin: 30px 0;">
+                    <a href="${mailtoLink}" style="
+                        background: #4CAF50; 
+                        color: white; 
+                        padding: 15px 30px; 
+                        text-decoration: none; 
+                        border-radius: 25px;
+                        font-weight: bold;
+                    ">📧 Send Feedback via Email</a>
+                </div>
+                <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: left;">
+                    <h4>Preview of your feedback:</h4>
+                    <pre style="white-space: pre-wrap; font-size: 0.9rem;">${emailBody}</pre>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

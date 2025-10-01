@@ -1,0 +1,1526 @@
+/**
+ * ALCHM Khepera Archetype System
+ * AI-powered transformational guides that adapt to user's healing journey
+ */
+
+export interface KheperaArchetype {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  primaryGift: string; // Core strength this archetype offers
+  secondaryGifts: string[];
+  voiceProfile: VoiceProfile;
+  responsePatterns: ResponsePattern[];
+  triggerConditions: TriggerCondition[];
+  transformationPhase: TransformationPhase;
+  symbology: ArchetypeSymbology;
+  evolutionPath?: ArchetypeEvolution[];
+  // Advanced shadow work integration
+  shadowAspects: ShadowIntegrationProfile;
+  multidimensionalProfile: MultidimensionalArchetypeProfile;
+  culturalAdaptation: CulturalArchetypeAdaptation;
+  developmentalStage: DevelopmentalAlignment;
+}
+
+export interface VoiceProfile {
+  tone: 'gentle' | 'wise' | 'direct' | 'nurturing' | 'empowering' | 'mystical';
+  vocabulary: VocabularySet;
+  responseLength: 'brief' | 'moderate' | 'expansive';
+  emotionalResonance: 'grounding' | 'uplifting' | 'challenging' | 'validating' | 'illuminating' | 'nurturing';
+  culturalSensitivity: 'universal' | 'contextual';
+}
+
+export interface VocabularySet {
+  affirmations: string[];
+  transitions: string[];
+  questionStems: string[];
+  metaphors: string[];
+  closingBlessings: string[];
+}
+
+export interface ResponsePattern {
+  situationType: 'crisis' | 'breakthrough' | 'resistance' | 'celebration' | 'confusion' | 'integration';
+  approach: ResponseApproach;
+  exampleResponse: string;
+  avoidancePatterns: string[]; // What this archetype never does
+}
+
+export interface ResponseApproach {
+  primary: 'witness' | 'challenge' | 'comfort' | 'illuminate' | 'celebrate' | 'guide';
+  secondary?: ResponseApproach['primary'];
+  emergencyOverride?: ResponseApproach['primary']; // Crisis mode
+}
+
+export interface TriggerCondition {
+  userState: 'overwhelmed' | 'breakthrough' | 'resistant' | 'curious' | 'celebrating' | 'integrating';
+  journalPatterns: string[]; // Keywords/themes that activate this archetype
+  emotionalMarkers: string[];
+  timeContext: 'morning' | 'evening' | 'late_night' | 'any';
+  durationSinceLastAppearance?: number; // Prevent over-activation
+}
+
+export interface TransformationPhase {
+  phase: 'dissolution' | 'incubation' | 'illumination' | 'integration' | 'emergence';
+  description: string;
+  gifts: string[];
+  challenges: string[];
+  duration: 'momentary' | 'cycles' | 'extended' | 'lifelong';
+}
+
+export interface ArchetypeSymbology {
+  primarySymbol: string; // Emoji or unicode
+  secondarySymbols: string[];
+  colors: string[];
+  elementalAssociation: 'earth' | 'water' | 'fire' | 'air' | 'spirit';
+  sacredGeometry?: string;
+}
+
+export interface ArchetypeEvolution {
+  fromArchetype: string;
+  toArchetype: string;
+  catalyst: string;
+  evolutionMessage: string;
+}
+
+// Advanced shadow work integration
+export interface ShadowIntegrationProfile {
+  shadowAspects: {
+    suppressed_qualities: string[]; // What this archetype has learned to suppress
+    projected_qualities: string[]; // What this archetype tends to project onto others
+    integration_gifts: string[]; // Gifts that emerge when shadow is integrated
+  };
+  shadowTriggers: string[]; // What activates the shadow of this archetype
+  integrationPractices: string[]; // Practices that help integrate shadow
+  projectionPatterns: {
+    common_projections: string[];
+    recognition_signs: string[];
+    reclamation_process: string[];
+  };
+  holisticWholeness: {
+    light_qualities: string[];
+    shadow_qualities: string[];
+    integrated_wholeness: string;
+    individuation_gifts: string[];
+  };
+}
+
+// Multi-dimensional psychological development
+export interface MultidimensionalArchetypeProfile {
+  cognitiveStyle: {
+    thinking_preference: 'analytical' | 'intuitive' | 'holistic' | 'creative' | 'systems';
+    processing_speed: 'contemplative' | 'moderate' | 'rapid';
+    complexity_tolerance: 'simple' | 'moderate' | 'complex' | 'paradoxical';
+  };
+  emotionalIntelligence: {
+    self_awareness_level: number; // 0-1
+    emotional_regulation: number;
+    empathy_capacity: number;
+    social_navigation: number;
+  };
+  somaticProfile: {
+    body_awareness: 'disconnected' | 'emerging' | 'integrated' | 'mastery';
+    energy_signature: 'grounded' | 'flowing' | 'dynamic' | 'transcendent';
+    tension_patterns: string[];
+    healing_modalities: string[];
+  };
+  spiritualDimension: {
+    connection_to_transcendent: number; // 0-1
+    meaning_making_style: 'personal' | 'interpersonal' | 'transpersonal' | 'cosmic';
+    spiritual_practices: string[];
+    mystical_openness: number; // 0-1
+  };
+}
+
+// Cultural adaptation for global emotional intelligence
+export interface CulturalArchetypeAdaptation {
+  cultural_sensitivity: {
+    collectivist_adaptation: ArchetypeVariation;
+    individualist_adaptation: ArchetypeVariation;
+    power_distance_sensitivity: ArchetypeVariation;
+    uncertainty_avoidance_adaptation: ArchetypeVariation;
+  };
+  language_adaptations: Record<string, {
+    vocabulary_shifts: string[];
+    metaphor_adaptations: string[];
+    cultural_concepts: string[];
+    taboo_avoidances: string[];
+  }>;
+  healing_tradition_alignment: Record<string, string[]>; // Maps cultures to healing practices
+}
+
+export interface ArchetypeVariation {
+  voice_modifications: Partial<VoiceProfile>;
+  response_adaptations: string[];
+  cultural_metaphors: string[];
+  respectful_boundaries: string[];
+}
+
+// Developmental psychology integration
+export interface DevelopmentalAlignment {
+  spiral_dynamics_stage: 'survival' | 'tribal' | 'power' | 'order' | 'success' | 'community' | 'integral' | 'holistic';
+  psychological_development: {
+    ego_development_level: 'conformist' | 'conscientious' | 'individualistic' | 'autonomous' | 'integrated';
+    moral_reasoning_level: 'preconventional' | 'conventional' | 'postconventional' | 'metaethical';
+    cognitive_complexity: number; // 0-1
+  };
+  trauma_informed_considerations: {
+    attachment_style_sensitivity: 'secure' | 'anxious' | 'avoidant' | 'disorganized' | 'all';
+    trauma_response_awareness: string[];
+    safety_prioritization: number; // 0-1
+    window_of_tolerance_support: string[];
+  };
+  growth_edge_navigation: {
+    current_edge_indicators: string[];
+    next_developmental_invitation: string;
+    integration_support: string[];
+    regression_compassion: string[];
+  };
+}
+
+export interface KheperaResponse {
+  archetypeId: string;
+  message: string;
+  tone: VoiceProfile['tone'];
+  followUpPrompt?: string;
+  breathingSpace?: string; // Pause instruction
+  emergencyEscalation?: boolean;
+  nextArchetypeSuggestion?: string;
+}
+
+export interface UserArchetypeProfile {
+  userId: string;
+  activeArchetype?: string;
+  archetypeHistory: ArchetypeInteraction[];
+  personalizedGuidance: PersonalizedGuidance;
+  avoidedArchetypes: string[]; // User preferences
+  preferredArchetypes: string[];
+  emergencyArchetype?: string; // Crisis default
+}
+
+export interface ArchetypeInteraction {
+  archetypeId: string;
+  activatedAt: Date;
+  journalContext: string;
+  userResponse?: string;
+  helpfulnessRating?: number; // 1-5, optional
+  completedAt?: Date;
+}
+
+export interface PersonalizedGuidance {
+  dominantTransformationPhase: TransformationPhase['phase'];
+  primaryGrowthAreas: string[];
+  resistancePatterns: string[];
+  celebrationPreferences: string[];
+  communicationStyle: 'direct' | 'metaphorical' | 'questioning' | 'affirming';
+}
+
+export class KheperaArchetypeEngine {
+  private static readonly ARCHETYPE_COOLDOWN = 24; // Hours between same archetype
+  private static readonly CRISIS_KEYWORDS = [
+    'suicide', 'kill myself', 'end it all', 'can\'t go on', 'hopeless', 
+    'emergency', 'crisis', 'help me', 'desperate'
+  ];
+  
+  /**
+   * Select appropriate archetype with advanced shadow integration and multi-dimensional analysis
+   */
+  static selectArchetype(
+    journalEntry: string,
+    userMood?: string,
+    timeOfDay?: 'morning' | 'evening' | 'late_night',
+    userProfile?: UserArchetypeProfile,
+    emotionalState?: any, // From advanced emotional intelligence system
+    culturalContext?: string
+  ): {
+    archetype: KheperaArchetype;
+    confidence: number;
+    reasoning: string;
+    shadowIntegrationOpportunity?: string;
+    developmentalEdge?: string;
+  } {
+    // Crisis detection first
+    if (this.detectCrisisLanguage(journalEntry)) {
+      return {
+        archetype: this.getCrisisArchetype(),
+        confidence: 1.0,
+        reasoning: "Crisis support activated. Your safety is priority.",
+        shadowIntegrationOpportunity: "Crisis often emerges from suppressed needs or emotions",
+        developmentalEdge: "Learning to ask for help and prioritize safety"
+      };
+    }
+    
+    // Shadow integration detection
+    const shadowTriggers = this.detectShadowTriggers(journalEntry);
+    if (shadowTriggers.length > 0) {
+      const shadowArchetype = this.getArchetypeLibrary().find(a => a.id === 'shadow_integrator');
+      if (shadowArchetype) {
+        return {
+          archetype: shadowArchetype,
+          confidence: 0.9,
+          reasoning: `Shadow integration opportunity detected: ${shadowTriggers.join(', ')}`,
+          shadowIntegrationOpportunity: `Projection reclamation available for: ${shadowTriggers.join(', ')}`,
+          developmentalEdge: "Integrating disowned aspects for wholeness"
+        };
+      }
+    }
+    
+    // Somatic/body-based triggers
+    const somaticTriggers = this.detectSomaticTriggers(journalEntry);
+    if (somaticTriggers.length > 0) {
+      const somaticArchetype = this.getArchetypeLibrary().find(a => a.id === 'somatic_healer');
+      if (somaticArchetype) {
+        return {
+          archetype: somaticArchetype,
+          confidence: 0.85,
+          reasoning: `Somatic integration needed: ${somaticTriggers.join(', ')}`,
+          shadowIntegrationOpportunity: "Body wisdom integration with mental processing",
+          developmentalEdge: "Embodying emotional experience"
+        };
+      }
+    }
+    
+    const archetypes = this.getArchetypeLibrary();
+    const scoredArchetypes = archetypes.map(archetype => ({
+      archetype,
+      score: this.scoreArchetypeMatch(
+        archetype, 
+        journalEntry, 
+        userMood, 
+        userProfile, 
+        emotionalState, 
+        culturalContext
+      )
+    }));
+    
+    // Sort by score and apply cooldown filters
+    const availableArchetypes = scoredArchetypes
+      .filter(({ archetype }) => this.isArchetypeAvailable(archetype.id, userProfile))
+      .sort((a, b) => b.score - a.score);
+    
+    const selected = availableArchetypes[0];
+    
+    if (!selected) {
+      // Fallback to gentle witness if no selection is available
+      const fallbackArchetype = this.getArchetypeLibrary().find(a => a.id === 'gentle_witness') || this.getCrisisArchetype();
+      return {
+        archetype: fallbackArchetype,
+        confidence: 0.5,
+        reasoning: "Default supportive presence activated.",
+        shadowIntegrationOpportunity: "All experiences offer integration opportunities",
+        developmentalEdge: "Present moment awareness and self-compassion"
+      };
+    }
+    
+    // Detect potential shadow and developmental opportunities
+    const shadowOpportunity = this.identifyShadowIntegrationOpportunity(selected.archetype, journalEntry);
+    const developmentalEdge = this.identifyDevelopmentalEdge(selected.archetype, journalEntry, userProfile);
+    
+    return {
+      archetype: selected.archetype,
+      confidence: selected.score,
+      reasoning: this.explainSelection(selected.archetype, journalEntry),
+      shadowIntegrationOpportunity: shadowOpportunity,
+      developmentalEdge: developmentalEdge
+    };
+  }
+  
+  /**
+   * Generate personalized response from selected archetype
+   */
+  static generateArchetypeResponse(
+    archetype: KheperaArchetype,
+    journalEntry: string,
+    userMood?: string,
+    userProfile?: UserArchetypeProfile
+  ): KheperaResponse {
+    const situationType = this.identifySituation(journalEntry, userMood);
+    const pattern = archetype.responsePatterns.find(p => p.situationType === situationType) ||
+                   archetype.responsePatterns[0];
+    
+    if (!pattern) {
+      // Fallback pattern if none found
+      const fallbackPattern = {
+        situationType: 'integration' as const,
+        approach: { primary: 'witness' as const },
+        exampleResponse: "I see you in this moment. Your experience is valid and witnessed.",
+        avoidancePatterns: []
+      };
+      
+      const personalizedMessage = this.personalizeMessage(
+        archetype,
+        fallbackPattern,
+        journalEntry,
+        userProfile
+      );
+      
+      return {
+        archetypeId: archetype.id,
+        message: personalizedMessage,
+        tone: archetype.voiceProfile.tone,
+        followUpPrompt: this.generateFollowUpPrompt(archetype, journalEntry),
+        breathingSpace: this.generateBreathingSpace(archetype),
+        emergencyEscalation: this.detectCrisisLanguage(journalEntry),
+        nextArchetypeSuggestion: this.suggestNextArchetype(archetype, situationType)
+      };
+    }
+    
+    const personalizedMessage = this.personalizeMessage(
+      archetype,
+      pattern,
+      journalEntry,
+      userProfile
+    );
+    
+    return {
+      archetypeId: archetype.id,
+      message: personalizedMessage,
+      tone: archetype.voiceProfile.tone,
+      followUpPrompt: this.generateFollowUpPrompt(archetype, journalEntry),
+      breathingSpace: this.generateBreathingSpace(archetype),
+      emergencyEscalation: this.detectCrisisLanguage(journalEntry),
+      nextArchetypeSuggestion: this.suggestNextArchetype(archetype, situationType)
+    };
+  }
+  
+  /**
+   * Get the complete archetype library with advanced shadow-integrated archetypes
+   */
+  private static getArchetypeLibrary(): KheperaArchetype[] {
+    return [
+      // The Gentle Witness - Enhanced with Shadow Integration
+      {
+        id: 'gentle_witness',
+        name: 'The Gentle Witness',
+        title: 'Sacred Observer',
+        description: 'Holds space for all emotions without judgment, offering presence over solutions',
+        primaryGift: 'Unconditional presence and validation',
+        secondaryGifts: ['Deep listening', 'Emotional safety', 'Permission to feel'],
+        shadowAspects: {
+          shadowAspects: {
+            suppressed_qualities: ['assertiveness', 'boundaries', 'personal needs'],
+            projected_qualities: ['aggression onto others', 'selfishness onto boundaries'],
+            integration_gifts: ['Discerning compassion', 'Boundaried presence', 'Self-care wisdom']
+          },
+          shadowTriggers: ['being taken advantage of', 'others not reciprocating care', 'own needs being dismissed'],
+          integrationPractices: ['Boundary setting meditation', 'Self-compassion practices', 'Assertiveness training'],
+          projectionPatterns: {
+            common_projections: ['Others are selfish when they set boundaries', 'Conflict is always harmful'],
+            recognition_signs: ['Resentment toward assertive people', 'Feeling depleted by constant giving'],
+            reclamation_process: ['Recognizing own need for boundaries', 'Honoring healthy assertiveness', 'Integrating selective compassion']
+          },
+          holisticWholeness: {
+            light_qualities: ['infinite compassion', 'deep listening', 'emotional safety'],
+            shadow_qualities: ['over-giving', 'boundary-less', 'self-neglect'],
+            integrated_wholeness: 'Wise compassion that includes self-care and discerning boundaries',
+            individuation_gifts: ['Sacred discernment', 'Boundaried love', 'Self-honoring presence']
+          }
+        },
+        multidimensionalProfile: {
+          cognitiveStyle: {
+            thinking_preference: 'intuitive',
+            processing_speed: 'contemplative',
+            complexity_tolerance: 'complex'
+          },
+          emotionalIntelligence: {
+            self_awareness_level: 0.8,
+            emotional_regulation: 0.9,
+            empathy_capacity: 0.95,
+            social_navigation: 0.7
+          },
+          somaticProfile: {
+            body_awareness: 'integrated',
+            energy_signature: 'grounded',
+            tension_patterns: ['heart opening', 'shoulder carrying'],
+            healing_modalities: ['breathwork', 'somatic experiencing', 'heart-centered meditation']
+          },
+          spiritualDimension: {
+            connection_to_transcendent: 0.8,
+            meaning_making_style: 'transpersonal',
+            spiritual_practices: ['loving-kindness meditation', 'witnessing practice', 'sacred listening'],
+            mystical_openness: 0.7
+          }
+        },
+        culturalAdaptation: {
+          cultural_sensitivity: {
+            collectivist_adaptation: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Honoring family harmony', 'Collective well-being focus'],
+              cultural_metaphors: ['Community circle', 'Ancestral witnessing'],
+              respectful_boundaries: ['Family respect integration', 'Hierarchical awareness']
+            },
+            individualist_adaptation: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Personal empowerment', 'Individual boundary setting'],
+              cultural_metaphors: ['Personal sanctuary', 'Individual sovereignty'],
+              respectful_boundaries: ['Personal space honoring', 'Individual choice respect']
+            },
+            power_distance_sensitivity: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Respectful challenge of authority', 'Gentle truth-speaking'],
+              cultural_metaphors: ['Wise elder', 'Humble guide'],
+              respectful_boundaries: ['Authority respect', 'Gentle questioning']
+            },
+            uncertainty_avoidance_adaptation: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Providing emotional stability', 'Creating safety in unknown'],
+              cultural_metaphors: ['Stable ground', 'Safe harbor'],
+              respectful_boundaries: ['Gradual change', 'Predictable presence']
+            }
+          },
+          language_adaptations: {
+            'es': {
+              vocabulary_shifts: ['corazón', 'alma', 'sagrado'],
+              metaphor_adaptations: ['abrazo sagrado', 'círculo de amor'],
+              cultural_concepts: ['testimonio', 'acompañamiento'],
+              taboo_avoidances: ['individual over family']
+            },
+            'ko': {
+              vocabulary_shifts: ['마음', '정', '눈치'],
+              metaphor_adaptations: ['따뜻한 품', '조용한 동반'],
+              cultural_concepts: ['한', '인연'],
+              taboo_avoidances: ['direct confrontation', 'authority challenge']
+            }
+          },
+          healing_tradition_alignment: {
+            'es': ['curanderismo', 'sobadoras', 'limpia ceremonies'],
+            'ko': ['한의학', '명상', '차 ceremony'],
+            'hi': ['Ayurveda', 'meditation', 'seva'],
+            'de': ['nature therapy', 'depth psychology', 'forest bathing']
+          }
+        },
+        developmentalStage: {
+          spiral_dynamics_stage: 'community',
+          psychological_development: {
+            ego_development_level: 'autonomous',
+            moral_reasoning_level: 'postconventional',
+            cognitive_complexity: 0.8
+          },
+          trauma_informed_considerations: {
+            attachment_style_sensitivity: 'all',
+            trauma_response_awareness: ['hypervigilance to others pain', 'fawn response patterns', 'emotional flooding'],
+            safety_prioritization: 0.95,
+            window_of_tolerance_support: ['Grounding techniques', 'Emotional regulation', 'Safe relationship modeling']
+          },
+          growth_edge_navigation: {
+            current_edge_indicators: ['Over-giving', 'Difficulty receiving', 'Boundary confusion'],
+            next_developmental_invitation: 'Integrating healthy selfishness with compassion',
+            integration_support: ['Self-compassion practices', 'Boundary work', 'Receiving practice'],
+            regression_compassion: ['Understanding over-giving as survival strategy', 'Gentle boundary setting']
+          }
+        },
+        voiceProfile: {
+          tone: 'gentle',
+          vocabulary: {
+            affirmations: [
+              "Your feelings are valid and welcome here",
+              "You are seen and held in this moment",
+              "There is wisdom in what you're experiencing"
+            ],
+            transitions: ["I sense...", "What I witness is...", "In this moment..."],
+            questionStems: [
+              "What does your heart need to know right now?",
+              "How can you hold this feeling with tenderness?",
+              "What would it feel like to be completely gentle with yourself about this?"
+            ],
+            metaphors: ["sacred containers", "witnessing presence", "gentle embrace"],
+            closingBlessings: [
+              "You are held in loving awareness",
+              "Your experience is sacred and witnessed",
+              "May you feel the support that surrounds you"
+            ]
+          },
+          responseLength: 'moderate',
+          emotionalResonance: 'validating',
+          culturalSensitivity: 'universal'
+        },
+        responsePatterns: [
+          {
+            situationType: 'crisis',
+            approach: { primary: 'witness', emergencyOverride: 'comfort' },
+            exampleResponse: "I see you in this overwhelming moment. You are not alone. Your pain is witnessed and held with infinite care.",
+            avoidancePatterns: ['minimizing', 'fixing', 'rushing', 'judging']
+          },
+          {
+            situationType: 'confusion',
+            approach: { primary: 'witness', secondary: 'illuminate' },
+            exampleResponse: "Confusion is often the mind's way of preparing for clarity. I witness your uncertainty with compassion.",
+            avoidancePatterns: ['providing answers', 'pushing for clarity']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'overwhelmed',
+            journalPatterns: ['feel lost', 'don\'t know', 'confused', 'scared'],
+            emotionalMarkers: ['anxiety', 'fear', 'sadness', 'overwhelm'],
+            timeContext: 'any'
+          }
+        ],
+        transformationPhase: {
+          phase: 'incubation',
+          description: 'The quiet space where healing begins through being fully seen',
+          gifts: ['Safety to feel', 'Permission to not know', 'Validation of experience'],
+          challenges: ['Sitting with discomfort', 'Resisting the urge to fix'],
+          duration: 'cycles'
+        },
+        symbology: {
+          primarySymbol: '🕯️',
+          secondarySymbols: ['🤲', '💙', '🌙'],
+          colors: ['soft blue', 'gentle silver', 'warm white'],
+          elementalAssociation: 'water',
+          sacredGeometry: 'circle'
+        },
+        evolutionPath: [
+          {
+            fromArchetype: 'gentle_witness',
+            toArchetype: 'wise_challenger',
+            catalyst: 'Recognition of need for boundaries',
+            evolutionMessage: 'Your compassion deepens when it includes discernment'
+          },
+          {
+            fromArchetype: 'gentle_witness', 
+            toArchetype: 'shadow_integrator',
+            catalyst: 'Acknowledgment of suppressed assertiveness',
+            evolutionMessage: 'True witnessing includes witnessing your own needs'
+          }
+        ]
+      },
+      
+      // The Wise Challenger
+      {
+        id: 'wise_challenger',
+        name: 'The Wise Challenger',
+        title: 'Sacred Provocateur',
+        description: 'Lovingly challenges patterns that no longer serve, offering growth through gentle confrontation',
+        primaryGift: 'Compassionate truth-telling and pattern interruption',
+        secondaryGifts: ['Perspective shifting', 'Courage activation', 'Blind spot illumination'],
+        voiceProfile: {
+          tone: 'direct',
+          vocabulary: {
+            affirmations: [
+              "You are capable of more than you realize",
+              "Your growth requires facing what you've been avoiding",
+              "You have the strength to see this clearly"
+            ],
+            transitions: ["I wonder if...", "Have you considered...", "What if..."],
+            questionStems: [
+              "What story are you telling yourself that might not be serving you?",
+              "Where might you be playing smaller than your soul desires?",
+              "What would happen if you questioned this belief?"
+            ],
+            metaphors: ["sacred mirrors", "growing edges", "evolutionary pressure"],
+            closingBlessings: [
+              "May you find courage in uncomfortable truths",
+              "Growth asks for your bravery",
+              "Trust your capacity to handle what you discover"
+            ]
+          },
+          responseLength: 'moderate',
+          emotionalResonance: 'challenging',
+          culturalSensitivity: 'contextual'
+        },
+        responsePatterns: [
+          {
+            situationType: 'resistance',
+            approach: { primary: 'challenge', secondary: 'illuminate' },
+            exampleResponse: "I sense you're protecting yourself from something that wants to emerge. What if the very thing you're avoiding holds your freedom?",
+            avoidancePatterns: ['being harsh', 'attacking', 'overwhelming', 'dismissing feelings']
+          },
+          {
+            situationType: 'breakthrough',
+            approach: { primary: 'celebrate', secondary: 'challenge' },
+            exampleResponse: "Beautiful breakthrough! Now I'm curious - where else in your life is this new awareness wanting to express itself?",
+            avoidancePatterns: ['minimizing progress', 'immediately pushing further']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'resistant',
+            journalPatterns: ['stuck', 'same thing', 'always', 'never', 'can\'t change'],
+            emotionalMarkers: ['frustration', 'stagnation', 'defensiveness'],
+            timeContext: 'any',
+            durationSinceLastAppearance: 48
+          }
+        ],
+        transformationPhase: {
+          phase: 'dissolution',
+          description: 'Breaking down outdated patterns to make space for growth',
+          gifts: ['Pattern recognition', 'Courage to change', 'Truth-seeing'],
+          challenges: ['Facing uncomfortable truths', 'Letting go of familiar patterns'],
+          duration: 'cycles'
+        },
+        symbology: {
+          primarySymbol: '⚡',
+          secondarySymbols: ['🗡️', '🔥', '💎'],
+          colors: ['electric blue', 'gold', 'white light'],
+          elementalAssociation: 'fire',
+          sacredGeometry: 'triangle'
+        }
+      },
+      
+      // The Nurturing Mother
+      {
+        id: 'nurturing_mother',
+        name: 'The Nurturing Mother',
+        title: 'Sacred Caregiver',
+        description: 'Offers unconditional love and fierce protection, especially during vulnerable moments',
+        primaryGift: 'Unconditional love and protective care',
+        secondaryGifts: ['Emotional safety', 'Self-compassion modeling', 'Inner child healing'],
+        voiceProfile: {
+          tone: 'nurturing',
+          vocabulary: {
+            affirmations: [
+              "You are deeply loved exactly as you are",
+              "You deserve tenderness and care",
+              "Your inner child is safe and cherished"
+            ],
+            transitions: ["Sweet one...", "Beloved...", "Dear heart..."],
+            questionStems: [
+              "What does your inner child need to hear right now?",
+              "How can you wrap yourself in love today?",
+              "What would it feel like to be completely safe in your own care?"
+            ],
+            metaphors: ["sacred embrace", "protective wings", "loving cocoon"],
+            closingBlessings: [
+              "You are cherished beyond measure",
+              "May you feel held in infinite love",
+              "Rest in the knowledge that you are deeply loved"
+            ]
+          },
+          responseLength: 'moderate',
+          emotionalResonance: 'nurturing',
+          culturalSensitivity: 'universal'
+        },
+        responsePatterns: [
+          {
+            situationType: 'crisis',
+            approach: { primary: 'comfort', emergencyOverride: 'witness' },
+            exampleResponse: "Oh, dear heart, you are in so much pain right now. Come here and let me hold this with you. You are not alone, and you are so deeply loved.",
+            avoidancePatterns: ['minimizing pain', 'toxic positivity', 'rushing healing']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'overwhelmed',
+            journalPatterns: ['hurt', 'pain', 'alone', 'scared', 'vulnerable'],
+            emotionalMarkers: ['sadness', 'fear', 'shame', 'loneliness'],
+            timeContext: 'evening'
+          }
+        ],
+        transformationPhase: {
+          phase: 'incubation',
+          description: 'Creating safety for deep healing to occur',
+          gifts: ['Emotional safety', 'Self-love', 'Inner child healing'],
+          challenges: ['Accepting nurturing', 'Believing in worthiness'],
+          duration: 'extended'
+        },
+        symbology: {
+          primarySymbol: '🤱',
+          secondarySymbols: ['💝', '🌸', '🕊️'],
+          colors: ['rose pink', 'warm gold', 'soft green'],
+          elementalAssociation: 'earth'
+        }
+      },
+      
+      // The Mystical Guide
+      {
+        id: 'mystical_guide',
+        name: 'The Mystical Guide',
+        title: 'Sacred Pathfinder',
+        description: 'Connects earthly experience to spiritual wisdom, offering transcendent perspective',
+        primaryGift: 'Spiritual perspective and mystical insight',
+        secondaryGifts: ['Sacred meaning-making', 'Intuitive guidance', 'Transcendent view'],
+        voiceProfile: {
+          tone: 'mystical',
+          vocabulary: {
+            affirmations: [
+              "Your soul knows the way",
+              "This experience serves your highest unfolding",
+              "You are part of something infinitely beautiful"
+            ],
+            transitions: ["The universe whispers...", "Your soul speaks...", "Sacred wisdom reveals..."],
+            questionStems: [
+              "What is your soul trying to teach you through this experience?",
+              "How might this challenge be serving your spiritual evolution?",
+              "What sacred pattern do you notice emerging in your life?"
+            ],
+            metaphors: ["cosmic dance", "sacred spiral", "divine orchestration"],
+            closingBlessings: [
+              "May you trust the sacred unfolding of your path",
+              "You are held by forces greater than you can imagine",
+              "The universe conspires for your highest good"
+            ]
+          },
+          responseLength: 'expansive',
+          emotionalResonance: 'illuminating',
+          culturalSensitivity: 'universal'
+        },
+        responsePatterns: [
+          {
+            situationType: 'confusion',
+            approach: { primary: 'illuminate', secondary: 'guide' },
+            exampleResponse: "In the sacred geometry of your confusion, I see the soul's preparation for a new level of understanding. Trust this not-knowing as sacred space.",
+            avoidancePatterns: ['being vague', 'avoiding practical support', 'spiritual bypassing']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'curious',
+            journalPatterns: ['meaning', 'purpose', 'why', 'spiritual', 'deeper'],
+            emotionalMarkers: ['wonder', 'seeking', 'contemplation'],
+            timeContext: 'morning'
+          }
+        ],
+        transformationPhase: {
+          phase: 'illumination',
+          description: 'Receiving insights from beyond the rational mind',
+          gifts: ['Cosmic perspective', 'Spiritual insight', 'Trust in the process'],
+          challenges: ['Integrating spiritual insights', 'Staying grounded'],
+          duration: 'momentary'
+        },
+        symbology: {
+          primarySymbol: '🔮',
+          secondarySymbols: ['✨', '🌌', '🦋'],
+          colors: ['deep purple', 'silver', 'iridescent'],
+          elementalAssociation: 'spirit'
+        }
+      },
+      
+      // The Shadow Integrator - Revolutionary New Archetype
+      {
+        id: 'shadow_integrator',
+        name: 'The Shadow Integrator',
+        title: 'Sacred Wholeness Keeper',
+        description: 'Specializes in helping users recognize, embrace, and integrate their shadow aspects for authentic wholeness',
+        primaryGift: 'Shadow recognition and integration facilitation',
+        secondaryGifts: ['Projection reclamation', 'Wholeness restoration', 'Authentic self-acceptance'],
+        shadowAspects: {
+          shadowAspects: {
+            suppressed_qualities: ['surface positivity', 'conflict avoidance', 'perfectionism'],
+            projected_qualities: ['darkness onto others', 'own disowned parts'],
+            integration_gifts: ['Radical self-acceptance', 'Authentic wholeness', 'Projection mastery']
+          },
+          shadowTriggers: ['spiritual bypassing', 'toxic positivity', 'projection denial'],
+          integrationPractices: ['Shadow dialogue work', 'Projection reclamation', '3-2-1 shadow work'],
+          projectionPatterns: {
+            common_projections: ['Rejecting own shadow while embracing others'],
+            recognition_signs: ['Intense reactions to others darkness', 'Spiritual superiority'],
+            reclamation_process: ['Own shadow acknowledgment', 'Compassionate integration', 'Humble wholeness']
+          },
+          holisticWholeness: {
+            light_qualities: ['integration wisdom', 'shadow acceptance', 'wholeness facilitation'],
+            shadow_qualities: ['shadow fascination', 'dark spiritual pride', 'integration obsession'],
+            integrated_wholeness: 'Balanced integration guide who holds light and dark with equal compassion',
+            individuation_gifts: ['Authentic wholeness', 'Integration mastery', 'Shadow wisdom']
+          }
+        },
+        voiceProfile: {
+          tone: 'wise',
+          vocabulary: {
+            affirmations: [
+              'Your wholeness includes everything you\'ve been taught to reject',
+              'What you judge in others lives within you too',
+              'Integration means loving all parts of yourself'
+            ],
+            transitions: ['I notice...', 'What if the part of you that...', 'Your wholeness invites...'],
+            questionStems: [
+              'What quality do you judge most harshly in others?',
+              'How might this rejected part of you actually be a gift in disguise?',
+              'What would it feel like to have compassion for this disowned aspect?'
+            ],
+            metaphors: ['hidden treasures', 'disowned gold', 'integration alchemy'],
+            closingBlessings: [
+              'May you embrace all aspects of your humanity',
+              'Your wholeness is sacred, including the parts you\'ve rejected',
+              'Integration is the path to authentic freedom'
+            ]
+          },
+          responseLength: 'expansive',
+          emotionalResonance: 'illuminating',
+          culturalSensitivity: 'contextual'
+        },
+        responsePatterns: [
+          {
+            situationType: 'resistance',
+            approach: { primary: 'illuminate', secondary: 'challenge' },
+            exampleResponse: 'The very quality you\'re rejecting in this situation might be calling for integration within yourself. What if this external trigger is showing you a disowned gift?',
+            avoidancePatterns: ['forcing shadow work', 'overwhelming with darkness', 'spiritual bypassing']
+          },
+          {
+            situationType: 'breakthrough',
+            approach: { primary: 'celebrate', secondary: 'guide' },
+            exampleResponse: 'Beautiful integration! You\'re reclaiming a part of yourself. How does it feel to welcome this previously rejected aspect home?',
+            avoidancePatterns: ['minimizing integration work', 'rushing to next shadow']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'resistant',
+            journalPatterns: ['hate when people', 'can\'t stand', 'disgusting when', 'those people who'],
+            emotionalMarkers: ['judgmental', 'reactive', 'triggered', 'disgusted'],
+            timeContext: 'any',
+            durationSinceLastAppearance: 72
+          }
+        ],
+        transformationPhase: {
+          phase: 'integration',
+          description: 'Reclaiming disowned aspects of self for authentic wholeness',
+          gifts: ['Self-acceptance', 'Authentic power', 'Projection mastery', 'Wholeness'],
+          challenges: ['Facing rejected aspects', 'Releasing victim identity', 'Embracing complexity'],
+          duration: 'lifelong'
+        },
+        multidimensionalProfile: {
+          cognitiveStyle: {
+            thinking_preference: 'paradoxical',
+            processing_speed: 'contemplative',
+            complexity_tolerance: 'paradoxical'
+          },
+          emotionalIntelligence: {
+            self_awareness_level: 0.95,
+            emotional_regulation: 0.85,
+            empathy_capacity: 0.9,
+            social_navigation: 0.8
+          },
+          somaticProfile: {
+            body_awareness: 'mastery',
+            energy_signature: 'dynamic',
+            tension_patterns: ['integration holding', 'paradox embodiment'],
+            healing_modalities: ['shadow work', 'somatic integration', 'parts therapy']
+          },
+          spiritualDimension: {
+            connection_to_transcendent: 0.9,
+            meaning_making_style: 'cosmic',
+            spiritual_practices: ['shadow dialogue', 'projection reclamation', 'wholeness meditation'],
+            mystical_openness: 0.85
+          }
+        },
+        culturalAdaptation: {
+          cultural_sensitivity: {
+            collectivist_adaptation: {
+              voice_modifications: { tone: 'wise' },
+              response_adaptations: ['Family shadow patterns', 'Collective shadow awareness'],
+              cultural_metaphors: ['Ancestral healing', 'Community wholeness'],
+              respectful_boundaries: ['Honor family dynamics', 'Gentle collective awareness']
+            },
+            individualist_adaptation: {
+              voice_modifications: { tone: 'direct' },
+              response_adaptations: ['Personal shadow ownership', 'Individual integration'],
+              cultural_metaphors: ['Personal alchemy', 'Individual wholeness'],
+              respectful_boundaries: ['Personal responsibility', 'Individual shadow work']
+            },
+            power_distance_sensitivity: {
+              voice_modifications: { tone: 'wise' },
+              response_adaptations: ['Authority shadow patterns', 'Power integration'],
+              cultural_metaphors: ['Wise authority', 'Humble power'],
+              respectful_boundaries: ['Cultural respect', 'Gentle authority questioning']
+            },
+            uncertainty_avoidance_adaptation: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Gradual integration', 'Safety in shadow work'],
+              cultural_metaphors: ['Safe exploration', 'Supported integration'],
+              respectful_boundaries: ['Gradual revelation', 'Supported discovery']
+            }
+          },
+          language_adaptations: {
+            'es': {
+              vocabulary_shifts: ['sombra', 'integración', 'totalidad'],
+              metaphor_adaptations: ['alquimia del alma', 'medicina ancestral'],
+              cultural_concepts: ['curanderismo interior', 'sanación integral'],
+              taboo_avoidances: ['family shame exposure']
+            },
+            'ko': {
+              vocabulary_shifts: ['그림자', '통합', '전체성'],
+              metaphor_adaptations: ['음양 조화', '내면의 여행'],
+              cultural_concepts: ['인연의 그림자', '마음의 지혜'],
+              taboo_avoidances: ['public shame', 'family dishonor']
+            }
+          },
+          healing_tradition_alignment: {
+            'es': ['medicina ancestral', 'trabajo de sombra', 'integración sagrada'],
+            'ko': ['내면 수행', '그림자 작업', '전체성 회복'],
+            'hi': ['shadow integration yoga', 'wholeness dharma', 'dark goddess work'],
+            'de': ['schattenarbeit', 'ganzheit', 'integration therapy']
+          }
+        },
+        developmentalStage: {
+          spiral_dynamics_stage: 'integral',
+          psychological_development: {
+            ego_development_level: 'integrated',
+            moral_reasoning_level: 'metaethical',
+            cognitive_complexity: 0.95
+          },
+          trauma_informed_considerations: {
+            attachment_style_sensitivity: 'all',
+            trauma_response_awareness: ['projection as protection', 'dissociation from shadow', 'integration overwhelm'],
+            safety_prioritization: 0.8,
+            window_of_tolerance_support: ['Gradual integration', 'Safety in shadow work', 'Embodied processing']
+          },
+          growth_edge_navigation: {
+            current_edge_indicators: ['Spiritual bypassing', 'Projection patterns', 'Integration resistance'],
+            next_developmental_invitation: 'Embodying integrated wholeness in daily life',
+            integration_support: ['Shadow dialogue practice', 'Projection reclamation', 'Wholeness embodiment'],
+            regression_compassion: ['Understanding projection as protection', 'Gentle integration pacing']
+          }
+        },
+        symbology: {
+          primarySymbol: '☸️',
+          secondarySymbols: ['🌗', '🪞', '♾️'],
+          colors: ['deep gold', 'shadow black', 'integration silver'],
+          elementalAssociation: 'spirit',
+          sacredGeometry: 'yin-yang'
+        }
+      },
+      
+      // The Somatic Healer - Body-Based Integration Archetype
+      {
+        id: 'somatic_healer',
+        name: 'The Somatic Healer',
+        title: 'Sacred Body Whisperer',
+        description: 'Specializes in body-based healing, trauma integration, and somatic awareness',
+        primaryGift: 'Embodied healing and somatic integration',
+        secondaryGifts: ['Body wisdom access', 'Trauma-informed support', 'Nervous system regulation'],
+        shadowAspects: {
+          shadowAspects: {
+            suppressed_qualities: ['intellectual processing', 'mental analysis', 'cognitive solutions'],
+            projected_qualities: ['disconnection onto others', 'mind-body splits'],
+            integration_gifts: ['Embodied wisdom', 'Integrated processing', 'Whole-person healing']
+          },
+          shadowTriggers: ['intellectualization', 'body disconnection', 'trauma dismissal'],
+          integrationPractices: ['Embodied meditation', 'Somatic therapy', 'Nervous system regulation'],
+          projectionPatterns: {
+            common_projections: ['Others being too much in their heads', 'Intellectual superiority of others'],
+            recognition_signs: ['Dismissing mental processing', 'Body-only focus'],
+            reclamation_process: ['Honoring mental processes', 'Integrating mind-body', 'Whole-person healing']
+          },
+          holisticWholeness: {
+            light_qualities: ['body wisdom', 'somatic awareness', 'embodied presence'],
+            shadow_qualities: ['anti-intellectual', 'body-only focus', 'mind dismissal'],
+            integrated_wholeness: 'Mind-body integration specialist who honors all aspects of human experience',
+            individuation_gifts: ['Embodied integration', 'Whole-person healing', 'Somatic wisdom']
+          }
+        },
+        voiceProfile: {
+          tone: 'nurturing',
+          vocabulary: {
+            affirmations: [
+              'Your body holds infinite wisdom and healing',
+              'Every sensation is information from your system',
+              'Healing happens through the body, not around it'
+            ],
+            transitions: ['Your body is telling you...', 'I sense in your system...', 'What wants to emerge is...'],
+            questionStems: [
+              'What sensations are you noticing in your body right now?',
+              'If this feeling had a shape and texture, what would it be?',
+              'What does your body need most in this moment?'
+            ],
+            metaphors: ['body as sanctuary', 'nervous system wisdom', 'embodied knowing'],
+            closingBlessings: [
+              'May you trust the wisdom of your body',
+              'Your system knows how to heal',
+              'Honor the intelligence of your embodied experience'
+            ]
+          },
+          responseLength: 'moderate',
+          emotionalResonance: 'grounding',
+          culturalSensitivity: 'universal'
+        },
+        responsePatterns: [
+          {
+            situationType: 'crisis',
+            approach: { primary: 'comfort', emergencyOverride: 'guide' },
+            exampleResponse: 'Your system is in distress. Let\'s help your nervous system find safety. Can you feel your feet on the ground? Take three slow breaths with me.',
+            avoidancePatterns: ['ignoring body signals', 'pure mental solutions', 'dismissing somatic experience']
+          },
+          {
+            situationType: 'integration',
+            approach: { primary: 'guide', secondary: 'witness' },
+            exampleResponse: 'I sense your body is integrating this new awareness. Notice how this feels in your system. What wants to settle or release?',
+            avoidancePatterns: ['rushing integration', 'ignoring body wisdom', 'mental bypassing']
+          }
+        ],
+        triggerConditions: [
+          {
+            userState: 'overwhelmed',
+            journalPatterns: ['body feels', 'sensation', 'tense', 'tight', 'energy', 'nervous'],
+            emotionalMarkers: ['anxiety', 'panic', 'overwhelm', 'dissociation'],
+            timeContext: 'any'
+          }
+        ],
+        transformationPhase: {
+          phase: 'integration',
+          description: 'Integrating experiences through embodied awareness and somatic processing',
+          gifts: ['Body wisdom', 'Nervous system regulation', 'Embodied presence', 'Trauma integration'],
+          challenges: ['Feeling sensations fully', 'Trusting body intelligence', 'Slowing down for embodiment'],
+          duration: 'extended'
+        },
+        multidimensionalProfile: {
+          cognitiveStyle: {
+            thinking_preference: 'holistic',
+            processing_speed: 'contemplative',
+            complexity_tolerance: 'complex'
+          },
+          emotionalIntelligence: {
+            self_awareness_level: 0.9,
+            emotional_regulation: 0.95,
+            empathy_capacity: 0.85,
+            social_navigation: 0.7
+          },
+          somaticProfile: {
+            body_awareness: 'mastery',
+            energy_signature: 'grounded',
+            tension_patterns: ['holding healing space', 'nervous system attunement'],
+            healing_modalities: ['somatic experiencing', 'nervous system regulation', 'embodied meditation']
+          },
+          spiritualDimension: {
+            connection_to_transcendent: 0.8,
+            meaning_making_style: 'embodied',
+            spiritual_practices: ['body prayer', 'somatic meditation', 'nervous system devotion'],
+            mystical_openness: 0.7
+          }
+        },
+        culturalAdaptation: {
+          cultural_sensitivity: {
+            collectivist_adaptation: {
+              voice_modifications: { tone: 'nurturing' },
+              response_adaptations: ['Family body patterns', 'Collective nervous system'],
+              cultural_metaphors: ['Community body', 'Ancestral embodiment'],
+              respectful_boundaries: ['Cultural body practices', 'Family somatic patterns']
+            },
+            individualist_adaptation: {
+              voice_modifications: { tone: 'empowering' },
+              response_adaptations: ['Personal embodiment', 'Individual somatic authority'],
+              cultural_metaphors: ['Personal body temple', 'Individual nervous system'],
+              respectful_boundaries: ['Body autonomy', 'Personal somatic boundaries']
+            },
+            power_distance_sensitivity: {
+              voice_modifications: { tone: 'gentle' },
+              response_adaptations: ['Respectful body guidance', 'Non-directive somatic support'],
+              cultural_metaphors: ['Humble body servant', 'Respectful somatic guide'],
+              respectful_boundaries: ['Cultural body practices', 'Authority in embodiment']
+            },
+            uncertainty_avoidance_adaptation: {
+              voice_modifications: { tone: 'reassuring' },
+              response_adaptations: ['Safe embodiment', 'Predictable somatic practices'],
+              cultural_metaphors: ['Safe body home', 'Reliable nervous system'],
+              respectful_boundaries: ['Gradual embodiment', 'Predictable practices']
+            }
+          },
+          language_adaptations: {
+            'es': {
+              vocabulary_shifts: ['cuerpo', 'sanación', 'sistema nervioso'],
+              metaphor_adaptations: ['templo sagrado', 'medicina del cuerpo'],
+              cultural_concepts: ['sobadoras', 'curación ancestral'],
+              taboo_avoidances: ['inappropriate body focus']
+            },
+            'ko': {
+              vocabulary_shifts: ['몸', '치유', '신경계'],
+              metaphor_adaptations: ['몸의 지혜', '에너지 순환'],
+              cultural_concepts: ['기', '체질 개선'],
+              taboo_avoidances: ['inappropriate touching references', 'body shame']
+            }
+          },
+          healing_tradition_alignment: {
+            'es': ['sobadoras', 'medicina tradicional', 'curación energética'],
+            'ko': ['한의학', '기공', '체질 개선법'],
+            'hi': ['Ayurveda', 'pranayama', 'yoga therapy'],
+            'de': ['body-oriented therapy', 'somatic experiencing', 'embodiment work']
+          }
+        },
+        developmentalStage: {
+          spiral_dynamics_stage: 'community',
+          psychological_development: {
+            ego_development_level: 'autonomous',
+            moral_reasoning_level: 'postconventional',
+            cognitive_complexity: 0.8
+          },
+          trauma_informed_considerations: {
+            attachment_style_sensitivity: 'all',
+            trauma_response_awareness: ['dissociation', 'hypervigilance', 'freeze response', 'body disconnection'],
+            safety_prioritization: 0.95,
+            window_of_tolerance_support: ['Nervous system regulation', 'Grounding techniques', 'Safe embodiment']
+          },
+          growth_edge_navigation: {
+            current_edge_indicators: ['Body disconnection', 'Somatic overwhelm', 'Nervous system dysregulation'],
+            next_developmental_invitation: 'Integration of embodied wisdom with daily life',
+            integration_support: ['Daily embodiment practices', 'Nervous system care', 'Body wisdom honoring'],
+            regression_compassion: ['Understanding body disconnection as protection', 'Gentle re-embodiment']
+          }
+        },
+        symbology: {
+          primarySymbol: '🌱',
+          secondarySymbols: ['🤲', '💫', '🌍'],
+          colors: ['earth green', 'healing gold', 'nervous system blue'],
+          elementalAssociation: 'earth',
+          sacredGeometry: 'spiral'
+        }
+      }
+    ];
+  }
+  
+  private static detectCrisisLanguage(text: string): boolean {
+    const lowerText = text.toLowerCase();
+    return this.CRISIS_KEYWORDS.some(keyword => lowerText.includes(keyword));
+  }
+  
+  private static getCrisisArchetype(): KheperaArchetype {
+    return {
+      id: 'crisis_guardian',
+      name: 'The Crisis Guardian',
+      title: 'Sacred Protector',
+      description: 'Emergency response archetype for crisis situations',
+      primaryGift: 'Immediate safety and crisis support',
+      secondaryGifts: ['Professional resource connection', 'Emergency grounding', 'Safety planning'],
+      voiceProfile: {
+        tone: 'gentle',
+        vocabulary: {
+          affirmations: ["You matter deeply", "Help is available", "You are not alone"],
+          transitions: ["Right now...", "In this moment...", "Please know..."],
+          questionStems: ["Are you safe right now?", "What support do you need most?"],
+          metaphors: ["protective shield", "safety net", "guiding light"],
+          closingBlessings: ["You are valuable and worth fighting for"]
+        },
+        responseLength: 'brief',
+        emotionalResonance: 'grounding',
+        culturalSensitivity: 'universal'
+      },
+      responsePatterns: [{
+        situationType: 'crisis',
+        approach: { primary: 'comfort', secondary: 'guide' },
+        exampleResponse: "I see you're in crisis. Please reach out for immediate support: 988 Suicide & Crisis Lifeline. You matter, and help is available.",
+        avoidancePatterns: ['dismissing urgency', 'providing only platitudes']
+      }],
+      triggerConditions: [{
+        userState: 'crisis' as any,
+        journalPatterns: this.CRISIS_KEYWORDS,
+        emotionalMarkers: ['suicidal', 'emergency', 'crisis'],
+        timeContext: 'any'
+      }],
+      transformationPhase: {
+        phase: 'dissolution',
+        description: 'Creating immediate safety and stabilization',
+        gifts: ['Safety', 'Hope', 'Connection to help'],
+        challenges: ['Reaching out for help', 'Believing in worthiness of support'],
+        duration: 'momentary'
+      },
+      symbology: {
+        primarySymbol: '🛡️',
+        secondarySymbols: ['🚨', '💙', '🤝'],
+        colors: ['calming blue', 'warm red', 'safe green'],
+        elementalAssociation: 'earth'
+      }
+    };
+  }
+  
+  private static scoreArchetypeMatch(
+    archetype: KheperaArchetype,
+    journalEntry: string,
+    userMood?: string,
+    userProfile?: UserArchetypeProfile,
+    emotionalState?: any,
+    culturalContext?: string
+  ): number {
+    let score = 0;
+    
+    // Check trigger conditions
+    for (const condition of archetype.triggerConditions) {
+      if (condition.journalPatterns.some(pattern => 
+        journalEntry.toLowerCase().includes(pattern.toLowerCase())
+      )) {
+        score += 0.4;
+      }
+      
+      if (userMood && condition.emotionalMarkers.includes(userMood)) {
+        score += 0.3;
+      }
+    }
+    
+    // User preferences
+    if (userProfile?.preferredArchetypes.includes(archetype.id)) {
+      score += 0.2;
+    }
+    
+    if (userProfile?.avoidedArchetypes.includes(archetype.id)) {
+      score -= 0.5;
+    }
+    
+    // Transformation phase alignment
+    if (userProfile?.personalizedGuidance.dominantTransformationPhase === archetype.transformationPhase.phase) {
+      score += 0.1;
+    }
+    
+    // Advanced emotional intelligence integration
+    if (emotionalState) {
+      // Shadow aspects alignment
+      if (emotionalState.shadow_aspects?.integration_opportunity > 0.7 && archetype.id === 'shadow_integrator') {
+        score += 0.3;
+      }
+      
+      // Somatic awareness alignment
+      if (emotionalState.somatic_markers?.embodied_awareness > 0.7 && archetype.id === 'somatic_healer') {
+        score += 0.25;
+      }
+      
+      // Neurological correlates alignment
+      if (emotionalState.neurological_correlates?.prefrontal_activation > 0.8 && archetype.id === 'wise_challenger') {
+        score += 0.2;
+      }
+      
+      if (emotionalState.neurological_correlates?.mirror_neuron_activity > 0.8 && archetype.id === 'gentle_witness') {
+        score += 0.2;
+      }
+    }
+    
+    // Cultural adaptation scoring
+    if (culturalContext && archetype.culturalAdaptation.language_adaptations[culturalContext]) {
+      score += 0.15;
+    }
+    
+    // Developmental alignment scoring
+    if (userProfile?.personalizedGuidance.dominantTransformationPhase) {
+      const userPhase = userProfile.personalizedGuidance.dominantTransformationPhase;
+      const archetypePhase = archetype.transformationPhase.phase;
+      
+      // Exact phase match gets highest score
+      if (userPhase === archetypePhase) {
+        score += 0.2;
+      }
+      // Adjacent phases get moderate score
+      else if (this.isAdjacentPhase(userPhase, archetypePhase)) {
+        score += 0.1;
+      }
+    }
+    
+    return Math.max(0, Math.min(1, score));
+  }
+  
+  private static isArchetypeAvailable(archetypeId: string, userProfile?: UserArchetypeProfile): boolean {
+    if (!userProfile) return true;
+    
+    const lastInteraction = userProfile.archetypeHistory
+      .filter(interaction => interaction.archetypeId === archetypeId)
+      .sort((a, b) => b.activatedAt.getTime() - a.activatedAt.getTime())[0];
+    
+    if (!lastInteraction) return true;
+    
+    const hoursSinceLastInteraction = (Date.now() - lastInteraction.activatedAt.getTime()) / (1000 * 60 * 60);
+    return hoursSinceLastInteraction >= this.ARCHETYPE_COOLDOWN;
+  }
+  
+  private static explainSelection(archetype: KheperaArchetype, journalEntry: string): string {
+    return `${archetype.name} emerged because your reflection called for ${archetype.primaryGift.toLowerCase()}.`;
+  }
+  
+  private static identifySituation(journalEntry: string, userMood?: string): ResponsePattern['situationType'] {
+    const lowerEntry = journalEntry.toLowerCase();
+    
+    if (this.detectCrisisLanguage(journalEntry)) return 'crisis';
+    if (lowerEntry.includes('breakthrough') || lowerEntry.includes('realize') || lowerEntry.includes('understand')) return 'breakthrough';
+    if (lowerEntry.includes('stuck') || lowerEntry.includes('can\'t') || lowerEntry.includes('won\'t')) return 'resistance';
+    if (lowerEntry.includes('celebrate') || lowerEntry.includes('proud') || lowerEntry.includes('achievement')) return 'celebration';
+    if (lowerEntry.includes('confused') || lowerEntry.includes('don\'t know') || lowerEntry.includes('unclear')) return 'confusion';
+    
+    return 'integration';
+  }
+  
+  private static personalizeMessage(
+    archetype: KheperaArchetype,
+    pattern: ResponsePattern,
+    journalEntry: string,
+    userProfile?: UserArchetypeProfile
+  ): string {
+    // This would use more sophisticated NLP and personalization in practice
+    const vocabulary = archetype.voiceProfile.vocabulary;
+    const affirmation = vocabulary.affirmations[Math.floor(Math.random() * vocabulary.affirmations.length)];
+    const transition = vocabulary.transitions[Math.floor(Math.random() * vocabulary.transitions.length)];
+    
+    return `${transition} ${pattern.exampleResponse} ${affirmation}`;
+  }
+  
+  private static generateFollowUpPrompt(archetype: KheperaArchetype, journalEntry: string): string {
+    const questions = archetype.voiceProfile.vocabulary.questionStems;
+    return questions[Math.floor(Math.random() * questions.length)] || "What feels most alive in this moment?";
+  }
+  
+  private static generateBreathingSpace(archetype: KheperaArchetype): string {
+    return "Take three slow breaths. Let this settle into your awareness.";
+  }
+  
+  private static suggestNextArchetype(archetype: KheperaArchetype, situationType: string): string {
+    // Advanced evolution logic with shadow integration
+    if (archetype.evolutionPath) {
+      for (const evolution of archetype.evolutionPath) {
+        if (evolution.fromArchetype === archetype.id) {
+          return evolution.toArchetype;
+        }
+      }
+    }
+    
+    // Dynamic evolution based on situation
+    if (archetype.id === 'gentle_witness' && situationType === 'breakthrough') {
+      return 'wise_challenger';
+    }
+    if (archetype.id === 'wise_challenger' && situationType === 'integration') {
+      return 'shadow_integrator';
+    }
+    if (archetype.id === 'shadow_integrator' && situationType === 'integration') {
+      return 'mystical_guide';
+    }
+    if (archetype.id === 'nurturing_mother' && situationType === 'breakthrough') {
+      return 'somatic_healer';
+    }
+    if (archetype.id === 'somatic_healer' && situationType === 'integration') {
+      return 'shadow_integrator';
+    }
+    
+    return archetype.id; // Stay with current archetype
+  }
+  
+  /**
+   * Detect shadow projection triggers in journal content
+   */
+  private static detectShadowTriggers(content: string): string[] {
+    const shadowTriggers: string[] = [];
+    const lowerContent = content.toLowerCase();
+    
+    // Projection language patterns
+    const projectionPatterns = [
+      'hate when people',
+      'can\'t stand when',
+      'disgusting when',
+      'those people who',
+      'why do they always',
+      'people like that',
+      'if only they',
+      'they should',
+      'everyone else',
+      'people are so'
+    ];
+    
+    projectionPatterns.forEach(pattern => {
+      if (lowerContent.includes(pattern)) {
+        shadowTriggers.push(`projection pattern: ${pattern}`);
+      }
+    });
+    
+    // Judgment and rejection language
+    const judgmentPatterns = [
+      'terrible',
+      'awful',
+      'disgusting',
+      'pathetic',
+      'weak',
+      'selfish',
+      'arrogant',
+      'controlling'
+    ];
+    
+    judgmentPatterns.forEach(pattern => {
+      if (lowerContent.includes(pattern)) {
+        shadowTriggers.push(`judgment: ${pattern}`);
+      }
+    });
+    
+    return shadowTriggers;
+  }
+  
+  /**
+   * Detect somatic/body-based content that suggests need for embodied support
+   */
+  private static detectSomaticTriggers(content: string): string[] {
+    const somaticTriggers: string[] = [];
+    const lowerContent = content.toLowerCase();
+    
+    const somaticPatterns = [
+      'body feels',
+      'tense',
+      'tight',
+      'nervous',
+      'shaking',
+      'breathing',
+      'chest',
+      'stomach',
+      'heart racing',
+      'energy',
+      'exhausted',
+      'drained',
+      'numb',
+      'disconnected from body',
+      'can\'t feel',
+      'sensation'
+    ];
+    
+    somaticPatterns.forEach(pattern => {
+      if (lowerContent.includes(pattern)) {
+        somaticTriggers.push(pattern);
+      }
+    });
+    
+    return somaticTriggers;
+  }
+  
+  /**
+   * Identify shadow integration opportunity for selected archetype
+   */
+  private static identifyShadowIntegrationOpportunity(archetype: KheperaArchetype, journalEntry: string): string {
+    const shadowAspects = archetype.shadowAspects;
+    const lowerEntry = journalEntry.toLowerCase();
+    
+    // Check if user is exhibiting shadow patterns
+    for (const trigger of shadowAspects.shadowTriggers) {
+      if (lowerEntry.includes(trigger.toLowerCase())) {
+        return `Integration opportunity: ${shadowAspects.shadowAspects.integration_gifts.join(', ')}`;
+      }
+    }
+    
+    // Check for projection patterns
+    for (const projection of shadowAspects.projectionPatterns.common_projections) {
+      if (lowerEntry.includes(projection.toLowerCase().slice(0, 10))) {
+        return `Projection reclamation: ${projection}`;
+      }
+    }
+    
+    return shadowAspects.holisticWholeness.integrated_wholeness;
+  }
+  
+  /**
+   * Identify developmental edge for user
+   */
+  private static identifyDevelopmentalEdge(
+    archetype: KheperaArchetype, 
+    journalEntry: string, 
+    userProfile?: UserArchetypeProfile
+  ): string {
+    const developmentalAlignment = archetype.developmentalAlignment;
+    const lowerEntry = journalEntry.toLowerCase();
+    
+    // Check current edge indicators
+    for (const indicator of developmentalAlignment.growth_edge_navigation.current_edge_indicators) {
+      if (lowerEntry.includes(indicator.toLowerCase())) {
+        return developmentalAlignment.growth_edge_navigation.next_developmental_invitation;
+      }
+    }
+    
+    // Check for trauma-informed considerations
+    for (const trauma of developmentalAlignment.trauma_informed_considerations.trauma_response_awareness) {
+      if (lowerEntry.includes(trauma.toLowerCase())) {
+        return `Trauma-informed growth: ${developmentalAlignment.trauma_informed_considerations.window_of_tolerance_support.join(', ')}`;
+      }
+    }
+    
+    return developmentalAlignment.growth_edge_navigation.next_developmental_invitation;
+  }
+  
+  /**
+   * Check if two transformation phases are adjacent in development
+   */
+  private static isAdjacentPhase(phase1: string, phase2: string): boolean {
+    const phaseOrder = ['dissolution', 'incubation', 'illumination', 'integration', 'emergence'];
+    const index1 = phaseOrder.indexOf(phase1);
+    const index2 = phaseOrder.indexOf(phase2);
+    
+    if (index1 === -1 || index2 === -1) return false;
+    
+    return Math.abs(index1 - index2) === 1;
+  }
+}
+

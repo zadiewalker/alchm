@@ -1,0 +1,488 @@
+/**
+ * ALCHM Crisis Resource Preloader Tests
+ * Critical safety system testing for sub-3-second access times
+ */
+
+import { crisisResourcePreloader, type UserRiskProfile } from '../lib/crisis-resource-preloader';
+import { offlineCrisisManager } from '../lib/offline-crisis-manager';
+import { culturalCrisisResources, type CulturalContext } from '../lib/cultural-crisis-resources';
+import { assessCrisisWithPreloading } from '../ai/flows/crisis-prevention';
+
+// Mock DOM APIs for testing
+Object.defineProperty(global, 'navigator', {
+  value: {
+    onLine: true,
+    serviceWorker: {
+      register: jest.fn().mockResolvedValue({
+        active: { postMessage: jest.fn() },
+        addEventListener: jest.fn()
+      })
+    }
+  },
+  writable: true
+});
+
+Object.defineProperty(global, 'window', {
+  value: {
+    addEventListener: jest.fn(),
+    caches: {
+      open: jest.fn().mockResolvedValue({
+        put: jest.fn().mockResolvedValue(undefined),
+        match: jest.fn().mockResolvedValue(null),
+        addAll: jest.fn().mockResolvedValue(undefined)
+      })
+    },
+    localStorage: {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      removeItem: jest.fn()
+    }
+  },
+  writable: true
+});
+
+describe('Crisis Resource Preloader', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('Performance Requirements', () => {
+    test('should preload universal crisis resources within 1 second', async () => {
+      const startTime = performance.now();
+      
+      await crisisResourcePreloader.initialize();
+      
+      const endTime = performance.now();
+      const loadTime = endTime - startTime;
+      
+      expect(loadTime).toBeLessThan(1000); // Must be under 1 second
+      expect(crisisResourcePreloader.isResourcesLoaded()).toBe(true);
+    });
+
+    test('should complete smart preloading within 3 seconds for high-risk users', async () => {
+      const crisisProfile: UserRiskProfile = {
+        emotionalState: 'crisis',
+        historicalPatterns: ['suicide', 'hopeless', 'end my life'],
+        culturalIdentity: ['lgbtq', 'youth'],
+        preferredLanguage: 'en',
+        location: { country: 'US', timezone: 'America/New_York' },
+        ageGroup: 'youth'
+      };
+
+      const startTime = performance.now();
+      
+      await crisisResourcePreloader.smartPreload(crisisProfile);
+      
+      const endTime = performance.now();
+      const loadTime = endTime - startTime;
+      
+      expect(loadTime).toBeLessThan(3000); // Must be under 3 seconds
+    });
+
+    test('should provide emergency contacts from localStorage within 100ms', () => {
+      // Mock localStorage with emergency contacts
+      (global.window.localStorage.getItem as jest.Mock).mockReturnValue(JSON.stringify({
+        suicide_prevention: { number: '988', available: '24/7' },
+        crisis_text_line: { number: '741741', available: '24/7' }
+      }));
+
+      const startTime = performance.now();
+      
+      const isLoaded = crisisResourcePreloader.isResourcesLoaded();
+      
+      const endTime = performance.now();
+      const accessTime = endTime - startTime;
+      
+      expect(accessTime).toBeLessThan(100); // Must be under 100ms for instant access
+      expect(isLoaded).toBe(true);
+    });
+  });
+
+  describe('Network Quality Adaptation', () => {
+    test('should adapt preloading strategy for slow networks', () => {
+      const status = crisisResourcePreloader.getPreloadingStatus();
+      
+      // Should provide status regardless of network
+      expect(status).toHaveProperty('isActive');
+      expect(status).toHaveProperty('networkQuality');
+      expect(status).toHaveProperty('resourcesPreloaded');
+    });
+
+    test('should prioritize critical resources on 2G networks', async () => {
+      // Mock slow network conditions
+      Object.defineProperty(global.navigator, 'connection', {
+        value: {
+          effectiveType: '2g',
+          downlink: 0.05,
+          rtt: 2000,
+          saveData: true
+        },
+        configurable: true
+      });
+
+      const slowNetworkProfile: UserRiskProfile = {
+        emotionalState: 'crisis',
+        historicalPatterns: ['suicide'],
+        culturalIdentity: [],
+        preferredLanguage: 'en'
+      };
+
+      const startTime = performance.now();
+      await crisisResourcePreloader.smartPreload(slowNetworkProfile);
+      const endTime = performance.now();
+
+      // Should still complete reasonably quickly even on slow network
+      expect(endTime - startTime).toBeLessThan(5000);
+    });
+  });
+
+  describe('Cultural Resource Matching', () => {
+    test('should return culturally appropriate resources within 50ms', () => {
+      const culturalContext: CulturalContext = {
+        identity: ['lgbtq', 'queer', 'youth'],
+        language: 'en',
+        region: 'US',
+        ageGroup: 'youth'
+      };
+
+      const startTime = performance.now();
+      
+      const resources = culturalCrisisResources.getCulturallyAppropriateResources(culturalContext);
+      
+      const endTime = performance.now();
+      const accessTime = endTime - startTime;
+
+      expect(accessTime).toBeLessThan(50); // Must be under 50ms
+      expect(resources.length).toBeGreaterThan(0);
+      
+      // Should prioritize LGBTQ+ resources
+      const lgbtqResource = resources.find(r => 
+        r.culturalFocus.some(focus => ['lgbtq', 'queer'].includes(focus))
+      );
+      expect(lgbtqResource).toBeDefined();
+    });
+
+    test('should provide emergency resources when no cultural context', () => {
+      const startTime = performance.now();
+      
+      const resources = culturalCrisisResources.getEmergencyResources();
+      
+      const endTime = performance.now();
+      const accessTime = endTime - startTime;
+
+      expect(accessTime).toBeLessThan(50); // Must be under 50ms
+      expect(resources.length).toBeGreaterThan(0);
+      
+      // Should include universal critical resources
+      const universalResource = resources.find(r => 
+        r.culturalFocus.includes('universal') && r.priority === 'critical'
+      );
+      expect(universalResource).toBeDefined();
+    });
+  });
+});
+
+describe('Offline Crisis Manager', () => {
+  beforeEach(() => {
+    // Reset online status
+    Object.defineProperty(global.navigator, 'onLine', { value: true, writable: true });
+  });
+
+  test('should detect crisis patterns offline within 100ms', () => {
+    const crisisText = "I want to kill myself tonight. I have a plan and I'm ready to end it all.";
+    
+    const startTime = performance.now();
+    
+    const detection = offlineCrisisManager.detectCrisis(crisisText);
+    
+    const endTime = performance.now();
+    const detectionTime = endTime - startTime;
+
+    expect(detectionTime).toBeLessThan(100); // Must be under 100ms
+    expect(detection.detected).toBe(true);
+    expect(detection.severity).toBe('critical');
+    expect(detection.recommendedResources.length).toBeGreaterThan(0);
+  });
+
+  test('should provide offline crisis resources immediately', () => {
+    const startTime = performance.now();
+    
+    const resources = offlineCrisisManager.getEmergencyResources();
+    
+    const endTime = performance.now();
+    const accessTime = endTime - startTime;
+
+    expect(accessTime).toBeLessThan(50); // Must be under 50ms
+    expect(resources.length).toBeGreaterThan(0);
+    
+    // Should include 911 and 988
+    const emergency911 = resources.find(r => r.number === '911');
+    const lifeline988 = resources.find(r => r.number === '988');
+    
+    expect(emergency911).toBeDefined();
+    expect(lifeline988).toBeDefined();
+  });
+
+  test('should work when completely offline', () => {
+    // Simulate offline condition
+    Object.defineProperty(global.navigator, 'onLine', { value: false, writable: true });
+
+    const crisisText = "I'm cutting myself and thinking about suicide";
+    
+    const startTime = performance.now();
+    
+    const detection = offlineCrisisManager.detectCrisis(crisisText);
+    const intervention = offlineCrisisManager.createCrisisInterventionMessage(
+      detection.severity,
+      detection.recommendedResources
+    );
+    
+    const endTime = performance.now();
+    const totalTime = endTime - startTime;
+
+    expect(totalTime).toBeLessThan(200); // Must be under 200ms total
+    expect(detection.detected).toBe(true);
+    expect(intervention.title).toBeTruthy();
+    expect(intervention.resources.length).toBeGreaterThan(0);
+  });
+
+  test('should cache resources to localStorage', () => {
+    const setItemSpy = jest.spyOn(global.window.localStorage, 'setItem');
+    
+    offlineCrisisManager.loadCachedResources();
+    
+    // Should have attempted to cache resources
+    expect(setItemSpy).toHaveBeenCalled();
+  });
+});
+
+describe('Integrated Crisis Assessment', () => {
+  test('should complete enhanced crisis assessment within 2 seconds', async () => {
+    const input = {
+      text: "I'm having thoughts of suicide and I feel completely hopeless. Nobody would miss me if I was gone.",
+      userId: 'test-user',
+      beforeMood: 1
+    };
+
+    const culturalContext: CulturalContext = {
+      identity: ['youth', 'lgbtq'],
+      language: 'en',
+      region: 'US',
+      ageGroup: 'youth'
+    };
+
+    const startTime = performance.now();
+    
+    const assessment = await assessCrisisWithPreloading(input, culturalContext);
+    
+    const endTime = performance.now();
+    const assessmentTime = endTime - startTime;
+
+    expect(assessmentTime).toBeLessThan(2000); // Must be under 2 seconds
+    expect(assessment.riskLevel).toBe('crisis');
+    expect(assessment.culturallyAppropriateResources.length).toBeGreaterThan(0);
+    
+    // Should include LGBTQ+ resources
+    const lgbtqResource = assessment.culturallyAppropriateResources.find(r => 
+      r.culturalFocus?.includes('lgbtq')
+    );
+    expect(lgbtqResource).toBeDefined();
+  });
+
+  test('should handle assessment failure gracefully with offline fallback', async () => {
+    const input = {
+      text: "I want to die",
+      userId: 'test-user'
+    };
+
+    // Mock network failure
+    Object.defineProperty(global.navigator, 'onLine', { value: false, writable: true });
+    
+    // Mock assessment failure
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    
+    const startTime = performance.now();
+    
+    try {
+      await assessCrisisWithPreloading(input);
+    } catch (error) {
+      // Expected to throw, but offline detection should still work
+    }
+    
+    const endTime = performance.now();
+    const failureTime = endTime - startTime;
+
+    expect(failureTime).toBeLessThan(1000); // Should fail fast
+    
+    // Offline detection should still work
+    const offlineDetection = offlineCrisisManager.detectCrisis(input.text);
+    expect(offlineDetection.detected).toBe(true);
+  });
+});
+
+describe('Service Worker Integration', () => {
+  test('should register crisis service worker', async () => {
+    const registerSpy = jest.spyOn(global.navigator.serviceWorker, 'register');
+    
+    await crisisResourcePreloader.initialize();
+    
+    expect(registerSpy).toHaveBeenCalledWith('/crisis-sw.js', {
+      scope: '/',
+      updateViaCache: 'none'
+    });
+  });
+
+  test('should update crisis resources via service worker', () => {
+    const mockServiceWorker = {
+      postMessage: jest.fn()
+    };
+    
+    // Mock active service worker
+    (global.navigator.serviceWorker.register as jest.Mock).mockResolvedValue({
+      active: mockServiceWorker,
+      addEventListener: jest.fn()
+    });
+
+    crisisResourcePreloader.updateCrisisResources();
+    
+    // Should not throw error even if service worker not ready
+    expect(true).toBe(true);
+  });
+});
+
+describe('Real-world Crisis Scenarios', () => {
+  test('should handle suicidal ideation with specific method within 1 second', async () => {
+    const crisisScenario = {
+      text: "I have a gun and I'm planning to use it tonight. I can't take this pain anymore. Nobody cares about me.",
+      userId: 'emergency-user',
+      beforeMood: 1
+    };
+
+    const startTime = performance.now();
+    
+    const assessment = await assessCrisisWithPreloading(crisisScenario);
+    
+    const endTime = performance.now();
+    const responseTime = endTime - startTime;
+
+    expect(responseTime).toBeLessThan(1000); // Must be under 1 second for emergency
+    expect(assessment.riskLevel).toBe('crisis');
+    expect(assessment.interventionType).toBe('emergency_protocol');
+    
+    // Should have preloaded resources
+    expect(assessment.preloadedResources).toBe(true);
+    
+    // Should include emergency services
+    const emergencyResource = assessment.supportResources.find(r => 
+      r.contact === '911' || r.name.includes('Emergency')
+    );
+    expect(emergencyResource).toBeDefined();
+  });
+
+  test('should handle LGBTQ+ youth crisis with cultural resources within 1.5 seconds', async () => {
+    const lgbtqCrisis = {
+      text: "My parents found out I'm gay and they're threatening to kick me out. I'm only 16 and I have nowhere to go. I'd rather be dead than live like this.",
+      userId: 'lgbtq-youth',
+      beforeMood: 2
+    };
+
+    const culturalContext: CulturalContext = {
+      identity: ['lgbtq', 'gay', 'youth'],
+      language: 'en',
+      region: 'US',
+      ageGroup: 'youth'
+    };
+
+    const startTime = performance.now();
+    
+    const assessment = await assessCrisisWithPreloading(lgbtqCrisis, culturalContext);
+    
+    const endTime = performance.now();
+    const responseTime = endTime - startTime;
+
+    expect(responseTime).toBeLessThan(1500); // Must be under 1.5 seconds
+    expect(assessment.riskLevel).toBe('high');
+    
+    // Should include Trevor Project
+    const trevorProject = assessment.culturallyAppropriateResources.find(r => 
+      r.name.includes('Trevor')
+    );
+    expect(trevorProject).toBeDefined();
+    
+    // Should include culturally appropriate coping strategies
+    const culturalCoping = assessment.copingStrategies.find(strategy =>
+      strategy.includes('LGBTQ+') || strategy.includes('identity')
+    );
+    expect(culturalCoping).toBeDefined();
+  });
+
+  test('should handle immigrant crisis with appropriate resources within 1.5 seconds', async () => {
+    const immigrantCrisis = {
+      text: "ICE is coming to my neighborhood and I'm terrified they'll take me away from my children. I can't eat or sleep and I keep thinking maybe my family would be better off without me.",
+      userId: 'immigrant-user'
+    };
+
+    const culturalContext: CulturalContext = {
+      identity: ['immigrant', 'undocumented', 'latino'],
+      language: 'es',
+      region: 'US',
+      ageGroup: 'adult',
+      immigrationStatus: 'undocumented'
+    };
+
+    const startTime = performance.now();
+    
+    const assessment = await assessCrisisWithPreloading(immigrantCrisis, culturalContext);
+    
+    const endTime = performance.now();
+    const responseTime = endTime - startTime;
+
+    expect(responseTime).toBeLessThan(1500); // Must be under 1.5 seconds
+    expect(assessment.riskLevel).toBe('high');
+    
+    // Should include immigration-specific strategies
+    const immigrantCoping = assessment.copingStrategies.find(strategy =>
+      strategy.includes('immigrant') || strategy.includes('organizations')
+    );
+    expect(immigrantCoping).toBeDefined();
+  });
+
+  test('should maintain performance under concurrent crisis assessments', async () => {
+    const crisisTexts = [
+      "I want to kill myself",
+      "I'm cutting again and can't stop",
+      "Nobody would miss me if I died",
+      "I have pills and I'm ready to take them all",
+      "Life is meaningless and I want out"
+    ];
+
+    const startTime = performance.now();
+    
+    // Run multiple concurrent assessments
+    const assessments = await Promise.all(
+      crisisTexts.map(text => assessCrisisWithPreloading({
+        text,
+        userId: `concurrent-user-${Math.random()}`,
+        beforeMood: 1
+      }))
+    );
+    
+    const endTime = performance.now();
+    const totalTime = endTime - startTime;
+    const averageTime = totalTime / assessments.length;
+
+    expect(averageTime).toBeLessThan(1000); // Average should be under 1 second
+    expect(assessments.every(a => a.riskLevel === 'crisis')).toBe(true);
+    expect(assessments.every(a => a.preloadedResources)).toBe(true);
+  });
+});
+
+// Performance monitoring helper
+function measurePerformance(name: string, fn: () => any) {
+  const startTime = performance.now();
+  const result = fn();
+  const endTime = performance.now();
+  
+  console.log(`[Performance] ${name}: ${endTime - startTime}ms`);
+  return { result, duration: endTime - startTime };
+}

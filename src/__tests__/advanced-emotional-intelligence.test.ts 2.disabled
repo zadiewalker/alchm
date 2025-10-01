@@ -1,0 +1,711 @@
+/**
+ * Comprehensive Tests for ALCHM Advanced Emotional Intelligence System
+ * Tests all components of the revolutionary emotional intelligence capabilities
+ */
+
+import { describe, test, expect, beforeEach, jest } from '@jest/globals';
+
+// Import all systems to test
+import { 
+  emotionalPatternEngine,
+  analyzeEmotionalContent,
+  EmotionalDimensions,
+  EmotionalPattern
+} from '../lib/advanced-emotional-pattern-recognition';
+
+import {
+  advancedEmotionDetector,
+  QuantumEmotionalState,
+  NeuralEmotionalProfile
+} from '../lib/advanced-emotional-intelligence';
+
+import {
+  culturalEmotionalIntelligence,
+  CulturalEmotionalProfile
+} from '../lib/cultural-emotional-intelligence';
+
+import {
+  DynamicReportCardSystem,
+  DynamicReportCard
+} from '../lib/dynamic-report-card-system';
+
+import {
+  KheperaArchetypeSystem,
+  KheperaArchetype
+} from '../lib/gamification/khepera-archetypes';
+
+import {
+  PredictiveWellnessEngine,
+  WellnessPrediction
+} from '../lib/predictive-wellness-engine';
+
+import {
+  ALCHMEmotionalIntelligenceIntegration,
+  EmotionalIntelligenceMetrics,
+  EmotionalGrowthInsight
+} from '../lib/alchm-emotional-intelligence-integration';
+
+// Test data samples
+const testJournalEntries = {
+  vulnerable: "I feel so scared and overwhelmed today. Everything seems too much and I don't know how to handle it. My chest feels tight and I can barely breathe.",
+  growth: "I've been learning so much about myself lately. I realize that my anger often comes from feeling unheard. This breakthrough feels transformative.",
+  shadow: "I can't stand when people are so selfish and self-centered. They make me sick with their arrogance and lack of consideration for others.",
+  cultural_spanish: "Mi corazón está lleno de esperanza hoy. Siento la bendición de mi familia y la fuerza que me da nuestra comunidad.",
+  cultural_korean: "오늘은 마음이 복잡합니다. 가족에게 실망을 끼치지 않으려고 노력하지만, 때로는 내 자신이 누군지 모르겠어요.",
+  spiritual: "I feel connected to something greater today. There's a sacred quality to this moment that fills my soul with peace.",
+  trauma: "The memories came flooding back today. My body feels like it's not my own, and I'm having trouble staying present.",
+  crisis: "I can't do this anymore. Everything is hopeless and I just want the pain to end. I don't see any way out."
+};
+
+const mockIntegrationConfig: any = {
+  user_id: 'test_user_123',
+  locale: 'en',
+  pathway: 'resilience',
+  enable_predictive_wellness: true,
+  enable_cultural_adaptation: true,
+  enable_shadow_integration: true,
+  enable_archetype_guidance: true,
+  confidence_threshold: 0.7,
+  processing_timeout: 10000
+};
+
+describe('Advanced Emotional Pattern Recognition', () => {
+  test('should extract sophisticated linguistic features', () => {
+    const content = testJournalEntries.vulnerable;
+    const features = emotionalPatternEngine.extractLinguisticFeatures(content, 'en');
+    
+    expect(features).toHaveProperty('lexical_density');
+    expect(features).toHaveProperty('emotional_intensity_markers');
+    expect(features).toHaveProperty('somatic_references');
+    expect(features.somatic_references.length).toBeGreaterThan(0); // Should detect "chest", "breathe"
+    expect(features.emotional_intensity_markers.length).toBeGreaterThan(0);
+  });
+
+  test('should analyze emotional dimensions accurately', () => {
+    const content = testJournalEntries.growth;
+    const analysis = analyzeEmotionalContent(content, 'test_user', 'en');
+    
+    expect(analysis.dimensions.valence).toBeGreaterThan(0); // Growth content should be positive
+    expect(analysis.dimensions.authenticity).toBeGreaterThan(0.7); // Self-reflection indicates authenticity
+    expect(analysis.patterns).toEqual(expect.arrayContaining([
+      expect.objectContaining({ id: expect.stringMatching(/growth|authentic|breakthrough/) })
+    ]));
+  });
+
+  test('should detect shadow projection patterns', () => {
+    const content = testJournalEntries.shadow;
+    const analysis = analyzeEmotionalContent(content, 'test_user', 'en');
+    
+    expect(analysis.patterns).toEqual(expect.arrayContaining([
+      expect.objectContaining({ 
+        id: expect.stringMatching(/shadow|projection/),
+        triggers: expect.arrayContaining([expect.stringMatching(/projection|judgment/)])
+      })
+    ]));
+  });
+
+  test('should handle multilingual content appropriately', () => {
+    const spanishContent = testJournalEntries.cultural_spanish;
+    const spanishAnalysis = analyzeEmotionalContent(spanishContent, 'test_user', 'es');
+    
+    expect(spanishAnalysis.dimensions.valence).toBeGreaterThan(0); // Hope and blessing should be positive
+    
+    const koreanContent = testJournalEntries.cultural_korean;
+    const koreanAnalysis = analyzeEmotionalContent(koreanContent, 'test_user', 'ko');
+    
+    expect(koreanAnalysis.dimensions.complexity).toBeGreaterThan(0.5); // Family/identity conflict is complex
+  });
+});
+
+describe('Quantum Emotional State Detection', () => {
+  test('should generate comprehensive quantum emotional state', async () => {
+    const content = testJournalEntries.vulnerable;
+    const state = await advancedEmotionDetector.detectQuantumEmotionalState(content, {
+      userId: 'test_user',
+      locale: 'en'
+    });
+    
+    expect(state).toHaveProperty('primaryEmotion');
+    expect(state).toHaveProperty('secondaryEmotions');
+    expect(state).toHaveProperty('neurological_correlates');
+    expect(state).toHaveProperty('somatic_markers');
+    expect(state).toHaveProperty('shadow_aspects');
+    
+    expect(state.primaryEmotion.valence).toBeLessThan(0); // Vulnerable content should be negative valence
+    expect(state.somatic_markers.embodied_awareness).toBeGreaterThan(0); // Should detect body awareness
+  });
+
+  test('should build neural emotional profile', async () => {
+    const emotionalStates = [
+      await advancedEmotionDetector.detectQuantumEmotionalState(testJournalEntries.vulnerable, { userId: 'test_user' }),
+      await advancedEmotionDetector.detectQuantumEmotionalState(testJournalEntries.growth, { userId: 'test_user' })
+    ];
+    
+    const journalEntries = [
+      { content: testJournalEntries.vulnerable, createdAt: new Date() },
+      { content: testJournalEntries.growth, createdAt: new Date() }
+    ];
+    
+    const profile = await advancedEmotionDetector.buildNeuralEmotionalProfile(
+      'test_user',
+      emotionalStates,
+      journalEntries,
+      'en'
+    );
+    
+    expect(profile).toHaveProperty('emotional_intelligence_metrics');
+    expect(profile).toHaveProperty('trauma_informed_markers');
+    expect(profile).toHaveProperty('growth_trajectory');
+    expect(profile.emotional_intelligence_metrics.self_awareness).toBeGreaterThan(0);
+  });
+
+  test('should analyze emotional trajectory', async () => {
+    const emotionalHistory = [
+      { 
+        state: await advancedEmotionDetector.detectQuantumEmotionalState(testJournalEntries.vulnerable, { userId: 'test_user' }),
+        timestamp: new Date(Date.now() - 86400000), // 1 day ago
+        context: 'difficult day'
+      },
+      { 
+        state: await advancedEmotionDetector.detectQuantumEmotionalState(testJournalEntries.growth, { userId: 'test_user' }),
+        timestamp: new Date(),
+        context: 'breakthrough moment'
+      }
+    ];
+    
+    const trajectory = await advancedEmotionDetector.analyzeEmotionalTrajectory(
+      'test_user',
+      emotionalHistory
+    );
+    
+    expect(trajectory).toHaveProperty('trend_direction');
+    expect(trajectory).toHaveProperty('volatility_score');
+    expect(trajectory).toHaveProperty('resilience_indicators');
+    expect(trajectory.trend_direction).toBe('ascending'); // Should detect improvement
+  });
+});
+
+describe('Cultural Emotional Intelligence', () => {
+  test('should analyze cultural emotional content', async () => {
+    const spanishContent = testJournalEntries.cultural_spanish;
+    const analysis = await culturalEmotionalIntelligence.analyzeCulturalEmotionalContent(
+      spanishContent,
+      'test_user',
+      'es',
+      []
+    );
+    
+    expect(analysis.culturalEmotionalProfile.primary_culture).toBe('es');
+    expect(analysis.culturalEmotionalProfile.emotional_expression_preferences.collectivist_vs_individualist).toBeGreaterThan(0.5);
+  });
+
+  test('should generate culturally adapted responses', async () => {
+    const profile: CulturalEmotionalProfile = {
+      user_id: 'test_user',
+      primary_culture: 'es',
+      cultural_influences: [],
+      emotional_expression_preferences: {
+        directness_level: 0.6,
+        intensity_expression: 1.2,
+        collectivist_vs_individualist: 0.8,
+        power_distance_comfort: 0.7,
+        uncertainty_avoidance: 0.6,
+        long_term_orientation: 0.7
+      },
+      cultural_emotional_vocabulary: {
+        culture_code: 'es',
+        emotion_concepts: {},
+        metaphorical_systems: {
+          nature_metaphors: [],
+          spiritual_metaphors: [],
+          family_metaphors: [],
+          body_metaphors: [],
+          cosmic_metaphors: []
+        },
+        honorific_systems: {
+          respect_markers: [],
+          emotional_deference: [],
+          age_based_communication: []
+        }
+      },
+      sacred_concepts: ['familia', 'alma'],
+      healing_traditions: [],
+      taboo_expressions: [],
+      generational_influences: {
+        traditional_values: 0.8,
+        modern_adaptation: 0.6,
+        bicultural_navigation: 0.3
+      },
+      communication_patterns: {
+        silence_comfort: 0.4,
+        nonverbal_emphasis: 0.7,
+        context_dependency: 0.8,
+        indirect_communication: 0.6,
+        emotional_restraint: 0.4,
+        storytelling_tradition: 0.8
+      }
+    };
+    
+    const baseResponse = "Thank you for sharing your feelings.";
+    const adaptedResponse = await culturalEmotionalIntelligence.generateCulturallyAdaptedResponse(
+      baseResponse,
+      profile,
+      {}
+    );
+    
+    expect(adaptedResponse).toBeTruthy();
+    expect(adaptedResponse).not.toBe(baseResponse); // Should be adapted
+  });
+});
+
+describe('Khepera Archetype System', () => {
+  test('should select appropriate archetype based on content', () => {
+    const vulnerableSelection = KheperaArchetypeSystem.selectArchetype(
+      testJournalEntries.vulnerable,
+      'anxious',
+      'evening'
+    );
+    
+    expect(vulnerableSelection.archetype.id).toMatch(/gentle_witness|nurturing_mother|crisis_guardian/);
+    expect(vulnerableSelection.confidence).toBeGreaterThan(0.5);
+    
+    const shadowSelection = KheperaArchetypeSystem.selectArchetype(
+      testJournalEntries.shadow,
+      'frustrated',
+      'afternoon'
+    );
+    
+    expect(shadowSelection.archetype.id).toMatch(/shadow_integrator|wise_challenger/);
+  });
+
+  test('should generate appropriate archetype responses', () => {
+    const selection = KheperaArchetypeSystem.selectArchetype(
+      testJournalEntries.growth,
+      'hopeful',
+      'morning'
+    );
+    
+    const response = KheperaArchetypeSystem.generateArchetypeResponse(
+      selection.archetype,
+      testJournalEntries.growth,
+      'hopeful'
+    );
+    
+    expect(response).toHaveProperty('message');
+    expect(response).toHaveProperty('tone');
+    expect(response).toHaveProperty('followUpPrompt');
+    expect(response.message).toBeTruthy();
+  });
+
+  test('should detect crisis and prioritize crisis guardian', () => {
+    const crisisSelection = KheperaArchetypeSystem.selectArchetype(
+      testJournalEntries.crisis,
+      'desperate',
+      'late_night'
+    );
+    
+    expect(crisisSelection.archetype.id).toBe('crisis_guardian');
+    expect(crisisSelection.confidence).toBe(1.0);
+  });
+});
+
+describe('Dynamic Report Card System', () => {
+  test('should generate comprehensive dynamic report card', async () => {
+    const mockJournalEntries = [
+      {
+        id: 'entry1',
+        userId: 'test_user',
+        content: testJournalEntries.vulnerable,
+        mood: 'anxious',
+        createdAt: new Date(Date.now() - 86400000)
+      },
+      {
+        id: 'entry2',
+        userId: 'test_user',
+        content: testJournalEntries.growth,
+        mood: 'hopeful',
+        createdAt: new Date()
+      }
+    ];
+    
+    const reportCard = await identityAnalysisEngine.generateDynamicReportCard(
+      'test_user',
+      mockJournalEntries,
+      'week'
+    );
+    
+    expect(reportCard).toHaveProperty('identityEvolution');
+    expect(reportCard).toHaveProperty('emotionalIntelligence');
+    expect(reportCard).toHaveProperty('wellnessMetrics');
+    expect(reportCard).toHaveProperty('growthInsights');
+    expect(reportCard).toHaveProperty('recommendations');
+    expect(reportCard.growthInsights.length).toBeGreaterThan(0);
+  });
+});
+
+describe('Predictive Wellness Engine', () => {
+  test('should generate wellness prediction', async () => {
+    const emotionalHistory = [
+      { 
+        state: await advancedEmotionDetector.detectQuantumEmotionalState(testJournalEntries.vulnerable, { userId: 'test_user' }),
+        timestamp: new Date(Date.now() - 86400000),
+        context: 'stressful day'
+      }
+    ];
+    
+    const journalHistory = [
+      { content: testJournalEntries.vulnerable, mood: 'anxious', createdAt: new Date(Date.now() - 86400000) }
+    ];
+    
+    const culturalProfile: CulturalEmotionalProfile = {
+      user_id: 'test_user',
+      primary_culture: 'en',
+      cultural_influences: [],
+      emotional_expression_preferences: {
+        directness_level: 0.8,
+        intensity_expression: 0.7,
+        collectivist_vs_individualist: 0.3,
+        power_distance_comfort: 0.4,
+        uncertainty_avoidance: 0.5,
+        long_term_orientation: 0.6
+      },
+      cultural_emotional_vocabulary: {
+        culture_code: 'en',
+        emotion_concepts: {},
+        metaphorical_systems: {
+          nature_metaphors: [],
+          spiritual_metaphors: [],
+          family_metaphors: [],
+          body_metaphors: [],
+          cosmic_metaphors: []
+        },
+        honorific_systems: {
+          respect_markers: [],
+          emotional_deference: [],
+          age_based_communication: []
+        }
+      },
+      sacred_concepts: [],
+      healing_traditions: [],
+      taboo_expressions: [],
+      generational_influences: {
+        traditional_values: 0.5,
+        modern_adaptation: 0.8,
+        bicultural_navigation: 0.2
+      },
+      communication_patterns: {
+        silence_comfort: 0.6,
+        nonverbal_emphasis: 0.4,
+        context_dependency: 0.4,
+        indirect_communication: 0.3,
+        emotional_restraint: 0.5,
+        storytelling_tradition: 0.5
+      }
+    };
+    
+    const neuralProfile = await advancedEmotionDetector.buildNeuralEmotionalProfile(
+      'test_user',
+      [emotionalHistory[0]?.state || emotionalHistory[0]],
+      journalHistory,
+      'en'
+    );
+    
+    const prediction = await predictiveWellnessEngine.generateWellnessPrediction(
+      'test_user',
+      emotionalHistory,
+      journalHistory,
+      culturalProfile,
+      neuralProfile
+    );
+    
+    expect(prediction).toHaveProperty('predicted_state');
+    expect(prediction).toHaveProperty('intervention_recommendations');
+    expect(prediction).toHaveProperty('prevention_strategies');
+    expect(prediction.confidence_score).toBeGreaterThan(0);
+  });
+
+  test('should generate proactive recommendations', async () => {
+    const currentState = await advancedEmotionDetector.detectQuantumEmotionalState(
+      testJournalEntries.vulnerable, 
+      { userId: 'test_user' }
+    );
+    
+    const mockPrediction: WellnessPrediction = {
+      likelihood: 0.8,
+      timeframe: '24 hours',
+      indicators: ['test indicator', 'emotional volatility'],
+      preventiveActions: ['test action', 'self-awareness practice'],
+      riskLevel: 'medium'
+    };
+    
+    const culturalProfile: CulturalEmotionalProfile = {
+      user_id: 'test_user',
+      primary_culture: 'en',
+      cultural_influences: [],
+      emotional_expression_preferences: {
+        directness_level: 0.8,
+        intensity_expression: 0.7,
+        collectivist_vs_individualist: 0.3,
+        power_distance_comfort: 0.4,
+        uncertainty_avoidance: 0.5,
+        long_term_orientation: 0.6
+      },
+      cultural_emotional_vocabulary: {
+        culture_code: 'en',
+        emotion_concepts: {},
+        metaphorical_systems: {
+          nature_metaphors: [],
+          spiritual_metaphors: [],
+          family_metaphors: [],
+          body_metaphors: [],
+          cosmic_metaphors: []
+        },
+        honorific_systems: {
+          respect_markers: [],
+          emotional_deference: [],
+          age_based_communication: []
+        }
+      },
+      sacred_concepts: [],
+      healing_traditions: [],
+      taboo_expressions: [],
+      generational_influences: {
+        traditional_values: 0.5,
+        modern_adaptation: 0.8,
+        bicultural_navigation: 0.2
+      },
+      communication_patterns: {
+        silence_comfort: 0.6,
+        nonverbal_emphasis: 0.4,
+        context_dependency: 0.4,
+        indirect_communication: 0.3,
+        emotional_restraint: 0.5,
+        storytelling_tradition: 0.5
+      }
+    };
+    
+    const recommendations = await predictiveWellnessEngine.generateProactiveRecommendations(
+      'test_user',
+      currentState,
+      mockPrediction,
+      culturalProfile
+    );
+    
+    expect(recommendations).toHaveProperty('immediate_actions');
+    expect(recommendations).toHaveProperty('daily_practices');
+    expect(recommendations).toHaveProperty('weekly_goals');
+    expect(recommendations.immediate_actions.length).toBeGreaterThan(0);
+  });
+});
+
+describe('Integrated ALCHM Emotional Intelligence', () => {
+  test('should process journal entry through all systems', async () => {
+    const response = await alchemEmotionalIntelligence.processJournalEntry(
+      testJournalEntries.growth,
+      mockIntegrationConfig,
+      {
+        mood: 'hopeful',
+        timeOfDay: 'morning',
+        emotionalHistory: [],
+        journalHistory: []
+      }
+    );
+    
+    expect(response).toHaveProperty('basic_emotional_context');
+    expect(response).toHaveProperty('quantum_emotional_state');
+    expect(response).toHaveProperty('cultural_profile');
+    expect(response).toHaveProperty('wellness_prediction');
+    expect(response).toHaveProperty('selected_archetype');
+    expect(response).toHaveProperty('confidence_scores');
+    expect(response).toHaveProperty('integration_quality');
+    
+    expect(response.integration_quality).toBeGreaterThan(0.5);
+    expect(response.processing_time).toBeLessThan(10000); // Should process within timeout
+  });
+
+  test('should handle crisis content appropriately', async () => {
+    const crisisResponse = await alchemEmotionalIntelligence.processJournalEntry(
+      testJournalEntries.crisis,
+      mockIntegrationConfig,
+      {
+        mood: 'desperate',
+        timeOfDay: 'late_night'
+      }
+    );
+    
+    expect(crisisResponse.basic_emotional_context.isCrisis).toBe(true);
+    expect(crisisResponse.wellness_prediction.predicted_state.risk_level).toMatch(/high|crisis/);
+    expect(crisisResponse.proactive_recommendations.immediate_actions).toEqual(
+      expect.arrayContaining([expect.stringMatching(/crisis|988|emergency/)])
+    );
+  });
+
+  test('should provide personalized insights', async () => {
+    const insights = await alchemEmotionalIntelligence.getPersonalizedInsights('test_user', 'en');
+    
+    expect(insights).toHaveProperty('growth_highlights');
+    expect(insights).toHaveProperty('areas_for_attention');
+    expect(insights).toHaveProperty('cultural_strengths');
+    expect(insights).toHaveProperty('shadow_work_opportunities');
+    expect(insights).toHaveProperty('next_developmental_steps');
+    
+    expect(insights.growth_highlights.length).toBeGreaterThan(0);
+    expect(insights.next_developmental_steps.length).toBeGreaterThan(0);
+  });
+
+  test('should monitor user wellness', async () => {
+    const currentState = await advancedEmotionDetector.detectQuantumEmotionalState(
+      testJournalEntries.vulnerable,
+      { userId: 'test_user' }
+    );
+    
+    const monitoring = await alchemEmotionalIntelligence.monitorUserWellness(
+      'test_user',
+      currentState
+    );
+    
+    expect(monitoring).toHaveProperty('alert_level');
+    expect(monitoring).toHaveProperty('recommendations');
+    expect(monitoring.alert_level).toMatch(/none|watch|concern|urgent/);
+    expect(monitoring.recommendations.length).toBeGreaterThan(0);
+  });
+
+  test('should handle system failures gracefully', async () => {
+    // Test with empty/invalid content
+    const fallbackResponse = await alchemEmotionalIntelligence.processJournalEntry(
+      '', // Empty content
+      mockIntegrationConfig
+    );
+    
+    expect(fallbackResponse).toHaveProperty('basic_emotional_context');
+    expect(fallbackResponse.integration_quality).toBeGreaterThan(0.3); // Should still provide value
+    expect(fallbackResponse.save_confirmation).toBeTruthy();
+  });
+});
+
+describe('Performance and Reliability', () => {
+  test('should process content within performance thresholds', async () => {
+    const startTime = Date.now();
+    
+    await alchemEmotionalIntelligence.processJournalEntry(
+      testJournalEntries.growth,
+      mockIntegrationConfig
+    );
+    
+    const processingTime = Date.now() - startTime;
+    expect(processingTime).toBeLessThan(5000); // Should process within 5 seconds
+  });
+
+  test('should handle concurrent processing', async () => {
+    const promises = [
+      alchemEmotionalIntelligence.processJournalEntry(testJournalEntries.vulnerable, mockIntegrationConfig),
+      alchemEmotionalIntelligence.processJournalEntry(testJournalEntries.growth, mockIntegrationConfig),
+      alchemEmotionalIntelligence.processJournalEntry(testJournalEntries.shadow, mockIntegrationConfig)
+    ];
+    
+    const results = await Promise.all(promises);
+    
+    expect(results).toHaveLength(3);
+    results.forEach(result => {
+      expect(result.integration_quality).toBeGreaterThan(0.3);
+    });
+  });
+
+  test('should maintain consistency across multiple analyses', async () => {
+    const content = testJournalEntries.growth;
+    
+    const [result1, result2, result3] = await Promise.all([
+      alchemEmotionalIntelligence.processJournalEntry(content, mockIntegrationConfig),
+      alchemEmotionalIntelligence.processJournalEntry(content, mockIntegrationConfig),
+      alchemEmotionalIntelligence.processJournalEntry(content, mockIntegrationConfig)
+    ]);
+    
+    // Results should be similar (within 0.2 difference for key metrics)
+    expect(Math.abs(result1.quantum_emotional_state.primaryEmotion.valence - 
+                   result2.quantum_emotional_state.primaryEmotion.valence)).toBeLessThan(0.2);
+    expect(Math.abs(result1.integration_quality - result2.integration_quality)).toBeLessThan(0.1);
+  });
+});
+
+describe('Cultural Sensitivity and Bias Testing', () => {
+  test('should handle multiple cultures appropriately', async () => {
+    const cultures = ['en', 'es', 'ko', 'hi', 'de', 'pt'];
+    const content = "I feel grateful for my family and community support.";
+    
+    const results = await Promise.all(
+      cultures.map(locale => 
+        alchemEmotionalIntelligence.processJournalEntry(content, { 
+          ...mockIntegrationConfig, 
+          locale 
+        })
+      )
+    );
+    
+    results.forEach((result, index) => {
+      expect(result.cultural_profile.primary_culture).toBe(cultures[index]);
+      expect(result.culturally_adapted_response).toBeTruthy();
+      expect(result.integration_quality).toBeGreaterThan(0.5);
+    });
+  });
+
+  test('should avoid cultural bias in emotional analysis', async () => {
+    const koreanContent = "가족에게 부담을 주지 않으려고 혼자 견디고 있어요";
+    const westernContent = "I'm handling this on my own to avoid burdening others";
+    
+    const koreanResult = await alchemEmotionalIntelligence.processJournalEntry(
+      koreanContent, 
+      { ...mockIntegrationConfig, locale: 'ko' }
+    );
+    
+    const westernResult = await alchemEmotionalIntelligence.processJournalEntry(
+      westernContent,
+      mockIntegrationConfig
+    );
+    
+    // Both should recognize the emotional content appropriately for their culture
+    expect(koreanResult.quantum_emotional_state.primaryEmotion.valence).toBeLessThan(0.2);
+    expect(westernResult.quantum_emotional_state.primaryEmotion.valence).toBeLessThan(0.2);
+    
+    // But cultural adaptations should be different
+    expect(koreanResult.culturally_adapted_response).not.toBe(westernResult.culturally_adapted_response);
+  });
+});
+
+// Test performance benchmarks
+describe('System Benchmarks', () => {
+  test('should meet accuracy benchmarks', async () => {
+    const testCases = [
+      { content: testJournalEntries.vulnerable, expectedValence: 'negative' },
+      { content: testJournalEntries.growth, expectedValence: 'positive' },
+      { content: testJournalEntries.spiritual, expectedValence: 'positive' },
+      { content: testJournalEntries.crisis, expectedRisk: 'crisis' }
+    ];
+    
+    let accurateResults = 0;
+    
+    for (const testCase of testCases) {
+      const result = await alchemEmotionalIntelligence.processJournalEntry(
+        testCase.content,
+        mockIntegrationConfig
+      );
+      
+      if (testCase.expectedValence) {
+        const actualValence = result.quantum_emotional_state.primaryEmotion.valence;
+        if ((testCase.expectedValence === 'positive' && actualValence > 0) ||
+            (testCase.expectedValence === 'negative' && actualValence < 0)) {
+          accurateResults++;
+        }
+      }
+      
+      if (testCase.expectedRisk) {
+        if (result.wellness_prediction.predicted_state.risk_level === testCase.expectedRisk ||
+            result.basic_emotional_context.isCrisis) {
+          accurateResults++;
+        }
+      }
+    }
+    
+    const accuracy = accurateResults / testCases.length;
+    expect(accuracy).toBeGreaterThan(0.75); // 75% accuracy benchmark
+  });
+});

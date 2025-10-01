@@ -8,11 +8,11 @@ if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined')
   
   // Essential browser globals that may be referenced by bundled code
   g.self = g;
-  g.window = g;
+  g.typeof window !== 'undefined' && window = g;
   g.global = g;
   
   // DOM-like objects
-  g.document = {
+  g.typeof window !== 'undefined' && document = {
     createElement: () => ({}),
     getElementById: () => null,
     querySelector: () => null,
@@ -20,7 +20,7 @@ if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined')
     addEventListener: () => {},
     removeEventListener: () => {},
     dispatchEvent: () => true,
-    documentElement: { style: {} },
+    typeof window !== 'undefined' && documentElement: { style: {} },
     head: { appendChild: () => {} },
     body: { appendChild: () => {} }
   };
@@ -37,7 +37,7 @@ if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined')
     hash: ''
   };
   
-  g.navigator = {
+  g.typeof window !== 'undefined' && navigator = {
     userAgent: 'node.js',
     platform: 'node',
     language: 'en-US',
@@ -56,8 +56,8 @@ if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined')
     key: () => null
   };
   
-  g.localStorage = mockStorage;
-  g.sessionStorage = mockStorage;
+  g.typeof window !== 'undefined' && localStorage = mockStorage;
+  g.typeof window !== 'undefined' && sessionStorage = mockStorage;
   
   // Event handling
   g.addEventListener = () => {};
@@ -77,5 +77,5 @@ if (typeof globalThis !== 'undefined' && typeof globalThis.self === 'undefined')
 // Also check the legacy global object
 if (typeof global !== 'undefined' && typeof global.self === 'undefined') {
   global.self = global;
-  global.window = global;
+  global.typeof window !== 'undefined' && window = global;
 }

@@ -1,0 +1,320 @@
+{
+  "timestamp": "2025-09-20T21:40:38.844Z",
+  "overallScore": 47,
+  "budgetViolations": [],
+  "alerts": {
+    "critical": 7,
+    "warning": 2,
+    "total": 9
+  },
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "Core Web Vitals",
+      "issue": "Largest Contentful Paint too slow: 11613ms",
+      "recommendation": "Optimize images, preload LCP element, reduce server response time",
+      "expectedImprovement": "25-40% LCP improvement"
+    },
+    {
+      "priority": "critical",
+      "category": "Core Web Vitals",
+      "issue": "Total Blocking Time too high: 4064ms",
+      "recommendation": "Code split JavaScript, defer non-critical code, optimize third-party scripts",
+      "expectedImprovement": "40-60% TBT reduction"
+    },
+    {
+      "priority": "critical",
+      "category": "Resource Optimization",
+      "issue": "Total page size too large: 2830KB",
+      "recommendation": "Implement compression, optimize images, remove unused code",
+      "expectedImprovement": "30-50% size reduction"
+    },
+    {
+      "priority": "critical",
+      "category": "JavaScript Optimization",
+      "issue": "JavaScript bundle too large: 2809KB",
+      "recommendation": "Code splitting, tree shaking, dynamic imports for crisis features",
+      "expectedImprovement": "40-60% JS size reduction"
+    },
+    {
+      "priority": "critical",
+      "category": "Crisis Readiness",
+      "issue": "Performance not optimized for crisis users",
+      "recommendation": "Implement crisis-mode performance optimizations, prioritize 988 button loading",
+      "expectedImprovement": "Crisis-ready performance"
+    }
+  ],
+  "crisisReadiness": "NOT_READY",
+  "coreWebVitals": {
+    "violations": [
+      {
+        "type": "CORE_WEB_VITAL_CRITICAL",
+        "metric": "lcp",
+        "value": 11612.734199999999,
+        "threshold": 2500,
+        "severity": "critical",
+        "impact": "User safety at risk - immediate action required"
+      },
+      {
+        "type": "CORE_WEB_VITAL_CRITICAL",
+        "metric": "fid",
+        "value": 2223,
+        "threshold": 300,
+        "severity": "critical",
+        "impact": "User safety at risk - immediate action required"
+      },
+      {
+        "type": "CORE_WEB_VITAL_CRITICAL",
+        "metric": "tbt",
+        "value": 4063.6329,
+        "threshold": 600,
+        "severity": "critical",
+        "impact": "User safety at risk - immediate action required"
+      },
+      {
+        "type": "CORE_WEB_VITAL_CRITICAL",
+        "metric": "tti",
+        "value": 18634.101300000002,
+        "threshold": 5000,
+        "severity": "critical",
+        "impact": "User safety at risk - immediate action required"
+      },
+      {
+        "type": "CORE_WEB_VITAL_CRITICAL",
+        "metric": "speedIndex",
+        "value": 4121.0344745403,
+        "threshold": 4000,
+        "severity": "critical",
+        "impact": "User safety at risk - immediate action required"
+      }
+    ],
+    "metrics": {
+      "fcp": {
+        "value": 790.7342000000001,
+        "budget": {
+          "good": 800,
+          "warning": 1200,
+          "critical": 1800,
+          "unit": "ms"
+        },
+        "status": "good"
+      },
+      "lcp": {
+        "value": 11612.734199999999,
+        "budget": {
+          "good": 1500,
+          "warning": 2000,
+          "critical": 2500,
+          "unit": "ms"
+        },
+        "status": "critical"
+      },
+      "cls": {
+        "value": 0.009720534629404616,
+        "budget": {
+          "good": 0.03,
+          "warning": 0.05,
+          "critical": 0.1,
+          "unit": "score"
+        },
+        "status": "good"
+      },
+      "fid": {
+        "value": 2223,
+        "budget": {
+          "good": 50,
+          "warning": 100,
+          "critical": 300,
+          "unit": "ms"
+        },
+        "status": "critical"
+      },
+      "tbt": {
+        "value": 4063.6329,
+        "budget": {
+          "good": 200,
+          "warning": 300,
+          "critical": 600,
+          "unit": "ms"
+        },
+        "status": "critical"
+      },
+      "tti": {
+        "value": 18634.101300000002,
+        "budget": {
+          "good": 2000,
+          "warning": 3000,
+          "critical": 5000,
+          "unit": "ms"
+        },
+        "status": "critical"
+      },
+      "speedIndex": {
+        "value": 4121.0344745403,
+        "budget": {
+          "good": 2000,
+          "warning": 2500,
+          "critical": 4000,
+          "unit": "ms"
+        },
+        "status": "critical"
+      }
+    },
+    "score": 29
+  },
+  "resources": {
+    "violations": [
+      {
+        "type": "RESOURCE_BUDGET_CRITICAL",
+        "metric": "totalSize",
+        "value": 2898373,
+        "threshold": 1200000,
+        "severity": "critical",
+        "impact": "Excessive resource usage impacting crisis users"
+      },
+      {
+        "type": "RESOURCE_BUDGET_CRITICAL",
+        "metric": "scriptSize",
+        "value": 2876169,
+        "threshold": 250000,
+        "severity": "critical",
+        "impact": "Excessive resource usage impacting crisis users"
+      },
+      {
+        "type": "RESOURCE_BUDGET_WARNING",
+        "metric": "scriptCount",
+        "value": 12,
+        "threshold": 10,
+        "severity": "warning",
+        "impact": "Resource budget exceeded"
+      },
+      {
+        "type": "RESOURCE_BUDGET_WARNING",
+        "metric": "thirdPartyCount",
+        "value": 6,
+        "threshold": 5,
+        "severity": "warning",
+        "impact": "Resource budget exceeded"
+      }
+    ],
+    "metrics": {
+      "totalSize": {
+        "value": 2898373,
+        "budget": {
+          "good": 500000,
+          "warning": 800000,
+          "critical": 1200000,
+          "unit": "bytes"
+        },
+        "status": "critical"
+      },
+      "requestCount": {
+        "value": 20,
+        "budget": {
+          "good": 30,
+          "warning": 50,
+          "critical": 100,
+          "unit": "count"
+        },
+        "status": "good"
+      },
+      "scriptSize": {
+        "value": 2876169,
+        "budget": {
+          "good": 100000,
+          "warning": 150000,
+          "critical": 250000,
+          "unit": "bytes"
+        },
+        "status": "critical"
+      },
+      "scriptCount": {
+        "value": 12,
+        "budget": {
+          "good": 6,
+          "warning": 10,
+          "critical": 20,
+          "unit": "count"
+        },
+        "status": "warning"
+      },
+      "cssSize": {
+        "value": 1230,
+        "budget": {
+          "good": 30000,
+          "warning": 50000,
+          "critical": 100000,
+          "unit": "bytes"
+        },
+        "status": "good"
+      },
+      "fontSize": {
+        "value": 544,
+        "budget": {
+          "good": 50000,
+          "warning": 100000,
+          "critical": 200000,
+          "unit": "bytes"
+        },
+        "status": "good"
+      },
+      "imageSize": {
+        "value": 0,
+        "budget": {
+          "good": 200000,
+          "warning": 500000,
+          "critical": 1000000,
+          "unit": "bytes"
+        },
+        "status": "good"
+      },
+      "thirdPartyCount": {
+        "value": 6,
+        "budget": {
+          "good": 3,
+          "warning": 5,
+          "critical": 10,
+          "unit": "count"
+        },
+        "status": "warning"
+      }
+    },
+    "score": 50
+  },
+  "accessibility": {
+    "violations": [],
+    "metrics": {
+      "colorContrast": {
+        "value": 1,
+        "budget": {
+          "good": 0,
+          "warning": 1,
+          "critical": 3,
+          "unit": "failures"
+        },
+        "status": "good"
+      },
+      "tapTargetSize": {
+        "value": 0,
+        "budget": {
+          "good": 0,
+          "warning": 1,
+          "critical": 3,
+          "unit": "failures"
+        },
+        "status": "good"
+      },
+      "ariaLabels": {
+        "value": 0,
+        "budget": {
+          "good": 0,
+          "warning": 2,
+          "critical": 5,
+          "unit": "failures"
+        },
+        "status": "good"
+      }
+    },
+    "score": 67
+  }
+}

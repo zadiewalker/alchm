@@ -2,6 +2,2072 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  font-family: system-ui, sans-serif;
+/* Import Premium Digital Sanctuary Design System */
+@import '../styles/premium-digital-sanctuary.css';
+
+/* Import Somatic & Embodiment System - Body-wisdom CSS integration */
+@import '../styles/somatic-embodiment-system.css';
+
+/* Import Cultural Sanctuary Design System */
+@import '../styles/cultural-sanctuary-design-system.css';
+
+/* PERFORMANCE-CRITICAL: Inline critical styles first */
+/* Essential sanctuary design tokens for immediate render */
+:root {
+  /* Sage System - Performance optimized */
+  --sage-primary: #a4b792;
+  --sage-hover: #93a682;
+  --sage-active: #7a8c6a;
+  --sage-light: #f6f8f4;
+  --sage-muted: #d6e0cd;
+  
+  /* Sanctuary Foundation */
+  --sanctuary: #fefcfb;
+  --sanctuary-glass: rgba(254, 252, 251, 0.85);
+  --sanctuary-mist: rgba(254, 252, 251, 0.05);
+  
+  /* Performance-optimized font stack - instant render */
+  --font-system: 'Sanctuary', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  
+  /* Critical spacing */
+  --space-unit: 8px;
+  --space-xs: calc(var(--space-unit) * 1);
+  --space-sm: calc(var(--space-unit) * 2);
+  --space-md: calc(var(--space-unit) * 3);
+  --space-lg: calc(var(--space-unit) * 4);
+  
+  /* Essential radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  /* Performance-tuned animations */
+  --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+}
+
+/* Critical body styles for FCP */
+html {
+  font-family: var(--font-system);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  min-height: 100vh;
+  color: var(--sanctuary);
+  font-family: var(--font-system);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* CRITICAL: Inline critical sanctuary styles for sub-1s FCP */
+.sanctuary-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.sanctuary-card {
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(164, 183, 146, 0.15);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.sanctuary-heading {
+  font-family: var(--font-system);
+  font-size: 1.875rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--sage-active);
+  margin: 0 0 var(--space-md) 0;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.sanctuary-text {
+  font-family: var(--font-system);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--sage-active);
+  margin: 0 0 var(--space-lg) 0;
+  text-align: center;
+}
+
+.sanctuary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--sage-primary);
+  color: var(--sanctuary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-system);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  box-shadow: 0 2px 8px rgba(164, 183, 146, 0.2);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.sanctuary-button:hover {
+  background: var(--sage-hover);
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.25);
+}
+
+/* DEFERRED: Load non-critical styles after FCP */
+@media print {
+  @import '../styles/alchm-jony-ive-foundation.css';
+}
+
+/* PERFORMANCE-OPTIMIZED: Age Verification Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+  will-change: transform, opacity;
+}
+
+/* PERFORMANCE-OPTIMIZED: Critical CSS only for initial render */
+/* Only import essential styles to stay under 25KB performance budget */
+@import '/src/styles/core-web-vitals.css';
+@import '/src/styles/trauma-informed-mobile.css';
+@import '/src/styles/premium-digital-sanctuary-mobile.css';
+@import '/src/styles/mobile-accessibility.css';
+@import '/src/styles/khepera-chat-integration.css';
+
+/* 
+ * ALCHM DESIGN SYSTEM FOUNDATION
+ * Jony Ive Sage System - Premium healing experience
+ * "Simplicity is the ultimate sophistication" applied to trauma-informed design
+ * 
+ * CRISIS-SAFE DESIGN INTEGRATION:
+ * Every design choice prioritizes user safety and emotional regulation during crisis moments.
+ * Suicide prevention considerations are built into the core design system.
+ */
+
+/* Import Crisis-Safe Design System */
+@import '../styles/crisis-safe-design-system.css';
+
+/* === DESIGN TOKEN FOUNDATION === */
+:root {
+  /* The Primary Sage - Single Source of Truth */
+  --sage-primary: #a4b792;
+  --sage-hover: #93a682;
+  --sage-active: #7a8c6a;
+  --sage-light: #f6f8f4;
+  --sage-muted: #d6e0cd;
+  
+  /* Sanctuary Colors */
+  --sanctuary: #fefcfb;
+  --sanctuary-glass: rgba(254, 252, 251, 0.85);
+  --sanctuary-mist: rgba(254, 252, 251, 0.05);
+  
+  /* ALCHM Sacred Typography Foundation */
+  /* Jony Ive System Font Hierarchy - Performance + Elegance */
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  
+  /* Sacred Weight Hierarchy - Deliberate Restraint */
+  --font-weight-ultralight: 100;
+  --font-weight-thin: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  /* Trauma-Informed Line Heights - Enhanced for Stress Reading */
+  --line-height-tight: 1.3;
+  --line-height-snug: 1.4;
+  --line-height-normal: 1.5;
+  --line-height-comfortable: 1.6;
+  --line-height-relaxed: 1.7;
+  --line-height-loose: 1.8;
+  
+  /* Sacred Letter Spacing - Micro-typography Precision */
+  --letter-spacing-tight: -0.03em;
+  --letter-spacing-snug: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.015em;
+  --letter-spacing-wider: 0.025em;
+  
+  /* Spacing - Mathematical Harmony */
+  --space-unit: 8px;
+  --space-xs: calc(var(--space-unit) * 1);    /* 8px */
+  --space-sm: calc(var(--space-unit) * 2);    /* 16px */
+  --space-md: calc(var(--space-unit) * 3);    /* 24px */
+  --space-lg: calc(var(--space-unit) * 4);    /* 32px */
+  --space-xl: calc(var(--space-unit) * 6);    /* 48px */
+  
+  /* Radii - Soft, Approachable */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  /* Modern Mood Selector Variables */
+  --mood-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --mood-hover-lift: -2px;
+  --mood-selected-scale: 1.05;
+  --radius-xl: 24px;
+  
+  /* Animation - Gentle, Never Jarring */
+  --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  
+  /* Crisis & Emergency Colors - Suicide Prevention Safe */
+  --crisis-red: #dc2626;
+  --crisis-orange: #ea580c;
+  --emergency-red: #b91c1c;
+  --crisis-text: #059669;
+  
+  /* Crisis-Safe Emergency Colors (Muted but Clear) */
+  --crisis-emergency-red: #b87d7d;
+  --crisis-emergency-red-hover: #a66d6d;
+  --crisis-emergency-red-active: #955d5d;
+  --crisis-emergency-red-bg: #f5f0f0;
+  --crisis-emergency-red-text: #7a4444;
+  
+  /* Suicide Prevention Design Considerations */
+  --crisis-safe-radius: 12px;                    /* Softer edges reduce visual stress */
+  --crisis-safe-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Gentler shadows */
+  --crisis-breathing-space: 2rem;                /* Extra spacing for visual calm */
+  
+  /* Touch Target Standards */
+  --touch-target-default: 44px;
+  --touch-target-large: 48px;
+  --touch-target-crisis: 52px;
+  --touch-target-emergency: 64px;
+  
+  /* === NEUROPLASTICITY DESIGN TOKENS === */
+  
+  /* Growth & Healing Color Psychology */
+  --neural-growth: #87a96b;
+  --neural-connection: #a4b792;
+  --neural-celebration: #b8c6a8;
+  --neural-comfort: #d6e0cd;
+  --neural-safety: #f0f4ed;
+  
+  /* Neuroplasticity Progress Colors */
+  --synapse-forming: rgba(135, 169, 107, 0.15);
+  --synapse-strengthening: rgba(135, 169, 107, 0.35);
+  --synapse-established: rgba(135, 169, 107, 0.65);
+  --synapse-mastered: rgba(135, 169, 107, 0.85);
+  
+  /* Contemplative Spacing - Based on Golden Ratio for Neural Harmony */
+  --contemplative-xs: 5px;   /* 5px - micro-breaths */
+  --contemplative-sm: 8px;   /* 8px - short pauses */
+  --contemplative-md: 13px;  /* 13px - breath cycles */
+  --contemplative-lg: 21px;  /* 21px - reflection spaces */
+  --contemplative-xl: 34px;  /* 34px - integration zones */
+  --contemplative-2xl: 55px; /* 55px - transformation spaces */
+  
+  /* Neuroplasticity Animation Timing - Based on Memory Consolidation */
+  --neural-micro: 150ms;      /* Immediate feedback */
+  --neural-short: 300ms;      /* Working memory */
+  --neural-medium: 600ms;     /* Processing time */
+  --neural-long: 1200ms;      /* Integration period */
+  --neural-deep: 2400ms;      /* Deep processing */
+  
+  /* Healing Rhythm Patterns */
+  --healing-heartbeat: 1.618s;     /* Golden ratio seconds */
+  --healing-breath: 4s;            /* 4-second breath cycle */
+  --healing-reflection: 8s;        /* Reflection pause */
+  --healing-integration: 13s;      /* Integration cycle */
+  
+  /* Gentle Pressure Gradients for Habit Formation */
+  --pressure-whisper: rgba(164, 183, 146, 0.05);
+  --pressure-nudge: rgba(164, 183, 146, 0.1);
+  --pressure-invite: rgba(164, 183, 146, 0.15);
+  --pressure-encourage: rgba(164, 183, 146, 0.2);
+  
+  /* Celebration & Achievement Colors */
+  --celebration-spark: #f4f1e8;
+  --celebration-glow: #e8f5e8;
+  --celebration-radiance: #dfedc8;
+  --celebration-brilliance: #c8d5b9;
+  
+  /* Neuroplasticity States */
+  --state-forming: #f8faf6;        /* Beginning neural pathway */
+  --state-strengthening: #f2f6ee;  /* Pathway reinforcing */
+  --state-establishing: #eaf2e2;   /* Pathway solidifying */
+  --state-mastering: #e0ecd4;      /* Pathway mastered */
+  
+  /* Micro-interaction Feedback Colors */
+  --feedback-encouraging: rgba(164, 183, 146, 0.3);
+  --feedback-supporting: rgba(164, 183, 146, 0.5);
+  --feedback-celebrating: rgba(184, 198, 168, 0.6);
+  --feedback-transforming: rgba(200, 213, 185, 0.7);
+}
+
+/* === ALCHM SACRED TYPOGRAPHY FOUNDATION === */
+
+/* Global Typography Reset - Jony Ive Minimalism */
+html {
+  background: var(--sage-primary);
+  font-family: var(--font-system);
+  font-size: 16px;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+body {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--sanctuary);
+  font-family: var(--font-text);
+  font-size: 16px;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  padding: 0;
+}
+
+/* Sacred Typography Hierarchy - Semantic HTML Styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-snug);
+  margin: 0;
+  color: inherit;
+}
+
+h1 {
+  font-size: 2.5rem; /* 40px */
+  font-weight: var(--font-weight-thin);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h2 {
+  font-size: 2rem; /* 32px */
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-snug);
+}
+
+h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+h4 {
+  font-size: 1.125rem; /* 18px */
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-comfortable);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+h5 {
+  font-size: 1rem; /* 16px */
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-comfortable);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+h6 {
+  font-size: 0.875rem; /* 14px */
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-comfortable);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+/* Sacred Body Text */
+p {
+  font-family: var(--font-text);
+  font-size: 1rem; /* 16px */
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  margin: 0;
+}
+
+/* Sacred Supporting Text */
+small {
+  font-size: 0.875rem; /* 14px */
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-comfortable);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Sacred Interactive Text */
+a {
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+button, input, textarea, select {
+  font-family: var(--font-text);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+/* Sacred Code Typography */
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-comfortable);
+  letter-spacing: 0.025em;
+}
+
+/* Crisis Typography - Enhanced Accessibility */
+.crisis-text {
+  font-size: 1.25rem !important; /* 20px */
+  font-weight: var(--font-weight-medium) !important;
+  line-height: var(--line-height-loose) !important;
+  letter-spacing: var(--letter-spacing-wide) !important;
+}
+
+/* Mobile Typography Optimizations */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+  
+  body {
+    font-size: 16px;
+    line-height: var(--line-height-loose); /* Enhanced for mobile stress reading */
+  }
+  
+  h1 {
+    font-size: 2rem; /* 32px on mobile */
+  }
+  
+  h2 {
+    font-size: 1.75rem; /* 28px on mobile */
+  }
+  
+  h3 {
+    font-size: 1.375rem; /* 22px on mobile */
+  }
+  
+  /* Larger touch targets for crisis scenarios */
+  .mobile-crisis-text {
+    font-size: 1.375rem !important; /* 22px */
+    line-height: 1.8 !important;
+    letter-spacing: 0.02em !important;
+  }
+}
+
+/* High Contrast Mode Typography */
+@media (prefers-contrast: high) {
+  body {
+    font-weight: var(--font-weight-medium);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+/* Reduced Motion Typography */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    font-feature-settings: "kern" 1;
+  }
+}
+
+/* === PREMIUM COMPONENT FOUNDATION === */
+
+/* Jony Ive Age Verification Design System */
+.sanctuary-backdrop {
+  background: rgba(164, 183, 146, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.sanctuary-glass {
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.organic-container {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.shadow-floating {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.shadow-soft {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-elevated {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.touch-target-large {
+  min-height: var(--touch-target-large);
+  min-width: var(--touch-target-large);
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes gentle-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.animate-gentle-breathe {
+  animation: gentle-breathe 3s ease-in-out infinite;
+}
+
+/* Cards - Floating Content */
+.alchm-card {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--duration-base) var(--ease-sanctuary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.alchm-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons - Purposeful Interaction */
+.alchm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  min-height: 48px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  text-decoration: none;
+  user-select: none;
+}
+
+.alchm-btn-primary {
+  background: var(--sanctuary-glass);
+  color: var(--sage-active);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alchm-btn-primary:hover {
+  background: var(--sanctuary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Sacred Writing Space */
+.alchm-sacred-textarea {
+  width: 100%;
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--sage-active);
+  font-family: inherit;
+  font-size: 16px;
+  min-height: 48px;
+  padding: var(--space-md);
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  outline: none;
+  resize: none;
+  line-height: var(--line-height-relaxed);
+}
+
+.alchm-sacred-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.alchm-sacred-textarea::placeholder {
+  color: rgba(164, 183, 146, 0.7);
+  font-style: italic;
+}
+
+/* === ACCESSIBILITY === */
+*:focus-visible {
+  outline: 2px solid var(--sanctuary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === TRAUMA-INFORMED TOUCH TARGETS === */
+
+/* Base touch target classes */
+.touch-target-default {
+  min-height: var(--touch-target-default);
+  min-width: var(--touch-target-default);
+}
+
+.touch-target-large {
+  min-height: var(--touch-target-large);
+  min-width: var(--touch-target-large);
+}
+
+.touch-target-crisis {
+  min-height: var(--touch-target-crisis);
+  min-width: var(--touch-target-crisis);
+}
+
+.touch-target-emergency {
+  min-height: var(--touch-target-emergency);
+  min-width: var(--touch-target-emergency);
+}
+
+/* Crisis mode adaptations */
+.crisis-active .touch-target-default {
+  min-height: var(--touch-target-crisis);
+  min-width: var(--touch-target-crisis);
+}
+
+.emergency-active .touch-target-default,
+.emergency-active .touch-target-large,
+.emergency-active .touch-target-crisis {
+  min-height: var(--touch-target-emergency);
+  min-width: var(--touch-target-emergency);
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+@media (max-width: 768px) {
+  .alchm-btn {
+    min-height: var(--touch-target-crisis);
+    min-width: var(--touch-target-crisis);
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .alchm-sacred-textarea {
+    min-height: var(--touch-target-crisis);
+    padding: var(--space-md);
+  }
+  
+  /* Enhanced touch targets for mobile crisis scenarios */
+  .touch-target-default {
+    min-height: var(--touch-target-large);
+    min-width: var(--touch-target-large);
+  }
+}
+
+/* Legacy button for backwards compatibility */
+.btn-primary {
+  background: var(--sage-primary);
+  color: var(--sanctuary);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-weight: var(--font-weight-medium);
+  font-size: 16px;
+  min-height: 52px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+}
+
+.btn-primary:hover {
+  background: var(--sage-hover);
+  transform: translateY(-1px);
+}
+
+/* === MODERN MOOD SELECTOR STYLES === */
+
+/* Mood grid foundation */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+/* Base mood tile styling */
+.mood-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--mood-transition);
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Hover effects */
+.mood-tile:hover:not(:disabled) {
+  transform: translateY(var(--mood-hover-lift));
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Selected state */
+.mood-tile.selected {
+  transform: scale(var(--mood-selected-scale));
+  box-shadow: 0 0 20px rgba(var(--mood-color-rgb, 100, 100, 100), 0.4);
+  z-index: 1;
+}
+
+/* Mood tile text scaling on hover */
+.mood-tile .mood-emoji {
+  transition: transform 0.2s ease;
+  font-size: 1.5rem;
+}
+
+.mood-tile:hover .mood-emoji {
+  transform: scale(1.1);
+}
+
+/* Mood name typography */
+.mood-tile .mood-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+/* Description fade animations */
+.mood-description {
+  position: absolute;
+  inset: 0;
+  padding: 8px;
+  font-size: 0.75rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.mood-tile:hover .mood-description,
+.mood-tile.selected .mood-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Intensity slider styling */
+.intensity-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.intensity-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid currentColor;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.intensity-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.intensity-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid currentColor;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+/* Custom animations */
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes gentle-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes crisis-attention {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+}
+
+/* Animation utility classes */
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.animate-gentle-breathe {
+  animation: gentle-breathe 3s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-crisis-attention {
+  animation: crisis-attention 1.5s ease-in-out infinite;
+}
+
+/* === SANCTUARY ANALYTICS ANIMATIONS === */
+
+/* Organic growth visualization */
+@keyframes organic-grow {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* Flowing data visualization */
+@keyframes data-flow {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Insight garden growth */
+@keyframes insight-bloom {
+  0% {
+    transform: scale(0.8) rotate(-2deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05) rotate(1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.95;
+  }
+}
+
+/* Gentle sparkle for achievements */
+@keyframes gentle-sparkle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(5deg);
+  }
+  66% {
+    opacity: 0.6;
+    transform: scale(1.05) rotate(-3deg);
+  }
+}
+
+/* Emotional flow animation */
+@keyframes emotional-flow {
+  0% {
+    stroke-dasharray: 0, 100;
+  }
+  50% {
+    stroke-dasharray: 50, 50;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+  }
+}
+
+/* Growth ring pulse */
+@keyframes growth-ring-pulse {
+  0%, 100% {
+    stroke-width: 2;
+    opacity: 0.6;
+  }
+  50% {
+    stroke-width: 4;
+    opacity: 0.9;
+  }
+}
+
+/* Metric visualization animations */
+.animate-organic-grow {
+  animation: organic-grow 4s ease-in-out infinite;
+}
+
+.animate-data-flow {
+  animation: data-flow 2s ease-in-out infinite;
+}
+
+.animate-insight-bloom {
+  animation: insight-bloom 3s ease-in-out infinite;
+}
+
+.animate-gentle-sparkle {
+  animation: gentle-sparkle 2s ease-in-out infinite;
+}
+
+.animate-emotional-flow {
+  animation: emotional-flow 8s ease-in-out infinite;
+}
+
+.animate-growth-ring-pulse {
+  animation: growth-ring-pulse 3s ease-in-out infinite;
+}
+
+/* === SANCTUARY LAYOUT SYSTEM === */
+
+/* Glass morphism containers */
+.sanctuary-glass {
+  background: rgba(254, 252, 251, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(164, 183, 146, 0.1);
+}
+
+/* Organic shape containers */
+.organic-container {
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.organic-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, transparent, rgba(164, 183, 146, 0.1), transparent);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Soft shadows for depth */
+.shadow-soft {
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.15);
+}
+
+.shadow-elevated {
+  box-shadow: 0 8px 32px rgba(164, 183, 146, 0.2);
+}
+
+.shadow-floating {
+  box-shadow: 0 12px 48px rgba(164, 183, 146, 0.25);
+}
+
+/* === RESPONSIVE SANCTUARY DESIGN === */
+
+/* Mobile-first organic visualizations */
+@media (max-width: 768px) {
+  .sanctuary-glass {
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+  }
+  
+  .organic-container {
+    border-radius: 20px;
+    margin: 8px;
+  }
+  
+  /* Larger touch targets for mobile */
+  .mobile-touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Reduced animation intensity for battery conservation */
+  .animate-gentle-pulse,
+  .animate-gentle-breathe,
+  .animate-organic-grow {
+    animation-duration: 4s;
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .sanctuary-glass {
+    background: rgba(254, 252, 251, 0.95);
+    border: 2px solid var(--sage-active);
+  }
+  
+  .shadow-soft,
+  .shadow-elevated,
+  .shadow-floating {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .animate-organic-grow,
+  .animate-data-flow,
+  .animate-insight-bloom,
+  .animate-gentle-sparkle,
+  .animate-emotional-flow,
+  .animate-growth-ring-pulse {
+    animation: none;
+  }
+  
+  /* Static alternatives for essential animations */
+  .animate-gentle-pulse {
+    opacity: 0.8;
+    animation: none;
+  }
+}
+
+/* === DARK MODE SANCTUARY === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sanctuary-dark: #1a1d1a;
+    --sanctuary-dark-glass: rgba(26, 29, 26, 0.85);
+    --sage-dark: #2a2d2a;
+  }
+  
+  .dark-sanctuary {
+    background: linear-gradient(135deg, var(--sanctuary-dark) 0%, var(--sage-dark) 100%);
+    color: var(--sage-light);
+  }
+  
+  .sanctuary-glass {
+    background: var(--sanctuary-dark-glass);
+    border-color: rgba(164, 183, 146, 0.3);
+  }
+}
+
+/* Range slider track styling */
+.intensity-slider::-webkit-slider-track {
+  background: transparent;
+  border: none;
+}
+
+.intensity-slider::-moz-range-track {
+  background: transparent;
+  border: none;
+}
+
+/* === JONY IVE AGE VERIFICATION SYSTEM === */
+
+/* Year picker overlay - iOS-inspired design */
+.year-picker-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade-in 0.3s ease-out;
+}
+
+.year-picker-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  width: 280px;
+  max-height: 400px;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.year-picker-header {
+  position: relative;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.year-picker-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+}
+
+.year-picker-close {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  color: #666;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year-picker-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.year-picker-close:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.year-picker-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* iOS-style momentum scrolling */
+.year-picker-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+
+.year-picker-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.year-picker-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 122, 255, 0.3);
+  border-radius: 2px;
+}
+
+.year-option {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  background: transparent;
+  color: #007AFF;
+  font-size: 17px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.year-option:hover {
+  background: rgba(0, 122, 255, 0.05);
+  transform: scale(1.02);
+}
+
+.year-option:active {
+  background: rgba(0, 122, 255, 0.1);
+  transform: scale(0.98);
+}
+
+.year-option.selected {
+  background: rgba(0, 122, 255, 0.1);
+  color: #0056D3;
+  font-weight: 500;
+  transform: scale(1.05);
+}
+
+.year-option:focus {
+  outline: none;
+  background: rgba(0, 122, 255, 0.1);
+  box-shadow: inset 0 0 0 2px rgba(0, 122, 255, 0.3);
+}
+
+/* Natural momentum physics */
+@keyframes picker-momentum {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.year-option:active {
+  animation: picker-momentum 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Accessibility enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .year-picker-overlay {
+    animation: none;
+  }
+  
+  .year-option {
+    transition: background-color 0.1s ease;
+  }
+  
+  .year-option:hover,
+  .year-option.selected {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .year-picker-container {
+    background: white;
+    border: 2px solid #007AFF;
+  }
+  
+  .year-option {
+    border-bottom: 1px solid #007AFF;
+  }
+  
+  .year-option.selected {
+    background: #007AFF;
+    color: white;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .year-picker-container {
+    width: calc(100vw - 64px);
+    max-width: 280px;
+  }
+  
+  .year-option {
+    min-height: 52px;
+    font-size: max(16px, 1rem); /* Prevent iOS zoom */
+  }
+}
+
+/* === FULLSCREEN JOURNAL SANCTUARY STYLES === */
+
+/* Sacred writing canvas with breathing effect */
+.sacred-writing-canvas {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-writing-canvas::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(164, 183, 146, 0.03) 0%, transparent 70%);
+  animation: gentle-breathing 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Floating elements with heart-sparkle motif */
+.floating-element {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all var(--duration-base) var(--ease-sanctuary);
+}
+
+.floating-element::after {
+  content: '✨';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 12px;
+  opacity: 0.6;
+  animation: gentle-sparkle 3s ease-in-out infinite;
+}
+
+/* Enhanced prompt animations */
+@keyframes prompt-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes prompt-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+.writing-prompt {
+  animation: prompt-fade-in 0.8s ease-out forwards;
+}
+
+.writing-prompt.fading-out {
+  animation: prompt-fade-out 0.4s ease-in forwards;
+}
+
+/* Sanctuary background gradient breathing */
+@keyframes gentle-breathing {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02) rotate(0.5deg);
+    opacity: 0.8;
+  }
+}
+
+/* Gentle sparkle animation for encouragement */
+@keyframes gentle-sparkle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+/* Enhanced gentle pulse for auto-save indicators */
+@keyframes sanctuary-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+/* Modal backdrop with sanctuary blur */
+.sanctuary-backdrop {
+  background: rgba(164, 183, 146, 0.15);
+  backdrop-filter: blur(12px);
+  animation: backdrop-fade-in 0.3s ease-out forwards;
+}
+
+@keyframes backdrop-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Enhanced focus states for sacred textarea */
+.sacred-textarea-focus {
+  background: linear-gradient(135deg, var(--sanctuary-glass) 0%, rgba(254, 252, 251, 0.95) 100%);
+  box-shadow: 
+    0 0 0 1px rgba(164, 183, 146, 0.2),
+    0 8px 32px rgba(164, 183, 146, 0.1),
+    inset 0 2px 8px rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Floating action button enhancements */
+.floating-action {
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-action::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.6s ease-out;
+}
+
+.floating-action:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+/* Progressive disclosure animations */
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-down {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Word count breathing */
+.word-count-display {
+  animation: sanctuary-pulse 4s ease-in-out infinite;
+}
+
+/* Mobile touch optimizations */
+@media (max-width: 768px) {
+  .floating-element {
+    padding: var(--space-lg);
+    margin: var(--space-sm);
+  }
+  
+  .sacred-writing-canvas {
+    min-height: calc(100vh - 120px);
+  }
+  
+  /* Enhanced touch targets */
+  .floating-action {
+    min-width: 56px;
+    min-height: 56px;
+  }
+  
+  /* Reduce motion for battery preservation */
+  @media (prefers-reduced-motion: reduce) {
+    .sacred-writing-canvas::before,
+    .floating-element::after,
+    .word-count-display {
+      animation: none;
+    }
+  }
+}
+
+/* Dark mode sanctuary (if needed) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sanctuary-dark: #1a1d1a;
+    --sanctuary-dark-glass: rgba(26, 29, 26, 0.85);
+  }
+  
+  .dark-sanctuary {
+    background: linear-gradient(135deg, var(--sanctuary-dark) 0%, #2a2d2a 100%);
+    color: var(--sage-light);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .floating-element {
+    border: 2px solid var(--sage-active);
+    background: var(--sanctuary);
+  }
+  
+  .sacred-textarea-focus {
+    border: 3px solid var(--sage-primary);
+    box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.3);
+  }
+}
+
+/* Animation utility classes for components */
+.animate-sanctuary-pulse {
+  animation: sanctuary-pulse 3s ease-in-out infinite;
+}
+
+.animate-gentle-sparkle {
+  animation: gentle-sparkle 2s ease-in-out infinite;
+}
+
+.animate-breathing {
+  animation: gentle-breathing 6s ease-in-out infinite;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.4s ease-out forwards;
+}
+
+.animate-slide-out-down {
+  animation: slide-out-down 0.3s ease-in forwards;
+}
+
+/* === CRISIS-SAFE DESIGN SYSTEM INTEGRATION === */
+
+/* Crisis Mode Global Overrides for Suicide Prevention */
+.crisis-mode {
+  /* Override design tokens for safety */
+  --radius-sm: var(--crisis-safe-radius);
+  --radius-md: var(--crisis-safe-radius);
+  --radius-lg: var(--crisis-safe-radius);
+}
+
+.crisis-mode * {
+  border-radius: max(var(--crisis-safe-radius), var(--radius-sm, 8px)) !important;
+}
+
+/* Softer shadows to reduce visual stress */
+.crisis-mode .shadow-harsh,
+.crisis-mode .shadow-elevated,
+.crisis-mode .shadow-floating {
+  box-shadow: var(--crisis-safe-shadow) !important;
+}
+
+/* Hide potentially triggering content during crisis */
+.crisis-mode .hide-in-crisis,
+.crisis-mode [data-trigger-warning],
+.crisis-mode .competitive-element,
+.crisis-mode .comparison-metric {
+  display: none !important;
+}
+
+/* Ensure all crisis content passes WCAG AAA contrast */
+.crisis-text-critical {
+  color: var(--crisis-neutral-900) !important;
+  background: var(--crisis-sanctuary) !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Emergency contact styling - always visible and accessible */
+.crisis-emergency-contact {
+  display: flex !important;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--crisis-emergency-red-bg);
+  border: 2px solid var(--crisis-emergency-red);
+  border-radius: var(--crisis-safe-radius);
+  margin: var(--crisis-breathing-space) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--crisis-emergency-red-text);
+  text-decoration: none;
+  transition: none; /* No transitions during crisis */
+}
+
+.crisis-emergency-contact:hover,
+.crisis-emergency-contact:focus {
+  background: rgba(184, 125, 125, 0.1);
+  border-color: var(--crisis-emergency-red-hover);
+  transform: none !important; /* No jarring movements during crisis */
+  outline: 3px solid var(--crisis-emergency-red);
+  outline-offset: 2px;
+}
+
+/* Crisis-safe button overrides */
+.crisis-mode .btn-primary,
+.crisis-mode .alchm-btn-primary {
+  background: var(--crisis-emergency-red) !important;
+  border-color: var(--crisis-emergency-red) !important;
+  min-height: var(--touch-target-crisis) !important;
+  font-size: 1.125rem !important;
+  border-radius: var(--crisis-safe-radius) !important;
+}
+
+.crisis-mode .btn-primary:hover,
+.crisis-mode .alchm-btn-primary:hover {
+  background: var(--crisis-emergency-red-hover) !important;
+  border-color: var(--crisis-emergency-red-hover) !important;
+  transform: none !important;
+}
+
+/* Crisis navigation simplification */
+.crisis-mode .complex-navigation,
+.crisis-mode .secondary-navigation {
+  display: none !important;
+}
+
+.crisis-mode .primary-navigation {
+  background: var(--crisis-sanctuary) !important;
+  border-bottom: 2px solid var(--crisis-sage-primary) !important;
+  padding: 1rem !important;
+}
+
+/* Crisis form elements */
+.crisis-mode input,
+.crisis-mode textarea,
+.crisis-mode select {
+  min-height: var(--touch-target-crisis) !important;
+  font-size: 1.125rem !important;
+  border: 2px solid var(--crisis-sage-muted) !important;
+  border-radius: var(--crisis-safe-radius) !important;
+  padding: 1rem !important;
+}
+
+.crisis-mode input:focus,
+.crisis-mode textarea:focus,
+.crisis-mode select:focus {
+  border-color: var(--crisis-sage-primary) !important;
+  outline: 3px solid var(--crisis-sage-primary) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+/* Crisis-safe animations */
+.crisis-mode *,
+.crisis-mode *:before,
+.crisis-mode *:after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Exception for critical crisis animations */
+.crisis-mode .crisis-breathing-loader,
+.crisis-mode .crisis-gentle-pulse,
+.crisis-mode .crisis-supportive-glow {
+  animation-duration: inherit !important;
+}
+
+/* Crisis content prioritization */
+.crisis-mode .crisis-priority-high {
+  order: -10 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 999 !important;
+}
+
+/* Crisis text sizing for stress reading */
+.crisis-mode .text-sm { font-size: 1rem !important; }
+.crisis-mode .text-base { font-size: 1.125rem !important; }
+.crisis-mode .text-lg { font-size: 1.25rem !important; }
+.crisis-mode .text-xl { font-size: 1.5rem !important; }
+
+/* Crisis spacing for breathing room */
+.crisis-mode .space-y-1 > * + * { margin-top: 1rem !important; }
+.crisis-mode .space-y-2 > * + * { margin-top: 1.5rem !important; }
+.crisis-mode .space-y-3 > * + * { margin-top: 2rem !important; }
+.crisis-mode .space-y-4 > * + * { margin-top: 2.5rem !important; }
+
+/* Crisis modal and overlay safety */
+.crisis-mode .modal,
+.crisis-mode .overlay {
+  background: rgba(254, 252, 251, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.crisis-mode .modal-content {
+  background: var(--crisis-sanctuary) !important;
+  border: 2px solid var(--crisis-sage-primary) !important;
+  border-radius: var(--crisis-safe-radius) !important;
+  padding: var(--crisis-breathing-space) !important;
+  max-width: 600px !important;
+}
+
+/* Crisis-safe loading states */
+.crisis-mode .loading,
+.crisis-mode .spinner {
+  color: var(--crisis-sage-primary) !important;
+  animation: crisis-gentle-spin 2s linear infinite !important;
+}
+
+/* Crisis mode emergency exits */
+.crisis-mode .emergency-exit {
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 10000 !important;
+  background: var(--crisis-emergency-red) !important;
+  color: white !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: var(--crisis-safe-radius) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  box-shadow: var(--crisis-safe-shadow) !important;
+}
+
+/* === NEUROPLASTICITY ANIMATIONS === */
+
+/* Neural pathway formation animation */
+@keyframes neural-pathway-forming {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.95);
+    background-position: 0% 50%;
+  }
+  25% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+    background-position: 50% 50%;
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    background-position: 100% 50%;
+  }
+}
+
+/* Synaptic strengthening pulse */
+@keyframes synaptic-strengthen {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--synapse-forming);
+    background-color: var(--state-forming);
+  }
+  25% {
+    box-shadow: 0 0 0 8px var(--synapse-strengthening);
+    background-color: var(--state-strengthening);
+  }
+  50% {
+    box-shadow: 0 0 0 12px var(--synapse-established);
+    background-color: var(--state-establishing);
+  }
+  75% {
+    box-shadow: 0 0 0 16px var(--synapse-mastered);
+    background-color: var(--state-mastering);
+  }
+}
+
+/* Healing celebration sparkle */
+@keyframes healing-celebration {
+  0% {
+    opacity: 0.6;
+    transform: scale(1) rotate(0deg);
+    background: var(--celebration-spark);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.05) rotate(90deg);
+    background: var(--celebration-glow);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) rotate(180deg);
+    background: var(--celebration-radiance);
+  }
+  75% {
+    opacity: 0.9;
+    transform: scale(1.05) rotate(270deg);
+    background: var(--celebration-brilliance);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1) rotate(360deg);
+    background: var(--celebration-spark);
+  }
+}
+
+/* Contemplative breathing rhythm */
+@keyframes contemplative-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  25% {
+    transform: scale(1.02);
+    opacity: 0.9;
+    filter: blur(0.5px);
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+    filter: blur(1px);
+  }
+  75% {
+    transform: scale(1.02);
+    opacity: 0.9;
+    filter: blur(0.5px);
+  }
+}
+
+/* Neural connection growth */
+@keyframes neural-connection-grow {
+  0% {
+    width: 2px;
+    height: 2px;
+    opacity: 0.3;
+  }
+  50% {
+    width: 8px;
+    height: 8px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 12px;
+    height: 12px;
+    opacity: 0.6;
+  }
+}
+
+/* Gentle encouragement pulse */
+@keyframes gentle-encourage {
+  0%, 100% {
+    background-color: var(--pressure-whisper);
+    border-color: var(--feedback-encouraging);
+  }
+  50% {
+    background-color: var(--pressure-invite);
+    border-color: var(--feedback-supporting);
+  }
+}
+
+/* Growth milestone celebration */
+@keyframes growth-milestone {
+  0% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 0 0 var(--feedback-celebrating);
+  }
+  25% {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 0 10px var(--feedback-celebrating);
+  }
+  50% {
+    transform: scale(1.1) translateY(-4px);
+    box-shadow: 0 0 0 20px var(--feedback-transforming);
+  }
+  75% {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 0 15px var(--feedback-celebrating);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 0 0 var(--feedback-celebrating);
+  }
+}
+
+/* Habit formation progress ring */
+@keyframes habit-progress-ring {
+  0% {
+    stroke-dasharray: 0 100;
+    stroke: var(--neural-growth);
+  }
+  25% {
+    stroke-dasharray: 25 75;
+    stroke: var(--neural-connection);
+  }
+  50% {
+    stroke-dasharray: 50 50;
+    stroke: var(--neural-celebration);
+  }
+  75% {
+    stroke-dasharray: 75 25;
+    stroke: var(--neural-comfort);
+  }
+  100% {
+    stroke-dasharray: 100 0;
+    stroke: var(--neural-safety);
+  }
+}
+
+/* Self-compassion glow */
+@keyframes self-compassion-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(164, 183, 146, 0);
+    background: linear-gradient(135deg, var(--sanctuary-glass), var(--sanctuary-mist));
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(164, 183, 146, 0.2);
+    background: linear-gradient(135deg, var(--sanctuary), var(--sanctuary-glass));
+  }
+}
+
+/* === NEUROPLASTICITY ANIMATION CLASSES === */
+
+.animate-neural-forming {
+  animation: neural-pathway-forming var(--healing-breath) ease-in-out infinite;
+}
+
+.animate-synaptic-strengthen {
+  animation: synaptic-strengthen var(--healing-reflection) ease-in-out infinite;
+}
+
+.animate-healing-celebration {
+  animation: healing-celebration var(--healing-heartbeat) ease-in-out infinite;
+}
+
+.animate-contemplative-breathe {
+  animation: contemplative-breathe var(--healing-breath) ease-in-out infinite;
+}
+
+.animate-neural-connection-grow {
+  animation: neural-connection-grow var(--neural-long) ease-out;
+}
+
+.animate-gentle-encourage {
+  animation: gentle-encourage var(--healing-reflection) ease-in-out infinite;
+}
+
+.animate-growth-milestone {
+  animation: growth-milestone var(--neural-deep) ease-out;
+}
+
+.animate-habit-progress-ring {
+  animation: habit-progress-ring var(--healing-integration) ease-in-out;
+}
+
+.animate-self-compassion-glow {
+  animation: self-compassion-glow var(--healing-breath) ease-in-out infinite;
 }

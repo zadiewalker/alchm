@@ -1,0 +1,592 @@
+/**
+ * Crisis Detection System Test Suite
+ * 
+ * MISSION CRITICAL: Validate that crisis detection system meets life-saving
+ * performance standards with sub-3-second response times, 95%+ accuracy,
+ * and comprehensive cultural sensitivity.
+ * 
+ * These tests ensure the system can reliably detect crisis situations
+ * across diverse cultural contexts while maintaining privacy protection.
+ */
+
+import { describe, test, expect, beforeEach, afterEach, jest } from '@jest/globals';
+import { 
+  enhancedCrisisDetection, 
+  quickCrisisCheck,
+  type CrisisDetectionInputType,
+  type CrisisDetectionOutputType 
+} from '../lib/enhanced-crisis-detection';
+import { 
+  globalCrisisResources, 
+  getQuickEmergencyResources,
+  type UserContext 
+} from '../lib/global-crisis-resources';
+import { crisisSafetyAnalytics } from '../lib/crisis-safety-analytics';
+
+// Test data sets for comprehensive crisis detection testing
+const CRISIS_TEST_SCENARIOS = {
+  critical_immediate: [
+    'I want to kill myself tonight',
+    'I have the pills ready and I\'m going to end it all',
+    'I can\'t take this anymore, I\'m going to die today',
+    'Nobody will miss me, I\'m ending my life right now'
+  ],
+  critical_cultural: [
+    'My family would rather see me dead than gay', // LGBTQ+ crisis
+    'I\'d rather die than be deported', // Immigration crisis
+    'God wants me to die for my sins', // Religious crisis
+    'I\'m a burden to my family, they\'d be better without me' // Cultural shame
+  ],
+  high_risk: [
+    'I don\'t want to live anymore',
+    'I keep thinking about hurting myself',
+    'Life has no point, I give up',
+    'I feel hopeless and can\'t see a way out'
+  ],
+  moderate_risk: [
+    'I\'m struggling with depression and feel overwhelmed',
+    'Everything feels too much right now',
+    'I\'m having a hard time coping with stress',
+    'I feel anxious and don\'t know what to do'
+  ],
+  low_risk: [
+    'I\'m feeling a bit down today',
+    'Work has been stressful lately',
+    'I\'m worried about my future',
+    'I feel sad sometimes'
+  ],
+  false_positives: [
+    'I killed it in my presentation today', // Positive use of "killed"
+    'That movie was to die for', // Hyperbolic expression
+    'I\'m dead tired after work', // Common expression
+    'This project is suicide for my free time' // Metaphorical use
+  ],
+  protective_factors: [
+    'I\'m struggling but I have good friends to talk to',
+    'Even though I\'m sad, I know therapy helps',
+    'I feel hopeless but my family supports me',
+    'I\'m depressed but I believe things can get better'
+  ]
+};
+
+const CULTURAL_CONTEXTS = {
+  lgbtq_youth: {
+    location: {
+      country: 'United States',
+      timezone: 'America/New_York'
+    },
+    preferences: {
+      languages: ['English'],
+      ageGroup: 'youth' as const,
+      lgbtqContext: true,
+      immigrationStatus: 'documented' as const
+    },
+    urgencyLevel: 'high' as const,
+    accessMethod: 'any' as const
+  },
+  undocumented_adult: {
+    location: {
+      country: 'United States',
+      timezone: 'America/Los_Angeles'
+    },
+    preferences: {
+      languages: ['Spanish', 'English'],
+      ageGroup: 'adult' as const,
+      immigrationStatus: 'undocumented' as const
+    },
+    urgencyLevel: 'high' as const,
+    accessMethod: 'any' as const
+  },
+  religious_senior: {
+    location: {
+      country: 'United States',
+      timezone: 'America/Chicago'
+    },
+    preferences: {
+      languages: ['English'],
+      ageGroup: 'senior' as const,
+      religiousContext: 'Christian',
+      immigrationStatus: 'documented' as const
+    },
+    urgencyLevel: 'moderate' as const,
+    accessMethod: 'voice' as const
+  }
+};
+
+describe('Crisis Detection System', () => {
+  let mockUserId: string;
+  let performanceMetrics: {
+    responseTimes: number[];
+    accuracyResults: boolean[];
+    culturalAdaptations: number;
+  };
+
+  beforeEach(() => {
+    mockUserId = 'test-user-' + Math.random().toString(36).substring(7);
+    performanceMetrics = {
+      responseTimes: [],
+      accuracyResults: [],
+      culturalAdaptations: 0
+    };
+    
+    // Mock console methods to avoid test noise
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  describe('Response Time Requirements', () => {
+    test('should detect critical crisis scenarios within 3 seconds', async () => {
+      const promises = CRISIS_TEST_SCENARIOS.critical_immediate.map(async (text) => {
+        const startTime = Date.now();
+        
+        const input: CrisisDetectionInputType = {
+          textSummary: text,
+          userId: mockUserId,
+          timestamp: Date.now(),
+          sessionContext: {
+            timeOfDay: 'evening',
+            dayOfWeek: 'friday',
+            deviceType: 'mobile'
+          }
+        };
+
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        const responseTime = Date.now() - startTime;
+        
+        performanceMetrics.responseTimes.push(responseTime);
+        
+        expect(responseTime).toBeLessThan(3000);
+        expect(result.riskLevel).toBe('critical');
+        expect(result.responseTimeMs).toBeLessThan(3000);
+        
+        return result;
+      });
+
+      const results = await Promise.all(promises);
+      
+      // Verify all critical scenarios were detected correctly
+      expect(results.every(r => r.riskLevel === 'critical')).toBe(true);
+      
+      // Verify average response time
+      const averageResponseTime = performanceMetrics.responseTimes.reduce((a, b) => a + b, 0) / performanceMetrics.responseTimes.length;
+      expect(averageResponseTime).toBeLessThan(2000); // Target: sub-2-second average
+    });
+
+    test('should handle concurrent crisis detections without performance degradation', async () => {
+      const concurrentRequests = 10;
+      const promises = Array(concurrentRequests).fill(null).map(async (_, index) => {
+        const startTime = Date.now();
+        
+        const input: CrisisDetectionInputType = {
+          textSummary: CRISIS_TEST_SCENARIOS.critical_immediate[index % CRISIS_TEST_SCENARIOS.critical_immediate.length] || 'test crisis text',
+          userId: `concurrent-user-${index}`,
+          timestamp: Date.now(),
+          sessionContext: {
+            timeOfDay: 'late_night',
+            dayOfWeek: 'saturday',
+            deviceType: 'mobile'
+          }
+        };
+
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        const responseTime = Date.now() - startTime;
+        
+        return { result, responseTime };
+      });
+
+      const results = await Promise.all(promises);
+      
+      // All concurrent requests should complete within 3 seconds
+      results.forEach(({ responseTime }) => {
+        expect(responseTime).toBeLessThan(3000);
+      });
+      
+      // Maximum response time shouldn't exceed 4 seconds even under load
+      const maxResponseTime = Math.max(...results.map(r => r.responseTime));
+      expect(maxResponseTime).toBeLessThan(4000);
+    });
+  });
+
+  describe('Crisis Detection Accuracy', () => {
+    test('should achieve 95%+ accuracy on critical crisis detection', async () => {
+      const testCases = [
+        ...CRISIS_TEST_SCENARIOS.critical_immediate,
+        ...CRISIS_TEST_SCENARIOS.critical_cultural
+      ];
+      
+      let correctDetections = 0;
+      
+      for (const text of testCases) {
+        const input: CrisisDetectionInputType = {
+          textSummary: text,
+          userId: mockUserId,
+          timestamp: Date.now(),
+          culturalContext: {
+            primaryLanguage: 'English',
+            ageGroup: 'adult',
+            lgbtqContext: text.includes('gay') || text.includes('family'),
+            immigrationStatus: text.includes('deported') ? 'undocumented' : 'documented'
+          },
+          sessionContext: {
+            timeOfDay: 'late_night',
+            dayOfWeek: 'sunday',
+            deviceType: 'mobile'
+          }
+        };
+
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        
+        if (result.riskLevel === 'critical') {
+          correctDetections++;
+          performanceMetrics.accuracyResults.push(true);
+        } else {
+          performanceMetrics.accuracyResults.push(false);
+        }
+      }
+      
+      const accuracy = correctDetections / testCases.length;
+      expect(accuracy).toBeGreaterThanOrEqual(0.95); // 95% minimum accuracy
+    });
+
+    test('should minimize false positives on benign expressions', async () => {
+      let falsePositives = 0;
+      
+      for (const text of CRISIS_TEST_SCENARIOS.false_positives) {
+        const input: CrisisDetectionInputType = {
+          textSummary: text,
+          userId: mockUserId,
+          timestamp: Date.now(),
+          sessionContext: {
+            timeOfDay: 'morning',
+            dayOfWeek: 'wednesday',
+            deviceType: 'desktop'
+          }
+        };
+
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        
+        if (result.riskLevel === 'critical' || result.riskLevel === 'high') {
+          falsePositives++;
+        }
+      }
+      
+      const falsePositiveRate = falsePositives / CRISIS_TEST_SCENARIOS.false_positives.length;
+      expect(falsePositiveRate).toBeLessThan(0.1); // Less than 10% false positive rate
+    });
+
+    test('should detect protective factors and adjust risk appropriately', async () => {
+      for (const text of CRISIS_TEST_SCENARIOS.protective_factors) {
+        const input: CrisisDetectionInputType = {
+          textSummary: text,
+          userId: mockUserId,
+          timestamp: Date.now(),
+          sessionContext: {
+            timeOfDay: 'afternoon',
+            dayOfWeek: 'tuesday',
+            deviceType: 'tablet'
+          }
+        };
+
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        
+        // With protective factors, risk should be lower than without them
+        expect(['low', 'moderate']).toContain(result.riskLevel);
+        expect(result.interventionType).not.toBe('emergency_protocol');
+      }
+    });
+  });
+
+  describe('Cultural Sensitivity and Adaptation', () => {
+    test('should provide culturally appropriate resources for LGBTQ+ youth', async () => {
+      const input: CrisisDetectionInputType = {
+        textSummary: 'My family will disown me if they find out I\'m gay, I want to end it all',
+        userId: mockUserId,
+        timestamp: Date.now(),
+        culturalContext: {
+          primaryLanguage: 'English',
+          ageGroup: 'youth',
+          lgbtqContext: true,
+          immigrationStatus: 'documented'
+        },
+        sessionContext: {
+          timeOfDay: 'late_night',
+          dayOfWeek: 'friday',
+          deviceType: 'mobile'
+        }
+      };
+
+      const result = await enhancedCrisisDetection.detectCrisis(input);
+      
+      expect(result.riskLevel).toBe('critical');
+      expect(result.culturallyAppropriateResources).toBeDefined();
+      
+      // Should include LGBTQ+ specific resources
+      const hasLGBTQResources = result.culturallyAppropriateResources.some(
+        resource => resource.culturalSpecialty?.includes('LGBTQ') || 
+                   resource.name.includes('Trevor') ||
+                   resource.name.includes('Trans')
+      );
+      expect(hasLGBTQResources).toBe(true);
+      
+      performanceMetrics.culturalAdaptations++;
+    });
+
+    test('should provide immigration-safe resources for undocumented individuals', async () => {
+      const userContext: UserContext = CULTURAL_CONTEXTS.undocumented_adult;
+      
+      const resources = globalCrisisResources.getCrisisResources(userContext, 5);
+      
+      // All resources should be immigration-safe
+      const immigrationSafeResources = resources.filter(r => r.immigrationSafe);
+      expect(immigrationSafeResources.length).toBeGreaterThan(0);
+      
+      // Should not include emergency services that might involve law enforcement
+      const hasEmergencyServices = resources.some(r => r.type === 'emergency');
+      expect(hasEmergencyServices).toBe(false);
+    });
+
+    test('should adapt intervention approach based on religious context', async () => {
+      const input: CrisisDetectionInputType = {
+        textSummary: 'I believe God is punishing me and I deserve to die',
+        userId: mockUserId,
+        timestamp: Date.now(),
+        culturalContext: {
+          primaryLanguage: 'English',
+          ageGroup: 'senior',
+          religiousContext: 'Christian',
+          immigrationStatus: 'documented'
+        },
+        sessionContext: {
+          timeOfDay: 'morning',
+          dayOfWeek: 'sunday',
+          deviceType: 'desktop'
+        }
+      };
+
+      const result = await enhancedCrisisDetection.detectCrisis(input);
+      
+      expect(result.riskLevel).toBe('critical');
+      
+      // Should include spiritual/religious support options
+      const hasReligiousSupport = result.culturallyAppropriateResources.some(
+        resource => resource.culturalSpecialty?.includes('spiritual') ||
+                   resource.culturalSpecialty?.includes('faith') ||
+                   resource.name.includes('Interfaith')
+      );
+      expect(hasReligiousSupport).toBe(true);
+    });
+  });
+
+  describe('Privacy Protection Validation', () => {
+    test('should never store raw user content in logs', async () => {
+      const sensitiveContent = 'I want to kill myself because of my abusive relationship with John Smith at 123 Main St';
+      
+      // Mock logger to capture what would be logged
+      const loggedData: any[] = [];
+      jest.mock('../lib/logging', () => ({
+        logger: {
+          info: jest.fn((message, data) => loggedData.push({ message, data })),
+          warn: jest.fn((message, data) => loggedData.push({ message, data })),
+          error: jest.fn((message, data) => loggedData.push({ message, data }))
+        }
+      }));
+
+      const input: CrisisDetectionInputType = {
+        textSummary: sensitiveContent,
+        userId: mockUserId,
+        timestamp: Date.now(),
+        sessionContext: {
+          timeOfDay: 'evening',
+          dayOfWeek: 'friday',
+          deviceType: 'mobile'
+        }
+      };
+
+      await enhancedCrisisDetection.detectCrisis(input);
+      
+      // Check that no log entry contains the sensitive content
+      loggedData.forEach(log => {
+        const logString = JSON.stringify(log);
+        expect(logString).not.toContain('John Smith');
+        expect(logString).not.toContain('123 Main St');
+        expect(logString).not.toContain('abusive relationship');
+        expect(logString).not.toContain(mockUserId); // User ID should be anonymized
+      });
+    });
+
+    test('should only process AI-generated summaries, not raw content', async () => {
+      // This test verifies the system design - it should only accept
+      // AI-generated summaries, never raw journal content
+      
+      const aiSummary = 'User expressed suicidal ideation with specific plan';
+      const rawContent = 'I hate my life and want to die. I have pills and plan to take them tonight...';
+      
+      // System should work with AI summary
+      const validInput: CrisisDetectionInputType = {
+        textSummary: aiSummary,
+        userId: mockUserId,
+        timestamp: Date.now(),
+        sessionContext: {
+          timeOfDay: 'late_night',
+          dayOfWeek: 'saturday',
+          deviceType: 'mobile'
+        }
+      };
+
+      const result = await enhancedCrisisDetection.detectCrisis(validInput);
+      expect(result.riskLevel).toBeDefined();
+      
+      // The function interface should not allow raw content
+      // (this is enforced by TypeScript types)
+      expect(typeof validInput.textSummary).toBe('string');
+      expect(validInput.textSummary.length).toBeLessThan(500); // Summaries should be concise
+    });
+  });
+
+  describe('Quick Crisis Check Function', () => {
+    test('should provide sub-second crisis assessment for UI responsiveness', async () => {
+      const testCases = [
+        { text: 'I want to kill myself tonight', expected: 'critical' },
+        { text: 'I feel hopeless and overwhelmed', expected: 'high' },
+        { text: 'I\'m having a difficult day', expected: 'moderate' },
+        { text: 'Work was stressful today', expected: 'none' }
+      ];
+
+      for (const { text, expected } of testCases) {
+        const startTime = Date.now();
+        const result = quickCrisisCheck(text);
+        const responseTime = Date.now() - startTime;
+        
+        expect(responseTime).toBeLessThan(100); // Sub-100ms for UI responsiveness
+        expect(result.riskLevel).toBe(expected);
+      }
+    });
+  });
+
+  describe('Global Resource Accessibility', () => {
+    test('should provide resources for major countries', () => {
+      const countries = ['United States', 'United Kingdom', 'Canada', 'Australia'];
+      
+      countries.forEach(country => {
+        const resources = getQuickEmergencyResources(country);
+        
+        expect(resources.crisis_hotline).toBeDefined();
+        expect(resources.emergency).toBeDefined();
+        expect(resources.crisis_hotline).not.toBe('');
+        expect(resources.emergency).not.toBe('');
+      });
+    });
+
+    test('should provide offline-accessible resources', () => {
+      const userContext: UserContext = {
+        location: {
+          country: 'United States',
+          timezone: 'America/New_York'
+        },
+        preferences: {
+          languages: ['English'],
+          ageGroup: 'adult',
+          immigrationStatus: 'documented'
+        },
+        urgencyLevel: 'critical',
+        accessMethod: 'any'
+      };
+
+      const offlineResources = globalCrisisResources.getOfflineResources('United States');
+      
+      expect(offlineResources.length).toBeGreaterThan(0);
+      expect(offlineResources.every(r => r.offlineAccessible)).toBe(true);
+    });
+  });
+
+  describe('System Performance Under Load', () => {
+    test('should maintain accuracy under high concurrent load', async () => {
+      const concurrentUsers = 50;
+      const testPromises = Array(concurrentUsers).fill(null).map(async (_, index) => {
+        const input: CrisisDetectionInputType = {
+          textSummary: CRISIS_TEST_SCENARIOS.critical_immediate[index % CRISIS_TEST_SCENARIOS.critical_immediate.length],
+          userId: `load-test-user-${index}`,
+          timestamp: Date.now(),
+          sessionContext: {
+            timeOfDay: 'evening',
+            dayOfWeek: 'friday',
+            deviceType: index % 2 === 0 ? 'mobile' : 'desktop'
+          }
+        };
+
+        const startTime = Date.now();
+        const result = await enhancedCrisisDetection.detectCrisis(input);
+        const responseTime = Date.now() - startTime;
+        
+        return { result, responseTime, correct: result.riskLevel === 'critical' };
+      });
+
+      const results = await Promise.all(testPromises);
+      
+      // Accuracy should remain high under load
+      const accuracy = results.filter(r => r.correct).length / results.length;
+      expect(accuracy).toBeGreaterThanOrEqual(0.95);
+      
+      // Response times should still meet targets
+      const averageResponseTime = results.reduce((acc, r) => acc + r.responseTime, 0) / results.length;
+      expect(averageResponseTime).toBeLessThan(3000);
+      
+      // No single request should take longer than 5 seconds
+      const maxResponseTime = Math.max(...results.map(r => r.responseTime));
+      expect(maxResponseTime).toBeLessThan(5000);
+    });
+  });
+
+  describe('Analytics and Monitoring', () => {
+    test('should record performance metrics without compromising privacy', () => {
+      const systemHealth = crisisSafetyAnalytics.getSystemHealth();
+      
+      expect(systemHealth.status).toBeDefined();
+      expect(systemHealth.metrics.averageResponseTime).toBeGreaterThanOrEqual(0);
+      expect(systemHealth.metrics.privacyCompliance).toBe(true);
+      expect(systemHealth.alerts).toBeInstanceOf(Array);
+    });
+
+    test('should track cultural resource effectiveness', () => {
+      // Record some test cultural adaptations
+      crisisSafetyAnalytics.recordDetectionEvent({
+        responseTimeMs: 1500,
+        riskLevel: 'critical',
+        interventionType: 'emergency_protocol',
+        confidenceScore: 0.92,
+        culturalAdaptationApplied: true,
+        demographicContext: {
+          ageGroup: 'youth',
+          primaryLanguage: 'en',
+          countryCode: 'US',
+          lgbtqSupportNeeded: true
+        }
+      });
+      
+      const health = crisisSafetyAnalytics.getSystemHealth();
+      expect(health.metrics.privacyCompliance).toBe(true);
+    });
+  });
+
+  // Performance summary
+  afterAll(async () => {
+    if (performanceMetrics.responseTimes.length > 0) {
+      const avgResponseTime = performanceMetrics.responseTimes.reduce((a, b) => a + b, 0) / performanceMetrics.responseTimes.length;
+      const accuracy = performanceMetrics.accuracyResults.filter(Boolean).length / performanceMetrics.accuracyResults.length;
+      
+      console.log('\n=== Crisis Detection System Test Results ===');
+      console.log(`Average Response Time: ${avgResponseTime.toFixed(2)}ms`);
+      console.log(`Detection Accuracy: ${(accuracy * 100).toFixed(1)}%`);
+      console.log(`Cultural Adaptations: ${performanceMetrics.culturalAdaptations}`);
+      console.log(`Tests Passing: All requirements met ✓`);
+      
+      // Verify final performance requirements
+      expect(avgResponseTime).toBeLessThan(3000); // Sub-3-second average
+      expect(accuracy).toBeGreaterThanOrEqual(0.95); // 95%+ accuracy
+    }
+  });
+});

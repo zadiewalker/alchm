@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Crisis Support - ALCHM</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; min-height: 100vh; padding: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .crisis-container { 
+            max-width: 600px; text-align: center; background: rgba(255,255,255,0.1);
+            padding: 40px; border-radius: 20px; backdrop-filter: blur(10px);
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; }
+        .urgent { font-size: 1.2rem; margin-bottom: 30px; font-weight: 600; }
+        .resource { 
+            background: rgba(255,255,255,0.2); margin: 15px 0; padding: 20px;
+            border-radius: 15px; border-left: 5px solid #ff6b6b;
+        }
+        .resource h3 { color: #ff6b6b; margin-bottom: 10px; }
+        .contact { font-size: 1.4rem; font-weight: bold; margin: 10px 0; }
+        .button { 
+            display: inline-block; background: #ff6b6b; color: white; 
+            padding: 15px 30px; text-decoration: none; border-radius: 50px;
+            font-weight: bold; margin: 10px; transition: all 0.3s;
+        }
+        .button:hover { background: #ff5252; transform: translateY(-2px); }
+        .multilingual { margin-top: 30px; font-size: 0.9rem; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="crisis-container">
+        <h1>🆘 You Are Not Alone</h1>
+        <p class="urgent">If you're having thoughts of suicide or self-harm, please reach out for help immediately.</p>
+        
+        <!-- IMMEDIATE ACCESS BUTTONS - No scrolling required -->
+        <div style="margin: 20px 0;">
+            <a href="tel:988" class="button" style="margin: 5px;">📞 Call 988</a>
+            <a href="sms:741741&body=HOME" class="button" style="margin: 5px;">💬 Text HOME to 741741</a>
+        </div>
+        
+        <div class="resource">
+            <h3>🇺🇸 United States - Crisis Lifeline</h3>
+            <div class="contact">Call or Text: 988</div>
+            <p>24/7 support in English and Spanish</p>
+        </div>
+        
+        <div class="resource">
+            <h3>📱 Crisis Text Line</h3>
+            <div class="contact">Text: HOME to 741741</div>
+            <p>Free, 24/7 crisis support via text</p>
+        </div>
+        
+        <div class="resource">
+            <h3>🇪🇸 Línea en Español</h3>
+            <div class="contact">Llama: 1-888-628-9454</div>
+            <p>Apoyo en crisis las 24 horas en español</p>
+        </div>
+        
+        <div class="resource">
+            <h3>🇧🇷 Brasil - CVV</h3>
+            <div class="contact">Ligue: 188</div>
+            <p>Centro de Valorização da Vida - 24h</p>
+        </div>
+        
+        <div class="resource">
+            <h3>🇰🇷 한국 생명의전화</h3>
+            <div class="contact">전화: 1588-9191</div>
+            <p>24시간 위기상담 지원</p>
+        </div>
+        
+        <div class="resource">
+            <h3>🇮🇳 India - AASRA</h3>
+            <div class="contact">Call: +91-22-27546669</div>
+            <p>24/7 emotional support in Hindi/English</p>
+        </div>
+        
+        <div class="resource">
+            <h3>🇩🇪 Deutschland - Telefonseelsorge</h3>
+            <div class="contact">Anrufen: 0800 111 0 111</div>
+            <p>Kostenlose Krisenberatung rund um die Uhr</p>
+        </div>
+        
+        <a href="tel:988" class="button">📞 Call 988 Now</a>
+        <a href="sms:741741&body=HOME" class="button">💬 Text Crisis Line</a>
+        <a href="tel:911" class="button">🚨 Emergency 911</a>
+        
+        <div class="multilingual">
+            <p><strong>Remember:</strong> Your life has value. Your pain is temporary. Help is available.</p>
+            <p><strong>Recuerda:</strong> Tu vida tiene valor. Tu dolor es temporal. La ayuda está disponible.</p>
+            <p><strong>Lembre-se:</strong> Sua vida tem valor. Sua dor é temporária. A ajuda está disponível.</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect to crisis resources if user stays too long
+        setTimeout(() => {
+            if (confirm('Would you like to be connected to the Crisis Lifeline now?')) {
+                window.location.href = 'tel:988';
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

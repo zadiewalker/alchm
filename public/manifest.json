@@ -2,7 +2,7 @@
   "name": "ALCHM - Trauma-Informed AI Journaling",
   "short_name": "ALCHM",
   "description": "A trauma-informed AI journaling platform with crisis prevention and personalized insights",
-  "start_url": "/",
+  "start_url": "/en",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
@@ -82,7 +82,7 @@
       "name": "New Journal Entry",
       "short_name": "New Entry",
       "description": "Start writing a new journal entry",
-      "url": "/journals/new",
+      "url": "/en/journal",
       "icons": [
         {
           "src": "/icons/shortcut-new-entry.png",
@@ -95,7 +95,7 @@
       "name": "Dashboard",
       "short_name": "Dashboard",
       "description": "View your dashboard and recent entries",
-      "url": "/dashboard",
+      "url": "/en/dashboard",
       "icons": [
         {
           "src": "/icons/shortcut-dashboard.png",
@@ -108,7 +108,7 @@
       "name": "AI Insights",
       "short_name": "Insights",
       "description": "View your AI insights and patterns",
-      "url": "/insights",
+      "url": "/en/dashboard",
       "icons": [
         {
           "src": "/icons/shortcut-insights.png",

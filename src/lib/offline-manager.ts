@@ -25,7 +25,7 @@ export class OfflineManager {
   private db: IDBDatabase | null = null;
   private readonly DB_NAME = 'alchm_offline';
   private readonly DB_VERSION = 3;
-  private isOnline = navigator.onLine;
+  private isOnline = typeof window !== 'undefined' && navigator.onLine;
   private syncInProgress = false;
 
   constructor() {
@@ -35,19 +35,19 @@ export class OfflineManager {
 
   private setupEventListeners() {
     // Listen for online/offline events
-    window.addEventListener('online', () => {
+    typeof window !== 'undefined' && window.addEventListener('online', () => {
       this.isOnline = true;
       this.handleOnlineEvent();
     });
 
-    window.addEventListener('offline', () => {
+    typeof window !== 'undefined' && window.addEventListener('offline', () => {
       this.isOnline = false;
       this.handleOfflineEvent();
     });
 
     // Listen for service worker messages
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.addEventListener('message', (event) => {
+    if ('serviceWorker' in typeof window !== 'undefined' && navigator) {
+      typeof window !== 'undefined' && navigator.serviceWorker.addEventListener('message', (event) => {
         this.handleServiceWorkerMessage(event);
       });
     }
@@ -349,7 +349,7 @@ export class OfflineManager {
 
   // Storage Quota Management
   async getStorageQuota(userTier: 'free' | 'deep-cut' | 'oracle'): Promise<OfflineStorageQuota> {
-    if (!navigator.storage || !navigator.storage.estimate) {
+    if (!typeof window !== 'undefined' && navigator.storage || !typeof window !== 'undefined' && navigator.storage.estimate) {
       // Fallback for browsers without storage API
       return {
         used: 0,
@@ -359,7 +359,7 @@ export class OfflineManager {
       };
     }
 
-    const estimate = await navigator.storage.estimate();
+    const estimate = await typeof window !== 'undefined' && navigator.storage.estimate();
     const quota = estimate.quota || 0;
     const used = estimate.usage || 0;
     const available = quota - used;
@@ -456,12 +456,12 @@ export class OfflineManager {
   }
 
   private dispatchOfflineEvent(type: string, detail: any) {
-    window.dispatchEvent(new CustomEvent(`alchm-${type}`, { detail }));
+    typeof window !== 'undefined' && window.dispatchEvent(new CustomEvent(`alchm-${type}`, { detail }));
   }
 
   private triggerBackgroundSync() {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
-      navigator.serviceWorker.ready.then((registration) => {
+    if ('serviceWorker' in typeof window !== 'undefined' && navigator && typeof window !== 'undefined' && navigator.serviceWorker.ready) {
+      typeof window !== 'undefined' && navigator.serviceWorker.ready.then((registration) => {
         if (registration.sync) {
           registration.sync.register('sync-journal-entries');
           registration.sync.register('offline-queue-sync');

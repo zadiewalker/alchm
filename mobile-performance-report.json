@@ -1,0 +1,364 @@
+{
+  "timestamp": "2025-09-15T20:30:11.868Z",
+  "summary": {
+    "totalTests": 30,
+    "validTests": 0,
+    "passedTests": 0,
+    "failedTests": 0,
+    "criticalPageResults": [],
+    "averageScoreByDevice": {},
+    "worstPerformers": [],
+    "bestPerformers": []
+  },
+  "deviceProfiles": {
+    "crisis-mobile-slow": {
+      "name": "Crisis Mobile (Slow 3G)",
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 300,
+        "throughputKbps": 400,
+        "cpuSlowdownMultiplier": 4
+      },
+      "description": "Worst-case mobile scenario for crisis users"
+    },
+    "crisis-mobile-fast": {
+      "name": "Crisis Mobile (Fast 3G)",
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1600,
+        "cpuSlowdownMultiplier": 2
+      },
+      "description": "Typical mobile scenario for crisis users"
+    },
+    "budget-android": {
+      "name": "Budget Android (Regular 3G)",
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 300,
+        "throughputKbps": 780,
+        "cpuSlowdownMultiplier": 6
+      },
+      "description": "Low-end Android device with limited resources"
+    },
+    "modern-mobile": {
+      "name": "Modern Mobile (4G)",
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 9000,
+        "cpuSlowdownMultiplier": 1
+      },
+      "description": "High-end mobile device with good connectivity"
+    },
+    "tablet": {
+      "name": "Tablet (WiFi)",
+      "formFactor": "mobile",
+      "throttling": {
+        "rttMs": 20,
+        "throughputKbps": 15000,
+        "cpuSlowdownMultiplier": 1
+      },
+      "description": "Tablet device with WiFi connection"
+    }
+  },
+  "traumaInformedThresholds": {
+    "CRISIS_PAGES": {
+      "lcp": 1200,
+      "fid": 50,
+      "cls": 0.05,
+      "fcp": 800,
+      "tti": 2000,
+      "psi": 90
+    },
+    "CORE_PAGES": {
+      "lcp": 2000,
+      "fid": 100,
+      "cls": 0.1,
+      "fcp": 1200,
+      "tti": 3000,
+      "psi": 85
+    },
+    "SECONDARY_PAGES": {
+      "lcp": 2500,
+      "fid": 300,
+      "cls": 0.25,
+      "fcp": 1800,
+      "tti": 5000,
+      "psi": 75
+    }
+  },
+  "detailedResults": [
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3001/",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.859Z"
+    },
+    {
+      "page": "Login",
+      "url": "http://localhost:3001/auth/login",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.861Z"
+    },
+    {
+      "page": "Journal",
+      "url": "http://localhost:3001/journal",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.861Z"
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3001/dashboard",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.862Z"
+    },
+    {
+      "page": "Crisis Support",
+      "url": "http://localhost:3001/crisis-support",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.862Z"
+    },
+    {
+      "page": "Pricing",
+      "url": "http://localhost:3001/pricing",
+      "device": "Crisis Mobile (Slow 3G)",
+      "deviceKey": "crisis-mobile-slow",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.862Z"
+    },
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3001/",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.863Z"
+    },
+    {
+      "page": "Login",
+      "url": "http://localhost:3001/auth/login",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.863Z"
+    },
+    {
+      "page": "Journal",
+      "url": "http://localhost:3001/journal",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.863Z"
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3001/dashboard",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.863Z"
+    },
+    {
+      "page": "Crisis Support",
+      "url": "http://localhost:3001/crisis-support",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.864Z"
+    },
+    {
+      "page": "Pricing",
+      "url": "http://localhost:3001/pricing",
+      "device": "Crisis Mobile (Fast 3G)",
+      "deviceKey": "crisis-mobile-fast",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.864Z"
+    },
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3001/",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Login",
+      "url": "http://localhost:3001/auth/login",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Journal",
+      "url": "http://localhost:3001/journal",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3001/dashboard",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Crisis Support",
+      "url": "http://localhost:3001/crisis-support",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Pricing",
+      "url": "http://localhost:3001/pricing",
+      "device": "Budget Android (Regular 3G)",
+      "deviceKey": "budget-android",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.865Z"
+    },
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3001/",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Login",
+      "url": "http://localhost:3001/auth/login",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Journal",
+      "url": "http://localhost:3001/journal",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3001/dashboard",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Crisis Support",
+      "url": "http://localhost:3001/crisis-support",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Pricing",
+      "url": "http://localhost:3001/pricing",
+      "device": "Modern Mobile (4G)",
+      "deviceKey": "modern-mobile",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3001/",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Login",
+      "url": "http://localhost:3001/auth/login",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Journal",
+      "url": "http://localhost:3001/journal",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.866Z"
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3001/dashboard",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.867Z"
+    },
+    {
+      "page": "Crisis Support",
+      "url": "http://localhost:3001/crisis-support",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.867Z"
+    },
+    {
+      "page": "Pricing",
+      "url": "http://localhost:3001/pricing",
+      "device": "Tablet (WiFi)",
+      "deviceKey": "tablet",
+      "error": "lighthouse is not a function",
+      "passed": false,
+      "timestamp": "2025-09-15T20:30:11.867Z"
+    }
+  ],
+  "recommendations": []
+}

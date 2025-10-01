@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Crisis Detection Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --alchm-primary: #8B5CF6;
+            --alchm-secondary: #06B6D4;
+            --alchm-crisis: #EF4444;
+            --alchm-warning: #F59E0B;
+            --alchm-safe: #10B981;
+        }
+        
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1F2937 0%, #374151 100%);
+        }
+        
+        .crisis-alert {
+            background: linear-gradient(45deg, #EF4444, #DC2626);
+            animation: pulse 2s infinite;
+        }
+        
+        .warning-alert {
+            background: linear-gradient(45deg, #F59E0B, #D97706);
+        }
+        
+        .safe-alert {
+            background: linear-gradient(45deg, #10B981, #059669);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #8B5CF6;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-indicator:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cultural-response {
+            border-left: 4px solid;
+            padding-left: 1rem;
+        }
+        
+        .cultural-response.bipoc { border-color: #F59E0B; }
+        .cultural-response.lgbtq { border-color: #EC4899; }
+        .cultural-response.indigenous { border-color: #10B981; }
+        
+        .response-typing {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .crisis-resource-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .crisis-resource-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .crisis-level-indicator {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .crisis-level-indicator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg text-white">
+    <div class="container mx-auto px-6 py-8" x-data="crisisDemo()">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">🚨 Crisis Detection Demo</h1>
+            <p class="text-lg opacity-90 max-w-3xl mx-auto">
+                Experience ALCHM's revolutionary real-time crisis intervention system with cultural competency
+            </p>
+        </div>
+
+        <!-- Crisis Level Indicator -->
+        <div class="glass-morphism rounded-2xl p-6 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">Current Crisis Level</h3>
+                <div x-show="isAnalyzing" class="flex space-x-1">
+                    <div class="typing-indicator"></div>
+                    <div class="typing-indicator"></div>
+                    <div class="typing-indicator"></div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="crisis-level-indicator rounded-full h-4 bg-gray-700 overflow-hidden">
+                    <div x-bind:class="crisisLevelClass" 
+                         x-bind:style="`width: ${crisisLevel}%`"
+                         class="h-full transition-all duration-1000 rounded-full"></div>
+                </div>
+                <div class="flex justify-between text-xs mt-2 opacity-70">
+                    <span>Safe</span>
+                    <span>Monitoring</span>
+                    <span>Elevated</span>
+                    <span>Crisis</span>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between">
+                <span x-text="crisisLabel" class="font-semibold"></span>
+                <div x-show="responseTime" class="text-sm opacity-80">
+                    Response time: <span x-text="responseTime" class="font-semibold"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Interface -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Input Section -->
+            <div class="glass-morphism rounded-2xl p-6">
+                <h3 class="text-2xl font-semibold mb-4">Journal Entry Simulation</h3>
+                <div class="mb-4">
+                    <textarea x-model="journalInput" 
+                              @input="analyzeInput"
+                              class="w-full h-48 bg-white/10 rounded-xl p-4 text-white placeholder-white/60 resize-none outline-none border border-white/20 focus:border-purple-400 transition-colors" 
+                              placeholder="Type a journal entry to see ALCHM's crisis detection and cultural competency in action..."></textarea>
+                </div>
+                
+                <!-- Sample Entry Buttons -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                    <button @click="loadSample('mild')" 
+                            class="bg-yellow-500/20 border border-yellow-500/30 rounded-lg py-3 px-4 text-sm hover:bg-yellow-500/30 transition-all">
+                        <div class="font-medium">Mild Concern</div>
+                        <div class="text-xs opacity-70">Academic stress</div>
+                    </button>
+                    <button @click="loadSample('moderate')" 
+                            class="bg-orange-500/20 border border-orange-500/30 rounded-lg py-3 px-4 text-sm hover:bg-orange-500/30 transition-all">
+                        <div class="font-medium">Moderate Risk</div>
+                        <div class="text-xs opacity-70">Isolation, hopelessness</div>
+                    </button>
+                    <button @click="loadSample('severe')" 
+                            class="bg-red-500/20 border border-red-500/30 rounded-lg py-3 px-4 text-sm hover:bg-red-500/30 transition-all">
+                        <div class="font-medium">Crisis Level</div>
+                        <div class="text-xs opacity-70">Suicidal ideation</div>
+                    </button>
+                </div>
+                
+                <!-- Cultural Context Selector -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Cultural Context (affects response style)</label>
+                    <select x-model="culturalContext" @change="analyzeInput" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white">
+                        <option value="general">General</option>
+                        <option value="bipoc">BIPOC Community</option>
+                        <option value="lgbtq">LGBTQ+ Community</option>
+                        <option value="indigenous">Indigenous Community</option>
+                        <option value="youth">Youth (13-17)</option>
+                        <option value="elder">Elder Care</option>
+                    </select>
+                </div>
+                
+                <!-- Language Selector -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Response Language</label>
+                    <select x-model="responseLanguage" @change="analyzeInput" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="pt">Português</option>
+                        <option value="ko">한국어</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="de">Deutsch</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Khepera Response Section -->
+            <div class="glass-morphism rounded-2xl p-6">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <span class="text-lg">𓆣</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold">Khepera AI Response</h3>
+                </div>
+                
+                <div x-show="isAnalyzing" class="flex items-center space-x-3 p-4 bg-white/5 rounded-xl mb-4">
+                    <div class="flex space-x-1">
+                        <div class="typing-indicator"></div>
+                        <div class="typing-indicator"></div>
+                        <div class="typing-indicator"></div>
+                    </div>
+                    <span class="text-sm opacity-80">Analyzing emotional patterns and cultural context...</span>
+                </div>
+                
+                <div x-show="khepera.response" class="response-typing">
+                    <!-- Cultural Context Indicator -->
+                    <div x-show="culturalContext !== 'general'" 
+                         x-bind:class="`cultural-response ${culturalContext}`"
+                         class="mb-4 p-3 bg-white/5 rounded-lg">
+                        <div class="text-sm font-medium mb-1">
+                            <span x-text="getCulturalLabel()"></span> Culturally-Responsive Mode
+                        </div>
+                        <div class="text-xs opacity-80" x-text="getCulturalDescription()"></div>
+                    </div>
+                    
+                    <!-- Crisis Alert -->
+                    <div x-show="khepera.crisisLevel >= 70" 
+                         class="crisis-alert rounded-lg p-4 mb-4 border-2 border-red-400">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="text-xl">🚨</span>
+                            <span class="font-bold">CRISIS INTERVENTION ACTIVATED</span>
+                        </div>
+                        <p class="text-sm">Immediate professional support is available. Crisis resources have been automatically prepared.</p>
+                    </div>
+                    
+                    <!-- Main Response -->
+                    <div class="bg-white/5 rounded-xl p-4 mb-4">
+                        <div class="prose prose-invert text-sm" x-html="khepera.response"></div>
+                    </div>
+                    
+                    <!-- Emotional Analysis -->
+                    <div x-show="khepera.emotions.length > 0" class="mb-4">
+                        <h4 class="text-sm font-semibold mb-2">Emotional Patterns Detected</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <template x-for="emotion in khepera.emotions">
+                                <span x-text="emotion" class="bg-purple-500/20 px-2 py-1 rounded-full text-xs"></span>
+                            </template>
+                        </div>
+                    </div>
+                    
+                    <!-- Intervention Suggestions -->
+                    <div x-show="khepera.interventions.length > 0" class="mb-4">
+                        <h4 class="text-sm font-semibold mb-2">Recommended Interventions</h4>
+                        <div class="space-y-2">
+                            <template x-for="intervention in khepera.interventions">
+                                <div class="bg-white/5 rounded-lg p-3 text-xs">
+                                    <div class="font-medium" x-text="intervention.title"></div>
+                                    <div class="opacity-80" x-text="intervention.description"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                
+                <div x-show="!khepera.response && !isAnalyzing" class="text-center text-white/60 py-12">
+                    Start typing or select a sample to see Khepera's culturally-responsive crisis detection...
+                </div>
+            </div>
+        </div>
+
+        <!-- Crisis Resources -->
+        <div x-show="showCrisisResources" class="glass-morphism rounded-2xl p-8 mb-8">
+            <h3 class="text-2xl font-bold mb-6 text-red-300">🆘 Immediate Crisis Resources</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="crisis-resource-card bg-red-500/10 rounded-xl p-6 border border-red-500/30">
+                    <div class="text-3xl mb-3">📞</div>
+                    <h4 class="font-semibold mb-2">Crisis Hotlines</h4>
+                    <div class="text-sm space-y-1">
+                        <div><strong>988</strong> - Suicide & Crisis Lifeline</div>
+                        <div><strong>741741</strong> - Crisis Text Line</div>
+                        <div><strong>911</strong> - Emergency Services</div>
+                    </div>
+                </div>
+                
+                <div class="crisis-resource-card bg-purple-500/10 rounded-xl p-6 border border-purple-500/30">
+                    <div class="text-3xl mb-3">🏥</div>
+                    <h4 class="font-semibold mb-2">Professional Help</h4>
+                    <div class="text-sm space-y-1">
+                        <div>• Find nearby crisis centers</div>
+                        <div>• Connect with therapists</div>
+                        <div>• Emergency room locations</div>
+                    </div>
+                </div>
+                
+                <div class="crisis-resource-card bg-cyan-500/10 rounded-xl p-6 border border-cyan-500/30">
+                    <div class="text-3xl mb-3">💙</div>
+                    <h4 class="font-semibold mb-2">Immediate Support</h4>
+                    <div class="text-sm space-y-1">
+                        <div>• Breathing exercises</div>
+                        <div>• Grounding techniques</div>
+                        <div>• Safety planning tools</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cultural Competency Showcase -->
+        <div class="glass-morphism rounded-2xl p-8 mb-8">
+            <h3 class="text-2xl font-bold mb-6">🌍 Cultural Competency Features</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-yellow-500/10 rounded-xl p-6 border-l-4 border-yellow-500">
+                    <h4 class="font-semibold mb-3 text-yellow-300">BIPOC Communities</h4>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>• Trauma-informed racial healing approaches</li>
+                        <li>• Community-centered support systems</li>
+                        <li>• Culturally relevant coping strategies</li>
+                        <li>• Historical trauma acknowledgment</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-pink-500/10 rounded-xl p-6 border-l-4 border-pink-500">
+                    <h4 class="font-semibold mb-3 text-pink-300">LGBTQ+ Communities</h4>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>• Affirming language and pronouns</li>
+                        <li>• Identity-specific crisis resources</li>
+                        <li>• Safe space recognition</li>
+                        <li>• Coming out support frameworks</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-500/10 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-semibold mb-3 text-green-300">Indigenous Communities</h4>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>• Traditional healing integration</li>
+                        <li>• Ceremony and ritual respect</li>
+                        <li>• Land-based therapy connections</li>
+                        <li>• Intergenerational trauma awareness</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-Time Analytics -->
+        <div class="glass-morphism rounded-2xl p-8">
+            <h3 class="text-2xl font-bold mb-6">📊 Real-Time Crisis Analytics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white/5 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-green-400 mb-1">94%</div>
+                    <div class="text-sm opacity-80">Crisis Detection Accuracy</div>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-cyan-400 mb-1">&lt;2s</div>
+                    <div class="text-sm opacity-80">Average Response Time</div>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-purple-400 mb-1">6</div>
+                    <div class="text-sm opacity-80">Supported Languages</div>
+                </div>
+                <div class="bg-white/5 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-yellow-400 mb-1">24/7</div>
+                    <div class="text-sm opacity-80">Crisis Support Available</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function crisisDemo() {
+            return {
+                journalInput: '',
+                culturalContext: 'general',
+                responseLanguage: 'en',
+                isAnalyzing: false,
+                crisisLevel: 10,
+                crisisLabel: 'Monitoring',
+                crisisLevelClass: 'bg-green-500',
+                responseTime: '',
+                showCrisisResources: false,
+                khepera: {
+                    response: '',
+                    crisisLevel: 0,
+                    emotions: [],
+                    interventions: []
+                },
+                
+                sampleEntries: {
+                    mild: "I've been feeling really overwhelmed with school lately. The workload is intense and I'm struggling to keep up with everything. I feel anxious about my grades and whether I'm smart enough for this program. I'm not sleeping well because I keep thinking about all the assignments I need to finish.",
+                    moderate: "I don't know what's wrong with me anymore. Everything feels pointless and I can't shake this feeling of emptiness. I've been isolating myself from friends and family because I don't want to burden them. Nothing brings me joy anymore and I feel like I'm just going through the motions. I don't see how things will get better.",
+                    severe: "I can't take this pain anymore. Every day feels like torture and I don't see any way out. I've been thinking about ending it all because the suffering is too much. I feel like everyone would be better off without me. I've been researching methods and I have a plan. I just can't keep living like this."
+                },
+                
+                responses: {
+                    mild: {
+                        general: {
+                            response: `I hear that you're feeling overwhelmed with school, and that's completely understandable. Academic pressure can be incredibly intense, especially when you're questioning your abilities. 
+
+**Immediate Support:**
+🌱 You're not alone in feeling this way - many students experience similar struggles
+💙 Your worth isn't determined by your grades or academic performance
+🎯 Let's break down some manageable steps to help you cope
+
+**Practical Strategies:**
+• **Time Management**: Try the Pomodoro technique (25-min focused work, 5-min breaks)
+• **Sleep Hygiene**: Set a consistent bedtime routine, avoid screens 1 hour before sleep
+• **Stress Relief**: Practice 4-7-8 breathing when anxiety peaks
+• **Support System**: Consider reaching out to academic advisors or counseling services
+
+**Gentle Reminders:**
+You mentioned questioning if you're "smart enough" - the fact that you're aware of these feelings and seeking help shows incredible self-awareness and strength. Would you like to explore any of these strategies together?`,
+                            emotions: ['anxiety', 'overwhelm', 'self-doubt', 'academic stress'],
+                            interventions: [
+                                { title: 'Stress Management Techniques', description: 'Breathing exercises and mindfulness practices' },
+                                { title: 'Academic Support Resources', description: 'Connect with tutoring and counseling services' },
+                                { title: 'Sleep Hygiene Protocol', description: 'Establish healthy sleep routine' }
+                            ]
+                        },
+                        bipoc: {
+                            response: `I want to acknowledge the academic pressure you're experiencing, especially recognizing that as a student from our community, you may be carrying additional weight - not just your own expectations, but often family hopes and the burden of representation.
+
+**Cultural Context & Validation:**
+🌍 The stress you're feeling is valid and your struggles don't diminish your intelligence or worth
+💪 Many successful people from our communities have walked similar paths of self-doubt
+🏠 Sometimes academic environments weren't designed with us in mind, which can add to feelings of not belonging
+
+**Community-Centered Support:**
+• **Affirm Your Place**: You belong in your academic program - your presence makes it better
+• **Ancestral Strength**: Draw on the resilience that runs in your bloodline
+• **Community Resources**: Seek out cultural student organizations and mentorship programs
+• **Holistic Wellness**: Include practices that honor your cultural background in your self-care
+
+**Moving Forward:**
+Consider connecting with other students who share your cultural background - they often understand the unique pressures you're facing. Your success isn't just yours; it's part of a larger story of our community's strength and achievement.`,
+                            emotions: ['cultural stress', 'imposter syndrome', 'academic anxiety', 'representation pressure'],
+                            interventions: [
+                                { title: 'Cultural Affinity Groups', description: 'Connect with community-based student organizations' },
+                                { title: 'Mentorship Programs', description: 'Find mentors who understand your cultural experience' },
+                                { title: 'Cultural Stress Management', description: 'Integrate cultural practices into wellness routine' }
+                            ]
+                        },
+                        lgbtq: {
+                            response: `Thank you for sharing what you're going through with school. I want you to know that your feelings are completely valid, and as someone in our community, you might be dealing with layers of stress that others don't fully understand.
+
+**Affirming Your Experience:**
+🏳️‍🌈 Your identity is valid and beautiful, regardless of academic performance
+💜 School stress can feel heavier when you're also navigating identity or facing potential rejection
+🌟 Your authentic self is your greatest strength, not something to hide or minimize
+
+**LGBTQ+-Affirming Support:**
+• **Safe Spaces**: Seek out LGBTQ+ student centers or affinity groups on campus
+• **Authentic Relationships**: Connect with others who celebrate your full identity
+• **Chosen Family**: Remember that support can come from many sources beyond biological family
+• **Identity-Affirming Care**: Consider counselors trained in LGBTQ+ issues
+
+**Strength in Community:**
+Our community has a long history of resilience and supporting each other through challenges. Your success matters to all of us, and struggling doesn't make you any less capable or deserving of your place in your program.
+
+Would you like help finding LGBTQ+-affirming resources on your campus?`,
+                            emotions: ['identity stress', 'academic anxiety', 'isolation', 'internalized pressure'],
+                            interventions: [
+                                { title: 'LGBTQ+ Student Resources', description: 'Connect with affirming campus organizations' },
+                                { title: 'Identity-Affirming Counseling', description: 'Find therapists trained in LGBTQ+ issues' },
+                                { title: 'Chosen Family Building', description: 'Develop supportive community connections' }
+                            ]
+                        }
+                    },
+                    moderate: {
+                        general: {
+                            response: `I want you to know that I hear you, and what you're experiencing sounds incredibly difficult. Feelings of emptiness and isolation can be overwhelming, but you're not alone in this, and reaching out shows tremendous courage.
+
+**Immediate Support Available:**
+🆘 **Crisis Resources**: If you're having thoughts of self-harm, please reach out:
+• Crisis Text Line: Text HOME to 741741
+• National Suicide Prevention Lifeline: 988
+• Your local emergency services: 911
+
+**Understanding Your Experience:**
+💙 What you're describing sounds like depression, which is a real medical condition, not a personal failing
+🔄 Depression can make everything feel pointless, but these feelings can change with proper support
+🤝 You mentioned not wanting to "burden" others - but people who care about you want to help
+
+**Gentle Steps Forward:**
+• **Professional Support**: Consider speaking with a therapist or counselor
+• **Medical Evaluation**: Depression often responds well to treatment, including therapy and/or medication
+• **Small Connections**: Even brief interactions with others can help combat isolation
+• **Crisis Safety Plan**: Let's create a plan for when feelings become overwhelming
+
+**Hope & Healing:**
+Recovery is possible. Many people who've felt exactly as you do now have found their way back to joy and connection. You deserve support, care, and the chance to feel better.
+
+Would you like help connecting with a mental health professional or crisis counselor right now?`,
+                            emotions: ['depression', 'hopelessness', 'isolation', 'emotional numbness'],
+                            interventions: [
+                                { title: 'Crisis Safety Planning', description: 'Develop coping strategies for overwhelming moments' },
+                                { title: 'Professional Mental Health Support', description: 'Connect with therapist or psychiatrist' },
+                                { title: 'Social Reconnection Strategy', description: 'Gradual re-engagement with support system' }
+                            ]
+                        }
+                    },
+                    severe: {
+                        general: {
+                            response: `🚨 **IMMEDIATE CRISIS SUPPORT ACTIVATED** 🚨
+
+I'm very concerned about you right now, and I want you to know that your life matters immensely. You're in significant emotional pain, and that pain can be treated.
+
+**URGENT - Please contact crisis support NOW:**
+• 🔴 **Call 988** - National Suicide Prevention Lifeline (24/7)
+• 🔴 **Text HOME to 741741** - Crisis Text Line
+• 🔴 **Call 911** - Emergency Services
+• 🔴 **Go to your nearest emergency room**
+
+**You are NOT alone:**
+💜 Crisis counselors are standing by right now to help you through this moment
+🤝 The pain you're feeling is real, but it can be treated
+🌅 Many people who've felt exactly as you do now have found relief and gone on to live fulfilling lives
+
+**Immediate Safety:**
+• Can you stay with someone tonight?
+• Remove any means you've been considering
+• Call a trusted friend or family member
+• If you can't reach anyone, please call 988 immediately
+
+**Important Truth:**
+The thoughts telling you that others would be better off without you are symptoms of your pain, not reality. You matter. Your life has value. This crisis can pass with proper support.
+
+**I'm here with you through this moment. Please reach out for help right now.**`,
+                            emotions: ['suicidal ideation', 'severe depression', 'hopelessness', 'crisis'],
+                            interventions: [
+                                { title: 'Immediate Crisis Intervention', description: 'Connect with emergency mental health services' },
+                                { title: 'Safety Planning', description: 'Remove access to means and develop crisis contacts' },
+                                { title: 'Emergency Support System', description: 'Activate family, friends, and professional help' }
+                            ]
+                        }
+                    }
+                },
+                
+                loadSample(type) {
+                    this.journalInput = this.sampleEntries[type];
+                    this.analyzeInput();
+                },
+                
+                getCulturalLabel() {
+                    const labels = {
+                        bipoc: '🌍 BIPOC',
+                        lgbtq: '🏳️‍🌈 LGBTQ+',
+                        indigenous: '🪶 Indigenous',
+                        youth: '🌱 Youth',
+                        elder: '🌸 Elder'
+                    };
+                    return labels[this.culturalContext] || '';
+                },
+                
+                getCulturalDescription() {
+                    const descriptions = {
+                        bipoc: 'Responses incorporate awareness of systemic barriers, cultural strengths, and community resources',
+                        lgbtq: 'Affirming language, identity validation, and LGBTQ+-specific resources and support',
+                        indigenous: 'Integration of traditional healing, ceremony, and connection to land and ancestry',
+                        youth: 'Age-appropriate language, family dynamics, and developmental considerations',
+                        elder: 'Respect for wisdom, dignity concerns, and age-specific mental health approaches'
+                    };
+                    return descriptions[this.culturalContext] || '';
+                },
+                
+                analyzeInput() {
+                    if (!this.journalInput.trim()) {
+                        this.resetResponse();
+                        return;
+                    }
+                    
+                    this.isAnalyzing = true;
+                    this.responseTime = '';
+                    
+                    const startTime = Date.now();
+                    
+                    setTimeout(() => {
+                        const analysis = this.performCrisisAnalysis(this.journalInput);
+                        this.updateCrisisLevel(analysis.level);
+                        this.generateResponse(analysis);
+                        
+                        const endTime = Date.now();
+                        this.responseTime = `${(endTime - startTime) / 1000}s`;
+                        this.isAnalyzing = false;
+                    }, 1200);
+                },
+                
+                performCrisisAnalysis(text) {
+                    const lowerText = text.toLowerCase();
+                    
+                    // Crisis keywords and patterns
+                    const severeKeywords = ['suicide', 'kill myself', 'end it all', 'better off without me', 'have a plan', 'ending it', 'can\'t live'];
+                    const moderateKeywords = ['hopeless', 'pointless', 'empty', 'burden', 'isolating', 'no joy', 'going through motions'];
+                    const mildKeywords = ['overwhelmed', 'stressed', 'anxious', 'struggling', 'tired', 'worried'];
+                    
+                    if (severeKeywords.some(keyword => lowerText.includes(keyword))) {
+                        return { level: 90, severity: 'severe' };
+                    } else if (moderateKeywords.some(keyword => lowerText.includes(keyword))) {
+                        return { level: 60, severity: 'moderate' };
+                    } else if (mildKeywords.some(keyword => lowerText.includes(keyword))) {
+                        return { level: 30, severity: 'mild' };
+                    } else {
+                        return { level: 10, severity: 'monitoring' };
+                    }
+                },
+                
+                updateCrisisLevel(level) {
+                    this.crisisLevel = level;
+                    
+                    if (level >= 80) {
+                        this.crisisLabel = 'CRISIS - Immediate Intervention Required';
+                        this.crisisLevelClass = 'bg-red-500 crisis-alert';
+                        this.showCrisisResources = true;
+                    } else if (level >= 50) {
+                        this.crisisLabel = 'ELEVATED - Requires Attention';
+                        this.crisisLevelClass = 'bg-orange-500 warning-alert';
+                        this.showCrisisResources = true;
+                    } else if (level >= 25) {
+                        this.crisisLabel = 'MONITORING - Mild Concern';
+                        this.crisisLevelClass = 'bg-yellow-500';
+                        this.showCrisisResources = false;
+                    } else {
+                        this.crisisLabel = 'SAFE - Normal Range';
+                        this.crisisLevelClass = 'bg-green-500 safe-alert';
+                        this.showCrisisResources = false;
+                    }
+                },
+                
+                generateResponse(analysis) {
+                    const responseData = this.responses[analysis.severity];
+                    if (!responseData) {
+                        this.resetResponse();
+                        return;
+                    }
+                    
+                    const contextResponse = responseData[this.culturalContext] || responseData.general;
+                    
+                    this.khepera = {
+                        response: contextResponse.response,
+                        crisisLevel: analysis.level,
+                        emotions: contextResponse.emotions || [],
+                        interventions: contextResponse.interventions || []
+                    };
+                },
+                
+                resetResponse() {
+                    this.khepera = {
+                        response: '',
+                        crisisLevel: 0,
+                        emotions: [],
+                        interventions: []
+                    };
+                    this.crisisLevel = 10;
+                    this.crisisLabel = 'Monitoring';
+                    this.crisisLevelClass = 'bg-green-500';
+                    this.showCrisisResources = false;
+                    this.responseTime = '';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

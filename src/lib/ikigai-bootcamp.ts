@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM IKIGAI Bootcamp Management Utilities
 // Session progression, state management, and analytics
 

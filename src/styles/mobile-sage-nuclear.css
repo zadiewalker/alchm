@@ -1,0 +1,293 @@
+/*
+ * ALCHM MOBILE SAGE GREEN NUCLEAR SOLUTION
+ * 
+ * This CSS file exists SOLELY to ensure mobile users see sage green (#a4b792)
+ * It uses the highest possible CSS specificity and !important declarations
+ * to override ANY conflicting styles that might prevent sage green display.
+ * 
+ * Last resort CSS - loads after ALL other stylesheets
+ * Highest layer priority to guarantee sage green wins
+ * 
+ * For critical user experience - mobile users must see the sage green sanctuary
+ */
+
+@layer mobile-sage-nuclear-override {
+  
+  /* === NUCLEAR SAGE GREEN OVERRIDES === */
+  
+  /* Enforce sage green on elements with sage-enforced class */
+  .sage-enforced,
+  .mobile-sage-enforced {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    background-color: #a4b792 !important;
+    background-attachment: fixed !important;
+    -webkit-background-attachment: fixed !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    color: #fefcfb !important;
+  }
+  
+  /* Force sage green on ALL possible containers */
+  html,
+  body,
+  #__next,
+  main,
+  .sanctuary-layout,
+  .home-sanctuary,
+  .auth-sanctuary,
+  .dashboard-sanctuary,
+  .journal-sanctuary,
+  .onboarding-sanctuary,
+  [data-sage-version],
+  [class*="sanctuary"],
+  [class*="layout"] {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    background-color: #a4b792 !important;
+    background-attachment: fixed !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important; /* Dynamic viewport height for mobile */
+  }
+
+  /* Force sage green CSS variables to override any theme system */
+  html {
+    --surface: #a4b792 !important;
+    --surface-light: #f7f7f2 !important;
+    --ink: #2e2e2e !important;
+    --ink-mute: #494949 !important;
+    --sage: #a4b792 !important;
+    --sage-primary: #a4b792 !important;
+    --sage-secondary: #8fa37c !important;
+    --sage-tertiary: #7a8f67 !important;
+    --sage-400: #a4b792 !important;
+    --sage-500: #8fa37c !important;
+    --sage-600: #7a8f67 !important;
+    --color-primary: #a4b792 !important;
+  }
+
+  /* Mobile-specific nuclear overrides */
+  @media screen and (max-width: 768px) {
+    html,
+    html *,
+    body,
+    body *,
+    main,
+    main *,
+    .sanctuary-layout,
+    .auth-sanctuary,
+    .home-sanctuary {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+      background-color: #a4b792 !important;
+    }
+
+    /* Force on specific layout containers */
+    .container,
+    [class*="container"],
+    section,
+    div[style*="background"],
+    [data-testid*="layout"],
+    [data-testid*="container"] {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* iOS Safari specific fixes */
+  @supports (-webkit-appearance: none) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+      -webkit-background-attachment: fixed !important;
+      background-attachment: fixed !important;
+    }
+  }
+
+  /* Android/Chrome specific fixes */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* PWA mode specific fixes */
+  @media (display-mode: standalone) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* High DPI display fixes */
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* Orientation change fixes */
+  @media (orientation: portrait) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  @media (orientation: landscape) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* Force sage green text colors for readability */
+  body,
+  html {
+    color: #fefcfb !important;
+  }
+
+  /* Ensure proper text contrast on sage green backgrounds */
+  h1, h2, h3, h4, h5, h6,
+  p, span, div, a,
+  .text-primary,
+  [class*="text-"] {
+    color: #fefcfb !important;
+  }
+
+  /* Preserve button and card backgrounds but ensure they're sage-compatible */
+  .btn-primary,
+  .card-sanctuary,
+  .button,
+  [class*="btn"],
+  [class*="card"] {
+    background: rgba(254, 252, 251, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(254, 252, 251, 0.2) !important;
+    color: #fefcfb !important;
+  }
+
+  /* Nuclear override for any inline styles that might conflict */
+  [style*="background: #"] {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  }
+
+  [style*="background-color: #"] {
+    background-color: #a4b792 !important;
+  }
+
+  [style*="background: rgb"] {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  }
+
+  [style*="background: white"],
+  [style*="background: #fff"],
+  [style*="background: #ffffff"] {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  }
+
+  /* Accessibility - ensure focus states work with sage green */
+  *:focus,
+  *:focus-visible {
+    outline: 3px solid rgba(254, 252, 251, 0.8) !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Print media - force sage green even in print preview */
+  @media print {
+    html,
+    body,
+    main {
+      background: #a4b792 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+
+  /* Prefers color scheme overrides */
+  @media (prefers-color-scheme: dark) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    html,
+    body,
+    main {
+      background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+    }
+  }
+
+  /* Force on any React components with background props */
+  [data-background],
+  [data-bg],
+  [data-theme],
+  [className*="bg-"],
+  [class*="bg-"] {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  }
+
+  /* Final nuclear override - catch any remaining elements */
+  * {
+    /* Only override background properties, preserve other styling */
+    background-color: inherit !important;
+  }
+
+  html {
+    background-color: #a4b792 !important;
+  }
+
+  body {
+    background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  }
+
+}
+
+/* === JAVASCRIPT FAIL-SAFE STYLES === */
+/* These apply immediately before JavaScript can run */
+
+.sage-green-loading,
+.sanctuary-loading,
+[data-loading="true"] {
+  background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+  min-height: 100vh !important;
+  color: #fefcfb !important;
+}
+
+/* === CRITICAL MOBILE OPTIMIZATIONS === */
+
+/* Prevent any flash of different background colors */
+@media (max-width: 768px) {
+  /* Immediate sage green on page load */
+  html {
+    background: #a4b792 !important;
+  }
+  
+  /* Ensure smooth transitions don't reveal other colors */
+  * {
+    transition-property: opacity, transform !important;
+    /* Remove background-color from transitions */
+  }
+  
+  /* Force hardware acceleration to prevent color flashing */
+  body,
+  main {
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    will-change: transform !important;
+  }
+}
+
+/* === CACHE BUSTING === */
+/* Ensure this file is always fresh */
+html::before {
+  content: "Cache bust: mobile-sage-nuclear-v1.0-" attr(data-timestamp);
+  display: none;
+}

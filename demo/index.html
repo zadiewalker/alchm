@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - Revolutionary Mental Health OS Demo Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --alchm-primary: #8B5CF6;
+            --alchm-secondary: #06B6D4;
+            --alchm-accent: #F59E0B;
+            --alchm-sage: #10B981;
+            --alchm-dark: #1F2937;
+            --alchm-light: #F9FAFB;
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--alchm-primary) 0%, var(--alchm-secondary) 100%);
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .demo-button {
+            background: linear-gradient(45deg, var(--alchm-primary), var(--alchm-secondary));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .demo-button:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-morphism">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center floating-animation">
+                        <span class="text-lg font-bold">𓆣</span>
+                    </div>
+                    <span class="text-xl font-semibold">ALCHM Demo Platform</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#overview" class="hover:text-purple-300 transition-colors">Overview</a>
+                    <a href="#audiences" class="hover:text-purple-300 transition-colors">Audiences</a>
+                    <a href="#demos" class="hover:text-purple-300 transition-colors">Live Demos</a>
+                    <a href="#contact" class="hover:text-purple-300 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-4 text-center" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 slide-in" 
+                x-show="loaded" 
+                x-transition:enter="transition ease-out duration-1000"
+                x-transition:enter-start="opacity-0 transform translate-y-10"
+                x-transition:enter-end="opacity-100 transform translate-y-0">
+                Experience the Future of Mental Health
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90 slide-in" 
+               style="animation-delay: 0.2s"
+               x-show="loaded"
+               x-transition:enter="transition ease-out duration-1000 delay-200"
+               x-transition:enter-start="opacity-0 transform translate-y-10"
+               x-transition:enter-end="opacity-100 transform translate-y-0">
+                ALCHM: The world's first trauma-informed, culturally responsive AI journaling OS
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center slide-in" 
+                 style="animation-delay: 0.4s"
+                 x-show="loaded"
+                 x-transition:enter="transition ease-out duration-1000 delay-400"
+                 x-transition:enter-start="opacity-0 transform translate-y-10"
+                 x-transition:enter-end="opacity-100 transform translate-y-0">
+                <button onclick="scrollToSection('audiences')" 
+                        class="demo-button px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105">
+                    Explore Demos
+                </button>
+                <button onclick="scrollToSection('crisis-demo')" 
+                        class="border-2 border-white/30 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:bg-white/10 hover:scale-105">
+                    Crisis Detection Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Selection -->
+    <section id="audiences" class="py-16 px-4" x-data="{ selectedAudience: null }">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">Choose Your Experience</h2>
+            <p class="text-xl text-center mb-12 opacity-90">Tailored demonstrations for every stakeholder</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Investors -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'investors'"
+                     onclick="openDemo('investors')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Investors</h3>
+                    <p class="text-center opacity-90 mb-6">Market opportunity, competitive advantage, scalability metrics, and ROI potential</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• $240B mental health market analysis</li>
+                        <li>• 10x better crisis detection than competitors</li>
+                        <li>• Revenue projections and scaling strategy</li>
+                        <li>• Cultural competency market differentiation</li>
+                    </ul>
+                </div>
+
+                <!-- Therapists -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'therapists'"
+                     onclick="openDemo('therapists')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">🩺</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Mental Health Professionals</h3>
+                    <p class="text-center opacity-90 mb-6">Clinical validation, HIPAA compliance, professional integration tools</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• HIPAA-compliant client dashboard</li>
+                        <li>• Clinical assessment integration</li>
+                        <li>• Evidence-based intervention tracking</li>
+                        <li>• Professional documentation tools</li>
+                    </ul>
+                </div>
+
+                <!-- Users -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'users'"
+                     onclick="openDemo('users')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">💖</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">End Users</h3>
+                    <p class="text-center opacity-90 mb-6">Safety, cultural competency, ease of use, crisis support effectiveness</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• Trauma-informed interface design</li>
+                        <li>• Cultural healing traditions integration</li>
+                        <li>• 24/7 crisis support system</li>
+                        <li>• Personalized AI emotional guidance</li>
+                    </ul>
+                </div>
+
+                <!-- Partners -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'partners'"
+                     onclick="openDemo('partners')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">🤝</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Strategic Partners</h3>
+                    <p class="text-center opacity-90 mb-6">Integration capabilities, API potential, co-marketing opportunities</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• API documentation and SDK</li>
+                        <li>• White-label customization options</li>
+                        <li>• Enterprise integration capabilities</li>
+                        <li>• Partnership revenue models</li>
+                    </ul>
+                </div>
+
+                <!-- Media -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'media'"
+                     onclick="openDemo('media')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-400 to-rose-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">📺</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Media & Press</h3>
+                    <p class="text-center opacity-90 mb-6">Innovation story, social impact, technology breakthrough, testimonials</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• Breakthrough AI emotional intelligence</li>
+                        <li>• Revolutionary cultural competency</li>
+                        <li>• User transformation stories</li>
+                        <li>• Social impact metrics</li>
+                    </ul>
+                </div>
+
+                <!-- Developers -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" 
+                     @click="selectedAudience = 'developers'"
+                     onclick="openDemo('developers')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 flex items-center justify-center mb-6 mx-auto">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Technical Community</h3>
+                    <p class="text-center opacity-90 mb-6">Architecture excellence, performance metrics, technical innovation</p>
+                    <ul class="text-sm space-y-2 opacity-80">
+                        <li>• Next.js 15 + Firebase architecture</li>
+                        <li>• Real-time crisis detection algorithms</li>
+                        <li>• Mobile-first trauma optimization</li>
+                        <li>• Open-source community initiatives</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crisis Detection Demo -->
+    <section id="crisis-demo" class="py-16 px-4 bg-black/20">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-8">Live Crisis Detection Demo</h2>
+            <p class="text-xl text-center mb-12 opacity-90">Experience ALCHM's revolutionary real-time crisis intervention system</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Demo Interface -->
+                <div class="glass-morphism rounded-2xl p-6">
+                    <h3 class="text-2xl font-semibold mb-4">Simulated Journal Entry</h3>
+                    <div class="bg-white/10 rounded-xl p-4 mb-4">
+                        <textarea id="crisisInput" 
+                                  class="w-full h-40 bg-transparent text-white placeholder-white/60 resize-none outline-none" 
+                                  placeholder="Type a journal entry to see ALCHM's crisis detection in action..."></textarea>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button onclick="loadSampleEntry('mild')" 
+                                class="flex-1 bg-yellow-500/20 border border-yellow-500/30 rounded-lg py-2 px-4 text-sm hover:bg-yellow-500/30 transition-all">
+                            Mild Concern
+                        </button>
+                        <button onclick="loadSampleEntry('moderate')" 
+                                class="flex-1 bg-orange-500/20 border border-orange-500/30 rounded-lg py-2 px-4 text-sm hover:bg-orange-500/30 transition-all">
+                            Moderate Risk
+                        </button>
+                        <button onclick="loadSampleEntry('severe')" 
+                                class="flex-1 bg-red-500/20 border border-red-500/30 rounded-lg py-2 px-4 text-sm hover:bg-red-500/30 transition-all">
+                            Crisis Level
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Khepera Response -->
+                <div class="glass-morphism rounded-2xl p-6">
+                    <h3 class="text-2xl font-semibold mb-4">Khepera AI Response</h3>
+                    <div id="khepera-response" class="bg-white/10 rounded-xl p-4 h-64 overflow-y-auto">
+                        <div class="text-center text-white/60 mt-20">
+                            Start typing or select a sample to see Khepera's response...
+                        </div>
+                    </div>
+                    <div id="crisis-level" class="mt-4 flex items-center justify-between">
+                        <span class="text-sm opacity-80">Crisis Level:</span>
+                        <div id="crisis-indicator" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-500/30">
+                            Monitoring
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crisis Resources -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-morphism rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">🌱</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">Preventive Care</h4>
+                    <p class="text-sm opacity-80">Early intervention through pattern recognition</p>
+                </div>
+                <div class="glass-morphism rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">🤝</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">Crisis Support</h4>
+                    <p class="text-sm opacity-80">Immediate resources and professional connections</p>
+                </div>
+                <div class="glass-morphism rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center mx-auto mb-4">
+                        <span class="text-xl">🔒</span>
+                    </div>
+                    <h4 class="font-semibold mb-4">Privacy First</h4>
+                    <p class="text-sm opacity-80">HIPAA-compliant, trauma-informed data protection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Demonstrations -->
+    <section id="demos" class="py-16 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12">Interactive Feature Demos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Mobile Excellence -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('mobile')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Mobile Excellence</h3>
+                    <p class="opacity-90 mb-4">Trauma-optimized mobile experience with offline crisis support</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• Sub-3s loading times</div>
+                        <div>• Offline crisis resources</div>
+                        <div>• Panic-safe navigation</div>
+                    </div>
+                </div>
+
+                <!-- AI Emotional Intelligence -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('ai')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">🧠</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI Emotional Intelligence</h3>
+                    <p class="opacity-90 mb-4">Advanced pattern recognition and personalized responses</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• Emotional pattern tracking</div>
+                        <div>• Predictive wellness insights</div>
+                        <div>• Culturally-aware responses</div>
+                    </div>
+                </div>
+
+                <!-- Cultural Competency -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('cultural')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-teal-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">🌍</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Cultural Competency</h3>
+                    <p class="opacity-90 mb-4">Revolutionary approach to diverse communities and healing traditions</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• BIPOC trauma-informed design</div>
+                        <div>• LGBTQ+ inclusive language</div>
+                        <div>• Indigenous healing integration</div>
+                    </div>
+                </div>
+
+                <!-- Professional Dashboard -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('professional')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-orange-400 to-red-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">👩‍⚕️</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Professional Dashboard</h3>
+                    <p class="opacity-90 mb-4">Comprehensive therapist tools and clinical integration</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• HIPAA-compliant client management</div>
+                        <div>• Clinical assessment tools</div>
+                        <div>• Treatment plan integration</div>
+                    </div>
+                </div>
+
+                <!-- Accessibility -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('accessibility')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">♿</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Universal Accessibility</h3>
+                    <p class="opacity-90 mb-4">Trauma-informed design for all abilities and needs</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• Screen reader optimization</div>
+                        <div>• High contrast modes</div>
+                        <div>• Cognitive load reduction</div>
+                    </div>
+                </div>
+
+                <!-- Performance Analytics -->
+                <div class="demo-card bg-white/10 rounded-2xl p-8 cursor-pointer" onclick="openFeatureDemo('analytics')">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center mb-6 pulse-glow">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Performance Analytics</h3>
+                    <p class="opacity-90 mb-4">Real-time insights and wellness prediction</p>
+                    <div class="text-sm space-y-1 opacity-80">
+                        <div>• Wellness trend analysis</div>
+                        <div>• Crisis prediction modeling</div>
+                        <div>• Intervention effectiveness</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Excellence -->
+    <section class="py-16 px-4 bg-black/20">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Technical Excellence</h2>
+            <p class="text-xl mb-12 opacity-90">Built with cutting-edge technology for maximum impact</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="glass-morphism rounded-xl p-6">
+                    <div class="text-3xl font-bold text-purple-400 mb-2">99.9%</div>
+                    <div class="text-sm opacity-80">Uptime Guarantee</div>
+                </div>
+                <div class="glass-morphism rounded-xl p-6">
+                    <div class="text-3xl font-bold text-cyan-400 mb-2">&lt;2s</div>
+                    <div class="text-sm opacity-80">Crisis Response Time</div>
+                </div>
+                <div class="glass-morphism rounded-xl p-6">
+                    <div class="text-3xl font-bold text-green-400 mb-2">6</div>
+                    <div class="text-sm opacity-80">Languages Supported</div>
+                </div>
+                <div class="glass-morphism rounded-xl p-6">
+                    <div class="text-3xl font-bold text-yellow-400 mb-2">24/7</div>
+                    <div class="text-sm opacity-80">Crisis Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contact" class="py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Transform Mental Health?</h2>
+            <p class="text-xl mb-8 opacity-90">Join the revolution in trauma-informed digital wellness</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="scheduleDemo()" 
+                        class="demo-button px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105">
+                    Schedule Live Demo
+                </button>
+                <button onclick="requestAccess()" 
+                        class="border-2 border-white/30 px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:bg-white/10 hover:scale-105">
+                    Request Beta Access
+                </button>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-semibold mb-2">Partnership Inquiries</h4>
+                    <p class="opacity-80">partnerships@alchm.app</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">Media & Press</h4>
+                    <p class="opacity-80">press@alchm.app</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">Technical Integration</h4>
+                    <p class="opacity-80">developers@alchm.app</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Modal -->
+    <div id="demo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="glass-morphism rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 id="modal-title" class="text-2xl font-bold">Demo Title</h3>
+                        <button onclick="closeModal()" class="text-white/60 hover:text-white transition-colors text-2xl">×</button>
+                    </div>
+                    <div id="modal-content" class="space-y-6">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo data
+        const sampleEntries = {
+            mild: "I've been feeling a bit overwhelmed with work lately. The stress is getting to me and I'm having trouble sleeping. I keep thinking about all the things I need to do.",
+            moderate: "I can't shake this feeling of hopelessness. Everything feels pointless and I'm struggling to get out of bed. I don't see how things will get better.",
+            severe: "I can't take this anymore. The pain is too much and I don't see any way out. I've been thinking about ending it all because nothing matters."
+        };
+
+        const crisisResponses = {
+            mild: {
+                level: "Low Risk",
+                color: "yellow",
+                response: "I hear that you're feeling overwhelmed, and that's completely valid. Work stress can really impact our sleep and overall well-being. Here are some gentle strategies that might help:\n\n🌱 **Immediate Support:**\n• Try the 4-7-8 breathing technique before bed\n• Consider writing down tomorrow's priorities to clear your mind\n• Set a boundary: no work thoughts 1 hour before sleep\n\n💙 **Resources:**\n• Guided meditation for sleep anxiety\n• Stress management worksheets\n• Progressive muscle relaxation audio\n\nYou're taking a positive step by acknowledging these feelings. Would you like to explore any of these suggestions together?"
+            },
+            moderate: {
+                level: "Moderate Risk",
+                color: "orange", 
+                response: "I want you to know that I hear you, and what you're experiencing sounds incredibly difficult. Feelings of hopelessness can be overwhelming, but you're not alone in this.\n\n🚨 **Immediate Support Available:**\n• Crisis Text Line: Text HOME to 741741\n• National Suicide Prevention Lifeline: 988\n• Your local emergency services: 911\n\n🤝 **Professional Resources:**\n• I can help you find therapists in your area\n• Support groups for depression and hopelessness\n• Crisis counseling services\n\n💜 **Gentle Reminders:**\n• These feelings, while real, are temporary\n• You matter and your life has value\n• Reaching out shows incredible strength\n\nWould you like me to help you connect with a crisis counselor right now?"
+            },
+            severe: {
+                level: "Crisis Level",
+                color: "red",
+                response: "🚨 **IMMEDIATE CRISIS SUPPORT ACTIVATED** 🚨\n\nI'm very concerned about you right now. Your safety is the most important thing.\n\n**URGENT - Please contact crisis support NOW:**\n• 🔴 National Suicide Prevention Lifeline: **988**\n• 🔴 Crisis Text Line: Text **HOME** to **741741**\n• 🔴 Emergency Services: **911**\n• 🔴 Go to your nearest emergency room\n\n**You are NOT alone. Professional help is available 24/7.**\n\n💜 **Crisis counselors are standing by to help you through this moment.**\n\nI'm also notifying your emergency contacts and care team if you've provided them.\n\n**Your life matters. You matter. This pain can be treated.**\n\nPlease reach out for help right now. You deserve support and care."
+            }
+        };
+
+        // Crisis detection simulation
+        function loadSampleEntry(type) {
+            const input = document.getElementById('crisisInput');
+            input.value = sampleEntries[type];
+            simulateCrisisDetection(type);
+        }
+
+        function simulateCrisisDetection(level) {
+            const response = crisisResponses[level];
+            const responseDiv = document.getElementById('khepera-response');
+            const indicator = document.getElementById('crisis-indicator');
+            
+            // Update crisis level indicator
+            indicator.textContent = response.level;
+            indicator.className = `px-3 py-1 rounded-full text-xs font-medium bg-${response.color}-500/30 border border-${response.color}-500/50`;
+            
+            // Simulate typing effect
+            responseDiv.innerHTML = '<div class="flex items-center space-x-2"><div class="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div><div class="text-sm opacity-80">Khepera is analyzing...</div></div>';
+            
+            setTimeout(() => {
+                responseDiv.innerHTML = `<div class="whitespace-pre-line">${response.response}</div>`;
+                if (level === 'severe') {
+                    responseDiv.classList.add('border-2', 'border-red-500/50', 'bg-red-500/10');
+                }
+            }, 1500);
+        }
+
+        // Real-time input analysis
+        document.getElementById('crisisInput').addEventListener('input', function(e) {
+            const text = e.target.value.toLowerCase();
+            
+            // Simple keyword detection for demo purposes
+            if (text.includes('suicide') || text.includes('kill myself') || text.includes('end it all')) {
+                simulateCrisisDetection('severe');
+            } else if (text.includes('hopeless') || text.includes('pointless') || text.includes('can\'t take')) {
+                simulateCrisisDetection('moderate');
+            } else if (text.includes('stressed') || text.includes('overwhelmed') || text.includes('anxious')) {
+                simulateCrisisDetection('mild');
+            }
+        });
+
+        // Demo functions
+        function openDemo(audience) {
+            const modal = document.getElementById('demo-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            
+            title.textContent = `${audience.charAt(0).toUpperCase() + audience.slice(1)} Demo`;
+            content.innerHTML = `<iframe src="presentations/${audience}.html" class="w-full h-96 rounded-xl"></iframe>`;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function openFeatureDemo(feature) {
+            const modal = document.getElementById('demo-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            
+            title.textContent = `${feature.charAt(0).toUpperCase() + feature.slice(1)} Feature Demo`;
+            content.innerHTML = `<iframe src="interactive/${feature}.html" class="w-full h-96 rounded-xl"></iframe>`;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('demo-modal').classList.add('hidden');
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scheduleDemo() {
+            window.open('https://calendly.com/alchm-demo', '_blank');
+        }
+
+        function requestAccess() {
+            window.open('https://forms.gle/alchm-beta-access', '_blank');
+        }
+
+        // Close modal on outside click
+        document.getElementById('demo-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('slide-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe demo cards
+        document.querySelectorAll('.demo-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

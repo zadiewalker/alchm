@@ -1,0 +1,343 @@
+/*
+ * DEVICE PERFORMANCE OPTIMIZATIONS
+ * Trauma-informed design that adapts to device capabilities
+ * Ensures accessibility during crisis regardless of device age
+ */
+
+/* === BASE PERFORMANCE OPTIMIZATIONS === */
+
+/* Default optimized styles for all devices */
+.performance-optimized {
+  /* Hardware acceleration for critical elements only */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* === LOW-END DEVICE OPTIMIZATIONS === */
+
+/* iPhone 6/7/8 and older Android devices */
+.low-end-device .landing-cta-button,
+.low-end-device .landing-crisis-button {
+  /* Simplified visual effects for performance */
+  transition-duration: 100ms !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  
+  /* Use solid backgrounds instead of transparency */
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid rgba(164, 183, 146, 0.8) !important;
+}
+
+.low-end-device .landing-crisis-button {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(220, 38, 38, 0.8) !important;
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+/* Simplified gradient for older devices */
+.low-end-device .landing-progressive-enhancement {
+  background: #a4b792 !important;
+  background-image: none !important;
+}
+
+/* Remove complex text effects on older devices */
+.low-end-device .landing-primary-text,
+.low-end-device .landing-secondary-text,
+.low-end-device .text-crisis-readable {
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Simplified loading animation */
+.low-end-device .landing-loading-gentle {
+  animation: simpleBreathe 2s ease-in-out infinite;
+}
+
+@keyframes simpleBreathe {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* === NO BACKDROP FILTER SUPPORT === */
+
+.no-backdrop-filter .landing-crisis-button,
+.no-backdrop-support .landing-crisis-button {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(164, 183, 146, 0.8) !important;
+}
+
+.no-backdrop-filter .card-mobile,
+.no-backdrop-support .card-mobile {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* === REDUCED MOTION SUPPORT === */
+
+.reduced-motion *,
+.motion-reduced * {
+  /* Remove all animations for users with vestibular disorders */
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduced-motion .landing-cta-button:active,
+.reduced-motion .landing-crisis-button:active,
+.motion-reduced .landing-cta-button:active,
+.motion-reduced .landing-crisis-button:active {
+  transform: none !important;
+}
+
+/* === OLD iOS SPECIFIC OPTIMIZATIONS === */
+
+.old-ios .landing-cta-button,
+.ios-legacy .landing-cta-button {
+  /* iOS 9 and below compatibility */
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 24px !important;
+  border-radius: 24px !important;
+  
+  /* Prevent iOS styling issues */
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3) !important;
+}
+
+.old-ios .landing-crisis-button,
+.ios-legacy .landing-crisis-button {
+  -webkit-appearance: none !important;
+  -webkit-border-radius: 20px !important;
+  border-radius: 20px !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Fix iOS viewport issues on older devices */
+.old-ios .landing-hero-mobile,
+.ios-legacy .landing-hero-mobile {
+  min-height: 100vh !important; /* Fallback for older iOS */
+  min-height: calc(100vh - env(keyboard-inset-height, 0px)) !important;
+}
+
+/* === MEMORY CONSTRAINED OPTIMIZATIONS === */
+
+.memory-constrained .landing-cta-button,
+.memory-constrained .landing-crisis-button {
+  /* Minimal effects to preserve memory */
+  transition: none !important;
+  animation: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.memory-constrained .landing-progressive-enhancement {
+  background: #a4b792 !important;
+  background-image: none !important;
+}
+
+/* Simplified text rendering */
+.memory-constrained .landing-primary-text,
+.memory-constrained .landing-secondary-text {
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* === CRISIS MODE DEVICE ADAPTATIONS === */
+
+/* High contrast crisis mode for any device */
+.crisis-mode.low-end-device .landing-cta-button {
+  background: #a4b792 !important;
+  color: white !important;
+  border: 3px solid white !important;
+  font-weight: 700 !important;
+  min-height: 80px !important;
+}
+
+.crisis-mode.low-end-device .landing-crisis-button {
+  background: #dc2626 !important;
+  color: white !important;
+  border: 3px solid white !important;
+  font-weight: 700 !important;
+  min-height: 72px !important;
+}
+
+/* Crisis text visibility on low-end devices */
+.crisis-mode.low-end-device .landing-primary-text,
+.crisis-mode.low-end-device .landing-secondary-text {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  border: 2px solid white !important;
+  text-shadow: none !important;
+}
+
+/* === NETWORK OPTIMIZATIONS === */
+
+/* Progressive enhancement based on connection speed */
+@media (prefers-reduced-data: reduce) {
+  .landing-progressive-enhancement {
+    background: #a4b792 !important;
+    background-image: none !important;
+  }
+  
+  .landing-cta-button,
+  .landing-crisis-button {
+    backdrop-filter: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  }
+}
+
+/* === DEVICE-SPECIFIC BREAKPOINTS === */
+
+/* iPhone 5/5s/SE (1st gen) - 320px width */
+@media (max-width: 320px) {
+  .landing-cta-button {
+    min-height: 64px !important;
+    min-width: 240px !important;
+    font-size: 16px !important;
+    padding: 16px 20px !important;
+  }
+  
+  .landing-crisis-button {
+    min-height: 52px !important;
+    min-width: 120px !important;
+    font-size: 12px !important;
+    padding: 12px 16px !important;
+  }
+  
+  .landing-primary-text {
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+  }
+  
+  .landing-secondary-text {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+}
+
+/* iPhone 6/7/8 - 375px width */
+@media (max-width: 375px) and (-webkit-min-device-pixel-ratio: 2) {
+  .landing-cta-button {
+    /* Optimized for iPhone 6-8 performance */
+    transition-duration: 100ms !important;
+    backdrop-filter: none !important;
+  }
+  
+  .landing-crisis-button {
+    transition-duration: 100ms !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* Simplify gradients on older iPhones */
+  .landing-progressive-enhancement {
+    background: linear-gradient(180deg, #a4b792 0%, #7a8c6a 100%) !important;
+  }
+}
+
+/* iPad Mini and older iPads */
+@media (min-width: 768px) and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .landing-cta-button,
+  .landing-crisis-button {
+    /* Optimize for older iPad performance */
+    backdrop-filter: none !important;
+    transition-duration: 150ms !important;
+  }
+}
+
+/* === ACCESSIBILITY DEVICE ADAPTATIONS === */
+
+/* High contrast mode on any device */
+@media (prefers-contrast: high) {
+  .landing-cta-button {
+    background: white !important;
+    color: #2d3748 !important;
+    border: 3px solid #2d3748 !important;
+    font-weight: 700 !important;
+  }
+  
+  .landing-crisis-button {
+    background: #dc2626 !important;
+    color: white !important;
+    border: 3px solid white !important;
+    font-weight: 700 !important;
+  }
+  
+  .landing-primary-text,
+  .landing-secondary-text {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Dark mode support for older devices */
+@media (prefers-color-scheme: dark) {
+  .low-end-device .landing-cta-button {
+    background: rgba(164, 183, 146, 0.9) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  }
+  
+  .low-end-device .landing-crisis-button {
+    background: rgba(220, 38, 38, 0.9) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+/* === TOUCH OPTIMIZATIONS FOR OLDER DEVICES === */
+
+/* Larger touch targets for devices with poor touch accuracy */
+.low-end-device .landing-cta-button {
+  min-height: 76px !important;
+  min-width: 300px !important;
+  padding: 20px 24px !important;
+}
+
+.low-end-device .landing-crisis-button {
+  min-height: 64px !important;
+  min-width: 160px !important;
+  padding: 16px 20px !important;
+}
+
+/* Enhanced active states for older touch screens */
+.low-end-device .landing-cta-button:active {
+  background: rgba(164, 183, 146, 0.8) !important;
+  transform: none !important;
+  transition: background-color 50ms ease !important;
+}
+
+.low-end-device .landing-crisis-button:active {
+  background: rgba(220, 38, 38, 0.8) !important;
+  color: white !important;
+  transform: none !important;
+  transition: background-color 50ms ease !important;
+}
+
+/* === PERFORMANCE MONITORING === */
+
+/* Visual indicators for development */
+.performance-debug .landing-cta-button::after {
+  content: attr(data-performance-mode);
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+}

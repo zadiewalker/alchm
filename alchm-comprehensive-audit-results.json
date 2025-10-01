@@ -1,0 +1,86 @@
+{
+  "title": "ALCHM Comprehensive Technical Audit Report",
+  "subtitle": "Post Jony Ive Design System & Bundle Optimization Validation",
+  "timestamp": "2025-09-17T04:03:01.958Z",
+  "summary": {
+    "timestamp": "2025-09-17T04:03:01.958Z",
+    "totalTests": 18,
+    "criticalIssuesCount": 1,
+    "warningsCount": 3,
+    "passedCount": 14,
+    "overallStatus": "CRITICAL ISSUES FOUND",
+    "systemHealth": {
+      "crisisSafety": "operational",
+      "performance": "measured",
+      "bundleOptimization": "unknown"
+    }
+  },
+  "sections": {
+    "criticalIssues": {
+      "title": "Critical Issues (Must Fix Before Production)",
+      "items": [
+        "🚨 CRITICAL: Crisis support not available offline"
+      ]
+    },
+    "warnings": {
+      "title": "Warnings (Recommended Fixes)",
+      "items": [
+        "⚠️ Authentication audit error: SyntaxError: Failed to execute 'querySelector' on 'Document': '[data-testid*=\"google\"], [aria-label*=\"Google\"], button:has-text(\"Google\")' is not a valid selector.",
+        "⚠️ Journal interface elements not found",
+        "⚠️ Database operations audit error: SyntaxError: Failed to execute 'querySelectorAll' on 'Document': 'button:has-text(\"Save\"), button:has-text(\"Submit\"), [data-testid*=\"save\"]' is not a valid selector."
+      ]
+    },
+    "passed": {
+      "title": "Passed Tests",
+      "items": [
+        "✅ Multiple crisis buttons present (redundancy)",
+        "✅ Crisis button has proper aria-label",
+        "✅ Crisis button correctly configured for 988",
+        "✅ Crisis button has proper aria-label",
+        "✅ Crisis button correctly configured for 988",
+        "✅ Crisis button correctly configured for 988",
+        "✅ Fast page load time (593ms)",
+        "✅ Efficient memory usage (12MB)",
+        "✅ Jony Ive design system stylesheet loaded",
+        "✅ Design system color tokens properly configured",
+        "✅ Trauma-informed design elements present (4 found)",
+        "✅ Auth page loads correctly",
+        "✅ Authentication elements present (7 found)",
+        "✅ Optimized bundle size (0KB)"
+      ]
+    },
+    "performance": {
+      "title": "Performance Metrics",
+      "data": {
+        "pageLoadTime": 593,
+        "coreWebVitals": {},
+        "memoryUsage": 12894648
+      }
+    },
+    "bundleAnalysis": {
+      "title": "Bundle Analysis",
+      "data": {
+        "totalJSSize": 0,
+        "resourceCount": 19,
+        "criticalResourcesCount": 1
+      }
+    },
+    "crisisSafety": {
+      "title": "Crisis Safety Systems",
+      "data": {
+        "buttonsPresent": true,
+        "status": "operational"
+      }
+    }
+  },
+  "recommendations": [
+    "Address all critical issues before production deployment",
+    "Monitor Core Web Vitals in production",
+    "Regular crisis safety system testing",
+    "Bundle size monitoring and optimization",
+    "Accessibility audits for trauma-informed design",
+    "Performance regression testing",
+    "Offline functionality validation",
+    "Mobile device testing across different screen sizes"
+  ]
+}

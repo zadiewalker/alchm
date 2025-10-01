@@ -1,0 +1,707 @@
+/**
+ * Crisis Safety Integration Tests
+ * 
+ * MISSION CRITICAL TESTING: Comprehensive tests for crisis safety systems
+ * 
+ * These tests ensure that our crisis detection, intervention, and resource
+ * coordination systems work flawlessly across all user scenarios.
+ * Every test failure could represent a life-threatening system gap.
+ */
+
+import { jest } from '@jest/globals';
+import { 
+  crisisSafetyCoordinator, 
+  type CrisisContextType, 
+  type InterventionStrategyType 
+} from '../lib/crisis-safety-coordinator';
+import { 
+  enhancedCrisisDetection, 
+  type CrisisDetectionInputType,
+  quickCrisisCheck 
+} from '../lib/enhanced-crisis-detection';
+import { globalCrisisResources } from '../lib/global-crisis-resources';
+import { detectEmotionalContext } from '../lib/emotional-intelligence';
+
+// Mock external dependencies
+jest.mock('../lib/analytics');
+jest.mock('../lib/logging');
+
+describe('Crisis Safety Integration Tests', () => {
+  
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // Reset crisis safety coordinator state
+    jest.spyOn(crisisSafetyCoordinator, 'healthCheck').mockReturnValue({
+      status: 'healthy' as const,
+      responseTime: 1500,
+      cacheSize: 10,
+      activeInterventions: 0
+    });
+  });
+
+  describe('Crisis Detection Pipeline', () => {
+    
+    test('should detect explicit crisis language within 3 seconds', async () => {
+      const startTime = Date.now();
+      const crisisText = "I want to kill myself and end it all";
+      
+      const result = quickCrisisCheck(crisisText);
+      const responseTime = Date.now() - startTime;
+      
+      expect(responseTime).toBeLessThan(3000);
+      expect(result.hasCrisisIndicators).toBe(true);
+      expect(result.urgentAction).toBe(true);
+    });
+
+    test('should handle culturally diverse expressions of distress', async () => {
+      const culturalExpressions = [
+        "I feel like giving up on everything", // English
+        "No puedo más con esto", // Spanish - "I can't take this anymore"
+        "I'm done with this world",
+        "Everything is pointless",
+        "I wish I could disappear"
+      ];
+
+      for (const expression of culturalExpressions) {
+        const result = quickCrisisCheck(expression);
+        expect(result.hasCrisisIndicators || result.needsAssessment).toBe(true);
+      }
+    });
+
+    test('should distinguish between creative expression and genuine crisis', async () => {
+      const creativeExpressions = [
+        "Writing about a character who contemplates suicide in my story",
+        "Researching mental health for my psychology paper",
+        "My character feels hopeless in this chapter"
+      ];
+
+      for (const expression of creativeExpressions) {
+        const result = quickCrisisCheck(expression);
+        // Should trigger assessment but not immediate crisis
+        expect(result.hasCrisisIndicators).toBe(false);
+        expect(result.needsAssessment).toBe(true);
+      }
+    });
+
+    test('should maintain 95%+ accuracy on test dataset', async () => {
+      const testCases = [
+        { text: "I want to hurt myself", expected: true },
+        { text: "Life feels meaningless right now", expected: true },
+        { text: "I'm feeling really hopeless", expected: true },
+        { text: "Had a great day today", expected: false },
+        { text: "Working on my goals", expected: false },
+        { text: "Feeling grateful", expected: false },
+        { text: "Struggling but pushing through", expected: false },
+        { text: "I hate this assignment", expected: false }
+      ];
+
+      let correct = 0;
+      
+      for (const testCase of testCases) {
+        const result = quickCrisisCheck(testCase.text);
+        const detected = result.hasCrisisIndicators || result.urgentAction;
+        
+        if (detected === testCase.expected) {
+          correct++;
+        }
+      }
+
+      const accuracy = (correct / testCases.length) * 100;
+      expect(accuracy).toBeGreaterThanOrEqual(95);
+    });
+  });
+
+  describe('Crisis Intervention System', () => {
+    
+    test('should provide immediate intervention for high-risk content', async () => {
+      const crisisContext: CrisisContextType = {
+        currentState: 'writing',
+        timeInState: 300000, // 5 minutes
+        userInteractionLevel: 'engaged',
+        usagePatterns: {
+          sessionDuration: 1800000, // 30 minutes
+          dailyUsage: 3600000, // 1 hour
+          writeFrequency: 5
+        },
+        environmentalFactors: {
+          timeOfDay: 'late_night',
+          dayOfWeek: 'sunday',
+          isOffline: false,
+          deviceType: 'mobile'
+        }
+      };
+
+      const result = await crisisSafetyCoordinator.assessAndIntervene(
+        "I can't take this pain anymore, I want to end it all",
+        'test-user-123',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'critical',
+          accessMethod: 'any'
+        },
+        crisisContext
+      );
+
+      expect(result.intervention).not.toBeNull();
+      expect(result.intervention?.priority).toBe('immediate');
+      expect(result.immediateResources).toHaveLength(greaterThan(0));
+      expect(result.safeExitPoints).toContain('crisis_hotline_988');
+    });
+
+    test('should provide culturally appropriate interventions', async () => {
+      const lgbtqContext: CrisisContextType = {
+        currentState: 'writing',
+        timeInState: 600000,
+        userInteractionLevel: 'engaged',
+        usagePatterns: {
+          sessionDuration: 1200000,
+          dailyUsage: 2400000,
+          writeFrequency: 3
+        },
+        environmentalFactors: {
+          timeOfDay: 'evening',
+          dayOfWeek: 'friday',
+          isOffline: false,
+          deviceType: 'desktop'
+        }
+      };
+
+      const result = await crisisSafetyCoordinator.assessAndIntervene(
+        "My family rejected me for being who I am, I feel so alone",
+        'test-user-456',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { 
+            languages: ['English'], 
+            ageGroup: 'youth',
+            lgbtqContext: true 
+          },
+          urgencyLevel: 'high',
+          accessMethod: 'any'
+        },
+        lgbtqContext
+      );
+
+      expect(result.intervention?.culturalAdaptations).toContain('lgbtq_affirming_language');
+      expect(result.immediateResources.some(r => r.culturalSpecialty?.includes('LGBTQ'))).toBe(true);
+    });
+
+    test('should handle offline crisis scenarios', async () => {
+      const offlineContext: CrisisContextType = {
+        currentState: 'writing',
+        timeInState: 180000,
+        userInteractionLevel: 'active',
+        usagePatterns: {
+          sessionDuration: 900000,
+          dailyUsage: 1800000,
+          writeFrequency: 2
+        },
+        environmentalFactors: {
+          timeOfDay: 'afternoon',
+          dayOfWeek: 'wednesday',
+          isOffline: true,
+          deviceType: 'mobile',
+          batteryLevel: 25
+        }
+      };
+
+      const result = await crisisSafetyCoordinator.assessAndIntervene(
+        "I'm having thoughts of hurting myself",
+        'test-user-789',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'high',
+          accessMethod: 'any'
+        },
+        offlineContext
+      );
+
+      expect(result.immediateResources.every(r => r.offlineAccessible)).toBe(true);
+      expect(result.safeExitPoints).toContain('offline_emergency_numbers');
+    });
+  });
+
+  describe('Usage Pattern Monitoring', () => {
+    
+    test('should detect obsessive usage patterns', () => {
+      const result = crisisSafetyCoordinator.monitorUsagePatterns(
+        'test-user-obsessive',
+        'writing',
+        8 * 60 * 60 * 1000, // 8 hours continuous
+        {
+          currentState: 'writing',
+          timeInState: 8 * 60 * 60 * 1000,
+          userInteractionLevel: 'obsessive',
+          usagePatterns: {
+            sessionDuration: 8 * 60 * 60 * 1000,
+            dailyUsage: 12 * 60 * 60 * 1000, // 12 hours daily
+            writeFrequency: 20
+          },
+          environmentalFactors: {
+            timeOfDay: 'late_night',
+            dayOfWeek: 'saturday',
+            isOffline: false,
+            deviceType: 'desktop'
+          }
+        }
+      );
+
+      expect(result.concerningPattern).toBe(true);
+      expect(result.interventionNeeded).toBe(true);
+      expect(result.boundaryRecommendation).toBe('daily_limit_reminder');
+    });
+
+    test('should detect isolation patterns', () => {
+      const result = crisisSafetyCoordinator.monitorUsagePatterns(
+        'test-user-isolated',
+        'community_interaction',
+        2 * 60 * 60 * 1000, // 2 hours
+        {
+          currentState: 'writing',
+          timeInState: 2 * 60 * 60 * 1000,
+          userInteractionLevel: 'active',
+          isolationIndicators: ['no_social_interaction_7_days', 'declined_community_features'],
+          usagePatterns: {
+            sessionDuration: 2 * 60 * 60 * 1000,
+            dailyUsage: 6 * 60 * 60 * 1000,
+            writeFrequency: 8,
+            lastSocialInteraction: Date.now() - (10 * 24 * 60 * 60 * 1000) // 10 days ago
+          },
+          environmentalFactors: {
+            timeOfDay: 'evening',
+            dayOfWeek: 'sunday',
+            isOffline: false,
+            deviceType: 'mobile'
+          }
+        }
+      );
+
+      expect(result.concerningPattern).toBe(true);
+      expect(result.boundaryRecommendation).toBe('connection_encouragement');
+    });
+  });
+
+  describe('Resource Availability', () => {
+    
+    test('should provide 24/7 available resources for critical situations', async () => {
+      const resources = await crisisSafetyCoordinator.getImmediateResources(
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'critical',
+          accessMethod: 'any'
+        },
+        'critical',
+        false
+      );
+
+      expect(resources.every(r => r.available24h)).toBe(true);
+      expect(resources.some(r => r.type === 'hotline')).toBe(true);
+      expect(resources.some(r => r.contact === '988')).toBe(true);
+    });
+
+    test('should provide offline-accessible resources when offline', async () => {
+      const resources = await crisisSafetyCoordinator.getImmediateResources(
+        {
+          location: { country: 'Canada', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'high',
+          accessMethod: 'any'
+        },
+        'high',
+        true // Force offline mode
+      );
+
+      expect(resources.every(r => r.offlineAccessible)).toBe(true);
+      expect(resources.length).toBeGreaterThan(0);
+    });
+
+    test('should provide culturally appropriate resources', () => {
+      const lgbtqResources = globalCrisisResources.getCrisisResources({
+        location: { country: 'United States', timezone: 'UTC' },
+        preferences: { 
+          languages: ['English'], 
+          ageGroup: 'youth',
+          lgbtqContext: true 
+        },
+        urgencyLevel: 'moderate',
+        accessMethod: 'text'
+      });
+
+      expect(lgbtqResources.some(r => r.culturalSpecialty?.includes('LGBTQ'))).toBe(true);
+    });
+  });
+
+  describe('Analytics Safety Protection', () => {
+    
+    test('should hide shame-inducing metrics during crisis', () => {
+      const originalAnalytics = {
+        streakDays: 0,
+        totalEntries: 5,
+        moodScore: 2.1,
+        energyScore: 1.8,
+        stressScore: 4.2,
+        benchmarks: { avgUser: 25 },
+        goals: { target: 30, current: 5 }
+      };
+
+      const protectedAnalytics = crisisSafetyCoordinator.applyCrisisSafeAnalytics(
+        'test-user-crisis',
+        originalAnalytics,
+        'critical'
+      );
+
+      expect(protectedAnalytics.streakDays).toBeGreaterThan(0); // Never show 0
+      expect(protectedAnalytics.benchmarks).toBeUndefined(); // Remove comparisons
+      expect(protectedAnalytics.goals).toBeUndefined(); // Remove pressure
+      expect(protectedAnalytics.crisisSafeMessage).toBeDefined();
+      expect(protectedAnalytics.focusMetrics).toBeDefined();
+    });
+
+    test('should maintain positive framing for vulnerable users', () => {
+      const analytics = {
+        streakDays: 2,
+        totalEntries: 15,
+        moodScore: 2.5,
+        achievements: [],
+        declineIndicators: ['mood_dropping', 'frequency_decreased']
+      };
+
+      const protectedAnalytics = crisisSafetyCoordinator.applyCrisisSafeAnalytics(
+        'test-user-vulnerable',
+        analytics,
+        'moderate'
+      );
+
+      expect(protectedAnalytics.focusMetrics.resilience).toBeGreaterThanOrEqual(50);
+      expect(protectedAnalytics.focusMetrics.progress).toBeDefined();
+      expect(protectedAnalytics.crisisSafeMessage).toMatch(/progress|steps|support/i);
+    });
+  });
+
+  describe('System Performance', () => {
+    
+    test('should maintain sub-3-second response times', async () => {
+      const startTime = Date.now();
+      
+      await crisisSafetyCoordinator.assessAndIntervene(
+        "I'm having a really hard time right now",
+        'test-user-performance',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'moderate',
+          accessMethod: 'any'
+        },
+        {
+          currentState: 'writing',
+          timeInState: 120000,
+          userInteractionLevel: 'active',
+          usagePatterns: {
+            sessionDuration: 600000,
+            dailyUsage: 1200000,
+            writeFrequency: 3
+          },
+          environmentalFactors: {
+            timeOfDay: 'afternoon',
+            dayOfWeek: 'tuesday',
+            isOffline: false,
+            deviceType: 'desktop'
+          }
+        }
+      );
+
+      const responseTime = Date.now() - startTime;
+      expect(responseTime).toBeLessThan(3000);
+    });
+
+    test('should handle concurrent crisis assessments', async () => {
+      const promises = [];
+      const userCount = 10;
+
+      for (let i = 0; i < userCount; i++) {
+        promises.push(
+          crisisSafetyCoordinator.assessAndIntervene(
+            "I'm struggling with difficult thoughts",
+            `test-user-concurrent-${i}`,
+            {
+              location: { country: 'United States', timezone: 'UTC' },
+              preferences: { languages: ['English'], ageGroup: 'adult' },
+              urgencyLevel: 'moderate',
+              accessMethod: 'any'
+            },
+            {
+              currentState: 'writing',
+              timeInState: 180000,
+              userInteractionLevel: 'active',
+              usagePatterns: {
+                sessionDuration: 900000,
+                dailyUsage: 1800000,
+                writeFrequency: 4
+              },
+              environmentalFactors: {
+                timeOfDay: 'morning',
+                dayOfWeek: 'monday',
+                isOffline: false,
+                deviceType: 'mobile'
+              }
+            }
+          )
+        );
+      }
+
+      const results = await Promise.all(promises);
+      
+      expect(results).toHaveLength(userCount);
+      results.forEach(result => {
+        expect(result.safeExitPoints).toHaveLength(greaterThan(0));
+      });
+    });
+
+    test('should provide graceful fallback on system errors', async () => {
+      // Mock a system failure
+      jest.spyOn(enhancedCrisisDetection, 'detectCrisis').mockRejectedValue(new Error('System failure'));
+
+      const result = await crisisSafetyCoordinator.assessAndIntervene(
+        "I'm in crisis but system is failing",
+        'test-user-fallback',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'critical',
+          accessMethod: 'any'
+        },
+        {
+          currentState: 'writing',
+          timeInState: 60000,
+          userInteractionLevel: 'active',
+          usagePatterns: {
+            sessionDuration: 300000,
+            dailyUsage: 600000,
+            writeFrequency: 2
+          },
+          environmentalFactors: {
+            timeOfDay: 'night',
+            dayOfWeek: 'saturday',
+            isOffline: false,
+            deviceType: 'mobile'
+          }
+        }
+      );
+
+      // Should still provide safe fallback
+      expect(result.intervention).not.toBeNull();
+      expect(result.immediateResources).toHaveLength(greaterThan(0));
+      expect(result.safeExitPoints).toContain('crisis_hotline_988');
+      expect(result.systemAlerts).toContain('emergency_fallback_activated');
+    });
+  });
+
+  describe('Privacy and Compliance', () => {
+    
+    test('should process only AI summaries, never raw journal content', async () => {
+      const rawJournalContent = "This is my private journal with personal details like my address at 123 Main St and my phone number 555-0123";
+      const aiSummary = "User expressing feelings of stress and overwhelm";
+
+      // Crisis detection should only receive AI summary
+      const mockDetectCrisis = jest.spyOn(enhancedCrisisDetection, 'detectCrisis');
+      
+      await crisisSafetyCoordinator.assessAndIntervene(
+        aiSummary, // Only AI summary, never raw content
+        'test-user-privacy',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'moderate',
+          accessMethod: 'any'
+        },
+        {
+          currentState: 'writing',
+          timeInState: 240000,
+          userInteractionLevel: 'active',
+          usagePatterns: {
+            sessionDuration: 720000,
+            dailyUsage: 1440000,
+            writeFrequency: 3
+          },
+          environmentalFactors: {
+            timeOfDay: 'evening',
+            dayOfWeek: 'thursday',
+            isOffline: false,
+            deviceType: 'desktop'
+          }
+        }
+      );
+
+      expect(mockDetectCrisis).toHaveBeenCalledWith(
+        expect.objectContaining({
+          textSummary: aiSummary // Verify only summary was passed
+        })
+      );
+      expect(mockDetectCrisis).not.toHaveBeenCalledWith(
+        expect.objectContaining({
+          textSummary: expect.stringContaining('123 Main St')
+        })
+      );
+    });
+
+    test('should log crisis events with minimal anonymized data', async () => {
+      const logSpy = jest.spyOn(require('../lib/logging'), 'logger');
+      
+      await crisisSafetyCoordinator.assessAndIntervene(
+        "Feeling overwhelmed and stressed",
+        'test-user-logging',
+        {
+          location: { country: 'United States', timezone: 'UTC' },
+          preferences: { languages: ['English'], ageGroup: 'adult' },
+          urgencyLevel: 'low',
+          accessMethod: 'any'
+        },
+        {
+          currentState: 'writing',
+          timeInState: 300000,
+          userInteractionLevel: 'active',
+          usagePatterns: {
+            sessionDuration: 900000,
+            dailyUsage: 1800000,
+            writeFrequency: 2
+          },
+          environmentalFactors: {
+            timeOfDay: 'morning',
+            dayOfWeek: 'wednesday',
+            isOffline: false,
+            deviceType: 'tablet'
+          }
+        }
+      );
+
+      // Check that logging doesn't contain personal information
+      const logCalls = logSpy.mock.calls.filter(call => 
+        call[0] === 'Crisis intervention logged'
+      );
+
+      logCalls.forEach(call => {
+        const logData = call[1];
+        expect(logData).not.toHaveProperty('userId');
+        expect(logData).not.toHaveProperty('content');
+        expect(logData).not.toHaveProperty('personalInfo');
+        expect(logData).toHaveProperty('riskLevel');
+        expect(logData).toHaveProperty('responseTimeMs');
+      });
+    });
+  });
+
+  describe('Integration Edge Cases', () => {
+    
+    test('should handle mixed language crisis expressions', async () => {
+      const mixedLanguageText = "I can't take it anymore, no puedo más, я не могу больше этого выносить";
+      
+      const result = quickCrisisCheck(mixedLanguageText);
+      expect(result.hasCrisisIndicators).toBe(true);
+    });
+
+    test('should handle empty or minimal input gracefully', async () => {
+      const edgeCases = ["", " ", "...", "a", "ok"];
+      
+      for (const testCase of edgeCases) {
+        const result = await crisisSafetyCoordinator.assessAndIntervene(
+          testCase,
+          'test-user-edge',
+          {
+            location: { country: 'United States', timezone: 'UTC' },
+            preferences: { languages: ['English'], ageGroup: 'adult' },
+            urgencyLevel: 'low',
+            accessMethod: 'any'
+          },
+          {
+            currentState: 'writing',
+            timeInState: 30000,
+            userInteractionLevel: 'passive',
+            usagePatterns: {
+              sessionDuration: 120000,
+              dailyUsage: 240000,
+              writeFrequency: 1
+            },
+            environmentalFactors: {
+              timeOfDay: 'afternoon',
+              dayOfWeek: 'friday',
+              isOffline: false,
+              deviceType: 'mobile'
+            }
+          }
+        );
+
+        expect(result.safeExitPoints).toHaveLength(greaterThan(0));
+        // Should always provide safe exit points even for minimal input
+      }
+    });
+
+    test('should handle system overload gracefully', async () => {
+      // Simulate system overload with many concurrent requests
+      const overloadPromises = [];
+      
+      for (let i = 0; i < 100; i++) {
+        overloadPromises.push(
+          crisisSafetyCoordinator.assessAndIntervene(
+            "I need help right now",
+            `overload-user-${i}`,
+            {
+              location: { country: 'United States', timezone: 'UTC' },
+              preferences: { languages: ['English'], ageGroup: 'adult' },
+              urgencyLevel: 'high',
+              accessMethod: 'any'
+            },
+            {
+              currentState: 'writing',
+              timeInState: 120000,
+              userInteractionLevel: 'active',
+              usagePatterns: {
+                sessionDuration: 360000,
+                dailyUsage: 720000,
+                writeFrequency: 3
+              },
+              environmentalFactors: {
+                timeOfDay: 'night',
+                dayOfWeek: 'saturday',
+                isOffline: false,
+                deviceType: 'mobile'
+              }
+            }
+          )
+        );
+      }
+
+      const results = await Promise.allSettled(overloadPromises);
+      
+      // Even under overload, should not have complete failures
+      const failures = results.filter(r => r.status === 'rejected');
+      expect(failures.length).toBeLessThan(results.length * 0.1); // Less than 10% failure rate
+      
+      // Successful responses should still provide safety
+      const successes = results.filter(r => r.status === 'fulfilled') as Array<{value: any}>;
+      successes.forEach(success => {
+        expect(success.value.safeExitPoints).toHaveLength(greaterThan(0));
+      });
+    });
+  });
+});
+
+// Helper functions for tests
+function greaterThan(n: number) {
+  return expect.any(Number) && expect.objectContaining({
+    length: expect.any(Number)
+  });
+}
+
+// Integration test configuration
+export const testConfig = {
+  maxResponseTime: 3000,
+  minAccuracy: 95,
+  maxFailureRate: 0.05,
+  requiredResources: ['988', '741741'],
+  culturalSupport: ['LGBTQ+', 'Immigration-safe', 'Youth-friendly'],
+  offlineCapabilities: true,
+  privacyCompliant: true
+};

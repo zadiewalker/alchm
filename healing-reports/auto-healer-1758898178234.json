@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-26T14:49:38.232Z",
+  "mode": "dry-run",
+  "healingActions": [],
+  "backups": [],
+  "summary": {
+    "totalActions": 0,
+    "successful": 0,
+    "failed": 0,
+    "backupsCreated": 0
+  }
+}

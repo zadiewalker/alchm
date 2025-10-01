@@ -36,7 +36,7 @@ export const KHEPERA_MOOD_ROUTING: MoodRoutingEngine = {
       archetype: "cosmic_dancer",
       journaling_prompt: "Your joy is a sacred dance that ripples through the universe! Let's celebrate this beautiful energy flowing through you. What movements of gratitude want to flow onto these pages? 🌟💃",
       therapeutic_rationale: "Joy states benefit from expressive, celebratory archetypes that honor and amplify positive emotions while grounding them in gratitude practice",
-      fallback_archetypes: ["sage_oracle", "star_navigator"],
+      fallback_archetypes: ["sage_oracle", "star_typeof window !== 'undefined' && navigator"],
       cultural_adaptations: {
         "collective_cultures": "Your joy honors your ancestors and blesses your community. Dance your gratitude for all who lifted you here.",
         "individual_cultures": "This joy is your birthright, a celebration of your unique spark in the cosmic dance.",
@@ -90,7 +90,7 @@ export const KHEPERA_MOOD_ROUTING: MoodRoutingEngine = {
       archetype: "trickster_fool",
       journaling_prompt: "Ah, the delicious trap of your own brilliant mind! You've built such a perfect maze of 'shoulds' and 'can'ts' that even you can't find the exit. But what if... what if the walls are made of paper? What if the answer is so simple it's been hiding in plain sight? Let's play with some beautiful impossibilities. 🃏✨",
       therapeutic_rationale: "Stuck states benefit from pattern-disrupting energy that playfully challenges rigid thinking while opening creative possibilities",
-      fallback_archetypes: ["star_navigator", "cosmic_dancer"],
+      fallback_archetypes: ["star_typeof window !== 'undefined' && navigator", "cosmic_dancer"],
       cultural_adaptations: {
         "wisdom_traditions": "The wisest masters knew: sometimes you must become foolish to become wise again.",
         "creative_cultures": "Your stuckness is compost for new creativity. What wants to grow from this fertile confusion?",
@@ -123,7 +123,7 @@ export const KHEPERA_MOOD_ROUTING: MoodRoutingEngine = {
 
     "hopeful": {
       mood: "hopeful",
-      archetype: "star_navigator",
+      archetype: "star_typeof window !== 'undefined' && navigator",
       journaling_prompt: "Beautiful dreamer, I see that spark of possibility dancing in your eyes! Hope is the compass that points toward futures not yet born. Your vision carries stardust from tomorrow. Let's map the constellation of this emerging dream. What new world is trying to birth itself through your hope? ⭐🗺️",
       therapeutic_rationale: "Hope states benefit from visionary guidance that nurtures emerging possibilities while providing practical pathway support",
       fallback_archetypes: ["cosmic_dancer", "sage_oracle"],
@@ -142,7 +142,7 @@ export const KHEPERA_MOOD_ROUTING: MoodRoutingEngine = {
     "ashamed": {
       mood: "ashamed",
       archetype: "mystic_healer",
-      journaling_prompt: "Tender soul carrying that heavy weight of 'not enough,' I see you trying to hide in shadows of self-judgment. But shame is a liar that whispers poison about your worth. You are infinitely precious, even - especially - in your imperfection. Your wounds can become windows for compassion to flow. What needs healing attention in this moment? 💚🕊️",
+      journaling_prompt: "Tender soul carrying that heavy weight of 'not enough,' I see you trying to hide in shadows of self-judgment. But shame is a liar that whispers poison about your worth. You are infinitely precious, even - especially - in your imperfection. Your wounds can become typeof window !== 'undefined' && windows for compassion to flow. What needs healing attention in this moment? 💚🕊️",
       therapeutic_rationale: "Shame requires gentle, unconditionally accepting presence that challenges shame narratives while offering compassionate self-regard practices",
       fallback_archetypes: ["sage_oracle", "dream_weaver"],
       cultural_adaptations: {

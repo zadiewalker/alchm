@@ -1,0 +1,667 @@
+/**
+ * ALCHM Crisis-Safe Design System
+ * 
+ * MISSION CRITICAL: Design patterns specifically engineered for crisis moments.
+ * Every choice prioritizes user safety, emotional regulation, and suicide prevention.
+ * 
+ * Core Principles:
+ * 1. Safety-first color choices that support rather than trigger
+ * 2. Clear accessibility during dissociation and panic states
+ * 3. Calming visual rhythms that reduce rather than increase anxiety
+ * 4. Emergency patterns that are serious but not jarring
+ * 5. Breathing space that provides visual sanctuary
+ */
+
+/* === CRISIS-SAFE COLOR FOUNDATION === */
+:root {
+  /* EMERGENCY COLORS - Muted but clearly actionable */
+  --crisis-emergency-red: #b87d7d;          /* Muted red - serious without being jarring */
+  --crisis-emergency-red-hover: #a66d6d;    /* Slightly darker for interaction */
+  --crisis-emergency-red-active: #955d5d;   /* Pressed state */
+  --crisis-emergency-red-bg: #f5f0f0;       /* Very light background variant */
+  --crisis-emergency-red-text: #7a4444;     /* Text variant */
+  
+  /* SAGE GREEN SANCTUARY - Calming crisis resources */
+  --crisis-sage-primary: #8ba675;           /* Calming sage for crisis resources */
+  --crisis-sage-light: #f7f9f6;             /* Light sage backgrounds */
+  --crisis-sage-muted: #e8ede4;             /* Muted sage for subtle elements */
+  --crisis-sage-deep: #6b8559;              /* Deeper sage for important text */
+  --crisis-sage-tint: rgba(139, 166, 117, 0.1); /* 10% sage tint overlay */
+  
+  /* BREATHING SPACE COLORS - Off-white calming backgrounds */
+  --crisis-sanctuary: #fefefe;               /* Pure breathing space white */
+  --crisis-sanctuary-warm: #fefcfb;          /* Warm off-white */
+  --crisis-sanctuary-cool: #fbfcfe;          /* Cool off-white */
+  --crisis-sanctuary-soft: #fcfcfc;          /* Soft off-white */
+  
+  /* GROUNDING NEUTRALS - Stability during crisis */
+  --crisis-neutral-100: #f8f9fa;
+  --crisis-neutral-200: #e9ecef;
+  --crisis-neutral-300: #dee2e6;
+  --crisis-neutral-400: #ced4da;
+  --crisis-neutral-500: #adb5bd;
+  --crisis-neutral-600: #6c757d;
+  --crisis-neutral-700: #495057;
+  --crisis-neutral-800: #343a40;
+  --crisis-neutral-900: #212529;
+  
+  /* SUPPORTIVE ACCENT COLORS */
+  --crisis-support-blue: #7da3b8;           /* Calming supportive blue */
+  --crisis-support-purple: #9b87b8;         /* Gentle supportive purple */
+  --crisis-support-yellow: #c4b87d;         /* Warm supportive yellow */
+  
+  /* VALIDATION COLORS - Gentle feedback during crisis */
+  --crisis-validation-success: #7bb87d;     /* Muted success green */
+  --crisis-validation-warning: #b8a87d;     /* Gentle warning amber */
+  --crisis-validation-info: #7d9bb8;        /* Soft info blue */
+}
+
+/* === CRISIS-SAFE TYPOGRAPHY HIERARCHY === */
+
+/* Crisis Typography - Enhanced for dissociation and panic states */
+.crisis-typography {
+  /* Extra clear, larger text during crisis moments */
+  font-size: 1.125rem !important;           /* 18px minimum */
+  line-height: 1.8 !important;              /* Extra loose for panic reading */
+  letter-spacing: 0.025em !important;       /* Slightly wider tracking */
+  font-weight: 500 !important;              /* Medium weight for clarity */
+}
+
+.crisis-heading-primary {
+  font-size: clamp(1.875rem, 4vw, 2.5rem) !important; /* 30-40px responsive */
+  line-height: 1.3 !important;
+  font-weight: 400 !important;              /* Light weight - less overwhelming */
+  letter-spacing: -0.01em !important;
+  color: var(--crisis-neutral-800);
+  margin-bottom: 1.5rem !important;
+}
+
+.crisis-heading-secondary {
+  font-size: clamp(1.5rem, 3vw, 2rem) !important; /* 24-32px responsive */
+  line-height: 1.4 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em !important;
+  color: var(--crisis-neutral-700);
+  margin-bottom: 1rem !important;
+}
+
+.crisis-heading-tertiary {
+  font-size: 1.25rem !important;            /* 20px */
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+  color: var(--crisis-neutral-700);
+  margin-bottom: 0.75rem !important;
+}
+
+.crisis-body-text {
+  font-size: 1.125rem !important;           /* 18px */
+  line-height: 1.8 !important;              /* Extra loose for stress reading */
+  font-weight: 400 !important;
+  color: var(--crisis-neutral-700);
+  margin-bottom: 1rem !important;
+}
+
+.crisis-supporting-text {
+  font-size: 1rem !important;               /* 16px */
+  line-height: 1.7 !important;
+  font-weight: 400 !important;
+  color: var(--crisis-neutral-600);
+}
+
+.crisis-caption-text {
+  font-size: 0.875rem !important;           /* 14px */
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  color: var(--crisis-neutral-500);
+}
+
+/* Mobile Crisis Typography - Even larger for panic states */
+@media (max-width: 768px) {
+  .crisis-typography {
+    font-size: 1.25rem !important;          /* 20px minimum on mobile */
+    line-height: 1.9 !important;
+  }
+  
+  .crisis-body-text {
+    font-size: 1.25rem !important;          /* 20px */
+    line-height: 1.9 !important;
+  }
+  
+  .crisis-supporting-text {
+    font-size: 1.125rem !important;         /* 18px */
+    line-height: 1.8 !important;
+  }
+}
+
+/* === CRISIS-SAFE COMPONENT PATTERNS === */
+
+/* Emergency Button Design - Muted red, clearly actionable */
+.crisis-emergency-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  min-height: 56px;                         /* Large touch target */
+  min-width: 160px;
+  background: var(--crisis-emergency-red);
+  color: white;
+  border: 2px solid var(--crisis-emergency-red);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 8px rgba(184, 125, 125, 0.2),
+    0 1px 3px rgba(184, 125, 125, 0.1);
+}
+
+.crisis-emergency-button:hover {
+  background: var(--crisis-emergency-red-hover);
+  border-color: var(--crisis-emergency-red-hover);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(184, 125, 125, 0.25),
+    0 2px 6px rgba(184, 125, 125, 0.15);
+}
+
+.crisis-emergency-button:active {
+  background: var(--crisis-emergency-red-active);
+  border-color: var(--crisis-emergency-red-active);
+  transform: translateY(0);
+  box-shadow: 
+    0 1px 4px rgba(184, 125, 125, 0.2);
+}
+
+.crisis-emergency-button:focus {
+  outline: 3px solid rgba(184, 125, 125, 0.5);
+  outline-offset: 2px;
+}
+
+/* Large Emergency Button for Crisis Moments */
+.crisis-emergency-button-large {
+  padding: 1.25rem 2rem;
+  min-height: 64px;
+  min-width: 200px;
+  font-size: 1.25rem;
+  border-radius: 16px;
+}
+
+/* Mobile Emergency Button */
+@media (max-width: 768px) {
+  .crisis-emergency-button {
+    width: 100%;
+    min-height: 60px;
+    font-size: 1.25rem;
+  }
+  
+  .crisis-emergency-button-large {
+    min-height: 68px;
+    font-size: 1.375rem;
+  }
+}
+
+/* === CRISIS RESOURCE PAGES === */
+
+/* Sage Green Tinted Crisis Resource Container */
+.crisis-resource-container {
+  background: linear-gradient(
+    135deg, 
+    var(--crisis-sage-light) 0%, 
+    var(--crisis-sanctuary-warm) 100%
+  );
+  border: 1px solid var(--crisis-sage-muted);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.crisis-resource-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--crisis-sage-tint);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.crisis-resource-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.crisis-resource-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--crisis-sage-deep);
+}
+
+.crisis-resource-header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.crisis-resource-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.crisis-resource-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--crisis-sage-muted);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.crisis-resource-item:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--crisis-sage-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(139, 166, 117, 0.15);
+}
+
+.crisis-resource-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--crisis-sage-deep);
+}
+
+.crisis-resource-content {
+  flex: 1;
+}
+
+.crisis-resource-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--crisis-sage-deep);
+  margin-bottom: 0.25rem;
+}
+
+.crisis-resource-description {
+  font-size: 1rem;
+  color: var(--crisis-neutral-600);
+  line-height: 1.6;
+}
+
+/* === TRAUMA-INFORMED LOADING STATES === */
+
+/* Gentle, Non-Anxious Loading Animation */
+.crisis-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background: var(--crisis-sanctuary-warm);
+  border-radius: 16px;
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.crisis-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--crisis-sage-muted);
+  border-top: 3px solid var(--crisis-sage-primary);
+  border-radius: 50%;
+  animation: crisis-gentle-spin 2s linear infinite;
+}
+
+@keyframes crisis-gentle-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.crisis-loading-text {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  color: var(--crisis-sage-deep);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.crisis-loading-subtext {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: var(--crisis-neutral-600);
+  text-align: center;
+}
+
+/* Breathing Loading Animation for Crisis Moments */
+.crisis-breathing-loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--crisis-sage-primary) 0%,
+    var(--crisis-sage-light) 70%,
+    transparent 100%
+  );
+  animation: crisis-breathe 4s ease-in-out infinite;
+}
+
+@keyframes crisis-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* === BREATHING SPACE LAYOUTS === */
+
+/* Off-White Calming Background System */
+.crisis-sanctuary-page {
+  background: var(--crisis-sanctuary-warm);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.crisis-sanctuary-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--crisis-sanctuary);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.crisis-breathing-space {
+  padding: 2rem;
+  margin: 1.5rem 0;
+  background: var(--crisis-sanctuary-soft);
+  border-radius: 16px;
+  border: 1px solid var(--crisis-neutral-200);
+}
+
+.crisis-content-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--crisis-neutral-200);
+}
+
+.crisis-content-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* === GENTLE SUPPORTIVE ANIMATIONS === */
+
+/* Supportive Animations that Feel Calming */
+.crisis-gentle-fade-in {
+  animation: crisis-fade-in 0.8s ease-out forwards;
+}
+
+@keyframes crisis-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.crisis-gentle-pulse {
+  animation: crisis-pulse 3s ease-in-out infinite;
+}
+
+@keyframes crisis-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+.crisis-supportive-glow {
+  animation: crisis-glow 4s ease-in-out infinite;
+}
+
+@keyframes crisis-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(139, 166, 117, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(139, 166, 117, 0.5);
+  }
+}
+
+/* === QUICK ACCESS CRISIS PATTERNS === */
+
+/* Crisis Resource Quick Access Bar */
+.crisis-quick-access {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--crisis-sanctuary);
+  border-top: 2px solid var(--crisis-sage-primary);
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.crisis-quick-access-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.crisis-quick-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--crisis-sage-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.crisis-quick-button:hover {
+  background: var(--crisis-sage-deep);
+  transform: translateY(-1px);
+}
+
+.crisis-quick-button-emergency {
+  background: var(--crisis-emergency-red);
+  border: 2px solid var(--crisis-emergency-red);
+}
+
+.crisis-quick-button-emergency:hover {
+  background: var(--crisis-emergency-red-hover);
+  border-color: var(--crisis-emergency-red-hover);
+}
+
+/* === MOBILE CRISIS OPTIMIZATIONS === */
+
+@media (max-width: 768px) {
+  .crisis-sanctuary-container {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+    border-radius: 16px;
+  }
+  
+  .crisis-breathing-space {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .crisis-resource-container {
+    padding: 1.5rem;
+    margin: 0.75rem 0;
+  }
+  
+  .crisis-quick-access {
+    padding: 0.75rem;
+  }
+  
+  .crisis-quick-access-content {
+    gap: 0.5rem;
+  }
+  
+  .crisis-quick-button {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .crisis-emergency-button {
+    border-width: 3px;
+    background: #8b0000;
+    border-color: #8b0000;
+  }
+  
+  .crisis-resource-container {
+    border-width: 2px;
+    border-color: var(--crisis-sage-deep);
+  }
+  
+  .crisis-quick-access {
+    border-top-width: 3px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .crisis-loading-spinner,
+  .crisis-breathing-loader,
+  .crisis-gentle-pulse,
+  .crisis-supportive-glow {
+    animation: none;
+  }
+  
+  .crisis-gentle-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .crisis-emergency-button,
+  .crisis-resource-item,
+  .crisis-quick-button {
+    transition: none;
+  }
+  
+  .crisis-emergency-button:hover,
+  .crisis-resource-item:hover,
+  .crisis-quick-button:hover {
+    transform: none;
+  }
+}
+
+/* Focus Management for Crisis States */
+.crisis-focus-trap {
+  outline: 3px solid var(--crisis-emergency-red);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Large Touch Targets for Crisis Moments */
+.crisis-large-touch {
+  min-height: 56px;
+  min-width: 56px;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .crisis-large-touch {
+    min-height: 60px;
+    min-width: 60px;
+    padding: 1.25rem;
+  }
+}
+
+/* === SUICIDE PREVENTION DESIGN CONSIDERATIONS === */
+
+/* Remove sharp edges and harsh contrasts in crisis mode */
+.crisis-mode * {
+  border-radius: max(8px, var(--radius-sm, 8px));
+}
+
+/* Softer shadows to reduce visual stress */
+.crisis-mode .shadow-harsh {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Hide potentially triggering content */
+.crisis-mode .hide-in-crisis {
+  display: none !important;
+}
+
+/* Ensure all crisis content passes WCAG AAA contrast */
+.crisis-text-critical {
+  color: var(--crisis-neutral-900);
+  background: var(--crisis-sanctuary);
+  font-weight: 600;
+}
+
+/* Emergency contact styling - always visible and accessible */
+.crisis-emergency-contact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--crisis-emergency-red-bg);
+  border: 2px solid var(--crisis-emergency-red);
+  border-radius: 12px;
+  margin: 2rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--crisis-emergency-red-text);
+  text-decoration: none;
+}
+
+.crisis-emergency-contact:hover {
+  background: rgba(184, 125, 125, 0.1);
+  border-color: var(--crisis-emergency-red-hover);
+  transform: none; /* No jarring movements during crisis */
+}

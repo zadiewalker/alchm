@@ -1,0 +1,101 @@
+{
+  "emergency": {
+    "hotlines": [
+      {
+        "name": "988 Suicide & Crisis Lifeline",
+        "number": "988",
+        "description": "24/7 mental health crisis support",
+        "available": "24/7",
+        "languages": ["English", "Spanish", "ASL"]
+      },
+      {
+        "name": "Crisis Text Line",
+        "number": "741741",
+        "description": "Text HOME for 24/7 crisis support",
+        "available": "24/7",
+        "method": "text"
+      },
+      {
+        "name": "Emergency Services",
+        "number": "911",
+        "description": "Immediate emergency response",
+        "available": "24/7"
+      }
+    ],
+    "quickActions": [
+      {
+        "action": "Call 988",
+        "description": "Immediate crisis support",
+        "urgency": "high"
+      },
+      {
+        "action": "Text 741741",
+        "description": "Anonymous text support",
+        "urgency": "medium"
+      },
+      {
+        "action": "Practice breathing",
+        "description": "4-7-8 breathing technique",
+        "urgency": "low"
+      }
+    ]
+  },
+  "grounding": {
+    "techniques": [
+      {
+        "name": "5-4-3-2-1 Technique",
+        "description": "Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste",
+        "duration": "2-5 minutes"
+      },
+      {
+        "name": "Box Breathing",
+        "description": "Breathe in for 4, hold for 4, out for 4, hold for 4",
+        "duration": "1-3 minutes"
+      },
+      {
+        "name": "Progressive Muscle Relaxation",
+        "description": "Tense and release muscle groups starting from toes",
+        "duration": "5-10 minutes"
+      }
+    ]
+  },
+  "support": {
+    "selfCare": [
+      {
+        "category": "immediate",
+        "actions": [
+          "Drink cold water",
+          "Hold an ice cube",
+          "Listen to calming music",
+          "Call a trusted friend"
+        ]
+      },
+      {
+        "category": "shortTerm",
+        "actions": [
+          "Take a warm shower",
+          "Go for a walk",
+          "Write in your journal",
+          "Practice mindfulness"
+        ]
+      }
+    ],
+    "safetyPlan": {
+      "steps": [
+        "Recognize warning signs",
+        "Use internal coping strategies", 
+        "Contact supportive people",
+        "Reach out to professionals",
+        "Ensure environmental safety",
+        "Call emergency services if needed"
+      ]
+    }
+  },
+  "metadata": {
+    "lastUpdated": "2024-09-30",
+    "version": "1.0.0",
+    "traumaInformed": true,
+    "accessibilityOptimized": true,
+    "offlineAvailable": true
+  }
+}

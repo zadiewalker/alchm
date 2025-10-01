@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - Mental Health Professionals Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --alchm-primary: #8B5CF6;
+            --alchm-secondary: #06B6D4;
+            --alchm-clinical: #059669;
+            --alchm-sage: #10B981;
+            --alchm-dark: #1F2937;
+        }
+        
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--alchm-clinical) 0%, var(--alchm-secondary) 100%);
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .clinical-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--alchm-clinical);
+        }
+        
+        .clinical-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
+        }
+        
+        .hipaa-badge {
+            background: linear-gradient(45deg, #059669, #10B981);
+            border: 2px solid #34D399;
+        }
+        
+        .evidence-based {
+            background: linear-gradient(45deg, #3B82F6, #06B6D4);
+        }
+        
+        .client-progress {
+            background: linear-gradient(45deg, #8B5CF6, #A855F7);
+        }
+        
+        .demo-dashboard {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .metric-widget {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg text-white">
+    <div class="container mx-auto px-6 py-8" x-data="therapistDemo()">
+        
+        <!-- Header -->
+        <div class="text-center mb-12 fade-in-up">
+            <div class="flex items-center justify-center space-x-4 mb-6">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center">
+                    <span class="text-2xl font-bold">🩺</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold">ALCHM Professional</h1>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4">Mental Health Professionals Dashboard</h2>
+            <p class="text-lg opacity-90 max-w-3xl mx-auto">
+                HIPAA-compliant clinical tools designed by therapists, for therapists - enhancing client outcomes through intelligent insights
+            </p>
+        </div>
+
+        <!-- HIPAA Compliance & Security -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-in-left" style="animation-delay: 0.2s">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="hipaa-badge w-16 h-16 rounded-full flex items-center justify-center">
+                    <span class="text-2xl">🔒</span>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-bold">HIPAA Compliant by Design</h3>
+                    <p class="text-lg opacity-90">Enterprise-grade security protecting client privacy</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-green-300">🔐 Zero-Knowledge Encryption</h4>
+                    <p class="text-sm opacity-90">End-to-end encryption ensures only you and your client can access data</p>
+                    <ul class="text-xs mt-3 space-y-1 opacity-80">
+                        <li>• AES-256 encryption at rest</li>
+                        <li>• TLS 1.3 for data in transit</li>
+                        <li>• Client-side encryption keys</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-blue-300">📋 Compliance Monitoring</h4>
+                    <p class="text-sm opacity-90">Real-time compliance tracking and audit trails</p>
+                    <ul class="text-xs mt-3 space-y-1 opacity-80">
+                        <li>• SOC 2 Type II certified</li>
+                        <li>• Automated audit logging</li>
+                        <li>• Regular penetration testing</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-purple-300">👥 Access Controls</h4>
+                    <p class="text-sm opacity-90">Granular permissions and multi-factor authentication</p>
+                    <ul class="text-xs mt-3 space-y-1 opacity-80">
+                        <li>• Role-based access control</li>
+                        <li>• MFA for all accounts</li>
+                        <li>• Session timeout protection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Dashboard Demo -->
+        <div class="demo-dashboard rounded-2xl p-8 mb-12 fade-in-up" style="animation-delay: 0.4s">
+            <h3 class="text-3xl font-bold mb-6">Live Professional Dashboard</h3>
+            
+            <!-- Dashboard Navigation -->
+            <div class="flex space-x-4 mb-6 overflow-x-auto">
+                <button @click="activeTab = 'overview'" 
+                        :class="activeTab === 'overview' ? 'bg-green-500/30 border-green-500' : 'bg-white/10 border-white/20'"
+                        class="px-4 py-2 rounded-lg border transition-all whitespace-nowrap">
+                    Overview
+                </button>
+                <button @click="activeTab = 'clients'" 
+                        :class="activeTab === 'clients' ? 'bg-green-500/30 border-green-500' : 'bg-white/10 border-white/20'"
+                        class="px-4 py-2 rounded-lg border transition-all whitespace-nowrap">
+                    Client Management
+                </button>
+                <button @click="activeTab = 'assessments'" 
+                        :class="activeTab === 'assessments' ? 'bg-green-500/30 border-green-500' : 'bg-white/10 border-white/20'"
+                        class="px-4 py-2 rounded-lg border transition-all whitespace-nowrap">
+                    Assessments
+                </button>
+                <button @click="activeTab = 'insights'" 
+                        :class="activeTab === 'insights' ? 'bg-green-500/30 border-green-500' : 'bg-white/10 border-white/20'"
+                        class="px-4 py-2 rounded-lg border transition-all whitespace-nowrap">
+                    AI Insights
+                </button>
+                <button @click="activeTab = 'documentation'" 
+                        :class="activeTab === 'documentation' ? 'bg-green-500/30 border-green-500' : 'bg-white/10 border-white/20'"
+                        class="px-4 py-2 rounded-lg border transition-all whitespace-nowrap">
+                    Documentation
+                </button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div x-show="activeTab === 'overview'" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="metric-widget rounded-xl p-4">
+                        <div class="text-2xl font-bold text-green-400">24</div>
+                        <div class="text-sm opacity-80">Active Clients</div>
+                        <div class="text-xs text-green-300 mt-1">↗ 3 new this week</div>
+                    </div>
+                    <div class="metric-widget rounded-xl p-4">
+                        <div class="text-2xl font-bold text-cyan-400">87%</div>
+                        <div class="text-sm opacity-80">Engagement Rate</div>
+                        <div class="text-xs text-cyan-300 mt-1">↗ +5% from last month</div>
+                    </div>
+                    <div class="metric-widget rounded-xl p-4">
+                        <div class="text-2xl font-bold text-purple-400">12</div>
+                        <div class="text-sm opacity-80">Crisis Interventions</div>
+                        <div class="text-xs text-purple-300 mt-1">Successfully managed</div>
+                    </div>
+                    <div class="metric-widget rounded-xl p-4">
+                        <div class="text-2xl font-bold text-yellow-400">4.8</div>
+                        <div class="text-sm opacity-80">Avg. Session Rating</div>
+                        <div class="text-xs text-yellow-300 mt-1">Client feedback</div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h4 class="text-xl font-semibold mb-4">Recent Activity</h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg">
+                                <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                                <div class="flex-1">
+                                    <div class="font-medium">Crisis alert resolved - Sarah M.</div>
+                                    <div class="text-xs opacity-70">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg">
+                                <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                                <div class="flex-1">
+                                    <div class="font-medium">Treatment plan updated - James K.</div>
+                                    <div class="text-xs opacity-70">5 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg">
+                                <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+                                <div class="flex-1">
+                                    <div class="font-medium">New assessment completed - Maria L.</div>
+                                    <div class="text-xs opacity-70">1 day ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h4 class="text-xl font-semibold mb-4">Client Progress Trends</h4>
+                        <canvas id="progressChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Management Tab -->
+            <div x-show="activeTab === 'clients'" class="space-y-6">
+                <div class="flex justify-between items-center">
+                    <h4 class="text-xl font-semibold">Client Management</h4>
+                    <button class="bg-green-500 px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition-colors">
+                        + Add New Client
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Client List -->
+                    <div class="lg:col-span-2 bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Active Clients</h5>
+                        <div class="space-y-3">
+                            <div class="clinical-card bg-white/5 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h6 class="font-semibold">Sarah M.</h6>
+                                        <p class="text-sm opacity-80">Anxiety, PTSD</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-green-400">Stable</div>
+                                        <div class="text-xs opacity-70">Last session: 2 days ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 text-xs">
+                                    <span class="bg-purple-500/20 px-2 py-1 rounded">PHQ-9: 8</span>
+                                    <span class="bg-cyan-500/20 px-2 py-1 rounded">GAD-7: 6</span>
+                                    <span class="bg-yellow-500/20 px-2 py-1 rounded">Session 12/16</span>
+                                </div>
+                            </div>
+                            
+                            <div class="clinical-card bg-white/5 rounded-lg p-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h6 class="font-semibold">James K.</h6>
+                                        <p class="text-sm opacity-80">Depression, Substance Use</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-yellow-400">Monitoring</div>
+                                        <div class="text-xs opacity-70">Last session: 1 week ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 text-xs">
+                                    <span class="bg-purple-500/20 px-2 py-1 rounded">PHQ-9: 14</span>
+                                    <span class="bg-orange-500/20 px-2 py-1 rounded">AUDIT: 12</span>
+                                    <span class="bg-yellow-500/20 px-2 py-1 rounded">Session 6/12</span>
+                                </div>
+                            </div>
+                            
+                            <div class="clinical-card bg-white/5 rounded-lg p-4 border-l-red-500">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h6 class="font-semibold">Maria L.</h6>
+                                        <p class="text-sm opacity-80">Bipolar Disorder, Trauma</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-red-400">Requires Attention</div>
+                                        <div class="text-xs opacity-70">Crisis flag: 2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 text-xs">
+                                    <span class="bg-red-500/20 px-2 py-1 rounded">MDQ: Positive</span>
+                                    <span class="bg-red-500/20 px-2 py-1 rounded">PCL-5: 52</span>
+                                    <span class="bg-yellow-500/20 px-2 py-1 rounded">Session 8/20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Quick Actions</h5>
+                        <div class="space-y-3">
+                            <button class="w-full bg-green-500/20 border border-green-500/30 rounded-lg py-3 px-4 text-left hover:bg-green-500/30 transition-all">
+                                <div class="font-medium">Schedule Session</div>
+                                <div class="text-xs opacity-70">Book next appointment</div>
+                            </button>
+                            <button class="w-full bg-blue-500/20 border border-blue-500/30 rounded-lg py-3 px-4 text-left hover:bg-blue-500/30 transition-all">
+                                <div class="font-medium">Send Assessment</div>
+                                <div class="text-xs opacity-70">PHQ-9, GAD-7, PCL-5</div>
+                            </button>
+                            <button class="w-full bg-purple-500/20 border border-purple-500/30 rounded-lg py-3 px-4 text-left hover:bg-purple-500/30 transition-all">
+                                <div class="font-medium">Generate Report</div>
+                                <div class="text-xs opacity-70">Progress summary</div>
+                            </button>
+                            <button class="w-full bg-red-500/20 border border-red-500/30 rounded-lg py-3 px-4 text-left hover:bg-red-500/30 transition-all">
+                                <div class="font-medium">Crisis Protocol</div>
+                                <div class="text-xs opacity-70">Emergency procedures</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessments Tab -->
+            <div x-show="activeTab === 'assessments'" class="space-y-6">
+                <h4 class="text-xl font-semibold">Clinical Assessments</h4>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Evidence-Based Tools</h5>
+                        <div class="space-y-4">
+                            <div class="evidence-based rounded-lg p-4">
+                                <h6 class="font-semibold mb-2">PHQ-9 (Depression)</h6>
+                                <p class="text-sm opacity-90 mb-3">Patient Health Questionnaire - 9 item depression screening</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs opacity-70">Last administered: 3 days ago</span>
+                                    <button class="bg-white/20 px-3 py-1 rounded text-xs hover:bg-white/30 transition-all">Send</button>
+                                </div>
+                            </div>
+                            
+                            <div class="evidence-based rounded-lg p-4">
+                                <h6 class="font-semibold mb-2">GAD-7 (Anxiety)</h6>
+                                <p class="text-sm opacity-90 mb-3">Generalized Anxiety Disorder 7-item scale</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs opacity-70">Last administered: 1 week ago</span>
+                                    <button class="bg-white/20 px-3 py-1 rounded text-xs hover:bg-white/30 transition-all">Send</button>
+                                </div>
+                            </div>
+                            
+                            <div class="evidence-based rounded-lg p-4">
+                                <h6 class="font-semibold mb-2">PCL-5 (PTSD)</h6>
+                                <p class="text-sm opacity-90 mb-3">PTSD Checklist for DSM-5</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs opacity-70">Last administered: 2 weeks ago</span>
+                                    <button class="bg-white/20 px-3 py-1 rounded text-xs hover:bg-white/30 transition-all">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Assessment Results</h5>
+                        <canvas id="assessmentChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights Tab -->
+            <div x-show="activeTab === 'insights'" class="space-y-6">
+                <h4 class="text-xl font-semibold">AI-Powered Clinical Insights</h4>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Pattern Recognition</h5>
+                        <div class="space-y-4">
+                            <div class="client-progress rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-3 h-3 bg-yellow-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <h6 class="font-semibold">Mood Pattern Alert - Sarah M.</h6>
+                                        <p class="text-sm opacity-90 mt-1">Analysis shows increasing anxiety levels on Sunday evenings. Consider exploring weekend triggers.</p>
+                                        <div class="text-xs opacity-70 mt-2">Confidence: 87% | Pattern observed over 4 weeks</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-progress rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-3 h-3 bg-green-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <h6 class="font-semibold">Progress Indicator - James K.</h6>
+                                        <p class="text-sm opacity-90 mt-1">Significant improvement in emotional regulation. CBT techniques showing positive results.</p>
+                                        <div class="text-xs opacity-70 mt-2">Confidence: 92% | 6-week trend analysis</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-progress rounded-lg p-4 border-l-4 border-red-400">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-3 h-3 bg-red-400 rounded-full mt-2"></div>
+                                    <div>
+                                        <h6 class="font-semibold">Risk Assessment - Maria L.</h6>
+                                        <p class="text-sm opacity-90 mt-1">Language patterns indicate increased suicidal ideation. Immediate intervention recommended.</p>
+                                        <div class="text-xs opacity-70 mt-2">Confidence: 94% | Requires immediate attention</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Treatment Recommendations</h5>
+                        <div class="space-y-4">
+                            <div class="bg-white/5 rounded-lg p-4">
+                                <h6 class="font-semibold text-green-300 mb-2">📋 Intervention Suggestions</h6>
+                                <ul class="text-sm space-y-2 opacity-90">
+                                    <li>• Increase session frequency for Maria L. (weekly → bi-weekly)</li>
+                                    <li>• Introduce mindfulness techniques for Sarah M.'s Sunday anxiety</li>
+                                    <li>• Consider EMDR protocol for James K.'s trauma processing</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white/5 rounded-lg p-4">
+                                <h6 class="font-semibold text-blue-300 mb-2">📊 Assessment Timing</h6>
+                                <ul class="text-sm space-y-2 opacity-90">
+                                    <li>• PHQ-9 due for 3 clients this week</li>
+                                    <li>• GAD-7 showing consistent trends - consider monthly frequency</li>
+                                    <li>• PCL-5 reassessment recommended for trauma clients</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-white/5 rounded-lg p-4">
+                                <h6 class="font-semibold text-purple-300 mb-2">🎯 Treatment Goals</h6>
+                                <ul class="text-sm space-y-2 opacity-90">
+                                    <li>• 73% of clients showing measurable improvement</li>
+                                    <li>• Average session attendance: 87%</li>
+                                    <li>• Treatment plan adherence: 91%</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation Tab -->
+            <div x-show="activeTab === 'documentation'" class="space-y-6">
+                <h4 class="text-xl font-semibold">Clinical Documentation</h4>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Session Notes</h5>
+                        <div class="bg-white/5 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h6 class="font-semibold">Sarah M. - Session #12</h6>
+                                <span class="text-xs opacity-70">March 15, 2024</span>
+                            </div>
+                            <div class="text-sm space-y-2 opacity-90">
+                                <p><strong>Presenting Concerns:</strong> Client reported increased anxiety related to work presentations. PHQ-9 score decreased from 12 to 8.</p>
+                                <p><strong>Interventions:</strong> Practiced breathing techniques, reviewed cognitive restructuring for presentation anxiety.</p>
+                                <p><strong>Homework:</strong> Daily anxiety log, practice presentation with breathing exercises.</p>
+                                <p><strong>Plan:</strong> Continue weekly sessions, reassess PHQ-9 in 2 weeks.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button class="bg-green-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition-colors">
+                                Save Note
+                            </button>
+                            <button class="bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors">
+                                Generate Summary
+                            </button>
+                            <button class="bg-purple-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-600 transition-colors">
+                                Export PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-xl p-6">
+                        <h5 class="text-lg font-semibold mb-4">Documentation Tools</h5>
+                        <div class="space-y-3">
+                            <button class="w-full bg-white/5 border border-white/20 rounded-lg py-3 px-4 text-left hover:bg-white/10 transition-all">
+                                <div class="font-medium">Treatment Plan Template</div>
+                                <div class="text-xs opacity-70">SMART goals framework</div>
+                            </button>
+                            <button class="w-full bg-white/5 border border-white/20 rounded-lg py-3 px-4 text-left hover:bg-white/10 transition-all">
+                                <div class="font-medium">Progress Note Template</div>
+                                <div class="text-xs opacity-70">SOAP format</div>
+                            </button>
+                            <button class="w-full bg-white/5 border border-white/20 rounded-lg py-3 px-4 text-left hover:bg-white/10 transition-all">
+                                <div class="font-medium">Crisis Documentation</div>
+                                <div class="text-xs opacity-70">Risk assessment forms</div>
+                            </button>
+                            <button class="w-full bg-white/5 border border-white/20 rounded-lg py-3 px-4 text-left hover:bg-white/10 transition-all">
+                                <div class="font-medium">Discharge Summary</div>
+                                <div class="text-xs opacity-70">Treatment outcome report</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clinical Evidence & Outcomes -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 fade-in-up" style="animation-delay: 0.6s">
+            <h3 class="text-3xl font-bold mb-6">Clinical Evidence & Outcomes</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-green-300">Measurable Client Outcomes</h4>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Average PHQ-9 Improvement</span>
+                                <span class="text-green-400 font-bold text-xl">-7.3 points</span>
+                            </div>
+                            <div class="text-sm opacity-80">After 12 weeks of treatment</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Crisis Intervention Success Rate</span>
+                                <span class="text-cyan-400 font-bold text-xl">94%</span>
+                            </div>
+                            <div class="text-sm opacity-80">Successful de-escalation within 24 hours</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Treatment Plan Adherence</span>
+                                <span class="text-purple-400 font-bold text-xl">91%</span>
+                            </div>
+                            <div class="text-sm opacity-80">Client compliance with recommended interventions</div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-medium">Session Attendance Rate</span>
+                                <span class="text-yellow-400 font-bold text-xl">87%</span>
+                            </div>
+                            <div class="text-sm opacity-80">Significant improvement over traditional methods</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-blue-300">Professional Benefits</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 mt-1">⏱️</span>
+                            <div>
+                                <h6 class="font-semibold">Time Savings</h6>
+                                <p class="text-sm opacity-90">Automated documentation reduces administrative time by 40%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <span class="text-cyan-400 mt-1">🎯</span>
+                            <div>
+                                <h6 class="font-semibold">Enhanced Accuracy</h6>
+                                <p class="text-sm opacity-90">AI-assisted pattern recognition improves diagnostic accuracy by 23%</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <span class="text-purple-400 mt-1">📊</span>
+                            <div>
+                                <h6 class="font-semibold">Data-Driven Insights</h6>
+                                <p class="text-sm opacity-90">Real-time analytics inform treatment decisions and outcomes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <span class="text-yellow-400 mt-1">🛡️</span>
+                            <div>
+                                <h6 class="font-semibold">Risk Management</h6>
+                                <p class="text-sm opacity-90">Automated crisis detection reduces liability and improves safety</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <span class="text-orange-400 mt-1">📈</span>
+                            <div>
+                                <h6 class="font-semibold">Practice Growth</h6>
+                                <p class="text-sm opacity-90">Improved outcomes lead to increased referrals and client retention</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration & Pricing -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="glass-morphism rounded-2xl p-8 slide-in-left" style="animation-delay: 0.8s">
+                <h3 class="text-2xl font-bold mb-6">EHR Integration</h3>
+                <div class="space-y-4">
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <h5 class="font-semibold mb-2 text-green-300">Supported Systems</h5>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>• Epic</div>
+                            <div>• Cerner</div>
+                            <div>• Practice Fusion</div>
+                            <div>• SimplePractice</div>
+                            <div>• TherapyNotes</div>
+                            <div>• TheraNest</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <h5 class="font-semibold mb-2 text-blue-300">API Integration</h5>
+                        <ul class="text-sm space-y-1">
+                            <li>• FHIR R4 compliant</li>
+                            <li>• HL7 messaging support</li>
+                            <li>• Real-time data sync</li>
+                            <li>• Custom webhook endpoints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-morphism rounded-2xl p-8 fade-in-up" style="animation-delay: 0.9s">
+                <h3 class="text-2xl font-bold mb-6">Professional Pricing</h3>
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-lg p-4 border border-green-500/30">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold">Solo Practice</span>
+                            <span class="text-2xl font-bold text-green-400">$99/mo</span>
+                        </div>
+                        <ul class="text-sm space-y-1 opacity-90">
+                            <li>• Up to 50 clients</li>
+                            <li>• All clinical tools</li>
+                            <li>• EHR integration</li>
+                            <li>• 24/7 crisis support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-4 border border-purple-500/30">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold">Group Practice</span>
+                            <span class="text-2xl font-bold text-purple-400">$199/mo</span>
+                        </div>
+                        <ul class="text-sm space-y-1 opacity-90">
+                            <li>• Up to 200 clients</li>
+                            <li>• Multi-therapist dashboard</li>
+                            <li>• Advanced analytics</li>
+                            <li>• White-label options</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-lg p-4 border border-cyan-500/30">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold">Enterprise</span>
+                            <span class="text-2xl font-bold text-cyan-400">Custom</span>
+                        </div>
+                        <ul class="text-sm space-y-1 opacity-90">
+                            <li>• Unlimited clients</li>
+                            <li>• Custom integrations</li>
+                            <li>• Dedicated support</li>
+                            <li>• Training & onboarding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center glass-morphism rounded-2xl p-8 fade-in-up" style="animation-delay: 1.0s">
+            <h3 class="text-3xl font-bold mb-4">Transform Your Practice with ALCHM</h3>
+            <p class="text-lg opacity-90 mb-6">Join leading mental health professionals using AI to enhance client outcomes</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-gradient-to-r from-green-500 to-emerald-600 px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105">
+                    Start Free Trial
+                </button>
+                <button class="border-2 border-white/30 px-8 py-3 rounded-xl font-semibold transition-all hover:bg-white/10">
+                    Schedule Demo
+                </button>
+            </div>
+            <div class="mt-6 text-sm opacity-70">
+                Contact: professionals@alchm.app | +1 (555) 234-5678
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function therapistDemo() {
+            return {
+                activeTab: 'overview',
+                
+                init() {
+                    this.initCharts();
+                    this.startAnimations();
+                },
+                
+                initCharts() {
+                    // Progress Chart
+                    const progressCtx = document.getElementById('progressChart').getContext('2d');
+                    new Chart(progressCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                            datasets: [
+                                {
+                                    label: 'Average PHQ-9 Score',
+                                    data: [15, 13, 12, 10, 8, 7],
+                                    borderColor: '#10B981',
+                                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                    borderWidth: 2,
+                                    fill: true
+                                },
+                                {
+                                    label: 'Average GAD-7 Score',
+                                    data: [12, 11, 10, 8, 7, 6],
+                                    borderColor: '#06B6D4',
+                                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                                    borderWidth: 2,
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    labels: { color: '#ffffff' }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: { color: '#ffffff' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                                },
+                                x: {
+                                    ticks: { color: '#ffffff' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                                }
+                            }
+                        }
+                    });
+
+                    // Assessment Chart
+                    const assessmentCtx = document.getElementById('assessmentChart').getContext('2d');
+                    new Chart(assessmentCtx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['Depression', 'Anxiety', 'PTSD', 'Mood', 'Sleep', 'Social'],
+                            datasets: [{
+                                label: 'Client Average Scores',
+                                data: [65, 59, 80, 81, 56, 55],
+                                borderColor: '#8B5CF6',
+                                backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    labels: { color: '#ffffff' }
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    pointLabels: { color: '#ffffff' },
+                                    ticks: { color: '#ffffff' }
+                                }
+                            }
+                        }
+                    });
+                },
+                
+                startAnimations() {
+                    const elements = document.querySelectorAll('.slide-in-left, .fade-in-up');
+                    elements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.style.opacity = '1';
+                            el.style.transform = el.classList.contains('slide-in-left') ? 'translateX(0)' : 'translateY(0)';
+                        }, index * 100);
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

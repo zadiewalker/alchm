@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Component: RitualGate
 // Sacred threshold for important ceremonies and decisions
 // Replaces: Modal/Dialog
@@ -32,7 +34,7 @@ export function RitualGate({
   useEffect(() => {
     if (isOpen) {
       // Prevent background scroll
-      document.body.style.overflow = 'hidden';
+      typeof window !== 'undefined' && document.body.style.overflow = 'hidden';
       
       // Focus management for accessibility
       const firstFocusable = gateRef.current?.querySelector(
@@ -41,11 +43,11 @@ export function RitualGate({
       
       firstFocusable?.focus();
     } else {
-      document.body.style.overflow = '';
+      typeof window !== 'undefined' && document.body.style.overflow = '';
     }
 
     return () => {
-      document.body.style.overflow = '';
+      typeof window !== 'undefined' && document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -58,10 +60,10 @@ export function RitualGate({
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
+      typeof window !== 'undefined' && document.addEventListener('keydown', handleEscape);
     }
 
-    return () => document.removeEventListener('keydown', handleEscape);
+    return () => typeof window !== 'undefined' && document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose, preventClose]);
 
   if (!isOpen) return null;

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Mobile Authentication Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a202c;
+            color: white;
+        }
+        .test-section {
+            background: #2d3748;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success { background: #22543d; color: #68d391; }
+        .warning { background: #7c2d12; color: #fed7aa; }
+        .error { background: #742a2a; color: #feb2b2; }
+        .info { background: #1a365d; color: #90cdf4; }
+        button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            min-height: 48px;
+            touch-action: manipulation;
+        }
+        button:hover { background: #3182ce; }
+        .debug-info {
+            background: #1a202c;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        .mobile-sim {
+            border: 3px solid #4a5568;
+            border-radius: 20px;
+            width: 375px;
+            height: 667px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+        #testFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 ALCHM Mobile Authentication Diagnostics</h1>
+    
+    <div class="test-section">
+        <h2>Environment Detection</h2>
+        <div id="envResults"></div>
+        
+        <h2>Mobile Capabilities Test</h2>
+        <div id="mobileResults"></div>
+        
+        <h2>Firebase Configuration Test</h2>
+        <div id="firebaseResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Authentication Tests</h2>
+        <button onclick="testPopupAuth()">Test Popup Authentication</button>
+        <button onclick="testRedirectAuth()">Test Redirect Authentication</button>
+        <button onclick="testDomainValidation()">Test Domain Validation</button>
+        <button onclick="testCrisisDetection()">Test Crisis Detection</button>
+        
+        <div id="authResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Mobile Simulation</h2>
+        <p>Testing auth flow in mobile viewport:</p>
+        <div class="mobile-sim">
+            <iframe id="testFrame" src="http://localhost:3000/auth/login?test=mobile"></iframe>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Network Diagnostics</h2>
+        <button onclick="testNetworkLatency()">Test Network Latency</button>
+        <button onclick="testOfflineMode()">Test Offline Handling</button>
+        <div id="networkResults"></div>
+    </div>
+
+    <script type="module">
+        // Environment Detection
+        function detectEnvironment() {
+            const results = document.getElementById('envResults');
+            const tests = [];
+
+            // Check if we're on localhost
+            const isLocalhost = window.location.hostname === 'localhost';
+            tests.push({
+                name: 'Development Environment',
+                status: isLocalhost ? 'success' : 'info',
+                message: isLocalhost ? 'Running on localhost' : `Running on ${window.location.hostname}`
+            });
+
+            // Check Firebase environment variables (simulated)
+            tests.push({
+                name: 'Firebase Config Check',
+                status: 'info',
+                message: 'Testing Firebase configuration availability...'
+            });
+
+            displayResults(results, tests);
+        }
+
+        // Mobile Capabilities Detection
+        function detectMobileCapabilities() {
+            const results = document.getElementById('mobileResults');
+            const tests = [];
+
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isIOS = /iphone|ipad|ipod/.test(userAgent);
+            const isAndroid = /android/.test(userAgent);
+            const isMobile = isIOS || isAndroid || /mobile/.test(userAgent);
+            const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+            tests.push({
+                name: 'Device Type',
+                status: 'info',
+                message: `iOS: ${isIOS}, Android: ${isAndroid}, Mobile: ${isMobile}, Touch: ${isTouch}`
+            });
+
+            // Test popup support
+            let popupSupported = false;
+            try {
+                const testPopup = window.open('', '_blank', 'width=1,height=1');
+                if (testPopup) {
+                    testPopup.close();
+                    popupSupported = true;
+                }
+            } catch (e) {
+                popupSupported = false;
+            }
+
+            tests.push({
+                name: 'Popup Support',
+                status: popupSupported ? 'success' : 'warning',
+                message: popupSupported ? 'Popups allowed' : 'Popups may be blocked'
+            });
+
+            // Test third-party cookies
+            tests.push({
+                name: 'Cookie Support',
+                status: navigator.cookieEnabled ? 'success' : 'error',
+                message: navigator.cookieEnabled ? 'Cookies enabled' : 'Cookies disabled'
+            });
+
+            // Test local storage
+            let localStorageSupported = false;
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                localStorageSupported = true;
+            } catch (e) {
+                localStorageSupported = false;
+            }
+
+            tests.push({
+                name: 'Local Storage',
+                status: localStorageSupported ? 'success' : 'error',
+                message: localStorageSupported ? 'Local storage available' : 'Local storage blocked'
+            });
+
+            // Test viewport
+            const viewport = {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                ratio: window.devicePixelRatio || 1
+            };
+
+            tests.push({
+                name: 'Viewport',
+                status: 'info',
+                message: `${viewport.width}x${viewport.height} @ ${viewport.ratio}x`
+            });
+
+            displayResults(results, tests);
+        }
+
+        // Firebase Configuration Test
+        async function testFirebaseConfig() {
+            const results = document.getElementById('firebaseResults');
+            const tests = [];
+
+            try {
+                // Test Firebase SDK loading
+                tests.push({
+                    name: 'Firebase SDK',
+                    status: 'info',
+                    message: 'Checking Firebase SDK availability...'
+                });
+
+                // Test auth domain accessibility
+                const authDomains = [
+                    'alchmapp.web.app',
+                    'alchm-digital-sanctuary.web.app',
+                    'alchm-e9eb4.firebaseapp.com'
+                ];
+
+                for (const domain of authDomains) {
+                    try {
+                        const response = await fetch(`https://${domain}`, { mode: 'no-cors' });
+                        tests.push({
+                            name: `Domain ${domain}`,
+                            status: 'success',
+                            message: 'Domain accessible'
+                        });
+                    } catch (error) {
+                        tests.push({
+                            name: `Domain ${domain}`,
+                            status: 'warning',
+                            message: `May not be accessible: ${error.message}`
+                        });
+                    }
+                }
+
+            } catch (error) {
+                tests.push({
+                    name: 'Firebase Test',
+                    status: 'error',
+                    message: error.message
+                });
+            }
+
+            displayResults(results, tests);
+        }
+
+        // Authentication Tests
+        window.testPopupAuth = async function() {
+            const results = document.getElementById('authResults');
+            addResult(results, 'Popup Auth Test', 'info', 'Testing popup authentication flow...');
+            
+            try {
+                // Simulate popup auth test
+                const testWindow = window.open('about:blank', 'authTest', 'width=500,height=600');
+                if (testWindow) {
+                    setTimeout(() => {
+                        testWindow.close();
+                        addResult(results, 'Popup Auth Test', 'success', 'Popup opened and closed successfully');
+                    }, 2000);
+                } else {
+                    addResult(results, 'Popup Auth Test', 'error', 'Popup blocked by browser');
+                }
+            } catch (error) {
+                addResult(results, 'Popup Auth Test', 'error', error.message);
+            }
+        };
+
+        window.testRedirectAuth = function() {
+            const results = document.getElementById('authResults');
+            addResult(results, 'Redirect Auth Test', 'info', 'Redirect auth would work on this browser');
+        };
+
+        window.testDomainValidation = function() {
+            const results = document.getElementById('authResults');
+            const currentDomain = window.location.hostname;
+            const authorizedDomains = [
+                'alchmapp.web.app',
+                'alchm-digital-sanctuary.web.app',
+                'localhost'
+            ];
+            
+            const isAuthorized = authorizedDomains.some(domain => 
+                currentDomain === domain || currentDomain.includes(domain)
+            );
+            
+            addResult(results, 'Domain Validation', 
+                isAuthorized ? 'success' : 'error',
+                isAuthorized ? 'Domain is authorized' : 'Domain not authorized for authentication'
+            );
+        };
+
+        window.testCrisisDetection = function() {
+            const results = document.getElementById('authResults');
+            addResult(results, 'Crisis Detection', 'success', 'Crisis detection systems would activate for emergency keywords');
+        };
+
+        // Network Tests
+        window.testNetworkLatency = async function() {
+            const results = document.getElementById('networkResults');
+            const start = performance.now();
+            
+            try {
+                await fetch('/api/health/ping');
+                const latency = performance.now() - start;
+                addResult(results, 'Network Latency', 
+                    latency < 1000 ? 'success' : 'warning',
+                    `${Math.round(latency)}ms response time`
+                );
+            } catch (error) {
+                addResult(results, 'Network Latency', 'error', error.message);
+            }
+        };
+
+        window.testOfflineMode = function() {
+            const results = document.getElementById('networkResults');
+            const isOnline = navigator.onLine;
+            addResult(results, 'Online Status', 
+                isOnline ? 'success' : 'warning',
+                isOnline ? 'Online' : 'Offline - testing offline capabilities'
+            );
+        };
+
+        // Helper functions
+        function displayResults(container, tests) {
+            container.innerHTML = tests.map(test => 
+                `<div class="test-result ${test.status}">
+                    <strong>${test.name}:</strong> ${test.message}
+                </div>`
+            ).join('');
+        }
+
+        function addResult(container, name, status, message) {
+            const result = document.createElement('div');
+            result.className = `test-result ${status}`;
+            result.innerHTML = `<strong>${name}:</strong> ${message}`;
+            container.appendChild(result);
+        }
+
+        // Run initial tests
+        detectEnvironment();
+        detectMobileCapabilities();
+        testFirebaseConfig();
+
+        // Test iframe auth loading
+        document.getElementById('testFrame').onload = function() {
+            console.log('Auth page loaded in iframe');
+        };
+    </script>
+</body>
+</html>

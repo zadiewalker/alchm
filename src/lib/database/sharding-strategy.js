@@ -1,6 +1,6 @@
 "use strict";
 // Intelligent Database Sharding for 10M+ Users
-// Problem: Hot documents kill performance at scale
+// Problem: Hot typeof window !== 'undefined' && documents kill performance at scale
 // Solution: Activity-based intelligent partitioning with auto-migration
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.shardingFunctions = exports.ShardRouter = exports.ShardMigrationService = exports.IntelligentSharding = void 0;

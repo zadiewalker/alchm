@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "timestamp": "2025-09-26T14:49:14.829Z",
+    "duration": "60.30s",
+    "mode": {
+      "name": "Diagnostic Only",
+      "description": "Run comprehensive diagnostic analysis",
+      "runDiagnostic": true,
+      "runHealing": false,
+      "runMonitoring": false,
+      "autoFix": false,
+      "verbose": false,
+      "dryRun": false,
+      "force": false,
+      "skipBackup": false
+    },
+    "version": "3.0.0"
+  },
+  "phases": {
+    "diagnostic": {
+      "status": "failed",
+      "error": "Diagnostic system failed with code 1:    Details: Potential secret key exposed in code: File: .env.local contains what appears to be a secret key\n   Details: Potential secret key exposed in code: File: .env.local contains what appears to be a secret key\n   Details: 🚨 DEPLOYMENT BLOCKED: Critical issues must be resolved before Firebase Studio deployment\n"
+    },
+    "healing": null,
+    "monitoring": null
+  },
+  "readiness": {
+    "readyForDeployment": false,
+    "checks": [
+      {
+        "name": "Bundle Size",
+        "status": "passed",
+        "result": {
+          "sizeMB": 0.14482421875,
+          "limitMB": 2,
+          "status": "within_limits"
+        }
+      },
+      {
+        "name": "Build Process",
+        "status": "passed",
+        "result": {
+          "status": "build_successful"
+        }
+      },
+      {
+        "name": "Firebase Config",
+        "status": "passed",
+        "result": {
+          "status": "configuration_valid"
+        }
+      },
+      {
+        "name": "Environment Variables",
+        "status": "failed",
+        "error": "Missing environment variables: NEXT_PUBLIC_FIREBASE_API_KEY, NEXT_PUBLIC_FIREBASE_PROJECT_ID"
+      }
+    ],
+    "timestamp": "2025-09-26T14:49:14.829Z"
+  },
+  "summary": {
+    "overallStatus": "needs_improvement",
+    "firebaseStudioReady": false,
+    "criticalIssues": 0,
+    "warningIssues": 0,
+    "fixesApplied": 0,
+    "complianceScore": null
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "deployment_blocker",
+      "title": "Deployment Readiness Issues",
+      "description": "Critical deployment checks failed",
+      "action": "Review readiness check failures and fix blocking issues"
+    }
+  ]
+}

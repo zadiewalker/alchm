@@ -1,0 +1,105 @@
+# ALCHM Auto-Deploy Pipeline
+# Designed for frictionless visual iteration
+
+name: 🌿 ALCHM Auto Deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/styles/**'
+      - 'src/components/**'
+      - 'src/app/**'
+      - 'tailwind.config.ts'
+      - 'next.config.js'
+  workflow_dispatch:
+    inputs:
+      deploy_type:
+        description: 'Deployment type'
+        required: true
+        default: 'visual-update'
+        type: choice
+        options:
+        - visual-update
+        - feature-update
+        - hotfix
+
+env:
+  NODE_VERSION: '18'
+  NEXT_TELEMETRY_DISABLED: 1
+
+jobs:
+  build-and-deploy:
+    name: 🚀 Build & Deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🌿 Checkout sanctuary
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: 🔧 Install dependencies
+      run: |
+        npm ci --prefer-offline --no-audit
+        
+    - name: 🏗️ Build project
+      run: |
+        npm run build
+      env:
+        NODE_OPTIONS: '--max-old-space-size=4096'
+        
+    - name: 🚀 Deploy to Firebase
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+        projectId: alchm-digital-sanctuary
+        channelId: live
+        
+    - name: 📱 Update deployment status
+      if: success()
+      run: |
+        echo "🎉 Deployment successful!"
+        echo "✨ Visual changes are now live at https://alchmapp.web.app"
+        
+    - name: ⚠️ Handle deployment failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed"
+        echo "📧 Consider setting up notifications for deployment failures"
+
+  preview-deploy:
+    name: 🔍 Preview Deploy
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: 🌿 Checkout sanctuary
+      uses: actions/checkout@v4
+      
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: 🔧 Install dependencies
+      run: npm ci --prefer-offline --no-audit
+        
+    - name: 🏗️ Build project
+      run: npm run build
+      env:
+        NODE_OPTIONS: '--max-old-space-size=4096'
+        
+    - name: 🔍 Deploy preview
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+        projectId: alchm-digital-sanctuary
+        expires: 7d

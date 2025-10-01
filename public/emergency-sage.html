@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - Emergency Sage Green Test</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .emergency-page {
+            background: linear-gradient(145deg, #a4b792 0%, #8fa37c 100%) !important;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .sage-test {
+            background: #a4b792 !important;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .gradient-test {
+            background: linear-gradient(45deg, #a4b792, #8fa37c) !important;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 10px 0;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #fefcfb;
+        }
+        
+        .test-blocks {
+            display: flex;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .color-block {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .sage-400 { background: #a4b792 !important; }
+        .sage-500 { background: #8fa37c !important; }
+        .sage-600 { background: #7a8f67 !important; }
+        
+        .success-message {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 30px;
+        }
+        
+        .timestamp {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="emergency-page">
+        <div class="sage-test">
+            <h1>🌿 ALCHM Emergency Sage Green Test</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                The World's First Identity OS.
+            </p>
+            
+            <div class="gradient-test">
+                <h2>Gradient Test: #a4b792 → #8fa37c</h2>
+                <p>Trauma-informed AI journaling. Private. Ritual, not therapy.</p>
+            </div>
+            
+            <div class="test-blocks">
+                <div class="color-block sage-400">#a4b792</div>
+                <div class="color-block sage-500">#8fa37c</div>
+                <div class="color-block sage-600">#7a8f67</div>
+            </div>
+            
+            <div class="success-message">
+                <h3>✅ SUCCESS!</h3>
+                <p>If you can see this beautiful sage green background, the colors are working perfectly!</p>
+                <p>This is your revolutionary ALCHM platform in all its sage green glory.</p>
+                <div class="timestamp">
+                    Emergency page loaded: <span id="timestamp"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px;">
+            <a href="/" style="color: white; text-decoration: underline; font-size: 1.1rem;">
+                → Continue to Full ALCHM App
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        console.log('🌿 EMERGENCY SAGE GREEN PAGE LOADED');
+        console.log('Background should be sage green gradient: #a4b792 to #8fa37c');
+        
+        // Verify colors are loading
+        setTimeout(() => {
+            const page = document.querySelector('.emergency-page');
+            const styles = getComputedStyle(page);
+            const bg = styles.background || styles.backgroundColor;
+            console.log('🎨 Current background:', bg);
+            
+            if (bg.includes('#a4b792') || bg.includes('164, 183, 146')) {
+                console.log('✅ SAGE GREEN DETECTED! Colors are working!');
+            } else {
+                console.log('❌ Sage green not detected. Background:', bg);
+            }
+        }, 500);
+    </script>
+</body>
+</html>

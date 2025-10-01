@@ -1,0 +1,39 @@
+{
+  "rules": {
+    "beta_therapists": {
+      "$therapist_id": {
+        ".read": "$therapist_id === auth.uid && auth.token.therapist_verified === true",
+        ".write": "$therapist_id === auth.uid && auth.token.therapist_verified === true"
+      }
+    },
+    "beta_session_tracking": {
+      "$session_id": {
+        ".read": "auth != null && auth.token.therapist_verified === true",
+        ".write": "auth != null && auth.token.therapist_verified === true"
+      }
+    },
+    "crisis_response_times": {
+      "$scenario_id": {
+        ".read": "auth != null && auth.token.therapist_verified === true",
+        ".write": "auth != null && auth.token.therapist_verified === true"
+      }
+    },
+    "beta_feature_flags": {
+      ".read": "auth != null && auth.token.therapist_verified === true"
+    },
+    "mock_client_activity": {
+      "$client_id": {
+        ".read": "auth != null && auth.token.therapist_verified === true && root.child('mock_clients').child($client_id).child('assignedTherapist').val() === auth.uid",
+        ".write": "auth != null && auth.token.therapist_verified === true && root.child('mock_clients').child($client_id).child('assignedTherapist').val() === auth.uid"
+      }
+    },
+    "emergency_escalation_queue": {
+      ".read": "auth != null && auth.token.therapist_verified === true",
+      ".write": "auth != null && auth.token.therapist_verified === true"
+    },
+    "beta_analytics_realtime": {
+      ".read": "auth != null && auth.token.therapist_verified === true",
+      ".write": "auth != null && auth.token.therapist_verified === true"
+    }
+  }
+}

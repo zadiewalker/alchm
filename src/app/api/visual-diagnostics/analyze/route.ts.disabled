@@ -1,0 +1,428 @@
+/**
+ * Visual Diagnostics Analysis API Route
+ * 
+ * Next.js API route that connects the frontend to Firebase Functions
+ * for screenshot analysis and visual diagnostics.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { getAuth } from 'firebase-admin/auth';
+import { getFunctions } from 'firebase-admin/functions';
+import { initializeApp, getApps, getApp } from 'firebase-admin/app';
+
+// Initialize Firebase Admin if not already done
+if (!getApps().length) {
+  initializeApp();
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const {
+      imageData,
+      imageType,
+      userDescription,
+      deviceContext,
+      userEmotionalState,
+      crisisLevel,
+      sessionId
+    } = body;
+
+    // Validate required fields
+    if (!imageData || !deviceContext) {
+      return NextResponse.json(
+        { error: 'Image data and device context are required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate image type
+    if (!['png', 'jpg', 'jpeg', 'webp'].includes(imageType)) {
+      return NextResponse.json(
+        { error: 'Unsupported image format. Please use PNG, JPG, or WebP' },
+        { status: 400 }
+      );
+    }
+
+    // Check image size (approximate from base64 length)
+    const imageSizeKB = (imageData.length * 3) / 4 / 1024;
+    if (imageSizeKB > 5000) { // 5MB limit
+      return NextResponse.json(
+        { error: 'Image too large. Please use an image smaller than 5MB' },
+        { status: 400 }
+      );
+    }
+
+    // Get user authentication context
+    const authHeader = request.headers.get('authorization');
+    let userId = null;
+    
+    if (authHeader?.startsWith('Bearer ')) {
+      try {
+        const idToken = authHeader.split('Bearer ')[1];
+        const decodedToken = await getAuth().verifyIdToken(idToken);
+        userId = decodedToken.uid;
+      } catch (error) {
+        console.warn('Failed to verify auth token:', error);
+        // Continue without user ID - allow anonymous analysis
+      }
+    }
+
+    // Prepare the analysis request
+    const analysisRequest = {
+      imageData,
+      imageType,
+      userDescription: userDescription?.trim() || '',
+      deviceContext,
+      userEmotionalState: userEmotionalState || 'neutral',
+      crisisLevel: crisisLevel || 'none',
+      sessionId,
+      userId
+    };
+
+    // Call Firebase Function for analysis
+    // In a real implementation, this would call the actual Firebase Function
+    // For now, we'll simulate the response structure
+    const analysisResult = await simulateVisualAnalysis(analysisRequest);
+
+    return NextResponse.json({
+      success: true,
+      data: analysisResult
+    });
+
+  } catch (error) {
+    console.error('Visual diagnostics API error:', error);
+
+    // Provide trauma-informed fallback response
+    return NextResponse.json({
+      success: true,
+      data: {
+        analysisId: `fallback_${Date.now()}`,
+        fallback: true,
+        guidance: {
+          emotionalPreparation: "I'm experiencing some technical challenges while analyzing your screenshot, but I'm still here to support you.",
+          introduction: "✨ Thank you for sharing your screenshot. While my visual analysis is temporarily limited, I can still offer guidance based on common patterns.",
+          encouragement: ["Your willingness to seek technical support shows real self-advocacy"],
+          safetyReminders: [
+            "Your data and privacy remain protected",
+            "Crisis support is always available regardless of technical issues"
+          ]
+        },
+        detectedIssues: [{
+          id: 'fallback_issue',
+          type: 'ui-error',
+          severity: 'medium',
+          description: 'Visual analysis temporarily unavailable - using general troubleshooting approach',
+          traumaInformedExplanation: 'Sometimes technical tools have their own challenges. This doesn\'t reflect on you or diminish the validity of your technical needs.',
+          userImpact: {
+            functionalImpact: 'minor',
+            emotionalImpact: 'frustrating',
+            urgencyLevel: 'medium',
+            traumaInformedConsiderations: ['Technical setbacks can feel discouraging, but they are temporary']
+          },
+          suggestedFix: {
+            approach: [
+              {
+                stepNumber: 1,
+                action: 'Try refreshing the page',
+                therapeuticFraming: 'Sometimes giving your sanctuary a gentle refresh can resolve various issues',
+                safetyCheck: 'Your data and progress remain safe during a page refresh',
+                encouragement: 'This simple step often resolves many technical challenges'
+              },
+              {
+                stepNumber: 2,
+                action: 'Clear browser cache if the issue persists',
+                therapeuticFraming: 'Clearing your browser\'s temporary files can help resolve interface issues',
+                safetyCheck: 'This won\'t delete your journal entries or account information',
+                encouragement: 'You\'re taking proactive steps to maintain your digital sanctuary'
+              }
+            ],
+            safetyAssurances: [
+              'Your data remains protected',
+              'You can always reach out for human support'
+            ],
+            alternatives: ['Contact human support for personalized visual guidance']
+          }
+        }],
+        interfaceAnalysis: {
+          detectedPage: 'unknown',
+          componentsAnalyzed: 0,
+          functionalComponents: 0
+        },
+        accessibilityInsights: [],
+        mobileOptimizations: [],
+        crisisElementsStatus: [{
+          type: 'crisis-button',
+          status: 'working',
+          assessment: 'Crisis support remains accessible regardless of other technical issues'
+        }],
+        fallbackOptions: [
+          'Connect with human support for personalized visual guidance',
+          'Try basic troubleshooting steps like refreshing the page',
+          'Check if the issue persists across different devices or browsers'
+        ],
+        timestamp: new Date().toISOString()
+      }
+    });
+  }
+}
+
+/**
+ * Simulate visual analysis for development/testing
+ * In production, this would call the actual Firebase Function
+ */
+async function simulateVisualAnalysis(request: any): Promise<any> {
+  // Simulate processing delay
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  const { userDescription, deviceContext, userEmotionalState, crisisLevel } = request;
+  
+  // Generate realistic analysis based on user input
+  const detectedIssues = [];
+  
+  // Detect common issues based on description
+  if (userDescription?.toLowerCase().includes('button') || userDescription?.toLowerCase().includes('click')) {
+    detectedIssues.push({
+      id: 'interaction_issue',
+      type: 'interaction-blocked',
+      severity: 'medium',
+      description: 'Interactive element not responding to user input',
+      traumaInformedExplanation: 'When buttons or links don\'t respond, it can feel frustrating and blocking. This is often a temporary interface issue, not a reflection of your ability to navigate technology.',
+      userImpact: {
+        functionalImpact: 'major',
+        emotionalImpact: 'frustrating',
+        urgencyLevel: 'medium',
+        traumaInformedConsiderations: ['Blocked interactions can feel like personal failure but are common technical issues']
+      },
+      suggestedFix: {
+        approach: [
+          {
+            stepNumber: 1,
+            action: 'Try clicking or tapping in a slightly different area',
+            therapeuticFraming: 'Sometimes interfaces need gentle adjustment rather than perfect precision',
+            safetyCheck: 'Multiple attempts won\'t harm your device or account',
+            encouragement: 'You\'re learning to navigate your digital sanctuary with patience'
+          },
+          {
+            stepNumber: 2,
+            action: 'Wait a moment and try again',
+            therapeuticFraming: 'Sometimes interfaces need a moment to respond, especially during high-traffic times',
+            safetyCheck: 'Waiting is always safe and often resolves temporary issues',
+            encouragement: 'Your patience with technology shows wisdom and self-care'
+          }
+        ],
+        safetyAssurances: [
+          'Your data remains safe while troubleshooting',
+          'Multiple attempts will not cause any problems'
+        ],
+        alternatives: ['Try using keyboard navigation if available', 'Refresh the page and try again']
+      }
+    });
+  }
+
+  if (userDescription?.toLowerCase().includes('sign') || userDescription?.toLowerCase().includes('login')) {
+    detectedIssues.push({
+      id: 'auth_issue',
+      type: 'interaction-blocked',
+      severity: 'high',
+      description: 'Authentication process experiencing difficulties',
+      traumaInformedExplanation: 'Sign-in challenges can feel blocking when you need access to your healing space. This is often a temporary technical issue that doesn\'t reflect on your capability.',
+      userImpact: {
+        functionalImpact: 'blocking',
+        emotionalImpact: 'overwhelming',
+        urgencyLevel: 'high',
+        traumaInformedConsiderations: ['Access to healing tools should never feel conditional or difficult']
+      },
+      suggestedFix: {
+        approach: [
+          {
+            stepNumber: 1,
+            action: 'Try signing in with a different method (Google, Apple, or email)',
+            therapeuticFraming: 'Your sanctuary welcomes you through multiple pathways - each door leads to the same healing space',
+            safetyCheck: 'All sign-in methods connect to the same account and journal entries',
+            encouragement: 'Flexibility in access methods shows your resilience in maintaining connection to your healing'
+          },
+          {
+            stepNumber: 2,
+            action: 'Clear browser cookies and cache for this site',
+            therapeuticFraming: 'Sometimes giving your browser a fresh start helps it connect more smoothly with your sanctuary',
+            safetyCheck: 'This will sign you out but won\'t delete your journal entries',
+            encouragement: 'You\'re taking proactive steps to maintain your digital healing space'
+          }
+        ],
+        safetyAssurances: [
+          'Your journal entries are safely stored and protected',
+          'Multiple sign-in attempts will not lock or harm your account'
+        ],
+        alternatives: ['Contact support for personalized sign-in assistance']
+      }
+    });
+  }
+
+  // Mobile-specific issues
+  const mobileOptimizations = [];
+  if (deviceContext.isMobile) {
+    mobileOptimizations.push({
+      type: 'touch-target-size',
+      description: 'Some interactive elements may benefit from larger touch targets',
+      suggestion: 'Use browser zoom or device accessibility settings to make buttons easier to tap'
+    });
+
+    if (deviceContext.viewport.width < 375) {
+      mobileOptimizations.push({
+        type: 'viewport-scaling',
+        description: 'Interface may be scaled too small for comfortable viewing',
+        suggestion: 'Try rotating your device or adjusting browser zoom settings'
+      });
+    }
+  }
+
+  // Browser-specific guidance
+  const browserCompatibilityIssues = [];
+  if (deviceContext.browser.toLowerCase().includes('safari')) {
+    browserCompatibilityIssues.push({
+      browser: 'Safari',
+      version: deviceContext.browserVersion,
+      issue: 'Safari may block authentication popups by default',
+      workaround: 'Allow popups for this site in Safari settings',
+      traumaInformedExplanation: 'Safari\'s security features sometimes block authentication, but this can feel frustrating when you need access to your sanctuary'
+    });
+  }
+
+  // Generate appropriate emotional response
+  const emotionalGuidance = getEmotionalGuidance(userEmotionalState, crisisLevel);
+
+  return {
+    analysisId: `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    guidance: emotionalGuidance,
+    detectedIssues,
+    interfaceAnalysis: {
+      detectedPage: detectPageFromDescription(userDescription),
+      componentsAnalyzed: detectedIssues.length + 2,
+      functionalComponents: Math.max(0, 3 - detectedIssues.length)
+    },
+    accessibilityInsights: generateAccessibilityInsights(deviceContext),
+    mobileOptimizations,
+    browserCompatibilityIssues,
+    crisisElementsStatus: [{
+      type: 'crisis-button',
+      status: 'working',
+      assessment: 'Crisis support elements remain accessible and functional'
+    }],
+    visualSteps: [], // Would be populated with actual visual guidance
+    fallbackOptions: [
+      'Connect with human support for personalized guidance',
+      'Try the suggested troubleshooting steps at your own pace',
+      'Return to this analysis anytime you need to reference the guidance'
+    ],
+    crisisResources: crisisLevel !== 'none' ? getCrisisResources() : undefined,
+    timestamp: new Date().toISOString()
+  };
+}
+
+function getEmotionalGuidance(emotionalState: string, crisisLevel: string) {
+  const preparations = {
+    frustrated: "I understand you're feeling frustrated with this technical issue. Let's approach this one gentle step at a time, honoring your emotional state while working toward a solution.",
+    anxious: "Take a deep breath. These visual steps are designed to feel manageable and safe. You can pause at any time if you need to ground yourself.",
+    overwhelmed: "Your emotional wellbeing comes first. These visual guides are here when you feel ready, and there's no pressure to complete them all at once.",
+    neutral: "You're approaching this technical challenge with good awareness. Let's work through this systematically with visual support."
+  };
+
+  const introductions = {
+    frustrated: "✨ I see you're experiencing a technical challenge in your sanctuary. Let's gently explore what's happening with visual guidance that honors your current emotional state.",
+    anxious: "✨ Technical issues can feel overwhelming, especially when they affect your healing space. I'm here to provide gentle, visual support that you can follow at your own pace.",
+    overwhelmed: "✨ I understand that technical problems can feel like too much right now. These visual guides are designed to be as gentle and non-overwhelming as possible.",
+    neutral: "✨ Thank you for sharing your screenshot. I'll provide clear visual guidance to help resolve this technical challenge in your digital sanctuary."
+  };
+
+  const encouragements = {
+    frustrated: [
+      "Your persistence in seeking technical support shows real self-advocacy",
+      "These technical challenges don't reflect on your ability to use technology",
+      "You're building digital resilience with each step you take"
+    ],
+    anxious: [
+      "You're showing courage by working through technical uncertainty",
+      "Each gentle step you take builds confidence in your digital sanctuary",
+      "Your cautious approach to technology shows wisdom and self-care"
+    ],
+    overwhelmed: [
+      "Every small action you take is meaningful progress",
+      "You don't have to solve everything at once - small steps count",
+      "Your willingness to try, even when overwhelmed, shows real strength"
+    ],
+    neutral: [
+      "You're approaching this technical challenge with good awareness",
+      "Each step builds your understanding of your digital healing space",
+      "Your methodical approach to troubleshooting serves your sanctuary well"
+    ]
+  };
+
+  return {
+    emotionalPreparation: preparations[emotionalState as keyof typeof preparations] || preparations.neutral,
+    introduction: introductions[emotionalState as keyof typeof introductions] || introductions.neutral,
+    encouragement: encouragements[emotionalState as keyof typeof encouragements] || encouragements.neutral,
+    safetyReminders: [
+      'Your data and privacy remain protected throughout this process',
+      'You can pause at any time and return when you feel ready',
+      'These are suggestions - you know what works best for your situation',
+      crisisLevel !== 'none' ? 'Crisis support is immediately available if you need it' : 'Crisis support is always available if you need it'
+    ].filter(Boolean)
+  };
+}
+
+function detectPageFromDescription(description: string): string {
+  if (!description) return 'unknown';
+  
+  const lowerDesc = description.toLowerCase();
+  if (lowerDesc.includes('journal') || lowerDesc.includes('writing') || lowerDesc.includes('editor')) {
+    return 'journal-writing';
+  }
+  if (lowerDesc.includes('sign') || lowerDesc.includes('login') || lowerDesc.includes('auth')) {
+    return 'authentication';
+  }
+  if (lowerDesc.includes('dashboard') || lowerDesc.includes('home')) {
+    return 'dashboard';
+  }
+  if (lowerDesc.includes('pricing') || lowerDesc.includes('payment') || lowerDesc.includes('subscription')) {
+    return 'pricing';
+  }
+  
+  return 'unknown';
+}
+
+function generateAccessibilityInsights(deviceContext: any): any[] {
+  const insights = [];
+  
+  if (deviceContext.isMobile) {
+    insights.push({
+      type: 'touch-target-size',
+      severity: 'moderate',
+      description: 'Some interactive elements may be smaller than the recommended 44px touch target',
+      wcagLevel: 'AA',
+      traumaInformedContext: 'Touch targets that are too small can create barriers to accessing your healing space, especially during moments of distress',
+      suggestedFix: 'Use browser zoom or device accessibility settings to increase touch target sizes'
+    });
+  }
+
+  return insights;
+}
+
+function getCrisisResources(): any[] {
+  return [
+    {
+      type: 'phone',
+      name: 'National Suicide Prevention Lifeline',
+      contact: '988',
+      description: '24/7 crisis support',
+      availability: 'Always available'
+    },
+    {
+      type: 'text',
+      name: 'Crisis Text Line',
+      contact: 'Text HOME to 741741',
+      description: 'Text-based crisis support',
+      availability: '24/7'
+    }
+  ];
+}

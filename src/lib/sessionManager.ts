@@ -1,6 +1,9 @@
 'use client';
 
-import { auth } from './firebaseClient';
+import { getAuth } from 'firebase/auth';
+import { app } from './firebase';
+
+const auth = getAuth(app);
 import { 
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,

@@ -1,0 +1,63 @@
+{
+  "monitoring": {
+    "enabled": true,
+    "environment": "production",
+    "samplingRate": 1,
+    "coreWebVitals": {
+      "enabled": true,
+      "thresholds": {
+        "LCP": 2000,
+        "FID": 100,
+        "CLS": 0.1,
+        "FCP": 1200,
+        "TTFB": 600
+      }
+    },
+    "crisisMonitoring": {
+      "enabled": true,
+      "criticalThreshold": 1000,
+      "emergencyThreshold": 500,
+      "alertChannels": [
+        "console",
+        "api",
+        "localStorage"
+      ],
+      "escalation": true
+    },
+    "userExperience": {
+      "enabled": true,
+      "trackInteractions": true,
+      "trackNavigation": true,
+      "trackErrors": true
+    },
+    "performanceRegression": {
+      "enabled": true,
+      "baseline": {
+        "LCP": 1500,
+        "FID": 50,
+        "CLS": 0.05
+      },
+      "alertThreshold": 0.1
+    }
+  },
+  "alerts": {
+    "endpoints": {
+      "performance": "/api/monitoring/performance",
+      "crisis": "/api/crisis-alert",
+      "errors": "/api/errors/report"
+    },
+    "notifications": {
+      "browserNotifications": true,
+      "localStorage": true,
+      "console": true
+    }
+  },
+  "analytics": {
+    "provider": "firebase",
+    "customDimensions": {
+      "userType": "trauma_informed",
+      "crisisContext": "enabled",
+      "performanceProfile": "high_priority"
+    }
+  }
+}

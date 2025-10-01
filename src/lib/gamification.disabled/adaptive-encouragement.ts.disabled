@@ -1,0 +1,202 @@
+/**
+ * ALCHM Adaptive Encouragement Engine
+ * AI-powered system that provides personalized support exactly when users need it
+ * 
+ * This engine learns from user patterns to deliver the right encouragement at the right time,
+ * creating a deeply supportive experience that feels intuitive and genuinely helpful.
+ */
+
+export interface EncouragementProfile {
+  userId: string;
+  personalityType: PersonalityType;
+  encouragementStyle: EncouragementStyle;
+  responsePatterns: ResponsePattern[];
+  effectivenessHistory: EffectivenessRecord[];
+  emotionalNeeds: EmotionalNeed[];
+  triggerSensitivities: TriggerSensitivity[];
+  preferredTiming: TimingPreference[];
+  communicationStyle: CommunicationStyle;
+  currentLifePhase: LifePhase;
+}
+
+export interface PersonalityType {
+  name: string;
+  description: string;
+  coreNeeds: string[];
+  motivationSources: string[];
+  resistancePatterns: string[];
+  optimalApproaches: string[];
+  traumaConsiderations: string[];
+}
+
+export interface EncouragementStyle {
+  primary: 'gentle' | 'empowering' | 'practical' | 'inspiring' | 'grounding' | 'playful';
+  secondary: string[];
+  avoidPatterns: string[];
+  culturalConsiderations: string[];
+  neurodivergentAdaptations: string[];
+}
+
+export interface ResponsePattern {
+  trigger: string;
+  historicalResponse: 'positive' | 'neutral' | 'resistant' | 'overwhelmed';
+  effectiveStrategies: string[];
+  ineffectiveApproaches: string[];
+  contextFactors: string[];
+  learningDate: Date;
+}
+
+export interface EffectivenessRecord {
+  encouragementType: string;
+  message: string;
+  userResponse: UserResponse;
+  contextualFactors: ContextualFactor[];
+  longTermImpact: number; // -1 to 1
+  immediateReaction: number; // -1 to 1
+  createdAt: Date;
+}
+
+export interface UserResponse {
+  engagement: 'ignored' | 'acknowledged' | 'acted_upon' | 'deeply_moved';
+  emotionalShift: number; // -1 to 1
+  behaviorChange: string[];
+  feedbackGiven?: string;
+  timeToAction?: number; // minutes
+}
+
+export interface EmotionalNeed {
+  type: 'validation' | 'hope' | 'connection' | 'autonomy' | 'safety' | 'growth' | 'meaning';
+  intensity: number; // 0-1
+  contextTriggers: string[];
+  satisfactionStrategies: string[];
+  isCurrentlyActive: boolean;
+}
+
+export interface TriggerSensitivity {
+  triggerType: 'performance_pressure' | 'comparison' | 'perfectionism' | 'abandonment' | 'criticism' | 'overwhelm';
+  sensitivityLevel: number; // 0-1
+  manifestations: string[];
+  protectiveStrategies: string[];
+  healingApproaches: string[];
+}
+
+export interface TimingPreference {
+  optimalTimes: string[]; // 'morning', 'afternoon', 'evening', 'crisis_moments'
+  avoidTimes: string[];
+  frequencyPreference: 'minimal' | 'moderate' | 'frequent' | 'on_demand';
+  contextualTiming: ContextualTiming[];
+}
+
+export interface ContextualTiming {
+  context: string; // 'before_writing', 'after_breakthrough', 'during_struggle'
+  timing: 'immediate' | 'delayed' | 'follow_up';
+  effectiveness: number; // 0-1
+}
+
+export interface CommunicationStyle {
+  tone: 'warm' | 'professional' | 'casual' | 'poetic' | 'direct' | 'gentle';
+  length: 'brief' | 'moderate' | 'detailed';
+  metaphorUse: 'minimal' | 'moderate' | 'rich';
+  personalityReflection: boolean; // Mirror their communication style
+  culturalSensitivity: string[];
+}
+
+export interface LifePhase {
+  current: 'exploration' | 'building' | 'transition' | 'integration' | 'mastery' | 'service';
+  challenges: string[];
+  opportunities: string[];
+  supportNeeds: string[];
+  growthEdges: string[];
+}
+
+export interface AdaptiveEncouragement {
+  id: string;
+  type: EncouragementType;
+  message: string;
+  reasoning: string; // Why this encouragement was chosen
+  personalizations: Personalization[];
+  deliveryMethod: DeliveryMethod;
+  optimalTiming: Date;
+  expectedImpact: ExpectedImpact;
+  followUpStrategy: FollowUpStrategy;
+  abTestVariant?: string;
+}
+
+export interface EncouragementType {
+  category: 'support' | 'celebration' | 'motivation' | 'guidance' | 'connection' | 'reflection' | 'affirmation';
+  subcategory: string;
+  intentionality: string; // What this aims to accomplish
+  traumaAwareness: string; // How this accounts for trauma
+  empowermentFactor: number; // 0-1, how much this builds user agency
+}
+
+export interface Personalization {
+  type: 'name_usage' | 'archetype_reference' | 'progress_acknowledgment' | 'struggle_validation' | 'strength_highlighting';
+  content: string;
+  reasoning: string;
+}
+
+export interface DeliveryMethod {
+  channel: 'in_app_gentle' | 'notification_if_opted' | 'email_digest' | 'dashboard_highlight';
+  presentation: 'text' | 'visual_with_text' | 'interactive_moment' | 'ritual_integration';
+  interactivity: 'passive' | 'acknowledgment_option' | 'reflection_prompt' | 'action_suggestion';
+  accessibility: AccessibilityAdaptation;
+}
+
+export interface AccessibilityAdaptation {
+  screenReaderOptimized: boolean;
+  highContrastAvailable: boolean;
+  audioVersion: boolean;
+  simplifiedLanguage: boolean;
+  culturalAdaptations: string[];
+}
+
+export interface ExpectedImpact {
+  immediateEffect: 'comfort' | 'motivation' | 'insight' | 'connection' | 'hope' | 'validation';
+  longerTermBenefit: string;
+  riskConsiderations: string[];
+  successMetrics: string[];
+}
+
+export interface FollowUpStrategy {
+  checkInTiming: number; // hours after delivery
+  adaptationSignals: string[]; // What to watch for
+  escalationTriggers: string[]; // When to provide more support
+  celebrationOpportunities: string[]; // When to amplify success
+}
+
+export interface ContextualFactor {
+  type: 'time_of_day' | 'streak_status' | 'recent_activity' | 'mood_indicators' | 'external_stressors' | 'growth_phase';
+  value: string | number;
+  influence: number; // -1 to 1, how this affects encouragement needs
+}
+
+export class AdaptiveEncouragementEngine {
+  
+  /**
+   * Generate personalized encouragement based on user context and history
+   */
+  static generateEncouragement(
+    profile: EncouragementProfile,
+    currentContext: UserContext,
+    triggerEvent: EncouragementTrigger
+  ): AdaptiveEncouragement {
+    
+    const encouragementType = this.selectOptimalType(profile, currentContext, triggerEvent);
+    const personalizations = this.createPersonalizations(profile, currentContext);
+    const message = this.craftMessage(encouragementType, personalizations, profile);
+    const deliveryMethod = this.determineDeliveryMethod(profile, currentContext);
+    const timing = this.calculateOptimalTiming(profile, currentContext);
+    
+    return {
+      id: `encouragement_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`,
+      type: encouragementType,
+      message,
+      reasoning: this.generateReasoning(profile, currentContext, triggerEvent, encouragementType),
+      personalizations,
+      deliveryMethod,
+      optimalTiming: timing,
+      expectedImpact: this.predictImpact(encouragementType, profile, currentContext),
+      followUpStrategy: this.createFollowUpStrategy(profile, encouragementType),
+      abTestVariant: this.assignABTestVariant(profile)
+    };\n  }\n  \n  /**\n   * Learn from user responses to improve future encouragement\n   */\n  static learnFromResponse(\n    profile: EncouragementProfile,\n    encouragement: AdaptiveEncouragement,\n    userResponse: UserResponse,\n    contextualFactors: ContextualFactor[]\n  ): EncouragementProfile {\n    \n    // Create effectiveness record\n    const effectivenessRecord: EffectivenessRecord = {\n      encouragementType: encouragement.type.category,\n      message: encouragement.message,\n      userResponse,\n      contextualFactors,\n      longTermImpact: this.calculateLongTermImpact(userResponse),\n      immediateReaction: this.calculateImmediateReaction(userResponse),\n      createdAt: new Date()\n    };\n    \n    // Update response patterns\n    const updatedPatterns = this.updateResponsePatterns(\n      profile.responsePatterns,\n      encouragement,\n      userResponse\n    );\n    \n    // Refine personality understanding\n    const refinedPersonality = this.refinePersonalityType(\n      profile.personalityType,\n      userResponse,\n      contextualFactors\n    );\n    \n    // Adjust encouragement style preferences\n    const adjustedStyle = this.adjustEncouragementStyle(\n      profile.encouragementStyle,\n      encouragement,\n      userResponse\n    );\n    \n    return {\n      ...profile,\n      personalityType: refinedPersonality,\n      encouragementStyle: adjustedStyle,\n      responsePatterns: updatedPatterns,\n      effectivenessHistory: [...profile.effectivenessHistory, effectivenessRecord]\n    };\n  }\n  \n  /**\n   * Analyze user patterns to predict encouragement needs\n   */\n  static predictEncouragementNeeds(\n    profile: EncouragementProfile,\n    recentActivity: RecentActivity[],\n    upcomingEvents: UpcomingEvent[]\n  ): PredictedNeed[] {\n    \n    const predictions: PredictedNeed[] = [];\n    \n    // Analyze patterns for proactive support\n    const strugglesPatterns = this.identifyStrugglePatterns(recentActivity);\n    const growthOpportunities = this.identifyGrowthOpportunities(recentActivity);\n    const riskFactors = this.assessRiskFactors(profile, recentActivity);\n    const celebrationMoments = this.identifyCelebrationOpportunities(recentActivity);\n    \n    // Generate predictions\n    strugglesPatterns.forEach(pattern => {\n      predictions.push({\n        type: 'support_need',\n        trigger: pattern.identifier,\n        confidence: pattern.confidence,\n        urgency: pattern.urgency,\n        suggestedApproach: this.suggestSupportApproach(profile, pattern),\n        timing: pattern.predictedTiming\n      });\n    });\n    \n    growthOpportunities.forEach(opportunity => {\n      predictions.push({\n        type: 'growth_encouragement',\n        trigger: opportunity.identifier,\n        confidence: opportunity.confidence,\n        urgency: 'low',\n        suggestedApproach: this.suggestGrowthApproach(profile, opportunity),\n        timing: opportunity.optimalTiming\n      });\n    });\n    \n    return predictions.sort((a, b) => b.confidence - a.confidence);\n  }\n  \n  /**\n   * Create personalized encouragement templates for different scenarios\n   */\n  static createEncouragementLibrary(profile: EncouragementProfile): EncouragementTemplate[] {\n    const templates: EncouragementTemplate[] = [];\n    \n    // Struggle support templates\n    templates.push({\n      id: 'gentle_struggle_support',\n      category: 'support',\n      triggerConditions: ['low_mood', 'skipped_entries', 'self_critical_language'],\n      personalityTargets: ['sensitive', 'perfectionist', 'anxious'],\n      templates: {\n        gentle: 'Your struggle is valid, and your gentleness with yourself is wisdom. {{name}}, you don\\'t have to be perfect to be worthy of love.',\n        empowering: 'You\\'re navigating something difficult with such courage, {{name}}. Trust that this challenging time is also growing your strength.',\n        practical: 'Difficult days are part of the journey, {{name}}. What\\'s one small, kind thing you could do for yourself right now?'\n      },\n      adaptations: {\n        trauma_aware: 'Remember that healing isn\\'t linear, {{name}}. Your nervous system is doing exactly what it needs to do to keep you safe.',\n        culturally_sensitive: 'Honor what your ancestors knew about moving through difficulty. You carry their wisdom, {{name}}.',\n        neurodivergent: 'Your brain works beautifully in its own way, {{name}}. What accommodations would help you feel more supported right now?'\n      }\n    });\n    \n    // Growth celebration templates\n    templates.push({\n      id: 'growth_celebration',\n      category: 'celebration',\n      triggerConditions: ['consistent_practice', 'breakthrough_language', 'positive_mood_shift'],\n      personalityTargets: ['achiever', 'learner', 'connector'],\n      templates: {\n        gentle: 'Look at you growing, {{name}}. Can you feel how your consistent kindness to yourself is creating real change?',\n        empowering: 'Your dedication to your growth is creating ripples of transformation, {{name}}. You\\'re becoming who you were always meant to be.',\n        practical: 'Your {{streak_days}} days of practice are evidence of your commitment to yourself, {{name}}. This consistency is rewiring your brain for healing.'\n      },\n      adaptations: {\n        trauma_aware: 'Every act of self-compassion rewrites old stories, {{name}}. You\\'re literally healing at the neural level.',\n        culturally_sensitive: 'Your growth honors both your individual journey and your community\\'s strength, {{name}}.',\n        neurodivergent: 'Your unique way of processing and growing is exactly what the world needs, {{name}}.'\n      }\n    });\n    \n    // Connection and belonging templates\n    templates.push({\n      id: 'connection_reminder',\n      category: 'connection',\n      triggerConditions: ['isolation_language', 'disconnection_patterns', 'community_engagement_low'],\n      personalityTargets: ['introvert', 'empath', 'people_pleaser'],\n      templates: {\n        gentle: 'You belong here, {{name}}. Your story and your struggle connect you to the beautiful web of human experience.',\n        empowering: 'Your willingness to be vulnerable creates safety for others to do the same, {{name}}. Your healing heals others.',\n        practical: 'Connection doesn\\'t always require reaching out, {{name}}. Sometimes it\\'s simply remembering you\\'re not alone in this.'\n      },\n      adaptations: {\n        trauma_aware: 'Your need for safe connection is completely valid, {{name}}. Trust your instincts about who feels safe.',\n        culturally_sensitive: 'You are held by both your chosen family and your ancestral wisdom, {{name}}.',\n        neurodivergent: 'Connection can look different for you, {{name}}, and that\\'s not just okay - it\\'s needed.'\n      }\n    });\n    \n    // Wisdom and insight templates\n    templates.push({\n      id: 'wisdom_acknowledgment',\n      category: 'affirmation',\n      triggerConditions: ['insight_language', 'pattern_recognition', 'self_awareness_growth'],\n      personalityTargets: ['thinker', 'seeker', 'wise_one'],\n      templates: {\n        gentle: 'Your insights are beautiful gifts, {{name}}. Trust the wisdom that lives in your experience.',\n        empowering: 'The clarity you\\'re developing is a superpower, {{name}}. You\\'re becoming your own best teacher.',\n        practical: 'Your growing self-awareness is creating real change in your life, {{name}}. Notice how differently you\\'re responding to old triggers.'\n      },\n      adaptations: {\n        trauma_aware: 'Your body\\'s wisdom and your mind\\'s insights are both guiding you home to yourself, {{name}}.',\n        culturally_sensitive: 'You\\'re integrating both ancient wisdom and personal insight, {{name}}. This combination is powerful.',\n        neurodivergent: 'Your unique way of processing information creates insights others might miss, {{name}}. Your perspective is valuable.'\n      }\n    });\n    \n    return templates;\n  }\n  \n  /**\n   * Generate crisis-sensitive encouragement for difficult moments\n   */\n  static generateCrisisSupportEncouragement(\n    profile: EncouragementProfile,\n    crisisContext: CrisisContext\n  ): CrisisEncouragement {\n    \n    const safetiesFirst = this.ensureCrisisSafety(profile, crisisContext);\n    const gentleSupport = this.craftGentleCrisisMessage(profile, crisisContext);\n    const resourceConnections = this.identifyRelevantResources(profile, crisisContext);\n    const followUpCare = this.createCrisisFollowUpPlan(profile, crisisContext);\n    \n    return {\n      type: 'crisis_support',\n      safetyFirst: safetiesFirst,\n      gentleMessage: gentleSupport,\n      resources: resourceConnections,\n      immediateSupport: this.generateImmediateSupport(profile),\n      followUpCare,\n      professionalBackup: this.connectToProfessionalResources(crisisContext)\n    };\n  }\n  \n  // Private helper methods\n  private static selectOptimalType(\n    profile: EncouragementProfile,\n    context: UserContext,\n    trigger: EncouragementTrigger\n  ): EncouragementType {\n    \n    // Analyze context to determine what type of encouragement is needed\n    const contextScore = this.analyzeContextNeeds(context);\n    const personalityFit = this.assessPersonalityMatch(profile.personalityType);\n    const historicalEffectiveness = this.getHistoricalEffectiveness(profile.effectivenessHistory);\n    \n    // Weight different encouragement types based on analysis\n    const typeScores = {\n      support: contextScore.needsSupport * personalityFit.supportReceptive * historicalEffectiveness.support,\n      celebration: contextScore.hasSuccess * personalityFit.celebrationReceptive * historicalEffectiveness.celebration,\n      motivation: contextScore.needsMotivation * personalityFit.motivationReceptive * historicalEffectiveness.motivation,\n      guidance: contextScore.needsGuidance * personalityFit.guidanceReceptive * historicalEffectiveness.guidance,\n      connection: contextScore.needsConnection * personalityFit.connectionReceptive * historicalEffectiveness.connection,\n      reflection: contextScore.needsReflection * personalityFit.reflectionReceptive * historicalEffectiveness.reflection,\n      affirmation: contextScore.needsAffirmation * personalityFit.affirmationReceptive * historicalEffectiveness.affirmation\n    };\n    \n    const highestType = Object.entries(typeScores).reduce((max, [type, score]) => \n      score > max.score ? { type: type as EncouragementType['category'], score } : max,\n      { type: 'support' as EncouragementType['category'], score: 0 }\n    ).type;\n    \n    return {\n      category: highestType,\n      subcategory: this.getSubcategory(highestType, context),\n      intentionality: this.defineIntentionality(highestType, context),\n      traumaAwareness: this.ensureTraumaAwareness(highestType, profile),\n      empowermentFactor: this.calculateEmpowermentFactor(highestType)\n    };\n  }\n  \n  private static createPersonalizations(\n    profile: EncouragementProfile,\n    context: UserContext\n  ): Personalization[] {\n    const personalizations: Personalization[] = [];\n    \n    // Name usage personalization\n    if (profile.communicationStyle.personalityReflection) {\n      personalizations.push({\n        type: 'name_usage',\n        content: context.preferredName || 'Beautiful Soul',\n        reasoning: 'Using preferred name creates personal connection'\n      });\n    }\n    \n    // Archetype reference\n    if (context.currentArchetype) {\n      personalizations.push({\n        type: 'archetype_reference',\n        content: context.currentArchetype,\n        reasoning: 'Acknowledging their healing archetype reinforces identity growth'\n      });\n    }\n    \n    // Progress acknowledgment\n    if (context.recentProgress) {\n      personalizations.push({\n        type: 'progress_acknowledgment',\n        content: context.recentProgress,\n        reasoning: 'Recognizing specific progress builds motivation'\n      });\n    }\n    \n    return personalizations;\n  }\n  \n  private static craftMessage(\n    type: EncouragementType,\n    personalizations: Personalization[],\n    profile: EncouragementProfile\n  ): string {\n    \n    // Get base message template for the encouragement type\n    const baseTemplate = this.getBaseTemplate(type, profile.encouragementStyle.primary);\n    \n    // Apply personalizations\n    let message = baseTemplate;\n    personalizations.forEach(personalization => {\n      const placeholder = `{{${personalization.type}}}`;\n      message = message.replace(placeholder, personalization.content);\n    });\n    \n    // Apply tone adjustments\n    message = this.adjustTone(message, profile.communicationStyle);\n    \n    // Add cultural sensitivity\n    message = this.applyCulturalSensitivity(message, profile.communicationStyle.culturalSensitivity);\n    \n    return message;\n  }\n  \n  // Additional private helper methods would be implemented here...\n  private static generateReasoning(profile: EncouragementProfile, context: UserContext, trigger: EncouragementTrigger, type: EncouragementType): string {\n    return `Based on ${profile.personalityType.name} personality and ${trigger.name} trigger, ${type.category} encouragement was selected for optimal support.`;\n  }\n  \n  private static determineDeliveryMethod(profile: EncouragementProfile, context: UserContext): DeliveryMethod {\n    return {\n      channel: 'in_app_gentle',\n      presentation: 'text',\n      interactivity: 'acknowledgment_option',\n      accessibility: {\n        screenReaderOptimized: true,\n        highContrastAvailable: true,\n        audioVersion: false,\n        simplifiedLanguage: false,\n        culturalAdaptations: profile.communicationStyle.culturalSensitivity\n      }\n    };\n  }\n  \n  private static calculateOptimalTiming(profile: EncouragementProfile, context: UserContext): Date {\n    // TODO: Implement optimal timing calculation\n    return new Date(Date.now() + 60000); // 1 minute from now as placeholder\n  }\n  \n  private static predictImpact(type: EncouragementType, profile: EncouragementProfile, context: UserContext): ExpectedImpact {\n    return {\n      immediateEffect: 'comfort',\n      longerTermBenefit: 'Increased self-compassion and resilience',\n      riskConsiderations: ['May feel overwhelming if user is in crisis'],\n      successMetrics: ['User engagement', 'Mood improvement', 'Continued practice']\n    };\n  }\n  \n  private static createFollowUpStrategy(profile: EncouragementProfile, type: EncouragementType): FollowUpStrategy {\n    return {\n      checkInTiming: 24,\n      adaptationSignals: ['user_engagement', 'mood_indicators'],\n      escalationTriggers: ['no_response', 'negative_feedback'],\n      celebrationOpportunities: ['positive_response', 'continued_practice']\n    };\n  }\n  \n  private static assignABTestVariant(profile: EncouragementProfile): string {\n    // TODO: Implement A/B testing variant assignment\n    return 'standard';\n  }\n  \n  // Implement all other private helper methods...\n  private static calculateLongTermImpact(response: UserResponse): number {\n    return response.engagement === 'deeply_moved' ? 1 : response.engagement === 'acted_upon' ? 0.7 : 0.3;\n  }\n  \n  private static calculateImmediateReaction(response: UserResponse): number {\n    return response.emotionalShift;\n  }\n  \n  private static updateResponsePatterns(patterns: ResponsePattern[], encouragement: AdaptiveEncouragement, response: UserResponse): ResponsePattern[] {\n    // TODO: Implement response pattern updates\n    return patterns;\n  }\n  \n  private static refinePersonalityType(personality: PersonalityType, response: UserResponse, factors: ContextualFactor[]): PersonalityType {\n    // TODO: Implement personality refinement\n    return personality;\n  }\n  \n  private static adjustEncouragementStyle(style: EncouragementStyle, encouragement: AdaptiveEncouragement, response: UserResponse): EncouragementStyle {\n    // TODO: Implement style adjustment\n    return style;\n  }\n  \n  // Additional implementation stubs...\n  private static identifyStrugglePatterns(activity: RecentActivity[]): any[] {\n    return [];\n  }\n  \n  private static identifyGrowthOpportunities(activity: RecentActivity[]): any[] {\n    return [];\n  }\n  \n  private static assessRiskFactors(profile: EncouragementProfile, activity: RecentActivity[]): any[] {\n    return [];\n  }\n  \n  private static identifyCelebrationOpportunities(activity: RecentActivity[]): any[] {\n    return [];\n  }\n  \n  private static suggestSupportApproach(profile: EncouragementProfile, pattern: any): string {\n    return 'gentle_validation';\n  }\n  \n  private static suggestGrowthApproach(profile: EncouragementProfile, opportunity: any): string {\n    return 'celebrate_progress';\n  }\n  \n  private static analyzeContextNeeds(context: UserContext): any {\n    return {\n      needsSupport: 0.8,\n      hasSuccess: 0.3,\n      needsMotivation: 0.5,\n      needsGuidance: 0.4,\n      needsConnection: 0.6,\n      needsReflection: 0.7,\n      needsAffirmation: 0.5\n    };\n  }\n  \n  private static assessPersonalityMatch(personality: PersonalityType): any {\n    return {\n      supportReceptive: 0.9,\n      celebrationReceptive: 0.7,\n      motivationReceptive: 0.6,\n      guidanceReceptive: 0.8,\n      connectionReceptive: 0.5,\n      reflectionReceptive: 0.9,\n      affirmationReceptive: 0.8\n    };\n  }\n  \n  private static getHistoricalEffectiveness(history: EffectivenessRecord[]): any {\n    return {\n      support: 0.8,\n      celebration: 0.7,\n      motivation: 0.6,\n      guidance: 0.8,\n      connection: 0.5,\n      reflection: 0.9,\n      affirmation: 0.8\n    };\n  }\n  \n  private static getSubcategory(category: string, context: UserContext): string {\n    return 'gentle_validation';\n  }\n  \n  private static defineIntentionality(category: string, context: UserContext): string {\n    return 'Provide emotional support and validation';\n  }\n  \n  private static ensureTraumaAwareness(category: string, profile: EncouragementProfile): string {\n    return 'Avoids triggering language, provides choice and control';\n  }\n  \n  private static calculateEmpowermentFactor(category: string): number {\n    return 0.8;\n  }\n  \n  private static getBaseTemplate(type: EncouragementType, style: string): string {\n    return 'You are doing beautifully, {{name}}. Your journey matters.';\n  }\n  \n  private static adjustTone(message: string, style: CommunicationStyle): string {\n    return message; // TODO: Implement tone adjustment\n  }\n  \n  private static applyCulturalSensitivity(message: string, sensitivities: string[]): string {\n    return message; // TODO: Implement cultural sensitivity\n  }\n  \n  private static ensureCrisisSafety(profile: EncouragementProfile, context: CrisisContext): string[] {\n    return ['Immediate safety resources', 'Professional support connections'];\n  }\n  \n  private static craftGentleCrisisMessage(profile: EncouragementProfile, context: CrisisContext): string {\n    return 'You are not alone. This difficult moment will pass. You have survived difficult times before.';\n  }\n  \n  private static identifyRelevantResources(profile: EncouragementProfile, context: CrisisContext): string[] {\n    return ['Crisis Text Line', 'National Suicide Prevention Lifeline', 'Local mental health resources'];\n  }\n  \n  private static createCrisisFollowUpPlan(profile: EncouragementProfile, context: CrisisContext): any {\n    return {\n      checkInHours: [1, 6, 24],\n      supportEscalation: 'professional_resources',\n      gentleCare: 'daily_check_ins'\n    };\n  }\n  \n  private static generateImmediateSupport(profile: EncouragementProfile): string[] {\n    return ['Breathing exercises', 'Grounding techniques', 'Self-soothing suggestions'];\n  }\n  \n  private static connectToProfessionalResources(context: CrisisContext): any {\n    return {\n      available: true,\n      types: ['crisis_counselors', 'emergency_services', 'mental_health_professionals']\n    };\n  }\n}\n\n// Supporting interfaces\nexport interface UserContext {\n  currentMood?: string;\n  recentActivity: RecentActivity[];\n  streakStatus: string;\n  recentProgress?: string;\n  currentArchetype?: string;\n  preferredName?: string;\n  timeOfDay: string;\n  dayOfWeek: string;\n  externalStressors?: string[];\n}\n\nexport interface EncouragementTrigger {\n  name: string;\n  type: string;\n  context: Record<string, any>;\n  urgency: 'low' | 'medium' | 'high' | 'crisis';\n}\n\nexport interface RecentActivity {\n  type: string;\n  date: Date;\n  mood?: string;\n  engagement: number;\n  outcome: string;\n}\n\nexport interface UpcomingEvent {\n  type: string;\n  date: Date;\n  significance: number;\n  supportNeeded?: string[];\n}\n\nexport interface PredictedNeed {\n  type: string;\n  trigger: string;\n  confidence: number;\n  urgency: 'low' | 'medium' | 'high';\n  suggestedApproach: string;\n  timing: Date;\n}\n\nexport interface EncouragementTemplate {\n  id: string;\n  category: string;\n  triggerConditions: string[];\n  personalityTargets: string[];\n  templates: Record<string, string>;\n  adaptations: Record<string, string>;\n}\n\nexport interface CrisisContext {\n  severity: 'mild' | 'moderate' | 'severe' | 'emergency';\n  indicators: string[];\n  resources: string[];\n  timeOfDay: string;\n  supportSystem: string[];\n}\n\nexport interface CrisisEncouragement {\n  type: 'crisis_support';\n  safetyFirst: string[];\n  gentleMessage: string;\n  resources: string[];\n  immediateSupport: string[];\n  followUpCare: any;\n  professionalBackup: any;\n}

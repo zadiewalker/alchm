@@ -1,0 +1,984 @@
+// ALCHM Crisis Monitoring System - Real-time Alert Processing
+// Comprehensive crisis detection, professional team alerts, and escalation management
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+// Initialize Firestore
+const db = getFirestore();
+
+// Initialize Twilio for SMS/Voice alerts
+interface TwilioConfig {
+  accountSid: string;
+  authToken: string;
+  crisisNumber: string;
+  voiceNumber: string;
+}
+
+let twilioClient: any = null;
+
+function initializeTwilio(): TwilioConfig | null {
+  const config = functions.config();
+  if (config.twilio?.account_sid && config.twilio?.auth_token) {
+    const Twilio = require('twilio');
+    twilioClient = new Twilio(config.twilio.account_sid, config.twilio.auth_token);
+    
+    return {
+      accountSid: config.twilio.account_sid,
+      authToken: config.twilio.auth_token,
+      crisisNumber: config.twilio.crisis_number || '+18885551234',
+      voiceNumber: config.twilio.voice_number || '+18885551235'
+    };
+  }
+  
+  console.warn('Twilio not configured - SMS/Voice alerts will not work');
+  return null;
+}
+
+// ===== CRISIS ALERT INTERFACES =====
+
+interface CrisisAlert {
+  id: string;
+  type: CrisisAlertType;
+  participantId: string;
+  riskLevel: 'immediate' | 'high' | 'moderate' | 'mild';
+  confidence: number;
+  triggers: string[];
+  culturalContext: string[];
+  timestamp: Date;
+  text: string; // Limited text for context (first 500 chars)
+  
+  routing: {
+    primaryRecipients: string[];
+    escalationRecipients: string[];
+    culturalLiaisons: string[];
+  };
+  
+  delivery: {
+    sms: AlertDeliveryStatus;
+    mobileApp: AlertDeliveryStatus;
+    dashboard: AlertDeliveryStatus;
+    voice?: AlertDeliveryStatus;
+    email?: AlertDeliveryStatus;
+  };
+  
+  response: {
+    acknowledged: boolean;
+    acknowledgedBy?: string;
+    acknowledgedAt?: Date;
+    responseTime?: number;
+    professionalAssigned?: string;
+    interventionStarted: boolean;
+    interventionNotes?: string;
+  };
+  
+  escalation: {
+    level: number; // 0 = initial, 1 = first escalation, 2 = second, 3 = emergency
+    escalatedAt?: Date;
+    escalationReason?: string;
+    emergencyServicesContacted: boolean;
+  };
+}
+
+interface AlertDeliveryStatus {
+  sent: boolean;
+  sentAt?: Date;
+  delivered?: boolean;
+  deliveredAt?: Date;
+  failed?: boolean;
+  failureReason?: string;
+  messageId?: string;
+}
+
+enum CrisisAlertType {
+  IMMEDIATE_SUICIDE_RISK = 'immediate_suicide_risk',
+  ACTIVE_SELF_HARM = 'active_self_harm',
+  SEVERE_PSYCHOSIS = 'severe_psychosis',
+  SUBSTANCE_OVERDOSE = 'substance_overdose',
+  HIGH_RISK_IDEATION = 'high_risk_ideation',
+  TRAUMA_FLASHBACK = 'trauma_flashback',
+  PANIC_CRISIS = 'panic_crisis',
+  MODERATE_CONCERN = 'moderate_concern'
+}
+
+interface ProfessionalRecipient {
+  id: string;
+  name: string;
+  role: 'crisis_counselor' | 'clinical_director' | 'cultural_liaison' | 'backup_counselor';
+  credentials: string[];
+  specializations: string[];
+  contactMethods: {
+    primaryPhone: string;
+    backupPhone?: string;
+    sms: string;
+    email: string;
+    mobileAppId?: string;
+  };
+  availability: {
+    currentStatus: 'available' | 'busy' | 'responding' | 'unavailable';
+    maxConcurrentCases: number;
+    currentCaseCount: number;
+  };
+  culturalCompetencies: string[]; // ['lgbtq+', 'bipoc', 'youth', 'immigrant', etc.]
+}
+
+// ===== MAIN CRISIS ALERT PROCESSOR =====
+
+export const processCrisisAlert = functions
+  .runWith({ 
+    memory: '1GB', 
+    timeoutSeconds: 120,
+    maxInstances: 50 
+  })
+  .firestore.document('crisis_alerts/{alertId}')
+  .onCreate(async (snap, context) => {
+    const alert = snap.data() as CrisisAlert;
+    const alertId = context.params.alertId;
+    
+    console.log(`🚨 CRISIS ALERT TRIGGERED: ${alertId}`, {
+      type: alert.type,
+      riskLevel: alert.riskLevel,
+      confidence: alert.confidence,
+      participantId: alert.participantId.substring(0, 8)
+    });
+    
+    const startTime = Date.now();
+    
+    try {
+      // Initialize Twilio
+      const twilioConfig = initializeTwilio();
+      
+      // Get appropriate professional recipients
+      const recipients = await getAlertRecipients(alert);
+      
+      if (recipients.length === 0) {
+        console.error('No available professionals for crisis alert!');
+        await triggerEmergencyEscalation(alertId, 'No professional recipients available');
+        return;
+      }
+      
+      // Process alert delivery across all channels simultaneously
+      const deliveryResults = await Promise.allSettled([
+        sendSMSAlerts(alert, recipients, twilioConfig),
+        sendMobileAppAlerts(alert, recipients),
+        updateRealtimeDashboard(alert),
+        sendEmailNotifications(alert, recipients),
+        logCrisisAnalytics(alert)
+      ]);
+      
+      // Check for delivery failures
+      const failures = deliveryResults
+        .map((result, index) => ({ index, result }))
+        .filter(({ result }) => result.status === 'rejected');
+        
+      if (failures.length > 0) {
+        console.error('Alert delivery failures:', failures.map(f => f.result));
+        await activateBackupDelivery(alert, failures, twilioConfig);
+      }
+      
+      // Set automatic escalation timer based on risk level
+      const escalationDelay = getEscalationDelay(alert.riskLevel);
+      await scheduleEscalation(alertId, escalationDelay, 1);
+      
+      // Update alert with delivery status
+      const deliveryStatus = deliveryResults.reduce((status, result, index) => {
+        const channelNames = ['sms', 'mobileApp', 'dashboard', 'email', 'analytics'];
+        const channelName = channelNames[index];
+        if (channelName && channelName !== 'analytics') {
+          status[channelName] = {
+            sent: result.status === 'fulfilled',
+            sentAt: new Date(),
+            failed: result.status === 'rejected',
+            failureReason: result.status === 'rejected' ? String(result.reason) : undefined
+          };
+        }
+        return status;
+      }, {} as any);
+      
+      await snap.ref.update({
+        'delivery': deliveryStatus,
+        'delivery.initiated': true,
+        'delivery.initiatedAt': FieldValue.serverTimestamp(),
+        'processing.startTime': startTime,
+        'processing.endTime': Date.now(),
+        'processing.processingTimeMs': Date.now() - startTime,
+        'escalation.level': 0,
+        'escalation.scheduledAt': new Date(Date.now() + escalationDelay)
+      });
+      
+      console.log(`Crisis alert ${alertId} processed successfully in ${Date.now() - startTime}ms`);
+      
+    } catch (error) {
+      console.error('CRITICAL ERROR in crisis alert processing:', error);
+      
+      // Emergency fallback - direct escalation with all available methods
+      await triggerEmergencyEscalation(alertId, `Processing error: ${error}`);
+    }
+  });
+
+// ===== SMS ALERT SYSTEM =====
+
+async function sendSMSAlerts(
+  alert: CrisisAlert, 
+  recipients: ProfessionalRecipient[], 
+  twilioConfig: TwilioConfig | null
+): Promise<SMSDeliveryResult[]> {
+  if (!twilioConfig || !twilioClient) {
+    throw new Error('Twilio not configured for SMS alerts');
+  }
+  
+  const smsPromises = recipients.map(async (recipient) => {
+    const message = formatCrisisAlertMessage(alert, recipient);
+    
+    try {
+      const result = await twilioClient.messages.create({
+        body: message,
+        from: twilioConfig.crisisNumber,
+        to: recipient.contactMethods.sms
+      });
+      
+      return {
+        recipientId: recipient.id,
+        messageId: result.sid,
+        status: 'sent' as const,
+        sentAt: new Date(),
+        phoneNumber: recipient.contactMethods.sms
+      };
+    } catch (error: any) {
+      console.error(`SMS delivery failed for ${recipient.id} (${recipient.contactMethods.sms}):`, error);
+      
+      // Try backup phone if available
+      if (recipient.contactMethods.backupPhone) {
+        try {
+          const backupResult = await twilioClient.messages.create({
+            body: message + '\n[BACKUP ALERT]',
+            from: twilioConfig.crisisNumber,
+            to: recipient.contactMethods.backupPhone
+          });
+          
+          return {
+            recipientId: recipient.id,
+            messageId: backupResult.sid,
+            status: 'sent' as const,
+            sentAt: new Date(),
+            phoneNumber: recipient.contactMethods.backupPhone,
+            notes: 'Sent to backup phone after primary failed'
+          };
+        } catch (backupError) {
+          console.error(`Backup SMS also failed for ${recipient.id}:`, backupError);
+        }
+      }
+      
+      return {
+        recipientId: recipient.id,
+        status: 'failed' as const,
+        error: error.message,
+        sentAt: new Date(),
+        phoneNumber: recipient.contactMethods.sms
+      };
+    }
+  });
+  
+  const results = await Promise.all(smsPromises);
+  
+  // Log SMS delivery statistics
+  const successCount = results.filter(r => r.status === 'sent').length;
+  const failureCount = results.filter(r => r.status === 'failed').length;
+  
+  console.log(`SMS Alert Delivery - Success: ${successCount}, Failed: ${failureCount}`);
+  
+  if (failureCount > 0) {
+    console.warn('SMS delivery failures:', results.filter(r => r.status === 'failed'));
+  }
+  
+  return results;
+}
+
+interface SMSDeliveryResult {
+  recipientId: string;
+  messageId?: string;
+  status: 'sent' | 'failed';
+  sentAt: Date;
+  phoneNumber: string;
+  error?: string;
+  notes?: string;
+}
+
+function formatCrisisAlertMessage(alert: CrisisAlert, recipient: ProfessionalRecipient): string {
+  const severity = alert.riskLevel.toUpperCase();
+  const participantId = alert.participantId.substring(0, 8);
+  const confidence = Math.round(alert.confidence * 100);
+  
+  // Add cultural context if relevant to recipient's competencies
+  const relevantCulturalContext = alert.culturalContext.filter(context =>
+    recipient.culturalCompetencies.includes(context)
+  );
+  
+  const culturalInfo = relevantCulturalContext.length > 0
+    ? `\nCultural: ${relevantCulturalContext.join(', ')}`
+    : '';
+    
+  const triggers = alert.triggers.length > 0
+    ? `\nTriggers: ${alert.triggers.slice(0, 2).join(', ')}`
+    : '';
+  
+  const urgencyIndicator = alert.riskLevel === 'immediate' ? '🚨🚨🚨 IMMEDIATE ACTION REQUIRED 🚨🚨🚨' : '🚨';
+  
+  return `${urgencyIndicator} ALCHM CRISIS ALERT - ${severity}
+
+Participant: ${participantId}...
+Confidence: ${confidence}%${culturalInfo}${triggers}
+Time: ${alert.timestamp.toLocaleString()}
+
+${alert.riskLevel === 'immediate' ? 'RESPOND WITHIN 2 MINUTES' : 'RESPOND IMMEDIATELY'}
+
+Dashboard: https://crisis.alchm.app/alert/${alert.id}
+Acknowledge: Reply ACK to this message
+
+Professional: ${recipient.name} (${recipient.role})`;
+}
+
+// ===== MOBILE APP ALERTS =====
+
+async function sendMobileAppAlerts(alert: CrisisAlert, recipients: ProfessionalRecipient[]): Promise<void> {
+  try {
+    // Filter recipients who have mobile app IDs
+    const mobileRecipients = recipients.filter(r => r.contactMethods.mobileAppId);
+    
+    if (mobileRecipients.length === 0) {
+      console.warn('No mobile app recipients for crisis alert');
+      return;
+    }
+    
+    // Create push notifications for professional team mobile apps
+    const notifications = mobileRecipients.map(recipient => ({
+      token: recipient.contactMethods.mobileAppId!,
+      notification: {
+        title: `🚨 ${alert.riskLevel.toUpperCase()} Crisis Alert`,
+        body: `Participant needs immediate attention. Confidence: ${Math.round(alert.confidence * 100)}%. Tap to respond.`,
+      },
+      data: {
+        alertId: alert.id,
+        alertType: alert.type,
+        riskLevel: alert.riskLevel,
+        participantId: alert.participantId,
+        confidence: alert.confidence.toString(),
+        culturalContext: JSON.stringify(alert.culturalContext),
+        triggers: JSON.stringify(alert.triggers.slice(0, 3)),
+        timestamp: alert.timestamp.toISOString(),
+        action: 'crisis_response',
+        recipientId: recipient.id,
+        recipientRole: recipient.role
+      },
+      android: {
+        priority: 'high' as const,
+        ttl: 3600000, // 1 hour
+        notification: {
+          channelId: 'crisis_alerts',
+          priority: 'max' as const,
+          defaultSound: true,
+          defaultVibrateTimings: true,
+          color: '#FF0000', // Red for crisis
+          tag: `crisis_${alert.id}`, // Allows replacing/updating
+        }
+      },
+      apns: {
+        payload: {
+          aps: {
+            alert: {
+              title: `🚨 ${alert.riskLevel.toUpperCase()} Crisis Alert`,
+              body: `Immediate response needed. Tap to respond.`
+            },
+            badge: 1,
+            sound: 'critical-alert.wav', // Custom critical alert sound
+            category: 'CRISIS_ALERT',
+            threadId: `crisis_${alert.id}`,
+            'content-available': 1
+          }
+        },
+        headers: {
+          'apns-priority': '10', // Immediate delivery
+          'apns-push-type': 'alert'
+        }
+      }
+    }));
+    
+    // Send all notifications
+    const results = await admin.messaging().sendAll(notifications);
+    
+    // Log delivery results
+    console.log(`Mobile app alerts: ${results.successCount}/${notifications.length} delivered`);
+    
+    if (results.failureCount > 0) {
+      const failures = results.responses
+        .map((response, index) => ({ response, recipient: mobileRecipients[index] }))
+        .filter(({ response }) => !response.success);
+        
+      console.error('Mobile app alert failures:', failures.map(({ response, recipient }) => ({
+        recipientId: recipient.id,
+        error: response.error?.message,
+        errorCode: response.error?.code
+      })));
+    }
+    
+    // Store delivery metrics for each recipient
+    for (let i = 0; i < results.responses.length; i++) {
+      const response = results.responses[i];
+      const recipient = mobileRecipients[i];
+      
+      if (response.success) {
+        console.log(`Mobile alert delivered to ${recipient.id}: ${response.messageId}`);
+      }
+    }
+    
+  } catch (error) {
+    console.error('Error sending mobile app alerts:', error);
+    throw error;
+  }
+}
+
+// ===== REAL-TIME DASHBOARD UPDATES =====
+
+async function updateRealtimeDashboard(alert: CrisisAlert): Promise<void> {
+  try {
+    // Update the real-time dashboard with new crisis alert
+    const dashboardUpdate = {
+      alertId: alert.id,
+      type: alert.type,
+      riskLevel: alert.riskLevel,
+      confidence: alert.confidence,
+      participantId: alert.participantId.substring(0, 8) + '...', // Privacy protection
+      culturalContext: alert.culturalContext,
+      triggerCount: alert.triggers.length,
+      timestamp: alert.timestamp,
+      status: 'active',
+      acknowledged: false,
+      responseTime: null,
+      assignedProfessional: null,
+      updatedAt: FieldValue.serverTimestamp()
+    };
+    
+    // Store in real-time dashboard collection
+    await db.collection('crisis_dashboard').doc(alert.id).set(dashboardUpdate);
+    
+    // Update dashboard statistics
+    await updateDashboardStatistics(alert);
+    
+    // Trigger dashboard refresh via Realtime Database for instant updates
+    const realtimeDb = admin.database();
+    await realtimeDb.ref('crisis_alerts/active').push({
+      alertId: alert.id,
+      riskLevel: alert.riskLevel,
+      timestamp: alert.timestamp.toISOString(),
+      urgent: alert.riskLevel === 'immediate'
+    });
+    
+    console.log(`Dashboard updated for crisis alert ${alert.id}`);
+    
+  } catch (error) {
+    console.error('Error updating dashboard:', error);
+    throw error;
+  }
+}
+
+async function updateDashboardStatistics(alert: CrisisAlert): Promise<void> {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const statsRef = db.collection('crisis_statistics').doc(today);
+    
+    await statsRef.update({
+      [`alerts.${alert.riskLevel}`]: FieldValue.increment(1),
+      [`alerts.total`]: FieldValue.increment(1),
+      [`cultural.${alert.culturalContext.join('_')}`]: FieldValue.increment(1),
+      'lastAlert': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp()
+    }).catch(async () => {
+      // Create document if it doesn't exist
+      await statsRef.set({
+        date: today,
+        alerts: {
+          [alert.riskLevel]: 1,
+          total: 1,
+          immediate: alert.riskLevel === 'immediate' ? 1 : 0,
+          high: alert.riskLevel === 'high' ? 1 : 0,
+          moderate: alert.riskLevel === 'moderate' ? 1 : 0,
+          mild: alert.riskLevel === 'mild' ? 1 : 0
+        },
+        cultural: {
+          [alert.culturalContext.join('_')]: 1
+        },
+        responses: {
+          acknowledged: 0,
+          resolved: 0,
+          escalated: 0,
+          averageResponseTime: 0
+        },
+        createdAt: FieldValue.serverTimestamp(),
+        lastAlert: FieldValue.serverTimestamp(),
+        updatedAt: FieldValue.serverTimestamp()
+      });
+    });
+    
+  } catch (error) {
+    console.error('Error updating dashboard statistics:', error);
+    // Don't throw - statistics are important but not critical for crisis response
+  }
+}
+
+// ===== EMAIL NOTIFICATIONS =====
+
+async function sendEmailNotifications(alert: CrisisAlert, recipients: ProfessionalRecipient[]): Promise<void> {
+  try {
+    // For immediate/high risk, send emails to clinical directors and backups
+    const emailRecipients = recipients.filter(r => 
+      alert.riskLevel === 'immediate' || 
+      alert.riskLevel === 'high' || 
+      r.role === 'clinical_director'
+    );
+    
+    if (emailRecipients.length === 0) {
+      return;
+    }
+    
+    const emailPromises = emailRecipients.map(async (recipient) => {
+      const emailContent = formatCrisisAlertEmail(alert, recipient);
+      
+      // Using Firebase Extensions or SendGrid here
+      // For now, just logging the email content
+      console.log(`Email alert for ${recipient.id}:`, emailContent.subject);
+      
+      // TODO: Implement actual email sending
+      // await sendEmail({
+      //   to: recipient.contactMethods.email,
+      //   subject: emailContent.subject,
+      //   html: emailContent.html
+      // });
+    });
+    
+    await Promise.all(emailPromises);
+    
+  } catch (error) {
+    console.error('Error sending email notifications:', error);
+    // Don't throw - email is backup channel
+  }
+}
+
+function formatCrisisAlertEmail(alert: CrisisAlert, recipient: ProfessionalRecipient) {
+  const subject = `🚨 ALCHM Crisis Alert - ${alert.riskLevel.toUpperCase()} Risk`;
+  
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: #dc2626; color: white; padding: 20px; text-align: center;">
+        <h1>🚨 Crisis Alert - ${alert.riskLevel.toUpperCase()}</h1>
+        <p style="font-size: 18px; margin: 10px 0;">Immediate Professional Response Required</p>
+      </div>
+      
+      <div style="padding: 20px; background: #f9fafb;">
+        <h2>Alert Details</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td><strong>Participant ID:</strong></td><td>${alert.participantId.substring(0, 8)}...</td></tr>
+          <tr><td><strong>Risk Level:</strong></td><td>${alert.riskLevel}</td></tr>
+          <tr><td><strong>Confidence:</strong></td><td>${Math.round(alert.confidence * 100)}%</td></tr>
+          <tr><td><strong>Time:</strong></td><td>${alert.timestamp.toLocaleString()}</td></tr>
+          <tr><td><strong>Triggers:</strong></td><td>${alert.triggers.slice(0, 3).join(', ')}</td></tr>
+          ${alert.culturalContext.length > 0 ? `<tr><td><strong>Cultural Context:</strong></td><td>${alert.culturalContext.join(', ')}</td></tr>` : ''}
+        </table>
+      </div>
+      
+      <div style="padding: 20px; text-align: center;">
+        <a href="https://crisis.alchm.app/alert/${alert.id}" 
+           style="background: #dc2626; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+          RESPOND TO CRISIS ALERT
+        </a>
+      </div>
+      
+      <div style="padding: 20px; font-size: 12px; color: #6b7280; text-align: center;">
+        <p>This alert was sent to: ${recipient.name} (${recipient.role})</p>
+        <p>Response required within: ${alert.riskLevel === 'immediate' ? '2 minutes' : '1 hour'}</p>
+        <p>ALCHM Crisis Monitoring System</p>
+      </div>
+    </div>
+  `;
+  
+  return { subject, html };
+}
+
+// ===== CRISIS ANALYTICS =====
+
+async function logCrisisAnalytics(alert: CrisisAlert): Promise<void> {
+  try {
+    const analyticsData = {
+      alertId: alert.id,
+      timestamp: alert.timestamp,
+      riskLevel: alert.riskLevel,
+      confidence: alert.confidence,
+      triggerCount: alert.triggers.length,
+      culturalContextCount: alert.culturalContext.length,
+      responseRequired: alert.riskLevel === 'immediate' || alert.riskLevel === 'high',
+      escalationScheduled: true,
+      processingTime: Date.now() - alert.timestamp.getTime(), // Time from trigger to processing
+      
+      // Privacy-preserving analytics
+      participantDemographics: {
+        // Would be populated from participant profile (anonymized)
+        ageRange: 'unknown',
+        identityFactors: alert.culturalContext,
+        riskFactors: alert.triggers.length > 2 ? 'multiple' : 'few'
+      },
+      
+      // System performance
+      alertProcessingMetrics: {
+        alertGenerated: true,
+        smsAttempted: true,
+        mobileAppAttempted: true,
+        dashboardUpdated: true,
+        emailAttempted: alert.riskLevel === 'immediate' || alert.riskLevel === 'high'
+      }
+    };
+    
+    // Store in analytics collection with automatic partitioning by date
+    const today = new Date().toISOString().split('T')[0];
+    await db.collection('crisis_analytics').doc(today).collection('alerts').doc(alert.id).set(analyticsData);
+    
+    // Also update daily aggregates
+    await db.collection('crisis_analytics_daily').doc(today).update({
+      [`riskLevels.${alert.riskLevel}`]: FieldValue.increment(1),
+      'totalAlerts': FieldValue.increment(1),
+      'averageConfidence': FieldValue.increment(alert.confidence), // Will need to calculate proper average
+      'culturalContexts': FieldValue.arrayUnion(...alert.culturalContext),
+      'lastAlert': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp()
+    }).catch(async () => {
+      // Create daily aggregate if it doesn't exist
+      await db.collection('crisis_analytics_daily').doc(today).set({
+        date: today,
+        riskLevels: {
+          immediate: alert.riskLevel === 'immediate' ? 1 : 0,
+          high: alert.riskLevel === 'high' ? 1 : 0,
+          moderate: alert.riskLevel === 'moderate' ? 1 : 0,
+          mild: alert.riskLevel === 'mild' ? 1 : 0
+        },
+        totalAlerts: 1,
+        averageConfidence: alert.confidence,
+        culturalContexts: alert.culturalContext,
+        createdAt: FieldValue.serverTimestamp(),
+        lastAlert: FieldValue.serverTimestamp(),
+        updatedAt: FieldValue.serverTimestamp()
+      });
+    });
+    
+  } catch (error) {
+    console.error('Error logging crisis analytics:', error);
+    // Don't throw - analytics important but not critical for crisis response
+  }
+}
+
+// ===== HELPER FUNCTIONS =====
+
+async function getAlertRecipients(alert: CrisisAlert): Promise<ProfessionalRecipient[]> {
+  try {
+    // Get all available professionals
+    const professionalsSnapshot = await db.collection('crisis_professionals')
+      .where('availability.currentStatus', '==', 'available')
+      .get();
+    
+    if (professionalsSnapshot.empty) {
+      console.error('No available crisis professionals found!');
+      // Return emergency fallback list
+      return getEmergencyProfessionals();
+    }
+    
+    const allProfessionals = professionalsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as ProfessionalRecipient[];
+    
+    // Filter professionals based on cultural competencies and availability
+    const suitableProfessionals = allProfessionals.filter(professional => {
+      // Check if professional has capacity
+      if (professional.availability.currentCaseCount >= professional.availability.maxConcurrentCases) {
+        return false;
+      }
+      
+      // Check cultural competencies
+      if (alert.culturalContext.length > 0) {
+        const hasRelevantCompetency = alert.culturalContext.some(context =>
+          professional.culturalCompetencies.includes(context)
+        );
+        
+        // For immediate/high risk, include all available professionals
+        // For moderate/mild, prefer culturally competent professionals
+        if (alert.riskLevel === 'moderate' || alert.riskLevel === 'mild') {
+          return hasRelevantCompetency;
+        }
+      }
+      
+      return true;
+    });
+    
+    // If no suitable professionals, use all available as fallback
+    const recipients = suitableProfessionals.length > 0 ? suitableProfessionals : allProfessionals;
+    
+    // Sort by role priority (crisis_counselor first, then others)
+    recipients.sort((a, b) => {
+      const roleOrder = { 'crisis_counselor': 0, 'clinical_director': 1, 'cultural_liaison': 2, 'backup_counselor': 3 };
+      return (roleOrder[a.role] || 9) - (roleOrder[b.role] || 9);
+    });
+    
+    // For immediate/high risk, include all suitable professionals
+    // For moderate/mild risk, limit to prevent alert fatigue
+    const maxRecipients = ['immediate', 'high'].includes(alert.riskLevel) ? recipients.length : Math.min(3, recipients.length);
+    
+    return recipients.slice(0, maxRecipients);
+    
+  } catch (error) {
+    console.error('Error getting alert recipients:', error);
+    return getEmergencyProfessionals();
+  }
+}
+
+async function getEmergencyProfessionals(): Promise<ProfessionalRecipient[]> {
+  // Fallback emergency professional list (would be configured in environment)
+  return [
+    {
+      id: 'emergency_counselor_1',
+      name: 'Emergency Crisis Team',
+      role: 'crisis_counselor',
+      credentials: ['LCSW', 'Crisis Intervention'],
+      specializations: ['Emergency Response'],
+      contactMethods: {
+        primaryPhone: '+18885551111',
+        sms: '+18885551111',
+        email: 'crisis@alchm.app'
+      },
+      availability: {
+        currentStatus: 'available',
+        maxConcurrentCases: 10,
+        currentCaseCount: 0
+      },
+      culturalCompetencies: ['general', 'lgbtq+', 'bipoc', 'youth', 'immigrant']
+    }
+  ];
+}
+
+function getEscalationDelay(riskLevel: string): number {
+  // Escalation delays in milliseconds
+  switch (riskLevel) {
+    case 'immediate': return 2 * 60 * 1000;  // 2 minutes
+    case 'high': return 60 * 60 * 1000;      // 1 hour
+    case 'moderate': return 24 * 60 * 60 * 1000; // 24 hours
+    case 'mild': return 7 * 24 * 60 * 60 * 1000; // 7 days
+    default: return 60 * 60 * 1000;          // Default 1 hour
+  }
+}
+
+async function scheduleEscalation(alertId: string, delay: number, escalationLevel: number): Promise<void> {
+  try {
+    // Schedule escalation using Pub/Sub
+    const topic = 'crisis-alert-escalation';
+    const scheduledTime = new Date(Date.now() + delay);
+    
+    const message = {
+      alertId,
+      escalationLevel,
+      scheduledFor: scheduledTime.toISOString()
+    };
+    
+    // Use Cloud Tasks or Pub/Sub for scheduling
+    // For now, using a simple document-based approach
+    await db.collection('scheduled_escalations').doc(`${alertId}_${escalationLevel}`).set({
+      alertId,
+      escalationLevel,
+      scheduledFor: scheduledTime,
+      processed: false,
+      createdAt: FieldValue.serverTimestamp()
+    });
+    
+    console.log(`Escalation scheduled for alert ${alertId} in ${delay}ms (level ${escalationLevel})`);
+    
+  } catch (error) {
+    console.error('Error scheduling escalation:', error);
+  }
+}
+
+async function activateBackupDelivery(
+  alert: CrisisAlert, 
+  failures: Array<{index: number, result: any}>,
+  twilioConfig: TwilioConfig | null
+): Promise<void> {
+  console.log('Activating backup delivery systems due to failures:', failures.length);
+  
+  try {
+    // If SMS failed, try voice calls
+    if (failures.some(f => f.index === 0) && twilioConfig && twilioClient) {
+      await sendVoiceAlerts(alert, await getAlertRecipients(alert), twilioConfig);
+    }
+    
+    // If mobile app failed, send additional SMS
+    if (failures.some(f => f.index === 1)) {
+      const recipients = await getAlertRecipients(alert);
+      await sendBackupSMSAlerts(alert, recipients, twilioConfig);
+    }
+    
+    // If dashboard failed, use alternative notification method
+    if (failures.some(f => f.index === 2)) {
+      await sendSlackAlert(alert); // Alternative dashboard notification
+    }
+    
+    // Log backup activation
+    await db.collection('crisis_alerts').doc(alert.id).update({
+      'backup.activated': true,
+      'backup.activatedAt': FieldValue.serverTimestamp(),
+      'backup.reason': 'Delivery failures',
+      'backup.failedChannels': failures.map(f => f.index)
+    });
+    
+  } catch (error) {
+    console.error('Error in backup delivery activation:', error);
+  }
+}
+
+async function sendVoiceAlerts(
+  alert: CrisisAlert, 
+  recipients: ProfessionalRecipient[], 
+  twilioConfig: TwilioConfig
+): Promise<void> {
+  console.log('Sending voice alerts to crisis team');
+  
+  const voiceMessage = `This is an emergency alert from ALCHM Crisis System. 
+    A participant requires immediate crisis intervention. 
+    Alert ID: ${alert.id.substring(0, 8)}. 
+    Risk level: ${alert.riskLevel}. 
+    Confidence: ${Math.round(alert.confidence * 100)} percent.
+    Please respond immediately by accessing the crisis dashboard 
+    or calling the crisis line. This message will repeat twice.`;
+  
+  const voicePromises = recipients.map(async (recipient) => {
+    try {
+      const call = await twilioClient.calls.create({
+        twiml: `
+          <Response>
+            <Say voice="alice" rate="slow">${voiceMessage}</Say>
+            <Pause length="2"/>
+            <Say voice="alice" rate="slow">${voiceMessage}</Say>
+            <Pause length="2"/>
+            <Say voice="alice">Press any key to acknowledge this alert.</Say>
+            <Gather numDigits="1" timeout="30">
+              <Say voice="alice">Press any key to acknowledge.</Say>
+            </Gather>
+          </Response>
+        `,
+        to: recipient.contactMethods.primaryPhone,
+        from: twilioConfig.voiceNumber
+      });
+      
+      console.log(`Voice alert sent to ${recipient.id}: ${call.sid}`);
+      
+    } catch (error) {
+      console.error(`Voice alert failed for ${recipient.id}:`, error);
+    }
+  });
+  
+  await Promise.all(voicePromises);
+}
+
+async function sendBackupSMSAlerts(
+  alert: CrisisAlert, 
+  recipients: ProfessionalRecipient[], 
+  twilioConfig: TwilioConfig | null
+): Promise<void> {
+  if (!twilioConfig || !twilioClient) return;
+  
+  console.log('Sending backup SMS alerts');
+  
+  const backupMessage = `🚨 BACKUP ALERT - Mobile app delivery failed
+${formatCrisisAlertMessage(alert, recipients[0])}
+
+This is a backup delivery due to mobile app failure.`;
+  
+  const backupPromises = recipients.map(async (recipient) => {
+    if (recipient.contactMethods.backupPhone) {
+      try {
+        await twilioClient.messages.create({
+          body: backupMessage,
+          from: twilioConfig.crisisNumber,
+          to: recipient.contactMethods.backupPhone
+        });
+      } catch (error) {
+        console.error(`Backup SMS failed for ${recipient.id}:`, error);
+      }
+    }
+  });
+  
+  await Promise.all(backupPromises);
+}
+
+async function sendSlackAlert(alert: CrisisAlert): Promise<void> {
+  // Alternative dashboard notification via Slack
+  // Implementation would depend on Slack webhook configuration
+  console.log('Sending Slack alert as dashboard backup for:', alert.id);
+}
+
+async function triggerEmergencyEscalation(alertId: string, reason: string): Promise<void> {
+  console.log(`🚨 EMERGENCY ESCALATION TRIGGERED for ${alertId}: ${reason}`);
+  
+  try {
+    // Update alert with emergency escalation status
+    await db.collection('crisis_alerts').doc(alertId).update({
+      'escalation.level': 3,
+      'escalation.escalatedAt': FieldValue.serverTimestamp(),
+      'escalation.escalationReason': reason,
+      'escalation.emergencyServicesContacted': false, // Will be updated when contacted
+      'status': 'emergency_escalation'
+    });
+    
+    // Trigger all available emergency protocols
+    await Promise.all([
+      notifyEmergencyTeam(alertId, reason),
+      activateEmergencyDashboard(alertId),
+      logEmergencyEscalation(alertId, reason)
+    ]);
+    
+  } catch (error) {
+    console.error('Error in emergency escalation:', error);
+  }
+}
+
+async function notifyEmergencyTeam(alertId: string, reason: string): Promise<void> {
+  // Notify emergency team via all available channels
+  console.log(`Notifying emergency team for ${alertId}: ${reason}`);
+  
+  // This would include:
+  // - Emergency team SMS/calls
+  // - Hospital partnerships
+  // - Emergency services coordination
+  // - Clinical director immediate notification
+}
+
+async function activateEmergencyDashboard(alertId: string): Promise<void> {
+  // Activate emergency mode in dashboard
+  const realtimeDb = admin.database();
+  await realtimeDb.ref('emergency_mode').set({
+    active: true,
+    alertId,
+    activatedAt: admin.database.ServerValue.TIMESTAMP,
+    reason: 'Crisis alert processing failure'
+  });
+}
+
+async function logEmergencyEscalation(alertId: string, reason: string): Promise<void> {
+  await db.collection('emergency_escalations').add({
+    alertId,
+    reason,
+    timestamp: FieldValue.serverTimestamp(),
+    systemStatus: 'emergency_protocols_activated'
+  });
+}
+
+export {
+  CrisisAlert,
+  ProfessionalRecipient,
+  CrisisAlertType,
+  AlertDeliveryStatus
+};

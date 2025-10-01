@@ -1,0 +1,268 @@
+{
+  "timestamp": "2025-09-30T18:23:01.795Z",
+  "testSuite": "Crisis Performance Validation",
+  "overall": {
+    "crisisReady": false,
+    "appStoreReady": false,
+    "criticalIssues": [
+      "Server response too slow for crisis users",
+      "Offline crisis resources not available"
+    ],
+    "performance": {
+      "totalCriticalTests": 7,
+      "passedCriticalTests": 7,
+      "failedCriticalTests": 0,
+      "passRate": 100
+    },
+    "recommendation": "NOT READY - Critical issues must be resolved before App Store submission"
+  },
+  "tests": {
+    "serverHealth": {
+      "name": "Server Health Check",
+      "critical": true,
+      "status": "completed",
+      "metrics": {
+        "totalRequests": 5,
+        "successfulRequests": 1,
+        "failedRequests": 4,
+        "averageResponseTime": 4725,
+        "maxResponseTime": 4725,
+        "minResponseTime": 24,
+        "details": [
+          {
+            "url": "/",
+            "responseTime": 944,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/en",
+            "responseTime": 4725,
+            "success": true
+          },
+          {
+            "url": "/auth/login",
+            "responseTime": 33,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/journal",
+            "responseTime": 24,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/dashboard",
+            "responseTime": 33,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          }
+        ]
+      },
+      "passed": false
+    },
+    "crisisDetection": {
+      "name": "Crisis Detection Performance",
+      "critical": true,
+      "status": "completed",
+      "scenarios": {
+        "I want to hurt myself": {
+          "crisisText": "I want to hurt myself",
+          "responseTime": 2450,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        },
+        "I feel like ending it all": {
+          "crisisText": "I feel like ending it all",
+          "responseTime": 31,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        },
+        "Nobody would miss me": {
+          "crisisText": "Nobody would miss me",
+          "responseTime": 28,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        },
+        "I cannot go on anymore": {
+          "crisisText": "I cannot go on anymore",
+          "responseTime": 28,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        },
+        "Everything is falling apart": {
+          "crisisText": "Everything is falling apart",
+          "responseTime": 24,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        }
+      }
+    },
+    "mobilePerformance": {
+      "name": "Mobile Performance Validation",
+      "critical": true,
+      "status": "completed",
+      "metrics": {
+        "totalRequests": 10,
+        "successfulRequests": 0,
+        "averageLoadTime": 0,
+        "maxLoadTime": 13,
+        "requests": [
+          {
+            "url": "/",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/auth/login",
+            "loadTime": 11,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/journal",
+            "loadTime": 13,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/auth/login",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/journal",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/auth/login",
+            "loadTime": 12,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/journal",
+            "loadTime": 11,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          },
+          {
+            "url": "/",
+            "loadTime": 10,
+            "success": false,
+            "error": "HTTP 307: Temporary Redirect"
+          }
+        ]
+      }
+    },
+    "firebaseFunctions": {
+      "name": "Firebase Functions Performance",
+      "critical": true,
+      "status": "completed",
+      "functions": {
+        "Khepera AI": {
+          "functionName": "Khepera AI",
+          "responseTime": 406,
+          "success": false,
+          "error": "HTTP 400: Bad Request"
+        },
+        "Crisis Detection": {
+          "functionName": "Crisis Detection",
+          "responseTime": 139,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        }
+      }
+    },
+    "resourceLoading": {
+      "name": "Critical Resource Loading",
+      "critical": true,
+      "status": "completed",
+      "metrics": {
+        "totalResources": 4,
+        "successfulLoads": 1,
+        "averageLoadTime": 5,
+        "results": [
+          {
+            "resource": "/_next/static/css/",
+            "loadTime": 3,
+            "success": false,
+            "error": "HTTP 308: Permanent Redirect"
+          },
+          {
+            "resource": "/_next/static/js/",
+            "loadTime": 1,
+            "success": false,
+            "error": "HTTP 308: Permanent Redirect"
+          },
+          {
+            "resource": "/manifest.webmanifest",
+            "loadTime": 1939,
+            "success": false,
+            "error": "HTTP 500: Internal Server Error"
+          },
+          {
+            "resource": "/favicon.ico",
+            "loadTime": 5,
+            "success": true
+          }
+        ]
+      }
+    },
+    "errorRecovery": {
+      "name": "Crisis Error Recovery",
+      "critical": true,
+      "status": "completed",
+      "scenarios": [
+        {
+          "name": "Invalid Crisis Request",
+          "responseTime": 0,
+          "gracefulFailure": true,
+          "success": false,
+          "error": "HTTP 404: Not Found"
+        },
+        {
+          "name": "Network Timeout Simulation",
+          "responseTime": 0,
+          "gracefulFailure": true,
+          "success": false,
+          "error": "HTTP 405: Method Not Allowed"
+        },
+        {
+          "name": "Invalid Auth Request",
+          "responseTime": 0,
+          "gracefulFailure": true,
+          "success": false,
+          "error": "HTTP 307: Temporary Redirect"
+        }
+      ]
+    },
+    "offlineSupport": {
+      "name": "Offline Crisis Support",
+      "critical": true,
+      "status": "completed",
+      "capabilities": {
+        "staticResourcesAvailable": false,
+        "serviceWorkerPresent": true,
+        "offlinePagesAccessible": false
+      }
+    }
+  }
+}

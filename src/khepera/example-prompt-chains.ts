@@ -167,7 +167,7 @@ Welcome, sacred stuck soul. The trickster fool recognizes your courage in showin
 
 You've navigated creative blocks and people-pleasing patterns before with fierce honesty.
 
-Listen up, beautiful rebel - that "stuck" feeling? It's not a prison, it's a fucking cocoon. Something in you is ready to shed skin, break rules, and birth something wild. Your creative blocks and people-pleasing patterns are just old programming trying to keep you safe and small.
+Listen up, beautiful rebel - that "stuck" feeling? It's not a prison, it's a transformative cocoon. Something in you is ready to shed skin, break rules, and birth something wild. Your creative blocks and people-pleasing patterns are just old programming trying to keep you safe and small.
 
 What sacred rule needs to be smashed today?
 

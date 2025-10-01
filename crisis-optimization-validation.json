@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-22T17:57:51.413Z",
+  "filesChecked": 14,
+  "requirementsPassed": 4,
+  "requirementsFailed": 0,
+  "criticalIssues": [],
+  "warnings": [
+    "CLS threshold not explicitly defined",
+    "CLS threshold not explicitly defined"
+  ],
+  "summary": "\n🚨 ALCHM Crisis Optimization Validation Results\n=============================================\n\n📊 Overall Score: 100.0% (7/7 requirements met)\n\n📁 Files Checked: 14\n✅ Requirements Passed: 4\n❌ Requirements Failed: 0\n⚠️  Warnings: 2\n🚨 Critical Issues: 0\n\n✅ No critical issues found!\n\n\n⚠️  WARNINGS (RECOMMENDED FIXES):\n   1. CLS threshold not explicitly defined\n   2. CLS threshold not explicitly defined\n\n\n📋 CRISIS SAFETY CHECKLIST:\n✅ Overall Implementation (100.0%)\n✅ No Critical Safety Issues\n❌ All Critical Files Present\n\n🎉 ALCHM is ready to safely support users in crisis!\n\nGenerated: 2025-09-22T17:57:51.413Z\n"
+}

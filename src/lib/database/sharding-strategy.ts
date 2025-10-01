@@ -1,5 +1,5 @@
 // Intelligent Database Sharding for 10M+ Users
-// Problem: Hot documents kill performance at scale
+// Problem: Hot typeof window !== 'undefined' && documents kill performance at scale
 // Solution: Activity-based intelligent partitioning with auto-migration
 
 import { db } from '@/lib/firebaseAdmin';

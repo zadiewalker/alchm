@@ -1,0 +1,125 @@
+import * as functions from 'firebase-functions';
+
+// Lightweight authentication system for ALCHM production
+export const authPage = functions
+  .region('us-central1')
+  .runWith({ 
+    memory: '512MB', 
+    timeoutSeconds: 60
+  })
+  .https.onRequest(async (req, res) => {
+    console.log(`Auth function called for: ${req.url}`);
+    
+    // Set CORS headers
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    
+    if (req.method === 'OPTIONS') {
+      res.status(204).send('');
+      return;
+    }
+    
+    try {
+      const authHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In - ALCHM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+  <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div class="text-center">
+        <h2 class="mt-6 text-3xl font-bold text-gray-900 tracking-tight mb-2">
+          Unlock your ritual.
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Private by design. Encrypted by default.
+        </p>
+      </div>
+      
+      <div class="space-y-4">
+        <button id="google-signin" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+          Continue with Google
+        </button>
+        
+        <button id="apple-signin" class="w-full flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+          Continue with Apple
+        </button>
+      </div>
+      
+      <div class="mt-6 text-center">
+        <div class="text-xs text-gray-500 space-y-1">
+          <p><strong>🔐 Features:</strong></p>
+          <p>• End-to-end encryption • Trauma-informed design</p>
+          <p>• AI-powered insights • Privacy first</p>
+        </div>
+      </div>
+      
+      <div id="status" class="text-center text-sm"></div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDkwpIpL_rsYDCu8mY2tGqQOFMJLkaTipg",
+      authDomain: "alchm-digital-sanctuary.firebaseapp.com", 
+      projectId: "alchm-digital-sanctuary",
+      storageBucket: "alchm-digital-sanctuary.appspot.com",
+      messagingSenderId: "10211111067",
+      appId: "1:10211111067:web:4f23562b8a1f63cd8c963e"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    
+    auth.onAuthStateChanged((user) => {
+      const status = document.getElementById('status');
+      if (user) {
+        status.innerHTML = '<div class="p-3 bg-green-50 border border-green-200 rounded-lg"><span class="text-green-800 font-medium">✅ Welcome!</span><br><span class="text-green-600 text-xs">Authentication successful</span></div>';
+      } else {
+        status.innerHTML = '<span class="text-gray-500">Please sign in to continue</span>';
+      }
+    });
+    
+    document.getElementById('google-signin').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      
+      document.getElementById('status').innerHTML = 
+        '<span class="text-blue-600">🔄 Connecting to Google...</span>';
+      
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log('Sign-in successful:', result.user);
+        })
+        .catch((error) => {
+          console.error('Sign-in error:', error);
+          document.getElementById('status').innerHTML = 
+            '<div class="p-3 bg-red-50 border border-red-200 rounded-lg"><span class="text-red-600">❌ Sign-in failed: ' + error.message + '</span></div>';
+        });
+    });
+    
+    document.getElementById('apple-signin').addEventListener('click', () => {
+      document.getElementById('status').innerHTML = 
+        '<div class="p-3 bg-yellow-50 border border-yellow-200 rounded-lg"><span class="text-yellow-700">🍎 Apple Sign-In coming soon</span></div>';
+    });
+  </script>
+</body>
+</html>
+      `;
+      
+      res.set('Content-Type', 'text/html');
+      res.send(authHTML);
+    } catch (error) {
+      console.error('Auth function error:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });

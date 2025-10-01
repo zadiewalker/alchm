@@ -1,0 +1,316 @@
+# ALCHM Firebase Studio Advanced App Hosting Configuration
+# Enterprise-grade mental health platform with trauma-informed optimizations
+
+runConfig:
+  # Advanced Node.js configuration for mental health platform
+  runtime: nodejs20
+  memory: 2Gi
+  cpu: 2
+  minInstances: 2  # Always-on for crisis response
+  maxInstances: 100
+  concurrency: 80
+  
+  # Advanced environment variables for crisis system
+  env:
+    - variable: NODE_ENV
+      value: production
+    - variable: NEXT_TELEMETRY_DISABLED
+      value: "1"
+    - variable: CRISIS_DETECTION_ENABLED
+      value: "true"
+    - variable: REAL_TIME_MONITORING
+      value: "true"
+    - variable: PROFESSIONAL_ALERTS_ENABLED
+      value: "true"
+    - variable: TRAUMA_INFORMED_CACHE
+      value: "true"
+    - variable: CDN_OPTIMIZATION_LEVEL
+      value: "enterprise"
+
+  # VPC configuration for enhanced security
+  vpc:
+    connector: projects/PROJECT_ID/locations/us-central1/connectors/alchm-vpc
+    egressSettings: VPC_NATIVE
+
+# Build configuration with advanced optimization
+buildConfig:
+  runtime: nodejs20
+  commands:
+    # Advanced dependency management
+    - npm ci --production=false --audit=false
+    
+    # Crisis resource preloading
+    - npm run preload:crisis-resources
+    
+    # Multi-language build for global mental health support
+    - npm run build:i18n
+    
+    # Advanced bundle optimization
+    - npm run optimize:bundle
+    
+    # Crisis detection system validation
+    - npm run validate:crisis-detection
+    
+    # Trauma-informed content validation
+    - npm run validate:trauma-content
+    
+    # Build with advanced optimizations
+    - npm run build
+    
+    # Post-build security audit
+    - npm run audit:security
+    
+    # Generate crisis resource manifest
+    - npm run generate:crisis-manifest
+
+  # Environment variables for build process
+  env:
+    - variable: NODE_ENV
+      value: production
+    - variable: NEXT_TELEMETRY_DISABLED
+      value: "1"
+    - variable: BUILD_MODE
+      value: studio-enterprise
+    - variable: CRISIS_RESOURCES_PRELOAD
+      value: "true"
+    - variable: TRAUMA_INFORMED_BUILD
+      value: "true"
+
+# Advanced headers for mental health platform security
+headers:
+  # Crisis support header for all pages
+  - pattern: "**"
+    headers:
+      X-Crisis-Support: "988"
+      X-Mental-Health-Resources: "https://alchm.com/crisis"
+      X-Professional-Support: "available"
+      
+  # API security headers
+  - pattern: "/api/**"
+    headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+      X-Content-Type-Options: "nosniff"
+      X-Frame-Options: "DENY"
+      X-XSS-Protection: "1; mode=block"
+      Strict-Transport-Security: "max-age=31536000; includeSubDomains; preload"
+      Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com wss://*.firebaseapp.com"
+      
+  # Static asset optimization
+  - pattern: "/_next/static/**"
+    headers:
+      Cache-Control: "public, max-age=31536000, immutable"
+      CDN-Cache-Control: "public, max-age=31536000, immutable"
+      Vary: "Accept-Encoding"
+      X-Content-Optimization: "enterprise"
+      
+  # Image optimization for trauma-informed content
+  - pattern: "**/*.@(jpg|jpeg|gif|png|svg|webp|avif)"
+    headers:
+      Cache-Control: "public, max-age=86400"
+      CDN-Cache-Control: "public, max-age=604800"
+      X-Image-Optimization: "trauma-safe"
+      
+  # Font optimization for accessibility
+  - pattern: "**/*.@(woff|woff2|ttf|eot)"
+    headers:
+      Cache-Control: "public, max-age=31536000, immutable"
+      CDN-Cache-Control: "public, max-age=31536000, immutable"
+      X-Accessibility-Optimized: "true"
+      
+  # HTML with edge-side includes for personalized content
+  - pattern: "**/*.html"
+    headers:
+      Cache-Control: "public, max-age=300, must-revalidate"
+      CDN-Cache-Control: "public, max-age=300, stale-while-revalidate=86400"
+      Edge-Side-Includes: "enabled"
+      X-Personalization-Ready: "true"
+      
+  # Crisis pages - no cache for real-time updates
+  - pattern: "/crisis/**"
+    headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+      X-Crisis-Page: "true"
+      X-Real-Time-Updates: "enabled"
+      
+  # Professional dashboard - enhanced security
+  - pattern: "/professional/**"
+    headers:
+      Cache-Control: "no-cache, no-store, must-revalidate"
+      X-Professional-Access: "required"
+      X-HIPAA-Compliant: "true"
+
+# Advanced redirects for crisis intervention
+redirects:
+  # Emergency crisis redirects
+  - pattern: "/emergency"
+    location: "/crisis/immediate-help"
+    type: 301
+    
+  - pattern: "/suicide"
+    location: "/crisis/suicide-prevention"
+    type: 301
+    
+  - pattern: "/help"
+    location: "/crisis/resources"
+    type: 301
+    
+  # Professional access redirects
+  - pattern: "/admin"
+    location: "/professional/dashboard"
+    type: 301
+    
+  # Legacy pathway redirects
+  - pattern: "/old-pathways/**"
+    location: "/pathways/:splat"
+    type: 301
+
+# Advanced rewrites for API routing
+rewrites:
+  # Crisis detection API
+  - pattern: "/api/crisis/**"
+    function: emergencyProtocol
+    
+  # Real-time monitoring
+  - pattern: "/api/real-time/**"
+    function: realtimeCrisisDetection
+    
+  # Professional dashboard API
+  - pattern: "/api/professional/**"
+    function: professionalDashboard
+    
+  # AI processing with trauma-informed routing
+  - pattern: "/api/khepera/**"
+    function: chatWithGemini
+    
+  # Stripe webhook for subscriptions
+  - pattern: "/api/stripe/webhook"
+    function: subscriptionWebhook
+    
+  # Catch-all for SPA routing
+  - pattern: "**"
+    destination: "/index.html"
+
+# Performance optimization configuration
+performance:
+  # Enable advanced caching strategies
+  caching:
+    enabled: true
+    strategy: "trauma-informed"
+    ttl: 300  # 5 minutes for dynamic content
+    
+  # Compression optimization
+  compression:
+    enabled: true
+    level: 9
+    types: ["text/html", "text/css", "application/javascript", "application/json"]
+    
+  # Image optimization for mental health content
+  imageOptimization:
+    enabled: true
+    quality: 85
+    formats: ["webp", "avif"]
+    responsive: true
+    traumaSafe: true  # Avoid triggering imagery
+    
+  # Bundle optimization
+  bundleOptimization:
+    enabled: true
+    codesplitting: true
+    treeshaking: true
+    minification: true
+    
+  # Preloading strategies
+  preloading:
+    crisisResources: true
+    emergencyContacts: true
+    supportiveContent: true
+
+# Security configuration for mental health platform
+security:
+  # App Check configuration
+  appCheck:
+    enabled: true
+    providers: ["recaptcha-v3", "play-integrity", "app-attest"]
+    
+  # CORS configuration
+  cors:
+    allowedOrigins: 
+      - "https://alchm.com"
+      - "https://*.alchm.com"
+      - "https://alchm-digital-sanctuary.web.app"
+    allowedMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    allowedHeaders: ["Content-Type", "Authorization", "X-Crisis-Token"]
+    
+  # Rate limiting for crisis endpoints
+  rateLimiting:
+    enabled: true
+    rules:
+      - pattern: "/api/crisis/**"
+        limit: 100
+        window: 60  # per minute
+      - pattern: "/api/**"
+        limit: 1000
+        window: 60
+
+# Monitoring and alerting
+monitoring:
+  # Health checks
+  healthCheck:
+    enabled: true
+    path: "/api/health"
+    interval: 30
+    timeout: 10
+    
+  # Error tracking
+  errorTracking:
+    enabled: true
+    sampleRate: 1.0  # 100% for crisis platform
+    
+  # Performance monitoring
+  performanceMonitoring:
+    enabled: true
+    webVitals: true
+    userExperience: true
+    crisisResponse: true
+    
+  # Custom metrics for mental health platform
+  customMetrics:
+    - name: "crisis_detection_latency"
+      type: "histogram"
+    - name: "professional_response_time"
+      type: "histogram"
+    - name: "user_safety_score"
+      type: "gauge"
+
+# Crisis-specific configuration
+crisisManagement:
+  # Real-time alerts
+  realTimeAlerts:
+    enabled: true
+    channels: ["email", "sms", "slack", "pagerduty"]
+    
+  # Professional notification system
+  professionalNotifications:
+    enabled: true
+    responseTimeTarget: 300  # 5 minutes
+    escalationRules:
+      - trigger: "no_response_5min"
+        action: "escalate_to_supervisor"
+      - trigger: "critical_risk_detected"
+        action: "immediate_alert_all"
+        
+  # Data retention for compliance
+  dataRetention:
+    crisisLogs: "7_years"
+    userJournals: "user_controlled"
+    professionalNotes: "perpetual"
+    auditLogs: "10_years"
+
+# Internationalization for global mental health support
+i18n:
+  defaultLocale: "en"
+  locales: ["en", "es", "pt", "ko", "hi", "de", "ja"]
+  crisisResources:
+    localized: true
+    culturallyAppropriate: true
+    professionalValidated: true

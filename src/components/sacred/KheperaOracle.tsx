@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Component: KheperaOracle
 // Sacred AI wisdom channeled through Egyptian transformation symbolism
 // Replaces: AIInsightPanel
@@ -165,7 +167,7 @@ export function KheperaOracle({
               <IntentionGem
                 intent="wisdom"
                 energy="gentle"
-                onClick={() => navigator.clipboard?.writeText(currentInsight)}
+                onClick={() => typeof window !== 'undefined' && navigator.clipboard?.writeText(currentInsight)}
               >
                 Save This Wisdom
               </IntentionGem>

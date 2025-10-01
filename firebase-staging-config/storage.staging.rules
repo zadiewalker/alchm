@@ -1,0 +1,119 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // THERAPIST BETA TESTING STORAGE RULES
+    // Isolated storage for mock data and testing materials
+    
+    // Beta therapist profile images and credentials
+    match /beta_therapists/{therapistId}/{allPaths=**} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == therapistId
+        && isBetaTherapist(request.auth.uid);
+    }
+    
+    // Mock client profile data (anonymized)
+    match /mock_clients/{clientId}/{allPaths=**} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedToClient(request.auth.uid, clientId);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedToClient(request.auth.uid, clientId)
+        && isMockDataFile(resource.name);
+    }
+    
+    // Crisis scenario testing materials
+    match /crisis_test_materials/{scenarioId}/{allPaths=**} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isValidTestMaterial(resource);
+    }
+    
+    // Therapist feedback attachments
+    match /feedback_attachments/{therapistId}/{feedbackId}/{allPaths=**} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == therapistId
+        && isBetaTherapist(request.auth.uid);
+    }
+    
+    // Beta testing documentation
+    match /beta_documentation/{docId}/{allPaths=**} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+    }
+    
+    // License verification documents (encrypted)
+    match /license_documents/{therapistId}/{allPaths=**} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == therapistId
+        && isBetaTherapist(request.auth.uid)
+        && isValidLicenseDocument(resource);
+    }
+    
+    // Mock treatment plan attachments
+    match /mock_treatment_attachments/{clientId}/{planId}/{allPaths=**} {
+      allow read, write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedToClient(request.auth.uid, clientId)
+        && isMockDataFile(resource.name);
+    }
+    
+    // Emergency escalation test recordings (mock scenarios only)
+    match /emergency_test_recordings/{scenarioId}/{allPaths=**} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isValidEmergencyRecording(resource);
+    }
+    
+    // HIPAA compliance test files
+    match /hipaa_test_files/{therapistId}/{testId}/{allPaths=**} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == therapistId
+        && isBetaTherapist(request.auth.uid)
+        && isValidHIPAATestFile(resource);
+    }
+    
+    // SECURITY HELPER FUNCTIONS
+    function isBetaTherapist(uid) {
+      return firestore.get(/databases/(default)/documents/beta_therapists/$(uid)).data.status == 'verified'
+        && firestore.get(/databases/(default)/documents/beta_therapists/$(uid)).data.betaAccess == true;
+    }
+    
+    function isAssignedToClient(therapistId, clientId) {
+      return firestore.exists(/databases/(default)/documents/mock_clients/$(clientId))
+        && firestore.get(/databases/(default)/documents/mock_clients/$(clientId)).data.assignedTherapist == therapistId;
+    }
+    
+    function isMockDataFile(filename) {
+      return filename.matches('.*\\.mock\\.(json|pdf|jpg|png)$');
+    }
+    
+    function isValidTestMaterial(resource) {
+      return resource.size < 10 * 1024 * 1024  // 10MB limit
+        && resource.contentType.matches('(image|application|text)/.*');
+    }
+    
+    function isValidLicenseDocument(resource) {
+      return resource.size < 5 * 1024 * 1024  // 5MB limit
+        && resource.contentType.matches('(application/pdf|image/(jpeg|png))');
+    }
+    
+    function isValidEmergencyRecording(resource) {
+      return resource.size < 50 * 1024 * 1024  // 50MB limit
+        && resource.contentType.matches('(audio|video)/.*');
+    }
+    
+    function isValidHIPAATestFile(resource) {
+      return resource.size < 1 * 1024 * 1024  // 1MB limit
+        && resource.contentType.matches('(application|text)/.*');
+    }
+  }
+}

@@ -1,0 +1,461 @@
+/*
+ * JONY IVE MICRO-INTERACTIONS FOR ALCHM
+ * "Delight is in the details" - Premium micro-interactions for healing interfaces
+ * 
+ * Each animation serves emotional support and never overwhelms.
+ * Trauma-informed timing and gentle movements throughout.
+ */
+
+/* ==================== BUTTON MICRO-INTERACTIONS ==================== */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple effect for primary buttons */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Gentle glow on focus */
+.btn-primary:focus-visible {
+  box-shadow: 
+    0 0 0 3px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(164, 183, 146, 0.4);
+}
+
+/* Secondary button breathe effect */
+.btn-secondary:hover {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* ==================== CARD MICRO-INTERACTIONS ==================== */
+
+/* Pathway cards - premium interaction */
+.pathway-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.pathway-card:hover {
+  animation: gentle-lift 0.3s ease-out forwards;
+}
+
+@keyframes gentle-lift {
+  0% { 
+    transform: translateY(0) rotateX(0deg);
+    box-shadow: var(--shadow-subtle);
+  }
+  100% { 
+    transform: translateY(-8px) rotateX(2deg);
+    box-shadow: var(--shadow-floating);
+  }
+}
+
+/* Card content reveal animation */
+.pathway-card .pathway-description {
+  opacity: 0.8;
+  transition: opacity var(--duration-base) var(--ease-sanctuary);
+}
+
+.pathway-card:hover .pathway-description {
+  opacity: 1;
+}
+
+/* Progress indicator animation */
+.pathway-card-active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--sage-light) 50%, 
+    transparent 100%);
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes progress-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ==================== INPUT MICRO-INTERACTIONS ==================== */
+
+/* Input field focus animation */
+.input {
+  position: relative;
+}
+
+.input::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--sage-light);
+  transform: scaleX(0);
+  transition: transform var(--duration-base) var(--ease-sanctuary);
+}
+
+.input:focus::before {
+  transform: scaleX(1);
+}
+
+/* Textarea writing session indicator */
+.textarea:focus {
+  animation: writing-session 0.5s ease-out;
+}
+
+@keyframes writing-session {
+  0% { 
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.15);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* ==================== NAVIGATION MICRO-INTERACTIONS ==================== */
+
+/* Back button hover effect */
+.btn-ghost:hover svg {
+  transform: translateX(-3px);
+  transition: transform var(--duration-fast) var(--ease-sanctuary);
+}
+
+/* Breadcrumb trail animation */
+.nav-breadcrumb {
+  position: relative;
+}
+
+.nav-breadcrumb::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--sanctuary-warm);
+  transition: width var(--duration-base) var(--ease-sanctuary);
+}
+
+.nav-breadcrumb:hover::after {
+  width: 100%;
+}
+
+/* ==================== LOADING MICRO-INTERACTIONS ==================== */
+
+/* Gentle loading spinner */
+@keyframes sanctuary-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: sanctuary-spin 1s linear infinite;
+  opacity: 0.8;
+}
+
+/* Pulsing sanctuary indicator */
+@keyframes sanctuary-pulse {
+  0%, 100% { 
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.sanctuary-pulse {
+  animation: sanctuary-pulse 2s ease-in-out infinite;
+}
+
+/* Loading dots for text generation */
+@keyframes loading-dots {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+
+.loading-dots span {
+  animation: loading-dots 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ==================== EMOTIONAL STATE INDICATORS ==================== */
+
+/* Mood selector animation */
+.mood-indicator {
+  transition: all var(--duration-fast) var(--ease-gentle);
+}
+
+.mood-indicator:hover {
+  transform: scale(1.15);
+  filter: brightness(1.2);
+}
+
+.mood-indicator.selected {
+  animation: mood-selected 0.4s ease-out;
+}
+
+@keyframes mood-selected {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.2); }
+}
+
+/* Emotional context indicator */
+.emotional-context {
+  position: relative;
+  overflow: hidden;
+}
+
+.emotional-context::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%);
+  animation: emotional-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes emotional-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ==================== CRISIS SUPPORT MICRO-INTERACTIONS ==================== */
+
+/* Crisis support button - urgent but not alarming */
+.crisis-support-btn {
+  animation: gentle-attention 4s ease-in-out infinite;
+}
+
+@keyframes gentle-attention {
+  0%, 100% { 
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  }
+}
+
+/* ==================== TOAST NOTIFICATIONS ==================== */
+
+/* Success toast slide-in */
+.toast-success {
+  animation: toast-slide-in 0.4s var(--ease-gentle);
+}
+
+@keyframes toast-slide-in {
+  0% {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Toast exit animation */
+.toast-exit {
+  animation: toast-slide-out 0.3s var(--ease-sanctuary) forwards;
+}
+
+@keyframes toast-slide-out {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* ==================== STAGGERED ENTRANCE ANIMATIONS ==================== */
+
+/* Enhanced stagger system for pathway grids */
+.pathway-constellation.animate-entrance > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pathway-entrance var(--duration-slow) var(--ease-gentle) forwards;
+}
+
+@keyframes pathway-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Staggered timing for pathway cards */
+.pathway-constellation.animate-entrance > *:nth-child(1) { animation-delay: 0ms; }
+.pathway-constellation.animate-entrance > *:nth-child(2) { animation-delay: 100ms; }
+.pathway-constellation.animate-entrance > *:nth-child(3) { animation-delay: 200ms; }
+.pathway-constellation.animate-entrance > *:nth-child(4) { animation-delay: 300ms; }
+.pathway-constellation.animate-entrance > *:nth-child(5) { animation-delay: 400ms; }
+.pathway-constellation.animate-entrance > *:nth-child(6) { animation-delay: 500ms; }
+.pathway-constellation.animate-entrance > *:nth-child(7) { animation-delay: 600ms; }
+.pathway-constellation.animate-entrance > *:nth-child(8) { animation-delay: 700ms; }
+
+/* ==================== SCROLL-TRIGGERED ANIMATIONS ==================== */
+
+/* Intersection Observer animation classes */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--ease-sanctuary),
+              transform 0.6s var(--ease-sanctuary);
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== PATHWAY STATUS MICRO-INTERACTIONS ==================== */
+
+/* Completed pathway celebration */
+.pathway-completed {
+  position: relative;
+}
+
+.pathway-completed::after {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.5rem;
+  animation: completion-sparkle 2s ease-in-out infinite;
+}
+
+@keyframes completion-sparkle {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Active pathway pulse */
+.pathway-active {
+  position: relative;
+}
+
+.pathway-active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid var(--sage-light);
+  border-radius: inherit;
+  opacity: 0.5;
+  animation: active-pulse 2s ease-in-out infinite;
+}
+
+@keyframes active-pulse {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+}
+
+/* ==================== ACCESSIBILITY MICRO-INTERACTIONS ==================== */
+
+/* Focus indicators that feel supportive */
+*:focus-visible {
+  transition: outline-color var(--duration-fast) var(--ease-sanctuary);
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .btn::before,
+  .pathway-card::after,
+  .input::before {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .pathway-card:hover {
+    transform: translateY(-2px) !important;
+    animation: none !important;
+  }
+  
+  .animate-on-scroll {
+    animation: none !important;
+    transition: opacity 0.1s !important;
+  }
+}
+
+/* High contrast mode micro-interactions */
+@media (prefers-contrast: high) {
+  .btn-primary::before {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .pathway-card:hover {
+    border-width: 3px;
+  }
+}
+
+/*
+ * END JONY IVE MICRO-INTERACTIONS
+ * 
+ * "Every interaction should feel inevitable, never designed.
+ * The interface disappears, leaving only the human experience."
+ */

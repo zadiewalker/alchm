@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM User Testing Feedback</title>
+    <style>
+        :root {
+            --sage-primary: #a4b792;
+            --sage-hover: #93a682;
+            --sage-light: #f8faf7;
+            --sage-subtle: #e8ede5;
+            --sage-ultra-light: #f0f3ee;
+            --sage-barely-there: #ebefe7;
+            --sage-whisper: #e6ebe0;
+            --sage-mist: #e1e7da;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --surface-white: #ffffff;
+            --surface-gray: #f5f5f7;
+            --border-light: #d2d2d7;
+            --border-sage: #d4ddd0;
+            --shadow-subtle: rgba(0, 0, 0, 0.04);
+            --shadow-medium: rgba(0, 0, 0, 0.08);
+            --shadow-sage: rgba(164, 183, 146, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 50%, var(--sage-subtle) 100%);
+            color: var(--text-primary);
+            line-height: 1.47059;
+            font-size: 17px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--sage-ultra-light);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px var(--shadow-sage), 0 0 0 3px rgba(164, 183, 146, 0.15), 0 8px 32px rgba(164, 183, 146, 0.05);
+            overflow: hidden;
+            opacity: 0;
+            animation: materialAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            border: 2px solid rgba(164, 183, 146, 0.2);
+        }
+
+        @keyframes materialAppear {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--sage-primary), var(--sage-hover));
+            padding: 48px 40px 32px;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+
+
+        .quick-exit {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 40px;
+            line-height: 1;
+        }
+
+        .quick-exit:hover,
+        .quick-exit:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            outline: none;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.125;
+            margin-bottom: 8px;
+            color: white;
+            letter-spacing: -0.005em;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 19px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            line-height: 1.42105;
+        }
+
+        .form-container {
+            padding: 40px;
+            background: linear-gradient(180deg, var(--sage-barely-there) 0%, var(--sage-ultra-light) 100%);
+        }
+
+        .progress-indicator {
+            background: linear-gradient(135deg, var(--sage-mist), var(--sage-subtle));
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(164, 183, 146, 0.25);
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(164, 183, 146, 0.05);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--sage-primary);
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--sage-subtle), var(--sage-whisper));
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(164, 183, 146, 0.15);
+        }
+
+        .progress-fill {
+            background: var(--sage-primary);
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gentle-message {
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-mist));
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.46667;
+            border: 1px solid rgba(164, 183, 146, 0.15);
+            box-shadow: 0 2px 6px rgba(164, 183, 146, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 32px;
+            position: relative;
+        }
+        
+        .form-group:nth-child(even) {
+            background: linear-gradient(135deg, var(--sage-whisper), var(--sage-barely-there));
+            border-radius: 12px;
+            padding: 20px;
+            margin-left: -20px;
+            margin-right: -20px;
+            border: 1px solid rgba(164, 183, 146, 0.08);
+            box-shadow: inset 0 1px 2px rgba(164, 183, 146, 0.05);
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            color: var(--sage-hover);
+            font-weight: 500;
+            margin-bottom: 12px;
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.29412;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid var(--border-sage);
+            border-radius: 12px;
+            font-size: 17px;
+            font-family: inherit;
+            background: var(--sage-whisper);
+            transition: all 0.2s ease;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input,
+        select {
+            height: 56px;
+            padding: 0 16px;
+        }
+
+        textarea {
+            padding: 16px;
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.47059;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--sage-primary);
+            box-shadow: 0 0 0 4px rgba(164, 183, 146, 0.15), 0 2px 8px rgba(164, 183, 146, 0.08);
+            background: var(--sage-barely-there);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2386868b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 44px;
+        }
+
+        .rating-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .rating-option {
+            aspect-ratio: 1;
+            border: 1px solid var(--border-sage);
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--sage-whisper), var(--sage-barely-there));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(164, 183, 146, 0.1);
+        }
+
+        .rating-emoji {
+            font-size: 24px;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .rating-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            line-height: 1.23077;
+        }
+
+        .rating-option:hover {
+            border-color: var(--sage-primary);
+            background: var(--sage-light);
+        }
+
+        .rating-option.selected {
+            border-color: var(--sage-primary);
+            background: var(--sage-primary);
+        }
+
+        .rating-option.selected .rating-label {
+            color: white;
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 56px;
+            background: linear-gradient(135deg, var(--sage-primary), var(--sage-hover));
+            box-shadow: 0 4px 12px rgba(164, 183, 146, 0.3);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .submit-button:hover,
+        .submit-button:focus {
+            background: linear-gradient(135deg, var(--sage-hover), #7a936a);
+            outline: none;
+            box-shadow: 0 6px 16px rgba(164, 183, 146, 0.4), 0 0 0 4px rgba(164, 183, 146, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.46667;
+        }
+
+        .privacy-note {
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-subtle));
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.46667;
+            border: 1px solid rgba(164, 183, 146, 0.2);
+            box-shadow: 0 2px 8px rgba(164, 183, 146, 0.08);
+        }
+
+        .auto-save-indicator {
+            display: none;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--sage-primary);
+            font-weight: 500;
+        }
+
+        .loading,
+        .success,
+        .error {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, var(--sage-barely-there) 0%, var(--sage-ultra-light) 100%);
+        }
+
+        .loading.show,
+        .success.show,
+        .error.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--sage-subtle);
+            border-top: 2px solid var(--sage-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 17px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--sage-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+        }
+
+        .success h2 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            line-height: 1.21429;
+        }
+
+        .success p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.47059;
+            margin-bottom: 12px;
+        }
+
+        .success .secondary-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+
+        .secondary-button {
+            margin-top: 24px;
+            height: 48px;
+            padding: 0 24px;
+            background: none;
+            border: 1px solid var(--sage-primary);
+            border-radius: 12px;
+            color: var(--sage-primary);
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .secondary-button:hover,
+        .secondary-button:focus {
+            background: var(--sage-light);
+            outline: none;
+        }
+
+        .error-container {
+            background: linear-gradient(135deg, #fff8f8, var(--sage-ultra-light));
+            border: 1px solid rgba(254, 215, 215, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            box-shadow: 0 2px 8px rgba(197, 48, 48, 0.08);
+        }
+
+        .error-container.show {
+            display: block;
+        }
+
+        .error-text {
+            font-size: 15px;
+            color: #c53030;
+            line-height: 1.46667;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 32px 24px 24px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 17px;
+            }
+
+            .form-container {
+                padding: 24px;
+            }
+
+            .rating-container {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+            }
+
+            .rating-emoji {
+                font-size: 20px;
+            }
+
+            .rating-label {
+                font-size: 11px;
+            }
+
+            .loading,
+            .success {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="quick-exit" onclick="quickExit()">Exit</button>
+            <h1>Share Your Experience</h1>
+            <p>Your voice helps us create a more healing space for everyone</p>
+        </div>
+
+        <div id="form-section" class="form-container">
+            <div class="progress-indicator">
+                <div class="progress-header">
+                    <span class="progress-label">Progress</span>
+                    <span id="progressText" class="progress-text">0 of 4 completed</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="gentle-message">
+                Take your time. This form saves as you go, so you can pause anytime.
+            </div>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="feedback">How was your experience with ALCHM today?</label>
+                    <textarea 
+                        id="feedback" 
+                        name="feedback" 
+                        placeholder="Share whatever feels right — what helped you, what felt challenging, or anything in between. Your experience matters."
+                        required
+                    ></textarea>
+                    <div class="auto-save-indicator" id="feedbackSaved">✓ Saved</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Overall Rating</label>
+                    <div class="rating-container" id="ratingContainer">
+                        <div class="rating-option" data-value="1">
+                            <div class="rating-emoji">😞</div>
+                            <div class="rating-label">Poor</div>
+                        </div>
+                        <div class="rating-option" data-value="2">
+                            <div class="rating-emoji">😐</div>
+                            <div class="rating-label">Fair</div>
+                        </div>
+                        <div class="rating-option" data-value="3">
+                            <div class="rating-emoji">😊</div>
+                            <div class="rating-label">Good</div>
+                        </div>
+                        <div class="rating-option" data-value="4">
+                            <div class="rating-emoji">😍</div>
+                            <div class="rating-label">Great</div>
+                        </div>
+                        <div class="rating-option" data-value="5">
+                            <div class="rating-emoji">🤩</div>
+                            <div class="rating-label">Amazing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="testPhase">Which part of ALCHM did you test?</label>
+                    <select id="testPhase" name="testPhase" required>
+                        <option value="">Choose an area</option>
+                        <option value="navigation">Navigation & Layout</option>
+                        <option value="writing">Journal Writing Experience</option>
+                        <option value="ai-insights">AI Insights & Reflections</option>
+                        <option value="mood-tracking">Mood Tracking</option>
+                        <option value="onboarding">Getting Started</option>
+                        <option value="mobile">Mobile Experience</option>
+                        <option value="overall">Overall Experience</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="improvements">What would help ALCHM feel even safer or more supportive?</label>
+                    <textarea 
+                        id="improvements" 
+                        name="improvements" 
+                        placeholder="Any ideas that might make ALCHM more helpful for you or others? No pressure — only share what feels comfortable."
+                    ></textarea>
+                    <div class="auto-save-indicator" id="improvementsSaved">✓ Saved</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="userId">How should we address you? (optional)</label>
+                    <input 
+                        type="text" 
+                        id="userId" 
+                        name="userId" 
+                        placeholder="A name, email, or anything you'd like us to call you — or leave blank"
+                    >
+                    <div class="auto-save-indicator" id="userIdSaved">✓ Saved</div>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitBtn">
+                    Share Your Experience
+                </button>
+                
+                <div class="form-note">
+                    Take your time — this form will wait for you
+                </div>
+
+                <div class="privacy-note">
+                    Your privacy is sacred to us. This feedback stays confidential and helps us create a more healing space. You're in control — share only what feels safe, and know that your voice helps others on their healing journey.
+                </div>
+            </form>
+
+            <div id="error" class="error-container">
+                <div class="error-text" id="errorText"></div>
+            </div>
+        </div>
+
+        <div id="loading-section" class="loading">
+            <div class="spinner"></div>
+            <div class="loading-text">Submitting your feedback...</div>
+        </div>
+
+        <div id="success-section" class="success">
+            <div class="success-icon">🌱</div>
+            <h2>Your Voice Matters</h2>
+            <p>Thank you for sharing your experience. Your feedback helps us create a more healing and supportive space for everyone on their journey.</p>
+            <p class="secondary-text">Your contribution makes ALCHM safer and more accessible for those who need it most.</p>
+            <button class="secondary-button" onclick="submitAnother()">
+                Share Another Experience
+            </button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyATJ3mBomWkJCJxvdDPgkmdOJcJhNdxmwI",
+            authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+            projectId: "alchm-digital-sanctuary",
+            storageBucket: "alchm-digital-sanctuary.appspot.com",
+            messagingSenderId: "745417685785",
+            appId: "1:745417685785:web:bb9b90bb5f1b4a04e0cb49"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Auto-save and progress tracking
+        let autoSaveTimer;
+        let formProgress = { feedback: false, rating: false, testPhase: false, improvements: false };
+        let savedData = JSON.parse(localStorage.getItem('alchm_feedback_draft') || '{}');
+        
+        // Rating functionality
+        const ratingContainer = document.getElementById('ratingContainer');
+        let selectedRating = null;
+
+        ratingContainer.addEventListener('click', (e) => {
+            const option = e.target.closest('.rating-option');
+            if (option) {
+                // Remove previous selection
+                ratingContainer.querySelectorAll('.rating-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selection to clicked option
+                option.classList.add('selected');
+                selectedRating = parseInt(option.getAttribute('data-value'));
+                
+                // Mark rating as complete and auto-save
+                formProgress.rating = true;
+                autoSave('rating', selectedRating);
+                updateProgress();
+            }
+        });
+
+        // Auto-save functionality
+        function autoSave(field, value) {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                savedData[field] = value;
+                localStorage.setItem('alchm_feedback_draft', JSON.stringify(savedData));
+                
+                // Show gentle save indicator
+                const indicator = document.getElementById(field + 'Saved');
+                if (indicator) {
+                    indicator.style.display = 'block';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 2000);
+                }
+            }, 1000);
+        }
+
+        function updateProgress() {
+            const completed = Object.values(formProgress).filter(Boolean).length;
+            const total = Object.keys(formProgress).length;
+            const percentage = (completed / total) * 100;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed} of ${total} completed`;
+        }
+
+        function quickExit() {
+            if (confirm('Would you like to save your progress before leaving? You can return anytime to continue.')) {
+                // Progress is already auto-saved
+            }
+            window.close() || (window.location.href = 'about:blank');
+        }
+
+        function restoreFormData() {
+            if (savedData.feedback) {
+                document.getElementById('feedback').value = savedData.feedback;
+                formProgress.feedback = true;
+            }
+            if (savedData.rating) {
+                selectedRating = savedData.rating;
+                const option = document.querySelector(`[data-value="${savedData.rating}"]`);
+                if (option) option.classList.add('selected');
+                formProgress.rating = true;
+            }
+            if (savedData.testPhase) {
+                document.getElementById('testPhase').value = savedData.testPhase;
+                formProgress.testPhase = true;
+            }
+            if (savedData.improvements) {
+                document.getElementById('improvements').value = savedData.improvements;
+                formProgress.improvements = true;
+            }
+            if (savedData.userId) {
+                document.getElementById('userId').value = savedData.userId;
+            }
+            updateProgress();
+        }
+
+        // Form submission
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!selectedRating) {
+                showError('Please select a rating to help us understand your experience.');
+                return;
+            }
+
+            const formData = new FormData(e.target);
+            const feedbackData = {
+                feedback: formData.get('feedback'),
+                rating: selectedRating,
+                testPhase: formData.get('testPhase'),
+                improvements: formData.get('improvements') || '',
+                userId: formData.get('userId') || 'anonymous',
+                submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                ipAddress: null,
+                userAgent: navigator.userAgent,
+                referer: document.referrer,
+                sessionId: generateSessionId(),
+                id: 'feedback_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9),
+                source: 'direct-form'
+            };
+
+            try {
+                showLoading();
+                
+                await Promise.all([
+                    db.collection('user_testing_feedback').add(feedbackData),
+                    storeDailyAggregation(feedbackData)
+                ]);
+
+                showSuccess();
+                console.log('Feedback submitted successfully:', feedbackData);
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                if (navigator.onLine === false) {
+                    showError('You appear to be offline. Your feedback is saved and will be submitted when you\'re back online.');
+                } else {
+                    showError('We\'re having trouble receiving your feedback right now. Please try again in a moment.');
+                }
+                showForm();
+            }
+        });
+
+        // Auto-save event listeners
+        document.getElementById('feedback').addEventListener('input', (e) => {
+            formProgress.feedback = e.target.value.trim().length > 0;
+            autoSave('feedback', e.target.value);
+            updateProgress();
+        });
+
+        document.getElementById('testPhase').addEventListener('change', (e) => {
+            formProgress.testPhase = e.target.value !== '';
+            autoSave('testPhase', e.target.value);
+            updateProgress();
+        });
+
+        document.getElementById('improvements').addEventListener('input', (e) => {
+            autoSave('improvements', e.target.value);
+        });
+
+        document.getElementById('userId').addEventListener('input', (e) => {
+            autoSave('userId', e.target.value);
+        });
+
+        async function storeDailyAggregation(feedbackData) {
+            const today = new Date().toISOString().split('T')[0];
+            const dailyRef = db.collection('user_testing_daily').doc(today);
+            
+            try {
+                await dailyRef.update({
+                    [`feedback_${feedbackData.id}`]: feedbackData,
+                    totalResponses: firebase.firestore.FieldValue.increment(1),
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (error) {
+                await dailyRef.set({
+                    [`feedback_${feedbackData.id}`]: feedbackData,
+                    totalResponses: 1,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+        }
+
+        function generateSessionId() {
+            return Math.random().toString(36).substring(2, 15) + 
+                   Math.random().toString(36).substring(2, 15);
+        }
+
+        function showLoading() {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('loading-section').classList.add('show');
+            document.getElementById('success-section').classList.remove('show');
+        }
+
+        function showSuccess() {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('loading-section').classList.remove('show');
+            document.getElementById('success-section').classList.add('show');
+        }
+
+        function showForm() {
+            document.getElementById('form-section').style.display = 'block';
+            document.getElementById('loading-section').classList.remove('show');
+            document.getElementById('success-section').classList.remove('show');
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('error');
+            const errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorContainer.classList.add('show');
+            
+            setTimeout(() => {
+                errorContainer.classList.remove('show');
+            }, 6000);
+        }
+
+        function submitAnother() {
+            document.getElementById('feedbackForm').reset();
+            selectedRating = null;
+            ratingContainer.querySelectorAll('.rating-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            localStorage.removeItem('alchm_feedback_draft');
+            savedData = {};
+            formProgress = { feedback: false, rating: false, testPhase: false, improvements: false };
+            updateProgress();
+            
+            showForm();
+        }
+
+        // Initialize form on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreFormData();
+            
+            // Show welcome message if there's saved data
+            if (Object.keys(savedData).length > 0) {
+                const welcomeMsg = document.createElement('div');
+                welcomeMsg.className = 'gentle-message';
+                welcomeMsg.textContent = 'Welcome back! We found your previous progress and restored it for you.';
+                welcomeMsg.style.marginBottom = '20px';
+                document.querySelector('.form-container').insertBefore(welcomeMsg, document.getElementById('feedbackForm'));
+                
+                setTimeout(() => {
+                    welcomeMsg.style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/feedback-sw.js')
+                    .then(registration => {
+                        console.log('ALCHM Feedback: Offline support enabled');
+                    })
+                    .catch(error => {
+                        console.log('Service worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

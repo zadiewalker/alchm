@@ -1,0 +1,361 @@
+{
+  "appInfo": {
+    "name": "ALCHM - Trauma-Informed Journaling",
+    "tagline": "AI-Powered Emotional Healing",
+    "description": {
+      "short": "Transform your healing journey with trauma-informed AI journaling. ALCHM provides personalized insights, crisis support, and sacred space for emotional growth.",
+      "long": "ALCHM revolutionizes mental wellness through trauma-informed AI journaling. Our platform combines cutting-edge emotional intelligence with sacred healing practices to create a safe space for personal transformation.\n\n🌱 KEY FEATURES:\n• Trauma-informed AI that understands your emotional patterns\n• Real-time crisis intervention and safety resources\n• Personalized insights from your journal entries\n• Multi-archetype guidance (Sage, Coach, Poet)\n• Privacy-first design with local-first storage\n• Cultural responsiveness and identity affirmation\n• Habit formation with neuroplasticity principles\n\n🛡️ SAFETY & PRIVACY:\n• HIPAA-compliant security measures\n• Crisis detection with immediate resource connection\n• No data selling or third-party sharing\n• End-to-end encryption for all personal content\n• COPPA compliant for younger users\n\n✨ EVIDENCE-BASED APPROACH:\nBuilt on trauma-informed care principles, our AI provides non-diagnostic support that reflects your wisdom back to you. Unlike other apps, ALCHM never attempts to diagnose or replace professional therapy.\n\n🎯 WHO IT'S FOR:\n• Anyone seeking emotional growth and self-understanding\n• People healing from trauma or difficult life experiences\n• Individuals wanting AI-powered insights without compromising privacy\n• Those looking for culturally responsive mental health support\n\n📱 PREMIUM FEATURES:\n• Advanced emotional pattern analysis\n• Extended crisis resource database\n• Unlimited AI insights and archetype responses\n• Priority customer support\n• Enhanced privacy controls\n\nALCHM isn't just another journaling app—it's your personal sanctuary for healing, growth, and transformation. Download today and begin your journey toward emotional freedom."
+    },
+    "keywords": "journaling, mental health, trauma, therapy, mindfulness, emotional intelligence, AI, wellness, self-care, healing, crisis support, privacy, HIPAA, trauma-informed",
+    "category": "Health & Fitness",
+    "secondaryCategory": "Lifestyle",
+    "contentRating": "12+"
+  },
+  "screenshots": {
+    "devices": {
+      "iPhone 6.7\"": {
+        "size": "1290x2796",
+        "devices": [
+          "iPhone 15 Pro Max",
+          "iPhone 14 Pro Max",
+          "iPhone 13 Pro Max"
+        ],
+        "required": true,
+        "count": 10
+      },
+      "iPhone 6.5\"": {
+        "size": "1242x2688",
+        "devices": [
+          "iPhone 11 Pro Max",
+          "iPhone XS Max"
+        ],
+        "required": true,
+        "count": 10
+      },
+      "iPhone 5.5\"": {
+        "size": "1242x2208",
+        "devices": [
+          "iPhone 8 Plus",
+          "iPhone 7 Plus",
+          "iPhone 6s Plus"
+        ],
+        "required": true,
+        "count": 10
+      },
+      "iPad Pro 12.9\"": {
+        "size": "2048x2732",
+        "devices": [
+          "iPad Pro 12.9-inch (6th generation)"
+        ],
+        "required": true,
+        "count": 10
+      },
+      "iPad Pro 11\"": {
+        "size": "1668x2388",
+        "devices": [
+          "iPad Pro 11-inch (4th generation)"
+        ],
+        "required": false,
+        "count": 10
+      }
+    },
+    "descriptions": [
+      {
+        "title": "Welcome to ALCHM",
+        "description": "Begin your trauma-informed healing journey with AI-powered journaling designed for emotional growth and safety.",
+        "features": [
+          "Trauma-informed design",
+          "Crisis safety built-in",
+          "Privacy-first approach"
+        ]
+      },
+      {
+        "title": "Sacred Journaling Space",
+        "description": "Express yourself freely in a safe, judgment-free environment designed specifically for healing and reflection.",
+        "features": [
+          "Encrypted local storage",
+          "Beautiful interface",
+          "Distraction-free writing"
+        ]
+      },
+      {
+        "title": "AI-Powered Insights",
+        "description": "Receive personalized, non-diagnostic insights that reflect your wisdom back to you through three unique archetypes.",
+        "features": [
+          "Sage guidance",
+          "Coach motivation",
+          "Poet creativity"
+        ]
+      },
+      {
+        "title": "Crisis Safety Network",
+        "description": "Immediate access to crisis resources and safety tools, available 24/7 whenever you need support.",
+        "features": [
+          "Instant crisis detection",
+          "988 Lifeline integration",
+          "Emergency resource access"
+        ]
+      },
+      {
+        "title": "Emotional Pattern Recognition",
+        "description": "Understand your emotional patterns and triggers through advanced AI analysis that respects your privacy.",
+        "features": [
+          "Pattern visualization",
+          "Trigger identification",
+          "Growth tracking"
+        ]
+      },
+      {
+        "title": "Cultural Responsiveness",
+        "description": "Experience healing that honors your identity with culturally responsive support and inclusive design.",
+        "features": [
+          "Identity affirmation",
+          "Cultural wisdom",
+          "Inclusive resources"
+        ]
+      },
+      {
+        "title": "Progress Visualization",
+        "description": "Track your healing journey with beautiful visualizations that celebrate your growth and resilience.",
+        "features": [
+          "Growth metrics",
+          "Healing milestones",
+          "Progress celebrations"
+        ]
+      },
+      {
+        "title": "Privacy Controls",
+        "description": "Maintain complete control over your data with comprehensive privacy settings and transparent policies.",
+        "features": [
+          "Data export",
+          "Granular controls",
+          "HIPAA compliance"
+        ]
+      },
+      {
+        "title": "Premium Features",
+        "description": "Unlock advanced insights and extended support with premium tiers designed for deeper healing.",
+        "features": [
+          "Unlimited AI responses",
+          "Priority support",
+          "Advanced analytics"
+        ]
+      },
+      {
+        "title": "Community Wisdom",
+        "description": "Connect with anonymous wisdom from others on healing journeys while maintaining complete privacy.",
+        "features": [
+          "Anonymous sharing",
+          "Community insights",
+          "Collective healing"
+        ]
+      }
+    ]
+  },
+  "appIcons": {
+    "ios": [
+      {
+        "size": "1024x1024",
+        "name": "App Store",
+        "required": true
+      },
+      {
+        "size": "180x180",
+        "name": "iPhone App (3x)",
+        "required": true
+      },
+      {
+        "size": "120x120",
+        "name": "iPhone App (2x)",
+        "required": true
+      },
+      {
+        "size": "167x167",
+        "name": "iPad Pro App",
+        "required": true
+      },
+      {
+        "size": "152x152",
+        "name": "iPad App (2x)",
+        "required": true
+      },
+      {
+        "size": "76x76",
+        "name": "iPad App (1x)",
+        "required": true
+      },
+      {
+        "size": "60x60",
+        "name": "iPhone Spotlight (2x)",
+        "required": true
+      },
+      {
+        "size": "40x40",
+        "name": "iPad Spotlight (1x)",
+        "required": true
+      },
+      {
+        "size": "58x58",
+        "name": "iPhone Settings (2x)",
+        "required": true
+      },
+      {
+        "size": "29x29",
+        "name": "iPad Settings (1x)",
+        "required": true
+      }
+    ]
+  },
+  "privacy": {
+    "dataTypes": [
+      {
+        "category": "Contact Info",
+        "types": [
+          {
+            "type": "Email Address",
+            "collected": true,
+            "linkedToUser": true,
+            "usedForTracking": false,
+            "purposes": [
+              "App Functionality",
+              "Developer Communications"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Health & Fitness",
+        "types": [
+          {
+            "type": "Mental Wellness",
+            "collected": true,
+            "linkedToUser": true,
+            "usedForTracking": false,
+            "purposes": [
+              "App Functionality",
+              "Analytics"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "User Content",
+        "types": [
+          {
+            "type": "User Content",
+            "collected": true,
+            "linkedToUser": true,
+            "usedForTracking": false,
+            "purposes": [
+              "App Functionality"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Usage Data",
+        "types": [
+          {
+            "type": "Product Interaction",
+            "collected": true,
+            "linkedToUser": false,
+            "usedForTracking": false,
+            "purposes": [
+              "Analytics",
+              "App Functionality"
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Diagnostics",
+        "types": [
+          {
+            "type": "Crash Data",
+            "collected": true,
+            "linkedToUser": false,
+            "usedForTracking": false,
+            "purposes": [
+              "App Functionality"
+            ]
+          },
+          {
+            "type": "Performance Data",
+            "collected": true,
+            "linkedToUser": false,
+            "usedForTracking": false,
+            "purposes": [
+              "App Functionality"
+            ]
+          }
+        ]
+      }
+    ],
+    "dataNotCollected": [
+      "Precise Location",
+      "Coarse Location",
+      "Physical Address",
+      "Phone Number",
+      "Other Contact Info",
+      "Photos",
+      "Videos",
+      "Audio Data",
+      "Search History",
+      "Browsing History",
+      "Financial Info",
+      "Payment Info",
+      "Credit Info",
+      "Contacts",
+      "User ID",
+      "Device ID",
+      "Purchase History",
+      "Advertising Data"
+    ]
+  },
+  "ageRating": {
+    "rating": "12+",
+    "contentDescriptors": [
+      "Infrequent/Mild Medical/Treatment Information",
+      "Infrequent/Mild Mature/Suggestive Themes"
+    ],
+    "rationale": "App deals with mental health topics that may not be suitable for children under 12. Content is educational and supportive in nature.",
+    "questionnaire": {
+      "matureThemes": "Infrequent/Mild",
+      "violence": "None",
+      "realisticViolence": "None",
+      "cartoonViolence": "None",
+      "medicalInfo": "Infrequent/Mild",
+      "drugAlcoholTobacco": "None",
+      "gambling": "None",
+      "profanity": "None",
+      "sexualContent": "None",
+      "horror": "None",
+      "seventeenPlus": false
+    }
+  },
+  "pricing": {
+    "freemium": true,
+    "subscriptions": [
+      {
+        "name": "Deep Cut",
+        "price": "$9.99/month",
+        "features": [
+          "Advanced AI insights",
+          "Extended crisis resources",
+          "Priority support"
+        ]
+      },
+      {
+        "name": "Oracle",
+        "price": "$19.99/month",
+        "features": [
+          "All Deep Cut features",
+          "Unlimited AI responses",
+          "Enhanced privacy controls",
+          "Research participation"
+        ]
+      }
+    ]
+  },
+  "generatedAt": "2025-09-21T16:06:34.539Z"
+}

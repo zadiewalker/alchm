@@ -1,0 +1,260 @@
+{
+  "generatedAt": "2025-09-09T02:09:24.647Z",
+  "testDuration": 811,
+  "totalTests": 1,
+  "configuration": {
+    "sites": [
+      "https://alchm-digital-sanctuary.web.app/",
+      "https://alchmapp.web.app/"
+    ],
+    "testUserAgents": [
+      {
+        "name": "Chrome Desktop",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+      },
+      {
+        "name": "Safari Mac",
+        "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
+      },
+      {
+        "name": "Mobile Safari",
+        "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
+      },
+      {
+        "name": "Edge",
+        "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59"
+      }
+    ],
+    "expectedStyling": {
+      "marginTop": "5rem",
+      "backgroundColor": "rgba(34, 51, 68, 0.15)",
+      "color": "white"
+    },
+    "testInterval": 60000,
+    "maxRetries": 3
+  },
+  "results": [
+    {
+      "testNumber": 1,
+      "timestamp": "2025-09-09T02:09:24.647Z",
+      "results": [
+        {
+          "site": "https://alchm-digital-sanctuary.web.app/",
+          "userAgent": "Chrome Desktop",
+          "timestamp": "2025-09-09T02:09:24.239Z",
+          "status": 200,
+          "responseTime": 270,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:00 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "MISS"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": false,
+            "cdnOptimized": false
+          }
+        },
+        {
+          "site": "https://alchm-digital-sanctuary.web.app/",
+          "userAgent": "Safari Mac",
+          "timestamp": "2025-09-09T02:09:24.268Z",
+          "status": 200,
+          "responseTime": 27,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:00 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        },
+        {
+          "site": "https://alchm-digital-sanctuary.web.app/",
+          "userAgent": "Mobile Safari",
+          "timestamp": "2025-09-09T02:09:24.306Z",
+          "status": 200,
+          "responseTime": 37,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:00 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        },
+        {
+          "site": "https://alchm-digital-sanctuary.web.app/",
+          "userAgent": "Edge",
+          "timestamp": "2025-09-09T02:09:24.332Z",
+          "status": 200,
+          "responseTime": 25,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:00 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        },
+        {
+          "site": "https://alchmapp.web.app/",
+          "userAgent": "Chrome Desktop",
+          "timestamp": "2025-09-09T02:09:24.539Z",
+          "status": 200,
+          "responseTime": 205,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:05 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "MISS"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": false,
+            "cdnOptimized": false
+          }
+        },
+        {
+          "site": "https://alchmapp.web.app/",
+          "userAgent": "Safari Mac",
+          "timestamp": "2025-09-09T02:09:24.604Z",
+          "status": 200,
+          "responseTime": 64,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:05 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        },
+        {
+          "site": "https://alchmapp.web.app/",
+          "userAgent": "Mobile Safari",
+          "timestamp": "2025-09-09T02:09:24.625Z",
+          "status": 200,
+          "responseTime": 20,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:05 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        },
+        {
+          "site": "https://alchmapp.web.app/",
+          "userAgent": "Edge",
+          "timestamp": "2025-09-09T02:09:24.647Z",
+          "status": 200,
+          "responseTime": 21,
+          "cacheHeaders": {
+            "cacheControl": "max-age=3600",
+            "etag": "\"345efd294e77b0ad8305190f19938b53770952c5070ef61b0ed1c14fc523a53a-br\"",
+            "lastModified": "Tue, 09 Sep 2025 02:08:05 GMT",
+            "expires": "Not set",
+            "cfCache": "Not set",
+            "xCache": "HIT"
+          },
+          "sacredContractTest": {
+            "elementFound": false,
+            "correctMarginTop": false,
+            "correctBackground": false,
+            "whiteTextColor": false,
+            "overallPass": false
+          },
+          "performance": {
+            "fastResponse": true,
+            "cacheHit": true,
+            "cdnOptimized": true
+          }
+        }
+      ]
+    }
+  ]
+}

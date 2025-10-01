@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Auth Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: white; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .log { background: #333; padding: 10px; margin: 10px 0; border-radius: 5px; font-family: monospace; white-space: pre-wrap; }
+        .error { background: #500; }
+        .success { background: #050; }
+    </style>
+</head>
+<body>
+    <h1>ALCHM Authentication Debug</h1>
+    
+    <div>
+        <button onclick="testFirebaseConnection()">Test Firebase Connection</button>
+        <button onclick="testGoogleAuth()">Test Google Auth</button>
+        <button onclick="testApiEndpoint()">Test Session API</button>
+        <button onclick="clearLogs()">Clear Logs</button>
+    </div>
+    
+    <div id="logs"></div>
+
+    <script type="module">
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const logDiv = document.createElement('div');
+            logDiv.className = `log ${type}`;
+            logDiv.textContent = `[${new Date().toISOString()}] ${message}`;
+            logsDiv.appendChild(logDiv);
+            console.log(message);
+        }
+
+        window.log = log;
+        
+        window.clearLogs = () => {
+            document.getElementById('logs').innerHTML = '';
+        };
+
+        window.testFirebaseConnection = async () => {
+            try {
+                log('Testing Firebase connection...');
+                
+                // Test Firebase config
+                const config = {
+                    apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+                    authDomain: "alchm-digital-sanctuary.web.app",
+                    projectId: "alchm-digital-sanctuary",
+                    storageBucket: "alchm-digital-sanctuary.appspot.com",
+                    messagingSenderId: "10211111067",
+                    appId: "1:10211111067:web:4f23562b8a1f63cd8c963e"
+                };
+                
+                log(`Firebase config loaded: ${JSON.stringify(config, null, 2)}`);
+                
+                // Import Firebase
+                const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+                const { getAuth, GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js');
+                
+                log('Firebase modules imported successfully');
+                
+                // Initialize Firebase
+                const app = initializeApp(config);
+                const auth = getAuth(app);
+                
+                log('Firebase initialized successfully', 'success');
+                
+                window.firebaseAuth = auth;
+                window.GoogleAuthProvider = GoogleAuthProvider;
+                window.signInWithPopup = signInWithPopup;
+                
+            } catch (error) {
+                log(`Firebase connection error: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        };
+
+        window.testGoogleAuth = async () => {
+            try {
+                if (!window.firebaseAuth) {
+                    log('Firebase not initialized. Run Firebase connection test first.', 'error');
+                    return;
+                }
+                
+                log('Starting Google authentication...');
+                
+                const provider = new window.GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+                
+                log('Google provider configured');
+                
+                const result = await window.signInWithPopup(window.firebaseAuth, provider);
+                
+                log(`Google auth successful! User: ${result.user.email}`, 'success');
+                log(`User UID: ${result.user.uid}`);
+                log(`Display Name: ${result.user.displayName}`);
+                
+                window.currentUser = result.user;
+                
+            } catch (error) {
+                log(`Google auth error: ${error.code} - ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        };
+
+        window.testApiEndpoint = async () => {
+            try {
+                if (!window.currentUser) {
+                    log('No authenticated user. Run Google auth test first.', 'error');
+                    return;
+                }
+                
+                log('Testing session API endpoint...');
+                
+                const response = await fetch('/api/auth/session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        uid: window.currentUser.uid,
+                        user: {
+                            uid: window.currentUser.uid,
+                            email: window.currentUser.email,
+                            displayName: window.currentUser.displayName,
+                        }
+                    }),
+                });
+
+                log(`API response status: ${response.status}`);
+                
+                const data = await response.json();
+                log(`API response: ${JSON.stringify(data, null, 2)}`);
+                
+                if (response.ok) {
+                    log('Session API test successful!', 'success');
+                } else {
+                    log('Session API test failed', 'error');
+                }
+                
+            } catch (error) {
+                log(`API test error: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        };
+
+        // Auto-test Firebase connection on load
+        window.addEventListener('load', () => {
+            log('Debug page loaded. Click buttons to test authentication flow.');
+        });
+    </script>
+</body>
+</html>

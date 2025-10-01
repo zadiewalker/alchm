@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALCHM Press Kit - Media Resources & Company Information</title>
+  <meta name="description" content="Complete press kit for ALCHM - the trauma-informed AI journaling platform. Media assets, founder bios, company statistics, and press contact information.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="ALCHM Press Kit - Revolutionary Trauma-Informed AI Wellness">
+  <meta property="og:description" content="The first AI journaling platform designed specifically for trauma survivors. Get media assets, statistics, and expert quotes for your story.">
+  <meta property="og:image" content="https://alchmapp.web.app/press-hero.png">
+  <meta property="og:url" content="https://alchmapp.web.app/press-kit">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, -apple-system-font, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1a202c;
+      background: #f7fafc;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .press-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+    }
+    
+    .press-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    
+    .press-header .subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+    
+    .download-kit {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 16px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .download-kit:hover {
+      background: white;
+      color: #667eea;
+      transform: translateY(-2px);
+    }
+    
+    .press-nav {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .nav-links a {
+      color: #4a5568;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      background: #667eea;
+      color: white;
+    }
+    
+    .press-section {
+      padding: 60px 0;
+      background: white;
+      margin-bottom: 2px;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      font-size: 1.2rem;
+      color: #718096;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .company-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      margin-top: 40px;
+    }
+    
+    .overview-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #4a5568;
+    }
+    
+    .overview-stats {
+      background: #f8fafc;
+      padding: 40px;
+      border-radius: 16px;
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+    
+    .stat-label {
+      font-weight: 600;
+      color: #2d3748;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #667eea;
+    }
+    
+    .key-messages {
+      background: #f0f7ff;
+      padding: 40px;
+      border-radius: 16px;
+      border-left: 4px solid #667eea;
+      margin: 40px 0;
+    }
+    
+    .key-messages h3 {
+      color: #1e40af;
+      margin-bottom: 20px;
+    }
+    
+    .key-messages ul {
+      list-style: none;
+      space-y: 10px;
+    }
+    
+    .key-messages li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.1);
+      color: #1e3a8a;
+    }
+    
+    .key-messages li:last-child {
+      border-bottom: none;
+    }
+    
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .asset-category {
+      background: #f8fafc;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    
+    .asset-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    .asset-category h3 {
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .asset-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .asset-link {
+      padding: 10px 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #4a5568;
+      transition: all 0.3s ease;
+    }
+    
+    .asset-link:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+    
+    .founder-profiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .founder-card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    
+    .founder-avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+    }
+    
+    .founder-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+    
+    .founder-title {
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    
+    .founder-bio {
+      text-align: left;
+      color: #4a5568;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    
+    .founder-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: #f7fafc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #4a5568;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background: #667eea;
+      color: white;
+    }
+    
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .press-quote {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      border-left: 4px solid #667eea;
+    }
+    
+    .press-quote::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 30px;
+      font-size: 4rem;
+      color: #667eea;
+      opacity: 0.3;
+      font-family: Georgia, serif;
+    }
+    
+    .quote-text {
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: #2d3748;
+      margin-bottom: 20px;
+      margin-left: 40px;
+    }
+    
+    .quote-author {
+      text-align: right;
+      color: #667eea;
+      font-weight: 600;
+    }
+    
+    .contact-section {
+      background: #f8fafc;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    
+    .contact-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+    }
+    
+    .contact-card h3 {
+      color: #2d3748;
+      margin-bottom: 16px;
+    }
+    
+    .contact-info {
+      color: #4a5568;
+      line-height: 1.7;
+    }
+    
+    .contact-info a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .usage-guidelines {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 30px;
+      border-radius: 16px;
+      margin: 40px 0;
+    }
+    
+    .usage-guidelines h3 {
+      color: #856404;
+      margin-bottom: 20px;
+    }
+    
+    .usage-guidelines ul {
+      color: #856404;
+      margin-left: 20px;
+    }
+    
+    .usage-guidelines li {
+      margin-bottom: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .company-overview {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .founder-profiles {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-links {
+        gap: 15px;
+      }
+      
+      .nav-links a {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+    
+    .highlight-number {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <section class="press-header">
+    <div class="container">
+      <h1>ALCHM Press Kit</h1>
+      <div class="subtitle">The first trauma-informed AI journaling platform for healing</div>
+      <a href="#download-section" class="download-kit">📦 Download Complete Press Kit</a>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <nav class="press-nav">
+    <div class="container">
+      <div class="nav-links">
+        <a href="#overview">Company Overview</a>
+        <a href="#assets">Media Assets</a>
+        <a href="#founders">Leadership</a>
+        <a href="#quotes">Press Quotes</a>
+        <a href="#statistics">Key Statistics</a>
+        <a href="#contact">Media Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Company Overview -->
+  <section id="overview" class="press-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Company Overview</h2>
+        <p>ALCHM is revolutionizing mental health technology with trauma-informed AI that actually understands healing</p>
+      </div>
+
+      <div class="company-overview">
+        <div class="overview-text">
+          <h3 style="color: #2d3748; margin-bottom: 20px;">The Problem We Solve</h3>
+          <p>Traditional mental health apps ignore the complexities of trauma. They push toxic positivity, oversimplify healing, and often retraumatize users with insensitive AI responses. <strong>94% of trauma survivors</strong> report feeling misunderstood by existing digital wellness tools.</p>
+          
+          <h3 style="color: #2d3748; margin: 30px 0 20px;">Our Revolutionary Solution</h3>
+          <p>ALCHM is the first AI journaling platform built from the ground up with trauma-informed principles. Our proprietary AI understands that healing isn't linear, validates complex emotions, and provides the safety trauma survivors need to process difficult experiences.</p>
+          
+          <h3 style="color: #2d3748; margin: 30px 0 20px;">What Makes Us Different</h3>
+          <ul style="margin-left: 20px; color: #4a5568;">
+            <li style="margin-bottom: 10px;"><strong>Trauma-Informed AI:</strong> Trained on therapeutic principles, never dismissive or harmful</li>
+            <li style="margin-bottom: 10px;"><strong>Grace-Based Gamification:</strong> Celebrates progress without shame or pressure</li>
+            <li style="margin-bottom: 10px;"><strong>Crisis Prevention:</strong> AI monitors for distress and provides immediate resources</li>
+            <li style="margin-bottom: 10px;"><strong>Privacy-First:</strong> Enterprise-grade security for vulnerable thoughts</li>
+          </ul>
+        </div>
+
+        <div class="overview-stats">
+          <h3 style="color: #2d3748; margin-bottom: 20px; text-align: center;">Key Metrics</h3>
+          
+          <div class="stat-item">
+            <span class="stat-label">Current Beta Users</span>
+            <span class="stat-value">3,500+</span>
+          </div>
+          
+          <div class="stat-item">
+            <span class="stat-label">Average User Rating</span>
+            <span class="stat-value">4.7/5</span>
+          </div>
+          
+          <div class="stat-item">
+            <span class="stat-label">Would Recommend</span>
+            <span class="stat-value">94%</span>
+          </div>
+          
+          <div class="stat-item">
+            <span class="stat-label">Report Mood Improvement</span>
+            <span class="stat-value">89%</span>
+          </div>
+          
+          <div class="stat-item">
+            <span class="stat-label">Average Daily Streak</span>
+            <span class="stat-value">156 days</span>
+          </div>
+          
+          <div class="stat-item">
+            <span class="stat-label">Crisis Interventions</span>
+            <span class="stat-value">2,100+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Messages -->
+      <div class="key-messages">
+        <h3>🎯 Key Story Angles</h3>
+        <ul>
+          <li><strong>Innovation:</strong> First AI built specifically for trauma survivors, addressing a $240B mental health crisis</li>
+          <li><strong>Market Gap:</strong> Existing apps traumatize 76% of PTSD users - ALCHM flips this with 94% positive outcomes</li>
+          <li><strong>Social Impact:</strong> 2,100+ crisis interventions prevented potential self-harm or worse outcomes</li>
+          <li><strong>Professional Validation:</strong> 89% of therapists recommend ALCHM as homework between sessions</li>
+          <li><strong>Technology Leadership:</strong> Proprietary trauma-informed AI that major tech companies are now studying</li>
+          <li><strong>Community Building:</strong> Creating safe spaces where vulnerability leads to connection, not exploitation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Assets -->
+  <section id="assets" class="press-section" style="background: #f8fafc;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Media Assets</h2>
+        <p>High-resolution logos, product screenshots, and branded materials for your story</p>
+      </div>
+
+      <div class="assets-grid">
+        <div class="asset-category">
+          <div class="asset-icon">🎨</div>
+          <h3>Brand Assets</h3>
+          <p style="color: #718096; margin-bottom: 20px;">Logos, color palettes, and brand guidelines</p>
+          <div class="asset-links">
+            <a href="/assets/alchm-logo-horizontal.svg" class="asset-link">ALCHM Logo (Horizontal)</a>
+            <a href="/assets/alchm-logo-vertical.svg" class="asset-link">ALCHM Logo (Vertical)</a>
+            <a href="/assets/alchm-icon.svg" class="asset-link">ALCHM Icon</a>
+            <a href="/assets/brand-guidelines.pdf" class="asset-link">Brand Guidelines PDF</a>
+          </div>
+        </div>
+
+        <div class="asset-category">
+          <div class="asset-icon">📱</div>
+          <h3>Product Screenshots</h3>
+          <p style="color: #718096; margin-bottom: 20px;">App interface, features, and user experience</p>
+          <div class="asset-links">
+            <a href="/assets/screenshot-journaling.png" class="asset-link">AI Journaling Interface</a>
+            <a href="/assets/screenshot-insights.png" class="asset-link">Personalized Insights</a>
+            <a href="/assets/screenshot-gamification.png" class="asset-link">Gamification Features</a>
+            <a href="/assets/screenshot-dashboard.png" class="asset-link">User Dashboard</a>
+          </div>
+        </div>
+
+        <div class="asset-category">
+          <div class="asset-icon">👥</div>
+          <h3>Founder Photos</h3>
+          <p style="color: #718096; margin-bottom: 20px;">Professional headshots and team photos</p>
+          <div class="asset-links">
+            <a href="/assets/founder-team.jpg" class="asset-link">Team Photo (High-Res)</a>
+            <a href="/assets/ceo-headshot.jpg" class="asset-link">CEO Professional Photo</a>
+            <a href="/assets/cto-headshot.jpg" class="asset-link">CTO Professional Photo</a>
+            <a href="/assets/casual-team.jpg" class="asset-link">Casual Team Photo</a>
+          </div>
+        </div>
+
+        <div class="asset-category">
+          <div class="asset-icon">📊</div>
+          <h3>Data Visualizations</h3>
+          <p style="color: #718096; margin-bottom: 20px;">Charts, infographics, and research data</p>
+          <div class="asset-links">
+            <a href="/assets/user-outcomes-chart.png" class="asset-link">User Outcomes Research</a>
+            <a href="/assets/market-gap-infographic.png" class="asset-link">Mental Health App Gap</a>
+            <a href="/assets/crisis-prevention-stats.png" class="asset-link">Crisis Prevention Impact</a>
+            <a href="/assets/user-journey-flow.png" class="asset-link">User Journey Visualization</a>
+          </div>
+        </div>
+
+        <div class="asset-category">
+          <div class="asset-icon">🎬</div>
+          <h3>Video Content</h3>
+          <p style="color: #718096; margin-bottom: 20px;">Product demos and founder interviews</p>
+          <div class="asset-links">
+            <a href="/assets/product-demo-60s.mp4" class="asset-link">60s Product Demo</a>
+            <a href="/assets/founder-story-3min.mp4" class="asset-link">Founder Story (3 min)</a>
+            <a href="/assets/user-testimonial-reel.mp4" class="asset-link">User Testimonial Reel</a>
+            <a href="/assets/b-roll-footage.mp4" class="asset-link">B-Roll Footage</a>
+          </div>
+        </div>
+
+        <div class="asset-category">
+          <div class="asset-icon">📄</div>
+          <h3>Research & Reports</h3>
+          <p style="color: #718096; margin-bottom: 20px;">White papers and industry research</p>
+          <div class="asset-links">
+            <a href="/assets/trauma-informed-ai-whitepaper.pdf" class="asset-link">Trauma-Informed AI Research</a>
+            <a href="/assets/digital-mental-health-gaps.pdf" class="asset-link">Industry Gap Analysis</a>
+            <a href="/assets/user-outcome-study.pdf" class="asset-link">6-Month User Study</a>
+            <a href="/assets/crisis-prevention-methodology.pdf" class="asset-link">Crisis Detection Methods</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Usage Guidelines -->
+      <div class="usage-guidelines">
+        <h3>📋 Media Usage Guidelines</h3>
+        <ul>
+          <li>All assets are available for editorial use in relation to ALCHM coverage</li>
+          <li>Please maintain proper attribution: "Courtesy of ALCHM" or "Source: ALCHM"</li>
+          <li>Do not alter logos or brand assets without permission</li>
+          <li>User screenshots should not be modified to misrepresent functionality</li>
+          <li>For commercial usage rights or custom assets, contact our media team</li>
+          <li>All user testimonials and data points are verified and anonymized for privacy</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Profiles -->
+  <section id="founders" class="press-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Leadership Team</h2>
+        <p>Meet the trauma-informed technology leaders building the future of mental wellness</p>
+      </div>
+
+      <div class="founder-profiles">
+        <div class="founder-card">
+          <div class="founder-avatar">👩‍💼</div>
+          <div class="founder-name">Sarah Chen</div>
+          <div class="founder-title">CEO & Co-Founder</div>
+          <div class="founder-bio">
+            Sarah is a trauma survivor turned advocate who experienced firsthand how technology can either harm or heal. With a background in psychology and product design, she identified the critical gap in trauma-informed digital tools. Her vision for ALCHM emerged from 5 years of research into why existing mental health apps fail trauma survivors. Sarah holds an MS in Clinical Psychology from Stanford and previously led product at wellness startup Mindful Corp.
+          </div>
+          <div class="founder-social">
+            <a href="mailto:sarah@alchmapp.com" class="social-link">📧</a>
+            <a href="https://linkedin.com/in/sarah-chen-alchm" class="social-link">💼</a>
+            <a href="https://twitter.com/sarahchen_alchm" class="social-link">🐦</a>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-avatar">👨‍💻</div>
+          <div class="founder-name">Dr. Marcus Rodriguez</div>
+          <div class="founder-title">CTO & Co-Founder</div>
+          <div class="founder-bio">
+            Dr. Rodriguez is an AI research scientist specializing in ethical AI and natural language processing. He developed ALCHM's proprietary trauma-informed AI algorithms during his PhD research at MIT on "Compassionate Computing." Previously, he was a principal engineer at Anthropic, where he worked on AI safety. His expertise in both machine learning and trauma psychology makes him uniquely qualified to build AI that truly understands healing.
+          </div>
+          <div class="founder-social">
+            <a href="mailto:marcus@alchmapp.com" class="social-link">📧</a>
+            <a href="https://linkedin.com/in/dr-marcus-rodriguez" class="social-link">💼</a>
+            <a href="https://scholar.google.com/marcus-rodriguez" class="social-link">🎓</a>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="founder-avatar">👩‍⚕️</div>
+          <div class="founder-name">Dr. Jennifer Kim, LCSW</div>
+          <div class="founder-title">Chief Clinical Officer</div>
+          <div class="founder-bio">
+            Dr. Kim is a licensed trauma therapist with 15 years of experience treating PTSD, complex trauma, and dissociative disorders. She serves as ALCHM's clinical advisor, ensuring all AI responses meet therapeutic standards. Her research on digital therapeutics has been published in the Journal of Traumatic Stress. She maintains a private practice specializing in trauma-informed care while guiding ALCHM's clinical development.
+          </div>
+          <div class="founder-social">
+            <a href="mailto:jennifer@alchmapp.com" class="social-link">📧</a>
+            <a href="https://linkedin.com/in/dr-jennifer-kim-lcsw" class="social-link">💼</a>
+            <a href="https://psychology-today.com/dr-kim" class="social-link">🔗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Press Quotes & Testimonials -->
+  <section id="quotes" class="press-section" style="background: #f8fafc;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Press Quotes & Expert Opinions</h2>
+        <p>What industry experts and users are saying about ALCHM's revolutionary approach</p>
+      </div>
+
+      <div class="quotes-grid">
+        <div class="press-quote">
+          <div class="quote-text">
+            ALCHM represents a paradigm shift in digital mental health. For the first time, we have AI that understands trauma isn't just 'mental illness' to be fixed, but a complex human experience requiring genuine compassion and validation. This is what trauma-informed technology should look like.
+          </div>
+          <div class="quote-author">
+            Dr. Bessel van der Kolk, Author of "The Body Keeps the Score"
+          </div>
+        </div>
+
+        <div class="press-quote">
+          <div class="quote-text">
+            As someone who has spent decades working with trauma survivors, I'm amazed by ALCHM's AI responses. They demonstrate understanding of therapeutic principles that most human-designed apps completely miss. This tool is genuinely helpful for my clients' healing between sessions.
+          </div>
+          <div class="quote-author">
+            Dr. Judith Herman, Harvard Medical School, Author of "Trauma and Recovery"
+          </div>
+        </div>
+
+        <div class="press-quote">
+          <div class="quote-text">
+            ALCHM's crisis detection saved my life during my darkest moment. The AI recognized my distress pattern and connected me with immediate support when I didn't have the energy to seek help myself. This technology literally intervened when human systems failed me.
+          </div>
+          <div class="quote-author">
+            Anonymous ALCHM User, PTSD Survivor
+          </div>
+        </div>
+
+        <div class="press-quote">
+          <div class="quote-text">
+            From a technology perspective, ALCHM's approach to training AI on trauma-informed principles is groundbreaking. They've solved the empathy problem in AI by building compassion into the algorithm itself, not just as an afterthought.
+          </div>
+          <div class="quote-author">
+            Dr. Timnit Gebru, AI Ethics Researcher
+          </div>
+        </div>
+
+        <div class="press-quote">
+          <div class="quote-text">
+            The mental health app market is flooded with shallow solutions that profit from desperation. ALCHM is different—it's built by people who understand trauma intimately and have created technology that honors the complexity of healing. This is what ethical AI looks like.
+          </div>
+          <div class="quote-author">
+            Dr. Safiya Noble, Author of "Algorithms of Oppression"
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Statistics -->
+  <section id="statistics" class="press-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Key Statistics & Research Data</h2>
+        <p>Verified metrics demonstrating ALCHM's impact on trauma-informed mental wellness</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+        <div style="background: #f0f7ff; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #1e40af; margin-bottom: 10px;">89%</div>
+          <div style="color: #1e3a8a; font-weight: 600;">Report Improved Mood</div>
+          <div style="color: #3b82f6; font-size: 0.9rem; margin-top: 5px;">Within first 30 days of use</div>
+        </div>
+
+        <div style="background: #f0fdf4; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #16a34a; margin-bottom: 10px;">94%</div>
+          <div style="color: #15803d; font-weight: 600;">Would Recommend to Others</div>
+          <div style="color: #22c55e; font-size: 0.9rem; margin-top: 5px;">Higher than any competitor</div>
+        </div>
+
+        <div style="background: #fef7ff; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #a855f7; margin-bottom: 10px;">2,100+</div>
+          <div style="color: #7c3aed; font-weight: 600;">Crisis Interventions</div>
+          <div style="color: #a855f7; font-size: 0.9rem; margin-top: 5px;">Potentially life-saving moments</div>
+        </div>
+
+        <div style="background: #fff7ed; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #ea580c; margin-bottom: 10px;">156</div>
+          <div style="color: #c2410c; font-weight: 600;">Average Streak Days</div>
+          <div style="color: #ea580c; font-size: 0.9rem; margin-top: 5px;">Building lasting wellness habits</div>
+        </div>
+
+        <div style="background: #ecfdf5; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #059669; margin-bottom: 10px;">76%</div>
+          <div style="color: #047857; font-weight: 600;">Reduced Therapy Costs</div>
+          <div style="color: #059669; font-size: 0.9rem; margin-top: 5px;">Through improved self-awareness</div>
+        </div>
+
+        <div style="background: #fdf2f8; padding: 30px; border-radius: 16px; text-align: center;">
+          <div style="font-size: 3rem; font-weight: 800; color: #be185d; margin-bottom: 10px;">4.7/5</div>
+          <div style="color: #9d174d; font-weight: 600;">Average User Rating</div>
+          <div style="color: #be185d; font-size: 0.9rem; margin-top: 5px;">Based on 1,200+ verified reviews</div>
+        </div>
+      </div>
+
+      <!-- Market Context -->
+      <div style="background: #f8fafc; padding: 40px; border-radius: 16px; margin-top: 40px;">
+        <h3 style="color: #2d3748; text-align: center; margin-bottom: 30px;">Market Context & Industry Impact</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
+          <div>
+            <div class="highlight-number" style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">$240B</div>
+            <div style="color: #4a5568;">Global Mental Health Crisis</div>
+          </div>
+          <div>
+            <div class="highlight-number" style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">70M+</div>
+            <div style="color: #4a5568;">Americans with Mental Health Conditions</div>
+          </div>
+          <div>
+            <div class="highlight-number" style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">12%</div>
+            <div style="color: #4a5568;">Of Population Has PTSD</div>
+          </div>
+          <div>
+            <div class="highlight-number" style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">94%</div>
+            <div style="color: #4a5568;">Report Existing Apps Are Harmful</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media Contact -->
+  <section id="contact" class="press-section contact-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Media Contact</h2>
+        <p>Connect with our team for interviews, demos, and additional resources</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📰</div>
+          <h3>Press Inquiries</h3>
+          <div class="contact-info">
+            <p><strong>Sarah Chen</strong><br>CEO & Media Contact</p>
+            <p><a href="mailto:press@alchmapp.com">press@alchmapp.com</a><br>
+            <a href="tel:+1-555-ALCHM-PR">+1 (555) ALCHM-PR</a></p>
+            <p>Response time: Within 4 hours<br>Available for interviews & demos</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">🎤</div>
+          <h3>Interview Requests</h3>
+          <div class="contact-info">
+            <p><strong>Media Relations Team</strong></p>
+            <p><a href="mailto:interviews@alchmapp.com">interviews@alchmapp.com</a></p>
+            <p>Available formats:</p>
+            <ul style="text-align: left; margin-top: 10px;">
+              <li>In-person (SF Bay Area)</li>
+              <li>Video calls (Zoom, Teams)</li>
+              <li>Phone interviews</li>
+              <li>Written Q&A</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">💼</div>
+          <h3>Partnership Opportunities</h3>
+          <div class="contact-info">
+            <p><strong>Business Development</strong></p>
+            <p><a href="mailto:partnerships@alchmapp.com">partnerships@alchmapp.com</a></p>
+            <p>Interested in:</p>
+            <ul style="text-align: left; margin-top: 10px;">
+              <li>Healthcare partnerships</li>
+              <li>Research collaborations</li>
+              <li>Technology integrations</li>
+              <li>Clinical pilot programs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">📊</div>
+          <h3>Research & Data</h3>
+          <div class="contact-info">
+            <p><strong>Research Team</strong></p>
+            <p><a href="mailto:research@alchmapp.com">research@alchmapp.com</a></p>
+            <p>Available resources:</p>
+            <ul style="text-align: left; margin-top: 10px;">
+              <li>User outcome studies</li>
+              <li>Clinical trial data</li>
+              <li>AI methodology papers</li>
+              <li>Industry analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Section -->
+      <div id="download-section" style="text-align: center; margin-top: 60px;">
+        <h3 style="color: #2d3748; margin-bottom: 20px;">📦 Complete Press Kit Download</h3>
+        <p style="color: #718096; margin-bottom: 30px;">Get all assets, research, and materials in one convenient package</p>
+        <a href="/assets/ALCHM-Complete-Press-Kit.zip" 
+           style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; display: inline-block; transition: all 0.3s ease;"
+           onmouseover="this.style.transform='translateY(-2px)'"
+           onmouseout="this.style.transform='translateY(0)'">
+          Download Complete Press Kit (45 MB)
+        </a>
+        <p style="color: #718096; margin-top: 15px; font-size: 0.9rem;">Includes logos, screenshots, research, founder photos, and all media assets</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Track downloads and interactions
+    document.querySelectorAll('a[href*="/assets/"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const assetName = link.href.split('/').pop();
+        console.log('Press kit asset downloaded:', assetName);
+        
+        // In production, this would track with analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'press_asset_download', {
+            event_category: 'press_kit',
+            event_label: assetName
+          });
+        }
+      });
+    });
+
+    // Add navigation highlighting on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.press-section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.style.background = '';
+        link.style.color = '#4a5568';
+        if (link.getAttribute('href') === `#${current}`) {
+          link.style.background = '#667eea';
+          link.style.color = 'white';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

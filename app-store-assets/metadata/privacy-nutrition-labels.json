@@ -1,0 +1,106 @@
+{
+  "dataTypes": [
+    {
+      "category": "Contact Info",
+      "types": [
+        {
+          "type": "Email Address",
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purposes": [
+            "App Functionality",
+            "Developer Communications"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Health & Fitness",
+      "types": [
+        {
+          "type": "Mental Wellness",
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purposes": [
+            "App Functionality",
+            "Analytics"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "User Content",
+      "types": [
+        {
+          "type": "User Content",
+          "collected": true,
+          "linkedToUser": true,
+          "usedForTracking": false,
+          "purposes": [
+            "App Functionality"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Usage Data",
+      "types": [
+        {
+          "type": "Product Interaction",
+          "collected": true,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purposes": [
+            "Analytics",
+            "App Functionality"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Diagnostics",
+      "types": [
+        {
+          "type": "Crash Data",
+          "collected": true,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purposes": [
+            "App Functionality"
+          ]
+        },
+        {
+          "type": "Performance Data",
+          "collected": true,
+          "linkedToUser": false,
+          "usedForTracking": false,
+          "purposes": [
+            "App Functionality"
+          ]
+        }
+      ]
+    }
+  ],
+  "dataNotCollected": [
+    "Precise Location",
+    "Coarse Location",
+    "Physical Address",
+    "Phone Number",
+    "Other Contact Info",
+    "Photos",
+    "Videos",
+    "Audio Data",
+    "Search History",
+    "Browsing History",
+    "Financial Info",
+    "Payment Info",
+    "Credit Info",
+    "Contacts",
+    "User ID",
+    "Device ID",
+    "Purchase History",
+    "Advertising Data"
+  ]
+}

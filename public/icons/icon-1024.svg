@@ -1,0 +1,24 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a4b792;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8fa078;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1024" height="1024" rx="184" ry="184" fill="url(#bg)"/>
+  
+  <g transform="translate(512, 512)">
+    <!-- Khepera scarab symbol -->
+    <ellipse cx="0" cy="0" rx="153" ry="256" fill="#ffffff" opacity="0.9"/>
+    <ellipse cx="-102" cy="-51" rx="82" ry="153" fill="#ffffff" opacity="0.7" transform="rotate(-20)"/>
+    <ellipse cx="102" cy="-51" rx="82" ry="153" fill="#ffffff" opacity="0.7" transform="rotate(20)"/>
+    
+    <!-- Sacred dots -->
+    <circle cx="0" cy="-82" r="31" fill="#2d3748" opacity="0.6"/>
+    <circle cx="0" cy="0" r="20" fill="#2d3748" opacity="0.8"/>
+    <circle cx="0" cy="82" r="31" fill="#2d3748" opacity="0.6"/>
+  </g>
+  
+  <text x="512" y="870" font-family="-apple-system, system-ui" font-size="62" font-weight="500" fill="#ffffff" text-anchor="middle" opacity="0.8">ALCHM</text>
+</svg>

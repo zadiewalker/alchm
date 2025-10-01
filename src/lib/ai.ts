@@ -322,8 +322,8 @@ export const aiService = new AIService();
 
 // Rate limiting for AI calls
 const AI_RATE_LIMITS = {
-  analysis: { calls: 10, window: 60000 }, // 10 calls per minute
-  reflection: { calls: 5, window: 60000 }, // 5 calls per minute
+  analysis: { calls: 10, typeof window !== 'undefined' && window: 60000 }, // 10 calls per minute
+  reflection: { calls: 5, typeof window !== 'undefined' && window: 60000 }, // 5 calls per minute
 };
 
 const rateLimitTracker = new Map<string, { count: number; resetTime: number }>();
@@ -336,7 +336,7 @@ export function checkAIRateLimit(operation: keyof typeof AI_RATE_LIMITS, userId:
   const tracker = rateLimitTracker.get(key);
   
   if (!tracker || now > tracker.resetTime) {
-    rateLimitTracker.set(key, { count: 1, resetTime: now + limit.window });
+    rateLimitTracker.set(key, { count: 1, resetTime: now + limit.typeof window !== 'undefined' && window });
     return true;
   }
   

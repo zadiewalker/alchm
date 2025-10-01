@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Component: SoulCanvas
 // Expansive space for deep reflection
 // Replaces: Textarea

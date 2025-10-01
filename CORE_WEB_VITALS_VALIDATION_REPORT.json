@@ -1,0 +1,1535 @@
+{
+  "summary": {
+    "totalTests": 48,
+    "passedTests": 0,
+    "failedTests": 48,
+    "passRate": "0.0%",
+    "testDuration": "6.3s",
+    "timestamp": "2025-09-29T21:23:46.716Z"
+  },
+  "compliance": {
+    "appStoreReady": false,
+    "crisisCriticalPages": {
+      "totalCrisisTests": 24,
+      "passedCrisisTests": 0,
+      "crisisPassRate": "0.0",
+      "compliant": false
+    },
+    "overallGrade": "F"
+  },
+  "results": {
+    "byPage": {
+      "Landing Page": {
+        "tests": [
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.431Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.525Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.608Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.692Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.775Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.860Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Login Page": {
+        "tests": [
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.945Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.031Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.114Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.197Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.278Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.361Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Signup Page": {
+        "tests": [
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.444Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.528Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.610Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.694Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.776Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.861Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Dashboard": {
+        "tests": [
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.943Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.029Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.111Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.197Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.280Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.790Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Journal Page": {
+        "tests": [
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.878Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.967Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.053Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.146Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.227Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.312Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Journals List": {
+        "tests": [
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.395Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.480Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.560Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.648Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.731Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.814Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Crisis Support": {
+        "tests": [
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.901Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.982Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:45.525Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.053Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.134Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.219Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "Pricing": {
+        "tests": [
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.301Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.384Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.470Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.552Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.633Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.715Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      }
+    },
+    "byPriority": {
+      "crisis": {
+        "tests": [
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.431Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.525Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.608Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.692Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.775Z"
+          },
+          {
+            "page": "Landing Page",
+            "path": "/",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.860Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:41.945Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.031Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.114Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.197Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.278Z"
+          },
+          {
+            "page": "Login Page",
+            "path": "/auth/login",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.361Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.878Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.967Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.053Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.146Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.227Z"
+          },
+          {
+            "page": "Journal Page",
+            "path": "/journal",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.312Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.901Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.982Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:45.525Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.053Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.134Z"
+          },
+          {
+            "page": "Crisis Support",
+            "path": "/crisis",
+            "priority": "crisis",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.219Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "high": {
+        "tests": [
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.444Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.528Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.610Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.694Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.776Z"
+          },
+          {
+            "page": "Signup Page",
+            "path": "/auth/signup",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.861Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:42.943Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.029Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.111Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.197Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.280Z"
+          },
+          {
+            "page": "Dashboard",
+            "path": "/dashboard",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:43.790Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.395Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.480Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.560Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.648Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.731Z"
+          },
+          {
+            "page": "Journals List",
+            "path": "/journals",
+            "priority": "high",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:44.814Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      },
+      "normal": {
+        "tests": [
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Desktop",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.301Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Desktop",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.384Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Mobile",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.470Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Mobile",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.552Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Tablet",
+            "network": "Fast 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.633Z"
+          },
+          {
+            "page": "Pricing",
+            "path": "/pricing",
+            "priority": "normal",
+            "device": "Tablet",
+            "network": "Slow 3G",
+            "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+            "passed": false,
+            "timestamp": "2025-09-29T21:23:46.715Z"
+          }
+        ],
+        "passRate": "0.0",
+        "averageScore": 0
+      }
+    },
+    "detailed": [
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.431Z"
+      },
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.525Z"
+      },
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.608Z"
+      },
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.692Z"
+      },
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.775Z"
+      },
+      {
+        "page": "Landing Page",
+        "path": "/",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.860Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:41.945Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.031Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.114Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.197Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.278Z"
+      },
+      {
+        "page": "Login Page",
+        "path": "/auth/login",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.361Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.444Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.528Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.610Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.694Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.776Z"
+      },
+      {
+        "page": "Signup Page",
+        "path": "/auth/signup",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.861Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:42.943Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.029Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.111Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.197Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.280Z"
+      },
+      {
+        "page": "Dashboard",
+        "path": "/dashboard",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.790Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.878Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:43.967Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.053Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.146Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.227Z"
+      },
+      {
+        "page": "Journal Page",
+        "path": "/journal",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.312Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.395Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.480Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.560Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.648Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.731Z"
+      },
+      {
+        "page": "Journals List",
+        "path": "/journals",
+        "priority": "high",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.814Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.901Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:44.982Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:45.525Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.053Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.134Z"
+      },
+      {
+        "page": "Crisis Support",
+        "path": "/crisis",
+        "priority": "crisis",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.219Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Desktop",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.301Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Desktop",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.384Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Mobile",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.470Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Mobile",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.552Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Tablet",
+        "network": "Fast 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.633Z"
+      },
+      {
+        "page": "Pricing",
+        "path": "/pricing",
+        "priority": "normal",
+        "device": "Tablet",
+        "network": "Slow 3G",
+        "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28",
+        "passed": false,
+        "timestamp": "2025-09-29T21:23:46.715Z"
+      }
+    ]
+  },
+  "recommendations": []
+}

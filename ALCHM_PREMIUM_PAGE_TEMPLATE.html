@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premium Page Template - ALCHM Digital Sanctuary</title>
+  <meta name="description" content="Premium trauma-informed design template implementing Jony Ive principles">
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="/styles/alchm-jony-ive-foundation.css" as="style">
+  
+  <!-- Crisis Resource Preloading -->
+  <link rel="dns-prefetch" href="tel:988">
+  <link rel="preconnect" href="https://suicidepreventionlifeline.org">
+  
+  <!-- Jony Ive Design Foundation -->
+  <link rel="stylesheet" href="/styles/alchm-jony-ive-foundation.css">
+  
+  <!-- Firebase Scripts (if needed) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  
+  <style>
+    /* Page-specific customizations go here */
+    /* Example: Custom card hover for this specific page */
+    .custom-feature-card:hover {
+      border-color: var(--sage-400);
+      background: rgba(254, 252, 251, 1);
+    }
+  </style>
+</head>
+
+<body class="page-background layout-safe">
+  <!-- Main Content Container -->
+  <div class="container">
+    
+    <!-- Page Header Section -->
+    <header class="content-sanctuary animate-gentle-fade mb-6">
+      
+      <!-- Navigation Bar -->
+      <nav class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-4">
+          <h1 class="text-2xl font-light text-sage-700">🌿 ALCHM</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="btn-secondary btn-sm">
+            🏠 Dashboard
+          </button>
+          <button id="sign-out-btn" class="btn-secondary btn-sm focus-gentle">
+            🚪 Sign Out
+          </button>
+        </div>
+      </nav>
+      
+      <!-- Page Title & Description -->
+      <div class="text-center mb-8">
+        <h2 class="text-4xl font-light text-gray-900 mb-4">
+          Premium Page Title
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          A beautifully crafted description that explains the purpose of this page
+          in a warm, welcoming tone that respects the user's journey.
+        </p>
+      </div>
+      
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="space-y-8">
+      
+      <!-- Feature Cards Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Primary Feature Card -->
+        <article class="card-sanctuary hover-gentle animate-gentle-fade custom-feature-card">
+          <div class="card-header">
+            <div class="text-4xl text-center mb-4">🎯</div>
+            <h3 class="text-xl font-medium text-gray-900 mb-2 text-center">
+              Primary Feature
+            </h3>
+          </div>
+          <div class="card-content">
+            <p class="text-base text-gray-600 mb-4">
+              A concise description of this feature that focuses on the benefit to the user's 
+              healing journey and emotional well-being.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-primary w-full focus-gentle">
+              ✨ Explore Feature
+            </button>
+          </div>
+        </article>
+
+        <!-- Secondary Feature Card -->
+        <article class="card-sanctuary hover-gentle animate-gentle-fade">
+          <div class="card-header">
+            <div class="text-4xl text-center mb-4">🌱</div>
+            <h3 class="text-xl font-medium text-gray-900 mb-2 text-center">
+              Growth Tool
+            </h3>
+          </div>
+          <div class="card-content">
+            <p class="text-base text-gray-600 mb-4">
+              Supporting feature description that complements the primary action
+              and provides additional value to the user's experience.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-secondary w-full focus-gentle">
+              🔍 Learn More
+            </button>
+          </div>
+        </article>
+
+        <!-- Supportive Feature Card -->
+        <article class="card-sanctuary hover-gentle animate-gentle-fade">
+          <div class="card-header">
+            <div class="text-4xl text-center mb-4">🤝</div>
+            <h3 class="text-xl font-medium text-gray-900 mb-2 text-center">
+              Community Support
+            </h3>
+          </div>
+          <div class="card-content">
+            <p class="text-base text-gray-600 mb-4">
+              Connection and community features that help users feel supported
+              and less alone in their healing journey.
+            </p>
+          </div>
+          <div class="card-actions">
+            <button class="btn-secondary w-full focus-gentle">
+              💬 Connect
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- Interactive Content Section -->
+      <section class="card-glass animate-gentle-fade">
+        <div class="card-header">
+          <h3 class="text-2xl font-medium text-gray-900 mb-2">
+            Interactive Experience
+          </h3>
+          <p class="text-base text-gray-600">
+            A deeper, more engaging section for primary user interactions
+          </p>
+        </div>
+        
+        <div class="card-content">
+          
+          <!-- Form Example -->
+          <form class="space-y-6">
+            
+            <!-- Input Field -->
+            <div class="form-group">
+              <label for="user-input" class="form-label">
+                Share Your Thoughts
+              </label>
+              <textarea 
+                id="user-input"
+                class="input-sanctuary textarea-sanctuary focus-gentle"
+                placeholder="Write about anything that's on your mind today..."
+                rows="4"
+              ></textarea>
+            </div>
+
+            <!-- Select Field -->
+            <div class="form-group">
+              <label for="mood-select" class="form-label">
+                How are you feeling?
+              </label>
+              <select id="mood-select" class="input-sanctuary select-sanctuary focus-gentle">
+                <option value="">Select your current mood...</option>
+                <option value="1">😞 Struggling today</option>
+                <option value="2">😔 Feeling low</option>
+                <option value="3">😐 Neutral/okay</option>
+                <option value="4">😊 Pretty good</option>
+                <option value="5">😄 Great day</option>
+              </select>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 flex-col sm:flex-row">
+              <button type="submit" class="btn-primary flex-1 focus-gentle">
+                💾 Save & Continue
+              </button>
+              <button type="button" class="btn-secondary flex-1 focus-gentle">
+                🔄 Reset Form
+              </button>
+            </div>
+
+          </form>
+          
+        </div>
+      </section>
+
+      <!-- Information Cards Section -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Informational Card -->
+        <div class="card-sanctuary animate-gentle-fade">
+          <div class="card-header">
+            <h4 class="text-lg font-medium text-gray-900 mb-2">
+              💡 Helpful Information
+            </h4>
+          </div>
+          <div class="card-content">
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-sage-400">•</span>
+                <span>This is a supportive bullet point that provides guidance</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-400">•</span>
+                <span>Another helpful piece of information for the user</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-400">•</span>
+                <span>Reassuring guidance that promotes self-compassion</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Status/Progress Card -->
+        <div class="card-sanctuary animate-gentle-fade">
+          <div class="card-header">
+            <h4 class="text-lg font-medium text-gray-900 mb-2">
+              📊 Your Progress
+            </h4>
+          </div>
+          <div class="card-content">
+            <div class="space-y-4">
+              <!-- Progress Item -->
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">Journal Entries</span>
+                <span class="text-lg font-medium text-sage-600">23</span>
+              </div>
+              <!-- Progress Item -->
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">Current Streak</span>
+                <span class="text-lg font-medium text-sage-600">7 days</span>
+              </div>
+              <!-- Progress Item -->
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">Insights Gained</span>
+                <span class="text-lg font-medium text-sage-600">12</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="content-sanctuary mt-12 animate-gentle-fade">
+      <div class="text-center py-6">
+        <p class="text-sm text-gray-500 mb-4">
+          Remember: Your healing journey is unique and valid. Take your time.
+        </p>
+        <div class="flex justify-center gap-4 flex-wrap">
+          <a href="/privacy" class="text-sm text-sage-600 hover:text-sage-700 transition-colors">
+            Privacy Policy
+          </a>
+          <a href="/terms" class="text-sm text-sage-600 hover:text-sage-700 transition-colors">
+            Terms of Service
+          </a>
+          <a href="/support" class="text-sm text-sage-600 hover:text-sage-700 transition-colors">
+            Support Resources
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Crisis Support Floating Button -->
+  <a href="tel:988" class="crisis-floating" aria-label="Crisis Support - Call 988">
+    💝
+  </a>
+
+  <!-- Loading State Overlay (Hidden by default) -->
+  <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="card-sanctuary text-center">
+      <div class="animate-breathing text-4xl mb-4">🌿</div>
+      <p class="text-lg text-gray-900">Processing your request...</p>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Initialize any Firebase or other services here
+    console.log('Premium ALCHM page loaded');
+
+    // Example: Trauma-informed form handling
+    function handleFormSubmission(event) {
+      event.preventDefault();
+      
+      // Show gentle loading state
+      showLoadingState('Saving your thoughts safely...');
+      
+      // Simulate processing
+      setTimeout(() => {
+        hideLoadingState();
+        showSuccessMessage('Your entry has been saved securely.');
+      }, 2000);
+    }
+
+    // Gentle loading state
+    function showLoadingState(message = 'Processing...') {
+      const overlay = document.getElementById('loading-overlay');
+      const messageEl = overlay.querySelector('p');
+      messageEl.textContent = message;
+      overlay.classList.remove('hidden');
+    }
+
+    function hideLoadingState() {
+      const overlay = document.getElementById('loading-overlay');
+      overlay.classList.add('hidden');
+    }
+
+    // Success feedback
+    function showSuccessMessage(message) {
+      // Create gentle success notification
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 card-sanctuary animate-gentle-fade z-50';
+      notification.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">✅</span>
+          <span class="text-sm text-gray-900">${message}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Remove after delay
+      setTimeout(() => {
+        notification.remove();
+      }, 4000);
+    }
+
+    // Respect reduced motion preferences
+    function respectMotionPreferences() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Disable all animations for users who prefer reduced motion
+        const style = document.createElement('style');
+        style.textContent = `
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      respectMotionPreferences();
+      
+      // Add form submission handler
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', handleFormSubmission);
+      }
+      
+      // Add sign out handler
+      const signOutBtn = document.getElementById('sign-out-btn');
+      if (signOutBtn) {
+        signOutBtn.addEventListener('click', function() {
+          if (confirm('Are you sure you want to sign out?')) {
+            // Handle sign out
+            console.log('Signing out...');
+          }
+        });
+      }
+    });
+
+    // Crisis-aware navigation
+    function handleCrisisMode() {
+      // Implement crisis-specific behaviors
+      // - Larger touch targets
+      // - Simplified navigation
+      // - Immediate access to resources
+    }
+
+    // Accessibility enhancements
+    function enhanceAccessibility() {
+      // Add keyboard navigation improvements
+      // Ensure proper focus management
+      // Provide clear feedback for screen readers
+    }
+  </script>
+
+</body>
+</html>

@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Growth Portfolio Exporter
 // Creates beautiful, printable growth portfolios for users, families, and educators
 // Transforms data into narrative stories of becoming

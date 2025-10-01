@@ -1,0 +1,22 @@
+{
+  "touchTargets": [],
+  "performance": [],
+  "accessibility": [],
+  "offline": [],
+  "errors": [
+    {
+      "device": "iPhone SE (1st gen)",
+      "type": "DEVICE_TEST_ERROR",
+      "message": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28"
+    },
+    {
+      "device": "Android Low-End",
+      "type": "DEVICE_TEST_ERROR",
+      "message": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 28"
+    },
+    {
+      "type": "OFFLINE_TEST_ERROR",
+      "message": "Navigation timeout of 30000 ms exceeded"
+    }
+  ]
+}

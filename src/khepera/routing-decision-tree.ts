@@ -169,7 +169,7 @@ export class KheperaMoodRouter {
         safety_flags: ['mania_check', 'grounding_joy']
       },
       'hopeful': {
-        archetype: 'star_navigator',
+        archetype: 'star_typeof window !== 'undefined' && navigator',
         journaling_prompt: 'Hope can feel vulnerable when we\'ve been hurt. Your vision matters and deserves gentle tending. What small, safe step toward this hope feels possible right now? ⭐🗺️',
         safety_flags: ['hope_protection', 'realistic_planning']
       },

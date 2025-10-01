@@ -1,0 +1,475 @@
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { Timestamp } from 'firebase-admin/firestore';
+
+// ===== ALCHM MOBILE PUSH NOTIFICATION SYSTEM =====
+// Firebase Cloud Functions for crisis alert mobile notifications
+
+interface CrisisAlert {
+  id: string;
+  participantId: string;
+  riskLevel: 'HIGH' | 'CRITICAL' | 'EXTREME';
+  culturalContext: string[];
+  triggerIndicators: string[];
+  timestamp: Timestamp;
+  escalationLevel: number;
+  assignedProfessional?: string;
+}
+
+interface ProfessionalTeamMember {
+  id: string;
+  name: string;
+  role: string;
+  culturalCompetencies: string[];
+  contactMethods: {
+    primaryPhone: string;
+    backupPhone?: string;
+    fcmToken?: string;
+    email: string;
+  };
+  availability: {
+    currentStatus: 'available' | 'busy' | 'offline';
+    maxConcurrentCases: number;
+    currentCaseCount: number;
+  };
+}
+
+// ===== PUSH NOTIFICATION DELIVERY FUNCTION =====
+export const sendCrisisPushNotifications = functions
+  .runWith({
+    memory: '512MB',
+    timeoutSeconds: 60,
+    maxInstances: 10
+  })
+  .firestore.document('crisis_alerts/{alertId}')
+  .onCreate(async (snap, context) => {
+    try {
+      const alertData = snap.data() as CrisisAlert;
+      const alertId = context.params.alertId;
+      
+      console.log(`📱 Processing push notifications for crisis alert: ${alertId}`);
+      
+      // Get available professional team members
+      const availableProfessionals = await getAvailableProfessionals(alertData.culturalContext);
+      
+      if (availableProfessionals.length === 0) {
+        console.warn(`⚠️ No available professionals for alert ${alertId}`);
+        await escalateToSupervisory(alertId, alertData);
+        return;
+      }
+      
+      // Send push notifications to matched professionals
+      const notificationPromises = availableProfessionals.map(professional => 
+        sendPushNotificationToProfessional(professional, alertData, alertId)
+      );
+      
+      const results = await Promise.allSettled(notificationPromises);
+      
+      // Log delivery results
+      const successful = results.filter(r => r.status === 'fulfilled').length;
+      const failed = results.filter(r => r.status === 'rejected').length;
+      
+      console.log(`📊 Push notification delivery - Success: ${successful}, Failed: ${failed}`);
+      
+      // Update alert with notification status
+      await snap.ref.update({
+        pushNotificationsSent: successful,
+        pushNotificationsFailed: failed,
+        notifiedProfessionals: availableProfessionals.map(p => p.id),
+        notificationTimestamp: Timestamp.now()
+      });
+      
+      // Set up response timeout monitoring
+      await setupResponseTimeoutMonitoring(alertId, alertData);
+      
+    } catch (error) {
+      console.error(`❌ Push notification processing failed for alert ${context.params.alertId}:`, error);
+      
+      // Log error and trigger backup notification system
+      await logNotificationError(context.params.alertId, error);
+      await triggerBackupNotificationSystem(context.params.alertId, snap.data() as CrisisAlert);
+    }
+  });
+
+// ===== PROFESSIONAL MATCHING =====
+async function getAvailableProfessionals(culturalContext: string[]): Promise<ProfessionalTeamMember[]> {
+  try {
+    const professionalsSnapshot = await admin.firestore()
+      .collection('crisis_professionals')
+      .where('availability.currentStatus', '==', 'available')
+      .where('availability.currentCaseCount', '<', 3) // Maximum concurrent cases
+      .get();
+    
+    const professionals: ProfessionalTeamMember[] = [];
+    
+    professionalsSnapshot.forEach(doc => {
+      const professional = { id: doc.id, ...doc.data() } as ProfessionalTeamMember;
+      
+      // Check for cultural competency match
+      const hasCompetencyMatch = culturalContext.length === 0 || 
+        culturalContext.some(context => 
+          professional.culturalCompetencies.includes(context.toLowerCase())
+        );
+      
+      if (hasCompetencyMatch && professional.contactMethods.fcmToken) {
+        professionals.push(professional);
+      }
+    });
+    
+    // Sort by competency match and availability
+    professionals.sort((a, b) => {
+      const aMatches = culturalContext.filter(ctx => 
+        a.culturalCompetencies.includes(ctx.toLowerCase())
+      ).length;
+      const bMatches = culturalContext.filter(ctx => 
+        b.culturalCompetencies.includes(ctx.toLowerCase())
+      ).length;
+      
+      if (aMatches !== bMatches) {
+        return bMatches - aMatches; // More matches first
+      }
+      
+      return a.availability.currentCaseCount - b.availability.currentCaseCount; // Less busy first
+    });
+    
+    return professionals.slice(0, 3); // Limit to top 3 matches
+    
+  } catch (error) {
+    console.error('Failed to get available professionals:', error);
+    return [];
+  }
+}
+
+// ===== PUSH NOTIFICATION CONSTRUCTION =====
+async function sendPushNotificationToProfessional(
+  professional: ProfessionalTeamMember,
+  alert: CrisisAlert,
+  alertId: string
+): Promise<void> {
+  const { fcmToken } = professional.contactMethods;
+  
+  if (!fcmToken) {
+    throw new Error(`No FCM token for professional ${professional.id}`);
+  }
+  
+  // Determine notification urgency
+  const isExtreme = alert.riskLevel === 'EXTREME';
+  const isCritical = alert.riskLevel === 'CRITICAL' || isExtreme;
+  
+  // Build culturally-informed notification
+  const culturalInfo = alert.culturalContext.length > 0 
+    ? `Cultural: ${alert.culturalContext.slice(0, 2).join(', ')}`
+    : '';
+  
+  const triggerInfo = alert.triggerIndicators.length > 0
+    ? `Triggers: ${alert.triggerIndicators.slice(0, 2).join(', ')}`
+    : '';
+  
+  const notificationPayload: admin.messaging.Message = {
+    token: fcmToken,
+    notification: {
+      title: `${isExtreme ? '🔴 EXTREME' : '🚨'} ALCHM Crisis Alert`,
+      body: `Participant: ${alert.participantId.substring(0, 8)}...\nRisk: ${alert.riskLevel}${culturalInfo ? `\n${culturalInfo}` : ''}\n\nTap to respond immediately`
+    },
+    data: {
+      alertId,
+      riskLevel: alert.riskLevel,
+      participantId: alert.participantId,
+      culturalContext: JSON.stringify(alert.culturalContext),
+      triggerIndicators: JSON.stringify(alert.triggerIndicators),
+      timestamp: alert.timestamp.toMillis().toString(),
+      professionalId: professional.id,
+      alertUrl: `https://alchm-digital-sanctuary.web.app/crisis/alert/${alertId}`,
+      dashboardUrl: 'https://alchm-digital-sanctuary.web.app/crisis/mobile'
+    },
+    android: {
+      priority: 'high',
+      notification: {
+        priority: 'max',
+        defaultSound: false,
+        sound: 'crisis_alert_sound',
+        channelId: 'crisis_alerts',
+        tag: `crisis-${alertId}`,
+        sticky: isCritical,
+        localOnly: false,
+        defaultVibrateTimings: false,
+        vibrateTimingsMillis: isExtreme ? [500, 100, 500, 100, 500] : [200, 100, 200],
+        lightSettings: {
+          color: '#dc2626ff',
+          lightOnDurationMillis: 1000,
+          lightOffDurationMillis: 500
+        }
+      },
+      data: {
+        click_action: 'FLUTTER_NOTIFICATION_CLICK'
+      }
+    },
+    apns: {
+      headers: {
+        'apns-priority': '10',
+        'apns-push-type': 'alert'
+      },
+      payload: {
+        aps: {
+          alert: {
+            title: `${isExtreme ? '🔴 EXTREME' : '🚨'} ALCHM Crisis Alert`,
+            body: `Participant ${alert.participantId.substring(0, 8)}... - ${alert.riskLevel}\n${triggerInfo}`
+          },
+          badge: 1,
+          sound: {
+            name: 'crisis-alert.caf',
+            critical: true,
+            volume: 1.0
+          },
+          category: 'CRISIS_ALERT',
+          'thread-id': alertId,
+          'content-available': 1,
+          'mutable-content': 1
+        }
+      }
+    },
+    webpush: {
+      headers: {
+        'Urgency': 'high',
+        'TTL': '300'
+      },
+      notification: {
+        title: `${isExtreme ? '🔴 EXTREME' : '🚨'} ALCHM Crisis Alert`,
+        body: `Risk: ${alert.riskLevel} | Participant: ${alert.participantId.substring(0, 8)}...\n${culturalInfo}\nTap to respond`,
+        icon: '/icons/crisis-alert-icon-192.png',
+        badge: '/icons/crisis-badge-72.png',
+        image: '/icons/crisis-alert-banner.png',
+        tag: `crisis-alert-${alertId}`,
+        requireInteraction: isCritical,
+        renotify: true,
+        vibrate: isExtreme ? [500, 100, 500, 100, 500] : [200, 100, 200],
+        actions: [
+          {
+            action: 'acknowledge',
+            title: '✓ Acknowledge',
+            icon: '/icons/acknowledge-icon.png'
+          },
+          {
+            action: 'respond',
+            title: '🚨 Respond',
+            icon: '/icons/respond-icon.png'
+          }
+        ],
+        data: {
+          alertId,
+          url: `https://alchm-digital-sanctuary.web.app/crisis/mobile?alert=${alertId}`
+        }
+      }
+    }
+  };
+  
+  try {
+    const response = await admin.messaging().send(notificationPayload);
+    console.log(`✅ Push notification sent to ${professional.name} (${professional.id}): ${response}`);
+    
+    // Log successful delivery
+    await admin.firestore()
+      .collection('notification_delivery_logs')
+      .add({
+        alertId,
+        professionalId: professional.id,
+        professionalName: professional.name,
+        deliveryStatus: 'sent',
+        fcmResponse: response,
+        timestamp: Timestamp.now(),
+        notificationType: 'crisis_push'
+      });
+    
+  } catch (error: any) {
+    console.error(`❌ Failed to send push notification to ${professional.name}:`, error);
+    
+    // Handle FCM errors
+    if (error.code === 'messaging/registration-token-not-registered') {
+      // Remove invalid FCM token
+      await admin.firestore()
+        .collection('crisis_professionals')
+        .doc(professional.id)
+        .update({
+          'contactMethods.fcmToken': admin.firestore.FieldValue.delete(),
+          lastFCMError: Timestamp.now()
+        });
+      
+      console.log(`🗑️ Removed invalid FCM token for ${professional.name}`);
+    }
+    
+    // Log delivery failure
+    await admin.firestore()
+      .collection('notification_delivery_logs')
+      .add({
+        alertId,
+        professionalId: professional.id,
+        professionalName: professional.name,
+        deliveryStatus: 'failed',
+        error: error.message,
+        errorCode: error.code || 'unknown',
+        timestamp: Timestamp.now(),
+        notificationType: 'crisis_push'
+      });
+    
+    throw error;
+  }
+}
+
+// ===== RESPONSE TIMEOUT MONITORING =====
+async function setupResponseTimeoutMonitoring(alertId: string, alert: CrisisAlert): Promise<void> {
+  const responseTimeoutMinutes = alert.riskLevel === 'EXTREME' ? 1 : 2;
+  
+  // Schedule timeout check
+  await admin.firestore()
+    .collection('crisis_response_timeouts')
+    .doc(alertId)
+    .set({
+      alertId,
+      riskLevel: alert.riskLevel,
+      timeoutAt: Timestamp.fromMillis(Date.now() + (responseTimeoutMinutes * 60 * 1000)),
+      escalationLevel: alert.escalationLevel || 1,
+      status: 'monitoring',
+      createdAt: Timestamp.now()
+    });
+  
+  console.log(`⏱️ Response timeout monitoring set for ${responseTimeoutMinutes} minutes for alert ${alertId}`);
+}
+
+// ===== ESCALATION FUNCTIONS =====
+async function escalateToSupervisory(alertId: string, alert: CrisisAlert): Promise<void> {
+  try {
+    // Get supervisory team members
+    const supervisorySnapshot = await admin.firestore()
+      .collection('crisis_professionals')
+      .where('role', 'in', ['supervisor', 'crisis_manager'])
+      .get();
+    
+    const supervisoryMembers: ProfessionalTeamMember[] = [];
+    supervisorySnapshot.forEach(doc => {
+      supervisoryMembers.push({ id: doc.id, ...doc.data() } as ProfessionalTeamMember);
+    });
+    
+    if (supervisoryMembers.length === 0) {
+      throw new Error('No supervisory team members available');
+    }
+    
+    // Send escalated notifications
+    const escalationPromises = supervisoryMembers.map(supervisor => 
+      sendEscalatedPushNotification(supervisor, alert, alertId)
+    );
+    
+    await Promise.all(escalationPromises);
+    
+    console.log(`⬆️ Alert ${alertId} escalated to supervisory team`);
+    
+  } catch (error) {
+    console.error(`❌ Supervisory escalation failed for alert ${alertId}:`, error);
+    await triggerEmergencyProtocol(alertId, alert);
+  }
+}
+
+async function sendEscalatedPushNotification(
+  supervisor: ProfessionalTeamMember,
+  alert: CrisisAlert,
+  alertId: string
+): Promise<void> {
+  // Similar to regular push notification but with escalation context
+  // Implementation would be similar to sendPushNotificationToProfessional
+  // but with "ESCALATED" prefix and different urgency settings
+}
+
+// ===== BACKUP SYSTEMS =====
+async function triggerBackupNotificationSystem(alertId: string, alert: CrisisAlert): Promise<void> {
+  console.log(`🔄 Triggering backup notification systems for alert ${alertId}`);
+  
+  // Trigger SMS backup
+  await admin.firestore()
+    .collection('crisis_sms_queue')
+    .add({
+      alertId,
+      alertData: alert,
+      priority: 'backup_system',
+      createdAt: Timestamp.now()
+    });
+  
+  // Trigger email backup
+  await admin.firestore()
+    .collection('crisis_email_queue')
+    .add({
+      alertId,
+      alertData: alert,
+      priority: 'backup_system',
+      createdAt: Timestamp.now()
+    });
+}
+
+async function triggerEmergencyProtocol(alertId: string, alert: CrisisAlert): Promise<void> {
+  console.log(`🚨 EMERGENCY PROTOCOL ACTIVATED for alert ${alertId}`);
+  
+  // Log emergency protocol activation
+  await admin.firestore()
+    .collection('emergency_protocol_logs')
+    .add({
+      alertId,
+      riskLevel: alert.riskLevel,
+      reason: 'escalation_system_failure',
+      timestamp: Timestamp.now(),
+      participantId: alert.participantId
+    });
+  
+  // Notify system administrators immediately
+  await admin.firestore()
+    .collection('system_admin_alerts')
+    .add({
+      type: 'emergency_protocol_activation',
+      alertId,
+      severity: 'critical',
+      message: `Emergency protocol activated for crisis alert ${alertId} - Risk level: ${alert.riskLevel}`,
+      timestamp: Timestamp.now()
+    });
+}
+
+// ===== UTILITY FUNCTIONS =====
+async function logNotificationError(alertId: string, error: any): Promise<void> {
+  await admin.firestore()
+    .collection('crisis_system_errors')
+    .add({
+      alertId,
+      errorType: 'push_notification_failure',
+      error: error.message,
+      stack: error.stack,
+      timestamp: Timestamp.now()
+    });
+}
+
+// ===== FCM TOKEN MANAGEMENT =====
+export const updateProfessionalFCMToken = functions
+  .runWith({ memory: '256MB', timeoutSeconds: 30 })
+  .https.onCall(async (data, context) => {
+    try {
+      const { professionalId, fcmToken } = data;
+      
+      // Validate professional authentication
+      if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'Professional must be authenticated');
+      }
+      
+      // Update FCM token
+      await admin.firestore()
+        .collection('crisis_professionals')
+        .doc(professionalId)
+        .update({
+          'contactMethods.fcmToken': fcmToken,
+          lastFCMUpdate: Timestamp.now(),
+          updatedBy: context.auth.uid
+        });
+      
+      console.log(`📱 FCM token updated for professional ${professionalId}`);
+      
+      return { success: true, message: 'FCM token updated successfully' };
+      
+    } catch (error) {
+      console.error('Failed to update FCM token:', error);
+      throw new functions.https.HttpsError('internal', 'Failed to update FCM token');
+    }
+  });

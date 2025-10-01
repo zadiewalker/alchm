@@ -2,6 +2,8 @@
 'use client';
 
 import { sanitizeInput } from './security';
+import { validateFeatureAccess } from './privacy/consent-management';
+import { trackEvent as trackPrivacyCompliantEvent } from './analytics/privacy-compliant-analytics';
 
 // Types for analytics events
 export interface AnalyticsEvent {
@@ -49,14 +51,43 @@ class AnalyticsManager {
 
   constructor() {
     this.sessionId = this.generateSessionId();
-    this.init();
+    this.init(); // Note: init is now async but we can't await in constructor
   }
 
-  private init(): void {
+  // Helper method for privacy-compliant tracking
+  private async trackPrivacyCompliant(
+    category: string,
+    action: string,
+    eventData?: any
+  ): Promise<void> {
+    try {
+      let ageGroup: 'under13' | 'teen' | 'adult' | 'unknown' = 'unknown';
+      
+      // Determine age group if user is authenticated
+      if (this.userId) {
+        // This would ideally come from the privacy compliance system
+        const userAgeGroup = localStorage.getItem('alchm_user_age_group');
+        if (userAgeGroup && ['under13', 'teen', 'adult'].includes(userAgeGroup)) {
+          ageGroup = userAgeGroup as any;
+        }
+      }
+      
+      await trackPrivacyCompliantEvent(
+        this.userId || null,
+        `${category}_${action}` as any,
+        eventData,
+        ageGroup
+      );
+    } catch (error) {
+      console.error('Privacy-compliant analytics error:', error);
+    }
+  }
+
+  private async init(): Promise<void> {
     if (typeof window === 'undefined') return;
 
-    // Check user consent
-    this.checkConsent();
+    // Check user consent (now async)
+    await this.checkConsent();
     
     // Setup performance monitoring
     this.setupPerformanceMonitoring();
@@ -71,44 +102,79 @@ class AnalyticsManager {
     this.startBatchProcessor();
   }
 
-  // Check and request user consent
-  private checkConsent(): void {
+  // Check and request user consent (Enhanced for GDPR/COPPA compliance)
+  private async checkConsent(): Promise<void> {
+    // First check if user has granted consent through the privacy system
+    if (this.userId) {
+      try {
+        const hasAnalyticsConsent = await validateFeatureAccess(this.userId, 'platform_analytics');
+        this.isOptedIn = hasAnalyticsConsent;
+        return;
+      } catch (error) {
+        console.error('Privacy consent validation error:', error);
+      }
+    }
+    
+    // Fallback to localStorage for non-authenticated users
     const consent = localStorage.getItem('alchm:analytics:consent');
     this.isOptedIn = consent === 'true';
     
-    if (!consent) {
-      // Show consent banner (implement in UI)
+    if (!consent && !this.userId) {
+      // Show consent banner for non-authenticated users only
       this.dispatchConsentEvent();
     }
   }
 
-  // Set user consent
-  setConsent(granted: boolean): void {
+  // Set user consent (Privacy-compliant)
+  async setConsent(granted: boolean): Promise<void> {
     this.isOptedIn = granted;
+    
+    // For authenticated users, consent is managed by the privacy system
+    if (this.userId) {
+      console.log('Analytics consent managed by privacy compliance system for authenticated users');
+      return;
+    }
+    
+    // For non-authenticated users, use localStorage
     localStorage.setItem('alchm:analytics:consent', granted.toString());
     
     if (granted) {
-      this.track('user', 'consent_granted');
+      await this.trackPrivacyCompliant('user', 'consent_granted');
     } else {
       this.clearData();
     }
   }
 
   // Set user ID (after authentication)
-  setUserId(userId: string): void {
+  async setUserId(userId: string): Promise<void> {
     this.userId = userId;
+    
+    // Re-check consent with new user context
+    await this.checkConsent();
   }
 
-  // Track event
-  track(
+  // Track event (Privacy-compliant)
+  async track(
     category: AnalyticsEvent['category'],
     action: string,
     label?: string,
     value?: number,
     metadata?: Record<string, any>
-  ): void {
-    if (!this.isOptedIn) return;
+  ): Promise<void> {
+    // Privacy compliance check
+    if (this.userId) {
+      const hasConsent = await validateFeatureAccess(this.userId, 'platform_analytics');
+      if (!hasConsent) {
+        return; // Silently skip analytics for users without consent
+      }
+    } else if (!this.isOptedIn) {
+      return; // Skip analytics for non-consented anonymous users
+    }
 
+    // Use privacy-compliant analytics system
+    await this.trackPrivacyCompliant(category, action, { label, value, ...metadata });
+    
+    // Also maintain existing queue for backwards compatibility
     const event: AnalyticsEvent = {
       event: `${category}_${action}`,
       category,
@@ -119,7 +185,7 @@ class AnalyticsManager {
       sessionId: this.sessionId,
       timestamp: Date.now(),
       metadata: this.sanitizeMetadata(metadata),
-      anonymized: !this.userId // Anonymous if no user ID
+      anonymized: !this.userId
     };
 
     this.queue.push(event);
@@ -174,6 +240,57 @@ class AnalyticsManager {
 
     rateLimited: (type: string) => {
       this.track('ai', 'rate_limited', type);
+    },
+
+    insightGenerated: (habitId: string, insightQuality: number, metadata?: Record<string, any>) => {
+      this.track('ai', 'insight_generated', habitId, insightQuality, metadata);
+    },
+
+    patternRecognized: (patternType: string, confidence: number, metadata?: Record<string, any>) => {
+      this.track('ai', 'pattern_recognized', patternType, confidence, metadata);
+    }
+  };
+
+  // Track neuroplasticity and habit formation
+  trackHabits = {
+    sessionStarted: (sessionId: string, habitCount: number) => {
+      this.track('journal', 'habit_session_started', sessionId, habitCount);
+    },
+
+    sessionCompleted: (sessionId: string, completionRate: number, metadata?: Record<string, any>) => {
+      this.track('journal', 'habit_session_completed', sessionId, completionRate, metadata);
+    },
+
+    habitCompleted: (habitId: string, duration: number, metadata?: Record<string, any>) => {
+      this.track('journal', 'habit_completed', habitId, duration, metadata);
+    },
+
+    habitSkipped: (habitId: string, reason?: string) => {
+      this.track('journal', 'habit_skipped', habitId, undefined, { reason });
+    },
+
+    neuroplasticityMilestone: (habitId: string, milestoneType: string, metadata?: Record<string, any>) => {
+      this.track('journal', 'neuroplasticity_milestone', habitId, undefined, { milestoneType, ...metadata });
+    },
+
+    nervousSystemAssessment: (state: string, windowOfTolerance: number, metadata?: Record<string, any>) => {
+      this.track('journal', 'nervous_system_assessment', state, windowOfTolerance, metadata);
+    },
+
+    adaptationApplied: (habitId: string, adaptationType: string, metadata?: Record<string, any>) => {
+      this.track('journal', 'habit_adaptation', habitId, undefined, { adaptationType, ...metadata });
+    },
+
+    insightCaptured: (habitId: string, insightCount: number, engagementQuality: number) => {
+      this.track('journal', 'habit_insight_captured', habitId, insightCount, { engagementQuality });
+    },
+
+    wellbeingCorrelation: (habitId: string, beforeRating: number, afterRating: number) => {
+      const improvement = afterRating - beforeRating;
+      this.track('journal', 'wellbeing_correlation', habitId, improvement, { 
+        beforeRating, 
+        afterRating 
+      });
     }
   };
 
@@ -201,6 +318,18 @@ class AnalyticsManager {
 
     notificationEnabled: (type: string) => {
       this.track('user', 'notification_enabled', type);
+    },
+
+    badgeEarned: (badgeKey: string, level: number, metadata?: Record<string, any>) => {
+      this.track('user', 'badge_earned', badgeKey, level, metadata);
+    },
+
+    milestoneCelebrated: (milestoneType: string, achievement: string) => {
+      this.track('user', 'milestone_celebrated', milestoneType, undefined, { achievement });
+    },
+
+    traumaInformedAdaptation: (adaptationType: string, effectiveness: number) => {
+      this.track('user', 'trauma_informed_adaptation', adaptationType, effectiveness);
     }
   };
 

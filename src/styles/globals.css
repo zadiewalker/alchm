@@ -1,0 +1,49 @@
+@import './alchm-digital-sanctuary-system.css';
+@import './alchm-component-showcase.css';
+@import './jony-ive-sanctuary.css';
+@import './mobile-trauma-informed.css';
+@import './jony-ive-mobile-sanctuary.css';
+@import './pathways-sanctuary.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ALCHM Global Styles - Jony Ive Sanctuary Design System */
+/* "The goal is not to bend to the tool, but to have the tool that bends to your will." */
+
+/* Apply our design system foundation */
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+body {
+  background-color: theme('colors.sanctuary.white');
+  color: theme('colors.sanctuary.gray.800');
+  transition: background-color var(--transition-gentle);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid theme('colors.sage.400');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: theme('colors.sage.100');
+  color: theme('colors.sage.800');
+}
+
+/* Smooth scrolling for internal navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

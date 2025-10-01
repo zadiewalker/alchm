@@ -1,0 +1,71 @@
+{
+  "apple": {
+    "app_name": "ALCHM - Your Digital Sanctuary",
+    "subtitle": "Trauma-Informed AI Journaling",
+    "promotional_text": "The World's First Identity OS. A safe space for healing through AI-powered journaling designed specifically for trauma survivors.",
+    "description": "ALCHM is a trauma-informed, AI-powered journaling platform designed to support your healing journey through reflection and personal growth.\n\n🌿 TRAUMA-INFORMED DESIGN\n• Built with trauma survivors in mind\n• Gentle, non-triggering interface\n• Crisis detection and safety resources\n• Respect for your healing pace\n\n🤖 INTELLIGENT AI SUPPORT\n• AI that understands trauma responses\n• Personalized insights and reflections\n• Pattern recognition for growth tracking\n• Privacy-first processing\n\n🛡️ PRIVACY & SECURITY\n• End-to-end encryption\n• No data sharing with third parties\n• Local processing when possible\n• Complete control over your data\n\n🆘 CRISIS SUPPORT\n• Automatic crisis detection\n• Immediate access to 988 and crisis resources\n• Professional referral suggestions\n• 24/7 safety net features\n\n✨ FEATURES\n• Intelligent journaling prompts\n• Mood tracking and patterns\n• Goal setting and progress tracking\n• Gamified healing elements\n• Offline functionality\n• Multi-device sync\n\nALCHM is designed for users 17+ and includes mature content related to mental health and trauma recovery. This app is not a substitute for professional mental health treatment.\n\nIf you're experiencing a crisis, please contact 911 or the 988 Suicide & Crisis Lifeline immediately.",
+    "keywords": "trauma,journaling,mental health,AI,healing,therapy,PTSD,anxiety,depression,wellness,mindfulness,reflection,diary,mood tracker,crisis support,emotional intelligence,resilience,self-care,meditation,recovery,growth,therapy journal,emotional wellness,trauma recovery,healing journey",
+    "category": "HEALTH_AND_FITNESS",
+    "age_rating": "17+",
+    "content_advisories": [
+      "Mature/Suggestive Themes: Frequent/Intense",
+      "Medical/Treatment Information: Frequent/Intense"
+    ],
+    "what_new": "• Enhanced crisis detection and safety features\n• Improved AI insights for trauma recovery\n• New healing pathway recommendations\n• Better privacy controls and data management\n• Performance improvements and bug fixes\n• Updated crisis resources and professional referrals",
+    "review_notes": "ALCHM is a mental health app designed specifically for trauma survivors. The app includes:\n\n1. Crisis detection features that provide immediate access to professional resources (988 Lifeline, Crisis Text Line)\n2. Clear medical disclaimers stating the app is not a substitute for professional care\n3. Age restriction to 17+ due to mature mental health content\n4. Comprehensive privacy policy and data protection measures\n5. Professional crisis intervention resources integrated throughout\n\nThe app follows trauma-informed care principles and encourages users to seek professional help when needed. All content is designed to support, not replace, professional mental health treatment.",
+    "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "terms_of_service_url": "https://alchm-digital-sanctuary.web.app/terms.html",
+    "support_url": "https://alchm-digital-sanctuary.web.app/support",
+    "copyright": "2024 ALCHM Team. All rights reserved."
+  },
+  "google_play": {
+    "app_name": "ALCHM - Trauma-Informed AI Journaling",
+    "short_description": "Your digital sanctuary for healing through AI-powered journaling. Designed for trauma survivors.",
+    "full_description": "ALCHM is a trauma-informed, AI-powered journaling platform that provides a safe space for healing, reflection, and personal growth.\n\n🌿 TRAUMA-INFORMED APPROACH\nBuilt specifically for trauma survivors with gentle, non-triggering design principles. Features crisis detection, safety resources, and respect for your healing journey.\n\n🤖 INTELLIGENT AI COMPANION\nOur AI understands trauma responses and provides personalized insights, pattern recognition, and growth tracking while maintaining your privacy.\n\n🛡️ PRIVACY & SECURITY FIRST\n• End-to-end encryption for all journal entries\n• No data sharing with third parties\n• Local processing when possible\n• Complete control over your information\n\n🆘 INTEGRATED CRISIS SUPPORT\n• Automatic crisis detection system\n• Direct access to 988 Suicide & Crisis Lifeline\n• Crisis Text Line integration\n• Professional mental health referrals\n\n✨ KEY FEATURES:\n• Intelligent journaling prompts\n• Mood tracking and emotional patterns\n• Healing pathway recommendations\n• Goal setting and progress visualization\n• Gamified recovery elements\n• Offline functionality\n• Cross-device synchronization\n• Multiple subscription tiers\n\n🔒 SAFETY & COMPLIANCE\nDesigned for ages 17+ with mature mental health content. Includes comprehensive medical disclaimers and clear statements that the app is not a substitute for professional care.\n\nALCHM encourages users to work with qualified mental health professionals and provides easy access to crisis resources when needed.\n\nIf you're experiencing a mental health crisis, please contact emergency services or the 988 Lifeline immediately.",
+    "category": "HEALTH_AND_FITNESS",
+    "content_rating": "Mature 17+",
+    "target_audience": "Adults 17+",
+    "tags": ["mental health", "journaling", "trauma recovery", "AI companion", "wellness", "therapy journal", "crisis support", "emotional intelligence", "mindfulness", "self-care"],
+    "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "terms_of_service_url": "https://alchm-digital-sanctuary.web.app/terms.html"
+  },
+  "screenshots": {
+    "required_ios": [
+      "6.5-inch iPhone (1290x2796)",
+      "5.5-inch iPhone (1242x2208)",
+      "iPad Pro 12.9-inch (2048x2732)",
+      "iPad Pro 11-inch (1668x2388)"
+    ],
+    "required_android": [
+      "Phone (1080x1920)",
+      "7-inch Tablet (1200x1920)",
+      "10-inch Tablet (1920x1200)"
+    ],
+    "screenshot_descriptions": [
+      "Home screen showing trauma-informed journaling interface with sage green theme",
+      "AI-powered insights and reflection cards with crisis support features",
+      "Crisis resources page with immediate access to 988 and professional help",
+      "Privacy dashboard showing data control and encryption features",
+      "Healing pathways and progress tracking with gamified elements",
+      "Mood tracking and emotional patterns visualization"
+    ]
+  },
+  "compliance_checklist": {
+    "apple": {
+      "app_store_guidelines": "✓ Reviewed and compliant",
+      "privacy_nutrition_labels": "✓ Configured",
+      "age_rating_accurate": "✓ 17+ for mature content",
+      "medical_disclaimers": "✓ Prominently displayed",
+      "crisis_resources": "✓ Integrated throughout",
+      "privacy_manifest": "✓ PrivacyInfo.xcprivacy created",
+      "in_app_purchases": "✓ Stripe integration compliant"
+    },
+    "google_play": {
+      "play_policies": "✓ Health apps policy compliant",
+      "data_safety": "✓ Form completed accurately",
+      "target_api": "✓ Meets current requirements",
+      "permissions_justified": "✓ All necessary permissions explained",
+      "content_rating": "✓ Mature 17+ appropriate"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // THERAPIST BETA TESTING ENVIRONMENT
+    // Isolated rules for clinical professional testing
+    // NO REAL CLIENT DATA - MOCK DATA ONLY
+    
+    // Beta therapist authentication and authorization
+    match /beta_therapists/{therapistId} {
+      allow read, write: if request.auth != null 
+        && request.auth.uid == therapistId
+        && isBetaTherapist(request.auth.uid);
+        
+      allow create: if request.auth != null 
+        && request.auth.uid == therapistId
+        && hasValidTherapistCredentials(request.auth.token);
+    }
+    
+    // Mock client data - only accessible by verified beta therapists
+    match /mock_clients/{clientId} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedTherapist(request.auth.uid, clientId);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedTherapist(request.auth.uid, clientId)
+        && isValidMockDataUpdate(request.resource.data);
+    }
+    
+    // Mock journal entries for testing crisis detection
+    match /mock_journal_entries/{entryId} {
+      allow read, write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && canAccessMockEntry(request.auth.uid, resource.data.clientId);
+    }
+    
+    // Crisis detection test scenarios
+    match /crisis_test_scenarios/{scenarioId} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isValidCrisisScenario(request.resource.data);
+    }
+    
+    // Therapist feedback collection
+    match /therapist_feedback/{feedbackId} {
+      allow create: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && request.auth.uid == resource.data.therapistId;
+        
+      allow read, update: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && request.auth.uid == resource.data.therapistId;
+    }
+    
+    // Beta testing analytics (anonymized)
+    match /beta_analytics/{analyticsId} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+        
+      allow write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isValidAnalyticsData(request.resource.data);
+    }
+    
+    // Professional license verification records
+    match /license_verifications/{verificationId} {
+      allow read: if request.auth != null 
+        && request.auth.uid == resource.data.therapistId
+        && isBetaTherapist(request.auth.uid);
+        
+      allow create: if request.auth != null 
+        && request.auth.uid == request.resource.data.therapistId
+        && hasValidLicenseData(request.resource.data);
+    }
+    
+    // Beta group management
+    match /beta_groups/{groupId} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+    }
+    
+    // A/B testing assignments for therapist features
+    match /therapist_ab_tests/{testId} {
+      allow read, write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && request.auth.uid == resource.data.therapistId;
+    }
+    
+    // Treatment planning test data
+    match /mock_treatment_plans/{planId} {
+      allow read, write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isAssignedTherapist(request.auth.uid, resource.data.clientId);
+    }
+    
+    // HIPAA compliance test records
+    match /hipaa_compliance_tests/{testId} {
+      allow read, write: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && request.auth.uid == resource.data.therapistId;
+    }
+    
+    // Emergency escalation test logs
+    match /emergency_escalation_logs/{logId} {
+      allow read: if request.auth != null 
+        && isBetaTherapist(request.auth.uid);
+        
+      allow create: if request.auth != null 
+        && isBetaTherapist(request.auth.uid)
+        && isValidEmergencyLog(request.resource.data);
+    }
+    
+    // SECURITY FUNCTIONS
+    function isBetaTherapist(uid) {
+      return exists(/databases/$(database)/documents/beta_therapists/$(uid))
+        && get(/databases/$(database)/documents/beta_therapists/$(uid)).data.status == 'verified'
+        && get(/databases/$(database)/documents/beta_therapists/$(uid)).data.betaAccess == true;
+    }
+    
+    function hasValidTherapistCredentials(token) {
+      return token.therapist_verified == true
+        && token.license_verified == true
+        && token.beta_approved == true;
+    }
+    
+    function isAssignedTherapist(therapistId, clientId) {
+      return exists(/databases/$(database)/documents/mock_clients/$(clientId))
+        && get(/databases/$(database)/documents/mock_clients/$(clientId)).data.assignedTherapist == therapistId;
+    }
+    
+    function canAccessMockEntry(therapistId, clientId) {
+      return isAssignedTherapist(therapistId, clientId)
+        && exists(/databases/$(database)/documents/mock_clients/$(clientId));
+    }
+    
+    function isValidMockDataUpdate(data) {
+      return data.keys().hasAll(['type', 'timestamp', 'therapistId'])
+        && data.type == 'mock_data'
+        && data.timestamp is timestamp;
+    }
+    
+    function isValidCrisisScenario(data) {
+      return data.keys().hasAll(['scenarioType', 'severity', 'mockData', 'expectedResponse'])
+        && data.scenarioType in ['suicide_ideation', 'self_harm', 'trauma_trigger', 'panic_attack']
+        && data.severity in ['low', 'moderate', 'high', 'critical'];
+    }
+    
+    function hasValidLicenseData(data) {
+      return data.keys().hasAll(['licenseType', 'licenseNumber', 'state', 'expirationDate'])
+        && data.licenseType in ['LPC', 'LCSW', 'LMFT', 'PhD', 'PsyD', 'MD']
+        && data.state.size() == 2;
+    }
+    
+    function isValidAnalyticsData(data) {
+      return data.keys().hasAll(['event', 'timestamp', 'anonymizedData'])
+        && data.timestamp is timestamp
+        && !data.keys().hasAny(['realClientData', 'personalInfo']);
+    }
+    
+    function isValidEmergencyLog(data) {
+      return data.keys().hasAll(['scenarioId', 'responseTime', 'actionsTaken', 'timestamp'])
+        && data.responseTime is number
+        && data.timestamp is timestamp;
+    }
+  }
+}

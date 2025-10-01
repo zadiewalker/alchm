@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM SEL Alignment React Hook and Utilities
 // React integration for Social-Emotional Learning alignment system
 

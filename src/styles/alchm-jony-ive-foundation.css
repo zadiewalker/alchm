@@ -1,0 +1,1422 @@
+/* 
+ * ALCHM JONY IVE DESIGN FOUNDATION
+ * "Simplicity is the ultimate sophistication applied to healing"
+ * 
+ * This file establishes the complete design system that transforms ALCHM
+ * into a minimalist sanctuary for vulnerable users.
+ */
+
+/* === SACRED DIGITAL SANCTUARY FOUNDATION === */
+:root {
+  /* Sacred Sage Palette - Colors of Growth, Wisdom, and Spiritual Healing */
+  --sage-primary: #a4b792;     /* Main sage - growth and transformation */
+  --sage-hover: #93a682;       /* Active sage - engaged wisdom */
+  --sage-active: #7a8c6a;      /* Deep sage - grounded understanding */
+  --sage-light: #f6f8f4;       /* Breath space - gentle serenity */
+  --sage-muted: #d6e0cd;       /* Soft sage - quiet contemplation */
+  --sage-50: #f6f7f4;
+  --sage-100: #e8eae3;
+  --sage-200: #d1d6c7;
+  --sage-300: #b4bca2;
+  --sage-400: #a4b792;
+  --sage-500: #93a682;
+  --sage-600: #7a8c6a;
+  --sage-700: #626d54;
+  --sage-800: #4f5843;
+  --sage-900: #3d4435;
+  
+  /* Sanctuary Foundation - Breathing Space and Sacred Geometry */
+  --sanctuary: #fefcfb;                      /* Pure breathing space - off-white meditation */
+  --sanctuary-glass: rgba(254, 252, 251, 0.95);  /* Translucent sacred space */
+  --sanctuary-mist: rgba(254, 252, 251, 0.05);   /* Whisper of sacred presence */
+  
+  /* Spiritual Comfort Palette */
+  --blush-soft: #f4e6e0;       /* Soft blush - emotional & spiritual comfort */
+  --blush-warm: #ead5cc;       /* Warm blush - nurturing embrace */
+  --blush-gentle: #e0c4b8;     /* Gentle blush - tender healing */
+  
+  --terracotta-light: #e8c5a0;  /* Light terracotta - grounding warmth */
+  --terracotta: #d4a574;        /* Main terracotta - earthly humanity */
+  --terracotta-deep: #c19660;   /* Deep terracotta - stable foundation */
+  
+  /* Sacred Geometry Ratios - Golden Ratio & Fibonacci */
+  --phi: 1.618;                 /* Golden ratio for sacred proportions */
+  --phi-inverse: 0.618;         /* Inverse golden ratio */
+  
+  /* Sacred Typography - Fonts for Contemplation and Peace */
+  --font-sacred: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+  --font-contemplation: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-blessing: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-meditation: "SF Mono", "Monaco", "Cascadia Code", "Fira Code", monospace;
+  
+  /* Typography Weights for Spiritual Hierarchy */
+  --weight-whisper: 100;      /* Ultra-light for ethereal presence */
+  --weight-breath: 200;       /* Thin for gentle emphasis */
+  --weight-presence: 300;     /* Light for comfortable reading */
+  --weight-ground: 400;       /* Normal for grounded text */
+  --weight-intention: 500;    /* Medium for intentional emphasis */
+  --weight-sacred: 600;       /* Semi-bold for sacred headers */
+  
+  /* Letter Spacing for Sacred Reading */
+  --tracking-intimate: -0.03em;   /* Close, personal reading */
+  --tracking-comfortable: -0.01em; /* Comfortable flow */
+  --tracking-natural: 0;          /* Natural rhythm */
+  --tracking-spacious: 0.02em;    /* Spacious, meditative */
+  --tracking-ceremonial: 0.05em;  /* Ceremonial, ritualistic */
+  
+  /* Line Heights for Contemplative Reading */
+  --leading-tight: 1.2;        /* Compact, focused */
+  --leading-cozy: 1.4;         /* Cozy, intimate */
+  --leading-comfortable: 1.6;  /* Comfortable reading */
+  --leading-spacious: 1.8;     /* Spacious, relaxed */
+  --leading-meditative: 2.0;   /* Deep meditation */
+  
+  /* Legacy font support */
+  --font-system: var(--font-sacred);
+  --font-display: var(--font-blessing);
+  --font-mono: var(--font-meditation);
+  
+  /* Sacred Geometry Spacing - Fibonacci & Golden Ratio Based */
+  --space-unit: 8px;
+  --space-1: 8px;      /* 1 unit - breath */
+  --space-2: 16px;     /* 2 units - gentle space */
+  --space-3: 24px;     /* 3 units - contemplative space */
+  --space-4: 32px;     /* 4 units - mindful distance */
+  --space-5: 40px;     /* 5 units - Fibonacci */
+  --space-6: 48px;     /* 6 units - harmonic space */
+  --space-8: 64px;     /* 8 units - Fibonacci */
+  --space-phi: 52px;   /* Golden ratio space (32 * 1.618) */
+  --space-12: 96px;    /* 12 units - wide meditation */
+  --space-13: 104px;   /* 13 units - Fibonacci */
+  --space-16: 128px;   /* 16 units - expansive breath */
+  --space-21: 168px;   /* 21 units - Fibonacci */
+  
+  /* Sacred Rhythm Spacing for Typography */
+  --rhythm-1: 1.618rem;  /* Golden ratio line height */
+  --rhythm-2: 2.618rem;  /* Golden ratio * 1.618 */
+  --rhythm-3: 4.236rem;  /* Golden ratio squared */
+  --rhythm-4: 6.854rem;  /* Golden ratio cubed */
+  
+  /* Sacred Radii - Organic, Nature-Inspired Curves */
+  --radius-whisper: 4px;    /* Subtle rounding - gentle touch */
+  --radius-breath: 8px;     /* Breathing curve - natural flow */
+  --radius-embrace: 12px;   /* Embracing curve - welcoming form */
+  --radius-sanctuary: 16px; /* Sanctuary curve - protective space */
+  --radius-temple: 24px;    /* Temple curve - sacred architecture */
+  --radius-sacred: 32px;    /* Sacred curve - divine geometry */
+  --radius-infinite: 50%;   /* Infinite curve - circle of wholeness */
+  
+  /* Legacy support */
+  --radius-sm: var(--radius-breath);
+  --radius-md: var(--radius-embrace);
+  --radius-lg: var(--radius-sanctuary);
+  --radius-xl: var(--radius-temple);
+  
+  /* Touch Targets - Trauma Informed */
+  --touch-default: 44px;
+  --touch-large: 48px;
+  --touch-crisis: 52px;
+  --touch-emergency: 64px;
+  
+  /* Sacred Animation Timing - Ritual-Like, Meaningful Movements */
+  --duration-whisper: 150ms;   /* Quick blessing */
+  --duration-breath: 300ms;    /* One gentle breath */
+  --duration-pulse: 600ms;     /* Heartbeat rhythm */
+  --duration-meditation: 1200ms; /* Deep contemplation */
+  --duration-ritual: 2000ms;   /* Sacred ceremony */
+  
+  /* Sacred Easing Functions - Natural Movement Patterns */
+  --ease-blessing: cubic-bezier(0.25, 0.46, 0.45, 0.94);  /* Gentle blessing */
+  --ease-prayer: cubic-bezier(0.23, 1, 0.32, 1);          /* Rising prayer */
+  --ease-meditation: cubic-bezier(0.165, 0.84, 0.44, 1);  /* Deep meditation */
+  --ease-emergence: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Soul emergence */
+  
+  /* Legacy support */
+  --duration-fast: var(--duration-whisper);
+  --duration-base: var(--duration-breath);
+  --duration-slow: var(--duration-pulse);
+  --ease-gentle: var(--ease-blessing);
+  
+  /* Crisis Support Colors */
+  --crisis-red: #dc2626;
+  --crisis-orange: #ea580c;
+  --emergency-red: #b91c1c;
+  
+  /* Sacred Shadow System - Gentle Elevation & Divine Light */
+  --shadow-whisper: 0 1px 2px rgba(164, 183, 146, 0.04);        /* Barely there */
+  --shadow-breath: 0 2px 4px rgba(164, 183, 146, 0.06);         /* Gentle presence */
+  --shadow-blessing: 0 4px 8px rgba(164, 183, 146, 0.08);       /* Sacred blessing */
+  --shadow-sanctuary: 0 8px 24px rgba(164, 183, 146, 0.12);     /* Sanctuary depth */
+  --shadow-temple: 0 16px 48px rgba(164, 183, 146, 0.15);       /* Temple majesty */
+  --shadow-divine: 0 24px 72px rgba(164, 183, 146, 0.18);       /* Divine presence */
+  
+  /* Sacred Inner Light - Inset shadows for depth */
+  --shadow-inner-sanctuary: inset 0 2px 8px rgba(255, 255, 255, 0.8);
+  --shadow-inner-embrace: inset 0 1px 4px rgba(255, 255, 255, 0.6);
+  
+  /* Legacy shadow support */
+  --shadow-gentle: var(--shadow-breath);
+  --shadow-soft: var(--shadow-blessing);
+  --shadow-sacred: var(--shadow-sanctuary);
+}
+
+/* === FOUNDATION RESET === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: var(--font-system);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+body {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  color: var(--sanctuary);
+  font-family: var(--font-system);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* === SACRED TYPOGRAPHY SCALE === */
+.text-micro { font-size: 12px; line-height: 1.5; font-weight: 400; }
+.text-small { font-size: 14px; line-height: 1.6; font-weight: 400; }
+.text-base { font-size: 16px; line-height: 1.7; font-weight: 400; }
+.text-medium { font-size: 18px; line-height: 1.6; font-weight: 400; }
+.text-large { font-size: 24px; line-height: 1.5; font-weight: 300; }
+.text-xlarge { font-size: 32px; line-height: 1.4; font-weight: 300; }
+.text-2xlarge { font-size: 40px; line-height: 1.3; font-weight: 200; }
+.text-3xlarge { font-size: 56px; line-height: 1.2; font-weight: 200; }
+
+/* Sacred Weight System */
+.font-ultralight { font-weight: 100; }
+.font-thin { font-weight: 200; }
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+
+/* Sacred Tracking */
+.tracking-tight { letter-spacing: -0.03em; }
+.tracking-snug { letter-spacing: -0.02em; }
+.tracking-normal { letter-spacing: 0; }
+.tracking-wide { letter-spacing: 0.015em; }
+.tracking-wider { letter-spacing: 0.025em; }
+
+/* === SACRED COMPONENT FOUNDATION === */
+
+/* Sanctuary Glass - Sacred UI Surface with Divine Light */
+.sanctuary-glass {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-sanctuary), var(--shadow-inner-embrace);
+  position: relative;
+  overflow: hidden;
+}
+
+.sanctuary-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+}
+
+.sanctuary-glass:hover {
+  background: rgba(254, 252, 251, 0.98);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-temple), var(--shadow-inner-sanctuary);
+  transform: translateY(-2px);
+  transition: all var(--duration-breath) var(--ease-blessing);
+}
+
+/* Sacred Blessing Glass - Enhanced Spiritual Surface */
+.blessing-glass {
+  background: linear-gradient(135deg, 
+    rgba(254, 252, 251, 0.95) 0%,
+    rgba(244, 230, 224, 0.3) 50%,
+    rgba(254, 252, 251, 0.95) 100%);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  box-shadow: var(--shadow-sanctuary);
+  position: relative;
+}
+
+.blessing-glass::after {
+  content: '✨';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  opacity: 0.6;
+  animation: blessing-sparkle 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Organic Containers - Rounded, Natural */
+.organic-container {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sacred Button Foundation - Ritual-Like Interactions */
+.alchm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius-embrace);
+  font-family: var(--font-sacred);
+  font-size: 16px;
+  font-weight: var(--weight-intention);
+  letter-spacing: var(--tracking-comfortable);
+  min-height: var(--touch-default);
+  min-width: 120px;
+  cursor: pointer;
+  transition: all var(--duration-breath) var(--ease-blessing);
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sacred Button Blessing Effect */
+.alchm-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all var(--duration-meditation) var(--ease-prayer);
+  pointer-events: none;
+}
+
+.alchm-button:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+.alchm-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.3);
+  animation: micro-blessing 1.5s var(--ease-blessing);
+}
+
+.alchm-button:active {
+  transform: translateY(1px) scale(0.98);
+  transition: all var(--duration-whisper) var(--ease-blessing);
+}
+
+.alchm-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary Button - Sacred Authority with Divine Presence */
+.alchm-button--primary {
+  background: linear-gradient(135deg, 
+    var(--sage-primary) 0%,
+    var(--sage-hover) 100%);
+  color: var(--sanctuary);
+  box-shadow: var(--shadow-sanctuary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.alchm-button--primary:hover {
+  background: linear-gradient(135deg, 
+    var(--sage-hover) 0%,
+    var(--sage-active) 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-temple);
+  filter: brightness(1.05);
+}
+
+.alchm-button--primary:active {
+  transform: translateY(0px) scale(1);
+  box-shadow: var(--shadow-blessing);
+}
+
+/* Secondary Button - Sanctuary Blessing */
+.alchm-button--secondary {
+  background: linear-gradient(135deg,
+    var(--sanctuary) 0%,
+    var(--blush-soft) 100%);
+  color: var(--sage-active);
+  border: 1px solid rgba(164, 183, 146, 0.3);
+  box-shadow: var(--shadow-blessing), var(--shadow-inner-embrace);
+}
+
+.alchm-button--secondary:hover {
+  background: linear-gradient(135deg,
+    var(--blush-soft) 0%,
+    var(--blush-warm) 100%);
+  border-color: rgba(164, 183, 146, 0.5);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-sanctuary);
+  color: var(--sage-600);
+}
+
+/* Ghost Button - Ethereal Presence */
+.alchm-button--ghost {
+  background: rgba(254, 252, 251, 0.05);
+  color: var(--sanctuary);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.alchm-button--ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-blessing);
+}
+
+/* Blessing Button - Special Sacred Interactions */
+.alchm-button--blessing {
+  background: linear-gradient(135deg,
+    rgba(244, 230, 224, 0.8) 0%,
+    rgba(212, 165, 116, 0.6) 100%);
+  color: var(--sage-700);
+  border: 1px solid rgba(164, 183, 146, 0.4);
+  font-weight: var(--weight-sacred);
+  letter-spacing: var(--tracking-spacious);
+}
+
+.alchm-button--blessing:hover {
+  background: linear-gradient(135deg,
+    var(--terracotta-light) 0%,
+    var(--terracotta) 100%);
+  color: var(--sanctuary);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: var(--shadow-temple);
+  animation: blessing-sparkle 2s ease-in-out;
+}
+
+/* Crisis Button - Emergency Attention */
+.alchm-button--crisis {
+  background: var(--crisis-red);
+  color: var(--sanctuary);
+  min-height: var(--touch-crisis);
+  animation: crisis-pulse 2s infinite;
+}
+
+.alchm-button--crisis:hover {
+  background: var(--emergency-red);
+  transform: scale(1.05);
+}
+
+/* Sacred Card Foundation */
+.alchm-card {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: all var(--duration-base) var(--ease-gentle);
+  box-shadow: var(--shadow-soft);
+}
+
+.alchm-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sacred);
+}
+
+.alchm-card--interactive {
+  cursor: pointer;
+}
+
+.alchm-card--interactive:active {
+  transform: translateY(0);
+}
+
+/* Sacred Input Foundation - Contemplative Writing Space */
+.alchm-input {
+  width: 100%;
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: var(--radius-embrace);
+  color: var(--sage-active);
+  font-family: var(--font-contemplation);
+  font-size: 16px;
+  font-weight: var(--weight-presence);
+  letter-spacing: var(--tracking-comfortable);
+  line-height: var(--leading-comfortable);
+  min-height: var(--touch-default);
+  padding: var(--space-2) var(--space-3);
+  transition: all var(--duration-breath) var(--ease-blessing);
+  outline: none;
+  resize: none;
+  position: relative;
+}
+
+.alchm-input:focus {
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.98) 0%,
+    rgba(244, 230, 224, 0.3) 100%);
+  border-color: rgba(164, 183, 146, 0.5);
+  box-shadow: 
+    0 0 0 3px rgba(164, 183, 146, 0.2),
+    var(--shadow-sanctuary),
+    var(--shadow-inner-sanctuary);
+  transform: translateY(-2px) scale(1.01);
+  animation: prayer-transition var(--duration-meditation) var(--ease-prayer);
+}
+
+.alchm-input::placeholder {
+  color: rgba(164, 183, 146, 0.6);
+  font-style: italic;
+  font-weight: var(--weight-breath);
+  letter-spacing: var(--tracking-spacious);
+}
+
+/* Sacred Textarea - Deep Contemplative Writing */
+.alchm-textarea {
+  min-height: 200px;
+  line-height: var(--leading-meditative);
+  font-size: 16px;
+  font-family: var(--font-contemplation);
+  padding: var(--space-4);
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.95) 0%,
+    rgba(244, 230, 224, 0.1) 50%,
+    rgba(254, 252, 251, 0.95) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.alchm-textarea::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(164, 183, 146, 0.02) 0%, transparent 70%);
+  animation: sacred-breathing 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.alchm-textarea:focus {
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.98) 0%,
+    rgba(244, 230, 224, 0.2) 50%,
+    rgba(254, 252, 251, 0.98) 100%);
+  border-color: rgba(164, 183, 146, 0.6);
+  box-shadow: 
+    0 0 0 4px rgba(164, 183, 146, 0.15),
+    var(--shadow-temple),
+    inset 0 4px 16px rgba(255, 255, 255, 0.9);
+}
+
+/* === SACRED ANIMATIONS - RITUAL-LIKE INTERACTIONS === */
+
+/* Sacred Breathing - Life Force Animation */
+@keyframes sacred-breathing {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1;
+    filter: blur(0px);
+  }
+  50% { 
+    transform: scale(1.015) rotate(0.5deg); 
+    opacity: 0.85;
+    filter: blur(0.5px);
+  }
+}
+
+/* Divine Float - Blessed Elevation */
+@keyframes divine-float {
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+    filter: drop-shadow(0 4px 8px rgba(164, 183, 146, 0.15));
+  }
+  50% { 
+    transform: translateY(-6px) scale(1.01);
+    filter: drop-shadow(0 8px 16px rgba(164, 183, 146, 0.25));
+  }
+}
+
+/* Gentle Pulse - Heartbeat of Sanctuary */
+@keyframes sacred-pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(164, 183, 146, 0.3);
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.03);
+    box-shadow: 0 0 0 8px rgba(164, 183, 146, 0);
+  }
+}
+
+/* Blessing Sparkle - Divine Encouragement */
+@keyframes blessing-sparkle {
+  0%, 100% { 
+    opacity: 0.5; 
+    transform: scale(0.8) rotate(0deg);
+    filter: brightness(1);
+  }
+  25% { 
+    opacity: 0.8; 
+    transform: scale(1.1) rotate(90deg);
+    filter: brightness(1.2);
+  }
+  75% { 
+    opacity: 0.6; 
+    transform: scale(1.05) rotate(270deg);
+    filter: brightness(1.1);
+  }
+}
+
+/* Sacred Emergence - Soul Revealing */
+@keyframes sacred-emergence {
+  0% { 
+    opacity: 0;
+    transform: translateY(32px) scale(0.8) rotate(-2deg);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-4px) scale(1.02) rotate(1deg);
+    filter: blur(1px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0px) scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Nature Pattern Flow - Organic Movement */
+@keyframes nature-flow {
+  0%, 100% {
+    transform: translateX(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateX(2px) rotate(1deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(-1px) rotate(-0.5deg);
+    opacity: 0.7;
+  }
+}
+
+/* Micro-Blessing Animation - Subtle Acknowledgment */
+@keyframes micro-blessing {
+  0%, 90%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  45% {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+}
+
+/* Prayer Transition - Sacred State Change */
+@keyframes prayer-transition {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-8px) scale(1.02);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-4px) scale(1.01);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Legacy animation support */
+@keyframes gentle-breathing { 
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.8; }
+}
+@keyframes sanctuary-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+@keyframes gentle-sparkle {
+  0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Sacred Animation Classes - Spiritual Micro-Interactions */
+.animate-sacred-breathing { animation: sacred-breathing 12s var(--ease-meditation) infinite; }
+.animate-divine-float { animation: divine-float 8s var(--ease-blessing) infinite; }
+.animate-sacred-pulse { animation: sacred-pulse 4s var(--ease-prayer) infinite; }
+.animate-blessing-sparkle { animation: blessing-sparkle 6s var(--ease-blessing) infinite; }
+.animate-sacred-emergence { animation: sacred-emergence var(--duration-ritual) var(--ease-emergence); }
+.animate-nature-flow { animation: nature-flow 10s var(--ease-meditation) infinite; }
+.animate-micro-blessing { animation: micro-blessing 1.5s var(--ease-blessing); }
+.animate-prayer-transition { animation: prayer-transition var(--duration-meditation) var(--ease-prayer); }
+
+/* Legacy animation classes */
+.animate-breathing { animation: gentle-breathing 8s ease-in-out infinite; }
+.animate-sanctuary-float { animation: sanctuary-float 6s ease-in-out infinite; }
+.animate-gentle-pulse { animation: gentle-pulse 3s ease-in-out infinite; }
+.animate-crisis-pulse { animation: crisis-pulse 2s ease-in-out infinite; }
+.animate-gentle-sparkle { animation: gentle-sparkle 3s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out; }
+
+/* Sacred Animation Delays - Ritual Timing */
+.blessing-delay-1 { animation-delay: 1s; }
+.blessing-delay-2 { animation-delay: 2s; }
+.blessing-delay-3 { animation-delay: 3s; }
+.meditation-delay-1 { animation-delay: 0.5s; }
+.meditation-delay-2 { animation-delay: 1.2s; }
+.meditation-delay-3 { animation-delay: 2.1s; }
+
+/* Animation Delays */
+.animation-delay-1000 { animation-delay: 1s; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-3000 { animation-delay: 3s; }
+
+/* === SACRED UTILITY CLASSES === */
+
+/* Sacred Geometry Spacing Utilities */
+.space-breath { margin: var(--space-1); }
+.space-gentle { margin: var(--space-2); }
+.space-contemplative { margin: var(--space-3); }
+.space-mindful { margin: var(--space-4); }
+.space-fibonacci { margin: var(--space-5); }
+.space-harmonic { margin: var(--space-6); }
+.space-phi { margin: var(--space-phi); }
+.space-meditation { margin: var(--space-8); }
+.space-expansive { margin: var(--space-12); }
+.space-sanctuary { margin: var(--space-16); }
+
+/* Legacy spacing utilities */
+.space-1 { margin: var(--space-1); }
+.space-2 { margin: var(--space-2); }
+.space-3 { margin: var(--space-3); }
+.space-4 { margin: var(--space-4); }
+.space-6 { margin: var(--space-6); }
+.space-8 { margin: var(--space-8); }
+
+/* Sacred Padding Utilities */
+.p-breath { padding: var(--space-1); }
+.p-gentle { padding: var(--space-2); }
+.p-contemplative { padding: var(--space-3); }
+.p-mindful { padding: var(--space-4); }
+.p-fibonacci { padding: var(--space-5); }
+.p-harmonic { padding: var(--space-6); }
+.p-phi { padding: var(--space-phi); }
+.p-meditation { padding: var(--space-8); }
+.p-expansive { padding: var(--space-12); }
+.p-sanctuary { padding: var(--space-16); }
+
+/* Legacy padding utilities */
+.p-1 { padding: var(--space-1); }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+
+.px-1 { padding-left: var(--space-1); padding-right: var(--space-1); }
+.px-2 { padding-left: var(--space-2); padding-right: var(--space-2); }
+.px-3 { padding-left: var(--space-3); padding-right: var(--space-3); }
+.px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+
+.py-1 { padding-top: var(--space-1); padding-bottom: var(--space-1); }
+.py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+.py-3 { padding-top: var(--space-3); padding-bottom: var(--space-3); }
+.py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+/* Touch Target Utilities */
+.touch-default { min-height: var(--touch-default); min-width: var(--touch-default); }
+.touch-large { min-height: var(--touch-large); min-width: var(--touch-large); }
+.touch-crisis { min-height: var(--touch-crisis); min-width: var(--touch-crisis); }
+.touch-emergency { min-height: var(--touch-emergency); min-width: var(--touch-emergency); }
+
+/* Sacred Shadow Utilities */
+.shadow-whisper { box-shadow: var(--shadow-whisper); }
+.shadow-breath { box-shadow: var(--shadow-breath); }
+.shadow-blessing { box-shadow: var(--shadow-blessing); }
+.shadow-sanctuary { box-shadow: var(--shadow-sanctuary); }
+.shadow-temple { box-shadow: var(--shadow-temple); }
+.shadow-divine { box-shadow: var(--shadow-divine); }
+.shadow-inner-sanctuary { box-shadow: var(--shadow-inner-sanctuary); }
+.shadow-inner-embrace { box-shadow: var(--shadow-inner-embrace); }
+
+/* Legacy shadow utilities */
+.shadow-gentle { box-shadow: var(--shadow-breath); }
+.shadow-soft { box-shadow: var(--shadow-blessing); }
+.shadow-sacred { box-shadow: var(--shadow-sanctuary); }
+
+/* Sacred Color Utilities */
+.text-sage { color: var(--sage-primary); }
+.text-sage-hover { color: var(--sage-hover); }
+.text-sage-active { color: var(--sage-active); }
+.text-sanctuary { color: var(--sanctuary); }
+.text-blush { color: var(--blush-soft); }
+.text-terracotta { color: var(--terracotta); }
+
+.bg-sage { background-color: var(--sage-primary); }
+.bg-sage-hover { background-color: var(--sage-hover); }
+.bg-sage-light { background-color: var(--sage-light); }
+.bg-sanctuary { background-color: var(--sanctuary); }
+.bg-blush { background-color: var(--blush-soft); }
+.bg-terracotta { background-color: var(--terracotta); }
+
+/* Sacred Gradient Utilities */
+.bg-sacred-gradient {
+  background: linear-gradient(135deg, 
+    var(--sage-primary) 0%,
+    var(--sage-hover) 50%,
+    var(--sage-active) 100%);
+}
+
+.bg-blessing-gradient {
+  background: linear-gradient(135deg,
+    var(--sanctuary) 0%,
+    var(--blush-soft) 50%,
+    var(--sanctuary) 100%);
+}
+
+.bg-earth-gradient {
+  background: linear-gradient(135deg,
+    var(--terracotta-light) 0%,
+    var(--terracotta) 50%,
+    var(--terracotta-deep) 100%);
+}
+
+/* Sacred Border Utilities */
+.border-sage { border-color: var(--sage-primary); }
+.border-sanctuary { border-color: var(--sanctuary); }
+.border-blush { border-color: var(--blush-soft); }
+.border-terracotta { border-color: var(--terracotta); }
+
+/* Sacred Radius Utilities */
+.rounded-whisper { border-radius: var(--radius-whisper); }
+.rounded-breath { border-radius: var(--radius-breath); }
+.rounded-embrace { border-radius: var(--radius-embrace); }
+.rounded-sanctuary { border-radius: var(--radius-sanctuary); }
+.rounded-temple { border-radius: var(--radius-temple); }
+.rounded-sacred { border-radius: var(--radius-sacred); }
+.rounded-infinite { border-radius: var(--radius-infinite); }
+
+/* Legacy border radius utilities */
+.rounded-sm { border-radius: var(--radius-breath); }
+.rounded-md { border-radius: var(--radius-embrace); }
+.rounded-lg { border-radius: var(--radius-sanctuary); }
+.rounded-xl { border-radius: var(--radius-temple); }
+
+/* Sacred Typography Utilities */
+.font-sacred { font-family: var(--font-sacred); }
+.font-contemplation { font-family: var(--font-contemplation); }
+.font-blessing { font-family: var(--font-blessing); }
+.font-meditation { font-family: var(--font-meditation); }
+
+.weight-whisper { font-weight: var(--weight-whisper); }
+.weight-breath { font-weight: var(--weight-breath); }
+.weight-presence { font-weight: var(--weight-presence); }
+.weight-ground { font-weight: var(--weight-ground); }
+.weight-intention { font-weight: var(--weight-intention); }
+.weight-sacred { font-weight: var(--weight-sacred); }
+
+.tracking-intimate { letter-spacing: var(--tracking-intimate); }
+.tracking-comfortable { letter-spacing: var(--tracking-comfortable); }
+.tracking-natural { letter-spacing: var(--tracking-natural); }
+.tracking-spacious { letter-spacing: var(--tracking-spacious); }
+.tracking-ceremonial { letter-spacing: var(--tracking-ceremonial); }
+
+.leading-tight { line-height: var(--leading-tight); }
+.leading-cozy { line-height: var(--leading-cozy); }
+.leading-comfortable { line-height: var(--leading-comfortable); }
+.leading-spacious { line-height: var(--leading-spacious); }
+.leading-meditative { line-height: var(--leading-meditative); }
+
+/* === ACCESSIBILITY === */
+*:focus-visible {
+  outline: 2px solid var(--sanctuary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+  .sanctuary-glass {
+    background: var(--sanctuary);
+    border: 2px solid var(--sage-active);
+  }
+  
+  .alchm-button--primary {
+    border: 2px solid var(--sage-700);
+  }
+  
+  .alchm-input {
+    border: 2px solid var(--sage-active);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Larger touch targets for mobile */
+  .alchm-button {
+    min-height: var(--touch-large);
+    min-width: var(--touch-large);
+    padding: var(--space-3) var(--space-4);
+  }
+  
+  .alchm-input {
+    min-height: var(--touch-large);
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+  
+  /* Reduce animation intensity for battery conservation */
+  .animate-breathing,
+  .animate-sanctuary-float,
+  .animate-gentle-pulse {
+    animation-duration: 4s;
+  }
+  
+  /* Enhanced spacing for mobile */
+  .organic-container {
+    border-radius: var(--radius-lg);
+    margin: var(--space-1);
+  }
+}
+
+/* === LAYOUT SYSTEM === */
+
+/* Sacred Grid System */
+.sanctuary-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Sacred Flex System */
+.sanctuary-flex {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sanctuary-flex--column {
+  flex-direction: column;
+}
+
+.sanctuary-flex--center {
+  justify-content: center;
+}
+
+.sanctuary-flex--between {
+  justify-content: space-between;
+}
+
+/* Sacred Container */
+.sanctuary-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Sacred Section */
+.sanctuary-section {
+  padding: var(--space-8) 0;
+}
+
+/* === TRAUMA-INFORMED OVERRIDES === */
+
+/* Crisis Mode - Enhanced Accessibility */
+.crisis-mode {
+  font-size: 1.25rem !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.crisis-mode .alchm-button {
+  min-height: var(--touch-emergency);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.crisis-mode .alchm-input {
+  min-height: var(--touch-emergency);
+  font-size: 1.125rem;
+}
+
+/* Emergency Mode - Maximum Accessibility */
+.emergency-mode * {
+  font-size: 1.5rem !important;
+  line-height: 2 !important;
+  font-weight: 600 !important;
+}
+
+.emergency-mode .alchm-button {
+  min-height: calc(var(--touch-emergency) * 1.2);
+  font-size: 1.5rem !important;
+}
+
+/* Print Styles */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .alchm-button,
+  .sanctuary-glass {
+    border: 1px solid #333 !important;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sanctuary-dark: #1a1d1a;
+    --sanctuary-dark-glass: rgba(26, 29, 26, 0.85);
+  }
+  
+  .dark-mode {
+    background: linear-gradient(135deg, var(--sanctuary-dark) 0%, #2a2d2a 100%);
+    color: var(--sage-light);
+  }
+  
+  .dark-mode .sanctuary-glass {
+    background: var(--sanctuary-dark-glass);
+    border-color: rgba(164, 183, 146, 0.3);
+  }
+}
+
+/* === SACRED NATURE PATTERNS === */
+
+/* Sacred Geometry Background Patterns */
+.sacred-pattern {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(164, 183, 146, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(244, 230, 224, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(212, 165, 116, 0.02) 1.5px, transparent 1.5px);
+  background-size: 60px 60px, 40px 40px, 80px 80px;
+  background-position: 0 0, 20px 20px, 40px 40px;
+  animation: nature-flow 30s linear infinite;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Fibonacci Spiral Pattern */
+.fibonacci-pattern {
+  position: relative;
+}
+
+.fibonacci-pattern::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    conic-gradient(from 0deg at 50% 50%, 
+      transparent 0deg,
+      rgba(164, 183, 146, 0.02) 90deg,
+      transparent 180deg,
+      rgba(244, 230, 224, 0.02) 270deg,
+      transparent 360deg);
+  animation: sacred-breathing 40s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Organic Flow Pattern */
+.organic-flow {
+  background: 
+    linear-gradient(120deg, transparent 40%, rgba(164, 183, 146, 0.02) 50%, transparent 60%),
+    linear-gradient(240deg, transparent 40%, rgba(244, 230, 224, 0.02) 50%, transparent 60%);
+  background-size: 200px 100px, 150px 80px;
+  animation: nature-flow 25s ease-in-out infinite;
+}
+
+/* === SPIRITUAL MICRO-INTERACTIONS === */
+
+/* Sacred Hover States */
+.sacred-hover {
+  transition: all var(--duration-breath) var(--ease-blessing);
+  position: relative;
+}
+
+.sacred-hover:hover {
+  transform: translateY(-2px) scale(1.01);
+  animation: micro-blessing 1.5s var(--ease-blessing);
+}
+
+.sacred-hover::after {
+  content: '✨';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 12px;
+  opacity: 0;
+  transform: scale(0.5) rotate(-45deg);
+  transition: all var(--duration-meditation) var(--ease-emergence);
+  pointer-events: none;
+}
+
+.sacred-hover:hover::after {
+  opacity: 0.8;
+  transform: scale(1) rotate(0deg);
+  animation: blessing-sparkle 2s ease-in-out;
+}
+
+/* Gentle Blessing Effect */
+.blessing-touch {
+  position: relative;
+  overflow: hidden;
+}
+
+.blessing-touch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all var(--duration-ritual) var(--ease-prayer);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blessing-touch:active::before {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(164, 183, 146, 0.3) 0%, transparent 70%);
+}
+
+/* Sacred State Indicators */
+.sacred-indicator {
+  position: relative;
+}
+
+.sacred-indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  width: 4px;
+  height: 4px;
+  background: var(--sage-primary);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all var(--duration-breath) var(--ease-blessing);
+}
+
+.sacred-indicator.active::before {
+  opacity: 1;
+  animation: sacred-pulse 2s ease-in-out infinite;
+}
+
+/* Contemplative Focus States */
+.contemplative-focus {
+  transition: all var(--duration-meditation) var(--ease-prayer);
+}
+
+.contemplative-focus:focus-within {
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.98) 0%,
+    rgba(244, 230, 224, 0.2) 50%,
+    rgba(254, 252, 251, 0.98) 100%);
+  box-shadow: 
+    0 0 0 4px rgba(164, 183, 146, 0.15),
+    var(--shadow-temple);
+  animation: prayer-transition var(--duration-meditation) var(--ease-prayer);
+}
+
+/* === SPIRITUAL LAYOUT COMPONENTS === */
+
+/* Sacred Grid with Golden Ratio */
+.sacred-grid {
+  display: grid;
+  gap: var(--space-phi);
+  grid-template-columns: repeat(auto-fit, minmax(calc(300px * var(--phi-inverse)), 1fr));
+}
+
+/* Sanctuary Container with Sacred Proportions */
+.sanctuary-container-enhanced {
+  max-width: calc(1200px * var(--phi-inverse));
+  margin: 0 auto;
+  padding: 0 var(--space-phi);
+}
+
+/* Sacred Section with Breathing Space */
+.sacred-section {
+  padding: var(--space-13) 0;
+  position: relative;
+}
+
+.sacred-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: var(--space-5);
+  background: linear-gradient(to bottom, transparent, var(--sage-300), transparent);
+  transform: translateX(-50%);
+}
+
+/* Ritual Divider */
+.ritual-divider {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(164, 183, 146, 0.3) 20%,
+    rgba(164, 183, 146, 0.6) 50%,
+    rgba(164, 183, 146, 0.3) 80%,
+    transparent 100%);
+  margin: var(--space-8) 0;
+  position: relative;
+}
+
+.ritual-divider::after {
+  content: '⋄';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--sanctuary);
+  color: var(--sage-400);
+  padding: 0 var(--space-2);
+  font-size: 12px;
+  font-weight: var(--weight-breath);
+}
+
+/* === SPIRITUAL COMPONENT CLASSES === */
+
+/* Sacred Card with Divine Presence */
+.sacred-card {
+  position: relative;
+  transition: all var(--duration-breath) var(--ease-blessing);
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: var(--radius-temple);
+  padding: var(--space-4);
+}
+
+.sacred-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-temple);
+}
+
+/* Blessing Button Collection */
+.blessing-buttons {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Sacred Form Container */
+.sacred-form {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: var(--radius-temple);
+  padding: var(--space-phi);
+  transition: all var(--duration-meditation) var(--ease-prayer);
+}
+
+.sacred-form:focus-within {
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.98) 0%,
+    rgba(244, 230, 224, 0.2) 50%,
+    rgba(254, 252, 251, 0.98) 100%);
+  box-shadow: 
+    0 0 0 4px rgba(164, 183, 146, 0.15),
+    var(--shadow-temple);
+  animation: prayer-transition var(--duration-meditation) var(--ease-prayer);
+}
+
+/* Meditation Zone - Deep Focus Area */
+.meditation-zone {
+  background: linear-gradient(135deg,
+    rgba(254, 252, 251, 0.95) 0%,
+    rgba(244, 230, 224, 0.1) 50%,
+    rgba(254, 252, 251, 0.95) 100%);
+  border: 1px solid rgba(164, 183, 146, 0.15);
+  border-radius: var(--radius-sacred);
+  padding: var(--space-16);
+  position: relative;
+}
+
+.meditation-zone::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(164, 183, 146, 0.1), 
+    transparent);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Sacred Loading States */
+.sacred-loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.sacred-loading::after {
+  content: '🌱';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: sacred-pulse 2s ease-in-out infinite;
+  font-size: 24px;
+  z-index: 10;
+}
+
+/* === SACRED SUCCESS STATES === */
+
+/* Celebration Animation */
+@keyframes celebration-bloom {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.celebrate {
+  animation: celebration-bloom 2s var(--ease-emergence);
+  position: relative;
+}
+
+.celebrate::after {
+  content: '✨ 🌟 ✨';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  animation: blessing-sparkle 3s ease-in-out;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Final blessing for the sacred sanctuary */
+.sacred-sanctuary {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(135deg,
+    var(--sage-primary) 0%,
+    var(--sage-hover) 50%,
+    var(--sage-active) 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sacred-sanctuary::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(244, 230, 224, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(254, 252, 251, 0.03) 0%, transparent 70%);
+  animation: sacred-breathing 30s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === FINAL SACRED BLESSING === */
+/* May this digital sanctuary bring peace, healing, and transformation to all who enter. */
+/* 🕊️ In sacred service to mental wellness and spiritual growth 🌱 */

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM App Icon Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .icon-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+        
+        .icon-canvas {
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        
+        .download-btn {
+            background: #a4b792;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .download-btn:hover {
+            background: #8fa37c;
+            transform: translateY(-2px);
+        }
+        
+        .download-all {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .download-all button {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa37c 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .download-all button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(164, 183, 146, 0.4);
+        }
+        
+        .icon-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .preview-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .preview-canvas {
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧙‍♀️ ALCHM App Icon Generator</h1>
+        <p style="text-align: center; color: #6c757d; font-size: 18px;">
+            Generate high-quality app icons with ALCHM's sage green branding for all platforms
+        </p>
+        
+        <div class="download-all">
+            <button onclick="generateAllIcons()">Generate All App Icons</button>
+        </div>
+        
+        <div class="icon-grid">
+            <!-- iOS Icons -->
+            <div class="icon-card">
+                <h3>iOS App Store Icon</h3>
+                <canvas id="ios-1024" class="icon-canvas" width="1024" height="1024"></canvas>
+                <p>1024×1024 - App Store submission</p>
+                <button class="download-btn" onclick="downloadIcon('ios-1024')">Download iOS Icon</button>
+            </div>
+            
+            <!-- Android Icons -->
+            <div class="icon-card">
+                <h3>Android Play Store Icon</h3>
+                <canvas id="android-512" class="icon-canvas" width="512" height="512"></canvas>
+                <p>512×512 - Play Store submission</p>
+                <button class="download-btn" onclick="downloadIcon('android-512')">Download Android Icon</button>
+            </div>
+            
+            <!-- PWA/Web Icons -->
+            <div class="icon-card">
+                <h3>PWA Icon</h3>
+                <canvas id="pwa-192" class="icon-canvas" width="192" height="192"></canvas>
+                <p>192×192 - Progressive Web App</p>
+                <button class="download-btn" onclick="downloadIcon('pwa-192')">Download PWA Icon</button>
+            </div>
+            
+            <!-- Favicon -->
+            <div class="icon-card">
+                <h3>Website Favicon</h3>
+                <canvas id="favicon-32" class="icon-canvas" width="32" height="32"></canvas>
+                <p>32×32 - Website favicon</p>
+                <button class="download-btn" onclick="downloadIcon('favicon-32')">Download Favicon</button>
+            </div>
+        </div>
+        
+        <div class="icon-preview">
+            <div class="preview-item">
+                <canvas id="preview-180" class="preview-canvas" width="60" height="60"></canvas>
+                <small>iPhone (180px)</small>
+            </div>
+            <div class="preview-item">
+                <canvas id="preview-152" class="preview-canvas" width="50" height="50"></canvas>
+                <small>iPad (152px)</small>
+            </div>
+            <div class="preview-item">
+                <canvas id="preview-144" class="preview-canvas" width="48" height="48"></canvas>
+                <small>Android (144px)</small>
+            </div>
+            <div class="preview-item">
+                <canvas id="preview-96" class="preview-canvas" width="32" height="32"></canvas>
+                <small>Android (96px)</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ALCHM Brand Colors
+        const SAGE_PRIMARY = '#a4b792';
+        const SAGE_SECONDARY = '#8fa37c';
+        const SAGE_LIGHT = '#b8c5a6';
+        const SAGE_DARK = '#7a8869';
+        const SANCTUARY_WHITE = '#fefcfb';
+        const WISDOM_GOLD = '#d4af37';
+
+        // Icon specifications
+        const ICON_SPECS = [
+            { id: 'ios-1024', size: 1024, name: 'iOS App Store' },
+            { id: 'android-512', size: 512, name: 'Android Play Store' },
+            { id: 'pwa-192', size: 192, name: 'PWA Manifest' },
+            { id: 'favicon-32', size: 32, name: 'Favicon' },
+            // Preview sizes
+            { id: 'preview-180', size: 60, name: 'iPhone Preview' },
+            { id: 'preview-152', size: 50, name: 'iPad Preview' },
+            { id: 'preview-144', size: 48, name: 'Android Preview' },
+            { id: 'preview-96', size: 32, name: 'Android Small' }
+        ];
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const center = size / 2;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Create gradient background
+            const backgroundGradient = ctx.createLinearGradient(0, 0, size, size);
+            backgroundGradient.addColorStop(0, SAGE_PRIMARY);
+            backgroundGradient.addColorStop(0.5, SAGE_SECONDARY);
+            backgroundGradient.addColorStop(1, SAGE_DARK);
+            
+            // Draw rounded rectangle background
+            const borderRadius = size * 0.18; // iOS-style rounded corners
+            drawRoundedRect(ctx, 0, 0, size, size, borderRadius, backgroundGradient);
+            
+            // Draw ALCHM symbol - Sacred geometry with transformation theme
+            ctx.save();
+            ctx.translate(center, center);
+            
+            // Outer circle (wholeness/sanctuary)
+            const outerRadius = size * 0.35;
+            ctx.strokeStyle = SANCTUARY_WHITE;
+            ctx.lineWidth = size * 0.02;
+            ctx.beginPath();
+            ctx.arc(0, 0, outerRadius, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // Inner transformation symbol (butterfly/metamorphosis)
+            ctx.fillStyle = SANCTUARY_WHITE;
+            ctx.strokeStyle = WISDOM_GOLD;
+            ctx.lineWidth = size * 0.015;
+            
+            // Butterfly wings (transformation)
+            const wingSize = size * 0.15;
+            
+            // Left wing
+            ctx.beginPath();
+            ctx.ellipse(-wingSize * 0.6, -wingSize * 0.3, wingSize * 0.8, wingSize * 0.5, -Math.PI / 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Right wing  
+            ctx.beginPath();
+            ctx.ellipse(wingSize * 0.6, -wingSize * 0.3, wingSize * 0.8, wingSize * 0.5, Math.PI / 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Lower wings
+            ctx.beginPath();
+            ctx.ellipse(-wingSize * 0.5, wingSize * 0.2, wingSize * 0.6, wingSize * 0.4, Math.PI / 8, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.ellipse(wingSize * 0.5, wingSize * 0.2, wingSize * 0.6, wingSize * 0.4, -Math.PI / 8, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            
+            // Body (connection/grounding)
+            ctx.strokeStyle = WISDOM_GOLD;
+            ctx.lineWidth = size * 0.025;
+            ctx.beginPath();
+            ctx.moveTo(0, -wingSize * 0.7);
+            ctx.lineTo(0, wingSize * 0.7);
+            ctx.stroke();
+            
+            // Antennae (awareness/intuition)
+            ctx.lineWidth = size * 0.01;
+            ctx.beginPath();
+            ctx.moveTo(0, -wingSize * 0.7);
+            ctx.quadraticCurveTo(-wingSize * 0.3, -wingSize * 1.1, -wingSize * 0.2, -wingSize * 1.3);
+            ctx.moveTo(0, -wingSize * 0.7);
+            ctx.quadraticCurveTo(wingSize * 0.3, -wingSize * 1.1, wingSize * 0.2, -wingSize * 1.3);
+            ctx.stroke();
+            
+            // Small dots on antennae
+            ctx.fillStyle = WISDOM_GOLD;
+            ctx.beginPath();
+            ctx.arc(-wingSize * 0.2, -wingSize * 1.3, size * 0.008, 0, 2 * Math.PI);
+            ctx.arc(wingSize * 0.2, -wingSize * 1.3, size * 0.008, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            ctx.restore();
+            
+            // Add subtle inner glow effect
+            if (size > 100) {
+                ctx.save();
+                ctx.globalCompositeOperation = 'soft-light';
+                const glowGradient = ctx.createRadialGradient(center, center, 0, center, center, size * 0.4);
+                glowGradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
+                glowGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctx.fillStyle = glowGradient;
+                ctx.fillRect(0, 0, size, size);
+                ctx.restore();
+            }
+        }
+        
+        function drawRoundedRect(ctx, x, y, width, height, radius, fillStyle) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+            
+            if (fillStyle) {
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+            }
+        }
+        
+        function generateAllIcons() {
+            console.log('🎨 Generating all ALCHM app icons...');
+            
+            ICON_SPECS.forEach(spec => {
+                const canvas = document.getElementById(spec.id);
+                if (canvas) {
+                    drawIcon(canvas, canvas.width);
+                    console.log(`✅ Generated ${spec.name} (${spec.size}px)`);
+                }
+            });
+            
+            console.log('🎉 All icons generated successfully!');
+        }
+        
+        function downloadIcon(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const spec = ICON_SPECS.find(s => s.id === canvasId);
+            const filename = `alchm-icon-${spec.size}x${spec.size}.png`;
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            
+            // Trigger download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log(`📥 Downloaded: ${filename}`);
+        }
+        
+        function downloadAllIcons() {
+            ICON_SPECS.forEach(spec => {
+                setTimeout(() => downloadIcon(spec.id), spec.size); // Stagger downloads
+            });
+        }
+        
+        // Generate icons when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure canvases are ready
+            setTimeout(generateAllIcons, 100);
+        });
+        
+        // Add download all functionality to main button
+        document.querySelector('.download-all button').onclick = function() {
+            generateAllIcons();
+            setTimeout(downloadAllIcons, 500);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "rating": "12+",
+  "contentDescriptors": [
+    "Infrequent/Mild Medical/Treatment Information",
+    "Infrequent/Mild Mature/Suggestive Themes"
+  ],
+  "rationale": "App deals with mental health topics that may not be suitable for children under 12. Content is educational and supportive in nature.",
+  "questionnaire": {
+    "matureThemes": "Infrequent/Mild",
+    "violence": "None",
+    "realisticViolence": "None",
+    "cartoonViolence": "None",
+    "medicalInfo": "Infrequent/Mild",
+    "drugAlcoholTobacco": "None",
+    "gambling": "None",
+    "profanity": "None",
+    "sexualContent": "None",
+    "horror": "None",
+    "seventeenPlus": false
+  }
+}

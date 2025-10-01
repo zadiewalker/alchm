@@ -1,0 +1,144 @@
+/**
+ * GDPR Account Deletion API Endpoint
+ * 
+ * Permanently deletes all user data as required by GDPR Article 17
+ * (Right to be Forgotten) and CCPA deletion rights.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { validateSession } from '@/lib/validateSession';
+import { adminAuth, adminFirestore } from '@/lib/firebaseAdmin';
+
+export async function POST(request: NextRequest) {
+  try {
+    const { confirmDeletion, reason } = await request.json();
+    
+    // Validate user session
+    const { valid, uid } = await validateSession(request);
+    
+    if (!valid || !uid) {
+      return NextResponse.json(
+        { error: 'Unauthorized. Please sign in to delete your account.' },
+        { status: 401 }
+      );
+    }
+
+    // Require explicit confirmation
+    if (confirmDeletion !== true) {
+      return NextResponse.json(
+        { error: 'Account deletion requires explicit confirmation.' },
+        { status: 400 }
+      );
+    }
+
+    // Create audit log before deletion
+    const deletionRecord = {
+      userId: uid,
+      action: 'ACCOUNT_DELETION_REQUESTED',
+      timestamp: new Date(),
+      reason: reason || 'User requested deletion',
+      ipAddress: request.ip || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+      dataTypesDeleted: ['profile', 'journals', 'moods', 'preferences', 'auth']
+    };
+
+    await adminFirestore.collection('deletionAuditLog').add(deletionRecord);
+
+    // Delete user's journal data
+    const journalsRef = adminFirestore.collection('journals').where('userId', '==', uid);
+    const journalsSnapshot = await journalsRef.get();
+    
+    const journalDeletions = journalsSnapshot.docs.map(doc => doc.ref.delete());
+    await Promise.all(journalDeletions);
+
+    // Delete mood tracking data
+    const moodRef = adminFirestore.collection('moods').where('userId', '==', uid);
+    const moodSnapshot = await moodRef.get();
+    
+    const moodDeletions = moodSnapshot.docs.map(doc => doc.ref.delete());
+    await Promise.all(moodDeletions);
+
+    // Delete user profile
+    await adminFirestore.collection('users').doc(uid).delete();
+
+    // Delete user preferences
+    const prefsRef = adminFirestore.collection('userPreferences').doc(uid);
+    await prefsRef.delete();
+
+    // Delete any AI processing history (anonymized)
+    const aiHistoryRef = adminFirestore.collection('aiProcessingHistory').where('userId', '==', uid);
+    const aiHistorySnapshot = await aiHistoryRef.get();
+    
+    const aiHistoryDeletions = aiHistorySnapshot.docs.map(doc => doc.ref.delete());
+    await Promise.all(aiHistoryDeletions);
+
+    // Finally, delete the user's authentication account
+    await adminAuth.deleteUser(uid);
+
+    // Return success response
+    return NextResponse.json({
+      success: true,
+      message: 'Your account and all associated data have been permanently deleted.',
+      deletedAt: new Date().toISOString(),
+      dataTypesDeleted: [
+        'Authentication account',
+        'Profile information', 
+        'Journal entries',
+        'Mood tracking data',
+        'User preferences',
+        'AI processing history'
+      ],
+      gdprCompliant: true,
+      ccpaCompliant: true
+    });
+
+  } catch (error) {
+    console.error('Account deletion error:', error);
+    
+    // If user is already deleted from auth but still has data, clean up data
+    if (error.code === 'auth/user-not-found') {
+      try {
+        const { uid } = await request.json();
+        if (uid) {
+          // Clean up any remaining data
+          const collections = ['journals', 'moods', 'users', 'userPreferences', 'aiProcessingHistory'];
+          
+          for (const collection of collections) {
+            const ref = adminFirestore.collection(collection).where('userId', '==', uid);
+            const snapshot = await ref.get();
+            const deletions = snapshot.docs.map(doc => doc.ref.delete());
+            await Promise.all(deletions);
+          }
+          
+          return NextResponse.json({
+            success: true,
+            message: 'Remaining data has been cleaned up.',
+            note: 'Authentication account was already deleted.'
+          });
+        }
+      } catch (cleanupError) {
+        console.error('Cleanup error:', cleanupError);
+      }
+    }
+    
+    return NextResponse.json(
+      { 
+        error: 'Failed to delete account. Please contact support for assistance.',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Handle OPTIONS for CORS
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
+}

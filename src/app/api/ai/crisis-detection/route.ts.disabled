@@ -1,0 +1,218 @@
+/**
+ * ALCHM Secure Crisis Detection API
+ * OpenAI-powered crisis language detection with zero data retention
+ * 
+ * CRITICAL: This endpoint can save lives - security and reliability are paramount
+ * NO user content is stored, only crisis detection results for safety
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import OpenAI from 'openai';
+import { getServerConfig } from '@/lib/config';
+
+// Crisis patterns for immediate detection (before AI processing)
+const IMMEDIATE_CRISIS_PATTERNS = [
+  // English
+  'want to die', 'kill myself', 'end it all', 'suicide', 'can\'t go on',
+  'better off dead', 'no point living', 'ending my life',
+  
+  // Spanish
+  'quiero morir', 'matarme', 'suicidio', 'terminar con todo',
+  'mejor muerto', 'no puedo más',
+  
+  // Portuguese
+  'quero morrer', 'me matar', 'suicídio', 'acabar com tudo',
+  'melhor morto', 'não aguento mais',
+  
+  // German
+  'sterben wollen', 'selbstmord', 'umbringen', 'nicht mehr leben',
+];
+
+// Initialize OpenAI with secure configuration
+function getOpenAIInstance(): OpenAI {
+  try {
+    const serverConfig = getServerConfig();
+    return new OpenAI({
+      apiKey: serverConfig.ai.openaiApiKey,
+      ...(serverConfig.ai.openaiProjectId && { 
+        project: serverConfig.ai.openaiProjectId 
+      }),
+    });
+  } catch (error) {
+    console.error('Failed to initialize OpenAI:', error);
+    throw new Error('Crisis detection service configuration error');
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { text, userId } = await request.json();
+
+    if (!text || typeof text !== 'string') {
+      return NextResponse.json(
+        { error: 'Text is required for crisis detection' },
+        { status: 400 }
+      );
+    }
+
+    // IMMEDIATE CRISIS CHECK - No AI needed for obvious cases
+    const immediateRisk = IMMEDIATE_CRISIS_PATTERNS.some(pattern =>
+      text.toLowerCase().includes(pattern.toLowerCase())
+    );
+
+    if (immediateRisk) {
+      return NextResponse.json({
+        crisisDetected: true,
+        confidence: 'high',
+        immediate: true,
+        resources: getCrisisResources(),
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    // AI-powered analysis for subtle crisis indicators
+    const openai = getOpenAIInstance();
+    
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini', // Fast, cost-effective for crisis detection
+      messages: [
+        {
+          role: "system",
+          content: `You are a crisis detection system for a mental health app. Analyze text for signs of:
+          - Suicidal ideation or self-harm thoughts
+          - Severe depression or hopelessness
+          - Immediate danger to self or others
+          - Active crisis states requiring intervention
+          
+          Respond ONLY with a JSON object:
+          {
+            "crisisDetected": boolean,
+            "confidence": "low" | "medium" | "high",
+            "indicators": ["specific indicators found"],
+            "urgency": "none" | "low" | "medium" | "high"
+          }
+          
+          Be sensitive but thorough. False positives are preferable to missed crises.`
+        },
+        {
+          role: "user",
+          content: text.substring(0, 1000) // Limit for privacy and cost
+        }
+      ],
+      temperature: 0, // Deterministic for consistency
+      max_tokens: 200,
+      response_format: { type: 'json_object' }
+    });
+
+    const analysis = JSON.parse(completion.choices[0]?.message?.content || '{}');
+
+    // Log crisis detection (NO user content) for monitoring
+    if (analysis.crisisDetected) {
+      console.log('Crisis detected:', {
+        userId: userId ? 'user-present' : 'anonymous',
+        confidence: analysis.confidence,
+        urgency: analysis.urgency,
+        timestamp: new Date().toISOString(),
+        // NO TEXT CONTENT LOGGED
+      });
+    }
+
+    return NextResponse.json({
+      crisisDetected: analysis.crisisDetected || false,
+      confidence: analysis.confidence || 'low',
+      urgency: analysis.urgency || 'none',
+      indicators: analysis.indicators || [],
+      resources: analysis.crisisDetected ? getCrisisResources() : [],
+      timestamp: new Date().toISOString(),
+    });
+
+  } catch (error) {
+    console.error('Crisis detection error:', error);
+    
+    // FAIL SAFE: When in doubt, assume crisis for user safety
+    return NextResponse.json({
+      crisisDetected: true,
+      confidence: 'unknown',
+      urgent: true,
+      failsafe: true,
+      resources: getCrisisResources(),
+      error: 'Crisis detection service error - defaulting to safety',
+      timestamp: new Date().toISOString(),
+    });
+  }
+}
+
+// Crisis resources with international support
+function getCrisisResources() {
+  return [
+    {
+      name: '988 Suicide & Crisis Lifeline',
+      contact: '988',
+      type: 'phone',
+      country: 'US',
+      description: '24/7 crisis support and suicide prevention'
+    },
+    {
+      name: 'Crisis Text Line',
+      contact: '741741',
+      type: 'text',
+      country: 'US',
+      description: 'Text HOME to 741741 for 24/7 crisis support'
+    },
+    {
+      name: 'International Crisis Lines',
+      contact: 'https://findahelpline.com',
+      type: 'web',
+      country: 'Global',
+      description: 'Find crisis support in your country'
+    },
+    {
+      name: 'Emergency Services',
+      contact: '911',
+      type: 'phone',
+      country: 'US',
+      description: 'For immediate medical emergencies'
+    }
+  ];
+}
+
+// Health check endpoint
+export async function GET() {
+  try {
+    // Test OpenAI connection without using quota
+    const serverConfig = getServerConfig();
+    const hasValidConfig = !!(serverConfig.ai.openaiApiKey);
+    
+    return NextResponse.json({
+      status: 'operational',
+      service: 'crisis-detection',
+      configValid: hasValidConfig,
+      immediatePatterns: IMMEDIATE_CRISIS_PATTERNS.length,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { 
+        status: 'error',
+        error: 'Crisis detection service unavailable',
+        fallback: 'Immediate patterns still available'
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Security: Only allow POST and GET
+export async function PUT() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}

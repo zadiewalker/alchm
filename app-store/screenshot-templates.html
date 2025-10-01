@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - App Store Screenshot Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .screenshot {
+            background: linear-gradient(135deg, #a4b792 0%, #93a682 50%, #82956f 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            aspect-ratio: 1290/2796; /* iPhone 14 Pro Max ratio */
+            display: flex;
+            flex-direction: column;
+            color: white;
+            padding: 60px 40px;
+        }
+
+        .screenshot.tablet {
+            aspect-ratio: 1620/2160; /* iPad ratio */
+        }
+
+        /* Screenshot 1: Hero Landing */
+        .screenshot-1 {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .wordmark {
+            font-size: 4rem;
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            margin: 0 auto;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .safety-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .trust-indicators {
+            position: absolute;
+            bottom: 80px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-around;
+            opacity: 0.8;
+        }
+
+        .trust-item {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .trust-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Screenshot 2: Journal Interface */
+        .screenshot-2 {
+            padding: 40px 30px;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .crisis-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: none;
+        }
+
+        .journal-content {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .prompt-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .journal-entry {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 150px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .ai-insight {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .insight-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        /* Screenshot 3: Crisis Support */
+        .screenshot-3 {
+            background: linear-gradient(135deg, #6c7b7f 0%, #5a6b70 50%, #485962 100%);
+            justify-content: center;
+            text-align: center;
+        }
+
+        .crisis-header {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .crisis-resources {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .emergency-button {
+            background: #ff4757;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 10px;
+            border: none;
+            display: block;
+            width: 100%;
+        }
+
+        .resource-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+            display: block;
+            width: 100%;
+        }
+
+        .medical-disclaimer {
+            background: rgba(255,200,0,0.2);
+            border: 2px solid rgba(255,200,0,0.5);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        /* Screenshot 4: Privacy Features */
+        .screenshot-4 {
+            padding: 40px 30px;
+        }
+
+        .privacy-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .privacy-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Screenshot 5: Feature Overview */
+        .screenshot-5 {
+            padding: 40px 30px;
+        }
+
+        .overview-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .overview-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .features-list {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .feature-check {
+            color: #4ecdc4;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .pricing-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .price-tag {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .app-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .generate-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .generate-button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .download-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .wordmark {
+                font-size: 3rem;
+            }
+            
+            .screenshot {
+                aspect-ratio: 9/16;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ALCHM App Store Screenshots</h1>
+        <p>Compliant mental health app store assets for all device sizes</p>
+
+        <div class="generate-controls">
+            <button class="generate-button" onclick="generateScreenshot('screenshot-1')">Generate Screenshot 1</button>
+            <button class="generate-button" onclick="generateScreenshot('screenshot-2')">Generate Screenshot 2</button>
+            <button class="generate-button" onclick="generateScreenshot('screenshot-3')">Generate Screenshot 3</button>
+            <button class="generate-button" onclick="generateScreenshot('screenshot-4')">Generate Screenshot 4</button>
+            <button class="generate-button" onclick="generateScreenshot('screenshot-5')">Generate Screenshot 5</button>
+            <button class="generate-button" onclick="generateAllScreenshots()">Generate All</button>
+            
+            <div class="download-info">
+                Screenshots will be generated at the correct App Store dimensions:<br>
+                iPhone 6.7": 1290×2796 | iPhone 6.5": 1284×2778 | iPhone 5.5": 1242×2208<br>
+                iPad Pro 12.9": 2048×2732 | iPad Pro 11": 1668×2388
+            </div>
+        </div>
+
+        <div class="screenshot-grid">
+            <!-- Screenshot 1: Hero Landing -->
+            <div class="screenshot screenshot-1" id="screenshot-1">
+                <div class="safety-badge">17+ • Crisis Support</div>
+                
+                <div class="wordmark">ALCHM</div>
+                <div class="hero-subtitle">Your Safe Space for Healing & Growth</div>
+                <div class="hero-description">
+                    Trauma-informed AI journaling designed for all communities
+                </div>
+                
+                <a href="#" class="cta-button">Begin Healing</a>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        Always Free
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        Private & Secure
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🌍</span>
+                        All Identities
+                    </div>
+                </div>
+                
+                <div class="app-footer">
+                    17+ • Not Medical Treatment • Crisis Support: 988 • Privacy First
+                </div>
+            </div>
+
+            <!-- Screenshot 2: Journal Interface -->
+            <div class="screenshot screenshot-2" id="screenshot-2">
+                <div class="app-header">
+                    <div class="app-title">Journal</div>
+                    <button class="crisis-button">Crisis Support</button>
+                </div>
+                
+                <div class="journal-content">
+                    <div class="prompt-text">
+                        How are you feeling today? What emotions are present in your body?
+                    </div>
+                    <div class="journal-entry">
+                        I'm feeling a mix of anxiety and hope today. There's tension in my shoulders, but also a sense of possibility about the changes I'm making...
+                    </div>
+                </div>
+                
+                <div class="ai-insight">
+                    <div class="insight-header">💎 AI Insight (Premium)</div>
+                    <div>Your entries show growing emotional awareness. Consider exploring grounding techniques when you notice shoulder tension.</div>
+                </div>
+                
+                <div class="app-footer">
+                    Trauma-Informed Design • AI Insights • Cultural Healing • Crisis Safe
+                </div>
+            </div>
+
+            <!-- Screenshot 3: Crisis Support -->
+            <div class="screenshot screenshot-3" id="screenshot-3">
+                <div class="crisis-header">Crisis Support Available</div>
+                
+                <div class="crisis-resources">
+                    <button class="emergency-button">🚨 Call 988 - Crisis Lifeline</button>
+                    <button class="emergency-button">🆘 Emergency Services - 911</button>
+                    
+                    <div style="margin: 20px 0; font-size: 0.9rem;">Professional Resources:</div>
+                    
+                    <button class="resource-button">Find Local Therapists</button>
+                    <button class="resource-button">Crisis Text Line</button>
+                    <button class="resource-button">LGBTQ+ Crisis Support</button>
+                    <button class="resource-button">BIPOC Mental Health Resources</button>
+                </div>
+                
+                <div class="medical-disclaimer">
+                    <strong>⚠️ Important:</strong> ALCHM provides crisis resources but is NOT medical treatment. For mental health emergencies, contact professional services immediately.
+                </div>
+                
+                <div class="app-footer">
+                    Professional Care • Not Medical Treatment • 24/7 Resources Available
+                </div>
+            </div>
+
+            <!-- Screenshot 4: Privacy Features -->
+            <div class="screenshot screenshot-4" id="screenshot-4">
+                <div class="privacy-header">
+                    <div class="privacy-title">Privacy-First AI</div>
+                    <div>Built for all communities with your data protection as priority</div>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">🔐</span>
+                        <div class="feature-title">End-to-End Encrypted</div>
+                        <div class="feature-desc">Your journal stays private</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🌍</span>
+                        <div class="feature-title">Culturally Responsive</div>
+                        <div class="feature-desc">Built for all identities</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🤖</span>
+                        <div class="feature-title">AI Transparency</div>
+                        <div class="feature-desc">You control your data</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">📱</span>
+                        <div class="feature-title">Offline Capable</div>
+                        <div class="feature-desc">Journal anywhere, anytime</div>
+                    </div>
+                </div>
+                
+                <div class="journal-content">
+                    <div style="text-align: center; margin-bottom: 15px; font-weight: 600;">Multi-Language Support</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                        <div>🇺🇸 English</div>
+                        <div>🇪🇸 Español</div>
+                        <div>🇧🇷 Português</div>
+                        <div>🇰🇷 한국어</div>
+                        <div>🇮🇳 हिन्दी</div>
+                        <div>🇩🇪 Deutsch</div>
+                    </div>
+                </div>
+                
+                <div class="app-footer">
+                    Your Data Stays Yours • Built for All Communities • GDPR Compliant
+                </div>
+            </div>
+
+            <!-- Screenshot 5: Feature Overview -->
+            <div class="screenshot screenshot-5" id="screenshot-5">
+                <div class="overview-header">
+                    <div class="overview-title">Complete Wellness Platform</div>
+                    <div>Everything you need for emotional growth and safety</div>
+                </div>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        Free forever core journaling features
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        24/7 crisis detection and resources
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        Privacy-preserving AI insights (premium)
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        Multi-language cultural support
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        Trauma-informed design principles
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-check">✓</span>
+                        Professional mental health referrals
+                    </div>
+                </div>
+                
+                <div class="pricing-info">
+                    <div class="price-tag">Free Core Features</div>
+                    <div style="margin-bottom: 10px;">Premium AI Insights: $4.99/month</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">7-day free trial • Cancel anytime</div>
+                </div>
+                
+                <div class="app-footer">
+                    Free Core Features • Premium AI Insights • Professional Care Referrals
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateScreenshot(screenshotId) {
+            // This would integrate with html2canvas or similar library
+            const element = document.getElementById(screenshotId);
+            
+            // For now, show alert with instructions
+            alert(`Screenshot generation for ${screenshotId}:\n\n` +
+                  `1. Use browser developer tools to set device simulation\n` +
+                  `2. iPhone 6.7": 1290×2796px\n` +
+                  `3. iPhone 6.5": 1284×2778px\n` +
+                  `4. iPhone 5.5": 1242×2208px\n` +
+                  `5. Take screenshot of the ${screenshotId} element\n\n` +
+                  `Or use the automated generation script in the /scripts folder.`);
+        }
+        
+        function generateAllScreenshots() {
+            alert("To generate all screenshots:\n\n" +
+                  "1. Run: npm run generate:screenshots\n" +
+                  "2. Or use: node scripts/generate-app-store-screenshots.js\n" +
+                  "3. Screenshots will be saved to /app-store/screenshots/\n\n" +
+                  "This will create all required device sizes automatically.");
+        }
+
+        // Add some interactive touches
+        document.querySelectorAll('.cta-button, .emergency-button, .resource-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

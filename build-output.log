@@ -1,0 +1,121 @@
+
+> alchm@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=8192' SKIP_STATIC_EXPORT=true next build
+
+  ▲ Next.js 14.2.32
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · optimizeCss
+    · largePageDataBytes
+    · bundlePagesExternals
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/99) ...
+   Generating static pages (24/99) 
+   Generating static pages (49/99) 
+   Generating static pages (74/99) 
+Time 10.993251
+Time 16.790987
+ ✓ Generating static pages (99/99)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                             Size     First Load JS
+┌ ○ /                                                   11.7 kB         159 kB
+├ ○ /_not-found                                         291 B           147 kB
+├ ● /[locale]                                           2.71 kB         150 kB
+├   ├ /en
+├   ├ /es
+├   ├ /pt
+├   └ [+3 more paths]
+├ ● /[locale]/auth/login                                2.8 kB          150 kB
+├   ├ /en/auth/login
+├   ├ /es/auth/login
+├   ├ /pt/auth/login
+├   └ [+8 more paths]
+├ ● /[locale]/auth/signup                               54.6 kB         202 kB
+├   ├ /en/auth/signup
+├   ├ /es/auth/signup
+├   ├ /pt/auth/signup
+├   └ [+8 more paths]
+├ ● /[locale]/crisis                                    386 B           157 kB
+├   ├ /en/crisis
+├   ├ /es/crisis
+├   ├ /pt/crisis
+├   └ [+3 more paths]
+├ ● /[locale]/dashboard                                 2.06 kB         149 kB
+├   ├ /en/dashboard
+├   ├ /es/dashboard
+├   ├ /pt/dashboard
+├   └ [+3 more paths]
+├ ● /[locale]/emergency                                 2.8 kB          150 kB
+├   ├ /en/emergency
+├   ├ /es/emergency
+├   ├ /pt/emergency
+├   └ [+3 more paths]
+├ ● /[locale]/journal                                   3.44 kB         201 kB
+├   ├ /en/journal
+├   ├ /es/journal
+├   ├ /pt/journal
+├   └ [+3 more paths]
+├ ● /[locale]/journals                                  58.9 kB         206 kB
+├   ├ /en/journals
+├   ├ /es/journals
+├   ├ /pt/journals
+├   └ [+3 more paths]
+├ ● /[locale]/pathways                                  2.6 kB          150 kB
+├   ├ /en/pathways
+├   ├ /es/pathways
+├   ├ /pt/pathways
+├   └ [+3 more paths]
+├ ● /[locale]/pricing                                   9.85 kB         157 kB
+├   ├ /en/pricing
+├   ├ /es/pricing
+├   ├ /pt/pricing
+├   └ [+3 more paths]
+├ ○ /analytics                                          16.8 kB         214 kB
+├ ƒ /api/auth/emergency                                 0 B                0 B
+├ ƒ /api/auth/session                                   0 B                0 B
+├ ○ /api/health/ping                                    0 B                0 B
+├ ƒ /api/journal/list                                   0 B                0 B
+├ ƒ /api/journal/save                                   0 B                0 B
+├ ƒ /api/khepera                                        0 B                0 B
+├ ƒ /api/stripe/create-checkout-session                 0 B                0 B
+├ ƒ /api/stripe/webhook                                 0 B                0 B
+├ ○ /auth/login                                         2.46 kB         149 kB
+├ ○ /auth/signup                                        6.68 kB         154 kB
+├ ○ /community                                          9.12 kB         207 kB
+├ ○ /crisis-resources                                   4 kB            151 kB
+├ ○ /dashboard                                          58.1 kB         205 kB
+├ ○ /emergency-locale-disabled                          323 B           157 kB
+├ ○ /journal                                            10.5 kB         208 kB
+├ ○ /journals                                           59.3 kB         206 kB
+├ ○ /khepera-demo                                       12.6 kB         160 kB
+├ ○ /manifest.webmanifest                               0 B                0 B
+├ ○ /pathways                                           2.86 kB         201 kB
+├ ○ /pricing                                            10.3 kB         157 kB
+├ ○ /pricing/success                                    3.63 kB         151 kB
+├ ○ /robots.txt                                         0 B                0 B
+├ ○ /sitemap.xml                                        0 B                0 B
+└ ○ /status                                             3.93 kB         151 kB
++ First Load JS shared by all                           147 kB
+  ├ chunks/next-framework-5bf2f011-c2b780b3e34a0f0a.js  53.6 kB
+  └ other shared chunks (total)                         93.3 kB
+
+Route (pages)                                           Size     First Load JS
+─ ƒ /api/reflection                                     0 B             193 kB
++ First Load JS shared by all                           193 kB
+  ├ chunks/next-framework-5bf2f011-c2b780b3e34a0f0a.js  53.6 kB
+  ├ chunks/react-dom-a8f8b4de-5c00c1ddb820a77c.js       41.1 kB
+  └ other shared chunks (total)                         98.2 kB
+
+ƒ Middleware                                            31.2 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+

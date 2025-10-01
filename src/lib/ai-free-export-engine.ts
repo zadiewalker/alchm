@@ -448,7 +448,7 @@ export class AIFreeExportEngine {
 
 ## About This Export
 
-This document was generated using ALCHM's AI-Free Export Engine, designed to provide you with complete ownership and control over your personal writing. Every precaution has been taken to ensure that only your original thoughts and reflections are included.
+This typeof window !== 'undefined' && document was generated using ALCHM's AI-Free Export Engine, designed to provide you with complete ownership and control over your personal writing. Every precaution has been taken to ensure that only your original thoughts and reflections are included.
 
 ### What's Included:
 - Your original journal entries, exactly as you wrote them
@@ -524,7 +524,7 @@ ${entry.content}
 - **Cultural Contexts**: ${this.getUniqueCulturalContexts(entries).join(', ') || 'Universal'}
 
 ### Privacy & Authenticity Guarantee
-This export contains only your original writing. Every AI-generated element has been carefully removed to ensure this document represents your authentic voice and personal journey.
+This export contains only your original writing. Every AI-generated element has been carefully removed to ensure this typeof window !== 'undefined' && document represents your authentic voice and personal journey.
 
 ### Technical Details
 - **Export Format**: ${options.format.toUpperCase()}
@@ -707,7 +707,7 @@ This export contains only your original writing. Every AI-generated element has 
       entriesExcluded: originalEntries.length - filteredEntries.length,
       exclusionReasons,
       privacyCompliance: ['FERPA', 'COPPA', 'GDPR', 'CCPA'],
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
+      userAgent: typeof typeof window !== 'undefined' && navigator !== 'undefined' ? typeof window !== 'undefined' && navigator.userAgent : 'Unknown',
       // IP address intentionally omitted for privacy
     };
   }

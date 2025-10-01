@@ -1,63 +1,128 @@
-# Firebase Studio MINIMAL NUCLEAR Configuration
-# Zero secrets, zero dependencies, maximum compatibility
-# Timestamp: 2025-09-07T19:58:45Z - Triggering fresh rebuild
+# Firebase App Hosting configuration for ALCHM
+# Trauma-informed Next.js application with dynamic routes
 
 runConfig:
+  # Sufficient resources for trauma-informed AI processing
   cpu: 1
-  memory: 2048Mi
+  memory: 1GiB
+  maxInstances: 10
   minInstances: 0
-  maxInstances: 100
   concurrency: 1000
-  timeoutSeconds: 60
 
 env:
-  # Core Configuration (NO SECRETS!)
+  # Next.js production environment
   - variable: NODE_ENV
     value: production
-  - variable: BUILD_TARGET
-    value: firebase-studio-minimal
   
-  # NUCLEAR NPM ENFORCEMENT - Force npm, block pnpm
-  - variable: NPM_CONFIG_ENGINE_STRICT  
-    value: "true"
-  - variable: SKIP_PNPM
-    value: "true"
-  - variable: DISABLE_PNPM
-    value: "true"
-  
-  # Firebase Public Configuration (Safe to hardcode)
+  # Firebase configuration (from environment variables)
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    value: AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w
+    secret: NEXT_PUBLIC_FIREBASE_API_KEY
+  
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    value: alchm-digital-sanctuary.firebaseapp.com
+    secret: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+  
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    value: alchm-digital-sanctuary
+    secret: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+  
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    value: alchm-digital-sanctuary.firebasestorage.app
+    secret: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+  
   - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-    value: "171911707668"
+    secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+  
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
-    value: 1:171911707668:web:9750f89ed6f6352a257b01
+    secret: NEXT_PUBLIC_FIREBASE_APP_ID
   
-  # Basic Environment
-  - variable: NEXT_PUBLIC_ENVIRONMENT
-    value: production
-  - variable: FIREBASE_PROJECT_ID
-    value: alchm-digital-sanctuary
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    secret: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
   
-  # Crisis Support (Public safety info)
-  - variable: NEXT_PUBLIC_CRISIS_HOTLINES
-    value: "988,1-800-273-8255"
-  - variable: NEXT_PUBLIC_EMERGENCY_NUMBER
-    value: "911"
+  # Stripe configuration
+  - variable: STRIPE_SECRET_KEY
+    secret: STRIPE_SECRET_KEY
+  
+  - variable: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    secret: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
-# Health check
-healthCheck:
-  path: "/api/health/ping"
+# Build configuration optimized for trauma-informed features
+build:
+  commands:
+    # Install dependencies with optimizations
+    - npm ci --prefer-offline --no-audit
+    
+    # Build Next.js application with performance optimizations
+    - npm run build
+    
+    # Verify critical trauma-informed features are built
+    - echo "Verifying critical trauma-informed components..."
+    - test -f .next/server/app/dashboard/page.js || (echo "Dashboard page missing" && exit 1)
+    - test -f .next/server/app/journal/page.js || (echo "Journal page missing" && exit 1)
+    - test -f .next/server/app/auth/login/page.js || (echo "Auth page missing" && exit 1)
+    
+    # Verify static assets
+    - test -d .next/static || (echo "Static assets missing" && exit 1)
+    
+    # Performance verification
+    - echo "Build verification complete - trauma-informed features ready"
 
-# Security headers
+# Headers for trauma-informed security and performance
 headers:
-  - key: X-Frame-Options
-    value: DENY
-  - key: X-Content-Type-Options
-    value: nosniff
+  - source: "**"
+    headers:
+      - key: "X-Frame-Options"
+        value: "DENY"
+      - key: "X-Content-Type-Options"
+        value: "nosniff"
+      - key: "Referrer-Policy"
+        value: "strict-origin-when-cross-origin"
+      - key: "X-Crisis-Support"
+        value: "tel:988"
+      - key: "Content-Security-Policy"
+        value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com wss://*.firebaseapp.com; font-src 'self' data:;"
+
+  # Optimize static assets
+  - source: "/_next/static/**"
+    headers:
+      - key: "Cache-Control"
+        value: "public, max-age=31536000, immutable"
+      - key: "X-Trauma-Informed"
+        value: "performance-optimized"
+
+  # Crisis resources should never be cached aggressively
+  - source: "/api/crisis-detection/**"
+    headers:
+      - key: "Cache-Control"
+        value: "no-cache, no-store, must-revalidate"
+      - key: "X-Crisis-Critical"
+        value: "immediate-response-required"
+
+# Redirects for trauma-informed UX
+redirects:
+  # Ensure authenticated routes are protected
+  - source: "/dashboard"
+    destination: "/auth/login"
+    type: 302
+    condition: "!auth"
+  
+  - source: "/journal"
+    destination: "/auth/login" 
+    type: 302
+    condition: "!auth"
+  
+  - source: "/journals"
+    destination: "/auth/login"
+    type: 302
+    condition: "!auth"
+
+# Rewrites for API routes that should go to Cloud Functions
+rewrites:
+  # Crisis detection (always accessible)
+  - source: "/api/crisis-detection/**"
+    destination: "https://us-central1-{PROJECT_ID}.cloudfunctions.net/crisisDetection"
+  
+  # Khepera AI guidance
+  - source: "/api/khepera/**"
+    destination: "https://us-central1-{PROJECT_ID}.cloudfunctions.net/chatWithGemini"
+  
+  # Stripe webhook
+  - source: "/api/stripe/webhook"
+    destination: "https://us-central1-{PROJECT_ID}.cloudfunctions.net/subscriptionWebhook"

@@ -1,0 +1,1674 @@
+{
+  "meta": {
+    "timestamp": "2025-09-30T18:45:20.192Z",
+    "version": "1.0.0",
+    "environment": "production"
+  },
+  "analysis": {
+    "timestamp": "2025-09-30T18:45:20.192Z",
+    "bundles": {
+      "javascript": {
+        "151-2f2e83ec72873b37.js": {
+          "path": ".next/static/chunks/151-2f2e83ec72873b37.js",
+          "size": 1753,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "1690.5aa736cffcf0bd51.js": {
+          "path": ".next/static/chunks/1690.5aa736cffcf0bd51.js",
+          "size": 778,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "1827.dba013684212ca4e.js": {
+          "path": ".next/static/chunks/1827.dba013684212ca4e.js",
+          "size": 3870,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "2176.2904ce0ad5b65f48.js": {
+          "path": ".next/static/chunks/2176.2904ce0ad5b65f48.js",
+          "size": 240,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "230-dfab05b36f3bb73d.js": {
+          "path": ".next/static/chunks/230-dfab05b36f3bb73d.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "other",
+          "isGzipped": false
+        },
+        "2358.b34b85bb4f7bb649.js": {
+          "path": ".next/static/chunks/2358.b34b85bb4f7bb649.js",
+          "size": 1728,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "2388.0b96e247068307d4.js": {
+          "path": ".next/static/chunks/2388.0b96e247068307d4.js",
+          "size": 86,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "2497.436692b2bd2a73fd.js": {
+          "path": ".next/static/chunks/2497.436692b2bd2a73fd.js",
+          "size": 11432,
+          "sizeKB": 11,
+          "category": "other",
+          "isGzipped": false
+        },
+        "2663.ed375defc31909fa.js": {
+          "path": ".next/static/chunks/2663.ed375defc31909fa.js",
+          "size": 4171,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3002-b54def561abd9257.js": {
+          "path": ".next/static/chunks/3002-b54def561abd9257.js",
+          "size": 1225,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3040-3add75f973fa023e.js": {
+          "path": ".next/static/chunks/3040-3add75f973fa023e.js",
+          "size": 4425,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3068-d6bd43da1a7a3d8a.js": {
+          "path": ".next/static/chunks/3068-d6bd43da1a7a3d8a.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3109-d2bbf4c3fa320533.js": {
+          "path": ".next/static/chunks/3109-d2bbf4c3fa320533.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3143-bb6ad3a95885721e.js": {
+          "path": ".next/static/chunks/3143-bb6ad3a95885721e.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3184.c790769245db8d19.js": {
+          "path": ".next/static/chunks/3184.c790769245db8d19.js",
+          "size": 86,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3479.f6ecdf2584558b6a.js": {
+          "path": ".next/static/chunks/3479.f6ecdf2584558b6a.js",
+          "size": 11432,
+          "sizeKB": 11,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3574-2f3f5f4dc75449dc.js": {
+          "path": ".next/static/chunks/3574-2f3f5f4dc75449dc.js",
+          "size": 1225,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3651-e4f418179fb52455.js": {
+          "path": ".next/static/chunks/3651-e4f418179fb52455.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3722-7481571d41aa004d.js": {
+          "path": ".next/static/chunks/3722-7481571d41aa004d.js",
+          "size": 2422,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3724.4e0bd446823accab.js": {
+          "path": ".next/static/chunks/3724.4e0bd446823accab.js",
+          "size": 6022,
+          "sizeKB": 6,
+          "category": "other",
+          "isGzipped": false
+        },
+        "3759-2104e6373b651c04.js": {
+          "path": ".next/static/chunks/3759-2104e6373b651c04.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4020-a063db1c5d3e6dda.js": {
+          "path": ".next/static/chunks/4020-a063db1c5d3e6dda.js",
+          "size": 1753,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4127.efc8f22de2093652.js": {
+          "path": ".next/static/chunks/4127.efc8f22de2093652.js",
+          "size": 199,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4242.c5ab927dfd46ee3b.js": {
+          "path": ".next/static/chunks/4242.c5ab927dfd46ee3b.js",
+          "size": 9443,
+          "sizeKB": 9,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4400-8d5e50d1293d6297.js": {
+          "path": ".next/static/chunks/4400-8d5e50d1293d6297.js",
+          "size": 171,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4544.844788e2f5c6f451.js": {
+          "path": ".next/static/chunks/4544.844788e2f5c6f451.js",
+          "size": 1896,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4559-73dc97269c0f5ac6.js": {
+          "path": ".next/static/chunks/4559-73dc97269c0f5ac6.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4587-d7c51915b78f99e0.js": {
+          "path": ".next/static/chunks/4587-d7c51915b78f99e0.js",
+          "size": 2422,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4620-aee4ee1b8e01a0ce.js": {
+          "path": ".next/static/chunks/4620-aee4ee1b8e01a0ce.js",
+          "size": 2026,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4742-732443226850c516.js": {
+          "path": ".next/static/chunks/4742-732443226850c516.js",
+          "size": 171,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4778-f94b3027c98405f7.js": {
+          "path": ".next/static/chunks/4778-f94b3027c98405f7.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "4888.5888fe64648d23a7.js": {
+          "path": ".next/static/chunks/4888.5888fe64648d23a7.js",
+          "size": 5585,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5052-e462caf20e08c692.js": {
+          "path": ".next/static/chunks/5052-e462caf20e08c692.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5121.6e6d310604c0b462.js": {
+          "path": ".next/static/chunks/5121.6e6d310604c0b462.js",
+          "size": 86,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5189-13aac5f93644bb3f.js": {
+          "path": ".next/static/chunks/5189-13aac5f93644bb3f.js",
+          "size": 2422,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5220-763109b00b5625e7.js": {
+          "path": ".next/static/chunks/5220-763109b00b5625e7.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5235-d2ff36b7beac7e4a.js": {
+          "path": ".next/static/chunks/5235-d2ff36b7beac7e4a.js",
+          "size": 1753,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5335.663a63cbd1243d94.js": {
+          "path": ".next/static/chunks/5335.663a63cbd1243d94.js",
+          "size": 11428,
+          "sizeKB": 11,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5400.064b480934179976.js": {
+          "path": ".next/static/chunks/5400.064b480934179976.js",
+          "size": 230,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5401.7f0eb26ec7fbc1d7.js": {
+          "path": ".next/static/chunks/5401.7f0eb26ec7fbc1d7.js",
+          "size": 409,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "546.ca6ec9ae1209fc79.js": {
+          "path": ".next/static/chunks/546.ca6ec9ae1209fc79.js",
+          "size": 8462,
+          "sizeKB": 8,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5496.7afc1d8a62a1a3b9.js": {
+          "path": ".next/static/chunks/5496.7afc1d8a62a1a3b9.js",
+          "size": 6158,
+          "sizeKB": 6,
+          "category": "other",
+          "isGzipped": false
+        },
+        "555-a57c8e61b5d8f54d.js": {
+          "path": ".next/static/chunks/555-a57c8e61b5d8f54d.js",
+          "size": 2026,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "56-1ad66783b418b77d.js": {
+          "path": ".next/static/chunks/56-1ad66783b418b77d.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5723-10f21b8d51a23286.js": {
+          "path": ".next/static/chunks/5723-10f21b8d51a23286.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5750-6c5a64b1bb26d505.js": {
+          "path": ".next/static/chunks/5750-6c5a64b1bb26d505.js",
+          "size": 4425,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5753.ddc60368a7db8345.js": {
+          "path": ".next/static/chunks/5753.ddc60368a7db8345.js",
+          "size": 2254,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "5853-2b0b0470c6f06bcf.js": {
+          "path": ".next/static/chunks/5853-2b0b0470c6f06bcf.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "6200-3ba8416517e77241.js": {
+          "path": ".next/static/chunks/6200-3ba8416517e77241.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "6410.ff817c09c2b54ba9.js": {
+          "path": ".next/static/chunks/6410.ff817c09c2b54ba9.js",
+          "size": 3870,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "6452-d8e2e0d85516cc55.js": {
+          "path": ".next/static/chunks/6452-d8e2e0d85516cc55.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "other",
+          "isGzipped": false
+        },
+        "6527-363abbdd8d05df0a.js": {
+          "path": ".next/static/chunks/6527-363abbdd8d05df0a.js",
+          "size": 171,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "6682.eb028b79398a13d7.js": {
+          "path": ".next/static/chunks/6682.eb028b79398a13d7.js",
+          "size": 2490,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7001.71a407d6a63a3f96.js": {
+          "path": ".next/static/chunks/7001.71a407d6a63a3f96.js",
+          "size": 5077,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7247-5bf2cfb0801a51cd.js": {
+          "path": ".next/static/chunks/7247-5bf2cfb0801a51cd.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "other",
+          "isGzipped": false
+        },
+        "73-2a7ebf73ecbe09d4.js": {
+          "path": ".next/static/chunks/73-2a7ebf73ecbe09d4.js",
+          "size": 1753,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7479-4a645766ed26a719.js": {
+          "path": ".next/static/chunks/7479-4a645766ed26a719.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7630-2035a09e84dfa6cd.js": {
+          "path": ".next/static/chunks/7630-2035a09e84dfa6cd.js",
+          "size": 1225,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "783-411f44a61068afd0.js": {
+          "path": ".next/static/chunks/783-411f44a61068afd0.js",
+          "size": 2026,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7888-eca23af52989cc57.js": {
+          "path": ".next/static/chunks/7888-eca23af52989cc57.js",
+          "size": 2026,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "7948-264206dbce7776a8.js": {
+          "path": ".next/static/chunks/7948-264206dbce7776a8.js",
+          "size": 4425,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8072.a2d773e97fc04b0e.js": {
+          "path": ".next/static/chunks/8072.a2d773e97fc04b0e.js",
+          "size": 240,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8123-296c45bbcd9d6db5.js": {
+          "path": ".next/static/chunks/8123-296c45bbcd9d6db5.js",
+          "size": 171,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "818-bb08b7f14e147978.js": {
+          "path": ".next/static/chunks/818-bb08b7f14e147978.js",
+          "size": 171,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8262-96819973e1c0d627.js": {
+          "path": ".next/static/chunks/8262-96819973e1c0d627.js",
+          "size": 1225,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "83-6f4104766e61a9d0.js": {
+          "path": ".next/static/chunks/83-6f4104766e61a9d0.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8477.3bc1f8921492f0e8.js": {
+          "path": ".next/static/chunks/8477.3bc1f8921492f0e8.js",
+          "size": 5542,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8496.5cd83ff53feea7dd.js": {
+          "path": ".next/static/chunks/8496.5cd83ff53feea7dd.js",
+          "size": 240,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "850.18c7cbf8791ff734.js": {
+          "path": ".next/static/chunks/850.18c7cbf8791ff734.js",
+          "size": 9769,
+          "sizeKB": 10,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8667-a0bc9c034e530836.js": {
+          "path": ".next/static/chunks/8667-a0bc9c034e530836.js",
+          "size": 2422,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8718-ef067c26a8e68cdc.js": {
+          "path": ".next/static/chunks/8718-ef067c26a8e68cdc.js",
+          "size": 4425,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8780.b2f33b34f86a3438.js": {
+          "path": ".next/static/chunks/8780.b2f33b34f86a3438.js",
+          "size": 7756,
+          "sizeKB": 8,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8836-d3045b0b34d6a930.js": {
+          "path": ".next/static/chunks/8836-d3045b0b34d6a930.js",
+          "size": 1753,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8965-41de0f438ee210cf.js": {
+          "path": ".next/static/chunks/8965-41de0f438ee210cf.js",
+          "size": 4425,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "8981.3022a76b1815733a.js": {
+          "path": ".next/static/chunks/8981.3022a76b1815733a.js",
+          "size": 230,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9038-5eeca5d6736e6fb9.js": {
+          "path": ".next/static/chunks/9038-5eeca5d6736e6fb9.js",
+          "size": 2422,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9401-8aef44127b88f7d9.js": {
+          "path": ".next/static/chunks/9401-8aef44127b88f7d9.js",
+          "size": 2026,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9535.e7176ca24a5d7ec7.js": {
+          "path": ".next/static/chunks/9535.e7176ca24a5d7ec7.js",
+          "size": 5077,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9546.38d2761253907cd7.js": {
+          "path": ".next/static/chunks/9546.38d2761253907cd7.js",
+          "size": 199,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "960-1299f4b8d41c1c73.js": {
+          "path": ".next/static/chunks/960-1299f4b8d41c1c73.js",
+          "size": 1225,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9603.78c6df01cfe809a8.js": {
+          "path": ".next/static/chunks/9603.78c6df01cfe809a8.js",
+          "size": 5133,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9697-958cc5ea45b919bd.js": {
+          "path": ".next/static/chunks/9697-958cc5ea45b919bd.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9704.295f893a7107778d.js": {
+          "path": ".next/static/chunks/9704.295f893a7107778d.js",
+          "size": 9706,
+          "sizeKB": 9,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9722-8b5b1fcb1d09d0ea.js": {
+          "path": ".next/static/chunks/9722-8b5b1fcb1d09d0ea.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9805.7249fa3126d24951.js": {
+          "path": ".next/static/chunks/9805.7249fa3126d24951.js",
+          "size": 778,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "9886.330d9cac9ec955bd.js": {
+          "path": ".next/static/chunks/9886.330d9cac9ec955bd.js",
+          "size": 1321,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "analytics-1ca39f15.9f53444705a3b485.js": {
+          "path": ".next/static/chunks/analytics-1ca39f15.9f53444705a3b485.js",
+          "size": 14740,
+          "sizeKB": 14,
+          "category": "other",
+          "isGzipped": false
+        },
+        "analytics-558b6a50.aa4473e4f142eec6.js": {
+          "path": ".next/static/chunks/analytics-558b6a50.aa4473e4f142eec6.js",
+          "size": 1977,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "analytics-6bcad7df.d7d7d0d0bd7dc130.js": {
+          "path": ".next/static/chunks/analytics-6bcad7df.d7d7d0d0bd7dc130.js",
+          "size": 11310,
+          "sizeKB": 11,
+          "category": "other",
+          "isGzipped": false
+        },
+        "analytics-98d9c24d.c18385e2f3f7c1c8.js": {
+          "path": ".next/static/chunks/analytics-98d9c24d.c18385e2f3f7c1c8.js",
+          "size": 9026,
+          "sizeKB": 9,
+          "category": "other",
+          "isGzipped": false
+        },
+        "analytics-ba0576b9.b905d0bc50098a0b.js": {
+          "path": ".next/static/chunks/analytics-ba0576b9.b905d0bc50098a0b.js",
+          "size": 10787,
+          "sizeKB": 11,
+          "category": "other",
+          "isGzipped": false
+        },
+        "common-70e97a6d.6027a0c012345aeb.js": {
+          "path": ".next/static/chunks/common-70e97a6d.6027a0c012345aeb.js",
+          "size": 19092,
+          "sizeKB": 19,
+          "category": "other",
+          "isGzipped": false
+        },
+        "common-b22f5ee5.43a9af90c3918ee0.js": {
+          "path": ".next/static/chunks/common-b22f5ee5.43a9af90c3918ee0.js",
+          "size": 4904,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-cache-48a2e20f0c52c2e2.js": {
+          "path": ".next/static/chunks/crisis-cache-48a2e20f0c52c2e2.js",
+          "size": 7406,
+          "sizeKB": 7,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-1ced2ef5-d53eacef76b0d98f.js": {
+          "path": ".next/static/chunks/crisis-components-1ced2ef5-d53eacef76b0d98f.js",
+          "size": 4046,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-255103e6-93a549759d676aab.js": {
+          "path": ".next/static/chunks/crisis-components-255103e6-93a549759d676aab.js",
+          "size": 884,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-2f8830a2-7403e2b80cb13716.js": {
+          "path": ".next/static/chunks/crisis-components-2f8830a2-7403e2b80cb13716.js",
+          "size": 4585,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-3c8e2996-817ff33f7019bced.js": {
+          "path": ".next/static/chunks/crisis-components-3c8e2996-817ff33f7019bced.js",
+          "size": 4711,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-811b6f61-f120df82b122a2cd.js": {
+          "path": ".next/static/chunks/crisis-components-811b6f61-f120df82b122a2cd.js",
+          "size": 18152,
+          "sizeKB": 18,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-c6088ac9-98ea6bf261fde017.js": {
+          "path": ".next/static/chunks/crisis-components-c6088ac9-98ea6bf261fde017.js",
+          "size": 4644,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-c6dc0603-e8dac708d1692b41.js": {
+          "path": ".next/static/chunks/crisis-components-c6dc0603-e8dac708d1692b41.js",
+          "size": 9905,
+          "sizeKB": 10,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-ccfb8f0d-ea1007819f1a6590.js": {
+          "path": ".next/static/chunks/crisis-components-ccfb8f0d-ea1007819f1a6590.js",
+          "size": 8457,
+          "sizeKB": 8,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-d3e68977-27ae32c67d904be2.js": {
+          "path": ".next/static/chunks/crisis-components-d3e68977-27ae32c67d904be2.js",
+          "size": 9516,
+          "sizeKB": 9,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-d9058580-d949eba805febbf2.js": {
+          "path": ".next/static/chunks/crisis-components-d9058580-d949eba805febbf2.js",
+          "size": 2258,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "crisis-components-fbb3cb66-7224e4681aee579f.js": {
+          "path": ".next/static/chunks/crisis-components-fbb3cb66-7224e4681aee579f.js",
+          "size": 5574,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "firebase-app.6ab93c74575611d5.js": {
+          "path": ".next/static/chunks/firebase-app.6ab93c74575611d5.js",
+          "size": 1013,
+          "sizeKB": 1,
+          "category": "other",
+          "isGzipped": false
+        },
+        "firebase-auth.7a044b5e00fc2f62.js": {
+          "path": ".next/static/chunks/firebase-auth.7a044b5e00fc2f62.js",
+          "size": 3764,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "firebase-firestore.efa69a8c1c77ea98.js": {
+          "path": ".next/static/chunks/firebase-firestore.efa69a8c1c77ea98.js",
+          "size": 4947,
+          "sizeKB": 5,
+          "category": "other",
+          "isGzipped": false
+        },
+        "firebase-other-19a23e25.90b54be8e9e80871.js": {
+          "path": ".next/static/chunks/firebase-other-19a23e25.90b54be8e9e80871.js",
+          "size": 129536,
+          "sizeKB": 127,
+          "category": "other",
+          "isGzipped": false
+        },
+        "firebase-other-dfb907f2.5a884f4789a39c1f.js": {
+          "path": ".next/static/chunks/firebase-other-dfb907f2.5a884f4789a39c1f.js",
+          "size": 2411,
+          "sizeKB": 2,
+          "category": "other",
+          "isGzipped": false
+        },
+        "main-2ec298f6-37da78d9da74850a.js": {
+          "path": ".next/static/chunks/main-2ec298f6-37da78d9da74850a.js",
+          "size": 4232,
+          "sizeKB": 4,
+          "category": "other",
+          "isGzipped": false
+        },
+        "main-app-90aa050bfd4347ad.js": {
+          "path": ".next/static/chunks/main-app-90aa050bfd4347ad.js",
+          "size": 719,
+          "sizeKB": 1,
+          "category": "main",
+          "isGzipped": false
+        },
+        "main-c3373795-a81511b0120666fe.js": {
+          "path": ".next/static/chunks/main-c3373795-a81511b0120666fe.js",
+          "size": 141,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "mobile-trauma-66b9828a586d3a2b.js": {
+          "path": ".next/static/chunks/mobile-trauma-66b9828a586d3a2b.js",
+          "size": 268,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "next-framework-05e245ef-2d2f61b393ee58ce.js": {
+          "path": ".next/static/chunks/next-framework-05e245ef-2d2f61b393ee58ce.js",
+          "size": 9223,
+          "sizeKB": 9,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-1e2c8cff-1ca656a8712c5c7c.js": {
+          "path": ".next/static/chunks/next-framework-1e2c8cff-1ca656a8712c5c7c.js",
+          "size": 11084,
+          "sizeKB": 11,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-1e66a377-7359bef49dc7df19.js": {
+          "path": ".next/static/chunks/next-framework-1e66a377-7359bef49dc7df19.js",
+          "size": 587,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-22fcdcd6-196fbaa8c3690316.js": {
+          "path": ".next/static/chunks/next-framework-22fcdcd6-196fbaa8c3690316.js",
+          "size": 2664,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-2536b1e1-7101bb6087716471.js": {
+          "path": ".next/static/chunks/next-framework-2536b1e1-7101bb6087716471.js",
+          "size": 11945,
+          "sizeKB": 12,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-27161c75-98b084e00479169a.js": {
+          "path": ".next/static/chunks/next-framework-27161c75-98b084e00479169a.js",
+          "size": 19850,
+          "sizeKB": 19,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-27f02048-09368a4ec36ae7f9.js": {
+          "path": ".next/static/chunks/next-framework-27f02048-09368a4ec36ae7f9.js",
+          "size": 3780,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-2ac2bb03-c5442361574d1d31.js": {
+          "path": ".next/static/chunks/next-framework-2ac2bb03-c5442361574d1d31.js",
+          "size": 10794,
+          "sizeKB": 11,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-2ac4632b-9caaf3cb542af6e4.js": {
+          "path": ".next/static/chunks/next-framework-2ac4632b-9caaf3cb542af6e4.js",
+          "size": 12453,
+          "sizeKB": 12,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-359a1f64-304ead5ad25ce176.js": {
+          "path": ".next/static/chunks/next-framework-359a1f64-304ead5ad25ce176.js",
+          "size": 1803,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-367f619b-01d450ab92c68f08.js": {
+          "path": ".next/static/chunks/next-framework-367f619b-01d450ab92c68f08.js",
+          "size": 5632,
+          "sizeKB": 6,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-3d3a1b23-109621b129551194.js": {
+          "path": ".next/static/chunks/next-framework-3d3a1b23-109621b129551194.js",
+          "size": 3530,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-3e42c3d0-8930cc69f0a39a2e.js": {
+          "path": ".next/static/chunks/next-framework-3e42c3d0-8930cc69f0a39a2e.js",
+          "size": 4743,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-3f3d331c-787cc2d8b8b5342a.js": {
+          "path": ".next/static/chunks/next-framework-3f3d331c-787cc2d8b8b5342a.js",
+          "size": 2372,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-42bbf998-71c61fcec0aaae8b.js": {
+          "path": ".next/static/chunks/next-framework-42bbf998-71c61fcec0aaae8b.js",
+          "size": 5617,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-45adea4d-9a3d1eab76fdc292.js": {
+          "path": ".next/static/chunks/next-framework-45adea4d-9a3d1eab76fdc292.js",
+          "size": 1988,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-4856fae5-c6b134ec96120f25.js": {
+          "path": ".next/static/chunks/next-framework-4856fae5-c6b134ec96120f25.js",
+          "size": 4879,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-4c7823de-dd01f3d8cf14e0dc.js": {
+          "path": ".next/static/chunks/next-framework-4c7823de-dd01f3d8cf14e0dc.js",
+          "size": 5783,
+          "sizeKB": 6,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-5265a0af-379b451f7a60e2e8.js": {
+          "path": ".next/static/chunks/next-framework-5265a0af-379b451f7a60e2e8.js",
+          "size": 4713,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-5699acc5-62f945661d958315.js": {
+          "path": ".next/static/chunks/next-framework-5699acc5-62f945661d958315.js",
+          "size": 1939,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-57c0334b-bdedc45dfc81e839.js": {
+          "path": ".next/static/chunks/next-framework-57c0334b-bdedc45dfc81e839.js",
+          "size": 8692,
+          "sizeKB": 8,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-5bf2f011-c2b780b3e34a0f0a.js": {
+          "path": ".next/static/chunks/next-framework-5bf2f011-c2b780b3e34a0f0a.js",
+          "size": 172809,
+          "sizeKB": 169,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-613988b4-52a9ff0069a53213.js": {
+          "path": ".next/static/chunks/next-framework-613988b4-52a9ff0069a53213.js",
+          "size": 169,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-63284375-6b40fc84b89b9be0.js": {
+          "path": ".next/static/chunks/next-framework-63284375-6b40fc84b89b9be0.js",
+          "size": 7004,
+          "sizeKB": 7,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-6808aa01-e3750ead5378beaf.js": {
+          "path": ".next/static/chunks/next-framework-6808aa01-e3750ead5378beaf.js",
+          "size": 5645,
+          "sizeKB": 6,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-69ae6af9-2bfb4383c28a55f7.js": {
+          "path": ".next/static/chunks/next-framework-69ae6af9-2bfb4383c28a55f7.js",
+          "size": 1143,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-6bc43b3c-108c2c626eeb185e.js": {
+          "path": ".next/static/chunks/next-framework-6bc43b3c-108c2c626eeb185e.js",
+          "size": 4901,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-7568e92e-9c31d6a860d91d50.js": {
+          "path": ".next/static/chunks/next-framework-7568e92e-9c31d6a860d91d50.js",
+          "size": 2184,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-7bad328b-3883ff97b761581f.js": {
+          "path": ".next/static/chunks/next-framework-7bad328b-3883ff97b761581f.js",
+          "size": 5786,
+          "sizeKB": 6,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-7ee5f50f-99e359a8959c15a6.js": {
+          "path": ".next/static/chunks/next-framework-7ee5f50f-99e359a8959c15a6.js",
+          "size": 10758,
+          "sizeKB": 11,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-801f0427-050a3c176a52ade0.js": {
+          "path": ".next/static/chunks/next-framework-801f0427-050a3c176a52ade0.js",
+          "size": 3029,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-82831f5c-06d96582260bc006.js": {
+          "path": ".next/static/chunks/next-framework-82831f5c-06d96582260bc006.js",
+          "size": 2893,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-87f6d9df-c083965c40b28f45.js": {
+          "path": ".next/static/chunks/next-framework-87f6d9df-c083965c40b28f45.js",
+          "size": 498,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-999bad32-528e87b76653e0f5.js": {
+          "path": ".next/static/chunks/next-framework-999bad32-528e87b76653e0f5.js",
+          "size": 4337,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-9d47457e-f284809a57a45cab.js": {
+          "path": ".next/static/chunks/next-framework-9d47457e-f284809a57a45cab.js",
+          "size": 334,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-a202dffb-e27d898556331627.js": {
+          "path": ".next/static/chunks/next-framework-a202dffb-e27d898556331627.js",
+          "size": 2464,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-a48b71bd-b15778c772cf9820.js": {
+          "path": ".next/static/chunks/next-framework-a48b71bd-b15778c772cf9820.js",
+          "size": 1734,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-a6f90180-4e3b13366301935b.js": {
+          "path": ".next/static/chunks/next-framework-a6f90180-4e3b13366301935b.js",
+          "size": 11577,
+          "sizeKB": 11,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-ae050ec9-a1d56e8f04701638.js": {
+          "path": ".next/static/chunks/next-framework-ae050ec9-a1d56e8f04701638.js",
+          "size": 2208,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-b4efce29-8aa79664d5f16f21.js": {
+          "path": ".next/static/chunks/next-framework-b4efce29-8aa79664d5f16f21.js",
+          "size": 1383,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-c35ff16d-eb53df1dec30f3f6.js": {
+          "path": ".next/static/chunks/next-framework-c35ff16d-eb53df1dec30f3f6.js",
+          "size": 4404,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-c3908cc5-0881843db1ad25d0.js": {
+          "path": ".next/static/chunks/next-framework-c3908cc5-0881843db1ad25d0.js",
+          "size": 23598,
+          "sizeKB": 23,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-c48e5122-47e76d136bb4976b.js": {
+          "path": ".next/static/chunks/next-framework-c48e5122-47e76d136bb4976b.js",
+          "size": 12189,
+          "sizeKB": 12,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-c595d29b-49ecd4b6691428ae.js": {
+          "path": ".next/static/chunks/next-framework-c595d29b-49ecd4b6691428ae.js",
+          "size": 2393,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-c5e2eb55-fb0a0ab426425524.js": {
+          "path": ".next/static/chunks/next-framework-c5e2eb55-fb0a0ab426425524.js",
+          "size": 733,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-cb3508a3-34a76813277cac3b.js": {
+          "path": ".next/static/chunks/next-framework-cb3508a3-34a76813277cac3b.js",
+          "size": 546,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-ce70e96a-e89dcc71ea81d8c0.js": {
+          "path": ".next/static/chunks/next-framework-ce70e96a-e89dcc71ea81d8c0.js",
+          "size": 871,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-d19faf39-20dd821e9c12dc26.js": {
+          "path": ".next/static/chunks/next-framework-d19faf39-20dd821e9c12dc26.js",
+          "size": 6416,
+          "sizeKB": 6,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-d78f60f2-e717362f83b22a27.js": {
+          "path": ".next/static/chunks/next-framework-d78f60f2-e717362f83b22a27.js",
+          "size": 4869,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-d7c15829-4947fc019892dff5.js": {
+          "path": ".next/static/chunks/next-framework-d7c15829-4947fc019892dff5.js",
+          "size": 3971,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-e7000e39-050c8d9ea588ea34.js": {
+          "path": ".next/static/chunks/next-framework-e7000e39-050c8d9ea588ea34.js",
+          "size": 6747,
+          "sizeKB": 7,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "next-framework-fc14d040-a53bdf96fd83dbb6.js": {
+          "path": ".next/static/chunks/next-framework-fc14d040-a53bdf96fd83dbb6.js",
+          "size": 10179,
+          "sizeKB": 10,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "polyfills-42372ed130431b0a.js": {
+          "path": ".next/static/chunks/polyfills-42372ed130431b0a.js",
+          "size": 112594,
+          "sizeKB": 110,
+          "category": "other",
+          "isGzipped": false
+        },
+        "react-d2f407bd8217e56e.js": {
+          "path": ".next/static/chunks/react-d2f407bd8217e56e.js",
+          "size": 7112,
+          "sizeKB": 7,
+          "category": "other",
+          "isGzipped": false
+        },
+        "react-dom-a8f8b4de-5c00c1ddb820a77c.js": {
+          "path": ".next/static/chunks/react-dom-a8f8b4de-5c00c1ddb820a77c.js",
+          "size": 128751,
+          "sizeKB": 126,
+          "category": "other",
+          "isGzipped": false
+        },
+        "react-dom-f72b7d4b-75b7beab38bcee89.js": {
+          "path": ".next/static/chunks/react-dom-f72b7d4b-75b7beab38bcee89.js",
+          "size": 417,
+          "sizeKB": 0,
+          "category": "other",
+          "isGzipped": false
+        },
+        "vendor-02f8c3a3.ccafb56537edd81c.js": {
+          "path": ".next/static/chunks/vendor-02f8c3a3.ccafb56537edd81c.js",
+          "size": 20459,
+          "sizeKB": 20,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-03b480a4.3191a98729dd6cc6.js": {
+          "path": ".next/static/chunks/vendor-03b480a4.3191a98729dd6cc6.js",
+          "size": 209,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-0bda8f45.8fa080af3c59241b.js": {
+          "path": ".next/static/chunks/vendor-0bda8f45.8fa080af3c59241b.js",
+          "size": 11160,
+          "sizeKB": 11,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-1fc6fe3f.938f6f9d3d2fc002.js": {
+          "path": ".next/static/chunks/vendor-1fc6fe3f.938f6f9d3d2fc002.js",
+          "size": 1857,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-2721cddb.b922367250b1091e.js": {
+          "path": ".next/static/chunks/vendor-2721cddb.b922367250b1091e.js",
+          "size": 23099,
+          "sizeKB": 23,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-27c1da47.e87bdef96fe4f55a.js": {
+          "path": ".next/static/chunks/vendor-27c1da47.e87bdef96fe4f55a.js",
+          "size": 4533,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-290db361.187860a6aea4b6c9.js": {
+          "path": ".next/static/chunks/vendor-290db361.187860a6aea4b6c9.js",
+          "size": 1126,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-2ad76bf2.7faeec83754b1cea.js": {
+          "path": ".next/static/chunks/vendor-2ad76bf2.7faeec83754b1cea.js",
+          "size": 6693,
+          "sizeKB": 7,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-30662a5c.c7895bee1382e012.js": {
+          "path": ".next/static/chunks/vendor-30662a5c.c7895bee1382e012.js",
+          "size": 3729,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-36cd0009.b0717fc4aa9bba32.js": {
+          "path": ".next/static/chunks/vendor-36cd0009.b0717fc4aa9bba32.js",
+          "size": 4817,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-37fe1e5f.8621649ef7221429.js": {
+          "path": ".next/static/chunks/vendor-37fe1e5f.8621649ef7221429.js",
+          "size": 1072,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-3812de41.4e895d7f38fad669.js": {
+          "path": ".next/static/chunks/vendor-3812de41.4e895d7f38fad669.js",
+          "size": 4598,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-3c2d50e9.9c35e49f20503ea3.js": {
+          "path": ".next/static/chunks/vendor-3c2d50e9.9c35e49f20503ea3.js",
+          "size": 41278,
+          "sizeKB": 40,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-42f20178.6320f0c41131a654.js": {
+          "path": ".next/static/chunks/vendor-42f20178.6320f0c41131a654.js",
+          "size": 4756,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-4321ee93.d3b746296324135b.js": {
+          "path": ".next/static/chunks/vendor-4321ee93.d3b746296324135b.js",
+          "size": 5504,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-4c977e4b.a5b1035ef6c8ac36.js": {
+          "path": ".next/static/chunks/vendor-4c977e4b.a5b1035ef6c8ac36.js",
+          "size": 4422,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-518ca55f.018a5b2a734217f8.js": {
+          "path": ".next/static/chunks/vendor-518ca55f.018a5b2a734217f8.js",
+          "size": 5104,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-55a65f63.3142ad77326ca8bf.js": {
+          "path": ".next/static/chunks/vendor-55a65f63.3142ad77326ca8bf.js",
+          "size": 4857,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-56f15442.838221e64e580add.js": {
+          "path": ".next/static/chunks/vendor-56f15442.838221e64e580add.js",
+          "size": 424,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-58c93c3a.b2746fb516ea1220.js": {
+          "path": ".next/static/chunks/vendor-58c93c3a.b2746fb516ea1220.js",
+          "size": 1305,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-5f628ba9.49022c430c983175.js": {
+          "path": ".next/static/chunks/vendor-5f628ba9.49022c430c983175.js",
+          "size": 4989,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-67fa4089.2c630f0fd3182aed.js": {
+          "path": ".next/static/chunks/vendor-67fa4089.2c630f0fd3182aed.js",
+          "size": 3614,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-6ba8f41e.5f36d0dfb42b1ab1.js": {
+          "path": ".next/static/chunks/vendor-6ba8f41e.5f36d0dfb42b1ab1.js",
+          "size": 542,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-7205fd73.b4f7cee6f9f9d4a2.js": {
+          "path": ".next/static/chunks/vendor-7205fd73.b4f7cee6f9f9d4a2.js",
+          "size": 12644,
+          "sizeKB": 12,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-7e239d2a.84a8eef66f920b0e.js": {
+          "path": ".next/static/chunks/vendor-7e239d2a.84a8eef66f920b0e.js",
+          "size": 4866,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-81cb17a4.49603f7aa681b87d.js": {
+          "path": ".next/static/chunks/vendor-81cb17a4.49603f7aa681b87d.js",
+          "size": 594,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-839c41ae.bf0958e38f16d1fa.js": {
+          "path": ".next/static/chunks/vendor-839c41ae.bf0958e38f16d1fa.js",
+          "size": 3181,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-8c36204f.4161c211769e5662.js": {
+          "path": ".next/static/chunks/vendor-8c36204f.4161c211769e5662.js",
+          "size": 130,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-8dffa26f.b860b7744b416c20.js": {
+          "path": ".next/static/chunks/vendor-8dffa26f.b860b7744b416c20.js",
+          "size": 2390,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-8fcb2ae9.d8d7211cbddcc9f5.js": {
+          "path": ".next/static/chunks/vendor-8fcb2ae9.d8d7211cbddcc9f5.js",
+          "size": 2560,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-997bde42.b85f980a3c290044.js": {
+          "path": ".next/static/chunks/vendor-997bde42.b85f980a3c290044.js",
+          "size": 1875,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-9c07be14.00721fa02b61bdd0.js": {
+          "path": ".next/static/chunks/vendor-9c07be14.00721fa02b61bdd0.js",
+          "size": 1140,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-a18b3886.f8367147fb2b1872.js": {
+          "path": ".next/static/chunks/vendor-a18b3886.f8367147fb2b1872.js",
+          "size": 2180,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-a18dd2d1.f15a770a6804489e.js": {
+          "path": ".next/static/chunks/vendor-a18dd2d1.f15a770a6804489e.js",
+          "size": 4006,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-a82e7cdf.a83d7a6dc01bd5b1.js": {
+          "path": ".next/static/chunks/vendor-a82e7cdf.a83d7a6dc01bd5b1.js",
+          "size": 3326,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-af4e8342.c5a3bb56120b71b1.js": {
+          "path": ".next/static/chunks/vendor-af4e8342.c5a3bb56120b71b1.js",
+          "size": 675,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-b1ba72c2.a3e964a769f3ab1c.js": {
+          "path": ".next/static/chunks/vendor-b1ba72c2.a3e964a769f3ab1c.js",
+          "size": 1316,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-b6e99d1f.0152f0ac8323f341.js": {
+          "path": ".next/static/chunks/vendor-b6e99d1f.0152f0ac8323f341.js",
+          "size": 943,
+          "sizeKB": 1,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-b752a131.a7c6d251c74400d5.js": {
+          "path": ".next/static/chunks/vendor-b752a131.a7c6d251c74400d5.js",
+          "size": 7530,
+          "sizeKB": 7,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-b9ce09a1.6a3cb65110157ee4.js": {
+          "path": ".next/static/chunks/vendor-b9ce09a1.6a3cb65110157ee4.js",
+          "size": 420,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-c5acddbb.c60a66f53f806a6f.js": {
+          "path": ".next/static/chunks/vendor-c5acddbb.c60a66f53f806a6f.js",
+          "size": 3588,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-c5c59760.b783fb902488741f.js": {
+          "path": ".next/static/chunks/vendor-c5c59760.b783fb902488741f.js",
+          "size": 1742,
+          "sizeKB": 2,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-c835e384.e1a2c37a090316a1.js": {
+          "path": ".next/static/chunks/vendor-c835e384.e1a2c37a090316a1.js",
+          "size": 7825,
+          "sizeKB": 8,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-c9fdbed0.9593043a141b310a.js": {
+          "path": ".next/static/chunks/vendor-c9fdbed0.9593043a141b310a.js",
+          "size": 294969,
+          "sizeKB": 288,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-cb324dca.ddf5f44d6633c75e.js": {
+          "path": ".next/static/chunks/vendor-cb324dca.ddf5f44d6633c75e.js",
+          "size": 4281,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-ce985185.551d2040c23bfcb7.js": {
+          "path": ".next/static/chunks/vendor-ce985185.551d2040c23bfcb7.js",
+          "size": 4304,
+          "sizeKB": 4,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-d02cb5f1.5ad5c970b61c944d.js": {
+          "path": ".next/static/chunks/vendor-d02cb5f1.5ad5c970b61c944d.js",
+          "size": 2573,
+          "sizeKB": 3,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-d4fa26ca.c2205b9a3f68a193.js": {
+          "path": ".next/static/chunks/vendor-d4fa26ca.c2205b9a3f68a193.js",
+          "size": 307,
+          "sizeKB": 0,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-e3786338.cdbfe02783af5182.js": {
+          "path": ".next/static/chunks/vendor-e3786338.cdbfe02783af5182.js",
+          "size": 6777,
+          "sizeKB": 7,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-f138ab0a.b9138bc25f531a27.js": {
+          "path": ".next/static/chunks/vendor-f138ab0a.b9138bc25f531a27.js",
+          "size": 5151,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-f7e82c3d.aae61aef5a230f46.js": {
+          "path": ".next/static/chunks/vendor-f7e82c3d.aae61aef5a230f46.js",
+          "size": 4941,
+          "sizeKB": 5,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "vendor-fa40effd.04ea13cf5d64e60f.js": {
+          "path": ".next/static/chunks/vendor-fa40effd.04ea13cf5d64e60f.js",
+          "size": 15032,
+          "sizeKB": 15,
+          "category": "vendor",
+          "isGzipped": false
+        },
+        "webpack-runtime-bdfbd122157b889e.js": {
+          "path": ".next/static/chunks/webpack-runtime-bdfbd122157b889e.js",
+          "size": 9660,
+          "sizeKB": 9,
+          "category": "webpack-runtime",
+          "isGzipped": false
+        }
+      },
+      "css": {
+        "60c19b58d0082604.css": {
+          "path": ".next/static/css/60c19b58d0082604.css",
+          "size": 6495,
+          "sizeKB": 6,
+          "isGzipped": false
+        },
+        "76dd89c746967beb.css": {
+          "path": ".next/static/css/76dd89c746967beb.css",
+          "size": 12650,
+          "sizeKB": 12,
+          "isGzipped": false
+        },
+        "797857d64aa7b18b.css": {
+          "path": ".next/static/css/797857d64aa7b18b.css",
+          "size": 6116,
+          "sizeKB": 6,
+          "isGzipped": false
+        }
+      }
+    },
+    "summary": {
+      "totalJS": 2506,
+      "totalCSS": 24,
+      "totalBundles": 223,
+      "mainBundleSize": 1,
+      "vendorBundleSize": 994,
+      "criticalPathSize": 1019,
+      "largestBundle": {
+        "name": "vendor-c9fdbed0.9593043a141b310a.js",
+        "path": ".next/static/chunks/vendor-c9fdbed0.9593043a141b310a.js",
+        "size": 294969,
+        "sizeKB": 288,
+        "category": "vendor",
+        "isGzipped": false
+      },
+      "bundlesByCategory": {
+        "other": 1502,
+        "main": 1,
+        "vendor": 994,
+        "webpack-runtime": 9
+      }
+    }
+  },
+  "budgetResults": {
+    "timestamp": "2025-09-30T18:45:20.192Z",
+    "budgets": {
+      "vendorBundle": {
+        "name": "Vendor Bundle",
+        "actual": 994,
+        "budget": 500,
+        "usageRatio": 1.988,
+        "usagePercent": 199,
+        "status": "error",
+        "alert": "🚨 BUDGET EXCEEDED: Vendor Bundle is 994KB (199% of 500KB budget)",
+        "remainingKB": 0
+      },
+      "mainBundle": {
+        "name": "Main Bundle",
+        "actual": 1,
+        "budget": 250,
+        "usageRatio": 0.004,
+        "usagePercent": 0,
+        "status": "good",
+        "alert": null,
+        "remainingKB": 249
+      },
+      "cssBundle": {
+        "name": "CSS Bundle",
+        "actual": 24,
+        "budget": 50,
+        "usageRatio": 0.48,
+        "usagePercent": 48,
+        "status": "good",
+        "alert": null,
+        "remainingKB": 26
+      },
+      "totalInitial": {
+        "name": "Total Initial Load",
+        "actual": 1019,
+        "budget": 800,
+        "usageRatio": 1.27375,
+        "usagePercent": 127,
+        "status": "error",
+        "alert": "🚨 BUDGET EXCEEDED: Total Initial Load is 1019KB (127% of 800KB budget)",
+        "remainingKB": 0
+      }
+    },
+    "alerts": [
+      "🚨 BUDGET EXCEEDED: Vendor Bundle is 994KB (199% of 500KB budget)",
+      "🚨 BUDGET EXCEEDED: Total Initial Load is 1019KB (127% of 800KB budget)"
+    ],
+    "overallStatus": "error",
+    "recommendations": [
+      "🔧 Consider code splitting vendor libraries",
+      "📦 Analyze vendor bundle with: npm run analyze",
+      "🗑️  Remove unused Firebase modules",
+      "🚨 CRITICAL: Bundle sizes exceed crisis-safe mobile limits",
+      "📱 Users in crisis need fast loading - immediate optimization required"
+    ]
+  }
+}

@@ -1,0 +1,672 @@
+/*
+ * JONY IVE MASTER DESIGN SYSTEM FOR ALCHM
+ * "Radical simplicity meets trauma-informed design"
+ * 
+ * This is the single source of truth for ALCHM's visual language.
+ * Every token serves healing through purposeful minimalism.
+ * Created with obsessive attention to detail, Jony Ive philosophy.
+ */
+
+/* ==================== DESIGN TOKENS ==================== */
+
+:root {
+  /* === SAGE GREEN FOUNDATION === */
+  /* The primary sage - our signature color, used with restraint */
+  --sage-primary: #a4b792;
+  --sage-hover: #93a682; 
+  --sage-active: #7a8c6a;
+  --sage-light: #c4d3b8;
+  --sage-subtle: #e8f0e1;
+  
+  /* === SANCTUARY PALETTE === */
+  /* Healing-centered whites and transparencies */
+  --sanctuary-pure: #ffffff;
+  --sanctuary-warm: #fefcfb;
+  --sanctuary-glass: rgba(254, 252, 251, 0.90);
+  --sanctuary-mist: rgba(254, 252, 251, 0.15);
+  --sanctuary-whisper: rgba(254, 252, 251, 0.05);
+  
+  /* === NEUTRAL FOUNDATION === */
+  /* Jony Ive constraint: Only what serves purpose */
+  --charcoal-deep: #1a1a1a;
+  --charcoal-medium: #2d2d2d;
+  --charcoal-light: #4a4a4a;
+  --gray-warm: #6b6b6b;
+  --gray-light: #9b9b9b;
+  
+  /* === TYPOGRAPHY SYSTEM === */
+  /* SF Pro Display philosophy: System fonts for performance & familiarity */
+  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  
+  /* Weight constraint - Jony Ive restraint principle */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  /* Never exceed medium weight - simplicity over boldness */
+  
+  /* === MATHEMATICAL SPACING === */
+  /* 8px base unit for perfect visual rhythm */
+  --space-unit: 8px;
+  --space-2xs: calc(var(--space-unit) * 0.5); /* 4px */
+  --space-xs: var(--space-unit);              /* 8px */
+  --space-sm: calc(var(--space-unit) * 2);    /* 16px */
+  --space-md: calc(var(--space-unit) * 3);    /* 24px */
+  --space-lg: calc(var(--space-unit) * 4);    /* 32px */
+  --space-xl: calc(var(--space-unit) * 6);    /* 48px */
+  --space-2xl: calc(var(--space-unit) * 8);   /* 64px */
+  --space-3xl: calc(var(--space-unit) * 12);  /* 96px */
+  
+  /* === RADIUS SYSTEM === */
+  /* Soft, approachable curves - never harsh edges */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+  
+  /* === SHADOW LAYERS === */
+  /* Subtle depth - objects floating in sanctuary space */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-floating: 0 16px 64px rgba(0, 0, 0, 0.20);
+  
+  /* === ANIMATION TIMING === */
+  /* Gentle, never jarring - trauma-informed motion */
+  --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-gentle: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+  
+  /* === LAYOUT CONSTRAINTS === */
+  /* Content width limits for optimal reading */
+  --width-content: 65ch;
+  --width-narrow: 45ch;
+  --width-wide: 80ch;
+  --width-container: 1200px;
+  
+  /* === TOUCH TARGETS === */
+  /* Trauma-informed minimum sizes */
+  --touch-min: 48px;
+  --touch-comfortable: 52px;
+  --touch-generous: 56px;
+}
+
+/* ==================== GLOBAL FOUNDATION ==================== */
+
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Prevent iOS zoom on form focus */
+  font-size: 16px;
+  
+  /* Sage background - the foundation of everything */
+  background: var(--sage-primary);
+  
+  /* Enhanced font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  
+  /* System font stack */
+  font-family: var(--font-primary);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport for mobile browsers */
+  
+  /* The signature sage gradient - appears everywhere */
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+  background-attachment: fixed; /* Prevent scroll banding */
+  
+  color: var(--sanctuary-warm);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: var(--weight-regular);
+  
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+}
+
+/* ==================== TYPOGRAPHY HIERARCHY ==================== */
+
+/* Jony Ive constraint: Only essential font sizes */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 var(--space-md) 0;
+  font-family: var(--font-primary);
+  font-weight: var(--weight-medium); /* Never exceed medium */
+  line-height: 1.3;
+  color: var(--sanctuary-warm);
+  letter-spacing: -0.01em; /* Optical adjustment */
+}
+
+h1 { 
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--weight-light);
+  margin-bottom: var(--space-lg);
+}
+
+h2 { 
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: var(--weight-light);
+}
+
+h3 { 
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+}
+
+h4, h5, h6 { 
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+}
+
+p {
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.7; /* Generous for readability */
+  color: rgba(254, 252, 251, 0.95);
+  max-width: var(--width-content);
+}
+
+/* ==================== LAYOUT SYSTEM ==================== */
+
+.container {
+  width: 100%;
+  max-width: var(--width-container);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+}
+
+/* Flexbox utilities with Jony Ive precision */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+
+.gap-2xs { gap: var(--space-2xs); }
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+
+/* ==================== COMPONENT FOUNDATIONS ==================== */
+
+/* Buttons - Purposeful interaction design */
+.btn {
+  /* Base structure */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  
+  /* Trauma-informed sizing */
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  padding: var(--space-sm) var(--space-md);
+  
+  /* Visual design */
+  border: none;
+  border-radius: var(--radius-lg);
+  
+  /* Typography */
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--duration-base) var(--ease-sanctuary);
+  
+  /* Focus accessibility */
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--sanctuary-warm);
+  outline-offset: 2px;
+}
+
+/* Primary button - Sage green signature */
+.btn-primary {
+  background: var(--sanctuary-glass);
+  color: var(--sage-active);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  background: var(--sanctuary-pure);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Secondary button - Transparent elegance */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--sanctuary-warm);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Ghost button - Minimal presence */
+.btn-ghost {
+  background: transparent;
+  color: rgba(254, 252, 251, 0.9);
+  border: none;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Cards - Floating content sanctuaries */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--duration-base) var(--ease-sanctuary);
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Interactive cards */
+.card-interactive {
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Input fields - Sacred text entry */
+.input {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-sm) var(--space-md);
+  
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  
+  color: var(--sanctuary-warm);
+  font-family: var(--font-primary);
+  font-size: 1rem; /* Prevent iOS zoom */
+  
+  transition: all var(--duration-fast) var(--ease-sanctuary);
+  outline: none;
+}
+
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.input::placeholder {
+  color: rgba(164, 183, 146, 0.7);
+  font-style: italic;
+}
+
+/* Textarea - Extended expression space */
+.textarea {
+  resize: vertical;
+  min-height: calc(var(--touch-min) * 3);
+  line-height: 1.6;
+  font-family: var(--font-primary);
+}
+
+/* ==================== PATHWAY SYSTEM DESIGN ==================== */
+
+/* Pathway constellation - Premium grid system */
+.pathway-constellation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+}
+
+/* Individual pathway cards - Jony Ive perfection */
+.pathway-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-lg);
+  
+  transition: all var(--duration-base) var(--ease-gentle);
+  cursor: pointer;
+  
+  /* Subtle elevation */
+  box-shadow: var(--shadow-subtle);
+}
+
+.pathway-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.pathway-card-active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-medium);
+}
+
+.pathway-card-completed {
+  background: rgba(164, 183, 146, 0.2);
+  border-color: rgba(164, 183, 146, 0.4);
+}
+
+/* Pathway icons - Consistent sizing and positioning */
+.pathway-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-md);
+  display: block;
+  text-align: center;
+}
+
+.pathway-title {
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  color: var(--sanctuary-warm);
+  margin-bottom: var(--space-xs);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.pathway-description {
+  font-size: 0.875rem;
+  color: rgba(254, 252, 251, 0.8);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.pathway-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pathway-duration {
+  font-size: 0.75rem;
+  color: rgba(254, 252, 251, 0.6);
+}
+
+.pathway-status {
+  font-size: 0.75rem;
+  font-weight: var(--weight-medium);
+  padding: var(--space-2xs) var(--space-xs);
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--sanctuary-warm);
+}
+
+/* ==================== MOBILE OPTIMIZATIONS ==================== */
+
+@media (max-width: 768px) {
+  /* Larger touch targets for mobile */
+  .btn {
+    min-height: var(--touch-comfortable);
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .input {
+    min-height: var(--touch-comfortable);
+    padding: var(--space-md);
+  }
+  
+  /* Pathway cards responsive */
+  .pathway-constellation {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+  }
+  
+  .pathway-card {
+    padding: var(--space-md);
+  }
+  
+  /* Typography adjustments */
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  
+  /* Container padding */
+  .container {
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+/* Focus states that feel supportive, never aggressive */
+*:focus-visible {
+  outline: 2px solid var(--sanctuary-warm);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border-width: 2px;
+    border-color: var(--sage-active);
+  }
+  
+  .card {
+    border-width: 2px;
+  }
+  
+  .input {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion respect - trauma-informed */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode considerations (future) */
+@media (prefers-color-scheme: dark) {
+  /* ALCHM is designed dark-first, but this ensures consistency */
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* ==================== ANIMATION LIBRARY ==================== */
+
+/* Gentle entrance animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fade-in var(--duration-slow) var(--ease-sanctuary) forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up var(--duration-slow) var(--ease-sanctuary) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-base) var(--ease-gentle) forwards;
+}
+
+/* Staggered animations for lists */
+.animate-stagger > * {
+  opacity: 0;
+  animation: fade-in var(--duration-slow) var(--ease-sanctuary) forwards;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.animate-stagger > *:nth-child(2) { animation-delay: 100ms; }
+.animate-stagger > *:nth-child(3) { animation-delay: 200ms; }
+.animate-stagger > *:nth-child(4) { animation-delay: 300ms; }
+.animate-stagger > *:nth-child(5) { animation-delay: 400ms; }
+.animate-stagger > *:nth-child(6) { animation-delay: 500ms; }
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Text alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Spacing utilities - use sparingly, prefer semantic classes */
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.mt-xs { margin-top: var(--space-xs); }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+.p-xl { padding: var(--space-xl); }
+
+/* Visual utilities */
+.rounded { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.shadow-soft { box-shadow: var(--shadow-soft); }
+.shadow-medium { box-shadow: var(--shadow-medium); }
+.shadow-elevated { box-shadow: var(--shadow-elevated); }
+
+/* ==================== SAGE GREEN ENFORCEMENT ==================== */
+
+/* Nuclear option - only when absolutely necessary */
+.sage-sanctuary-enforced,
+[data-sage="true"] {
+  background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%) !important;
+  color: var(--sanctuary-warm) !important;
+}
+
+/* Mobile cache-busting for critical sage green */
+@media (max-width: 768px) {
+  html,
+  body,
+  main,
+  .sage-sanctuary {
+    background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%) !important;
+    background-attachment: fixed !important;
+  }
+}
+
+/*
+ * END JONY IVE MASTER DESIGN SYSTEM
+ * 
+ * "Every element has been considered. Every detail serves purpose.
+ * Every interaction creates sanctuary. This is design as healing."
+ */

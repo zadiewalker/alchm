@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sacred Writing Space - ALCHM Digital Sanctuary</title>
+  <meta name="description" content="A premium trauma-informed journaling experience designed for healing and self-discovery">
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="/styles/alchm-jony-ive-foundation.css" as="style">
+  
+  <!-- Crisis Resource Preloading -->
+  <link rel="dns-prefetch" href="tel:988">
+  <link rel="preconnect" href="https://suicidepreventionlifeline.org">
+  <link rel="preload" href="/crisis-resources.json" as="fetch" crossorigin="anonymous">
+  
+  <!-- Crisis Support System -->
+  <script src="/js/crisis-support-system.js" defer></script>
+  <link rel="stylesheet" href="/css/crisis-support-styles.css">
+  
+  <!-- Jony Ive Design Foundation -->
+  <link rel="stylesheet" href="/styles/alchm-jony-ive-foundation.css">
+  
+  <style>
+    /* Journal-Specific Enhancements */
+    
+    /* Full-Screen Writing Mode */
+    .writing-sanctuary {
+      background: rgba(254, 252, 251, 0.98);
+      backdrop-filter: blur(30px);
+      border: none;
+      border-radius: var(--radius-2xl);
+      position: relative;
+      transition: all var(--duration-slow) var(--ease-out-cubic);
+    }
+    
+    .writing-sanctuary.focus-mode {
+      background: rgba(254, 252, 251, 1);
+      box-shadow: 0 0 0 4px rgba(164, 183, 146, 0.1);
+    }
+    
+    /* Enhanced Textarea for Journaling */
+    .journal-editor {
+      width: 100%;
+      min-height: 60vh;
+      padding: var(--space-8);
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-sans);
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--sanctuary-gray-900);
+      resize: none;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+    
+    .journal-editor::placeholder {
+      color: var(--sanctuary-gray-400);
+      font-style: italic;
+    }
+    
+    .journal-editor:focus {
+      outline: none;
+    }
+    
+    /* Floating Toolbar */
+    .floating-toolbar {
+      position: absolute;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(164, 183, 146, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-full);
+      padding: var(--space-3) var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .floating-toolbar.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .toolbar-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: var(--radius-md);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-out-cubic);
+      font-size: 1rem;
+    }
+    
+    .toolbar-btn:hover {
+      background: white;
+      transform: scale(1.05);
+    }
+    
+    /* Prompts Sidebar */
+    .prompts-sidebar {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      height: 100vh;
+      background: rgba(254, 252, 251, 0.98);
+      backdrop-filter: blur(30px);
+      border-left: 1px solid rgba(164, 183, 146, 0.2);
+      padding: var(--space-6);
+      transition: all var(--duration-slow) var(--ease-out-cubic);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    .prompts-sidebar.open {
+      right: 0;
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.15);
+    }
+    
+    .prompt-category {
+      margin-bottom: var(--space-6);
+    }
+    
+    .prompt-item {
+      background: rgba(164, 183, 146, 0.1);
+      border: 1px solid rgba(164, 183, 146, 0.2);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-3);
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+    
+    .prompt-item:hover {
+      background: rgba(164, 183, 146, 0.2);
+      border-color: var(--sage-400);
+      transform: translateY(-1px);
+    }
+    
+    /* Session Stats */
+    .session-stats {
+      position: fixed;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      background: rgba(254, 252, 251, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(164, 183, 146, 0.2);
+      border-radius: var(--radius-xl);
+      padding: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: 0.875rem;
+      color: var(--sanctuary-gray-600);
+      z-index: 50;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+    
+    .session-stats:hover {
+      background: rgba(254, 252, 251, 1);
+    }
+    
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    /* Auto-save Indicator */
+    .autosave-indicator {
+      position: fixed;
+      top: var(--space-4);
+      right: var(--space-4);
+      background: rgba(164, 183, 146, 0.9);
+      color: white;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-lg);
+      font-size: 0.875rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+      z-index: 100;
+    }
+    
+    .autosave-indicator.saving {
+      opacity: 1;
+      transform: translateY(0);
+      background: var(--sage-500);
+    }
+    
+    .autosave-indicator.saved {
+      opacity: 1;
+      transform: translateY(0);
+      background: var(--sage-400);
+    }
+    
+    /* Mood Selector Panel */
+    .mood-selector {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+      padding: var(--space-4);
+      background: rgba(164, 183, 146, 0.1);
+      border-radius: var(--radius-xl);
+    }
+    
+    .mood-button {
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+    
+    .mood-button:hover {
+      background: white;
+      transform: scale(1.1);
+    }
+    
+    .mood-button.selected {
+      background: var(--sage-400);
+      transform: scale(1.1);
+    }
+    
+    /* Breathing Exercise Card */
+    .breathing-card {
+      background: rgba(164, 183, 146, 0.1);
+      border: 1px solid rgba(164, 183, 146, 0.2);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      text-align: center;
+      transition: all var(--duration-normal) var(--ease-out-cubic);
+    }
+    
+    .breathing-card.active {
+      background: rgba(164, 183, 146, 0.2);
+      border-color: var(--sage-400);
+    }
+    
+    .breathing-circle {
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--sage-400);
+      border-radius: var(--radius-full);
+      margin: 0 auto var(--space-4);
+      transition: all var(--duration-breathing) var(--ease-breathing);
+    }
+    
+    .breathing-circle.breathing {
+      transform: scale(1.3);
+      border-color: var(--sage-600);
+    }
+    
+    /* Progress Visualization */
+    .progress-ring {
+      width: 60px;
+      height: 60px;
+      position: relative;
+    }
+    
+    .progress-ring-circle {
+      stroke: var(--sage-400);
+      stroke-width: 4;
+      fill: transparent;
+      transition: stroke-dashoffset var(--duration-normal) ease;
+    }
+    
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      .journal-editor {
+        min-height: 70vh;
+        padding: var(--space-6);
+        font-size: 1rem;
+      }
+      
+      .prompts-sidebar {
+        width: 100vw;
+        right: -100vw;
+      }
+      
+      .session-stats {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: var(--space-4);
+        justify-content: center;
+      }
+      
+      .floating-toolbar {
+        bottom: -50px;
+        padding: var(--space-2) var(--space-4);
+      }
+      
+      .toolbar-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.875rem;
+      }
+    }
+    
+    /* Enhanced Crisis Detection Styles */
+    .support-panel {
+      background: rgba(248, 249, 247, 0.98);
+      border: 2px solid var(--sage-300);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all var(--duration-slow) var(--ease-out-cubic);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .support-panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .support-panel.urgent {
+      border-color: var(--crisis-red);
+      background: rgba(239, 68, 68, 0.05);
+      animation: gentle-pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes gentle-pulse {
+      0%, 100% { opacity: 0.95; }
+      50% { opacity: 1; }
+    }
+    
+    /* Word Count Display */
+    .word-count {
+      position: absolute;
+      bottom: var(--space-4);
+      right: var(--space-6);
+      font-size: 0.75rem;
+      color: var(--sanctuary-gray-400);
+      background: rgba(255, 255, 255, 0.8);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+
+<body class="page-background layout-safe">
+  
+  <!-- Auto-save Indicator -->
+  <div id="autosave-indicator" class="autosave-indicator">
+    <span id="save-text">✓ Saved</span>
+  </div>
+  
+  <!-- Main Container -->
+  <div class="container min-h-screen py-6">
+    
+    <!-- Header -->
+    <header class="mb-6">
+      <nav class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-4">
+          <h1 class="text-xl font-light text-sage-700">🌿 ALCHM</h1>
+          <span class="text-sm text-sanctuary-gray-500">Sacred Writing Space</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="prompts-btn" class="btn-secondary btn-sm focus-gentle">
+            💭 Prompts
+          </button>
+          <button id="dashboard-btn" class="btn-secondary btn-sm focus-gentle">
+            🏠 Dashboard
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Support Panel (Hidden by default, shown when needed) -->
+    <div id="support-panel" class="support-panel">
+      <div class="flex items-start gap-4">
+        <div class="text-2xl">💝</div>
+        <div class="flex-1">
+          <h3 class="text-lg font-medium text-gray-900 mb-2">You're not alone</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            It takes courage to explore difficult emotions. Remember that healing is not linear, 
+            and it's okay to take breaks when you need them.
+          </p>
+          <div class="flex gap-3 flex-wrap">
+            <button class="btn-secondary btn-sm">
+              🫁 Breathing Exercise
+            </button>
+            <a href="tel:988" class="btn-crisis btn-sm">
+              📞 Crisis Support
+            </a>
+          </div>
+        </div>
+        <button id="close-support" class="text-sanctuary-gray-400 hover:text-sanctuary-gray-600 text-xl">
+          ×
+        </button>
+      </div>
+    </div>
+
+    <!-- Mood Selector -->
+    <div class="mood-selector">
+      <span class="text-sm text-sanctuary-gray-600 font-medium">How are you feeling?</span>
+      <button class="mood-button focus-gentle" data-mood="1" title="Struggling">😞</button>
+      <button class="mood-button focus-gentle" data-mood="2" title="Low">😔</button>
+      <button class="mood-button focus-gentle" data-mood="3" title="Neutral">😐</button>
+      <button class="mood-button focus-gentle" data-mood="4" title="Good">😊</button>
+      <button class="mood-button focus-gentle" data-mood="5" title="Great">😄</button>
+      <span class="text-xs text-sanctuary-gray-500 ml-4">Optional - helps us understand your journey</span>
+    </div>
+
+    <!-- Breathing Exercise Card (Hidden by default) -->
+    <div id="breathing-card" class="breathing-card" style="display: none;">
+      <div class="breathing-circle" id="breathing-circle"></div>
+      <h4 class="text-lg font-medium text-gray-900 mb-2">Take a Mindful Breath</h4>
+      <p class="text-sm text-gray-600 mb-4">Follow the circle as it expands and contracts</p>
+      <div class="flex gap-3 justify-center">
+        <button id="start-breathing" class="btn-primary btn-sm">Start</button>
+        <button id="stop-breathing" class="btn-secondary btn-sm">Close</button>
+      </div>
+    </div>
+
+    <!-- Main Writing Area -->
+    <main class="writing-sanctuary" id="writing-container">
+      <textarea 
+        id="journal-editor"
+        class="journal-editor"
+        placeholder="This is your sacred space for authentic expression. Write about anything that's on your heart today - your thoughts, feelings, dreams, or experiences. There's no right or wrong way to journal here. Let your words flow naturally..."
+        spellcheck="true"
+        autocomplete="off"
+      ></textarea>
+      
+      <!-- Word Count -->
+      <div class="word-count" id="word-count">0 words</div>
+      
+      <!-- Floating Toolbar (Appears on text selection) -->
+      <div id="floating-toolbar" class="floating-toolbar">
+        <button class="toolbar-btn focus-gentle" id="bold-btn" title="Bold">
+          <strong>B</strong>
+        </button>
+        <button class="toolbar-btn focus-gentle" id="italic-btn" title="Italic">
+          <em>I</em>
+        </button>
+        <button class="toolbar-btn focus-gentle" id="list-btn" title="Create List">
+          •
+        </button>
+        <button class="toolbar-btn focus-gentle" id="mood-btn" title="Add Mood">
+          😊
+        </button>
+        <button class="toolbar-btn focus-gentle" id="voice-btn" title="Voice Note">
+          🎤
+        </button>
+      </div>
+    </main>
+
+    <!-- Session Statistics -->
+    <div class="session-stats">
+      <div class="stat-item">
+        <span>⏱️</span>
+        <span id="session-time">0:00</span>
+      </div>
+      <div class="stat-item">
+        <span>📝</span>
+        <span id="entries-this-week">3 this week</span>
+      </div>
+      <div class="stat-item">
+        <span>🔥</span>
+        <span id="current-streak">7 day streak</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-4 mt-6 justify-center">
+      <button id="finish-writing" class="btn-primary focus-gentle">
+        ✨ Finish Writing
+      </button>
+      <button id="save-draft" class="btn-secondary focus-gentle">
+        💾 Save Draft
+      </button>
+      <button id="breathing-btn" class="btn-secondary focus-gentle">
+        🫁 Take a Breath
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Prompts Sidebar -->
+  <div id="prompts-sidebar" class="prompts-sidebar">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-medium text-gray-900">Writing Prompts</h3>
+      <button id="close-prompts" class="text-sanctuary-gray-400 hover:text-sanctuary-gray-600 text-xl focus-gentle">
+        ×
+      </button>
+    </div>
+
+    <!-- Search Prompts -->
+    <div class="form-group mb-6">
+      <input 
+        type="text" 
+        id="prompt-search"
+        class="input-sanctuary focus-gentle"
+        placeholder="Search for prompts..."
+      />
+    </div>
+
+    <!-- Daily Prompts -->
+    <div class="prompt-category">
+      <h4 class="text-lg font-medium text-gray-900 mb-3">✨ Daily Reflection</h4>
+      <div class="prompt-item focus-gentle" data-prompt="What are three things that brought me joy today, no matter how small?">
+        <p class="text-sm text-gray-700">What are three things that brought me joy today, no matter how small?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="How did I show myself kindness today?">
+        <p class="text-sm text-gray-700">How did I show myself kindness today?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="What challenged me today, and how did I navigate it?">
+        <p class="text-sm text-gray-700">What challenged me today, and how did I navigate it?</p>
+      </div>
+    </div>
+
+    <!-- Healing Prompts -->
+    <div class="prompt-category">
+      <h4 class="text-lg font-medium text-gray-900 mb-3">🌱 Healing Journey</h4>
+      <div class="prompt-item focus-gentle" data-prompt="What does healing look like for me right now?">
+        <p class="text-sm text-gray-700">What does healing look like for me right now?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="How have I grown since last month?">
+        <p class="text-sm text-gray-700">How have I grown since last month?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="What would I tell my younger self about resilience?">
+        <p class="text-sm text-gray-700">What would I tell my younger self about resilience?</p>
+      </div>
+    </div>
+
+    <!-- Growth Prompts -->
+    <div class="prompt-category">
+      <h4 class="text-lg font-medium text-gray-900 mb-3">🚀 Personal Growth</h4>
+      <div class="prompt-item focus-gentle" data-prompt="What new perspective have I gained recently?">
+        <p class="text-sm text-gray-700">What new perspective have I gained recently?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="How am I becoming more aligned with my authentic self?">
+        <p class="text-sm text-gray-700">How am I becoming more aligned with my authentic self?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="What boundaries do I need to set or maintain?">
+        <p class="text-sm text-gray-700">What boundaries do I need to set or maintain?</p>
+      </div>
+    </div>
+
+    <!-- Gratitude Prompts -->
+    <div class="prompt-category">
+      <h4 class="text-lg font-medium text-gray-900 mb-3">🙏 Gratitude Practice</h4>
+      <div class="prompt-item focus-gentle" data-prompt="Who in my life am I most grateful for and why?">
+        <p class="text-sm text-gray-700">Who in my life am I most grateful for and why?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="What unexpected gift did today bring me?">
+        <p class="text-sm text-gray-700">What unexpected gift did today bring me?</p>
+      </div>
+      <div class="prompt-item focus-gentle" data-prompt="How has a challenge in my life become a source of strength?">
+        <p class="text-sm text-gray-700">How has a challenge in my life become a source of strength?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crisis Support Floating Button will be automatically created by crisis-support-system.js -->
+
+  <!-- Success Modal (Hidden by default) -->
+  <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="card-sanctuary text-center max-w-md mx-4">
+      <div class="text-6xl mb-4">✨</div>
+      <h3 class="text-2xl font-medium text-gray-900 mb-4">Beautiful Work</h3>
+      <p class="text-base text-gray-600 mb-6">
+        You've taken an important step in your healing journey today. 
+        Your courage to explore your thoughts and feelings is truly admirable.
+      </p>
+      <div class="flex gap-3 justify-center">
+        <button id="view-insights" class="btn-primary">
+          📊 View Insights
+        </button>
+        <button id="continue-writing" class="btn-secondary">
+          ✍️ Keep Writing
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global state
+    let sessionStartTime = Date.now();
+    let sessionTimer = null;
+    let autoSaveTimer = null;
+    let selectedMood = null;
+    let wordCount = 0;
+    let breathingActive = false;
+    let isTyping = false;
+
+    // Crisis detection will be handled by the comprehensive crisis support system
+    // This is just a backup for the built-in journal page support
+    const supportKeywords = [
+      'suicide', 'kill myself', 'end it all', 'worthless', 'hopeless',
+      'can\'t go on', 'give up', 'harm myself', 'cut myself'
+    ];
+    
+    // Track crisis intervention level for progressive support
+    let lastCrisisCheck = 0;
+    let crisisInterventionActive = false;
+
+    // DOM Elements
+    const editor = document.getElementById('journal-editor');
+    const promptsSidebar = document.getElementById('prompts-sidebar');
+    const floatingToolbar = document.getElementById('floating-toolbar');
+    const autosaveIndicator = document.getElementById('autosave-indicator');
+    const supportPanel = document.getElementById('support-panel');
+    const breathingCard = document.getElementById('breathing-card');
+    const breathingCircle = document.getElementById('breathing-circle');
+    const writingContainer = document.getElementById('writing-container');
+    const wordCountDisplay = document.getElementById('word-count');
+    const sessionTimeDisplay = document.getElementById('session-time');
+    const successModal = document.getElementById('success-modal');
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeJournal();
+      startSessionTimer();
+      setupEventListeners();
+      respectMotionPreferences();
+      loadDraft();
+    });
+
+    function initializeJournal() {
+      // Focus the editor
+      editor.focus();
+      
+      // Set initial word count
+      updateWordCount();
+      
+      // Load user preferences
+      loadUserPreferences();
+    }
+
+    function setupEventListeners() {
+      // Editor events
+      editor.addEventListener('input', handleEditorInput);
+      editor.addEventListener('focus', handleEditorFocus);
+      editor.addEventListener('blur', handleEditorBlur);
+      editor.addEventListener('selectionchange', handleTextSelection);
+
+      // Prompts sidebar
+      document.getElementById('prompts-btn').addEventListener('click', togglePromptsSidebar);
+      document.getElementById('close-prompts').addEventListener('click', closePromptsSidebar);
+      
+      // Prompt items
+      document.querySelectorAll('.prompt-item').forEach(item => {
+        item.addEventListener('click', insertPrompt);
+      });
+
+      // Mood selector
+      document.querySelectorAll('.mood-button').forEach(button => {
+        button.addEventListener('click', selectMood);
+      });
+
+      // Action buttons
+      document.getElementById('finish-writing').addEventListener('click', finishWriting);
+      document.getElementById('save-draft').addEventListener('click', saveDraft);
+      document.getElementById('breathing-btn').addEventListener('click', showBreathingExercise);
+      document.getElementById('start-breathing').addEventListener('click', startBreathing);
+      document.getElementById('stop-breathing').addEventListener('click', stopBreathing);
+
+      // Support panel
+      document.getElementById('close-support').addEventListener('click', closeSupportPanel);
+
+      // Toolbar buttons
+      document.getElementById('bold-btn').addEventListener('click', () => formatText('bold'));
+      document.getElementById('italic-btn').addEventListener('click', () => formatText('italic'));
+      document.getElementById('list-btn').addEventListener('click', () => formatText('list'));
+
+      // Search prompts
+      document.getElementById('prompt-search').addEventListener('input', searchPrompts);
+
+      // Success modal
+      document.getElementById('view-insights').addEventListener('click', viewInsights);
+      document.getElementById('continue-writing').addEventListener('click', continueWriting);
+
+      // Dashboard button
+      document.getElementById('dashboard-btn').addEventListener('click', () => {
+        if (hasUnsavedContent()) {
+          if (confirm('You have unsaved changes. Save before leaving?')) {
+            saveDraft();
+          }
+        }
+        // Navigate to dashboard
+        window.location.href = '/dashboard';
+      });
+
+      // Click outside to close sidebar
+      document.addEventListener('click', function(e) {
+        if (!promptsSidebar.contains(e.target) && !document.getElementById('prompts-btn').contains(e.target)) {
+          if (promptsSidebar.classList.contains('open')) {
+            closePromptsSidebar();
+          }
+        }
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', handleKeyboardShortcuts);
+
+      // Prevent data loss
+      window.addEventListener('beforeunload', function(e) {
+        if (hasUnsavedContent()) {
+          e.preventDefault();
+          e.returnValue = '';
+        }
+      });
+    }
+
+    function handleEditorInput() {
+      isTyping = true;
+      updateWordCount();
+      checkForSupportNeeded();
+      scheduleAutoSave();
+      
+      // Clear typing flag after delay
+      clearTimeout(window.typingTimer);
+      window.typingTimer = setTimeout(() => {
+        isTyping = false;
+      }, 1000);
+    }
+
+    function handleEditorFocus() {
+      writingContainer.classList.add('focus-mode');
+    }
+
+    function handleEditorBlur() {
+      writingContainer.classList.remove('focus-mode');
+      hideFloatingToolbar();
+    }
+
+    function handleTextSelection() {
+      const selection = window.getSelection();
+      if (selection.toString().length > 0 && editor.contains(selection.anchorNode)) {
+        showFloatingToolbar();
+      } else {
+        hideFloatingToolbar();
+      }
+    }
+
+    function updateWordCount() {
+      const text = editor.value.trim();
+      wordCount = text ? text.split(/\s+/).length : 0;
+      wordCountDisplay.textContent = `${wordCount} words`;
+    }
+
+    function checkForSupportNeeded() {
+      const text = editor.value.toLowerCase();
+      const now = Date.now();
+      
+      // Prevent spam checking
+      if (now - lastCrisisCheck < 5000) return;
+      lastCrisisCheck = now;
+      
+      // Check for crisis language
+      const immediateRisk = ['suicide', 'kill myself', 'end it all', 'better off dead'].some(keyword => text.includes(keyword));
+      const warningSignals = ['worthless', 'hopeless', 'can\'t go on', 'give up'].some(keyword => text.includes(keyword));
+      
+      if (immediateRisk && !crisisInterventionActive) {
+        showUrgentSupportPanel();
+        // Trigger comprehensive crisis system if available
+        if (window.ALCHMCrisis) {
+          window.ALCHMCrisis.triggerCrisisIntervention(3, ['immediate_risk_detected']);
+        }
+        crisisInterventionActive = true;
+      } else if (warningSignals && !supportPanel.classList.contains('visible')) {
+        showSupportPanel();
+        // Trigger gentle intervention
+        if (window.ALCHMCrisis) {
+          window.ALCHMCrisis.triggerCrisisIntervention(2, ['warning_signals_detected']);
+        }
+      }
+    }
+
+    function showSupportPanel() {
+      supportPanel.classList.add('visible');
+      
+      // Announce to screen readers
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.style.position = 'absolute';
+      announcement.style.left = '-10000px';
+      announcement.textContent = 'Support resources are now available on the page';
+      document.body.appendChild(announcement);
+      
+      setTimeout(() => {
+        announcement.remove();
+      }, 1000);
+    }
+    
+    function showUrgentSupportPanel() {
+      supportPanel.classList.add('visible', 'urgent');
+      
+      // Update panel content for urgent situation
+      const panelContent = supportPanel.querySelector('.flex-1');
+      panelContent.innerHTML = `
+        <h3 class="text-lg font-medium text-gray-900 mb-2">🆘 Immediate Support Available</h3>
+        <p class="text-sm text-gray-600 mb-4">
+          Your safety is important. Please consider reaching out for immediate help. You don't have to go through this alone.
+        </p>
+        <div class="flex gap-3 flex-wrap">
+          <a href="tel:988" class="btn-crisis btn-sm">
+            📞 Call 988 Now
+          </a>
+          <button onclick="window.ALCHMCrisis && window.ALCHMCrisis.textCrisisLine()" class="btn-crisis btn-sm">
+            💬 Text Crisis Line
+          </button>
+          <button onclick="startEmergencyBreathing()" class="btn-secondary btn-sm">
+            🫁 Emergency Breathing
+          </button>
+        </div>
+      `;
+      
+      // Announce urgently to screen readers
+      const urgentAnnouncement = document.createElement('div');
+      urgentAnnouncement.setAttribute('aria-live', 'assertive');
+      urgentAnnouncement.setAttribute('aria-atomic', 'true');
+      urgentAnnouncement.style.position = 'absolute';
+      urgentAnnouncement.style.left = '-10000px';
+      urgentAnnouncement.textContent = 'Crisis support resources are immediately available. Call 988 for help.';
+      document.body.appendChild(urgentAnnouncement);
+      
+      setTimeout(() => {
+        urgentAnnouncement.remove();
+      }, 1000);
+    }
+
+    function closeSupportPanel() {
+      supportPanel.classList.remove('visible', 'urgent');
+      crisisInterventionActive = false;
+      
+      // Reset panel content to default
+      const panelContent = supportPanel.querySelector('.flex-1');
+      panelContent.innerHTML = `
+        <h3 class="text-lg font-medium text-gray-900 mb-2">You're not alone</h3>
+        <p class="text-sm text-gray-600 mb-4">
+          It takes courage to explore difficult emotions. Remember that healing is not linear, 
+          and it's okay to take breaks when you need them.
+        </p>
+        <div class="flex gap-3 flex-wrap">
+          <button onclick="startEmergencyBreathing()" class="btn-secondary btn-sm">
+            🫁 Breathing Exercise
+          </button>
+          <a href="tel:988" class="btn-crisis btn-sm">
+            📞 Crisis Support
+          </a>
+        </div>
+      `;
+    }
+    
+    function startEmergencyBreathing() {
+      closeSupportPanel();
+      showBreathingExercise();
+      startBreathing();
+      
+      // Provide calming guidance
+      showGentleNotification('Focus on your breath. You are safe in this moment.');
+    }
+
+    function scheduleAutoSave() {
+      clearTimeout(autoSaveTimer);
+      showSavingIndicator();
+      
+      autoSaveTimer = setTimeout(() => {
+        autoSave();
+      }, 2000);
+    }
+
+    function autoSave() {
+      if (!editor.value.trim()) return;
+      
+      // Simulate saving to local storage or server
+      localStorage.setItem('journal_draft', JSON.stringify({
+        content: editor.value,
+        mood: selectedMood,
+        timestamp: Date.now(),
+        wordCount: wordCount
+      }));
+      
+      showSavedIndicator();
+    }
+
+    function showSavingIndicator() {
+      autosaveIndicator.classList.remove('saved');
+      autosaveIndicator.classList.add('saving');
+      document.getElementById('save-text').textContent = '💾 Saving...';
+    }
+
+    function showSavedIndicator() {
+      autosaveIndicator.classList.remove('saving');
+      autosaveIndicator.classList.add('saved');
+      document.getElementById('save-text').textContent = '✓ Saved';
+      
+      // Hide after delay
+      setTimeout(() => {
+        autosaveIndicator.classList.remove('saved');
+      }, 2000);
+    }
+
+    function togglePromptsSidebar() {
+      promptsSidebar.classList.toggle('open');
+    }
+
+    function closePromptsSidebar() {
+      promptsSidebar.classList.remove('open');
+    }
+
+    function insertPrompt(e) {
+      const prompt = e.currentTarget.dataset.prompt;
+      const currentText = editor.value;
+      const newText = currentText ? currentText + '\n\n' + prompt + '\n\n' : prompt + '\n\n';
+      
+      editor.value = newText;
+      editor.focus();
+      
+      // Position cursor at end
+      editor.setSelectionRange(newText.length, newText.length);
+      
+      updateWordCount();
+      closePromptsSidebar();
+    }
+
+    function selectMood(e) {
+      // Remove previous selection
+      document.querySelectorAll('.mood-button').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      // Select current mood
+      e.currentTarget.classList.add('selected');
+      selectedMood = e.currentTarget.dataset.mood;
+      
+      // Provide gentle feedback
+      showMoodFeedback(selectedMood);
+    }
+
+    function showMoodFeedback(mood) {
+      const messages = {
+        '1': 'Thank you for being honest about your struggles. You\'re brave.',
+        '2': 'It\'s okay to have difficult days. You\'re not alone.',
+        '3': 'Neutral days are valid too. Every feeling matters.',
+        '4': 'It\'s wonderful that you\'re having a good day.',
+        '5': 'So glad you\'re feeling great today!'
+      };
+      
+      showGentleNotification(messages[mood] || 'Thank you for sharing how you feel.');
+    }
+
+    function showFloatingToolbar() {
+      floatingToolbar.classList.add('visible');
+    }
+
+    function hideFloatingToolbar() {
+      floatingToolbar.classList.remove('visible');
+    }
+
+    function formatText(format) {
+      const selection = window.getSelection();
+      const selectedText = selection.toString();
+      
+      if (!selectedText) return;
+      
+      let formattedText;
+      switch (format) {
+        case 'bold':
+          formattedText = `**${selectedText}**`;
+          break;
+        case 'italic':
+          formattedText = `_${selectedText}_`;
+          break;
+        case 'list':
+          formattedText = `• ${selectedText}`;
+          break;
+        default:
+          return;
+      }
+      
+      replaceSelectedText(formattedText);
+    }
+
+    function replaceSelectedText(newText) {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const before = editor.value.substring(0, start);
+      const after = editor.value.substring(end);
+      
+      editor.value = before + newText + after;
+      editor.focus();
+      
+      // Position cursor after inserted text
+      const newPosition = start + newText.length;
+      editor.setSelectionRange(newPosition, newPosition);
+      
+      updateWordCount();
+      hideFloatingToolbar();
+    }
+
+    function startSessionTimer() {
+      sessionTimer = setInterval(updateSessionTime, 1000);
+    }
+
+    function updateSessionTime() {
+      const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      sessionTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      // Gentle break reminder after 30 minutes
+      if (elapsed > 0 && elapsed % 1800 === 0) {
+        showBreakReminder();
+      }
+    }
+
+    function showBreakReminder() {
+      showGentleNotification('You\'ve been writing for 30 minutes. Consider taking a mindful break. 🫁');
+    }
+
+    function showBreathingExercise() {
+      breathingCard.style.display = 'block';
+      breathingCard.classList.add('active');
+    }
+
+    function startBreathing() {
+      if (breathingActive) return;
+      
+      breathingActive = true;
+      const circle = breathingCircle;
+      
+      function breatheCycle() {
+        if (!breathingActive) return;
+        
+        // Inhale
+        circle.classList.add('breathing');
+        setTimeout(() => {
+          if (!breathingActive) return;
+          // Exhale
+          circle.classList.remove('breathing');
+          setTimeout(breatheCycle, 4000);
+        }, 4000);
+      }
+      
+      breatheCycle();
+      document.getElementById('start-breathing').textContent = 'Breathing...';
+      document.getElementById('start-breathing').disabled = true;
+    }
+
+    function stopBreathing() {
+      breathingActive = false;
+      breathingCircle.classList.remove('breathing');
+      breathingCard.style.display = 'none';
+      breathingCard.classList.remove('active');
+      document.getElementById('start-breathing').textContent = 'Start';
+      document.getElementById('start-breathing').disabled = false;
+    }
+
+    function finishWriting() {
+      if (!editor.value.trim()) {
+        showGentleNotification('Add some thoughts before finishing your session.');
+        return;
+      }
+      
+      // Save final version
+      saveFinalEntry();
+      
+      // Show celebration
+      showSuccessModal();
+    }
+
+    function saveDraft() {
+      autoSave();
+      showGentleNotification('Your draft has been saved securely.');
+    }
+
+    function saveFinalEntry() {
+      const entry = {
+        content: editor.value,
+        mood: selectedMood,
+        wordCount: wordCount,
+        sessionDuration: Date.now() - sessionStartTime,
+        timestamp: Date.now(),
+        id: 'entry_' + Date.now()
+      };
+      
+      // Save to local storage (in real app, would save to database)
+      const entries = JSON.parse(localStorage.getItem('journal_entries') || '[]');
+      entries.push(entry);
+      localStorage.setItem('journal_entries', JSON.stringify(entries));
+      
+      // Clear draft
+      localStorage.removeItem('journal_draft');
+    }
+
+    function showSuccessModal() {
+      successModal.classList.remove('hidden');
+    }
+
+    function viewInsights() {
+      successModal.classList.add('hidden');
+      // Navigate to insights page
+      window.location.href = '/insights';
+    }
+
+    function continueWriting() {
+      successModal.classList.add('hidden');
+      editor.focus();
+    }
+
+    function loadDraft() {
+      const draft = localStorage.getItem('journal_draft');
+      if (draft) {
+        try {
+          const data = JSON.parse(draft);
+          editor.value = data.content || '';
+          selectedMood = data.mood;
+          
+          // Restore mood selection
+          if (selectedMood) {
+            document.querySelector(`[data-mood="${selectedMood}"]`).classList.add('selected');
+          }
+          
+          updateWordCount();
+        } catch (e) {
+          console.error('Error loading draft:', e);
+        }
+      }
+    }
+
+    function loadUserPreferences() {
+      // Load user's writing preferences, streaks, etc.
+      const streak = localStorage.getItem('writing_streak') || '7';
+      const entriesThisWeek = localStorage.getItem('entries_this_week') || '3';
+      
+      document.getElementById('current-streak').textContent = `${streak} day streak`;
+      document.getElementById('entries-this-week').textContent = `${entriesThisWeek} this week`;
+    }
+
+    function searchPrompts() {
+      const query = document.getElementById('prompt-search').value.toLowerCase();
+      const prompts = document.querySelectorAll('.prompt-item');
+      
+      prompts.forEach(prompt => {
+        const text = prompt.textContent.toLowerCase();
+        if (text.includes(query)) {
+          prompt.style.display = 'block';
+        } else {
+          prompt.style.display = 'none';
+        }
+      });
+    }
+
+    function handleKeyboardShortcuts(e) {
+      // Cmd/Ctrl + S to save
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault();
+        saveDraft();
+      }
+      
+      // Cmd/Ctrl + Enter to finish
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        finishWriting();
+      }
+      
+      // Escape to close sidebar
+      if (e.key === 'Escape') {
+        if (promptsSidebar.classList.contains('open')) {
+          closePromptsSidebar();
+        }
+      }
+    }
+
+    function hasUnsavedContent() {
+      const draft = localStorage.getItem('journal_draft');
+      if (!draft) return editor.value.trim().length > 0;
+      
+      try {
+        const data = JSON.parse(draft);
+        return data.content !== editor.value;
+      } catch (e) {
+        return true;
+      }
+    }
+
+    function showGentleNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 card-sanctuary animate-gentle-fade z-50 max-w-md mx-4';
+      notification.innerHTML = `
+        <div class="flex items-center gap-3 text-center">
+          <span class="text-lg">✨</span>
+          <span class="text-sm text-gray-900">${message}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 4000);
+    }
+
+    function respectMotionPreferences() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const style = document.createElement('style');
+        style.textContent = `
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+
+    // Initialize voice recording (UI placeholder)
+    document.getElementById('voice-btn').addEventListener('click', function() {
+      showGentleNotification('Voice recording feature coming soon! 🎤');
+    });
+
+    // Handle mood toolbar button
+    document.getElementById('mood-btn').addEventListener('click', function() {
+      document.querySelector('.mood-selector').scrollIntoView({ behavior: 'smooth' });
+      hideFloatingToolbar();
+    });
+
+  </script>
+
+</body>
+</html>

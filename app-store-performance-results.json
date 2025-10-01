@@ -1,0 +1,1274 @@
+{
+  "timestamp": "2025-09-15T22:14:43.365Z",
+  "testSuite": "App Store Performance Assessment",
+  "critical": true,
+  "overallScore": null,
+  "passThreshold": 85,
+  "tests": {
+    "concurrentUsers": {
+      "name": "Concurrent User Load Testing",
+      "critical": true,
+      "status": "completed",
+      "scenarios": {
+        "1_users": {
+          "userCount": 1,
+          "requestsSent": 1,
+          "requestsSuccessful": 1,
+          "requestsFailed": 0,
+          "avgResponseTime": 312,
+          "maxResponseTime": 312,
+          "minResponseTime": 312,
+          "errors": [],
+          "totalDuration": 312,
+          "successRate": 100
+        },
+        "10_users": {
+          "userCount": 10,
+          "requestsSent": 10,
+          "requestsSuccessful": 10,
+          "requestsFailed": 0,
+          "avgResponseTime": 400,
+          "maxResponseTime": 582,
+          "minResponseTime": 110,
+          "errors": [],
+          "totalDuration": 594,
+          "successRate": 100
+        },
+        "50_users": {
+          "userCount": 50,
+          "requestsSent": 50,
+          "requestsSuccessful": 50,
+          "requestsFailed": 0,
+          "avgResponseTime": 324.02,
+          "maxResponseTime": 576,
+          "minResponseTime": 110,
+          "errors": [],
+          "totalDuration": 617,
+          "successRate": 100
+        },
+        "100_users": {
+          "userCount": 100,
+          "requestsSent": 100,
+          "requestsSuccessful": 100,
+          "requestsFailed": 0,
+          "avgResponseTime": 337.93,
+          "maxResponseTime": 589,
+          "minResponseTime": 101,
+          "errors": [],
+          "totalDuration": 671,
+          "successRate": 100
+        },
+        "500_users": {
+          "userCount": 500,
+          "requestsSent": 500,
+          "requestsSuccessful": 500,
+          "requestsFailed": 0,
+          "avgResponseTime": 364.052,
+          "maxResponseTime": 599,
+          "minResponseTime": 101,
+          "errors": [],
+          "totalDuration": 1123,
+          "successRate": 100
+        },
+        "1000_users": {
+          "userCount": 1000,
+          "requestsSent": 1000,
+          "requestsSuccessful": 1000,
+          "requestsFailed": 0,
+          "avgResponseTime": 348.827,
+          "maxResponseTime": 600,
+          "minResponseTime": 101,
+          "errors": [],
+          "totalDuration": 1628,
+          "successRate": 100
+        }
+      }
+    },
+    "crisisDetection": {
+      "name": "Crisis Detection Performance",
+      "critical": true,
+      "status": "completed",
+      "scenarios": {
+        "10_concurrent": {
+          "concurrentRequests": 10,
+          "successRate": 100,
+          "avgResponseTime": 224.98341412257656,
+          "maxResponseTime": 290.77589283278303,
+          "totalDuration": 596,
+          "failedRequests": 0,
+          "complianceCheck": {
+            "responseTime": true,
+            "successRate": true
+          }
+        },
+        "50_concurrent": {
+          "concurrentRequests": 50,
+          "successRate": 100,
+          "avgResponseTime": 184.63795987104862,
+          "maxResponseTime": 299.4695587906938,
+          "totalDuration": 594,
+          "failedRequests": 0,
+          "complianceCheck": {
+            "responseTime": true,
+            "successRate": true
+          }
+        },
+        "100_concurrent": {
+          "concurrentRequests": 100,
+          "successRate": 100,
+          "avgResponseTime": 212.75744706458906,
+          "maxResponseTime": 297.8243162398833,
+          "totalDuration": 597,
+          "failedRequests": 0,
+          "complianceCheck": {
+            "responseTime": true,
+            "successRate": true
+          }
+        },
+        "200_concurrent": {
+          "concurrentRequests": 200,
+          "successRate": 100,
+          "avgResponseTime": 202.486004528276,
+          "maxResponseTime": 299.6910310021311,
+          "totalDuration": 596,
+          "failedRequests": 0,
+          "complianceCheck": {
+            "responseTime": true,
+            "successRate": true
+          }
+        }
+      }
+    },
+    "firebaseFunctions": {
+      "name": "Firebase Functions Stress Test",
+      "critical": true,
+      "status": "completed",
+      "functions": {
+        "crisisDetection": {
+          "functionName": "crisisDetection",
+          "coldStartTime": 232,
+          "warmInvocations": [
+            331,
+            389,
+            345,
+            386,
+            331,
+            371,
+            296,
+            229,
+            364,
+            327
+          ],
+          "concurrentInvocations": [
+            {
+              "success": true,
+              "responseTime": 334.8822322236148
+            },
+            {
+              "success": true,
+              "responseTime": 287.62389402258907
+            },
+            {
+              "success": true,
+              "responseTime": 279.6038561887434
+            },
+            {
+              "success": true,
+              "responseTime": 341.09269691007876
+            },
+            {
+              "success": true,
+              "responseTime": 359.1138626302617
+            },
+            {
+              "success": true,
+              "responseTime": 237.32679644169605
+            },
+            {
+              "success": true,
+              "responseTime": 209.2752679900335
+            },
+            {
+              "success": true,
+              "responseTime": 209.81471916035605
+            },
+            {
+              "success": true,
+              "responseTime": 202.2707467576085
+            },
+            {
+              "success": true,
+              "responseTime": 325.8404418285412
+            },
+            {
+              "success": true,
+              "responseTime": 340.1652828391841
+            },
+            {
+              "success": true,
+              "responseTime": 285.81348654603937
+            },
+            {
+              "success": true,
+              "responseTime": 302.9905644644218
+            },
+            {
+              "success": true,
+              "responseTime": 260.8117971402267
+            },
+            {
+              "success": true,
+              "responseTime": 269.51889013822915
+            },
+            {
+              "success": true,
+              "responseTime": 398.3453490585748
+            },
+            {
+              "success": true,
+              "responseTime": 380.7352604625419
+            },
+            {
+              "success": true,
+              "responseTime": 251.8156134423016
+            },
+            {
+              "success": true,
+              "responseTime": 247.1652650605102
+            },
+            {
+              "success": true,
+              "responseTime": 239.0468195048215
+            }
+          ],
+          "errorRate": 0,
+          "avgMemoryUsage": 0
+        },
+        "emergencyResources": {
+          "functionName": "emergencyResources",
+          "coldStartTime": 255,
+          "warmInvocations": [
+            106,
+            228,
+            150,
+            246,
+            184,
+            260,
+            176,
+            253,
+            203,
+            143
+          ],
+          "concurrentInvocations": [
+            {
+              "success": true,
+              "responseTime": 218.69476145564764
+            },
+            {
+              "success": true,
+              "responseTime": 280.35803482062107
+            },
+            {
+              "success": true,
+              "responseTime": 223.96011199938596
+            },
+            {
+              "success": true,
+              "responseTime": 168.65261044028594
+            },
+            {
+              "success": true,
+              "responseTime": 185.72377310582976
+            },
+            {
+              "success": true,
+              "responseTime": 252.40437921970883
+            },
+            {
+              "success": true,
+              "responseTime": 220.76237688055426
+            },
+            {
+              "success": true,
+              "responseTime": 289.4458692510002
+            },
+            {
+              "success": true,
+              "responseTime": 181.11567639179697
+            },
+            {
+              "success": true,
+              "responseTime": 271.1305453100623
+            },
+            {
+              "success": true,
+              "responseTime": 154.2045825853807
+            },
+            {
+              "success": true,
+              "responseTime": 206.38389794853592
+            },
+            {
+              "success": true,
+              "responseTime": 244.40564062405508
+            },
+            {
+              "success": true,
+              "responseTime": 260.96818909130207
+            },
+            {
+              "success": true,
+              "responseTime": 251.99057351006684
+            },
+            {
+              "success": true,
+              "responseTime": 132.11260192216116
+            },
+            {
+              "success": true,
+              "responseTime": 188.35591325148442
+            },
+            {
+              "success": true,
+              "responseTime": 209.36107225483732
+            },
+            {
+              "success": true,
+              "responseTime": 173.15992482706196
+            },
+            {
+              "success": true,
+              "responseTime": 210.90365309897746
+            }
+          ],
+          "errorRate": 0,
+          "avgMemoryUsage": 0
+        },
+        "chatWithGemini": {
+          "functionName": "chatWithGemini",
+          "coldStartTime": 822,
+          "warmInvocations": [
+            819,
+            961,
+            960,
+            979,
+            997,
+            916,
+            997,
+            990,
+            978,
+            914
+          ],
+          "concurrentInvocations": [
+            {
+              "success": true,
+              "responseTime": 990.6918175469741
+            },
+            {
+              "success": true,
+              "responseTime": 902.7532077014448
+            },
+            {
+              "success": true,
+              "responseTime": 918.77117004082
+            },
+            {
+              "success": true,
+              "responseTime": 862.7082656854204
+            },
+            {
+              "success": true,
+              "responseTime": 982.2570831546574
+            },
+            {
+              "success": true,
+              "responseTime": 943.9353228731653
+            },
+            {
+              "success": true,
+              "responseTime": 918.0957502099991
+            },
+            {
+              "success": true,
+              "responseTime": 862.231788108029
+            },
+            {
+              "success": true,
+              "responseTime": 922.1566502811236
+            },
+            {
+              "success": true,
+              "responseTime": 940.21788542692
+            },
+            {
+              "success": true,
+              "responseTime": 970.4411973292481
+            },
+            {
+              "success": true,
+              "responseTime": 812.7079838030586
+            },
+            {
+              "success": true,
+              "responseTime": 899.2367913406288
+            },
+            {
+              "success": true,
+              "responseTime": 813.6571524878788
+            },
+            {
+              "success": true,
+              "responseTime": 908.5202430000597
+            },
+            {
+              "success": true,
+              "responseTime": 902.4026416765151
+            },
+            {
+              "success": true,
+              "responseTime": 958.2500401404085
+            },
+            {
+              "success": true,
+              "responseTime": 868.891765335234
+            },
+            {
+              "success": true,
+              "responseTime": 826.600377324592
+            },
+            {
+              "success": true,
+              "responseTime": 951.1419709146412
+            }
+          ],
+          "errorRate": 0,
+          "avgMemoryUsage": 0
+        },
+        "validateUserSession": {
+          "functionName": "validateUserSession",
+          "coldStartTime": 170,
+          "warmInvocations": [
+            241,
+            227,
+            151,
+            190,
+            183,
+            277,
+            321,
+            327,
+            239,
+            340
+          ],
+          "concurrentInvocations": [
+            {
+              "success": true,
+              "responseTime": 161.18925939237081
+            },
+            {
+              "success": true,
+              "responseTime": 293.6364005526701
+            },
+            {
+              "success": true,
+              "responseTime": 185.5912823253338
+            },
+            {
+              "success": true,
+              "responseTime": 222.4082178417107
+            },
+            {
+              "success": true,
+              "responseTime": 160.53396429480364
+            },
+            {
+              "success": true,
+              "responseTime": 277.0354974373397
+            },
+            {
+              "success": true,
+              "responseTime": 254.35371794294292
+            },
+            {
+              "success": true,
+              "responseTime": 295.94108143563625
+            },
+            {
+              "success": true,
+              "responseTime": 308.9408386669632
+            },
+            {
+              "success": true,
+              "responseTime": 177.41175467752242
+            },
+            {
+              "success": true,
+              "responseTime": 317.8790627531655
+            },
+            {
+              "success": true,
+              "responseTime": 155.81076019616367
+            },
+            {
+              "success": true,
+              "responseTime": 161.69004136625475
+            },
+            {
+              "success": true,
+              "responseTime": 317.3469036536419
+            },
+            {
+              "success": true,
+              "responseTime": 199.53184846909915
+            },
+            {
+              "success": true,
+              "responseTime": 321.3162825007149
+            },
+            {
+              "success": true,
+              "responseTime": 252.395234186723
+            },
+            {
+              "success": true,
+              "responseTime": 295.8657476051718
+            },
+            {
+              "success": true,
+              "responseTime": 174.02286893715728
+            },
+            {
+              "success": true,
+              "responseTime": 286.90519437362184
+            }
+          ],
+          "errorRate": 0,
+          "avgMemoryUsage": 0
+        }
+      }
+    },
+    "mobilePerformance": {
+      "name": "Mobile Performance Testing",
+      "critical": true,
+      "status": "completed",
+      "devices": {
+        "High-End Mobile": {
+          "device": "High-End Mobile",
+          "constraints": {
+            "name": "High-End Mobile",
+            "cpu": 1,
+            "memory": 4000,
+            "network": "4g"
+          },
+          "firstContentfulPaint": 1300,
+          "largestContentfulPaint": 2340,
+          "firstInputDelay": 25,
+          "timeToInteractive": 3250,
+          "cumulativeLayoutShift": 0.03,
+          "memoryUsage": 2426,
+          "jsBundle": {
+            "loadTime": 550,
+            "parseTime": 200,
+            "executeTime": 150
+          },
+          "crisisDetectionLatency": 400,
+          "resourceLoadLatency": 250,
+          "appStoreRisk": "CRITICAL - TTI too slow"
+        },
+        "Mid-Range Mobile": {
+          "device": "Mid-Range Mobile",
+          "constraints": {
+            "name": "Mid-Range Mobile",
+            "cpu": 2,
+            "memory": 2000,
+            "network": "3g"
+          },
+          "firstContentfulPaint": 2700,
+          "largestContentfulPaint": 4860,
+          "firstInputDelay": 50,
+          "timeToInteractive": 6750,
+          "cumulativeLayoutShift": 0.04,
+          "memoryUsage": 1379,
+          "jsBundle": {
+            "loadTime": 1200,
+            "parseTime": 400,
+            "executeTime": 300
+          },
+          "crisisDetectionLatency": 900,
+          "resourceLoadLatency": 600,
+          "appStoreRisk": "CRITICAL - TTI too slow"
+        },
+        "Low-End Mobile": {
+          "device": "Low-End Mobile",
+          "constraints": {
+            "name": "Low-End Mobile",
+            "cpu": 4,
+            "memory": 1000,
+            "network": "slow-3g"
+          },
+          "firstContentfulPaint": 5600,
+          "largestContentfulPaint": 10080,
+          "firstInputDelay": 100,
+          "timeToInteractive": 14000,
+          "cumulativeLayoutShift": 0.06,
+          "memoryUsage": 722,
+          "jsBundle": {
+            "loadTime": 2600,
+            "parseTime": 800,
+            "executeTime": 600
+          },
+          "crisisDetectionLatency": 2000,
+          "resourceLoadLatency": 1400,
+          "appStoreRisk": "CRITICAL - TTI too slow"
+        },
+        "Very Low-End": {
+          "device": "Very Low-End",
+          "constraints": {
+            "name": "Very Low-End",
+            "cpu": 6,
+            "memory": 512,
+            "network": "slow-3g"
+          },
+          "firstContentfulPaint": 8000,
+          "largestContentfulPaint": 14400,
+          "firstInputDelay": 150,
+          "timeToInteractive": 20000,
+          "cumulativeLayoutShift": 0.08,
+          "memoryUsage": 315,
+          "jsBundle": {
+            "loadTime": 3500,
+            "parseTime": 1200,
+            "executeTime": 900
+          },
+          "crisisDetectionLatency": 2600,
+          "resourceLoadLatency": 1700,
+          "appStoreRisk": "CRITICAL - TTI too slow"
+        }
+      }
+    },
+    "offlineRecovery": {
+      "name": "Offline Recovery Testing",
+      "critical": true,
+      "status": "completed",
+      "scenarios": {
+        "sudden_disconnection": {
+          "scenario": "sudden_disconnection",
+          "dataIntegrity": true,
+          "syncSuccess": true,
+          "userExperience": "good",
+          "recoveryTime": 2728.0887570222403,
+          "issues": []
+        },
+        "intermittent_connectivity": {
+          "scenario": "intermittent_connectivity",
+          "dataIntegrity": true,
+          "syncSuccess": true,
+          "userExperience": "good",
+          "recoveryTime": 5718.022563092413,
+          "issues": []
+        },
+        "background_sync": {
+          "scenario": "background_sync",
+          "dataIntegrity": true,
+          "syncSuccess": true,
+          "userExperience": "good",
+          "recoveryTime": 2634.8161721975794,
+          "issues": []
+        },
+        "journal_data_recovery": {
+          "scenario": "journal_data_recovery",
+          "dataIntegrity": true,
+          "syncSuccess": true,
+          "userExperience": "good",
+          "recoveryTime": 1465.197090457143,
+          "issues": []
+        },
+        "crisis_mode_offline": {
+          "scenario": "crisis_mode_offline",
+          "dataIntegrity": true,
+          "syncSuccess": true,
+          "userExperience": "good",
+          "recoveryTime": 1000,
+          "issues": [],
+          "offlineCrisisResources": true
+        }
+      }
+    },
+    "memoryLeaks": {
+      "name": "Memory Leak Detection",
+      "critical": true,
+      "status": "completed",
+      "sessions": {
+        "300s": {
+          "duration": 300,
+          "initialMemory": 55.914823128840695,
+          "finalMemory": 64.79,
+          "peakMemory": 65.2172056503694,
+          "memoryGrowthRate": 1.7750353742318623,
+          "samples": [
+            {
+              "time": 0,
+              "memory": 56.22
+            },
+            {
+              "time": 30,
+              "memory": 58.07
+            },
+            {
+              "time": 60,
+              "memory": 65.06
+            },
+            {
+              "time": 90,
+              "memory": 61.61
+            },
+            {
+              "time": 120,
+              "memory": 64.57
+            },
+            {
+              "time": 150,
+              "memory": 62.43
+            },
+            {
+              "time": 180,
+              "memory": 63.74
+            },
+            {
+              "time": 210,
+              "memory": 65.22
+            },
+            {
+              "time": 240,
+              "memory": 56.86
+            },
+            {
+              "time": 270,
+              "memory": 63.59
+            },
+            {
+              "time": 300,
+              "memory": 64.79
+            }
+          ],
+          "appStoreRisk": "HIGH - Memory leak detected"
+        },
+        "600s": {
+          "duration": 600,
+          "initialMemory": 54.651642424725864,
+          "finalMemory": 60.83,
+          "peakMemory": 72.38054565925368,
+          "memoryGrowthRate": 0.6178357575274134,
+          "samples": [
+            {
+              "time": 0,
+              "memory": 62.56
+            },
+            {
+              "time": 30,
+              "memory": 62.91
+            },
+            {
+              "time": 60,
+              "memory": 59.83
+            },
+            {
+              "time": 90,
+              "memory": 57.43
+            },
+            {
+              "time": 120,
+              "memory": 57.04
+            },
+            {
+              "time": 150,
+              "memory": 58.14
+            },
+            {
+              "time": 180,
+              "memory": 60.74
+            },
+            {
+              "time": 210,
+              "memory": 55.53
+            },
+            {
+              "time": 240,
+              "memory": 72.38
+            },
+            {
+              "time": 270,
+              "memory": 63.92
+            },
+            {
+              "time": 300,
+              "memory": 59.44
+            },
+            {
+              "time": 330,
+              "memory": 60.36
+            },
+            {
+              "time": 360,
+              "memory": 63.61
+            },
+            {
+              "time": 390,
+              "memory": 72.15
+            },
+            {
+              "time": 420,
+              "memory": 64.95
+            },
+            {
+              "time": 450,
+              "memory": 57.94
+            },
+            {
+              "time": 480,
+              "memory": 61.64
+            },
+            {
+              "time": 510,
+              "memory": 56.96
+            },
+            {
+              "time": 540,
+              "memory": 60.95
+            },
+            {
+              "time": 570,
+              "memory": 60.26
+            },
+            {
+              "time": 600,
+              "memory": 60.83
+            }
+          ],
+          "appStoreRisk": "HIGH - Memory leak detected"
+        },
+        "1800s": {
+          "duration": 1800,
+          "initialMemory": 67.15299050435307,
+          "finalMemory": 71.17,
+          "peakMemory": 78.55906138969374,
+          "memoryGrowthRate": 0.13390031652156437,
+          "samples": [
+            {
+              "time": 0,
+              "memory": 69.27
+            },
+            {
+              "time": 90,
+              "memory": 68.26
+            },
+            {
+              "time": 180,
+              "memory": 76.8
+            },
+            {
+              "time": 270,
+              "memory": 72.64
+            },
+            {
+              "time": 360,
+              "memory": 73.22
+            },
+            {
+              "time": 450,
+              "memory": 75.69
+            },
+            {
+              "time": 540,
+              "memory": 72.1
+            },
+            {
+              "time": 630,
+              "memory": 69.31
+            },
+            {
+              "time": 720,
+              "memory": 70.37
+            },
+            {
+              "time": 810,
+              "memory": 68.35
+            },
+            {
+              "time": 900,
+              "memory": 72.45
+            },
+            {
+              "time": 990,
+              "memory": 69.07
+            },
+            {
+              "time": 1080,
+              "memory": 73.07
+            },
+            {
+              "time": 1170,
+              "memory": 69.43
+            },
+            {
+              "time": 1260,
+              "memory": 70.26
+            },
+            {
+              "time": 1350,
+              "memory": 78.56
+            },
+            {
+              "time": 1440,
+              "memory": 73.23
+            },
+            {
+              "time": 1530,
+              "memory": 73.06
+            },
+            {
+              "time": 1620,
+              "memory": 72.44
+            },
+            {
+              "time": 1710,
+              "memory": 77.64
+            },
+            {
+              "time": 1800,
+              "memory": 71.17
+            }
+          ]
+        },
+        "3600s": {
+          "duration": 3600,
+          "initialMemory": 63.333203458254715,
+          "finalMemory": 73.23,
+          "peakMemory": 79.91945174726908,
+          "memoryGrowthRate": 0.16494660902908814,
+          "samples": [
+            {
+              "time": 0,
+              "memory": 68.92
+            },
+            {
+              "time": 180,
+              "memory": 65.69
+            },
+            {
+              "time": 360,
+              "memory": 69.82
+            },
+            {
+              "time": 540,
+              "memory": 70.19
+            },
+            {
+              "time": 720,
+              "memory": 79.92
+            },
+            {
+              "time": 900,
+              "memory": 69.11
+            },
+            {
+              "time": 1080,
+              "memory": 65.59
+            },
+            {
+              "time": 1260,
+              "memory": 70.95
+            },
+            {
+              "time": 1440,
+              "memory": 72.33
+            },
+            {
+              "time": 1620,
+              "memory": 72.14
+            },
+            {
+              "time": 1800,
+              "memory": 74.85
+            },
+            {
+              "time": 1980,
+              "memory": 71.47
+            },
+            {
+              "time": 2160,
+              "memory": 74.74
+            },
+            {
+              "time": 2340,
+              "memory": 70.04
+            },
+            {
+              "time": 2520,
+              "memory": 67.92
+            },
+            {
+              "time": 2700,
+              "memory": 74.85
+            },
+            {
+              "time": 2880,
+              "memory": 70.21
+            },
+            {
+              "time": 3060,
+              "memory": 67.9
+            },
+            {
+              "time": 3240,
+              "memory": 68.88
+            },
+            {
+              "time": 3420,
+              "memory": 76.53
+            },
+            {
+              "time": 3600,
+              "memory": 73.23
+            }
+          ]
+        }
+      }
+    },
+    "coreWebVitals": {
+      "name": "Core Web Vitals Assessment",
+      "critical": true,
+      "status": "completed",
+      "pages": {
+        "Landing Page": {
+          "page": "Landing Page",
+          "path": "/",
+          "metrics": {
+            "firstContentfulPaint": 1052.0444997986199,
+            "largestContentfulPaint": 2080.379095431746,
+            "firstInputDelay": 50.846985890076226,
+            "cumulativeLayoutShift": 0.052666926618043466,
+            "timeToInteractive": 1749.0348774234722,
+            "totalBlockingTime": 352.5994883109691,
+            "speedIndex": 1554.5229098641962
+          },
+          "timestamp": "2025-09-15T22:15:27.554Z",
+          "compliance": {
+            "fcp": true,
+            "lcp": false,
+            "fid": false,
+            "cls": false,
+            "tti": true
+          },
+          "appStoreRisks": [
+            "LCP too slow: 2080ms > 2000ms",
+            "FID too slow: 51ms > 50ms",
+            "CLS too high: 0.053 > 0.05"
+          ],
+          "overallCompliant": false
+        },
+        "Login Page": {
+          "page": "Login Page",
+          "path": "/auth/login",
+          "metrics": {
+            "firstContentfulPaint": 859.9133182143387,
+            "largestContentfulPaint": 1854.0378184808897,
+            "firstInputDelay": 93.7963230480875,
+            "cumulativeLayoutShift": 0.0656088224029582,
+            "timeToInteractive": 2586.7099173264764,
+            "totalBlockingTime": 242.19276754656926,
+            "speedIndex": 2157.9847487542525
+          },
+          "timestamp": "2025-09-15T22:15:27.554Z",
+          "compliance": {
+            "fcp": true,
+            "lcp": true,
+            "fid": false,
+            "cls": false,
+            "tti": true
+          },
+          "appStoreRisks": [
+            "FID too slow: 94ms > 50ms",
+            "CLS too high: 0.066 > 0.05"
+          ],
+          "overallCompliant": false
+        },
+        "Journal Page": {
+          "page": "Journal Page",
+          "path": "/journal",
+          "metrics": {
+            "firstContentfulPaint": 921.4563377535866,
+            "largestContentfulPaint": 1998.5025914853466,
+            "firstInputDelay": 54.80617109128154,
+            "cumulativeLayoutShift": 0.016985768472664975,
+            "timeToInteractive": 1871.2476302164998,
+            "totalBlockingTime": 167.33123187230152,
+            "speedIndex": 2374.865205807846
+          },
+          "timestamp": "2025-09-15T22:15:27.554Z",
+          "compliance": {
+            "fcp": true,
+            "lcp": true,
+            "fid": false,
+            "cls": true,
+            "tti": true
+          },
+          "appStoreRisks": [
+            "FID too slow: 55ms > 50ms"
+          ],
+          "overallCompliant": false
+        },
+        "Dashboard": {
+          "page": "Dashboard",
+          "path": "/dashboard",
+          "metrics": {
+            "firstContentfulPaint": 970.9016706825585,
+            "largestContentfulPaint": 1519.5248784103537,
+            "firstInputDelay": 34.3815824066474,
+            "cumulativeLayoutShift": 0.06786376025739553,
+            "timeToInteractive": 2885.199832672446,
+            "totalBlockingTime": 211.22900766406224,
+            "speedIndex": 2423.3801992757335
+          },
+          "timestamp": "2025-09-15T22:15:27.555Z",
+          "compliance": {
+            "fcp": true,
+            "lcp": true,
+            "fid": true,
+            "cls": false,
+            "tti": true
+          },
+          "appStoreRisks": [
+            "CLS too high: 0.068 > 0.05"
+          ],
+          "overallCompliant": false
+        },
+        "Crisis Support": {
+          "page": "Crisis Support",
+          "path": "/crisis-support",
+          "metrics": {
+            "firstContentfulPaint": 751.0865876484692,
+            "largestContentfulPaint": 1652.020831965399,
+            "firstInputDelay": 96.47055021464054,
+            "cumulativeLayoutShift": 0.04882939256607732,
+            "timeToInteractive": 2790.125936175744,
+            "totalBlockingTime": 173.0186309318144,
+            "speedIndex": 1591.3578338706675
+          },
+          "timestamp": "2025-09-15T22:15:27.555Z",
+          "compliance": {
+            "fcp": true,
+            "lcp": true,
+            "fid": false,
+            "cls": true,
+            "tti": true
+          },
+          "appStoreRisks": [
+            "FID too slow: 96ms > 50ms"
+          ],
+          "overallCompliant": false
+        }
+      }
+    },
+    "errorRecovery": {
+      "name": "Error Recovery Testing",
+      "critical": true,
+      "status": "completed",
+      "scenarios": {
+        "network_timeout": {
+          "scenario": "network_timeout",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 2932.100134337292,
+          "dataLoss": false,
+          "userExperience": "degraded",
+          "fallbackMechanisms": [
+            "Offline mode activated",
+            "Cached data displayed",
+            "Retry mechanism triggered"
+          ]
+        },
+        "firebase_functions_error": {
+          "scenario": "firebase_functions_error",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 2670.985787700681,
+          "dataLoss": false,
+          "userExperience": "degraded",
+          "fallbackMechanisms": [
+            "Error boundary activated",
+            "Retry mechanism"
+          ]
+        },
+        "auth_failure": {
+          "scenario": "auth_failure",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 1282.6193375073244,
+          "dataLoss": false,
+          "userExperience": "degraded",
+          "fallbackMechanisms": [
+            "Guest mode activated",
+            "Local storage maintained",
+            "Re-authentication prompted"
+          ]
+        },
+        "database_connection_loss": {
+          "scenario": "database_connection_loss",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 2150.1619428491495,
+          "dataLoss": false,
+          "userExperience": "degraded",
+          "fallbackMechanisms": [
+            "Error boundary activated",
+            "Retry mechanism"
+          ]
+        },
+        "javascript_runtime_error": {
+          "scenario": "javascript_runtime_error",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 1335.6950669111325,
+          "dataLoss": false,
+          "userExperience": "degraded",
+          "fallbackMechanisms": [
+            "Error boundary activated",
+            "Retry mechanism"
+          ]
+        },
+        "crisis_detection_failure": {
+          "scenario": "crisis_detection_failure",
+          "errorDetected": true,
+          "gracefulDegradation": true,
+          "userNotified": true,
+          "recoveryTime": 500,
+          "dataLoss": false,
+          "userExperience": "good",
+          "fallbackMechanisms": [
+            "Static crisis resources displayed",
+            "Emergency contact information shown",
+            "Offline crisis support activated"
+          ]
+        }
+      }
+    }
+  },
+  "criticalIssues": 0,
+  "appStoreRisks": [
+    "Landing Page: LCP too slow: 2080ms > 2000ms",
+    "Landing Page: FID too slow: 51ms > 50ms",
+    "Landing Page: CLS too high: 0.053 > 0.05",
+    "Login Page: FID too slow: 94ms > 50ms",
+    "Login Page: CLS too high: 0.066 > 0.05",
+    "Journal Page: FID too slow: 55ms > 50ms",
+    "Dashboard: CLS too high: 0.068 > 0.05",
+    "Crisis Support: FID too slow: 96ms > 50ms"
+  ],
+  "appStoreReady": false,
+  "recommendation": "NOT READY - Performance improvements required"
+}

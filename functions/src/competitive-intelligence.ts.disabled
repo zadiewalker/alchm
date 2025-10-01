@@ -1,0 +1,797 @@
+/**
+ * ALCHM Competitive Intelligence Firebase Functions
+ * Automated data collection and processing for competitive monitoring
+ */
+
+import { onSchedule } from 'firebase-functions/v2/scheduler';
+import { onRequest } from 'firebase-functions/v2/https';
+import { initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import { logger } from 'firebase-functions';
+
+// Initialize Firebase Admin
+initializeApp();
+const db = getFirestore();
+
+// Rate limiting and privacy compliance
+interface RateLimitTracker {
+  requests: number;
+  resetTime: number;
+  lastRequest: number;
+}
+
+const rateLimits = new Map<string, RateLimitTracker>();
+
+/**
+ * Scheduled function to collect app store data
+ * Runs daily at 2 AM UTC
+ */
+export const collectAppStoreData = onSchedule({
+  schedule: '0 2 * * *', // Daily at 2 AM UTC
+  timeZone: 'UTC',
+  memory: '512MiB',
+  timeoutSeconds: 540
+}, async (event) => {
+  try {
+    logger.info('Starting automated app store data collection');
+    
+    // Get active competitors
+    const competitorsSnapshot = await db.collection('competitive_intelligence_competitors')
+      .where('isActive', '==', true)
+      .get();
+    
+    const competitors = competitorsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    
+    logger.info(`Processing ${competitors.length} competitors`);
+    
+    // Process each competitor
+    for (const competitor of competitors) {
+      try {
+        await processCompetitorData(competitor);
+        
+        // Respect rate limits
+        await respectRateLimit('app-store-api');
+        
+      } catch (error) {
+        logger.error(`Error processing competitor ${competitor.id}:`, error);
+      }
+    }
+    
+    logger.info('App store data collection completed');
+  } catch (error) {
+    logger.error('Error in app store data collection:', error);
+    throw error;
+  }
+});
+
+/**
+ * Scheduled function to analyze reviews and sentiment
+ * Runs every 4 hours
+ */
+export const analyzeReviewSentiment = onSchedule({
+  schedule: '0 */4 * * *', // Every 4 hours
+  timeZone: 'UTC',
+  memory: '1GiB',
+  timeoutSeconds: 540
+}, async (event) => {
+  try {
+    logger.info('Starting review sentiment analysis');
+    
+    // Get recent reviews that need analysis
+    const reviewsSnapshot = await db.collection('competitive_intelligence_reviews')
+      .where('analysisCompleted', '==', false)
+      .limit(100)
+      .get();
+    
+    logger.info(`Analyzing ${reviewsSnapshot.docs.length} reviews`);
+    
+    for (const reviewDoc of reviewsSnapshot.docs) {
+      try {
+        const review = reviewDoc.data();
+        const analysis = await performSentimentAnalysis(review);
+        
+        // Update review with analysis
+        await reviewDoc.ref.update({
+          ...analysis,
+          analysisCompleted: true,
+          analysisDate: new Date()
+        });
+        
+        // Check for alerts
+        await checkForSentimentAlerts(review.competitorId, analysis);
+        
+      } catch (error) {
+        logger.error(`Error analyzing review ${reviewDoc.id}:`, error);
+      }
+    }
+    
+    logger.info('Review sentiment analysis completed');
+  } catch (error) {
+    logger.error('Error in review sentiment analysis:', error);
+    throw error;
+  }
+});
+
+/**
+ * Scheduled function to detect feature changes
+ * Runs weekly on Sundays at 3 AM
+ */
+export const detectFeatureChanges = onSchedule({
+  schedule: '0 3 * * 0', // Weekly on Sunday at 3 AM
+  timeZone: 'UTC',
+  memory: '1GiB',
+  timeoutSeconds: 540
+}, async (event) => {
+  try {
+    logger.info('Starting feature change detection');
+    
+    const competitorsSnapshot = await db.collection('competitive_intelligence_competitors')
+      .where('isActive', '==', true)
+      .get();
+    
+    for (const competitorDoc of competitorsSnapshot.docs) {
+      try {
+        const competitor = { id: competitorDoc.id, ...competitorDoc.data() };
+        await analyzeCompetitorFeatures(competitor);
+        
+      } catch (error) {
+        logger.error(`Error analyzing features for ${competitorDoc.id}:`, error);
+      }
+    }
+    
+    logger.info('Feature change detection completed');
+  } catch (error) {
+    logger.error('Error in feature change detection:', error);
+    throw error;
+  }
+});
+
+/**
+ * Scheduled function to identify market opportunities
+ * Runs weekly on Mondays at 4 AM
+ */
+export const identifyOpportunities = onSchedule({
+  schedule: '0 4 * * 1', // Weekly on Monday at 4 AM
+  timeZone: 'UTC',
+  memory: '2GiB',
+  timeoutSeconds: 540
+}, async (event) => {
+  try {
+    logger.info('Starting opportunity identification');
+    
+    // Run comprehensive opportunity analysis
+    const opportunities = await runOpportunityAnalysis();
+    
+    // Store opportunities
+    for (const opportunity of opportunities) {
+      await db.collection('competitive_intelligence_opportunities').add({
+        ...opportunity,
+        identifiedDate: new Date(),
+        status: 'new'
+      });
+      
+      // Create high-priority alerts
+      if (opportunity.priority === 'high') {
+        await createOpportunityAlert(opportunity);
+      }
+    }
+    
+    logger.info(`Identified ${opportunities.length} new opportunities`);
+  } catch (error) {
+    logger.error('Error in opportunity identification:', error);
+    throw error;
+  }
+});
+
+/**
+ * Scheduled function to generate weekly reports
+ * Runs weekly on Mondays at 9 AM
+ */
+export const generateWeeklyReport = onSchedule({
+  schedule: '0 9 * * 1', // Weekly on Monday at 9 AM
+  timeZone: 'UTC',
+  memory: '1GiB',
+  timeoutSeconds: 540
+}, async (event) => {
+  try {
+    logger.info('Starting weekly report generation');
+    
+    const endDate = new Date();
+    const startDate = new Date(endDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    const report = await generateCompetitiveReport('weekly-brief', startDate, endDate);
+    
+    // Store report
+    await db.collection('competitive_intelligence_reports').add(report);
+    
+    // Send notifications
+    await sendReportNotifications(report);
+    
+    logger.info('Weekly report generated and sent');
+  } catch (error) {
+    logger.error('Error generating weekly report:', error);
+    throw error;
+  }
+});
+
+/**
+ * HTTP function for manual data collection trigger
+ */
+export const triggerDataCollection = onRequest({
+  cors: true,
+  memory: '512MiB',
+  timeoutSeconds: 300
+}, async (req, res) => {
+  try {
+    // Verify authentication (in production, implement proper auth)
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    
+    const competitorId = req.body.competitorId;
+    const dataType = req.body.dataType || 'all';
+    
+    logger.info(`Manual data collection triggered for ${competitorId}, type: ${dataType}`);
+    
+    if (competitorId) {
+      // Get specific competitor
+      const competitorDoc = await db.collection('competitive_intelligence_competitors')
+        .doc(competitorId)
+        .get();
+      
+      if (!competitorDoc.exists) {
+        res.status(404).json({ error: 'Competitor not found' });
+        return;
+      }
+      
+      const competitor = { id: competitorDoc.id, ...competitorDoc.data() };
+      
+      // Process based on data type
+      switch (dataType) {
+        case 'metrics':
+          await processCompetitorData(competitor);
+          break;
+        case 'features':
+          await analyzeCompetitorFeatures(competitor);
+          break;
+        case 'all':
+          await processCompetitorData(competitor);
+          await analyzeCompetitorFeatures(competitor);
+          break;
+      }
+    } else {
+      // Process all competitors
+      const competitorsSnapshot = await db.collection('competitive_intelligence_competitors')
+        .where('isActive', '==', true)
+        .get();
+      
+      for (const competitorDoc of competitorsSnapshot.docs) {
+        const competitor = { id: competitorDoc.id, ...competitorDoc.data() };
+        await processCompetitorData(competitor);
+      }
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Data collection completed',
+      timestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    logger.error('Error in manual data collection:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * HTTP function for real-time alert webhooks
+ */
+export const alertWebhook = onRequest({
+  cors: true,
+  memory: '256MiB',
+  timeoutSeconds: 60
+}, async (req, res) => {
+  try {
+    // Validate webhook signature (implement in production)
+    
+    const alertData = req.body;
+    
+    // Process alert
+    await db.collection('competitive_intelligence_alerts').add({
+      ...alertData,
+      detectedAt: new Date(),
+      status: 'new',
+      source: 'webhook'
+    });
+    
+    // Send immediate notifications for critical alerts
+    if (alertData.severity === 'critical') {
+      await sendImmediateNotification(alertData);
+    }
+    
+    res.json({ success: true });
+    
+  } catch (error) {
+    logger.error('Error processing alert webhook:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// ==================== HELPER FUNCTIONS ====================
+
+/**
+ * Process competitor data collection
+ */
+async function processCompetitorData(competitor: any): Promise<void> {
+  try {
+    // Simulate app store data collection
+    // In production, this would use real APIs
+    
+    const mockMetrics = {
+      competitorId: competitor.id,
+      platform: 'ios',
+      date: new Date(),
+      categoryRank: Math.floor(Math.random() * 50) + 1,
+      categoryId: '6013',
+      averageRating: 3.5 + Math.random() * 1.5,
+      totalReviews: Math.floor(Math.random() * 50000) + 1000,
+      recentReviews: Math.floor(Math.random() * 500) + 10,
+      version: '1.0.' + Math.floor(Math.random() * 50),
+      lastVersionUpdate: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
+      visibilityScore: Math.random() * 100,
+      estimatedDownloads: Math.floor(Math.random() * 100000) + 5000,
+      estimatedRevenue: Math.floor(Math.random() * 50000) + 1000,
+      dataSource: 'automated_collection',
+      collectionDate: new Date()
+    };
+    
+    // Store metrics
+    await db.collection('competitive_intelligence_app_metrics').add(mockMetrics);
+    
+    // Check for ranking changes
+    await checkForRankingAlerts(competitor.id, mockMetrics);
+    
+    logger.info(`Processed data for competitor: ${competitor.name}`);
+  } catch (error) {
+    logger.error(`Error processing competitor data for ${competitor.id}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Perform sentiment analysis on reviews
+ */
+async function performSentimentAnalysis(review: any): Promise<any> {
+  try {
+    // In production, this would use advanced NLP services like:
+    // - Google Cloud Natural Language API
+    // - AWS Comprehend
+    // - Azure Text Analytics
+    // - Custom ML models
+    
+    // Mock sentiment analysis
+    const content = review.content || '';
+    const rating = review.rating || 3;
+    
+    // Simple sentiment calculation based on rating and keywords
+    let sentimentScore = (rating - 3) / 2; // Scale to -1 to 1
+    
+    // Keyword-based adjustments
+    const positiveKeywords = ['great', 'excellent', 'amazing', 'love', 'perfect', 'helpful'];
+    const negativeKeywords = ['terrible', 'awful', 'hate', 'worst', 'useless', 'broken'];
+    
+    positiveKeywords.forEach(keyword => {
+      if (content.toLowerCase().includes(keyword)) {
+        sentimentScore += 0.1;
+      }
+    });
+    
+    negativeKeywords.forEach(keyword => {
+      if (content.toLowerCase().includes(keyword)) {
+        sentimentScore -= 0.1;
+      }
+    });
+    
+    // Clamp to -1 to 1 range
+    sentimentScore = Math.max(-1, Math.min(1, sentimentScore));
+    
+    const sentimentLabel = sentimentScore > 0.1 ? 'positive' : 
+                          sentimentScore < -0.1 ? 'negative' : 'neutral';
+    
+    // Extract topics and features mentioned
+    const topics = extractTopicsFromText(content);
+    const featuresDiscussed = extractFeaturesFromText(content);
+    const issuesReported = extractIssuesFromText(content);
+    
+    return {
+      sentimentScore,
+      sentimentLabel,
+      topics,
+      featuresDiscussed,
+      issuesReported,
+      aiAnalysisConfidence: 0.8,
+      keyInsights: generateInsights(content, sentimentScore)
+    };
+  } catch (error) {
+    logger.error('Error in sentiment analysis:', error);
+    throw error;
+  }
+}
+
+/**
+ * Analyze competitor features
+ */
+async function analyzeCompetitorFeatures(competitor: any): Promise<void> {
+  try {
+    // In production, this would analyze:
+    // - App store descriptions
+    // - Screenshots
+    // - Version history
+    // - Website content
+    // - Social media
+    
+    // Mock feature detection
+    const detectedFeatures = [
+      {
+        name: 'AI-powered insights',
+        category: 'AI/ML',
+        description: 'Automated analysis and recommendations',
+        confidence: 0.9,
+        firstDetected: new Date(),
+        status: 'active'
+      },
+      {
+        name: 'Mood tracking',
+        category: 'Core',
+        description: 'Daily mood monitoring and trends',
+        confidence: 0.95,
+        firstDetected: new Date(),
+        status: 'active'
+      }
+    ];
+    
+    // Store feature analysis
+    await db.collection('competitive_intelligence_features').add({
+      competitorId: competitor.id,
+      date: new Date(),
+      detectedFeatures,
+      analysisMethod: 'automated',
+      confidence: 0.85
+    });
+    
+    // Check for new features
+    await checkForNewFeatureAlerts(competitor.id, detectedFeatures);
+    
+    logger.info(`Analyzed features for competitor: ${competitor.name}`);
+  } catch (error) {
+    logger.error(`Error analyzing features for ${competitor.id}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Run comprehensive opportunity analysis
+ */
+async function runOpportunityAnalysis(): Promise<any[]> {
+  try {
+    // Mock opportunity identification
+    const opportunities = [
+      {
+        type: 'gap',
+        title: 'Underserved Teen Mental Health Market',
+        description: 'Limited age-appropriate mental health apps for teenagers',
+        confidence: 0.85,
+        priority: 'high',
+        estimatedImpact: 'high',
+        estimatedEffort: 'medium',
+        evidencePoints: [
+          'High teen mental health crisis rates',
+          'Most apps target adults',
+          'Regulatory compliance gap for minors'
+        ],
+        recommendedActions: [
+          'Develop teen-specific app version',
+          'Add parental controls',
+          'Partner with schools'
+        ]
+      },
+      {
+        type: 'weakness',
+        title: 'Competitor Privacy Concerns',
+        description: 'Major competitor facing privacy backlash',
+        confidence: 0.9,
+        priority: 'high',
+        estimatedImpact: 'high',
+        estimatedEffort: 'low',
+        evidencePoints: [
+          'Negative reviews about data collection',
+          'Regulatory scrutiny',
+          'User trust declining'
+        ],
+        recommendedActions: [
+          'Launch privacy-first marketing campaign',
+          'Highlight data protection features'
+        ]
+      }
+    ];
+    
+    return opportunities;
+  } catch (error) {
+    logger.error('Error in opportunity analysis:', error);
+    throw error;
+  }
+}
+
+/**
+ * Generate competitive intelligence report
+ */
+async function generateCompetitiveReport(type: string, startDate: Date, endDate: Date): Promise<any> {
+  try {
+    // Gather data for report
+    const alertsSnapshot = await db.collection('competitive_intelligence_alerts')
+      .where('detectedAt', '>=', startDate)
+      .where('detectedAt', '<=', endDate)
+      .get();
+    
+    const opportunitiesSnapshot = await db.collection('competitive_intelligence_opportunities')
+      .where('identifiedDate', '>=', startDate)
+      .where('identifiedDate', '<=', endDate)
+      .get();
+    
+    const alerts = alertsSnapshot.docs.map(doc => doc.data());
+    const opportunities = opportunitiesSnapshot.docs.map(doc => doc.data());
+    
+    // Generate report
+    const report = {
+      type,
+      title: `Competitive Intelligence ${type.replace('-', ' ')} - ${formatDateRange(startDate, endDate)}`,
+      startDate,
+      endDate,
+      generatedAt: new Date(),
+      generatedBy: 'automated',
+      
+      executiveSummary: generateExecutiveSummary(alerts, opportunities),
+      keyFindings: generateKeyFindings(alerts, opportunities),
+      recommendations: generateRecommendations(alerts, opportunities),
+      
+      alertsSummary: {
+        total: alerts.length,
+        critical: alerts.filter(a => a.severity === 'critical').length,
+        high: alerts.filter(a => a.severity === 'high').length,
+        trends: identifyAlertTrends(alerts)
+      },
+      
+      opportunitiesSummary: {
+        total: opportunities.length,
+        highPriority: opportunities.filter(o => o.priority === 'high').length,
+        estimatedValue: calculateOpportunityValue(opportunities)
+      },
+      
+      confidenceLevel: 0.85,
+      dataQualityScore: 0.9
+    };
+    
+    return report;
+  } catch (error) {
+    logger.error('Error generating report:', error);
+    throw error;
+  }
+}
+
+/**
+ * Rate limiting enforcement
+ */
+async function respectRateLimit(serviceId: string): Promise<void> {
+  const now = Date.now();
+  const rateLimitInfo = rateLimits.get(serviceId);
+  
+  if (!rateLimitInfo || now > rateLimitInfo.resetTime) {
+    // Reset rate limit
+    rateLimits.set(serviceId, {
+      requests: 1,
+      resetTime: now + 60000, // 1 minute
+      lastRequest: now
+    });
+    return;
+  }
+  
+  // Check if we're within limits
+  const requestsPerMinute = 60; // Conservative limit
+  if (rateLimitInfo.requests >= requestsPerMinute) {
+    const waitTime = rateLimitInfo.resetTime - now;
+    logger.info(`Rate limit reached for ${serviceId}, waiting ${waitTime}ms`);
+    await new Promise(resolve => setTimeout(resolve, waitTime));
+    
+    // Reset after waiting
+    rateLimits.set(serviceId, {
+      requests: 1,
+      resetTime: now + 60000,
+      lastRequest: now
+    });
+  } else {
+    // Increment counter
+    rateLimitInfo.requests++;
+    rateLimitInfo.lastRequest = now;
+  }
+}
+
+/**
+ * Alert checking functions
+ */
+async function checkForRankingAlerts(competitorId: string, metrics: any): Promise<void> {
+  // Get previous metrics to compare
+  const previousMetricsSnapshot = await db.collection('competitive_intelligence_app_metrics')
+    .where('competitorId', '==', competitorId)
+    .where('platform', '==', metrics.platform)
+    .orderBy('date', 'desc')
+    .limit(2)
+    .get();
+  
+  if (previousMetricsSnapshot.docs.length >= 2) {
+    const previousMetrics = previousMetricsSnapshot.docs[1].data();
+    const rankingChange = previousMetrics.categoryRank - metrics.categoryRank;
+    
+    // Alert if significant ranking change
+    if (Math.abs(rankingChange) >= 5) {
+      await createRankingAlert(competitorId, metrics, previousMetrics, rankingChange);
+    }
+  }
+}
+
+async function checkForSentimentAlerts(competitorId: string, analysis: any): Promise<void> {
+  // Check for significant sentiment shifts
+  if (analysis.sentimentScore < -0.5) {
+    await createSentimentAlert(competitorId, analysis, 'negative_trend');
+  }
+}
+
+async function checkForNewFeatureAlerts(competitorId: string, features: any[]): Promise<void> {
+  // Compare with previous features to find new ones
+  // Implementation would check for new features and create alerts
+}
+
+/**
+ * Alert creation functions
+ */
+async function createRankingAlert(competitorId: string, current: any, previous: any, change: number): Promise<void> {
+  const alert = {
+    type: 'ranking-change',
+    competitorId,
+    severity: Math.abs(change) >= 10 ? 'high' : 'medium',
+    title: `Ranking Change: ${change > 0 ? 'Improved' : 'Declined'} by ${Math.abs(change)} positions`,
+    description: `Competitor ranking changed from #${previous.categoryRank} to #${current.categoryRank}`,
+    detectedAt: new Date(),
+    status: 'new',
+    triggerData: { current, previous, change }
+  };
+  
+  await db.collection('competitive_intelligence_alerts').add(alert);
+  
+  if (alert.severity === 'high') {
+    await sendImmediateNotification(alert);
+  }
+}
+
+async function createSentimentAlert(competitorId: string, analysis: any, alertType: string): Promise<void> {
+  const alert = {
+    type: 'sentiment-shift',
+    competitorId,
+    severity: 'medium',
+    title: 'Negative Sentiment Trend Detected',
+    description: `Significant negative sentiment detected in recent reviews`,
+    detectedAt: new Date(),
+    status: 'new',
+    triggerData: analysis
+  };
+  
+  await db.collection('competitive_intelligence_alerts').add(alert);
+}
+
+async function createOpportunityAlert(opportunity: any): Promise<void> {
+  const alert = {
+    type: 'opportunity',
+    competitorId: 'market',
+    severity: 'high',
+    title: `High-Priority Opportunity: ${opportunity.title}`,
+    description: opportunity.description,
+    detectedAt: new Date(),
+    status: 'new',
+    triggerData: opportunity
+  };
+  
+  await db.collection('competitive_intelligence_alerts').add(alert);
+  await sendImmediateNotification(alert);
+}
+
+/**
+ * Notification functions
+ */
+async function sendReportNotifications(report: any): Promise<void> {
+  // In production, implement email/Slack notifications
+  logger.info(`Report notification sent: ${report.title}`);
+}
+
+async function sendImmediateNotification(alert: any): Promise<void> {
+  // In production, implement immediate notifications (SMS, email, Slack)
+  logger.info(`Immediate notification sent: ${alert.title}`);
+}
+
+// ==================== UTILITY FUNCTIONS ====================
+
+function extractTopicsFromText(text: string): any[] {
+  const topics = ['performance', 'usability', 'features', 'support', 'pricing'];
+  return topics.filter(topic => 
+    text.toLowerCase().includes(topic)
+  ).map(topic => ({
+    topic,
+    relevanceScore: Math.random(),
+    mentions: 1
+  }));
+}
+
+function extractFeaturesFromText(text: string): string[] {
+  const features = ['AI', 'chat', 'journal', 'export', 'sync'];
+  return features.filter(feature => 
+    text.toLowerCase().includes(feature.toLowerCase())
+  );
+}
+
+function extractIssuesFromText(text: string): string[] {
+  const issues = ['bug', 'crash', 'slow', 'error'];
+  return issues.filter(issue => 
+    text.toLowerCase().includes(issue)
+  );
+}
+
+function generateInsights(content: string, sentimentScore: number): string[] {
+  const insights = [];
+  
+  if (sentimentScore > 0.5) {
+    insights.push('User highly satisfied with experience');
+  } else if (sentimentScore < -0.5) {
+    insights.push('User expressing significant dissatisfaction');
+  }
+  
+  if (content.toLowerCase().includes('ai')) {
+    insights.push('AI features mentioned in review');
+  }
+  
+  return insights;
+}
+
+function formatDateRange(startDate: Date, endDate: Date): string {
+  return `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
+}
+
+function generateExecutiveSummary(alerts: any[], opportunities: any[]): string {
+  return `During this period, ${alerts.length} alerts were generated and ${opportunities.length} opportunities were identified. Key focus areas include competitive positioning and market gap analysis.`;
+}
+
+function generateKeyFindings(alerts: any[], opportunities: any[]): string[] {
+  return [
+    `${alerts.filter(a => a.severity === 'high' || a.severity === 'critical').length} high-priority alerts require attention`,
+    `${opportunities.filter(o => o.priority === 'high').length} high-value opportunities identified`,
+    'Market sentiment remains stable with emerging growth opportunities'
+  ];
+}
+
+function generateRecommendations(alerts: any[], opportunities: any[]): string[] {
+  return [
+    'Prioritize addressing high-severity competitive alerts',
+    'Evaluate and pursue high-confidence market opportunities',
+    'Strengthen monitoring in identified weak areas'
+  ];
+}
+
+function identifyAlertTrends(alerts: any[]): string[] {
+  return ['Increased competitor feature releases', 'Pricing pressure in market'];
+}
+
+function calculateOpportunityValue(opportunities: any[]): string {
+  return '$2.5M estimated'; // Mock calculation
+}

@@ -1,5 +1,4 @@
 // Next.js server mocks
-import { jest } from '@jest/globals'
 
 // Mock NextRequest
 export class NextRequest {
@@ -9,7 +8,7 @@ export class NextRequest {
   cookies: Map<string, { value: string }>
   body: any
 
-  constructor(url: string, init?: RequestInit) {
+  constructor(url: string, init?: any) {
     this.url = url
     this.method = init?.method || 'GET'
     this.headers = new Map()
@@ -39,13 +38,13 @@ export class NextResponse {
   headers: Map<string, string>
   body: any
 
-  constructor(body?: any, init?: ResponseInit) {
+  constructor(body?: any, init?: any) {
     this.status = init?.status || 200
     this.headers = new Map()
     this.body = body
   }
 
-  static json(object: any, init?: ResponseInit) {
+  static json(object: any, init?: any) {
     const response = new NextResponse(JSON.stringify(object), init)
     response.headers.set('Content-Type', 'application/json')
     return response

@@ -1,0 +1,199 @@
+{
+  "apple_app_store_content_rating": {
+    "age_rating": "17+",
+    "content_descriptors": {
+      "cartoon_fantasy_violence": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "realistic_violence": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "prolonged_graphic_sadistic_realistic_violence": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "sexual_content_nudity": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "mature_suggestive_themes": {
+        "selected": true,
+        "frequency": "Frequent/Intense",
+        "justification": "Mental health content including discussions of trauma, depression, anxiety, self-harm ideation, and crisis situations. Content is therapeutic in nature but deals with mature psychological themes."
+      },
+      "simulated_gambling": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "horror_fear_themes": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "prolonged_graphic_sadistic_realistic_violence_torture": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "profanity_crude_humor": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "alcohol_tobacco_drug_use": {
+        "selected": false,
+        "frequency": "None"
+      },
+      "medical_treatment_information": {
+        "selected": true,
+        "frequency": "Frequent/Intense",
+        "justification": "App provides mental health resources, crisis intervention information, therapy recommendations, and connects users to professional mental health services. All information is educational/referral based, not diagnostic or prescriptive."
+      },
+      "unrestricted_web_access": {
+        "selected": false,
+        "frequency": "None"
+      }
+    },
+    "age_rating_justification": "ALCHM is rated 17+ due to mature content related to mental health, trauma recovery, and psychological wellness. The app is specifically designed for users who are developmentally ready to engage with complex emotional and psychological content in a therapeutic context. While the app uses trauma-informed design principles, the subject matter inherently involves mature themes that are most appropriate for older adolescents and adults.",
+    "made_for_kids": false,
+    "privacy_practices": {
+      "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+      "data_collection_practices_disclosed": true,
+      "parental_controls": false,
+      "coppa_compliance": true,
+      "age_verification_required": true
+    }
+  },
+  "google_play_iarc_rating": {
+    "questionnaire_responses": {
+      "violence": {
+        "violence_in_game": "No violence",
+        "violence_context": "None",
+        "blood_gore": "None",
+        "killing_characters": "None"
+      },
+      "sex_nudity": {
+        "sexual_activity": "None",
+        "nudity": "None",
+        "sexual_themes": "None"
+      },
+      "language": {
+        "bad_language": "None",
+        "discriminatory_language": "None"
+      },
+      "controlled_substances": {
+        "alcohol": "None",
+        "tobacco": "None", 
+        "drugs": "None"
+      },
+      "gambling_simulated_gambling": {
+        "gambling": "None",
+        "simulated_gambling": "None"
+      },
+      "horror_fear": {
+        "horror": "None",
+        "fear": "None"
+      },
+      "discrimination": {
+        "discrimination": "None"
+      },
+      "social_interaction": {
+        "shares_location": false,
+        "users_can_communicate": false,
+        "shares_personal_info": false,
+        "digital_purchases": true
+      },
+      "miscellaneous": {
+        "educates_about_drugs_alcohol": false,
+        "educates_about_sex": false,
+        "provides_medical_info": true,
+        "medical_info_details": "Provides mental health resources, crisis intervention information, therapy referrals, and educational content about trauma recovery. Does not provide medical diagnosis or treatment."
+      }
+    },
+    "expected_rating": {
+      "global": "Mature 17+",
+      "esrb": "M (Mature 17+)",
+      "pegi": "18",
+      "usk": "16",
+      "cero": "Z (Ages 17 and up only)",
+      "oflc": "MA15+",
+      "classind": "16"
+    },
+    "rating_justification": "The app receives mature ratings due to providing mental health resources and dealing with sensitive psychological content including trauma, depression, anxiety, and crisis intervention. While educational and therapeutic in nature, these topics are considered mature content suitable for users 17 and older."
+  },
+  "content_warnings": {
+    "in_app_disclaimers": [
+      "This app contains content related to mental health, trauma, depression, and anxiety",
+      "Crisis detection features may identify concerning content and provide emergency resources",
+      "This app is not a substitute for professional mental health treatment",
+      "If you are experiencing a mental health crisis, contact emergency services or 988 Suicide & Crisis Lifeline"
+    ],
+    "store_listing_warnings": [
+      "Contains mature themes related to mental health and trauma recovery",
+      "Designed for users 17+ who are ready to engage with therapeutic content",
+      "Includes crisis detection and intervention features",
+      "Provides educational mental health resources and professional referrals"
+    ],
+    "parental_guidance": "This app is designed for users 17 and older due to mature psychological content. Parents should be aware that the app deals with topics including trauma, depression, anxiety, and crisis intervention in an educational and therapeutic context."
+  },
+  "safety_measures": {
+    "crisis_detection": {
+      "implemented": true,
+      "description": "AI-powered detection of crisis indicators in journal entries",
+      "response": "Immediate presentation of crisis resources including 988 Suicide & Crisis Lifeline, Crisis Text Line, and local emergency services"
+    },
+    "professional_resources": {
+      "implemented": true,
+      "description": "Comprehensive database of mental health professionals and crisis intervention services",
+      "integration": "Direct links to verified mental health providers and emergency services"
+    },
+    "medical_disclaimers": {
+      "implemented": true,
+      "prominence": "Displayed prominently throughout app interface",
+      "content": "Clear statements that app is not medical advice and does not replace professional care"
+    },
+    "age_verification": {
+      "implemented": true,
+      "method": "Required age confirmation during account creation",
+      "enforcement": "Account termination for users found to be under 17"
+    },
+    "data_protection": {
+      "encryption": "End-to-end encryption for all journal entries",
+      "privacy": "Privacy-first AI processing using only anonymized summaries",
+      "control": "Complete user control over data sharing and deletion"
+    }
+  },
+  "educational_value": {
+    "mental_health_literacy": {
+      "provided": true,
+      "description": "Educational content about trauma recovery, emotional regulation, and mental wellness"
+    },
+    "therapeutic_techniques": {
+      "provided": true,
+      "description": "Evidence-based journaling prompts and reflection techniques from trauma therapy"
+    },
+    "crisis_preparedness": {
+      "provided": true,
+      "description": "Education about recognizing crisis signs and accessing appropriate help"
+    },
+    "emotional_intelligence": {
+      "provided": true,
+      "description": "Development of emotional awareness, regulation, and healthy coping strategies"
+    }
+  },
+  "compliance_verification": {
+    "apple_guidelines": {
+      "1_4_safety": "✅ Compliant - Comprehensive safety measures for sensitive content",
+      "5_1_privacy": "✅ Compliant - Robust privacy protections and transparent data practices", 
+      "3_1_payments": "✅ Compliant - Clear subscription terms and pricing",
+      "1_1_objectionable_content": "✅ Compliant - Therapeutic content with appropriate age rating",
+      "2_3_accurate_metadata": "✅ Compliant - Accurate content descriptions and age ratings"
+    },
+    "google_play_policies": {
+      "health_policy": "✅ Compliant - Educational content with clear medical disclaimers",
+      "user_generated_content": "✅ Compliant - Private journal entries with crisis monitoring",
+      "privacy_security": "✅ Compliant - Comprehensive data protection and user controls",
+      "restricted_content": "✅ Compliant - Appropriate age rating for sensitive mental health content",
+      "deceptive_behavior": "✅ Compliant - Transparent about app capabilities and limitations"
+    }
+  }
+}

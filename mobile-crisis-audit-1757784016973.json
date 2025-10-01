@@ -1,0 +1,169 @@
+{
+  "timestamp": "2025-09-13T17:20:16.970Z",
+  "summary": {
+    "overall_status": "CRITICAL",
+    "total_issues_found": 8,
+    "crisis_accessibility_score": 0,
+    "performance_meets_standards": false,
+    "ready_for_crisis_users": false
+  },
+  "detailed_findings": {
+    "layoutTests": [
+      {
+        "viewport": "iPhone SE (Small Crisis)",
+        "test": "Crisis Support Layout",
+        "issues": [
+          "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector."
+        ],
+        "recommendations": []
+      },
+      {
+        "viewport": "iPhone 12 (Modern Crisis)",
+        "test": "Crisis Support Layout",
+        "issues": [
+          "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector."
+        ],
+        "recommendations": []
+      },
+      {
+        "viewport": "Android Small (Budget Crisis)",
+        "test": "Crisis Support Layout",
+        "issues": [
+          "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector."
+        ],
+        "recommendations": []
+      },
+      {
+        "viewport": "Android Medium (Standard Crisis)",
+        "test": "Crisis Support Layout",
+        "issues": [
+          "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector."
+        ],
+        "recommendations": []
+      }
+    ],
+    "performanceMetrics": {
+      "slowNetworkLoadTime": 8622,
+      "crisisButtonAccessible": true,
+      "meetsTraumaInformedStandard": false,
+      "crisisButtonResponseTime": 758,
+      "meetsInteractionStandard": false
+    },
+    "accessibilityFindings": [
+      {
+        "viewport": "iPhone SE (Small Crisis)",
+        "test": "Touch Target Validation",
+        "issues": [
+          "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]"
+        ],
+        "recommendations": [
+          "Increase touch targets to meet trauma-informed accessibility standards",
+          "Crisis elements need minimum 70px height/width for users with trembling hands"
+        ]
+      },
+      {
+        "viewport": "iPhone 12 (Modern Crisis)",
+        "test": "Touch Target Validation",
+        "issues": [
+          "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]"
+        ],
+        "recommendations": [
+          "Increase touch targets to meet trauma-informed accessibility standards",
+          "Crisis elements need minimum 70px height/width for users with trembling hands"
+        ]
+      },
+      {
+        "viewport": "Android Small (Budget Crisis)",
+        "test": "Touch Target Validation",
+        "issues": [
+          "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]"
+        ],
+        "recommendations": [
+          "Increase touch targets to meet trauma-informed accessibility standards",
+          "Crisis elements need minimum 70px height/width for users with trembling hands"
+        ]
+      },
+      {
+        "viewport": "Android Medium (Standard Crisis)",
+        "test": "Touch Target Validation",
+        "issues": [
+          "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]"
+        ],
+        "recommendations": [
+          "Increase touch targets to meet trauma-informed accessibility standards",
+          "Crisis elements need minimum 70px height/width for users with trembling hands"
+        ]
+      }
+    ],
+    "crisisSpecificValidation": [
+      {
+        "viewport": "iPhone SE (Small Crisis)",
+        "test": "Cognitive Load Assessment",
+        "issues": [],
+        "recommendations": []
+      },
+      {
+        "viewport": "iPhone 12 (Modern Crisis)",
+        "test": "Cognitive Load Assessment",
+        "issues": [],
+        "recommendations": []
+      },
+      {
+        "viewport": "Android Small (Budget Crisis)",
+        "test": "Cognitive Load Assessment",
+        "issues": [],
+        "recommendations": []
+      },
+      {
+        "viewport": "Android Medium (Standard Crisis)",
+        "test": "Cognitive Load Assessment",
+        "issues": [],
+        "recommendations": []
+      }
+    ],
+    "recommendations": []
+  },
+  "priority_fixes": [
+    {
+      "priority": "CRITICAL",
+      "issue": "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector.",
+      "viewport": "iPhone SE (Small Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector.",
+      "viewport": "iPhone 12 (Modern Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector.",
+      "viewport": "Android Small (Budget Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Layout test error: SyntaxError: Failed to execute 'querySelector' on 'Document': 'div:has-text(\"Crisis Support Available 24/7\")' is not a valid selector.",
+      "viewport": "Android Medium (Standard Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]",
+      "viewport": "iPhone SE (Small Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]",
+      "viewport": "iPhone 12 (Modern Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]",
+      "viewport": "Android Small (Budget Crisis)"
+    },
+    {
+      "priority": "CRITICAL",
+      "issue": "Call 988 Now: 139x46px (needs 70x70px) [CRISIS ELEMENT]",
+      "viewport": "Android Medium (Standard Crisis)"
+    }
+  ],
+  "trauma_informed_score": 0
+}

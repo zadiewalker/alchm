@@ -1,0 +1,743 @@
+// ALCHM Enterprise Crisis Detection System
+// 2nd Generation Cloud Functions for Real-Time Mental Health Crisis Prevention
+// Firebase Studio Grade Architecture with <3 second response times
+
+import * as functions from 'firebase-functions/v2';
+import * as admin from 'firebase-admin';
+import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { PubSub } from '@google-cloud/pubsub';
+
+// Initialize services
+const db = getFirestore();
+const auth = getAuth();
+const pubsub = new PubSub();
+
+// Initialize Gemini with safety settings for mental health
+const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+
+// ===== INTERFACES =====
+
+interface CrisisAssessment {
+  userId: string;
+  entryId: string;
+  riskLevel: 'low' | 'moderate' | 'high' | 'critical';
+  crisisIndicators: string[];
+  urgencyScore: number; // 0-100
+  immediateActions: string[];
+  professionalIntervention: boolean;
+  anonymizedContent: string;
+  timestamp: admin.firestore.Timestamp;
+}
+
+interface ProfessionalAlert {
+  id: string;
+  userId: string;
+  crisisLevel: string;
+  triggerContent: string;
+  userContext: UserContext;
+  recommendedActions: string[];
+  urgency: 'low' | 'medium' | 'high' | 'critical';
+  assignedProfessional?: string;
+  status: 'pending' | 'acknowledged' | 'responding' | 'resolved';
+  createdAt: admin.firestore.Timestamp;
+}
+
+interface UserContext {
+  tier: string;
+  recentPatterns: string[];
+  communicationStyle: string;
+  riskHistory: string[];
+  supportNetwork: boolean;
+  professionalCare: boolean;
+  consentLevel: string;
+}
+
+// ===== REAL-TIME CRISIS DETECTION =====
+
+export const realtimeCrisisDetection = functions.firestore.onDocumentCreated({
+  document: 'entries/{userId}/active/{entryId}',
+  region: 'us-central1',
+  memory: '1GiB',
+  timeoutSeconds: 60,
+  maxInstances: 100,
+  concurrency: 10
+}, async (event) => {
+  const { userId, entryId } = event.params;
+  const entry = event.data?.data();
+  
+  if (!entry) {
+    console.error('No entry data found');
+    return;
+  }
+
+  const startTime = Date.now();
+  
+  try {
+    console.log(`[Crisis Detection] Starting analysis for user ${userId}, entry ${entryId}`);
+    
+    // Stage 1: Immediate keyword-based crisis detection (<500ms)
+    const immediateAssessment = await performImmediateCrisisAssessment(entry.text, userId);
+    
+    // Stage 2: If immediate risk detected, trigger emergency protocol
+    if (immediateAssessment.riskLevel === 'critical') {
+      await triggerEmergencyProtocol(userId, entryId, immediateAssessment);
+      console.log(`[Crisis Detection] CRITICAL ALERT triggered for user ${userId}`);
+    }
+    
+    // Stage 3: Build user context for comprehensive analysis
+    const userContext = await buildUserContext(userId);
+    
+    // Stage 4: Advanced AI-powered risk assessment
+    const comprehensiveAssessment = await performComprehensiveRiskAssessment(
+      entry, 
+      userContext, 
+      immediateAssessment
+    );
+    
+    // Stage 5: Store assessment and trigger appropriate interventions
+    await storeCrisisAssessment(userId, entryId, comprehensiveAssessment);
+    
+    // Stage 6: Trigger interventions based on risk level
+    if (comprehensiveAssessment.riskLevel === 'high' || comprehensiveAssessment.riskLevel === 'critical') {
+      await triggerProfessionalAlert(userId, entryId, comprehensiveAssessment, userContext);
+    } else if (comprehensiveAssessment.riskLevel === 'moderate') {
+      await triggerSupportiveIntervention(userId, comprehensiveAssessment);
+    }
+    
+    // Stage 7: Update user risk profile
+    await updateUserRiskProfile(userId, comprehensiveAssessment);
+    
+    const processingTime = Date.now() - startTime;
+    console.log(`[Crisis Detection] Completed analysis in ${processingTime}ms for user ${userId}`);
+    
+    // Log performance metrics
+    await logPerformanceMetrics(userId, processingTime, comprehensiveAssessment.riskLevel);
+    
+  } catch (error) {
+    console.error('[Crisis Detection] Error in crisis detection:', error);
+    
+    // Fallback: trigger emergency protocol for any processing errors
+    await triggerEmergencyFallback(userId, entryId, entry.text);
+  }
+});
+
+// ===== IMMEDIATE CRISIS ASSESSMENT =====
+
+async function performImmediateCrisisAssessment(text: string, userId: string): Promise<CrisisAssessment> {
+  const lowerText = text.toLowerCase();
+  
+  // Critical crisis keywords (immediate intervention required)
+  const criticalKeywords = [
+    'suicide', 'kill myself', 'end my life', 'better off dead',
+    'planning to die', 'suicide plan', 'overdose', 'jump off',
+    'hanging myself', 'cutting deep', 'final goodbye'
+  ];
+  
+  // High-risk keywords
+  const highRiskKeywords = [
+    'want to die', "can't go on", 'no point living', 'hopeless',
+    'worthless', 'burden', 'everyone hates me', 'give up',
+    'end it all', 'escape this pain'
+  ];
+  
+  // Moderate risk keywords
+  const moderateRiskKeywords = [
+    'overwhelmed', 'breaking point', "can't cope", 'too much',
+    'exhausted', 'alone', 'isolated', 'scared', 'panic'
+  ];
+  
+  let riskLevel: 'low' | 'moderate' | 'high' | 'critical' = 'low';
+  let urgencyScore = 0;
+  let crisisIndicators: string[] = [];
+  
+  // Check for critical indicators
+  for (const keyword of criticalKeywords) {
+    if (lowerText.includes(keyword)) {
+      riskLevel = 'critical';
+      urgencyScore = Math.max(urgencyScore, 95);
+      crisisIndicators.push(`Critical keyword: ${keyword}`);
+    }
+  }
+  
+  // Check for high-risk indicators
+  if (riskLevel !== 'critical') {
+    for (const keyword of highRiskKeywords) {
+      if (lowerText.includes(keyword)) {
+        riskLevel = 'high';
+        urgencyScore = Math.max(urgencyScore, 80);
+        crisisIndicators.push(`High-risk keyword: ${keyword}`);
+      }
+    }
+  }
+  
+  // Check for moderate risk indicators
+  if (riskLevel === 'low') {
+    for (const keyword of moderateRiskKeywords) {
+      if (lowerText.includes(keyword)) {
+        riskLevel = 'moderate';
+        urgencyScore = Math.max(urgencyScore, 50);
+        crisisIndicators.push(`Moderate-risk keyword: ${keyword}`);
+      }
+    }
+  }
+  
+  // Additional pattern analysis
+  if (text.length > 1000 && lowerText.includes('goodbye')) {
+    urgencyScore += 20;
+    crisisIndicators.push('Long entry with goodbye theme');
+  }
+  
+  // Multiple exclamation marks or caps (emotional intensity)
+  if ((text.match(/!/g) || []).length > 5 || text === text.toUpperCase()) {
+    urgencyScore += 10;
+    crisisIndicators.push('High emotional intensity detected');
+  }
+  
+  return {
+    userId,
+    entryId: '', // Will be set by caller
+    riskLevel,
+    crisisIndicators,
+    urgencyScore,
+    immediateActions: generateImmediateActions(riskLevel),
+    professionalIntervention: riskLevel === 'critical' || riskLevel === 'high',
+    anonymizedContent: anonymizeContent(text),
+    timestamp: Timestamp.now()
+  };
+}
+
+// ===== COMPREHENSIVE AI RISK ASSESSMENT =====
+
+async function performComprehensiveRiskAssessment(
+  entry: any, 
+  userContext: UserContext, 
+  immediateAssessment: CrisisAssessment
+): Promise<CrisisAssessment> {
+  try {
+    // If already critical, don't downgrade
+    if (immediateAssessment.riskLevel === 'critical') {
+      return immediateAssessment;
+    }
+    
+    const model = gemini.getGenerativeModel({ 
+      model: "gemini-pro",
+      safetySettings: [
+        {
+          category: "HARM_CATEGORY_HARASSMENT",
+          threshold: "BLOCK_NONE"
+        },
+        {
+          category: "HARM_CATEGORY_HATE_SPEECH", 
+          threshold: "BLOCK_NONE"
+        },
+        {
+          category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          threshold: "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+          threshold: "BLOCK_NONE"
+        }
+      ]
+    });
+    
+    const prompt = buildCrisisAssessmentPrompt(entry.text, userContext);
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const aiAnalysis = response.text();
+    
+    // Parse AI response
+    const aiAssessment = parseAIRiskAssessment(aiAnalysis);
+    
+    // Combine immediate and AI assessments
+    const finalRiskLevel = Math.max(
+      getRiskLevelValue(immediateAssessment.riskLevel),
+      getRiskLevelValue(aiAssessment.riskLevel)
+    );
+    
+    return {
+      ...immediateAssessment,
+      riskLevel: getValueRiskLevel(finalRiskLevel),
+      crisisIndicators: [...immediateAssessment.crisisIndicators, ...aiAssessment.indicators],
+      urgencyScore: Math.max(immediateAssessment.urgencyScore, aiAssessment.urgencyScore),
+      immediateActions: [...immediateAssessment.immediateActions, ...aiAssessment.actions],
+      professionalIntervention: finalRiskLevel >= 3 // high or critical
+    };
+    
+  } catch (error) {
+    console.error('Error in AI risk assessment:', error);
+    
+    // Return immediate assessment if AI fails
+    return immediateAssessment;
+  }
+}
+
+function buildCrisisAssessmentPrompt(text: string, userContext: UserContext): string {
+  return `You are a trauma-informed AI assistant trained in crisis intervention for mental health. 
+  
+Analyze this journal entry for suicide risk and crisis indicators:
+
+User Context:
+- Communication style: ${userContext.communicationStyle}
+- Recent patterns: ${userContext.recentPatterns.join(', ')}
+- Risk history: ${userContext.riskHistory.join(', ')}
+- Has support network: ${userContext.supportNetwork}
+- In professional care: ${userContext.professionalCare}
+
+Journal Entry: "${text}"
+
+Provide assessment in this exact JSON format:
+{
+  "riskLevel": "low|moderate|high|critical",
+  "urgencyScore": 0-100,
+  "indicators": ["specific crisis indicators found"],
+  "actions": ["immediate supportive actions"],
+  "reasoning": "brief explanation of assessment"
+}
+
+Focus on:
+1. Suicide ideation or planning
+2. Hopelessness and despair
+3. Social isolation
+4. Substance abuse mentions
+5. Previous attempts or self-harm
+6. Protective factors present
+
+Be sensitive to trauma-informed language and cultural context.`;
+}
+
+function parseAIRiskAssessment(aiResponse: string): any {
+  try {
+    // Extract JSON from AI response
+    const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      return {
+        riskLevel: parsed.riskLevel || 'low',
+        urgencyScore: parsed.urgencyScore || 0,
+        indicators: parsed.indicators || [],
+        actions: parsed.actions || [],
+        reasoning: parsed.reasoning || ''
+      };
+    }
+  } catch (error) {
+    console.error('Error parsing AI assessment:', error);
+  }
+  
+  // Fallback assessment
+  return {
+    riskLevel: 'moderate',
+    urgencyScore: 50,
+    indicators: ['AI analysis unavailable'],
+    actions: ['Encourage professional support'],
+    reasoning: 'Fallback assessment due to parsing error'
+  };
+}
+
+// ===== EMERGENCY PROTOCOLS =====
+
+export const emergencyProtocol = functions.https.onCall({
+  region: 'us-central1',
+  memory: '512MiB',
+  timeoutSeconds: 30,
+  maxInstances: 50
+}, async (request) => {
+  const { userId, crisisLevel, location } = request.data;
+  
+  try {
+    console.log(`[Emergency Protocol] CRITICAL ALERT for user ${userId}`);
+    
+    // Immediate actions within 10 seconds
+    const alertId = await createCriticalAlert(userId, crisisLevel);
+    
+    // Notify crisis intervention team
+    await notifyCrisisTeam(alertId, userId, crisisLevel, location);
+    
+    // Send immediate resources to user
+    await sendImmediateCrisisResources(userId, location);
+    
+    // Alert user's emergency contacts if consented
+    await alertEmergencyContacts(userId);
+    
+    // Log critical incident
+    await logCriticalIncident(userId, crisisLevel, alertId);
+    
+    return {
+      success: true,
+      alertId,
+      message: 'Emergency protocol activated',
+      resources: await getCrisisResources(location)
+    };
+    
+  } catch (error) {
+    console.error('[Emergency Protocol] Error:', error);
+    throw new functions.https.HttpsError('internal', 'Emergency protocol failed');
+  }
+});
+
+async function triggerEmergencyProtocol(
+  userId: string, 
+  entryId: string, 
+  assessment: CrisisAssessment
+): Promise<void> {
+  const alertId = `crisis_${Date.now()}_${userId}`;
+  
+  // Create immediate alert
+  await db.collection('crisis_interventions').doc(alertId).set({
+    userId,
+    entryId,
+    riskLevel: assessment.riskLevel,
+    urgencyScore: assessment.urgencyScore,
+    crisisIndicators: assessment.crisisIndicators,
+    status: 'active',
+    priority: 'critical',
+    createdAt: FieldValue.serverTimestamp(),
+    lastUpdated: FieldValue.serverTimestamp(),
+    interventionType: 'emergency_protocol',
+    anonymizedContent: assessment.anonymizedContent
+  });
+  
+  // Publish to crisis intervention topic
+  await pubsub.topic('crisis-intervention').publishMessage({
+    data: Buffer.from(JSON.stringify({
+      alertId,
+      userId,
+      riskLevel: assessment.riskLevel,
+      urgencyScore: assessment.urgencyScore,
+      timestamp: new Date().toISOString()
+    }))
+  });
+  
+  console.log(`[Emergency Protocol] Critical alert ${alertId} created for user ${userId}`);
+}
+
+// ===== PROFESSIONAL ALERT SYSTEM =====
+
+async function triggerProfessionalAlert(
+  userId: string,
+  entryId: string,
+  assessment: CrisisAssessment,
+  userContext: UserContext
+): Promise<void> {
+  const alertId = `prof_alert_${Date.now()}_${userId}`;
+  
+  const alert: ProfessionalAlert = {
+    id: alertId,
+    userId,
+    crisisLevel: assessment.riskLevel,
+    triggerContent: assessment.anonymizedContent,
+    userContext,
+    recommendedActions: assessment.immediateActions,
+    urgency: assessment.riskLevel as 'low' | 'medium' | 'high' | 'critical',
+    status: 'pending',
+    createdAt: Timestamp.now()
+  };
+  
+  // Store professional alert
+  await db.collection('professional_alerts').doc(alertId).set(alert);
+  
+  // Find available crisis professionals
+  const availableProfessionals = await findAvailableCrisisProfessionals(assessment.riskLevel);
+  
+  if (availableProfessionals.length > 0) {
+    // Assign to most appropriate professional
+    const assignedProfessional = availableProfessionals[0];
+    
+    await db.collection('professional_alerts').doc(alertId).update({
+      assignedProfessional: assignedProfessional.id,
+      status: 'assigned'
+    });
+    
+    // Notify assigned professional
+    await notifyProfessional(assignedProfessional.id, alert);
+  }
+  
+  console.log(`[Professional Alert] Alert ${alertId} created for user ${userId}`);
+}
+
+// ===== REAL-TIME MONITORING =====
+
+export const realtimeMonitoring = functions.pubsub.schedule('every 1 minutes')
+  .timeZone('UTC')
+  .onRun(async (context) => {
+    try {
+      // Monitor active crisis interventions
+      const activeInterventions = await db.collection('crisis_interventions')
+        .where('status', '==', 'active')
+        .where('createdAt', '>', Timestamp.fromMillis(Date.now() - 3600000)) // Last hour
+        .get();
+      
+      console.log(`[Real-time Monitoring] ${activeInterventions.size} active crisis interventions`);
+      
+      // Check for unacknowledged critical alerts (>5 minutes)
+      const staleAlerts = await db.collection('professional_alerts')
+        .where('status', '==', 'pending')
+        .where('urgency', '==', 'critical')
+        .where('createdAt', '<', Timestamp.fromMillis(Date.now() - 300000)) // 5 minutes ago
+        .get();
+      
+      if (!staleAlerts.empty) {
+        console.log(`[Real-time Monitoring] ESCALATING ${staleAlerts.size} stale critical alerts`);
+        
+        for (const alertDoc of staleAlerts.docs) {
+          await escalateCriticalAlert(alertDoc.id, alertDoc.data());
+        }
+      }
+      
+      // Update system health metrics
+      await updateSystemHealthMetrics(activeInterventions.size, staleAlerts.size);
+      
+    } catch (error) {
+      console.error('[Real-time Monitoring] Error:', error);
+    }
+  });
+
+// ===== HELPER FUNCTIONS =====
+
+async function buildUserContext(userId: string): Promise<UserContext> {
+  try {
+    // Get user profile
+    const userDoc = await db.collection('users_premium').doc(userId).get()
+      .catch(() => db.collection('users_standard').doc(userId).get());
+    
+    if (!userDoc.exists) {
+      throw new Error('User not found');
+    }
+    
+    const userData = userDoc.data()!;
+    
+    // Get recent patterns
+    const recentEntries = await db.collection('entries').doc(userId)
+      .collection('active')
+      .orderBy('createdAt', 'desc')
+      .limit(10)
+      .get();
+    
+    const recentPatterns = recentEntries.docs.map(doc => {
+      const data = doc.data();
+      return `mood: ${data.moodBefore}, length: ${data.text?.length || 0}`;
+    });
+    
+    return {
+      tier: userData.tier || 'free',
+      recentPatterns,
+      communicationStyle: userData.communicationStyle || 'gentle',
+      riskHistory: userData.riskHistory || [],
+      supportNetwork: userData.hasSupport || false,
+      professionalCare: userData.inProfessionalCare || false,
+      consentLevel: userData.consentLevel || 'basic'
+    };
+    
+  } catch (error) {
+    console.error('Error building user context:', error);
+    
+    // Return default context
+    return {
+      tier: 'free',
+      recentPatterns: [],
+      communicationStyle: 'gentle',
+      riskHistory: [],
+      supportNetwork: false,
+      professionalCare: false,
+      consentLevel: 'basic'
+    };
+  }
+}
+
+function generateImmediateActions(riskLevel: string): string[] {
+  const actions = {
+    critical: [
+      'Contact crisis hotline: 988',
+      'Reach out to emergency contacts',
+      'Go to nearest emergency room',
+      'Call 911 if in immediate danger'
+    ],
+    high: [
+      'Contact crisis hotline: 988',
+      'Reach out to trusted friend or family',
+      'Schedule emergency therapy session',
+      'Remove means of self-harm'
+    ],
+    moderate: [
+      'Practice grounding techniques',
+      'Connect with support person',
+      'Use coping strategies you\'ve learned',
+      'Consider scheduling therapy appointment'
+    ],
+    low: [
+      'Take deep breaths',
+      'Practice self-compassion',
+      'Engage in self-care activity',
+      'Journal about positive aspects'
+    ]
+  };
+  
+  return actions[riskLevel as keyof typeof actions] || actions.low;
+}
+
+function anonymizeContent(text: string): string {
+  // Remove personal identifiers while preserving emotional content for crisis analysis
+  return text
+    .replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '[EMAIL]')
+    .replace(/\b\d{3}-\d{2}-\d{4}\b/g, '[SSN]')
+    .replace(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g, '[PHONE]')
+    .replace(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/g, '[NAME]')
+    .substring(0, 500); // Limit length for privacy
+}
+
+function getRiskLevelValue(riskLevel: string): number {
+  const values = { low: 1, moderate: 2, high: 3, critical: 4 };
+  return values[riskLevel as keyof typeof values] || 1;
+}
+
+function getValueRiskLevel(value: number): 'low' | 'moderate' | 'high' | 'critical' {
+  if (value >= 4) return 'critical';
+  if (value >= 3) return 'high';
+  if (value >= 2) return 'moderate';
+  return 'low';
+}
+
+async function storeCrisisAssessment(
+  userId: string, 
+  entryId: string, 
+  assessment: CrisisAssessment
+): Promise<void> {
+  await db.collection('crisis_assessments').doc(`${userId}_${entryId}`).set({
+    ...assessment,
+    entryId,
+    processedAt: FieldValue.serverTimestamp()
+  });
+}
+
+async function updateUserRiskProfile(userId: string, assessment: CrisisAssessment): Promise<void> {
+  const userRef = db.collection('users_premium').doc(userId);
+  const userDoc = await userRef.get();
+  
+  if (!userDoc.exists) {
+    // Try standard users collection
+    const standardRef = db.collection('users_standard').doc(userId);
+    await standardRef.update({
+      lastRiskAssessment: assessment.riskLevel,
+      lastAssessmentDate: FieldValue.serverTimestamp(),
+      riskHistory: FieldValue.arrayUnion(assessment.riskLevel)
+    });
+  } else {
+    await userRef.update({
+      lastRiskAssessment: assessment.riskLevel,
+      lastAssessmentDate: FieldValue.serverTimestamp(),
+      riskHistory: FieldValue.arrayUnion(assessment.riskLevel)
+    });
+  }
+}
+
+async function triggerSupportiveIntervention(userId: string, assessment: CrisisAssessment): Promise<void> {
+  // Send supportive message/notification to user
+  console.log(`[Supportive Intervention] Triggered for user ${userId} with moderate risk`);
+  
+  // Could integrate with FCM for push notifications
+  // await sendSupportiveNotification(userId, assessment);
+}
+
+async function triggerEmergencyFallback(userId: string, entryId: string, text: string): Promise<void> {
+  console.error(`[Emergency Fallback] Triggered for user ${userId}`);
+  
+  // Create emergency alert
+  await db.collection('crisis_interventions').add({
+    userId,
+    entryId,
+    riskLevel: 'high', // Conservative fallback
+    status: 'emergency_fallback',
+    originalText: anonymizeContent(text),
+    createdAt: FieldValue.serverTimestamp(),
+    reason: 'System error during crisis detection'
+  });
+}
+
+async function findAvailableCrisisProfessionals(riskLevel: string): Promise<any[]> {
+  // In production, this would query available crisis professionals
+  return [];
+}
+
+async function notifyProfessional(professionalId: string, alert: ProfessionalAlert): Promise<void> {
+  console.log(`[Professional Notification] Notifying ${professionalId} about alert ${alert.id}`);
+  // Implementation would send notification to professional
+}
+
+async function escalateCriticalAlert(alertId: string, alertData: any): Promise<void> {
+  console.log(`[Alert Escalation] Escalating critical alert ${alertId}`);
+  
+  await db.collection('professional_alerts').doc(alertId).update({
+    status: 'escalated',
+    escalatedAt: FieldValue.serverTimestamp(),
+    escalationReason: 'No acknowledgment within 5 minutes'
+  });
+}
+
+async function updateSystemHealthMetrics(activeInterventions: number, staleAlerts: number): Promise<void> {
+  await db.collection('system_health').doc('crisis_monitoring').set({
+    activeInterventions,
+    staleAlerts,
+    lastUpdate: FieldValue.serverTimestamp(),
+    status: staleAlerts > 0 ? 'warning' : 'healthy'
+  }, { merge: true });
+}
+
+async function logPerformanceMetrics(userId: string, processingTime: number, riskLevel: string): Promise<void> {
+  await db.collection('performance_metrics').add({
+    userId,
+    processingTime,
+    riskLevel,
+    timestamp: FieldValue.serverTimestamp(),
+    component: 'crisis_detection'
+  });
+}
+
+async function createCriticalAlert(userId: string, crisisLevel: string): Promise<string> {
+  const alertId = `critical_${Date.now()}_${userId}`;
+  
+  await db.collection('crisis_interventions').doc(alertId).set({
+    userId,
+    crisisLevel,
+    status: 'critical',
+    createdAt: FieldValue.serverTimestamp(),
+    type: 'emergency_protocol'
+  });
+  
+  return alertId;
+}
+
+async function notifyCrisisTeam(alertId: string, userId: string, crisisLevel: string, location: any): Promise<void> {
+  console.log(`[Crisis Team] Notifying team about critical alert ${alertId}`);
+  // Implementation would notify crisis intervention team
+}
+
+async function sendImmediateCrisisResources(userId: string, location: any): Promise<void> {
+  console.log(`[Crisis Resources] Sending immediate resources to user ${userId}`);
+  // Implementation would send crisis resources to user
+}
+
+async function alertEmergencyContacts(userId: string): Promise<void> {
+  console.log(`[Emergency Contacts] Alerting emergency contacts for user ${userId}`);
+  // Implementation would alert user's emergency contacts if consented
+}
+
+async function logCriticalIncident(userId: string, crisisLevel: string, alertId: string): Promise<void> {
+  await db.collection('critical_incidents').add({
+    userId,
+    crisisLevel,
+    alertId,
+    timestamp: FieldValue.serverTimestamp(),
+    status: 'logged'
+  });
+}
+
+async function getCrisisResources(location: any): Promise<any[]> {
+  // Return crisis resources based on location
+  return [
+    { name: 'National Suicide Prevention Lifeline', number: '988' },
+    { name: 'Crisis Text Line', number: 'Text HOME to 741741' }
+  ];
+}

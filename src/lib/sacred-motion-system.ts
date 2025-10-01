@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Motion System
 // JavaScript utilities for trauma-informed motion and transitions
 // Designed to complement the CSS motion tokens with programmatic control
@@ -39,7 +41,7 @@ export class SacredMotionManager {
 
   constructor(config: Partial<SacredMotionConfig> = {}) {
     this.config = {
-      respectsReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      respectsReducedMotion: typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       culturalPacing: 'responsive',
       nervousSystemState: 'regulated',
       accessibilityLevel: 'standard',
@@ -286,7 +288,7 @@ export class SacredMotionManager {
   }
 
   private updateCSSCustomProperties(): void {
-    const root = document.documentElement;
+    const root = typeof window !== 'undefined' && document.typeof window !== 'undefined' && documentElement;
     
     root.style.setProperty('--motion-hover', `${this.timings.hover}ms`);
     root.style.setProperty('--motion-fade', `${this.timings.fade}ms`);
@@ -365,7 +367,7 @@ export class SacredMotionManager {
       return () => { container.innerHTML = ''; };
     }
 
-    const loader = document.createElement('div');
+    const loader = typeof window !== 'undefined' && document.createElement('div');
     loader.style.cssText = `
       width: 100%;
       height: 2px;
@@ -375,7 +377,7 @@ export class SacredMotionManager {
       position: relative;
     `;
 
-    const progress = document.createElement('div');
+    const progress = typeof window !== 'undefined' && document.createElement('div');
     progress.style.cssText = `
       height: 100%;
       background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%);
@@ -420,7 +422,7 @@ export class SacredMotionManager {
 
   respectUserPreferences(): void {
     // Listen for changes in motion preferences
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)');
     mediaQuery.addEventListener('change', (e) => {
       this.config.respectsReducedMotion = e.matches;
       this.timings = this.calculateTimings();
@@ -429,7 +431,7 @@ export class SacredMotionManager {
     });
 
     // Listen for changes in contrast preferences
-    const contrastQuery = window.matchMedia('(prefers-contrast: high)');
+    const contrastQuery = typeof window !== 'undefined' && window.matchMedia('(prefers-contrast: high)');
     contrastQuery.addEventListener('change', (e) => {
       this.config.accessibilityLevel = e.matches ? 'high_contrast' : 'standard';
     });
@@ -447,7 +449,7 @@ export class SacredMotionManager {
   // ===== STATIC UTILITY METHODS =====
 
   static getMotionTimings(): MotionTiming {
-    const style = getComputedStyle(document.documentElement);
+    const style = getComputedStyle(typeof window !== 'undefined' && document.typeof window !== 'undefined' && documentElement);
     
     return {
       hover: parseInt(style.getPropertyValue('--js-motion-hover') || '150'),
@@ -462,7 +464,7 @@ export class SacredMotionManager {
   }
 
   static createSacredHover(element: HTMLElement): void {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
 
@@ -479,7 +481,7 @@ export class SacredMotionManager {
 
   static applySacredFocus(element: HTMLElement): void {
     element.addEventListener('focus', () => {
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (!typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         element.style.boxShadow = '0 0 8px rgba(164, 183, 146, 0.4)';
       }
     });

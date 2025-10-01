@@ -16,9 +16,30 @@
   <link rel="preconnect" href="https://suicidepreventionlifeline.org">
   
   <script>
+    // Register emergency service worker for crisis fallbacks
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/emergency-sw.js')
+        .then(registration => console.log('Emergency SW registered'))
+        .catch(error => console.log('Emergency SW registration failed'));
+    }
+    
+    // Emergency crisis detection in URL or user behavior
+    if (window.location.search.includes('crisis') || window.location.search.includes('emergency')) {
+      window.location.href = '/emergency-crisis.html';
+    }
+    
     // Auto-redirect to app dashboard after showing landing
+    // BUT NOT during OAuth verification or when viewing privacy policy
     setTimeout(() => {
-      if (window.location.pathname === '/') {
+      const isOAuthVerification = window.location.search.includes('oauth') || 
+                                  window.location.search.includes('verification') ||
+                                  document.referrer.includes('console.cloud.google.com') ||
+                                  document.referrer.includes('accounts.google.com');
+      
+      const isPrivacyPolicyCheck = window.location.hash.includes('privacy') ||
+                                   window.location.search.includes('privacy');
+      
+      if (window.location.pathname === '/' && !isOAuthVerification && !isPrivacyPolicyCheck) {
         window.location.href = '/dashboard';
       }
     }, 3000);
@@ -129,6 +150,18 @@
       <p class="tagline">Premium Digital Sanctuary</p>
       <div class="loading-text">
         <span class="loading-dots">Initializing healing experience...</span>
+      </div>
+      
+      <!-- Hidden content for OAuth verification -->
+      <div style="opacity: 0; position: absolute; top: -9999px; left: -9999px;">
+        <p>ALCHM Homepage - Premium Trauma-Informed Journaling Platform</p>
+        <p>Start your healing journey with AI-powered insights and crisis support</p>
+        <p>Features: Secure journaling, emotional tracking, therapeutic pathways</p>
+        <nav>
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/dashboard">Enter App</a>
+        </nav>
       </div>
     </div>
   </div>

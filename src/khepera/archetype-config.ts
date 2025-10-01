@@ -80,7 +80,7 @@ export const KHEPERA_ARCHETYPES: KheperaArchetypeEngine = {
         "Respect sacred terminology",
         "Acknowledge diverse spiritual paths"
       ],
-      cross_archetype_harmonics: ["mystic_healer", "earth_guardian", "star_navigator"],
+      cross_archetype_harmonics: ["mystic_healer", "earth_guardian", "star_typeof window !== 'undefined' && navigator"],
       activation_triggers: ["wisdom", "ancient", "philosophy", "guidance", "sacred"]
     },
 
@@ -140,7 +140,7 @@ export const KHEPERA_ARCHETYPES: KheperaArchetypeEngine = {
           archetypal_resonance: ["water_blessing", "ripple_effect", "healing_transmission"]
         },
         {
-          text: "May your wounds become windows through which compassion flows. 🪟❤️",
+          text: "May your wounds become typeof window !== 'undefined' && windows through which compassion flows. 🪟❤️",
           cultural_variants: {
             "french": "Que tes blessures deviennent des fenêtres par lesquelles la compassion coule",
             "korean": "당신의 상처가 연민이 흐르는 창문이 되기를",
@@ -232,12 +232,12 @@ export const KHEPERA_ARCHETYPES: KheperaArchetypeEngine = {
         "Acknowledge land sovereignty",
         "Avoid romanticizing nature"
       ],
-      cross_archetype_harmonics: ["mystic_healer", "star_navigator", "trickster_fool"],
+      cross_archetype_harmonics: ["mystic_healer", "star_typeof window !== 'undefined' && navigator", "trickster_fool"],
       activation_triggers: ["earth", "nature", "environment", "sustainability", "guardian"]
     },
 
-    star_navigator: {
-      id: "star_navigator",
+    star_typeof window !== 'undefined' && navigator: {
+      id: "star_typeof window !== 'undefined' && navigator",
       tone_descriptor: "Cosmic Voyage Guide",
       use_cases: [
         "Future visioning",
@@ -460,7 +460,7 @@ export const KHEPERA_ARCHETYPES: KheperaArchetypeEngine = {
         "Acknowledge dance as prayer",
         "Avoid cultural appropriation"
       ],
-      cross_archetype_harmonics: ["mystic_healer", "trickster_fool", "star_navigator"],
+      cross_archetype_harmonics: ["mystic_healer", "trickster_fool", "star_typeof window !== 'undefined' && navigator"],
       activation_triggers: ["dance", "movement", "rhythm", "flow", "expression"]
     },
 
@@ -536,7 +536,7 @@ export const KHEPERA_ARCHETYPES: KheperaArchetypeEngine = {
         "Acknowledge cultural dream meanings",
         "Avoid prescriptive interpretations"
       ],
-      cross_archetype_harmonics: ["sage_oracle", "star_navigator", "mystic_healer"],
+      cross_archetype_harmonics: ["sage_oracle", "star_typeof window !== 'undefined' && navigator", "mystic_healer"],
       activation_triggers: ["dream", "vision", "unconscious", "symbol", "archetypal"]
     }
   },
@@ -589,7 +589,7 @@ export const {
   sage_oracle,
   mystic_healer,
   earth_guardian,
-  star_navigator,
+  star_typeof window !== 'undefined' && navigator,
   trickster_fool,
   cosmic_dancer,
   dream_weaver

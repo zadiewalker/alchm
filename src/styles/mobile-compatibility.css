@@ -1,0 +1,445 @@
+/* ALCHM Mobile Compatibility Layer - iOS Safari & Android Optimization */
+/* Trauma-Informed Mobile Experience for Crisis-Safe Interactions */
+
+/* ==========================================================================
+   iOS Safari Specific Optimizations
+   ========================================================================== */
+
+/* Prevent iOS Safari address bar bounce */
+html {
+  height: -webkit-fill-available;
+}
+
+body {
+  min-height: 100vh;
+  /* Fallback for browsers that don't support -webkit-fill-available */
+  min-height: -webkit-fill-available;
+}
+
+/* iOS Safe Area Insets - Critical for iPhone X+ series */
+.ios-safe-area {
+  padding-top: constant(safe-area-inset-top); /* iOS 11.0 */
+  padding-top: env(safe-area-inset-top); /* iOS 11.2+ */
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: constant(safe-area-inset-left);
+  padding-left: env(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* iOS Safari Viewport Unit Bug Fix */
+.full-height-ios {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+/* Prevent iOS Safari Zoom on Input Focus */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+}
+
+/* iOS Safari Momentum Scrolling */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Fix iOS Safari Button Styling */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: var(--radius, 16px);
+}
+
+/* iOS Safari Focus Ring Fix */
+input:focus,
+textarea:focus,
+button:focus {
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+  tap-highlight-color: rgba(164, 183, 146, 0.3);
+}
+
+/* ==========================================================================
+   Android Browser Optimizations
+   ========================================================================== */
+
+/* Android Chrome Address Bar Behavior */
+@media screen and (max-width: 768px) {
+  .android-viewport-fix {
+    /* Account for dynamic viewport height changes */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+}
+
+/* Android Chrome Hardware Back Button Support */
+@media (display-mode: standalone) {
+  .pwa-navigation {
+    /* Ensure back navigation is always visible in PWA mode */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 65;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* Android Dense Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .touch-target {
+    /* Increase touch targets on high-density displays */
+    min-height: 56px;
+    min-width: 56px;
+  }
+  
+  .crisis-accessible {
+    min-height: 64px;
+    min-width: 64px;
+  }
+}
+
+/* Samsung Internet Browser Compatibility */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .samsung-internet-fix {
+    /* Fix Samsung Internet rendering issues */
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* ==========================================================================
+   Performance Optimizations for Low-End Devices
+   ========================================================================== */
+
+/* GPU Acceleration for Smooth Animations */
+.hardware-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Memory-Efficient Animations */
+@media (max-width: 768px) {
+  .mobile-optimized-animation {
+    /* Use transform instead of changing layout properties */
+    transition-property: transform, opacity;
+    will-change: transform, opacity;
+  }
+  
+  /* Disable expensive animations on low-end devices */
+  @media (max-resolution: 150dpi) {
+    .high-performance-animation {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   Touch and Gesture Optimizations
+   ========================================================================== */
+
+/* Prevent Double-Tap Zoom Globally */
+* {
+  touch-action: manipulation;
+}
+
+/* Allow specific scrollable areas */
+.scrollable {
+  touch-action: pan-x pan-y;
+}
+
+/* Enhanced Touch Feedback */
+.touch-feedback {
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.2);
+  tap-highlight-color: rgba(164, 183, 146, 0.2);
+  transition: background-color 0.1s ease;
+}
+
+.touch-feedback:active {
+  background-color: rgba(164, 183, 146, 0.1);
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Crisis-Mode Mobile Enhancements
+   ========================================================================== */
+
+/* Large Touch Targets for Crisis Situations */
+.crisis-mode {
+  --touch-minimum: 60px;
+  --font-minimum: 18px;
+  --spacing-minimum: 16px;
+}
+
+.crisis-mode .touch-target {
+  min-height: var(--touch-minimum);
+  min-width: var(--touch-minimum);
+  font-size: var(--font-minimum);
+  padding: var(--spacing-minimum);
+  border: 3px solid rgba(164, 183, 146, 0.3);
+  border-radius: 20px;
+}
+
+.crisis-mode .crisis-button {
+  min-height: 72px;
+  min-width: 72px;
+  font-size: 20px;
+  font-weight: 700;
+  border: 4px solid #dc2626;
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .touch-target {
+    border: 2px solid currentColor;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .crisis-accessible {
+    border: 4px solid #ffffff;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .hardware-accelerated,
+  .mobile-optimized-animation {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  /* Maintain essential feedback */
+  .touch-feedback:active {
+    transition: background-color 0.05s ease;
+  }
+}
+
+/* Large Text Support */
+@media (min-resolution: 2dppx) {
+  .mobile-text {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: optimizeSpeed;
+  }
+}
+
+/* ==========================================================================
+   Keyboard and Input Optimizations
+   ========================================================================== */
+
+/* iOS Safari Keyboard Handling */
+@media screen and (max-width: 768px) {
+  .keyboard-aware {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .keyboard-active .keyboard-aware {
+    transform: translateY(-25vh);
+  }
+}
+
+/* Prevent iOS Safari from scrolling body when keyboard appears */
+.ios-keyboard-fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Android Keyboard Handling */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .android-keyboard-landscape {
+    height: auto;
+    max-height: 90vh;
+  }
+}
+
+/* ==========================================================================
+   Battery and Performance Monitoring
+   ========================================================================== */
+
+/* Battery-Efficient Styles */
+.battery-saver {
+  /* Disable animations in battery saver mode */
+  animation-play-state: paused;
+  transition-duration: 0ms;
+  will-change: auto; /* Reset will-change */
+}
+
+/* Low Battery Mode Detection (via JavaScript) */
+.low-battery .expensive-animation {
+  display: none;
+}
+
+.low-battery .simple-fallback {
+  display: block;
+}
+
+/* ==========================================================================
+   Network-Aware Optimizations
+   ========================================================================== */
+
+/* Slow Connection Optimizations */
+.slow-connection .high-res-image {
+  display: none;
+}
+
+.slow-connection .low-res-fallback {
+  display: block;
+}
+
+/* Offline Mode Styles */
+.offline-mode {
+  --primary-color: #6b7280; /* Muted colors in offline */
+  --accent-color: #9ca3af;
+}
+
+.offline-mode .online-only {
+  display: none;
+}
+
+.offline-mode .offline-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  color: #d97706;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Emergency and Crisis Overrides
+   ========================================================================== */
+
+/* Emergency Mode - Maximum Accessibility */
+.emergency-mode * {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  border-radius: 8px !important;
+}
+
+.emergency-mode .touch-target {
+  min-height: 80px !important;
+  min-width: 80px !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 4px solid #000000 !important;
+}
+
+.emergency-mode .crisis-button {
+  min-height: 100px !important;
+  min-width: 100px !important;
+  font-size: 28px !important;
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border: 6px solid #ffffff !important;
+}
+
+/* ==========================================================================
+   Device-Specific Workarounds
+   ========================================================================== */
+
+/* iPhone SE and Small Screens */
+@media screen and (max-width: 375px) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 10px;
+  }
+  
+  .crisis-accessible {
+    min-height: 56px;
+    min-width: 56px;
+    padding: 12px;
+  }
+}
+
+/* iPad and Tablet Landscape */
+@media screen and (min-width: 768px) and (orientation: landscape) {
+  .tablet-optimized {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+  
+  .touch-target {
+    /* Slightly smaller targets on tablets */
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Foldable Devices Support */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .foldable-aware {
+    /* Adapt layout for foldable screens */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* ==========================================================================
+   Development and Debugging
+   ========================================================================== */
+
+/* Debug Mode - Visual Touch Target Indicators */
+.debug-mode .touch-target {
+  outline: 2px dashed rgba(164, 183, 146, 0.5);
+  background: rgba(164, 183, 146, 0.1);
+}
+
+.debug-mode .crisis-accessible {
+  outline: 3px dashed #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+/* Performance Monitoring Indicators */
+.perf-monitor {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 70;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}

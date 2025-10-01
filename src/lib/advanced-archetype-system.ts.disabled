@@ -1,0 +1,818 @@
+/**
+ * Advanced Archetype Evolution System - Next-Generation Identity Guidance
+ * Provides fluid, evolving archetypal guidance that grows with user development
+ * Integrates quantum-inspired archetype superposition and evolution dynamics
+ */
+
+import { z } from 'zod';
+import { logger } from '@/lib/logging';
+import { KheperaArchetype, KheperaArchetypeEngine } from '@/lib/gamification/khepera-archetypes';
+import { QuantumEmotionalState } from './advanced-emotional-intelligence';
+
+// Advanced Archetype Evolution Schema
+export const AdvancedArchetypeSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  evolutionStage: z.enum(['emerging', 'developing', 'mature', 'integrated', 'transcendent']),
+  archetypeDepth: z.number().min(0).max(1),
+  shadowIntegration: z.number().min(0).max(1),
+  giftExpression: z.number().min(0).max(1),
+  evolutionPotential: z.number().min(0).max(1),
+  resonanceFrequency: z.number().min(0).max(1),
+  lastActivation: z.date(),
+  activationCount: z.number(),
+  evolutionTriggers: z.array(z.string()),
+  developmentChallenges: z.array(z.string()),
+  integrationGifts: z.array(z.string()),
+  nextEvolutionStage: z.string().optional(),
+  archetypeRelationships: z.record(z.object({
+    relationshipType: z.enum(['complementary', 'shadow', 'evolutionary', 'integrated']),
+    strength: z.number().min(0).max(1),
+    dynamicTension: z.number().min(-1).max(1)
+  }))
+});
+
+export type AdvancedArchetype = z.infer<typeof AdvancedArchetypeSchema>;
+
+// Archetype Constellation - Dynamic system of interconnected archetypes
+export interface ArchetypeConstellation {
+  userId: string;
+  constellationName: string;
+  centralArchetype: string;
+  activeArchetypes: AdvancedArchetype[];
+  dormantArchetypes: AdvancedArchetype[];
+  emergingArchetypes: AdvancedArchetype[];
+  archetypeInteractions: ArchetypeInteraction[];
+  constellationBalance: number; // 0-1
+  evolutionPhase: 'formation' | 'stabilization' | 'transformation' | 'transcendence';
+  nextEvolutionCatalyst: string;
+  integrationOpportunities: string[];
+}
+
+export interface ArchetypeInteraction {
+  archetype1: string;
+  archetype2: string;
+  interactionType: 'harmonious' | 'creative_tension' | 'shadow_dance' | 'evolutionary_pressure';
+  intensity: number; // 0-1
+  outcome: 'growth' | 'integration' | 'healing' | 'transcendence';
+  lastOccurrence: Date;
+}
+
+// Dynamic Archetype Response System
+export interface DynamicArchetypeResponse {
+  primaryArchetype: AdvancedArchetype;
+  supportingArchetypes: AdvancedArchetype[];
+  responseMessage: string;
+  evolutionaryGuidance: string;
+  shadowWorkInvitation?: string;
+  integrationPractice: string;
+  nextDevelopmentFocus: string;
+  archetypeEvolutionPrediction: {
+    likelyEvolution: string;
+    timeframe: string;
+    catalysts: string[];
+    supportNeeded: string[];
+  };
+}
+
+// Advanced Archetype Evolution Engine
+export class AdvancedArchetypeEvolutionEngine extends KheperaArchetypeEngine {
+  private archetypeLibrary: Map<string, AdvancedArchetype> = new Map();
+  private evolutionPatterns: Map<string, EvolutionPattern> = new Map();
+  private shadowWorkLibrary: Map<string, ShadowWork> = new Map();
+
+  constructor() {
+    super();
+    this.initializeAdvancedArchetypes();
+    this.initializeEvolutionPatterns();
+    this.initializeShadowWork();
+  }
+
+  // Generate dynamic archetype constellation for user
+  async generateArchetypeConstellation(
+    userId: string,
+    journalEntries: JournalEntry[],
+    emotionalStates: QuantumEmotionalState[]
+  ): Promise<ArchetypeConstellation> {
+    try {
+      logger.info('Generating archetype constellation', { userId: userId.slice(0, 8) + '...' });
+
+      // Analyze archetype activations over time
+      const archetypeActivations = await this.analyzeArchetypeActivations(journalEntries);
+      
+      // Detect archetype evolution patterns
+      const evolutionPatterns = await this.detectEvolutionPatterns(journalEntries, emotionalStates);
+      
+      // Calculate archetype relationships and interactions
+      const interactions = await this.calculateArchetypeInteractions(archetypeActivations);
+      
+      // Determine constellation structure
+      const constellation = await this.formArchetypeConstellation(
+        userId,
+        archetypeActivations,
+        evolutionPatterns,
+        interactions
+      );
+
+      logger.info('Archetype constellation generated', {
+        userId: userId.slice(0, 8) + '...',
+        activeArchetypes: constellation.activeArchetypes.length,
+        evolutionPhase: constellation.evolutionPhase
+      });
+
+      return constellation;
+
+    } catch (error) {
+      logger.error('Failed to generate archetype constellation', error);
+      throw new Error('Archetype constellation generation failed');
+    }
+  }
+
+  // Generate dynamic archetype response with evolution guidance
+  async generateDynamicArchetypeResponse(
+    journalEntry: string,
+    userConstellation: ArchetypeConstellation,
+    emotionalState: QuantumEmotionalState
+  ): Promise<DynamicArchetypeResponse> {
+    // Select primary responding archetype based on current state and constellation
+    const primaryArchetype = await this.selectEvolvingArchetype(
+      journalEntry,
+      userConstellation,
+      emotionalState
+    );
+
+    // Determine supporting archetypes for multi-dimensional response
+    const supportingArchetypes = await this.selectSupportingArchetypes(
+      primaryArchetype,
+      userConstellation,
+      emotionalState
+    );
+
+    // Generate evolutionary response message
+    const responseMessage = await this.generateEvolutionaryResponse(
+      primaryArchetype,
+      supportingArchetypes,
+      journalEntry,
+      emotionalState
+    );
+
+    // Generate evolutionary guidance
+    const evolutionaryGuidance = await this.generateEvolutionaryGuidance(
+      primaryArchetype,
+      userConstellation,
+      emotionalState
+    );
+
+    // Check for shadow work opportunities
+    const shadowWorkInvitation = await this.generateShadowWorkInvitation(
+      primaryArchetype,
+      journalEntry,
+      emotionalState
+    );
+
+    // Generate integration practice
+    const integrationPractice = await this.generateIntegrationPractice(
+      primaryArchetype,
+      supportingArchetypes,
+      emotionalState
+    );
+
+    // Determine next development focus
+    const nextDevelopmentFocus = await this.determineNextDevelopmentFocus(
+      primaryArchetype,
+      userConstellation
+    );
+
+    // Predict archetype evolution
+    const evolutionPrediction = await this.predictArchetypeEvolution(
+      primaryArchetype,
+      userConstellation,
+      emotionalState
+    );
+
+    return {
+      primaryArchetype,
+      supportingArchetypes,
+      responseMessage,
+      evolutionaryGuidance,
+      shadowWorkInvitation,
+      integrationPractice,
+      nextDevelopmentFocus,
+      archetypeEvolutionPrediction: evolutionPrediction
+    };
+  }
+
+  // Evolution-aware archetype selection
+  private async selectEvolvingArchetype(
+    journalEntry: string,
+    constellation: ArchetypeConstellation,
+    emotionalState: QuantumEmotionalState
+  ): Promise<AdvancedArchetype> {
+    // Score archetypes based on multiple factors
+    const archetypeScores = new Map<string, number>();
+
+    for (const archetype of constellation.activeArchetypes) {
+      let score = 0;
+
+      // Base resonance with current emotional state
+      score += this.calculateEmotionalResonance(archetype, emotionalState) * 0.3;
+
+      // Evolution readiness
+      score += archetype.evolutionPotential * 0.2;
+
+      // Content relevance
+      score += this.calculateContentRelevance(archetype, journalEntry) * 0.3;
+
+      // Activation frequency balance (prevent over-use)
+      const activationBonus = this.calculateActivationBonus(archetype, constellation);
+      score += activationBonus * 0.2;
+
+      archetypeScores.set(archetype.id, score);
+    }
+
+    // Select highest scoring archetype
+    const sortedEntries = Array.from(archetypeScores.entries()).sort(([,a], [,b]) => b - a);
+    const selectedId = sortedEntries.length > 0 ? sortedEntries[0]?.[0] : null;
+
+    if (selectedId) {
+      const foundArchetype = constellation.activeArchetypes.find(a => a.id === selectedId);
+      if (foundArchetype) return foundArchetype;
+    }
+    
+    // Fallback to first archetype or create default if none exist
+    if (constellation.activeArchetypes.length > 0) {
+      return constellation.activeArchetypes[0]!;
+    }
+    
+    // Create a default archetype as absolute fallback
+    return {
+      id: 'seeker-default',
+      name: 'The Seeker',
+      evolutionStage: 'emerging' as const,
+      archetypeDepth: 1.0,
+      shadowIntegration: 0.5,
+      giftExpression: 0.7,
+      evolutionPotential: 0.8,
+      resonanceFrequency: 0.6,
+      lastActivation: new Date(),
+      activationCount: 0,
+      evolutionTriggers: ['self-exploration', 'questioning'],
+      developmentChallenges: ['direction', 'clarity'],
+      integrationGifts: ['curiosity', 'openness'],
+      archetypeRelationships: {}
+    };
+  }
+
+  // Select supporting archetypes for multi-dimensional guidance
+  private async selectSupportingArchetypes(
+    primaryArchetype: AdvancedArchetype,
+    constellation: ArchetypeConstellation,
+    emotionalState: QuantumEmotionalState
+  ): Promise<AdvancedArchetype[]> {
+    const supportingArchetypes: AdvancedArchetype[] = [];
+
+    // Find complementary archetypes
+    const complementaryArchetype = await this.findComplementaryArchetype(
+      primaryArchetype,
+      constellation
+    );
+    if (complementaryArchetype) supportingArchetypes.push(complementaryArchetype);
+
+    // Find shadow archetype if appropriate for growth
+    if (emotionalState.coherence > 0.7 && primaryArchetype.shadowIntegration < 0.8) {
+      const shadowArchetype = await this.findShadowArchetype(primaryArchetype, constellation);
+      if (shadowArchetype) supportingArchetypes.push(shadowArchetype);
+    }
+
+    return supportingArchetypes.slice(0, 2); // Limit to 2 supporting archetypes
+  }
+
+  // Generate evolutionary response with multiple archetype perspectives
+  private async generateEvolutionaryResponse(
+    primaryArchetype: AdvancedArchetype,
+    supportingArchetypes: AdvancedArchetype[],
+    journalEntry: string,
+    emotionalState: QuantumEmotionalState
+  ): Promise<string> {
+    const baseArchetype = await this.getBaseArchetype(primaryArchetype.id);
+    if (!baseArchetype) {
+      throw new Error(`Base archetype not found: ${primaryArchetype.id}`);
+    }
+
+    // Generate primary response
+    const baseResponse = KheperaArchetypeEngine.generateArchetypeResponse(
+      baseArchetype,
+      journalEntry
+    );
+
+    // Enhance with evolution-aware elements
+    let enhancedResponse = baseResponse.message;
+
+    // Add evolution stage awareness
+    const evolutionEnhancement = this.getEvolutionStageEnhancement(
+      primaryArchetype.evolutionStage,
+      emotionalState
+    );
+    enhancedResponse += `\n\n${evolutionEnhancement}`;
+
+    // Add supporting archetype perspectives if present
+    for (const supportingArchetype of supportingArchetypes) {
+      const supportingPerspective = await this.generateSupportingPerspective(
+        supportingArchetype,
+        journalEntry,
+        emotionalState
+      );
+      enhancedResponse += `\n\n${supportingPerspective}`;
+    }
+
+    return enhancedResponse;
+  }
+
+  // Generate evolutionary guidance based on current development phase
+  private async generateEvolutionaryGuidance(
+    archetype: AdvancedArchetype,
+    constellation: ArchetypeConstellation,
+    emotionalState: QuantumEmotionalState
+  ): Promise<string> {
+    const evolutionPhase = constellation.evolutionPhase;
+    const archetypeStage = archetype.evolutionStage;
+
+    const guidanceTemplates = {
+      formation: {
+        emerging: "You're in the beautiful beginning of discovering this aspect of yourself. Trust the process of emergence.",
+        developing: "This part of you is gaining strength and clarity. Notice how it wants to express itself more fully.",
+        mature: "You have a solid foundation in this archetype. Consider how it might guide others who are just beginning.",
+        integrated: "Your mastery here can serve the collective. How might this wisdom be shared?",
+        transcendent: "You embody this archetype so naturally it seems effortless. Your presence itself teaches."
+      },
+      stabilization: {
+        emerging: "Allow this new aspect to find its rhythm in your life. Gentle consistency builds strong foundations.",
+        developing: "You're building stability in this area. Notice what practices support this growth.",
+        mature: "Your consistency in this archetype is becoming a source of strength. Trust your established patterns.",
+        integrated: "The stability you've created allows for deeper exploration. What wants to emerge next?",
+        transcendent: "Your stable mastery creates space for others to grow. You are a living example."
+      },
+      transformation: {
+        emerging: "Something is shifting within this aspect of yourself. Stay open to what's wanting to transform.",
+        developing: "You're in active transformation. This can feel chaotic - trust the process of change.",
+        mature: "Your established patterns are evolving. This is natural growth, not loss.",
+        integrated: "Integration includes ongoing transformation. You're modeling healthy change.",
+        transcendent: "Your transformation transcends the personal. You're becoming something new for all."
+      },
+      transcendence: {
+        emerging: "Even in emergence, you touch something universal. Your growth serves the collective.",
+        developing: "Your development has transpersonal dimensions. You're growing not just for yourself.",
+        mature: "Maturity in this archetype opens doorways to serving something greater.",
+        integrated: "Your integration creates healing and possibility for others. You are a bridge.",
+        transcendent: "You have become a living transmission of this archetypal energy. Simply being is serving."
+      }
+    };
+
+    const guidance = guidanceTemplates[evolutionPhase][archetypeStage] ||
+                    "You are exactly where you need to be in your unique journey of becoming.";
+
+    return guidance;
+  }
+
+  // Generate shadow work invitation when appropriate
+  private async generateShadowWorkInvitation(
+    archetype: AdvancedArchetype,
+    journalEntry: string,
+    emotionalState: QuantumEmotionalState
+  ): Promise<string | undefined> {
+    // Only offer shadow work when user seems ready (high coherence, some archetype depth)
+    if (emotionalState.coherence < 0.6 || archetype.archetypeDepth < 0.4) {
+      return undefined;
+    }
+
+    const shadowWork = this.shadowWorkLibrary.get(archetype.id);
+    if (!shadowWork) return undefined;
+
+    // Check if current emotional state or content suggests shadow activation
+    const shadowIndicators = shadowWork.indicators;
+    const contentLower = journalEntry.toLowerCase();
+    
+    const hasIndicators = shadowIndicators.some(indicator => 
+      contentLower.includes(indicator.toLowerCase())
+    );
+
+    if (!hasIndicators) return undefined;
+
+    const shadowInvitations = [
+      `I sense there might be a hidden aspect of ${archetype.name} wanting attention. ${shadowWork.invitation}`,
+      `The shadow side of ${archetype.name} may hold gifts for you. ${shadowWork.gentleApproach}`,
+      `What you resist in ${archetype.name} might be exactly what wants to be integrated. ${shadowWork.integrationGuidance}`
+    ];
+
+    return shadowInvitations[Math.floor(Math.random() * shadowInvitations.length)];
+  }
+
+  // Generate archetype-specific integration practice
+  private async generateIntegrationPractice(
+    primaryArchetype: AdvancedArchetype,
+    supportingArchetypes: AdvancedArchetype[],
+    emotionalState: QuantumEmotionalState
+  ): Promise<string> {
+    const practices = await this.getIntegrationPractices(primaryArchetype.id);
+    
+    if (supportingArchetypes.length > 0) {
+      const supportingPractices = await this.getIntegrationPractices(supportingArchetypes[0]!.id);
+      return `Primary practice: ${practices.primary}\n\nSupporting practice: ${supportingPractices.secondary}`;
+    }
+
+    return practices.primary;
+  }
+
+  // Predict archetype evolution trajectory
+  private async predictArchetypeEvolution(
+    archetype: AdvancedArchetype,
+    constellation: ArchetypeConstellation,
+    emotionalState: QuantumEmotionalState
+  ): Promise<{
+    likelyEvolution: string;
+    timeframe: string;
+    catalysts: string[];
+    supportNeeded: string[];
+  }> {
+    const evolutionPattern = this.evolutionPatterns.get(archetype.id);
+    if (!evolutionPattern) {
+      return {
+        likelyEvolution: 'continued deepening',
+        timeframe: '3-6 months',
+        catalysts: ['consistent practice', 'life experiences'],
+        supportNeeded: ['self-reflection', 'integration practices']
+      };
+    }
+
+    // Analyze current trajectory
+    const currentStage = archetype.evolutionStage;
+    const nextStage = this.getNextEvolutionStage(currentStage);
+    const evolutionReadiness = archetype.evolutionPotential;
+
+    let timeframe = '6-12 months';
+    if (evolutionReadiness > 0.8) timeframe = '2-4 months';
+    else if (evolutionReadiness > 0.6) timeframe = '3-6 months';
+
+    return {
+      likelyEvolution: `Evolution from ${currentStage} to ${nextStage}`,
+      timeframe,
+      catalysts: evolutionPattern.catalysts,
+      supportNeeded: evolutionPattern.supportNeeded
+    };
+  }
+
+  // Initialize advanced archetype library
+  private initializeAdvancedArchetypes(): void {
+    const baseArchetypes = [
+      'gentle_witness', 'wise_challenger', 'nurturing_mother', 'mystical_guide',
+      'sacred_warrior', 'creative_magician', 'wise_elder', 'innocent_child',
+      'passionate_lover', 'transformative_phoenix'
+    ];
+
+    baseArchetypes.forEach(archetypeId => {
+      const advancedArchetype: AdvancedArchetype = {
+        id: archetypeId,
+        name: this.getArchetypeName(archetypeId),
+        evolutionStage: 'emerging',
+        archetypeDepth: 0.3,
+        shadowIntegration: 0.2,
+        giftExpression: 0.4,
+        evolutionPotential: 0.6,
+        resonanceFrequency: 0.5,
+        lastActivation: new Date(),
+        activationCount: 0,
+        evolutionTriggers: this.getEvolutionTriggers(archetypeId),
+        developmentChallenges: this.getDevelopmentChallenges(archetypeId),
+        integrationGifts: this.getIntegrationGifts(archetypeId),
+        archetypeRelationships: this.getArchetypeRelationships(archetypeId)
+      };
+
+      this.archetypeLibrary.set(archetypeId, advancedArchetype);
+    });
+  }
+
+  // Initialize evolution patterns
+  private initializeEvolutionPatterns(): void {
+    const patterns: Array<[string, EvolutionPattern]> = [
+      ['gentle_witness', {
+        stages: ['emerging', 'developing', 'mature', 'integrated', 'transcendent'],
+        catalysts: ['deep listening practice', 'witnessing others', 'meditation'],
+        supportNeeded: ['safe spaces', 'validation', 'modeling'],
+        shadowAspects: ['bypassing action', 'over-attachment to peace'],
+        giftUnfolding: ['unconditional presence', 'healing witnessing', 'sacred holding']
+      }],
+      ['wise_challenger', {
+        stages: ['emerging', 'developing', 'mature', 'integrated', 'transcendent'],
+        catalysts: ['confronting truth', 'challenging growth edges', 'leadership opportunities'],
+        supportNeeded: ['courage building', 'discernment training', 'healthy boundaries'],
+        shadowAspects: ['harsh criticism', 'perfectionism', 'judgment'],
+        giftUnfolding: ['compassionate truth-telling', 'growth catalysis', 'wise provocation']
+      }],
+      ['mystical_guide', {
+        stages: ['emerging', 'developing', 'mature', 'integrated', 'transcendent'],
+        catalysts: ['spiritual practices', 'mystical experiences', 'service to others'],
+        supportNeeded: ['grounding practices', 'integration support', 'community'],
+        shadowAspects: ['spiritual bypassing', 'inflation', 'disconnection from earthly'],
+        giftUnfolding: ['transcendent perspective', 'spiritual transmission', 'cosmic connection']
+      }]
+    ];
+
+    patterns.forEach(([id, pattern]) => {
+      this.evolutionPatterns.set(id, pattern);
+    });
+  }
+
+  // Initialize shadow work library
+  private initializeShadowWork(): void {
+    const shadowWork: Array<[string, ShadowWork]> = [
+      ['gentle_witness', {
+        indicators: ['avoiding', 'passive', 'stuck', 'unable to act'],
+        invitation: 'What action is your gentle witness avoiding?',
+        gentleApproach: 'Sometimes witnessing includes witnessing our own power to act.',
+        integrationGuidance: 'The witness and the warrior can dance together.'
+      }],
+      ['wise_challenger', {
+        indicators: ['harsh', 'critical', 'judgmental', 'impatient'],
+        invitation: 'Where might your challenger need more compassion?',
+        gentleApproach: 'The wisest challenges come wrapped in love.',
+        integrationGuidance: 'Strength and tenderness are not opposites.'
+      }]
+    ];
+
+    shadowWork.forEach(([id, work]) => {
+      this.shadowWorkLibrary.set(id, work);
+    });
+  }
+
+  // Helper methods
+  private getArchetypeName(id: string): string {
+    const names: Record<string, string> = {
+      'gentle_witness': 'The Gentle Witness',
+      'wise_challenger': 'The Wise Challenger',
+      'nurturing_mother': 'The Nurturing Mother',
+      'mystical_guide': 'The Mystical Guide',
+      'sacred_warrior': 'The Sacred Warrior',
+      'creative_magician': 'The Creative Magician',
+      'wise_elder': 'The Wise Elder',
+      'innocent_child': 'The Innocent Child',
+      'passionate_lover': 'The Passionate Lover',
+      'transformative_phoenix': 'The Transformative Phoenix'
+    };
+    return names[id] || id;
+  }
+
+  private async getBaseArchetype(id: string): Promise<KheperaArchetype | null> {
+    const baseArchetypes = KheperaArchetypeEngine['getArchetypeLibrary']?.() || [];
+    return baseArchetypes.find(a => a.id === id) || null;
+  }
+
+  private calculateEmotionalResonance(archetype: AdvancedArchetype, emotionalState: QuantumEmotionalState): number {
+    // Calculate how well the archetype resonates with current emotional state
+    const primaryEmotion = emotionalState.primaryEmotion;
+    
+    // This would be more sophisticated in production
+    const resonanceMap: Record<string, Record<string, number>> = {
+      'gentle_witness': { 'sadness': 0.9, 'fear': 0.8, 'processing': 0.9 },
+      'wise_challenger': { 'frustration': 0.8, 'stagnation': 0.9, 'resistance': 0.8 },
+      'mystical_guide': { 'wonder': 0.9, 'seeking': 0.8, 'confusion': 0.7 }
+    };
+
+    return resonanceMap[archetype.id]?.[primaryEmotion.name] || 0.5;
+  }
+
+  private calculateContentRelevance(archetype: AdvancedArchetype, content: string): number {
+    // Calculate how relevant the archetype is to the journal content
+    const contentLower = content.toLowerCase();
+    
+    const relevanceKeywords: Record<string, string[]> = {
+      'gentle_witness': ['feel', 'observe', 'notice', 'witness', 'hold'],
+      'wise_challenger': ['challenge', 'growth', 'edge', 'truth', 'change'],
+      'mystical_guide': ['spiritual', 'meaning', 'purpose', 'sacred', 'universe']
+    };
+
+    const keywords = relevanceKeywords[archetype.id] || [];
+    const matches = keywords.filter(keyword => contentLower.includes(keyword)).length;
+    
+    return Math.min(1, matches / keywords.length);
+  }
+
+  private calculateActivationBonus(archetype: AdvancedArchetype, constellation: ArchetypeConstellation): number {
+    // Bonus for less frequently activated archetypes to maintain balance
+    const totalActivations = constellation.activeArchetypes.reduce((sum, a) => sum + a.activationCount, 0);
+    const avgActivations = totalActivations / constellation.activeArchetypes.length;
+    
+    if (archetype.activationCount < avgActivations * 0.8) {
+      return 0.2; // Bonus for underused archetypes
+    } else if (archetype.activationCount > avgActivations * 1.5) {
+      return -0.1; // Penalty for overused archetypes
+    }
+    
+    return 0;
+  }
+
+  private async findComplementaryArchetype(
+    primary: AdvancedArchetype,
+    constellation: ArchetypeConstellation
+  ): Promise<AdvancedArchetype | null> {
+    const relationships = primary.archetypeRelationships;
+    
+    for (const [otherArchetypeId, relationship] of Object.entries(relationships)) {
+      if (relationship.relationshipType === 'complementary' && relationship.strength > 0.6) {
+        const complementary = constellation.activeArchetypes.find(a => a.id === otherArchetypeId);
+        if (complementary) return complementary;
+      }
+    }
+    
+    return null;
+  }
+
+  private async findShadowArchetype(
+    primary: AdvancedArchetype,
+    constellation: ArchetypeConstellation
+  ): Promise<AdvancedArchetype | null> {
+    const relationships = primary.archetypeRelationships;
+    
+    for (const [otherArchetypeId, relationship] of Object.entries(relationships)) {
+      if (relationship.relationshipType === 'shadow' && relationship.strength > 0.5) {
+        const shadow = constellation.activeArchetypes.find(a => a.id === otherArchetypeId);
+        if (shadow) return shadow;
+      }
+    }
+    
+    return null;
+  }
+
+  private getEvolutionStageEnhancement(stage: AdvancedArchetype['evolutionStage'], emotionalState: QuantumEmotionalState): string {
+    const enhancements = {
+      emerging: "I sense this aspect of yourself is just beginning to unfold. Trust the tender emergence.",
+      developing: "You're actively growing in this area. Notice how this part of you is gaining strength.",
+      mature: "There's a solid foundation here now. Consider how this strength can serve your larger journey.",
+      integrated: "This aspect feels naturally woven into who you are. How might it guide your next evolution?",
+      transcendent: "You embody this so naturally it serves others just by your presence."
+    };
+    
+    return enhancements[stage];
+  }
+
+  private async generateSupportingPerspective(
+    supportingArchetype: AdvancedArchetype,
+    journalEntry: string,
+    emotionalState: QuantumEmotionalState
+  ): Promise<string> {
+    const perspectives = {
+      'gentle_witness': "And I, as your gentle witness, want to add: Your courage to share this is itself sacred.",
+      'wise_challenger': "Your wise challenger whispers: What if this difficulty is actually your growing edge?",
+      'mystical_guide': "From a mystical perspective: This experience is part of your soul's curriculum."
+    };
+    
+    return perspectives[supportingArchetype.id] || `Your ${supportingArchetype.name} offers additional wisdom for this moment.`;
+  }
+
+  private getEvolutionTriggers(archetypeId: string): string[] {
+    const triggers: Record<string, string[]> = {
+      'gentle_witness': ['emotional intensity', 'others in pain', 'need for safety'],
+      'wise_challenger': ['stagnation', 'comfort zone', 'growth opportunity'],
+      'mystical_guide': ['existential questions', 'spiritual seeking', 'meaning crisis']
+    };
+    return triggers[archetypeId] || ['life experiences', 'growth opportunities'];
+  }
+
+  private getDevelopmentChallenges(archetypeId: string): string[] {
+    const challenges: Record<string, string[]> = {
+      'gentle_witness': ['maintaining boundaries', 'avoiding over-giving', 'balancing action and presence'],
+      'wise_challenger': ['tempering intensity', 'developing compassion', 'timing challenges well'],
+      'mystical_guide': ['staying grounded', 'avoiding spiritual bypassing', 'serving practically']
+    };
+    return challenges[archetypeId] || ['integration', 'balance', 'authentic expression'];
+  }
+
+  private getIntegrationGifts(archetypeId: string): string[] {
+    const gifts: Record<string, string[]> = {
+      'gentle_witness': ['healing presence', 'deep listening', 'emotional safety'],
+      'wise_challenger': ['catalytic growth', 'truth-telling', 'breakthrough facilitation'],
+      'mystical_guide': ['transcendent perspective', 'spiritual wisdom', 'cosmic connection']
+    };
+    return gifts[archetypeId] || ['wisdom', 'growth', 'service'];
+  }
+
+  private getArchetypeRelationships(archetypeId: string): AdvancedArchetype['archetypeRelationships'] {
+    const relationships: Record<string, AdvancedArchetype['archetypeRelationships']> = {
+      'gentle_witness': {
+        'wise_challenger': { relationshipType: 'complementary', strength: 0.8, dynamicTension: 0.6 },
+        'sacred_warrior': { relationshipType: 'shadow', strength: 0.7, dynamicTension: -0.4 }
+      },
+      'wise_challenger': {
+        'gentle_witness': { relationshipType: 'complementary', strength: 0.8, dynamicTension: 0.6 },
+        'nurturing_mother': { relationshipType: 'evolutionary', strength: 0.6, dynamicTension: 0.3 }
+      }
+    };
+    return relationships[archetypeId] || {};
+  }
+
+  private getNextEvolutionStage(currentStage: AdvancedArchetype['evolutionStage']): string {
+    const stages = ['emerging', 'developing', 'mature', 'integrated', 'transcendent'];
+    const currentIndex = stages.indexOf(currentStage);
+    return stages[currentIndex + 1] || 'transcendent';
+  }
+
+  private async getIntegrationPractices(archetypeId: string): Promise<{ primary: string; secondary: string }> {
+    const practices: Record<string, { primary: string; secondary: string }> = {
+      'gentle_witness': {
+        primary: 'Spend 10 minutes daily in pure witnessing - of your breath, thoughts, or surroundings - without trying to change anything.',
+        secondary: 'Practice holding space for a friend or loved one to share without offering advice or solutions.'
+      },
+      'wise_challenger': {
+        primary: 'Ask yourself one challenging but loving question each day: "Where am I playing smaller than my potential?"',
+        secondary: 'Practice challenging limiting beliefs with compassionate curiosity rather than harsh criticism.'
+      }
+    };
+    
+    return practices[archetypeId] || {
+      primary: 'Spend time each day consciously embodying this aspect of yourself.',
+      secondary: 'Notice when this archetype wants to emerge and honor its wisdom.'
+    };
+  }
+
+  // Placeholder methods for complex analysis (would be implemented with more sophisticated algorithms)
+  private async analyzeArchetypeActivations(entries: JournalEntry[]): Promise<AdvancedArchetype[]> {
+    // This would analyze journal entries and return activated archetypes with evolution data
+    const defaultArchetypes = Array.from(this.archetypeLibrary.values()).slice(0, 4);
+    return defaultArchetypes;
+  }
+
+  private async detectEvolutionPatterns(
+    entries: JournalEntry[],
+    emotionalStates: QuantumEmotionalState[]
+  ): Promise<any> {
+    // This would detect patterns of archetype evolution over time
+    return {};
+  }
+
+  private async calculateArchetypeInteractions(
+    archetypes: AdvancedArchetype[]
+  ): Promise<ArchetypeInteraction[]> {
+    // This would calculate how archetypes interact with each other
+    return [];
+  }
+
+  private async formArchetypeConstellation(
+    userId: string,
+    archetypes: AdvancedArchetype[],
+    patterns: any,
+    interactions: ArchetypeInteraction[]
+  ): Promise<ArchetypeConstellation> {
+    return {
+      userId,
+      constellationName: 'The Journey of Becoming',
+      centralArchetype: archetypes[0]?.id || 'gentle_witness',
+      activeArchetypes: archetypes.slice(0, 4),
+      dormantArchetypes: archetypes.slice(4),
+      emergingArchetypes: [],
+      archetypeInteractions: interactions,
+      constellationBalance: 0.7,
+      evolutionPhase: 'formation',
+      nextEvolutionCatalyst: 'deeper self-acceptance',
+      integrationOpportunities: ['shadow work', 'archetype balancing', 'gift integration']
+    };
+  }
+
+  private async determineNextDevelopmentFocus(
+    archetype: AdvancedArchetype,
+    constellation: ArchetypeConstellation
+  ): Promise<string> {
+    if (archetype.shadowIntegration < 0.5) {
+      return `Shadow integration for ${archetype.name}`;
+    } else if (archetype.giftExpression < 0.7) {
+      return `Gift expression and service through ${archetype.name}`;
+    } else {
+      return `Evolution to next stage of ${archetype.name}`;
+    }
+  }
+}
+
+// Supporting interfaces
+interface EvolutionPattern {
+  stages: string[];
+  catalysts: string[];
+  supportNeeded: string[];
+  shadowAspects: string[];
+  giftUnfolding: string[];
+}
+
+interface ShadowWork {
+  indicators: string[];
+  invitation: string;
+  gentleApproach: string;
+  integrationGuidance: string;
+}
+
+interface JournalEntry {
+  id: string;
+  userId: string;
+  content: string;
+  mood?: string;
+  createdAt: Date;
+}
+
+// Export the advanced archetype system
+export const advancedArchetypeSystem = new AdvancedArchetypeEvolutionEngine();

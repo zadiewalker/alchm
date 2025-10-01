@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-25T17:01:52.580Z",
+  "error": "Server at http://localhost:3000 not ready within 60000ms",
+  "stack": "Error: Server at http://localhost:3000 not ready within 60000ms\n    at AutomatedE2ERunner.waitForServer (/Users/zadiewalker/Desktop/alchm/scripts/automated-e2e-runner.js:389:11)\n    at async AutomatedE2ERunner.setupTestEnvironment (/Users/zadiewalker/Desktop/alchm/scripts/automated-e2e-runner.js:105:7)\n    at async AutomatedE2ERunner.run (/Users/zadiewalker/Desktop/alchm/scripts/automated-e2e-runner.js:73:7)",
+  "results": {
+    "startTime": "2025-09-25T17:00:45.768Z",
+    "endTime": null,
+    "duration": 0,
+    "totalTests": 0,
+    "passedTests": 0,
+    "failedTests": 0,
+    "skippedTests": 0,
+    "criticalIssues": [],
+    "warnings": [],
+    "recommendations": []
+  },
+  "environment": {
+    "nodeVersion": "v20.19.4",
+    "platform": "darwin",
+    "cwd": "/Users/zadiewalker/Desktop/alchm"
+  }
+}

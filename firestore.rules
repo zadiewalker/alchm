@@ -119,8 +119,8 @@ service cloud.firestore {
       allow update: if isOwner(userId) &&
                        isValidUserProfileData(resource.data) &&
                        // Prevent tier downgrade through this collection
-                       (resource.data.tier == resource.data.tier || 
-                        isValidTierUpgrade(resource.data.tier, resource.data.tier));
+                       (resource.data.tier == request.resource.data.tier || 
+                        isValidTierUpgrade(resource.data.tier, request.resource.data.tier));
       
       allow delete: if isOwner(userId) || isAdmin();
     }
@@ -349,6 +349,16 @@ service cloud.firestore {
       allow write: if false; // Only Cloud Functions
     }
     
+    // Public crisis support resources (UNIVERSAL ACCESS)
+    match /crisis_resources/{resourceId} {
+      // Public read access for crisis resources - never restricted
+      allow read: if true; // Crisis resources must be accessible to everyone
+      
+      // Only admins can manage crisis resources
+      allow write: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
     // ===== SUBSCRIPTION AND BILLING =====
     
     // Stripe customer data
@@ -385,6 +395,43 @@ service cloud.firestore {
       allow read: if isAdmin() && 
                      request.auth.token.compliance_access == true;
       allow write: if false; // Only Cloud Functions
+    }
+    
+    // ===== TECHNICAL SUPPORT COLLECTIONS =====
+    
+    // Simple technical support sessions (our chatbot system)
+    match /simple-tech-support-sessions/{sessionId} {
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == getUserId() || isAdmin());
+      
+      // Only Cloud Functions can create and update sessions
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+    
+    // Technical support session analytics (admin only)
+    match /tech-support-analytics/{analyticsId} {
+      allow read: if isAdmin();
+      allow write: if false; // Only Cloud Functions
+    }
+    
+    // Technical support escalations
+    match /tech-support-escalations/{escalationId} {
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == getUserId() || isAdmin());
+      
+      // Only Cloud Functions can manage escalations
+      allow write: if false;
+    }
+    
+    // Technical support follow-ups
+    match /tech-support-followups/{followupId} {
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == getUserId() || isAdmin());
+      
+      // Only Cloud Functions can manage follow-ups
+      allow write: if false;
     }
     
     // ===== FALLBACK RULES =====

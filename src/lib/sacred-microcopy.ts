@@ -587,4 +587,3 @@ export function generateContextualMicrocopy(
   return adaptedText;
 }
 
-export { sacredMicrocopy };

@@ -145,14 +145,14 @@ export class HIPAAAnalytics {
   
   private setupEventListeners() {
     // Track app lifecycle events
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
+    typeof window !== 'undefined' && document.addEventListener('visibilitychange', () => {
+      if (typeof window !== 'undefined' && document.visibilityState === 'hidden') {
         this.trackEvent('app_backgrounded', {});
       }
     });
     
     // Track performance issues
-    window.addEventListener('error', (event) => {
+    typeof window !== 'undefined' && window.addEventListener('error', (event) => {
       this.trackEvent('error_encountered', {
         errorType: 'javascript',
         source: this.sanitizeUrl(event.filename || ''),
@@ -161,7 +161,7 @@ export class HIPAAAnalytics {
     });
     
     // Track unhandled promise rejections
-    window.addEventListener('unhandledrejection', (event) => {
+    typeof window !== 'undefined' && window.addEventListener('unhandledrejection', (event) => {
       this.trackEvent('error_encountered', {
         errorType: 'promise_rejection',
         reason: typeof event.reason === 'string' ? event.reason.substring(0, 100) : 'unknown'
@@ -345,20 +345,20 @@ export class HIPAAAnalytics {
   
   // Device and environment detection
   private getPlatform(): string {
-    const userAgent = navigator.userAgent.toLowerCase();
+    const userAgent = typeof window !== 'undefined' && navigator.userAgent.toLowerCase();
     if (userAgent.includes('mobile')) return 'mobile';
     if (userAgent.includes('tablet')) return 'tablet';
     return 'desktop';
   }
   
   private getDeviceType(): 'mobile' | 'tablet' | 'desktop' {
-    if (window.innerWidth < 768) return 'mobile';
-    if (window.innerWidth < 1024) return 'tablet';
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return 'mobile';
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) return 'tablet';
     return 'desktop';
   }
   
   private getBrowserFamily(): string {
-    const userAgent = navigator.userAgent.toLowerCase();
+    const userAgent = typeof window !== 'undefined' && navigator.userAgent.toLowerCase();
     if (userAgent.includes('chrome')) return 'chrome';
     if (userAgent.includes('firefox')) return 'firefox';
     if (userAgent.includes('safari')) return 'safari';
@@ -367,9 +367,9 @@ export class HIPAAAnalytics {
   }
   
   private getConnectionType(): string {
-    const connection = (navigator as any).connection || 
-                     (navigator as any).mozConnection || 
-                     (navigator as any).webkitConnection;
+    const connection = (typeof window !== 'undefined' && navigator as any).connection || 
+                     (typeof window !== 'undefined' && navigator as any).mozConnection || 
+                     (typeof window !== 'undefined' && navigator as any).webkitConnection;
     
     return connection?.effectiveType || 'unknown';
   }

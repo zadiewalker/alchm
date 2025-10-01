@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ALCHM Google Auth Debug</title>
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+            authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+            projectId: "alchm-digital-sanctuary",
+            storageBucket: "alchm-digital-sanctuary.appspot.com",
+            messagingSenderId: "10211111067",
+            appId: "1:10211111067:web:4f23562b8a1f63cd8c963e",
+            measurementId: "G-0RPJ2D5M1R"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Test Google Sign-In
+        window.testGoogleSignIn = async function() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Testing Google Sign-In...</p>';
+            
+            try {
+                const provider = new GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+                
+                console.log('Current domain:', window.location.host);
+                console.log('Firebase Auth Domain:', firebaseConfig.authDomain);
+                
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                resultsDiv.innerHTML = `
+                    <div style="color: green;">
+                        <h3>✅ SUCCESS!</h3>
+                        <p><strong>User:</strong> ${user.displayName || 'No name'}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>UID:</strong> ${user.uid}</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('Authentication error details:', error);
+                
+                resultsDiv.innerHTML = `
+                    <div style="color: red;">
+                        <h3>❌ AUTHENTICATION ERROR</h3>
+                        <p><strong>Error Code:</strong> ${error.code}</p>
+                        <p><strong>Error Message:</strong> ${error.message}</p>
+                        <p><strong>Current Domain:</strong> ${window.location.host}</p>
+                        <p><strong>Firebase Auth Domain:</strong> ${firebaseConfig.authDomain}</p>
+                        
+                        <h4>🔧 How to Fix:</h4>
+                        <ul style="text-align: left;">
+                            <li>Go to <a href="https://console.firebase.google.com" target="_blank">Firebase Console</a></li>
+                            <li>Select project: <strong>alchm-digital-sanctuary</strong></li>
+                            <li>Go to <strong>Authentication > Settings > Authorized domains</strong></li>
+                            <li>Add: <strong>${window.location.host}</strong></li>
+                            <li>Also ensure <strong>Google</strong> provider is enabled in <strong>Authentication > Sign-in method</strong></li>
+                        </ul>
+                    </div>
+                `;
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #a4b792 0%, #8fa37c 100%);
+            color: white;
+            border-radius: 20px;
+        }
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+        #results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 ALCHM Google Authentication Debug</h1>
+    <p><strong>Current URL:</strong> <span id="currentUrl"></span></p>
+    <p><strong>Firebase Project:</strong> alchm-digital-sanctuary</p>
+    
+    <button onclick="testGoogleSignIn()" style="margin: 20px 0;">
+        🧪 Test Google Sign-In
+    </button>
+    
+    <div id="results">
+        <p>Click the button above to test Google authentication and see detailed error information.</p>
+    </div>
+
+    <script>
+        document.getElementById('currentUrl').textContent = window.location.href;
+    </script>
+</body>
+</html>

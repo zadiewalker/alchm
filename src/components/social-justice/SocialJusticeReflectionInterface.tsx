@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Social Justice Reflection Interface
 // Trauma-informed interface for engaging with social justice activities
 // Designed to build critical consciousness while maintaining safety and cultural responsiveness

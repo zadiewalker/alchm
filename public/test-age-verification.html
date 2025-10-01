@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Age Verification - ALCHM</title>
+    <script>
+        // Clear all browser storage to force age verification
+        if (typeof localStorage !== 'undefined') {
+            localStorage.clear();
+        }
+        if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.clear();
+        }
+        
+        // Redirect to main site after clearing storage
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 500);
+    </script>
+</head>
+<body>
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        text-align: center;
+    ">
+        <div>
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🌿</div>
+            <h1 style="font-weight: 300; margin-bottom: 0.5rem;">Clearing Cache</h1>
+            <p style="opacity: 0.8;">Preparing to show age verification...</p>
+        </div>
+    </div>
+</body>
+</html>

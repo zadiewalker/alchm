@@ -1,0 +1,219 @@
+{
+  "reportGenerated": "2025-09-16T14:00:00.000Z",
+  "testingEnvironment": "development",
+  "lighthouseVersion": "12.8.2",
+  "appStoreReadiness": {
+    "status": "NOT_READY",
+    "overallGrade": "C-",
+    "criticalBlockers": 4,
+    "highPriorityIssues": 6,
+    "estimatedTimeToFix": "2-4 weeks"
+  },
+  "coreWebVitals": {
+    "landingPage": {
+      "url": "http://localhost:3001/en",
+      "networkCondition": "Fast 3G",
+      "fcp": {
+        "value": 342,
+        "unit": "ms",
+        "target": 1200,
+        "status": "PASS"
+      },
+      "lcp": {
+        "value": 4150,
+        "unit": "ms", 
+        "target": 2000,
+        "status": "CRITICAL_FAIL"
+      },
+      "cls": {
+        "value": 0.000,
+        "target": 0.05,
+        "status": "PASS"
+      },
+      "tbt": {
+        "value": 890,
+        "unit": "ms",
+        "target": 300,
+        "status": "FAIL"
+      },
+      "tti": {
+        "value": 4211,
+        "unit": "ms", 
+        "target": 5000,
+        "status": "MARGINAL_PASS"
+      },
+      "performanceScore": 66,
+      "accessibilityScore": 91
+    },
+    "journalPage": {
+      "url": "http://localhost:3001/journal",
+      "networkCondition": "Slow 3G",
+      "isCrisisPage": true,
+      "fcp": {
+        "value": 1314,
+        "unit": "ms",
+        "target": 900,
+        "status": "CRITICAL_FAIL"
+      },
+      "lcp": {
+        "value": 2543,
+        "unit": "ms",
+        "target": 1500, 
+        "status": "CRITICAL_FAIL"
+      },
+      "cls": {
+        "value": 0.004,
+        "target": 0.025,
+        "status": "PASS"
+      },
+      "tbt": {
+        "value": 5102,
+        "unit": "ms",
+        "target": 300,
+        "status": "CRITICAL_FAIL"
+      },
+      "tti": {
+        "value": 25602,
+        "unit": "ms",
+        "target": 3000,
+        "status": "SEVERE_FAIL"
+      },
+      "performanceScore": 67,
+      "accessibilityScore": 92
+    }
+  },
+  "crisisPerformanceAssessment": {
+    "status": "NOT_READY_FOR_CRISIS_USERS",
+    "criticalFailures": [
+      {
+        "issue": "Journal Page TTI",
+        "value": "25.6 seconds",
+        "impact": "Users will abandon during crisis",
+        "priority": "CRITICAL"
+      },
+      {
+        "issue": "Landing LCP",
+        "value": "4.1 seconds", 
+        "impact": "Delayed first impression",
+        "priority": "CRITICAL"
+      },
+      {
+        "issue": "Journal TBT",
+        "value": "5.1 seconds",
+        "impact": "Page appears frozen",
+        "priority": "CRITICAL"
+      },
+      {
+        "issue": "Accessibility Score",
+        "value": "91-92%",
+        "impact": "Trauma-informed requirements not met",
+        "priority": "HIGH"
+      }
+    ],
+    "userSafetyRisk": "HIGH"
+  },
+  "mobilePerformanceAssessment": {
+    "fastThreeG": {
+      "performanceScore": 66,
+      "status": "BELOW_TARGET"
+    },
+    "slowThreeG": {
+      "performanceScore": 67,
+      "ttiSeconds": 25.6,
+      "status": "POOR"
+    },
+    "lowEndDevices": {
+      "expectedPerformance": "SEVERE_DEGRADATION",
+      "tested": false
+    }
+  },
+  "apiPerformance": {
+    "kheperaEndpoint": {
+      "responseTime": 563,
+      "unit": "ms",
+      "status": "ACCEPTABLE"
+    }
+  },
+  "memoryTesting": {
+    "status": "PARTIALLY_COMPLETED",
+    "crisisButtonStress": {
+      "growthRate": "2.613MB/min",
+      "peakUsage": "4.1MB",
+      "status": "CONCERNING"
+    },
+    "emergencyNavigation": {
+      "growthRate": "-4.633MB/min", 
+      "peakUsage": "4.2MB",
+      "status": "PASS"
+    },
+    "lowMemoryDevice": {
+      "growthRate": "2.357MB/min",
+      "peakUsage": "3.8MB", 
+      "status": "CONCERNING"
+    },
+    "networkInterruption": {
+      "growthRate": "4.274MB/min",
+      "peakUsage": "4.1MB",
+      "status": "CONCERNING"
+    }
+  },
+  "architectureAssessment": {
+    "nextjsConfig": "PROPERLY_CONFIGURED",
+    "bundleSplitting": "ADVANCED_BUT_NEEDS_TUNING",
+    "firebaseFunctions": "ACCEPTABLE_PERFORMANCE",
+    "webpackOptimization": "CONFIGURED",
+    "productionTesting": "NOT_COMPLETED"
+  },
+  "criticalRecommendations": [
+    {
+      "priority": "CRITICAL",
+      "action": "Reduce JavaScript bundle size for crisis pages",
+      "estimatedImpact": "TTI reduction of 15-20 seconds"
+    },
+    {
+      "priority": "CRITICAL", 
+      "action": "Optimize Largest Contentful Paint",
+      "estimatedImpact": "LCP reduction to <2 seconds"
+    },
+    {
+      "priority": "CRITICAL",
+      "action": "Reduce Total Blocking Time",
+      "estimatedImpact": "TBT reduction to <500ms"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Improve accessibility scores",
+      "estimatedImpact": "Accessibility >95%"
+    }
+  ],
+  "testingGaps": [
+    "Production environment validation",
+    "Real device testing on low-end hardware",
+    "Extended memory leak validation", 
+    "Load testing with concurrent users",
+    "Battery usage impact assessment"
+  ],
+  "submissionBlockers": [
+    "Crisis TTI > 25 seconds",
+    "Performance scores < 70%",
+    "Accessibility < 95%",
+    "Production bundle not validated"
+  ],
+  "estimatedOptimizationPhases": {
+    "phase1": {
+      "name": "Critical Performance Fixes",
+      "duration": "1-2 weeks",
+      "blockers": ["bundle size", "LCP", "TBT", "accessibility"]
+    },
+    "phase2": {
+      "name": "Mobile Optimization", 
+      "duration": "1 week",
+      "items": ["real device testing", "service worker", "network optimization"]
+    },
+    "phase3": {
+      "name": "Production Validation",
+      "duration": "3-5 days", 
+      "items": ["production testing", "load testing", "final compliance"]
+    }
+  }
+}

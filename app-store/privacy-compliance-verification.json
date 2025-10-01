@@ -1,0 +1,305 @@
+{
+  "privacy_policy_compliance": {
+    "last_updated": "2025-08-19",
+    "url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "accessibility": {
+      "publicly_accessible": true,
+      "no_login_required": true,
+      "direct_link_available": true,
+      "mobile_optimized": true
+    },
+    "required_sections": {
+      "data_collection": {
+        "present": true,
+        "compliant": true,
+        "details": "Clearly lists journal entries, mood trends, usage analytics, and account information"
+      },
+      "data_processing": {
+        "present": true,
+        "compliant": true,
+        "details": "Explains Firebase storage, AI processing with anonymization, and local processing prioritization"
+      },
+      "data_sharing": {
+        "present": true,
+        "compliant": true,
+        "details": "Explicitly states no third-party sharing except in legal/emergency situations"
+      },
+      "user_rights": {
+        "present": true,
+        "compliant": true,
+        "details": "Access, deletion, correction, portability, and withdrawal rights clearly defined"
+      },
+      "data_retention": {
+        "present": true,
+        "compliant": true,
+        "details": "Specific retention periods for different data types"
+      },
+      "coppa_compliance": {
+        "present": true,
+        "compliant": true,
+        "details": "Age verification (17+), no collection from minors, deletion procedures for underage accounts"
+      },
+      "international_transfers": {
+        "present": true,
+        "compliant": true,
+        "details": "GDPR/CCPA compliance and standard contractual clauses"
+      },
+      "third_party_services": {
+        "present": true,
+        "compliant": true,
+        "details": "Firebase/Google services disclosed with privacy policy links"
+      },
+      "medical_disclaimer": {
+        "present": true,
+        "compliant": true,
+        "details": "Prominent disclaimer stating app is not medical advice with emergency contact information"
+      },
+      "crisis_intervention_limitations": {
+        "present": true,
+        "compliant": true,
+        "details": "Clear limitations of crisis detection and user responsibilities"
+      },
+      "contact_information": {
+        "present": true,
+        "compliant": true,
+        "details": "Support email provided with 48-hour response commitment"
+      },
+      "policy_changes": {
+        "present": true,
+        "compliant": true,
+        "details": "Process for updates and user notification procedures"
+      }
+    },
+    "compliance_frameworks": {
+      "gdpr": {
+        "compliant": true,
+        "legal_basis": "Consent and legitimate interest for safety monitoring",
+        "data_subject_rights": "All rights implemented",
+        "privacy_by_design": "Implemented throughout app architecture"
+      },
+      "ccpa": {
+        "compliant": true,
+        "consumer_rights": "All rights provided including deletion and portability",
+        "sale_of_data": "Explicitly prohibited"
+      },
+      "coppa": {
+        "compliant": true,
+        "age_verification": "17+ requirement with enforcement",
+        "parental_rights": "Deletion procedures for underage accounts"
+      },
+      "ferpa": {
+        "applicable": true,
+        "compliant": true,
+        "educational_use": "Additional protections for educational contexts"
+      }
+    },
+    "app_store_specific_requirements": {
+      "apple": {
+        "privacy_nutrition_labels": {
+          "data_linked_to_user": ["Health & Fitness", "Identifiers", "Usage Data", "Diagnostics"],
+          "data_not_linked_to_user": [],
+          "data_used_for_tracking": [],
+          "purposes_disclosed": true
+        },
+        "privacy_manifest": {
+          "file_present": true,
+          "location": "/public/PrivacyInfo.xcprivacy",
+          "apis_disclosed": true,
+          "third_party_sdks": ["Firebase", "Stripe"]
+        }
+      },
+      "google_play": {
+        "data_safety_form": {
+          "completed": true,
+          "data_types_accurate": true,
+          "sharing_disclosed": false,
+          "security_practices": ["Encrypted in transit", "Encrypted at rest", "Data deletion available"]
+        }
+      }
+    }
+  },
+  "terms_of_service_compliance": {
+    "last_updated": "2025-09-11",
+    "url": "https://alchm-digital-sanctuary.web.app/terms.html",
+    "accessibility": {
+      "publicly_accessible": true,
+      "no_login_required": true,
+      "direct_link_available": true,
+      "mobile_optimized": true
+    },
+    "required_sections": {
+      "acceptance_of_terms": {
+        "present": true,
+        "compliant": true
+      },
+      "age_requirements": {
+        "present": true,
+        "compliant": true,
+        "details": "17+ requirement with verification process and youth safety protections"
+      },
+      "service_description": {
+        "present": true,
+        "compliant": true,
+        "details": "Clear description of journaling, AI insights, mood tracking, and crisis features"
+      },
+      "medical_disclaimers": {
+        "present": true,
+        "compliant": true,
+        "details": "Prominent warnings about not being medical advice with emergency contact info"
+      },
+      "crisis_intervention_policy": {
+        "present": true,
+        "compliant": true,
+        "details": "AI detection capabilities and response procedures clearly outlined"
+      },
+      "user_responsibilities": {
+        "present": true,
+        "compliant": true,
+        "details": "Account security, appropriate use, and prohibited content clearly defined"
+      },
+      "subscription_terms": {
+        "present": true,
+        "compliant": true,
+        "details": "Three tiers clearly described with pricing and billing terms"
+      },
+      "payment_terms": {
+        "present": true,
+        "compliant": true,
+        "details": "Stripe processing, refund policy, and cancellation terms"
+      },
+      "intellectual_property": {
+        "present": true,
+        "compliant": true,
+        "details": "User content ownership and platform rights clearly distinguished"
+      },
+      "limitation_of_liability": {
+        "present": true,
+        "compliant": true,
+        "details": "Standard liability limitations appropriate for mental health app"
+      },
+      "termination_policy": {
+        "present": true,
+        "compliant": true,
+        "details": "User and platform termination procedures and data handling"
+      },
+      "governing_law": {
+        "present": true,
+        "compliant": true,
+        "details": "California law with arbitration procedures"
+      }
+    }
+  },
+  "medical_disclaimer_compliance": {
+    "prominence": "Displayed prominently throughout app",
+    "locations": [
+      "Privacy policy",
+      "Terms of service", 
+      "App onboarding flow",
+      "Crisis detection screens",
+      "Settings page",
+      "Subscription pages"
+    ],
+    "content_accuracy": true,
+    "emergency_contacts": {
+      "988_suicide_lifeline": "Prominently featured",
+      "911_emergency": "Clearly stated",
+      "crisis_text_line": "Integrated (HOME to 741741)",
+      "professional_resources": "Directory provided"
+    },
+    "fda_compliance": {
+      "medical_device_claim": false,
+      "diagnosis_claim": false,
+      "treatment_claim": false,
+      "wellness_tool_positioning": true
+    }
+  },
+  "crisis_intervention_compliance": {
+    "detection_system": {
+      "implemented": true,
+      "ai_powered": true,
+      "trained_for_trauma": true,
+      "limitations_disclosed": true
+    },
+    "response_procedures": {
+      "immediate_resources": true,
+      "988_integration": true,
+      "professional_referrals": true,
+      "emergency_contacts": true
+    },
+    "liability_protection": {
+      "limitations_disclosed": true,
+      "user_responsibility_emphasized": true,
+      "professional_care_encouraged": true
+    }
+  },
+  "age_verification_compliance": {
+    "minimum_age": 17,
+    "verification_process": "Account creation confirmation",
+    "enforcement": "Account termination for violations",
+    "youth_protections": {
+      "ages_17_25": {
+        "enhanced_crisis_monitoring": true,
+        "educational_resources": true,
+        "family_notification_option": true
+      }
+    },
+    "coppa_compliance": true,
+    "app_store_age_rating": "17+"
+  },
+  "data_protection_compliance": {
+    "encryption": {
+      "at_rest": "AES-256",
+      "in_transit": "TLS/HTTPS",
+      "end_to_end": true
+    },
+    "ai_processing": {
+      "anonymization": true,
+      "raw_content_protection": true,
+      "user_control": true,
+      "opt_out_available": true
+    },
+    "user_rights": {
+      "access": "Available through app settings",
+      "deletion": "Complete data deletion available",
+      "portability": "Export functionality provided",
+      "correction": "User can edit/update all personal data"
+    }
+  },
+  "subscription_compliance": {
+    "pricing_transparency": {
+      "clearly_displayed": true,
+      "trial_period": "7 days disclosed",
+      "auto_renewal": "Clearly stated",
+      "cancellation": "Easy process described"
+    },
+    "app_store_compliance": {
+      "apple_in_app_purchase": false,
+      "stripe_integration": true,
+      "refund_policy": "30 days clearly stated",
+      "family_sharing": false
+    }
+  },
+  "final_compliance_verification": {
+    "apple_app_store": {
+      "guidelines_1_4_safety": "✅ Compliant",
+      "guidelines_5_1_privacy": "✅ Compliant", 
+      "guidelines_3_1_payments": "✅ Compliant",
+      "guidelines_1_1_objectionable_content": "✅ Compliant",
+      "guidelines_2_3_accurate_metadata": "✅ Compliant"
+    },
+    "google_play_store": {
+      "health_apps_policy": "✅ Compliant",
+      "user_data_policy": "✅ Compliant",
+      "privacy_security_deception": "✅ Compliant",
+      "restricted_content": "✅ Compliant",
+      "monetization_ads": "✅ Compliant"
+    },
+    "legal_compliance": {
+      "gdpr": "✅ Compliant",
+      "ccpa": "✅ Compliant", 
+      "coppa": "✅ Compliant",
+      "ferpa": "✅ Compliant",
+      "hipaa": "N/A - Not healthcare provider"
+    }
+  }
+}

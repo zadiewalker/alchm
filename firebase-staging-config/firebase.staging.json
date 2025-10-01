@@ -1,0 +1,189 @@
+{
+  "hosting": [
+    {
+      "site": "alchm-therapist-beta-staging",
+      "public": "out",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/*.map",
+        "**/*.d.ts",
+        "**/tsconfig.json",
+        "**/*.backup",
+        "**/*.disabled"
+      ],
+      "rewrites": [
+        {
+          "source": "/api/beta/**",
+          "function": "therapistBetaAPI"
+        },
+        {
+          "source": "/api/khepera/**",
+          "function": "chatWithGemini"
+        },
+        {
+          "source": "/api/stripe/webhook",
+          "function": "subscriptionWebhook"
+        },
+        {
+          "source": "/api/crisis-detection/**",
+          "function": "crisisDetection"
+        },
+        {
+          "source": "/api/journal/save",
+          "function": "saveJournalEntry"
+        },
+        {
+          "source": "/api/journal/list",
+          "function": "listJournalEntries"
+        },
+        {
+          "source": "/api/auth/session",
+          "function": "validateUserSession"
+        },
+        {
+          "source": "/api/therapist-feedback/**",
+          "function": "therapistFeedbackCollection"
+        },
+        {
+          "source": "/api/mock-data/**",
+          "function": "mockDataGeneration"
+        },
+        {
+          "source": "!/(emergency-crisis.html|emergency-sw.js|beta-therapist.html)",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "X-Content-Type-Options", 
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=()"
+            },
+            {
+              "key": "X-Beta-Environment",
+              "value": "therapist-staging"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            }
+          ]
+        },
+        {
+          "source": "/api/beta/**",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "https://alchm-therapist-beta-staging.web.app"
+            },
+            {
+              "key": "Access-Control-Allow-Methods",
+              "value": "GET, POST, PUT, DELETE, OPTIONS"
+            },
+            {
+              "key": "Access-Control-Allow-Headers",
+              "value": "Content-Type, Authorization, X-Beta-Token"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": false,
+      "trailingSlash": false
+    }
+  ],
+  
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "staging",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local",
+        "*.disabled",
+        "src/**/*.disabled"
+      ],
+      "predeploy": [
+        "cd functions && npm install && npm run build:staging"
+      ],
+      "runtime": "nodejs20",
+      "memory": "1GB",
+      "timeout": "60s",
+      "minInstances": 1,
+      "maxInstances": 5,
+      "concurrency": 5,
+      "cpu": 1,
+      "environmentVariables": {
+        "NODE_ENV": "staging",
+        "BETA_ENVIRONMENT": "therapist-staging",
+        "HIPAA_MODE": "mock-data-safe",
+        "CRISIS_TEST_MODE": "enabled"
+      }
+    }
+  ],
+
+  "firestore": {
+    "rules": "firestore.staging.rules",
+    "indexes": "firestore.staging.indexes.json"
+  },
+
+  "storage": {
+    "rules": "storage.staging.rules"
+  },
+
+  "database": {
+    "rules": "database.staging.rules.json"
+  },
+
+  "extensions": {
+    "storage-resize-images": "firebase/storage-resize-images@0.2.4",
+    "firestore-send-email": "firebase/firestore-send-email@0.1.15"
+  },
+
+  "emulators": {
+    "auth": {
+      "port": 9199
+    },
+    "functions": {
+      "port": 5101
+    },
+    "firestore": {
+      "port": 8180
+    },
+    "hosting": {
+      "port": 5102
+    },
+    "storage": {
+      "port": 9299
+    },
+    "database": {
+      "port": 9100
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4100
+    },
+    "singleProjectMode": true,
+    "logging": {
+      "level": "DEBUG"
+    }
+  }
+}

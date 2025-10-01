@@ -1,0 +1,305 @@
+import * as functions from 'firebase-functions';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+const db = getFirestore();
+
+// ===== USER TESTING FEEDBACK COLLECTION =====
+
+export const collectUserTestingFeedback = functions
+  .runWith({ memory: '256MB' })
+  .https.onRequest(async (req, res) => {
+    // Enable CORS for all origins
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle preflight OPTIONS request
+    if (req.method === 'OPTIONS') {
+      res.status(204).send('');
+      return;
+    }
+
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Method not allowed. Use POST.' });
+      return;
+    }
+
+    try {
+      const feedback = req.body;
+      
+      // Add server-side metadata
+      const feedbackDocId = generateFeedbackId();
+      const feedbackDoc = {
+        ...feedback,
+        submittedAt: FieldValue.serverTimestamp(),
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        referer: req.get('Referer'),
+        sessionId: generateSessionId(),
+        id: feedbackDocId
+      };
+
+      // Store in Firestore
+      await db.collection('user_testing_feedback').add(feedbackDoc);
+      
+      // Also store in a daily aggregation collection for easy analysis
+      const today = new Date().toISOString().split('T')[0]!; // YYYY-MM-DD, guaranteed to exist
+      await db.collection('user_testing_daily').doc(today).update({
+        [`feedback_${feedbackDocId}`]: feedbackDoc,
+        totalResponses: FieldValue.increment(1),
+        lastUpdated: FieldValue.serverTimestamp()
+      }).catch(async () => {
+        // If document doesn't exist, create it
+        await db.collection('user_testing_daily').doc(today).set({
+          [`feedback_${feedbackDocId}`]: feedbackDoc,
+          totalResponses: 1,
+          createdAt: FieldValue.serverTimestamp(),
+          lastUpdated: FieldValue.serverTimestamp()
+        });
+      });
+
+      console.log(`User testing feedback received: ${feedbackDoc.id}`);
+      
+      res.status(200).json({ 
+        success: true, 
+        message: 'Feedback received successfully',
+        feedbackId: feedbackDoc.id,
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      console.error('Error saving user testing feedback:', error);
+      res.status(500).json({ 
+        error: 'Failed to save feedback',
+        message: 'Please try again or contact support' 
+      });
+    }
+  });
+
+// ===== ADMIN: GET USER TESTING RESULTS =====
+
+export const getUserTestingResults = functions
+  .runWith({ memory: '512MB' })
+  .https.onCall(async (data, context) => {
+    // Verify admin access (you can implement your own auth logic)
+    if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'Must be authenticated');
+    }
+
+    try {
+      const { startDate, endDate, limit = 100 } = data;
+      
+      let query = db.collection('user_testing_feedback').orderBy('submittedAt', 'desc');
+      
+      if (startDate) {
+        query = query.where('submittedAt', '>=', new Date(startDate));
+      }
+      
+      if (endDate) {
+        query = query.where('submittedAt', '<=', new Date(endDate));
+      }
+      
+      const snapshot = await query.limit(limit).get();
+      
+      const results = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      // Generate summary statistics
+      const summary = generateFeedbackSummary(results);
+      
+      return {
+        results,
+        summary,
+        total: snapshot.size,
+        generatedAt: new Date().toISOString()
+      };
+
+    } catch (error) {
+      console.error('Error fetching user testing results:', error);
+      throw new functions.https.HttpsError('internal', 'Failed to fetch results');
+    }
+  });
+
+// ===== ADMIN: GET FEEDBACK ANALYTICS =====
+
+export const getUserTestingAnalytics = functions
+  .runWith({ memory: '512MB' })
+  .https.onCall(async (data, context) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'Must be authenticated');
+    }
+
+    try {
+      const snapshot = await db.collection('user_testing_feedback')
+        .orderBy('submittedAt', 'desc')
+        .limit(1000)
+        .get();
+      
+      const feedback = snapshot.docs.map(doc => doc.data());
+      
+      const analytics = {
+        totalResponses: feedback.length,
+        averageRatings: {
+          firstImpression: calculateAverage(feedback, 'first_impression'),
+          signupEase: calculateAverage(feedback, 'signup_ease'), 
+          journalInterface: calculateAverage(feedback, 'journal_interface'),
+          navigation: calculateAverage(feedback, 'navigation'),
+          overallSatisfaction: calculateAverage(feedback, 'overall_satisfaction'),
+          aiQuality: calculateAverage(feedback, 'ai_quality')
+        },
+        demographics: {
+          ageGroups: countValues(feedback, 'age_group'),
+          devices: countArrayValues(feedback, 'devices')
+        },
+        sentiment: {
+          recommendations: countValues(feedback, 'would_recommend'),
+          designFeedback: countValues(feedback, 'design_feeling'),
+          mentalHealthDesign: countValues(feedback, 'mental_health_design'),
+          privacyComfort: countValues(feedback, 'privacy_comfort')
+        },
+        technical: {
+          loadingSpeed: countValues(feedback, 'loading_speed'),
+          mobileExperience: countValues(feedback, 'mobile_experience'),
+          aiResponseReceived: countValues(feedback, 'ai_response')
+        },
+        topIssues: extractTopIssues(feedback),
+        topPraises: extractTopPraises(feedback),
+        generatedAt: new Date().toISOString()
+      };
+
+      return analytics;
+
+    } catch (error) {
+      console.error('Error generating analytics:', error);
+      throw new functions.https.HttpsError('internal', 'Failed to generate analytics');
+    }
+  });
+
+// ===== HELPER FUNCTIONS =====
+
+function generateSessionId(): string {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+function generateFeedbackId(): string {
+  return 'feedback_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+}
+
+function generateFeedbackSummary(results: any[]): any {
+  if (results.length === 0) return null;
+
+  return {
+    totalResponses: results.length,
+    averageFirstImpression: calculateAverage(results, 'first_impression'),
+    averageOverallSatisfaction: calculateAverage(results, 'overall_satisfaction'),
+    recommendationRate: calculateRecommendationRate(results),
+    commonIssues: extractCommonIssues(results),
+    deviceBreakdown: countArrayValues(results, 'devices'),
+    submissionTimeRange: {
+      earliest: results[results.length - 1]?.submittedAt,
+      latest: results[0]?.submittedAt
+    }
+  };
+}
+
+function calculateAverage(data: any[], field: string): number | null {
+  const values = data
+    .map(item => parseFloat(item[field]))
+    .filter(val => !isNaN(val) && val > 0);
+  
+  if (values.length === 0) return null;
+  
+  return Math.round((values.reduce((sum, val) => sum + val, 0) / values.length) * 10) / 10;
+}
+
+function calculateRecommendationRate(data: any[]): number {
+  const recommendations = data
+    .map(item => item.would_recommend)
+    .filter(val => val);
+  
+  const positive = recommendations.filter(val => 
+    val === 'definitely' || val === 'probably'
+  ).length;
+  
+  return recommendations.length > 0 ? Math.round((positive / recommendations.length) * 100) : 0;
+}
+
+function countValues(data: any[], field: string): Record<string, number> {
+  const counts: Record<string, number> = {};
+  
+  data.forEach(item => {
+    const value = item[field];
+    if (value) {
+      counts[value] = (counts[value] || 0) + 1;
+    }
+  });
+  
+  return counts;
+}
+
+function countArrayValues(data: any[], field: string): Record<string, number> {
+  const counts: Record<string, number> = {};
+  
+  data.forEach(item => {
+    const values = item[field];
+    if (Array.isArray(values)) {
+      values.forEach(value => {
+        if (value) {
+          counts[value] = (counts[value] || 0) + 1;
+        }
+      });
+    }
+  });
+  
+  return counts;
+}
+
+function extractCommonIssues(data: any[]): string[] {
+  const issues: string[] = [];
+  
+  data.forEach(item => {
+    if (item.technical_issues) issues.push(item.technical_issues);
+    if (item.signup_issues) issues.push(item.signup_issues);
+    if (item.needs_improvement) issues.push(item.needs_improvement);
+  });
+  
+  return issues
+    .filter(issue => issue && issue.trim().length > 0)
+    .slice(0, 10); // Top 10 issues
+}
+
+function extractTopIssues(data: any[]): string[] {
+  const allIssues: string[] = [];
+  
+  data.forEach(item => {
+    [
+      item.technical_issues,
+      item.signup_issues, 
+      item.needs_improvement,
+      item.other_comments
+    ].forEach(text => {
+      if (text && typeof text === 'string' && text.trim().length > 10) {
+        allIssues.push(text.trim().substring(0, 200));
+      }
+    });
+  });
+  
+  return allIssues.slice(0, 15);
+}
+
+function extractTopPraises(data: any[]): string[] {
+  const allPraises: string[] = [];
+  
+  data.forEach(item => {
+    if (item.liked_most && typeof item.liked_most === 'string' && item.liked_most.trim().length > 10) {
+      allPraises.push(item.liked_most.trim().substring(0, 200));
+    }
+    if (item.immediate_reaction && typeof item.immediate_reaction === 'string' && item.immediate_reaction.includes('good', 'great', 'love', 'amazing')) {
+      allPraises.push(item.immediate_reaction.trim().substring(0, 200));
+    }
+  });
+  
+  return allPraises.slice(0, 15);
+}

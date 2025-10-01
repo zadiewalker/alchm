@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Main Auth Flow</title>
+    <script type="module">
+        // Test the exact same auth flow as the main app
+        import { initializeApp, getApp, getApps } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        window.testMainAuthFlow = async function() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>🔍 Testing main app auth flow...</p>';
+            
+            try {
+                // Step 1: Domain validation (same as main app)
+                const AUTHORIZED_DOMAINS = [
+                    'alchmapp.web.app',
+                    'alchm-digital-sanctuary.web.app',
+                    'localhost:3000',
+                    'localhost:3001',
+                    'localhost:3002',
+                    'localhost:5000'
+                ];
+                
+                const currentHost = window.location.host;
+                const isDomainValid = AUTHORIZED_DOMAINS.some(domain => 
+                    currentHost === domain || currentHost.endsWith(domain)
+                );
+                
+                results.innerHTML += `<p>✅ Domain validation: ${isDomainValid ? 'PASSED' : 'FAILED'} (${currentHost})</p>`;
+                
+                if (!isDomainValid) {
+                    results.innerHTML += `<p style="color: red;">❌ Domain ${currentHost} not in authorized list</p>`;
+                    return;
+                }
+                
+                // Step 2: Initialize Firebase (same as main app)
+                const config = {
+                    apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+                    authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+                    projectId: "alchm-digital-sanctuary",
+                    storageBucket: "alchm-digital-sanctuary.appspot.com",
+                    messagingSenderId: "10211111067",
+                    appId: "1:10211111067:web:4f23562b8a1f63cd8c963e",
+                    measurementId: "G-0RPJ2D5M1R"
+                };
+
+                const app = getApps().length ? getApp() : initializeApp(config);
+                const db = getFirestore(app);
+                const auth = getAuth(app);
+                
+                results.innerHTML += '<p>✅ Firebase initialized (main app style)</p>';
+                
+                // Step 3: Google Auth Provider Setup
+                const provider = new GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+                provider.setCustomParameters({
+                    prompt: 'select_account',
+                    hd: undefined
+                });
+                
+                results.innerHTML += '<p>✅ Google provider configured</p>';
+                
+                // Step 4: Debug logging (same as main app)
+                console.log('🔥 Firebase Auth Debug Info:');
+                console.log('Auth instance:', auth);
+                console.log('Auth config:', auth.config);
+                console.log('Provider:', provider);
+                console.log('Current app:', auth.app);
+                
+                // Step 5: Attempt sign-in
+                results.innerHTML += '<p>🔄 Attempting Google sign-in...</p>';
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                // Step 6: Session cookie (same as main app)
+                if (user) {
+                    const isLocalhost = window.location.hostname === 'localhost';
+                    const secure = !isLocalhost ? 'secure;' : '';
+                    document.cookie = `alchm_session=${user.uid}; path=/; max-age=86400; ${secure} samesite=strict`;
+                    
+                    results.innerHTML += '<p>✅ Session cookie set</p>';
+                }
+                
+                // Step 7: Age verification check (placeholder)
+                const requiresAgeVerification = true; // Same as main app
+                
+                results.innerHTML += `
+                    <div style="color: green; background: rgba(0,255,0,0.1); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <h3>🎉 MAIN AUTH FLOW SUCCESS!</h3>
+                        <p><strong>User:</strong> ${user.displayName}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>UID:</strong> ${user.uid}</p>
+                        <p><strong>Age Verification Required:</strong> ${requiresAgeVerification}</p>
+                        <p><strong>Session Cookie:</strong> Set</p>
+                        
+                        <h4>🔍 This proves the auth flow works correctly!</h4>
+                        <p>The issue must be in the React component error handling or navigation.</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                console.error('🚨 Main Auth Flow Error:', error);
+                
+                results.innerHTML += `
+                    <div style="color: red; background: rgba(255,0,0,0.1); padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <h3>❌ MAIN AUTH FLOW ERROR</h3>
+                        <p><strong>Code:</strong> ${error.code}</p>
+                        <p><strong>Message:</strong> ${error.message}</p>
+                        <p><strong>Stack:</strong> ${error.stack}</p>
+                        
+                        <h4>🤔 This would be the cause of "Something gentle went wrong"</h4>
+                    </div>
+                `;
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #a4b792 0%, #8fa37c 100%);
+            color: white;
+            border-radius: 20px;
+        }
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+            width: 100%;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+        #results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Main Auth Flow</h1>
+    <p>This tests the exact same authentication flow as the main ALCHM app to identify where "Something gentle went wrong" occurs.</p>
+    
+    <button onclick="testMainAuthFlow()">
+        🧪 Test Main App Auth Flow
+    </button>
+    
+    <div id="results">
+        <p>Click the test button to run the same authentication flow as your main app.</p>
+    </div>
+</body>
+</html>

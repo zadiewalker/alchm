@@ -1,0 +1,860 @@
+/* ALCHM Design System - Jony Ive Implementation */
+/* Mission: Sanctuary in Every Pixel */
+
+/* CSS Cascade Layers - Ensure design system priority */
+@layer base, tailwind, components, utilities, alchm-design-system;
+
+/* Force our design system to override all Tailwind styles */
+@layer alchm-design-system {
+
+/* ==============================================
+   DESIGN TOKEN SYSTEM
+   ============================================== */
+
+:root {
+  /* Primary Sage Ecosystem */
+  --sage-50: #f7f9f6;
+  --sage-100: #e8eee5;
+  --sage-200: #d1dccb;
+  --sage-300: #b4c5a8;
+  --sage-400: #a8b5a0;  /* Primary sage */
+  --sage-500: #95a387;
+  --sage-600: #7d8a70;
+  --sage-700: #677059;
+  --sage-800: #545b49;
+  --sage-900: #464c3d;
+
+  /* Sanctuary Whites */
+  --sanctuary-white: #fefcfb;
+  --warm-overlay: rgba(254, 252, 251, 0.95);
+  --glass-overlay: rgba(254, 252, 251, 0.8);
+  --backdrop-blur: rgba(254, 252, 251, 0.7);
+
+  /* Emotional Grays */
+  --text-primary: #2c2c2c;      /* Warm charcoal */
+  --text-secondary: #666666;     /* Gentle gray */
+  --text-muted: #999999;         /* Whisper gray */
+  --text-sage: rgba(44, 44, 44, 0.7); /* Sage-tinted text */
+
+  /* Interaction States */
+  --sage-hover: rgba(168, 181, 160, 0.1);
+  --sage-active: rgba(168, 181, 160, 0.2);
+  --sage-focus: rgba(168, 181, 160, 0.3);
+
+  /* Crisis & Safety Colors (gentle, never alarming) */
+  --support-gentle: #e8f4f8;    /* Soft blue for resources */
+  --warning-soft: #fef7e8;      /* Warm yellow for caution */
+  --success-breath: #f0f8f4;    /* Gentle green for progress */
+
+  /* Breathing-based spacing scale */
+  --space-whisper: 4px;   /* Micro-adjustments, tight spacing */
+  --space-breath: 8px;    /* Base unit, natural pause */
+  --space-pause: 16px;    /* Comfortable separation */
+  --space-rest: 24px;     /* Thoughtful distance */
+  --space-comfort: 32px;  /* Generous breathing room */
+  --space-sanctuary: 48px; /* Sacred separation */
+  --space-meditation: 64px; /* Deep contemplation */
+  --space-vastness: 96px;  /* Expansive feeling */
+
+  /* Container constraints */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+
+  /* Safe areas for mobile */
+  --safe-area-top: env(safe-area-inset-top);
+  --safe-area-bottom: env(safe-area-inset-bottom);
+  --safe-area-left: env(safe-area-inset-left);
+  --safe-area-right: env(safe-area-inset-right);
+
+  /* Font families */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Size scale - based on perfect fourths (1.333) */
+  --text-xs: 12px;    /* Micro details */
+  --text-sm: 14px;    /* Secondary information */
+  --text-base: 16px;  /* Body text (mobile-optimized) */
+  --text-lg: 18px;    /* Emphasized body */
+  --text-xl: 20px;    /* Small headings */
+  --text-2xl: 24px;   /* Section headings */
+  --text-3xl: 30px;   /* Page headings */
+  --text-4xl: 36px;   /* Hero text */
+  --text-5xl: 48px;   /* Major statements */
+
+  /* Line heights for emotional comfort */
+  --leading-tight: 1.25;   /* Headlines only */
+  --leading-snug: 1.375;   /* Subheadings */
+  --leading-normal: 1.5;   /* Body text (breathing room) */
+  --leading-relaxed: 1.625; /* Long-form reading */
+  --leading-loose: 2;      /* Extra space for processing */
+
+  /* Letter spacing for calm */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;    /* Gentle expansion */
+  --tracking-wider: 0.05em;    /* Meditative spacing */
+  --tracking-widest: 0.1em;    /* Sacred text */
+
+  /* Font weights - avoiding aggressive bold */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;  /* Maximum weight for ALCHM */
+
+  /* Emotional easing curves */
+  --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-whisper: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-flow: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==============================================
+   SACRED CARD ARCHITECTURE
+   ============================================== */
+
+/* Base card foundation */
+.card-sanctuary {
+  background: var(--sanctuary-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: var(--space-rest);
+  transition: all 0.3s var(--ease-sanctuary);
+  border: 1px solid rgba(168, 181, 160, 0.1);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Interactive card behaviors */
+.card-sanctuary:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 8px 32px rgba(168, 181, 160, 0.15);
+  border-color: rgba(168, 181, 160, 0.2);
+}
+
+.card-sanctuary:active {
+  transform: translateY(-1px) scale(1.002);
+  transition-duration: 0.1s;
+}
+
+/* Card variants for different emotional contexts */
+.card-reflection {
+  background: linear-gradient(145deg, 
+    var(--sanctuary-white) 0%, 
+    rgba(254, 252, 251, 0.95) 100%);
+  border: 1px solid var(--sage-200);
+}
+
+.card-pathway {
+  background: var(--sage-50);
+  border: 1px solid var(--sage-300);
+}
+
+.card-crisis {
+  background: var(--support-gentle);
+  border: 1px solid rgba(232, 244, 248, 0.5);
+}
+
+/* Card content spacing */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-pause);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-breath);
+  margin-bottom: var(--space-pause);
+}
+
+.card-body {
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.card-footer {
+  margin-top: var(--space-rest);
+  padding-top: var(--space-pause);
+  border-top: 1px solid var(--sage-100);
+}
+
+/* ==============================================
+   COMPASSIONATE BUTTON SYSTEM
+   ============================================== */
+
+/* Base button foundation */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-breath);
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-sanctuary);
+  text-decoration: none;
+  user-select: none;
+  min-height: 48px; /* Anxiety-friendly touch targets */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primary button - for crucial actions */
+.btn-primary {
+  background: var(--sage-400);
+  color: var(--sanctuary-white);
+  box-shadow: 0 2px 8px rgba(168, 181, 160, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--sage-500);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(168, 181, 160, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(1.01);
+  box-shadow: 0 2px 8px rgba(168, 181, 160, 0.2);
+}
+
+/* Secondary button - gentle invitations */
+.btn-secondary {
+  background: transparent;
+  color: var(--sage-600);
+  border: 1px solid var(--sage-300);
+  box-shadow: 0 1px 3px rgba(168, 181, 160, 0.1);
+}
+
+.btn-secondary:hover {
+  background: var(--sage-50);
+  border-color: var(--sage-400);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(168, 181, 160, 0.15);
+}
+
+/* Ghost button - minimal presence */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: var(--sage-hover);
+  color: var(--sage-600);
+}
+
+/* Crisis-aware button - for emergency situations */
+.btn-crisis {
+  background: var(--support-gentle);
+  color: var(--text-primary);
+  border: 1px solid rgba(232, 244, 248, 0.8);
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+/* ==============================================
+   INPUT FIELDS WITH EMOTIONAL INTELLIGENCE
+   ============================================== */
+
+/* Base input styling */
+.input-sanctuary {
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid var(--sage-200);
+  border-radius: 12px;
+  background: var(--sanctuary-white);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  resize: none;
+  outline: none;
+}
+
+.input-sanctuary::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.input-sanctuary:focus {
+  border-color: var(--sage-400);
+  box-shadow: 0 0 0 3px var(--sage-focus);
+  background: rgba(254, 252, 251, 0.98);
+}
+
+/* Textarea for journaling - the sacred space */
+.textarea-journal {
+  min-height: 200px;
+  font-size: 17px; /* iOS-optimized to prevent zoom */
+  line-height: var(--leading-relaxed);
+  padding: var(--space-rest);
+  border-radius: 16px;
+  background: linear-gradient(145deg, 
+    var(--sanctuary-white) 0%, 
+    rgba(254, 252, 251, 0.98) 100%);
+  backdrop-filter: blur(10px);
+}
+
+.textarea-journal:focus {
+  animation: gentle-breathing 4s ease-in-out infinite;
+  box-shadow: 0 0 0 3px rgba(168, 181, 160, 0.1);
+}
+
+/* ==============================================
+   ANIMATION & INTERACTION CURVES
+   ============================================== */
+
+/* Page transitions that feel like turning pages */
+.page-enter {
+  opacity: 0;
+  transform: translateX(20px) scale(0.95);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: all 0.4s var(--ease-sanctuary);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.95);
+  transition: all 0.4s var(--ease-sanctuary);
+}
+
+/* Loading states that meditate */
+.loading-breathe {
+  animation: breathe-pulse 2s ease-in-out infinite;
+}
+
+/* Gentle reveal animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s var(--ease-sanctuary) forwards;
+}
+
+/* Staggered animations for card grids */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-children.animate > *:nth-child(1) { 
+  animation: fadeInUp 0.6s var(--ease-sanctuary) 0.1s forwards; 
+}
+.stagger-children.animate > *:nth-child(2) { 
+  animation: fadeInUp 0.6s var(--ease-sanctuary) 0.2s forwards; 
+}
+.stagger-children.animate > *:nth-child(3) { 
+  animation: fadeInUp 0.6s var(--ease-sanctuary) 0.3s forwards; 
+}
+.stagger-children.animate > *:nth-child(4) { 
+  animation: fadeInUp 0.6s var(--ease-sanctuary) 0.4s forwards; 
+}
+
+/* ==============================================
+   KEYFRAME ANIMATIONS
+   ============================================== */
+
+@keyframes breathe-pulse {
+  0%, 100% { 
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-breathing {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes btn-loading-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==============================================
+   RESPONSIVE SANCTUARY
+   ============================================== */
+
+/* Mobile-optimized spacing */
+@media (max-width: 640px) {
+  :root {
+    --space-sanctuary: 32px;
+    --space-comfort: 24px;
+    --space-rest: 20px;
+    --space-pause: 16px;
+  }
+
+  .container {
+    padding: 0 var(--space-pause);
+    margin: 0 auto;
+  }
+
+  /* Thumb-friendly touch targets */
+  .btn-base {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 14px 20px;
+  }
+
+  /* Full-screen journaling on mobile */
+  .mobile-journal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--sanctuary-white);
+    z-index: 50;
+    padding: calc(var(--safe-area-top) + 20px) 20px calc(var(--safe-area-bottom) + 20px);
+  }
+
+  .mobile-journal .textarea-journal {
+    height: calc(100vh - 200px);
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* Tablet landscape optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    max-width: var(--container-md);
+    padding: 0 var(--space-rest);
+  }
+}
+
+/* Desktop sanctuary */
+@media (min-width: 1025px) {
+  .container {
+    max-width: var(--container-lg);
+    padding: 0 var(--space-comfort);
+  }
+
+  /* Hover states only on devices that support hover */
+  @media (hover: hover) {
+    .card-sanctuary:hover {
+      transform: translateY(-2px) scale(1.005);
+    }
+  }
+}
+
+/* ==============================================
+   ACCESSIBILITY WITH COMPASSION
+   ============================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --sage-400: #7d8a70;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+
+  .card-sanctuary {
+    border: 2px solid var(--sage-400);
+  }
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .gentle-breathing,
+  .breathe-pulse,
+  .gentle-pulse {
+    animation: none;
+  }
+}
+
+/* Focus indicators that feel supportive */
+.focus-visible {
+  outline: 2px solid var(--sage-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Large text support */
+@media (prefers-font-size: large) {
+  :root {
+    --text-base: 18px;
+    --text-lg: 20px;
+    --text-xl: 22px;
+  }
+}
+
+/* ==============================================
+   WEBSITE-SPECIFIC COMPONENTS
+   ============================================== */
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg,
+    var(--sage-50) 0%,
+    var(--sanctuary-white) 50%,
+    var(--sage-50) 100%);
+  padding: var(--space-vastness) var(--space-comfort);
+  text-align: center;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero-title {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-light);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-breath);
+  line-height: var(--leading-tight);
+}
+
+.hero-subtitle {
+  font-size: var(--text-xl);
+  color: var(--sage-600);
+  font-weight: var(--font-medium);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-comfort);
+}
+
+.hero-description {
+  max-width: 600px;
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sanctuary);
+}
+
+/* Problem Section */
+.problem-section {
+  background: linear-gradient(145deg, 
+    var(--sage-50) 0%, 
+    rgba(247, 249, 246, 0.8) 100%);
+  backdrop-filter: blur(20px);
+  padding: var(--space-sanctuary) var(--space-rest);
+  border-radius: 20px;
+  border: 1px solid rgba(168, 181, 160, 0.15);
+  margin: var(--space-vastness) 0;
+}
+
+.problem-text {
+  font-size: var(--text-xl);
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Feature Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-rest);
+  margin: var(--space-vastness) 0;
+}
+
+.feature-card {
+  background: var(--sanctuary-white);
+  border: 1px solid var(--sage-200);
+  border-radius: 16px;
+  padding: var(--space-rest);
+  transition: all 0.3s var(--ease-sanctuary);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(168, 181, 160, 0.12);
+  border-color: var(--sage-300);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--sage-100);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-pause);
+  font-size: var(--text-xl);
+}
+
+.feature-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--sage-600);
+  margin-bottom: var(--space-whisper);
+}
+
+.feature-description {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  background: linear-gradient(145deg,
+    var(--sanctuary-white) 0%,
+    rgba(254, 252, 251, 0.95) 100%);
+  border: 1px solid var(--sage-200);
+  border-radius: 20px;
+  padding: var(--space-rest);
+  position: relative;
+  overflow: hidden;
+  margin: var(--space-rest) 0;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: var(--space-breath);
+  left: var(--space-breath);
+  font-size: var(--text-4xl);
+  color: var(--sage-300);
+  opacity: 0.5;
+  font-family: Georgia, serif;
+}
+
+.testimonial-quote {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-sage);
+  font-style: italic;
+  margin-bottom: var(--space-pause);
+  padding-left: var(--space-rest);
+}
+
+.testimonial-attribution {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: var(--font-medium);
+}
+
+/* Pricing Card */
+.pricing-card {
+  background: var(--sanctuary-white);
+  border: 2px solid var(--sage-300);
+  border-radius: 24px;
+  padding: var(--space-comfort);
+  box-shadow: 0 8px 40px rgba(168, 181, 160, 0.12);
+  max-width: 480px;
+  margin: 0 auto;
+  transition: all 0.4s var(--ease-sanctuary);
+  text-align: center;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(168, 181, 160, 0.18);
+  border-color: var(--sage-400);
+}
+
+.pricing-plan {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-medium);
+  color: var(--sage-600);
+  margin-bottom: var(--space-rest);
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-rest) 0;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-breath);
+  padding: var(--space-whisper) 0;
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.pricing-features li::before {
+  content: '●';
+  color: var(--sage-400);
+  font-size: var(--text-sm);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Trust Signals Grid */
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-rest);
+  margin: var(--space-vastness) 0;
+}
+
+.trust-card {
+  text-align: center;
+  padding: var(--space-pause);
+  border-radius: 12px;
+  background: var(--sage-50);
+  border: 1px solid rgba(168, 181, 160, 0.2);
+  transition: all 0.3s var(--ease-breath);
+}
+
+.trust-card:hover {
+  background: var(--sanctuary-white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(168, 181, 160, 0.1);
+}
+
+.trust-icon {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-breath);
+  color: var(--sage-400);
+}
+
+.trust-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--space-whisper);
+}
+
+.trust-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+/* Final CTA Section */
+.final-cta {
+  background: linear-gradient(135deg,
+    var(--sage-50) 0%,
+    var(--sanctuary-white) 50%,
+    var(--sage-50) 100%);
+  padding: var(--space-vastness) var(--space-comfort);
+  text-align: center;
+  border-radius: 32px;
+  margin: var(--space-sanctuary) 0;
+  border: 1px solid rgba(168, 181, 160, 0.2);
+}
+
+.final-cta-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-light);
+  color: var(--text-primary);
+  margin-bottom: var(--space-rest);
+}
+
+.final-cta-subtitle {
+  font-size: var(--text-xl);
+  color: var(--sage-600);
+  margin-bottom: var(--space-rest);
+}
+
+.final-cta-description {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--space-comfort);
+}
+
+.final-cta-quote {
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--text-sage);
+  margin-top: var(--space-rest);
+}
+
+.final-cta .btn-primary {
+  padding: 18px 40px;
+  font-size: var(--text-lg);
+  margin: var(--space-rest) 0;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(254, 252, 251, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(168, 181, 160, 0.1);
+  padding: var(--space-breath) var(--space-pause);
+  z-index: 100;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-xs { margin-bottom: var(--space-whisper); }
+.mb-sm { margin-bottom: var(--space-breath); }
+.mb-md { margin-bottom: var(--space-pause); }
+.mb-lg { margin-bottom: var(--space-rest); }
+.mb-xl { margin-bottom: var(--space-comfort); }
+
+.mt-0 { margin-top: 0; }
+.mt-xs { margin-top: var(--space-whisper); }
+.mt-sm { margin-top: var(--space-breath); }
+.mt-md { margin-top: var(--space-pause); }
+.mt-lg { margin-top: var(--space-rest); }
+.mt-xl { margin-top: var(--space-comfort); }
+
+} /* End of @layer alchm-design-system */

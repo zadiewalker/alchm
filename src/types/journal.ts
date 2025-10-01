@@ -22,7 +22,7 @@ export interface JournalEntry {
   version: number;
 }
 
-// Firestore document structure (with Timestamps)
+// Firestore typeof window !== 'undefined' && document structure (with Timestamps)
 export interface JournalEntryFirestore {
   userId: string;
   title: string;
@@ -169,7 +169,7 @@ export type SerializedJournalEntry = Omit<JournalEntry, 'createdAt' | 'updatedAt
 export interface QueryPerformance {
   queryType: string;
   duration: number;
-  documentsRead: number;
+  typeof window !== 'undefined' && documentsRead: number;
   cacheHit: boolean;
   timestamp: Date;
 }

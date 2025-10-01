@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "ALCHM",
+    "subtitle": "Safe Space for Healing & Growth",
+    "bundleId": "com.alchm.journaling",
+    "version": "1.0.0",
+    "build": "1",
+    "category": {
+      "primary": "Health & Fitness",
+      "secondary": "Medical"
+    },
+    "contentRating": "17+",
+    "contentRatingReason": "Mature/suggestive themes related to mental health discussions, crisis intervention content, and trauma-informed support resources appropriate for users 17 and older.",
+    "privacyPolicyUrl": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "supportUrl": "mailto:support@alchm.com",
+    "websiteUrl": "https://alchm-digital-sanctuary.web.app"
+  },
+  "metadata": {
+    "title": "ALCHM - Your Safe Space for Healing & Growth",
+    "description": "ALCHM is a trauma-informed, AI-powered journaling platform designed to honor all healing traditions and cultural identities. Created by mental health advocates, ALCHM provides a culturally responsive digital sanctuary for reflection, emotional growth, and crisis support.\n\n🌟 TRAUMA-INFORMED DESIGN 🌟\n• Built with safety-first principles by trauma specialists\n• Culturally responsive to BIPOC, LGBTQ+, immigrant, and Indigenous communities\n• Crisis detection with immediate professional resource connections\n• Privacy-preserving AI that never stores your raw journal content\n\n✨ KEY FEATURES ✨\n• Free forever core journaling with premium AI insights\n• Multi-language support (English, Spanish, Portuguese, Korean, Hindi, German)\n• Offline-capable for private reflection anywhere\n• Professional crisis intervention protocols\n• Cultural healing practices integration\n• End-to-end encryption for maximum privacy\n\n🎯 WHO IT'S FOR 🎯\n• Adults 17+ seeking culturally responsive mental health support\n• Anyone healing from trauma, stress, or life transitions\n• Communities historically underserved by traditional therapy\n• Students, professionals, and caregivers managing emotional well-being\n• Individuals seeking complement to professional therapy\n\n🔒 PRIVACY & SAFETY FIRST 🔒\n• GDPR, CCPA, and COPPA compliant\n• Crisis intervention with 24/7 professional resources\n• AI processing uses only anonymized emotional patterns\n• Local data processing when possible\n• Medical disclaimers and professional care referrals\n\n⚠️ IMPORTANT MEDICAL DISCLAIMER ⚠️\nALCHM is NOT therapy, medical treatment, or professional mental health care. This app provides journaling tools and educational wellness content only. For mental health diagnosis, treatment, or ongoing care, please consult licensed healthcare professionals. If experiencing crisis or suicidal thoughts, immediately contact 988 (Suicide & Crisis Lifeline) or emergency services.\n\n🌍 CULTURAL RESPONSIVENESS 🌍\nDeveloped with input from diverse communities to ensure respectful, inclusive healing approaches that honor different cultural backgrounds, spiritual practices, and identity experiences.\n\n💎 PREMIUM FEATURES 💎\n• Advanced AI-powered insights and pattern recognition\n• Personalized wellness recommendations\n• Extended crisis support resources\n• Priority customer support\n• Future: Community healing circles and peer support\n\nJoin thousands using ALCHM for safer, more culturally responsive emotional wellness. Download now and start your healing journey with a platform that truly understands diverse experiences.\n\nSupport: support@alchm.com\nPrivacy: Your data belongs to you. We're committed to transparency.",
+    "keywords": [
+      "trauma-informed",
+      "mental health",
+      "journaling",
+      "crisis support",
+      "cultural healing",
+      "BIPOC wellness",
+      "LGBTQ mental health",
+      "AI therapy companion",
+      "emotional intelligence",
+      "mindfulness",
+      "self-care",
+      "wellness tracker",
+      "mood journal",
+      "reflection",
+      "meditation",
+      "therapy supplement",
+      "crisis intervention",
+      "mental wellness",
+      "emotional support",
+      "healing"
+    ],
+    "whatsNew": "🌟 ALCHM 1.0 - Your Digital Sanctuary Launches! 🌟\n\n✨ CORE FEATURES ✨\n• Free forever trauma-informed journaling\n• AI-powered reflection insights (premium)\n• 24/7 crisis detection and resource connection\n• Multi-language cultural responsiveness\n• End-to-end encryption privacy protection\n\n🔒 SAFETY FIRST 🔒\n• Professional crisis intervention protocols\n• Medical disclaimers and care referrals\n• Privacy-preserving AI (no raw content stored)\n• COPPA, GDPR, CCPA compliance\n\n🌍 BUILT FOR EVERYONE 🌍\n• Culturally responsive to all communities\n• Trauma-informed design principles\n• Accessibility optimized (WCAG 2.1 AA)\n• Offline journaling capability\n\n⚠️ Ages 17+ due to mature mental health content and crisis intervention features.\n\nStart your healing journey today with a platform designed to honor your unique story and cultural background.",
+    "promotionalText": "Transform your emotional wellness with trauma-informed AI journaling designed for diverse communities. Free forever core features with premium insights available.",
+    "releaseNotes": "Initial release of ALCHM - a trauma-informed, culturally responsive journaling platform with AI-powered insights and crisis safety features."
+  },
+  "appStoreOptimization": {
+    "searchRanking": {
+      "primaryKeywords": ["trauma therapy", "mental health app", "crisis support", "cultural healing", "AI journaling"],
+      "secondaryKeywords": ["BIPOC wellness", "LGBTQ therapy", "emotional intelligence", "mindfulness journal", "crisis intervention"],
+      "longTailKeywords": ["trauma-informed journaling app", "culturally responsive mental health", "AI therapy companion with crisis support"]
+    },
+    "competitorAnalysis": {
+      "differentiators": [
+        "Only trauma-informed journaling platform with cultural responsiveness",
+        "Crisis intervention with professional resource connections",
+        "Privacy-preserving AI that doesn't store raw journal content",
+        "Free forever model with premium AI insights",
+        "Built specifically for marginalized communities",
+        "Multi-language support with cultural context"
+      ]
+    }
+  },
+  "technicalRequirements": {
+    "minimumOSVersion": "iOS 14.0",
+    "supportedDevices": ["iPhone", "iPad"],
+    "internetRequired": "Optional (offline journaling available)",
+    "permissions": {
+      "camera": "Optional - for attaching photos to journal entries",
+      "photoLibrary": "Optional - for saving journal reflections and accessing photos",
+      "microphone": "Optional - for future voice note features",
+      "notifications": "Optional - for gentle reminder notifications",
+      "tracking": "Optional - for improving AI insights while preserving privacy"
+    }
+  },
+  "monetization": {
+    "model": "Freemium",
+    "freeFeatures": [
+      "Unlimited journaling",
+      "Basic crisis detection",
+      "Privacy protection",
+      "Multi-language support",
+      "Offline access"
+    ],
+    "premiumFeatures": [
+      "Advanced AI insights",
+      "Pattern recognition",
+      "Personalized recommendations",
+      "Enhanced crisis resources",
+      "Priority support"
+    ],
+    "pricing": {
+      "monthly": "$4.99",
+      "annual": "$29.99",
+      "lifetime": "$99.99"
+    },
+    "trialPeriod": "7 days free trial for premium features"
+  },
+  "compliance": {
+    "ageVerification": "17+ required with robust verification process",
+    "medicalDisclaimers": "Prominent disclaimers throughout app that this is not medical treatment",
+    "crisisIntervention": "Professional crisis resource connections with 988 and emergency services",
+    "privacyCompliance": ["GDPR", "CCPA", "COPPA"],
+    "accessibilityCompliance": "WCAG 2.1 AA"
+  }
+}

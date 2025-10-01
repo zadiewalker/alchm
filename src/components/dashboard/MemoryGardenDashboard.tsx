@@ -1,17 +1,26 @@
+'use client';
+
 // ALCHM Memory Garden Dashboard
 // Poetic data visualization that transforms analytics into stories of growth
 // Non-clinical, warmth-focused emotional metrics interface
 
-import React, { useState, useEffect } from 'react';
-import { 
-  CalendarIcon, 
-  SparklesIcon, 
-  HeartIcon,
-  StarIcon,
-  GiftIcon,
-  DocumentArrowDownIcon,
-  ChartBarIcon
-} from '@heroicons/react/24/outline';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { loadFramerMotion, LoadingStrategy, loadWithStrategy } from '@/lib/dynamic-imports';
+// VENDOR OPTIMIZATION: Load icons dynamically to reduce initial bundle
+const IconLoader = lazy(() => import('@heroicons/react/24/outline').then(module => ({
+  default: () => {
+    const { 
+      CalendarIcon, 
+      SparklesIcon, 
+      HeartIcon,
+      StarIcon,
+      GiftIcon,
+      DocumentArrowDownIcon,
+      ChartBarIcon
+    } = module;
+    return { CalendarIcon, SparklesIcon, HeartIcon, StarIcon, GiftIcon, DocumentArrowDownIcon, ChartBarIcon };
+  }
+})));
 import {
   MemoryGardenEntry,
   Badge,

@@ -1,0 +1,466 @@
+/**
+ * ALCHM Viral Growth Engine
+ * Optimizes referral mechanics and viral coefficient for sustainable hypergrowth
+ */
+
+import { db } from '@/lib/firebase';
+import { collection, doc, setDoc, updateDoc, increment, serverTimestamp, query, where, orderBy, limit, getDocs, getDoc } from 'firebase/firestore';
+import { trackEngagementEvent } from '@/lib/gamification-analytics';
+
+// Viral Growth Configuration
+const GROWTH_CONFIG = {
+  REFERRAL_REWARDS: {
+    REFERRER_XP_BONUS: 500,
+    REFEREE_XP_BONUS: 200,
+    MUTUAL_BADGE_THRESHOLD: 3, // Both users get special badge after 3 successful referrals
+    STREAK_PROTECTION_DAYS: 7   // New referrals get streak protection
+  },
+  SHARING_INCENTIVES: {
+    MILESTONE_SHARING_XP: 100,   // XP for sharing achievements
+    STREAK_SHARING_XP: 50,       // XP for sharing streak milestones
+    BADGE_SHARING_XP: 75,        // XP for sharing badge achievements
+    COMMUNITY_BOOST_MULTIPLIER: 1.5 // XP multiplier when friends are active
+  },
+  VIRAL_MECHANICS: {
+    FRIEND_ACTIVITY_NOTIFICATIONS: true,
+    COLLABORATIVE_CHALLENGES: true,
+    ACHIEVEMENT_LEADERBOARDS: false, // Privacy-first approach
+    ANONYMOUS_COMMUNITY_STATS: true
+  },
+  GROWTH_TARGETS: {
+    VIRAL_COEFFICIENT: 1.2,      // Target: Each user brings 1.2 new users
+    MONTHLY_GROWTH_RATE: 0.25,   // 25% month-over-month growth
+    RETENTION_THRESHOLD: 0.40,    // 40% 30-day retention required for viral success
+    REFERRAL_CONVERSION_RATE: 0.15 // 15% of referrals convert to active users
+  }
+};
+
+interface ReferralStats {
+  totalSent: number;
+  totalAccepted: number;
+  totalActivated: number;
+  conversionRate: number;
+  viralCoefficient: number;
+  rewardPoints: number;
+}
+
+interface ViralMoment {
+  type: 'milestone_achievement' | 'streak_milestone' | 'badge_earned' | 'crisis_overcome' | 'breakthrough_moment';
+  shareability: 'high' | 'medium' | 'low';
+  emotionalResonance: 'celebration' | 'inspiration' | 'support' | 'gratitude';
+  suggestedMessage: string;
+  personalizedElements: string[];
+}
+
+export class ViralGrowthEngine {
+  private userId: string;
+  
+  constructor(userId: string) {
+    this.userId = userId;
+  }
+
+  /**
+   * Generate personalized referral message based on user journey
+   */
+  async generatePersonalizedReferralMessage(): Promise<{
+    subject: string;
+    message: string;
+    shareUrl: string;
+    visualAssets: string[];
+  }> {
+    try {
+      // Get user's journey data
+      const userStats = await this.getUserViralStats();
+      const recentAchievements = await this.getRecentAchievements();
+      const userPreferences = await this.getUserCommunicationStyle();
+
+      // Generate personalized messaging
+      const templates = this.getReferralTemplates(userPreferences, userStats, recentAchievements);
+      const selectedTemplate = templates[Math.floor(Math.random() * templates.length)];
+
+      // Create unique referral URL
+      const referralCode = await this.getUserReferralCode();
+      const shareUrl = `https://alchmapp.web.app/beta?ref=${referralCode}&utm_source=referral&utm_medium=personal_share&utm_campaign=beta_growth`;
+
+      return {
+        subject: selectedTemplate.subject,
+        message: selectedTemplate.message,
+        shareUrl,
+        visualAssets: selectedTemplate.visualAssets
+      };
+
+    } catch (error) {
+      console.error('Error generating referral message:', error);
+      
+      // Fallback template
+      return {
+        subject: 'Join me on ALCHM - Your AI Wellness Companion',
+        message: this.getFallbackReferralMessage(),
+        shareUrl: `https://alchmapp.web.app/beta?ref=${this.userId}`,
+        visualAssets: ['default-share-card.png']
+      };
+    }
+  }
+
+  /**
+   * Identify and optimize viral moments
+   */
+  async identifyViralMoment(eventType: string, eventData: any): Promise<ViralMoment | null> {
+    const viralMoments: Record<string, ViralMoment> = {
+      'streak_milestone_7': {
+        type: 'streak_milestone',
+        shareability: 'high',
+        emotionalResonance: 'celebration',
+        suggestedMessage: "I just hit a 7-day journaling streak with ALCHM! 🌟 The AI insights are helping me understand my emotions better. Want to join me on this healing journey?",
+        personalizedElements: ['current_streak', 'favorite_insight', 'mood_improvement']
+      },
+      
+      'first_badge_earned': {
+        type: 'badge_earned',
+        shareability: 'medium',
+        emotionalResonance: 'inspiration',
+        suggestedMessage: "Just earned my first badge in ALCHM! 🏆 It's amazing how gamification can make healing feel more achievable. The trauma-informed AI really gets it.",
+        personalizedElements: ['badge_name', 'journey_length', 'key_insight']
+      },
+      
+      'breakthrough_moment': {
+        type: 'breakthrough_moment',
+        shareability: 'high',
+        emotionalResonance: 'gratitude',
+        suggestedMessage: "Had a breakthrough moment in my ALCHM journal today. 💜 Sometimes we need AI's gentle guidance to see our own strength. Grateful for this tool.",
+        personalizedElements: ['breakthrough_theme', 'ai_insight_highlight', 'growth_area']
+      },
+      
+      'crisis_overcome': {
+        type: 'crisis_overcome',
+        shareability: 'medium',
+        emotionalResonance: 'support',
+        suggestedMessage: "ALCHM's crisis prevention helped me through a tough moment. 🛡️ Having trauma-informed AI support available 24/7 makes such a difference. Check it out if you're on a healing journey too.",
+        personalizedElements: ['support_type', 'recovery_strategy', 'safety_feeling']
+      }
+    };
+
+    // Determine if this event qualifies as a viral moment
+    const viralMoment = viralMoments[`${eventType}_${eventData.milestone || eventData.type || 'general'}`] 
+                      || viralMoments[eventType];
+    
+    if (viralMoment) {
+      // Track viral moment opportunity
+      await trackEngagementEvent(this.userId, 'engagement_peak', {
+        sessionLength: Date.now(),
+        featuresUsed: ['viral_moment_detected'],
+        viralMomentType: viralMoment.type,
+        shareability: viralMoment.shareability
+      });
+      
+      return viralMoment;
+    }
+
+    return null;
+  }
+
+  /**
+   * Process referral and optimize conversion
+   */
+  async processReferral(referrerCode: string, newUserId: string): Promise<{
+    referrerRewards: any[];
+    newUserRewards: any[];
+    viralCoefficient: number;
+  }> {
+    try {
+      // Get referrer data
+      const referrerQuery = query(
+        collection(db, 'beta_users'),
+        where('betaCode', '==', referrerCode),
+        limit(1)
+      );
+      const referrerSnap = await getDocs(referrerQuery);
+      
+      if (referrerSnap.empty) {
+        throw new Error('Invalid referrer code');
+      }
+
+      const referrerDoc = referrerSnap.docs[0];
+      const referrerId = referrerDoc.id;
+      const referrerData = referrerDoc.data();
+
+      // Update referrer stats
+      await updateDoc(referrerDoc.ref, {
+        referralsUsed: increment(1),
+        totalReferralRewards: increment(GROWTH_CONFIG.REFERRAL_REWARDS.REFERRER_XP_BONUS),
+        lastReferralAt: serverTimestamp()
+      });
+
+      // Create rewards for referrer
+      const referrerRewards = [
+        {
+          type: 'xp',
+          amount: GROWTH_CONFIG.REFERRAL_REWARDS.REFERRER_XP_BONUS,
+          source: 'referral_success',
+          description: 'Friend joined ALCHM through your invitation!'
+        }
+      ];
+
+      // Create rewards for new user
+      const newUserRewards = [
+        {
+          type: 'xp',
+          amount: GROWTH_CONFIG.REFERRAL_REWARDS.REFEREE_XP_BONUS,
+          source: 'referral_bonus',
+          description: 'Welcome bonus for joining through a friend!'
+        },
+        {
+          type: 'streak_protection',
+          amount: GROWTH_CONFIG.REFERRAL_REWARDS.STREAK_PROTECTION_DAYS,
+          source: 'referral_bonus',
+          description: 'Extra grace tokens for your first week!'
+        }
+      ];
+
+      // Check for mutual badge eligibility
+      if ((referrerData.referralsUsed || 0) + 1 >= GROWTH_CONFIG.REFERRAL_REWARDS.MUTUAL_BADGE_THRESHOLD) {
+        referrerRewards.push({
+          type: 'badge',
+          badgeId: 'community_builder',
+          description: 'Earned for helping grow the ALCHM community!'
+        });
+      }
+
+      // Calculate current viral coefficient
+      const viralCoefficient = await this.calculateViralCoefficient(referrerId);
+
+      // Apply rewards
+      await this.applyRewards(referrerId, referrerRewards);
+      await this.applyRewards(newUserId, newUserRewards);
+
+      // Track successful referral
+      await this.trackReferralConversion(referrerId, newUserId, viralCoefficient);
+
+      return {
+        referrerRewards,
+        newUserRewards,
+        viralCoefficient
+      };
+
+    } catch (error) {
+      console.error('Error processing referral:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Calculate user's viral coefficient
+   */
+  private async calculateViralCoefficient(userId: string): Promise<number> {
+    try {
+      const userStatsDoc = await getDoc(doc(db, `users/${userId}/stats/viral_growth`));
+      
+      if (!userStatsDoc.exists()) {
+        return 0;
+      }
+
+      const stats = userStatsDoc.data();
+      const referralsSent = stats.referralsSent || 0;
+      const referralsActivated = stats.referralsActivated || 0;
+      
+      return referralsSent > 0 ? referralsActivated / referralsSent : 0;
+
+    } catch (error) {
+      console.error('Error calculating viral coefficient:', error);
+      return 0;
+    }
+  }
+
+  /**
+   * Get user's viral growth statistics
+   */
+  private async getUserViralStats(): Promise<ReferralStats> {
+    try {
+      const statsDoc = await getDoc(doc(db, `users/${this.userId}/stats/viral_growth`));
+      
+      if (!statsDoc.exists()) {
+        return {
+          totalSent: 0,
+          totalAccepted: 0,
+          totalActivated: 0,
+          conversionRate: 0,
+          viralCoefficient: 0,
+          rewardPoints: 0
+        };
+      }
+
+      const data = statsDoc.data();
+      return {
+        totalSent: data.referralsSent || 0,
+        totalAccepted: data.referralsAccepted || 0,
+        totalActivated: data.referralsActivated || 0,
+        conversionRate: data.referralsSent > 0 ? (data.referralsActivated || 0) / data.referralsSent : 0,
+        viralCoefficient: data.viralCoefficient || 0,
+        rewardPoints: data.totalReferralRewards || 0
+      };
+
+    } catch (error) {
+      console.error('Error getting viral stats:', error);
+      return {
+        totalSent: 0,
+        totalAccepted: 0,
+        totalActivated: 0,
+        conversionRate: 0,
+        viralCoefficient: 0,
+        rewardPoints: 0
+      };
+    }
+  }
+
+  /**
+   * Get recent achievements for personalization
+   */
+  private async getRecentAchievements(): Promise<any[]> {
+    try {
+      const achievementsQuery = query(
+        collection(db, `users/${this.userId}/achievements`),
+        orderBy('unlockedAt', 'desc'),
+        limit(5)
+      );
+      const achievementsSnap = await getDocs(achievementsQuery);
+      
+      return achievementsSnap.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+    } catch (error) {
+      console.error('Error getting recent achievements:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get user's communication style preferences
+   */
+  private async getUserCommunicationStyle(): Promise<string> {
+    try {
+      const userDoc = await getDoc(doc(db, 'users', this.userId));
+      return userDoc.exists() ? userDoc.data()?.communicationStyle || 'gentle' : 'gentle';
+    } catch (error) {
+      return 'gentle';
+    }
+  }
+
+  /**
+   * Generate referral templates based on user data
+   */
+  private getReferralTemplates(style: string, stats: ReferralStats, achievements: any[]): any[] {
+    const baseTemplates = {
+      gentle: [
+        {
+          subject: 'Sharing something that\'s been helping my healing journey 💜',
+          message: `Hi! I wanted to share something that's been really supportive in my wellness journey. I've been using ALCHM, an AI journaling platform designed specifically for trauma-informed care.\n\nWhat makes it special is how gently the AI responds - it really feels like it understands the healing process. I've been building a journaling streak and earning little achievements that celebrate growth without pressure.\n\nIf you're interested in exploring your inner world with some AI guidance, I'd love for you to try it. I have a referral link that gets you priority access to the beta.\n\nNo pressure at all - just thought you might appreciate having a supportive tool like this. 💜`,
+          visualAssets: ['gentle-share-card.png', 'healing-journey-graphic.png']
+        }
+      ],
+      direct: [
+        {
+          subject: 'AI journaling tool that actually gets trauma - worth checking out',
+          message: `I've been using ALCHM for my mental health and wanted to recommend it. It's an AI journaling platform specifically built for trauma-informed care.\n\nKey features that work:\n- AI responses are actually validating, not generic\n- Gamification that doesn't feel manipulative\n- Crisis prevention that's genuinely helpful\n- Privacy and security are top-notch\n\n${stats.totalSent > 0 ? `I've already shared this with ${stats.totalSent} friends because it's been that useful.` : 'This is the first time I've felt comfortable sharing a mental health app.'}\n\nIf you're looking for a supportive journaling tool, here's my referral link for beta access.`,
+          visualAssets: ['direct-features-card.png', 'stats-overview.png']
+        }
+      ],
+      encouraging: [
+        {
+          subject: '🌟 Found an amazing AI wellness companion - want to grow together?',
+          message: `I'm so excited to share this with you! I've discovered ALCHM, an AI journaling platform that's been transformational for my growth journey.\n\n${achievements.length > 0 ? `I've already earned ${achievements.length} growth badges and I'm on a ${achievements.find(a => a.type === 'streak')?.currentStreak || '7'}-day reflection streak!` : 'I\'ve been consistently journaling and seeing real insights about my patterns and growth.'}\n\nWhat I love most:\n✨ The AI truly understands emotional complexity\n✨ Celebrates progress without toxic positivity  \n✨ Makes self-reflection feel rewarding\n✨ Designed with trauma-informed principles\n\nI'd love for you to join me on this journey! Plus, we both get bonus XP when you sign up through my link. Ready to explore your inner wisdom together? 💫`,
+          visualAssets: ['encouraging-achievements.png', 'growth-celebration.png']
+        }
+      ]
+    };
+
+    return baseTemplates[style as keyof typeof baseTemplates] || baseTemplates.gentle;
+  }
+
+  /**
+   * Get user's referral code
+   */
+  private async getUserReferralCode(): Promise<string> {
+    try {
+      const userQuery = query(
+        collection(db, 'beta_users'),
+        where('userId', '==', this.userId),
+        limit(1)
+      );
+      const userSnap = await getDocs(userQuery);
+      
+      if (!userSnap.empty) {
+        return userSnap.docs[0].data().betaCode || this.userId.slice(0, 8).toUpperCase();
+      }
+      
+      return this.userId.slice(0, 8).toUpperCase();
+    } catch (error) {
+      return this.userId.slice(0, 8).toUpperCase();
+    }
+  }
+
+  /**
+   * Fallback referral message
+   */
+  private getFallbackReferralMessage(): string {
+    return `I've been using ALCHM for AI-powered journaling and thought you might be interested too!\n\nIt's designed specifically for trauma-informed care and has been really helpful for processing emotions safely. The AI provides gentle, validating responses that honor the healing process.\n\nI have a referral link that gets you priority access to the beta if you'd like to try it. No pressure - just wanted to share something that's been supportive for my wellness journey. 💜`;
+  }
+
+  /**
+   * Apply rewards to user account
+   */
+  private async applyRewards(userId: string, rewards: any[]): Promise<void> {
+    try {
+      const rewardsRef = collection(db, `users/${userId}/rewards`);
+      
+      for (const reward of rewards) {
+        await setDoc(doc(rewardsRef), {
+          ...reward,
+          appliedAt: serverTimestamp(),
+          source: 'viral_growth_engine'
+        });
+      }
+    } catch (error) {
+      console.error('Error applying rewards:', error);
+    }
+  }
+
+  /**
+   * Track referral conversion
+   */
+  private async trackReferralConversion(referrerId: string, newUserId: string, viralCoefficient: number): Promise<void> {
+    try {
+      await setDoc(doc(collection(db, 'viral_analytics')), {
+        referrerId,
+        newUserId,
+        viralCoefficient,
+        conversionType: 'referral_activated',
+        timestamp: serverTimestamp(),
+        metadata: {
+          growthEngine: 'v1.0',
+          targetViralCoefficient: GROWTH_CONFIG.GROWTH_TARGETS.VIRAL_COEFFICIENT,
+          actualViralCoefficient: viralCoefficient
+        }
+      });
+    } catch (error) {
+      console.error('Error tracking referral conversion:', error);
+    }
+  }
+}
+
+// Export convenience functions
+export const generateReferralMessage = async (userId: string) => {
+  const engine = new ViralGrowthEngine(userId);
+  return engine.generatePersonalizedReferralMessage();
+};
+
+export const processReferralConversion = async (referrerCode: string, newUserId: string) => {
+  const engine = new ViralGrowthEngine(newUserId);
+  return engine.processReferral(referrerCode, newUserId);
+};
+
+export const identifyViralOpportunity = async (userId: string, eventType: string, eventData: any) => {
+  const engine = new ViralGrowthEngine(userId);
+  return engine.identifyViralMoment(eventType, eventData);
+};

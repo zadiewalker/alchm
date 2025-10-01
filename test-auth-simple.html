@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Auth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #1a1a1a; color: white; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px; }
+        .log { background: #333; padding: 10px; margin: 10px 0; border-radius: 5px; font-family: monospace; white-space: pre-wrap; }
+        .error { background: #500; }
+        .success { background: #050; }
+        .warning { background: #550; }
+    </style>
+</head>
+<body>
+    <h1>Simple ALCHM Authentication Test</h1>
+    <p>This test will help identify the exact sign-in error you're experiencing.</p>
+    
+    <div>
+        <button onclick="runCompleteTest()">Run Complete Authentication Test</button>
+        <button onclick="clearLogs()">Clear Logs</button>
+    </div>
+    
+    <div id="logs"></div>
+
+    <script type="module">
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const logDiv = document.createElement('div');
+            logDiv.className = `log ${type}`;
+            logDiv.textContent = `[${new Date().toISOString()}] ${message}`;
+            logsDiv.appendChild(logDiv);
+            console.log(message);
+        }
+
+        window.log = log;
+        
+        window.clearLogs = () => {
+            document.getElementById('logs').innerHTML = '';
+            log('Logs cleared');
+        };
+
+        window.runCompleteTest = async () => {
+            log('🚀 Starting complete authentication test...');
+            
+            try {
+                // Step 1: Test Firebase Config
+                log('1️⃣ Testing Firebase configuration...');
+                const config = {
+                    apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+                    authDomain: "alchm-digital-sanctuary.web.app",
+                    projectId: "alchm-digital-sanctuary",
+                    storageBucket: "alchm-digital-sanctuary.appspot.com",
+                    messagingSenderId: "10211111067",
+                    appId: "1:10211111067:web:4f23562b8a1f63cd8c963e"
+                };
+                log(`✅ Firebase config loaded successfully`, 'success');
+                
+                // Step 2: Initialize Firebase
+                log('2️⃣ Initializing Firebase...');
+                const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+                const { getAuth, GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js');
+                
+                const app = initializeApp(config);
+                const auth = getAuth(app);
+                log(`✅ Firebase initialized successfully`, 'success');
+                
+                // Step 3: Test Google Auth Provider
+                log('3️⃣ Setting up Google authentication...');
+                const provider = new GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+                log(`✅ Google provider configured`, 'success');
+                
+                // Step 4: Check current auth state
+                log('4️⃣ Checking current authentication state...');
+                if (auth.currentUser) {
+                    log(`✅ User already signed in: ${auth.currentUser.email}`, 'success');
+                    
+                    // Test API endpoint with existing user
+                    await testApiEndpoint(auth.currentUser);
+                } else {
+                    log(`ℹ️ No user currently signed in`, 'warning');
+                    
+                    // Step 5: Attempt Google Sign-in
+                    log('5️⃣ Attempting Google Sign-in...');
+                    log('🔔 Please complete the Google sign-in popup that will appear...');
+                    
+                    try {
+                        const result = await signInWithPopup(auth, provider);
+                        log(`✅ Google authentication successful!`, 'success');
+                        log(`👤 User: ${result.user.email}`);
+                        log(`🆔 UID: ${result.user.uid}`);
+                        log(`📝 Display Name: ${result.user.displayName || 'No display name'}`);
+                        
+                        // Test API endpoint with new user
+                        await testApiEndpoint(result.user);
+                        
+                    } catch (authError) {
+                        log(`❌ Google authentication failed: ${authError.code} - ${authError.message}`, 'error');
+                        log(`📚 Error details: ${authError.stack}`, 'error');
+                        
+                        // Provide specific troubleshooting
+                        if (authError.code === 'auth/popup-blocked') {
+                            log(`💡 Solution: Please allow popups for this site and try again`, 'warning');
+                        } else if (authError.code === 'auth/popup-closed-by-user') {
+                            log(`💡 Solution: Complete the sign-in process in the popup`, 'warning');
+                        } else if (authError.code === 'auth/network-request-failed') {
+                            log(`💡 Solution: Check your internet connection`, 'warning');
+                        }
+                        
+                        return;
+                    }
+                }
+                
+            } catch (error) {
+                log(`💥 Fatal error during authentication test: ${error.message}`, 'error');
+                log(`📚 Stack trace: ${error.stack}`, 'error');
+            }
+        };
+
+        async function testApiEndpoint(user) {
+            log('6️⃣ Testing session API endpoint...');
+            
+            try {
+                const response = await fetch('http://localhost:3002/api/auth/session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        uid: user.uid,
+                        user: {
+                            uid: user.uid,
+                            email: user.email,
+                            displayName: user.displayName,
+                        }
+                    }),
+                });
+
+                log(`📡 API response status: ${response.status}`);
+                
+                const data = await response.json();
+                log(`📊 API response data: ${JSON.stringify(data, null, 2)}`);
+                
+                if (response.ok) {
+                    log(`✅ Session API test successful!`, 'success');
+                    log(`🎉 Authentication flow completed successfully!`, 'success');
+                } else {
+                    log(`❌ Session API test failed`, 'error');
+                    log(`💡 This might be the source of your sign-in error`, 'warning');
+                }
+                
+            } catch (apiError) {
+                log(`❌ API test error: ${apiError.message}`, 'error');
+                log(`💡 This is likely the source of your sign-in error`, 'warning');
+            }
+        }
+
+        // Auto-start the test with user permission
+        log('🌿 ALCHM Authentication Debug Tool Ready');
+        log('Click "Run Complete Authentication Test" to identify your sign-in issue');
+    </script>
+</body>
+</html>

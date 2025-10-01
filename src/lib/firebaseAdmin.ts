@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
-import { getServerEnv } from './env';
+import { getServerConfig } from './config';
 
 /**
  * Ensure a single Admin app instance for SSR/API routes.
@@ -20,14 +20,26 @@ let app: admin.app.App | undefined;
  */
 export function ensureAdmin(): admin.app.App {
   if (!app) {
-    const env = getServerEnv();
-    const serviceAccount = JSON.parse(env.firebaseServiceAccountKey);
-    
-    app = admin.apps.length
-      ? admin.app()
-      : admin.initializeApp({
-          credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-        });
+    try {
+      // Get secure configuration with validation
+      const serverConfig = getServerConfig();
+      
+      // Construct service account from secure config
+      const serviceAccount: admin.ServiceAccount = {
+        projectId: serverConfig.firebase.projectId,
+        clientEmail: serverConfig.firebase.clientEmail,
+        privateKey: serverConfig.firebase.privateKey.replace(/\\n/g, '\n'),
+      };
+      
+      app = admin.apps.length
+        ? admin.app()
+        : admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+          });
+    } catch (error) {
+      console.error('Firebase Admin initialization error:', error);
+      throw new Error('Failed to initialize Firebase Admin SDK. Please check your service account configuration.');
+    }
   }
   return app;
 }
@@ -43,6 +55,50 @@ export function getAuthInstance(): admin.auth.Auth {
   ensureAdmin();
   return getAuth();
 }
+
+// Export Firestore instance for compatibility
+export const adminFirestore = {
+  collection: (path: string) => {
+    return getDb().collection(path);
+  },
+  doc: (path: string) => {
+    return getDb().doc(path);
+  },
+  batch: () => {
+    return getDb().batch();
+  },
+  runTransaction: (updateFunction: any) => {
+    return getDb().runTransaction(updateFunction);
+  }
+};
+
+// Export auth instance for compatibility
+export const adminAuth = {
+  deleteUser: async (uid: string) => {
+    ensureAdmin();
+    return getAuth().deleteUser(uid);
+  },
+  getUserByEmail: async (email: string) => {
+    ensureAdmin();
+    return getAuth().getUserByEmail(email);
+  },
+  getUser: async (uid: string) => {
+    ensureAdmin();
+    return getAuth().getUser(uid);
+  },
+  verifyIdToken: async (idToken: string) => {
+    ensureAdmin();
+    return getAuth().verifyIdToken(idToken);
+  },
+  createSessionCookie: async (idToken: string, options: { expiresIn: number }) => {
+    ensureAdmin();
+    return getAuth().createSessionCookie(idToken, options);
+  },
+  verifySessionCookie: async (sessionCookie: string, checkRevoked?: boolean) => {
+    ensureAdmin();
+    return getAuth().verifySessionCookie(sessionCookie, checkRevoked);
+  }
+};
 
 // Export auth object that lazily initializes
 export const auth = {

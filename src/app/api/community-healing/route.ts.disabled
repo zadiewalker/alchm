@@ -1,0 +1,238 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { communityHealingEngine } from '@/lib/community-healing-engine';
+
+export async function POST(request: NextRequest) {
+  try {
+    const { 
+      action, 
+      userId, 
+      ...data 
+    } = await request.json();
+
+    if (!action || !userId) {
+      return NextResponse.json(
+        { error: 'Action and user ID are required' },
+        { status: 400 }
+      );
+    }
+
+    console.log(`🌍 Community healing API: ${action} for user ${userId.substring(0, 8)}...`);
+
+    let result;
+
+    switch (action) {
+      case 'get-sharing-circles':
+        const { themes } = data;
+        result = {
+          circles: communityHealingEngine.getRelevantSharingCircles(themes || [])
+        };
+        break;
+
+      case 'get-collective-wisdom':
+        const { userThemes, culturalContext } = data;
+        result = {
+          wisdom: communityHealingEngine.getRelevantWisdom(
+            userThemes || [], 
+            culturalContext || []
+          )
+        };
+        break;
+
+      case 'find-peer-matches':
+        const { matchThemes, culture, seekingType } = data;
+        result = {
+          matches: communityHealingEngine.findPeerMatches(
+            userId,
+            matchThemes || [],
+            culture || [],
+            seekingType || 'similar'
+          )
+        };
+        break;
+
+      case 'create-anonymous-share':
+        const { content, emotionalThemes, userCulture } = data;
+        if (!content) {
+          return NextResponse.json(
+            { error: 'Content is required for sharing' },
+            { status: 400 }
+          );
+        }
+        
+        const share = communityHealingEngine.createAnonymousShare(
+          content,
+          userId,
+          emotionalThemes || [],
+          userCulture || []
+        );
+        
+        result = { share, shareId: share.id };
+        break;
+
+      case 'add-share-to-circle':
+        const { shareId, circleId } = data;
+        if (!shareId || !circleId) {
+          return NextResponse.json(
+            { error: 'Share ID and circle ID are required' },
+            { status: 400 }
+          );
+        }
+        
+        const success = communityHealingEngine.addShareToCircle(shareId, circleId);
+        result = { success };
+        break;
+
+      case 'express-support':
+        const { targetShareId, supportType } = data;
+        if (!targetShareId) {
+          return NextResponse.json(
+            { error: 'Share ID is required for support' },
+            { status: 400 }
+          );
+        }
+        
+        const supportSuccess = communityHealingEngine.expressSupport(
+          targetShareId, 
+          supportType || 'support'
+        );
+        result = { success: supportSuccess };
+        break;
+
+      case 'contribute-wisdom':
+        const { title, wisdomContent, wisdomType, applicableThemes, contexts } = data;
+        if (!title || !wisdomContent || !wisdomType) {
+          return NextResponse.json(
+            { error: 'Title, content, and wisdom type are required' },
+            { status: 400 }
+          );
+        }
+        
+        const wisdomId = communityHealingEngine.contributeWisdom(
+          title,
+          wisdomContent,
+          wisdomType,
+          applicableThemes || [],
+          contexts || []
+        );
+        result = { wisdomId };
+        break;
+
+      case 'update-user-profile':
+        const { healingThemes, culturalContextProfile, supportStyle, journeyStage } = data;
+        communityHealingEngine.updateUserProfile(
+          userId,
+          healingThemes || [],
+          culturalContextProfile || [],
+          supportStyle || 'empathetic',
+          journeyStage || 'exploring'
+        );
+        result = { success: true };
+        break;
+
+      case 'get-dashboard':
+        result = {
+          dashboard: communityHealingEngine.getCommunityDashboard()
+        };
+        break;
+
+      case 'get-user-shares':
+        // Note: Returns empty array as shares are fully anonymous
+        result = {
+          shares: communityHealingEngine.getUserShares(userId)
+        };
+        break;
+
+      default:
+        return NextResponse.json(
+          { error: `Unknown action: ${action}` },
+          { status: 400 }
+        );
+    }
+
+    return NextResponse.json({
+      success: true,
+      ...result,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('Community healing API error:', error);
+    return NextResponse.json(
+      { 
+        error: 'Internal server error',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get('action');
+    const userId = searchParams.get('userId');
+
+    if (!action) {
+      return NextResponse.json(
+        { error: 'Action parameter is required' },
+        { status: 400 }
+      );
+    }
+
+    console.log(`🌍 Community healing API GET: ${action}`);
+
+    let result;
+
+    switch (action) {
+      case 'dashboard':
+        result = {
+          dashboard: communityHealingEngine.getCommunityDashboard()
+        };
+        break;
+
+      case 'circles':
+        const themes = searchParams.get('themes')?.split(',') || [];
+        result = {
+          circles: communityHealingEngine.getRelevantSharingCircles(themes)
+        };
+        break;
+
+      case 'wisdom':
+        const userThemes = searchParams.get('themes')?.split(',') || [];
+        const culturalContext = searchParams.get('culture')?.split(',') || [];
+        result = {
+          wisdom: communityHealingEngine.getRelevantWisdom(userThemes, culturalContext)
+        };
+        break;
+
+      case 'healing-traditions':
+        result = {
+          traditions: communityHealingEngine.getCommunityDashboard() // This would be enhanced to return traditions
+        };
+        break;
+
+      default:
+        return NextResponse.json(
+          { error: `Unknown GET action: ${action}` },
+          { status: 400 }
+        );
+    }
+
+    return NextResponse.json({
+      success: true,
+      ...result,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('Community healing API GET error:', error);
+    return NextResponse.json(
+      { 
+        error: 'Internal server error',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}

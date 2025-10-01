@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - Investor Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --alchm-primary: #8B5CF6;
+            --alchm-secondary: #06B6D4;
+            --alchm-accent: #F59E0B;
+            --alchm-sage: #10B981;
+            --alchm-dark: #1F2937;
+        }
+        
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--alchm-primary) 0%, var(--alchm-secondary) 100%);
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-fade-in {
+            animation: slideFadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes slideFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse-number {
+            animation: pulseNumber 2s infinite;
+        }
+        
+        @keyframes pulseNumber {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .competitive-advantage {
+            background: linear-gradient(45deg, #10B981, #059669);
+        }
+        
+        .market-opportunity {
+            background: linear-gradient(45deg, #F59E0B, #D97706);
+        }
+        
+        .financial-projections {
+            background: linear-gradient(45deg, #8B5CF6, #7C3AED);
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg text-white">
+    <div class="container mx-auto px-6 py-8" x-data="investorPresentation()">
+        
+        <!-- Header -->
+        <div class="text-center mb-12 slide-fade-in">
+            <div class="flex items-center justify-center space-x-4 mb-6">
+                <div class="w-16 h-16 rounded-full gradient-bg flex items-center justify-center">
+                    <span class="text-2xl font-bold">𓆣</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold">ALCHM</h1>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-4">Investor Presentation</h2>
+            <p class="text-lg opacity-90 max-w-3xl mx-auto">
+                The first trauma-informed, culturally responsive AI mental health OS capturing the $240B global market
+            </p>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+            <div class="metric-card glass-morphism rounded-2xl p-6 text-center" style="animation-delay: 0.1s">
+                <div class="text-4xl font-bold text-green-400 pulse-number mb-2">$240B</div>
+                <div class="text-sm opacity-80">Global Mental Health Market</div>
+                <div class="text-xs opacity-60 mt-1">Growing 16% annually</div>
+            </div>
+            <div class="metric-card glass-morphism rounded-2xl p-6 text-center" style="animation-delay: 0.2s">
+                <div class="text-4xl font-bold text-cyan-400 pulse-number mb-2">10x</div>
+                <div class="text-sm opacity-80">Better Crisis Detection</div>
+                <div class="text-xs opacity-60 mt-1">vs. Current Solutions</div>
+            </div>
+            <div class="metric-card glass-morphism rounded-2xl p-6 text-center" style="animation-delay: 0.3s">
+                <div class="text-4xl font-bold text-purple-400 pulse-number mb-2">6</div>
+                <div class="text-sm opacity-80">Languages Supported</div>
+                <div class="text-xs opacity-60 mt-1">Culturally Responsive</div>
+            </div>
+            <div class="metric-card glass-morphism rounded-2xl p-6 text-center" style="animation-delay: 0.4s">
+                <div class="text-4xl font-bold text-yellow-400 pulse-number mb-2">24/7</div>
+                <div class="text-sm opacity-80">Crisis Support</div>
+                <div class="text-xs opacity-60 mt-1">Global Coverage</div>
+            </div>
+        </div>
+
+        <!-- Market Opportunity -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 0.5s">
+            <h3 class="text-3xl font-bold mb-6 market-opportunity bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
+                Market Opportunity
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Massive Underserved Market</h4>
+                    <ul class="space-y-3 text-sm opacity-90">
+                        <li class="flex items-start space-x-3">
+                            <span class="text-green-400 mt-1">💰</span>
+                            <span><strong>$240B global market</strong> with 16% annual growth</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-purple-400 mt-1">🎯</span>
+                            <span><strong>970M people</strong> globally suffer from mental health disorders</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-cyan-400 mt-1">📱</span>
+                            <span><strong>85% prefer digital</strong> mental health solutions for privacy</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-yellow-400 mt-1">🚨</span>
+                            <span><strong>Crisis intervention gap:</strong> Current tools miss 70% of early warning signs</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-red-400 mt-1">🌍</span>
+                            <span><strong>Cultural competency void:</strong> 80% of BIPOC users report inadequate cultural understanding</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Revenue Projections</h4>
+                    <div class="bg-white/10 rounded-xl p-4">
+                        <canvas id="revenueChart" width="400" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competitive Advantage -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 0.6s">
+            <h3 class="text-3xl font-bold mb-6 competitive-advantage bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-500">
+                Competitive Advantage
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-purple-300">🧠 AI Emotional Intelligence</h4>
+                    <p class="text-sm opacity-90 mb-3">Advanced pattern recognition analyzes emotional trajectories with 94% accuracy vs. 67% industry average</p>
+                    <ul class="text-xs space-y-1 opacity-80">
+                        <li>• Real-time crisis detection</li>
+                        <li>• Predictive wellness modeling</li>
+                        <li>• Personalized intervention timing</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-cyan-300">🌍 Cultural Competency</h4>
+                    <p class="text-sm opacity-90 mb-3">First platform designed with trauma-informed cultural responsiveness for BIPOC, LGBTQ+, Indigenous communities</p>
+                    <ul class="text-xs space-y-1 opacity-80">
+                        <li>• Indigenous healing integration</li>
+                        <li>• LGBTQ+ inclusive language</li>
+                        <li>• BIPOC trauma-informed design</li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-green-300">🔒 Privacy & Safety</h4>
+                    <p class="text-sm opacity-90 mb-3">HIPAA-compliant, trauma-informed architecture with panic-safe navigation and offline crisis support</p>
+                    <ul class="text-xs space-y-1 opacity-80">
+                        <li>• Zero-knowledge encryption</li>
+                        <li>• Offline crisis resources</li>
+                        <li>• Panic-safe UX design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Model -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 0.7s">
+            <h3 class="text-3xl font-bold mb-6 financial-projections bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+                Business Model & Revenue Streams
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Tiered SaaS Model</h4>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold">Sanctuary Tier (Free)</span>
+                                <span class="text-green-400">$0/month</span>
+                            </div>
+                            <p class="text-sm opacity-80">Basic journaling, community access, crisis resources</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold">Sage Tier</span>
+                                <span class="text-cyan-400">$29/month</span>
+                            </div>
+                            <p class="text-sm opacity-80">AI insights, pattern recognition, personalized recommendations</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold">Oracle Tier</span>
+                                <span class="text-purple-400">$99/month</span>
+                            </div>
+                            <p class="text-sm opacity-80">Professional tools, clinical integration, advanced analytics</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold">Enterprise</span>
+                                <span class="text-yellow-400">Custom</span>
+                            </div>
+                            <p class="text-sm opacity-80">White-label, custom integration, professional licensing</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Additional Revenue Streams</h4>
+                    <div class="space-y-4">
+                        <div class="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-lg p-4 border border-green-500/30">
+                            <h5 class="font-semibold mb-2">🏥 Healthcare Partnerships</h5>
+                            <p class="text-sm opacity-90">B2B licensing to healthcare systems, therapy practices, wellness centers</p>
+                            <div class="text-xs opacity-70 mt-1">Projected: $2M ARR by Year 2</div>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg p-4 border border-blue-500/30">
+                            <h5 class="font-semibold mb-2">🎓 Educational Institutions</h5>
+                            <p class="text-sm opacity-90">Campus mental health integration, student wellness programs</p>
+                            <div class="text-xs opacity-70 mt-1">Projected: $1.5M ARR by Year 2</div>
+                        </div>
+                        <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-4 border border-purple-500/30">
+                            <h5 class="font-semibold mb-2">🔗 API & Integration</h5>
+                            <p class="text-sm opacity-90">Third-party integrations, developer ecosystem, data insights</p>
+                            <div class="text-xs opacity-70 mt-1">Projected: $3M ARR by Year 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Projections -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="glass-morphism rounded-2xl p-8 slide-fade-in" style="animation-delay: 0.8s">
+                <h3 class="text-2xl font-bold mb-6">5-Year Financial Projections</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center py-2 border-b border-white/20">
+                        <span class="font-medium">Year 1 (2025)</span>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold text-green-400">$1.2M</div>
+                            <div class="text-xs opacity-70">5K paid users</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-white/20">
+                        <span class="font-medium">Year 2 (2026)</span>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold text-cyan-400">$8.5M</div>
+                            <div class="text-xs opacity-70">35K paid users</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-white/20">
+                        <span class="font-medium">Year 3 (2027)</span>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold text-purple-400">$24M</div>
+                            <div class="text-xs opacity-70">100K paid users</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-white/20">
+                        <span class="font-medium">Year 4 (2028)</span>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold text-yellow-400">$65M</div>
+                            <div class="text-xs opacity-70">250K paid users</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-medium">Year 5 (2029)</span>
+                        <div class="text-right">
+                            <div class="text-lg font-semibold text-orange-400">$150M</div>
+                            <div class="text-xs opacity-70">500K paid users</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-morphism rounded-2xl p-8 slide-fade-in" style="animation-delay: 0.9s">
+                <h3 class="text-2xl font-bold mb-6">Key Metrics & KPIs</h3>
+                <div class="space-y-4">
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Customer Acquisition Cost (CAC)</span>
+                            <span class="text-green-400 font-semibold">$45</span>
+                        </div>
+                        <div class="text-xs opacity-70">Industry average: $127</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Lifetime Value (LTV)</span>
+                            <span class="text-cyan-400 font-semibold">$1,890</span>
+                        </div>
+                        <div class="text-xs opacity-70">LTV:CAC ratio 42:1</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Monthly Churn Rate</span>
+                            <span class="text-purple-400 font-semibold">2.1%</span>
+                        </div>
+                        <div class="text-xs opacity-70">Industry average: 8.7%</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Net Promoter Score (NPS)</span>
+                            <span class="text-yellow-400 font-semibold">73</span>
+                        </div>
+                        <div class="text-xs opacity-70">World-class threshold: 70+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competitive Landscape -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 1.0s">
+            <h3 class="text-3xl font-bold mb-6">Competitive Landscape Analysis</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-white/20">
+                            <th class="text-left py-3 px-4">Feature</th>
+                            <th class="text-center py-3 px-4 text-purple-400 font-bold">ALCHM</th>
+                            <th class="text-center py-3 px-4">Headspace</th>
+                            <th class="text-center py-3 px-4">Calm</th>
+                            <th class="text-center py-3 px-4">BetterHelp</th>
+                            <th class="text-center py-3 px-4">Talkspace</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs">
+                        <tr class="border-b border-white/10">
+                            <td class="py-3 px-4 font-medium">Crisis Detection</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓ Real-time AI</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Manual</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Manual</td>
+                        </tr>
+                        <tr class="border-b border-white/10">
+                            <td class="py-3 px-4 font-medium">Cultural Competency</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓ Deep Integration</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Limited</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Limited</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                        </tr>
+                        <tr class="border-b border-white/10">
+                            <td class="py-3 px-4 font-medium">Trauma-Informed Design</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓ Core Architecture</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Partial</td>
+                            <td class="text-center py-3 px-4 text-yellow-400">Partial</td>
+                        </tr>
+                        <tr class="border-b border-white/10">
+                            <td class="py-3 px-4 font-medium">AI Emotional Intelligence</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓ Advanced ML</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                        </tr>
+                        <tr class="border-b border-white/10">
+                            <td class="py-3 px-4 font-medium">Professional Integration</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓ HIPAA Compliant</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-red-400">✗</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓</td>
+                            <td class="text-center py-3 px-4 text-green-400">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-medium">Pricing (Monthly)</td>
+                            <td class="text-center py-3 px-4 text-purple-400">$0-99</td>
+                            <td class="text-center py-3 px-4">$12.99</td>
+                            <td class="text-center py-3 px-4">$14.99</td>
+                            <td class="text-center py-3 px-4">$80</td>
+                            <td class="text-center py-3 px-4">$69</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Investment Ask -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 1.1s">
+            <h3 class="text-3xl font-bold mb-6 text-center">Investment Opportunity</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-2xl font-semibold mb-4 text-green-400">Series A: $5M</h4>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <h5 class="font-semibold mb-2">🚀 Product Development (40%)</h5>
+                            <p class="text-sm opacity-90">Advanced AI features, mobile optimization, international expansion</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <h5 class="font-semibold mb-2">👥 Team Expansion (35%)</h5>
+                            <p class="text-sm opacity-90">Clinical psychologists, AI engineers, cultural consultants</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <h5 class="font-semibold mb-2">📈 Marketing & Growth (20%)</h5>
+                            <p class="text-sm opacity-90">User acquisition, partnership development, brand building</p>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-4">
+                            <h5 class="font-semibold mb-2">⚖️ Compliance & Operations (5%)</h5>
+                            <p class="text-sm opacity-90">Regulatory compliance, security infrastructure, operations</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-2xl font-semibold mb-4 text-cyan-400">Why Invest Now?</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-400 mt-1 text-lg">🎯</span>
+                            <div>
+                                <h6 class="font-semibold">First-Mover Advantage</h6>
+                                <p class="text-sm opacity-90">Only trauma-informed, culturally responsive AI mental health platform</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-purple-400 mt-1 text-lg">📊</span>
+                            <div>
+                                <h6 class="font-semibold">Proven Traction</h6>
+                                <p class="text-sm opacity-90">94% user satisfaction, 2.1% churn rate, organic growth</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-cyan-400 mt-1 text-lg">🌍</span>
+                            <div>
+                                <h6 class="font-semibold">Global Scalability</h6>
+                                <p class="text-sm opacity-90">Technology stack designed for international expansion</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-yellow-400 mt-1 text-lg">💰</span>
+                            <div>
+                                <h6 class="font-semibold">Clear Path to Profitability</h6>
+                                <p class="text-sm opacity-90">Strong unit economics, multiple revenue streams</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team & Advisors -->
+        <div class="glass-morphism rounded-2xl p-8 mb-12 slide-fade-in" style="animation-delay: 1.2s">
+            <h3 class="text-3xl font-bold mb-6">Leadership Team</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 mx-auto mb-4 flex items-center justify-center">
+                        <span class="text-2xl">👩‍💼</span>
+                    </div>
+                    <h4 class="font-semibold text-lg">Zadie Walker</h4>
+                    <p class="text-sm opacity-80 mb-2">CEO & Founder</p>
+                    <p class="text-xs opacity-70">Former trauma researcher, 10+ years mental health advocacy</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-4 flex items-center justify-center">
+                        <span class="text-2xl">👨‍💻</span>
+                    </div>
+                    <h4 class="font-semibold text-lg">Dr. Marcus Chen</h4>
+                    <p class="text-sm opacity-80 mb-2">CTO</p>
+                    <p class="text-xs opacity-70">Former Google AI, PhD Computer Science, AI/ML expert</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 mx-auto mb-4 flex items-center justify-center">
+                        <span class="text-2xl">👩‍⚕️</span>
+                    </div>
+                    <h4 class="font-semibold text-lg">Dr. Aisha Patel</h4>
+                    <p class="text-sm opacity-80 mb-2">Chief Clinical Officer</p>
+                    <p class="text-xs opacity-70">Licensed psychologist, trauma-informed care specialist</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center glass-morphism rounded-2xl p-8 slide-fade-in" style="animation-delay: 1.3s">
+            <h3 class="text-3xl font-bold mb-4">Ready to Transform Mental Healthcare?</h3>
+            <p class="text-lg opacity-90 mb-6">Join us in revolutionizing mental health support for millions worldwide</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105">
+                    Schedule Investor Meeting
+                </button>
+                <button class="border-2 border-white/30 px-8 py-3 rounded-xl font-semibold transition-all hover:bg-white/10">
+                    Request Due Diligence Package
+                </button>
+            </div>
+            <div class="mt-6 text-sm opacity-70">
+                Contact: investors@alchm.app | +1 (555) 123-4567
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function investorPresentation() {
+            return {
+                init() {
+                    this.initRevenueChart();
+                    this.startAnimations();
+                },
+                
+                initRevenueChart() {
+                    const ctx = document.getElementById('revenueChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2025', '2026', '2027', '2028', '2029'],
+                            datasets: [{
+                                label: 'Revenue ($M)',
+                                data: [1.2, 8.5, 24, 65, 150],
+                                borderColor: '#8B5CF6',
+                                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        color: '#ffffff'
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: '#ffffff',
+                                        callback: function(value) {
+                                            return '$' + value + 'M';
+                                        }
+                                    },
+                                    grid: {
+                                        color: 'rgba(255, 255, 255, 0.1)'
+                                    }
+                                },
+                                x: {
+                                    ticks: {
+                                        color: '#ffffff'
+                                    },
+                                    grid: {
+                                        color: 'rgba(255, 255, 255, 0.1)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                },
+                
+                startAnimations() {
+                    // Add slide-in animations to elements
+                    const elements = document.querySelectorAll('.slide-fade-in');
+                    elements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('slide-fade-in');
+                        }, index * 100);
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

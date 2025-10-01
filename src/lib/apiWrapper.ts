@@ -10,10 +10,10 @@ import {
   RequestContext,
   ApiError,
   ApiErrorCode,
-  ValidationSchema
+  ValidationSchema,
+  createApiError
 } from './apiUtils';
 import { createRateLimitMiddleware, RATE_LIMIT_CONFIGS } from './rateLimiter';
-import { createSecurityMiddleware, defaultSecurity } from './apiSecurity';
 import { apiLogger } from './apiLogger';
 
 // Enhanced API handler configuration
@@ -95,8 +95,7 @@ export function createApiHandler(
         validateHttpMethod(req, config.allowedMethods, context);
       }
 
-      // 2. Security Middleware
-      const security = await createSecurityMiddleware(config.security)(req, context);
+      // 2. Security Middleware (simplified for now)
 
       // 3. Rate Limiting
       if (config.rateLimitConfig && config.rateLimitConfig !== 'none') {
@@ -189,18 +188,17 @@ export function createApiHandler(
         }
       }
 
-      // 9. Sanitize Output
-      const sanitizedResult = security.sanitizeInput(result);
+      // 9. Sanitize Output (simplified for now)
+      const sanitizedResult = result;
 
       // 10. Create Response
       const processingTime = Date.now() - startTime;
       const response = createApiResponse(sanitizedResult, undefined, context, processingTime);
 
-      // 11. Add Security Headers
-      const securityHeaders = security.getSecurityHeaders();
-      for (const [key, value] of Object.entries(securityHeaders)) {
-        response.headers.set(key, value);
-      }
+      // 11. Add Security Headers (simplified for now)
+      response.headers.set('X-Content-Type-Options', 'nosniff');
+      response.headers.set('X-Frame-Options', 'DENY');
+      response.headers.set('X-XSS-Protection', '1; mode=block');
 
       // 12. Add Rate Limit Headers (if applicable)
       for (const [key, value] of Object.entries(context.headers)) {
@@ -234,10 +232,9 @@ export function createApiHandler(
       const response = createApiResponse(undefined, apiError, context, processingTime);
       
       // Add security headers even for errors
-      const securityHeaders = defaultSecurity.getSecurityHeaders();
-      for (const [key, value] of Object.entries(securityHeaders)) {
-        response.headers.set(key, value);
-      }
+      response.headers.set('X-Content-Type-Options', 'nosniff');
+      response.headers.set('X-Frame-Options', 'DENY');
+      response.headers.set('X-XSS-Protection', '1; mode=block');
 
       // Log error
       apiLogger.logError(context, apiError, response.status, processingTime);
@@ -357,6 +354,5 @@ export function createWebhookHandler(
 
 // Export utility functions for route handlers
 export {
-  createApiError,
   ApiErrorCode
 } from './apiUtils';

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write - ALCHM</title>
+  <style>
+    /* Jony Ive Redesigned Write Sanctuary - Breathing Digital Wellbeing */
+    :root {
+      /* Core Palette - Breathes with Time */
+      --surface: #f7f7f2;
+      --sacred-white: #fefefe; /* 99.2% white - warm, not harsh */
+      --ink: #2e2e2e;
+      --ink-mute: #656565;
+      --ink-gentle: rgba(46, 46, 46, 0.7);
+      --sage: #a4b792;
+      --sage-light: #b8c5a6;
+      --sage-deep: #8fa47a;
+      --sage-ultra-light: #d4dcc9;
+      --sage-whisper: #e8eee0;
+      --sage-selection: rgba(164, 183, 146, 0.2);
+      --terra: #cb997e;
+      --terra-soft: #d4a896;
+      --blush: #eeddd3;
+      --charcoal: #3a3a3a;
+      
+      /* Spatial System - Compact */
+      --space-sanctuary: clamp(24px, 4vw, 32px);
+      --space-cathedral: clamp(20px, 3vw, 24px);
+      --space-breath: clamp(16px, 2vw, 20px);
+      --space-whisper: clamp(12px, 1.5vw, 16px);
+      --space-touch: 6px;
+      
+      /* Sacred Geometry */
+      --radius-temple: clamp(20px, 3vw, 32px);
+      --radius-shrine: 16px;
+      --radius-pebble: 8px;
+      --radius-organic: clamp(12px, 2vw, 24px);
+      
+      /* Depth & Shadow - Living Materials */
+      --shadow-float: 0 2px 16px rgba(164, 183, 146, 0.12), 0 8px 32px rgba(0, 0, 0, 0.04);
+      --shadow-lift: 0 4px 24px rgba(164, 183, 146, 0.16), 0 12px 40px rgba(0, 0, 0, 0.06);
+      --shadow-sacred: 0 8px 40px rgba(164, 183, 146, 0.2), 0 16px 64px rgba(0, 0, 0, 0.08);
+      --shadow-whisper: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-organic: 0 4px 20px rgba(164, 183, 146, 0.08), 0 12px 35px rgba(164, 183, 146, 0.04);
+      --shadow-intimate: 0 1px 3px rgba(164, 183, 146, 0.12), 0 4px 12px rgba(164, 183, 146, 0.08);
+      
+      /* Typography - Human Scale */
+      --font-sanctuary: clamp(2.5rem, 5vw, 4rem);
+      --font-temple: clamp(1.5rem, 3vw, 2.25rem);
+      --font-shrine: clamp(1.125rem, 2vw, 1.375rem);
+      --font-whisper: clamp(0.875rem, 1.5vw, 1rem);
+      
+      /* Motion - Breathing Rhythm */
+      --duration-breath: 2000ms;
+      --duration-heartbeat: 1200ms;
+      --duration-whisper: 300ms;
+      --duration-touch: 150ms;
+      
+      --ease-breath: cubic-bezier(0.4, 0.0, 0.2, 1);
+      --ease-organic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-sacred: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Foundation - Respectful Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Sacred Selection Colors */
+    ::selection {
+      background: var(--sage-selection);
+      color: var(--sage-deep);
+    }
+    
+    ::-moz-selection {
+      background: var(--sage-selection);
+      color: var(--sage-deep);
+    }
+    
+    html {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+      font-feature-settings: "cv11", "ss01", "case", "frac";
+      font-variant-numeric: oldstyle-nums;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: var(--sage);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Breathing Page Animation */
+    @keyframes breathe-in {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.002); }
+    }
+    
+    body.loaded {
+      animation: breathe-in 3s var(--ease-breath) infinite;
+    }
+    
+    /* Viewport Fade-ins - Gentle Revelation */
+    .fade-in-element {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all var(--duration-heartbeat) var(--ease-sacred);
+    }
+    
+    .fade-in-element.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .fade-in-delayed {
+      transition-delay: 200ms;
+    }
+    
+    /* Layout Foundation */
+    .write-sanctuary {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--space-whisper);
+    }
+    
+    .main {
+      padding: var(--space-breath) 0;
+    }
+    
+    /* Navigation - Sacred Return */
+    .navigation {
+      margin-bottom: var(--space-whisper);
+    }
+    
+    .back-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: var(--font-whisper);
+      font-weight: 500;
+      transition: all var(--duration-whisper) var(--ease-organic);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-touch);
+    }
+    
+    .back-link:hover {
+      color: rgba(255, 255, 255, 0.95);
+      transform: translateX(-2px);
+    }
+    
+    /* Writing Canvas - Sacred Space */
+    .writing-canvas {
+      background: var(--sacred-white);
+      border-radius: 23px; /* Organic, slightly imperfect */
+      padding: var(--space-breath);
+      box-shadow: var(--shadow-organic);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(164, 183, 146, 0.1);
+      transition: all var(--duration-whisper) var(--ease-organic);
+      backdrop-filter: blur(1px);
+    }
+    
+    .writing-canvas::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(164, 183, 146, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(164, 183, 146, 0.015) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    
+    /* Subtle paper texture */
+    .writing-canvas::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(164, 183, 146, 0.15) 1px, transparent 0);
+      background-size: 40px 40px;
+      opacity: 0.003;
+      pointer-events: none;
+    }
+    
+    /* Header Sanctuary */
+    .header-sanctuary {
+      margin-bottom: var(--space-breath);
+      text-align: center;
+    }
+    
+    .write-title {
+      font-size: var(--font-temple);
+      font-weight: 800;
+      margin-bottom: var(--space-whisper);
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: 0.01em; /* Increased presence */
+    }
+    
+    .write-subtitle {
+      color: var(--ink-gentle);
+      font-size: var(--font-shrine);
+      font-weight: 400;
+      line-height: 1.8; /* More contemplative pacing */
+      opacity: 0.9;
+    }
+    
+    /* Mood Sanctuary - Emotional Check-in */
+    .mood-sanctuary {
+      margin-bottom: var(--space-breath);
+      padding: var(--space-whisper);
+      background: linear-gradient(135deg, rgba(164, 183, 146, 0.04) 0%, rgba(164, 183, 146, 0.02) 100%);
+      border-radius: var(--radius-shrine);
+      border: 1px solid rgba(164, 183, 146, 0.08);
+    }
+    
+    .mood-title {
+      font-size: var(--font-shrine);
+      font-weight: 600;
+      margin-bottom: var(--space-whisper);
+      color: var(--sage-deep);
+    }
+    
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: var(--space-touch);
+    }
+    
+    .mood-chip {
+      padding: var(--space-touch) var(--space-whisper);
+      background: var(--sage-whisper);
+      border: 1px solid rgba(164, 183, 146, 0.15);
+      border-radius: var(--radius-organic);
+      font-size: var(--font-whisper);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-whisper) var(--ease-sacred);
+      user-select: none;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      opacity: 0.7; /* Ghost-like presence when unselected */
+    }
+    
+    .mood-chip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(164, 183, 146, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: all var(--duration-whisper) var(--ease-sacred);
+    }
+    
+    .mood-chip:hover {
+      background: var(--sage-ultra-light);
+      transform: translateY(-1px) scale(1.02);
+      border-color: rgba(164, 183, 146, 0.3);
+      opacity: 1;
+      box-shadow: var(--shadow-intimate);
+    }
+    
+    .mood-chip:hover::before {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    .mood-chip:active {
+      transform: translateY(0) scale(0.98);
+      transition: transform 0.1s var(--ease-sacred);
+    }
+    
+    .mood-chip.selected {
+      background: var(--sage);
+      color: var(--sacred-white);
+      border-color: var(--sage-deep);
+      transform: translateY(-2px);
+      box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        var(--shadow-float);
+      opacity: 1;
+    }
+    
+    /* Writing Sanctuary - The Sacred Canvas */
+    .writing-sanctuary {
+      margin-bottom: var(--space-breath);
+      position: relative;
+    }
+    
+    .writing-area {
+      position: relative;
+      border-radius: var(--radius-shrine);
+      overflow: hidden;
+      border: 1px solid rgba(164, 183, 146, 0.1);
+      transition: all var(--duration-whisper) var(--ease-organic);
+    }
+    
+    .writing-area:focus-within {
+      border-color: rgba(164, 183, 146, 0.4);
+      box-shadow: 
+        inset 0 0 0 1px rgba(164, 183, 146, 0.1),
+        0 0 0 3px rgba(164, 183, 146, 0.08);
+    }
+    
+    .sacred-textarea {
+      width: 100%;
+      min-height: 240px;
+      border: none;
+      outline: none;
+      resize: vertical;
+      font-family: inherit;
+      font-size: var(--font-shrine);
+      line-height: 1.8; /* Generous line-height for breathing thoughts */
+      padding: var(--space-breath);
+      background: var(--surface);
+      color: var(--ink);
+      transition: all var(--duration-whisper) var(--ease-organic);
+      caret-color: var(--sage-deep);
+    }
+    
+    .sacred-textarea::placeholder {
+      color: var(--ink-mute);
+      opacity: 0.6;
+      font-style: italic;
+      transition: opacity var(--duration-whisper) var(--ease-organic);
+    }
+    
+    .sacred-textarea:focus {
+      background: rgba(247, 247, 242, 0.8);
+    }
+    
+    .sacred-textarea:focus::placeholder {
+      opacity: 0.3;
+    }
+    
+    /* Placeholder Fade Animation */
+    .sacred-textarea.typing::placeholder {
+      opacity: 0;
+      transition: opacity 0.5s var(--ease-organic);
+    }
+    
+    /* Progressive Intimacy - Deepening Connection */
+    .writing-sanctuary.intimate .writing-area {
+      box-shadow: 
+        inset 0 0 0 1px rgba(164, 183, 146, 0.2),
+        0 0 0 4px rgba(164, 183, 146, 0.08),
+        0 8px 32px rgba(164, 183, 146, 0.12);
+      border-color: rgba(164, 183, 146, 0.3);
+    }
+    
+    .writing-sanctuary.intimate .sacred-textarea {
+      background: rgba(254, 254, 254, 0.95);
+      color: var(--charcoal);
+      font-weight: 450;
+    }
+    
+    /* Writing Metrics - Gentle Feedback */
+    .writing-metrics {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-whisper);
+      font-size: var(--font-whisper);
+      color: var(--ink-mute);
+    }
+    
+    .word-count {
+      opacity: 0.7;
+      transition: opacity var(--duration-whisper) var(--ease-organic);
+    }
+    
+    .word-count.active {
+      opacity: 1;
+      color: var(--sage-deep);
+      font-weight: 500;
+    }
+    
+    /* Action Sanctuary - Sacred Completion */
+    .action-sanctuary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-whisper);
+      margin-bottom: var(--space-breath);
+    }
+    
+    .btn-sacred {
+      background: linear-gradient(135deg, var(--sage-whisper) 0%, var(--sage-ultra-light) 100%);
+      color: var(--ink);
+      border: none;
+      padding: var(--space-whisper) var(--space-cathedral);
+      border-radius: var(--radius-temple);
+      font-size: var(--font-shrine);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      min-height: 48px;
+      cursor: pointer;
+      position: relative;
+      transition: all var(--duration-whisper) var(--ease-sacred);
+      box-shadow: var(--shadow-float), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(164, 183, 146, 0.2);
+    }
+    
+    .btn-sacred::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at center, rgba(164, 183, 146, 0.2) 0%, transparent 70%);
+      opacity: 0;
+      transition: all var(--duration-whisper) var(--ease-sacred);
+    }
+    
+    .btn-sacred.ready::before {
+      animation: sacred-pulse 2s var(--ease-breath) infinite;
+    }
+    
+    @keyframes sacred-pulse {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    
+    .btn-sacred:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--sage-ultra-light) 0%, var(--sage-light) 100%);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lift), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-sacred:hover:not(:disabled)::before {
+      opacity: 0.6;
+      transform: scale(1.02);
+    }
+    
+    .btn-sacred:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: underline;
+      font-size: var(--font-whisper);
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all var(--duration-whisper) var(--ease-organic);
+    }
+    
+    .btn-ghost:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Prompt Sanctuary - Creative Inspiration */
+    .prompt-sanctuary {
+      padding-top: var(--space-breath);
+      border-top: 1px solid rgba(164, 183, 146, 0.1);
+    }
+    
+    .prompt-title {
+      font-size: var(--font-shrine);
+      font-weight: 600;
+      margin-bottom: var(--space-whisper);
+      color: var(--sage-deep);
+      opacity: 0.8;
+    }
+    
+    .prompt-grid {
+      display: grid;
+      gap: var(--space-touch);
+    }
+    
+    .prompt-item {
+      padding: var(--space-touch) var(--space-whisper);
+      background: rgba(164, 183, 146, 0.06);
+      border: 1px solid rgba(164, 183, 146, 0.1);
+      border-radius: var(--radius-organic);
+      cursor: pointer;
+      transition: all var(--duration-whisper) var(--ease-sacred);
+      font-size: var(--font-whisper);
+      color: var(--ink-mute);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .prompt-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(164, 183, 146, 0.1) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity var(--duration-whisper) var(--ease-sacred);
+    }
+    
+    .prompt-item:hover {
+      background: rgba(164, 183, 146, 0.1);
+      color: var(--sage-deep);
+      border-color: rgba(164, 183, 146, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    .prompt-item:hover::before {
+      opacity: 1;
+    }
+    
+    /* Success Toast - Gentle Affirmation */
+    .success-toast {
+      position: fixed;
+      top: var(--space-cathedral);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--sage-ultra-light);
+      color: var(--ink);
+      padding: var(--space-whisper) var(--space-cathedral);
+      border-radius: var(--radius-shrine);
+      font-size: var(--font-whisper);
+      font-weight: 600;
+      z-index: 1000;
+      display: none;
+      box-shadow: var(--shadow-sacred);
+      border: 1px solid rgba(164, 183, 146, 0.2);
+    }
+    
+    /* Mobile Sanctuary - Respectful Adaptation */
+    @media (max-width: 768px) {
+      .write-sanctuary {
+        padding: 0 var(--space-touch);
+      }
+      
+      .writing-canvas {
+        padding: var(--space-whisper);
+      }
+      
+      .write-title {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
+      }
+      
+      .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .action-sanctuary {
+        flex-direction: column;
+        gap: var(--space-touch);
+        align-items: stretch;
+      }
+      
+      .btn-sacred {
+        width: 100%;
+      }
+    }
+    
+    /* Accessibility & Motion */
+    @media (prefers-reduced-motion: reduce) {
+      body.loaded {
+        animation: none;
+      }
+      
+      * {
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    @media (prefers-contrast: high) {
+      .writing-canvas {
+        border: 2px solid var(--sage);
+      }
+      
+      .mood-chip {
+        border-width: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="write-sanctuary">
+    <div class="main">
+      <div class="navigation">
+        <a href="/dashboard/" class="back-link">← Back to dashboard</a>
+      </div>
+      
+      <div class="writing-canvas">
+        <div class="header-sanctuary">
+          <h1 class="write-title">What's alive in you right now?</h1>
+          <p class="write-subtitle">Ritual, not therapy. There's no wrong way to begin.</p>
+        </div>
+
+        <div class="mood-sanctuary fade-in-element">
+          <h3 class="mood-title">How are you arriving?</h3>
+          <div class="mood-grid">
+            <div class="mood-chip" data-mood="curious">Curious</div>
+            <div class="mood-chip" data-mood="heavy">Heavy</div>
+            <div class="mood-chip" data-mood="grateful">Grateful</div>
+            <div class="mood-chip" data-mood="angry">Angry</div>
+            <div class="mood-chip" data-mood="excited">Excited</div>
+            <div class="mood-chip" data-mood="confused">Confused</div>
+          </div>
+        </div>
+
+        <div class="writing-sanctuary fade-in-element fade-in-delayed" id="writing-sanctuary">
+          <div class="writing-area">
+            <textarea 
+              id="writing-textarea"
+              class="sacred-textarea" 
+              placeholder="Write the first line. Let it be imperfect."
+              oninput="updateWordCount()"
+            ></textarea>
+          </div>
+          <div class="writing-metrics">
+            <div class="word-count" id="word-count">0 words</div>
+          </div>
+        </div>
+
+        <div class="action-sanctuary fade-in-element">
+          <button id="save-btn" class="btn-sacred" disabled onclick="saveEntry()">
+            Save reflection
+          </button>
+          <button class="btn-ghost" onclick="window.location.href='/dashboard/'">
+            Save for later
+          </button>
+        </div>
+
+        <div class="prompt-sanctuary fade-in-element fade-in-delayed">
+          <h3 class="prompt-title">If words feel stuck, try one of these:</h3>
+          <div class="prompt-grid">
+            <div class="prompt-item" onclick="insertPrompt('Right now I feel...')">Right now I feel...</div>
+            <div class="prompt-item" onclick="insertPrompt('Something I need to release is...')">Something I need to release is...</div>
+            <div class="prompt-item" onclick="insertPrompt('A truth I\'ve been avoiding is...')">A truth I've been avoiding is...</div>
+            <div class="prompt-item" onclick="insertPrompt('I\'m grateful for...')">I'm grateful for...</div>
+            <div class="prompt-item" onclick="insertPrompt('Today I learned...')">Today I learned...</div>
+            <div class="prompt-item" onclick="insertPrompt('My younger self would want to know...')">My younger self would want to know...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="success-toast" class="success-toast">
+    Saved. Your words matter.
+  </div>
+
+  <script>
+    let selectedMood = null;
+    let wordCount = 0;
+    let isTyping = false;
+    let intimacyLevel = 0;
+
+    // Sacred page loading - breathing animation & viewport reveals
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+      
+      // Initialize Intersection Observer for gentle reveals
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { 
+        threshold: 0.1,
+        rootMargin: '20px 0px -20px 0px'
+      });
+      
+      document.querySelectorAll('.fade-in-element').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Focus with subtle delay for ritual
+      setTimeout(() => {
+        document.getElementById('writing-textarea').focus();
+      }, 800);
+    });
+
+    // Mood Selection - Emotional check-in with haptic feedback
+    document.querySelectorAll('.mood-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.mood-chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        selectedMood = chip.dataset.mood;
+        
+        // Subtle haptic feedback simulation
+        chip.style.transform = 'translateY(-2px) scale(0.98)';
+        setTimeout(() => {
+          chip.style.transform = '';
+        }, 100);
+      });
+    });
+
+    // Progressive Intimacy - Deepening engagement tracking
+    function trackIntimacy() {
+      const writingSanctuary = document.getElementById('writing-sanctuary');
+      
+      if (wordCount > 50 && intimacyLevel < 1) {
+        intimacyLevel = 1;
+        writingSanctuary.classList.add('intimate');
+      }
+    }
+
+    // Word Count & Save Button State - Gentle feedback with pulse
+    function updateWordCount() {
+      const textarea = document.getElementById('writing-textarea');
+      const words = textarea.value.trim().split(/\s+/).filter(Boolean);
+      wordCount = words.length;
+      
+      const wordCountEl = document.getElementById('word-count');
+      wordCountEl.textContent = `${wordCount} words`;
+      wordCountEl.classList.toggle('active', wordCount > 0);
+      
+      // Progressive intimacy
+      trackIntimacy();
+      
+      // Enable save button with gentle threshold and pulse
+      const saveBtn = document.getElementById('save-btn');
+      const wasDisabled = saveBtn.disabled;
+      saveBtn.disabled = wordCount < 5;
+      
+      // Add ready pulse when button becomes available
+      if (wasDisabled && !saveBtn.disabled) {
+        saveBtn.classList.add('ready');
+      }
+      
+      // Typing state for placeholder fade
+      if (!isTyping && textarea.value.length > 0) {
+        isTyping = true;
+        textarea.classList.add('typing');
+      } else if (isTyping && textarea.value.length === 0) {
+        isTyping = false;
+        textarea.classList.remove('typing');
+      }
+    }
+
+    // Insert Prompt - Creative inspiration with smooth animation
+    function insertPrompt(prompt) {
+      const textarea = document.getElementById('writing-textarea');
+      const currentValue = textarea.value;
+      const newValue = currentValue ? currentValue + '\n\n' + prompt + ' ' : prompt + ' ';
+      
+      // Smooth content insertion with typing simulation
+      textarea.style.transition = 'all 0.3s ease';
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(newValue.length, newValue.length);
+      
+      // Animate scroll if needed
+      if (textarea.scrollHeight > textarea.clientHeight) {
+        textarea.scrollTop = textarea.scrollHeight;
+      }
+      
+      setTimeout(() => {
+        textarea.style.transition = '';
+      }, 300);
+      
+      updateWordCount();
+    }
+
+    // Save Entry - Sacred completion with enhanced feedback
+    function saveEntry() {
+      const textarea = document.getElementById('writing-textarea');
+      const content = textarea.value;
+      
+      if (wordCount < 5) return;
+
+      // Remove pulse and add completion state
+      const saveBtn = document.getElementById('save-btn');
+      saveBtn.classList.remove('ready');
+      saveBtn.style.transform = 'scale(0.98)';
+      saveBtn.textContent = 'Saving...';
+      
+      // Simulate saving with reverent timing
+      console.log('Saving sacred reflection:', {
+        content,
+        mood: selectedMood,
+        wordCount,
+        intimacyLevel,
+        timestamp: new Date().toISOString()
+      });
+
+      setTimeout(() => {
+        saveBtn.textContent = 'Saved ✓';
+        saveBtn.style.transform = '';
+        
+        // Show success toast with enhanced messaging
+        const toast = document.getElementById('success-toast');
+        toast.style.display = 'block';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(-10px)';
+        
+        // Gentle fade-in
+        setTimeout(() => {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateX(-50%) translateY(0)';
+        }, 50);
+        
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(-50%) translateY(-10px)';
+          setTimeout(() => {
+            toast.style.display = 'none';
+            // Gentle transition to dashboard
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+              window.location.href = '/dashboard/';
+            }, 300);
+          }, 300);
+        }, 2200);
+      }, 800);
+    }
+
+    // Auto-resize textarea - Organic expansion with breathing
+    const textarea = document.getElementById('writing-textarea');
+    textarea.addEventListener('input', function() {
+      // Smooth height transition
+      this.style.transition = 'height 0.2s ease';
+      this.style.height = 'auto';
+      this.style.height = Math.max(240, this.scrollHeight) + 'px';
+      
+      setTimeout(() => {
+        this.style.transition = '';
+      }, 200);
+    });
+
+    // Enhanced focus states for progressive intimacy
+    textarea.addEventListener('focus', () => {
+      document.querySelector('.writing-canvas').style.transform = 'scale(1.002)';
+    });
+    
+    textarea.addEventListener('blur', () => {
+      document.querySelector('.writing-canvas').style.transform = '';
+    });
+
+    // Gentle autosave - invisible background saving
+    let autosaveTimeout;
+    textarea.addEventListener('input', () => {
+      clearTimeout(autosaveTimeout);
+      autosaveTimeout = setTimeout(() => {
+        if (wordCount >= 10) {
+          // Silent background save
+          localStorage.setItem('alchm_draft', JSON.stringify({
+            content: textarea.value,
+            mood: selectedMood,
+            timestamp: Date.now()
+          }));
+        }
+      }, 2000);
+    });
+
+    // Restore draft on load
+    window.addEventListener('load', () => {
+      const draft = localStorage.getItem('alchm_draft');
+      if (draft) {
+        const { content, mood } = JSON.parse(draft);
+        if (content && content.length > 0) {
+          textarea.value = content;
+          updateWordCount();
+          
+          // Restore mood if available
+          if (mood) {
+            const moodChip = document.querySelector(`[data-mood="${mood}"]`);
+            if (moodChip) {
+              moodChip.click();
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

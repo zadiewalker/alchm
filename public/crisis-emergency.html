@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Crisis Support - Immediate Help</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
+            margin: 0; padding: 20px; background: #a4b792; color: white; 
+            text-align: center; line-height: 1.6;
+        }
+        .crisis-button { 
+            background: #dc2626; color: white; padding: 20px 30px; 
+            font-size: 1.5rem; border: none; border-radius: 12px; 
+            margin: 15px; text-decoration: none; display: inline-block; 
+            min-width: 250px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .crisis-button:hover { transform: scale(1.05); }
+        .secondary-button {
+            background: #4f46e5; color: white; padding: 15px 25px;
+            font-size: 1.1rem; border: none; border-radius: 8px;
+            margin: 10px; text-decoration: none; display: inline-block;
+            min-width: 200px;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; }
+        p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; }
+    </style>
+</head>
+<body>
+    <h1>🛡️ IMMEDIATE CRISIS SUPPORT</h1>
+    <p>You are not alone. Help is available right now, 24/7.</p>
+    
+    <div>
+        <a href="tel:988" class="crisis-button">📞 Call 988 - Crisis Lifeline</a>
+        <a href="sms:741741" class="crisis-button">💬 Text HOME to 741741</a>
+    </div>
+    
+    <div>
+        <a href="tel:1-800-273-8255" class="secondary-button">📞 National Suicide Prevention</a>
+        <a href="https://suicidepreventionlifeline.org/chat/" class="secondary-button">💬 Online Crisis Chat</a>
+    </div>
+    
+    <div>
+        <a href="/" class="secondary-button">🏠 Return to ALCHM</a>
+        <a href="/emergency-resources" class="secondary-button">📋 More Resources</a>
+    </div>
+    
+    <script>
+        // Preload main app in background
+        setTimeout(() => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = '/';
+            document.head.appendChild(link);
+        }, 2000);
+        
+        // Auto-redirect after 30 seconds if user doesn't interact
+        let redirectTimer = setTimeout(() => {
+            if (confirm('Would you like to continue to the main ALCHM app?')) {
+                window.location.href = '/';
+            }
+        }, 30000);
+        
+        // Clear timer if user interacts
+        document.addEventListener('click', () => clearTimeout(redirectTimer));
+    </script>
+</body>
+</html>

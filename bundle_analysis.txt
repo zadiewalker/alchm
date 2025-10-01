@@ -1,0 +1,528 @@
+
+> alchm@1.0.0 analyze
+> ANALYZE=true npm run build
+
+
+> alchm@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=8192' SKIP_STATIC_EXPORT=true next build
+
+  ▲ Next.js 14.2.32
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · turbo
+    · optimizeCss
+    · largePageDataBytes
+    · bundlePagesExternals
+
+   Creating an optimized production build ...
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/nodejs.html
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/edge.html
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/client.html
+ ⚠ Compiled with warnings
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (977 KiB). This can impact web performance.
+Entrypoints:
+  app/layout (1.35 MiB)
+      static/chunks/framework-27f02048-a8458069af77d1ca.js
+      static/chunks/framework-45adea4d-9af5b80954e35def.js
+      static/chunks/framework-3d3a1b23-63d17e367fe0d353.js
+      static/chunks/framework-ce70e96a-dcaecb2370f593ea.js
+      static/chunks/framework-fc2d4738-c4aa44f48b616071.js
+      static/chunks/framework-4e8e7ca0-d61c321db58bfcfb.js
+      static/chunks/framework-a48b71bd-58482415f807a2a7.js
+      static/chunks/framework-63284375-293675eab3bce6ab.js
+      static/chunks/framework-999bad32-9fa3f35634978b2e.js
+      static/chunks/framework-a6a69d38-3654eeeaf2048e00.js
+      static/chunks/framework-22fcdcd6-2e7596c764c5ddeb.js
+      static/chunks/framework-3f3d331c-40a1feb3e03f8023.js
+      static/chunks/framework-359a1f64-01e2e64d3e96c51b.js
+      static/chunks/framework-7d2d8b41-462ebbd9605daf21.js
+      static/chunks/framework-05e245ef-0c204b5fe1e05f50.js
+      static/chunks/framework-d7c15829-cf6ac6075fdc3ec3.js
+      static/chunks/framework-6808aa01-76940802a4ed68ce.js
+      static/chunks/framework-5265a0af-0bd622b0f79b6cc7.js
+      static/chunks/framework-27161c75-94e0d5da1b854282.js
+      static/chunks/framework-5bf2f011-469db8db033a4741.js
+      static/chunks/framework-a6f90180-a841e26b71176dbe.js
+      static/chunks/framework-87f6d9df-ad79109c27bed463.js
+      static/chunks/framework-82831f5c-28512e025f8bb4df.js
+      static/chunks/framework-c35ff16d-5557055d1b584d8e.js
+      static/chunks/framework-2ac4632b-13827cb93e212735.js
+      static/chunks/framework-613988b4-0f6284f43c3efa4f.js
+      static/chunks/framework-d69b813b-d6bc58803255a12e.js
+      static/chunks/framework-8c3d4554-1a3486ad84fc825f.js
+      static/chunks/framework-9b6357f6-d6d47a8294f72d3a.js
+      static/chunks/framework-c3908cc5-800c960780595f44.js
+      static/chunks/framework-1ca5fb23-6f81f3e4a71587df.js
+      static/chunks/framework-69ae6af9-75481e1d080c2b17.js
+      static/chunks/framework-7bad328b-04c53a7b21ecd9bf.js
+      static/chunks/framework-ae050ec9-25dd4c12c0fc2599.js
+      static/chunks/framework-a8f8b4de-9623e74d6341eaf9.js
+      static/chunks/framework-d031d8a3-7df2020841821ef6.js
+      static/chunks/73-d15da982a6d20223.js
+      static/chunks/9697-333faa8f78a6def5.js
+      static/chunks/386-cd1384f4fd1dbf87.js
+      static/chunks/8965-b6238941d215901a.js
+      static/chunks/2598-655e850d8aa86036.js
+      static/chunks/230-378a02646fbc4e51.js
+      static/chunks/1542-113c1cb82cc970fb.js
+      static/chunks/5853-f0300e87a0f6c82a.js
+      static/chunks/6658-bc3fd34180fd10a3.js
+      static/chunks/2004-58fd4c0e92118653.js
+      static/chunks/8456-2f70274538c4a6e3.js
+      static/chunks/7134-bf0784e893ec16e8.js
+      static/chunks/5916-956d94230a65c140.js
+      static/chunks/492-e6dfd4b53a03a34d.js
+      static/chunks/760-b6a2bb3818380c72.js
+      static/chunks/4053-475ec00ca2665f00.js
+      static/chunks/5475-51ef85bbcaa17325.js
+      static/chunks/6729-3a5ce458d559cd15.js
+      static/chunks/9655-4f97e061a24e8d25.js
+      static/chunks/1964-b33bb440f282f777.js
+      static/chunks/4570-6b03048e6c5a9e74.js
+      static/chunks/8332-5339e93ce89387e4.js
+      static/chunks/2458-45267917973c7117.js
+      static/chunks/282-07a73d5080e47022.js
+      static/chunks/3810-c362a26a390c3151.js
+      static/chunks/4987-3cc1e8c93ce31120.js
+      static/chunks/1015-2e1f389ecda25883.js
+      static/chunks/772-ac181f4fbc0945c5.js
+      static/chunks/2150-10cf4aeb00042213.js
+      static/chunks/317-4f38475b38c583fc.js
+      static/chunks/app/layout-f3956634-bfd7476a26f843ef.js
+      static/chunks/app/layout-b35596cd-a1420976f4b20639.js
+      static/chunks/app/layout-55fef745-de27717429ecd69e.js
+      static/chunks/app/layout-ef963bb1-a1658ad98afa5d19.js
+      static/chunks/app/layout-7413dcbd-11bc777aeb45d878.js
+      static/chunks/app/layout-1421d1f3-682390adeee4b20f.js
+      static/chunks/app/layout-68015dde-c271fba86b42af6c.js
+      static/chunks/app/layout-731fee62-893839983800d97c.js
+      static/chunks/app/layout-0c13bad3-82b3398a514a4d9e.js
+      static/chunks/app/layout-d0d090f5-bd2049b124c93387.js
+      static/chunks/app/layout-8475608f-0e248633f9844e9b.js
+  app/pathways/page (1.08 MiB)
+      static/chunks/framework-27f02048-a8458069af77d1ca.js
+      static/chunks/framework-45adea4d-9af5b80954e35def.js
+      static/chunks/framework-3d3a1b23-63d17e367fe0d353.js
+      static/chunks/framework-ce70e96a-dcaecb2370f593ea.js
+      static/chunks/framework-fc2d4738-c4aa44f48b616071.js
+      static/chunks/framework-4e8e7ca0-d61c321db58bfcfb.js
+      static/chunks/framework-a48b71bd-58482415f807a2a7.js
+      static/chunks/framework-63284375-293675eab3bce6ab.js
+      static/chunks/framework-999bad32-9fa3f35634978b2e.js
+      static/chunks/framework-a6a69d38-3654eeeaf2048e00.js
+      static/chunks/framework-22fcdcd6-2e7596c764c5ddeb.js
+      static/chunks/framework-3f3d331c-40a1feb3e03f8023.js
+      static/chunks/framework-359a1f64-01e2e64d3e96c51b.js
+      static/chunks/framework-7d2d8b41-462ebbd9605daf21.js
+      static/chunks/framework-05e245ef-0c204b5fe1e05f50.js
+      static/chunks/framework-d7c15829-cf6ac6075fdc3ec3.js
+      static/chunks/framework-6808aa01-76940802a4ed68ce.js
+      static/chunks/framework-5265a0af-0bd622b0f79b6cc7.js
+      static/chunks/framework-27161c75-94e0d5da1b854282.js
+      static/chunks/framework-5bf2f011-469db8db033a4741.js
+      static/chunks/framework-a6f90180-a841e26b71176dbe.js
+      static/chunks/framework-87f6d9df-ad79109c27bed463.js
+      static/chunks/framework-82831f5c-28512e025f8bb4df.js
+      static/chunks/framework-c35ff16d-5557055d1b584d8e.js
+      static/chunks/framework-2ac4632b-13827cb93e212735.js
+      static/chunks/framework-613988b4-0f6284f43c3efa4f.js
+      static/chunks/framework-d69b813b-d6bc58803255a12e.js
+      static/chunks/framework-8c3d4554-1a3486ad84fc825f.js
+      static/chunks/framework-9b6357f6-d6d47a8294f72d3a.js
+      static/chunks/framework-c3908cc5-800c960780595f44.js
+      static/chunks/framework-1ca5fb23-6f81f3e4a71587df.js
+      static/chunks/framework-69ae6af9-75481e1d080c2b17.js
+      static/chunks/framework-7bad328b-04c53a7b21ecd9bf.js
+      static/chunks/framework-ae050ec9-25dd4c12c0fc2599.js
+      static/chunks/framework-a8f8b4de-9623e74d6341eaf9.js
+      static/chunks/framework-d031d8a3-7df2020841821ef6.js
+      static/chunks/73-d15da982a6d20223.js
+      static/chunks/9697-333faa8f78a6def5.js
+      static/chunks/386-cd1384f4fd1dbf87.js
+      static/chunks/8965-b6238941d215901a.js
+      static/chunks/2598-655e850d8aa86036.js
+      static/chunks/230-378a02646fbc4e51.js
+      static/chunks/1542-113c1cb82cc970fb.js
+      static/chunks/5853-f0300e87a0f6c82a.js
+      static/chunks/6658-bc3fd34180fd10a3.js
+      static/chunks/2004-58fd4c0e92118653.js
+      static/chunks/8456-2f70274538c4a6e3.js
+      static/chunks/7134-bf0784e893ec16e8.js
+      static/chunks/5916-956d94230a65c140.js
+      static/chunks/app/pathways/page-b808ffd742e69d3a.js
+  app/auth/login/page (1.09 MiB)
+      static/chunks/framework-27f02048-a8458069af77d1ca.js
+      static/chunks/framework-45adea4d-9af5b80954e35def.js
+      static/chunks/framework-3d3a1b23-63d17e367fe0d353.js
+      static/chunks/framework-ce70e96a-dcaecb2370f593ea.js
+      static/chunks/framework-fc2d4738-c4aa44f48b616071.js
+      static/chunks/framework-4e8e7ca0-d61c321db58bfcfb.js
+      static/chunks/framework-a48b71bd-58482415f807a2a7.js
+      static/chunks/framework-63284375-293675eab3bce6ab.js
+      static/chunks/framework-999bad32-9fa3f35634978b2e.js
+      static/chunks/framework-a6a69d38-3654eeeaf2048e00.js
+      static/chunks/framework-22fcdcd6-2e7596c764c5ddeb.js
+      static/chunks/framework-3f3d331c-40a1feb3e03f8023.js
+      static/chunks/framework-359a1f64-01e2e64d3e96c51b.js
+      static/chunks/framework-7d2d8b41-462ebbd9605daf21.js
+      static/chunks/framework-05e245ef-0c204b5fe1e05f50.js
+      static/chunks/framework-d7c15829-cf6ac6075fdc3ec3.js
+      static/chunks/framework-6808aa01-76940802a4ed68ce.js
+      static/chunks/framework-5265a0af-0bd622b0f79b6cc7.js
+      static/chunks/framework-27161c75-94e0d5da1b854282.js
+      static/chunks/framework-5bf2f011-469db8db033a4741.js
+      static/chunks/framework-a6f90180-a841e26b71176dbe.js
+      static/chunks/framework-87f6d9df-ad79109c27bed463.js
+      static/chunks/framework-82831f5c-28512e025f8bb4df.js
+      static/chunks/framework-c35ff16d-5557055d1b584d8e.js
+      static/chunks/framework-2ac4632b-13827cb93e212735.js
+      static/chunks/framework-613988b4-0f6284f43c3efa4f.js
+      static/chunks/framework-d69b813b-d6bc58803255a12e.js
+      static/chunks/framework-8c3d4554-1a3486ad84fc825f.js
+      static/chunks/framework-9b6357f6-d6d47a8294f72d3a.js
+      static/chunks/framework-c3908cc5-800c960780595f44.js
+      static/chunks/framework-1ca5fb23-6f81f3e4a71587df.js
+      static/chunks/framework-69ae6af9-75481e1d080c2b17.js
+      static/chunks/framework-7bad328b-04c53a7b21ecd9bf.js
+      static/chunks/framework-ae050ec9-25dd4c12c0fc2599.js
+      static/chunks/framework-a8f8b4de-9623e74d6341eaf9.js
+      static/chunks/framework-d031d8a3-7df2020841821ef6.js
+      static/chunks/73-d15da982a6d20223.js
+      static/chunks/9697-333faa8f78a6def5.js
+      static/chunks/386-cd1384f4fd1dbf87.js
+      static/chunks/8965-b6238941d215901a.js
+      static/chunks/2598-655e850d8aa86036.js
+      static/chunks/230-378a02646fbc4e51.js
+      static/chunks/1542-113c1cb82cc970fb.js
+      static/chunks/5853-f0300e87a0f6c82a.js
+      static/chunks/6658-bc3fd34180fd10a3.js
+      static/chunks/2004-58fd4c0e92118653.js
+      static/chunks/8456-2f70274538c4a6e3.js
+      static/chunks/7134-bf0784e893ec16e8.js
+      static/chunks/5916-956d94230a65c140.js
+      static/chunks/app/auth/login/page-f3956634-60f9e8de0399caa1.js
+      static/chunks/app/auth/login/page-431b52f2-efa26d63deb0bae2.js
+      static/chunks/app/auth/login/page-ef963bb1-daa25bad4ef4fc83.js
+  app/auth/signup/page (1.1 MiB)
+      static/chunks/framework-27f02048-a8458069af77d1ca.js
+      static/chunks/framework-45adea4d-9af5b80954e35def.js
+      static/chunks/framework-3d3a1b23-63d17e367fe0d353.js
+      static/chunks/framework-ce70e96a-dcaecb2370f593ea.js
+      static/chunks/framework-fc2d4738-c4aa44f48b616071.js
+      static/chunks/framework-4e8e7ca0-d61c321db58bfcfb.js
+      static/chunks/framework-a48b71bd-58482415f807a2a7.js
+      static/chunks/framework-63284375-293675eab3bce6ab.js
+      static/chunks/framework-999bad32-9fa3f35634978b2e.js
+      static/chunks/framework-a6a69d38-3654eeeaf2048e00.js
+      static/chunks/framework-22fcdcd6-2e7596c764c5ddeb.js
+      static/chunks/framework-3f3d331c-40a1feb3e03f8023.js
+      static/chunks/framework-359a1f64-01e2e64d3e96c51b.js
+      static/chunks/framework-7d2d8b41-462ebbd9605daf21.js
+      static/chunks/framework-05e245ef-0c204b5fe1e05f50.js
+      static/chunks/framework-d7c15829-cf6ac6075fdc3ec3.js
+      static/chunks/framework-6808aa01-76940802a4ed68ce.js
+      static/chunks/framework-5265a0af-0bd622b0f79b6cc7.js
+      static/chunks/framework-27161c75-94e0d5da1b854282.js
+      static/chunks/framework-5bf2f011-469db8db033a4741.js
+      static/chunks/framework-a6f90180-a841e26b71176dbe.js
+      static/chunks/framework-87f6d9df-ad79109c27bed463.js
+      static/chunks/framework-82831f5c-28512e025f8bb4df.js
+      static/chunks/framework-c35ff16d-5557055d1b584d8e.js
+      static/chunks/framework-2ac4632b-13827cb93e212735.js
+      static/chunks/framework-613988b4-0f6284f43c3efa4f.js
+      static/chunks/framework-d69b813b-d6bc58803255a12e.js
+      static/chunks/framework-8c3d4554-1a3486ad84fc825f.js
+      static/chunks/framework-9b6357f6-d6d47a8294f72d3a.js
+      static/chunks/framework-c3908cc5-800c960780595f44.js
+      static/chunks/framework-1ca5fb23-6f81f3e4a71587df.js
+      static/chunks/framework-69ae6af9-75481e1d080c2b17.js
+      static/chunks/framework-7bad328b-04c53a7b21ecd9bf.js
+      static/chunks/framework-ae050ec9-25dd4c12c0fc2599.js
+      static/chunks/framework-a8f8b4de-9623e74d6341eaf9.js
+      static/chunks/framework-d031d8a3-7df2020841821ef6.js
+      static/chunks/73-d15da982a6d20223.js
+      static/chunks/9697-333faa8f78a6def5.js
+      static/chunks/386-cd1384f4fd1dbf87.js
+      static/chunks/8965-b6238941d215901a.js
+      static/chunks/2598-655e850d8aa86036.js
+      static/chunks/230-378a02646fbc4e51.js
+      static/chunks/1542-113c1cb82cc970fb.js
+      static/chunks/5853-f0300e87a0f6c82a.js
+      static/chunks/6658-bc3fd34180fd10a3.js
+      static/chunks/2004-58fd4c0e92118653.js
+      static/chunks/8456-2f70274538c4a6e3.js
+      static/chunks/7134-bf0784e893ec16e8.js
+      static/chunks/5916-956d94230a65c140.js
+      static/chunks/app/auth/signup/page-f3956634-1c2e8bef7e8fb78f.js
+      static/chunks/app/auth/signup/page-431b52f2-3033cf9a84b269c8.js
+      static/chunks/app/auth/signup/page-c899ba7b-c91f761ca69f3bf3.js
+
+asset size limit: The following asset(s) exceed the recommended size limit (488 KiB).
+This can impact web performance.
+Assets: 
+  8403.js (1.02 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (977 KiB). This can impact web performance.
+Entrypoints:
+  app/_not-found/page (1.24 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/_not-found/page.js
+  app/analytics/page (1.28 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/analytics/page.js
+  app/crisis-resources/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/crisis-resources/page.js
+  app/emergency-safe/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/emergency-safe/page.js
+  app/page (1.26 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/page.js
+  app/pathways/page (1.24 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/pathways/page.js
+  app/status/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/status/page.js
+  app/journals/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/journals/page.js
+  app/dashboard/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/dashboard/page.js
+  app/journal/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/journal/page.js
+  app/auth/login/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/auth/login/page.js
+  app/auth/signup/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/auth/signup/page.js
+  app/khepera-demo/page (1.26 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/khepera-demo/page.js
+  app/[locale]/dashboard/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/dashboard/page.js
+  app/[locale]/journals/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/journals/page.js
+  app/[locale]/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/page.js
+  app/[locale]/pathways/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/pathways/page.js
+  app/[locale]/journal/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/journal/page.js
+  app/[locale]/emergency/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/emergency/page.js
+  app/[locale]/crisis/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/crisis/page.js
+  app/pricing/success/page (1.24 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/pricing/success/page.js
+  app/pricing/page (1.26 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/pricing/page.js
+  app/[locale]/auth/login/page (1.27 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/auth/login/page.js
+  app/[locale]/auth/signup/page (1.25 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/auth/signup/page.js
+  app/[locale]/pricing/page (1.27 MiB)
+      ../webpack-runtime.js
+      8948.js
+      8403.js
+      7558.js
+      ../app/[locale]/pricing/page.js
+
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/94) ...
+   Generating static pages (23/94) 
+   Generating static pages (46/94) 
+   Generating static pages (70/94) 
+Time 26.476604
+Time 23.366187
+ ✓ Generating static pages (94/94)
+   Finalizing page optimization ...
+   Collecting build traces ...
+ ⚠ Statically exporting a Next.js application via `next export` disables API routes and middleware.
+This command is meant for static-only hosts, and is not necessary to make your application static.
+Pages in your application without server-side data dependencies will be automatically statically exported by `next build`, including pages powered by `getStaticProps`.
+Learn more: https://nextjs.org/docs/messages/api-routes-static-export
+
+Route (app)                                        Size     First Load JS
+┌ ○ /                                              10.5 kB         193 kB
+├ ○ /_not-found                                    255 B           183 kB
+├ ● /[locale]                                      2.3 kB          185 kB
+├   ├ /en
+├   ├ /es
+├   ├ /pt
+├   └ [+3 more paths]
+├ ● /[locale]/auth/login                           9.47 kB         241 kB
+├   ├ /en/auth/login
+├   ├ /es/auth/login
+├   ├ /pt/auth/login
+├   └ [+8 more paths]
+├ ● /[locale]/auth/signup                          3.1 kB          235 kB
+├   ├ /en/auth/signup
+├   ├ /es/auth/signup
+├   ├ /pt/auth/signup
+├   └ [+8 more paths]
+├ ● /[locale]/crisis                               3.19 kB         185 kB
+├   ├ /en/crisis
+├   ├ /es/crisis
+├   ├ /pt/crisis
+├   └ [+3 more paths]
+├ ● /[locale]/dashboard                            1.88 kB         184 kB
+├   ├ /en/dashboard
+├   ├ /es/dashboard
+├   ├ /pt/dashboard
+├   └ [+3 more paths]
+├ ● /[locale]/emergency                            2.58 kB         185 kB
+├   ├ /en/emergency
+├   ├ /es/emergency
+├   ├ /pt/emergency
+├   └ [+3 more paths]
+├ ● /[locale]/journal                              2.72 kB         234 kB
+├   ├ /en/journal
+├   ├ /es/journal
+├   ├ /pt/journal
+├   └ [+3 more paths]
+├ ● /[locale]/journals                             5.93 kB         237 kB
+├   ├ /en/journals
+├   ├ /es/journals
+├   ├ /pt/journals
+├   └ [+3 more paths]
+├ ● /[locale]/pathways                             2.42 kB         185 kB
+├   ├ /en/pathways
+├   ├ /es/pathways
+├   ├ /pt/pathways
+├   └ [+3 more paths]
+├ ● /[locale]/pricing                              9.16 kB         191 kB
+├   ├ /en/pricing
+├   ├ /es/pricing
+├   ├ /pt/pricing
+├   └ [+3 more paths]
+├ ○ /analytics                                     14.1 kB         246 kB
+├ ƒ /api/content-moderation/analyze                0 B                0 B
+├ ƒ /api/privacy/delete                            0 B                0 B
+├ ƒ /api/privacy/export                            0 B                0 B
+├ ƒ /api/visual-diagnostics/analyze                0 B                0 B
+├ ○ /auth/login                                    9.57 kB         352 kB
+├ ○ /auth/signup                                   12.2 kB         355 kB
+├ ○ /crisis-resources                              3.79 kB         186 kB
+├ ○ /dashboard                                     6.33 kB         238 kB
+├ ○ /emergency-safe                                4.94 kB         187 kB
+├ ○ /journal                                       5.41 kB         237 kB
+├ ○ /journals                                      5.95 kB         237 kB
+├ ○ /khepera-demo                                  12.1 kB         194 kB
+├ ○ /manifest.webmanifest                          0 B                0 B
+├ ○ /pathways                                      5.03 kB         348 kB
+├ ○ /pricing                                       8.53 kB         191 kB
+├ ○ /pricing/success                               2.91 kB         185 kB
+├ ○ /robots.txt                                    0 B                0 B
+├ ○ /sitemap.xml                                   0 B                0 B
+└ ○ /status                                        3.62 kB         186 kB
++ First Load JS shared by all                      182 kB
+  ├ chunks/framework-27161c75-94e0d5da1b854282.js  10.8 kB
+  ├ chunks/framework-5bf2f011-469db8db033a4741.js  53.6 kB
+  ├ chunks/framework-a8f8b4de-9623e74d6341eaf9.js  41.1 kB
+  └ other shared chunks (total)                    76.8 kB
+
+Route (pages)                                      Size     First Load JS
+─ ƒ /api/reflection                                0 B             184 kB
++ First Load JS shared by all                      184 kB
+  ├ chunks/framework-27161c75-94e0d5da1b854282.js  10.8 kB
+  ├ chunks/framework-5bf2f011-469db8db033a4741.js  53.6 kB
+  ├ chunks/framework-a8f8b4de-9623e74d6341eaf9.js  41.1 kB
+  └ other shared chunks (total)                    78.6 kB
+
+ƒ Middleware                                       31.2 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+

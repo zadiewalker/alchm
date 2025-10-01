@@ -1,0 +1,128 @@
+
+> alchm@1.0.0 analyze
+> ANALYZE=true npm run build
+
+
+> alchm@1.0.0 build
+> NODE_OPTIONS='--max-old-space-size=8192' SKIP_STATIC_EXPORT=true next build
+
+  ▲ Next.js 14.2.32
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · turbo
+    · optimizeCss
+    · largePageDataBytes
+    · bundlePagesExternals
+
+   Creating an optimized production build ...
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/nodejs.html
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/edge.html
+Webpack Bundle Analyzer saved report to /Users/zadiewalker/Desktop/alchm/.next/analyze/client.html
+ ✓ Compiled successfully
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/94) ...
+   Generating static pages (23/94) 
+   Generating static pages (46/94) 
+   Generating static pages (70/94) 
+Time 19.343474
+Time 36.790324
+ ✓ Generating static pages (94/94)
+   Finalizing page optimization ...
+   Collecting build traces ...
+ ⚠ Statically exporting a Next.js application via `next export` disables API routes and middleware.
+This command is meant for static-only hosts, and is not necessary to make your application static.
+Pages in your application without server-side data dependencies will be automatically statically exported by `next build`, including pages powered by `getStaticProps`.
+Learn more: https://nextjs.org/docs/messages/api-routes-static-export
+
+Route (app)                                             Size     First Load JS
+┌ ○ /                                                   8.2 kB          157 kB
+├ ○ /_not-found                                         276 B           146 kB
+├ ● /[locale]                                           2.33 kB         148 kB
+├   ├ /en
+├   ├ /es
+├   ├ /pt
+├   └ [+3 more paths]
+├ ● /[locale]/auth/login                                10.1 kB         204 kB
+├   ├ /en/auth/login
+├   ├ /es/auth/login
+├   ├ /pt/auth/login
+├   └ [+8 more paths]
+├ ● /[locale]/auth/signup                               3.4 kB          198 kB
+├   ├ /en/auth/signup
+├   ├ /es/auth/signup
+├   ├ /pt/auth/signup
+├   └ [+8 more paths]
+├ ● /[locale]/crisis                                    371 B           157 kB
+├   ├ /en/crisis
+├   ├ /es/crisis
+├   ├ /pt/crisis
+├   └ [+3 more paths]
+├ ● /[locale]/dashboard                                 1.91 kB         147 kB
+├   ├ /en/dashboard
+├   ├ /es/dashboard
+├   ├ /pt/dashboard
+├   └ [+3 more paths]
+├ ● /[locale]/emergency                                 371 B           157 kB
+├   ├ /en/emergency
+├   ├ /es/emergency
+├   ├ /pt/emergency
+├   └ [+3 more paths]
+├ ● /[locale]/journal                                   2.9 kB          197 kB
+├   ├ /en/journal
+├   ├ /es/journal
+├   ├ /pt/journal
+├   └ [+3 more paths]
+├ ● /[locale]/journals                                  6.45 kB         201 kB
+├   ├ /en/journals
+├   ├ /es/journals
+├   ├ /pt/journals
+├   └ [+3 more paths]
+├ ● /[locale]/pathways                                  2.45 kB         148 kB
+├   ├ /en/pathways
+├   ├ /es/pathways
+├   ├ /pt/pathways
+├   └ [+3 more paths]
+├ ● /[locale]/pricing                                   9.44 kB         155 kB
+├   ├ /en/pricing
+├   ├ /es/pricing
+├   ├ /pt/pricing
+├   └ [+3 more paths]
+├ ○ /analytics                                          14.3 kB         209 kB
+├ ƒ /api/content-moderation/analyze                     0 B                0 B
+├ ƒ /api/privacy/delete                                 0 B                0 B
+├ ƒ /api/privacy/export                                 0 B                0 B
+├ ƒ /api/visual-diagnostics/analyze                     0 B                0 B
+├ ○ /auth/login                                         9.75 kB         315 kB
+├ ○ /auth/signup                                        13.7 kB         319 kB
+├ ○ /crisis-resources                                   3.98 kB         149 kB
+├ ○ /dashboard                                          6.7 kB          201 kB
+├ ○ /emergency-safe                                     5.24 kB         151 kB
+├ ○ /journal                                            5.79 kB         200 kB
+├ ○ /journals                                           6.47 kB         201 kB
+├ ○ /khepera-demo                                       12.5 kB         158 kB
+├ ○ /manifest.webmanifest                               0 B                0 B
+├ ○ /pathways                                           5.59 kB         311 kB
+├ ○ /pricing                                            8.59 kB         154 kB
+├ ○ /pricing/success                                    2.96 kB         148 kB
+├ ○ /robots.txt                                         0 B                0 B
+├ ○ /sitemap.xml                                        0 B                0 B
+└ ○ /status                                             3.88 kB         149 kB
++ First Load JS shared by all                           145 kB
+  ├ chunks/next-framework-5bf2f011-c2b780b3e34a0f0a.js  53.6 kB
+  └ other shared chunks (total)                         91.7 kB
+
+Route (pages)                                           Size     First Load JS
+─ ƒ /api/reflection                                     0 B             191 kB
++ First Load JS shared by all                           191 kB
+  ├ chunks/next-framework-5bf2f011-c2b780b3e34a0f0a.js  53.6 kB
+  ├ chunks/react-dom-a8f8b4de-5c00c1ddb820a77c.js       41.1 kB
+  └ other shared chunks (total)                         96.6 kB
+
+ƒ Middleware                                            31.2 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+

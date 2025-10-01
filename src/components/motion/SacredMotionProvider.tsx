@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Sacred Motion Provider
 // React context and components for trauma-informed motion system
 // Provides nervous system-aware animations throughout the application
@@ -40,7 +42,7 @@ export function SacredMotionProvider({
 }: SacredMotionProviderProps) {
   
   const [config, setConfig] = useState<SacredMotionConfig>({
-    respectsReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    respectsReducedMotion: typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     culturalPacing: 'responsive',
     nervousSystemState: nervousSystemState,
     accessibilityLevel: 'standard',
@@ -65,7 +67,7 @@ export function SacredMotionProvider({
 
   // Listen for reduced motion preference changes
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)');
     const handleChange = (e: MediaQueryListEvent) => {
       setIsReducedMotion(e.matches);
       updateConfig({ respectsReducedMotion: e.matches });

@@ -1,0 +1,504 @@
+// Firebase Functions Performance Monitoring
+import * as functions from 'firebase-functions';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+
+const db = getFirestore();
+
+// Performance metrics interface
+interface PerformanceMetric {
+  functionName: string;
+  executionTime: number;
+  memoryUsed: number;
+  status: 'success' | 'error' | 'timeout';
+  timestamp: FirebaseFirestore.Timestamp;
+  userId?: string;
+  requestId: string;
+  coldStart: boolean;
+  region: string;
+  errorMessage?: string;
+  billingTime: number;
+}
+
+// Function execution wrapper for performance monitoring
+export function withPerformanceMonitoring<T = any>(
+  functionName: string,
+  handler: (data: any, context: any) => Promise<T>
+) {
+  return async (data: any, context: functions.https.CallableContext | functions.EventContext): Promise<T> => {
+    const startTime = Date.now();
+    const requestId = generateRequestId();
+    const region = process.env.FUNCTION_REGION || 'us-central1';
+    
+    // Check for cold start
+    const coldStart = !(global as any).warmupComplete;
+    (global as any).warmupComplete = true;
+    
+    let status: 'success' | 'error' | 'timeout' = 'success';
+    let errorMessage: string | undefined;
+    
+    try {
+      // Execute the function
+      const result = await handler(data, context);
+      
+      // Calculate metrics
+      const executionTime = Date.now() - startTime;
+      const memoryUsed = getMemoryUsage();
+      
+      // Record performance metric
+      await recordPerformanceMetric({
+        functionName,
+        executionTime,
+        memoryUsed,
+        status,
+        timestamp: FieldValue.serverTimestamp() as any,
+        userId: 'auth' in context ? context.auth?.uid : undefined,
+        requestId,
+        coldStart,
+        region,
+        billingTime: Math.ceil(executionTime / 100) * 100 // Firebase billing rounds up to 100ms
+      });
+      
+      // Check for performance issues
+      await checkPerformanceThresholds(functionName, executionTime, memoryUsed);
+      
+      return result;
+      
+    } catch (error: any) {
+      status = 'error';
+      errorMessage = error.message || 'Unknown error';
+      
+      const executionTime = Date.now() - startTime;
+      const memoryUsed = getMemoryUsage();
+      
+      // Record error metric
+      await recordPerformanceMetric({
+        functionName,
+        executionTime,
+        memoryUsed,
+        status,
+        timestamp: FieldValue.serverTimestamp() as any,
+        userId: 'auth' in context ? context.auth?.uid : undefined,
+        requestId,
+        coldStart,
+        region,
+        errorMessage,
+        billingTime: Math.ceil(executionTime / 100) * 100
+      });
+      
+      // Send critical error alert if needed
+      if (isCriticalFunction(functionName)) {
+        await sendCriticalFunctionAlert(functionName, error, executionTime);
+      }
+      
+      throw error;
+    }
+  };
+}
+
+// Scheduled function to analyze performance trends
+export const analyzePerformanceTrends = functions
+  .runWith({ memory: '512MB' })
+  .pubsub.schedule('every 1 hours')
+  .timeZone('UTC')
+  .onRun(async (context) => {
+    console.log('Analyzing Firebase Functions performance trends...');
+    
+    try {
+      // Get performance data from last hour
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+      
+      const metricsSnapshot = await db.collection('function_performance_metrics')
+        .where('timestamp', '>', oneHourAgo)
+        .get();
+      
+      if (metricsSnapshot.empty) {
+        console.log('No performance metrics to analyze');
+        return;
+      }
+      
+      const metrics = metricsSnapshot.docs.map(doc => doc.data() as PerformanceMetric);
+      
+      // Analyze by function
+      const functionStats = analyzeFunctionPerformance(metrics);
+      
+      // Store analysis results
+      await db.collection('performance_analysis').add({
+        timestamp: FieldValue.serverTimestamp(),
+        period: 'hourly',
+        functionStats,
+        totalExecutions: metrics.length,
+        errorRate: metrics.filter(m => m.status === 'error').length / metrics.length,
+        averageExecutionTime: metrics.reduce((sum, m) => sum + m.executionTime, 0) / metrics.length,
+        coldStartRate: metrics.filter(m => m.coldStart).length / metrics.length,
+        totalBillingTime: metrics.reduce((sum, m) => sum + m.billingTime, 0)
+      });
+      
+      // Check for anomalies
+      await detectPerformanceAnomalies(functionStats);
+      
+      console.log(`Performance analysis complete. Analyzed ${metrics.length} function executions.`);
+      
+    } catch (error) {
+      console.error('Error analyzing performance trends:', error);
+    }
+  });
+
+// Daily performance report
+export const generatePerformanceReport = functions
+  .runWith({ memory: '1GB' })
+  .pubsub.schedule('0 8 * * *') // Daily at 8 AM UTC
+  .timeZone('UTC')
+  .onRun(async (context) => {
+    console.log('Generating daily performance report...');
+    
+    try {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      yesterday.setHours(0, 0, 0, 0);
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      // Get yesterday's metrics
+      const metricsSnapshot = await db.collection('function_performance_metrics')
+        .where('timestamp', '>=', yesterday)
+        .where('timestamp', '<', today)
+        .get();
+      
+      if (metricsSnapshot.empty) {
+        console.log('No metrics found for yesterday');
+        return;
+      }
+      
+      const metrics = metricsSnapshot.docs.map(doc => doc.data() as PerformanceMetric);
+      
+      // Generate comprehensive report
+      const report = generateDailyReport(metrics);
+      
+      // Store report
+      await db.collection('performance_reports').add({
+        ...report,
+        timestamp: FieldValue.serverTimestamp(),
+        date: yesterday.toISOString().split('T')[0]
+      });
+      
+      // Send report to monitoring dashboard
+      await sendPerformanceReportNotification(report);
+      
+      console.log(`Daily performance report generated. Total executions: ${metrics.length}`);
+      
+    } catch (error) {
+      console.error('Error generating performance report:', error);
+    }
+  });
+
+// Function to record performance metrics
+async function recordPerformanceMetric(metric: PerformanceMetric): Promise<void> {
+  try {
+    await db.collection('function_performance_metrics').add(metric);
+    
+    // Also update real-time metrics for dashboard
+    await updateRealTimeMetrics(metric);
+    
+  } catch (error) {
+    console.error('Error recording performance metric:', error);
+    // Don't throw to avoid affecting main function execution
+  }
+}
+
+// Get memory usage
+function getMemoryUsage(): number {
+  if (process.memoryUsage) {
+    return process.memoryUsage().heapUsed;
+  }
+  return 0;
+}
+
+// Generate unique request ID
+function generateRequestId(): string {
+  return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+// Check performance thresholds
+async function checkPerformanceThresholds(
+  functionName: string,
+  executionTime: number,
+  memoryUsed: number
+): Promise<void> {
+  const thresholds = {
+    executionTime: {
+      warning: 10000,  // 10 seconds
+      critical: 30000  // 30 seconds
+    },
+    memoryUsed: {
+      warning: 500 * 1024 * 1024,  // 500MB
+      critical: 900 * 1024 * 1024  // 900MB
+    }
+  };
+  
+  const alerts: string[] = [];
+  
+  if (executionTime > thresholds.executionTime.critical) {
+    alerts.push(`Critical execution time: ${executionTime}ms`);
+  } else if (executionTime > thresholds.executionTime.warning) {
+    alerts.push(`Warning execution time: ${executionTime}ms`);
+  }
+  
+  if (memoryUsed > thresholds.memoryUsed.critical) {
+    alerts.push(`Critical memory usage: ${(memoryUsed / 1024 / 1024).toFixed(2)}MB`);
+  } else if (memoryUsed > thresholds.memoryUsed.warning) {
+    alerts.push(`Warning memory usage: ${(memoryUsed / 1024 / 1024).toFixed(2)}MB`);
+  }
+  
+  if (alerts.length > 0) {
+    await sendPerformanceAlert(functionName, alerts, executionTime, memoryUsed);
+  }
+}
+
+// Check if function is critical
+function isCriticalFunction(functionName: string): boolean {
+  const criticalFunctions = [
+    'enhancedAIReflection',
+    'subscriptionWebhook',
+    'upgradeUserTier',
+    'crisisPrevention'
+  ];
+  return criticalFunctions.includes(functionName);
+}
+
+// Send critical function alert
+async function sendCriticalFunctionAlert(
+  functionName: string,
+  error: Error,
+  executionTime: number
+): Promise<void> {
+  try {
+    await db.collection('critical_function_alerts').add({
+      functionName,
+      errorMessage: error.message,
+      errorStack: error.stack,
+      executionTime,
+      timestamp: FieldValue.serverTimestamp(),
+      severity: 'critical',
+      environment: process.env.NODE_ENV || 'unknown'
+    });
+    
+    console.error(`CRITICAL FUNCTION ERROR [${functionName}]:`, {
+      error: error.message,
+      executionTime
+    });
+    
+  } catch (alertError) {
+    console.error('Failed to send critical function alert:', alertError);
+  }
+}
+
+// Analyze function performance
+function analyzeFunctionPerformance(metrics: PerformanceMetric[]): Record<string, any> {
+  const functionGroups = metrics.reduce((acc, metric) => {
+    if (!acc[metric.functionName]) {
+      acc[metric.functionName] = [];
+    }
+    acc[metric.functionName]?.push(metric);
+    return acc;
+  }, {} as Record<string, PerformanceMetric[]>);
+  
+  const functionStats: Record<string, any> = {};
+  
+  Object.entries(functionGroups).forEach(([functionName, funcMetrics]) => {
+    const execTimes = funcMetrics.map(m => m.executionTime);
+    const memoryUsages = funcMetrics.map(m => m.memoryUsed);
+    const errors = funcMetrics.filter(m => m.status === 'error');
+    const coldStarts = funcMetrics.filter(m => m.coldStart);
+    
+    functionStats[functionName] = {
+      totalExecutions: funcMetrics.length,
+      errorCount: errors.length,
+      errorRate: errors.length / funcMetrics.length,
+      coldStartCount: coldStarts.length,
+      coldStartRate: coldStarts.length / funcMetrics.length,
+      avgExecutionTime: execTimes.reduce((a, b) => a + b, 0) / execTimes.length,
+      maxExecutionTime: Math.max(...execTimes),
+      minExecutionTime: Math.min(...execTimes),
+      avgMemoryUsed: memoryUsages.reduce((a, b) => a + b, 0) / memoryUsages.length,
+      maxMemoryUsed: Math.max(...memoryUsages),
+      totalBillingTime: funcMetrics.reduce((sum, m) => sum + m.billingTime, 0)
+    };
+  });
+  
+  return functionStats;
+}
+
+// Detect performance anomalies
+async function detectPerformanceAnomalies(functionStats: Record<string, any>): Promise<void> {
+  const anomalies: string[] = [];
+  
+  Object.entries(functionStats).forEach(([functionName, stats]) => {
+    // Check for high error rates
+    if (stats.errorRate > 0.05) { // 5% error rate threshold
+      anomalies.push(`High error rate in ${functionName}: ${(stats.errorRate * 100).toFixed(2)}%`);
+    }
+    
+    // Check for high cold start rates
+    if (stats.coldStartRate > 0.3) { // 30% cold start threshold
+      anomalies.push(`High cold start rate in ${functionName}: ${(stats.coldStartRate * 100).toFixed(2)}%`);
+    }
+    
+    // Check for long execution times
+    if (stats.avgExecutionTime > 15000) { // 15 seconds average threshold
+      anomalies.push(`Long execution time in ${functionName}: ${stats.avgExecutionTime}ms average`);
+    }
+  });
+  
+  if (anomalies.length > 0) {
+    await db.collection('performance_anomalies').add({
+      timestamp: FieldValue.serverTimestamp(),
+      anomalies,
+      functionStats
+    });
+    
+    console.warn('Performance anomalies detected:', anomalies);
+  }
+}
+
+// Generate daily report
+function generateDailyReport(metrics: PerformanceMetric[]): any {
+  const functionStats = analyzeFunctionPerformance(metrics);
+  
+  const totalErrors = metrics.filter(m => m.status === 'error').length;
+  const totalColdStarts = metrics.filter(m => m.coldStart).length;
+  const totalBillingTime = metrics.reduce((sum, m) => sum + m.billingTime, 0);
+  const avgExecutionTime = metrics.reduce((sum, m) => sum + m.executionTime, 0) / metrics.length;
+  
+  return {
+    summary: {
+      totalExecutions: metrics.length,
+      totalErrors: totalErrors,
+      errorRate: totalErrors / metrics.length,
+      totalColdStarts: totalColdStarts,
+      coldStartRate: totalColdStarts / metrics.length,
+      avgExecutionTime,
+      totalBillingTime,
+      estimatedCost: calculateEstimatedCost(metrics)
+    },
+    functionStats,
+    topErrors: getTopErrors(metrics),
+    performanceDistribution: getPerformanceDistribution(metrics)
+  };
+}
+
+// Calculate estimated cost
+function calculateEstimatedCost(metrics: PerformanceMetric[]): number {
+  // Firebase Functions pricing (approximate)
+  const pricePerInvocation = 0.0000004; // $0.0000004 per invocation
+  const pricePerGBSecond = 0.0000025; // $0.0000025 per GB-second
+  
+  const invocationCost = metrics.length * pricePerInvocation;
+  
+  const computeCost = metrics.reduce((sum, metric) => {
+    const gbSeconds = (metric.memoryUsed / 1024 / 1024 / 1024) * (metric.executionTime / 1000);
+    return sum + (gbSeconds * pricePerGBSecond);
+  }, 0);
+  
+  return invocationCost + computeCost;
+}
+
+// Get top errors
+function getTopErrors(metrics: PerformanceMetric[]): Array<{error: string, count: number}> {
+  const errorCounts: Record<string, number> = {};
+  
+  metrics
+    .filter(m => m.status === 'error' && m.errorMessage)
+    .forEach(m => {
+      const error = m.errorMessage!;
+      errorCounts[error] = (errorCounts[error] || 0) + 1;
+    });
+  
+  return Object.entries(errorCounts)
+    .map(([error, count]) => ({ error, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10);
+}
+
+// Get performance distribution
+function getPerformanceDistribution(metrics: PerformanceMetric[]): any {
+  const execTimes = metrics.map(m => m.executionTime).sort((a, b) => a - b);
+  const length = execTimes.length;
+  
+  return {
+    p50: execTimes[Math.floor(length * 0.5)],
+    p90: execTimes[Math.floor(length * 0.9)],
+    p95: execTimes[Math.floor(length * 0.95)],
+    p99: execTimes[Math.floor(length * 0.99)]
+  };
+}
+
+// Send performance alert
+async function sendPerformanceAlert(
+  functionName: string,
+  alerts: string[],
+  executionTime: number,
+  memoryUsed: number
+): Promise<void> {
+  try {
+    await db.collection('performance_alerts').add({
+      functionName,
+      alerts,
+      executionTime,
+      memoryUsed: memoryUsed / 1024 / 1024, // Convert to MB
+      timestamp: FieldValue.serverTimestamp(),
+      severity: alerts.some(a => a.includes('Critical')) ? 'critical' : 'warning'
+    });
+    
+  } catch (error) {
+    console.error('Failed to send performance alert:', error);
+  }
+}
+
+// Update real-time metrics
+async function updateRealTimeMetrics(metric: PerformanceMetric): Promise<void> {
+  try {
+    const metricKey = `realtime_${metric.functionName}`;
+    
+    await db.collection('realtime_metrics').doc(metricKey).set({
+      functionName: metric.functionName,
+      lastExecution: metric.timestamp,
+      lastExecutionTime: metric.executionTime,
+      lastStatus: metric.status,
+      recentExecutions: FieldValue.increment(1),
+      recentErrors: metric.status === 'error' ? FieldValue.increment(1) : FieldValue.increment(0)
+    }, { merge: true });
+    
+  } catch (error) {
+    console.error('Failed to update real-time metrics:', error);
+  }
+}
+
+// Send performance report notification
+async function sendPerformanceReportNotification(report: any): Promise<void> {
+  try {
+    // This would integrate with your notification system
+    // For now, just log key metrics
+    console.log('📊 Daily Performance Report:', {
+      totalExecutions: report.summary.totalExecutions,
+      errorRate: `${(report.summary.errorRate * 100).toFixed(2)}%`,
+      avgExecutionTime: `${report.summary.avgExecutionTime.toFixed(0)}ms`,
+      estimatedCost: `$${report.summary.estimatedCost.toFixed(4)}`
+    });
+    
+    // Store notification for dashboard
+    await db.collection('dashboard_notifications').add({
+      type: 'performance_report',
+      title: 'Daily Performance Report Available',
+      summary: report.summary,
+      timestamp: FieldValue.serverTimestamp(),
+      read: false
+    });
+    
+  } catch (error) {
+    console.error('Failed to send performance report notification:', error);
+  }
+}
+
+// Export monitoring utilities for external use
+export { recordPerformanceMetric, checkPerformanceThresholds, analyzeFunctionPerformance };

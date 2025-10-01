@@ -1,0 +1,485 @@
+/**
+ * ALCHM Digital Sanctuary Design System
+ * "Calibrated Serenity" - Visual Foundation for Healing
+ * 
+ * Philosophy: Every pixel serves the healing journey
+ * Every interaction whispers safety, never shouts
+ */
+
+/* ==========================================================================
+   DESIGN TOKENS - Calibrated Serenity Color Palette
+   ========================================================================== */
+
+:root {
+  /* Primary Sage - Morning mist over meadows */
+  --sanctuary-sage-50: #f6f8f5;
+  --sanctuary-sage-100: #e8eee5;
+  --sanctuary-sage-200: #d1ddcc;
+  --sanctuary-sage-300: #b4c7a8;
+  --sanctuary-sage-400: #a4b792; /* Primary */
+  --sanctuary-sage-500: #8ba078;
+  --sanctuary-sage-600: #6f8862;
+  --sanctuary-sage-700: #5a6d4f;
+  --sanctuary-sage-800: #485642;
+  --sanctuary-sage-900: #3d4838;
+
+  /* Sage Gradient Variations - Subtle tonal shifts */
+  --sanctuary-sage-gradient-light: linear-gradient(135deg, #f6f8f5 0%, #e8eee5 100%);
+  --sanctuary-sage-gradient-primary: linear-gradient(135deg, #b4c7a8 0%, #a4b792 50%, #8ba078 100%);
+  --sanctuary-sage-gradient-deep: linear-gradient(135deg, #6f8862 0%, #5a6d4f 100%);
+
+  /* Supporting Neutrals - Warm sanctuary tones */
+  --sanctuary-white: #fefefe;
+  --sanctuary-white-soft: #fcfcfc;
+  --sanctuary-gray-50: #f8f9f8;
+  --sanctuary-gray-100: #f1f2f1;
+  --sanctuary-gray-200: #e4e6e4;
+  --sanctuary-gray-300: #d1d4d1;
+  --sanctuary-gray-400: #9ca09c;
+  --sanctuary-gray-500: #6b706b;
+  --sanctuary-gray-600: #555a55;
+  --sanctuary-gray-700: #404540;
+  --sanctuary-gray-800: #2a2f2a;
+  --sanctuary-gray-900: #1a1d1a;
+
+  /* Professional Mode - Therapist interface accents */
+  --sanctuary-professional-50: #f0f4f8;
+  --sanctuary-professional-100: #e1eaf2;
+  --sanctuary-professional-200: #c3d5e5;
+  --sanctuary-professional-300: #a5c0d8;
+  --sanctuary-professional-400: #7a9cc6; /* Professional accent */
+  --sanctuary-professional-500: #6b8bb3;
+  --sanctuary-professional-600: #5c7aa0;
+  --sanctuary-professional-700: #4d698d;
+  --sanctuary-professional-800: #3e587a;
+  --sanctuary-professional-900: #2f4767;
+
+  /* Analytics & Data Visualization - Soft sage family */
+  --sanctuary-data-success: #8fbc8f;
+  --sanctuary-data-warning: #c4b17c;
+  --sanctuary-data-info: #7a9cc6;
+  --sanctuary-data-muted: #a8b5a0;
+
+  /* Crisis Safety Colors - Gentle but clear */
+  --sanctuary-crisis-background: #fdf6f6;
+  --sanctuary-crisis-border: #e8b4b4;
+  --sanctuary-crisis-text: #6b4545;
+
+  /* Typography - Whispered Confidence */
+  --sanctuary-font-family-primary: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --sanctuary-font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+  
+  /* Font Weights - Never heavy, always elegant */
+  --sanctuary-font-weight-light: 300;
+  --sanctuary-font-weight-regular: 400;
+  --sanctuary-font-weight-medium: 500; /* Maximum weight for accessibility */
+
+  /* Font Sizes - Generous hierarchy */
+  --sanctuary-text-xs: 0.75rem;    /* 12px */
+  --sanctuary-text-sm: 0.875rem;   /* 14px - Body text */
+  --sanctuary-text-base: 1rem;     /* 16px */
+  --sanctuary-text-lg: 1.125rem;   /* 18px - Subheads */
+  --sanctuary-text-xl: 1.25rem;    /* 20px */
+  --sanctuary-text-2xl: 1.5rem;    /* 24px - Headings */
+  --sanctuary-text-3xl: 1.875rem;  /* 30px */
+  --sanctuary-text-4xl: 2rem;      /* 32px - Key elements */
+  --sanctuary-text-5xl: 2.5rem;    /* 40px */
+
+  /* Letter Spacing - Premium feel */
+  --sanctuary-tracking-tight: -0.025em;
+  --sanctuary-tracking-normal: 0;
+  --sanctuary-tracking-wide: 0.1em;
+  --sanctuary-tracking-wider: 0.15em;
+
+  /* Line Heights - Reading comfort */
+  --sanctuary-leading-none: 1;
+  --sanctuary-leading-tight: 1.25;
+  --sanctuary-leading-normal: 1.5;
+  --sanctuary-leading-relaxed: 1.6;
+  --sanctuary-leading-loose: 1.8;
+
+  /* Spatial Design - Intentional Breathing Room */
+  --sanctuary-space-xs: 0.25rem;   /* 4px */
+  --sanctuary-space-sm: 0.5rem;    /* 8px */
+  --sanctuary-space-md: 0.75rem;   /* 12px */
+  --sanctuary-space-lg: 1rem;      /* 16px */
+  --sanctuary-space-xl: 1.5rem;    /* 24px - Minimum between elements */
+  --sanctuary-space-2xl: 2rem;     /* 32px - Mobile margins */
+  --sanctuary-space-3xl: 3rem;     /* 48px - Desktop margins */
+  --sanctuary-space-4xl: 4rem;     /* 64px */
+  --sanctuary-space-5xl: 6rem;     /* 96px */
+
+  /* Border Radius - Subtle rounded corners */
+  --sanctuary-radius-sm: 0.375rem;  /* 6px */
+  --sanctuary-radius-md: 0.5rem;    /* 8px */
+  --sanctuary-radius-lg: 0.75rem;   /* 12px */
+  --sanctuary-radius-xl: 1rem;      /* 16px */
+  --sanctuary-radius-2xl: 1.5rem;   /* 24px */
+
+  /* Shadows - Gentle elevation */
+  --sanctuary-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --sanctuary-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sanctuary-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --sanctuary-shadow-sanctuary: 0 8px 32px rgb(164 183 146 / 0.12);
+
+  /* Timing - Gentle, never jarring */
+  --sanctuary-transition-fast: 150ms ease-out;
+  --sanctuary-transition-normal: 250ms ease-out;
+  --sanctuary-transition-slow: 350ms ease-out;
+
+  /* Z-Index Scale */
+  --sanctuary-z-dropdown: 1000;
+  --sanctuary-z-sticky: 1020;
+  --sanctuary-z-fixed: 1030;
+  --sanctuary-z-modal-backdrop: 1040;
+  --sanctuary-z-modal: 1050;
+  --sanctuary-z-popover: 1060;
+  --sanctuary-z-tooltip: 1070;
+  --sanctuary-z-toast: 1080;
+}
+
+/* ==========================================================================
+   CORE FOUNDATION CLASSES
+   ========================================================================== */
+
+.sanctuary-foundation {
+  font-family: var(--sanctuary-font-family-primary);
+  font-weight: var(--sanctuary-font-weight-regular);
+  line-height: var(--sanctuary-leading-relaxed);
+  color: var(--sanctuary-gray-800);
+  background-color: var(--sanctuary-white);
+  letter-spacing: var(--sanctuary-tracking-normal);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY SYSTEM - Whispered Confidence
+   ========================================================================== */
+
+.sanctuary-text-display {
+  font-size: var(--sanctuary-text-4xl);
+  font-weight: var(--sanctuary-font-weight-light);
+  line-height: var(--sanctuary-leading-tight);
+  letter-spacing: var(--sanctuary-tracking-wide);
+  color: var(--sanctuary-gray-900);
+}
+
+.sanctuary-text-heading {
+  font-size: var(--sanctuary-text-2xl);
+  font-weight: var(--sanctuary-font-weight-regular);
+  line-height: var(--sanctuary-leading-normal);
+  letter-spacing: var(--sanctuary-tracking-wide);
+  color: var(--sanctuary-gray-800);
+}
+
+.sanctuary-text-subheading {
+  font-size: var(--sanctuary-text-lg);
+  font-weight: var(--sanctuary-font-weight-regular);
+  line-height: var(--sanctuary-leading-relaxed);
+  letter-spacing: var(--sanctuary-tracking-wider);
+  color: var(--sanctuary-gray-700);
+}
+
+.sanctuary-text-body {
+  font-size: var(--sanctuary-text-sm);
+  font-weight: var(--sanctuary-font-weight-regular);
+  line-height: var(--sanctuary-leading-loose);
+  letter-spacing: var(--sanctuary-tracking-normal);
+  color: var(--sanctuary-gray-700);
+}
+
+.sanctuary-text-caption {
+  font-size: var(--sanctuary-text-xs);
+  font-weight: var(--sanctuary-font-weight-regular);
+  line-height: var(--sanctuary-leading-normal);
+  letter-spacing: var(--sanctuary-tracking-wider);
+  color: var(--sanctuary-gray-600);
+}
+
+/* ==========================================================================
+   LAYOUT SYSTEM - Intentional Breathing Room
+   ========================================================================== */
+
+.sanctuary-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--sanctuary-space-2xl);
+}
+
+@media (min-width: 768px) {
+  .sanctuary-container {
+    padding: 0 var(--sanctuary-space-3xl);
+  }
+}
+
+.sanctuary-section {
+  padding: var(--sanctuary-space-4xl) 0;
+}
+
+.sanctuary-card {
+  background: var(--sanctuary-white);
+  border: 1px solid var(--sanctuary-gray-200);
+  border-radius: var(--sanctuary-radius-lg);
+  padding: var(--sanctuary-space-3xl);
+  box-shadow: var(--sanctuary-shadow-sanctuary);
+  transition: all var(--sanctuary-transition-normal);
+}
+
+.sanctuary-card:hover {
+  box-shadow: var(--sanctuary-shadow-lg);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   BUTTON SYSTEM - Gentle Interactions
+   ========================================================================== */
+
+.sanctuary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sanctuary-space-sm);
+  padding: var(--sanctuary-space-md) var(--sanctuary-space-xl);
+  font-family: var(--sanctuary-font-family-primary);
+  font-size: var(--sanctuary-text-sm);
+  font-weight: var(--sanctuary-font-weight-regular);
+  letter-spacing: var(--sanctuary-tracking-wider);
+  line-height: 1;
+  border: 1px solid transparent;
+  border-radius: var(--sanctuary-radius-md);
+  cursor: pointer;
+  transition: all var(--sanctuary-transition-normal);
+  text-decoration: none;
+  outline: none;
+  min-height: 48px; /* Touch-friendly */
+}
+
+.sanctuary-btn:focus-visible {
+  outline: 2px solid var(--sanctuary-sage-400);
+  outline-offset: 2px;
+}
+
+.sanctuary-btn-primary {
+  background: var(--sanctuary-sage-400);
+  color: var(--sanctuary-white);
+  border-color: var(--sanctuary-sage-400);
+}
+
+.sanctuary-btn-primary:hover {
+  background: var(--sanctuary-sage-500);
+  border-color: var(--sanctuary-sage-500);
+  transform: translateY(-1px);
+  box-shadow: var(--sanctuary-shadow-md);
+}
+
+.sanctuary-btn-secondary {
+  background: var(--sanctuary-white);
+  color: var(--sanctuary-sage-600);
+  border-color: var(--sanctuary-sage-300);
+}
+
+.sanctuary-btn-secondary:hover {
+  background: var(--sanctuary-sage-50);
+  border-color: var(--sanctuary-sage-400);
+}
+
+.sanctuary-btn-ghost {
+  background: transparent;
+  color: var(--sanctuary-gray-700);
+  border-color: transparent;
+}
+
+.sanctuary-btn-ghost:hover {
+  background: var(--sanctuary-gray-50);
+  color: var(--sanctuary-gray-800);
+}
+
+/* Crisis-safe button variant */
+.sanctuary-btn-crisis {
+  background: var(--sanctuary-crisis-background);
+  color: var(--sanctuary-crisis-text);
+  border-color: var(--sanctuary-crisis-border);
+}
+
+.sanctuary-btn-crisis:hover {
+  background: var(--sanctuary-crisis-border);
+  color: var(--sanctuary-white);
+}
+
+/* ==========================================================================
+   FORM ELEMENTS - Accessible & Trauma-Informed
+   ========================================================================== */
+
+.sanctuary-input {
+  width: 100%;
+  padding: var(--sanctuary-space-md) var(--sanctuary-space-lg);
+  font-family: var(--sanctuary-font-family-primary);
+  font-size: var(--sanctuary-text-sm);
+  line-height: var(--sanctuary-leading-normal);
+  color: var(--sanctuary-gray-800);
+  background: var(--sanctuary-white);
+  border: 1px solid var(--sanctuary-gray-300);
+  border-radius: var(--sanctuary-radius-md);
+  transition: all var(--sanctuary-transition-normal);
+  min-height: 48px; /* Touch-friendly */
+}
+
+.sanctuary-input:focus {
+  outline: none;
+  border-color: var(--sanctuary-sage-400);
+  box-shadow: 0 0 0 3px var(--sanctuary-sage-100);
+}
+
+.sanctuary-input::placeholder {
+  color: var(--sanctuary-gray-500);
+  letter-spacing: var(--sanctuary-tracking-normal);
+}
+
+.sanctuary-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: var(--sanctuary-font-family-primary);
+}
+
+.sanctuary-label {
+  display: block;
+  font-size: var(--sanctuary-text-sm);
+  font-weight: var(--sanctuary-font-weight-medium);
+  color: var(--sanctuary-gray-700);
+  margin-bottom: var(--sanctuary-space-sm);
+  letter-spacing: var(--sanctuary-tracking-wide);
+}
+
+/* ==========================================================================
+   ANIMATION UTILITIES - Gentle Movements
+   ========================================================================== */
+
+.sanctuary-fade-in {
+  animation: sanctuaryFadeIn var(--sanctuary-transition-slow) ease-out;
+}
+
+.sanctuary-slide-up {
+  animation: sanctuarySlideUp var(--sanctuary-transition-slow) ease-out;
+}
+
+.sanctuary-breathe {
+  animation: sanctuaryBreathe 4s ease-in-out infinite;
+}
+
+@keyframes sanctuaryFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sanctuarySlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sanctuaryBreathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .sanctuary-fade-in,
+  .sanctuary-slide-up,
+  .sanctuary-breathe {
+    animation: none;
+  }
+  
+  .sanctuary-btn,
+  .sanctuary-card,
+  .sanctuary-input {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .sanctuary-container {
+    padding: 0 var(--sanctuary-space-lg);
+  }
+  
+  .sanctuary-section {
+    padding: var(--sanctuary-space-2xl) 0;
+  }
+  
+  .sanctuary-card {
+    padding: var(--sanctuary-space-xl);
+  }
+  
+  .sanctuary-text-display {
+    font-size: var(--sanctuary-text-3xl);
+  }
+  
+  .sanctuary-text-heading {
+    font-size: var(--sanctuary-text-xl);
+  }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES - Core Spacing & Colors
+   ========================================================================== */
+
+/* Sage color utilities */
+.sanctuary-text-sage { color: var(--sanctuary-sage-400); }
+.sanctuary-bg-sage { background-color: var(--sanctuary-sage-400); }
+.sanctuary-border-sage { border-color: var(--sanctuary-sage-400); }
+
+/* Spacing utilities */
+.sanctuary-p-xs { padding: var(--sanctuary-space-xs); }
+.sanctuary-p-sm { padding: var(--sanctuary-space-sm); }
+.sanctuary-p-md { padding: var(--sanctuary-space-md); }
+.sanctuary-p-lg { padding: var(--sanctuary-space-lg); }
+.sanctuary-p-xl { padding: var(--sanctuary-space-xl); }
+
+.sanctuary-m-xs { margin: var(--sanctuary-space-xs); }
+.sanctuary-m-sm { margin: var(--sanctuary-space-sm); }
+.sanctuary-m-md { margin: var(--sanctuary-space-md); }
+.sanctuary-m-lg { margin: var(--sanctuary-space-lg); }
+.sanctuary-m-xl { margin: var(--sanctuary-space-xl); }
+
+/* ==========================================================================
+   PROFESSIONAL MODE STYLES
+   ========================================================================== */
+
+.sanctuary-professional {
+  --sanctuary-accent-color: var(--sanctuary-professional-400);
+  --sanctuary-accent-background: var(--sanctuary-professional-50);
+}
+
+.sanctuary-professional .sanctuary-btn-primary {
+  background: var(--sanctuary-professional-400);
+  border-color: var(--sanctuary-professional-400);
+}
+
+.sanctuary-professional .sanctuary-btn-primary:hover {
+  background: var(--sanctuary-professional-500);
+  border-color: var(--sanctuary-professional-500);
+}

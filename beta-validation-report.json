@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-09-29T21:11:40.888Z",
+  "testsSummary": {
+    "total": 7,
+    "passed": 3,
+    "failed": 4,
+    "warnings": 0
+  },
+  "coreFeatures": {
+    "landingPage": {
+      "name": "Landing Page",
+      "status": "failed",
+      "issues": [
+        "Landing page failed to load: SyntaxError: Failed to execute 'querySelector' on 'Document': 'a[href*=\"login\"], button:contains(\"Sign\"), a:contains(\"Login\")' is not a valid selector."
+      ]
+    },
+    "authentication": {
+      "name": "Authentication",
+      "status": "failed",
+      "issues": [
+        "Authentication test failed: SyntaxError: Failed to execute 'querySelector' on 'Document': 'button:contains(\"Google\"), [aria-label*=\"Google\"]' is not a valid selector."
+      ]
+    },
+    "journalSystem": {
+      "name": "Journal System",
+      "status": "passed",
+      "issues": []
+    },
+    "pathways": {
+      "name": "Pathways",
+      "status": "passed",
+      "issues": []
+    },
+    "pricing": {
+      "name": "Pricing & Subscriptions",
+      "status": "failed",
+      "issues": [
+        "No pricing cards found on pricing page",
+        "Pricing page test failed: SyntaxError: Failed to execute 'querySelectorAll' on 'Document': 'button:contains(\"Subscribe\"), button:contains(\"Invest\"), button:contains(\"Enter\")' is not a valid selector."
+      ]
+    },
+    "apiEndpoints": {
+      "name": "API Endpoints",
+      "status": "passed",
+      "issues": []
+    },
+    "mobileResponsiveness": {
+      "name": "Mobile Responsiveness",
+      "status": "failed",
+      "issues": [
+        "Navigation not found on iPhone SE",
+        "Navigation not found on iPhone 8",
+        "Navigation not found on iPhone 11"
+      ]
+    }
+  },
+  "performanceMetrics": {
+    "domContentLoaded": 0.09999990463256836,
+    "loadComplete": 0.09999990463256836,
+    "firstPaint": 136,
+    "firstContentfulPaint": 136
+  },
+  "criticalIssues": [],
+  "recommendations": [
+    "Address failed core features before beta launch"
+  ],
+  "betaReadiness": {
+    "ready": false,
+    "confidence": 20,
+    "blockers": [
+      "Landing Page",
+      "Authentication"
+    ]
+  }
+}

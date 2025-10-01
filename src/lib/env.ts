@@ -6,8 +6,9 @@ export const getServerEnv = () => {
   return {
     firebaseProjectId: validateEnvVar('FIREBASE_PROJECT_ID', process.env.FIREBASE_PROJECT_ID),
     firebaseClientEmail: validateEnvVar('FIREBASE_CLIENT_EMAIL', process.env.FIREBASE_CLIENT_EMAIL),
-    firebaseServiceAccountKey: validateEnvVar('FIREBASE_SERVICE_ACCOUNT_KEY', process.env.FIREBASE_SERVICE_ACCOUNT_KEY),
-    firebaseAppId: validateEnvVar('FIREBASE_APP_ID', process.env.FIREBASE_APP_ID),
+    firebaseServiceAccountKey: process.env.FIREBASE_SERVICE_ACCOUNT_KEY || null, // Optional - can use individual vars
+    firebasePrivateKey: process.env.FIREBASE_PRIVATE_KEY || null, // Alternative to service account key
+    firebaseAppId: process.env.FIREBASE_APP_ID || process.env.NEXT_PUBLIC_FIREBASE_APP_ID, // Allow fallback
     openaiApiKey: validateEnvVar('OPENAI_API_KEY', process.env.OPENAI_API_KEY),
     geminiApiKey: process.env.GEMINI_API_KEY, // Optional
     stripeSecretKey: validateEnvVar('STRIPE_SECRET_KEY', process.env.STRIPE_SECRET_KEY),

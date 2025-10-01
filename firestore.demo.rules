@@ -1,0 +1,111 @@
+// ALCHM Demo Firestore Security Rules - DevHunt Traffic Ready
+// Optimized for 1000+ concurrent users with privacy-first demonstration
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===== DEMO USER AUTHENTICATION =====
+    function isDemoUser() {
+      return request.auth != null && 
+             request.auth.token.demo_mode == true &&
+             request.auth.uid.hasPrefix('demo_');
+    }
+    
+    function isValidDemoSession() {
+      return resource != null && 
+             resource.data.keys().hasAny(['sessionExpiry']) &&
+             resource.data.sessionExpiry > request.time;
+    }
+    
+    function withinDemoLimits() {
+      return request.auth != null && 
+             request.auth.token.demo_user_count < 1000;
+    }
+
+    // ===== DEMO USERS COLLECTION =====
+    match /demo_users/{userId} {
+      allow read, write: if isDemoUser() && 
+                           request.auth.uid == userId && 
+                           withinDemoLimits() &&
+                           isValidDemoSession();
+      
+      // Demo user metadata (safe for public showcase)
+      allow read: if request.auth != null && 
+                    resource.data.keys().hasAny(['publicMetrics', 'anonymizedInsights']);
+    }
+
+    // ===== DEMO JOURNAL ENTRIES =====
+    match /demo_entries/{userId}/active/{entryId} {
+      allow read, write: if isDemoUser() && 
+                           request.auth.uid == userId &&
+                           withinDemoLimits();
+                           
+      // Prevent storing actual personal content in demo
+      allow write: if isDemoUser() &&
+                     request.auth.uid == userId &&
+                     !request.resource.data.keys().hasAny(['personalData', 'realContent', 'sensitiveInfo']);
+    }
+
+    // ===== DEMO AI INSIGHTS (Safe for Showcase) =====
+    match /demo_insights/{insightId} {
+      allow read: if isDemoUser() && 
+                    isValidDemoSession();
+                    
+      allow write: if isDemoUser() && 
+                     request.auth.uid == resource.data.userId &&
+                     resource.data.demoSafe == true;
+    }
+
+    // ===== DEMO PERFORMANCE METRICS (Public for DevHunt) =====
+    match /demo_metrics/{metricId} {
+      allow read: if request.auth != null; // Public for demo showcase
+      allow write: if false; // Only Cloud Functions can write metrics
+    }
+
+    // ===== DEMO ANALYTICS (Anonymized for Showcase) =====
+    match /demo_analytics/{analyticsId} {
+      allow read: if request.auth != null &&
+                    resource.data.anonymized == true;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // ===== DEMO REAL-TIME ACTIVITY =====
+    match /demo_activity/{activityId} {
+      allow read: if request.auth != null; // Public activity feed for demo
+      allow write: if isDemoUser() && 
+                     request.auth.uid == request.resource.data.userId &&
+                     withinDemoLimits();
+    }
+
+    // ===== DEMO CRISIS RESOURCES (Always Allow - Safety First) =====
+    match /crisis_resources/{resourceId} {
+      allow read: if true; // Always accessible for user safety
+      allow write: if false; // Read-only resource collection
+    }
+
+    // ===== DEMO CULTURAL ADAPTATIONS =====
+    match /demo_cultural/{cultureId} {
+      allow read: if request.auth != null; // Showcase cultural AI
+      allow write: if false; // Read-only for demo
+    }
+
+    // ===== DEMO BADGE SYSTEM =====
+    match /demo_badges/{userId}/achievements/{badgeId} {
+      allow read: if isDemoUser() && request.auth.uid == userId;
+      allow write: if false; // Only Cloud Functions award badges
+    }
+
+    // ===== DEMO STREAK TRACKING =====
+    match /demo_streaks/{userId} {
+      allow read, write: if isDemoUser() && 
+                          request.auth.uid == userId &&
+                          isValidDemoSession();
+    }
+
+    // ===== DEFAULT DENY =====
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

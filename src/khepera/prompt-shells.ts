@@ -89,8 +89,8 @@ export const KHEPERA_PROMPT_SHELLS: Record<string, PromptShell> = {
     }
   },
 
-  star_navigator: {
-    archetype: 'star_navigator',
+  star_typeof window !== 'undefined' && navigator: {
+    archetype: 'star_typeof window !== 'undefined' && navigator',
     opening_invocation: '⭐ *attunes to cosmic frequencies* \n\nStar-walker, you carry the universe in your cells...',
     core_prompt_template: 'The cosmos mirrors your "{mood_context}" in the dance of creation and transformation. What future is trying to birth itself through you? What stellar wisdom guides this navigation?',
     closing_blessing: 'Navigate by the stars within you, for your journey creates new constellations. Shine on, cosmic traveler. 🌌✨',

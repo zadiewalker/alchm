@@ -1,0 +1,248 @@
+{
+  "timestamp": "2025-09-28T23:11:34.223Z",
+  "report": {
+    "overallScore": 100,
+    "categoryScores": {
+      "infrastructure": {
+        "score": 100,
+        "details": {
+          "rootRedirect": {
+            "status": 307,
+            "time": 30,
+            "redirectsToLocale": true
+          },
+          "landingPage": {
+            "status": 200,
+            "time": 47,
+            "hasContent": true
+          },
+          "emergencyPage": {
+            "status": 200,
+            "time": 47,
+            "has988": true,
+            "hasCrisisSupport": true
+          },
+          "authSystem": {
+            "status": 200,
+            "time": 48,
+            "hasAgeVerification": true,
+            "hasAuthFlow": true
+          }
+        },
+        "issues": []
+      },
+      "userJourneys": {
+        "score": 100,
+        "details": {
+          "newUserPath": {
+            "redirectsCorrectly": true,
+            "time": 11
+          },
+          "authProtection": {
+            "journalRedirectsToAuth": true,
+            "dashboardRedirectsToAuth": true
+          },
+          "crisisAccess": {
+            "accessibleWithoutAuth": true,
+            "time": 45
+          },
+          "publicPages": {
+            "accessible": 3,
+            "total": 3
+          }
+        },
+        "issues": []
+      },
+      "performance": {
+        "score": 100,
+        "details": {
+          "landingPerformance": {
+            "loadTime": 58,
+            "underThreshold": true
+          },
+          "emergencyPerformance": {
+            "loadTime": 50,
+            "underThreshold": true
+          },
+          "authPerformance": {
+            "loadTime": 50,
+            "underThreshold": true
+          },
+          "overall": {
+            "averageTime": 53,
+            "consistent": true
+          }
+        },
+        "issues": []
+      },
+      "crisisSafety": {
+        "score": 100,
+        "details": {
+          "emergencyAccess": {
+            "status": 200,
+            "accessible": true
+          },
+          "crisisHotline": {
+            "has988Link": true,
+            "hasCrisisButton": true,
+            "hasEmergencyIcon": true
+          },
+          "criticalCSS": {
+            "hasCriticalCSS": true,
+            "hasTouchTargets": true,
+            "hasCrisisMode": true
+          }
+        },
+        "issues": []
+      },
+      "mobileOptimization": {
+        "score": 100,
+        "details": {
+          "viewport": {
+            "hasViewportMeta": true,
+            "hasMaxScale": true,
+            "hasUserScalable": true
+          },
+          "touchTargets": {
+            "hasMinTouchTargets": true,
+            "hasCrisisTouchTargets": true,
+            "hasTouchAction": true
+          },
+          "mobileFeatures": {
+            "hasAppleWebAppCapable": true,
+            "hasThemeColor": true,
+            "hasMobileOptimized": true,
+            "hasHandheldFriendly": true
+          },
+          "mobilePerformance": {
+            "loadTime": 40,
+            "underMobileThreshold": true
+          }
+        },
+        "issues": []
+      }
+    },
+    "criticalIssues": [],
+    "readyForLaunch": true
+  },
+  "detailedResults": {
+    "infrastructure": {
+      "score": 100,
+      "details": {
+        "rootRedirect": {
+          "status": 307,
+          "time": 30,
+          "redirectsToLocale": true
+        },
+        "landingPage": {
+          "status": 200,
+          "time": 47,
+          "hasContent": true
+        },
+        "emergencyPage": {
+          "status": 200,
+          "time": 47,
+          "has988": true,
+          "hasCrisisSupport": true
+        },
+        "authSystem": {
+          "status": 200,
+          "time": 48,
+          "hasAgeVerification": true,
+          "hasAuthFlow": true
+        }
+      },
+      "issues": []
+    },
+    "userJourneys": {
+      "score": 100,
+      "details": {
+        "newUserPath": {
+          "redirectsCorrectly": true,
+          "time": 11
+        },
+        "authProtection": {
+          "journalRedirectsToAuth": true,
+          "dashboardRedirectsToAuth": true
+        },
+        "crisisAccess": {
+          "accessibleWithoutAuth": true,
+          "time": 45
+        },
+        "publicPages": {
+          "accessible": 3,
+          "total": 3
+        }
+      },
+      "issues": []
+    },
+    "performance": {
+      "score": 100,
+      "details": {
+        "landingPerformance": {
+          "loadTime": 58,
+          "underThreshold": true
+        },
+        "emergencyPerformance": {
+          "loadTime": 50,
+          "underThreshold": true
+        },
+        "authPerformance": {
+          "loadTime": 50,
+          "underThreshold": true
+        },
+        "overall": {
+          "averageTime": 53,
+          "consistent": true
+        }
+      },
+      "issues": []
+    },
+    "crisisSafety": {
+      "score": 100,
+      "details": {
+        "emergencyAccess": {
+          "status": 200,
+          "accessible": true
+        },
+        "crisisHotline": {
+          "has988Link": true,
+          "hasCrisisButton": true,
+          "hasEmergencyIcon": true
+        },
+        "criticalCSS": {
+          "hasCriticalCSS": true,
+          "hasTouchTargets": true,
+          "hasCrisisMode": true
+        }
+      },
+      "issues": []
+    },
+    "mobileOptimization": {
+      "score": 100,
+      "details": {
+        "viewport": {
+          "hasViewportMeta": true,
+          "hasMaxScale": true,
+          "hasUserScalable": true
+        },
+        "touchTargets": {
+          "hasMinTouchTargets": true,
+          "hasCrisisTouchTargets": true,
+          "hasTouchAction": true
+        },
+        "mobileFeatures": {
+          "hasAppleWebAppCapable": true,
+          "hasThemeColor": true,
+          "hasMobileOptimized": true,
+          "hasHandheldFriendly": true
+        },
+        "mobilePerformance": {
+          "loadTime": 40,
+          "underMobileThreshold": true
+        }
+      },
+      "issues": []
+    }
+  }
+}

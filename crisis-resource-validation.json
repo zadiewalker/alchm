@@ -1,0 +1,353 @@
+{
+  "timestamp": "2025-09-12T19:02:13.897Z",
+  "domains": {
+    "https://alchm-digital-sanctuary.web.app": {
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "resources": {
+        "988 Suicide & Crisis Lifeline": {
+          "name": "988 Suicide & Crisis Lifeline",
+          "url": "https://988lifeline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 281.00042299999996,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 310251,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "National Domestic Violence Hotline": {
+          "name": "National Domestic Violence Hotline",
+          "url": "https://www.thehotline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 287.08357,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 78110,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "Crisis Text Line": {
+          "name": "Crisis Text Line",
+          "url": "https://www.crisistextline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 178.48409200000003,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 120289,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "ALCHM Crisis Support Page": {
+          "name": "ALCHM Crisis Support Page",
+          "path": "/crisis-support",
+          "type": "internal",
+          "maxResponseTime": 100,
+          "critical": true,
+          "offline": true,
+          "url": "https://alchm-digital-sanctuary.web.app/crisis-support",
+          "statusCode": 200,
+          "responseTime": 227.68775499999992,
+          "accessible": true,
+          "withinThreshold": false,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "F",
+          "crisisCompliant": false
+        },
+        "ALCHM Emergency Resources": {
+          "name": "ALCHM Emergency Resources",
+          "path": "/emergency",
+          "type": "internal",
+          "maxResponseTime": 100,
+          "critical": true,
+          "offline": true,
+          "url": "https://alchm-digital-sanctuary.web.app/emergency",
+          "statusCode": 200,
+          "responseTime": 99.7009059999998,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "B",
+          "crisisCompliant": true
+        },
+        "Crisis Detection API": {
+          "name": "Crisis Detection API",
+          "path": "/api/crisis-detection",
+          "type": "api",
+          "maxResponseTime": 500,
+          "critical": true,
+          "offline": false,
+          "url": "https://alchm-digital-sanctuary.web.app/api/crisis-detection",
+          "statusCode": 200,
+          "responseTime": 114.78216299999985,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "A+",
+          "crisisCompliant": true
+        }
+      },
+      "keywordDetection": {
+        "988": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "suicide": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "kill myself": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "self harm": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "abuse": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "crisis": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      },
+      "offlineAccessibility": {
+        "hasServiceWorker": true,
+        "serviceWorkerSize": 29683,
+        "offlineReady": true
+      },
+      "overallCrisisReadiness": false
+    },
+    "https://alchmapp.web.app": {
+      "domain": "https://alchmapp.web.app",
+      "resources": {
+        "988 Suicide & Crisis Lifeline": {
+          "name": "988 Suicide & Crisis Lifeline",
+          "url": "https://988lifeline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 63.71608000000015,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 310251,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "National Domestic Violence Hotline": {
+          "name": "National Domestic Violence Hotline",
+          "url": "https://www.thehotline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 38.36632099999997,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 78110,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "Crisis Text Line": {
+          "name": "Crisis Text Line",
+          "url": "https://www.crisistextline.org",
+          "type": "external",
+          "maxResponseTime": 2000,
+          "critical": true,
+          "offline": false,
+          "statusCode": 200,
+          "responseTime": 329.3049810000002,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 120289,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": false,
+          "grade": "A+",
+          "crisisCompliant": true
+        },
+        "ALCHM Crisis Support Page": {
+          "name": "ALCHM Crisis Support Page",
+          "path": "/crisis-support",
+          "type": "internal",
+          "maxResponseTime": 100,
+          "critical": true,
+          "offline": true,
+          "url": "https://alchmapp.web.app/crisis-support",
+          "statusCode": 200,
+          "responseTime": 123.30060400000002,
+          "accessible": true,
+          "withinThreshold": false,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "C",
+          "crisisCompliant": false
+        },
+        "ALCHM Emergency Resources": {
+          "name": "ALCHM Emergency Resources",
+          "path": "/emergency",
+          "type": "internal",
+          "maxResponseTime": 100,
+          "critical": true,
+          "offline": true,
+          "url": "https://alchmapp.web.app/emergency",
+          "statusCode": 200,
+          "responseTime": 61.36097100000006,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "A",
+          "crisisCompliant": true
+        },
+        "Crisis Detection API": {
+          "name": "Crisis Detection API",
+          "path": "/api/crisis-detection",
+          "type": "api",
+          "maxResponseTime": 500,
+          "critical": true,
+          "offline": false,
+          "url": "https://alchmapp.web.app/api/crisis-detection",
+          "statusCode": 200,
+          "responseTime": 119.50624100000005,
+          "accessible": true,
+          "withinThreshold": true,
+          "contentLength": 13378,
+          "hasHelpContent": true,
+          "hasCrisisKeywords": true,
+          "securityHeaders": true,
+          "grade": "A+",
+          "crisisCompliant": true
+        }
+      },
+      "keywordDetection": {
+        "988": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "suicide": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "kill myself": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "self harm": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "abuse": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        "crisis": {
+          "detected": false,
+          "responseTime": -1,
+          "withinThreshold": false,
+          "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      },
+      "offlineAccessibility": {
+        "hasServiceWorker": true,
+        "serviceWorkerSize": 29683,
+        "offlineReady": true
+      },
+      "overallCrisisReadiness": false
+    }
+  },
+  "resources": {},
+  "keywordTests": {},
+  "summary": {
+    "totalDomains": 2,
+    "crisisReadyDomains": 0,
+    "crisisReadinessRate": 0,
+    "totalResources": 6,
+    "criticalFailures": 2,
+    "overallGrade": "F"
+  },
+  "criticalFailures": [
+    {
+      "type": "CRISIS_RESOURCE_FAILURE",
+      "resource": "ALCHM Crisis Support Page",
+      "domain": "https://alchm-digital-sanctuary.web.app",
+      "issue": "Response time exceeded",
+      "severity": "CRITICAL",
+      "impact": "ALCHM Crisis Support Page unavailable for crisis users"
+    },
+    {
+      "type": "CRISIS_RESOURCE_FAILURE",
+      "resource": "ALCHM Crisis Support Page",
+      "domain": "https://alchmapp.web.app",
+      "issue": "Response time exceeded",
+      "severity": "CRITICAL",
+      "impact": "ALCHM Crisis Support Page unavailable for crisis users"
+    }
+  ]
+}

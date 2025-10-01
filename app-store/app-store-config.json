@@ -1,0 +1,127 @@
+{
+  "name": "ALCHM: Digital Sanctuary",
+  "app": {
+    "name": "ALCHM: Digital Sanctuary",
+    "subtitle": "Trauma-Informed Journaling & Emotional Wellness",
+    "bundleId": "com.alchm.app",
+    "version": "1.0.0",
+    "buildNumber": "1",
+    "category": "Health & Fitness",
+    "subcategory": "Mental Health",
+    "ageRating": "17+",
+    "contentDescriptors": [
+      "Infrequent/Mild Medical/Treatment Information",
+      "Infrequent/Mild Mature/Suggestive Themes"
+    ]
+  },
+  "category": "Health & Fitness",
+  "description": {
+    "primary": "Transform your relationship with your thoughts through guided journaling and mindful reflection in a beautifully designed, private digital sanctuary.\n\nALCHM combines trauma-informed design with AI-powered insights to create a safe space for emotional healing and personal growth. Whether you're processing daily experiences or working through deeper challenges, ALCHM provides gentle guidance without replacing professional care.\n\n✨ KEY FEATURES:\n• Private journaling with elegant, distraction-free interface\n• Guided healing pathways for emotional growth\n• Mood tracking with gentle insights and patterns\n• 24/7 crisis support resources and professional referrals\n• Premium design focused on calm, clarity, and safety\n• Trauma-informed AI that provides supportive reflections\n\n🔒 PRIVACY FIRST:\n• Your entries stay secure on your device\n• No social features, sharing, or public content\n• Optional encrypted cloud backup for safety\n• Complete data control and deletion options\n• Transparent AI processing with opt-out available\n\n🆘 COMPREHENSIVE SAFETY:\n• Immediate access to crisis support (988, 911)\n• Professional mental health resource directory\n• Gentle trigger warnings and content sensitivity\n• Crisis detection with caring resource suggestions\n• Medical disclaimer compliance for your protection\n\n🎨 DESIGNED FOR HEALING:\nCreated with trauma-informed design principles and guidance from mental health professionals. Every interaction is designed to support your emotional well-being while maintaining the highest standards of safety and privacy.\n\nIMPORTANT: ALCHM is a journaling and reflection tool, not therapy or medical treatment. For ongoing mental health support, please consult licensed professionals. Crisis support: 988.",
+    "whatsNew": "Welcome to ALCHM 1.0 - Your Digital Sanctuary for Emotional Healing\n\n• Beautiful, trauma-informed interface designed for safety and calm\n• Private journaling with AI-powered supportive insights\n• Comprehensive crisis support and professional resource directory\n• Guided pathways for emotional growth and healing\n• Complete privacy controls with optional encrypted backup\n• Built-in accessibility features for all users\n\nCreated with love and clinical expertise to support your healing journey."
+  },
+  "keywords": [
+    "journaling",
+    "mental health",
+    "emotional wellness",
+    "mindfulness",
+    "self-care",
+    "reflection",
+    "mood tracking",
+    "trauma-informed",
+    "private diary",
+    "emotional intelligence",
+    "personal growth",
+    "meditation",
+    "anxiety support",
+    "depression support",
+    "crisis resources",
+    "therapy support",
+    "healing",
+    "wellness",
+    "self-help",
+    "mental fitness"
+  ],
+  "screenshots": {
+    "iPhone": {
+      "6.7": [
+        "Welcome Screen - Premium sanctuary design with crisis resources",
+        "Journal Interface - Elegant writing experience with mood tracking",
+        "Healing Pathways - Guided emotional growth journeys",
+        "Insights Dashboard - Gentle progress tracking and patterns",
+        "Crisis Support - Immediate access to professional resources"
+      ],
+      "6.1": [
+        "Welcome Screen - Safe, beautiful entry to your sanctuary",
+        "Private Journaling - Distraction-free, trauma-informed writing",
+        "Emotional Insights - AI-powered reflections with disclaimers",
+        "Safety Resources - 24/7 crisis support and professional help",
+        "Privacy Controls - Complete data ownership and protection"
+      ],
+      "5.5": [
+        "Digital Sanctuary - Your private space for healing",
+        "Guided Journaling - Supportive prompts and gentle insights",
+        "Crisis Safety - Immediate professional resource access",
+        "Progress Tracking - Emotional patterns without judgment",
+        "Privacy First - Your data, your control, your healing"
+      ]
+    },
+    "iPad": {
+      "12.9": [
+        "Sanctuary Dashboard - Premium healing environment",
+        "Journal Writing - Spacious, calming interface design",
+        "Healing Pathways - Comprehensive emotional growth tools",
+        "Crisis Resources - Professional support always available",
+        "Privacy & Safety - Complete control over your journey"
+      ]
+    }
+  },
+  "promotional": {
+    "tagline": "Your Private Digital Sanctuary for Emotional Healing",
+    "marketingURL": "https://alchm.app",
+    "supportURL": "https://alchm.app/support",
+    "privacyURL": "https://alchm.app/privacy-policy.html"
+  },
+  "appStoreCompliance": {
+    "medicalDisclaimer": true,
+    "crisisResources": true,
+    "privacyPolicy": true,
+    "ageVerification": true,
+    "accessibilityFeatures": true,
+    "contentGuidelines": true,
+    "performanceOptimized": true,
+    "coppaCompliant": true
+  },
+  "reviewNotes": {
+    "forAppleReview": "ALCHM is a trauma-informed journaling application designed for users 17+. We implement comprehensive safety measures including medical disclaimers, crisis resource access, and privacy-first design. All AI features include clear disclaimers that this is not medical treatment. Crisis detection provides resource suggestions but does not replace professional care. Privacy policy includes COPPA compliance and detailed data handling transparency. The app includes accessibility features for VoiceOver, Dynamic Type, and high contrast modes."
+  },
+  "technicalRequirements": {
+    "minimumOS": "iOS 15.0",
+    "deviceSupport": ["iPhone", "iPad"],
+    "features": [
+      "VoiceOver Support",
+      "Dynamic Type",
+      "Dark Mode",
+      "Offline Functionality",
+      "Biometric Authentication",
+      "Privacy Reports",
+      "Crisis Resource Access"
+    ]
+  },
+  "complianceChecklist": {
+    "mentalHealthAppRequirements": {
+      "medicalDisclaimerPresent": true,
+      "crisisInterventionAccess": true,
+      "professionalReferralSystem": true,
+      "noMedicalClaims": true,
+      "appropriateAgeRating": true,
+      "privacyCompliant": true
+    },
+    "appStoreGuidelines": {
+      "section1_4_safety": true,
+      "section5_1_1_privacy": true,
+      "section2_3_3_accessibility": true,
+      "section4_2_performance": true,
+      "coppaCompliance": true
+    }
+  }
+}

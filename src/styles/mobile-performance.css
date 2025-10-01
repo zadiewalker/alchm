@@ -1,0 +1,278 @@
+/* ==========================================================================
+   Mobile Performance Optimizations for Low-End Devices
+   Battery-conscious, data-sparing, trauma-informed performance
+   ========================================================================== */
+
+/* ==========================================================================
+   CSS Custom Properties for Performance Control
+   ========================================================================== */
+
+:root {
+  /* Performance tier variables */
+  --perf-animation-speed: 300ms;
+  --perf-transition-speed: 200ms;
+  --perf-transform-speed: 150ms;
+  
+  /* Memory and CPU optimizations */
+  --perf-will-change: auto;
+  --perf-contain: none;
+  --perf-content-visibility: visible;
+  
+  /* Battery-aware optimizations */
+  --perf-backdrop-filter: blur(10px);
+  --perf-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --perf-gradient: linear-gradient(135deg, #a4b792, #7a8c6a);
+  
+  /* Data-sparing optimizations */
+  --perf-image-loading: eager;
+  --perf-video-preload: metadata;
+  
+  /* Device-specific optimizations */
+  --perf-layer-promotion: none;
+  --perf-paint-optimization: auto;
+}
+
+/* ==========================================================================
+   Ultra-Low End Device Optimizations (< 2GB RAM, <= 2 CPU cores)
+   ========================================================================== */
+
+.perf-ultra-low {
+  --perf-animation-speed: 0ms;
+  --perf-transition-speed: 0ms;
+  --perf-transform-speed: 0ms;
+  --perf-will-change: auto;
+  --perf-contain: layout;
+  --perf-content-visibility: auto;
+  --perf-backdrop-filter: none;
+  --perf-box-shadow: none;
+  --perf-gradient: #a4b792;
+  --perf-image-loading: lazy;
+  --perf-video-preload: none;
+}
+
+.perf-ultra-low * {
+  /* Disable all animations and transitions */
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  
+  /* Remove expensive visual effects */\n  backdrop-filter: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  
+  /* Optimize rendering */
+  will-change: auto !important;
+  contain: layout !important;
+  content-visibility: auto !important;
+}
+
+.perf-ultra-low .gpu-intensive,
+.perf-ultra-low .high-memory,
+.perf-ultra-low .complex-animation {
+  display: none !important;
+}
+
+.perf-ultra-low .loading-animation {
+  animation: none !important;
+}
+
+.perf-ultra-low .loading-animation::after {
+  content: 'Loading...' !important;
+}
+
+/* Simplified gradients for ultra-low devices */
+.perf-ultra-low .gradient-sanctuary {
+  background: var(--sage-primary) !important;
+}
+
+.perf-ultra-low .backdrop-blur {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ==========================================================================
+   Low-End Device Optimizations (2-4GB RAM, <= 4 CPU cores)
+   ========================================================================== */
+
+.perf-low {
+  --perf-animation-speed: 150ms;
+  --perf-transition-speed: 100ms;
+  --perf-transform-speed: 50ms;
+  --perf-backdrop-filter: none;
+  --perf-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perf-low .complex-animation,
+.perf-low .parallax-effect,
+.perf-low .particle-system {
+  display: none !important;
+}
+
+.perf-low * {
+  animation-duration: var(--perf-animation-speed) !important;
+  transition-duration: var(--perf-transition-speed) !important;
+}
+
+.perf-low .backdrop-blur {
+  backdrop-filter: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+.perf-low .gradient-complex {
+  background: linear-gradient(135deg, #a4b792, #8fa37c) !important;
+}
+
+/* ==========================================================================
+   Battery Saver Mode Optimizations
+   ========================================================================== */
+
+.battery-saver {
+  --perf-animation-speed: 0ms;
+  --perf-transition-speed: 0ms;
+  --perf-backdrop-filter: none;
+  --perf-box-shadow: none;
+  --perf-will-change: auto;
+}
+
+.battery-saver * {
+  /* Pause all animations to save battery */
+  animation-play-state: paused !important;
+  animation-duration: 0ms !important;
+  transition-duration: 0ms !important;
+  
+  /* Remove GPU-intensive effects */
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+}
+
+.battery-saver .background-animation,
+.battery-saver .auto-refresh,
+.battery-saver .live-update {
+  display: none !important;
+}
+
+.battery-saver .video,
+.battery-saver .gif {
+  display: none !important;
+}
+
+.battery-saver .video + .static-placeholder,
+.battery-saver .gif + .static-placeholder {
+  display: block !important;
+}
+
+/* Battery level indicators */
+.battery-saver::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, 
+    #dc2626 0%, 
+    #dc2626 var(--battery-level, 20%), 
+    #374151 var(--battery-level, 20%), 
+    #374151 100%
+  );
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Data Sparing Mode Optimizations
+   ========================================================================== */
+
+.data-sparing {
+  --perf-image-loading: lazy;
+  --perf-video-preload: none;
+}
+
+.data-sparing .high-bandwidth,
+.data-sparing .auto-loading-content,
+.data-sparing .background-video {
+  display: none !important;
+}
+
+.data-sparing img {
+  loading: lazy !important;
+}
+
+.data-sparing video {
+  preload: none !important;
+}
+
+.data-sparing .image-placeholder {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 0.875rem;
+  min-height: 200px;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+}
+
+.data-sparing .image-placeholder::after {
+  content: '📷 Tap to load image';
+}
+
+/* ==========================================================================
+   Slow Connection Optimizations
+   ========================================================================== */
+
+.slow-connection .non-essential,
+.slow-connection .decorative-animation,
+.slow-connection .background-image {
+  display: none !important;
+}
+
+.slow-connection .loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.slow-connection .preload-hint {
+  display: none !important;
+}
+
+/* Connection speed indicator */
+.slow-connection::after {
+  content: '';
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  background: #f59e0b;
+  border-radius: 50%;
+  z-index: 9998;
+  animation: slow-connection-pulse 2s infinite;
+}
+
+@keyframes slow-connection-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ==========================================================================
+   Emergency Mode Optimizations (Crisis Situations)
+   ========================================================================== */
+
+.emergency-mode {
+  /* Ultra-minimal performance for crisis users */\n  --perf-animation-speed: 0ms;\n  --perf-transition-speed: 0ms;\n  --perf-backdrop-filter: none;\n  --perf-box-shadow: none;\n}\n\n.emergency-mode * {\n  /* Remove all non-essential visual effects */\n  animation: none !important;\n  transition: none !important;\n  transform: none !important;\n  filter: none !important;\n  backdrop-filter: none !important;\n  box-shadow: none !important;\n  text-shadow: none !important;\n  border-radius: 8px !important; /* Simplified border radius */\n}\n\n.emergency-mode .non-critical,\n.emergency-mode .decorative,\n.emergency-mode .enhancement {\n  display: none !important;\n}\n\n.emergency-mode .critical-only {\n  display: block !important;\n}\n\n/* Simplified color scheme for emergency mode */\n.emergency-mode {\n  background: #ffffff !important;\n  color: #000000 !important;\n}\n\n.emergency-mode button,\n.emergency-mode .btn-primary {\n  background: #dc2626 !important;\n  color: #ffffff !important;\n  border: 2px solid #000000 !important;\n}\n\n.emergency-mode .crisis-button {\n  background: #000000 !important;\n  color: #ffffff !important;\n  border: 4px solid #dc2626 !important;\n}\n\n/* ==========================================================================\n   Reduced Functionality Mode\n   ========================================================================== */\n\n.reduced-functionality .advanced-feature,\n.reduced-functionality .experimental,\n.reduced-functionality .beta-feature {\n  display: none !important;\n}\n\n.reduced-functionality .form-enhancement,\n.reduced-functionality .interactive-widget,\n.reduced-functionality .rich-text-editor {\n  display: none !important;\n}\n\n.reduced-functionality .simple-alternative {\n  display: block !important;\n}\n\n/* ==========================================================================\n   Memory-Aware Optimizations\n   ========================================================================== */\n\n/* Low memory devices (< 2GB) */\nbody[style*=\"--device-memory: 1GB\"] .memory-intensive,\nbody[style*=\"--device-memory: 2GB\"] .memory-intensive {\n  display: none !important;\n}\n\n/* Medium memory devices (2-4GB) */\nbody[style*=\"--device-memory: 2GB\"] .high-memory,\nbody[style*=\"--device-memory: 3GB\"] .high-memory,\nbody[style*=\"--device-memory: 4GB\"] .high-memory {\n  content-visibility: auto !important;\n  contain: layout !important;\n}\n\n/* High memory devices (4GB+) - No restrictions */\nbody[style*=\"--device-memory: 8GB\"] .memory-intensive,\nbody[style*=\"--device-memory: 16GB\"] .memory-intensive {\n  content-visibility: visible !important;\n  contain: none !important;\n}\n\n/* ==========================================================================\n   CPU-Aware Optimizations\n   ========================================================================== */\n\n/* Single/Dual core devices */\nbody[style*=\"--device-cores: 1\"] .cpu-intensive,\nbody[style*=\"--device-cores: 2\"] .cpu-intensive {\n  display: none !important;\n}\n\n/* Quad core devices */\nbody[style*=\"--device-cores: 4\"] .complex-calculation,\nbody[style*=\"--device-cores: 4\"] .real-time-processing {\n  will-change: auto !important;\n}\n\n/* High-end devices (6+ cores) - Full functionality */\nbody[style*=\"--device-cores: 8\"] .cpu-intensive,\nbody[style*=\"--device-cores: 12\"] .cpu-intensive {\n  will-change: transform !important;\n}\n\n/* ==========================================================================\n   Progressive Enhancement Based on Performance\n   ========================================================================== */\n\n/* Base experience - works on all devices */\n.progressive-base {\n  display: block !important;\n}\n\n/* Enhanced experience - medium+ devices */\n.perf-medium .progressive-enhanced,\n.perf-high .progressive-enhanced,\n.perf-ultra-high .progressive-enhanced {\n  display: block !important;\n}\n\n/* Premium experience - high+ devices */\n.perf-high .progressive-premium,\n.perf-ultra-high .progressive-premium {\n  display: block !important;\n}\n\n/* Ultra experience - ultra-high devices only */\n.perf-ultra-high .progressive-ultra {\n  display: block !important;\n}\n\n/* ==========================================================================\n   Crisis-Aware Performance Indicators\n   ========================================================================== */\n\n.performance-indicator {\n  position: fixed;\n  bottom: 4px;\n  right: 4px;\n  z-index: 9997;\n  font-size: 10px;\n  font-family: monospace;\n  background: rgba(0, 0, 0, 0.7);\n  color: white;\n  padding: 2px 6px;\n  border-radius: 4px;\n  pointer-events: none;\n}\n\n.perf-ultra-low .performance-indicator::after {\n  content: 'Ultra-Low Performance';\n  color: #dc2626;\n}\n\n.perf-low .performance-indicator::after {\n  content: 'Low Performance';\n  color: #f59e0b;\n}\n\n.battery-saver .performance-indicator::after {\n  content: 'Battery Saver';\n  color: #f59e0b;\n}\n\n.emergency-mode .performance-indicator::after {\n  content: 'Emergency Mode';\n  color: #dc2626;\n  font-weight: bold;\n}\n\n/* ==========================================================================\n   Optimized Loading States\n   ========================================================================== */\n\n.loading-optimized {\n  background: #f3f4f6;\n  border-radius: 4px;\n  padding: 1rem;\n  text-align: center;\n  color: #6b7280;\n}\n\n.perf-ultra-low .loading-optimized::after {\n  content: 'Loading...';\n}\n\n.perf-low .loading-optimized::after {\n  content: 'Loading content...';\n}\n\n.perf-medium .loading-optimized {\n  background: linear-gradient(\n    90deg,\n    #f3f4f6 25%,\n    #e5e7eb 50%,\n    #f3f4f6 75%\n  );\n  background-size: 200% 100%;\n  animation: optimized-loading 1.5s infinite linear;\n}\n\n@keyframes optimized-loading {\n  0% { background-position: 200% 0; }\n  100% { background-position: -200% 0; }\n}\n\n/* ==========================================================================\n   Crisis Performance Fallbacks\n   ========================================================================== */\n\n.crisis-performance-fallback {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: #ffffff;\n  z-index: 10000;\n  padding: 2rem;\n  text-align: center;\n  font-family: -apple-system, BlinkMacSystemFont, sans-serif;\n}\n\n.emergency-mode.perf-ultra-low .crisis-performance-fallback {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n\n.crisis-performance-fallback h1 {\n  font-size: 2rem;\n  margin-bottom: 1rem;\n  color: #000000;\n}\n\n.crisis-performance-fallback p {\n  font-size: 1.25rem;\n  margin-bottom: 2rem;\n  color: #374151;\n  line-height: 1.6;\n}\n\n.crisis-performance-fallback .emergency-button {\n  background: #dc2626;\n  color: white;\n  border: none;\n  padding: 1rem 2rem;\n  font-size: 1.25rem;\n  font-weight: bold;\n  border-radius: 8px;\n  margin: 0.5rem;\n  min-height: 60px;\n  min-width: 200px;\n  cursor: pointer;\n}\n\n/* ==========================================================================\n   Print and Export Performance Optimizations\n   ========================================================================== */\n\n@media print {\n  .perf-ultra-low,\n  .perf-low,\n  .battery-saver,\n  .emergency-mode {\n    /* Ensure print styles work regardless of performance mode */\n    background: white !important;\n    color: black !important;\n  }\n  \n  .performance-indicator,\n  .loading-optimized,\n  .crisis-performance-fallback {\n    display: none !important;\n  }\n}\n\n/* ==========================================================================\n   Responsive Performance Adjustments\n   ========================================================================== */\n\n@media (max-width: 375px) {\n  .perf-ultra-low,\n  .perf-low {\n    /* Further optimize for very small screens */\n    font-size: 14px !important;\n  }\n  \n  .perf-ultra-low .container,\n  .perf-low .container {\n    padding: 0.5rem !important;\n    margin: 0.25rem !important;\n  }\n}\n\n@media (max-width: 320px) {\n  .perf-ultra-low,\n  .perf-low,\n  .battery-saver {\n    /* Extreme optimization for oldest devices */\n    line-height: 1.4 !important;\n  }\n  \n  .perf-ultra-low .text-heading,\n  .perf-low .text-heading {\n    font-size: 1.5rem !important;\n  }\n}\n\n/* ==========================================================================\n   Accessibility + Performance Integration\n   ========================================================================== */\n\n.perf-ultra-low.tremor-compensation {\n  /* Ensure accessibility works even on ultra-low devices */\n  --accessibility-touch-size: 64px !important;\n}\n\n.battery-saver.crisis-accessibility-mode {\n  /* Crisis accessibility takes priority over battery saving */\n  --accessibility-touch-size: 72px !important;\n}\n\n.emergency-mode.high-contrast-mode {\n  /* Maximum accessibility for emergency situations */\n  background: #ffffff !important;\n  color: #000000 !important;\n}\n\n.emergency-mode.high-contrast-mode button {\n  background: #000000 !important;\n  color: #ffffff !important;\n  border: 4px solid #000000 !important;\n}\n\n/* ==========================================================================\n   Development and Debug Performance Indicators\n   ========================================================================== */\n\n.debug-performance {\n  position: fixed;\n  top: 0;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  color: white;\n  font-family: monospace;\n  font-size: 12px;\n  padding: 0.5rem;\n  z-index: 9999;\n  line-height: 1.3;\n}\n\n.debug-performance::after {\n  content: \n    'Device: ' attr(data-device-tier) '\\A'\n    'Memory: ' attr(data-memory) '\\A'\n    'Battery: ' attr(data-battery) '\\A'\n    'Connection: ' attr(data-connection) '\\A'\n    'Mode: ' attr(data-performance-mode);\n  white-space: pre;\n}"

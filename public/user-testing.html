@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM User Testing Hub</title>
+    <style>
+        :root {
+            --sage-primary: #a4b792;
+            --sage-hover: #93a682;
+            --sage-light: #f8faf7;
+            --sage-subtle: #e8ede5;
+            --sage-ultra-light: #f0f3ee;
+            --sage-barely-there: #ebefe7;
+            --sage-whisper: #e6ebe0;
+            --sage-mist: #e1e7da;
+            --sage-text: #5a6653;
+            --sage-text-light: #6b7660;
+            --white: #ffffff;
+            --shadow-sage: rgba(164, 183, 146, 0.15);
+            --shadow-sage-strong: rgba(164, 183, 146, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--sage-light) 0%, var(--sage-subtle) 50%, var(--sage-whisper) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 32px 64px var(--shadow-sage), 0 8px 16px var(--shadow-sage-strong);
+            overflow: hidden;
+            max-width: 840px;
+            width: 100%;
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--sage-subtle);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+            color: var(--white);
+            padding: 48px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 48px;
+            background: var(--sage-ultra-light);
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border: 2px solid var(--sage-mist);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--sage-light), var(--sage-ultra-light));
+            opacity: 0;
+            transition: opacity 200ms ease;
+            pointer-events: none;
+        }
+
+        .action-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 24px 48px var(--shadow-sage), 0 8px 16px var(--shadow-sage-strong);
+            border-color: var(--sage-primary);
+        }
+
+        .action-card:hover::before {
+            opacity: 1;
+        }
+
+        .action-icon {
+            font-size: 56px;
+            margin-bottom: 24px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            filter: grayscale(20%);
+        }
+
+        .action-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--sage-text);
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.01em;
+        }
+
+        .action-description {
+            color: var(--sage-text-light);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+            font-size: 16px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sage-primary) 0%, var(--sage-hover) 100%);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 1;
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--shadow-sage);
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow-sage-strong);
+            background: linear-gradient(135deg, var(--sage-hover) 0%, var(--sage-primary) 100%);
+        }
+
+        .dashboard-button {
+            background: linear-gradient(135deg, var(--sage-primary) 0%, #7a8c6a 100%);
+        }
+
+        .dashboard-button:hover {
+            background: linear-gradient(135deg, #7a8c6a 0%, var(--sage-primary) 100%);
+            box-shadow: 0 8px 24px rgba(122, 140, 106, 0.3);
+        }
+
+        .info-section {
+            background: var(--sage-barely-there);
+            border: 2px solid var(--sage-whisper);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--sage-primary), var(--sage-hover));
+            border-radius: 0 2px 2px 0;
+        }
+
+        .info-title {
+            font-weight: 700;
+            color: var(--sage-text);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            margin-left: 16px;
+        }
+
+        .info-content {
+            color: var(--sage-text-light);
+            line-height: 1.7;
+            margin-left: 16px;
+            font-size: 16px;
+        }
+
+        .info-content strong {
+            color: var(--sage-text);
+            font-weight: 600;
+        }
+
+        .links-section {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 2px solid var(--sage-whisper);
+        }
+
+        .links-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--sage-text);
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            color: var(--sage-primary);
+            text-decoration: none;
+            padding: 12px 20px;
+            border: 2px solid var(--sage-primary);
+            border-radius: 12px;
+            transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 15px;
+            font-weight: 500;
+            background: var(--white);
+        }
+
+        .quick-link:hover {
+            background: var(--sage-primary);
+            color: var(--white);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px var(--shadow-sage);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .header {
+                padding: 36px 32px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header p {
+                font-size: 17px;
+            }
+            
+            .content {
+                padding: 36px 32px;
+            }
+
+            .action-card {
+                padding: 32px 24px;
+            }
+
+            .info-section {
+                padding: 24px;
+            }
+
+            .quick-links {
+                gap: 12px;
+            }
+
+            .quick-link {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 32px 24px;
+            }
+
+            .content {
+                padding: 32px 24px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .action-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 ALCHM User Testing</h1>
+            <p>Welcome to the ALCHM user testing hub. Your feedback helps us create a better trauma-informed journaling experience.</p>
+        </div>
+
+        <div class="content">
+            <div class="actions">
+                <div class="action-card" onclick="window.open('user-testing-feedback.html', '_blank')">
+                    <span class="action-icon">📝</span>
+                    <h3 class="action-title">Submit Feedback</h3>
+                    <p class="action-description">
+                        Share your experience using ALCHM. Tell us what's working well and what could be improved.
+                    </p>
+                    <a href="user-testing-feedback.html" target="_blank" class="action-button">
+                        Give Feedback
+                    </a>
+                </div>
+
+                <div class="action-card" onclick="window.open('feedback-dashboard.html', '_blank')">
+                    <span class="action-icon">📊</span>
+                    <h3 class="action-title">View Dashboard</h3>
+                    <p class="action-description">
+                        Monitor user feedback in real-time. View ratings, comments, and export data for analysis.
+                    </p>
+                    <a href="feedback-dashboard.html" target="_blank" class="action-button dashboard-button">
+                        Open Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-title">
+                    <span>ℹ️</span>
+                    <span>About User Testing</span>
+                </div>
+                <div class="info-content">
+                    <p><strong>What we're testing:</strong> Navigation, journal writing experience, AI insights, mood tracking, onboarding flow, and overall user experience.</p>
+                    <br>
+                    <p><strong>Your privacy:</strong> All feedback is confidential and used solely to improve ALCHM. Personal information is optional and secure.</p>
+                    <br>
+                    <p><strong>Technical details:</strong> The feedback system uses direct Firebase integration for real-time data collection and analysis.</p>
+                </div>
+            </div>
+
+            <div class="links-section">
+                <div class="links-title">Quick Access</div>
+                <div class="quick-links">
+                    <a href="/" class="quick-link">🏠 ALCHM Home</a>
+                    <a href="test-feedback.html" class="quick-link">🔧 Test Endpoints</a>
+                    <a href="https://console.firebase.google.com/project/alchm-digital-sanctuary/firestore/data/~2Fuser_testing_feedback" target="_blank" class="quick-link">🔥 Firebase Console</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click tracking for analytics
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const action = this.textContent.trim();
+                console.log(`User clicked: ${action}`);
+                
+                // Track in Firebase if analytics is set up
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        event_category: 'User Testing',
+                        event_label: action
+                    });
+                }
+            });
+        });
+
+        // Add some interactivity
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Display current status
+        console.log('🚀 ALCHM User Testing Hub loaded successfully');
+        console.log('📊 Feedback system ready for user testing');
+        console.log('🔗 Dashboard: https://alchm-digital-sanctuary.web.app/feedback-dashboard.html');
+        console.log('📝 Feedback Form: https://alchm-digital-sanctuary.web.app/user-testing-feedback.html');
+    </script>
+</body>
+</html>

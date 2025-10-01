@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings & Profile - ALCHM</title>
+    <meta name="description" content="Manage your privacy, security, and therapeutic preferences with complete control over your ALCHM experience.">
+    <link rel="stylesheet" href="/styles/alchm-jony-ive-foundation.css">
+    
+    <!-- Crisis Support System -->
+    <link rel="preload" href="/crisis-resources.json" as="fetch" crossorigin="anonymous">
+    <script src="/js/crisis-support-system.js" defer></script>
+    <link rel="stylesheet" href="/css/crisis-support-styles.css">
+    <style>
+        /* Settings-Specific Premium Styles */
+        .settings-container {
+            min-height: 100vh;
+            background: var(--gradient-sanctuary);
+            padding: var(--space-4);
+        }
+
+        .settings-main {
+            max-width: 1024px;
+            margin: 0 auto;
+            display: grid;
+            gap: var(--space-6);
+        }
+
+        .settings-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .settings-nav {
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-4);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: var(--space-2);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tab {
+            min-width: 120px;
+            padding: var(--space-3) var(--space-4);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-600);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            scroll-snap-align: start;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--sage-400);
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-tab:hover {
+            background: var(--sage-100);
+            color: var(--sage-700);
+        }
+
+        .nav-tab.active:hover {
+            background: var(--sage-500);
+            color: white;
+        }
+
+        .settings-section {
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: none;
+            animation: gentle-fade-in 0.4s var(--ease-out-cubic);
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--sanctuary-gray-200);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+        }
+
+        .section-description {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-600);
+            margin-top: var(--space-2);
+            line-height: 1.5;
+        }
+
+        .setting-group {
+            margin-bottom: var(--space-8);
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            margin-bottom: var(--space-3);
+        }
+
+        .setting-item:hover {
+            background: rgba(164, 183, 146, 0.05);
+        }
+
+        .setting-info {
+            flex: 1;
+            margin-right: var(--space-4);
+        }
+
+        .setting-label {
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .setting-sublabel {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-600);
+            line-height: 1.4;
+        }
+
+        .setting-control {
+            flex-shrink: 0;
+        }
+
+        /* Premium Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: var(--sanctuary-gray-300);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            display: inline-block;
+        }
+
+        .toggle-switch.active {
+            background: var(--sage-400);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: var(--radius-full);
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(24px);
+        }
+
+        /* Profile Avatar Section */
+        .profile-avatar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+            padding: var(--space-4);
+            background: rgba(164, 183, 146, 0.05);
+            border-radius: var(--radius-lg);
+        }
+
+        .avatar-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--sage-400);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: var(--font-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--sage-600);
+            border: 2px solid white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+        }
+
+        .avatar-upload:hover {
+            background: var(--sage-700);
+            transform: scale(1.1);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .profile-email {
+            color: var(--sanctuary-gray-600);
+            font-size: 0.875rem;
+        }
+
+        .profile-status {
+            margin-top: var(--space-2);
+            padding: var(--space-1) var(--space-3);
+            background: var(--sage-100);
+            color: var(--sage-700);
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: var(--font-medium);
+            display: inline-block;
+        }
+
+        /* Data Export Card */
+        .data-export-card {
+            background: linear-gradient(135deg, var(--sage-50) 0%, var(--sage-100) 100%);
+            border: 1px solid var(--sage-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+        }
+
+        .export-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+
+        .export-option {
+            background: white;
+            border: 1px solid var(--sage-200);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            text-align: center;
+        }
+
+        .export-option:hover {
+            border-color: var(--sage-400);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        /* Enhanced Crisis Support Integration */
+        .crisis-support-banner {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-bottom: var(--space-6);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            position: relative;
+        }
+        
+        .crisis-support-banner.enhanced {
+            background: linear-gradient(135deg, rgba(164, 183, 146, 0.15) 0%, rgba(164, 183, 146, 0.08) 100%);
+            border-color: rgba(164, 183, 146, 0.3);
+        }
+        
+        .crisis-settings-alert {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3);
+            margin-bottom: var(--space-4);
+            display: none;
+        }
+        
+        .crisis-settings-alert.visible {
+            display: block;
+            animation: gentle-fade-in 0.5s ease;
+        }
+        
+        .crisis-alert-content {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+        }
+        
+        .crisis-alert-icon {
+            color: var(--crisis-red);
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+        
+        .crisis-alert-text {
+            flex: 1;
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-700);
+            line-height: 1.5;
+        }
+        
+        .crisis-alert-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-2);
+        }
+        
+        .crisis-alert-btn {
+            padding: var(--space-1) var(--space-2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: transparent;
+            color: var(--crisis-red);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all var(--duration-fast) ease;
+        }
+        
+        .crisis-alert-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .crisis-alert-btn.primary {
+            background: var(--crisis-red);
+            color: white;
+        }
+        
+        .crisis-alert-btn.primary:hover {
+            background: #dc2626;
+        }
+        
+        /* Setting modification warnings */
+        .setting-warning {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius-md);
+            padding: var(--space-2);
+            margin-top: var(--space-2);
+            display: none;
+        }
+        
+        .setting-warning.visible {
+            display: block;
+        }
+        
+        .setting-warning-text {
+            font-size: 0.75rem;
+            color: var(--crisis-amber);
+            line-height: 1.4;
+        }
+        
+        @keyframes gentle-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .crisis-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--crisis-red);
+            color: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .crisis-content {
+            flex: 1;
+        }
+
+        .crisis-title {
+            font-weight: var(--font-medium);
+            color: var(--crisis-red);
+            margin-bottom: var(--space-1);
+        }
+
+        .crisis-text {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-700);
+        }
+
+        /* Subscription Management */
+        .subscription-card {
+            background: linear-gradient(135deg, var(--sage-400) 0%, var(--sage-500) 100%);
+            color: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscription-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            transform: translate(50%, -50%);
+        }
+
+        .subscription-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .subscription-plan {
+            font-size: 1.25rem;
+            font-weight: var(--font-medium);
+        }
+
+        .subscription-price {
+            font-size: 2rem;
+            font-weight: var(--font-light);
+        }
+
+        .subscription-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .subscription-feature {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-2);
+            font-size: 0.875rem;
+        }
+
+        .feature-check {
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        /* Security Status Indicators */
+        .security-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--space-3);
+            margin: var(--space-4) 0;
+        }
+
+        .status-indicator {
+            background: white;
+            border: 1px solid var(--sanctuary-gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            text-align: center;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+        }
+
+        .status-indicator.secure {
+            border-color: var(--sage-300);
+            background: var(--sage-50);
+        }
+
+        .status-indicator.warning {
+            border-color: var(--crisis-amber);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .status-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto var(--space-2);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .status-icon.secure {
+            background: var(--sage-400);
+            color: white;
+        }
+
+        .status-icon.warning {
+            background: var(--crisis-amber);
+            color: white;
+        }
+
+        .status-label {
+            font-size: 0.75rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-700);
+            margin-bottom: var(--space-1);
+        }
+
+        .status-value {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-900);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: gentle-fade-in 0.3s var(--ease-out-cubic);
+        }
+
+        .modal-content {
+            background: var(--sanctuary-white);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-2xl);
+            position: relative;
+        }
+
+        .modal-header {
+            margin-bottom: var(--space-6);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-2);
+        }
+
+        .modal-description {
+            color: var(--sanctuary-gray-600);
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: flex-end;
+            margin-top: var(--space-6);
+        }
+
+        .close-button {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            background: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--sanctuary-gray-400);
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+        }
+
+        .close-button:hover {
+            background: var(--sanctuary-gray-100);
+            color: var(--sanctuary-gray-600);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .settings-container {
+                padding: var(--space-8);
+            }
+
+            .settings-main {
+                grid-template-columns: 300px 1fr;
+                gap: var(--space-8);
+                align-items: start;
+            }
+
+            .settings-nav {
+                position: sticky;
+                top: var(--space-8);
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                gap: var(--space-1);
+            }
+
+            .nav-tab {
+                min-width: auto;
+                text-align: left;
+                justify-content: flex-start;
+            }
+
+            .setting-item {
+                align-items: center;
+            }
+
+            .export-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .security-status {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .settings-header {
+                margin-bottom: var(--space-6);
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-3);
+            }
+
+            .setting-control {
+                align-self: flex-end;
+            }
+
+            .subscription-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-2);
+            }
+        }
+
+        /* Accessibility Enhancements */
+        @media (prefers-reduced-motion: reduce) {
+            .toggle-switch,
+            .toggle-switch::after,
+            .nav-tab,
+            .setting-item,
+            .export-option,
+            .status-indicator {
+                transition: none !important;
+            }
+
+            .modal-overlay.active {
+                animation: none !important;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            .toggle-switch {
+                border: 2px solid var(--sanctuary-gray-900);
+            }
+
+            .nav-tab.active {
+                border: 2px solid var(--sanctuary-gray-900);
+            }
+
+            .settings-section {
+                border: 2px solid var(--sanctuary-gray-600);
+            }
+        }
+
+        /* Focus Management for Accessibility */
+        .toggle-switch:focus-visible,
+        .nav-tab:focus-visible,
+        .export-option:focus-visible,
+        .avatar-upload:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.3);
+        }
+
+        /* Hidden checkbox for toggle accessibility */
+        .toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        /* Journey Timeline */
+        .journey-timeline {
+            margin: var(--space-6) 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+            padding: var(--space-4);
+            background: rgba(164, 183, 146, 0.05);
+            border-radius: var(--radius-lg);
+        }
+
+        .timeline-date {
+            width: 60px;
+            font-size: 0.75rem;
+            color: var(--sanctuary-gray-600);
+            text-align: center;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-1);
+        }
+
+        .timeline-description {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-600);
+        }
+
+        .timeline-milestone {
+            width: 32px;
+            height: 32px;
+            background: var(--sage-400);
+            color: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container layout-safe">
+        <!-- Enhanced Crisis Support Banner -->
+        <div class="crisis-support-banner enhanced" id="crisis-banner">
+            <div class="crisis-icon">💚</div>
+            <div class="crisis-content">
+                <div class="crisis-title">Crisis Support Always Available</div>
+                <div class="crisis-text">Your safety matters. Crisis resources are available 24/7, and your privacy and therapeutic preferences are our top priority.</div>
+            </div>
+            <button class="btn-primary btn-sm" onclick="showSettingsCrisisSupport()">Configure Support</button>
+        </div>
+        
+        <!-- Crisis Settings Alert -->
+        <div id="crisis-settings-alert" class="crisis-settings-alert">
+            <div class="crisis-alert-content">
+                <div class="crisis-alert-icon">⚠️</div>
+                <div>
+                    <div class="crisis-alert-text">
+                        <strong>Important:</strong> Modifying crisis detection settings may affect your safety support. Please review these changes carefully.
+                    </div>
+                    <div class="crisis-alert-actions">
+                        <button class="crisis-alert-btn" onclick="hideCrisisAlert()">I understand</button>
+                        <button class="crisis-alert-btn primary" onclick="showSettingsCrisisSupport()">Get guidance</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-main">
+            <!-- Navigation Sidebar -->
+            <nav class="settings-nav">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-section="profile">Profile</button>
+                    <button class="nav-tab" data-section="privacy">Privacy & Data</button>
+                    <button class="nav-tab" data-section="therapeutic">Therapeutic</button>
+                    <button class="nav-tab" data-section="accessibility">Accessibility</button>
+                    <button class="nav-tab" data-section="security">Security</button>
+                    <button class="nav-tab" data-section="billing">Billing</button>
+                    <button class="nav-tab" data-section="account">Account</button>
+                </div>
+            </nav>
+
+            <!-- Settings Content -->
+            <main class="settings-content">
+                <!-- Profile Section -->
+                <section id="profile" class="settings-section active">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Profile & Journey</h2>
+                            <p class="section-description">Customize your healing journey and track your progress with complete privacy control.</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-avatar">
+                        <div class="avatar-image" id="avatarDisplay">
+                            <span id="avatarInitials">YU</span>
+                            <button class="avatar-upload" title="Change avatar">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <div class="profile-name" id="displayName">Your Username</div>
+                            <div class="profile-email" id="displayEmail">your@email.com</div>
+                            <span class="profile-status">Active Journey</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Personal Information</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Display Name</div>
+                                <div class="setting-sublabel">How you'd like to be addressed in ALCHM</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="editProfile('name')">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Email Address</div>
+                                <div class="setting-sublabel">For account security and important updates only</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="editProfile('email')">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Journey Start Date</div>
+                                <div class="setting-sublabel">When you began your healing journey with ALCHM</div>
+                            </div>
+                            <div class="setting-control">
+                                <span class="text-sm text-gray-600" id="journeyStartDate">January 15, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Healing Journey Timeline</h3>
+                        <div class="journey-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date">Jan 15</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Journey Began</div>
+                                    <div class="timeline-description">Started your healing journey with ALCHM</div>
+                                </div>
+                                <div class="timeline-milestone">🌱</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">Feb 3</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">First Weekly Streak</div>
+                                    <div class="timeline-description">Completed 7 consecutive days of journaling</div>
+                                </div>
+                                <div class="timeline-milestone">🔥</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">Mar 12</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Deep Reflection Milestone</div>
+                                    <div class="timeline-description">Engaged with advanced emotional intelligence insights</div>
+                                </div>
+                                <div class="timeline-milestone">💎</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Privacy & Data Section -->
+                <section id="privacy" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Privacy & Data Control</h2>
+                            <p class="section-description">Complete control over your personal data with transparent explanations for every choice.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Data Collection & Usage</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Anonymous Analytics</div>
+                                <div class="setting-sublabel">Help improve ALCHM by sharing usage patterns (no personal content ever shared)</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="analytics-toggle">
+                                    <input type="checkbox" id="analytics-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">AI Insights Generation</div>
+                                <div class="setting-sublabel">Allow AI to analyze your journal patterns for personalized insights (processed locally when possible)</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="ai-insights-toggle">
+                                    <input type="checkbox" id="ai-insights-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Crisis Detection</div>
+                                <div class="setting-sublabel">Scan journal content for crisis indicators to offer timely support (critical for safety)</div>
+                                <div class="setting-warning" id="crisis-detection-warning">
+                                    <div class="setting-warning-text">
+                                        <strong>Safety Notice:</strong> Disabling crisis detection may prevent ALCHM from offering support during difficult times.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="crisis-detection-toggle">
+                                    <input type="checkbox" id="crisis-detection-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Research Participation</div>
+                                <div class="setting-sublabel">Contribute anonymized data to trauma-informed mental health research (optional)</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="research-toggle">
+                                    <input type="checkbox" id="research-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Data Export & Portability</h3>
+                        
+                        <div class="data-export-card">
+                            <h4 class="text-lg font-medium text-gray-900 mb-2">Export Your Data</h4>
+                            <p class="text-sm text-gray-600 mb-4">Download your journal entries, insights, and progress data in your preferred format. All exports are encrypted and include metadata for transparency.</p>
+                            
+                            <div class="export-options">
+                                <div class="export-option" onclick="exportData('json')">
+                                    <div class="text-sm font-medium text-gray-900 mb-1">JSON Format</div>
+                                    <div class="text-xs text-gray-600">Structured data, developer-friendly</div>
+                                </div>
+                                <div class="export-option" onclick="exportData('pdf')">
+                                    <div class="text-sm font-medium text-gray-900 mb-1">PDF Report</div>
+                                    <div class="text-xs text-gray-600">Formatted for reading/printing</div>
+                                </div>
+                                <div class="export-option" onclick="exportData('csv')">
+                                    <div class="text-sm font-medium text-gray-900 mb-1">CSV Data</div>
+                                    <div class="text-xs text-gray-600">Spreadsheet-compatible format</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Data Retention</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Automatic Data Deletion</div>
+                                <div class="setting-sublabel">Automatically delete journal entries older than your specified timeframe</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 150px;">
+                                    <option value="never">Keep Forever</option>
+                                    <option value="1year">1 Year</option>
+                                    <option value="2years">2 Years</option>
+                                    <option value="5years">5 Years</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Inactive Account Deletion</div>
+                                <div class="setting-sublabel">Delete all data if account remains inactive for extended period</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 150px;">
+                                    <option value="never">Never Delete</option>
+                                    <option value="1year">1 Year Inactive</option>
+                                    <option value="2years" selected>2 Years Inactive</option>
+                                    <option value="3years">3 Years Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Therapeutic Preferences Section -->
+                <section id="therapeutic" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Therapeutic Preferences</h2>
+                            <p class="section-description">Customize your therapeutic experience and crisis intervention settings for optimal support.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Crisis Intervention Settings</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Crisis Sensitivity Level</div>
+                                <div class="setting-sublabel">How sensitive should ALCHM be to potential crisis indicators in your writing?</div>
+                                <div class="setting-warning" id="sensitivity-warning">
+                                    <div class="setting-warning-text">
+                                        <strong>Guidance:</strong> Medium or High sensitivity is recommended for optimal safety support.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 150px;" id="crisis-sensitivity" onchange="checkCrisisSensitivity()">
+                                    <option value="low">Low Sensitivity</option>
+                                    <option value="medium" selected>Medium Sensitivity</option>
+                                    <option value="high">High Sensitivity</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Emergency Contact</div>
+                                <div class="setting-sublabel">Trusted person who can be contacted during a crisis (stored encrypted)</div>
+                                <div class="setting-warning" id="emergency-contact-warning">
+                                    <div class="setting-warning-text">
+                                        <strong>Recommended:</strong> Having an emergency contact provides additional safety support during crisis situations.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="manageEmergencyContact()">Manage</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Preferred Crisis Resources</div>
+                                <div class="setting-sublabel">Customize which crisis resources are shown first based on your location and needs</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="customizeCrisisResources()">Customize</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Therapeutic Approach</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Primary Therapeutic Framework</div>
+                                <div class="setting-sublabel">Preferred approach for AI insights and prompting</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 180px;">
+                                    <option value="integrated" selected>Integrated Approach</option>
+                                    <option value="cbt">Cognitive Behavioral</option>
+                                    <option value="somatic">Somatic/Body-Based</option>
+                                    <option value="mindfulness">Mindfulness-Based</option>
+                                    <option value="narrative">Narrative Therapy</option>
+                                    <option value="trauma-informed">Trauma-Informed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Cultural Considerations</div>
+                                <div class="setting-sublabel">Incorporate cultural healing traditions and perspectives into your experience</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="manageCulturalSettings()">Customize</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Trigger Word Sensitivity</div>
+                                <div class="setting-sublabel">How should ALCHM handle potentially triggering content suggestions?</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 150px;">
+                                    <option value="strict">Strict Filtering</option>
+                                    <option value="moderate" selected>Moderate Filtering</option>
+                                    <option value="minimal">Minimal Filtering</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Notification Preferences</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Daily Journal Reminders</div>
+                                <div class="setting-sublabel">Gentle reminders to journal (you can always journal without reminders)</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="journal-reminders-toggle">
+                                    <input type="checkbox" id="journal-reminders-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Insight Notifications</div>
+                                <div class="setting-sublabel">Notify when new insights are available about your journaling patterns</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="insight-notifications-toggle">
+                                    <input type="checkbox" id="insight-notifications-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Wellness Check-ins</div>
+                                <div class="setting-sublabel">Periodic check-ins about your overall well-being (can be disabled anytime)</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="wellness-checkins-toggle">
+                                    <input type="checkbox" id="wellness-checkins-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accessibility Section -->
+                <section id="accessibility" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Accessibility & Accommodations</h2>
+                            <p class="section-description">Customize ALCHM to work best for your specific needs and abilities.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Visual Accessibility</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Font Size</div>
+                                <div class="setting-sublabel">Adjust text size for comfortable reading</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 120px;">
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="large">Large</option>
+                                    <option value="extra-large">Extra Large</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">High Contrast Mode</div>
+                                <div class="setting-sublabel">Increase contrast for better visibility</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="high-contrast-toggle">
+                                    <input type="checkbox" id="high-contrast-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Dyslexia-Friendly Font</div>
+                                <div class="setting-sublabel">Use OpenDyslexic font for easier reading</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="dyslexia-font-toggle">
+                                    <input type="checkbox" id="dyslexia-font-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Color Blindness Support</div>
+                                <div class="setting-sublabel">Adjust colors for different types of color vision</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 150px;">
+                                    <option value="none" selected>No Adjustment</option>
+                                    <option value="deuteranopia">Deuteranopia</option>
+                                    <option value="protanopia">Protanopia</option>
+                                    <option value="tritanopia">Tritanopia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Motor & Interaction</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Reduced Motion</div>
+                                <div class="setting-sublabel">Minimize animations and transitions</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="reduced-motion-toggle">
+                                    <input type="checkbox" id="reduced-motion-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Larger Touch Targets</div>
+                                <div class="setting-sublabel">Make buttons and interactive elements larger for easier tapping</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="large-targets-toggle">
+                                    <input type="checkbox" id="large-targets-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">One-Handed Mode</div>
+                                <div class="setting-sublabel">Optimize interface for one-handed use</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 120px;">
+                                    <option value="off" selected>Off</option>
+                                    <option value="left">Left Hand</option>
+                                    <option value="right">Right Hand</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Cognitive Support</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Simplified Interface</div>
+                                <div class="setting-sublabel">Reduce interface complexity and show fewer options at once</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="simplified-interface-toggle">
+                                    <input type="checkbox" id="simplified-interface-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Memory Aids</div>
+                                <div class="setting-sublabel">Show helpful reminders and context about your previous entries</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="memory-aids-toggle">
+                                    <input type="checkbox" id="memory-aids-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Extended Session Timeout</div>
+                                <div class="setting-sublabel">Stay logged in longer to avoid interrupting your writing flow</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch" for="extended-timeout-toggle">
+                                    <input type="checkbox" id="extended-timeout-toggle" class="toggle-checkbox">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Section -->
+                <section id="security" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Security & Authentication</h2>
+                            <p class="section-description">Protect your account and personal information with advanced security features.</p>
+                        </div>
+                    </div>
+
+                    <div class="security-status">
+                        <div class="status-indicator secure">
+                            <div class="status-icon secure">🔒</div>
+                            <div class="status-label">Password</div>
+                            <div class="status-value">Strong</div>
+                        </div>
+                        <div class="status-indicator secure">
+                            <div class="status-icon secure">📱</div>
+                            <div class="status-label">2FA</div>
+                            <div class="status-value">Enabled</div>
+                        </div>
+                        <div class="status-indicator warning">
+                            <div class="status-icon warning">⚠️</div>
+                            <div class="status-label">Login Alert</div>
+                            <div class="status-value">New Device</div>
+                        </div>
+                        <div class="status-indicator secure">
+                            <div class="status-icon secure">🛡️</div>
+                            <div class="status-label">Encryption</div>
+                            <div class="status-value">Active</div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Authentication</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Password</div>
+                                <div class="setting-sublabel">Last changed 3 months ago. We recommend changing passwords every 6 months.</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="changePassword()">Change</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Two-Factor Authentication</div>
+                                <div class="setting-sublabel">Add an extra layer of security with authentication apps or SMS</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-primary btn-sm" onclick="setup2FA()">Manage</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Login Notifications</div>
+                                <div class="setting-sublabel">Get notified when someone logs into your account from a new device</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="login-notifications-toggle">
+                                    <input type="checkbox" id="login-notifications-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Active Sessions</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">iPhone 14 Pro • Safari</div>
+                                <div class="setting-sublabel">Current session • San Francisco, CA • Now</div>
+                            </div>
+                            <div class="setting-control">
+                                <span class="text-sm text-green-600 font-medium">Current</span>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">MacBook Air • Chrome</div>
+                                <div class="setting-sublabel">San Francisco, CA • 2 hours ago</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="revokeSession('mac-chrome')">Revoke</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Revoke All Sessions</div>
+                                <div class="setting-sublabel">Sign out from all devices except this one</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="revokeAllSessions()">Revoke All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Privacy & Security Settings</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Auto-Lock Timeout</div>
+                                <div class="setting-sublabel">Automatically log out after period of inactivity</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 120px;">
+                                    <option value="15min">15 minutes</option>
+                                    <option value="30min" selected>30 minutes</option>
+                                    <option value="1hour">1 hour</option>
+                                    <option value="4hours">4 hours</option>
+                                    <option value="never">Never</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Biometric Authentication</div>
+                                <div class="setting-sublabel">Use Face ID, Touch ID, or fingerprint to unlock ALCHM</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="biometric-toggle">
+                                    <input type="checkbox" id="biometric-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Billing Section -->
+                <section id="billing" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Billing & Subscription</h2>
+                            <p class="section-description">Manage your subscription and payment methods with full transparency and control.</p>
+                        </div>
+                    </div>
+
+                    <div class="subscription-card">
+                        <div class="subscription-header">
+                            <div>
+                                <div class="subscription-plan">ALCHM Pro</div>
+                                <div class="text-sm opacity-90">Monthly Subscription</div>
+                            </div>
+                            <div class="subscription-price">$9.99</div>
+                        </div>
+                        
+                        <ul class="subscription-features">
+                            <li class="subscription-feature">
+                                <div class="feature-check">✓</div>
+                                <span>Unlimited journal entries</span>
+                            </li>
+                            <li class="subscription-feature">
+                                <div class="feature-check">✓</div>
+                                <span>Advanced AI insights</span>
+                            </li>
+                            <li class="subscription-feature">
+                                <div class="feature-check">✓</div>
+                                <span>Crisis intervention features</span>
+                            </li>
+                            <li class="subscription-feature">
+                                <div class="feature-check">✓</div>
+                                <span>Data export & backup</span>
+                            </li>
+                            <li class="subscription-feature">
+                                <div class="feature-check">✓</div>
+                                <span>Priority support</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Payment & Billing</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Payment Method</div>
+                                <div class="setting-sublabel">•••• •••• •••• 4242 • Expires 12/25</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="updatePaymentMethod()">Update</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Billing Address</div>
+                                <div class="setting-sublabel">123 Healing Way, San Francisco, CA 94102</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="updateBillingAddress()">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Next Billing Date</div>
+                                <div class="setting-sublabel">February 15, 2024 • $9.99</div>
+                            </div>
+                            <div class="setting-control">
+                                <span class="text-sm text-gray-600">Auto-renew</span>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Billing History</div>
+                                <div class="setting-sublabel">Download invoices and view payment history</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="viewBillingHistory()">View</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Subscription Management</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Change Plan</div>
+                                <div class="setting-sublabel">Upgrade, downgrade, or switch to annual billing</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="changePlan()">Manage</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Financial Assistance</div>
+                                <div class="setting-sublabel">Request reduced pricing for financial hardship situations</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="requestAssistance()">Request</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Cancel Subscription</div>
+                                <div class="setting-sublabel">Cancel your subscription (access continues until end of billing period)</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="cancelSubscription()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Account Section -->
+                <section id="account" class="settings-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Account Management</h2>
+                            <p class="section-description">Manage your account settings including language, notifications, and account deletion.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Account Preferences</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Language</div>
+                                <div class="setting-sublabel">Display language for the ALCHM interface</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 120px;">
+                                    <option value="en" selected>English</option>
+                                    <option value="es">Español</option>
+                                    <option value="pt">Português</option>
+                                    <option value="ko">한국어</option>
+                                    <option value="hi">हिन्दी</option>
+                                    <option value="de">Deutsch</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Time Zone</div>
+                                <div class="setting-sublabel">Used for scheduling reminders and timestamps</div>
+                            </div>
+                            <div class="setting-control">
+                                <select class="input-sanctuary select-sanctuary" style="min-width: 200px;">
+                                    <option value="America/Los_Angeles" selected>Pacific Time (PT)</option>
+                                    <option value="America/New_York">Eastern Time (ET)</option>
+                                    <option value="America/Chicago">Central Time (CT)</option>
+                                    <option value="America/Denver">Mountain Time (MT)</option>
+                                    <option value="UTC">UTC</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Email Notifications</div>
+                                <div class="setting-sublabel">Receive important account and security updates via email</div>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch active" for="email-notifications-toggle">
+                                    <input type="checkbox" id="email-notifications-toggle" class="toggle-checkbox" checked>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Account Actions</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Download All Data</div>
+                                <div class="setting-sublabel">Download a complete archive of all your ALCHM data</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="downloadAllData()">Download</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Temporarily Disable Account</div>
+                                <div class="setting-sublabel">Take a break - your data will be preserved and account can be reactivated</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="disableAccount()">Disable</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Delete Account Permanently</div>
+                                <div class="setting-sublabel">Permanently delete your account and all associated data (cannot be undone)</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="deleteAccount()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Legal & Transparency</h3>
+                        
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Privacy Policy</div>
+                                <div class="setting-sublabel">Review how we handle your personal information</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="viewPrivacyPolicy()">View</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Terms of Service</div>
+                                <div class="setting-sublabel">Review the terms of using ALCHM</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="viewTerms()">View</button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <div class="setting-label">Data Processing Report</div>
+                                <div class="setting-sublabel">Detailed report of how your data is processed and stored</div>
+                            </div>
+                            <div class="setting-control">
+                                <button class="btn-secondary btn-sm" onclick="viewDataReport()">View Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Crisis Support Modal - will be managed by crisis-support-system.js -->
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeConfirmModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+            
+            <div class="modal-header">
+                <h3 class="modal-title" id="confirmTitle">Confirm Action</h3>
+                <p class="modal-description" id="confirmDescription">Are you sure you want to proceed with this action?</p>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn-primary" id="confirmAction" onclick="closeConfirmModal()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Settings Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navTabs = document.querySelectorAll('.nav-tab');
+            const sections = document.querySelectorAll('.settings-section');
+
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetSection = tab.dataset.section;
+                    
+                    // Update active tab
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Update active section
+                    sections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(targetSection).classList.add('active');
+                    
+                    // Show crisis alert when navigating to therapeutic settings
+                    if (targetSection === 'therapeutic') {
+                        setTimeout(() => {
+                            showTherapeuticSettingsGuidance();
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Initialize crisis-aware settings monitoring
+            initializeCrisisSettingsMonitoring();
+
+            // Initialize crisis-aware toggle switches
+            const toggles = document.querySelectorAll('.toggle-checkbox');
+            toggles.forEach(toggle => {
+                const switchElement = toggle.parentElement;
+                
+                toggle.addEventListener('change', () => {
+                    if (toggle.checked) {
+                        switchElement.classList.add('active');
+                    } else {
+                        switchElement.classList.remove('active');
+                    }
+                    
+                    // Check for crisis-related setting changes
+                    if (toggle.id === 'crisis-detection-toggle') {
+                        handleCrisisDetectionToggle(toggle.checked);
+                    } else if (toggle.id === 'ai-insights-toggle') {
+                        handleAIInsightsToggle(toggle.checked);
+                    }
+                });
+
+                // Set initial state
+                if (toggle.checked) {
+                    switchElement.classList.add('active');
+                }
+            });
+            
+            // Show emergency contact warning if not set
+            setTimeout(() => {
+                checkEmergencyContactStatus();
+            }, 2000);
+        });
+
+        // Enhanced Crisis Support Functions for Settings
+        function showSettingsCrisisSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'settings',
+                    title: 'Crisis Support Configuration',
+                    message: 'Configure your crisis support settings thoughtfully. These settings help ALCHM provide appropriate support during difficult times.',
+                    showResources: true,
+                    showTechniques: false,
+                    showSpecialized: true,
+                    actions: [
+                        { text: 'Call 988', action: 'call988' },
+                        { text: 'Crisis resources', action: 'resources' },
+                        { text: 'Configure settings', action: 'dismiss' }
+                    ]
+                });
+            } else {
+                // Fallback crisis support
+                alert('Crisis support is available 24/7. Call 988 for the National Suicide Prevention Lifeline or text HOME to 741741.');
+            }
+        }
+        
+        function hideCrisisAlert() {
+            const alert = document.getElementById('crisis-settings-alert');
+            alert.classList.remove('visible');
+            sessionStorage.setItem('crisis_alert_acknowledged', 'true');
+        }
+        
+        function checkCrisisSensitivity() {
+            const sensitivity = document.getElementById('crisis-sensitivity').value;
+            const warning = document.getElementById('sensitivity-warning');
+            
+            if (sensitivity === 'low') {
+                warning.classList.add('visible');
+                showCrisisSettingsAlert();
+            } else {
+                warning.classList.remove('visible');
+            }
+        }
+        
+        function showCrisisSettingsAlert() {
+            if (!sessionStorage.getItem('crisis_alert_acknowledged')) {
+                const alert = document.getElementById('crisis-settings-alert');
+                alert.classList.add('visible');
+                
+                // Announce to screen readers
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'assertive');
+                announcement.style.position = 'absolute';
+                announcement.style.left = '-10000px';
+                announcement.textContent = 'Important safety notice about crisis detection settings.';
+                document.body.appendChild(announcement);
+                
+                setTimeout(() => {
+                    announcement.remove();
+                }, 1000);
+            }
+        }
+
+        // Confirmation Modal Functions
+        function showConfirmModal(title, description, action) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmDescription').textContent = description;
+            document.getElementById('confirmAction').onclick = action;
+            document.getElementById('confirmModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Profile Management Functions
+        function editProfile(field) {
+            if (field === 'name') {
+                const newName = prompt('Enter your display name:', 'Your Username');
+                if (newName) {
+                    document.getElementById('displayName').textContent = newName;
+                    document.getElementById('avatarInitials').textContent = newName.substring(0, 2).toUpperCase();
+                }
+            } else if (field === 'email') {
+                const newEmail = prompt('Enter your email address:', 'your@email.com');
+                if (newEmail) {
+                    document.getElementById('displayEmail').textContent = newEmail;
+                }
+            }
+        }
+
+        // Data Export Functions
+        function exportData(format) {
+            showConfirmModal(
+                'Export Data',
+                `Export your data in ${format.toUpperCase()} format? This may take a few minutes for large amounts of data.`,
+                () => {
+                    alert(`Preparing your data export in ${format.toUpperCase()} format. You'll receive an email when it's ready.`);
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        function downloadAllData() {
+            showConfirmModal(
+                'Download All Data',
+                'This will create a complete archive of all your ALCHM data. This may take several minutes.',
+                () => {
+                    alert('Preparing your complete data archive. You\'ll receive an email when it\'s ready for download.');
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        // Security Functions
+        function changePassword() {
+            alert('Redirecting to secure password change form...');
+        }
+
+        function setup2FA() {
+            alert('Opening two-factor authentication setup...');
+        }
+
+        function revokeSession(sessionId) {
+            showConfirmModal(
+                'Revoke Session',
+                'This will sign out this device and require re-authentication.',
+                () => {
+                    alert('Session revoked successfully.');
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        function revokeAllSessions() {
+            showConfirmModal(
+                'Revoke All Sessions',
+                'This will sign out all devices except this one. You\'ll need to re-authenticate on other devices.',
+                () => {
+                    alert('All other sessions have been revoked.');
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        // Enhanced Therapeutic Settings Functions
+        function manageEmergencyContact() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'emergency_contact',
+                    title: 'Emergency Contact Setup',
+                    message: 'Setting up an emergency contact provides additional safety support. This person can be contacted during crisis situations with your consent.',
+                    actions: [
+                        { text: 'Set up contact', action: 'setup_contact' },
+                        { text: 'Learn more', action: 'resources' },
+                        { text: 'Skip for now', action: 'dismiss' }
+                    ]
+                });
+            } else {
+                alert('Opening emergency contact management. This feature helps provide additional safety support during difficult times.');
+            }
+        }
+
+        function customizeCrisisResources() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'customize',
+                    title: 'Customize Crisis Resources',
+                    message: 'Personalize your crisis support resources based on your location, language, and specific needs.',
+                    showResources: true,
+                    showSpecialized: true,
+                    actions: [
+                        { text: 'Save preferences', action: 'save_preferences' },
+                        { text: 'View all resources', action: 'resources' },
+                        { text: 'Cancel', action: 'dismiss' }
+                    ]
+                });
+            } else {
+                alert('Opening crisis resource customization. You can personalize resources based on your needs and location.');
+            }
+        }
+
+        function manageCulturalSettings() {
+            alert('Opening cultural settings customization. This helps ALCHM provide culturally responsive support.');
+        }
+        
+        function handleCrisisDetectionToggle(enabled) {
+            const warning = document.getElementById('crisis-detection-warning');
+            
+            if (!enabled) {
+                warning.classList.add('visible');
+                showCrisisSettingsAlert();
+                
+                // Offer to show crisis support
+                setTimeout(() => {
+                    if (window.ALCHMCrisis) {
+                        window.ALCHMCrisis.showCrisisModal({
+                            type: 'settings_change',
+                            title: 'Crisis Detection Disabled',
+                            message: 'You\'ve disabled crisis detection. While we respect your choice, please know that support is always available.',
+                            showResources: true,
+                            actions: [
+                                { text: 'Re-enable detection', action: 'reenable_detection' },
+                                { text: 'Keep disabled', action: 'dismiss' },
+                                { text: 'Get support now', action: 'call988' }
+                            ]
+                        });
+                    }
+                }, 1000);
+            } else {
+                warning.classList.remove('visible');
+            }
+        }
+        
+        function handleAIInsightsToggle(enabled) {
+            if (!enabled) {
+                // Show information about how AI insights help with crisis detection
+                setTimeout(() => {
+                    if (window.ALCHMCrisis) {
+                        window.ALCHMCrisis.showCrisisModal({
+                            type: 'gentle',
+                            title: 'AI Insights and Safety',
+                            message: 'AI insights help identify patterns that might indicate you need support. This feature works alongside crisis detection for your safety.',
+                            actions: [
+                                { text: 'I understand', action: 'dismiss' },
+                                { text: 'Learn more', action: 'resources' }
+                            ]
+                        });
+                    }
+                }, 500);
+            }
+        }
+        
+        function checkEmergencyContactStatus() {
+            // Simulate checking if emergency contact is set
+            const hasEmergencyContact = false; // This would be actual data
+            
+            if (!hasEmergencyContact && !sessionStorage.getItem('emergency_contact_reminded')) {
+                const warning = document.getElementById('emergency-contact-warning');
+                warning.classList.add('visible');
+                sessionStorage.setItem('emergency_contact_reminded', 'true');
+            }
+        }
+        
+        function showTherapeuticSettingsGuidance() {
+            if (sessionStorage.getItem('therapeutic_guidance_shown')) return;
+            
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'gentle',
+                    title: 'Therapeutic Settings Guidance',
+                    message: 'These settings help ALCHM provide appropriate support during your healing journey. Modify them thoughtfully.',
+                    actions: [
+                        { text: 'I understand', action: 'dismiss' },
+                        { text: 'Need help?', action: 'resources' }
+                    ]
+                });
+            }
+            
+            sessionStorage.setItem('therapeutic_guidance_shown', 'true');
+        }
+        
+        function initializeCrisisSettingsMonitoring() {
+            // Monitor for potentially dangerous setting combinations
+            let settingsChanges = 0;
+            
+            // Track settings modifications
+            document.querySelectorAll('select, input[type="checkbox"]').forEach(element => {
+                element.addEventListener('change', () => {
+                    settingsChanges++;
+                    
+                    // If user is making many changes, offer gentle check-in
+                    if (settingsChanges >= 3 && !sessionStorage.getItem('settings_checkin_shown')) {
+                        setTimeout(() => {
+                            showSettingsCheckIn();
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Monitor time spent in therapeutic settings
+            let therapeuticSectionTime = 0;
+            const therapeuticSection = document.getElementById('therapeutic');
+            
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.target.classList.contains('active') && mutation.target.id === 'therapeutic') {
+                        const startTime = Date.now();
+                        
+                        const interval = setInterval(() => {
+                            therapeuticSectionTime += 1000;
+                            
+                            // If spending extended time (2+ minutes), offer support
+                            if (therapeuticSectionTime > 120000 && !sessionStorage.getItem('extended_settings_support')) {
+                                clearInterval(interval);
+                                showExtendedSettingsSupport();
+                            }
+                        }, 1000);
+                        
+                        // Clear interval when leaving section
+                        const clearOnLeave = () => {
+                            if (!therapeuticSection.classList.contains('active')) {
+                                clearInterval(interval);
+                                document.removeEventListener('click', clearOnLeave);
+                            }
+                        };
+                        document.addEventListener('click', clearOnLeave);
+                    }
+                });
+            });
+            
+            observer.observe(therapeuticSection, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
+        
+        function showSettingsCheckIn() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'gentle',
+                    title: 'How are you feeling?',
+                    message: 'You\'ve been making several setting changes. Just checking in - how are you doing right now?',
+                    actions: [
+                        { text: 'I\'m fine', action: 'dismiss' },
+                        { text: 'Could use support', action: 'resources' },
+                        { text: 'Need to talk', action: 'call988' }
+                    ]
+                });
+            }
+            
+            sessionStorage.setItem('settings_checkin_shown', 'true');
+        }
+        
+        function showExtendedSettingsSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'gentle',
+                    title: 'Need guidance with settings?',
+                    message: 'It looks like you\'re spending time configuring your therapeutic settings. Need any help or support?',
+                    actions: [
+                        { text: 'Just configuring', action: 'dismiss' },
+                        { text: 'Could use guidance', action: 'resources' },
+                        { text: 'Need support', action: 'call988' }
+                    ]
+                });
+            }
+            
+            sessionStorage.setItem('extended_settings_support', 'true');
+        }
+
+        // Billing Functions
+        function updatePaymentMethod() {
+            alert('Redirecting to secure payment method update...');
+        }
+
+        function updateBillingAddress() {
+            alert('Opening billing address form...');
+        }
+
+        function viewBillingHistory() {
+            alert('Loading billing history...');
+        }
+
+        function changePlan() {
+            alert('Opening plan management...');
+        }
+
+        function requestAssistance() {
+            // Check if user might be experiencing financial stress
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'financial_support',
+                    title: 'Financial assistance available',
+                    message: 'Financial stress can be overwhelming. We offer sliding scale pricing and hardship assistance to ensure healing remains accessible.',
+                    actions: [
+                        { text: 'Request assistance', action: 'request_assistance' },
+                        { text: 'Financial counseling', action: 'financial_resources' },
+                        { text: 'Crisis support', action: 'call988' },
+                        { text: 'Close', action: 'dismiss' }
+                    ]
+                });
+            } else {
+                alert('Opening financial assistance request form. We understand financial stress and are here to help.');
+            }
+        }
+
+        function cancelSubscription() {
+            showConfirmModal(
+                'Cancel Subscription',
+                'Your subscription will be cancelled but you\'ll retain access until the end of your current billing period. You can resubscribe at any time.',
+                () => {
+                    alert('Subscription cancelled. You\'ll receive a confirmation email.');
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        // Account Management Functions
+        function disableAccount() {
+            showConfirmModal(
+                'Temporarily Disable Account',
+                'Your account will be disabled but your data will be preserved. You can reactivate by logging in again.',
+                () => {
+                    alert('Account disabled. You can reactivate by logging in at any time.');
+                    closeConfirmModal();
+                }
+            );
+        }
+
+        function deleteAccount() {
+            showConfirmModal(
+                'Delete Account Permanently',
+                'This action cannot be undone. All your data will be permanently deleted within 30 days.',
+                () => {
+                    const confirmation = prompt('Type "DELETE" to confirm permanent account deletion:');
+                    if (confirmation === 'DELETE') {
+                        alert('Account deletion initiated. You have 30 days to change your mind by contacting support.');
+                        closeConfirmModal();
+                    } else {
+                        alert('Account deletion cancelled - confirmation text did not match.');
+                    }
+                }
+            );
+        }
+
+        // Legal & Documentation Functions
+        function viewPrivacyPolicy() {
+            window.open('/privacy-policy.html', '_blank');
+        }
+
+        function viewTerms() {
+            window.open('/terms.html', '_blank');
+        }
+
+        function viewDataReport() {
+            alert('Generating your personalized data processing report...');
+        }
+
+        // Enhanced Keyboard Navigation Support with Crisis Hotkeys
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeConfirmModal();
+                if (window.ALCHMCrisis) {
+                    window.ALCHMCrisis.closeCrisisModal();
+                }
+            }
+            
+            // Crisis hotkey: Ctrl+Shift+C for immediate crisis support
+            if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                showSettingsCrisisSupport();
+            }
+            
+            // Quick settings navigation: Alt+T for therapeutic settings
+            if (e.altKey && e.key === 't') {
+                e.preventDefault();
+                document.querySelector('[data-section="therapeutic"]').click();
+            }
+        });
+
+        // Accessibility: Focus management for modals
+        function trapFocus(element) {
+            const focusableElements = element.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+
+            firstElement.focus();
+        }
+
+        // Apply focus trapping when modals open
+        document.getElementById('crisisModal').addEventListener('transitionend', function() {
+            if (this.classList.contains('active')) {
+                trapFocus(this);
+            }
+        });
+
+        document.getElementById('confirmModal').addEventListener('transitionend', function() {
+            if (this.classList.contains('active')) {
+                trapFocus(this);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -10,18 +10,18 @@
       "page": "/",
       "matchers": [
         {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!api|_next\\/static|_next\\/image|favicon.ico|manifest.json|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot)$).*))(\\.json)?[\\/#\\?]?$",
-          "originalSource": "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot)$).*)"
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!api|_next\\/static|_next\\/image|favicon.ico|manifest.json|manifest.webmanifest|robots.txt|sitemap.xml|sw.js|apple-touch-icon|android-chrome|mstile|browserconfig.xml|safari-pinned-tab.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot|ico|webmanifest|xml)$).*))(.json)?[\\/#\\?]?$",
+          "originalSource": "/((?!api|_next/static|_next/image|favicon.ico|manifest.json|manifest.webmanifest|robots.txt|sitemap.xml|sw.js|apple-touch-icon|android-chrome|mstile|browserconfig.xml|safari-pinned-tab.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css|js|woff|woff2|ttf|eot|ico|webmanifest|xml)$).*)"
         }
       ],
       "wasm": [],
       "assets": [],
       "env": {
-        "__NEXT_BUILD_ID": "build",
-        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "SXVEyg6e8pJpduWhfSBFSfJtvO8B7GsRza1afDhE858=",
-        "__NEXT_PREVIEW_MODE_ID": "56d4610098824e9786a8e30561afc8bb",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "23547677bb58b60fc42f5b3f87dfdd841fcb208c3476d4fb0d50e0eee12311c2",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "fb94d662bcc5f49a8f301ebd5989a04dbab92438f373c7569b2926f194aaf183"
+        "__NEXT_BUILD_ID": "0uffE_JM8_WnJfCWBefeT",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "fiHJFanbs8oeigHR/TsBlRAdh14S1MVJVZ/RNDFVhO8=",
+        "__NEXT_PREVIEW_MODE_ID": "39e46f0518a723a8e649357c4fbfbd7d",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "b1835bc966a4ace989d891e4c3f61ea339683d1d86772524fb76ff9979eaa0dc",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "1a6191de21fba2d47624e0eb1ca1ad0d9365b50914c1fdf9826ff2210c12f0fc"
       }
     }
   },

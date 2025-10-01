@@ -1,0 +1,364 @@
+/**
+ * ALCHM Cultural Design System
+ * 
+ * Philosophy: "Every culture carries visual wisdom. Design should honor diverse aesthetic traditions
+ * while maintaining the clarity and accessibility that serves all users."
+ * 
+ * This system creates culturally-responsive visual elements that can adapt to user preferences
+ * while preserving the essential sanctuary-like quality that makes ALCHM feel like home.
+ */
+
+/* =============================================================================
+   CULTURAL COLOR PALETTES
+   Respectfully inspired by traditional color meanings and aesthetic preferences
+   ============================================================================= */
+
+:root {
+  /* Base Sanctuary Palette - Always Available */
+  --sanctuary-sage: #a4b792;
+  --sanctuary-terra: #cb997e;
+  --sanctuary-blush: #eeddd3;
+  --sanctuary-ink: #2e2e2e;
+  --sanctuary-muted: #8a8a8a;
+
+  /* Cultural Palette Extensions - User Selectable */
+  
+  /* African Diaspora Inspired - Earth, Strength, Community */
+  --african-earth: #8B4513;      /* Rich earth brown */
+  --african-gold: #DAA520;       /* Ancestral gold */
+  --african-crimson: #DC143C;    /* Strength and vitality */
+  --african-emerald: #50C878;    /* Growth and healing */
+  --african-indigo: #4B0082;     /* Wisdom and depth */
+
+  /* East Asian Inspired - Balance, Harmony, Natural Elements */
+  --asian-bamboo: #90EE90;       /* Growth and flexibility */
+  --asian-cherry: #FFB7C5;       /* Beauty and impermanence */
+  --asian-ink: #2F4F4F;          /* Scholarly wisdom */
+  --asian-jade: #00A86B;         /* Prosperity and healing */
+  --asian-sunset: #FF6347;       /* Warmth and energy */
+
+  /* Indigenous Inspired - Land, Sacred Elements, Seasonal Cycles */
+  --indigenous-cedar: #8B4513;   /* Sacred cedar */
+  --indigenous-turquoise: #40E0D0; /* Protection and healing */
+  --indigenous-corn: #F4A460;    /* Sustenance and growth */
+  --indigenous-sky: #87CEEB;     /* Connection to sky nation */
+  --indigenous-fire: #FF4500;    /* Sacred fire */
+
+  /* Latin American Inspired - Vibrant Life, Community, Celebration */
+  --latin-marigold: #FF8C00;     /* Día de los Muertos, life celebration */
+  --latin-rosa: #FF69B4;         /* Joy and beauty */
+  --latin-azul: #0080FF;         /* Hope and divine protection */
+  --latin-verde: #32CD32;        /* Nature and abundance */
+  --latin-morado: #8B008B;       /* Spirituality and transformation */
+
+  /* Middle Eastern/North African Inspired - Desert, Oasis, Sacred Geometry */
+  --mena-desert: #DEB887;        /* Desert wisdom */
+  --mena-oasis: #008B8B;         /* Life-giving water */
+  --mena-saffron: #F4C430;       /* Precious spice, warmth */
+  --mena-lapis: #26619C;         /* Sacred blue, infinite sky */
+  --mena-henna: #A0522D;         /* Celebration and protection */
+
+  /* South Asian Inspired - Spiritual Colors, Festival Vibrancy */
+  --south-asian-turmeric: #E4D00A;  /* Sacred healing */
+  --south-asian-lotus: #FFB6C1;     /* Spiritual purity */
+  --south-asian-saffron: #FF9933;   /* Sacred saffron */
+  --south-asian-peacock: #005F69;   /* Divine beauty */
+  --south-asian-vermillion: #E34234; /* Sacred sindoor */
+}
+
+/* =============================================================================
+   CULTURAL TYPOGRAPHY ADAPTATIONS
+   Supporting diverse reading preferences and cultural text traditions
+   ============================================================================= */
+
+/* Default - Clean, minimal, accessible */
+.typography-default {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+/* Serif Option - For cultures that prefer traditional, scholarly aesthetics */
+.typography-scholarly {
+  font-family: "Crimson Text", "Times New Roman", Georgia, serif;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* Rounded Option - For softer, more approachable feeling */
+.typography-gentle {
+  font-family: "Nunito", "Inter", system-ui, sans-serif;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+}
+
+/* Monospace Option - For code-switching comfort, neurodivergent needs */
+.typography-monospace {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+/* =============================================================================
+   CULTURAL SPACING AND DENSITY PREFERENCES
+   ============================================================================= */
+
+/* Dense - For cultures comfortable with information density */
+.spacing-dense {
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+/* Generous - Western minimalist preference, trauma-informed spacing */
+.spacing-generous {
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 4rem;
+}
+
+/* Balanced - Default middle ground */
+.spacing-balanced {
+  --spacing-xs: 0.375rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1.25rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}
+
+/* =============================================================================
+   CULTURAL PATTERN AND TEXTURE SYSTEM
+   Respectfully inspired by traditional design elements
+   ============================================================================= */
+
+/* Geometric Patterns - Inspired by Islamic, African, and Indigenous geometric art */
+.pattern-geometric {
+  background-image: 
+    linear-gradient(45deg, transparent 45%, rgba(164, 183, 146, 0.03) 45%, rgba(164, 183, 146, 0.03) 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, rgba(164, 183, 146, 0.03) 45%, rgba(164, 183, 146, 0.03) 55%, transparent 55%);
+  background-size: 20px 20px;
+}
+
+/* Organic Patterns - Inspired by natural forms across cultures */
+.pattern-organic {
+  background-image: radial-gradient(circle at 2px 2px, rgba(164, 183, 146, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Textile Patterns - Inspired by woven traditions */
+.pattern-textile {
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(164, 183, 146, 0.02) 1px, rgba(164, 183, 146, 0.02) 2px),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(164, 183, 146, 0.02) 1px, rgba(164, 183, 146, 0.02) 2px);
+  background-size: 16px 16px;
+}
+
+/* =============================================================================
+   CULTURAL BORDER AND DECORATION STYLES
+   ============================================================================= */
+
+/* Minimal - Clean, Western minimalist */
+.borders-minimal {
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: 8px;
+}
+
+/* Decorative - For cultures that appreciate ornamental elements */
+.borders-decorative {
+  border: 2px solid rgba(164, 183, 146, 0.3);
+  border-radius: 12px;
+  box-shadow: 
+    0 0 0 1px rgba(164, 183, 146, 0.1),
+    0 4px 12px rgba(164, 183, 146, 0.05);
+}
+
+/* Organic - Softer, more natural feeling */
+.borders-organic {
+  border: 1px solid rgba(164, 183, 146, 0.25);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+}
+
+/* =============================================================================
+   CULTURAL ICONOGRAPHY AND SYMBOL SYSTEM
+   ============================================================================= */
+
+/* Icon styles that can adapt to cultural preferences */
+.icons-minimal {
+  filter: none;
+  opacity: 0.7;
+}
+
+.icons-warm {
+  filter: sepia(20%) saturate(110%);
+  opacity: 0.8;
+}
+
+.icons-vibrant {
+  filter: saturate(120%) brightness(110%);
+  opacity: 0.9;
+}
+
+/* =============================================================================
+   CULTURAL THEME COMBINATIONS
+   Pre-configured combinations that honor specific aesthetic traditions
+   ============================================================================= */
+
+/* Ubuntu Theme - African diaspora inspired */
+.theme-ubuntu {
+  --primary-color: var(--african-earth);
+  --accent-color: var(--african-gold);
+  --secondary-color: var(--african-emerald);
+}
+
+.theme-ubuntu .card {
+  @apply pattern-textile borders-decorative;
+  background-color: rgba(139, 69, 19, 0.02);
+}
+
+/* Harmony Theme - East Asian inspired */
+.theme-harmony {
+  --primary-color: var(--asian-jade);
+  --accent-color: var(--asian-cherry);
+  --secondary-color: var(--asian-bamboo);
+}
+
+.theme-harmony .card {
+  @apply pattern-organic borders-organic;
+  background-color: rgba(0, 168, 107, 0.02);
+}
+
+/* Tierra Theme - Latin American inspired */
+.theme-tierra {
+  --primary-color: var(--latin-verde);
+  --accent-color: var(--latin-marigold);
+  --secondary-color: var(--latin-rosa);
+}
+
+.theme-tierra .card {
+  @apply pattern-geometric borders-decorative;
+  background-color: rgba(50, 205, 50, 0.02);
+}
+
+/* Sacred Geometry Theme - MENA inspired */
+.theme-sacred-geometry {
+  --primary-color: var(--mena-lapis);
+  --accent-color: var(--mena-saffron);
+  --secondary-color: var(--mena-oasis);
+}
+
+.theme-sacred-geometry .card {
+  @apply pattern-geometric borders-decorative;
+  background-color: rgba(38, 97, 156, 0.02);
+}
+
+/* Lotus Theme - South Asian inspired */
+.theme-lotus {
+  --primary-color: var(--south-asian-peacock);
+  --accent-color: var(--south-asian-saffron);
+  --secondary-color: var(--south-asian-lotus);
+}
+
+.theme-lotus .card {
+  @apply pattern-organic borders-decorative;
+  background-color: rgba(0, 95, 105, 0.02);
+}
+
+/* Land Connection Theme - Indigenous inspired */
+.theme-land-connection {
+  --primary-color: var(--indigenous-cedar);
+  --accent-color: var(--indigenous-turquoise);
+  --secondary-color: var(--indigenous-sky);
+}
+
+.theme-land-connection .card {
+  @apply pattern-organic borders-organic;
+  background-color: rgba(139, 69, 19, 0.02);
+}
+
+/* =============================================================================
+   ACCESSIBILITY AND CULTURAL SENSITIVITY
+   ============================================================================= */
+
+/* High Contrast Options - For visual accessibility */
+.contrast-high {
+  --text-contrast-ratio: 7:1;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+/* Reduce Motion - Cultural and accessibility preference */
+@media (prefers-reduced-motion: reduce) {
+  .cultural-theme * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* RTL Support - For Arabic, Hebrew, and other RTL languages */
+[dir="rtl"] .cultural-element {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .text-content {
+  text-align: right;
+  transform: none;
+}
+
+/* =============================================================================
+   CULTURAL ADAPTATION UTILITIES
+   ============================================================================= */
+
+/* Allow users to customize intensity of cultural theming */
+.cultural-subtle {
+  opacity: 0.3;
+}
+
+.cultural-moderate {
+  opacity: 0.6;
+}
+
+.cultural-full {
+  opacity: 1.0;
+}
+
+/* Respect user's cultural theming choice while maintaining core accessibility */
+.cultural-theme {
+  transition: all 0.3s ease;
+}
+
+.cultural-theme:focus-visible {
+  outline: 2px solid var(--sanctuary-sage);
+  outline-offset: 2px;
+}
+
+/* =============================================================================
+   RESPONSIVE CULTURAL ADAPTATIONS
+   ============================================================================= */
+
+/* Some cultures prefer more visual density on larger screens */
+@media (min-width: 1024px) {
+  .theme-high-density {
+    --spacing-scale: 0.8;
+  }
+}
+
+/* Mobile-first cultural considerations */
+@media (max-width: 768px) {
+  .cultural-theme .card {
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
+  }
+  
+  .cultural-theme .pattern-geometric,
+  .cultural-theme .pattern-organic,
+  .cultural-theme .pattern-textile {
+    background-size: 16px 16px;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,701 @@
+/*
+ * ALCHM Cultural Sanctuary Design System
+ * Premium Digital Sanctuary with Culturally-Grounded Design
+ * 
+ * Honoring diverse healing traditions while maintaining universal accessibility
+ * Colors and patterns that resonate across cultures without appropriation
+ * Inclusive design that celebrates intersectionality and cultural wisdom
+ */
+
+:root {
+  /* === CULTURALLY-INFORMED COLOR PSYCHOLOGY === */
+  
+  /* Sage Green - Universal healing across cultures */
+  /* Present in Traditional Chinese Medicine, Ayurveda, Western herbalism */
+  /* Represents growth, healing, grounding in nature across all traditions */
+  --sage-whisper: #f6f8f4;           /* Soft morning mist */
+  --sage-breath: #e8eae3;            /* Gentle exhale */
+  --sage-calm: #d1d6c7;              /* Meditation space */
+  --sage-heart: #a4b792;             /* Primary sage - heart chakra resonance */
+  --sage-root: #93a682;              /* Grounding energy */
+  --sage-earth: #7a8c6a;             /* Deep earth connection */
+  --sage-wisdom: #626d54;            /* Ancient wisdom */
+  
+  /* Terracotta - Universal earth connection */
+  /* Clay healing traditions: Aztec, Indigenous Australian, African, Mediterranean */
+  /* Represents grounding, warmth, community across cultures */
+  --terracotta-dawn: #faf7f4;        /* First light on clay */
+  --terracotta-warmth: #f4e8de;      /* Gentle warmth */
+  --terracotta-embrace: #e8d1c1;     /* Community gathering */
+  --terracotta-heart: #d4a574;       /* Primary terracotta - solar plexus warmth */
+  --terracotta-fire: #c5956a;        /* Sacred fire energy */
+  --terracotta-earth: #b88660;       /* Deep earth medicine */
+  --terracotta-root: #8b6b47;        /* Ancient knowing */
+  
+  /* Soft Blush - Universal compassion and self-love */
+  /* Rose medicine in Islamic, Christian, Hindu, Buddhist traditions */
+  /* Represents heart opening, self-compassion, healing across cultures */
+  --blush-whisper: #faf8f7;          /* Gentle self-compassion */
+  --blush-breath: #f5f0ed;           /* Soft exhale of love */
+  --blush-tender: #ede5e0;           /* Tender self-care */
+  --blush-heart: #d4b8a8;            /* Primary blush - heart opening */
+  --blush-embrace: #c5a5a5;          /* Self-acceptance */
+  --blush-comfort: #b89494;          /* Deep comfort */
+  --blush-wisdom: #a08080;           /* Gentle wisdom */
+  
+  /* === UNIVERSAL NATURE ELEMENTS === */
+  
+  /* Water - Universal healing element */
+  --water-clear: #f8fafb;            /* Clear mountain spring */
+  --water-flow: #e3f2fd;             /* Gentle flowing */
+  --water-depth: #90caf9;            /* Deep healing waters */
+  --water-ocean: #42a5f5;            /* Ocean vastness */
+  
+  /* Sky - Universal connection to the infinite */
+  --sky-dawn: #f3f4f6;               /* Dawn sky */
+  --sky-day: #e5e7eb;                /* Clear day */
+  --sky-twilight: #9ca3af;           /* Twilight wisdom */
+  --sky-night: #4b5563;              /* Night contemplation */
+  
+  /* === CULTURALLY-ADAPTIVE ACCENT COLORS === */
+  
+  /* These colors can be culturally contextualized without appropriation */
+  --gold-sun: #f7d794;               /* Solar energy - universal */
+  --silver-moon: #d6d6d6;            /* Lunar energy - universal */
+  --copper-glow: #cd853f;            /* Ancestral tools - universal */
+  --pearl-wisdom: #f8f8ff;           /* Universal purity */
+  
+  /* === INCLUSIVE SPIRITUAL COLORS === */
+  /* These represent universal spiritual concepts, not specific traditions */
+  
+  --spirit-light: #ffffff;           /* Pure light - universal */
+  --spirit-shadow: #2d2d2d;          /* Necessary shadow work */
+  --spirit-void: #000000;            /* Void space for growth */
+  --spirit-bridge: #808080;          /* Bridge between worlds */
+  
+  /* === TRAUMA-INFORMED ACCESSIBILITY COLORS === */
+  
+  /* High contrast options for trauma responses */
+  --contrast-gentle: #4a5568;        /* Gentle contrast */
+  --contrast-medium: #2d3748;        /* Medium contrast */
+  --contrast-strong: #1a202c;        /* Strong contrast */
+  
+  /* Crisis safety colors - universally recognized */
+  --safety-green: #059669;           /* Universal safety */
+  --caution-amber: #d97706;          /* Universal caution */
+  --emergency-red: #dc2626;          /* Universal emergency */
+  
+  /* === CULTURALLY-ADAPTIVE GRADIENTS === */
+  
+  /* Healing Journey Gradients */
+  --gradient-healing: linear-gradient(135deg, var(--sage-whisper) 0%, var(--blush-whisper) 100%);
+  --gradient-grounding: linear-gradient(135deg, var(--terracotta-dawn) 0%, var(--sage-breath) 100%);
+  --gradient-wisdom: linear-gradient(135deg, var(--sage-heart) 0%, var(--terracotta-heart) 50%, var(--blush-heart) 100%);
+  --gradient-sanctuary: linear-gradient(135deg, var(--sage-whisper) 0%, var(--terracotta-dawn) 30%, var(--blush-whisper) 100%);
+  
+  /* Cultural Season Gradients - representing natural cycles across cultures */
+  --gradient-spring: linear-gradient(135deg, var(--sage-breath) 0%, var(--water-clear) 100%);
+  --gradient-summer: linear-gradient(135deg, var(--terracotta-warmth) 0%, var(--gold-sun) 100%);
+  --gradient-autumn: linear-gradient(135deg, var(--terracotta-heart) 0%, var(--copper-glow) 100%);
+  --gradient-winter: linear-gradient(135deg, var(--sage-wisdom) 0%, var(--silver-moon) 100%);
+  
+  /* === CULTURALLY-RESPONSIVE SPACING === */
+  
+  /* Different cultures have different comfort levels with space */
+  --space-intimate: 4px;             /* Very close, family-style cultures */
+  --space-personal: 8px;             /* Personal space cultures */
+  --space-social: 16px;              /* Social space cultures */
+  --space-public: 32px;              /* Public space cultures */
+  --space-ceremonial: 64px;          /* Ceremonial/sacred space */
+  
+  /* === INCLUSIVE TYPOGRAPHY VARIABLES === */
+  
+  /* Multi-script support without cultural assumptions */
+  --font-latin: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-arabic: 'SF Arabic', 'Helvetica Neue', 'Tahoma', system-ui, sans-serif;
+  --font-chinese: 'SF Pro SC', 'PingFang SC', 'Helvetica Neue', system-ui, sans-serif;
+  --font-japanese: 'SF Pro JP', 'Hiragino Sans', 'Helvetica Neue', system-ui, sans-serif;
+  --font-korean: 'SF Pro KR', 'Apple SD Gothic Neo', 'Helvetica Neue', system-ui, sans-serif;
+  --font-indic: 'SF Pro Indic', 'Noto Sans Devanagari', system-ui, sans-serif;
+  
+  /* Reading direction support */
+  --text-direction-ltr: ltr;
+  --text-direction-rtl: rtl;
+  
+  /* === CULTURAL MOTION PREFERENCES === */
+  
+  /* Some cultures prefer less motion, others more expressive movement */
+  --motion-minimal: 0.1s ease;       /* Minimal motion cultures */
+  --motion-gentle: 0.3s ease-out;    /* Gentle motion cultures */
+  --motion-expressive: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Expressive cultures */
+  
+  /* === INCLUSIVE SHADOW SYSTEM === */
+  
+  /* Shadows that work across different cultural aesthetic preferences */
+  --shadow-whisper: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-gentle: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-protective: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-embracing: 0 8px 24px rgba(164, 183, 146, 0.15);
+  --shadow-ceremonial: 0 16px 48px rgba(164, 183, 146, 0.2);
+}
+
+/* === CULTURALLY-GROUNDED COMPONENT FOUNDATION === */
+
+/* Universal Sanctuary Container */
+.cultural-sanctuary {
+  background: var(--gradient-sanctuary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Multi-cultural glass morphism */
+.cultural-glass {
+  background: rgba(254, 252, 251, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: var(--shadow-embracing);
+  transition: var(--motion-gentle);
+}
+
+.cultural-glass:hover {
+  background: rgba(254, 252, 251, 0.95);
+  box-shadow: var(--shadow-ceremonial);
+  transform: translateY(-2px);
+}
+
+/* === TERRACOTTA COMMUNITY WARMTH === */
+
+/* Community connection elements with terracotta warmth */
+.community-warmth {
+  background: var(--gradient-grounding);
+  color: var(--terracotta-root);
+  border-radius: 20px;
+  padding: var(--space-social);
+  position: relative;
+  overflow: hidden;
+}
+
+.community-warmth::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--terracotta-heart);
+  border-radius: 20px 20px 0 0;
+}
+
+/* Community member cards */
+.community-member-card {
+  background: var(--terracotta-dawn);
+  border: 2px solid var(--terracotta-warmth);
+  border-radius: 16px;
+  padding: var(--space-personal);
+  transition: var(--motion-gentle);
+  position: relative;
+}
+
+.community-member-card:hover {
+  background: var(--terracotta-warmth);
+  border-color: var(--terracotta-embrace);
+  transform: scale(1.02);
+  box-shadow: var(--shadow-protective);
+}
+
+/* Relationship style indicators - honoring diverse connection types */
+.relationship-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-intimate);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.relationship-chosen-family {
+  background: var(--terracotta-embrace);
+  color: var(--terracotta-root);
+}
+
+.relationship-blood-family {
+  background: var(--sage-calm);
+  color: var(--sage-wisdom);
+}
+
+.relationship-spiritual-family {
+  background: var(--blush-tender);
+  color: var(--blush-wisdom);
+}
+
+.relationship-community {
+  background: var(--gradient-healing);
+  color: var(--contrast-gentle);
+}
+
+/* === NATURE-INSPIRED UNIVERSAL ELEMENTS === */
+
+/* Sacred geometry patterns that appear across cultures */
+.sacred-pattern {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-pattern::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 25% 25%, var(--sage-whisper) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, var(--terracotta-dawn) 1px, transparent 1px),
+    radial-gradient(circle at 75% 25%, var(--blush-whisper) 1px, transparent 1px),
+    radial-gradient(circle at 25% 75%, var(--water-clear) 1px, transparent 1px);
+  background-size: 40px 40px, 30px 30px, 35px 35px, 45px 45px;
+  opacity: 0.1;
+  animation: gentle-drift 60s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gentle-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-20px, -20px) rotate(360deg); }
+}
+
+/* Universal tree of life motif */
+.tree-of-connection {
+  position: relative;
+  background: var(--gradient-wisdom);
+  border-radius: 24px;
+  padding: var(--space-social);
+  margin: var(--space-personal);
+}
+
+.tree-of-connection::after {
+  content: '🌱';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: gentle-grow 4s ease-in-out infinite;
+}
+
+@keyframes gentle-grow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* === MULTILINGUAL TYPOGRAPHY SYSTEM === */
+
+/* Base typography that works across scripts */
+.cultural-text {
+  font-family: var(--font-latin);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Script-specific adjustments */
+.cultural-text[lang="ar"] {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.8;
+}
+
+.cultural-text[lang="zh"] {
+  font-family: var(--font-chinese);
+  line-height: 1.7;
+  letter-spacing: 0.05em;
+}
+
+.cultural-text[lang="ja"] {
+  font-family: var(--font-japanese);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+.cultural-text[lang="ko"] {
+  font-family: var(--font-korean);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.cultural-text[lang="hi"],
+.cultural-text[lang="bn"],
+.cultural-text[lang="te"] {
+  font-family: var(--font-indic);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* Culturally-adaptive text sizing */
+.cultural-heading {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--sage-earth);
+  margin-bottom: var(--space-personal);
+}
+
+.cultural-body {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--contrast-gentle);
+  margin-bottom: var(--space-personal);
+}
+
+/* === INCLUSIVE VISUAL METAPHORS === */
+
+/* Universal symbols of growth and healing */
+.growth-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gradient-healing);
+  color: var(--sage-wisdom);
+  font-size: 18px;
+  box-shadow: var(--shadow-gentle);
+  transition: var(--motion-gentle);
+}
+
+.growth-symbol:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-protective);
+}
+
+/* Universal healing journey indicators */
+.journey-step {
+  position: relative;
+  padding: var(--space-personal);
+  margin: var(--space-intimate) 0;
+  border-left: 3px solid var(--sage-heart);
+  background: var(--sage-whisper);
+  border-radius: 0 12px 12px 0;
+}
+
+.journey-step::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sage-heart);
+  border: 3px solid var(--sage-whisper);
+}
+
+.journey-step.current {
+  border-left-color: var(--terracotta-heart);
+  background: var(--terracotta-dawn);
+}
+
+.journey-step.current::before {
+  background: var(--terracotta-heart);
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.journey-step.completed {
+  border-left-color: var(--blush-heart);
+  background: var(--blush-whisper);
+}
+
+.journey-step.completed::before {
+  background: var(--blush-heart);
+  content: '✓';
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === INCLUSIVE SACRED/SPIRITUAL ELEMENTS === */
+
+/* Universal meditation/reflection space */
+.reflection-sanctuary {
+  background: var(--gradient-sanctuary);
+  border-radius: 24px;
+  padding: var(--space-ceremonial);
+  margin: var(--space-social) 0;
+  position: relative;
+  box-shadow: var(--shadow-embracing);
+}
+
+.reflection-sanctuary::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 22px;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(164, 183, 146, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 70%, rgba(212, 184, 168, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Universal intention setting */
+.intention-space {
+  background: var(--spirit-light);
+  border: 1px solid var(--sage-calm);
+  border-radius: 16px;
+  padding: var(--space-social);
+  text-align: center;
+  position: relative;
+}
+
+.intention-space::before {
+  content: '◯';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--spirit-light);
+  color: var(--sage-heart);
+  font-size: 20px;
+  padding: 0 8px;
+}
+
+/* Universal gratitude expression */
+.gratitude-circle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-intimate);
+  padding: var(--space-personal);
+  background: var(--blush-whisper);
+  border-radius: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.gratitude-item {
+  background: var(--blush-heart);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* === CULTURAL SPACING ADAPTATIONS === */
+
+/* Spacing that adapts to cultural preferences */
+.cultural-layout {
+  display: grid;
+  gap: var(--space-social);
+  padding: var(--space-personal);
+}
+
+/* Intimate cultures - closer spacing */
+.cultural-layout.intimate {
+  gap: var(--space-intimate);
+  padding: var(--space-intimate);
+}
+
+/* Social cultures - moderate spacing */
+.cultural-layout.social {
+  gap: var(--space-social);
+  padding: var(--space-social);
+}
+
+/* Public cultures - wider spacing */
+.cultural-layout.public {
+  gap: var(--space-public);
+  padding: var(--space-public);
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .cultural-glass {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--contrast-strong);
+  }
+  
+  .community-warmth {
+    background: var(--terracotta-warmth);
+    border: 2px solid var(--terracotta-root);
+  }
+  
+  .reflection-sanctuary {
+    background: var(--sage-whisper);
+    border: 2px solid var(--sage-earth);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sacred-pattern::before,
+  .tree-of-connection::after,
+  .journey-step.current::before {
+    animation: none;
+  }
+  
+  .cultural-glass:hover,
+  .community-member-card:hover,
+  .growth-symbol:hover {
+    transform: none;
+  }
+}
+
+/* Dark mode cultural adaptations */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sage-whisper: #2a2d2a;
+    --terracotta-dawn: #3a2f28;
+    --blush-whisper: #342e2d;
+    --spirit-light: #1a1a1a;
+    --contrast-gentle: #e5e5e5;
+  }
+  
+  .cultural-sanctuary {
+    background: linear-gradient(135deg, var(--sage-whisper) 0%, var(--terracotta-dawn) 30%, var(--blush-whisper) 100%);
+  }
+  
+  .cultural-glass {
+    background: rgba(26, 26, 26, 0.85);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--contrast-gentle);
+  }
+}
+
+/* Mobile cultural adaptations */
+@media (max-width: 768px) {
+  .cultural-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-personal);
+    padding: var(--space-personal);
+  }
+  
+  .reflection-sanctuary {
+    padding: var(--space-social);
+    margin: var(--space-personal) 0;
+  }
+  
+  .community-warmth {
+    padding: var(--space-personal);
+  }
+  
+  /* Larger touch targets for crisis scenarios */
+  .growth-symbol {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+/* === CULTURAL CONTEXT INDICATORS === */
+
+/* Subtle cultural context without stereotyping */
+.cultural-context {
+  position: relative;
+  padding: var(--space-personal);
+  background: var(--gradient-healing);
+  border-radius: 16px;
+  border-left: 4px solid var(--sage-heart);
+}
+
+.cultural-context[data-context="collectivist"] {
+  border-left-color: var(--terracotta-heart);
+  background: var(--gradient-grounding);
+}
+
+.cultural-context[data-context="individualist"] {
+  border-left-color: var(--blush-heart);
+  background: var(--gradient-wisdom);
+}
+
+.cultural-context[data-context="mixed"] {
+  border-left: 4px solid transparent;
+  border-image: linear-gradient(45deg, var(--sage-heart), var(--terracotta-heart), var(--blush-heart)) 1;
+}
+
+/* === HEALING TRADITION RESPECT === */
+
+/* Elements that honor various healing traditions without appropriation */
+.healing-tradition {
+  display: flex;
+  align-items: center;
+  gap: var(--space-personal);
+  padding: var(--space-personal);
+  background: var(--gradient-wisdom);
+  border-radius: 20px;
+  margin: var(--space-personal) 0;
+}
+
+.healing-tradition-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--spirit-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: var(--shadow-gentle);
+}
+
+/* Universal healing symbols */
+.healing-tradition[data-tradition="nature"] .healing-tradition-icon::after {
+  content: '🌿';
+}
+
+.healing-tradition[data-tradition="community"] .healing-tradition-icon::after {
+  content: '🤝';
+}
+
+.healing-tradition[data-tradition="movement"] .healing-tradition-icon::after {
+  content: '💃';
+}
+
+.healing-tradition[data-tradition="breath"] .healing-tradition-icon::after {
+  content: '🌊';
+}
+
+.healing-tradition[data-tradition="story"] .healing-tradition-icon::after {
+  content: '📚';
+}
+
+.healing-tradition[data-tradition="art"] .healing-tradition-icon::after {
+  content: '🎨';
+}
+
+.healing-tradition[data-tradition="song"] .healing-tradition-icon::after {
+  content: '🎵';
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+
+/* GPU acceleration for cultural animations */
+.cultural-glass,
+.community-member-card,
+.growth-symbol {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Critical CSS for above-the-fold cultural elements */
+.cultural-sanctuary,
+.cultural-glass,
+.cultural-text {
+  font-display: swap;
+  contain: layout style;
+}

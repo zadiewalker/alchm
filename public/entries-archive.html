@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Healing Journey - ALCHM Archive</title>
+    <meta name="description" content="Explore your healing journey through past writings with privacy-preserving insights and gentle data intelligence.">
+    
+    <!-- ALCHM Design Foundation -->
+    <link rel="stylesheet" href="/styles/alchm-jony-ive-foundation.css">
+    
+    <!-- Crisis Support System -->
+    <link rel="preload" href="/crisis-resources.json" as="fetch" crossorigin="anonymous">
+    <script src="/js/crisis-support-system.js" defer></script>
+    <link rel="stylesheet" href="/css/crisis-support-styles.css">
+    
+    <!-- Specialized Styles for Archive -->
+    <style>
+        /* ========================================
+           ARCHIVE-SPECIFIC STYLES
+        ======================================== */
+        
+        /* Archive Header with Gradient Background */
+        .archive-header {
+            background: linear-gradient(
+                135deg, 
+                rgba(164, 183, 146, 0.95) 0%, 
+                rgba(147, 166, 130, 0.95) 50%, 
+                rgba(122, 140, 106, 0.95) 100%
+            );
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: var(--space-8) 0;
+            margin-bottom: var(--space-8);
+        }
+        
+        .archive-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: var(--font-light);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        
+        /* Search and Filters */
+        .search-filters {
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: var(--space-4);
+        }
+        
+        .search-input {
+            width: 100%;
+            min-height: var(--touch-target-md);
+            padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(164, 183, 146, 0.2);
+            border-radius: var(--radius-xl);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--sage-400);
+            box-shadow: 0 0 0 4px rgba(164, 183, 146, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--sanctuary-gray-400);
+            font-size: 1.125rem;
+        }
+        
+        .filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            align-items: center;
+        }
+        
+        .filter-select {
+            min-height: var(--touch-target-sm);
+            padding: var(--space-2) var(--space-4);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--sage-400);
+            box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.1);
+        }
+        
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+        }
+        
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--sage-100);
+            color: var(--sage-700);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: var(--font-medium);
+        }
+        
+        .filter-chip-remove {
+            margin-left: var(--space-2);
+            background: none;
+            border: none;
+            color: var(--sage-600);
+            cursor: pointer;
+            padding: 0;
+            font-size: 0.875rem;
+        }
+        
+        /* Masonry Grid Layout */
+        .entries-grid {
+            columns: 1;
+            column-gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        @media (min-width: 640px) {
+            .entries-grid {
+                columns: 2;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .entries-grid {
+                columns: 3;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .entries-grid {
+                columns: 4;
+            }
+        }
+        
+        /* Entry Cards */
+        .entry-card {
+            break-inside: avoid;
+            margin-bottom: var(--space-6);
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .entry-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(164, 183, 146, 0.4);
+        }
+        
+        .entry-card.selected {
+            border-color: var(--sage-400);
+            box-shadow: 0 0 0 3px rgba(164, 183, 146, 0.2), var(--shadow-lg);
+        }
+        
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-4);
+        }
+        
+        .entry-date {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-600);
+            font-weight: var(--font-medium);
+        }
+        
+        .entry-mood {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .mood-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: var(--radius-full);
+            display: inline-block;
+        }
+        
+        .mood-1 { background: #ef4444; }
+        .mood-2 { background: #f97316; }
+        .mood-3 { background: #eab308; }
+        .mood-4 { background: #22c55e; }
+        .mood-5 { background: #06b6d4; }
+        
+        .entry-content {
+            line-height: 1.6;
+            color: var(--sanctuary-gray-800);
+            margin-bottom: var(--space-4);
+        }
+        
+        .entry-preview {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+        
+        .entry-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--sanctuary-gray-500);
+            border-top: 1px solid rgba(164, 183, 146, 0.1);
+            padding-top: var(--space-3);
+        }
+        
+        .entry-wordcount {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .entry-tags {
+            display: flex;
+            gap: var(--space-1);
+            flex-wrap: wrap;
+        }
+        
+        .entry-tag {
+            background: rgba(164, 183, 146, 0.1);
+            color: var(--sage-700);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            font-size: 0.625rem;
+        }
+        
+        /* Checkbox for bulk selection */
+        .entry-checkbox {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            opacity: 0;
+            transition: opacity var(--duration-normal) ease;
+        }
+        
+        .entry-card:hover .entry-checkbox,
+        .entry-card.selected .entry-checkbox {
+            opacity: 1;
+        }
+        
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--sage-400);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-fast) ease;
+        }
+        
+        .custom-checkbox.checked {
+            background: var(--sage-400);
+            color: white;
+        }
+        
+        /* Insights Dashboard */
+        .insights-dashboard {
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+        
+        .insight-card {
+            background: rgba(164, 183, 146, 0.05);
+            border: 1px solid rgba(164, 183, 146, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            text-align: center;
+        }
+        
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--sage-400);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: white;
+            font-size: 1.25rem;
+        }
+        
+        .insight-title {
+            font-size: 1.125rem;
+            font-weight: var(--font-medium);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-2);
+        }
+        
+        .insight-description {
+            color: var(--sanctuary-gray-600);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        /* Mood Trend Chart */
+        .mood-chart {
+            width: 100%;
+            height: 200px;
+            background: rgba(164, 183, 146, 0.05);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin-top: var(--space-4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-line {
+            stroke: var(--sage-400);
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .chart-dot {
+            fill: var(--sage-400);
+            r: 3;
+        }
+        
+        /* Bulk Actions Toolbar */
+        .bulk-actions {
+            position: fixed;
+            bottom: var(--space-6);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(254, 252, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(164, 183, 146, 0.3);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-4) var(--space-6);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--duration-normal) var(--ease-out-cubic);
+            z-index: 1000;
+        }
+        
+        .bulk-actions.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .selected-count {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-700);
+            font-weight: var(--font-medium);
+        }
+        
+        /* Loading and Empty States */
+        .loading-skeleton {
+            background: linear-gradient(90deg, rgba(164, 183, 146, 0.1) 25%, rgba(164, 183, 146, 0.2) 50%, rgba(164, 183, 146, 0.1) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            border-radius: var(--radius-lg);
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16) var(--space-8);
+        }
+        
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--sage-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            font-size: 2rem;
+            color: var(--sage-400);
+        }
+        
+        .empty-state-title {
+            font-size: 1.5rem;
+            font-weight: var(--font-light);
+            color: var(--sanctuary-gray-900);
+            margin-bottom: var(--space-4);
+        }
+        
+        .empty-state-description {
+            color: var(--sanctuary-gray-600);
+            max-width: 400px;
+            margin: 0 auto var(--space-8);
+            line-height: 1.6;
+        }
+        
+        /* Privacy Notice */
+        .privacy-notice {
+            background: rgba(164, 183, 146, 0.05);
+            border: 1px solid rgba(164, 183, 146, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            margin-top: var(--space-6);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+        
+        .privacy-icon {
+            color: var(--sage-600);
+            font-size: 1.125rem;
+            margin-top: var(--space-1);
+        }
+        
+        .privacy-text {
+            font-size: 0.875rem;
+            color: var(--sanctuary-gray-700);
+            line-height: 1.5;
+        }
+        
+        /* Enhanced Crisis Support Integration */
+        .crisis-gentle-reminder {
+            background: rgba(164, 183, 146, 0.1);
+            border-left: 4px solid var(--sage-400);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            padding: var(--space-4);
+            margin: var(--space-6) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .crisis-gentle-reminder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(164, 183, 146, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .crisis-gentle-reminder h4 {
+            color: var(--sage-700);
+            margin-bottom: var(--space-2);
+            font-weight: var(--font-medium);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .crisis-gentle-reminder p {
+            color: var(--sanctuary-gray-700);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .crisis-gentle-reminder .crisis-actions {
+            margin-top: var(--space-3);
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .archive-trigger-warning {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            margin: var(--space-6) 0;
+            display: none;
+        }
+        
+        .archive-trigger-warning.visible {
+            display: block;
+            animation: gentle-fade-in 0.5s ease;
+        }
+        
+        .trigger-warning-content {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+        
+        .trigger-warning-icon {
+            color: var(--crisis-red);
+            font-size: 1.5rem;
+            margin-top: var(--space-1);
+        }
+        
+        .trigger-warning-text h4 {
+            color: var(--crisis-red);
+            font-weight: var(--font-medium);
+            margin-bottom: var(--space-2);
+        }
+        
+        .trigger-warning-text p {
+            color: var(--sanctuary-gray-700);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: var(--space-3);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .archive-header {
+                padding: var(--space-6) 0;
+            }
+            
+            .archive-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-filters {
+                padding: var(--space-4);
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-select {
+                width: 100%;
+            }
+            
+            .insights-dashboard {
+                padding: var(--space-6);
+            }
+            
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bulk-actions {
+                left: var(--space-4);
+                right: var(--space-4);
+                transform: none;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="page-background">
+    <!-- Archive Header with Journey Overview -->
+    <header class="archive-header">
+        <div class="container">
+            <h1 class="text-3xl font-light text-center mb-4">Your Healing Journey</h1>
+            <p class="text-center opacity-90 mb-6">Every entry is a brave step forward in your story of growth and resilience</p>
+            
+            <!-- Journey Statistics -->
+            <div class="archive-stats" id="archiveStats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalEntries">—</div>
+                    <div class="stat-label">Brave Moments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWords">—</div>
+                    <div class="stat-label">Words Written</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentStreak">—</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="averageMood">—</div>
+                    <div class="stat-label">Avg Mood</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Data Intelligence Dashboard -->
+        <section class="insights-dashboard" id="insightsDashboard">
+            <h2 class="text-2xl font-light text-center mb-2">Your Growth Insights</h2>
+            <p class="text-center text-gray-600 mb-6">Patterns and progress from your healing journey, processed privately on your device</p>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">📈</div>
+                    <h3 class="insight-title">Emotional Growth</h3>
+                    <p class="insight-description">Your emotional expressions have become more nuanced over time, showing increased self-awareness.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">🌱</div>
+                    <h3 class="insight-title">Resilience Building</h3>
+                    <p class="insight-description">You've written through 14 challenging moments, demonstrating remarkable inner strength.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">💭</div>
+                    <h3 class="insight-title">Reflection Depth</h3>
+                    <p class="insight-description">Your recent entries show deeper self-reflection and thoughtful processing.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">🎯</div>
+                    <h3 class="insight-title">Consistency Victory</h3>
+                    <p class="insight-description">You've maintained regular writing habits, building a strong foundation for healing.</p>
+                </div>
+            </div>
+            
+            <!-- Mood Trend Visualization -->
+            <div class="mood-chart">
+                <svg width="100%" height="100%" viewBox="0 0 400 160" id="moodChart">
+                    <!-- Chart will be generated by JavaScript -->
+                </svg>
+            </div>
+            
+            <div class="privacy-notice">
+                <span class="privacy-icon">🔒</span>
+                <div>
+                    <div class="privacy-text">
+                        <strong>Your Privacy is Sacred:</strong> All insights are generated on your device. 
+                        Your personal writings never leave your browser or phone. You have complete control over your data.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filtering -->
+        <section class="search-filters">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput"
+                    placeholder="Search your thoughts, feelings, and reflections..."
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div class="filters-container">
+                <select class="filter-select" id="moodFilter">
+                    <option value="">All Moods</option>
+                    <option value="1">Challenging Days</option>
+                    <option value="2">Difficult Moments</option>
+                    <option value="3">Neutral Spaces</option>
+                    <option value="4">Hopeful Times</option>
+                    <option value="5">Joyful Moments</option>
+                </select>
+                
+                <select class="filter-select" id="dateFilter">
+                    <option value="">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="quarter">Last 3 Months</option>
+                    <option value="year">This Year</option>
+                </select>
+                
+                <select class="filter-select" id="lengthFilter">
+                    <option value="">All Lengths</option>
+                    <option value="short">Quick Notes (< 100 words)</option>
+                    <option value="medium">Reflections (100-500 words)</option>
+                    <option value="long">Deep Dives (500+ words)</option>
+                </select>
+                
+                <button class="btn-secondary btn-sm" id="clearFilters">Clear All</button>
+            </div>
+            
+            <div class="filter-chips" id="filterChips">
+                <!-- Active filter chips will appear here -->
+            </div>
+        </section>
+
+        <!-- Enhanced Crisis Support for Archive Review -->
+        <div class="crisis-gentle-reminder">
+            <h4>Reviewing Your Journey with Care</h4>
+            <p>If any entries bring up difficult feelings, remember that support is always available. Your healing journey is honored here, and every entry represents your courage.</p>
+            <div class="crisis-actions">
+                <button onclick="showArchiveCrisisSupport()" class="btn-secondary btn-sm">
+                    🫂 Need Support
+                </button>
+                <button onclick="showBreathingGuidance()" class="btn-secondary btn-sm">
+                    🫁 Breathing Space
+                </button>
+                <a href="tel:988" class="btn-crisis btn-sm">
+                    📞 Crisis Line
+                </a>
+            </div>
+        </div>
+        
+        <!-- Trigger Warning for Difficult Content -->
+        <div id="trigger-warning" class="archive-trigger-warning">
+            <div class="trigger-warning-content">
+                <div class="trigger-warning-icon">⚠️</div>
+                <div class="trigger-warning-text">
+                    <h4>Content Notice</h4>
+                    <p>This search or filter may show entries from difficult periods. Take care of yourself while reviewing these moments.</p>
+                    <div class="crisis-actions">
+                        <button onclick="hideTriggerWarning()" class="btn-secondary btn-sm">
+                            I understand
+                        </button>
+                        <button onclick="contactCrisisSupport()" class="btn-crisis btn-sm">
+                            Get Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entries Grid (Masonry Layout) -->
+        <main class="entries-grid" id="entriesGrid">
+            <!-- Entry cards will be dynamically generated here -->
+        </main>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">📝</div>
+            <h2 class="empty-state-title">Your Archive Awaits</h2>
+            <p class="empty-state-description">
+                Your healing journey begins with a single entry. Each word you write is a step toward understanding, growth, and peace.
+            </p>
+            <button class="btn-primary" onclick="window.location.href='/journal'">
+                Write Your First Entry
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="entries-grid" id="loadingState">
+            <div class="loading-skeleton" style="height: 200px; margin-bottom: 24px;"></div>
+            <div class="loading-skeleton" style="height: 150px; margin-bottom: 24px;"></div>
+            <div class="loading-skeleton" style="height: 180px; margin-bottom: 24px;"></div>
+            <div class="loading-skeleton" style="height: 220px; margin-bottom: 24px;"></div>
+        </div>
+    </div>
+
+    <!-- Bulk Actions Toolbar -->
+    <div class="bulk-actions" id="bulkActions">
+        <span class="selected-count" id="selectedCount">2 entries selected</span>
+        <button class="btn-secondary btn-sm" id="exportSelected">Export</button>
+        <button class="btn-secondary btn-sm" id="archiveSelected">Archive</button>
+        <button class="btn-secondary btn-sm" id="deleteSelected">Delete</button>
+        <button class="btn-secondary btn-sm" id="clearSelection">Clear</button>
+    </div>
+
+    <!-- Crisis Support Floating Button will be automatically created by crisis-support-system.js -->
+
+    <script>
+        // ========================================
+        // SAMPLE DATA & DATA MANAGEMENT
+        // ========================================
+        
+        // Sample entries for demonstration (in real app, would come from localStorage/database)
+        const sampleEntries = [
+            {
+                id: '1',
+                date: new Date('2024-01-15'),
+                mood: 4,
+                content: `Today I felt a deep sense of gratitude for the small moments that brought me joy. The morning coffee tasted better than usual, and I found myself smiling at strangers on my walk. There's something powerful about choosing to see beauty even when life feels challenging. I'm learning that healing isn't about avoiding difficult emotions, but about holding space for all of them with compassion.`,
+                wordCount: 67,
+                tags: ['gratitude', 'mindfulness', 'growth']
+            },
+            {
+                id: '2',
+                date: new Date('2024-01-14'),
+                mood: 2,
+                content: `Had a really tough day today. The anxiety felt overwhelming, and I couldn't shake the feeling that I was disappointing everyone around me. But I'm here, writing this, and that counts for something. My therapist always says that showing up is half the battle. Tomorrow will be different.`,
+                wordCount: 45,
+                tags: ['anxiety', 'self-compassion', 'hope']
+            },
+            {
+                id: '3',
+                date: new Date('2024-01-13'),
+                mood: 5,
+                content: `Breakthrough moment! I had a conversation with my sister that I've been avoiding for months. Instead of letting fear control me, I spoke my truth with love and vulnerability. She responded with such grace and understanding. I'm learning that authentic connection requires courage, but it's so worth the risk.`,
+                wordCount: 52,
+                tags: ['breakthrough', 'courage', 'family', 'authenticity']
+            },
+            {
+                id: '4',
+                date: new Date('2024-01-12'),
+                mood: 3,
+                content: `Reflecting on patterns in my relationships today. I notice how I tend to give more than I receive, and how that leaves me feeling drained. Setting boundaries isn't selfish - it's necessary for my wellbeing. I'm practicing saying no with kindness and yes with intention.`,
+                wordCount: 48,
+                tags: ['boundaries', 'relationships', 'self-care']
+            },
+            {
+                id: '5',
+                date: new Date('2024-01-11'),
+                mood: 4,
+                content: `Started reading a new book about trauma healing today. It's validating to see my experiences reflected in the pages. I'm not broken - I'm human. My nervous system is doing exactly what it was designed to do to keep me safe. Now I'm learning to communicate with it in a new language of safety and trust.`,
+                wordCount: 58,
+                tags: ['trauma-healing', 'validation', 'nervous-system', 'safety']
+            },
+            {
+                id: '6',
+                date: new Date('2024-01-10'),
+                mood: 1,
+                content: `Everything feels heavy today. The weight of past trauma feels particularly present. I'm trying to remember that healing isn't linear, and difficult days don't mean I'm moving backwards. I'm holding myself with extra gentleness today and trusting that this storm will pass.`,
+                wordCount: 44,
+                tags: ['trauma', 'difficult-day', 'self-compassion', 'non-linear-healing']
+            }
+        ];
+        
+        // State management
+        let allEntries = [...sampleEntries];
+        let filteredEntries = [...sampleEntries];
+        let selectedEntries = new Set();
+        let currentFilters = {
+            search: '',
+            mood: '',
+            date: '',
+            length: ''
+        };
+        
+        // ========================================
+        // PRIVACY-PRESERVING ANALYTICS
+        // ========================================
+        
+        function generateInsights(entries) {
+            const insights = {
+                totalEntries: entries.length,
+                totalWords: entries.reduce((sum, entry) => sum + entry.wordCount, 0),
+                averageMood: entries.length > 0 ? (entries.reduce((sum, entry) => sum + entry.mood, 0) / entries.length).toFixed(1) : 0,
+                currentStreak: calculateWritingStreak(entries),
+                moodTrend: calculateMoodTrend(entries),
+                commonThemes: extractCommonThemes(entries),
+                emotionalGrowth: analyzeEmotionalGrowth(entries)
+            };
+            
+            return insights;
+        }
+        
+        function calculateWritingStreak(entries) {
+            if (entries.length === 0) return 0;
+            
+            const sortedEntries = entries.sort((a, b) => b.date - a.date);
+            let streak = 1;
+            let currentDate = new Date(sortedEntries[0].date);
+            
+            for (let i = 1; i < sortedEntries.length; i++) {
+                const entryDate = new Date(sortedEntries[i].date);
+                const dayDiff = Math.floor((currentDate - entryDate) / (1000 * 60 * 60 * 24));
+                
+                if (dayDiff === 1) {
+                    streak++;
+                    currentDate = entryDate;
+                } else if (dayDiff > 1) {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+        
+        function calculateMoodTrend(entries) {
+            if (entries.length < 2) return [];
+            
+            const sortedEntries = entries.sort((a, b) => a.date - b.date);
+            return sortedEntries.map((entry, index) => ({
+                x: index,
+                y: entry.mood,
+                date: entry.date
+            }));
+        }
+        
+        function extractCommonThemes(entries) {
+            const allTags = entries.flatMap(entry => entry.tags);
+            const tagCounts = {};
+            
+            allTags.forEach(tag => {
+                tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+            
+            return Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([tag, count]) => ({ tag, count }));
+        }
+        
+        function analyzeEmotionalGrowth(entries) {
+            const recentEntries = entries.slice(-10);
+            const earlyEntries = entries.slice(0, 10);
+            
+            const recentAvg = recentEntries.reduce((sum, e) => sum + e.mood, 0) / recentEntries.length;
+            const earlyAvg = earlyEntries.reduce((sum, e) => sum + e.mood, 0) / earlyEntries.length;
+            
+            return {
+                improvement: recentAvg > earlyAvg,
+                change: recentAvg - earlyAvg
+            };
+        }
+        
+        // ========================================
+        // UI RENDERING FUNCTIONS
+        // ========================================
+        
+        function renderArchiveStats() {
+            const insights = generateInsights(allEntries);
+            
+            document.getElementById('totalEntries').textContent = insights.totalEntries;
+            document.getElementById('totalWords').textContent = insights.totalWords.toLocaleString();
+            document.getElementById('currentStreak').textContent = insights.currentStreak;
+            document.getElementById('averageMood').textContent = insights.averageMood;
+        }
+        
+        function renderMoodChart() {
+            const insights = generateInsights(allEntries);
+            const chart = document.getElementById('moodChart');
+            const trendData = insights.moodTrend;
+            
+            if (trendData.length < 2) return;
+            
+            const width = 400;
+            const height = 160;
+            const padding = 20;
+            
+            const xScale = (width - 2 * padding) / (trendData.length - 1);
+            const yScale = (height - 2 * padding) / 4; // Mood scale 1-5
+            
+            // Clear previous content
+            chart.innerHTML = '';
+            
+            // Create path for line
+            const pathData = trendData.map((point, index) => {
+                const x = padding + index * xScale;
+                const y = height - padding - (point.y - 1) * yScale;
+                return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+            }).join(' ');
+            
+            // Add line
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', pathData);
+            path.setAttribute('class', 'chart-line');
+            chart.appendChild(path);
+            
+            // Add dots
+            trendData.forEach((point, index) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                const x = padding + index * xScale;
+                const y = height - padding - (point.y - 1) * yScale;
+                
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('class', 'chart-dot');
+                chart.appendChild(circle);
+            });
+        }
+        
+        function renderEntryCard(entry) {
+            const card = document.createElement('div');
+            card.className = 'entry-card animate-gentle-fade';
+            card.dataset.entryId = entry.id;
+            
+            // Check for crisis content and add appropriate styling
+            const riskLevel = analyzeEntryForCrisis(entry);
+            if (riskLevel > 0) {
+                card.dataset.riskLevel = riskLevel;
+                card.style.borderLeftColor = riskLevel >= 2 ? 'var(--crisis-red)' : 'var(--crisis-amber)';
+                card.style.borderLeftWidth = '3px';
+            }
+            
+            const formatDate = (date) => {
+                return new Intl.DateTimeFormat('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                }).format(date);
+            };
+            
+            const getMoodText = (mood) => {
+                const moods = {
+                    1: 'Challenging',
+                    2: 'Difficult',
+                    3: 'Neutral',
+                    4: 'Hopeful',
+                    5: 'Joyful'
+                };
+                return moods[mood] || 'Unknown';
+            };
+            
+            card.innerHTML = `
+                <div class="entry-checkbox">
+                    <div class="custom-checkbox" onclick="toggleEntrySelection('${entry.id}', event)">
+                        <span style="display: none;">✓</span>
+                    </div>
+                </div>
+                
+                <div class="entry-header">
+                    <div class="entry-date">${formatDate(entry.date)}</div>
+                    <div class="entry-mood">
+                        <span class="mood-indicator mood-${entry.mood}"></span>
+                        <span class="text-xs text-gray-600">${getMoodText(entry.mood)}</span>
+                    </div>
+                </div>
+                
+                <div class="entry-content">
+                    <p class="entry-preview">${entry.content}</p>
+                </div>
+                
+                <div class="entry-meta">
+                    <div class="entry-wordcount">
+                        <span>📝</span>
+                        <span>${entry.wordCount} words</span>
+                    </div>
+                    <div class="entry-tags">
+                        ${entry.tags.map(tag => `<span class="entry-tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Add click handler for full entry view
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.entry-checkbox')) {
+                    openEntryModal(entry);
+                }
+            });
+            
+            return card;
+        }
+        
+        function renderEntries() {
+            const grid = document.getElementById('entriesGrid');
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Show loading
+            loadingState.style.display = 'block';
+            grid.style.display = 'none';
+            emptyState.style.display = 'none';
+            
+            // Simulate loading delay for smooth experience
+            setTimeout(() => {
+                loadingState.style.display = 'none';
+                
+                if (filteredEntries.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                }
+                
+                grid.innerHTML = '';
+                grid.style.display = 'block';
+                
+                filteredEntries.forEach(entry => {
+                    const card = renderEntryCard(entry);
+                    grid.appendChild(card);
+                });
+            }, 300);
+        }
+        
+        // ========================================
+        // CRISIS-AWARE CONTENT ANALYSIS
+        // ========================================
+        
+        function analyzeEntryForCrisis(entry) {
+            const crisisKeywords = {
+                immediate: ['suicide', 'kill myself', 'end it all', 'better off dead', 'want to die'],
+                warning: ['hopeless', 'worthless', 'can\'t go on', 'trapped', 'burden'],
+                difficult: ['depression', 'anxiety', 'panic', 'trauma', 'abuse']
+            };
+            
+            const content = entry.content.toLowerCase();
+            let riskLevel = 0;
+            
+            if (crisisKeywords.immediate.some(keyword => content.includes(keyword))) {
+                riskLevel = 3;
+            } else if (crisisKeywords.warning.some(keyword => content.includes(keyword))) {
+                riskLevel = 2;
+            } else if (crisisKeywords.difficult.some(keyword => content.includes(keyword))) {
+                riskLevel = 1;
+            }
+            
+            return riskLevel;
+        }
+        
+        function checkFilterForTriggers() {
+            const hasLowMoodFilter = currentFilters.mood === '1' || currentFilters.mood === '2';
+            const hasRecentFilter = currentFilters.date === 'today' || currentFilters.date === 'week';
+            const hasSearchForDifficultContent = currentFilters.search && 
+                ['crisis', 'suicide', 'depression', 'anxiety', 'trauma', 'hopeless', 'worthless'].some(term => 
+                    currentFilters.search.toLowerCase().includes(term)
+                );
+            
+            if ((hasLowMoodFilter && hasRecentFilter) || hasSearchForDifficultContent) {
+                showTriggerWarning();
+            }
+        }
+        
+        function showTriggerWarning() {
+            const warning = document.getElementById('trigger-warning');
+            warning.classList.add('visible');
+            
+            // Announce to screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.style.position = 'absolute';
+            announcement.style.left = '-10000px';
+            announcement.textContent = 'Content warning: This search may show entries from difficult periods. Support is available.';
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                announcement.remove();
+            }, 1000);
+        }
+        
+        function hideTriggerWarning() {
+            const warning = document.getElementById('trigger-warning');
+            warning.classList.remove('visible');
+        }
+        
+        function contactCrisisSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.openCrisisSupport();
+            } else {
+                window.location.href = 'tel:988';
+            }
+        }
+        
+        function showArchiveCrisisSupport() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.showCrisisModal({
+                    type: 'support',
+                    title: 'Support while reviewing your journey',
+                    message: 'Reviewing past entries can bring up strong emotions. You\'re brave for doing this healing work.',
+                    showResources: true,
+                    showTechniques: true,
+                    actions: [
+                        { text: 'Call 988', action: 'call988' },
+                        { text: 'Breathing exercise', action: 'grounding' },
+                        { text: 'Close', action: 'dismiss' }
+                    ]
+                });
+            }
+        }
+        
+        function showBreathingGuidance() {
+            if (window.ALCHMCrisis) {
+                window.ALCHMCrisis.startGuidedTechnique('Box Breathing');
+            } else {
+                alert('Take a moment to breathe slowly and deeply. In for 4, hold for 4, out for 4, hold for 4.');
+            }
+        }
+        
+        // ========================================
+        // FILTERING AND SEARCH
+        // ========================================
+        
+        function applyFilters() {
+            filteredEntries = allEntries.filter(entry => {
+                // Search filter
+                if (currentFilters.search) {
+                    const searchTerm = currentFilters.search.toLowerCase();
+                    const searchable = `${entry.content} ${entry.tags.join(' ')}`.toLowerCase();
+                    if (!searchable.includes(searchTerm)) return false;
+                }
+                
+                // Mood filter
+                if (currentFilters.mood && entry.mood !== parseInt(currentFilters.mood)) {
+                    return false;
+                }
+                
+                // Date filter
+                if (currentFilters.date) {
+                    const now = new Date();
+                    const entryDate = new Date(entry.date);
+                    
+                    switch (currentFilters.date) {
+                        case 'today':
+                            if (entryDate.toDateString() !== now.toDateString()) return false;
+                            break;
+                        case 'week':
+                            const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                            if (entryDate < weekAgo) return false;
+                            break;
+                        case 'month':
+                            const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                            if (entryDate < monthAgo) return false;
+                            break;
+                        case 'quarter':
+                            const quarterAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+                            if (entryDate < quarterAgo) return false;
+                            break;
+                        case 'year':
+                            if (entryDate.getFullYear() !== now.getFullYear()) return false;
+                            break;
+                    }
+                }
+                
+                // Length filter
+                if (currentFilters.length) {
+                    switch (currentFilters.length) {
+                        case 'short':
+                            if (entry.wordCount >= 100) return false;
+                            break;
+                        case 'medium':
+                            if (entry.wordCount < 100 || entry.wordCount >= 500) return false;
+                            break;
+                        case 'long':
+                            if (entry.wordCount < 500) return false;
+                            break;
+                    }
+                }
+                
+                return true;
+            });
+            
+            updateFilterChips();
+            checkFilterForTriggers();
+            renderEntries();
+        }
+        
+        function updateFilterChips() {
+            const chipsContainer = document.getElementById('filterChips');
+            chipsContainer.innerHTML = '';
+            
+            Object.entries(currentFilters).forEach(([key, value]) => {
+                if (value) {
+                    const chip = document.createElement('div');
+                    chip.className = 'filter-chip';
+                    
+                    let displayValue = value;
+                    if (key === 'mood') {
+                        const moods = { '1': 'Challenging', '2': 'Difficult', '3': 'Neutral', '4': 'Hopeful', '5': 'Joyful' };
+                        displayValue = moods[value];
+                    }
+                    
+                    chip.innerHTML = `
+                        ${key}: ${displayValue}
+                        <button class="filter-chip-remove" onclick="removeFilter('${key}')">×</button>
+                    `;
+                    
+                    chipsContainer.appendChild(chip);
+                }
+            });
+        }
+        
+        function removeFilter(filterType) {
+            currentFilters[filterType] = '';
+            
+            // Update UI
+            if (filterType === 'search') {
+                document.getElementById('searchInput').value = '';
+            } else {
+                document.getElementById(filterType + 'Filter').value = '';
+            }
+            
+            applyFilters();
+        }
+        
+        function clearAllFilters() {
+            currentFilters = { search: '', mood: '', date: '', length: '' };
+            
+            // Reset UI
+            document.getElementById('searchInput').value = '';
+            document.getElementById('moodFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            document.getElementById('lengthFilter').value = '';
+            
+            applyFilters();
+        }
+        
+        // ========================================
+        // BULK SELECTION AND ACTIONS
+        // ========================================
+        
+        function toggleEntrySelection(entryId, event) {
+            event.stopPropagation();
+            
+            const card = document.querySelector(`[data-entry-id="${entryId}"]`);
+            const checkbox = card.querySelector('.custom-checkbox');
+            const checkmark = checkbox.querySelector('span');
+            
+            if (selectedEntries.has(entryId)) {
+                selectedEntries.delete(entryId);
+                card.classList.remove('selected');
+                checkbox.classList.remove('checked');
+                checkmark.style.display = 'none';
+            } else {
+                selectedEntries.add(entryId);
+                card.classList.add('selected');
+                checkbox.classList.add('checked');
+                checkmark.style.display = 'block';
+            }
+            
+            updateBulkActionsToolbar();
+        }
+        
+        function updateBulkActionsToolbar() {
+            const toolbar = document.getElementById('bulkActions');
+            const countElement = document.getElementById('selectedCount');
+            
+            if (selectedEntries.size > 0) {
+                toolbar.classList.add('visible');
+                countElement.textContent = `${selectedEntries.size} ${selectedEntries.size === 1 ? 'entry' : 'entries'} selected`;
+            } else {
+                toolbar.classList.remove('visible');
+            }
+        }
+        
+        function clearSelection() {
+            selectedEntries.clear();
+            document.querySelectorAll('.entry-card.selected').forEach(card => {
+                card.classList.remove('selected');
+                const checkbox = card.querySelector('.custom-checkbox');
+                const checkmark = checkbox.querySelector('span');
+                checkbox.classList.remove('checked');
+                checkmark.style.display = 'none';
+            });
+            updateBulkActionsToolbar();
+        }
+        
+        // ========================================
+        // MODAL AND FULL ENTRY VIEW
+        // ========================================
+        
+        function openEntryModal(entry) {
+            // In a real app, this would open a modal or navigate to a detailed view
+            console.log('Opening entry:', entry);
+            
+            // For now, just show an alert with the full content
+            alert(`Full Entry from ${entry.date.toDateString()}:\n\n${entry.content}`);
+        }
+        
+        // ========================================
+        // EVENT LISTENERS AND INITIALIZATION
+        // ========================================
+        
+        function initializeEventListeners() {
+            // Search input
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    currentFilters.search = e.target.value;
+                    applyFilters();
+                }, 300);
+            });
+            
+            // Filter selects
+            document.getElementById('moodFilter').addEventListener('change', (e) => {
+                currentFilters.mood = e.target.value;
+                applyFilters();
+            });
+            
+            document.getElementById('dateFilter').addEventListener('change', (e) => {
+                currentFilters.date = e.target.value;
+                applyFilters();
+            });
+            
+            document.getElementById('lengthFilter').addEventListener('change', (e) => {
+                currentFilters.length = e.target.value;
+                applyFilters();
+            });
+            
+            // Clear filters button
+            document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+            
+            // Bulk action buttons
+            document.getElementById('exportSelected').addEventListener('click', () => {
+                alert('Export functionality would be implemented here');
+            });
+            
+            document.getElementById('archiveSelected').addEventListener('click', () => {
+                alert('Archive functionality would be implemented here');
+            });
+            
+            document.getElementById('deleteSelected').addEventListener('click', () => {
+                if (confirm('Are you sure you want to delete the selected entries? This action cannot be undone.')) {
+                    // Delete logic would go here
+                    alert('Delete functionality would be implemented here');
+                }
+            });
+            
+            document.getElementById('clearSelection').addEventListener('click', clearSelection);
+        }
+        
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        
+        function initializeArchive() {
+            // Render initial state
+            renderArchiveStats();
+            renderMoodChart();
+            renderEntries();
+            
+            // Setup event listeners
+            initializeEventListeners();
+            
+            // Add gentle fade-in animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.6s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        }
+        
+        // Start the application
+        document.addEventListener('DOMContentLoaded', initializeArchive);
+        
+        // ========================================
+        // REDUCED MOTION SUPPORT
+        // ========================================
+        
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--duration-normal', '0.01ms');
+            document.documentElement.style.setProperty('--duration-fast', '0.01ms');
+            document.documentElement.style.setProperty('--duration-slow', '0.01ms');
+        }
+    </script>
+</body>
+</html>

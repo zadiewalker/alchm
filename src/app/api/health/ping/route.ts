@@ -1,22 +1,23 @@
-// Simple ping endpoint for ALCHM health checks
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  return NextResponse.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    service: 'alchm',
-    version: process.env.NEXT_PUBLIC_APP_VERSION || 'unknown'
-  })
-}
-
-export async function HEAD(request: NextRequest) {
-  return new NextResponse(null, { 
-    status: 200,
-    headers: {
-      'X-Service': 'alchm',
-      'X-Status': 'ok',
-      'X-Timestamp': new Date().toISOString()
-    }
-  })
+/**
+ * Health check endpoint for ALCHM
+ * Returns system status for monitoring and validation
+ */
+export async function GET() {
+  try {
+    return NextResponse.json({
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      version: '1.0.0',
+      service: 'ALCHM API',
+      uptime: process.uptime(),
+    }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({
+      status: 'error',
+      error: 'Health check failed',
+      timestamp: new Date().toISOString(),
+    }, { status: 500 });
+  }
 }

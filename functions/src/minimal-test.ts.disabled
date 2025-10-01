@@ -1,0 +1,10 @@
+import * as functions from 'firebase-functions';
+
+export const minimalTest = functions
+  .https.onRequest(async (req, res) => {
+    res.status(200).json({ 
+      message: 'Minimal test function works!',
+      timestamp: new Date().toISOString(),
+      method: req.method
+    });
+  });

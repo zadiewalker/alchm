@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crisis Support Box Centering Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sage: {
+              300: '#b8c6a4',
+              400: '#a4b792',
+              500: '#8fa37c',
+              600: '#7a9066',
+              700: '#647757'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .test-container {
+      border: 2px dashed #ff0000;
+      position: relative;
+    }
+    .center-guide {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      background: #ff0000;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    .center-guide::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 1px;
+      background: #ff0000;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-sage-400 via-sage-500 to-sage-600 min-h-screen">
+  <div class="p-8">
+    <h1 class="text-white text-2xl font-bold mb-8 text-center">Crisis Support Box Centering Test</h1>
+    
+    <!-- Test Cases for Different Screen Sizes -->
+    <div class="grid gap-8">
+      
+      <!-- Desktop Size Test -->
+      <div class="test-container bg-gray-800 p-4 rounded-lg">
+        <div class="center-guide"></div>
+        <h2 class="text-white text-lg mb-4">Desktop Size (1200px)</h2>
+        <div style="width: 1200px; margin: 0 auto; height: 200px; position: relative;">
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <div class="max-w-3xl mx-auto">
+              <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/15 flex flex-col items-center justify-center text-center">
+                <p class="text-white font-medium text-xs mb-4 text-center leading-relaxed">
+                  Crisis Support Available 24/7
+                </p>
+                <div class="mb-4 flex justify-center w-full">
+                  <a 
+                    href="tel:988"
+                    class="bg-sage-300 hover:bg-sage-200 text-white px-6 py-3 text-sm rounded-lg font-medium transition-all duration-300 border border-white/20 hover:border-white/30 shadow-lg hover:shadow-xl flex items-center justify-center min-w-[120px]"
+                  >
+                    Call 988 Now
+                  </a>
+                </div>
+                <p class="text-white/50 text-xs leading-relaxed text-center max-w-lg mx-auto">
+                  ALCHM is a journaling platform, not medical treatment or therapy. Ages 17+. 
+                  <br>
+                  COPPA, GDPR & CCPA compliant. Your data is encrypted and protected.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tablet Size Test -->
+      <div class="test-container bg-gray-800 p-4 rounded-lg">
+        <div class="center-guide"></div>
+        <h2 class="text-white text-lg mb-4">Tablet Size (768px)</h2>
+        <div style="width: 768px; margin: 0 auto; height: 200px; position: relative;">
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <div class="max-w-3xl mx-auto">
+              <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/15 flex flex-col items-center justify-center text-center">
+                <p class="text-white font-medium text-xs mb-4 text-center leading-relaxed">
+                  Crisis Support Available 24/7
+                </p>
+                <div class="mb-4 flex justify-center w-full">
+                  <a 
+                    href="tel:988"
+                    class="bg-sage-300 hover:bg-sage-200 text-white px-6 py-3 text-sm rounded-lg font-medium transition-all duration-300 border border-white/20 hover:border-white/30 shadow-lg hover:shadow-xl flex items-center justify-center min-w-[120px]"
+                  >
+                    Call 988 Now
+                  </a>
+                </div>
+                <p class="text-white/50 text-xs leading-relaxed text-center max-w-lg mx-auto">
+                  ALCHM is a journaling platform, not medical treatment or therapy. Ages 17+. 
+                  <br>
+                  COPPA, GDPR & CCPA compliant. Your data is encrypted and protected.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Size Test -->
+      <div class="test-container bg-gray-800 p-4 rounded-lg">
+        <div class="center-guide"></div>
+        <h2 class="text-white text-lg mb-4">Mobile Size (375px)</h2>
+        <div style="width: 375px; margin: 0 auto; height: 200px; position: relative;">
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <div class="max-w-3xl mx-auto">
+              <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 transition-all duration-300 hover:bg-white/15 flex flex-col items-center justify-center text-center">
+                <p class="text-white font-medium text-xs mb-4 text-center leading-relaxed">
+                  Crisis Support Available 24/7
+                </p>
+                <div class="mb-4 flex justify-center w-full">
+                  <a 
+                    href="tel:988"
+                    class="bg-sage-300 hover:bg-sage-200 text-white px-6 py-3 text-sm rounded-lg font-medium transition-all duration-300 border border-white/20 hover:border-white/30 shadow-lg hover:shadow-xl flex items-center justify-center min-w-[120px]"
+                  >
+                    Call 988 Now
+                  </a>
+                </div>
+                <p class="text-white/50 text-xs leading-relaxed text-center max-w-lg mx-auto">
+                  ALCHM is a journaling platform, not medical treatment or therapy. Ages 17+. 
+                  <br>
+                  COPPA, GDPR & CCPA compliant. Your data is encrypted and protected.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-8 p-4 bg-green-900 text-white rounded-lg">
+      <h3 class="font-bold mb-2">Centering Validation Checklist:</h3>
+      <ul class="list-disc list-inside space-y-1 text-sm">
+        <li>✅ All text elements should align perfectly with the red center guides</li>
+        <li>✅ "Crisis Support Available 24/7" - centered horizontally</li>
+        <li>✅ "Call 988 Now" button - centered horizontally and vertically within its container</li>
+        <li>✅ Disclaimer text - centered horizontally with max-width constraint</li>
+        <li>✅ All elements maintain proper spacing (4 units = 16px between elements)</li>
+        <li>✅ Button maintains minimum width of 120px for optimal touch target</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Test centering precision
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('a[href="tel:988"]');
+      buttons.forEach(button => {
+        const container = button.parentElement;
+        const containerCenter = container.offsetWidth / 2;
+        const buttonCenter = button.offsetLeft + (button.offsetWidth / 2);
+        const isPerfeectlyCentered = Math.abs(containerCenter - buttonCenter) < 1; // Allow 1px tolerance
+        
+        if (!isPerfeectlyCentered) {
+          button.style.border = '2px solid red';
+          console.warn('Button not perfectly centered:', {
+            containerCenter,
+            buttonCenter,
+            difference: containerCenter - buttonCenter
+          });
+        } else {
+          button.style.border = '2px solid green';
+          console.log('Button perfectly centered ✅');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

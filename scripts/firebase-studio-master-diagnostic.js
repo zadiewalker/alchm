@@ -1,629 +1,754 @@
 #!/usr/bin/env node
 
 /**
- * 🔥 Firebase Studio Master Diagnostic Audit System
- * Award-winning expert debugger for Firebase App Hosting build failures
+ * 🎯 ALCHM Firebase Studio Master Diagnostic System
  * 
- * COMPREHENSIVE ANALYSIS & AUTO-REPAIR SYSTEM
- * - Deep route structure analysis
- * - Next.js configuration validation
- * - Firebase Studio compatibility testing
- * - Automated repair implementation
- * - Build verification & testing
+ * Orchestrates all diagnostic, healing, and monitoring systems for comprehensive
+ * Firebase Studio compliance validation and automated optimization.
+ * 
+ * @version 3.0.0 - Production Ready
+ * @author ALCHM Core Team
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, spawn } = require('child_process');
+const { performance } = require('perf_hooks');
 
 class FirebaseStudioMasterDiagnostic {
   constructor() {
-    this.projectRoot = process.cwd();
-    this.errors = [];
-    this.warnings = [];
-    this.repairs = [];
-    this.analysis = {
-      buildId: 'a-s5vuflksjhy',
-      errorType: 'Firebase Studio Pack Build Failure - Route Layout Missing',
-      criticalIssues: [],
-      routingProblems: [],
-      configurationIssues: [],
-      dependencyWarnings: []
+    this.startTime = performance.now();
+    this.mode = this.parseArguments();
+    this.results = {
+      diagnostic: null,
+      healing: null,
+      monitoring: null,
+      overall: null
     };
     
-    console.log('🔥 Firebase Studio Master Diagnostic Audit System');
-    console.log('══════════════════════════════════════════════════');
-    console.log(`📍 Project: ALCHM Digital Sanctuary`);
-    console.log(`🆔 Build ID: ${this.analysis.buildId}`);
-    console.log(`📋 Error Type: ${this.analysis.errorType}`);
-    console.log('══════════════════════════════════════════════════\n');
+    this.log('🎯 Firebase Studio Master Diagnostic System initialized');
+    this.log(`Mode: ${this.mode.name}`, 'info');
   }
 
-  // Phase 1: Critical Error Analysis
-  async analyzeCriticalErrors() {
-    console.log('🔍 PHASE 1: Critical Error Analysis');
-    console.log('─'.repeat(50));
-
-    // Analyze specific error: (app)/journal/page.tsx doesn't have a root layout
-    const journalPageError = {
-      type: 'MISSING_ROOT_LAYOUT',
-      route: '/journal',
-      file: '(app)/journal/page.tsx',
-      severity: 'CRITICAL',
-      description: 'Next.js requires root layout for all page routes'
+  parseArguments() {
+    const args = process.argv.slice(2);
+    
+    const modes = {
+      'full': {
+        name: 'Full Diagnostic Suite',
+        description: 'Complete diagnostic, healing, and validation',
+        runDiagnostic: true,
+        runHealing: true,
+        runMonitoring: false,
+        autoFix: true
+      },
+      'diagnostic': {
+        name: 'Diagnostic Only',
+        description: 'Run comprehensive diagnostic analysis',
+        runDiagnostic: true,
+        runHealing: false,
+        runMonitoring: false,
+        autoFix: false
+      },
+      'heal': {
+        name: 'Auto-Healing',
+        description: 'Diagnostic + automated healing',
+        runDiagnostic: true,
+        runHealing: true,
+        runMonitoring: false,
+        autoFix: true
+      },
+      'monitor': {
+        name: 'Continuous Monitoring',
+        description: 'Start continuous monitoring system',
+        runDiagnostic: false,
+        runHealing: false,
+        runMonitoring: true,
+        autoFix: true
+      },
+      'pre-deploy': {
+        name: 'Pre-Deployment Validation',
+        description: 'Critical pre-deployment checks',
+        runDiagnostic: true,
+        runHealing: true,
+        runMonitoring: false,
+        autoFix: true,
+        strict: true
+      }
     };
-
-    console.log(`❌ CRITICAL: ${journalPageError.description}`);
-    console.log(`   Route: ${journalPageError.route}`);
-    console.log(`   File: ${journalPageError.file}`);
     
-    this.analysis.criticalIssues.push(journalPageError);
-
-    // Analyze next.config.js module issues
-    const nextConfigError = {
-      type: 'MODULE_PARSING_ERROR',
-      file: 'next.config.js',
-      severity: 'HIGH',
-      issues: [
-        'MODULE_TYPELESS_PACKAGE_JSON Warning',
-        'Invalid next.config.js options: __esModule, default',
-        'Firebase Studio overrides causing ES module conflicts'
-      ]
-    };
-
-    console.log(`⚠️  HIGH: Next.js Configuration Issues`);
-    nextConfigError.issues.forEach(issue => console.log(`   • ${issue}`));
+    const modeArg = args.find(arg => !arg.startsWith('--')) || 'full';
+    const mode = modes[modeArg] || modes['full'];
     
-    this.analysis.configurationIssues.push(nextConfigError);
-
-    console.log('✅ Critical error analysis complete\n');
+    // Parse additional flags
+    mode.verbose = args.includes('--verbose');
+    mode.dryRun = args.includes('--dry-run');
+    mode.force = args.includes('--force');
+    mode.skipBackup = args.includes('--skip-backup');
+    
+    return mode;
   }
 
-  // Phase 2: Route Structure Deep Scan
-  async analyzeRouteStructure() {
-    console.log('🗂️  PHASE 2: Route Structure Deep Scan');
-    console.log('─'.repeat(50));
-
-    const appDir = path.join(this.projectRoot, 'src/app');
-    const routeAnalysis = this.scanRouteStructure(appDir);
-
-    console.log(`📁 App Directory: ${appDir}`);
-    console.log(`📊 Route Analysis Results:`);
+  log(message, level = 'info') {
+    const timestamp = new Date().toISOString();
+    const prefix = {
+      'info': '🎯',
+      'success': '✅',
+      'warning': '⚠️',
+      'error': '❌',
+      'critical': '🚨',
+      'step': '📋'
+    }[level] || '🎯';
     
-    // Check for missing journal page
-    const journalRoutes = routeAnalysis.routes.filter(r => r.includes('journal'));
-    console.log(`🔍 Journal Routes Found: ${journalRoutes.length}`);
-    journalRoutes.forEach(route => console.log(`   📄 ${route}`));
-
-    // Identify routing problems
-    const routingProblems = [];
-
-    // Problem 1: Missing journal page in main app directory
-    const mainJournalPage = path.join(appDir, 'journal/page.tsx');
-    if (!fs.existsSync(mainJournalPage)) {
-      routingProblems.push({
-        type: 'MISSING_ROUTE_PAGE',
-        path: 'src/app/journal/page.tsx',
-        severity: 'CRITICAL',
-        description: 'Journal route referenced but page file missing'
-      });
-      console.log(`❌ MISSING: src/app/journal/page.tsx`);
-    }
-
-    // Problem 2: Check for journals vs journal confusion
-    const journalsPage = path.join(appDir, 'journals/page.tsx');
-    if (fs.existsSync(journalsPage)) {
-      console.log(`✅ FOUND: src/app/journals/page.tsx (alternative route)`);
-      routingProblems.push({
-        type: 'ROUTE_NAME_CONFUSION',
-        existing: 'src/app/journals/page.tsx',
-        missing: 'src/app/journal/page.tsx',
-        severity: 'HIGH',
-        description: 'Journal vs Journals naming inconsistency causing routing errors'
-      });
-    }
-
-    // Problem 3: Locale-based routing conflicts
-    const localeDisabled = path.join(appDir, '[locale].disabled');
-    if (fs.existsSync(localeDisabled)) {
-      console.log(`🔍 LOCALE CONFLICT: [locale].disabled directory exists`);
-      routingProblems.push({
-        type: 'LOCALE_ROUTING_CONFLICT',
-        path: 'src/app/[locale].disabled',
-        severity: 'MEDIUM',
-        description: 'Disabled locale routes may cause build confusion'
-      });
-    }
-
-    this.analysis.routingProblems = routingProblems;
-    console.log(`\n📊 Routing Problems Identified: ${routingProblems.length}`);
-    console.log('✅ Route structure analysis complete\n');
+    console.log(`${prefix} [${timestamp}] ${message}`);
   }
 
-  // Phase 3: Firebase Studio Configuration Analysis
-  async analyzeFirebaseStudioConfig() {
-    console.log('🔧 PHASE 3: Firebase Studio Configuration Analysis');
-    console.log('─'.repeat(50));
-
-    // Analyze current configurations
-    const configs = {
-      nextConfig: this.analyzeNextConfig(),
-      appHosting: this.analyzeAppHostingYaml(),
-      packageJson: this.analyzePackageJson()
-    };
-
-    console.log('📋 Configuration Analysis:');
+  // 1. COMPREHENSIVE DIAGNOSTIC PHASE
+  async runDiagnosticPhase() {
+    if (!this.mode.runDiagnostic) return null;
     
-    // Next.js Config Analysis
-    console.log(`\n🔹 next.config.js:`);
-    console.log(`   Output Mode: ${configs.nextConfig.outputMode}`);
-    console.log(`   Module Format: ${configs.nextConfig.moduleFormat}`);
-    console.log(`   Firebase Compatible: ${configs.nextConfig.firebaseCompatible ? '✅' : '❌'}`);
-
-    // App Hosting YAML Analysis
-    console.log(`\n🔹 apphosting.yaml:`);
-    console.log(`   Runtime: ${configs.appHosting.runtime}`);
-    console.log(`   Configuration Type: ${configs.appHosting.configType}`);
-    console.log(`   Build Commands: ${configs.appHosting.hasBuildCommands ? '✅' : '❌'}`);
-
-    // Package.json Analysis
-    console.log(`\n🔹 package.json:`);
-    console.log(`   Module Type: ${configs.packageJson.moduleType}`);
-    console.log(`   Next.js Version: ${configs.packageJson.nextVersion}`);
-    console.log(`   Firebase Compatible: ${configs.packageJson.firebaseCompatible ? '✅' : '❌'}`);
-
-    this.analysis.configurationAnalysis = configs;
-    console.log('\n✅ Configuration analysis complete\n');
-  }
-
-  // Phase 4: Automated Repair Implementation
-  async implementAutomatedRepairs() {
-    console.log('🛠️  PHASE 4: Automated Repair Implementation');
-    console.log('─'.repeat(50));
-
-    const repairs = [];
-
-    // Repair 1: Create missing journal page
-    if (this.analysis.routingProblems.some(p => p.type === 'MISSING_ROUTE_PAGE')) {
-      console.log('🔧 Repair 1: Creating missing journal page...');
-      const journalPageRepair = await this.createJournalPageRepair();
-      repairs.push(journalPageRepair);
-    }
-
-    // Repair 2: Fix route naming inconsistency
-    if (this.analysis.routingProblems.some(p => p.type === 'ROUTE_NAME_CONFUSION')) {
-      console.log('🔧 Repair 2: Resolving journal/journals naming conflict...');
-      const namingRepair = await this.fixRouteNamingConflict();
-      repairs.push(namingRepair);
-    }
-
-    // Repair 3: Firebase Studio optimized configuration
-    console.log('🔧 Repair 3: Implementing Firebase Studio optimized config...');
-    const configRepair = await this.implementFirebaseStudioOptimizedConfig();
-    repairs.push(configRepair);
-
-    // Repair 4: Clean up dependency warnings
-    console.log('🔧 Repair 4: Addressing dependency warnings...');
-    const dependencyRepair = await this.cleanupDependencyWarnings();
-    repairs.push(dependencyRepair);
-
-    this.repairs = repairs;
-    console.log(`\n✅ Implemented ${repairs.length} automated repairs\n`);
-  }
-
-  // Phase 5: Build Verification & Testing
-  async verifyBuildConfiguration() {
-    console.log('🧪 PHASE 5: Build Verification & Testing');
-    console.log('─'.repeat(50));
-
-    const verificationResults = {
-      routeStructure: await this.verifyRouteStructure(),
-      configurationValid: await this.verifyConfiguration(),
-      buildCompatibility: await this.verifyBuildCompatibility(),
-      firebaseStudioReady: false
-    };
-
-    console.log('📊 Verification Results:');
-    console.log(`   Route Structure: ${verificationResults.routeStructure ? '✅' : '❌'}`);
-    console.log(`   Configuration: ${verificationResults.configurationValid ? '✅' : '❌'}`);
-    console.log(`   Build Compatibility: ${verificationResults.buildCompatibility ? '✅' : '❌'}`);
-
-    verificationResults.firebaseStudioReady = 
-      verificationResults.routeStructure && 
-      verificationResults.configurationValid && 
-      verificationResults.buildCompatibility;
-
-    console.log(`\n🚀 Firebase Studio Ready: ${verificationResults.firebaseStudioReady ? '✅' : '❌'}`);
-
-    return verificationResults;
-  }
-
-  // Helper Methods
-  scanRouteStructure(dir, routes = []) {
-    const items = fs.readdirSync(dir);
+    this.log('🔍 Starting Comprehensive Diagnostic Phase...', 'step');
     
-    for (const item of items) {
-      const fullPath = path.join(dir, item);
-      const stat = fs.statSync(fullPath);
+    try {
+      // Run the ultimate diagnostic system
+      const diagnosticResult = await this.executeDiagnosticSystem();
       
-      if (stat.isDirectory()) {
-        this.scanRouteStructure(fullPath, routes);
-      } else if (item === 'page.tsx' || item === 'page.jsx') {
-        const relativePath = path.relative(path.join(this.projectRoot, 'src/app'), fullPath);
-        routes.push(relativePath);
+      this.results.diagnostic = {
+        status: 'completed',
+        ...diagnosticResult
+      };
+      
+      this.log(`✅ Diagnostic phase completed - Score: ${diagnosticResult.complianceScore}/100`, 'success');
+      return this.results.diagnostic;
+      
+    } catch (error) {
+      this.log(`❌ Diagnostic phase failed: ${error.message}`, 'error');
+      this.results.diagnostic = {
+        status: 'failed',
+        error: error.message
+      };
+      
+      if (this.mode.strict) {
+        throw error;
+      }
+      
+      return this.results.diagnostic;
+    }
+  }
+
+  async executeDiagnosticSystem() {
+    // Execute the ultimate diagnostic system
+    return new Promise((resolve, reject) => {
+      const args = ['node', 'scripts/ultimate-firebase-studio-diagnostic-system.js'];
+      if (this.mode.autoFix) args.push('--auto-heal');
+      if (this.mode.verbose) args.push('--verbose');
+      
+      const diagnosticProcess = spawn(args[0], args.slice(1), {
+        stdio: 'pipe',
+        cwd: process.cwd()
+      });
+      
+      let output = '';
+      let errorOutput = '';
+      
+      diagnosticProcess.stdout.on('data', (data) => {
+        output += data.toString();
+        if (this.mode.verbose) {
+          process.stdout.write(data);
+        }
+      });
+      
+      diagnosticProcess.stderr.on('data', (data) => {
+        errorOutput += data.toString();
+        if (this.mode.verbose) {
+          process.stderr.write(data);
+        }
+      });
+      
+      diagnosticProcess.on('close', (code) => {
+        if (code === 0) {
+          resolve(this.parseDiagnosticOutput(output));
+        } else {
+          reject(new Error(`Diagnostic system failed with code ${code}: ${errorOutput}`));
+        }
+      });
+      
+      diagnosticProcess.on('error', (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  parseDiagnosticOutput(output) {
+    // Parse the diagnostic output to extract results
+    const lines = output.split('\n');
+    let complianceScore = 0;
+    let criticalIssues = 0;
+    let warningIssues = 0;
+    let fixesApplied = 0;
+    
+    for (const line of lines) {
+      if (line.includes('Compliance:') && line.includes('/100')) {
+        const match = line.match(/(\d+)\/100/);
+        if (match) complianceScore = parseInt(match[1]);
+      }
+      
+      if (line.includes('Critical Issues:')) {
+        const match = line.match(/Critical Issues:\s*(\d+)/);
+        if (match) criticalIssues = parseInt(match[1]);
+      }
+      
+      if (line.includes('Warnings:')) {
+        const match = line.match(/Warnings:\s*(\d+)/);
+        if (match) warningIssues = parseInt(match[1]);
+      }
+      
+      if (line.includes('Auto-fixes Applied:')) {
+        const match = line.match(/Auto-fixes Applied:\s*(\d+)/);
+        if (match) fixesApplied = parseInt(match[1]);
       }
     }
     
-    return { routes };
+    return {
+      complianceScore,
+      criticalIssues,
+      warningIssues,
+      fixesApplied,
+      output
+    };
   }
 
-  analyzeNextConfig() {
-    const configPath = path.join(this.projectRoot, 'next.config.js');
-    if (!fs.existsSync(configPath)) {
-      return { exists: false };
+  // 2. AUTO-HEALING PHASE
+  async runHealingPhase() {
+    if (!this.mode.runHealing) return null;
+    
+    this.log('🔧 Starting Auto-Healing Phase...', 'step');
+    
+    try {
+      const healingResult = await this.executeHealingSystem();
+      
+      this.results.healing = {
+        status: 'completed',
+        ...healingResult
+      };
+      
+      this.log(`✅ Healing phase completed - ${healingResult.successful}/${healingResult.totalActions} fixes applied`, 'success');
+      return this.results.healing;
+      
+    } catch (error) {
+      this.log(`❌ Healing phase failed: ${error.message}`, 'error');
+      this.results.healing = {
+        status: 'failed',
+        error: error.message
+      };
+      
+      if (this.mode.strict) {
+        throw error;
+      }
+      
+      return this.results.healing;
     }
-
-    const content = fs.readFileSync(configPath, 'utf8');
-    return {
-      exists: true,
-      outputMode: content.includes('output:') ? 
-        (content.includes('standalone') ? 'standalone' : 'export') : 'default',
-      moduleFormat: content.includes('module.exports') ? 'commonjs' : 'es6',
-      firebaseCompatible: content.includes('standalone') && content.includes('module.exports')
-    };
   }
 
-  analyzeAppHostingYaml() {
-    const yamlPath = path.join(this.projectRoot, 'apphosting.yaml');
-    if (!fs.existsSync(yamlPath)) {
-      return { exists: false };
+  async executeHealingSystem() {
+    return new Promise((resolve, reject) => {
+      const args = ['node', 'scripts/firebase-studio-auto-healer.js'];
+      if (this.mode.dryRun) args.push('--dry-run');
+      if (this.mode.verbose) args.push('--verbose');
+      
+      const healingProcess = spawn(args[0], args.slice(1), {
+        stdio: 'pipe',
+        cwd: process.cwd()
+      });
+      
+      let output = '';
+      let errorOutput = '';
+      
+      healingProcess.stdout.on('data', (data) => {
+        output += data.toString();
+        if (this.mode.verbose) {
+          process.stdout.write(data);
+        }
+      });
+      
+      healingProcess.stderr.on('data', (data) => {
+        errorOutput += data.toString();
+        if (this.mode.verbose) {
+          process.stderr.write(data);
+        }
+      });
+      
+      healingProcess.on('close', (code) => {
+        if (code === 0 || code === null) {
+          resolve(this.parseHealingOutput(output));
+        } else {
+          reject(new Error(`Healing system failed with code ${code}: ${errorOutput}`));
+        }
+      });
+      
+      healingProcess.on('error', (error) => {
+        reject(error);
+      });
+    });
+  }
+
+  parseHealingOutput(output) {
+    const lines = output.split('\n');
+    let totalActions = 0;
+    let successful = 0;
+    let failed = 0;
+    
+    for (const line of lines) {
+      if (line.includes('Total Actions:')) {
+        const match = line.match(/Total Actions:\s*(\d+)/);
+        if (match) totalActions = parseInt(match[1]);
+      }
+      
+      if (line.includes('Successful:')) {
+        const match = line.match(/Successful:\s*(\d+)/);
+        if (match) successful = parseInt(match[1]);
+      }
+      
+      if (line.includes('Failed:')) {
+        const match = line.match(/Failed:\s*(\d+)/);
+        if (match) failed = parseInt(match[1]);
+      }
     }
-
-    const content = fs.readFileSync(yamlPath, 'utf8');
-    return {
-      exists: true,
-      runtime: content.includes('nodejs20') ? 'nodejs20' : 'unknown',
-      configType: content.includes('build:') ? 'full' : 'minimal',
-      hasBuildCommands: content.includes('commands:')
-    };
-  }
-
-  analyzePackageJson() {
-    const packagePath = path.join(this.projectRoot, 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
     
     return {
-      moduleType: packageJson.type || 'undefined',
-      nextVersion: packageJson.dependencies?.next || 'unknown',
-      firebaseCompatible: packageJson.type === 'commonjs'
+      totalActions,
+      successful,
+      failed,
+      output
     };
   }
 
-  async createJournalPageRepair() {
-    const journalDir = path.join(this.projectRoot, 'src/app/journal');
-    const journalPagePath = path.join(journalDir, 'page.tsx');
-
-    if (!fs.existsSync(journalDir)) {
-      fs.mkdirSync(journalDir, { recursive: true });
-    }
-
-    const journalPageContent = `import { redirect } from 'next/navigation';
-
-// Journal page - redirects to main journals interface
-// Created by Firebase Studio Master Diagnostic to resolve build error
-export default function JournalPage() {
-  // Redirect to journals (plural) which is the main interface
-  redirect('/journals');
-}
-
-// Metadata for SEO
-export const metadata = {
-  title: 'Journal - ALCHM',
-  description: 'Access your personal journaling space'
-};`;
-
-    fs.writeFileSync(journalPagePath, journalPageContent);
+  // 3. FIREBASE STUDIO READINESS CHECK
+  async checkFirebaseStudioReadiness() {
+    this.log('🚀 Checking Firebase Studio deployment readiness...', 'step');
     
-    console.log(`   ✅ Created: ${journalPagePath}`);
-    return {
-      type: 'CREATE_MISSING_PAGE',
-      file: journalPagePath,
-      action: 'Created journal page with redirect to journals',
-      status: 'SUCCESS'
-    };
-  }
-
-  async fixRouteNamingConflict() {
-    // Add route mapping to handle both journal and journals
-    const routeMapPath = path.join(this.projectRoot, 'route-mapping.json');
-    const routeMapping = {
-      '/journal': '/journals',
-      '/journal/*': '/journals/*',
-      note: 'Route mapping for journal/journals consistency'
-    };
-
-    fs.writeFileSync(routeMapPath, JSON.stringify(routeMapping, null, 2));
-    
-    console.log('   ✅ Created route mapping for journal/journals consistency');
-    return {
-      type: 'FIX_ROUTE_NAMING',
-      action: 'Created route mapping file',
-      status: 'SUCCESS'
-    };
-  }
-
-  async implementFirebaseStudioOptimizedConfig() {
-    // Create Firebase Studio optimized next.config.js
-    const optimizedConfig = `// Firebase Studio Optimized Configuration
-// Generated by Firebase Studio Master Diagnostic
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Standalone mode for Firebase App Hosting
-  output: 'standalone',
-  
-  // Disable trailing slash
-  trailingSlash: false,
-  
-  // Disable image optimization for Firebase compatibility
-  images: {
-    unoptimized: true
-  },
-  
-  // Experimental features for Firebase Studio
-  experimental: {
-    serverComponentsExternalPackages: ['firebase-admin'],
-    outputFileTracingIncludes: {
-      '/': ['./public/**/*']
-    }
-  },
-  
-  // Webpack configuration for Firebase
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals = config.externals || [];
-      config.externals.push('firebase-admin');
-    }
-    return config;
-  }
-};
-
-module.exports = nextConfig;`;
-
-    const configPath = path.join(this.projectRoot, 'next.config.js');
-    fs.writeFileSync(configPath, optimizedConfig);
-    
-    console.log('   ✅ Updated next.config.js with Firebase Studio optimized settings');
-    return {
-      type: 'OPTIMIZE_CONFIG',
-      file: 'next.config.js',
-      action: 'Applied Firebase Studio optimizations',
-      status: 'SUCCESS'
-    };
-  }
-
-  async cleanupDependencyWarnings() {
-    // Create .npmrc to suppress warnings during Firebase Studio build
-    const npmrcContent = `# Firebase Studio build optimizations
-audit=false
-fund=false
-progress=false
-loglevel=error`;
-
-    const npmrcPath = path.join(this.projectRoot, '.npmrc');
-    fs.writeFileSync(npmrcPath, npmrcContent);
-    
-    console.log('   ✅ Created .npmrc to suppress build warnings');
-    return {
-      type: 'CLEANUP_DEPENDENCIES',
-      action: 'Created .npmrc for cleaner builds',
-      status: 'SUCCESS'
-    };
-  }
-
-  async verifyRouteStructure() {
-    const journalPage = path.join(this.projectRoot, 'src/app/journal/page.tsx');
-    const journalsPage = path.join(this.projectRoot, 'src/app/journals/page.tsx');
-    const rootLayout = path.join(this.projectRoot, 'src/app/layout.tsx');
-    
-    return fs.existsSync(journalPage) && 
-           fs.existsSync(journalsPage) && 
-           fs.existsSync(rootLayout);
-  }
-
-  async verifyConfiguration() {
-    const nextConfig = path.join(this.projectRoot, 'next.config.js');
-    const appHosting = path.join(this.projectRoot, 'apphosting.yaml');
-    const packageJson = path.join(this.projectRoot, 'package.json');
-    
-    if (!fs.existsSync(nextConfig) || !fs.existsSync(appHosting) || !fs.existsSync(packageJson)) {
-      return false;
-    }
-
-    const nextConfigContent = fs.readFileSync(nextConfig, 'utf8');
-    return nextConfigContent.includes('standalone') && nextConfigContent.includes('module.exports');
-  }
-
-  async verifyBuildCompatibility() {
-    // Check if all critical files exist and are properly configured
-    const criticalFiles = [
-      'src/app/layout.tsx',
-      'src/app/journal/page.tsx',
-      'src/app/journals/page.tsx',
-      'next.config.js',
-      'apphosting.yaml',
-      'package.json'
+    const readinessChecks = [
+      { name: 'Bundle Size', check: () => this.checkBundleSize() },
+      { name: 'Build Process', check: () => this.checkBuildProcess() },
+      { name: 'Firebase Config', check: () => this.checkFirebaseConfig() },
+      { name: 'Environment Variables', check: () => this.checkEnvironmentVariables() }
     ];
-
-    return criticalFiles.every(file => 
-      fs.existsSync(path.join(this.projectRoot, file))
-    );
+    
+    const results = [];
+    let readyForDeployment = true;
+    
+    for (const checkItem of readinessChecks) {
+      try {
+        const result = await checkItem.check();
+        results.push({
+          name: checkItem.name,
+          status: 'passed',
+          result
+        });
+        this.log(`✅ ${checkItem.name} check passed`, 'success');
+      } catch (error) {
+        results.push({
+          name: checkItem.name,
+          status: 'failed',
+          error: error.message
+        });
+        this.log(`❌ ${checkItem.name} check failed: ${error.message}`, 'error');
+        readyForDeployment = false;
+      }
+    }
+    
+    return {
+      readyForDeployment,
+      checks: results,
+      timestamp: new Date().toISOString()
+    };
   }
 
-  // Generate comprehensive report
-  async generateDiagnosticReport() {
-    const timestamp = new Date().toISOString();
+  async checkBundleSize() {
+    try {
+      // Quick build to check bundle size
+      const buildOutput = execSync('npm run build 2>&1', { encoding: 'utf8', timeout: 300000 });
+      
+      // Parse bundle size from output
+      const bundleInfo = this.parseBuildOutput(buildOutput);
+      const limitMB = 2; // Firebase Studio limit
+      const sizeMB = bundleInfo.totalSize / 1024 / 1024;
+      
+      if (sizeMB > limitMB) {
+        throw new Error(`Bundle size ${sizeMB.toFixed(2)}MB exceeds Firebase Studio limit of ${limitMB}MB`);
+      }
+      
+      return { sizeMB, limitMB, status: 'within_limits' };
+    } catch (error) {
+      throw new Error(`Bundle size check failed: ${error.message}`);
+    }
+  }
+
+  async checkBuildProcess() {
+    try {
+      // Test build process
+      execSync('npm run build', { stdio: 'pipe', timeout: 300000 });
+      return { status: 'build_successful' };
+    } catch (error) {
+      throw new Error(`Build process failed: ${error.message}`);
+    }
+  }
+
+  async checkFirebaseConfig() {
+    const requiredFiles = ['firebase.json'];
+    
+    for (const file of requiredFiles) {
+      if (!fs.existsSync(file)) {
+        throw new Error(`Required Firebase file missing: ${file}`);
+      }
+    }
+    
+    // Validate firebase.json
+    try {
+      const firebaseConfig = JSON.parse(fs.readFileSync('firebase.json', 'utf8'));
+      if (!firebaseConfig.hosting) {
+        throw new Error('Firebase configuration missing hosting setup');
+      }
+    } catch (error) {
+      throw new Error(`Firebase configuration invalid: ${error.message}`);
+    }
+    
+    return { status: 'configuration_valid' };
+  }
+
+  async checkEnvironmentVariables() {
+    const required = [
+      'NEXT_PUBLIC_FIREBASE_API_KEY',
+      'NEXT_PUBLIC_FIREBASE_PROJECT_ID'
+    ];
+    
+    const missing = required.filter(varName => !process.env[varName]);
+    
+    if (missing.length > 0) {
+      throw new Error(`Missing environment variables: ${missing.join(', ')}`);
+    }
+    
+    return { status: 'environment_complete' };
+  }
+
+  parseBuildOutput(output) {
+    const bundleInfo = { totalSize: 0, firstLoadJS: 0, assets: [] };
+    const lines = output.split('\n');
+    
+    for (const line of lines) {
+      if (line.includes('.js') && line.includes('kB')) {
+        const match = line.match(/(\d+(?:\.\d+)?)\s*kB/);
+        if (match) {
+          bundleInfo.totalSize += parseFloat(match[1]) * 1024;
+        }
+      }
+    }
+    
+    return bundleInfo;
+  }
+
+  // 4. COMPREHENSIVE REPORTING
+  generateComprehensiveReport() {
+    const endTime = performance.now();
+    const duration = ((endTime - this.startTime) / 1000).toFixed(2);
+    
     const report = {
       metadata: {
-        generated: timestamp,
-        project: 'ALCHM Digital Sanctuary',
-        buildId: this.analysis.buildId,
-        diagnosticVersion: '2.0.0',
-        errorType: this.analysis.errorType
+        timestamp: new Date().toISOString(),
+        duration: `${duration}s`,
+        mode: this.mode,
+        version: '3.0.0'
       },
-      analysis: this.analysis,
-      repairs: this.repairs,
-      recommendations: [
-        'Monitor Firebase Studio build logs for successful deployment',
-        'Test journal and journals routes after deployment',
-        'Verify all navigation links work correctly',
-        'Consider implementing comprehensive route testing'
-      ],
-      nextSteps: [
-        'Commit all diagnostic repairs to git',
-        'Push changes to trigger new Firebase Studio build',
-        'Monitor build progress in Firebase Console',
-        'Validate application functionality post-deployment'
-      ]
+      phases: {
+        diagnostic: this.results.diagnostic,
+        healing: this.results.healing,
+        monitoring: this.results.monitoring
+      },
+      readiness: this.results.readiness,
+      summary: this.generateSummary(),
+      recommendations: this.generateRecommendations()
     };
-
-    // Save detailed report
-    const reportPath = path.join(this.projectRoot, 'logs/firebase-studio-master-diagnostic.json');
-    const logDir = path.dirname(reportPath);
-    if (!fs.existsSync(logDir)) {
-      fs.mkdirSync(logDir, { recursive: true });
-    }
     
+    // Save comprehensive report
+    fs.mkdirSync('diagnostic-reports', { recursive: true });
+    const reportPath = `diagnostic-reports/master-diagnostic-${Date.now()}.json`;
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     
-    // Save summary report
-    const summaryPath = path.join(this.projectRoot, 'FIREBASE_STUDIO_DIAGNOSTIC_MASTER_REPORT.md');
-    const summaryContent = this.generateMarkdownReport(report);
-    fs.writeFileSync(summaryPath, summaryContent);
-
+    // Generate executive summary
+    this.generateExecutiveSummary(report, reportPath);
+    
     return report;
   }
 
-  generateMarkdownReport(report) {
-    return `# 🔥 Firebase Studio Master Diagnostic Report
-
-**ALCHM Platform - Comprehensive Build Failure Analysis & Resolution**
-Generated: ${report.metadata.generated}
-
-## 🚨 Executive Summary
-
-**Build Status:** REPAIRED ✅  
-**Build ID:** ${report.metadata.buildId}  
-**Error Type:** ${report.metadata.errorType}  
-**Repairs Applied:** ${report.repairs.length}  
-
-## 🔍 Critical Issues Identified
-
-${report.analysis.criticalIssues.map(issue => 
-  `### ${issue.type}
-- **Severity:** ${issue.severity}
-- **Description:** ${issue.description}
-- **File:** ${issue.file || 'N/A'}
-- **Route:** ${issue.route || 'N/A'}`
-).join('\n\n')}
-
-## 🗂️ Routing Problems Resolved
-
-${report.analysis.routingProblems.map(problem => 
-  `### ${problem.type}
-- **Severity:** ${problem.severity}
-- **Path:** ${problem.path || problem.existing}
-- **Description:** ${problem.description}`
-).join('\n\n')}
-
-## 🛠️ Automated Repairs Implemented
-
-${report.repairs.map(repair => 
-  `### ${repair.type}
-- **Action:** ${repair.action}
-- **Status:** ${repair.status}
-- **File:** ${repair.file || 'Multiple files'}`
-).join('\n\n')}
-
-## 📋 Recommendations
-
-${report.recommendations.map(rec => `- ${rec}`).join('\n')}
-
-## 🚀 Next Steps
-
-${report.nextSteps.map(step => `1. ${step}`).join('\n')}
-
-## 🎯 Firebase Studio Deployment Ready
-
-Your ALCHM application is now configured for successful Firebase Studio deployment:
-
-- ✅ Missing journal page created with proper routing
-- ✅ Route naming conflicts resolved  
-- ✅ Firebase Studio optimized configuration applied
-- ✅ Build warnings and deprecation issues addressed
-- ✅ Comprehensive verification completed
-
-## 📞 Support Information
-
-If the build continues to fail after these repairs:
-1. Check Firebase Console build logs for new error patterns
-2. Verify all committed changes are present in the build environment
-3. Run local build test: \`npm run build\`
-4. Contact Firebase support with this diagnostic report
-
----
-*Generated by Firebase Studio Master Diagnostic System*  
-*Comprehensive Build Failure Analysis & Auto-Repair Complete*`;
+  generateSummary() {
+    const summary = {
+      overallStatus: 'unknown',
+      firebaseStudioReady: false,
+      criticalIssues: 0,
+      warningIssues: 0,
+      fixesApplied: 0,
+      complianceScore: null
+    };
+    
+    // Aggregate from diagnostic results
+    if (this.results.diagnostic && this.results.diagnostic.status === 'completed') {
+      summary.criticalIssues = this.results.diagnostic.criticalIssues || 0;
+      summary.warningIssues = this.results.diagnostic.warningIssues || 0;
+      summary.complianceScore = this.results.diagnostic.complianceScore;
+    }
+    
+    // Aggregate from healing results
+    if (this.results.healing && this.results.healing.status === 'completed') {
+      summary.fixesApplied = this.results.healing.successful || 0;
+    }
+    
+    // Aggregate from readiness check
+    if (this.results.readiness) {
+      summary.firebaseStudioReady = this.results.readiness.readyForDeployment;
+    }
+    
+    // Determine overall status
+    if (summary.criticalIssues === 0 && summary.complianceScore >= 90) {
+      summary.overallStatus = 'excellent';
+    } else if (summary.criticalIssues === 0 && summary.complianceScore >= 80) {
+      summary.overallStatus = 'good';
+    } else if (summary.criticalIssues === 0) {
+      summary.overallStatus = 'needs_improvement';
+    } else {
+      summary.overallStatus = 'critical_issues';
+    }
+    
+    return summary;
   }
 
-  // Main execution method
-  async run() {
+  generateRecommendations() {
+    const recommendations = [];
+    
+    // Based on diagnostic results
+    if (this.results.diagnostic?.criticalIssues > 0) {
+      recommendations.push({
+        priority: 'high',
+        category: 'critical_fixes',
+        title: 'Resolve Critical Issues',
+        description: `Address ${this.results.diagnostic.criticalIssues} critical issues before deployment`,
+        action: 'Run auto-healer or manually fix critical issues'
+      });
+    }
+    
+    // Based on compliance score
+    const score = this.results.diagnostic?.complianceScore;
+    if (score && score < 90) {
+      recommendations.push({
+        priority: 'medium',
+        category: 'optimization',
+        title: 'Improve Compliance Score',
+        description: `Current score: ${score}/100. Target: 90+`,
+        action: 'Address remaining warnings and optimize bundle size'
+      });
+    }
+    
+    // Based on readiness check
+    if (this.results.readiness && !this.results.readiness.readyForDeployment) {
+      recommendations.push({
+        priority: 'high',
+        category: 'deployment_blocker',
+        title: 'Deployment Readiness Issues',
+        description: 'Critical deployment checks failed',
+        action: 'Review readiness check failures and fix blocking issues'
+      });
+    }
+    
+    return recommendations;
+  }
+
+  generateExecutiveSummary(report, reportPath) {
+    const summary = report.summary;
+    const statusEmoji = {
+      'excellent': '🎉',
+      'good': '✅',
+      'needs_improvement': '⚠️',
+      'critical_issues': '🚨',
+      'unknown': '❓'
+    }[summary.overallStatus];
+    
+    const executiveSummary = `
+🎯 ALCHM Firebase Studio Master Diagnostic Report
+===============================================
+
+${statusEmoji} EXECUTIVE SUMMARY
+- Overall Status: ${summary.overallStatus.toUpperCase()}
+- Firebase Studio Ready: ${summary.firebaseStudioReady ? '✅ YES' : '❌ NO'}
+- Compliance Score: ${summary.complianceScore || 'N/A'}/100
+- Duration: ${report.metadata.duration}
+
+📊 ISSUES SUMMARY
+- Critical Issues: ${summary.criticalIssues}
+- Warning Issues: ${summary.warningIssues}
+- Fixes Applied: ${summary.fixesApplied}
+
+${summary.firebaseStudioReady ? 
+  '🚀 DEPLOYMENT STATUS: READY FOR FIREBASE STUDIO' : 
+  '🚨 DEPLOYMENT STATUS: BLOCKED - CRITICAL ISSUES MUST BE RESOLVED'}
+
+📋 PHASES COMPLETED
+${report.phases.diagnostic ? `✅ Diagnostic Analysis` : '⏭️ Diagnostic Analysis (Skipped)'}
+${report.phases.healing ? `✅ Auto-Healing Process` : '⏭️ Auto-Healing Process (Skipped)'}
+${report.phases.monitoring ? `✅ Continuous Monitoring` : '⏭️ Continuous Monitoring (Skipped)'}
+
+🎯 TOP RECOMMENDATIONS
+${report.recommendations.slice(0, 3).map((rec, i) => 
+  `${i + 1}. [${rec.priority.toUpperCase()}] ${rec.title}\n   ${rec.description}`
+).join('\n') || 'No recommendations - system is optimized!'}
+
+📄 DETAILED REPORTS
+- Comprehensive Report: ${reportPath}
+- Mode: ${report.metadata.mode.name}
+- System Version: ${report.metadata.version}
+
+${summary.firebaseStudioReady ? 
+  '🎉 READY TO DEPLOY: All systems optimized for Firebase Studio!' :
+  '⚠️  ACTION REQUIRED: Address critical issues before deployment'}
+
+Generated: ${report.metadata.timestamp}
+`;
+    
+    const summaryPath = 'FIREBASE_STUDIO_MASTER_DIAGNOSTIC_SUMMARY.md';
+    fs.writeFileSync(summaryPath, executiveSummary);
+    console.log(executiveSummary);
+    
+    this.log(`📄 Executive summary saved to: ${summaryPath}`, 'success');
+    this.log(`📋 Detailed report saved to: ${reportPath}`, 'success');
+  }
+
+  // MAIN EXECUTION
+  async execute() {
+    this.log('🚀 Starting Firebase Studio Master Diagnostic System...', 'success');
+    this.log(`Selected mode: ${this.mode.description}`, 'info');
+    
     try {
-      console.log('🚀 Starting comprehensive Firebase Studio diagnostic...\n');
+      // Phase 1: Diagnostic Analysis
+      this.results.diagnostic = await this.runDiagnosticPhase();
       
-      await this.analyzeCriticalErrors();
-      await this.analyzeRouteStructure();
-      await this.analyzeFirebaseStudioConfig();
-      await this.implementAutomatedRepairs();
-      const verificationResults = await this.verifyBuildConfiguration();
+      // Phase 2: Auto-Healing (if enabled)
+      this.results.healing = await this.runHealingPhase();
       
-      console.log('📊 FINAL RESULTS');
-      console.log('─'.repeat(50));
+      // Phase 3: Firebase Studio Readiness Check
+      this.results.readiness = await this.checkFirebaseStudioReadiness();
       
-      if (verificationResults.firebaseStudioReady) {
-        console.log('🎉 SUCCESS: Firebase Studio build issues resolved!');
-        console.log('✅ All repairs implemented and verified');
-        console.log('🚀 Ready for Firebase Studio deployment');
-      } else {
-        console.log('⚠️  WARNING: Some issues may still exist');
-        console.log('🔍 Review diagnostic report for additional details');
-      }
+      // Phase 4: Generate Comprehensive Report
+      const report = this.generateComprehensiveReport();
       
-      const report = await this.generateDiagnosticReport();
-      console.log(`\n📋 Comprehensive report saved:`);
-      console.log(`   JSON: logs/firebase-studio-master-diagnostic.json`);
-      console.log(`   Summary: FIREBASE_STUDIO_DIAGNOSTIC_MASTER_REPORT.md`);
+      // Determine exit code based on results
+      const exitCode = this.determineExitCode(report);
       
-      console.log('\n🔥 Firebase Studio Master Diagnostic Complete!');
-      
-      return report;
+      this.log(`🎯 Master diagnostic completed with exit code: ${exitCode}`, 'success');
+      process.exit(exitCode);
       
     } catch (error) {
-      console.error('❌ Diagnostic system error:', error);
-      this.errors.push({
-        type: 'DIAGNOSTIC_SYSTEM_ERROR',
+      this.log(`💥 Master diagnostic failed: ${error.message}`, 'critical');
+      console.error('Full error:', error);
+      
+      // Generate error report
+      this.generateErrorReport(error);
+      
+      process.exit(1);
+    }
+  }
+
+  determineExitCode(report) {
+    const summary = report.summary;
+    
+    if (summary.overallStatus === 'critical_issues') {
+      return 1; // Critical issues - deployment blocked
+    }
+    
+    if (!summary.firebaseStudioReady) {
+      return 1; // Not ready for deployment
+    }
+    
+    if (summary.overallStatus === 'excellent' || summary.overallStatus === 'good') {
+      return 0; // Success - ready for deployment
+    }
+    
+    if (this.mode.strict) {
+      return 1; // In strict mode, anything less than good fails
+    }
+    
+    return 0; // Non-strict mode allows warnings
+  }
+
+  generateErrorReport(error) {
+    const errorReport = {
+      timestamp: new Date().toISOString(),
+      error: {
         message: error.message,
         stack: error.stack
-      });
-      throw error;
-    }
+      },
+      mode: this.mode,
+      partialResults: this.results,
+      systemInfo: {
+        nodeVersion: process.version,
+        platform: process.platform,
+        arch: process.arch,
+        memory: process.memoryUsage()
+      }
+    };
+    
+    fs.mkdirSync('diagnostic-reports', { recursive: true });
+    fs.writeFileSync(
+      `diagnostic-reports/error-report-${Date.now()}.json`,
+      JSON.stringify(errorReport, null, 2)
+    );
+    
+    this.log('Error report generated', 'info');
   }
 }
 
-// Auto-execute if run directly
+// CLI Help
+function showHelp() {
+  console.log(`
+🎯 ALCHM Firebase Studio Master Diagnostic System
+
+USAGE:
+  node firebase-studio-master-diagnostic.js [mode] [options]
+
+MODES:
+  full        Complete diagnostic, healing, and validation (default)
+  diagnostic  Run diagnostic analysis only
+  heal        Run diagnostic + automated healing
+  monitor     Start continuous monitoring system
+  pre-deploy  Critical pre-deployment validation (strict mode)
+
+OPTIONS:
+  --verbose      Show detailed output
+  --dry-run      Show what would be done without making changes
+  --force        Force execution even with warnings
+  --skip-backup  Skip creating backups during healing
+  --help         Show this help message
+
+EXAMPLES:
+  node firebase-studio-master-diagnostic.js full --verbose
+  node firebase-studio-master-diagnostic.js heal --dry-run
+  node firebase-studio-master-diagnostic.js pre-deploy --force
+
+For more information, see the generated reports in diagnostic-reports/
+`);
+}
+
+// Main execution
 if (require.main === module) {
-  const diagnostic = new FirebaseStudioMasterDiagnostic();
-  diagnostic.run().catch(console.error);
+  const args = process.argv.slice(2);
+  
+  if (args.includes('--help') || args.includes('-h')) {
+    showHelp();
+    process.exit(0);
+  }
+  
+  const masterDiagnostic = new FirebaseStudioMasterDiagnostic();
+  masterDiagnostic.execute().catch(error => {
+    console.error('💥 Fatal error in master diagnostic:', error);
+    process.exit(1);
+  });
 }
 
 module.exports = FirebaseStudioMasterDiagnostic;

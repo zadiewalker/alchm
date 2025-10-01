@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  alchm-monitoring:
+    build: 
+      context: ..
+      dockerfile: monitoring/Dockerfile
+    container_name: alchm-performance-monitor
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/monitoring/logs
+      - ./reports:/app/monitoring/reports
+      - ./alerts:/app/monitoring/alerts
+    environment:
+      - NODE_ENV=production
+      - TZ=UTC
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Health check')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

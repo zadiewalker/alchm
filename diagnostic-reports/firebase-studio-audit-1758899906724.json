@@ -1,0 +1,378 @@
+{
+  "timestamp": "2025-09-26T15:18:26.724Z",
+  "duration": "2.17s",
+  "summary": {
+    "totalIssues": 40,
+    "criticalIssues": 0,
+    "warningIssues": 40,
+    "autoFixesApplied": 0,
+    "firebaseStudioCompliance": {
+      "score": 0,
+      "grade": "F"
+    }
+  },
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-performance",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.856Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-dynamic",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.856Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.856Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.856Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/SignInButtonsOptimized.tsx, Import: ../../lib/firebase",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.857Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics-service.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.893Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/low-bandwidth-auth-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.894Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/low-bandwidth-auth-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.894Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.902Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.902Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: @/lib/firebase",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.903Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/functions",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.910Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/functions",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/performance",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/analytics",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.911Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/performance-budget-monitor.ts, Import: ./firebase-lazy",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.929Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/performance-budget-monitor.ts, Import: firebase/analytics",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.929Z"
+    },
+    {
+      "severity": "warning",
+      "code": "LCP_SLOW",
+      "title": "Largest Contentful Paint is too slow",
+      "details": "2800ms > 2500ms",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.946Z"
+    },
+    {
+      "severity": "warning",
+      "code": "CLS_HIGH",
+      "title": "Cumulative Layout Shift is too high",
+      "details": "0.15 > 0.1",
+      "autoFix": null,
+      "timestamp": "2025-09-26T15:18:24.946Z"
+    }
+  ],
+  "fixes": [],
+  "metrics": {
+    "bundleAnalysis": {
+      "firstLoadJS": 0,
+      "totalSize": 0,
+      "assets": [],
+      "chunks": []
+    },
+    "lighthouse": {
+      "performance": 85,
+      "accessibility": 92,
+      "bestPractices": 88,
+      "seo": 90,
+      "metrics": {
+        "firstContentfulPaint": 1600,
+        "largestContentfulPaint": 2800,
+        "cumulativeLayoutShift": 0.15,
+        "firstInputDelay": 120
+      }
+    }
+  },
+  "optimizationSuggestions": [
+    {
+      "type": "performance",
+      "priority": "medium",
+      "title": "Optimize Core Web Vitals",
+      "description": "Performance score is below recommended threshold.",
+      "implementation": "Implement image optimization, reduce JavaScript execution time, minimize layout shifts."
+    }
+  ],
+  "nextSteps": [
+    {
+      "priority": 3,
+      "action": "Run production build test",
+      "details": "Verify all optimizations work in production build"
+    },
+    {
+      "priority": 4,
+      "action": "Deploy to Firebase Studio",
+      "details": "Monitor deployment for any runtime issues"
+    }
+  ]
+}

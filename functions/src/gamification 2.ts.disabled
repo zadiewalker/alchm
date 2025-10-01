@@ -1,0 +1,510 @@
+/**
+ * ALCHM Firebase Functions - Gamification System
+ * Trauma-informed engagement mechanics and referral rewards
+ */
+
+import { onDocumentCreated, onDocumentUpdated } from 'firebase-functions/v2/firestore';
+import { onCall, HttpsError } from 'firebase-functions/v2/https';
+import { logger } from 'firebase-functions';
+import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
+
+const db = getFirestore();
+
+// Badge unlock conditions and rewards
+const BADGE_CONDITIONS = {
+  first_entry: { entryCount: 1 },
+  still_here: { entryCount: 3 },
+  week_strong: { streakDays: 7 },
+  depth_diver: { khepraInteractions: 5 },
+  community_builder: { referrals: 3 },
+  sacred_witness: { entryCount: 30 }
+};
+
+const TIER_REWARDS = {
+  referral_tier1: { type: 'trial', tier: 'tier1', days: 7 },
+  referral_tier2: { type: 'trial', tier: 'tier2', days: 3 },
+  review_tier1: { type: 'trial', tier: 'tier1', days: 7 }
+};
+
+/**
+ * Triggered when a new journal entry is created
+ * Updates streaks, checks badge unlocks, and tracks engagement
+ */
+export const onJournalEntryCreated = onDocumentCreated(
+  'users/{userId}/journal_entries/{entryId}',
+  async (event) => {
+    const { userId, entryId } = event.params;
+    const entryData = event.data?.data();
+
+    if (!entryData) {
+      logger.error('No entry data found');
+      return;
+    }
+
+    logger.info(`Processing new journal entry for user ${userId}`);
+
+    try {
+      await db.runTransaction(async (transaction) => {
+        // Get user profile
+        const userRef = db.doc(`users/${userId}`);
+        const userSnap = await transaction.get(userRef);
+        
+        if (!userSnap.exists) {
+          throw new Error('User profile not found');
+        }
+
+        const userData = userSnap.data()!;
+        const now = Timestamp.now();
+        const today = new Date(now.toDate());
+        today.setHours(0, 0, 0, 0);
+        
+        const lastJournalDate = userData.lastJournalDate?.toDate();
+        const lastJournalDateOnly = lastJournalDate ? new Date(lastJournalDate) : null;
+        
+        if (lastJournalDateOnly) {
+          lastJournalDateOnly.setHours(0, 0, 0, 0);
+        }
+
+        // Update user statistics
+        let newStreak = userData.currentStreak || 0;
+        
+        // Check if this is a consecutive day
+        if (lastJournalDateOnly) {
+          const daysDiff = (today.getTime() - lastJournalDateOnly.getTime()) / (1000 * 60 * 60 * 24);
+          
+          if (daysDiff === 1) {
+            // Consecutive day - increment streak
+            newStreak += 1;
+          } else if (daysDiff > 1) {
+            // Broken streak - reset to 1
+            newStreak = 1;
+          }
+          // Same day entries don't affect streak
+        } else {
+          // First entry ever
+          newStreak = 1;
+        }
+
+        const updatedUserData = {
+          totalEntries: (userData.totalEntries || 0) + 1,
+          currentStreak: newStreak,
+          longestStreak: Math.max(userData.longestStreak || 0, newStreak),
+          lastJournalDate: now,
+          updatedAt: now
+        };
+
+        transaction.update(userRef, updatedUserData);
+
+        // Update streak subcollection
+        const streakRef = db.doc(`users/${userId}/streaks/current`);
+        transaction.set(streakRef, {
+          currentStreak: newStreak,
+          longestStreak: updatedUserData.longestStreak,
+          lastJournalDate: now,
+          totalJournalDays: updatedUserData.totalEntries,
+          streakStartDate: newStreak === 1 ? now : userData.streakStartDate || now,
+          updatedAt: now
+        }, { merge: true });
+
+        // Add to emotional timeline
+        const timelineRef = db.collection(`users/${userId}/timeline`).doc();
+        transaction.set(timelineRef, {
+          date: now,
+          entryType: 'journal',
+          mood: entryData.moodBefore || 'contemplative',
+          emotionalTags: entryData.emotionalTags || [],
+          intensityLevel: entryData.intensityLevel || 5,
+          title: entryData.title || 'Untitled Entry',
+          wordCount: entryData.wordCount || 0,
+          createdAt: now
+        });
+
+        // Check badge unlocks
+        await checkAndUnlockBadges(transaction, userId, {
+          entryCount: updatedUserData.totalEntries,
+          streakDays: newStreak,
+          khepraInteractions: userData.khepraInteractions || 0,
+          referralCount: userData.referralCount || 0
+        });
+
+        // Check review trigger (after 3 entries)
+        if (updatedUserData.totalEntries === 3) {
+          await triggerReviewRequest(transaction, userId);
+        }
+      });
+
+      logger.info(`Successfully processed journal entry for user ${userId}`);
+    } catch (error) {
+      logger.error('Error processing journal entry:', error);
+      throw error;
+    }
+  }
+);
+
+/**
+ * Check and unlock badges based on user achievements
+ */
+async function checkAndUnlockBadges(
+  transaction: FirebaseFirestore.Transaction,
+  userId: string,
+  metrics: {
+    entryCount: number;
+    streakDays: number;
+    khepraInteractions: number;
+    referralCount: number;
+  }
+) {
+  const badgesRef = db.collection(`users/${userId}/badges`);
+  const existingBadgesSnap = await transaction.get(badgesRef);
+  const existingBadgeIds = existingBadgesSnap.docs.map(doc => doc.id);
+
+  const newBadges: string[] = [];
+
+  // Check each badge condition
+  for (const [badgeId, condition] of Object.entries(BADGE_CONDITIONS)) {
+    if (existingBadgeIds.includes(badgeId)) continue;
+
+    let shouldUnlock = false;
+
+    if ('entryCount' in condition && metrics.entryCount >= condition.entryCount) {
+      shouldUnlock = true;
+    } else if ('streakDays' in condition && metrics.streakDays >= condition.streakDays) {
+      shouldUnlock = true;
+    } else if ('khepraInteractions' in condition && metrics.khepraInteractions >= condition.khepraInteractions) {
+      shouldUnlock = true;
+    } else if ('referrals' in condition && metrics.referralCount >= condition.referrals) {
+      shouldUnlock = true;
+    }
+
+    if (shouldUnlock) {
+      const badgeRef = badgesRef.doc(badgeId);
+      const badgeData = getBadgeDefinition(badgeId);
+      
+      transaction.set(badgeRef, {
+        ...badgeData,
+        unlockedAt: Timestamp.now(),
+        userId: userId
+      });
+
+      newBadges.push(badgeId);
+    }
+  }
+
+  if (newBadges.length > 0) {
+    logger.info(`Unlocked ${newBadges.length} badges for user ${userId}: ${newBadges.join(', ')}`);
+  }
+}
+
+/**
+ * Trigger review request after user milestone
+ */
+async function triggerReviewRequest(
+  transaction: FirebaseFirestore.Transaction,
+  userId: string
+) {
+  const reviewTriggerRef = db.collection(`users/${userId}/review_triggers`).doc();
+  
+  transaction.set(reviewTriggerRef, {
+    triggerType: 'milestone_3_entries',
+    triggered: false,
+    createdAt: Timestamp.now(),
+    incentiveOffered: 'tier1_trial_7days',
+    message: 'Feeling seen? Leave a review and unlock 7 days of Tier 1 features!'
+  });
+
+  logger.info(`Created review trigger for user ${userId}`);
+}
+
+/**
+ * Handle referral completion and reward distribution
+ */
+export const onReferralCompleted = onDocumentUpdated(
+  'users/{referrerId}/referrals/{referralId}',
+  async (event) => {
+    const { referrerId } = event.params;
+    const beforeData = event.data?.before.data();
+    const afterData = event.data?.after.data();
+
+    if (!beforeData || !afterData) return;
+
+    // Check if referral just completed (friend made first journal entry)
+    if (beforeData.status !== 'activated' && afterData.status === 'activated') {
+      logger.info(`Processing completed referral for user ${referrerId}`);
+
+      try {
+        await db.runTransaction(async (transaction) => {
+          const userRef = db.doc(`users/${referrerId}`);
+          const userSnap = await transaction.get(userRef);
+          
+          if (!userSnap.exists) return;
+
+          const userData = userSnap.data()!;
+          const newReferralCount = (userData.referralCount || 0) + 1;
+
+          // Update referral count
+          transaction.update(userRef, {
+            referralCount: newReferralCount,
+            updatedAt: Timestamp.now()
+          });
+
+          // Grant rewards based on referral count
+          let reward: { type: string; tier: string; days: number } | null = null;
+          if (newReferralCount === 1) {
+            // First referral - Tier 1 trial for 7 days
+            reward = { type: 'trial', tier: 'tier1', days: 7 };
+          } else if (newReferralCount === 3) {
+            // Third referral - Tier 2 trial for 7 days + badge unlock
+            reward = { type: 'trial', tier: 'tier2', days: 7 };
+            
+            // Unlock community builder badge
+            const badgeRef = db.doc(`users/${referrerId}/badges/community_builder`);
+            transaction.set(badgeRef, {
+              ...getBadgeDefinition('community_builder'),
+              unlockedAt: Timestamp.now(),
+              userId: referrerId
+            });
+          }
+
+          if (reward) {
+            // Grant trial access
+            const trialExpiry = new Date();
+            trialExpiry.setDate(trialExpiry.getDate() + reward.days);
+
+            transaction.update(userRef, {
+              tier: reward.tier,
+              trialExpiresAt: Timestamp.fromDate(trialExpiry),
+              updatedAt: Timestamp.now()
+            });
+
+            logger.info(`Granted ${reward.tier} trial for ${reward.days} days to user ${referrerId}`);
+          }
+
+          // Record reward in timeline
+          const timelineRef = db.collection(`users/${referrerId}/timeline`).doc();
+          transaction.set(timelineRef, {
+            date: Timestamp.now(),
+            entryType: 'milestone',
+            milestoneType: 'referral_reward',
+            description: `Friend joined through your referral! ${reward ? `Unlocked ${reward.tier} for ${reward.days} days.` : 'Keep sharing to unlock rewards.'}`,
+            createdAt: Timestamp.now()
+          });
+        });
+
+      } catch (error) {
+        logger.error('Error processing referral completion:', error);
+      }
+    }
+  }
+);
+
+/**
+ * Callable function to process review submission and grant rewards
+ */
+export const processReviewReward = onCall(
+  { cors: true },
+  async (request) => {
+    const { userId, rating, reviewText, platform } = request.data;
+
+    if (!userId || !rating) {
+      throw new HttpsError('invalid-argument', 'Missing required fields');
+    }
+
+    try {
+      // Verify user authentication
+      if (!request.auth) {
+        throw new HttpsError('unauthenticated', 'User not authenticated');
+      }
+      if (request.auth.uid !== userId) {
+        throw new HttpsError('permission-denied', 'User ID mismatch');
+      }
+
+      await db.runTransaction(async (transaction) => {
+        // Record the review
+        const reviewRef = db.collection('app_reviews').doc();
+        transaction.set(reviewRef, {
+          userId,
+          rating,
+          reviewText: reviewText || '',
+          platform: platform || 'in_app',
+          reviewTrigger: 'prompted_3_entries',
+          reviewedAt: Timestamp.now(),
+          incentiveOffered: 'tier1_trial_7days',
+          incentiveClaimed: true
+        });
+
+        // Grant Tier 1 trial for 7 days
+        const userRef = db.doc(`users/${userId}`);
+        const userSnap = await transaction.get(userRef);
+        
+        if (!userSnap.exists) {
+          throw new Error('User not found');
+        }
+
+        const trialExpiry = new Date();
+        trialExpiry.setDate(trialExpiry.getDate() + 7);
+
+        transaction.update(userRef, {
+          tier: 'tier1',
+          trialExpiresAt: Timestamp.fromDate(trialExpiry),
+          updatedAt: Timestamp.now()
+        });
+
+        // Add to timeline
+        const timelineRef = db.collection(`users/${userId}/timeline`).doc();
+        transaction.set(timelineRef, {
+          date: Timestamp.now(),
+          entryType: 'milestone',
+          milestoneType: 'review_reward',
+          description: 'Thank you for your review! Unlocked 7 days of Tier 1 features.',
+          createdAt: Timestamp.now()
+        });
+
+        logger.info(`Granted review reward to user ${userId}: 7 days of Tier 1`);
+      });
+
+      return { success: true, message: '7 days of Tier 1 features unlocked!' };
+
+    } catch (error) {
+      logger.error('Error processing review reward:', error);
+      throw new HttpsError('internal', 'Failed to process review reward');
+    }
+  }
+);
+
+/**
+ * Callable function to create referral link
+ */
+export const createReferralLink = onCall(
+  { cors: true },
+  async (request) => {
+    const { userId } = request.data;
+
+    if (!userId) {
+      throw new HttpsError('invalid-argument', 'User ID is required');
+    }
+
+    try {
+      // Verify authentication
+      const token = request.auth?.token;
+      if (!token) {
+        throw new HttpsError('unauthenticated', 'Missing authentication token');
+      }
+      const decodedToken = await getAuth().verifyIdToken(token);
+      if (decodedToken.uid !== userId) {
+        throw new HttpsError('permission-denied', 'User ID mismatch');
+      }
+
+      // Get or create referral code
+      const userRef = db.doc(`users/${userId}`);
+      const userSnap = await userRef.get();
+      
+      if (!userSnap.exists) {
+        throw new HttpsError('not-found', 'User not found');
+      }
+
+      const userData = userSnap.data()!;
+      let referralCode = userData.referralCode;
+
+      if (!referralCode) {
+        // Generate unique referral code
+        referralCode = generateReferralCode();
+        await userRef.update({ referralCode });
+      }
+
+      const referralLink = `https://alchm-digital-sanctuary.web.app/invite/${referralCode}`;
+
+      return {
+        referralCode,
+        referralLink,
+        message: 'Share this link to invite friends to ALCHM'
+      };
+
+    } catch (error) {
+      logger.error('Error creating referral link:', error);
+      throw new HttpsError('internal', 'Failed to create referral link');
+    }
+  }
+);
+
+/**
+ * Helper function to get badge definition
+ */
+function getBadgeDefinition(badgeId: string) {
+  const definitions: Record<string, any> = {
+    first_entry: {
+      id: 'first_entry',
+      name: 'First Words',
+      description: 'You took the first step. Your voice matters.',
+      category: 'milestone',
+      emoji: '🌱',
+      rarity: 'common',
+      emotionalResonance: 'validating',
+      celebrationMessage: 'You showed up for yourself today. That takes courage.'
+    },
+    still_here: {
+      id: 'still_here', 
+      name: 'Still Here',
+      description: 'Three entries deep. You\'re building something meaningful.',
+      category: 'milestone',
+      emoji: '💝',
+      rarity: 'common',
+      emotionalResonance: 'empowering',
+      celebrationMessage: 'You\'re creating a practice of self-care. Notice how that feels.'
+    },
+    week_strong: {
+      id: 'week_strong',
+      name: 'Week Strong',
+      description: 'Seven days of showing up for yourself.',
+      category: 'milestone',
+      emoji: '⚡',
+      rarity: 'uncommon',
+      emotionalResonance: 'empowering',
+      celebrationMessage: 'A week of self-compassion. You\'re building resilience.'
+    },
+    depth_diver: {
+      id: 'depth_diver',
+      name: 'Depth Diver',
+      description: 'You went deep with KHEPERA\'s guidance.',
+      category: 'reflection',
+      emoji: '🔮',
+      rarity: 'uncommon',
+      emotionalResonance: 'transformative',
+      celebrationMessage: 'You trusted the process and went beneath the surface.'
+    },
+    community_builder: {
+      id: 'community_builder',
+      name: 'Community Builder',
+      description: 'You invited others into their healing journey.',
+      category: 'community',
+      emoji: '🤝',
+      rarity: 'rare',
+      emotionalResonance: 'empowering',
+      celebrationMessage: 'You\'re helping others find their voice too. Beautiful.'
+    },
+    sacred_witness: {
+      id: 'sacred_witness',
+      name: 'Sacred Witness',
+      description: 'Thirty days of witnessing your own becoming.',
+      category: 'growth',
+      emoji: '👁️',
+      rarity: 'sacred',
+      emotionalResonance: 'transformative',
+      celebrationMessage: 'You\'ve become your own sacred witness. This is profound growth.'
+    }
+  };
+
+  return definitions[badgeId] || {};
+}
+
+/**
+ * Generate unique referral code
+ */
+function generateReferralCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}

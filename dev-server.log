@@ -1,0 +1,165 @@
+
+> alchm@1.0.0 dev
+> next dev --port 3002
+
+  ▲ Next.js 14.2.32
+  - Local:        http://localhost:3002
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · optimizeCss
+    · largePageDataBytes
+    · bundlePagesExternals
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 693ms (121 modules)
+Route access: /en/auth/login (en) - Auth: false - 2ms
+ ○ Compiling /[locale]/auth/login ...
+ ⚠ asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  static/chunks/main-app.js (6.64 MiB)
+  static/chunks/app/[locale]/auth/login/page.js (2.29 MiB)
+  static/chunks/app/layout.js (2.59 MiB)
+  static/chunks/_app-pages-browser_src_components_support_TechnicalSupportChatbot_tsx.js (1.96 MiB)
+  static/chunks/_app-pages-browser_node_modules_firebase_firestore_dist_esm_index_esm_js.js (3.18 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  main-app (6.69 MiB)
+      static/chunks/webpack.js
+      static/chunks/main-app.js
+
+asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  vendor-chunks/@firebase.js (3.84 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  app/[locale]/auth/login/page (9.67 MiB)
+      webpack-runtime.js
+      vendor-chunks/firebase.js
+      vendor-chunks/@firebase.js
+      vendor-chunks/next.js
+      vendor-chunks/framer-motion.js
+      vendor-chunks/@opentelemetry.js
+      vendor-chunks/motion-dom.js
+      vendor-chunks/motion-utils.js
+      vendor-chunks/idb.js
+      vendor-chunks/styled-jsx.js
+      vendor-chunks/tslib.js
+      app/[locale]/auth/login/page.js
+ HEAD /en/auth/login 200 in 8060ms
+Route access: /en/auth/login (en) - Auth: false - 2ms
+ GET /en/auth/login 200 in 80ms
+Route access: /en/auth/login (en) - Auth: false - 1ms
+ GET /en/auth/login 200 in 38ms
+Route access: /en/auth/login (en) - Auth: false - 0ms
+ GET /en/auth/login 200 in 41ms
+Crisis route accessed: {
+  route: '/emergency',
+  locale: 'en',
+  priority: 'emergency',
+  responseTime: 3,
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36',
+  timestamp: 1759087520855,
+  bypassedAuth: true
+}
+Route access: /en/emergency (en) - Auth: false - 3ms
+Route access: /en (en) - Auth: false - 5ms
+Route access: /en/auth/login (en) - Auth: false - 4ms
+ ⚠ asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  static/chunks/main-app.js (6.64 MiB)
+  static/chunks/app/[locale]/auth/login/page.js (2.29 MiB)
+  static/chunks/app/layout.js (2.59 MiB)
+  static/chunks/_app-pages-browser_src_components_support_TechnicalSupportChatbot_tsx.js (1.96 MiB)
+  static/chunks/_app-pages-browser_node_modules_firebase_firestore_dist_esm_index_esm_js.js (3.18 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  main-app (6.69 MiB)
+      static/chunks/webpack.js
+      static/chunks/main-app.js
+
+asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  vendor-chunks/@firebase.js (3.84 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  app/[locale]/auth/login/page (9.67 MiB)
+      webpack-runtime.js
+      vendor-chunks/firebase.js
+      vendor-chunks/@firebase.js
+      vendor-chunks/next.js
+      vendor-chunks/framer-motion.js
+      vendor-chunks/@opentelemetry.js
+      vendor-chunks/motion-dom.js
+      vendor-chunks/motion-utils.js
+      vendor-chunks/idb.js
+      vendor-chunks/styled-jsx.js
+      vendor-chunks/tslib.js
+      app/[locale]/auth/login/page.js
+ ⚠ asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  static/chunks/main-app.js (6.64 MiB)
+  static/chunks/app/[locale]/auth/login/page.js (2.29 MiB)
+  static/chunks/app/layout.js (2.59 MiB)
+  static/chunks/_app-pages-browser_src_components_support_TechnicalSupportChatbot_tsx.js (1.96 MiB)
+  static/chunks/_app-pages-browser_node_modules_firebase_firestore_dist_esm_index_esm_js.js (3.18 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  main-app (6.69 MiB)
+      static/chunks/webpack.js
+      static/webpack/webpack.ad3d96c766036b4b.hot-update.js
+      static/chunks/main-app.js
+
+asset size limit: The following asset(s) exceed the recommended size limit (1.91 MiB).
+This can impact web performance.
+Assets: 
+  vendor-chunks/@firebase.js (3.84 MiB)
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (2.86 MiB). This can impact web performance.
+Entrypoints:
+  app/_not-found/page (4.59 MiB)
+      webpack-runtime.js
+      vendor-chunks/next.js
+      vendor-chunks/framer-motion.js
+      vendor-chunks/@opentelemetry.js
+      vendor-chunks/motion-dom.js
+      vendor-chunks/styled-jsx.js
+      vendor-chunks/motion-utils.js
+      app/_not-found/page.js
+  app/[locale]/page (4.67 MiB)
+      webpack-runtime.js
+      vendor-chunks/next.js
+      vendor-chunks/framer-motion.js
+      vendor-chunks/@opentelemetry.js
+      vendor-chunks/motion-dom.js
+      vendor-chunks/styled-jsx.js
+      vendor-chunks/motion-utils.js
+      app/[locale]/page.js
+  app/[locale]/auth/login/page (9.67 MiB)
+      webpack-runtime.js
+      vendor-chunks/@firebase.js
+      vendor-chunks/firebase.js
+      vendor-chunks/idb.js
+      vendor-chunks/tslib.js
+      vendor-chunks/next.js
+      vendor-chunks/framer-motion.js
+      vendor-chunks/@opentelemetry.js
+      vendor-chunks/motion-dom.js
+      vendor-chunks/styled-jsx.js
+      vendor-chunks/motion-utils.js
+      app/[locale]/auth/login/page.js
+ GET /en/auth/login 200 in 1434ms
+ GET /en 200 in 1436ms
+ GET /en/emergency 404 in 1439ms
+[?25h

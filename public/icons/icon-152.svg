@@ -1,0 +1,32 @@
+<svg width="152" height="152" viewBox="0 0 152 152" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a4b792;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8fa078;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3.04" stdDeviation="1.52" flood-color="#000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <!-- Background with rounded corners -->
+  <rect width="152" height="152" rx="27.36" ry="27.36" fill="url(#bg)"/>
+  
+  <!-- Sacred scarab symbol -->
+  <g transform="translate(76, 76)">
+    <!-- Scarab body -->
+    <ellipse cx="0" cy="0" rx="22.8" ry="38" fill="#ffffff" opacity="0.9" filter="url(#shadow)"/>
+    
+    <!-- Scarab wings -->
+    <ellipse cx="-15.200000000000001" cy="-7.6000000000000005" rx="12.16" ry="22.8" fill="#ffffff" opacity="0.7" transform="rotate(-20)"/>
+    <ellipse cx="15.200000000000001" cy="-7.6000000000000005" rx="12.16" ry="22.8" fill="#ffffff" opacity="0.7" transform="rotate(20)"/>
+    
+    <!-- Sacred geometry -->
+    <circle cx="0" cy="-12.16" r="4.56" fill="#2d3748" opacity="0.6"/>
+    <circle cx="0" cy="0" r="3.04" fill="#2d3748" opacity="0.8"/>
+    <circle cx="0" cy="12.16" r="4.56" fill="#2d3748" opacity="0.6"/>
+  </g>
+  
+  <!-- App name hint for larger sizes -->
+  
+</svg>

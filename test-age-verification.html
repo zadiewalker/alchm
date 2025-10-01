@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Age Verification Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .passed { background: #d4edda; color: #155724; }
+        .failed { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        button {
+            background: #a4b792;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #93a682;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 ALCHM Age Verification Test</h1>
+    <p>Testing the age verification system before sharing with friends and family.</p>
+    
+    <div class="test-section">
+        <h2>Live App Test</h2>
+        <p>This iframe shows the actual ALCHM app running on localhost:3001</p>
+        <iframe src="http://localhost:3001" title="ALCHM App"></iframe>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Controls</h2>
+        <button onclick="clearAgeVerification()">Clear Age Verification</button>
+        <button onclick="testUnder18()">Simulate Under 18</button>
+        <button onclick="testOver18()">Simulate Over 18</button>
+        <button onclick="checkStatus()">Check Status</button>
+    </div>
+    
+    <div id="status-container">
+        <h2>Test Results</h2>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function clearAgeVerification() {
+            localStorage.removeItem('alchm_age_verified');
+            localStorage.removeItem('alchm_verification_date');
+            sessionStorage.removeItem('alchm_session_verified');
+            
+            updateStatus('cleared', 'Age verification cleared. Refresh the app to see verification modal.');
+            
+            // Refresh iframe
+            const iframe = document.querySelector('iframe');
+            iframe.src = iframe.src;
+        }
+        
+        function testUnder18() {
+            // This would typically be done through the actual UI
+            updateStatus('info', 'To test under 18: In the app, select a birth year that makes you under 18 (e.g., 2010). You should be redirected to age-appropriate resources.');
+        }
+        
+        function testOver18() {
+            // This would typically be done through the actual UI
+            updateStatus('info', 'To test over 18: In the app, select a birth year that makes you 18+ (e.g., 2000). You should gain access to the app.');
+        }
+        
+        function checkStatus() {
+            const verified = localStorage.getItem('alchm_age_verified');
+            const verificationDate = localStorage.getItem('alchm_verification_date');
+            const sessionVerified = sessionStorage.getItem('alchm_session_verified');
+            
+            let statusHTML = '<h3>Current Status:</h3>';
+            
+            if (verified === 'true') {
+                const date = new Date(parseInt(verificationDate));
+                statusHTML += `<div class="status passed">✅ Age Verified on ${date.toLocaleDateString()}</div>`;
+            } else {
+                statusHTML += `<div class="status failed">❌ Not Age Verified</div>`;
+            }
+            
+            if (sessionVerified === 'true') {
+                statusHTML += `<div class="status passed">✅ Session Valid</div>`;
+            } else {
+                statusHTML += `<div class="status warning">⚠️ No Active Session</div>`;
+            }
+            
+            document.getElementById('status').innerHTML = statusHTML;
+        }
+        
+        function updateStatus(type, message) {
+            const statusDiv = document.getElementById('status');
+            const className = type === 'cleared' ? 'warning' : type === 'info' ? 'passed' : type;
+            statusDiv.innerHTML = `<div class="status ${className}">${message}</div>`;
+        }
+        
+        // Check status on load
+        checkStatus();
+        
+        // Auto-refresh status every 5 seconds
+        setInterval(checkStatus, 5000);
+    </script>
+</body>
+</html>

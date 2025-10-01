@@ -1,0 +1,156 @@
+/* ALCHM Critical Above-the-Fold Styles - Inline for LCP Optimization */
+/* Only essential styles needed for first paint - everything else deferred */
+
+:root {
+  /* Essential color tokens only */
+  --sage-400: #a4b792;
+  --sage-500: #93a682;
+  --sage-600: #7a8c6a;
+  --sanctuary-white: #fefcfb;
+  --sanctuary-gray-800: #2d2d2d;
+  --sanctuary-gray-100: #f1f1f1;
+  
+  /* Critical transitions */
+  --transition-gentle: 200ms cubic-bezier(0.4, 0, 0.6, 1);
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Base reset - minimal */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Typography foundation */
+body { 
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; 
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: var(--sanctuary-white);
+  color: var(--sanctuary-gray-800);
+  font-display: swap;
+}
+
+/* Landing page hero - critical for LCP */
+.gradient-sanctuary {
+  background: linear-gradient(135deg, #a4b792 0%, #93a682 25%, #7a8c6a 75%);
+  min-height: 100vh;
+  contain: layout;
+}
+
+/* Essential button for CTA - critical for CLS */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sage-400);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  min-width: 200px;
+  min-height: 48px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-gentle);
+  will-change: transform;
+  contain: layout;
+  touch-action: manipulation;
+}
+
+.btn-primary:hover {
+  background: var(--sage-500);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Essential typography - critical for LCP */
+.wordmark-sacred {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  contain: layout;
+}
+
+.text-heading {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  contain: layout;
+}
+
+.text-body {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  contain: layout;
+}
+
+/* Essential layout */
+.layout-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  contain: layout;
+}
+
+/* Loading state - prevent CLS */
+.loading-gentle { 
+  opacity: 0.8; 
+  animation: pulse 2s infinite; 
+}
+
+@keyframes pulse { 
+  0%, 100% { opacity: 0.8; } 
+  50% { opacity: 0.4; } 
+}
+
+/* Crisis support button - always accessible, critical for safety */
+.crisis-support { 
+  position: fixed; 
+  bottom: 24px; 
+  right: 24px; 
+  z-index: 1000; 
+  width: 60px; 
+  height: 60px; 
+  background: var(--sage-400); 
+  border: none; 
+  border-radius: 50%; 
+  color: white; 
+  font-size: 1.5rem; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-gentle);
+  will-change: transform;
+  contain: layout;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(164, 183, 146, 0.3);
+}
+
+/* Mobile optimizations - critical for mobile LCP */
+@media (max-width: 768px) {
+  .wordmark-sacred { font-size: 2rem; }
+  .text-heading { font-size: 1.875rem; }
+  .text-body { font-size: 1.125rem; }
+  .btn-primary { 
+    min-width: 180px; 
+    font-size: 15px;
+    min-height: 52px; /* Larger touch target for mobile */
+  }
+  .layout-centered { padding: 1rem 1rem; }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .btn-primary:hover {
+    transform: none;
+  }
+}

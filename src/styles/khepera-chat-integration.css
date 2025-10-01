@@ -1,0 +1,384 @@
+/* ===== KHEPERA CHAT INTEGRATION STYLES ===== */
+/* Jony Ive Design Philosophy: "Simplicity is not the absence of clutter, but the elimination of the unnecessary." */
+
+/* ===== CHAT POSITIONING WITH CRISIS BUTTON ===== */
+
+.khepera-chat-global {
+  /* Ensure chat doesn't interfere with crisis support */
+  --crisis-button-offset: 80px;
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+}
+
+/* Mobile-first approach - Stack chat above crisis button */
+@media (max-width: 768px) {
+  .khepera-chat-global .khepera-chat {
+    bottom: calc(var(--crisis-button-offset) + var(--safe-area-bottom) + 16px);
+    right: calc(16px + var(--safe-area-right));
+  }
+  
+  .khepera-chat-global .khepera-mobile-chat {
+    /* Full mobile experience when appropriate */
+    bottom: var(--safe-area-bottom);
+    left: 0;
+    right: 0;
+  }
+}
+
+/* Desktop positioning - Side by side with spacing */
+@media (min-width: 769px) {
+  .khepera-chat-global .khepera-chat {
+    bottom: 24px;
+    right: 144px; /* Space for crisis button + margin */
+  }
+  
+  /* When chat is open, gently slide crisis button left */
+  .khepera-chat-open .crisis-button,
+  .khepera-chat-open .crisis-support {
+    transform: translateX(-100px);
+    transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+}
+
+/* ===== CHAT BUTTON HARMONY ===== */
+
+.khepera-chat button[aria-label*="Khepera"] {
+  /* Complement crisis button with sage green */
+  background: linear-gradient(145deg, #a4b792 0%, #93a682 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(164, 183, 146, 0.4),
+    0 0 0 0 rgba(164, 183, 146, 0);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  backdrop-filter: blur(20px);
+}
+
+.khepera-chat button[aria-label*="Khepera"]:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 16px 48px rgba(164, 183, 146, 0.5),
+    0 0 0 4px rgba(164, 183, 146, 0.2);
+}
+
+.khepera-chat button[aria-label*="Khepera"]:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 8px 32px rgba(164, 183, 146, 0.4),
+    0 0 0 4px rgba(164, 183, 146, 0.6);
+}
+
+/* ===== CHAT WINDOW ELEVATION ===== */
+
+.khepera-chat .chat-window,
+.khepera-mobile-chat {
+  /* Jony Ive signature: Precise shadows that feel natural */
+  box-shadow: 
+    0 24px 80px rgba(164, 183, 146, 0.25),
+    0 12px 48px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(164, 183, 146, 0.1);
+  border-radius: 24px;
+  backdrop-filter: blur(40px);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+}
+
+/* Mobile chat window takes full advantage of screen real estate */
+@media (max-width: 768px) {
+  .khepera-mobile-chat {
+    border-radius: 24px 24px 0 0;
+    box-shadow: 
+      0 -8px 32px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(164, 183, 146, 0.1);
+  }
+}
+
+/* ===== CHAT MESSAGES DESIGN ===== */
+
+.khepera-chat .message-bubble,
+.khepera-mobile-chat .message-bubble {
+  /* Organic bubble shapes that feel conversational */
+  border-radius: 20px 20px 20px 4px; /* Khepera messages */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(164, 183, 146, 0.1);
+}
+
+.khepera-chat .message-bubble.user,
+.khepera-mobile-chat .message-bubble.user {
+  border-radius: 20px 20px 4px 20px; /* User messages */
+  background: linear-gradient(145deg, #a4b792 0%, #93a682 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== TYPING INDICATOR ===== */
+
+.khepera-typing-indicator {
+  /* Gentle breathing animation for typing */
+  animation: gentle-breathe 2s ease-in-out infinite;
+}
+
+.khepera-typing-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.khepera-typing-dot {
+  width: 8px;
+  height: 8px;
+  background: #a4b792;
+  border-radius: 50%;
+  animation: typing-bounce 1.4s ease-in-out infinite both;
+}
+
+.khepera-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.khepera-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.khepera-typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typing-bounce {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== QUICK REPLIES ===== */
+
+.khepera-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid rgba(164, 183, 146, 0.1);
+  background: rgba(164, 183, 146, 0.02);
+}
+
+.khepera-quick-reply {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(164, 183, 146, 0.1);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: 16px;
+  color: #6b7556;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  min-height: 44px; /* Touch target optimization */
+}
+
+.khepera-quick-reply:hover {
+  background: rgba(164, 183, 146, 0.2);
+  border-color: rgba(164, 183, 146, 0.4);
+  transform: translateY(-1px);
+}
+
+.khepera-quick-reply:active {
+  transform: translateY(0);
+}
+
+/* ===== INPUT AREA ===== */
+
+.khepera-chat-input {
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: 20px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  resize: none;
+  font-family: inherit;
+  font-size: 16px; /* Prevent zoom on iOS */
+  line-height: 1.4;
+}
+
+.khepera-chat-input:focus {
+  outline: none;
+  border-color: #a4b792;
+  box-shadow: 
+    0 0 0 3px rgba(164, 183, 146, 0.1),
+    0 2px 8px rgba(164, 183, 146, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+.khepera-chat-input::placeholder {
+  color: rgba(107, 117, 86, 0.6);
+  font-style: italic;
+}
+
+/* ===== SEND BUTTON ===== */
+
+.khepera-send-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #a4b792 0%, #93a682 100%);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: 0 2px 8px rgba(164, 183, 146, 0.3);
+}
+
+.khepera-send-button:hover:not(:disabled) {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 16px rgba(164, 183, 146, 0.4);
+}
+
+.khepera-send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== CRISIS INTEGRATION STYLES ===== */
+
+.khepera-crisis-mode {
+  /* When crisis is detected, adjust chat styling */
+  border-color: rgba(220, 38, 38, 0.3);
+  box-shadow: 
+    0 24px 80px rgba(220, 38, 38, 0.15),
+    0 0 0 1px rgba(220, 38, 38, 0.1);
+}
+
+.khepera-crisis-message {
+  background: linear-gradient(145deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #991b1b;
+}
+
+/* ===== GROUNDING EXERCISE STYLES ===== */
+
+.khepera-grounding-mode {
+  background: linear-gradient(145deg, rgba(107, 114, 128, 0.05) 0%, rgba(156, 163, 175, 0.05) 100%);
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+.khepera-grounding-prompt {
+  background: rgba(107, 114, 128, 0.1);
+  border: 1px solid rgba(107, 114, 128, 0.2);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 12px 0;
+  color: #374151;
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .khepera-chat *,
+  .khepera-mobile-chat * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .khepera-chat,
+  .khepera-mobile-chat {
+    border: 2px solid #000;
+    background: #fff;
+  }
+  
+  .khepera-chat button,
+  .khepera-mobile-chat button {
+    border: 2px solid #000;
+    background: #000;
+    color: #fff;
+  }
+  
+  .khepera-chat .message-bubble.user {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+  }
+}
+
+/* ===== SAFE AREA HANDLING FOR iOS ===== */
+
+@supports (padding: max(0px)) {
+  .khepera-mobile-chat {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+
+@media (prefers-color-scheme: dark) {
+  .khepera-chat,
+  .khepera-mobile-chat {
+    background: rgba(17, 24, 39, 0.98);
+    border-color: rgba(164, 183, 146, 0.3);
+    color: #f9fafb;
+  }
+  
+  .khepera-chat .message-bubble:not(.user) {
+    background: rgba(31, 41, 55, 0.8);
+    border-color: rgba(164, 183, 146, 0.2);
+    color: #f3f4f6;
+  }
+  
+  .khepera-chat-input {
+    background: rgba(31, 41, 55, 0.8);
+    border-color: rgba(164, 183, 146, 0.3);
+    color: #f9fafb;
+  }
+  
+  .khepera-chat-input::placeholder {
+    color: rgba(156, 163, 175, 0.7);
+  }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+
+.khepera-chat,
+.khepera-mobile-chat {
+  /* GPU acceleration for smooth animations */
+  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+.khepera-chat button,
+.khepera-mobile-chat button {
+  /* Optimize button interactions */
+  will-change: transform;
+  contain: layout style;
+}
+
+/* Smooth scrolling for message area */
+.khepera-messages-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(164, 183, 146, 0.3) transparent;
+}
+
+.khepera-messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.khepera-messages-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.khepera-messages-container::-webkit-scrollbar-thumb {
+  background: rgba(164, 183, 146, 0.3);
+  border-radius: 3px;
+}
+
+.khepera-messages-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(164, 183, 146, 0.5);
+}

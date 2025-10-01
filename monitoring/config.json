@@ -1,0 +1,29 @@
+{
+    "sites": [
+        "https://alchm-digital-sanctuary.web.app/",
+        "https://alchmapp.web.app/"
+    ],
+    "monitoring": {
+        "interval": 30000,
+        "timeout": 10000,
+        "retries": 3
+    },
+    "alerts": {
+        "responseTime": 3000,
+        "errorRate": 5,
+        "stylingFailure": 1,
+        "webhookUrl": ""
+    },
+    "performance": {
+        "fcpTarget": 1200,
+        "lcpTarget": 2000,
+        "fidTarget": 50,
+        "clsTarget": 0.05,
+        "ttiTarget": 3000
+    },
+    "sacredContract": {
+        "expectedMarginTop": "5rem",
+        "expectedBackground": "rgba(34, 51, 68, 0.15)",
+        "expectedColor": "white"
+    }
+}

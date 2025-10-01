@@ -1,0 +1,975 @@
+/* 
+ * Jony Ive Design System for ALCHM
+ * Radical simplicity. Obsessive attention to detail. Pure functionality.
+ */
+
+:root {
+  /* Pure Neutrals - The foundation */
+  --pure-white: #FFFFFF;
+  --soft-white: #FAFAFA;
+  --whisper-gray: #F5F5F7;
+  --light-gray: #E8E8ED;
+  --medium-gray: #D2D2D7;
+  --text-gray: #86868B;
+  --deep-gray: #1D1D1F;
+  --pure-black: #000000;
+  
+  /* Singular Accent - Restraint */
+  --sage-accent: #5E8E7F;
+  --sage-hover: #4A7366;
+  --sage-light: #E8F2EF;
+  
+  /* Functional States - Clarity */
+  --success: #34C759;
+  --warning: #FF9500;
+  --error: #FF3B30;
+  --info: #007AFF;
+  
+  /* Typography Scale - Perfection */
+  --font-hero: 56px;
+  --font-title: 40px;
+  --font-heading: 28px;
+  --font-subheading: 21px;
+  --font-body: 17px;
+  --font-small: 15px;
+  --font-micro: 13px;
+  
+  /* Spacing - Mathematical Harmony */
+  --space-micro: 4px;
+  --space-small: 8px;
+  --space-base: 16px;
+  --space-medium: 24px;
+  --space-large: 32px;
+  --space-xlarge: 48px;
+  --space-xxlarge: 64px;
+  --space-hero: 96px;
+  
+  /* Radii - Soft Precision */
+  --radius-small: 8px;
+  --radius-base: 12px;
+  --radius-large: 16px;
+  --radius-xlarge: 20px;
+  --radius-round: 9999px;
+  
+  /* Shadows - Subtle Depth */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-small: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-large: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xlarge: 0 16px 64px rgba(0, 0, 0, 0.16);
+  
+  /* Animation - Fluid Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-base: 350ms;
+  --duration-slow: 500ms;
+  
+  /* Layout - Golden Proportions */
+  --max-width: 1120px;
+  --content-width: 680px;
+  --sidebar-width: 280px;
+}
+
+/* System Font Stack - Native Performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-size: var(--font-body);
+  line-height: 1.5;
+  letter-spacing: -0.022em;
+  color: var(--deep-gray);
+  background: var(--pure-white);
+}
+
+/* Typography Hierarchy */
+.type-hero {
+  font-size: var(--font-hero);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.type-title {
+  font-size: var(--font-title);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.type-heading {
+  font-size: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.type-subheading {
+  font-size: var(--font-subheading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.type-body {
+  font-size: var(--font-body);
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1.5;
+}
+
+.type-small {
+  font-size: var(--font-small);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.type-micro {
+  font-size: var(--font-micro);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+/* Glass Morphism - Subtle Sophistication */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Button System - Purposeful */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: var(--radius-round);
+  font-size: var(--font-body);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  transition: all var(--duration-base) var(--ease-out);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--deep-gray);
+  color: var(--pure-white);
+}
+
+.btn-primary:hover {
+  background: var(--pure-black);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+  background: var(--whisper-gray);
+  color: var(--deep-gray);
+}
+
+.btn-secondary:hover {
+  background: var(--light-gray);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--deep-gray);
+}
+
+.btn-ghost:hover {
+  background: var(--whisper-gray);
+}
+
+/* Card System - Floating Elements */
+.card {
+  background: var(--pure-white);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-small);
+  padding: var(--space-large);
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+.card-flat {
+  background: var(--whisper-gray);
+  box-shadow: none;
+}
+
+.card-bordered {
+  background: var(--pure-white);
+  border: 1px solid var(--light-gray);
+  box-shadow: none;
+}
+
+/* Input System - Invisible Until Needed */
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background: var(--whisper-gray);
+  border: 2px solid transparent;
+  border-radius: var(--radius-base);
+  font-size: var(--font-body);
+  transition: all var(--duration-fast) var(--ease-out);
+  outline: none;
+}
+
+.input:focus {
+  background: var(--pure-white);
+  border-color: var(--sage-accent);
+  box-shadow: 0 0 0 4px rgba(94, 142, 127, 0.1);
+}
+
+.input-invisible {
+  background: transparent;
+  border-color: transparent;
+  border-bottom: 1px solid var(--light-gray);
+  border-radius: 0;
+  padding: 8px 0;
+}
+
+.input-invisible:focus {
+  border-bottom-color: var(--sage-accent);
+  box-shadow: none;
+}
+
+/* Navigation - Barely There */
+.nav-minimal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item {
+  color: var(--text-gray);
+  font-size: var(--font-small);
+  font-weight: 500;
+  text-decoration: none;
+  margin: 0 var(--space-medium);
+  transition: color var(--duration-fast) var(--ease-out);
+  position: relative;
+}
+
+.nav-item:hover {
+  color: var(--deep-gray);
+}
+
+.nav-item.active {
+  color: var(--deep-gray);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--sage-accent);
+  border-radius: var(--radius-round);
+}
+
+/* Focus States - Accessibility with Beauty */
+*:focus-visible {
+  outline: 2px solid var(--sage-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-small);
+}
+
+/* Loading States - Subtle Progress */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 2s var(--ease-in-out) infinite;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 768px) {
+  :root {
+    --font-hero: 40px;
+    --font-title: 32px;
+    --font-heading: 24px;
+    --font-subheading: 19px;
+    --font-body: 16px;
+  }
+}
+
+/**
+ * MOBILE-FIRST DESIGN SYSTEM EXTENSION
+ * Thumb choreography over finger gymnastics
+ * Emotional ergonomics for vulnerable hands
+ */
+
+/* ========================================
+   MOBILE-FIRST SPACING SYSTEM
+   Every pixel serves healing
+======================================== */
+:root {
+  /* The Sacred Mobile Spacing Scale */
+  --space-breath: 8px;      /* Micro-breathing room between elements */
+  --space-whisper: 16px;    /* Gentle separation that doesn't isolate */
+  --space-pause: 24px;      /* Thoughtful break in content flow */
+  --space-rest: 32px;       /* Comfortable distance for major sections */
+  --space-sanctuary: 48px;  /* Sacred space around important moments */
+  
+  /* Touch-Friendly Measurements */
+  --touch-minimum: 48px;    /* Apple's 44px + anxiety buffer */
+  --touch-comfortable: 56px; /* Generous space for difficult moments */
+  --touch-safe-zone: 88px;  /* Bottom navigation height + breathing room */
+  
+  /* Mobile Typography Scale */
+  --text-whisper: 13px;     /* Secondary information */
+  --text-speak: 15px;       /* Body text that doesn't strain tired eyes */
+  --text-voice: 17px;       /* iOS sweet spot for comfortable reading */
+  --text-call: 20px;        /* Gentle emphasis */
+  --text-shout: 24px;       /* Headers that don't overwhelm */
+  --text-anthem: clamp(28px, 8vw, 36px); /* Hero text that scales gracefully */
+  
+  /* Safe Area Insets for Modern Phones */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ========================================
+   THUMB-ZONE NAVIGATION SYSTEM
+   Every tap should feel intentional, never accidental
+======================================== */
+
+.mobile-navigation {
+  position: fixed;
+  bottom: var(--safe-bottom);
+  left: var(--safe-left);
+  right: var(--safe-right);
+  z-index: 1000;
+  
+  /* The floating pill that breathes */
+  margin: 0 var(--space-whisper) var(--space-whisper);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 28px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--space-breath) 0;
+  height: var(--touch-comfortable);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-comfortable);
+  min-height: var(--touch-comfortable);
+  border-radius: 20px;
+  transition: all 0.3s var(--ease-out);
+  position: relative;
+  padding: var(--space-breath);
+  margin: 0 var(--space-breath);
+  cursor: pointer;
+  
+  /* Haptic-ready interaction states */
+  &:active {
+    transform: scale(0.95);
+    transition-duration: 0.1s;
+  }
+  
+  &.active {
+    background: rgba(94, 142, 127, 0.1);
+    transform: scale(1.05);
+    
+    .nav-icon {
+      color: var(--sage-accent);
+      transform: scale(1.1);
+    }
+    
+    .nav-label {
+      opacity: 1;
+      color: var(--sage-accent);
+      font-weight: 500;
+    }
+    
+    /* Gentle inner glow for active state */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, 
+        rgba(94, 142, 127, 0.2) 0%, 
+        rgba(94, 142, 127, 0.05) 100%);
+      z-index: -1;
+    }
+  }
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--text-gray);
+  transition: all 0.3s var(--ease-out);
+  margin-bottom: 2px;
+}
+
+.nav-label {
+  font-size: var(--text-whisper);
+  color: var(--text-gray);
+  font-weight: 400;
+  opacity: 0.8;
+  transition: all 0.3s var(--ease-out);
+  text-align: center;
+  line-height: 1;
+}
+
+/* Special pulsing state for write button when ready */
+.nav-item-write:not(.active) {
+  .nav-icon {
+    animation: gentle-pulse 3s ease-in-out infinite;
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+/* ========================================
+   MOBILE TYPOGRAPHY SYSTEM
+   Every character serves the story
+======================================== */
+
+.mobile-hero {
+  font-size: var(--text-anthem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-pause);
+  color: var(--deep-gray);
+  text-wrap: balance;
+  max-width: 100%;
+}
+
+.mobile-subtitle {
+  font-size: var(--text-call);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-gray);
+  margin-bottom: var(--space-rest);
+  text-wrap: balance;
+}
+
+.mobile-body {
+  font-size: var(--text-voice);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--deep-gray);
+  margin-bottom: var(--space-whisper);
+  max-width: 100%;
+}
+
+.mobile-caption {
+  font-size: var(--text-speak);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-gray);
+  opacity: 0.8;
+}
+
+.mobile-micro {
+  font-size: var(--text-whisper);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-gray);
+  opacity: 0.7;
+}
+
+/* ========================================
+   MOBILE TOUCH TARGETS
+   Every interaction honors the human hand
+======================================== */
+
+.mobile-button {
+  min-height: var(--touch-comfortable);
+  min-width: var(--touch-comfortable);
+  padding: var(--space-whisper) var(--space-pause);
+  border-radius: 28px;
+  border: none;
+  font-size: var(--text-voice);
+  font-weight: 500;
+  margin: var(--space-breath);
+  transition: all 0.3s var(--ease-out);
+  cursor: pointer;
+  
+  &.primary {
+    background: var(--sage-accent);
+    color: white;
+    box-shadow: 
+      0 4px 16px rgba(94, 142, 127, 0.3),
+      0 2px 4px rgba(94, 142, 127, 0.2);
+    
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 
+        0 2px 8px rgba(94, 142, 127, 0.2),
+        0 1px 2px rgba(94, 142, 127, 0.1);
+    }
+  }
+  
+  &.secondary {
+    background: rgba(94, 142, 127, 0.1);
+    color: var(--sage-accent);
+    border: 1px solid rgba(94, 142, 127, 0.2);
+    
+    &:active {
+      background: rgba(94, 142, 127, 0.15);
+      transform: scale(0.98);
+    }
+  }
+  
+  &.full-width {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.mobile-input {
+  width: 100%;
+  min-height: var(--touch-comfortable);
+  padding: var(--space-whisper);
+  border: 2px solid rgba(94, 142, 127, 0.2);
+  border-radius: 16px;
+  font-size: max(16px, var(--text-voice)); /* Prevent zoom on iOS */
+  background: var(--pure-white);
+  color: var(--deep-gray);
+  margin: var(--space-breath) 0 var(--space-whisper);
+  transition: all 0.3s var(--ease-out);
+  
+  &:focus {
+    outline: none;
+    border-color: var(--sage-accent);
+    box-shadow: 0 0 0 4px rgba(94, 142, 127, 0.1);
+  }
+  
+  &::placeholder {
+    color: var(--text-gray);
+    opacity: 0.7;
+  }
+}
+
+/* ========================================
+   MOBILE CARD SYSTEM
+   Every surface tells part of the story
+======================================== */
+
+.mobile-card {
+  background: var(--pure-white);
+  border-radius: 24px;
+  padding: var(--space-rest);
+  margin: var(--space-whisper) 0;
+  box-shadow: var(--shadow-small);
+  border: 1px solid rgba(94, 142, 127, 0.1);
+  transition: all 0.4s var(--ease-out);
+  
+  &:active {
+    transform: scale(0.99);
+    box-shadow: var(--shadow-subtle);
+  }
+  
+  &.interactive {
+    cursor: pointer;
+    
+    &:hover {
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-1px);
+    }
+  }
+  
+  &.full-bleed {
+    margin-left: calc(-1 * var(--space-whisper));
+    margin-right: calc(-1 * var(--space-whisper));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+/* ========================================
+   MOBILE LAYOUT CONTAINERS
+   Structure that breathes and flows
+======================================== */
+
+.mobile-container {
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 var(--space-whisper);
+  margin: 0 auto;
+  padding-left: max(var(--space-whisper), var(--safe-left));
+  padding-right: max(var(--space-whisper), var(--safe-right));
+}
+
+.mobile-section {
+  margin-bottom: var(--space-sanctuary);
+  
+  &:first-child {
+    margin-top: max(var(--space-rest), var(--safe-top));
+  }
+  
+  &:last-child {
+    margin-bottom: calc(var(--touch-safe-zone) + var(--safe-bottom));
+  }
+}
+
+.mobile-stack > * + * {
+  margin-top: var(--space-whisper);
+}
+
+.mobile-stack-large > * + * {
+  margin-top: var(--space-rest);
+}
+
+/* ========================================
+   MOBILE WRITING INTERFACE
+   The sacred space where healing happens
+======================================== */
+
+.mobile-writing-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, 
+    var(--pure-white) 0%,
+    rgba(254, 252, 251, 0.98) 100%);
+  backdrop-filter: blur(40px) saturate(120%);
+  transform: translateY(100%);
+  transition: transform 0.6s var(--ease-out);
+  
+  &.active {
+    transform: translateY(0);
+  }
+}
+
+.mobile-writing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(var(--space-whisper), var(--safe-top)) var(--space-whisper) var(--space-whisper);
+  border-bottom: 1px solid rgba(94, 142, 127, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+.mobile-writing-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(94, 142, 127, 0.1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sage-accent);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  
+  &:active {
+    transform: scale(0.9);
+    background: rgba(94, 142, 127, 0.2);
+  }
+}
+
+.mobile-textarea {
+  width: 100%;
+  min-height: 70vh;
+  padding: var(--space-rest);
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--deep-gray);
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 400;
+  resize: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  
+  &::placeholder {
+    color: var(--text-gray);
+    opacity: 0.6;
+    font-style: italic;
+  }
+}
+
+.mobile-writing-toolbar {
+  position: fixed;
+  bottom: calc(var(--safe-bottom) + var(--space-whisper));
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(94, 142, 127, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 28px;
+  padding: var(--space-breath) var(--space-whisper);
+  display: flex;
+  align-items: center;
+  gap: var(--space-whisper);
+  box-shadow: 
+    0 8px 32px rgba(94, 142, 127, 0.3),
+    0 2px 8px rgba(94, 142, 127, 0.2);
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  transition: all 0.4s var(--ease-out);
+  
+  &.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.toolbar-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  
+  &:active {
+    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  &.primary {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--sage-accent);
+    font-weight: 600;
+  }
+}
+
+/* ========================================
+   MOBILE LOADING STATES
+   Animations that heal while they wait
+======================================== */
+
+.mobile-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sanctuary);
+  text-align: center;
+}
+
+.loading-heartbeat {
+  width: 24px;
+  height: 24px;
+  background: var(--sage-accent);
+  border-radius: 50%;
+  animation: heartbeat 1.2s ease-in-out infinite;
+  margin-bottom: var(--space-whisper);
+}
+
+@keyframes heartbeat {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.loading-breathing {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(45deg, var(--sage-accent), var(--sage-light));
+  border-radius: 50%;
+  animation: breathing 3s ease-in-out infinite;
+  margin-bottom: var(--space-whisper);
+}
+
+@keyframes breathing {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.loading-text {
+  font-size: var(--text-speak);
+  color: var(--text-gray);
+  font-weight: 400;
+  opacity: 0.8;
+  animation: fade-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE UTILITIES
+======================================== */
+
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
+  
+  /* Prevent content from hiding behind mobile navigation */
+  .mobile-content {
+    padding-bottom: calc(var(--touch-safe-zone) + var(--safe-bottom));
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only { display: none !important; }
+}
+
+/* Large mobile optimization */
+@media (min-width: 428px) and (max-width: 768px) {
+  :root {
+    --space-whisper: 20px;
+    --space-pause: 28px;
+    --space-rest: 36px;
+  }
+}
+
+/* Small mobile optimization */
+@media (max-width: 375px) {
+  :root {
+    --space-whisper: 12px;
+    --space-pause: 20px;
+    --space-rest: 28px;
+  }
+}
+
+/* Landscape mobile */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-writing-container .mobile-textarea {
+    min-height: 50vh;
+  }
+  
+  .mobile-navigation {
+    transform: scale(0.9);
+  }
+}
+
+/* Dark mode refinements */
+@media (prefers-color-scheme: dark) {
+  .mobile-navigation {
+    background: rgba(29, 29, 31, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-card {
+    background: #2d2d2d;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-writing-container {
+    background: linear-gradient(180deg, 
+      #1d1d1f 0%,
+      rgba(29, 29, 31, 0.98) 100%);
+  }
+}
+
+/* Accessibility enhancements */
+@media (prefers-contrast: high) {
+  .mobile-button.primary {
+    border: 2px solid var(--sage-accent);
+  }
+  
+  .mobile-card {
+    border: 2px solid rgba(94, 142, 127, 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.mobile-button:focus-visible,
+.mobile-input:focus-visible,
+.mobile-nav-item:focus-visible {
+  outline: 3px solid var(--sage-accent);
+  outline-offset: 2px;
+}
+
+/* Print Styles - Even Paper Should Be Beautiful */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+  
+  .mobile-navigation,
+  .mobile-writing-toolbar,
+  .loading-heartbeat,
+  .loading-breathing {
+    display: none !important;
+  }
+}

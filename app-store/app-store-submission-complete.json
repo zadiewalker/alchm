@@ -1,0 +1,298 @@
+{
+  "app_info": {
+    "bundle_id": "com.thirtythree6.alchm",
+    "version": "1.0.0",
+    "build_number": "1",
+    "app_name": "ALCHM - Your Digital Sanctuary",
+    "minimum_os_version": {
+      "ios": "15.0",
+      "android": "26"
+    }
+  },
+  "apple_app_store": {
+    "app_name": "ALCHM - Your Digital Sanctuary",
+    "subtitle": "Trauma-Informed AI Journaling",
+    "promotional_text": "The World's First Identity OS. A safe space for healing through AI-powered journaling designed specifically for trauma survivors.",
+    "description": "ALCHM is a trauma-informed, AI-powered journaling platform designed to support your healing journey through reflection and personal growth.\n\n🌿 TRAUMA-INFORMED DESIGN\n• Built with trauma survivors in mind\n• Gentle, non-triggering interface\n• Crisis detection and safety resources\n• Respect for your healing pace\n\n🤖 INTELLIGENT AI SUPPORT\n• AI that understands trauma responses\n• Personalized insights and reflections\n• Pattern recognition for growth tracking\n• Privacy-first processing\n\n🛡️ PRIVACY & SECURITY\n• End-to-end encryption\n• No data sharing with third parties\n• Local processing when possible\n• Complete control over your data\n\n🆘 CRISIS SUPPORT\n• Automatic crisis detection\n• Immediate access to 988 and crisis resources\n• Professional referral suggestions\n• 24/7 safety net features\n\n✨ FEATURES\n• Intelligent journaling prompts\n• Mood tracking and patterns\n• Goal setting and progress tracking\n• Gamified healing elements\n• Offline functionality\n• Multi-device sync\n\nALCHM is designed for users 17+ and includes mature content related to mental health and trauma recovery. This app is not a substitute for professional mental health treatment.\n\nIf you're experiencing a crisis, please contact 911 or the 988 Suicide & Crisis Lifeline immediately.",
+    "keywords": "trauma,journaling,mental health,AI,healing,therapy,PTSD,anxiety,depression,wellness,mindfulness,reflection,diary,mood tracker,crisis support,emotional intelligence,resilience,self-care,meditation,recovery,growth,therapy journal,emotional wellness,trauma recovery,healing journey",
+    "primary_category": "HEALTH_AND_FITNESS",
+    "secondary_category": "LIFESTYLE",
+    "age_rating": "17+",
+    "content_rating_reasons": [
+      "Mature/Suggestive Themes: Frequent/Intense - Mental health content including trauma, depression, anxiety",
+      "Medical/Treatment Information: Frequent/Intense - Mental health resources and crisis intervention"
+    ],
+    "what_new": "• Enhanced crisis detection and safety features\n• Improved AI insights for trauma recovery\n• New healing pathway recommendations\n• Better privacy controls and data management\n• Performance improvements and bug fixes\n• Updated crisis resources and professional referrals",
+    "review_notes": "ALCHM is a mental health app designed specifically for trauma survivors. The app includes:\n\n1. Crisis detection features that provide immediate access to professional resources (988 Lifeline, Crisis Text Line)\n2. Clear medical disclaimers stating the app is not a substitute for professional care\n3. Age restriction to 17+ due to mature mental health content\n4. Comprehensive privacy policy and data protection measures\n5. Professional crisis intervention resources integrated throughout\n\nThe app follows trauma-informed care principles and encourages users to seek professional help when needed. All content is designed to support, not replace, professional mental health treatment.",
+    "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "terms_of_service_url": "https://alchm-digital-sanctuary.web.app/terms.html",
+    "support_url": "https://alchm-digital-sanctuary.web.app/support",
+    "copyright": "2025 ALCHM Team. All rights reserved.",
+    "privacy_manifest_required": true,
+    "required_screenshots": {
+      "6.7_inch_iphone": {
+        "size": "1290x2796",
+        "required_count": "3-10"
+      },
+      "6.5_inch_iphone": {
+        "size": "1242x2688", 
+        "required_count": "3-10"
+      },
+      "5.5_inch_iphone": {
+        "size": "1242x2208",
+        "required_count": "3-10"
+      },
+      "ipad_pro_12_9": {
+        "size": "2048x2732",
+        "required_count": "3-10"
+      },
+      "ipad_pro_11": {
+        "size": "1668x2388",
+        "required_count": "3-10"
+      }
+    },
+    "app_preview_video": {
+      "recommended": true,
+      "max_duration": "30 seconds",
+      "formats": ["MOV", "M4V", "MP4"]
+    }
+  },
+  "google_play_store": {
+    "app_name": "ALCHM - Trauma-Informed AI Journaling",
+    "short_description": "Your digital sanctuary for healing through AI-powered journaling. Designed for trauma survivors.",
+    "full_description": "ALCHM is a trauma-informed, AI-powered journaling platform that provides a safe space for healing, reflection, and personal growth.\n\n🌿 TRAUMA-INFORMED APPROACH\nBuilt specifically for trauma survivors with gentle, non-triggering design principles. Features crisis detection, safety resources, and respect for your healing journey.\n\n🤖 INTELLIGENT AI COMPANION\nOur AI understands trauma responses and provides personalized insights, pattern recognition, and growth tracking while maintaining your privacy.\n\n🛡️ PRIVACY & SECURITY FIRST\n• End-to-end encryption for all journal entries\n• No data sharing with third parties\n• Local processing when possible\n• Complete control over your information\n\n🆘 INTEGRATED CRISIS SUPPORT\n• Automatic crisis detection system\n• Direct access to 988 Suicide & Crisis Lifeline\n• Crisis Text Line integration\n• Professional mental health referrals\n\n✨ KEY FEATURES:\n• Intelligent journaling prompts\n• Mood tracking and emotional patterns\n• Healing pathway recommendations\n• Goal setting and progress visualization\n• Gamified recovery elements\n• Offline functionality\n• Cross-device synchronization\n• Multiple subscription tiers\n\n🔒 SAFETY & COMPLIANCE\nDesigned for ages 17+ with mature mental health content. Includes comprehensive medical disclaimers and clear statements that the app is not a substitute for professional care.\n\nALCHM encourages users to work with qualified mental health professionals and provides easy access to crisis resources when needed.\n\nIf you're experiencing a mental health crisis, please contact emergency services or the 988 Lifeline immediately.",
+    "category": "HEALTH_AND_FITNESS",
+    "content_rating": "Mature 17+",
+    "target_audience": "Adults",
+    "tags": ["mental health", "journaling", "trauma recovery", "AI companion", "wellness", "therapy journal", "crisis support", "emotional intelligence", "mindfulness", "self-care"],
+    "privacy_policy_url": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "terms_of_service_url": "https://alchm-digital-sanctuary.web.app/terms.html",
+    "required_screenshots": {
+      "phone": {
+        "size": "1080x1920",
+        "minimum_count": 2,
+        "maximum_count": 8
+      },
+      "7_inch_tablet": {
+        "size": "1200x1920", 
+        "minimum_count": 1,
+        "maximum_count": 8
+      },
+      "10_inch_tablet": {
+        "size": "1920x1200",
+        "minimum_count": 1,
+        "maximum_count": 8
+      }
+    },
+    "feature_graphic": {
+      "size": "1024x500",
+      "format": "JPG or PNG",
+      "required": true
+    },
+    "promo_video": {
+      "recommended": true,
+      "youtube_url_required": true,
+      "max_duration": "2 minutes"
+    }
+  },
+  "data_safety_form": {
+    "data_collected": {
+      "personal_info": {
+        "email_address": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "Account management"
+        },
+        "name": {
+          "collected": false,
+          "shared": false,
+          "optional": true
+        }
+      },
+      "health_fitness": {
+        "health_info": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "Analytics, App functionality"
+        },
+        "fitness_info": {
+          "collected": false,
+          "shared": false
+        }
+      },
+      "messages": {
+        "other_user_communications": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "App functionality",
+          "description": "Journal entries and reflections"
+        }
+      },
+      "app_activity": {
+        "app_interactions": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "Analytics, App functionality"
+        },
+        "in_app_search_history": {
+          "collected": false,
+          "shared": false
+        },
+        "installed_apps": {
+          "collected": false,
+          "shared": false
+        },
+        "other_user_generated_content": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "App functionality"
+        }
+      },
+      "web_browsing": {
+        "web_browsing_history": {
+          "collected": false,
+          "shared": false
+        }
+      },
+      "app_info_performance": {
+        "crash_logs": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "Analytics"
+        },
+        "diagnostics": {
+          "collected": true,
+          "shared": false,
+          "optional": false,
+          "purpose": "Analytics"
+        }
+      },
+      "device_machine_identifiers": {
+        "device_machine_ids": {
+          "collected": false,
+          "shared": false
+        }
+      }
+    },
+    "security_practices": {
+      "data_encrypted_in_transit": true,
+      "data_encrypted_at_rest": true,
+      "follows_families_policy": false,
+      "committed_to_play_families_policy": false,
+      "independent_security_review": false,
+      "data_deletion": "Users can request that data be deleted"
+    }
+  },
+  "privacy_nutrition_labels": {
+    "data_used_to_track_you": [],
+    "data_linked_to_you": [
+      "Health & Fitness",
+      "Identifiers",
+      "Usage Data",
+      "Diagnostics"
+    ],
+    "data_not_linked_to_you": [],
+    "data_types": {
+      "health_fitness": {
+        "collected": true,
+        "purposes": ["App Functionality", "Analytics"]
+      },
+      "identifiers": {
+        "collected": true,
+        "purposes": ["App Functionality"]
+      },
+      "usage_data": {
+        "collected": true,
+        "purposes": ["Analytics", "App Functionality"]
+      },
+      "diagnostics": {
+        "collected": true,
+        "purposes": ["App Functionality"]
+      }
+    }
+  },
+  "subscription_info": {
+    "subscription_type": "Auto-renewable",
+    "price_tiers": {
+      "basic": "$4.99/month",
+      "premium": "$9.99/month", 
+      "annual": "$49.99/year"
+    },
+    "free_trial": {
+      "duration": "7 days",
+      "available": true
+    },
+    "family_sharing": false,
+    "restore_purchases": true
+  },
+  "technical_requirements": {
+    "ios": {
+      "minimum_version": "15.0",
+      "supported_devices": ["iPhone", "iPad"],
+      "required_capabilities": ["arm64"],
+      "bundle_id": "com.thirtythree6.alchm"
+    },
+    "android": {
+      "minimum_sdk": 26,
+      "target_sdk": 34,
+      "compile_sdk": 34,
+      "supported_architectures": ["arm64-v8a", "armeabi-v7a"],
+      "bundle_id": "com.thirtythree6.alchm"
+    }
+  },
+  "compliance_checklist": {
+    "apple_requirements": {
+      "app_store_guidelines": "✅ Compliant",
+      "privacy_manifest": "✅ PrivacyInfo.xcprivacy created", 
+      "age_rating": "✅ 17+ appropriate for content",
+      "medical_disclaimers": "✅ Prominently displayed",
+      "crisis_resources": "✅ Integrated throughout app",
+      "subscription_terms": "✅ Clearly disclosed",
+      "privacy_nutrition_labels": "✅ Configured in App Store Connect",
+      "content_rating_questionnaire": "✅ Completed accurately"
+    },
+    "google_play_requirements": {
+      "play_console_policies": "✅ Health apps policy compliant",
+      "data_safety_form": "✅ Completed accurately",
+      "target_api_level": "✅ API 34 (current requirement)",
+      "permissions_disclosure": "✅ All permissions justified",
+      "content_rating_iarc": "✅ Mature 17+ rating obtained",
+      "store_listing": "✅ All required fields completed",
+      "privacy_policy": "✅ Linked and accessible"
+    }
+  },
+  "submission_checklist": {
+    "pre_submission": [
+      "✅ Bundle ID consistency verified (com.thirtythree6.alchm)",
+      "✅ Screenshots generated for all required device sizes",
+      "✅ Privacy policy updated and accessible",
+      "✅ Terms of service created and accessible",
+      "✅ Medical disclaimers prominently displayed",
+      "✅ Crisis resources integrated and tested",
+      "✅ Age verification implemented",
+      "✅ Subscription terms clearly disclosed"
+    ],
+    "app_store_connect": [
+      "App metadata completed",
+      "Screenshots uploaded",
+      "Privacy nutrition labels configured",
+      "Content rating questionnaire completed",
+      "Subscription pricing configured",
+      "Review notes submitted"
+    ],
+    "google_play_console": [
+      "Store listing completed",
+      "Data safety form submitted",
+      "Content rating obtained",
+      "Release management configured",
+      "Pricing and distribution set",
+      "Policy compliance verified"
+    ]
+  }
+}

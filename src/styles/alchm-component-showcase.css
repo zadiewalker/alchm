@@ -1,0 +1,596 @@
+/* 
+  ALCHM Component Showcase
+  "Technology that disappears, leaving only intention"
+  
+  This file demonstrates practical applications of our Digital Sanctuary Design System
+  through real-world components that embody quiet confidence and intentional restraint.
+*/
+
+/* ========================================
+   NAVIGATION - GENTLE WAYFINDING
+   ======================================== */
+
+.nav-sanctuary {
+  background: var(--glass-light);
+  backdrop-filter: blur(16px);
+  border-bottom: var(--border-hair) solid var(--sage-primary-whisper);
+  padding: var(--space-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+}
+
+.nav-sanctuary.scrolled {
+  background: var(--glass-medium);
+  box-shadow: var(--shadow-whisper);
+}
+
+.nav-link {
+  color: var(--sanctuary-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-normal);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-whisper);
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--sage-gradient-primary);
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+  transform: translateX(-50%);
+  border-radius: var(--radius-infinite);
+}
+
+.nav-link:hover {
+  color: var(--sage-primary);
+  background: var(--sage-primary-breath);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+.nav-link.active {
+  color: var(--sage-primary);
+  background: var(--sage-primary-whisper);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ========================================
+   HERO SECTION - MONUMENT TO INTENTION
+   ======================================== */
+
+.hero-sanctuary {
+  background: linear-gradient(135deg, var(--sanctuary-off-white) 0%, var(--sanctuary-whisper-gray) 100%);
+  padding: var(--space-sanctuary) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-sanctuary::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--sage-primary-breath) 0%, transparent 70%);
+  animation: gentle-breathe 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: var(--font-size-monument);
+  line-height: var(--line-height-monument);
+  letter-spacing: var(--letter-spacing-luxurious);
+  color: var(--sanctuary-text-primary);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  background: linear-gradient(135deg, var(--sanctuary-text-primary) 0%, var(--sage-primary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-subhead);
+  line-height: var(--line-height-spacious);
+  letter-spacing: var(--letter-spacing-generous);
+  color: var(--sanctuary-text-secondary);
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+}
+
+/* ========================================
+   CARDS - CONTAINERS OF INTENTION
+   ======================================== */
+
+.card-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+}
+
+.card-feature {
+  background: var(--glass-light);
+  backdrop-filter: blur(12px);
+  border: var(--border-hair) solid var(--glass-soft);
+  border-radius: var(--radius-sacred);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-feature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sage-gradient-primary);
+  transform: translateX(-100%);
+  transition: transform var(--transition-thoughtful) var(--ease-sanctuary);
+}
+
+.card-feature:hover {
+  background: var(--glass-medium);
+  border-color: var(--sage-primary-whisper);
+  transform: translateY(calc(-1 * var(--lift-gentle)));
+  box-shadow: var(--shadow-soft);
+}
+
+.card-feature:hover::before {
+  transform: translateX(0);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sage-primary-whisper);
+  border-radius: var(--radius-soft);
+  color: var(--sage-primary);
+  font-size: 24px;
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+}
+
+.card-feature:hover .card-icon {
+  background: var(--sage-primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: var(--font-size-subhead);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-generous);
+  color: var(--sanctuary-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.card-description {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-spacious);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sanctuary-text-secondary);
+}
+
+/* ========================================
+   FORMS - SACRED VESSELS FOR EXPRESSION
+   ======================================== */
+
+.form-sanctuary {
+  background: var(--glass-light);
+  backdrop-filter: blur(12px);
+  border: var(--border-hair) solid var(--glass-soft);
+  border-radius: var(--radius-sacred);
+  padding: var(--space-xl);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sanctuary-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.form-hint {
+  font-size: var(--font-size-whisper);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sanctuary-text-tertiary);
+  margin-top: var(--space-xs);
+}
+
+.form-error {
+  font-size: var(--font-size-whisper);
+  letter-spacing: var(--letter-spacing-normal);
+  color: #dc2626;
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.form-success {
+  font-size: var(--font-size-whisper);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sage-primary);
+  margin-top: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ========================================
+   JOURNAL COMPONENTS - SPACES FOR REFLECTION
+   ======================================== */
+
+.journal-entry {
+  background: var(--sanctuary-white);
+  border: var(--border-whisper) solid var(--sanctuary-soft-gray);
+  border-radius: var(--radius-soft);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+  position: relative;
+}
+
+.journal-entry::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--sage-gradient-primary);
+  border-radius: 0 var(--radius-whisper) var(--radius-whisper) 0;
+  transform: scaleY(0);
+  transition: transform var(--transition-gentle) var(--ease-sanctuary);
+}
+
+.journal-entry:hover {
+  border-color: var(--sage-primary-whisper);
+  box-shadow: var(--shadow-whisper);
+}
+
+.journal-entry:hover::before {
+  transform: scaleY(1);
+}
+
+.journal-date {
+  font-size: var(--font-size-whisper);
+  letter-spacing: var(--letter-spacing-generous);
+  color: var(--sanctuary-text-tertiary);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.journal-content {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-spacious);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sanctuary-text-primary);
+}
+
+.journal-mood {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--sage-primary-breath);
+  color: var(--sage-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-infinite);
+  font-size: var(--font-size-whisper);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-normal);
+  margin-top: var(--space-md);
+}
+
+/* ========================================
+   PROGRESS INDICATORS - GENTLE CELEBRATION
+   ======================================== */
+
+.progress-sanctuary {
+  background: var(--sanctuary-soft-gray);
+  border-radius: var(--radius-infinite);
+  height: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  background: var(--sage-gradient-primary);
+  height: 100%;
+  border-radius: var(--radius-infinite);
+  transition: width var(--transition-thoughtful) var(--ease-sanctuary);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: sanctuary-shimmer 2s infinite;
+}
+
+@keyframes sanctuary-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.streak-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--sage-primary-whisper);
+  color: var(--sage-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-infinite);
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.streak-sparkle {
+  animation: gentle-pulse 2s infinite;
+}
+
+/* ========================================
+   BADGES - GENTLE RECOGNITION
+   ======================================== */
+
+.badge-sanctuary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--glass-medium);
+  backdrop-filter: blur(8px);
+  border: var(--border-hair) solid var(--sage-primary-whisper);
+  color: var(--sage-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-infinite);
+  font-size: var(--font-size-whisper);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing-generous);
+  text-transform: uppercase;
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+}
+
+.badge-sanctuary:hover {
+  background: var(--sage-primary-whisper);
+  transform: translateY(calc(-1 * var(--lift-whisper)));
+  box-shadow: var(--shadow-whisper);
+}
+
+.badge-sparkle {
+  width: 12px;
+  height: 12px;
+  background: var(--sparkle-amber);
+  border-radius: var(--radius-infinite);
+  animation: gentle-sparkle 3s infinite;
+}
+
+@keyframes gentle-sparkle {
+  0%, 100% { 
+    opacity: 0.7; 
+    transform: scale(1) rotate(0deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2) rotate(180deg); 
+  }
+}
+
+/* ========================================
+   MODALS - SACRED DIALOGUE SPACES
+   ======================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  z-index: 1000;
+  animation: fade-in var(--transition-gentle) var(--ease-sanctuary);
+}
+
+.modal-content {
+  background: var(--sanctuary-white);
+  border-radius: var(--radius-sacred);
+  padding: var(--space-xl);
+  max-width: 480px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-sanctuary);
+  animation: scale-in var(--transition-gentle) var(--ease-sanctuary);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: var(--border-hair) solid var(--sanctuary-soft-gray);
+}
+
+.modal-title {
+  font-size: var(--font-size-heading);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-generous);
+  color: var(--sanctuary-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.modal-subtitle {
+  font-size: var(--font-size-body);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--sanctuary-text-secondary);
+}
+
+/* ========================================
+   CRISIS SUPPORT - COMPASSIONATE URGENT CARE
+   ======================================== */
+
+.crisis-button {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-infinite);
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--shadow-sacred);
+  cursor: pointer;
+  transition: all var(--transition-gentle) var(--ease-sanctuary);
+  z-index: 999;
+  animation: gentle-pulse 2s infinite;
+}
+
+.crisis-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+}
+
+.crisis-panel {
+  background: var(--sanctuary-white);
+  border: 2px solid #dc2626;
+  border-radius: var(--radius-sacred);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sanctuary);
+  animation: fade-in-up var(--transition-gentle) var(--ease-sanctuary);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS - POCKET SANCTUARY
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: var(--font-size-display);
+  }
+  
+  .card-gallery {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .form-sanctuary {
+    padding: var(--space-lg);
+    margin: 0 var(--space-md);
+  }
+  
+  .modal-content {
+    margin: var(--space-md);
+    max-height: 90vh;
+  }
+  
+  .crisis-button {
+    bottom: var(--space-md);
+    right: var(--space-md);
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+}
+
+/* ========================================
+   DARK MODE - NOCTURNAL SANCTUARY
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sanctuary-white: #1a1a1a;
+    --sanctuary-off-white: #212121;
+    --sanctuary-whisper-gray: #2d2d2d;
+    --sanctuary-soft-gray: #404040;
+    --sanctuary-medium-gray: #6b6b6b;
+    --sanctuary-text-primary: #f5f5f5;
+    --sanctuary-text-secondary: #d1d1d1;
+    --sanctuary-text-tertiary: #a8a8a8;
+    
+    --glass-light: rgba(0, 0, 0, 0.3);
+    --glass-medium: rgba(0, 0, 0, 0.5);
+    --glass-soft: rgba(0, 0, 0, 0.2);
+    --glass-whisper: rgba(0, 0, 0, 0.1);
+  }
+}

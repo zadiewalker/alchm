@@ -1,0 +1,294 @@
+/**
+ * ALCHM Content Moderation API
+ * 
+ * API endpoint for real-time content analysis and moderation
+ * using AI-powered therapeutic classification and safety assessment.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { headers } from 'next/headers';
+import { aiContentModerationSystem } from '@/lib/content-moderation/ai-moderation-system';
+import { crisisDetectionEngine } from '@/lib/crisis-detection/crisis-detection-engine';
+import { validateSession } from '@/lib/validateSession';
+import { analytics } from '@/lib/analytics';
+
+interface ContentAnalysisRequest {
+  content: string;
+  contentType: 'journal_entry' | 'reflection' | 'message' | 'comment';
+  userId?: string;
+  sessionId?: string;
+  metadata?: {
+    timestamp?: string;
+    platform?: string;
+    language?: string;
+    previousClassifications?: any[];
+  };
+}
+
+interface ContentAnalysisResponse {
+  success: boolean;
+  classification?: {
+    therapeutic: {
+      score: number;
+      categories: string[];
+      insights: string[];
+    };
+    safety: {
+      score: number;
+      level: 'safe' | 'concerning' | 'harmful' | 'critical';
+      concerns: string[];
+      interventionRequired: boolean;
+    };
+    quality: {
+      score: number;
+      readability: number;
+      coherence: number;
+      authenticity: number;
+    };
+    overall: {
+      approved: boolean;
+      confidence: number;
+      reasoning: string;
+    };
+  };
+  action?: {
+    type: 'approve' | 'flag' | 'intervention' | 'escalate';
+    message?: string;
+    resources?: any[];
+    followUp?: boolean;
+  };
+  crisisDetection?: {
+    detected: boolean;
+    level?: 'none' | 'gentle' | 'supportive' | 'immediate';
+    resources?: any[];
+  };
+  error?: string;
+  processingTime?: number;
+}
+
+export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  
+  try {
+    // Parse request body
+    const body: ContentAnalysisRequest = await request.json();
+    const { content, contentType, userId, sessionId, metadata } = body;
+
+    // Validate required fields
+    if (!content || typeof content !== 'string') {
+      return NextResponse.json({
+        success: false,
+        error: 'Content is required and must be a string'
+      }, { status: 400 });
+    }
+
+    if (!contentType || !['journal_entry', 'reflection', 'message', 'comment'].includes(contentType)) {
+      return NextResponse.json({
+        success: false,
+        error: 'Valid contentType is required'
+      }, { status: 400 });
+    }
+
+    // Validate content length
+    if (content.length > 10000) {
+      return NextResponse.json({
+        success: false,
+        error: 'Content exceeds maximum length of 10,000 characters'
+      }, { status: 400 });
+    }
+
+    if (content.trim().length < 10) {
+      return NextResponse.json({
+        success: false,
+        error: 'Content must be at least 10 characters long'
+      }, { status: 400 });
+    }
+
+    // Validate session if userId provided
+    let validatedUserId: string | null = null;
+    if (userId) {
+      const headersList = headers();
+      const authHeader = headersList.get('authorization');
+      
+      if (authHeader) {
+        const sessionValidation = await validateSession(authHeader.replace('Bearer ', ''));
+        if (sessionValidation.valid && sessionValidation.userId === userId) {
+          validatedUserId = userId;
+        }
+      }
+    }
+
+    // Rate limiting check
+    const clientIP = request.ip || 'unknown';
+    const rateLimitKey = validatedUserId || clientIP;
+    
+    if (await isRateLimited(rateLimitKey)) {
+      return NextResponse.json({
+        success: false,
+        error: 'Rate limit exceeded. Please wait before analyzing more content.'
+      }, { status: 429 });
+    }
+
+    // Perform content analysis
+    const [classification, crisisDetection] = await Promise.all([
+      aiContentModerationSystem.moderateContent(content, validatedUserId || 'anonymous'),
+      crisisDetectionEngine.analyzeContent(content, {
+        userId: validatedUserId || undefined,
+        contentType,
+        timestamp: new Date()
+      })
+    ]);
+
+    // Determine action based on classification
+    const action = determineAction(classification, crisisDetection);
+
+    // Log analytics
+    analytics.track('content_moderation_analysis', {
+      userId: validatedUserId,
+      contentType,
+      contentLength: content.length,
+      therapeuticScore: classification.therapeutic.score,
+      safetyScore: classification.safety.score,
+      qualityScore: classification.quality.score,
+      approved: classification.overall.approved,
+      action: action.type,
+      crisisDetected: crisisDetection.detected,
+      processingTime: Date.now() - startTime,
+      sessionId,
+      metadata
+    });
+
+    // Prepare response
+    const response: ContentAnalysisResponse = {
+      success: true,
+      classification: {
+        therapeutic: classification.therapeutic,
+        safety: classification.safety,
+        quality: classification.quality,
+        overall: classification.overall
+      },
+      action,
+      crisisDetection: {
+        detected: crisisDetection.detected,
+        level: crisisDetection.interventionLevel,
+        resources: crisisDetection.recommendedResources
+      },
+      processingTime: Date.now() - startTime
+    };
+
+    // Handle crisis situations with immediate response
+    if (crisisDetection.detected && crisisDetection.interventionLevel === 'immediate') {
+      // Trigger immediate crisis intervention
+      if (validatedUserId) {
+        await aiContentModerationSystem.triggerCrisisIntervention(validatedUserId, crisisDetection);
+      }
+      
+      return NextResponse.json(response, { 
+        status: 200,
+        headers: {
+          'X-Crisis-Detected': 'true',
+          'X-Intervention-Level': crisisDetection.interventionLevel
+        }
+      });
+    }
+
+    return NextResponse.json(response, { status: 200 });
+
+  } catch (error) {
+    console.error('Content moderation analysis error:', error);
+    
+    analytics.track('content_moderation_error', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      processingTime: Date.now() - startTime
+    });
+
+    return NextResponse.json({
+      success: false,
+      error: 'Internal server error during content analysis',
+      processingTime: Date.now() - startTime
+    }, { status: 500 });
+  }
+}
+
+// Helper function to determine action based on classification
+function determineAction(classification: any, crisisDetection: any) {
+  // Crisis situations take priority
+  if (crisisDetection.detected) {
+    return {
+      type: 'intervention',
+      message: 'Content indicates possible crisis situation. Support resources have been provided.',
+      resources: crisisDetection.recommendedResources,
+      followUp: true
+    };
+  }
+
+  // Safety concerns
+  if (classification.safety.level === 'critical') {
+    return {
+      type: 'escalate',
+      message: 'Content requires human review due to safety concerns.',
+      followUp: true
+    };
+  }
+
+  if (classification.safety.level === 'harmful') {
+    return {
+      type: 'flag',
+      message: 'Content has been flagged for review.',
+      followUp: true
+    };
+  }
+
+  // Quality or therapeutic concerns
+  if (!classification.overall.approved) {
+    return {
+      type: 'flag',
+      message: 'Content requires review before approval.',
+      followUp: false
+    };
+  }
+
+  // Content approved
+  return {
+    type: 'approve',
+    message: 'Content meets safety and quality guidelines.',
+    followUp: false
+  };
+}
+
+// Rate limiting implementation
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+
+async function isRateLimited(key: string): Promise<boolean> {
+  const now = Date.now();
+  const limit = 100; // 100 requests per hour
+  const windowMs = 60 * 60 * 1000; // 1 hour in milliseconds
+
+  const current = rateLimitStore.get(key);
+  
+  if (!current || now > current.resetTime) {
+    rateLimitStore.set(key, { count: 1, resetTime: now + typeof window !== 'undefined' && window });
+    return false;
+  }
+
+  if (current.count >= limit) {
+    return true;
+  }
+
+  current.count++;
+  rateLimitStore.set(key, current);
+  return false;
+}
+
+// OPTIONS handler for CORS
+export async function OPTIONS(request: NextRequest) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
+}

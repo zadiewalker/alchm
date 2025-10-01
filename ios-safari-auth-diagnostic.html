@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ALCHM iOS Safari Authentication Diagnostic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+        
+        .status.warning {
+            background: rgba(249, 115, 22, 0.2);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            color: #f97316;
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            min-height: 56px;
+            touch-action: manipulation;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .results {
+            font-family: Monaco, monospace;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .issue-fix {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .fix-solution {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌿 ALCHM iOS Safari Auth Diagnostic</h1>
+            <p>Comprehensive authentication testing for iPhone users</p>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Device & Browser Detection</h2>
+            <div id="deviceInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>📱 iOS Safari Compatibility</h2>
+            <div id="compatibilityInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>🔐 Firebase Authentication Test</h2>
+            <button class="btn" onclick="testGoogleAuth()">Test Google Sign-In</button>
+            <button class="btn secondary" onclick="testRedirectFlow()">Test Redirect Flow</button>
+            <button class="btn secondary" onclick="testPopupFallback()">Test Popup (Will Likely Fail)</button>
+            <div id="authResults"></div>
+        </div>
+
+        <div class="section">
+            <h2>🌐 Network & Performance</h2>
+            <div id="networkInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Critical Issues Found</h2>
+            <div id="criticalIssues"></div>
+        </div>
+
+        <div class="section">
+            <h2>✅ Recommended Fixes</h2>
+            <div id="recommendedFixes"></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Test Results</h2>
+            <div class="results" id="diagnosticResults"></div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
+            authDomain: "alchm-digital-sanctuary.web.app",
+            projectId: "alchm-digital-sanctuary",
+            storageBucket: "alchm-digital-sanctuary.appspot.com",
+            messagingSenderId: "10211111067",
+            appId: "1:10211111067:web:4f23562b8a1f63cd8c963e"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Global variables for testing
+        window.auth = auth;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.signInWithPopup = signInWithPopup;
+        window.signInWithRedirect = signInWithRedirect;
+        window.getRedirectResult = getRedirectResult;
+
+        // Run diagnostics on load
+        window.addEventListener('load', runDiagnostics);
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toISOString();
+            const results = document.getElementById('diagnosticResults');
+            const line = `[${timestamp}] ${type.toUpperCase()}: ${message}\n`;
+            results.textContent += line;
+            results.scrollTop = results.scrollHeight;
+            
+            console.log(line);
+        }
+
+        function runDiagnostics() {
+            log('🔍 Starting ALCHM iOS Safari authentication diagnostic...');
+            
+            detectDevice();
+            checkCompatibility();
+            checkNetworkConditions();
+            checkForCriticalIssues();
+            generateRecommendations();
+            
+            // Check for pending redirect result
+            checkRedirectResult();
+        }
+
+        function detectDevice() {
+            const userAgent = navigator.userAgent;
+            const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+            const isIOSSafari = isIOS && /Safari/i.test(userAgent) && !/Chrome|CriOS|FxiOS/i.test(userAgent);
+            const isMobile = /Mobi|Android/i.test(userAgent);
+            
+            const deviceInfo = {
+                userAgent: userAgent,
+                isIOS: isIOS,
+                isIOSSafari: isIOSSafari,
+                isMobile: isMobile,
+                platform: navigator.platform,
+                screenWidth: screen.width,
+                screenHeight: screen.height,
+                pixelRatio: devicePixelRatio,
+                touchPoints: navigator.maxTouchPoints,
+                orientation: screen.orientation ? screen.orientation.type : 'unknown',
+                cookieEnabled: navigator.cookieEnabled,
+                doNotTrack: navigator.doNotTrack,
+                language: navigator.language,
+                languages: navigator.languages,
+                onLine: navigator.onLine
+            };
+
+            document.getElementById('deviceInfo').innerHTML = Object.entries(deviceInfo)
+                .map(([key, value]) => `<div class="metric"><span>${key}:</span><span>${value}</span></div>`)
+                .join('');
+
+            log(`Device detected: ${isIOSSafari ? 'iOS Safari' : isIOS ? 'iOS (other)' : 'Non-iOS'}`);
+            log(`Screen: ${screen.width}x${screen.height} @${devicePixelRatio}x`);
+            log(`Touch points: ${navigator.maxTouchPoints}`);
+
+            window.deviceInfo = deviceInfo;
+        }
+
+        function checkCompatibility() {
+            const issues = [];
+            const compatibilities = [];
+
+            // Check iOS Safari specific issues
+            if (window.deviceInfo.isIOSSafari) {
+                // iOS Safari blocks popups aggressively
+                issues.push('iOS Safari blocks popup authentication by default');
+                
+                // Check for private browsing mode
+                try {
+                    localStorage.setItem('test', 'test');
+                    localStorage.removeItem('test');
+                    compatibilities.push('Local storage available (not in private mode)');
+                } catch (e) {
+                    issues.push('Private browsing mode detected - authentication may fail');
+                }
+
+                // Check for popup blocker
+                try {
+                    const popup = window.open('', '_blank', 'width=1,height=1');
+                    if (popup) {
+                        popup.close();
+                        compatibilities.push('Popup test successful');
+                    } else {
+                        issues.push('Popup blocker is active');
+                    }
+                } catch (e) {
+                    issues.push('Popup functionality blocked');
+                }
+
+                // Check iOS version (if detectable)
+                const iOSVersion = userAgent.match(/OS (\d+)_(\d+)/);
+                if (iOSVersion) {
+                    const majorVersion = parseInt(iOSVersion[1]);
+                    if (majorVersion < 14) {
+                        issues.push(`iOS ${majorVersion} detected - may have authentication issues`);
+                    } else {
+                        compatibilities.push(`iOS ${majorVersion} detected - modern version`);
+                    }
+                }
+            }
+
+            // Check for third-party cookies
+            document.cookie = "test=1; SameSite=None; Secure";
+            const cookieSupport = document.cookie.includes('test=1');
+            if (!cookieSupport) {
+                issues.push('Third-party cookies disabled - may affect OAuth');
+            } else {
+                compatibilities.push('Third-party cookies enabled');
+            }
+
+            // Check for touch support
+            if (window.deviceInfo.touchPoints > 0) {
+                compatibilities.push(`Touch support: ${window.deviceInfo.touchPoints} points`);
+            }
+
+            // Check viewport
+            const viewport = document.querySelector('meta[name="viewport"]');
+            if (viewport && viewport.content.includes('viewport-fit=cover')) {
+                compatibilities.push('Viewport configured for mobile');
+            } else {
+                issues.push('Viewport not optimized for mobile');
+            }
+
+            // Display results
+            const compatibilityHTML = [
+                ...compatibilities.map(item => `<div class="status success">✅ ${item}</div>`),
+                ...issues.map(item => `<div class="status error">❌ ${item}</div>`)
+            ].join('');
+
+            document.getElementById('compatibilityInfo').innerHTML = compatibilityHTML;
+
+            log(`Compatibility check complete: ${compatibilities.length} passed, ${issues.length} issues`);
+            window.compatibilityIssues = issues;
+        }
+
+        function checkNetworkConditions() {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            
+            const networkInfo = {
+                online: navigator.onLine,
+                effectiveType: connection ? connection.effectiveType : 'unknown',
+                downlink: connection ? connection.downlink : 'unknown',
+                rtt: connection ? connection.rtt : 'unknown',
+                saveData: connection ? connection.saveData : 'unknown'
+            };
+
+            document.getElementById('networkInfo').innerHTML = Object.entries(networkInfo)
+                .map(([key, value]) => `<div class="metric"><span>${key}:</span><span>${value}</span></div>`)
+                .join('');
+
+            log(`Network: ${networkInfo.effectiveType}, RTT: ${networkInfo.rtt}ms`);
+            window.networkInfo = networkInfo;
+        }
+
+        function checkForCriticalIssues() {
+            const criticalIssues = [];
+
+            // iOS Safari + popup blocking = critical
+            if (window.deviceInfo.isIOSSafari && window.compatibilityIssues.some(issue => issue.includes('popup'))) {
+                criticalIssues.push({
+                    title: 'iOS Safari Popup Blocking',
+                    description: 'iOS Safari is blocking popups which breaks Google OAuth',
+                    severity: 'CRITICAL',
+                    impact: 'Users cannot sign in with Google on iPhone Safari'
+                });
+            }
+
+            // Private browsing mode
+            if (window.compatibilityIssues.some(issue => issue.includes('private'))) {
+                criticalIssues.push({
+                    title: 'Private Browsing Mode',
+                    description: 'User is in private browsing mode which restricts authentication',
+                    severity: 'HIGH',
+                    impact: 'Authentication may fail or be unreliable'
+                });
+            }
+
+            // Third-party cookies disabled
+            if (window.compatibilityIssues.some(issue => issue.includes('cookie'))) {
+                criticalIssues.push({
+                    title: 'Third-Party Cookies Disabled',
+                    description: 'OAuth providers require third-party cookies for authentication',
+                    severity: 'HIGH',
+                    impact: 'Google sign-in will likely fail'
+                });
+            }
+
+            // Slow network
+            if (window.networkInfo.effectiveType === '2g' || window.networkInfo.rtt > 1000) {
+                criticalIssues.push({
+                    title: 'Slow Network Connection',
+                    description: 'Network conditions may cause authentication timeouts',
+                    severity: 'MEDIUM',
+                    impact: 'Authentication may be slow or fail due to timeouts'
+                });
+            }
+
+            const issuesHTML = criticalIssues.map(issue => `
+                <div class="issue-fix">
+                    <h3>${issue.severity}: ${issue.title}</h3>
+                    <p><strong>Description:</strong> ${issue.description}</p>
+                    <p><strong>Impact:</strong> ${issue.impact}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('criticalIssues').innerHTML = issuesHTML || '<div class="status success">✅ No critical issues detected</div>';
+
+            log(`Critical issues check complete: ${criticalIssues.length} issues found`);
+            window.criticalIssues = criticalIssues;
+        }
+
+        function generateRecommendations() {
+            const fixes = [];
+
+            // iOS Safari specific fixes
+            if (window.deviceInfo.isIOSSafari) {
+                fixes.push({
+                    title: 'Implement Redirect-First Authentication',
+                    description: 'Use signInWithRedirect instead of signInWithPopup for iOS Safari',
+                    implementation: 'Default to redirect authentication on iOS Safari detection',
+                    priority: 'CRITICAL'
+                });
+
+                fixes.push({
+                    title: 'Add iOS Safari Detection',
+                    description: 'Detect iOS Safari and automatically use appropriate auth method',
+                    implementation: 'Improve user agent detection and browser capability checking',
+                    priority: 'HIGH'
+                });
+            }
+
+            // General mobile fixes
+            fixes.push({
+                title: 'Implement Progressive Enhancement',
+                description: 'Try popup first, fallback to redirect if it fails',
+                implementation: 'Add error handling to switch methods automatically',
+                priority: 'HIGH'
+            });
+
+            fixes.push({
+                title: 'Add User Instructions',
+                description: 'Provide clear instructions for enabling popups if needed',
+                implementation: 'Show contextual help for authentication issues',
+                priority: 'MEDIUM'
+            });
+
+            fixes.push({
+                title: 'Improve Error Messages',
+                description: 'Provide iOS-specific error messages and solutions',
+                implementation: 'Context-aware error handling based on device type',
+                priority: 'MEDIUM'
+            });
+
+            const fixesHTML = fixes.map(fix => `
+                <div class="fix-solution">
+                    <h3>${fix.priority}: ${fix.title}</h3>
+                    <p><strong>Description:</strong> ${fix.description}</p>
+                    <p><strong>Implementation:</strong> ${fix.implementation}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('recommendedFixes').innerHTML = fixesHTML;
+
+            log(`Generated ${fixes.length} recommendations`);
+        }
+
+        async function checkRedirectResult() {
+            try {
+                log('Checking for pending redirect result...');
+                const result = await getRedirectResult(auth);
+                if (result && result.user) {
+                    log(`✅ Found redirect result: ${result.user.email}`);
+                    log('🎉 Redirect authentication successful!');
+                } else {
+                    log('No pending redirect result found');
+                }
+            } catch (error) {
+                log(`❌ Redirect result error: ${error.code} - ${error.message}`, 'error');
+            }
+        }
+
+        // Test functions
+        window.testGoogleAuth = async function() {
+            log('🧪 Testing Google authentication...');
+            
+            const provider = new GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+
+            try {
+                // For iOS Safari, use redirect by default
+                if (window.deviceInfo.isIOSSafari) {
+                    log('📱 iOS Safari detected - using redirect method');
+                    await signInWithRedirect(auth, provider);
+                    log('🔄 Redirect initiated - user will be redirected to Google');
+                } else {
+                    log('💻 Non-iOS Safari - attempting popup method');
+                    const result = await signInWithPopup(auth, provider);
+                    log(`✅ Popup authentication successful: ${result.user.email}`);
+                }
+            } catch (error) {
+                log(`❌ Authentication error: ${error.code} - ${error.message}`, 'error');
+                
+                // Try fallback method
+                if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+                    log('🔄 Popup failed, trying redirect fallback...');
+                    try {
+                        await signInWithRedirect(auth, provider);
+                        log('🔄 Redirect fallback initiated');
+                    } catch (redirectError) {
+                        log(`❌ Redirect fallback also failed: ${redirectError.code}`, 'error');
+                    }
+                }
+            }
+        };
+
+        window.testRedirectFlow = async function() {
+            log('🧪 Testing redirect authentication flow...');
+            
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithRedirect(auth, provider);
+                log('🔄 Redirect authentication initiated');
+            } catch (error) {
+                log(`❌ Redirect authentication error: ${error.code} - ${error.message}`, 'error');
+            }
+        };
+
+        window.testPopupFallback = async function() {
+            log('🧪 Testing popup authentication (expected to fail on iOS Safari)...');
+            
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                log(`✅ Popup authentication successful: ${result.user.email}`);
+            } catch (error) {
+                log(`❌ Popup authentication failed (expected): ${error.code} - ${error.message}`, 'error');
+                
+                if (window.deviceInfo.isIOSSafari) {
+                    log('💡 This failure is expected on iOS Safari - redirect method should be used instead');
+                }
+            }
+        };
+    </script>
+</body>
+</html>

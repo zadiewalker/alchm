@@ -1,0 +1,92 @@
+# ALCHM Mobile Authentication Environment Configuration
+# Critical environment variables for crisis-safe mobile authentication
+
+# Firebase Configuration (Client-side)
+NEXT_PUBLIC_FIREBASE_API_KEY="your_firebase_api_key_here"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="alchm-e9eb4.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="alchm-e9eb4"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="alchm-e9eb4.appspot.com"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="your_sender_id"
+NEXT_PUBLIC_FIREBASE_APP_ID="your_app_id"
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID="your_measurement_id"
+
+# Mobile Authentication Settings
+NEXT_PUBLIC_MOBILE_AUTH_DEBUG="false"
+NEXT_PUBLIC_CRISIS_MODE_ENABLED="true"
+NEXT_PUBLIC_HAPTIC_FEEDBACK_ENABLED="true"
+NEXT_PUBLIC_EMERGENCY_BYPASS_ENABLED="true"
+
+# Domain Configuration
+NEXT_PUBLIC_PRIMARY_DOMAIN="alchmapp.web.app"
+NEXT_PUBLIC_SECONDARY_DOMAIN="alchm-digital-sanctuary.web.app"
+NEXT_PUBLIC_AUTHORIZED_DOMAINS="alchmapp.web.app,alchm-digital-sanctuary.web.app,localhost"
+
+# OAuth Configuration
+NEXT_PUBLIC_GOOGLE_CLIENT_ID="your_google_oauth_client_id"
+
+# Crisis Support Configuration
+NEXT_PUBLIC_CRISIS_LIFELINE="988"
+NEXT_PUBLIC_CRISIS_TEXT="741741"
+NEXT_PUBLIC_EMERGENCY_SERVICES="911"
+
+# Performance Monitoring
+NEXT_PUBLIC_PERFORMANCE_MONITORING="true"
+NEXT_PUBLIC_AUTH_SUCCESS_TRACKING="true"
+NEXT_PUBLIC_ERROR_REPORTING="true"
+
+# Mobile Optimization Flags
+NEXT_PUBLIC_IOS_SAFARI_REDIRECT_FORCE="true"
+NEXT_PUBLIC_ANDROID_CHROME_REDIRECT_FORCE="true"
+NEXT_PUBLIC_PRIVATE_BROWSING_DETECTION="true"
+NEXT_PUBLIC_DEVICE_STRESS_MONITORING="true"
+NEXT_PUBLIC_BATTERY_LEVEL_MONITORING="true"
+
+# Accessibility
+NEXT_PUBLIC_MIN_TOUCH_TARGET="48"
+NEXT_PUBLIC_HIGH_CONTRAST_MODE="true"
+NEXT_PUBLIC_SCREEN_READER_SUPPORT="true"
+
+# Development/Testing
+NEXT_PUBLIC_MOBILE_SIMULATOR="false"
+NEXT_PUBLIC_AUTH_TESTING_MODE="false"
+NEXT_PUBLIC_CRISIS_SIMULATION="false"
+
+# Offline Capabilities  
+NEXT_PUBLIC_OFFLINE_SUPPORT="true"
+NEXT_PUBLIC_SERVICE_WORKER="true"
+NEXT_PUBLIC_CACHE_CRISIS_RESOURCES="true"
+
+# Security
+NEXT_PUBLIC_ENFORCE_HTTPS="true"
+NEXT_PUBLIC_CSRF_PROTECTION="true"
+NEXT_PUBLIC_DOMAIN_VALIDATION="true"
+
+# Analytics (Optional)
+NEXT_PUBLIC_GOOGLE_ANALYTICS="your_ga_id"
+NEXT_PUBLIC_FIREBASE_ANALYTICS="true"
+
+# Server-side Firebase Admin (for API routes)
+FIREBASE_ADMIN_PRIVATE_KEY="your_private_key_base64_encoded"
+FIREBASE_ADMIN_CLIENT_EMAIL="your_client_email"
+FIREBASE_ADMIN_PROJECT_ID="alchm-e9eb4"
+
+# Stripe (for subscription handling)
+STRIPE_SECRET_KEY="your_stripe_secret_key"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="your_stripe_publishable_key"
+
+# API Security
+API_SECRET_KEY="your_api_secret_for_internal_calls"
+
+# Crisis Integration APIs (if using external services)
+CRISIS_API_KEY="your_crisis_service_api_key"
+TWILIO_ACCOUNT_SID="your_twilio_sid_for_sms"
+TWILIO_AUTH_TOKEN="your_twilio_auth_token"
+
+# Mobile App Store Configuration (if building native app)
+NEXT_PUBLIC_APP_STORE_ID="your_app_store_id"
+NEXT_PUBLIC_PLAY_STORE_ID="your_play_store_id"
+
+# Development Tools
+NODE_ENV="development"
+DEBUG="alchm:auth,alchm:mobile,alchm:crisis"
+LOG_LEVEL="info"

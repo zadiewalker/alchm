@@ -1,0 +1,15 @@
+{
+    "store_listing": {
+        "app_name": "ALCHM - Trauma-Informed AI Journaling",
+        "short_description": "Your digital sanctuary for healing through AI-powered journaling. Designed for trauma survivors.",
+        "full_description": "ALCHM is a trauma-informed, AI-powered journaling platform that provides a safe space for healing, reflection, and personal growth.\n\n🌿 TRAUMA-INFORMED APPROACH\nBuilt specifically for trauma survivors with gentle, non-triggering design principles. Features crisis detection, safety resources, and respect for your healing journey.\n\n🤖 INTELLIGENT AI COMPANION\nOur AI understands trauma responses and provides personalized insights, pattern recognition, and growth tracking while maintaining your privacy.\n\n🛡️ PRIVACY & SECURITY FIRST\n• End-to-end encryption for all journal entries\n• No data sharing with third parties\n• Local processing when possible\n• Complete control over your information\n\n🆘 INTEGRATED CRISIS SUPPORT\n• Automatic crisis detection system\n• Direct access to 988 Suicide & Crisis Lifeline\n• Crisis Text Line integration\n• Professional mental health referrals\n\n✨ KEY FEATURES:\n• Intelligent journaling prompts\n• Mood tracking and emotional patterns\n• Healing pathway recommendations\n• Goal setting and progress visualization\n• Gamified recovery elements\n• Offline functionality\n• Cross-device synchronization\n\n🔒 SAFETY & COMPLIANCE\nDesigned for ages 17+ with mature mental health content. Includes comprehensive medical disclaimers and clear statements that the app is not a substitute for professional care.\n\nALCHM encourages users to work with qualified mental health professionals and provides easy access to crisis resources when needed.\n\nIf you're experiencing a mental health crisis, please contact emergency services or the 988 Lifeline immediately."
+    },
+    "content_rating": "Mature 17+",
+    "target_audience": "17+",
+    "privacy_policy": "https://alchm-digital-sanctuary.web.app/privacy-policy.html",
+    "contact_details": {
+        "website": "https://alchm-digital-sanctuary.web.app",
+        "email": "support@alchmapp.com",
+        "privacy_policy": "https://alchm-digital-sanctuary.web.app/privacy-policy.html"
+    }
+}

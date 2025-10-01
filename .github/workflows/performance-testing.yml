@@ -1,0 +1,334 @@
+name: Performance Testing & Quality Gates
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+
+env:
+  NODE_VERSION: '18'
+  PERFORMANCE_BUDGET_ENABLED: true
+  LIGHTHOUSE_CI_BUDGET_PATH: '.lighthouseci/budget.json'
+
+jobs:
+  performance-testing:
+    name: Performance Excellence Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install -g @lhci/cli lighthouse
+        
+    - name: Build application
+      run: |
+        npm run build
+        
+    - name: Start application server
+      run: |
+        npm run start &
+        sleep 30  # Wait for server to start
+        
+    - name: Wait for server ready
+      run: |
+        npx wait-on http://localhost:3001 --timeout 60000
+        
+    - name: Run Crisis Pages Performance Tests
+      run: |
+        echo "🚨 Testing Crisis-Critical Pages..."
+        node scripts/performance-ci-test.js --config crisis --fail-on-budget-exceeded
+      continue-on-error: false
+      
+    - name: Run Core Pages Performance Tests  
+      run: |
+        echo "⚡ Testing Core User Journey Pages..."
+        node scripts/performance-ci-test.js --config core --fail-on-budget-exceeded
+      continue-on-error: false
+      
+    - name: Run Comprehensive Performance Audit
+      run: |
+        echo "📊 Running Comprehensive Performance Audit..."
+        node scripts/performance-ci-test.js --config comprehensive
+      continue-on-error: true
+      
+    - name: Run Lighthouse CI Budget Check
+      run: |
+        echo "💰 Running Performance Budget Enforcement..."
+        lhci autorun
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        LHCI_TOKEN: ${{ secrets.LHCI_TOKEN }}
+        
+    - name: Bundle Size Analysis
+      run: |
+        echo "📦 Analyzing Bundle Size..."
+        npm run analyze:bundle
+        
+    - name: Mobile Performance Testing
+      run: |
+        echo "📱 Testing Mobile Performance..."
+        lighthouse http://localhost:3001 \
+          --form-factor=mobile \
+          --throttling.rttMs=150 \
+          --throttling.throughputKbps=1600 \
+          --only-categories=performance \
+          --budget-path=.lighthouseci/mobile-budget.json \
+          --output=json \
+          --output=html \
+          --output-path=./lighthouse-reports/mobile
+          
+    - name: Desktop Performance Testing
+      run: |
+        echo "🖥️ Testing Desktop Performance..."
+        lighthouse http://localhost:3001 \
+          --form-factor=desktop \
+          --only-categories=performance,accessibility,best-practices,seo \
+          --budget-path=.lighthouseci/desktop-budget.json \
+          --output=json \
+          --output=html \
+          --output-path=./lighthouse-reports/desktop
+          
+    - name: Core Web Vitals Monitoring
+      run: |
+        echo "🎯 Monitoring Core Web Vitals..."
+        node scripts/web-vitals-monitor.js --url http://localhost:3001
+        
+    - name: Performance Regression Detection
+      run: |
+        echo "🔍 Checking for Performance Regressions..."
+        node scripts/performance-regression-check.js
+        
+    - name: Generate Performance Report
+      run: |
+        echo "📋 Generating Performance Excellence Report..."
+        node scripts/generate-performance-report.js
+        
+    - name: Upload Performance Artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: performance-reports
+        path: |
+          lighthouse-reports/
+          test-results/performance/
+          performance-report.html
+          performance-budget-report.json
+          
+    - name: Comment Performance Results on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = './performance-report.md';
+          
+          if (fs.existsSync(path)) {
+            const report = fs.readFileSync(path, 'utf8');
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🚀 Performance Test Results\n\n${report}`
+            });
+          }
+          
+    - name: Fail on Critical Performance Issues
+      run: |
+        if [ -f "performance-critical-failures.txt" ]; then
+          echo "❌ Critical performance issues detected:"
+          cat performance-critical-failures.txt
+          exit 1
+        fi
+        echo "✅ All critical performance tests passed"
+        
+    - name: Update Performance Badge
+      if: github.ref == 'refs/heads/main'
+      run: |
+        node scripts/update-performance-badge.js
+        
+    - name: Send Performance Alerts
+      if: failure()
+      run: |
+        echo "🚨 Sending performance degradation alerts..."
+        node scripts/send-performance-alerts.js
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_PERFORMANCE_WEBHOOK }}
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_PERFORMANCE_WEBHOOK }}
+
+  accessibility-testing:
+    name: Accessibility Excellence Testing
+    runs-on: ubuntu-latest
+    needs: performance-testing
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install -g @axe-core/cli
+        
+    - name: Build and start application
+      run: |
+        npm run build
+        npm run start &
+        sleep 30
+        
+    - name: Run Axe Accessibility Tests
+      run: |
+        echo "♿ Running Accessibility Tests..."
+        axe http://localhost:3001 --exit
+        axe http://localhost:3001/auth/login --exit
+        axe http://localhost:3001/journal --exit
+        axe http://localhost:3001/dashboard --exit
+        
+    - name: Run Lighthouse Accessibility Audit
+      run: |
+        lighthouse http://localhost:3001 \
+          --only-categories=accessibility \
+          --output=json \
+          --output=html \
+          --output-path=./lighthouse-reports/accessibility
+
+  mobile-performance:
+    name: Mobile Performance Excellence
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install -g lighthouse
+        
+    - name: Build and start application
+      run: |
+        npm run build
+        npm run start &
+        sleep 30
+        
+    - name: Test on Slow 4G (Crisis Simulation)
+      run: |
+        echo "🚨 Testing Crisis Pages on Slow 4G..."
+        lighthouse http://localhost:3001/crisis-support \
+          --form-factor=mobile \
+          --throttling.rttMs=150 \
+          --throttling.throughputKbps=1600 \
+          --throttling.cpuSlowdownMultiplier=4 \
+          --only-categories=performance \
+          --output=json \
+          --quiet | jq '.categories.performance.score * 100' > crisis-mobile-score.txt
+          
+        SCORE=$(cat crisis-mobile-score.txt)
+        if (( $(echo "$SCORE < 90" | bc -l) )); then
+          echo "❌ Crisis page mobile performance too low: $SCORE"
+          exit 1
+        fi
+        echo "✅ Crisis page mobile performance: $SCORE"
+        
+    - name: Test Core Pages on 4G
+      run: |
+        echo "⚡ Testing Core Pages on 4G..."
+        for page in "" "auth/login" "journal" "dashboard"; do
+          lighthouse "http://localhost:3001/$page" \
+            --form-factor=mobile \
+            --throttling.rttMs=40 \
+            --throttling.throughputKbps=9000 \
+            --only-categories=performance \
+            --output=json \
+            --quiet | jq '.categories.performance.score * 100'
+        done
+
+  load-testing:
+    name: Load Testing & Scalability
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'load-test')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install k6 for load testing
+      run: |
+        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+        echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+        sudo apt-get update
+        sudo apt-get install k6
+        
+    - name: Build and start application
+      run: |
+        npm run build
+        npm run start &
+        sleep 30
+        
+    - name: Run Load Tests
+      run: |
+        echo "🚀 Running Load Tests..."
+        k6 run scripts/load-tests/crisis-load-test.js
+        k6 run scripts/load-tests/journal-load-test.js
+        k6 run scripts/load-tests/auth-load-test.js
+        
+    - name: Stress Testing
+      run: |
+        echo "💪 Running Stress Tests..."
+        k6 run scripts/load-tests/stress-test.js
+
+  performance-monitoring:
+    name: Real User Monitoring Setup
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Deploy Performance Monitoring
+      run: |
+        echo "📊 Setting up Real User Monitoring..."
+        # Deploy monitoring dashboards and alerts
+        node scripts/deploy-performance-monitoring.js
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        MONITORING_API_KEY: ${{ secrets.MONITORING_API_KEY }}
+        
+    - name: Update Status Page
+      run: |
+        echo "📋 Updating Performance Status Page..."
+        node scripts/update-status-page.js
+      env:
+        STATUS_PAGE_API_KEY: ${{ secrets.STATUS_PAGE_API_KEY }}

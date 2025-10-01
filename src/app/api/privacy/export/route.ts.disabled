@@ -1,0 +1,133 @@
+/**
+ * GDPR Data Export API Endpoint
+ * 
+ * Provides users with a complete export of their personal data
+ * in machine-readable format as required by GDPR Article 20.
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { validateSession } from '@/lib/validateSession';
+import { adminAuth, adminFirestore } from '@/lib/firebaseAdmin';
+
+export async function POST(request: NextRequest) {
+  try {
+    // Validate user session
+    const { valid, uid } = await validateSession(request);
+    
+    if (!valid || !uid) {
+      return NextResponse.json(
+        { error: 'Unauthorized. Please sign in to export your data.' },
+        { status: 401 }
+      );
+    }
+
+    // Get user's journal data
+    const journalsRef = adminFirestore.collection('journals').where('userId', '==', uid);
+    const journalsSnapshot = await journalsRef.get();
+    
+    const journalData = journalsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      exportedAt: new Date().toISOString()
+    }));
+
+    // Get user profile data
+    const userDoc = await adminFirestore.collection('users').doc(uid).get();
+    const userData = userDoc.exists ? userDoc.data() : {};
+
+    // Get mood tracking data if exists
+    const moodRef = adminFirestore.collection('moods').where('userId', '==', uid);
+    const moodSnapshot = await moodRef.get();
+    
+    const moodData = moodSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    // Compile complete data export
+    const dataExport = {
+      exportMetadata: {
+        exportedAt: new Date().toISOString(),
+        exportedBy: uid,
+        dataTypes: ['profile', 'journals', 'moods', 'preferences'],
+        gdprCompliant: true,
+        format: 'JSON'
+      },
+      profile: {
+        userId: uid,
+        ...userData,
+        // Remove sensitive internal fields
+        authProviders: undefined,
+        internalFlags: undefined
+      },
+      journals: journalData.map(entry => ({
+        ...entry,
+        // Remove system fields
+        userId: undefined, // Don't include in export for privacy
+        indexedContent: undefined, // Don't include processed content
+      })),
+      moods: moodData,
+      preferences: userData.preferences || {},
+      privacySettings: userData.privacySettings || {},
+      consentHistory: userData.consentHistory || []
+    };
+
+    // Log export for audit trail (but don't store the actual data)
+    await adminFirestore.collection('auditLog').add({
+      userId: uid,
+      action: 'DATA_EXPORT_REQUESTED',
+      timestamp: new Date(),
+      ipAddress: request.ip || 'unknown',
+      userAgent: request.headers.get('user-agent') || 'unknown',
+      dataTypes: ['profile', 'journals', 'moods', 'preferences']
+    });
+
+    return NextResponse.json({
+      success: true,
+      data: dataExport,
+      message: 'Your data has been successfully exported. This includes all journal entries, mood data, and profile information.'
+    });
+
+  } catch (error) {
+    console.error('Data export error:', error);
+    
+    return NextResponse.json(
+      { 
+        error: 'Failed to export data. Please try again or contact support.',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
+      { status: 500 }
+    );
+  }
+}
+
+// Handle OPTIONS for CORS - SECURE VERSION
+export async function OPTIONS(request: NextRequest) {
+  const origin = request.headers.get('origin');
+  
+  // Strict CORS policy - only allow specific domains
+  const allowedOrigins = [
+    'https://alchm-digital-sanctuary.web.app',
+    'https://www.alchm-digital-sanctuary.web.app',
+    'https://alchmapp.web.app',
+    'https://www.alchmapp.web.app',
+    process.env.NEXT_PUBLIC_API_URL
+  ].filter(Boolean);
+
+  const corsHeaders: Record<string, string> = {
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, Cookie',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Max-Age': '300', // 5 minutes
+    'Vary': 'Origin'
+  };
+
+  if (origin && allowedOrigins.includes(origin)) {
+    corsHeaders['Access-Control-Allow-Origin'] = origin;
+  }
+
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders
+  });
+}

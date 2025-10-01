@@ -18,7 +18,7 @@ interface RateLimitEntry {
 }
 
 interface RateLimitConfig {
-  windowMs: number;
+  typeof window !== 'undefined' && windowMs: number;
   maxRequests: number;
   keyGenerator?: (req: NextRequest) => string;
   skipSuccessfulRequests?: boolean;
@@ -167,7 +167,7 @@ export class RateLimiter {
 
   constructor(config: RateLimitConfig, store?: RateLimitStore) {
     this.config = {
-      windowMs: config.windowMs,
+      typeof window !== 'undefined' && windowMs: config.typeof window !== 'undefined' && windowMs,
       maxRequests: config.maxRequests,
       keyGenerator: config.keyGenerator || this.defaultKeyGenerator,
       skipSuccessfulRequests: config.skipSuccessfulRequests || false,
@@ -195,14 +195,14 @@ export class RateLimiter {
       const current = await this.store.get(key);
       
       if (!current) {
-        // First request in window
+        // First request in typeof window !== 'undefined' && window
         const newEntry: RateLimitEntry = {
           count: 1,
-          resetTime: now + this.config.windowMs,
+          resetTime: now + this.config.typeof window !== 'undefined' && windowMs,
           firstRequest: now
         };
         
-        await this.store.set(key, newEntry, this.config.windowMs);
+        await this.store.set(key, newEntry, this.config.typeof window !== 'undefined' && windowMs);
         
         return {
           allowed: true,
@@ -213,15 +213,15 @@ export class RateLimiter {
         };
       }
       
-      // Check if window has expired
+      // Check if typeof window !== 'undefined' && window has expired
       if (now > current.resetTime) {
         const newEntry: RateLimitEntry = {
           count: 1,
-          resetTime: now + this.config.windowMs,
+          resetTime: now + this.config.typeof window !== 'undefined' && windowMs,
           firstRequest: now
         };
         
-        await this.store.set(key, newEntry, this.config.windowMs);
+        await this.store.set(key, newEntry, this.config.typeof window !== 'undefined' && windowMs);
         
         return {
           allowed: true,
@@ -261,7 +261,7 @@ export class RateLimiter {
         limit: this.config.maxRequests,
         used: 0,
         remaining: this.config.maxRequests,
-        resetTime: now + this.config.windowMs
+        resetTime: now + this.config.typeof window !== 'undefined' && windowMs
       };
     }
   }
@@ -282,40 +282,40 @@ export class RateLimiter {
 export const RATE_LIMIT_CONFIGS = {
   // General API endpoints
   standard: {
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    typeof window !== 'undefined' && windowMs: 15 * 60 * 1000, // 15 minutes
     maxRequests: 100
   },
   
   // Authentication endpoints
   auth: {
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    typeof window !== 'undefined' && windowMs: 15 * 60 * 1000, // 15 minutes
     maxRequests: 5,
     message: 'Too many authentication attempts, please try again later.'
   },
   
   // AI/Gemini endpoints (more restrictive)
   ai: {
-    windowMs: 60 * 1000, // 1 minute
+    typeof window !== 'undefined' && windowMs: 60 * 1000, // 1 minute
     maxRequests: 10,
     message: 'AI service rate limit exceeded, please wait before making another request.'
   },
   
   // File upload endpoints
   upload: {
-    windowMs: 60 * 1000, // 1 minute
+    typeof window !== 'undefined' && windowMs: 60 * 1000, // 1 minute
     maxRequests: 5,
     message: 'Upload rate limit exceeded, please wait before uploading again.'
   },
   
   // Webhook endpoints (very permissive)
   webhook: {
-    windowMs: 60 * 1000, // 1 minute
+    typeof window !== 'undefined' && windowMs: 60 * 1000, // 1 minute
     maxRequests: 1000
   },
   
   // Premium user limits (higher limits)
   premium: {
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    typeof window !== 'undefined' && windowMs: 15 * 60 * 1000, // 15 minutes
     maxRequests: 500
   }
 };

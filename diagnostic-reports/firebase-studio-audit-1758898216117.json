@@ -1,0 +1,4794 @@
+{
+  "timestamp": "2025-09-26T14:50:16.117Z",
+  "duration": "3.19s",
+  "summary": {
+    "totalIssues": 380,
+    "criticalIssues": 2,
+    "warningIssues": 378,
+    "autoFixesApplied": 338,
+    "firebaseStudioCompliance": {
+      "score": 0,
+      "grade": "F"
+    }
+  },
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/advanced-crisis-pattern-recognition.ts",
+      "timestamp": "2025-09-26T14:50:12.966Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/contextual-crisis-assessment.ts",
+      "timestamp": "2025-09-26T14:50:12.968Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/crisis-prevention-indicators.ts",
+      "timestamp": "2025-09-26T14:50:12.970Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/cultural-crisis-competency.ts",
+      "timestamp": "2025-09-26T14:50:12.973Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/culturally-informed-khepera.ts",
+      "timestamp": "2025-09-26T14:50:12.975Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/emotional-calibration-engine.ts",
+      "timestamp": "2025-09-26T14:50:12.977Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/emotional-intelligence-integration.ts",
+      "timestamp": "2025-09-26T14:50:12.979Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/emotional-pattern-engine.ts",
+      "timestamp": "2025-09-26T14:50:12.981Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/habit-formation-predictor.ts",
+      "timestamp": "2025-09-26T14:50:12.983Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/intervention-timing-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:12.984Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/neuroplasticity-prediction-engine.ts",
+      "timestamp": "2025-09-26T14:50:12.987Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/resilience-building-predictor.ts",
+      "timestamp": "2025-09-26T14:50:12.988Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/secular-meaning-making-support.ts",
+      "timestamp": "2025-09-26T14:50:12.990Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/spiritual-growth-tracking.ts",
+      "timestamp": "2025-09-26T14:50:12.991Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/trauma-informed-response-system.ts",
+      "timestamp": "2025-09-26T14:50:12.993Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/ai/wellness-trajectory-modeling.ts",
+      "timestamp": "2025-09-26T14:50:12.994Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/app/api/content-moderation/analyze/route.ts",
+      "timestamp": "2025-09-26T14:50:12.998Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/app/emergency-safe/page.tsx",
+      "timestamp": "2025-09-26T14:50:13.001Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/beta/feedback-collection-system.ts",
+      "timestamp": "2025-09-26T14:50:13.005Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/beta/therapist-onboarding.ts",
+      "timestamp": "2025-09-26T14:50:13.006Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/beta/therapist-onboarding.ts",
+      "timestamp": "2025-09-26T14:50:13.007Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EmergencyModeTest.tsx",
+      "timestamp": "2025-09-26T14:50:13.014Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EmergencyModeTest.tsx",
+      "timestamp": "2025-09-26T14:50:13.015Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EmergencyModeTest.tsx",
+      "timestamp": "2025-09-26T14:50:13.015Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EnhancedCrisisIntervention.tsx",
+      "timestamp": "2025-09-26T14:50:13.018Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EnhancedCrisisIntervention.tsx",
+      "timestamp": "2025-09-26T14:50:13.019Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/EnhancedCrisisIntervention.tsx",
+      "timestamp": "2025-09-26T14:50:13.019Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/KheperaTransformation.tsx",
+      "timestamp": "2025-09-26T14:50:13.023Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/KheperaTransformation.tsx",
+      "timestamp": "2025-09-26T14:50:13.024Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/PanicSafeNavigation.tsx",
+      "timestamp": "2025-09-26T14:50:13.029Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/PanicSafeNavigation.tsx",
+      "timestamp": "2025-09-26T14:50:13.030Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AccountLinker.tsx",
+      "timestamp": "2025-09-26T14:50:13.046Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx",
+      "timestamp": "2025-09-26T14:50:13.063Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx",
+      "timestamp": "2025-09-26T14:50:13.065Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx",
+      "timestamp": "2025-09-26T14:50:13.066Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/SignOutButton.tsx",
+      "timestamp": "2025-09-26T14:50:13.069Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/collaborative/CollaborativeReflectionHub.tsx",
+      "timestamp": "2025-09-26T14:50:13.073Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/compliance/EnterprisePrivacyManager.tsx",
+      "timestamp": "2025-09-26T14:50:13.083Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/crisis/EmergencySafeInterface.tsx",
+      "timestamp": "2025-09-26T14:50:13.089Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/crisis/EmergencySafeInterface.tsx",
+      "timestamp": "2025-09-26T14:50:13.091Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/dashboard/GrowthPortfolioExporter.tsx",
+      "timestamp": "2025-09-26T14:50:13.094Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/dashboard/MemoryGardenDashboard.tsx",
+      "timestamp": "2025-09-26T14:50:13.095Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/design-system/DesignFoundation.tsx",
+      "timestamp": "2025-09-26T14:50:13.098Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/design-system/DesignFoundation.tsx",
+      "timestamp": "2025-09-26T14:50:13.099Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/CrisisSafeMobileAuth.tsx",
+      "timestamp": "2025-09-26T14:50:13.120Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/CrisisSafeMobileAuth.tsx",
+      "timestamp": "2025-09-26T14:50:13.122Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/CrisisSafeMobileAuth.tsx",
+      "timestamp": "2025-09-26T14:50:13.123Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/PrivacyEnhancedMobileProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.129Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/PrivacyEnhancedMobileProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.131Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/PrivacyEnhancedMobileProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.132Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/PrivacyEnhancedMobileProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.133Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: sessionStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/mobile/PrivacyEnhancedMobileProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.135Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/motion/SacredMotionProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.138Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/motion/SacredMotionProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.140Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/professional/CommunityNetwork.tsx",
+      "timestamp": "2025-09-26T14:50:13.151Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/professional/CommunityNetwork.tsx",
+      "timestamp": "2025-09-26T14:50:13.153Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/providers/EmergencyPerformanceProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.158Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/providers/EmergencyPerformanceProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.159Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/providers/EmergencyPerformanceProvider.tsx",
+      "timestamp": "2025-09-26T14:50:13.160Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/IntentionGem.tsx",
+      "timestamp": "2025-09-26T14:50:13.162Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/KheperaOracle.tsx",
+      "timestamp": "2025-09-26T14:50:13.164Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/KheperaOracle.tsx",
+      "timestamp": "2025-09-26T14:50:13.166Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/ReflectionCard.tsx",
+      "timestamp": "2025-09-26T14:50:13.167Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/RitualGate.tsx",
+      "timestamp": "2025-09-26T14:50:13.169Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/RitualGate.tsx",
+      "timestamp": "2025-09-26T14:50:13.170Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/sacred/SoulCanvas.tsx",
+      "timestamp": "2025-09-26T14:50:13.171Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/social-justice/SocialJusticeReflectionInterface.tsx",
+      "timestamp": "2025-09-26T14:50:13.175Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/therapist/ClientProgressDashboard.tsx",
+      "timestamp": "2025-09-26T14:50:13.184Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/therapist/PathwayPrescription.tsx",
+      "timestamp": "2025-09-26T14:50:13.186Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/therapist/SessionPrepTools.tsx",
+      "timestamp": "2025-09-26T14:50:13.187Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/therapist/SessionPrepTools.tsx",
+      "timestamp": "2025-09-26T14:50:13.188Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/ui/EmergencyCrisisButton.tsx",
+      "timestamp": "2025-09-26T14:50:13.193Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/ui/EmergencyCrisisButton.tsx",
+      "timestamp": "2025-09-26T14:50:13.196Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/crisis/emergency-documentation.ts",
+      "timestamp": "2025-09-26T14:50:13.205Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/crisis/emergency-escalation-system.ts",
+      "timestamp": "2025-09-26T14:50:13.206Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/crisis/post-crisis-care-coordination.ts",
+      "timestamp": "2025-09-26T14:50:13.208Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/crisis/real-time-professional-alerts.ts",
+      "timestamp": "2025-09-26T14:50:13.210Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/cultural/community-resource-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.211Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/cultural/cultural-trauma-detector.ts",
+      "timestamp": "2025-09-26T14:50:13.213Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/cultural/indigenous-healing-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.214Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/examples/tracking-implementation-example.tsx",
+      "timestamp": "2025-09-26T14:50:13.216Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/examples/tracking-implementation-example.tsx",
+      "timestamp": "2025-09-26T14:50:13.217Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/examples/tracking-implementation-example.tsx",
+      "timestamp": "2025-09-26T14:50:13.218Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useBadgeIntelligence.ts",
+      "timestamp": "2025-09-26T14:50:13.219Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useBadges.ts",
+      "timestamp": "2025-09-26T14:50:13.221Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useEmotionalIntelligence.ts",
+      "timestamp": "2025-09-26T14:50:13.222Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useHealingGamification.ts",
+      "timestamp": "2025-09-26T14:50:13.224Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useJournal.ts",
+      "timestamp": "2025-09-26T14:50:13.226Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useSessionTracking.ts",
+      "timestamp": "2025-09-26T14:50:13.228Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useUnsavedGuard.ts",
+      "timestamp": "2025-09-26T14:50:13.230Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/hooks/useUnsavedGuard.ts",
+      "timestamp": "2025-09-26T14:50:13.231Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/archetype-config.ts",
+      "timestamp": "2025-09-26T14:50:13.232Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/archetype-config.ts",
+      "timestamp": "2025-09-26T14:50:13.233Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/contextual-prompt-chaining.ts",
+      "timestamp": "2025-09-26T14:50:13.235Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/mood-routing-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.238Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/mood-routing-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.240Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/prompt-shells.ts",
+      "timestamp": "2025-09-26T14:50:13.242Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/khepera/routing-decision-tree.ts",
+      "timestamp": "2025-09-26T14:50:13.244Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/accessibility.ts",
+      "timestamp": "2025-09-26T14:50:13.246Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/accessibility.ts",
+      "timestamp": "2025-09-26T14:50:13.247Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai-cultural-performance-metrics.ts",
+      "timestamp": "2025-09-26T14:50:13.253Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai-free-export-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.256Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai-free-export-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.257Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai-opt-out-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.259Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai-safety-validation-suite.ts",
+      "timestamp": "2025-09-26T14:50:13.260Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ai.ts",
+      "timestamp": "2025-09-26T14:50:13.262Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/alchm-support-knowledge-base.js",
+      "timestamp": "2025-09-26T14:50:13.265Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/alchm-support-knowledge-base.ts",
+      "timestamp": "2025-09-26T14:50:13.267Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/cultural-engagement-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.268Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/hipaa-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.271Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/hipaa-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.272Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/hipaa-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.273Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/nav.ts",
+      "timestamp": "2025-09-26T14:50:13.274Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/nav.ts",
+      "timestamp": "2025-09-26T14:50:13.275Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics/privacy-compliant-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.276Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics-performance-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.280Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics-performance-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.281Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics-performance-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.282Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/apiUtils.ts",
+      "timestamp": "2025-09-26T14:50:13.284Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/emergency-bypass.ts",
+      "timestamp": "2025-09-26T14:50:13.288Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/mobile-auth-testing.ts",
+      "timestamp": "2025-09-26T14:50:13.291Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/mobile-crisis-authentication.ts",
+      "timestamp": "2025-09-26T14:50:13.292Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/mobile-crisis-authentication.ts",
+      "timestamp": "2025-09-26T14:50:13.294Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/mobile-crisis-authentication.ts",
+      "timestamp": "2025-09-26T14:50:13.295Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/simple-crisis-auth.ts",
+      "timestamp": "2025-09-26T14:50:13.297Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/simple-crisis-auth.ts",
+      "timestamp": "2025-09-26T14:50:13.298Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth-page-guard.ts",
+      "timestamp": "2025-09-26T14:50:13.299Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/badges/export.ts",
+      "timestamp": "2025-09-26T14:50:13.301Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/circadian-emotional-learning.ts",
+      "timestamp": "2025-09-26T14:50:13.308Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/circadian-intervention-timing.ts",
+      "timestamp": "2025-09-26T14:50:13.309Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/cls-optimization.ts",
+      "timestamp": "2025-09-26T14:50:13.311Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/community/economic-justice-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.314Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/competitive-intelligence/alert-system.ts",
+      "timestamp": "2025-09-26T14:50:13.318Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/competitive-intelligence/database-schema.ts",
+      "timestamp": "2025-09-26T14:50:13.323Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/compliance/comprehensive-privacy-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.326Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/comprehensive-safety-validation-report.ts",
+      "timestamp": "2025-09-26T14:50:13.328Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/comprehensive-safety-validation-report.ts",
+      "timestamp": "2025-09-26T14:50:13.329Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/comprehensive-safety-validation-report.ts",
+      "timestamp": "2025-09-26T14:50:13.331Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/creative/creative-trauma-processing-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.335Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/creative/cultural-artistic-traditions-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.337Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis/cultural-competency-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.339Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis/emergency-authentication-bypass.ts",
+      "timestamp": "2025-09-26T14:50:13.340Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis/professional-escalation-system.ts",
+      "timestamp": "2025-09-26T14:50:13.343Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis/professional-validation.ts",
+      "timestamp": "2025-09-26T14:50:13.344Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-bundle-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.347Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-bundle-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.348Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-bundle-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.349Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-communication-planning.ts",
+      "timestamp": "2025-09-26T14:50:13.350Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-core-web-vitals-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.353Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-core-web-vitals-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.354Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-core-web-vitals-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.355Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-core-web-vitals-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.355Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-interface-stress-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.358Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-interface-stress-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.359Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-interface-stress-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.360Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-interface-stress-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.361Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.362Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.363Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.365Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.366Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/cultural-crisis-resources-enhanced.ts",
+      "timestamp": "2025-09-26T14:50:13.371Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/cultural-crisis-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.373Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/cultural-crisis-safety-system.ts",
+      "timestamp": "2025-09-26T14:50:13.374Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/cultural-habit-integration-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.377Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/data-retention-policy.ts",
+      "timestamp": "2025-09-26T14:50:13.380Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/database/sharding-strategy.js",
+      "timestamp": "2025-09-26T14:50:13.383Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/database/sharding-strategy.ts",
+      "timestamp": "2025-09-26T14:50:13.386Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/educational-outcome-tracking.ts",
+      "timestamp": "2025-09-26T14:50:13.392Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/ferpa-excellence-framework.ts",
+      "timestamp": "2025-09-26T14:50:13.415Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/index.ts",
+      "timestamp": "2025-09-26T14:50:13.416Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/policy-compliance-audit.ts",
+      "timestamp": "2025-09-26T14:50:13.417Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/professional-dashboard-systems.ts",
+      "timestamp": "2025-09-26T14:50:13.418Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/professional-oversight-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.420Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-compliance/research-partnership-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.421Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-transformation/core-pathways-library.ts",
+      "timestamp": "2025-09-26T14:50:13.422Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/educational-transformation/institutional-integration-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.424Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/emotional-learning/daily-engagement-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.428Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/encryption.ts",
+      "timestamp": "2025-09-26T14:50:13.431Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/encryption.ts",
+      "timestamp": "2025-09-26T14:50:13.432Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/enhanced-crisis-detection.ts",
+      "timestamp": "2025-09-26T14:50:13.433Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/gamification/engagement-system.ts",
+      "timestamp": "2025-09-26T14:50:13.442Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/gamification-analytics.ts",
+      "timestamp": "2025-09-26T14:50:13.444Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/gamification.disabled/streak-service.ts",
+      "timestamp": "2025-09-26T14:50:13.453Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/global-crisis-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.455Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/habit-analytics-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.458Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/habit-extinction-protocols.ts",
+      "timestamp": "2025-09-26T14:50:13.459Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/hipaa/audit-logging-system.ts",
+      "timestamp": "2025-09-26T14:50:13.464Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/hipaa/baa-compliance-framework.ts",
+      "timestamp": "2025-09-26T14:50:13.466Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/hipaa/breach-notification-system.ts",
+      "timestamp": "2025-09-26T14:50:13.467Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/hipaa/phi-protection-system.ts",
+      "timestamp": "2025-09-26T14:50:13.469Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/i18n/translations.ts",
+      "timestamp": "2025-09-26T14:50:13.472Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/advanced-identity-report-card-system.ts",
+      "timestamp": "2025-09-26T14:50:13.474Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/cross-platform-intelligence-orchestrator.ts",
+      "timestamp": "2025-09-26T14:50:13.476Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/emotional-trajectory-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.480Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/neuroplasticity-intervention-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.483Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/predictive-wellness-crisis-prevention-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.487Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/quantum-emotional-intelligence-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.489Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/identity-os/revolutionary-archetype-evolution-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.491Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/ikigai-bootcamp.ts",
+      "timestamp": "2025-09-26T14:50:13.494Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/journal-service.ts",
+      "timestamp": "2025-09-26T14:50:13.499Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/khepera-core-personality.ts",
+      "timestamp": "2025-09-26T14:50:13.503Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/khepera-crisis-safety-system.ts",
+      "timestamp": "2025-09-26T14:50:13.505Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/khepera-post-crisis-support.ts",
+      "timestamp": "2025-09-26T14:50:13.508Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/launch-momentum-tracking.ts",
+      "timestamp": "2025-09-26T14:50:13.521Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/launch-momentum-tracking.ts",
+      "timestamp": "2025-09-26T14:50:13.545Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/launch-readiness-validation.ts",
+      "timestamp": "2025-09-26T14:50:13.547Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/lcp-optimization.ts",
+      "timestamp": "2025-09-26T14:50:13.549Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/compliance-checker.ts",
+      "timestamp": "2025-09-26T14:50:13.550Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/compliance-checker.ts",
+      "timestamp": "2025-09-26T14:50:13.552Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/consent-flow-builder.ts",
+      "timestamp": "2025-09-26T14:50:13.553Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/dynamic-legal-document-generator.ts",
+      "timestamp": "2025-09-26T14:50:13.555Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/dynamic-legal-document-generator.ts",
+      "timestamp": "2025-09-26T14:50:13.556Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/index.ts",
+      "timestamp": "2025-09-26T14:50:13.557Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/legal-updates-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.558Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/legal/legal-updates-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.560Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/marginalized-youth-privacy.ts",
+      "timestamp": "2025-09-26T14:50:13.563Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/memory-management/react-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.565Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/memory-management/react-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.568Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/memory-management/react-memory-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.570Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mentor-coaching-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.572Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/micro-intervention-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.573Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-crisis-performance-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.577Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-crisis-performance-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.579Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-crisis-performance-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.579Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-navigation-utils.ts",
+      "timestamp": "2025-09-26T14:50:13.581Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-navigation-utils.ts",
+      "timestamp": "2025-09-26T14:50:13.582Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-navigation-utils.ts",
+      "timestamp": "2025-09-26T14:50:13.583Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: sessionStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-navigation-utils.ts",
+      "timestamp": "2025-09-26T14:50:13.585Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-crisis-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.586Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-crisis-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.589Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-crisis-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.590Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-monitor.ts",
+      "timestamp": "2025-09-26T14:50:13.591Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-optimized.ts",
+      "timestamp": "2025-09-26T14:50:13.593Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobile-performance-optimizer-v2.ts",
+      "timestamp": "2025-09-26T14:50:13.595Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobilePerformanceManager.ts",
+      "timestamp": "2025-09-26T14:50:13.597Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobilePerformanceManager.ts",
+      "timestamp": "2025-09-26T14:50:13.600Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobilePerformanceManager.ts",
+      "timestamp": "2025-09-26T14:50:13.601Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/mobilePerformanceManager.ts",
+      "timestamp": "2025-09-26T14:50:13.601Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/multi-language-crisis-detection.ts",
+      "timestamp": "2025-09-26T14:50:13.604Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/neural-pathway-visualization-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.606Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/neuroplasticity-habit-stacking.ts",
+      "timestamp": "2025-09-26T14:50:13.608Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/neuroplasticity-habits.ts",
+      "timestamp": "2025-09-26T14:50:13.610Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/neuroplasticity-timing-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.612Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-crisis-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.613Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-crisis-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.614Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-crisis-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.615Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.616Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-manager.ts",
+      "timestamp": "2025-09-26T14:50:13.617Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-navigation.ts",
+      "timestamp": "2025-09-26T14:50:13.618Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-navigation.ts",
+      "timestamp": "2025-09-26T14:50:13.619Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/offline-navigation.ts",
+      "timestamp": "2025-09-26T14:50:13.620Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/community-social-justice-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.623Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/complete-pathway-catalog.ts",
+      "timestamp": "2025-09-26T14:50:13.625Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/creative-expression-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.627Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/economic-justice-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.630Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/economic-justice-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.632Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/firebase-pathway-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.633Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/health-wellness-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.635Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/pathway-synergy-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.638Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/pathway-synergy-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.639Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pathways/revolutionary-ikigai-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.641Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/performance-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.645Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-launch-checklist.ts",
+      "timestamp": "2025-09-26T14:50:13.650Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/community-platform-excellence.ts",
+      "timestamp": "2025-09-26T14:50:13.651Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/developer-platform-optimizer.ts",
+      "timestamp": "2025-09-26T14:50:13.653Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/index.ts",
+      "timestamp": "2025-09-26T14:50:13.655Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/index.ts",
+      "timestamp": "2025-09-26T14:50:13.656Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/launch-readiness-automation.ts",
+      "timestamp": "2025-09-26T14:50:13.657Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/social-proof-system.ts",
+      "timestamp": "2025-09-26T14:50:13.659Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/social-proof-system.ts",
+      "timestamp": "2025-09-26T14:50:13.660Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/platform-readiness/technical-excellence-demo.ts",
+      "timestamp": "2025-09-26T14:50:13.661Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/polyvagal-state-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.662Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/privacy/consent-management.ts",
+      "timestamp": "2025-09-26T14:50:13.664Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/privacy-preserving-crisis-logger.ts",
+      "timestamp": "2025-09-26T14:50:13.666Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/professional/ehr-integration.ts",
+      "timestamp": "2025-09-26T14:50:13.668Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/pwa-config.ts",
+      "timestamp": "2025-09-26T14:50:13.675Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/rateLimiter.ts",
+      "timestamp": "2025-09-26T14:50:13.676Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/recovery-oriented-progress-tracking.ts",
+      "timestamp": "2025-09-26T14:50:13.678Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/recovery-oriented-progress-tracking.ts",
+      "timestamp": "2025-09-26T14:50:13.680Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/research-data-export.ts",
+      "timestamp": "2025-09-26T14:50:13.682Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/sacred-motion-system.ts",
+      "timestamp": "2025-09-26T14:50:13.685Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/sacred-motion-system.ts",
+      "timestamp": "2025-09-26T14:50:13.686Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/sacred-motion-system.ts",
+      "timestamp": "2025-09-26T14:50:13.687Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/secureCSSLoader.ts",
+      "timestamp": "2025-09-26T14:50:13.689Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/security.ts",
+      "timestamp": "2025-09-26T14:50:13.690Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/social-proof-validation.ts",
+      "timestamp": "2025-09-26T14:50:13.694Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/social-proof-validation.ts",
+      "timestamp": "2025-09-26T14:50:13.695Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/stripe.ts",
+      "timestamp": "2025-09-26T14:50:13.697Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/testing/app-store-simulation.ts",
+      "timestamp": "2025-09-26T14:50:13.699Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/testing/app-store-simulation.ts",
+      "timestamp": "2025-09-26T14:50:13.700Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/testing/app-store-simulation.ts",
+      "timestamp": "2025-09-26T14:50:13.700Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/testing/app-store-simulation.ts",
+      "timestamp": "2025-09-26T14:50:13.701Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/testing/comprehensive-app-store-suite.ts",
+      "timestamp": "2025-09-26T14:50:13.702Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/transparency/audit-integration-system.ts",
+      "timestamp": "2025-09-26T14:50:13.705Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/transparency/community-governance-system.ts",
+      "timestamp": "2025-09-26T14:50:13.707Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/transparency/research-ethics-framework.ts",
+      "timestamp": "2025-09-26T14:50:13.709Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/trauma-informed-habit-adaptation.ts",
+      "timestamp": "2025-09-26T14:50:13.711Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/trauma-informed-habit-formation.ts",
+      "timestamp": "2025-09-26T14:50:13.712Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/trauma-informed-interventions.ts",
+      "timestamp": "2025-09-26T14:50:13.714Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/trauma-informed-micro-interventions.ts",
+      "timestamp": "2025-09-26T14:50:13.715Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/useJournals.ts",
+      "timestamp": "2025-09-26T14:50:13.718Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/useSELAlignment.ts",
+      "timestamp": "2025-09-26T14:50:13.720Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/useStreaks.ts",
+      "timestamp": "2025-09-26T14:50:13.721Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/visual-analysis/imageAnalyzer.ts",
+      "timestamp": "2025-09-26T14:50:13.724Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/visual-analysis/imageAnalyzer.ts",
+      "timestamp": "2025-09-26T14:50:13.725Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/visual-analysis/privacyManager.ts",
+      "timestamp": "2025-09-26T14:50:13.726Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/visual-analysis/privacyManager.ts",
+      "timestamp": "2025-09-26T14:50:13.727Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/wellness/integrative-healing-traditions.ts",
+      "timestamp": "2025-09-26T14:50:13.730Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/wellness/somatic-regulation-engine.ts",
+      "timestamp": "2025-09-26T14:50:13.731Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/wellness/trauma-informed-movement-therapy.ts",
+      "timestamp": "2025-09-26T14:50:13.732Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/wellness-ecosystem/therapeutic-pathways.ts",
+      "timestamp": "2025-09-26T14:50:13.736Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/middleware/security.ts",
+      "timestamp": "2025-09-26T14:50:13.739Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/middleware-legal.ts",
+      "timestamp": "2025-09-26T14:50:13.741Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/battery-conservation.ts",
+      "timestamp": "2025-09-26T14:50:13.743Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/network-resilient-design.ts",
+      "timestamp": "2025-09-26T14:50:13.745Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/network-resilient-design.ts",
+      "timestamp": "2025-09-26T14:50:13.746Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/network-resilient-design.ts",
+      "timestamp": "2025-09-26T14:50:13.747Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/network-resilient-design.ts",
+      "timestamp": "2025-09-26T14:50:13.748Z"
+    },
+    {
+      "severity": "warning",
+      "code": "MISSING_USE_CLIENT",
+      "title": "Component with hooks missing \"use client\" directive",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/network-resilient-design.ts",
+      "timestamp": "2025-09-26T14:50:13.748Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/offline-crisis-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.749Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/offline-crisis-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.750Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/mobile/offline-crisis-resources.ts",
+      "timestamp": "2025-09-26T14:50:13.751Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/polyfills.js",
+      "timestamp": "2025-09-26T14:50:13.755Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/polyfills.js",
+      "timestamp": "2025-09-26T14:50:13.757Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/polyfills.js",
+      "timestamp": "2025-09-26T14:50:13.758Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/polyfills.js",
+      "timestamp": "2025-09-26T14:50:13.758Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: sessionStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/polyfills.js",
+      "timestamp": "2025-09-26T14:50:13.759Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/security/access-control-tester.ts",
+      "timestamp": "2025-09-26T14:50:13.760Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/security/consent-management-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.762Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/security/data-breach-detector.ts",
+      "timestamp": "2025-09-26T14:50:13.763Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/security/hipaa-compliance-auditor.ts",
+      "timestamp": "2025-09-26T14:50:13.765Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: sessionStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/security/hipaa-compliance-auditor.ts",
+      "timestamp": "2025-09-26T14:50:13.766Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: window",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/testing/crisis-resource-integration-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.768Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: navigator",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/testing/crisis-resource-integration-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.769Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: localStorage",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/testing/crisis-resource-integration-validator.ts",
+      "timestamp": "2025-09-26T14:50:13.770Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/testing/crisis-validation-suite.ts",
+      "timestamp": "2025-09-26T14:50:13.771Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/types/career-schema.ts",
+      "timestamp": "2025-09-26T14:50:13.774Z"
+    },
+    {
+      "severity": "warning",
+      "code": "SSR_BROWSER_API",
+      "title": "Browser API usage without SSR protection: document",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/types/journal.ts",
+      "timestamp": "2025-09-26T14:50:13.778Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-performance",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.865Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-dynamic",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.865Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.865Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.865Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/components/auth/SignInButtonsOptimized.tsx, Import: ../../lib/firebase",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.867Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/analytics-service.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.934Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/low-bandwidth-auth-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.936Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/auth/low-bandwidth-auth-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.936Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.949Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.949Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/crisis-performance-optimizer.ts, Import: @/lib/firebase",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.949Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.961Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-crisis-loader.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/functions",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-dynamic.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.962Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/functions",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/performance",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/analytics",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: ./firebase-app-only",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase-lazy.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/app",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/firestore",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/firebase.ts, Import: firebase/auth",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.963Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/performance-budget-monitor.ts, Import: ./firebase-lazy",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.996Z"
+    },
+    {
+      "severity": "warning",
+      "code": "FIREBASE_IMPORT_SSR",
+      "title": "Firebase import should be dynamic on client-side",
+      "details": "File: /Users/zadiewalker/Desktop/alchm/src/lib/performance-budget-monitor.ts, Import: firebase/analytics",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:13.996Z"
+    },
+    {
+      "severity": "warning",
+      "code": "LCP_SLOW",
+      "title": "Largest Contentful Paint is too slow",
+      "details": "2800ms > 2500ms",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:14.025Z"
+    },
+    {
+      "severity": "warning",
+      "code": "CLS_HIGH",
+      "title": "Cumulative Layout Shift is too high",
+      "details": "0.15 > 0.1",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:14.025Z"
+    },
+    {
+      "severity": "critical",
+      "code": "EXPOSED_SECRET",
+      "title": "Potential secret key exposed in code",
+      "details": "File: .env.local contains what appears to be a secret key",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:16.116Z"
+    },
+    {
+      "severity": "critical",
+      "code": "EXPOSED_SECRET",
+      "title": "Potential secret key exposed in code",
+      "details": "File: .env.local contains what appears to be a secret key",
+      "autoFix": null,
+      "timestamp": "2025-09-26T14:50:16.116Z"
+    }
+  ],
+  "fixes": [
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.780Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.781Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: sessionStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.782Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.783Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.784Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.785Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.786Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: sessionStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.787Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.788Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.789Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "MISSING_USE_CLIENT",
+      "description": "Auto-fixed: Component with hooks missing \"use client\" directive",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: sessionStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: sessionStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: window",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: navigator",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: localStorage",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    },
+    {
+      "code": "SSR_BROWSER_API",
+      "description": "Auto-fixed: Browser API usage without SSR protection: document",
+      "action": "automated",
+      "timestamp": "2025-09-26T14:50:13.790Z"
+    }
+  ],
+  "metrics": {
+    "bundleAnalysis": {
+      "firstLoadJS": 0,
+      "totalSize": 0,
+      "assets": [],
+      "chunks": []
+    },
+    "lighthouse": {
+      "performance": 85,
+      "accessibility": 92,
+      "bestPractices": 88,
+      "seo": 90,
+      "metrics": {
+        "firstContentfulPaint": 1600,
+        "largestContentfulPaint": 2800,
+        "cumulativeLayoutShift": 0.15,
+        "firstInputDelay": 120
+      }
+    }
+  },
+  "optimizationSuggestions": [
+    {
+      "type": "performance",
+      "priority": "medium",
+      "title": "Optimize Core Web Vitals",
+      "description": "Performance score is below recommended threshold.",
+      "implementation": "Implement image optimization, reduce JavaScript execution time, minimize layout shifts."
+    }
+  ],
+  "nextSteps": [
+    {
+      "priority": 1,
+      "action": "Resolve critical issues immediately",
+      "details": "Fix 2 critical issues before deployment"
+    },
+    {
+      "priority": 3,
+      "action": "Run production build test",
+      "details": "Verify all optimizations work in production build"
+    },
+    {
+      "priority": 4,
+      "action": "Deploy to Firebase Studio",
+      "details": "Monitor deployment for any runtime issues"
+    }
+  ]
+}

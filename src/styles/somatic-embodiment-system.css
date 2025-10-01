@@ -1,0 +1,640 @@
+/* ALCHM Somatic & Embodiment CSS System */
+/* Body-Wisdom Integration for Premium Digital Sanctuary */
+/* Designed to support nervous system regulation through visual experience */
+
+/* ========================================
+   SOMATIC NERVOUS SYSTEM STATES
+======================================== */
+
+:root {
+  /* Polyvagal Theory Visual Variables */
+  --ventral-vagal: #a4b792;    /* Safe, connected, regulated */
+  --sympathetic: #f59e0b;      /* Alert, activated, mobilized */
+  --dorsal-vagal: #6b7280;     /* Withdrawn, collapsed, frozen */
+  
+  /* Somatic Texture Patterns */
+  --texture-grounding: radial-gradient(circle at 50% 50%, 
+    rgba(164, 183, 146, 0.03) 0%, 
+    transparent 30%,
+    rgba(164, 183, 146, 0.02) 60%,
+    transparent 100%);
+  
+  --texture-breathing: linear-gradient(135deg,
+    rgba(164, 183, 146, 0.02) 0%,
+    transparent 25%,
+    rgba(164, 183, 146, 0.01) 50%,
+    transparent 75%,
+    rgba(164, 183, 146, 0.02) 100%);
+    
+  --texture-safe-container: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(164, 183, 146, 0.008) 0.5deg,
+    transparent 1deg,
+    transparent 359deg,
+    rgba(164, 183, 146, 0.008) 359.5deg,
+    transparent 360deg);
+
+  /* Nervous System Regulation Timing */
+  --exhale-duration: 6000ms;   /* Longer exhale for regulation */
+  --inhale-duration: 4000ms;   /* Shorter inhale for calm */
+  --hold-duration: 1000ms;     /* Brief pause between breaths */
+  --heart-coherence: 5000ms;   /* Heart rate variability optimal */
+  
+  /* Somatic Easing Curves - Based on breath patterns */
+  --ease-inhale: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-exhale: cubic-bezier(0.6, 0, 0.4, 1);
+  --ease-heart-coherence: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  
+  /* Body-Aware Spacing - Mimics comfortable personal space */
+  --somatic-space-intimate: 8px;     /* Tender, close content */
+  --somatic-space-personal: 16px;    /* Comfortable personal distance */
+  --somatic-space-social: 24px;      /* Social interaction distance */
+  --somatic-space-public: 48px;      /* Public speaking comfort zone */
+  
+  /* Touch Pressure Simulation */
+  --touch-light: 1px;         /* Feather-light boundary */
+  --touch-firm: 2px;          /* Confident, grounding boundary */
+  --touch-therapeutic: 3px;   /* Therapeutic pressure simulation */
+}
+
+/* ========================================
+   SOMATIC VISUAL TEXTURES
+======================================== */
+
+/* Base grounding texture for all elements */
+.somatic-foundation {
+  position: relative;
+  overflow: hidden;
+}
+
+.somatic-foundation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--texture-grounding);
+  pointer-events: none;
+  z-index: -1;
+  animation: grounding-pulse var(--heart-coherence) var(--ease-heart-coherence) infinite;
+}
+
+/* Breathing texture overlay */
+.somatic-breathing-surface {
+  position: relative;
+}
+
+.somatic-breathing-surface::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: var(--texture-breathing);
+  animation: breathing-rhythm calc(var(--inhale-duration) + var(--exhale-duration) + var(--hold-duration)) var(--ease-heart-coherence) infinite;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Safe container texture - creates sense of containment */
+.somatic-safe-container {
+  background-image: var(--texture-safe-container);
+  background-size: 40px 40px;
+  position: relative;
+}
+
+/* Nervous system state textures */
+.nervous-system-ventral {
+  background: linear-gradient(135deg, 
+    rgba(164, 183, 146, 0.05) 0%,
+    rgba(164, 183, 146, 0.02) 50%,
+    rgba(164, 183, 146, 0.05) 100%);
+  animation: ventral-flow 8000ms ease-in-out infinite;
+}
+
+.nervous-system-sympathetic {
+  background: linear-gradient(45deg,
+    rgba(245, 158, 11, 0.03) 0%,
+    transparent 30%,
+    rgba(245, 158, 11, 0.02) 70%,
+    transparent 100%);
+  animation: sympathetic-alert 3000ms ease-in-out infinite;
+}
+
+.nervous-system-dorsal {
+  background: linear-gradient(180deg,
+    rgba(107, 114, 128, 0.02) 0%,
+    rgba(107, 114, 128, 0.01) 100%);
+  filter: blur(0.5px);
+}
+
+/* ========================================
+   SOMATIC BREATHING ANIMATIONS
+======================================== */
+
+/* Primary breathing rhythm - coherent breath pattern */
+@keyframes breathing-rhythm {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  
+  /* Inhale phase */
+  25% {
+    transform: scale(1.02) rotate(0.2deg);
+    opacity: 0.5;
+  }
+  
+  /* Hold */
+  35% {
+    transform: scale(1.02) rotate(0.2deg);
+    opacity: 0.5;
+  }
+  
+  /* Exhale phase */
+  80% {
+    transform: scale(0.98) rotate(-0.2deg);
+    opacity: 0.2;
+  }
+  
+  /* Recovery */
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+}
+
+/* Grounding pulse - slower, deeper rhythm */
+@keyframes grounding-pulse {
+  0%, 100% {
+    opacity: 0.02;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.05;
+    transform: scale(1.01);
+  }
+}
+
+/* Ventral vagal flow - connected, safe state */
+@keyframes ventral-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Sympathetic alert - mobilized energy */
+@keyframes sympathetic-alert {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateX(0);
+  }
+  25% {
+    opacity: 0.5;
+    transform: translateX(1px);
+  }
+  75% {
+    opacity: 0.4;
+    transform: translateX(-1px);
+  }
+}
+
+/* Heart coherence animation - optimal nervous system regulation */
+@keyframes heart-coherence {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.005);
+    filter: brightness(1.02);
+  }
+}
+
+/* ========================================
+   SOMATIC COLOR GRADIENTS
+======================================== */
+
+/* Regulation-supporting gradients */
+.gradient-nervous-regulation {
+  background: linear-gradient(135deg,
+    var(--sage-50) 0%,
+    var(--sage-100) 25%,
+    var(--sage-200) 50%,
+    var(--sage-100) 75%,
+    var(--sage-50) 100%);
+  background-size: 200% 200%;
+  animation: regulation-flow 12000ms ease-in-out infinite;
+}
+
+@keyframes regulation-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* State transition gradients */
+.gradient-hyperarousal-to-regulation {
+  background: linear-gradient(90deg,
+    rgba(245, 158, 11, 0.1) 0%,
+    rgba(164, 183, 146, 0.1) 100%);
+  transition: all 8000ms var(--ease-exhale);
+}
+
+.gradient-hypoarousal-to-regulation {
+  background: linear-gradient(90deg,
+    rgba(107, 114, 128, 0.1) 0%,
+    rgba(164, 183, 146, 0.1) 100%);
+  transition: all 6000ms var(--ease-inhale);
+}
+
+/* Somatic comfort gradients */
+.gradient-somatic-comfort {
+  background: radial-gradient(ellipse at center,
+    rgba(164, 183, 146, 0.08) 0%,
+    rgba(164, 183, 146, 0.04) 40%,
+    rgba(164, 183, 146, 0.02) 70%,
+    transparent 100%);
+}
+
+/* ========================================
+   BODY-AWARE TYPOGRAPHY
+======================================== */
+
+/* Somatic typography that reduces tension */
+.somatic-text {
+  font-family: var(--font-sans);
+  letter-spacing: 0.025em;     /* Slightly wider for reduced eye strain */
+  line-height: 1.8;            /* Generous line height for neck comfort */
+  word-spacing: 0.1em;         /* Breathing room between words */
+  font-weight: 400;            /* Avoid bold text that creates visual tension */
+  color: var(--sanctuary-gray-700);
+  transition: all 300ms var(--ease-exhale);
+}
+
+/* Reading-optimized paragraph spacing */
+.somatic-paragraph {
+  margin-bottom: var(--somatic-space-personal);
+  max-width: 65ch;             /* Optimal reading line length */
+  text-align: left;            /* Avoid justified text that creates gaps */
+}
+
+/* Tension-free headings */
+.somatic-heading {
+  font-weight: 300;            /* Light weight reduces visual pressure */
+  letter-spacing: -0.01em;     /* Slight negative tracking for large text */
+  line-height: 1.3;
+  margin-bottom: var(--somatic-space-social);
+  color: var(--sage-700);
+}
+
+/* Crisis-readable text with enhanced accessibility */
+.somatic-crisis-text {
+  font-size: 1.125rem;         /* 18px minimum for crisis scenarios */
+  line-height: 2;              /* Extra generous line height */
+  letter-spacing: 0.05em;      /* Wide letter spacing for clarity */
+  font-weight: 500;            /* Medium weight for readability */
+  color: var(--crisis-green);
+  word-spacing: 0.2em;
+}
+
+/* ========================================
+   EMBODIED INTERACTION PATTERNS
+======================================== */
+
+/* Touch targets that feel good to press */
+.somatic-button {
+  min-height: 56px;            /* Generous touch target */
+  min-width: 56px;
+  padding: var(--somatic-space-personal) var(--somatic-space-social);
+  border: var(--touch-light) solid transparent;
+  border-radius: 16px;         /* Soft, organic corners */
+  background: var(--gradient-somatic-comfort);
+  position: relative;
+  overflow: hidden;
+  transition: all 200ms var(--ease-heart-coherence);
+  cursor: pointer;
+  
+  /* Subtle texture for tactile feel */
+  background-image: var(--texture-safe-container);
+  background-size: 20px 20px;
+}
+
+/* Hover state - anticipates touch */
+.somatic-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(164, 183, 146, 0.2);
+  box-shadow: 
+    0 4px 12px rgba(164, 183, 146, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Active state - simulates pressure feedback */
+.somatic-button:active {
+  transform: translateY(0);
+  border-width: var(--touch-firm);
+  border-color: rgba(164, 183, 146, 0.3);
+  background: rgba(164, 183, 146, 0.1);
+  transition: all 50ms ease-out;
+}
+
+/* Focus state - gentle, non-jarring */
+.somatic-button:focus {
+  outline: none;
+  border-color: rgba(164, 183, 146, 0.4);
+  box-shadow: 
+    0 0 0 4px rgba(164, 183, 146, 0.1),
+    0 4px 12px rgba(164, 183, 146, 0.15);
+}
+
+/* Input fields with somatic awareness */
+.somatic-input {
+  min-height: 52px;
+  padding: var(--somatic-space-personal);
+  border: var(--touch-light) solid rgba(164, 183, 146, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 16px;              /* Prevents iOS zoom */
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  transition: all 300ms var(--ease-heart-coherence);
+  
+  /* Breathing room around text */
+  background-image: var(--texture-breathing);
+  background-size: 60px 60px;
+}
+
+.somatic-input:focus {
+  border-width: var(--touch-firm);
+  border-color: rgba(164, 183, 146, 0.4);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 0 0 3px rgba(164, 183, 146, 0.08),
+    inset 0 2px 4px rgba(164, 183, 146, 0.05);
+  outline: none;
+}
+
+/* ========================================
+   GROUNDING VISUAL ELEMENTS
+======================================== */
+
+/* Grounding anchor - provides visual stability */
+.somatic-grounding-anchor {
+  position: relative;
+  background: rgba(164, 183, 146, 0.02);
+  border-radius: 24px;
+  padding: var(--somatic-space-social);
+  margin: var(--somatic-space-personal) 0;
+}
+
+.somatic-grounding-anchor::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(164, 183, 146, 0.3) 50%,
+    transparent 100%);
+  animation: grounding-pulse var(--heart-coherence) ease-in-out infinite;
+}
+
+/* Breathing space containers */
+.somatic-breathing-space {
+  padding: var(--somatic-space-public);
+  margin: var(--somatic-space-social) 0;
+  background: var(--texture-breathing);
+  background-size: 80px 80px;
+  border-radius: 20px;
+  position: relative;
+}
+
+/* Interoceptive awareness guides */
+.somatic-body-awareness-guide {
+  border-left: 3px solid rgba(164, 183, 146, 0.3);
+  padding-left: var(--somatic-space-social);
+  margin-left: var(--somatic-space-personal);
+  background: linear-gradient(90deg,
+    rgba(164, 183, 146, 0.02) 0%,
+    transparent 20%);
+  position: relative;
+}
+
+.somatic-body-awareness-guide::before {
+  content: '○';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  color: rgba(164, 183, 146, 0.6);
+  font-size: 12px;
+  animation: gentle-pulse 3000ms ease-in-out infinite;
+}
+
+/* ========================================
+   NERVOUS SYSTEM STATE COMPONENTS
+======================================== */
+
+/* Safe state container */
+.nervous-state-safe {
+  background: var(--gradient-somatic-comfort);
+  border: 1px solid rgba(164, 183, 146, 0.2);
+  border-radius: 20px;
+  padding: var(--somatic-space-social);
+  animation: heart-coherence var(--heart-coherence) ease-in-out infinite;
+}
+
+/* Activated state container */
+.nervous-state-activated {
+  background: linear-gradient(135deg,
+    rgba(245, 158, 11, 0.05) 0%,
+    rgba(164, 183, 146, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 16px;
+  padding: var(--somatic-space-personal);
+  animation: sympathetic-alert 3000ms ease-in-out infinite;
+}
+
+/* Shutdown state container */
+.nervous-state-shutdown {
+  background: rgba(107, 114, 128, 0.03);
+  border: 1px solid rgba(107, 114, 128, 0.1);
+  border-radius: 24px;
+  padding: var(--somatic-space-public);
+  filter: blur(0.5px);
+}
+
+/* ========================================
+   TRAUMA-INFORMED ANIMATIONS
+======================================== */
+
+/* Gentle pulse for encouraging elements */
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Regulation breathing guide */
+@keyframes regulation-breathing {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  
+  /* Inhale */
+  25% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  
+  /* Hold */
+  35% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  
+  /* Exhale */
+  85% {
+    transform: scale(0.95);
+    opacity: 0.3;
+  }
+  
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+}
+
+/* Somatic flow animation */
+@keyframes somatic-flow {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+/* ========================================
+   RESPONSIVE SOMATIC DESIGN
+======================================== */
+
+/* Mobile somatic adjustments */
+@media (max-width: 768px) {
+  .somatic-button {
+    min-height: 60px;          /* Larger touch targets */
+    min-width: 60px;
+    padding: var(--somatic-space-social) var(--somatic-space-public);
+  }
+  
+  .somatic-input {
+    min-height: 56px;
+    font-size: 16px;           /* Prevent iOS zoom */
+  }
+  
+  .somatic-text {
+    font-size: 1rem;
+    line-height: 1.9;          /* Extra line height for mobile */
+  }
+  
+  .somatic-breathing-space {
+    padding: var(--somatic-space-social);
+  }
+}
+
+/* High contrast mode - maintain somatic principles */
+@media (prefers-contrast: high) {
+  .somatic-button {
+    border-width: var(--touch-firm);
+    border-color: var(--sage-600);
+  }
+  
+  .somatic-input {
+    border-width: var(--touch-firm);
+    border-color: var(--sage-600);
+  }
+  
+  .nervous-state-safe {
+    border-width: var(--touch-firm);
+    border-color: var(--sage-600);
+  }
+}
+
+/* Reduced motion - preserve somatic essence */
+@media (prefers-reduced-motion: reduce) {
+  .somatic-foundation::before,
+  .somatic-breathing-surface::after {
+    animation: none;
+    opacity: 0.03;
+  }
+  
+  .nervous-system-ventral,
+  .nervous-system-sympathetic {
+    animation: none;
+  }
+  
+  .somatic-button,
+  .somatic-input {
+    transition-duration: 100ms;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+
+/* Nervous system state utilities */
+.in-ventral-state {
+  background: var(--gradient-nervous-regulation);
+  animation: ventral-flow 8000ms ease-in-out infinite;
+}
+
+.in-sympathetic-state {
+  background: var(--gradient-hyperarousal-to-regulation);
+  animation: sympathetic-alert 3000ms ease-in-out infinite;
+}
+
+.in-dorsal-state {
+  background: var(--gradient-hypoarousal-to-regulation);
+  filter: blur(0.3px);
+}
+
+/* Breathing pattern utilities */
+.breathing-coherent {
+  animation: regulation-breathing calc(var(--inhale-duration) + var(--exhale-duration) + var(--hold-duration)) var(--ease-heart-coherence) infinite;
+}
+
+.breathing-grounding {
+  animation: grounding-pulse var(--heart-coherence) ease-in-out infinite;
+}
+
+/* Somatic spacing utilities */
+.somatic-space-intimate { padding: var(--somatic-space-intimate); }
+.somatic-space-personal { padding: var(--somatic-space-personal); }
+.somatic-space-social { padding: var(--somatic-space-social); }
+.somatic-space-public { padding: var(--somatic-space-public); }
+
+/* Touch pressure utilities */
+.touch-light { border-width: var(--touch-light); }
+.touch-firm { border-width: var(--touch-firm); }
+.touch-therapeutic { border-width: var(--touch-therapeutic); }

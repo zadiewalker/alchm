@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM - Feedback Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .test-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ALCHM Feedback System Test</h1>
+        
+        <div class="form-group">
+            <label>Test Endpoint:</label>
+            <div class="endpoint" id="currentEndpoint">
+                https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/chatWithGemini
+            </div>
+        </div>
+
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" placeholder="Enter your feedback here..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="rating">Rating (1-5):</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Select a rating</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="3">3 - Good</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="5">5 - Excellent</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="testPhase">Test Phase:</label>
+                <select id="testPhase" name="testPhase" required>
+                    <option value="">Select phase</option>
+                    <option value="initial">Initial Testing</option>
+                    <option value="navigation">Navigation Testing</option>
+                    <option value="functionality">Functionality Testing</option>
+                    <option value="usability">Usability Testing</option>
+                    <option value="final">Final Testing</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="userId">User ID (optional):</label>
+                <input type="text" id="userId" name="userId" placeholder="test-user-123">
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Feedback</button>
+        </form>
+
+        <div class="test-buttons">
+            <button onclick="testChatWithGemini()" id="testChatBtn">Test chatWithGemini</button>
+            <button onclick="testUserTestingFeedback()" id="testUserBtn">Test userTestingFeedback</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const result = document.getElementById('result');
+        
+        function showResult(data, isSuccess = true) {
+            result.className = `result ${isSuccess ? 'success' : 'error'}`;
+            result.textContent = JSON.stringify(data, null, 2);
+            result.style.display = 'block';
+        }
+
+        function collectFormData() {
+            return {
+                feedbackType: 'user_testing',
+                feedback: document.getElementById('feedback').value,
+                rating: parseInt(document.getElementById('rating').value),
+                testPhase: document.getElementById('testPhase').value,
+                userId: document.getElementById('userId').value || 'anonymous',
+                timestamp: new Date().toISOString(),
+                source: 'test-form'
+            };
+        }
+
+        async function submitToEndpoint(url, data) {
+            try {
+                console.log(`Submitting to ${url}:`, data);
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+                
+                let responseData;
+                try {
+                    responseData = JSON.parse(responseText);
+                } catch (e) {
+                    responseData = { rawResponse: responseText, parseError: e.message };
+                }
+
+                return {
+                    status: response.status,
+                    statusText: response.statusText,
+                    data: responseData,
+                    success: response.ok
+                };
+            } catch (error) {
+                return {
+                    error: error.message,
+                    success: false
+                };
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            const formData = collectFormData();
+            const endpoint = document.getElementById('currentEndpoint').textContent.trim();
+            
+            const result = await submitToEndpoint(endpoint, formData);
+            showResult(result, result.success);
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Feedback';
+        });
+
+        async function testChatWithGemini() {
+            document.getElementById('currentEndpoint').textContent = 
+                'https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/chatWithGemini';
+            
+            const testBtn = document.getElementById('testChatBtn');
+            testBtn.disabled = true;
+            testBtn.textContent = 'Testing...';
+            
+            const testData = {
+                feedbackType: 'user_testing',
+                feedback: 'Test feedback from automated test',
+                rating: 5,
+                testPhase: 'initial',
+                userId: 'test-automated',
+                source: 'automated-test'
+            };
+            
+            const result = await submitToEndpoint(
+                'https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/chatWithGemini',
+                testData
+            );
+            
+            showResult({
+                endpoint: 'chatWithGemini',
+                ...result
+            }, result.success);
+            
+            testBtn.disabled = false;
+            testBtn.textContent = 'Test chatWithGemini';
+        }
+
+        async function testUserTestingFeedback() {
+            document.getElementById('currentEndpoint').textContent = 
+                'https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/userTestingFeedback';
+            
+            const testBtn = document.getElementById('testUserBtn');
+            testBtn.disabled = true;
+            testBtn.textContent = 'Testing...';
+            
+            const testData = {
+                feedback: 'Test feedback from automated test',
+                rating: 5,
+                testPhase: 'initial',
+                userId: 'test-automated',
+                source: 'automated-test'
+            };
+            
+            const result = await submitToEndpoint(
+                'https://us-central1-alchm-digital-sanctuary.cloudfunctions.net/userTestingFeedback',
+                testData
+            );
+            
+            showResult({
+                endpoint: 'userTestingFeedback',
+                ...result
+            }, result.success);
+            
+            testBtn.disabled = false;
+            testBtn.textContent = 'Test userTestingFeedback';
+        }
+    </script>
+</body>
+</html>

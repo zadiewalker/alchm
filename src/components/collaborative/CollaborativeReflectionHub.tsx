@@ -1,3 +1,5 @@
+'use client';
+
 // ALCHM Collaborative Reflection Hub
 // Sacred peer learning spaces with trauma-informed safety and cultural responsiveness
 // Designed for collective healing and community building
