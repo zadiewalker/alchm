@@ -161,16 +161,16 @@ export function EmergencyCrisisButton({
           onClick={() => setIsExpanded(!isExpanded)}
           className="bg-red-600 hover:bg-red-500 text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-100 focus:outline-none focus:ring-4 focus:ring-red-300/50 hover:scale-105"
           style={{
-            width: '70px',
-            height: '70px',
-            minWidth: '70px',
-            minHeight: '70px',
+            width: '48px',
+            height: '48px',
+            minWidth: '48px',
+            minHeight: '48px',
             touchAction: 'manipulation'
           }}
           aria-label="Emergency crisis support"
         >
           <svg 
-            className={`w-7 h-7 transition-transform duration-200 ${isExpanded ? 'rotate-45' : ''}`} 
+            className={`w-5 h-5 transition-transform duration-200 ${isExpanded ? 'rotate-45' : ''}`} 
             fill="currentColor" 
             viewBox="0 0 20 20"
           >
