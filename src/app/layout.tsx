@@ -48,7 +48,7 @@ const SacredAgeVerification = dynamic(
             animation: 'spin 1s linear infinite'
           }}></div>
         </div>
-        {/* Crisis support always available during loading */}
+        {/* Sacred crisis support always available during loading */}
         <div style={{
           position: 'absolute',
           bottom: '24px',
@@ -60,32 +60,36 @@ const SacredAgeVerification = dynamic(
           <a href="tel:988" style={{
             flex: 1,
             padding: '12px 8px',
-            background: '#dc2626',
-            color: 'white',
+            background: 'rgba(164, 183, 146, 0.9)',
+            color: '#2e2e2e',
             textDecoration: 'none',
-            borderRadius: '10px',
+            borderRadius: '12px',
             fontSize: '13px',
-            fontWeight: '600',
+            fontWeight: '500',
             textAlign: 'center',
             minHeight: '44px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(247, 247, 242, 0.3)'
           }}>📞 988</a>
           <a href="sms:741741&body=HOME" style={{
             flex: 1,
             padding: '12px 8px',
-            background: '#dc2626',
-            color: 'white',
+            background: 'rgba(164, 183, 146, 0.9)',
+            color: '#2e2e2e',
             textDecoration: 'none',
-            borderRadius: '10px',
+            borderRadius: '12px',
             fontSize: '13px',
-            fontWeight: '600',
+            fontWeight: '500',
             textAlign: 'center',
             minHeight: '44px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(247, 247, 242, 0.3)'
           }}>💬 HOME</a>
         </div>
       </div>
