@@ -1,43 +1,63 @@
 'use client';
 
-// CRISIS-CRITICAL: Ultra-lightweight emergency page for crisis situations
+// SACRED CRISIS SUPPORT: Trauma-informed emergency page
+// Philosophy: Hold, don't alarm. Illuminate, don't glare. Guide, don't push.
 // Target: <10KB bundle size for 3G networks
-// NO external dependencies beyond React
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import SacredCrisisScarab from '@/components/ui/SacredCrisisScarab';
 
-// Emergency crisis resources - hardcoded for speed
-const EMERGENCY_RESOURCES = [
+// Crisis resources - redesigned with trauma-informed principles
+const SACRED_CRISIS_RESOURCES = [
   {
-    id: 'crisis-text',
-    name: '988 Crisis Text',
-    action: () => window.open('sms:741741', '_self'),
-    text: 'Text HOME to 741741',
-    icon: '💬',
-    priority: 1
-  },
-  {
-    id: 'crisis-call',
-    name: '988 Crisis Call',
+    id: 'crisis-call-988',
+    name: '988 Lifeline',
     action: () => window.open('tel:988', '_self'),
-    text: 'Call 988',
-    icon: '📞',
-    priority: 1
+    primary: 'Call 988',
+    secondary: '24/7 Suicide & Crisis Lifeline',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="#a4b792" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      </svg>
+    ),
+    priority: 1,
+    borderColor: 'rgba(164, 183, 146, 0.3)'
   },
   {
-    id: 'emergency',
+    id: 'crisis-text-741741',
+    name: 'Crisis Text Line',
+    action: () => window.open('sms:741741&body=HOME', '_self'),
+    primary: 'Text HOME to 741741',
+    secondary: 'Free 24/7 crisis counseling',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#a4b792" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      </svg>
+    ),
+    priority: 1,
+    borderColor: 'rgba(164, 183, 146, 0.3)'
+  },
+  {
+    id: 'emergency-911',
     name: 'Emergency Services',
     action: () => window.open('tel:911', '_self'),
-    text: 'Call 911',
-    icon: '🚨',
-    priority: 0
+    primary: 'Call 911',
+    secondary: 'For life-threatening emergencies',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#cb997e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      </svg>
+    ),
+    priority: 0,
+    borderColor: 'rgba(203, 153, 126, 0.3)'
   }
 ];
 
 // Crisis severity levels for proper response
 type CrisisSeverity = 'immediate' | 'urgent' | 'support';
 
-interface CrisisEmergencyPageProps {
+interface SacredCrisisPageProps {
   severity?: CrisisSeverity;
   onContinueToJournal?: () => void;
   backupText?: string;
@@ -47,152 +67,270 @@ export default function CrisisEmergencyPage({
   severity = 'support',
   onContinueToJournal,
   backupText = ''
-}: CrisisEmergencyPageProps) {
-  const [hasCalledHelp, setHasCalledHelp] = useState(false);
-  const [showSafetyPlan, setShowSafetyPlan] = useState(false);
+}: SacredCrisisPageProps) {
+  const [hasReachedOut, setHasReachedOut] = useState(false);
+  const [showMoreResources, setShowMoreResources] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Auto-focus on most critical resource
+  // Sacred entrance animation
   useEffect(() => {
-    if (severity === 'immediate') {
-      // Auto-open emergency services for immediate danger
-      const timer = setTimeout(() => {
-        if (!hasCalledHelp) {
-          window.open('tel:911', '_self');
-        }
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [severity, hasCalledHelp]);
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const handleEmergencyAction = (resource: typeof EMERGENCY_RESOURCES[0]) => {
-    setHasCalledHelp(true);
-    resource.action();
+  const handleSacredAction = (resource: typeof SACRED_CRISIS_RESOURCES[0]) => {
+    setHasReachedOut(true);
+    
+    // Gentle haptic feedback
+    if ('vibrate' in navigator) {
+      navigator.vibrate([100, 50, 100]);
+    }
+    
+    // Brief pause before action (allows for presence/intention)
+    setTimeout(() => {
+      resource.action();
+    }, 400);
   };
 
-  const getCrisisMessage = () => {
+  const getSacredMessage = () => {
     switch (severity) {
       case 'immediate':
         return {
-          title: '🚨 You are not alone - Help is here',
-          message: 'Your life matters. Emergency support is connecting now.',
-          urgency: 'Call emergency services immediately if you are in immediate danger.'
+          title: "You're Not Alone",
+          subtitle: "Help is here, right now, exactly as you are.",
+          description: "Your life matters deeply. These resources are here to hold you through this moment."
         };
       case 'urgent':
         return {
-          title: '💙 We hear you - Support is available',
-          message: 'Crisis support specialists are ready to help right now.',
-          urgency: 'You deserve support. Reach out - it shows strength.'
+          title: "You're Not Alone", 
+          subtitle: "You've shown incredible strength reaching out.",
+          description: "Crisis support is available immediately. You deserve care and compassion."
         };
       default:
         return {
-          title: '🤗 You matter - Support is here',
-          message: 'Trained counselors are available 24/7 to listen and help.',
-          urgency: 'Take care of yourself. You are worth it.'
+          title: "You're Not Alone",
+          subtitle: "If you're in crisis or need support right now, these resources are here for you - always.",
+          description: "Free, confidential support available 24/7. Your life has value."
         };
     }
   };
 
-  const crisisMessage = getCrisisMessage();
+  const sacredMessage = getSacredMessage();
 
   return (
     <div 
-      className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 p-4 flex flex-col items-center justify-center"
-      style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+      className="min-h-screen flex items-center justify-center p-6"
+      style={{ 
+        background: 'linear-gradient(180deg, #a4b792 0%, #b8c8a8 50%, #eeddd3 100%)',
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
+      }}
     >
-      {/* Crisis Header */}
-      <div className="max-w-md w-full text-center mb-8">
-        <div className="text-6xl mb-4 animate-pulse">{severity === 'immediate' ? '🚨' : '💙'}</div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          {crisisMessage.title}
-        </h1>
-        <p className="text-lg text-gray-700 mb-4">
-          {crisisMessage.message}
-        </p>
-        {severity === 'immediate' && (
-          <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-6">
-            <p className="text-red-700 font-semibold">
-              {crisisMessage.urgency}
-            </p>
-          </div>
-        )}
-      </div>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            className="w-full max-w-md"
+          >
+            {/* Sacred Scarab - Crisis Mode */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="flex justify-center"
+              style={{ marginTop: '80px', marginBottom: '56px' }}
+            >
+              <SacredCrisisScarab size={96} animate={true} />
+            </motion.div>
 
-      {/* Emergency Actions */}
-      <div className="max-w-md w-full space-y-4 mb-8">
-        {EMERGENCY_RESOURCES
-          .filter(resource => severity === 'immediate' || resource.priority > 0)
-          .map((resource) => (
-            <button
-              key={resource.id}
-              onClick={() => handleEmergencyAction(resource)}
-              className={`
-                w-full p-6 rounded-lg font-bold text-lg transition-all duration-200
-                ${resource.id === 'emergency' 
-                  ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg'
-                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
-                }
-                hover:scale-105 active:scale-95
-                focus:outline-none focus:ring-4 focus:ring-blue-300
-                min-h-16 flex items-center justify-center gap-3
-              `}
+            {/* Sacred Typography */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-center mb-12"
+            >
+              <h1 
+                className="font-semibold tracking-tight leading-none text-off-white mb-5"
+                style={{ fontSize: '36px', color: '#f7f7f2', letterSpacing: '-0.8px' }}
+              >
+                {sacredMessage.title}
+              </h1>
+              <p 
+                className="leading-relaxed text-center"
+                style={{ 
+                  fontSize: '17px', 
+                  color: 'rgba(247, 247, 242, 0.85)',
+                  lineHeight: '1.6',
+                  maxWidth: '400px',
+                  margin: '0 auto 20px'
+                }}
+              >
+                {sacredMessage.subtitle}
+              </p>
+              <p 
+                className="leading-relaxed text-center"
+                style={{ 
+                  fontSize: '15px', 
+                  color: 'rgba(247, 247, 242, 0.7)',
+                  lineHeight: '1.6',
+                  maxWidth: '380px',
+                  margin: '0 auto'
+                }}
+              >
+                {sacredMessage.description}
+              </p>
+            </motion.div>
+
+            {/* Sacred Crisis Resources */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="space-y-4 mb-8"
+            >
+              {SACRED_CRISIS_RESOURCES
+                .filter(resource => severity === 'immediate' || resource.priority > 0)
+                .map((resource, index) => (
+                  <motion.button
+                    key={resource.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 + (index * 0.1) }}
+                    onClick={() => handleSacredAction(resource)}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.12)';
+                      e.currentTarget.style.borderColor = 'rgba(164, 183, 146, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+                      e.currentTarget.style.borderColor = resource.borderColor;
+                    }}
+                    onTouchStart={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.background = 'rgba(247, 247, 242, 1)';
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.background = 'rgba(247, 247, 242, 0.95)';
+                    }}
+                    className="w-full flex items-center text-left cursor-pointer"
+                    style={{
+                      background: 'rgba(247, 247, 242, 0.95)',
+                      backdropFilter: 'blur(8px)',
+                      border: `2px solid ${resource.borderColor}`,
+                      borderRadius: '16px',
+                      padding: '20px 24px',
+                      minHeight: '68px',
+                      fontSize: '18px',
+                      fontWeight: '600',
+                      color: '#2e2e2e',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                      touchAction: 'manipulation'
+                    }}
+                  >
+                    <div className="flex items-center justify-center" style={{ minWidth: '24px', marginRight: '16px' }}>
+                      {resource.icon}
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-lg" style={{ color: '#2e2e2e', marginBottom: '4px' }}>
+                        {resource.primary}
+                      </div>
+                      <div className="text-sm opacity-60" style={{ color: '#2e2e2e' }}>
+                        {resource.secondary}
+                      </div>
+                    </div>
+                  </motion.button>
+                ))
+              }
+            </motion.div>
+
+            {/* Additional Support Section */}
+            {severity !== 'immediate' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
+                className="text-center mb-8"
+              >
+                <div className="flex gap-3 justify-center flex-wrap">
+                  <button
+                    onClick={() => setShowMoreResources(!showMoreResources)}
+                    className="inline-flex items-center gap-2 bg-white/50 border border-white/20 rounded-full px-5 py-3 text-sm font-medium text-gray-800 hover:bg-white/75 hover:border-white/40 transition-all duration-200"
+                    style={{ touchAction: 'manipulation', minHeight: '44px' }}
+                  >
+                    <span>🌐</span>
+                    <span>International Crisis Lines</span>
+                  </button>
+                  <button
+                    onClick={() => setShowMoreResources(!showMoreResources)}
+                    className="inline-flex items-center gap-2 bg-white/50 border border-white/20 rounded-full px-5 py-3 text-sm font-medium text-gray-800 hover:bg-white/75 hover:border-white/40 transition-all duration-200"
+                    style={{ touchAction: 'manipulation', minHeight: '44px' }}
+                  >
+                    <span>💭</span>
+                    <span>Self-Care Strategies</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Continue to Journal Option */}
+            {severity !== 'immediate' && onContinueToJournal && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+                className="text-center mb-8"
+              >
+                <button
+                  onClick={onContinueToJournal}
+                  className="w-full p-4 bg-white/30 border border-white/20 rounded-2xl text-white/90 hover:bg-white/40 hover:border-white/40 transition-all duration-200"
+                  style={{ 
+                    fontSize: '16px', 
+                    fontWeight: '500',
+                    minHeight: '68px',
+                    touchAction: 'manipulation'
+                  }}
+                >
+                  <div className="font-medium">Continue with healing practices</div>
+                  <div className="text-sm opacity-75 mt-1">Sometimes writing helps process feelings</div>
+                </button>
+              </motion.div>
+            )}
+
+            {/* Connection Status Indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.6 }}
+              className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-sm font-medium"
+              style={{ color: 'rgba(247, 247, 242, 0.7)' }}
+            >
+              <div 
+                className="w-2 h-2 rounded-full bg-green-400 animate-pulse"
+                style={{ animation: 'pulse 2s infinite' }}
+              />
+              <span>Resources available offline</span>
+            </motion.div>
+
+            {/* Optional: Gentle Exit Path */}
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              onClick={() => window.history.back()}
+              className="absolute top-6 left-6 bg-transparent border-none text-white/60 hover:text-white/90 text-sm font-medium p-3 cursor-pointer transition-colors duration-200"
               style={{ touchAction: 'manipulation' }}
             >
-              <span className="text-2xl">{resource.icon}</span>
-              <span>{resource.text}</span>
-            </button>
-          ))
-        }
-      </div>
-
-      {/* Safety Planning */}
-      {severity !== 'immediate' && (
-        <div className="max-w-md w-full mb-8">
-          <button
-            onClick={() => setShowSafetyPlan(!showSafetyPlan)}
-            className="w-full p-4 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800 transition-colors"
-          >
-            <span className="font-semibold">
-              {showSafetyPlan ? '🔼' : '🔽'} Quick Safety Tips
-            </span>
-          </button>
-          
-          {showSafetyPlan && (
-            <div className="mt-4 p-4 bg-white rounded-lg shadow-sm">
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li>• Remove means of harm from your environment</li>
-                <li>• Stay with trusted friends or family</li>
-                <li>• Use grounding techniques: 5 things you see, 4 you hear, 3 you touch</li>
-                <li>• Remember: This feeling is temporary</li>
-                <li>• You have survived difficult times before</li>
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Continue to Journal Option */}
-      {severity !== 'immediate' && onContinueToJournal && (
-        <div className="max-w-md w-full">
-          <button
-            onClick={onContinueToJournal}
-            className="w-full p-4 border-2 border-gray-300 hover:border-gray-400 rounded-lg text-gray-700 hover:text-gray-800 transition-colors"
-          >
-            <span className="font-medium">Continue Writing in Journal</span>
-            <br />
-            <span className="text-sm opacity-75">Sometimes expressing feelings helps</span>
-          </button>
-        </div>
-      )}
-
-      {/* Footer Message */}
-      <div className="max-w-md w-full mt-8 text-center">
-        <p className="text-sm text-gray-600">
-          You are valued. You matter. Help is always available.
-        </p>
-        <p className="text-xs text-gray-500 mt-2">
-          Crisis support is free, confidential, and available 24/7
-        </p>
-      </div>
+              ← I entered my birth year incorrectly
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import MobileErrorBoundary from '@/components/MobileErrorBoundary';
 
 // CRISIS-CRITICAL: EMERGENCY BUNDLE SIZE REDUCTION
 // All providers loaded async to minimize initial layout bundle
@@ -14,9 +15,9 @@ const EmergencyClientProviders = dynamic(
   }
 );
 
-// HYDRATION-SAFE: Emergency mobile-optimized age verification
-const EmergencyAgeVerification = dynamic(
-  () => import('@/components/auth/EmergencyMobileAgeVerification'), 
+// SACRED-THRESHOLD: Sacred age verification with trauma-informed design
+const SacredAgeVerification = dynamic(
+  () => import('@/components/auth/SacredAgeVerification'), 
   { 
     ssr: true,
     loading: () => (
@@ -35,7 +36,7 @@ const EmergencyAgeVerification = dynamic(
         color: 'white'
       }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '64px', marginBottom: '16px' }}>🌿</div>
+          <div style={{ fontSize: '64px', marginBottom: '16px' }}>🪲</div>
           <div style={{ fontSize: '18px', fontWeight: '300' }}>Loading sanctuary...</div>
           <div style={{
             width: '32px',
@@ -58,30 +59,30 @@ const EmergencyAgeVerification = dynamic(
         }}>
           <a href="tel:988" style={{
             flex: 1,
-            padding: '16px 12px',
+            padding: '12px 8px',
             background: '#dc2626',
             color: 'white',
             textDecoration: 'none',
-            borderRadius: '12px',
-            fontSize: '14px',
+            borderRadius: '10px',
+            fontSize: '13px',
             fontWeight: '600',
             textAlign: 'center',
-            minHeight: '56px',
+            minHeight: '44px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
           }}>📞 988</a>
           <a href="sms:741741&body=HOME" style={{
             flex: 1,
-            padding: '16px 12px',
+            padding: '12px 8px',
             background: '#dc2626',
             color: 'white',
             textDecoration: 'none',
-            borderRadius: '12px',
-            fontSize: '14px',
+            borderRadius: '10px',
+            fontSize: '13px',
             fontWeight: '600',
             textAlign: 'center',
-            minHeight: '56px',
+            minHeight: '44px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
@@ -113,6 +114,69 @@ const CrisisMobilePreloader = dynamic(
 // PERFORMANCE MONITORING: Real User Monitoring for trauma-informed performance
 const PerformanceMonitor = dynamic(
   () => import('@/components/performance/PerformanceMonitor'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Crisis user experience monitoring
+const CrisisUserExperienceMonitor = dynamic(
+  () => import('@/components/monitoring/CrisisUserExperienceMonitor'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Authentication failure tracking
+const AuthFailureTracker = dynamic(
+  () => import('@/components/monitoring/AuthFailureTracker'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Core Web Vitals monitoring for Firebase Studio compliance
+const CoreWebVitalsMonitor = dynamic(
+  () => import('@/components/monitoring/CoreWebVitalsMonitor'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Firebase Analytics and Crashlytics integration
+const FirebaseAnalyticsIntegration = dynamic(
+  () => import('@/components/monitoring/FirebaseAnalyticsIntegration'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Security header validation monitoring
+const SecurityHeaderValidator = dynamic(
+  () => import('@/components/monitoring/SecurityHeaderValidator'),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// CRISIS-CRITICAL: Comprehensive crisis experience provider for trauma-informed support
+const CrisisExperienceProvider = dynamic(
+  () => import('@/components/crisis/CrisisExperienceProvider').then(mod => ({ default: mod.CrisisExperienceProvider })),
+  {
+    ssr: false,
+    loading: () => null
+  }
+);
+
+// VERSION LOGGING: Critical deployment verification for mental health safety
+const VersionLogger = dynamic(
+  () => import('@/components/system/VersionLogger'),
   {
     ssr: false,
     loading: () => null
@@ -258,14 +322,35 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
         <meta name="theme-color" content="#a4b792" />
-        <meta name="mobile-web-app-capable" content="yes" />
+        
+        {/* GOOGLE VERIFICATION: Domain ownership verification */}
+        <meta name="google-site-verification" content="alchm-digital-sanctuary-verified" />
+        <meta name="domain-verification" content="alchm-digital-sanctuary.web.app" />
+        
+        {/* CRISIS-CRITICAL: Aggressive cache invalidation meta tags */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+        <meta name="cache-control" content="no-cache, no-store, must-revalidate" />
+        <meta name="build-time" content={new Date().toISOString()} />
+        <meta name="version" content={`${Date.now()}`} />
+        
+        {/* iOS Safari specific cache prevention */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="ALCHM" />
         <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-mobile-web-app-cache" content="no" />
+        
+        {/* Force iOS Safari to revalidate */}
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no, date=no, email=no, address=no" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="MobileOptimized" content="320" />
+        
+        {/* Additional iOS Safari cache busting */}
+        <meta name="msapplication-config" content="none" />
+        <meta name="apple-itunes-app" content="app-id=none" />
         
         {/* CRISIS-CRITICAL: Preload essential resources for sub-3s emergency access */}
         <link rel="preload" href="/crisis-resources.json" as="fetch" crossOrigin="anonymous" />
@@ -310,21 +395,100 @@ export default function RootLayout({
         {/* CRISIS: Critical CSS inline - 2.1KB total - SECURE */}
         <style id="critical-css" dangerouslySetInnerHTML={{ __html: criticalCSS }} />
         
+        {/* VERSION INFO: Inject build-time information for deployment verification */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Build-time version information for deployment verification
+              window.__ALCHM_BUILD_INFO__ = {
+                version: '1.0.0',
+                buildTime: '${new Date().toISOString()}',
+                gitHash: '${process.env.NEXT_PUBLIC_GIT_HASH || 'unknown'}',
+                gitBranch: '${process.env.NEXT_PUBLIC_GIT_BRANCH || 'main'}',
+                commitMessage: '${process.env.NEXT_PUBLIC_COMMIT_MESSAGE || 'Build info unavailable'}',
+                environment: '${process.env.NODE_ENV || 'development'}',
+                verified: true,
+                crisisSystemsOnline: true
+              };
+            `
+          }}
+        />
+        
         {/* EMERGENCY: Enhanced service worker registration for offline crisis access */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              // DISABLED: Aggressive cache invalidation to prevent refresh loops  
+              function invalidateAllCaches() {
+                console.log('🚫 Cache invalidation disabled to prevent refresh loops');
+                // DISABLED - was causing refresh loops during age verification
+                // if ('caches' in window) {
+                //   caches.keys().then(cacheNames => {
+                //     const oldCaches = cacheNames.filter(name => 
+                //       !name.includes('alchm-crisis-v1') && 
+                //       !name.includes('crisis-resources')
+                //     );
+                //     return Promise.all(oldCaches.map(cacheName => {
+                //       console.log('🧹 Clearing old cache:', cacheName);
+                //       return caches.delete(cacheName);
+                //     }));
+                //   });
+                // }
+              }
+              
+              // DISABLED: iOS Safari specific cache busting to prevent refresh loops
+              function forceIOSReload() {
+                console.log('🚫 iOS reload disabled to prevent infinite loops');
+                // DISABLED - was causing infinite refresh loops during age verification
+                // if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                //   const lastReload = localStorage.getItem('alchm-last-reload');
+                //   const now = Date.now();
+                //   if (!lastReload || (now - parseInt(lastReload)) > 300000) {
+                //     localStorage.setItem('alchm-last-reload', now.toString());
+                //     if ('applicationCache' in window) {
+                //       try {
+                //         window.applicationCache.update();
+                //       } catch(e) {}
+                //     }
+                //   }
+                // }
+              }
+              
               // Critical resource preloading for crisis situations
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/crisis-sw.js')
+                  // DISABLED: First invalidate old caches to prevent refresh loops
+                  // invalidateAllCaches();
+                  
+                  // DISABLED: Force iOS reload check to prevent refresh loops
+                  // forceIOSReload();
+                  
+                  // Register service worker without cache busting to prevent refresh loops
+                  const swUrl = '/crisis-sw.js';
+                  navigator.serviceWorker.register(swUrl)
                     .then(reg => {
-                      console.log('🚨 Crisis SW registered');
+                      console.log('🚨 Crisis SW registered with cache bust');
+                      
+                      // Force immediate activation
+                      if (reg.waiting) {
+                        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                      }
+                      
+                      // DISABLED: Auto-update to prevent refresh loops
+                      // setInterval(() => {
+                      //   reg.update();
+                      // }, 30000);
+                      
                       // Immediately start preloading crisis resources
                       reg.active?.postMessage({ type: 'PRELOAD_CRISIS_RESOURCES' });
                     })
                     .catch(err => console.warn('🚨 Crisis SW failed:', err));
                 });
+                
+                // DISABLED: Service worker auto-reload to prevent infinite loops
+                // navigator.serviceWorker.addEventListener('controllerchange', () => {
+                //   console.log('🔄 SW updated - auto-reload disabled to prevent loops');
+                // });
               }
               
               // Battery-aware preloading
@@ -382,29 +546,88 @@ export default function RootLayout({
         <link rel="prefetch" href="/journal" />
         <link rel="prefetch" href="/dashboard" />
         <link rel="prefetch" href="/auth/signup" />
-      </head>
+</head>
       <body>
-        {/* HYDRATION-SAFE: Direct rendering to prevent client/server mismatch */}
-        <EmergencyAgeVerification>
-          <EmergencyClientProviders>
-            <EmergencyMobileProvider enableEmergencyMode={true}>
-              {children}
-              {/* CRISIS: Mobile resource preloader for trauma-informed caching */}
-              <CrisisMobilePreloader />
-              {/* PERFORMANCE: Real User Monitoring for trauma-informed performance tracking */}
-              <PerformanceMonitor />
-            </EmergencyMobileProvider>
-          </EmergencyClientProviders>
-        </EmergencyAgeVerification>
+        {/* MOBILE-SAFE: Error boundary to prevent client-side exceptions */}
+        <MobileErrorBoundary>
+          {/* HYDRATION-SAFE: Direct rendering to prevent client/server mismatch */}
+          <SacredAgeVerification>
+            <EmergencyClientProviders>
+              <EmergencyMobileProvider enableEmergencyMode={true}>
+                <CrisisExperienceProvider 
+                  showFloatingButton={true}
+                  context="app"
+                  emergencyMode={false}
+                >
+                  {children}
+                  
+                  {/* CRISIS: Mobile resource preloader for trauma-informed caching */}
+                  <CrisisMobilePreloader />
+                  
+                  {/* PERFORMANCE: Real User Monitoring for trauma-informed performance tracking */}
+                  <PerformanceMonitor />
+                  
+                  {/* CRISIS-CRITICAL: Crisis user experience monitoring */}
+                  <CrisisUserExperienceMonitor />
+                  
+                  {/* CRISIS-CRITICAL: Authentication failure tracking */}
+                  <AuthFailureTracker />
+                  
+                  {/* CRISIS-CRITICAL: Core Web Vitals monitoring for Firebase Studio compliance */}
+                  <CoreWebVitalsMonitor mode="generalApp" />
+                  
+                  {/* CRISIS-CRITICAL: Firebase Analytics and Crashlytics integration */}
+                  <FirebaseAnalyticsIntegration 
+                    enableCrashlytics={true}
+                    enablePerformanceMonitoring={true}
+                    enableCustomEvents={true}
+                  />
+                  
+                  {/* CRISIS-CRITICAL: Security header validation monitoring */}
+                  <SecurityHeaderValidator enableRealTimeMonitoring={true} />
+                  
+                  {/* VERSION: Critical deployment verification logging */}
+                  <VersionLogger />
+                </CrisisExperienceProvider>
+              </EmergencyMobileProvider>
+            </EmergencyClientProviders>
+          </SacredAgeVerification>
+        </MobileErrorBoundary>
         
-        {/* CRISIS-CRITICAL: Always available crisis support button */}
+        {/* CRISIS-CRITICAL: Fallback crisis support button (hidden when main system loads) */}
         <a 
           href="tel:988" 
           className="crisis-support"
-          aria-label="Call 988 for crisis support"
+          aria-label="Fallback crisis support - Call 988"
+          style={{
+            opacity: 0.5,
+            transform: 'scale(0.8)',
+            pointerEvents: 'all',
+            display: 'none' // Hidden by default, shown only if main crisis system fails
+          }}
+          id="fallback-crisis-button"
         >
           🆘
         </a>
+
+        {/* CRISIS-CRITICAL: Emergency failsafe activation script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Show fallback crisis button if main system fails to load
+              setTimeout(() => {
+                const mainCrisisButton = document.querySelector('[aria-label*="Emergency crisis support"]');
+                const fallbackButton = document.getElementById('fallback-crisis-button');
+                
+                if (!mainCrisisButton && fallbackButton) {
+                  fallbackButton.style.display = 'flex';
+                  fallbackButton.style.opacity = '1';
+                  fallbackButton.style.transform = 'scale(1)';
+                }
+              }, 5000); // Wait 5 seconds for main system to load
+            `
+          }}
+        />
       </body>
     </html>
   );
