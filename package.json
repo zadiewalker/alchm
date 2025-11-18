@@ -104,7 +104,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^15.5.4",
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.56.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.10.6",
     "@types/react": "^18.3.3",
