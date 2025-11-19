@@ -224,7 +224,7 @@ function LoginForm() {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleAppleLogin = async () => {
     setLoading(true);
     setError(null);
 
@@ -233,11 +233,11 @@ function LoginForm() {
       if (!authLoaded) {
         await loadAuth();
       }
-      
+
       // Dynamic import to avoid bundling Firebase in initial load
-      const { signInWithGoogle } = await import('@/lib/auth/domain-aware-auth');
-      const result = await signInWithGoogle();
-      
+      const { signInWithApple } = await import('@/lib/auth/domain-aware-auth');
+      const result = await signInWithApple();
+
       if (result.error) {
         setError(result.error);
       } else if (result.user) {
@@ -266,15 +266,15 @@ function LoginForm() {
         </div>
       )}
 
-      {/* Google Sign-in */}
+      {/* Apple Sign-in */}
       <div style={styles.buttonContainer}>
         <button
           type="button"
-          onClick={handleGoogleLogin}
+          onClick={handleAppleLogin}
           disabled={loading}
           style={styles.googleButton}
         >
-          {loading ? '🔄 Connecting...' : '🔐 Continue with Google'}
+          {loading ? '🔄 Connecting...' : '🍎 Continue with Apple'}
         </button>
 
         <div style={styles.divider}>

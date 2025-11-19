@@ -19,11 +19,12 @@
  */
 
 import { getAuth } from 'firebase/auth';
-import { 
-  signInWithPopup, 
+import {
+  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
   GoogleAuthProvider,
+  OAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -254,10 +255,184 @@ export async function signInWithGoogle(): Promise<{
 }
 
 /**
+ * Privacy-Compliant Apple Sign-In
+ * Handles authentication across both authorized domains
+ * CRITICAL FIX: Mobile-aware authentication with iOS Safari support
+ *
+ * COMPLIANCE FEATURES:
+ * - Age verification prompts for COPPA compliance
+ * - Domain validation for security
+ * - Privacy-preserving error messages
+ * - Session consistency across domains
+ * - iOS Safari redirect fallback
+ */
+export async function signInWithApple(): Promise<{
+  user: User | null;
+  error: string | null;
+  requiresAgeVerification: boolean;
+}> {
+  try {
+    // Domain validation for security
+    if (!validateAuthDomain()) {
+      return {
+        user: null,
+        error: 'Authentication not available on this domain. Please use alchmapp.web.app or alchm-digital-sanctuary.web.app',
+        requiresAgeVerification: false
+      };
+    }
+
+    const app = await getFirebaseApp();
+    const auth = getAuth(app);
+    const provider = new OAuthProvider('apple.com');
+
+    // Request additional scopes for enhanced user experience
+    provider.addScope('email');
+    provider.addScope('name');
+
+    // CRITICAL FIX: Detect iOS Safari for redirect strategy
+    const userAgent = typeof window !== 'undefined' ? navigator.userAgent.toLowerCase() : '';
+    const isIOS = /iphone|ipad|ipod/.test(userAgent);
+    const isIOSSafari = isIOS && /safari/.test(userAgent) && !/chrome/.test(userAgent);
+
+    // Configure provider for privacy compliance and iOS compatibility
+    provider.setCustomParameters({
+      // iOS Safari specific parameters
+      ...(isIOS && {
+        access_type: 'online',
+        include_granted_scopes: 'true'
+      })
+    });
+
+    // Debug logging before sign-in attempt
+    console.log('🍎 Apple Auth Debug Info:');
+    console.log('Auth instance:', auth);
+    console.log('Auth config:', auth.config);
+    console.log('Provider:', provider);
+    console.log('Current app:', auth.app);
+    console.log('Device info:', {
+      isIOS,
+      isIOSSafari,
+      userAgent: userAgent.substring(0, 100)
+    });
+
+    let result;
+    let user;
+
+    // CRITICAL FIX: Use redirect for iOS devices to prevent popup blocking
+    if (isIOS) {
+      console.log('🍎 iOS detected - checking for redirect result...');
+
+      // Check if we're returning from a redirect
+      const redirectResult = await getRedirectResult(auth);
+
+      if (redirectResult?.user) {
+        console.log('🍎 Redirect auth successful for iOS');
+        user = redirectResult.user;
+
+        // Clear URL parameters after successful auth
+        if (typeof window !== 'undefined' && window.history.replaceState) {
+          const cleanUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
+      } else {
+        // No redirect result, initiate redirect
+        console.log('🍎 Initiating redirect auth for iOS...');
+        await signInWithRedirect(auth, provider);
+
+        // This will cause a page navigation, return pending state
+        return {
+          user: null,
+          error: null,
+          requiresAgeVerification: false
+        };
+      }
+    } else {
+      // Use popup for non-iOS devices
+      console.log('🍎 Non-iOS device - using popup method');
+      result = await signInWithPopup(auth, provider);
+      user = result.user;
+    }
+
+    // Set session cookie for middleware and API routes
+    if (typeof window !== 'undefined' && user) {
+      const isLocalhost = window.location.hostname === 'localhost';
+      const secure = !isLocalhost ? 'secure;' : '';
+      document.cookie = `alchm_session=${user.uid}; path=/; max-age=86400; ${secure} samesite=strict`;
+
+      // Also call the session API to ensure server-side session
+      try {
+        await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ uid: user.uid }),
+        });
+      } catch (error) {
+        console.warn('Failed to create server session:', error);
+      }
+    }
+
+    // Age verification check for COPPA compliance
+    const requiresAgeVerification = await checkAgeVerificationRequired(user);
+
+    return {
+      user,
+      error: null,
+      requiresAgeVerification
+    };
+
+  } catch (error: any) {
+    console.error('🚨 DETAILED APPLE SIGN-IN ERROR:');
+    console.error('Full error object:', error);
+    console.error('Error code:', error.code);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('Current domain:', typeof window !== 'undefined' ? window.location.host : 'server');
+    console.error('Firebase config check:', {
+      apiKeyExists: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+      authDomainExists: !!process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+      projectIdExists: !!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    });
+
+    // Privacy-preserving error handling
+    let userFriendlyError = 'Something gentle went wrong. You\'re safe here.';
+
+    if (error.code === 'auth/popup-closed-by-user') {
+      userFriendlyError = 'No worries, take your time when you\'re ready.';
+    } else if (error.code === 'auth/network-request-failed') {
+      userFriendlyError = 'Connection issue. We\'ll try again when you\'re ready.';
+    } else if (error.code === 'auth/api-key-not-valid') {
+      userFriendlyError = 'Technical issue detected. Please try refreshing the page or contact support.';
+    } else if (error.code === 'auth/unauthorized-domain') {
+      userFriendlyError = 'Please use alchmapp.web.app or alchm-digital-sanctuary.web.app to access ALCHM.';
+    } else if (error.code === 'auth/operation-not-allowed') {
+      userFriendlyError = 'Apple sign-in is not enabled. Please contact support.';
+    } else if (error.code === 'auth/popup-blocked') {
+      // CRITICAL FIX: iOS-specific popup blocked message
+      const userAgent = typeof window !== 'undefined' ? navigator.userAgent.toLowerCase() : '';
+      const isIOS = /iphone|ipad|ipod/.test(userAgent);
+
+      if (isIOS) {
+        userFriendlyError = 'iOS detected. Please refresh the page - we\'ll use a more compatible sign-in method.';
+      } else {
+        userFriendlyError = 'Popup blocked. Please allow popups for this site and try again.';
+      }
+    }
+
+    return {
+      user: null,
+      error: userFriendlyError,
+      requiresAgeVerification: false
+    };
+  }
+}
+
+/**
  * Privacy-Compliant Email/Password Sign-In
  */
 export async function signInWithEmail(
-  email: string, 
+  email: string,
   password: string
 ): Promise<{
   user: User | null;
