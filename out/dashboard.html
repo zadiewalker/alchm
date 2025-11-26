@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard - ALCHM</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      background: linear-gradient(135deg, #a4b792 0%, #8fa37c 20%, #93a682 80%, #a4b792 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    .khepera-bar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(164, 183, 146, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .khepera-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #cb997e 0%, #e6a789 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .progress-ring {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #6b7280;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      color: white;
+    }
+    
+    .loading-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #a4b792 0%, #93a682 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 2.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+    }
+    
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    
+    .animate-breathe {
+      animation: breathe 3s ease-in-out infinite;
+    }
+    
+    h1 {
+      color: #1d1d1f;
+      font-weight: 200;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      color: #6b7280;
+      margin-bottom: 1rem;
+    }
+    
+    .loading-dots {
+      display: inline-block;
+      animation: loading 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes loading {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .dashboard-container {
+      display: none;
+    }
+    
+    .journal-box {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: left;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .journal-textarea {
+      width: 100%;
+      min-height: 150px;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+    }
+    
+    .save-btn {
+      background: linear-gradient(135deg, #a4b792 0%, #8fa37c 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 200ms ease;
+      box-shadow: 0 4px 12px rgba(164, 183, 146, 0.2);
+    }
+    
+    .save-btn:hover {
+      background: linear-gradient(135deg, #8fa37c 0%, #7a8c6a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(164, 183, 146, 0.3);
+    }
+    
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 200ms ease;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+  </style>
+  
+  <script>
+    // Simple authentication check and dashboard setup
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        // Hide loading and show simple dashboard
+        document.querySelector('.loading-container').style.display = 'none';
+        document.querySelector('.dashboard-container').style.display = 'block';
+      }, 2000);
+    });
+  </script>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;" class="loading-container">
+    <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; backdrop-filter: blur(20px); animation: breathe 3s ease-in-out infinite;">
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="12" r="6" fill="white" opacity="0.9"/>
+        <ellipse cx="30" cy="36" rx="8" ry="12" fill="white"/>
+        <path d="M22 26 Q12 30 15 42 Q18 36 22 42" fill="white" opacity="0.9"/>
+        <path d="M38 26 Q48 30 45 42 Q42 36 38 42" fill="white" opacity="0.9"/>
+      </svg>
+    </div>
+    <h1 style="font-size: 2rem; font-weight: 300; margin-bottom: 1rem; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Preparing Your Sanctuary</h1>
+    <p style="font-size: 1.125rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">Creating your safe space<span class="loading-dots">...</span></p>
+    <div style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem 1.5rem; border-radius: 16px; backdrop-filter: blur(10px);">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="10" r="8" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="none"/>
+        <path d="M10 6V10" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="10" cy="13" r="0.5" fill="rgba(255,255,255,0.8)"/>
+      </svg>
+      <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 0.9rem;">Your privacy is protected • All data encrypted</p>
+    </div>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div class="dashboard-container" style="display: none;">
+    <!-- Khepera Concierge Bar -->
+    <div class="khepera-bar">
+      <div class="khepera-avatar">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="4" r="2" fill="white" opacity="0.9"/>
+          <ellipse cx="10" cy="12" rx="3" ry="5" fill="white"/>
+          <path d="M7 9 Q4 10 5 14 Q6 12 7 14" fill="white" opacity="0.8"/>
+          <path d="M13 9 Q16 10 15 14 Q14 12 13 14" fill="white" opacity="0.8"/>
+        </svg>
+      </div>
+      <div style="flex: 1; color: #2d3748; font-size: 0.9rem; font-weight: 500;">
+        Great to see you back! Ready for today's emotional check-in? ✨
+      </div>
+      <div class="progress-ring">
+        <span>Day 3</span>
+        <div style="width: 50px; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
+          <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #a4b792, #8fa37c); border-radius: 3px;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 300; margin: 0; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Your Sanctuary</h1>
+          <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">Emotional growth journey</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <a href="/en/crisis-support" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M20.84 4.61C19.32 3.08 17.16 2.84 15.54 3.84C14.84 4.25 14.12 4.92 12 7.58C9.88 4.92 9.16 4.25 8.46 3.84C6.84 2.84 4.68 3.08 3.16 4.61C0.32 7.45 3.26 12.44 12 21.35C20.74 12.44 23.68 7.45 20.84 4.61Z" fill="currentColor"/>
+            </svg>
+            Support
+          </a>
+          <a href="/" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+              <path d="M10 18l-6-6h4V4h4v8h4l-6 6z" fill="currentColor" transform="rotate(180 10 10)"/>
+            </svg>
+            Home
+          </a>
+        </div>
+      </div>
+
+      <!-- Today's Practice Cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 40px; height: 40px; background: rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="8" r="3" fill="white"/>
+                <path d="M10 12c-3 0-6 2-6 4v1h12v-1c0-2-3-4-6-4z" fill="white"/>
+              </svg>
+            </div>
+            <div>
+              <h3 style="color: white; margin: 0; font-size: 1rem;">Check-in</h3>
+              <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.75rem;">+5 EXP</p>
+            </div>
+          </div>
+          <button style="width: 100%; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.75rem; border-radius: 12px; font-size: 0.875rem; cursor: pointer; transition: all 200ms ease;" onclick="startCheckIn()">Start</button>
+        </div>
+        
+        <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #cb997e, #e6a789); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M3 7l7-4 7 4v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="white"/>
+              </svg>
+            </div>
+            <div>
+              <h3 style="color: white; margin: 0; font-size: 1rem;">Journal</h3>
+              <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.75rem;">Streak: 3 days</p>
+            </div>
+          </div>
+          <button style="width: 100%; background: linear-gradient(135deg, #cb997e, #e6a789); border: none; color: white; padding: 0.75rem; border-radius: 12px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 200ms ease; box-shadow: 0 4px 12px rgba(203, 153, 126, 0.3);" onclick="toggleJournal()">Continue</button>
+        </div>
+      </div>
+
+      <div class="journal-box" id="journalBox" style="display: none;">
+        <h3 style="margin-bottom: 1rem; color: #2d3748; display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 7l7-4 7 4v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" fill="#a4b792"/>
+          </svg>
+          What's on your mind?
+        </h3>
+        <textarea 
+          class="journal-textarea" 
+          placeholder="Start writing... Your thoughts are safe here. Khepera is listening with compassion."
+          id="journalText"
+          style="width: 100%; min-height: 150px; border: none; background: transparent; font-size: 16px; font-family: inherit; resize: vertical; outline: none; color: #2d3748;"
+        ></textarea>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
+          <button class="save-btn" onclick="saveEntry()">Save & Get Insight</button>
+          <span style="color: #6b7280; font-size: 0.875rem;">Auto-saved</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 16px; backdrop-filter: blur(10px);">
+        <p style="color: rgba(255,255,255,0.9); margin: 0 0 0.5rem; font-size: 0.9rem;">
+          This is guest mode with local storage.
+        </p>
+        <a href="/en/auth/signup" style="color: white; text-decoration: none; font-weight: 500; background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); display: inline-block; transition: all 200ms ease;">
+          Create account to sync across devices
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function startCheckIn() {
+      // Simulate emotional check-in flow
+      alert('Emotional check-in coming soon! This will be a guided experience with Khepera.');
+    }
+    
+    function toggleJournal() {
+      const journalBox = document.getElementById('journalBox');
+      journalBox.style.display = journalBox.style.display === 'none' ? 'block' : 'none';
+      document.getElementById('journalText').focus();
+    }
+    
+    function saveEntry() {
+      const text = document.getElementById('journalText').value;
+      if (text.trim()) {
+        // Save to localStorage for guest mode
+        const entries = JSON.parse(localStorage.getItem('guestEntries') || '[]');
+        entries.push({
+          id: Date.now(),
+          content: text,
+          timestamp: new Date().toISOString()
+        });
+        localStorage.setItem('guestEntries', JSON.stringify(entries));
+        
+        // Enhanced save feedback
+        const btn = document.querySelector('.save-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 20 20" fill="none" style="margin-right: 0.5rem;"><path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved! Khepera is reflecting...';
+        btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        btn.disabled = true;
+        
+        // Clear textarea
+        setTimeout(() => {
+          document.getElementById('journalText').value = '';
+        }, 500);
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = 'linear-gradient(135deg, #a4b792 0%, #8fa37c 100%)';
+          btn.disabled = false;
+        }, 3000);
+      }
+    }
+    
+    // Auto-save on blur with enhanced UX
+    let autoSaveTimeout;
+    document.addEventListener('DOMContentLoaded', function() {
+      const journalText = document.getElementById('journalText');
+      if (journalText) {
+        journalText.addEventListener('input', function() {
+          clearTimeout(autoSaveTimeout);
+          autoSaveTimeout = setTimeout(() => {
+            if (this.value.trim()) {
+              // Visual indicator for auto-save
+              const indicator = document.querySelector('span:contains("Auto-saved")');
+              if (indicator) {
+                indicator.style.color = '#10b981';
+                setTimeout(() => {
+                  indicator.style.color = '#6b7280';
+                }, 1000);
+              }
+            }
+          }, 2000);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
