@@ -232,12 +232,12 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
           <div className="flex items-center space-x-6">
             <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <span className="text-3xl font-bold">
+              <span className="text-3xl font-medium">
                 {identityProfile.personalIdentity?.displayName?.charAt(0) || 'U'}
               </span>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-2">
+              <h2 className="text-2xl font-medium mb-2">
                 {identityProfile.personalIdentity?.displayName || 'Your Name'}
               </h2>
               <p className="text-lg opacity-90 mb-3">
@@ -262,7 +262,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 <span className="text-blue-600 text-xl">👁️</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {portfolioProfile.portfolioMetrics.profileViews}
                 </div>
                 <div className="text-sm text-gray-600">Profile Views</div>
@@ -276,7 +276,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 <span className="text-green-600 text-xl">🎯</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {portfolioProfile.projectPortfolio.featuredProjects.length}
                 </div>
                 <div className="text-sm text-gray-600">Featured Projects</div>
@@ -290,7 +290,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 <span className="text-purple-600 text-xl">🏆</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {achievements.length}
                 </div>
                 <div className="text-sm text-gray-600">Achievements</div>
@@ -304,7 +304,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 <span className="text-orange-600 text-xl">💪</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {portfolioProfile.skillsShowcase.featuredSkills.length}
                 </div>
                 <div className="text-sm text-gray-600">Skills Showcased</div>
@@ -316,7 +316,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
         {/* Featured projects preview */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">🎨 Featured Projects</h3>
+            <h3 className="text-lg font-medium text-gray-800">🎨 Featured Projects</h3>
             <button
               onClick={() => setActiveTab('projects')}
               className="text-blue-600 hover:text-blue-700"
@@ -330,7 +330,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-3 flex items-center justify-center">
                   <span className="text-blue-600 text-2xl">🚀</span>
                 </div>
-                <h4 className="font-semibold text-gray-800 mb-2">{project.title}</h4>
+                <h4 className="font-medium text-gray-800 mb-2">{project.title}</h4>
                 <p className="text-sm text-gray-600 mb-3">{project.summary}</p>
                 <div className="flex flex-wrap gap-1 mb-3">
                   {project.skillsDemonstrated.slice(0, 3).map((skill, skillIndex) => (
@@ -356,7 +356,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
         {/* Recent achievements */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">🏆 Recent Achievements</h3>
+            <h3 className="text-lg font-medium text-gray-800">🏆 Recent Achievements</h3>
             <button
               onClick={() => setActiveTab('achievements')}
               className="text-blue-600 hover:text-blue-700"
@@ -398,7 +398,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Skills Showcase</h3>
+          <h3 className="text-xl font-medium text-gray-800">Skills Showcase</h3>
           <button
             onClick={() => setIsEditing(!isEditing)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -409,12 +409,12 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
 
         {/* Featured skills */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">💪 Featured Skills</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">💪 Featured Skills</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {portfolioProfile.skillsShowcase.featuredSkills.map((skill, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
-                  <h5 className="font-semibold text-gray-800">{skill.skillName}</h5>
+                  <h5 className="font-medium text-gray-800">{skill.skillName}</h5>
                   <span className="text-sm font-medium text-blue-600">
                     {skill.proficiencyScore}%
                   </span>
@@ -453,12 +453,12 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
 
         {/* Skill evolution timeline */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">📈 Skill Evolution</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">📈 Skill Evolution</h4>
           <div className="space-y-4">
             {portfolioProfile.skillsShowcase.skillEvolution.slice(0, 5).map((evolution, index) => (
               <div key={index} className="flex items-center space-x-4 p-3 bg-blue-50 rounded-lg">
                 <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600 font-bold text-sm">{index + 1}</span>
+                  <span className="text-blue-600 font-medium text-sm">{index + 1}</span>
                 </div>
                 <div className="flex-1">
                   <div className="font-medium text-blue-800">{evolution.skillName}</div>
@@ -474,7 +474,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
 
         {/* Endorsements */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">👥 Skill Endorsements</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">👥 Skill Endorsements</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {portfolioProfile.skillsShowcase.endorsements.slice(0, 4).map((endorsement, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -507,7 +507,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-800">{selectedProject.title}</h3>
+            <h3 className="text-2xl font-medium text-gray-800">{selectedProject.title}</h3>
             <button
               onClick={() => setShowProjectModal(false)}
               className="text-gray-400 hover:text-gray-600 text-2xl"
@@ -519,18 +519,18 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
           <div className="space-y-6">
             {/* Project overview */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-3">Project Overview</h4>
+              <h4 className="text-lg font-medium text-gray-800 mb-3">Project Overview</h4>
               <p className="text-gray-700">{selectedProject.description}</p>
             </div>
 
             {/* Problem and solution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Problem Solved</h4>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Problem Solved</h4>
                 <p className="text-gray-700">{selectedProject.problemSolved}</p>
               </div>
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Solution Approach</h4>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Solution Approach</h4>
                 <p className="text-gray-700">{selectedProject.solutionApproach}</p>
               </div>
             </div>
@@ -538,7 +538,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
             {/* Technologies and skills */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Technologies Used</h4>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Technologies Used</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.technologiesUsed.map((tech, index) => (
                     <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
@@ -548,7 +548,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
                 </div>
               </div>
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Skills Demonstrated</h4>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Skills Demonstrated</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.skillsDemonstrated.map((skill, index) => (
                     <span key={index} className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
@@ -561,7 +561,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
 
             {/* Outcomes */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-3">Project Outcomes</h4>
+              <h4 className="text-lg font-medium text-gray-800 mb-3">Project Outcomes</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {selectedProject.outcomes.map((outcome, index) => (
                   <div key={index} className="p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -609,7 +609,7 @@ const PortfolioAchievementShowcase: React.FC<PortfolioShowcaseProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Portfolio & Achievement Showcase
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

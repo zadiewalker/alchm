@@ -164,7 +164,7 @@ export default function CrisisKeywordDetector({ text, onCrisisDetected }: Crisis
           </div>
           
           <div className="flex-1">
-            <h3 className="font-semibold text-lg mb-2">
+            <h3 className="font-medium text-lg mb-2">
               {isUrgent ? 'You Are Not Alone' : 'Support is Available'}
             </h3>
             <p className="text-sm mb-4 leading-relaxed">
@@ -184,7 +184,7 @@ export default function CrisisKeywordDetector({ text, onCrisisDetected }: Crisis
                 }`}
               >
                 <div>
-                  <div className="font-semibold">988 Crisis Lifeline</div>
+                  <div className="font-medium">988 Crisis Lifeline</div>
                   <div className="text-sm opacity-90">24/7 • Free • Confidential</div>
                 </div>
                 <div className="text-xl">📞</div>

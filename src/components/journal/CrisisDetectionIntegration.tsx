@@ -229,7 +229,7 @@ export const CrisisDetectionIntegration: React.FC<CrisisDetectionIntegrationProp
                 }`} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200">
                   {title}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">

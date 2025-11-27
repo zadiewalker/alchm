@@ -70,7 +70,7 @@ export default function AuthProviderLoader({ onError, onLoading }: AuthProviderL
         
         authPerformance.recordComplete();
         
-        const redirectUrl = new URLSearchParams(typeof window !== 'undefined' && window.location.search).get("redirect") || "/dashboard";
+        const redirectUrl = new URLSearchParams(typeof window !== 'undefined' && window.location.search).get("redirect") || "/en/sanctuary";
         typeof window !== 'undefined' && window.location.href = redirectUrl;
       } catch (e) {
         console.error("Session creation error:", e);

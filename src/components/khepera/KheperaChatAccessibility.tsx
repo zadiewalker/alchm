@@ -321,7 +321,7 @@ export default function KheperaChatAccessibility({
           {announcementQueue.map((announcement, index) => (
             <div
               key={index}
-              className="bg-black text-white px-4 py-2 rounded-lg mb-2 text-sm font-semibold"
+              className="bg-black text-white px-4 py-2 rounded-lg mb-2 text-sm font-medium"
               style={{
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
                 border: '2px solid white'

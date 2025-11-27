@@ -263,7 +263,7 @@ const MoodTracker: React.FC<MoodTrackerProps> = ({ userId, className = '' }) => 
     <div className={`bg-white rounded-lg shadow-lg p-6 space-y-6 ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Mood Journey</h2>
+        <h2 className="text-2xl font-medium text-gray-900">Mood Journey</h2>
         <div className="flex gap-2">
           {(['week', 'month', 'year'] as const).map((range) => (
             <button
@@ -284,28 +284,28 @@ const MoodTracker: React.FC<MoodTrackerProps> = ({ userId, className = '' }) => 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-blue-700">
+          <div className="text-2xl font-medium text-blue-700">
             +{moodStats.averageImprovement.toFixed(1)}
           </div>
           <div className="text-sm text-blue-600">Avg Improvement</div>
         </div>
         
         <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-green-700">
+          <div className="text-2xl font-medium text-green-700">
             {moodStats.celebrationCount}
           </div>
           <div className="text-sm text-green-600">Breakthroughs</div>
         </div>
         
         <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-purple-700">
+          <div className="text-2xl font-medium text-purple-700">
             {moodStats.currentStreak}
           </div>
           <div className="text-sm text-purple-600">Day Streak</div>
         </div>
         
         <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 p-4 rounded-lg">
-          <div className="text-2xl font-bold text-yellow-700">
+          <div className="text-2xl font-medium text-yellow-700">
             {moodStats.totalEntries}
           </div>
           <div className="text-sm text-yellow-600">Total Entries</div>
@@ -315,7 +315,7 @@ const MoodTracker: React.FC<MoodTrackerProps> = ({ userId, className = '' }) => 
       {/* Mood Trend Chart */}
       {moodEntries.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Mood Trends</h3>
+          <h3 className="text-lg font-medium text-gray-900">Mood Trends</h3>
           <div className="h-64">
             <Line data={moodChartData} options={chartOptions} />
           </div>
@@ -325,7 +325,7 @@ const MoodTracker: React.FC<MoodTrackerProps> = ({ userId, className = '' }) => 
       {/* Recent Mood Entries */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-gray-900">Recent Entries</h3>
+          <h3 className="text-lg font-medium text-gray-900">Recent Entries</h3>
           <button
             onClick={() => setShowEmotions(!showEmotions)}
             className="text-sm text-blue-600 hover:text-blue-700"
@@ -379,7 +379,7 @@ const MoodTracker: React.FC<MoodTrackerProps> = ({ userId, className = '' }) => 
       {/* Emotional Themes Chart */}
       {showEmotions && moodStats.commonEmotions.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Common Emotional Themes</h3>
+          <h3 className="text-lg font-medium text-gray-900">Common Emotional Themes</h3>
           <div className="h-48">
             <Bar 
               data={emotionChartData} 

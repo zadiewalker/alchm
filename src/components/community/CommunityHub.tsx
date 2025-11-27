@@ -253,19 +253,19 @@ export default function CommunityHub({
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
-                <div className="text-blue-300 font-bold text-lg">{COMMUNITY_STATS.privacyScore}%</div>
+                <div className="text-blue-300 font-medium text-lg">{COMMUNITY_STATS.privacyScore}%</div>
                 <div className="text-blue-200/60 text-xs">Privacy Score</div>
               </div>
               <div>
-                <div className="text-blue-300 font-bold text-lg">0</div>
+                <div className="text-blue-300 font-medium text-lg">0</div>
                 <div className="text-blue-200/60 text-xs">Data Breaches</div>
               </div>
               <div>
-                <div className="text-blue-300 font-bold text-lg">∞</div>
+                <div className="text-blue-300 font-medium text-lg">∞</div>
                 <div className="text-blue-200/60 text-xs">Anonymity Level</div>
               </div>
               <div>
-                <div className="text-blue-300 font-bold text-lg">24/7</div>
+                <div className="text-blue-300 font-medium text-lg">24/7</div>
                 <div className="text-blue-200/60 text-xs">Safety Monitoring</div>
               </div>
             </div>
@@ -314,25 +314,25 @@ export default function CommunityHub({
       {/* Community Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <Card className="bg-white/5 border-white/10 p-4 text-center">
-          <div className="text-2xl font-bold text-[#5E8E7F] mb-1">
+          <div className="text-2xl font-medium text-[#5E8E7F] mb-1">
             {COMMUNITY_STATS.totalShares.toLocaleString()}
           </div>
           <div className="text-white/60 text-xs">Anonymous Shares</div>
         </Card>
         <Card className="bg-white/5 border-white/10 p-4 text-center">
-          <div className="text-2xl font-bold text-[#5E8E7F] mb-1">
+          <div className="text-2xl font-medium text-[#5E8E7F] mb-1">
             {COMMUNITY_STATS.activeSupportCircles}
           </div>
           <div className="text-white/60 text-xs">Active Circles</div>
         </Card>
         <Card className="bg-white/5 border-white/10 p-4 text-center">
-          <div className="text-2xl font-bold text-[#5E8E7F] mb-1">
+          <div className="text-2xl font-medium text-[#5E8E7F] mb-1">
             {COMMUNITY_STATS.culturalTraditions}
           </div>
           <div className="text-white/60 text-xs">Cultural Traditions</div>
         </Card>
         <Card className="bg-white/5 border-white/10 p-4 text-center">
-          <div className="text-2xl font-bold text-[#5E8E7F] mb-1">
+          <div className="text-2xl font-medium text-[#5E8E7F] mb-1">
             {COMMUNITY_STATS.activeMembers.toLocaleString()}
           </div>
           <div className="text-white/60 text-xs">Active Members</div>

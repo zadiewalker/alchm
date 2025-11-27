@@ -222,7 +222,7 @@ export default function ClientProgressDashboard({
   if (connectedClients.length === 0) {
     return (
       <Card className="p-8 text-center">
-        <h3 className="text-xl font-semibold mb-4">No Connected Clients</h3>
+        <h3 className="text-xl font-medium mb-4">No Connected Clients</h3>
         <p className="text-gray-600 mb-6">
           Generate a connection code to invite clients to share their ALCHM progress with you.
         </p>
@@ -237,7 +237,7 @@ export default function ClientProgressDashboard({
       <Card className="p-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold">Client Progress Dashboard</h2>
+            <h2 className="text-xl font-medium">Client Progress Dashboard</h2>
             <p className="text-sm text-gray-600">HIPAA-compliant therapeutic insights</p>
           </div>
           <select
@@ -266,7 +266,7 @@ export default function ClientProgressDashboard({
           <Card className="p-4 border-l-4 border-blue-500">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-semibold">Data Sharing Consent</h3>
+                <h3 className="font-medium">Data Sharing Consent</h3>
                 <div className="flex gap-2 mt-2">
                   <Badge variant={selectedClient.clientConsent.shareProgressData ? 'default' : 'secondary'}>
                     Progress Data: {selectedClient.clientConsent.shareProgressData ? 'Consented' : 'Not Consented'}
@@ -307,7 +307,7 @@ export default function ClientProgressDashboard({
           {/* Content Panels */}
           {!selectedClient.clientConsent.shareProgressData ? (
             <Card className="p-8 text-center">
-              <h3 className="text-lg font-semibold mb-2">Data Sharing Not Consented</h3>
+              <h3 className="text-lg font-medium mb-2">Data Sharing Not Consented</h3>
               <p className="text-gray-600">
                 This client has not consented to share their progress data.
                 Please discuss data sharing benefits during your next session.
@@ -319,7 +319,7 @@ export default function ClientProgressDashboard({
               {activeTab === 'overview' && progressMetrics && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <Card className="p-6">
-                    <h4 className="font-semibold mb-4">Engagement Metrics</h4>
+                    <h4 className="font-medium mb-4">Engagement Metrics</h4>
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span>Journal Consistency</span>
@@ -337,7 +337,7 @@ export default function ClientProgressDashboard({
                   </Card>
 
                   <Card className="p-6">
-                    <h4 className="font-semibold mb-4">Wellness Indicators</h4>
+                    <h4 className="font-medium mb-4">Wellness Indicators</h4>
                     <div className="space-y-3">
                       <div className="flex justify-between">
                         <span>Mood Improvement</span>
@@ -351,7 +351,7 @@ export default function ClientProgressDashboard({
                   </Card>
 
                   <Card className="p-6">
-                    <h4 className="font-semibold mb-4">Treatment Goals</h4>
+                    <h4 className="font-medium mb-4">Treatment Goals</h4>
                     <div className="space-y-2">
                       {selectedClient.treatmentGoals.length > 0 ? (
                         selectedClient.treatmentGoals.map((goal, index) => (
@@ -374,7 +374,7 @@ export default function ClientProgressDashboard({
                     <Card key={index} className="p-6">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <h4 className="font-semibold">{journey.pathwayName}</h4>
+                          <h4 className="font-medium">{journey.pathwayName}</h4>
                           <p className="text-sm text-gray-600">
                             Last activity: {formatDaysAgo(journey.lastActivity)}
                           </p>
@@ -403,7 +403,7 @@ export default function ClientProgressDashboard({
               {/* Outcomes Tab */}
               {activeTab === 'outcomes' && outcomeData && (
                 <Card className="p-6">
-                  <h4 className="font-semibold mb-4">Outcome Tracking</h4>
+                  <h4 className="font-medium mb-4">Outcome Tracking</h4>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h5 className="font-medium mb-3">Baseline Measures</h5>
@@ -446,7 +446,7 @@ export default function ClientProgressDashboard({
               {activeTab === 'prep' && (
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <h4 className="font-semibold">Session Preparation History</h4>
+                    <h4 className="font-medium">Session Preparation History</h4>
                     <Button onClick={generateNewSessionPrep}>
                       Generate New Session Prep
                     </Button>

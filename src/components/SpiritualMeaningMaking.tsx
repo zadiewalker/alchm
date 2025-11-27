@@ -398,7 +398,7 @@ export default function SpiritualMeaningMaking() {
             <Globe className="h-12 w-12 text-purple-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Explore Spiritual Traditions</h1>
+        <h1 className="text-3xl font-medium mb-4">Explore Spiritual Traditions</h1>
         <p className="text-xl text-gray-600">
           Discover meaning-making wisdom from diverse spiritual and philosophical traditions
         </p>
@@ -424,7 +424,7 @@ export default function SpiritualMeaningMaking() {
                 <div className="flex items-center gap-3">
                   <IconComponent className="h-8 w-8 text-purple-600" />
                   <div>
-                    <h2 className="text-xl font-semibold">{tradition.name}</h2>
+                    <h2 className="text-xl font-medium">{tradition.name}</h2>
                     <p className="text-gray-600">{tradition.description}</p>
                   </div>
                 </div>
@@ -481,7 +481,7 @@ export default function SpiritualMeaningMaking() {
 
       {selectedTraditions.length > 0 && (
         <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50">
-          <h2 className="text-lg font-semibold mb-4">Your Selected Traditions</h2>
+          <h2 className="text-lg font-medium mb-4">Your Selected Traditions</h2>
           <div className="flex flex-wrap gap-2 mb-4">
             {selectedTraditions.map((traditionId) => {
               const tradition = spiritualTraditions.find(t => t.id === traditionId);
@@ -512,7 +512,7 @@ export default function SpiritualMeaningMaking() {
             <Target className="h-12 w-12 text-blue-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Meaning-Making Exercises</h1>
+        <h1 className="text-3xl font-medium mb-4">Meaning-Making Exercises</h1>
         <p className="text-xl text-gray-600">
           Guided practices for discovering purpose and integrating wisdom traditions
         </p>
@@ -547,7 +547,7 @@ export default function SpiritualMeaningMaking() {
             <Card key={exercise.id} className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h2 className="text-xl font-semibold mb-2">{exercise.title}</h2>
+                  <h2 className="text-xl font-medium mb-2">{exercise.title}</h2>
                   <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
                     <span className="flex items-center gap-1">
                       <Clock className="h-4 w-4" />
@@ -616,7 +616,7 @@ export default function SpiritualMeaningMaking() {
             <BookOpen className="h-12 w-12 text-green-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Sacred Narrative Development</h1>
+        <h1 className="text-3xl font-medium mb-4">Sacred Narrative Development</h1>
         <p className="text-xl text-gray-600">
           Weave your life experiences into meaningful stories that reveal purpose and wisdom
         </p>
@@ -627,7 +627,7 @@ export default function SpiritualMeaningMaking() {
           <Card key={narrative.id} className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h2 className="text-xl font-semibold mb-1">{narrative.title}</h2>
+                <h2 className="text-xl font-medium mb-1">{narrative.title}</h2>
                 <div className="flex items-center gap-3 text-sm text-gray-600 mb-2">
                   <span>{narrative.tradition}</span>
                   <span>•</span>
@@ -701,7 +701,7 @@ export default function SpiritualMeaningMaking() {
             <Heart className="h-12 w-12 text-red-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Values & Purpose Alignment</h1>
+        <h1 className="text-3xl font-medium mb-4">Values & Purpose Alignment</h1>
         <p className="text-xl text-gray-600">
           Clarify your deepest values and align your life with your authentic purpose
         </p>
@@ -712,7 +712,7 @@ export default function SpiritualMeaningMaking() {
           <Card key={index} className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-xl font-semibold">{value.value}</h2>
+                <h2 className="text-xl font-medium">{value.value}</h2>
                 <div className="text-sm text-gray-600">From {value.tradition} tradition</div>
               </div>
               <div className="text-right">
@@ -861,7 +861,7 @@ export default function SpiritualMeaningMaking() {
               <Infinity className="h-12 w-12 text-purple-600" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold mb-4">Wisdom Integration Dashboard</h1>
+          <h1 className="text-3xl font-medium mb-4">Wisdom Integration Dashboard</h1>
           <p className="text-xl text-gray-600 mb-8">
             Coming Soon: Advanced tools for integrating insights across all meaning-making practices
           </p>
@@ -877,7 +877,7 @@ export default function SpiritualMeaningMaking() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <Card className="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8">
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold">{currentExercise.title}</h1>
+              <h1 className="text-2xl font-medium">{currentExercise.title}</h1>
               <Button variant="outline" onClick={() => setCurrentExercise(null)}>
                 Close
               </Button>
@@ -885,7 +885,7 @@ export default function SpiritualMeaningMaking() {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h2 className="text-lg font-semibold mb-4">Exercise Steps</h2>
+                <h2 className="text-lg font-medium mb-4">Exercise Steps</h2>
                 <ol className="space-y-3">
                   {currentExercise.steps.map((step, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -899,7 +899,7 @@ export default function SpiritualMeaningMaking() {
               </div>
 
               <div>
-                <h2 className="text-lg font-semibold mb-4">Reflection Prompts</h2>
+                <h2 className="text-lg font-medium mb-4">Reflection Prompts</h2>
                 <ul className="space-y-3">
                   {currentExercise.reflectionPrompts.map((prompt, index) => (
                     <li key={index} className="flex items-start gap-3">

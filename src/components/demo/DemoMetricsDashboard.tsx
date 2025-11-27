@@ -164,7 +164,7 @@ export default function DemoMetricsDashboard() {
       {/* Real-time Metrics Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center">
+          <h2 className="text-2xl font-medium text-white flex items-center">
             📊 Firebase Studio Live Metrics
             <span className="ml-3 text-sm bg-green-500/20 text-green-400 px-3 py-1 rounded-full flex items-center">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
@@ -190,7 +190,7 @@ export default function DemoMetricsDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-400 mb-1">
+              <div className="text-3xl font-medium text-green-400 mb-1">
                 {metrics.activeUsers.toLocaleString()}
               </div>
               <div className="text-sm text-gray-300">Active Demo Users</div>
@@ -202,7 +202,7 @@ export default function DemoMetricsDashboard() {
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400 mb-1">
+              <div className="text-3xl font-medium text-blue-400 mb-1">
                 {metrics.requestsPerMinute.toLocaleString()}
               </div>
               <div className="text-sm text-gray-300">Requests/Min</div>
@@ -212,7 +212,7 @@ export default function DemoMetricsDashboard() {
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-400 mb-1">
+              <div className="text-3xl font-medium text-purple-400 mb-1">
                 {metrics.aiResponses.toLocaleString()}
               </div>
               <div className="text-sm text-gray-300">AI Responses</div>
@@ -222,7 +222,7 @@ export default function DemoMetricsDashboard() {
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-400 mb-1">
+              <div className="text-3xl font-medium text-yellow-400 mb-1">
                 {metrics.avgResponseTime}ms
               </div>
               <div className="text-sm text-gray-300">Response Time</div>
@@ -232,7 +232,7 @@ export default function DemoMetricsDashboard() {
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-1">
+              <div className="text-3xl font-medium text-orange-400 mb-1">
                 {metrics.activeInstances}
               </div>
               <div className="text-sm text-gray-300">Auto-Scaling</div>
@@ -247,7 +247,7 @@ export default function DemoMetricsDashboard() {
       {/* Architecture Showcase */}
       {architecture && (
         <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-6">
-          <h3 className="text-xl font-bold mb-4 flex items-center">
+          <h3 className="text-xl font-medium mb-4 flex items-center">
             🏗️ Firebase Studio Architecture
             <span className="ml-2 text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">
               PRODUCTION
@@ -300,55 +300,55 @@ export default function DemoMetricsDashboard() {
       {analytics && (
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-6">
-            <h3 className="text-lg font-bold mb-4 text-green-400">📈 Session Analytics</h3>
+            <h3 className="text-lg font-medium mb-4 text-green-400">📈 Session Analytics</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-300">Avg. Duration:</span>
-                <span className="font-bold">{analytics.session_analytics.average_session_duration}</span>
+                <span className="font-medium">{analytics.session_analytics.average_session_duration}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Bounce Rate:</span>
-                <span className="font-bold text-green-400">{analytics.session_analytics.bounce_rate}</span>
+                <span className="font-medium text-green-400">{analytics.session_analytics.bounce_rate}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Engagement:</span>
-                <span className="font-bold">{analytics.session_analytics.engagement_score}</span>
+                <span className="font-medium">{analytics.session_analytics.engagement_score}</span>
               </div>
             </div>
           </Card>
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-6">
-            <h3 className="text-lg font-bold mb-4 text-purple-400">🤖 AI Performance</h3>
+            <h3 className="text-lg font-medium mb-4 text-purple-400">🤖 AI Performance</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-300">Satisfaction:</span>
-                <span className="font-bold text-purple-400">{analytics.ai_performance.response_satisfaction}</span>
+                <span className="font-medium text-purple-400">{analytics.ai_performance.response_satisfaction}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Cultural Accuracy:</span>
-                <span className="font-bold">{analytics.ai_performance.cultural_accuracy}</span>
+                <span className="font-medium">{analytics.ai_performance.cultural_accuracy}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Trauma-Informed:</span>
-                <span className="font-bold text-green-400">{analytics.ai_performance.trauma_sensitivity_score}</span>
+                <span className="font-medium text-green-400">{analytics.ai_performance.trauma_sensitivity_score}</span>
               </div>
             </div>
           </Card>
 
           <Card className="bg-black/40 backdrop-blur-sm border-white/10 text-white p-6">
-            <h3 className="text-lg font-bold mb-4 text-blue-400">⚡ Technical Metrics</h3>
+            <h3 className="text-lg font-medium mb-4 text-blue-400">⚡ Technical Metrics</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-300">Load Time:</span>
-                <span className="font-bold text-blue-400">{analytics.technical_metrics.page_load_time}</span>
+                <span className="font-medium text-blue-400">{analytics.technical_metrics.page_load_time}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">API Response:</span>
-                <span className="font-bold">{analytics.technical_metrics.api_response_time}</span>
+                <span className="font-medium">{analytics.technical_metrics.api_response_time}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Error Rate:</span>
-                <span className="font-bold text-green-400">{analytics.technical_metrics.error_rate}</span>
+                <span className="font-medium text-green-400">{analytics.technical_metrics.error_rate}</span>
               </div>
             </div>
           </Card>
@@ -359,7 +359,7 @@ export default function DemoMetricsDashboard() {
       <Card className="bg-gradient-to-r from-green-500/10 to-blue-500/10 backdrop-blur-sm border-green-500/30 text-white p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold flex items-center">
+            <h3 className="text-xl font-medium flex items-center">
               🟢 System Status: Operational
               <span className="ml-2 text-sm bg-green-500/20 text-green-400 px-2 py-1 rounded-full">
                 {metrics?.uptime || "99.99%"} Uptime
@@ -371,7 +371,7 @@ export default function DemoMetricsDashboard() {
           </div>
           
           <div className="text-right">
-            <div className="text-2xl font-bold text-green-400">
+            <div className="text-2xl font-medium text-green-400">
               {metrics?.crisisResourcesProvided || 0}
             </div>
             <div className="text-sm text-gray-300">Crisis Resources Provided</div>

@@ -336,22 +336,22 @@ export default function DataSubjectRightsManager({
       {/* Data Summary */}
       {dataSummary && (
         <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-green-200">
-          <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-medium text-green-800 mb-4 flex items-center gap-2">
             <span>📊</span>
             Your Data Summary
           </h3>
           
           <div className="grid md:grid-cols-3 gap-4 mb-6">
             <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-              <div className="text-2xl font-bold text-blue-800">{dataSummary.journals}</div>
+              <div className="text-2xl font-medium text-blue-800">{dataSummary.journals}</div>
               <div className="text-sm text-blue-600">Journal Entries</div>
             </div>
             <div className="bg-purple-50 rounded-xl p-4 border border-purple-200">
-              <div className="text-2xl font-bold text-purple-800">{dataSummary.analytics}</div>
+              <div className="text-2xl font-medium text-purple-800">{dataSummary.analytics}</div>
               <div className="text-sm text-purple-600">Analytics Records</div>
             </div>
             <div className="bg-green-50 rounded-xl p-4 border border-green-200">
-              <div className="text-2xl font-bold text-green-800">{dataSummary.preferences}</div>
+              <div className="text-2xl font-medium text-green-800">{dataSummary.preferences}</div>
               <div className="text-sm text-green-600">Preference Settings</div>
             </div>
           </div>
@@ -366,7 +366,7 @@ export default function DataSubjectRightsManager({
 
       {/* GDPR/CCPA Rights */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-        <h3 className="text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-purple-800 mb-4 flex items-center gap-2">
           <span>⚖️</span>
           Your Privacy Rights (GDPR/CCPA)
         </h3>
@@ -374,7 +374,7 @@ export default function DataSubjectRightsManager({
         <div className="grid md:grid-cols-2 gap-4">
           {/* Data Export */}
           <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
-            <h4 className="font-bold text-blue-800 mb-2">📤 Right to Data Portability</h4>
+            <h4 className="font-medium text-blue-800 mb-2">📤 Right to Data Portability</h4>
             <p className="text-sm text-blue-700 mb-4">
               Export all your data in a machine-readable format (JSON).
             </p>
@@ -389,7 +389,7 @@ export default function DataSubjectRightsManager({
 
           {/* Account Deletion */}
           <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-            <h4 className="font-bold text-red-800 mb-2">🗑️ Right to be Forgotten</h4>
+            <h4 className="font-medium text-red-800 mb-2">🗑️ Right to be Forgotten</h4>
             <p className="text-sm text-red-700 mb-4">
               Permanently delete your account and all associated data.
             </p>
@@ -405,7 +405,7 @@ export default function DataSubjectRightsManager({
 
         {/* Data Retention Controls */}
         <div className="mt-6 bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-          <h4 className="font-bold text-yellow-800 mb-2">🕐 Data Retention Preferences</h4>
+          <h4 className="font-medium text-yellow-800 mb-2">🕐 Data Retention Preferences</h4>
           <p className="text-sm text-yellow-700 mb-4">
             Control how long your data is retained. {userAgeStatus === 'teen' ? 'Teen users have enhanced protection with shorter retention periods.' : ''}
           </p>
@@ -459,7 +459,7 @@ export default function DataSubjectRightsManager({
       {showExportModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Export Your Data</h3>
+            <h3 className="text-xl font-medium text-gray-900 mb-4">Export Your Data</h3>
             
             {exportProgress > 0 && (
               <div className="mb-4">
@@ -512,11 +512,11 @@ export default function DataSubjectRightsManager({
       {showDeleteConfirmation && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-red-800 mb-4">⚠️ Delete Account & All Data</h3>
+            <h3 className="text-xl font-medium text-red-800 mb-4">⚠️ Delete Account & All Data</h3>
             
             <div className="space-y-4">
               <div className="bg-red-50 rounded-lg p-4 text-sm text-red-800 border-2 border-red-200">
-                <p className="font-bold mb-2">This action cannot be undone!</p>
+                <p className="font-medium mb-2">This action cannot be undone!</p>
                 <p>Deleting your account will:</p>
                 <ul className="list-disc ml-4 mt-2">
                   <li>Permanently delete all journal entries</li>

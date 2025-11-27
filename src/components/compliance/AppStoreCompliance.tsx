@@ -109,7 +109,7 @@ export function AgeRatingCompliance() {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <Card className="max-w-md w-full">
         <CardHeader>
-          <h2 className="text-xl font-bold text-center">Age Verification Required</h2>
+          <h2 className="text-xl font-medium text-center">Age Verification Required</h2>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-center text-gray-600">
@@ -248,7 +248,7 @@ export function NetworkErrorBoundary({ children }: { children: React.ReactNode }
         <Card className="max-w-md w-full text-center">
           <CardContent className="p-6">
             <div className="text-6xl mb-4">📱</div>
-            <h2 className="text-xl font-bold mb-2">You're Offline</h2>
+            <h2 className="text-xl font-medium mb-2">You're Offline</h2>
             <p className="text-gray-600 mb-4">
               ALCHM works offline for journaling. Your entries are saved locally and will sync when you're back online.
             </p>
@@ -270,7 +270,7 @@ export function NetworkErrorBoundary({ children }: { children: React.ReactNode }
         <Card className="max-w-md w-full text-center">
           <CardContent className="p-6">
             <div className="text-6xl mb-4">⚠️</div>
-            <h2 className="text-xl font-bold mb-2">Connection Issue</h2>
+            <h2 className="text-xl font-medium mb-2">Connection Issue</h2>
             <p className="text-gray-600 mb-4">
               We're having trouble connecting to our servers. Your data is safe, and you can continue journaling offline.
             </p>
@@ -305,7 +305,7 @@ export function NetworkErrorBoundary({ children }: { children: React.ReactNode }
 export function ContentModerationNotice() {
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-      <h3 className="font-semibold text-blue-800 mb-2">Community Guidelines</h3>
+      <h3 className="font-medium text-blue-800 mb-2">Community Guidelines</h3>
       <p className="text-sm text-blue-700 mb-2">
         ALCHM is a safe space for personal reflection. While your journal entries are private, 
         please be mindful that this platform is designed for healing and growth.

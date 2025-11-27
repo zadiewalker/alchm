@@ -231,7 +231,7 @@ export default function SacredJournalPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-xlarge font-thin text-sanctuary mb-2">
+        <h1 className="text-xlarge font-light text-sanctuary mb-2">
           Sacred Journal
         </h1>
         <p className="text-base text-sanctuary/80">

@@ -81,7 +81,7 @@ export function EmergencyCrisisButton({
           <div className="absolute bottom-16 right-0 w-80 bg-red-600/95 backdrop-blur-md border-2 border-red-400/50 rounded-2xl p-4 shadow-2xl">
             <div className="space-y-3">
               <div className="text-center">
-                <h3 className="text-white font-semibold text-lg mb-1">
+                <h3 className="text-white font-medium text-lg mb-1">
                   Crisis Support Available Now
                 </h3>
                 <p className="text-red-100 text-sm">

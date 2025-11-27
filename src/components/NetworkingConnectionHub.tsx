@@ -172,7 +172,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
       <div className="space-y-6">
         {/* Search filters */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Discover Professionals</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Discover Professionals</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <select
@@ -226,7 +226,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h4 className="font-semibold text-gray-800">{contact.name}</h4>
+                  <h4 className="font-medium text-gray-800">{contact.name}</h4>
                   <p className="text-gray-600 text-sm">{contact.title}</p>
                   <p className="text-gray-500 text-sm">{contact.company}</p>
                 </div>
@@ -328,7 +328,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+          <h3 className="text-xl font-medium text-gray-800 mb-2">
             Real-World Opportunities
           </h3>
           <p className="text-gray-600">
@@ -352,7 +352,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
                   }`}>
                     {opportunity.type.replace('_', ' ').toUpperCase()}
                   </div>
-                  <h4 className="font-semibold text-gray-800">{opportunity.title}</h4>
+                  <h4 className="font-medium text-gray-800">{opportunity.title}</h4>
                   <p className="text-gray-600 text-sm">{opportunity.organization}</p>
                 </div>
                 <div className="text-right">
@@ -433,7 +433,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+          <h3 className="text-xl font-medium text-gray-800 mb-2">
             Networking Events & Opportunities
           </h3>
           <p className="text-gray-600">
@@ -450,7 +450,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-2">
-                    <h4 className="font-semibold text-gray-800">{event.title}</h4>
+                    <h4 className="font-medium text-gray-800">{event.title}</h4>
                     <span className={`px-2 py-1 rounded text-xs ${
                       event.eventType === 'in_person' ? 'bg-green-100 text-green-700' :
                       event.eventType === 'virtual' ? 'bg-blue-100 text-blue-700' :
@@ -518,7 +518,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-2xl w-full mx-4">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">
+            <h3 className="text-xl font-medium text-gray-800">
               Connect with {selectedContact.name}
             </h3>
             <button
@@ -611,7 +611,7 @@ const NetworkingConnectionHub: React.FC<NetworkingHubProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Networking & Professional Connections
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

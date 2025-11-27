@@ -128,7 +128,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
             <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
               <span className="text-white text-3xl">🎉</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            <h2 className="text-2xl font-medium text-gray-800 mb-2">
               Congratulations on Your Growth!
             </h2>
             <p className="text-gray-600">
@@ -163,7 +163,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
         {/* Overall Progress Card */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Overall Progress</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">Overall Progress</h3>
             
             <div className="space-y-4">
               <div className="text-center">
@@ -196,7 +196,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-gray-800">
+                      <div className="text-2xl font-medium text-gray-800">
                         {Math.round(processedData.overallProgress * 100)}%
                       </div>
                       <div className="text-xs text-gray-500">Complete</div>
@@ -232,7 +232,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Growth Trajectory</h3>
+              <h3 className="text-lg font-medium text-gray-800">Growth Trajectory</h3>
               <div className="flex space-x-2">
                 {['week', 'month', 'quarter', 'year'].map((period) => (
                   <button
@@ -333,7 +333,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
           >
             <div className="flex items-center space-x-3 mb-4">
               <span className="text-2xl">{area.icon}</span>
-              <h4 className="font-semibold text-gray-800">{area.name}</h4>
+              <h4 className="font-medium text-gray-800">{area.name}</h4>
             </div>
 
             <div className="mb-4">
@@ -389,7 +389,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
   const renderMilestonesAndAchievements = () => {
     return (
       <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 mb-6">Milestones & Achievements</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-6">Milestones & Achievements</h3>
         
         <div className="relative">
           {/* Timeline line */}
@@ -450,7 +450,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Personalized Insights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             💡 Personalized Insights
           </h3>
           
@@ -476,7 +476,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
 
         {/* Next Steps */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             🎯 Recommended Next Steps
           </h3>
           
@@ -518,7 +518,7 @@ const CulturalCompetencyProgressVisualization: React.FC<ProgressVisualizationPro
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Your Cultural Competency Journey
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

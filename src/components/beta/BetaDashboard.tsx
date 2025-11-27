@@ -180,7 +180,7 @@ export function BetaDashboard({ userRole = 'beta_user' }: BetaDashboardProps) {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           Beta Testing Dashboard
         </h1>
         <p className="text-gray-600">
@@ -195,25 +195,25 @@ export function BetaDashboard({ userRole = 'beta_user' }: BetaDashboardProps) {
       {betaUser && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="p-4">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-medium text-blue-600">
               {betaUser.metrics.bugsReported}
             </div>
             <div className="text-sm text-gray-600">Bugs Reported</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-medium text-green-600">
               {betaUser.metrics.feedbackSubmitted}
             </div>
             <div className="text-sm text-gray-600">Feedback Submitted</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-medium text-purple-600">
               {betaUser.metrics.surveysCompleted}
             </div>
             <div className="text-sm text-gray-600">Surveys Completed</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-medium text-orange-600">
               {betaUser.metrics.engagementScore}
             </div>
             <div className="text-sm text-gray-600">Engagement Score</div>
@@ -226,7 +226,7 @@ export function BetaDashboard({ userRole = 'beta_user' }: BetaDashboardProps) {
         <div className="lg:col-span-2">
           <Card className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-medium text-gray-900">
                 Feedback & Issues
               </h2>
               
@@ -345,7 +345,7 @@ export function BetaDashboard({ userRole = 'beta_user' }: BetaDashboardProps) {
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xl">{getTypeIcon(selectedFeedback.type)}</span>
-                  <h3 className="font-semibold text-gray-900">{selectedFeedback.title}</h3>
+                  <h3 className="font-medium text-gray-900">{selectedFeedback.title}</h3>
                 </div>
                 
                 <div className="flex items-center gap-2 mb-4">

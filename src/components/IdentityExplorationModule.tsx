@@ -166,7 +166,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-green-600 text-2xl">🛡️</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            <h2 className="text-2xl font-medium text-gray-800 mb-2">
               Identity Exploration Safety & Consent
             </h2>
             <p className="text-gray-600">
@@ -176,7 +176,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
 
           <div className="space-y-4 mb-6 text-sm">
             <div className="p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-semibold text-blue-800 mb-2">What to Expect</h3>
+              <h3 className="font-medium text-blue-800 mb-2">What to Expect</h3>
               <ul className="space-y-1 text-blue-700">
                 <li>• Guided exploration of your personal, cultural, and social identities</li>
                 <li>• Reflection exercises designed to promote self-awareness</li>
@@ -186,7 +186,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
             </div>
 
             <div className="p-4 bg-yellow-50 rounded-lg">
-              <h3 className="font-semibold text-yellow-800 mb-2">Your Rights & Controls</h3>
+              <h3 className="font-medium text-yellow-800 mb-2">Your Rights & Controls</h3>
               <ul className="space-y-1 text-yellow-700">
                 <li>• Pause or stop the exploration at any time</li>
                 <li>• Skip questions that feel uncomfortable</li>
@@ -196,7 +196,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
             </div>
 
             <div className="p-4 bg-green-50 rounded-lg">
-              <h3 className="font-semibold text-green-800 mb-2">Cultural Safety Commitment</h3>
+              <h3 className="font-medium text-green-800 mb-2">Cultural Safety Commitment</h3>
               <ul className="space-y-1 text-green-700">
                 <li>• Culturally responsive and trauma-informed approach</li>
                 <li>• Respect for all identities and experiences</li>
@@ -265,7 +265,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl font-medium text-gray-800 mb-4">
             Identity Exploration Journey
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -289,7 +289,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
                 <div className="flex items-center">
                   <span className="text-3xl mr-3">{option.icon}</span>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    <h3 className="text-lg font-medium text-gray-800">
                       {option.title}
                     </h3>
                     <p className="text-sm text-gray-600 mt-1">
@@ -330,7 +330,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
         {activeMapping && (
           <div className="mt-8 p-6 bg-white rounded-lg border border-gray-200">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-medium text-gray-800">
                 {mappingOptions.find(o => o.type === activeMapping)?.title} Exploration
               </h3>
               <button
@@ -389,7 +389,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
         {/* Exercise content */}
         <div className="bg-white rounded-lg border border-gray-200 p-8">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">
+            <h2 className="text-2xl font-medium text-gray-800 mb-3">
               {currentExercise.title}
             </h2>
             <p className="text-gray-600 leading-relaxed">
@@ -743,7 +743,7 @@ const IdentityExplorationModule: React.FC<IdentityExplorationProps> = ({
         {/* Insights sidebar */}
         {identityInsights.length > 0 && (
           <div className="mt-8 p-6 bg-white rounded-lg border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 mb-4">
               🌟 Your Identity Insights
             </h3>
             <div className="space-y-3">

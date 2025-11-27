@@ -222,7 +222,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
           <div className="flex items-center space-x-3">
             <span className="text-2xl">{dimension.icon}</span>
             <div>
-              <h3 className="font-semibold">
+              <h3 className="font-medium">
                 {sacredMode ? dimension.sacredName : dimension.name}
               </h3>
               <p className="text-sm text-gray-600 line-clamp-2">
@@ -231,7 +231,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold">{Math.round(dimension.progress * 100)}%</div>
+            <div className="text-2xl font-medium">{Math.round(dimension.progress * 100)}%</div>
             <div className="text-xs text-gray-500">Growth</div>
           </div>
         </div>
@@ -337,7 +337,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
 
     return (
       <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-4">
+        <h3 className="text-xl font-medium mb-4">
           {sacredMode ? 'Sacred Pentagram of Growth' : 'Multi-Dimensional Growth Map'}
         </h3>
         <div className="flex justify-center">
@@ -448,7 +448,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
     <div className="space-y-6">
       {/* Time Range Selector */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-medium">
           {sacredMode ? 'Sacred Dimensions of Growth' : 'Multi-Dimensional Growth Analysis'}
         </h2>
         <div className="flex space-x-2">
@@ -480,7 +480,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
 
       {/* Growth Insights Summary */}
       <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-4">Growth Pattern Analysis</h3>
+        <h3 className="text-xl font-medium mb-4">Growth Pattern Analysis</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <h4 className="font-medium mb-2">Strongest Growth Areas</h4>
@@ -517,7 +517,7 @@ export const MultiDimensionalGrowth: React.FC<MultiDimensionalGrowthProps> = ({
           <div>
             <h4 className="font-medium mb-2">Transformation Momentum</h4>
             <div className="text-center">
-              <div className="text-3xl font-bold text-amber-600">
+              <div className="text-3xl font-medium text-amber-600">
                 {Math.round(growthDimensions.reduce((sum, d) => sum + d.progress, 0) / growthDimensions.length * 100)}%
               </div>
               <div className="text-sm text-gray-600">Overall Growth</div>

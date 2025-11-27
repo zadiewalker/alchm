@@ -229,7 +229,7 @@ export default function PrivacyConsentFlow({
         <Card className="max-w-2xl w-full p-8 shadow-lg">
           <div className="text-center mb-8">
             <Shield className="w-20 h-20 text-purple-600 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">{getStepTitle()}</h1>
+            <h1 className="text-3xl font-medium text-gray-900 mb-4">{getStepTitle()}</h1>
             <p className="text-gray-600 text-lg">
               Your privacy and safety are our highest priorities. Let's set up your data protection preferences.
             </p>
@@ -240,7 +240,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-amber-900">Parental Consent Required</p>
+                  <p className="font-medium text-amber-900">Parental Consent Required</p>
                   <p className="text-amber-800 text-sm">
                     {ageGroup === 'under13' 
                       ? 'As a user under 13, COPPA law requires verified parental consent before using ALCHM.'
@@ -254,7 +254,7 @@ export default function PrivacyConsentFlow({
 
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <h3 className="text-lg font-medium text-gray-900 flex items-center">
                 <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
                 What We Protect
               </h3>
@@ -268,7 +268,7 @@ export default function PrivacyConsentFlow({
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
+              <h3 className="text-lg font-medium text-gray-900 flex items-center">
                 <Info className="w-5 h-5 text-blue-600 mr-2" />
                 Your Rights
               </h3>
@@ -322,7 +322,7 @@ export default function PrivacyConsentFlow({
         <Card className="max-w-3xl w-full p-8 shadow-lg">
           <div className="text-center mb-8">
             <Shield className="w-16 h-16 text-green-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{getStepTitle()}</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">{getStepTitle()}</h1>
             <p className="text-gray-600">
               These essential features are required for ALCHM to function safely and securely.
             </p>
@@ -339,7 +339,7 @@ export default function PrivacyConsentFlow({
                         <IconComponent className="w-6 h-6 text-green-600" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{option.title}</h3>
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">{option.title}</h3>
                         <p className="text-gray-600 mb-3">{option.description}</p>
                         
                         <div className="text-sm text-gray-500">
@@ -409,7 +409,7 @@ export default function PrivacyConsentFlow({
         <Card className="max-w-3xl w-full p-8 shadow-lg">
           <div className="text-center mb-8">
             <BarChart3 className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{getStepTitle()}</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">{getStepTitle()}</h1>
             <p className="text-gray-600">
               These optional features enhance your experience. You can change these settings anytime.
             </p>
@@ -420,7 +420,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-yellow-900">Enhanced Protection Active</p>
+                  <p className="font-medium text-yellow-900">Enhanced Protection Active</p>
                   <p className="text-yellow-800 text-sm">
                     {ageGroup === 'under13' 
                       ? 'COPPA protections: Limited data collection, no behavioral tracking, enhanced deletion rights.'
@@ -445,7 +445,7 @@ export default function PrivacyConsentFlow({
                         <IconComponent className={`w-6 h-6 ${isEnabled ? 'text-blue-600' : 'text-gray-400'}`} />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{option.title}</h3>
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">{option.title}</h3>
                         <p className="text-gray-600 mb-3">{option.description}</p>
                         
                         <div className="text-sm text-gray-500">
@@ -518,7 +518,7 @@ export default function PrivacyConsentFlow({
         <Card className="max-w-2xl w-full p-8 shadow-lg">
           <div className="text-center mb-8">
             <FileText className="w-16 h-16 text-amber-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{getStepTitle()}</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">{getStepTitle()}</h1>
             <p className="text-gray-600">
               Understand your privacy rights and how to exercise them in ALCHM.
             </p>
@@ -529,7 +529,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <Download className="w-5 h-5 text-blue-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">Right to Data Portability</h3>
+                  <h3 className="font-medium text-gray-900">Right to Data Portability</h3>
                   <p className="text-gray-600 text-sm">
                     Download all your data in a machine-readable format. Available in your account settings.
                   </p>
@@ -541,7 +541,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <Trash2 className="w-5 h-5 text-red-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">Right to Erasure</h3>
+                  <h3 className="font-medium text-gray-900">Right to Erasure</h3>
                   <p className="text-gray-600 text-sm">
                     Delete your account and all associated data permanently. This action cannot be undone.
                   </p>
@@ -553,7 +553,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <Users className="w-5 h-5 text-green-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">Right to Access</h3>
+                  <h3 className="font-medium text-gray-900">Right to Access</h3>
                   <p className="text-gray-600 text-sm">
                     Request a copy of all personal data we hold about you and how it's being processed.
                   </p>
@@ -565,7 +565,7 @@ export default function PrivacyConsentFlow({
               <div className="flex items-start space-x-3">
                 <Shield className="w-5 h-5 text-purple-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-900">Right to Withdraw Consent</h3>
+                  <h3 className="font-medium text-gray-900">Right to Withdraw Consent</h3>
                   <p className="text-gray-600 text-sm">
                     Change your privacy preferences anytime. Withdrawing consent doesn't affect past processing.
                   </p>
@@ -575,7 +575,7 @@ export default function PrivacyConsentFlow({
 
             {(ageGroup === 'under13' || ageGroup === 'teen') && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 className="font-semibold text-blue-900 mb-2">Enhanced Rights for Minors</h3>
+                <h3 className="font-medium text-blue-900 mb-2">Enhanced Rights for Minors</h3>
                 <ul className="text-blue-800 text-sm space-y-1">
                   <li>• Priority processing for deletion requests</li>
                   <li>• Enhanced parental access and control rights</li>
@@ -616,7 +616,7 @@ export default function PrivacyConsentFlow({
         <Card className="max-w-2xl w-full p-8 shadow-lg">
           <div className="text-center mb-8">
             <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{getStepTitle()}</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">{getStepTitle()}</h1>
             <p className="text-gray-600">
               Review your privacy preferences before completing setup.
             </p>
@@ -624,7 +624,7 @@ export default function PrivacyConsentFlow({
 
           <div className="space-y-6 mb-8">
             <div>
-              <h3 className="text-lg font-semibold text-green-900 mb-3">Enabled Features</h3>
+              <h3 className="text-lg font-medium text-green-900 mb-3">Enabled Features</h3>
               <div className="space-y-2">
                 {enabledConsents.map(([consentId]) => {
                   const option = consentOptions.find(opt => opt.id === consentId);
@@ -642,7 +642,7 @@ export default function PrivacyConsentFlow({
 
             {disabledConsents.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-700 mb-3">Disabled Features</h3>
+                <h3 className="text-lg font-medium text-gray-700 mb-3">Disabled Features</h3>
                 <div className="space-y-2">
                   {disabledConsents.map(([consentId]) => {
                     const option = consentOptions.find(opt => opt.id === consentId);
@@ -660,7 +660,7 @@ export default function PrivacyConsentFlow({
             )}
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h3 className="font-semibold text-blue-900 mb-2">Consent Record</h3>
+              <h3 className="font-medium text-blue-900 mb-2">Consent Record</h3>
               <div className="text-blue-800 text-sm space-y-1">
                 <p><strong>Consent Version:</strong> {state.consentVersion}</p>
                 <p><strong>Age Group:</strong> {ageGroup}</p>

@@ -258,7 +258,7 @@ export default function WellnessAnalytics() {
   } : {};
   
   const touchTargetClass = isCrisisMode 
-    ? 'min-h-[60px] min-w-[60px] text-lg font-semibold border-2 border-red-400' 
+    ? 'min-h-[60px] min-w-[60px] text-lg font-medium border-2 border-red-400' 
     : 'min-h-[52px] min-w-[52px]';
 
   return (
@@ -272,7 +272,7 @@ export default function WellnessAnalytics() {
           <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-xl bg-sage-400 opacity-90" />
         </div>
         <h1 className={`text-2xl sm:text-4xl md:text-5xl font-light text-ink mb-3 sm:mb-4 tracking-tight ${
-          isCrisisMode ? 'text-3xl sm:text-4xl font-semibold' : ''
+          isCrisisMode ? 'text-3xl sm:text-4xl font-medium' : ''
         }`}>
           Wellness Analytics
         </h1>
@@ -289,7 +289,7 @@ export default function WellnessAnalytics() {
       {/* Mobile-optimized controls with crisis mode adaptations */}
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between items-stretch sm:items-center mb-8 sm:mb-12">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-2">
-          <span className={`text-sm font-medium text-muted ${isCrisisMode ? 'text-base font-semibold' : ''}`}>Timeframe</span>
+          <span className={`text-sm font-medium text-muted ${isCrisisMode ? 'text-base font-medium' : ''}`}>Timeframe</span>
           <div className="flex bg-sage-50 rounded-2xl p-1 border border-sage-100 w-full sm:w-auto">
             {(['week', 'month', 'quarter', 'year'] as const).map(period => (
               <button
@@ -328,11 +328,11 @@ export default function WellnessAnalytics() {
           <div className={`absolute -top-8 -right-8 w-20 h-20 bg-gradient-radial from-sage-100/30 to-transparent rounded-full ${isLowBattery ? 'hidden' : ''}`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-sage-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {wellnessMetrics.overallWellness}%
             </div>
-            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-semibold' : ''}`}>Overall Wellness</div>
+            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-medium' : ''}`}>Overall Wellness</div>
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-2xl text-xs font-medium ${
               wellnessMetrics.growthTrend === 'improving' ? 'bg-sage-50 text-sage-600' :
               wellnessMetrics.growthTrend === 'declining' ? 'bg-rose-50 text-rose-600' : 'bg-amber-50 text-amber-600'
@@ -349,11 +349,11 @@ export default function WellnessAnalytics() {
           <div className={`absolute -top-8 -right-8 w-20 h-20 bg-gradient-radial from-blue-100/30 to-transparent rounded-full ${isLowBattery ? 'hidden' : ''}`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-blue-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {wellnessMetrics.moodStability}%
             </div>
-            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-semibold' : ''}`}>Mood Stability</div>
+            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-medium' : ''}`}>Mood Stability</div>
             <div className={`text-blue-500/70 text-xs font-medium ${isCrisisMode ? 'text-sm' : ''}`}>Emotional Balance</div>
           </div>
         </div>
@@ -364,11 +364,11 @@ export default function WellnessAnalytics() {
           <div className={`absolute -top-8 -right-8 w-20 h-20 bg-gradient-radial from-emerald-100/30 to-transparent rounded-full ${isLowBattery ? 'hidden' : ''}`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-emerald-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {wellnessMetrics.streakDays}
             </div>
-            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-semibold' : ''}`}>Day Streak</div>
+            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-medium' : ''}`}>Day Streak</div>
             <div className={`text-emerald-500/70 text-xs font-medium ${isCrisisMode ? 'text-sm' : ''}`}>Consistency</div>
           </div>
         </div>
@@ -379,11 +379,11 @@ export default function WellnessAnalytics() {
           <div className={`absolute -top-8 -right-8 w-20 h-20 bg-gradient-radial from-violet-100/30 to-transparent rounded-full ${isLowBattery ? 'hidden' : ''}`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-violet-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {wellnessMetrics.totalEntries}
             </div>
-            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-semibold' : ''}`}>Total Entries</div>
+            <div className={`text-ink font-medium text-sm mb-3 ${isCrisisMode ? 'text-base font-medium' : ''}`}>Total Entries</div>
             <div className={`text-violet-500/70 text-xs font-medium ${isCrisisMode ? 'text-sm' : ''}`}>Reflections</div>
           </div>
         </div>
@@ -407,7 +407,7 @@ export default function WellnessAnalytics() {
                       selectedMetric === metric
                         ? 'bg-sage-400 text-white shadow-subtle'
                         : 'text-muted hover:text-ink hover:bg-sage-100/50'
-                    } ${isCrisisMode ? 'text-sm py-3 px-4 font-semibold' : ''}`}
+                    } ${isCrisisMode ? 'text-sm py-3 px-4 font-medium' : ''}`}
                   >
                     {metric}
                   </button>
@@ -425,7 +425,7 @@ export default function WellnessAnalytics() {
                 return (
                   <div key={index} className={`group/bar relative ${isCrisisMode ? 'p-2 border border-sage-200 rounded-xl' : ''}`}>
                     <div className={`flex items-center gap-3 sm:gap-4 lg:gap-6 py-3 sm:py-3 px-2 hover:bg-sage-50/50 rounded-2xl transition-all duration-300 ${isCrisisMode ? 'py-4' : ''}`}>
-                      <div className={`w-16 sm:w-20 text-muted text-xs sm:text-sm font-medium shrink-0 ${isCrisisMode ? 'text-sm font-semibold' : ''}`}>
+                      <div className={`w-16 sm:w-20 text-muted text-xs sm:text-sm font-medium shrink-0 ${isCrisisMode ? 'text-sm font-medium' : ''}`}>
                         {new Date(dataPoint.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </div>
                       
@@ -468,7 +468,7 @@ export default function WellnessAnalytics() {
                         isGood ? 'text-sage-600' :
                         isModeratee ? 'text-amber-600' :
                         'text-rose-600'
-                      } ${isCrisisMode ? 'text-base font-bold w-16' : 'text-sm'}`}>
+                      } ${isCrisisMode ? 'text-base font-medium w-16' : 'text-sm'}`}>
                         {dataPoint.value}/5
                       </div>
                     </div>
@@ -481,7 +481,7 @@ export default function WellnessAnalytics() {
             <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-sage-100">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted">Average {selectedMetric} score</span>
-                <span className="font-semibold text-sage-600">
+                <span className="font-medium text-sage-600">
                   {(getMetricData().reduce((sum, dp) => sum + dp.value, 0) / getMetricData().length).toFixed(1)}/5
                 </span>
               </div>
@@ -498,7 +498,7 @@ export default function WellnessAnalytics() {
               <div className="group/metric">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-ink text-sm font-medium">Resilience Score</span>
-                  <span className="text-sage-600 text-sm font-semibold">
+                  <span className="text-sage-600 text-sm font-medium">
                     {researchMetrics.resilienceScore}/100
                   </span>
                 </div>
@@ -516,7 +516,7 @@ export default function WellnessAnalytics() {
               <div className="group/metric">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-ink text-sm font-medium">Purpose & Meaning</span>
-                  <span className="text-violet-600 text-sm font-semibold">
+                  <span className="text-violet-600 text-sm font-medium">
                     {researchMetrics.meaningInLifeScore}/100
                   </span>
                 </div>
@@ -534,7 +534,7 @@ export default function WellnessAnalytics() {
               <div className="group/metric">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-ink text-sm font-medium">Social Connection</span>
-                  <span className="text-blue-600 text-sm font-semibold">
+                  <span className="text-blue-600 text-sm font-medium">
                     {researchMetrics.socialConnectionScore}/100
                   </span>
                 </div>
@@ -559,7 +559,7 @@ export default function WellnessAnalytics() {
               <div className="relative">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-ink text-sm font-medium">Mood Patterns</span>
-                  <span className={`text-sm font-semibold ${
+                  <span className={`text-sm font-medium ${
                     researchMetrics.phq9Equivalent <= 4 ? 'text-sage-600' :
                     researchMetrics.phq9Equivalent <= 9 ? 'text-amber-600' :
                     researchMetrics.phq9Equivalent <= 14 ? 'text-orange-600' : 'text-rose-600'
@@ -587,7 +587,7 @@ export default function WellnessAnalytics() {
               <div className="relative">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-ink text-sm font-medium">Anxiety Levels</span>
-                  <span className={`text-sm font-semibold ${
+                  <span className={`text-sm font-medium ${
                     researchMetrics.gad7Equivalent <= 4 ? 'text-sage-600' :
                     researchMetrics.gad7Equivalent <= 9 ? 'text-amber-600' :
                     researchMetrics.gad7Equivalent <= 14 ? 'text-orange-600' : 'text-rose-600'
@@ -628,7 +628,7 @@ export default function WellnessAnalytics() {
                 <div className="w-12 h-12 bg-sage-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-sage-200 transition-colors duration-300">
                   <div className="w-6 h-6 bg-sage-400 rounded-lg opacity-80" />
                 </div>
-                <h4 className="text-ink font-semibold mb-2">Consistency Wins</h4>
+                <h4 className="text-ink font-medium mb-2">Consistency Wins</h4>
                 <p className="text-muted text-sm leading-relaxed">
                   Your {wellnessMetrics.streakDays}-day journaling streak shows remarkable dedication to self-care and reflection.
                 </p>
@@ -638,7 +638,7 @@ export default function WellnessAnalytics() {
                 <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-300">
                   <div className="w-6 h-6 bg-blue-400 rounded-lg opacity-80" />
                 </div>
-                <h4 className="text-ink font-semibold mb-2">Emotional Balance</h4>
+                <h4 className="text-ink font-medium mb-2">Emotional Balance</h4>
                 <p className="text-muted text-sm leading-relaxed">
                   Your mood stability score of {wellnessMetrics.moodStability}% indicates growing emotional resilience and self-awareness.
                 </p>
@@ -648,7 +648,7 @@ export default function WellnessAnalytics() {
                 <div className="w-12 h-12 bg-violet-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-violet-200 transition-colors duration-300">
                   <div className="w-6 h-6 bg-violet-400 rounded-lg opacity-80" />
                 </div>
-                <h4 className="text-ink font-semibold mb-2">Personal Growth</h4>
+                <h4 className="text-ink font-medium mb-2">Personal Growth</h4>
                 <p className="text-muted text-sm leading-relaxed">
                   Your overall wellness trend is {wellnessMetrics.growthTrend}, showing positive momentum in your healing journey.
                 </p>
@@ -658,7 +658,7 @@ export default function WellnessAnalytics() {
                 <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-emerald-200 transition-colors duration-300">
                   <div className="w-6 h-6 bg-emerald-400 rounded-lg opacity-80" />
                 </div>
-                <h4 className="text-ink font-semibold mb-2">Rich Reflections</h4>
+                <h4 className="text-ink font-medium mb-2">Rich Reflections</h4>
                 <p className="text-muted text-sm leading-relaxed">
                   With {wellnessMetrics.totalEntries} journal entries, you're building a meaningful archive of self-discovery.
                 </p>
@@ -670,14 +670,14 @@ export default function WellnessAnalytics() {
         {/* Action Cards */}
         <div className="space-y-6">
           <div className="bg-gradient-to-br from-sage-50 to-sage-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-sage-200">
-            <h4 className="text-ink font-semibold mb-4">Continue Your Journey</h4>
+            <h4 className="text-ink font-medium mb-4">Continue Your Journey</h4>
             <p className="text-muted text-sm mb-6 leading-relaxed">
               Your progress is beautiful. Keep nurturing your wellbeing with regular reflection.
             </p>
             <button 
               onClick={() => handleTouchSafeAction(() => window.location.href = '/journal')}
               className={`${touchTargetClass} w-full bg-sage-400 hover:bg-sage-500 text-white py-3 px-4 rounded-2xl font-medium transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 touch-target ${
-                isCrisisMode ? 'py-4 text-lg font-semibold bg-sage-500 border-2 border-sage-600' : ''
+                isCrisisMode ? 'py-4 text-lg font-medium bg-sage-500 border-2 border-sage-600' : ''
               }`}
             >
               Write New Entry
@@ -685,7 +685,7 @@ export default function WellnessAnalytics() {
           </div>
           
           <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-sage-100 shadow-card">
-            <h4 className="text-ink font-semibold mb-4">Share Your Progress</h4>
+            <h4 className="text-ink font-medium mb-4">Share Your Progress</h4>
             <p className="text-muted text-sm mb-6 leading-relaxed">
               Export your wellness data to share with healthcare providers or for personal records.
             </p>
@@ -693,7 +693,7 @@ export default function WellnessAnalytics() {
               onClick={() => handleTouchSafeAction(exportResearchData)}
               disabled={isLoading}
               className={`${touchTargetClass} w-full bg-sage-100 hover:bg-sage-200 text-sage-700 py-3 px-4 rounded-2xl font-medium transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 touch-target disabled:opacity-50 disabled:cursor-not-allowed ${
-                isCrisisMode ? 'py-4 text-lg font-semibold bg-sage-200 border-2 border-sage-400' : ''
+                isCrisisMode ? 'py-4 text-lg font-medium bg-sage-200 border-2 border-sage-400' : ''
               }`}
             >
               {isLoading ? 'Exporting...' : 'Export Data'}
@@ -707,7 +707,7 @@ export default function WellnessAnalytics() {
               <div className="w-10 h-10 bg-violet-100 rounded-2xl flex items-center justify-center">
                 <div className="w-5 h-5 bg-violet-400 rounded-lg opacity-80" />
               </div>
-              <h4 className="text-ink font-semibold">Set Wellness Goals</h4>
+              <h4 className="text-ink font-medium">Set Wellness Goals</h4>
             </div>
             <p className="text-muted text-sm mb-6 leading-relaxed">
               Based on your {selectedMetric} journey, consider setting a gentle goal for continued growth.
@@ -741,7 +741,7 @@ export default function WellnessAnalytics() {
                 alert('Wellness goal creation coming soon!');
               })}
               className={`${touchTargetClass} w-full bg-violet-400 hover:bg-violet-500 text-white py-3 px-4 rounded-2xl font-medium transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 touch-target ${
-                isCrisisMode ? 'py-4 text-lg font-semibold bg-violet-500 border-2 border-violet-600' : ''
+                isCrisisMode ? 'py-4 text-lg font-medium bg-violet-500 border-2 border-violet-600' : ''
               }`}
             >
               Create Wellness Goal
@@ -757,7 +757,7 @@ export default function WellnessAnalytics() {
             <div className="w-10 h-10 bg-emerald-100 rounded-2xl flex items-center justify-center">
               <div className="w-5 h-5 bg-emerald-400 rounded-lg opacity-80" />
             </div>
-            <h4 className="text-ink font-semibold text-sm">Mindful Moments</h4>
+            <h4 className="text-ink font-medium text-sm">Mindful Moments</h4>
           </div>
           <p className="text-muted text-xs leading-relaxed mb-4">
             Based on your mood patterns, try 5-minute breathing exercises when stress levels rise.
@@ -770,7 +770,7 @@ export default function WellnessAnalytics() {
             <div className="w-10 h-10 bg-amber-100 rounded-2xl flex items-center justify-center">
               <div className="w-5 h-5 bg-amber-400 rounded-lg opacity-80" />
             </div>
-            <h4 className="text-ink font-semibold text-sm">Energy Boosters</h4>
+            <h4 className="text-ink font-medium text-sm">Energy Boosters</h4>
           </div>
           <p className="text-muted text-xs leading-relaxed mb-4">
             Morning sunlight and gentle movement could enhance your energy consistency.
@@ -783,7 +783,7 @@ export default function WellnessAnalytics() {
             <div className="w-10 h-10 bg-rose-100 rounded-2xl flex items-center justify-center">
               <div className="w-5 h-5 bg-rose-400 rounded-lg opacity-80" />
             </div>
-            <h4 className="text-ink font-semibold text-sm">Sleep Sanctuary</h4>
+            <h4 className="text-ink font-medium text-sm">Sleep Sanctuary</h4>
           </div>
           <p className="text-muted text-xs leading-relaxed mb-4">
             Consider creating a bedtime ritual based on your sleep quality insights for deeper rest.
@@ -799,7 +799,7 @@ export default function WellnessAnalytics() {
             <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-400 rounded-xl sm:rounded-2xl opacity-80" />
           </div>
           <div className="flex-1">
-            <h3 className="text-ink font-semibold text-base sm:text-lg mb-3">Evidence-Based Wellness Tracking</h3>
+            <h3 className="text-ink font-medium text-base sm:text-lg mb-3">Evidence-Based Wellness Tracking</h3>
             <p className="text-muted text-sm leading-relaxed mb-4 sm:mb-6">
               Your analytics are based on validated psychological instruments used in research and clinical practice. 
               These insights support your personal growth but are not diagnostic tools. Always consult qualified 

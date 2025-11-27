@@ -1,12 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { useAuth } from '@/lib/useAuth';
-import { doc, collection, onSnapshot } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import { useMobileOptimization } from './MobileOptimizationProvider';
-import { useAnalytics } from '@/lib/analytics';
+import { useState, useEffect } from 'react';
+import { BADGE_DEFINITIONS, getEarnedBadges, BadgeTree as BadgeTreeType } from '@/lib/badges';
 
 interface Badge {
   key: string;
@@ -337,7 +332,7 @@ export default function BadgeTree() {
 
   // Crisis mode style overrides
   const touchTargetClass = isCrisisMode 
-    ? 'min-h-[60px] min-w-[60px] text-lg font-semibold border-2 border-red-400' 
+    ? 'min-h-[60px] min-w-[60px] text-lg font-medium border-2 border-red-400' 
     : 'min-h-[52px] min-w-[52px]';
     
   const crisisStyles = isCrisisMode ? {

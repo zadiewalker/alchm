@@ -150,7 +150,7 @@ export function AdaptiveInterfaceControls() {
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className="bg-white rounded-lg shadow-xl p-4 w-64 border"
           >
-            <h3 className="font-semibold text-blue-800 mb-4">Adaptive Controls</h3>
+            <h3 className="font-medium text-blue-800 mb-4">Adaptive Controls</h3>
             
             <div className="space-y-3">
               <label className="flex items-center gap-2 cursor-pointer">
@@ -269,7 +269,7 @@ export function SensoryFriendlyJournal({
     if (visualProcessing) {
       return (
         <div className="mb-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-          <h4 className="font-semibold text-blue-800 mb-2">📊 Visual Processing Mode</h4>
+          <h4 className="font-medium text-blue-800 mb-2">📊 Visual Processing Mode</h4>
           <div className="grid grid-cols-3 gap-2 mb-4">
             <div className="text-center p-3 bg-red-100 rounded cursor-pointer hover:bg-red-200">
               <div className="text-2xl mb-1">😰</div>
@@ -328,7 +328,7 @@ export function SensoryFriendlyJournal({
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚠️</span>
               <div>
-                <p className="font-semibold text-yellow-800">Break Time Suggestion</p>
+                <p className="font-medium text-yellow-800">Break Time Suggestion</p>
                 <p className="text-sm text-yellow-700">
                   You've been writing for a while. Consider taking a short break to prevent sensory overload.
                 </p>
@@ -361,7 +361,7 @@ export function SensoryFriendlyJournal({
       {/* Executive Function Support */}
       {profile.executiveFunctionSupport?.taskBreaking && (
         <div className="mb-4 p-4 bg-green-50 rounded-lg border-2 border-green-200">
-          <h4 className="font-semibold text-green-800 mb-2">📝 Writing Steps</h4>
+          <h4 className="font-medium text-green-800 mb-2">📝 Writing Steps</h4>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <input type="checkbox" className="rounded" />
@@ -542,7 +542,7 @@ export function NeurodivergentAffirmations({ profile }: { profile: Neurodiversit
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🧠</span>
-          <h3 className="text-lg font-semibold text-blue-800">
+          <h3 className="text-lg font-medium text-blue-800">
             Neurodivergent Affirmation
           </h3>
         </div>
@@ -631,7 +631,7 @@ export function ExecutiveFunctionSupport({ profile }: { profile: NeurodiversityP
 
   return (
     <Card className="p-6 bg-gradient-to-br from-green-50 to-teal-50 border-green-200">
-      <h3 className="text-lg font-semibold text-green-800 mb-4">
+      <h3 className="text-lg font-medium text-green-800 mb-4">
         🎯 Executive Function Support
       </h3>
       
@@ -639,7 +639,7 @@ export function ExecutiveFunctionSupport({ profile }: { profile: NeurodiversityP
         {/* Task Management */}
         {profile.executiveFunctionSupport?.taskBreaking && (
           <div>
-            <h4 className="font-semibold text-green-800 mb-3">Task Breakdown</h4>
+            <h4 className="font-medium text-green-800 mb-3">Task Breakdown</h4>
             <div className="space-y-3">
               <div className="flex gap-2">
                 <input
@@ -677,7 +677,7 @@ export function ExecutiveFunctionSupport({ profile }: { profile: NeurodiversityP
         {/* Pomodoro Timer */}
         {profile.executiveFunctionSupport?.timeManagement && (
           <div>
-            <h4 className="font-semibold text-green-800 mb-3">Focus Timer</h4>
+            <h4 className="font-medium text-green-800 mb-3">Focus Timer</h4>
             <div className="text-center">
               <div className="text-3xl font-mono text-green-800 mb-4">
                 {formatTime(pomodoroTimer)}

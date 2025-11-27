@@ -350,7 +350,7 @@ export const SophisticatedEmotionalReportCard: React.FC<SophisticatedEmotionalRe
             {showAnonymousComparison && (
               <div className="bg-sage-50 rounded-lg p-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-sage-800 mb-2">
+                  <div className="text-3xl font-medium text-sage-800 mb-2">
                     {reportData.anonymousComparison.percentile}th
                   </div>
                   <div className="text-sage-600 mb-4">

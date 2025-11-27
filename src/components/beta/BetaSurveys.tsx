@@ -164,7 +164,7 @@ export function BetaSurveys({ view = 'user' }: BetaSurveysProps) {
               ← Back to Surveys
             </Button>
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-medium text-gray-900 mb-2">
               {selectedSurvey.title}
             </h2>
             <p className="text-gray-600 mb-4">
@@ -226,7 +226,7 @@ export function BetaSurveys({ view = 'user' }: BetaSurveysProps) {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           {view === 'admin' ? 'Survey Management' : 'Surveys & Interviews'}
         </h1>
         <p className="text-gray-600">

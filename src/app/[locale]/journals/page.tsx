@@ -281,7 +281,7 @@ export default function JournalsPage() {
           variant="destructive"
           size="touch"
           onClick={() => window.open('tel:988', '_self')}
-          className="rounded-full w-16 h-16 p-0 shadow-sacred animate-crisis-attention"
+          className="rounded-full w-12 h-12 p-0 shadow-sacred animate-crisis-attention"
           aria-label="Crisis support - Call 988"
         >
           <span className="text-2xl">🆘</span>

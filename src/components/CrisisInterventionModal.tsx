@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { interactions } from '@/lib/design-system/interactions';
 
 interface CrisisAssessment {
   riskLevel: 'low' | 'moderate' | 'high' | 'crisis';
@@ -104,28 +105,18 @@ export default function CrisisInterventionModal({
   );
 
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1000,
-      padding: '1rem'
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '16px',
-        maxWidth: '600px',
-        width: '100%',
-        maxHeight: '90vh',
-        overflow: 'auto',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)'
-      }}>
+    <div 
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+      style={{
+        animation: 'fadeIn 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      }}
+    >
+      <div 
+        className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-auto shadow-2xl"
+        style={{
+          animation: 'scaleIn 500ms cubic-bezier(0.165, 0.84, 0.44, 1)'
+        }}
+      >
         {/* Header */}
         <div style={{
           backgroundColor: getRiskLevelColor(riskAssessment.riskLevel),
@@ -449,48 +440,38 @@ export default function CrisisInterventionModal({
             flexWrap: 'wrap'
           }}>
             <button
-              onClick={() => window.open('tel:988', '_self')}
-              style={{
-                background: '#c33',
-                color: 'white',
-                border: 'none',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                fontWeight: '600',
-                cursor: 'pointer'
+              onClick={(e) => {
+                // Crisis haptic feedback
+                if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+                  try {
+                    navigator.vibrate(80);
+                  } catch {}
+                }
+                window.open('tel:988', '_self');
               }}
+              className="bg-red-600 text-white font-medium px-6 py-4 rounded-lg min-h-[56px] transition-all duration-150 ease-out hover:bg-red-700 active:scale-[0.94] active:duration-100 focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
             >
               📞 Call 988 Now
             </button>
             
             <button
-              onClick={() => window.open('sms:741741?body=HOME', '_self')}
-              style={{
-                background: '#8ea876',
-                color: 'white',
-                border: 'none',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                fontWeight: '600',
-                cursor: 'pointer'
+              onClick={(e) => {
+                // Gentle haptic for text option
+                if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+                  try {
+                    navigator.vibrate(40);
+                  } catch {}
+                }
+                window.open('sms:741741?body=HOME', '_self');
               }}
+              className="bg-sage-400 text-white font-medium px-6 py-4 rounded-lg min-h-[56px] transition-all duration-150 ease-out hover:bg-sage-500 active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-sage-400 focus-visible:outline-offset-2"
             >
               💬 Text Crisis Line
             </button>
             
             <button
               onClick={onClose}
-              style={{
-                background: 'transparent',
-                color: '#666',
-                border: '2px solid #e5e5e5',
-                padding: '12px 24px',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                cursor: 'pointer'
-              }}
+              className="bg-white text-gray-600 border border-gray-300 px-6 py-4 rounded-lg min-h-[44px] transition-all duration-150 ease-out hover:bg-gray-50 active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-gray-400 focus-visible:outline-offset-2"
             >
               Close
             </button>

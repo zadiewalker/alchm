@@ -45,7 +45,7 @@ export function SafeSpaceIndicator({
         <div className="flex-grow space-y-whisper">
           <div className="flex items-center gap-gentle">
             {showIcon && <span className="text-lg">🏳️‍🌈</span>}
-            <SacredText variant="caption" className="font-semibold text-grounding-earth">
+            <SacredText variant="caption" className="font-medium text-grounding-earth">
               Safe Space Commitment
             </SacredText>
           </div>

@@ -142,7 +142,53 @@
       }
     }
   </style>
-</head>
+
+<script>
+// ALCHM Emergency Cache Buster - v1763242665984
+(function() {
+  const CURRENT_VERSION = 'v1763242665984';
+  const STORED_VERSION = localStorage.getItem('alchm-version');
+  
+  if (STORED_VERSION !== CURRENT_VERSION) {
+    console.log('🔄 Version change detected, clearing caches');
+    localStorage.setItem('alchm-version', CURRENT_VERSION);
+    
+    // Clear all caches
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('alchm')) caches.delete(name);
+        });
+      });
+    }
+    
+    // Force reload after cache clear
+    setTimeout(() => window.location.reload(true), 100);
+  }
+  
+  // Register emergency service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/emergency-sw.js?v=' + CURRENT_VERSION, {
+      updateViaCache: 'none'
+    }).then(registration => {
+      console.log('✅ Emergency SW registered:', CURRENT_VERSION);
+      
+      // Force update check every 30 seconds
+      setInterval(() => {
+        registration.update();
+      }, 30000);
+      
+      // Listen for SW messages
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data.type === 'FORCE_RELOAD') {
+          window.location.reload(true);
+        }
+      });
+      
+    }).catch(console.error);
+  }
+})();
+</script></head>
 <body>
   <div class="jony-ive-container">
     <div>

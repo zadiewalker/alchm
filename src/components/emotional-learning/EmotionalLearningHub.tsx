@@ -187,37 +187,47 @@ export const EmotionalLearningHub: React.FC<EmotionalLearningHubProps> = ({
   return (
     <div className={`w-full max-w-6xl mx-auto space-y-6 ${className}`}>
       {/* Header Section */}
-      <Card className="p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+      <Card 
+        variant="sanctuary" 
+        padding="large"
+        className="border border-sage-200/40"
+      >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-2">
+            <h1 className="text-[31px] leading-[1.25] tracking-[-0.02em] font-light text-charcoal-800 mb-3">
               Emotional Learning Hub
             </h1>
-            <p className="text-gray-600">
+            <p className="text-[16px] leading-[1.6] tracking-[0] font-normal text-charcoal-600 max-w-prose">
               Your personalized journey to emotional intelligence and healing
             </p>
           </div>
           
           {/* Quick Stats */}
           {learningProgress && (
-            <div className="flex space-x-6">
+            <div className="flex space-x-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
                   {learningProgress.currentStreak}
                 </div>
-                <div className="text-xs text-gray-600">Day Streak</div>
+                <div className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Day Streak
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
                   {learningProgress.totalSkillsLearned}
                 </div>
-                <div className="text-xs text-gray-600">Skills Learned</div>
+                <div className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Skills Learned
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">
+                <div className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
                   {badges.length}
                 </div>
-                <div className="text-xs text-gray-600">Badges Earned</div>
+                <div className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Badges Earned
+                </div>
               </div>
             </div>
           )}
@@ -233,16 +243,20 @@ export const EmotionalLearningHub: React.FC<EmotionalLearningHubProps> = ({
       )}
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-1 bg-gray-100 rounded-lg p-1">
+      <div className="flex space-x-1 bg-sage-50 rounded-2xl p-1 shadow-whisper">
         {(['learn', 'practice', 'progress', 'community'] as const).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+            className={cn([
+              'flex-1 py-3 px-6 rounded-xl',
+              'text-[14px] leading-[1.3] tracking-[0.015em] font-medium',
+              'transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage-400/40',
               activeTab === tab
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
+                ? 'bg-sanctuary text-charcoal-800 shadow-gentle transform scale-[1.02]'
+                : 'text-charcoal-600 hover:text-charcoal-800 hover:bg-sanctuary/50'
+            ])}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1).replace('_', ' ')}
           </button>
@@ -357,7 +371,7 @@ const GraceTokenDisplay: React.FC<{
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={e => e.stopPropagation()}
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              <h3 className="text-lg font-medium text-gray-800 mb-3">
                 Grace Tokens 💜
               </h3>
               <p className="text-gray-600 mb-4">
@@ -396,26 +410,32 @@ const LearningTab: React.FC<{
   return (
     <div className="space-y-6">
       {/* Recommended Next Lesson */}
-      <Card className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+      <Card 
+        variant="gentle" 
+        padding="large"
+        className="bg-gradient-to-br from-sage-50/60 to-sanctuary-50"
+      >
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            <h3 className="text-[16px] leading-[1.3] tracking-[0.01em] font-medium text-sage-600 mb-3">
               Recommended for You
             </h3>
-            <h4 className="text-xl font-medium text-blue-700 mb-3">
+            <h4 className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-charcoal-800 mb-4">
               The Sacred Pause - Your Superpower
             </h4>
-            <p className="text-gray-600 mb-4">
+            <p className="text-[16px] leading-[1.6] tracking-[0] font-normal text-charcoal-600 mb-6 max-w-prose">
               Master the space between trigger and response where all your power lives. 
               Perfect for when you're feeling reactive or overwhelmed.
             </p>
-            <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-              <span>⏱️ 5 minutes</span>
-              <span>🎯 Self-Regulation</span>
-              <span>🌱 Foundation Level</span>
+            <div className="flex items-center space-x-6 text-[14px] leading-[1.3] tracking-[0.015em] font-medium text-charcoal-600 mb-6">
+              <span className="flex items-center gap-2">⏱️ 5 minutes</span>
+              <span className="flex items-center gap-2">🎯 Self-Regulation</span>
+              <span className="flex items-center gap-2">🌱 Foundation Level</span>
             </div>
           </div>
           <Button
+            variant="primary"
+            size="large"
             onClick={() => {
               // Mock lesson data - would come from actual lesson system
               const mockLesson: EmotionalLesson = {
@@ -454,7 +474,6 @@ const LearningTab: React.FC<{
               };
               onLessonSelect(mockLesson);
             }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2"
           >
             Start Learning
           </Button>
@@ -507,10 +526,19 @@ const SkillTreeCard: React.FC<{
   const progressPercentage = (progress.lessonsCompleted / progress.totalLessons) * 100;
 
   return (
-    <Card className={`p-4 bg-gradient-to-br ${skillColors[competency]} border-opacity-50 hover:shadow-md transition-shadow cursor-pointer`}>
-      <div onClick={onExplore} className="space-y-3">
+    <Card 
+      variant="gentle" 
+      padding="medium"
+      interactive
+      className={cn([
+        `bg-gradient-to-br ${skillColors[competency]}`,
+        'border-sage-200/30',
+        'cursor-pointer'
+      ])}
+    >
+      <div onClick={onExplore} className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-800">
+          <h3 className="text-[18px] leading-[1.4] tracking-[-0.005em] font-medium text-charcoal-800">
             {skillNames[competency]}
           </h3>
           <div className="text-2xl">
@@ -518,21 +546,21 @@ const SkillTreeCard: React.FC<{
           </div>
         </div>
         
-        <p className="text-sm text-gray-600">
+        <p className="text-[14px] leading-[1.55] tracking-[0.005em] font-normal text-charcoal-600">
           Level {progress.currentLevel} • {progress.lessonsCompleted}/{progress.totalLessons} lessons
         </p>
         
         {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-sanctuary-200 rounded-full h-2 overflow-hidden">
           <motion.div
-            className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full"
+            className="bg-gradient-to-r from-sage-400 to-sage-500 h-2 rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           />
         </div>
         
-        <div className="text-xs text-gray-500">
+        <div className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
           Mastery: {progress.masteryScore}%
         </div>
       </div>
@@ -546,11 +574,11 @@ const PracticeTab: React.FC<{
 }> = ({ progress }) => {
   return (
     <div className="space-y-6">
-      <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+      <Card variant="elevated" padding="large">
+        <h3 className="text-[20px] leading-[1.35] tracking-[-0.01em] font-normal text-charcoal-800 mb-6">
           Quick Practice Sessions
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <PracticeCard
             title="2-Minute Emotion Check-In"
             description="Practice identifying and naming your current emotional state"
@@ -593,15 +621,26 @@ const PracticeCard: React.FC<{
   difficulty: string;
 }> = ({ title, description, duration, icon, difficulty }) => {
   return (
-    <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer">
-      <div className="flex items-start space-x-3">
+    <Card 
+      variant="gentle" 
+      padding="medium"
+      interactive
+      className="cursor-pointer"
+    >
+      <div className="flex items-start space-x-4">
         <div className="text-2xl">{icon}</div>
         <div className="flex-1">
-          <h4 className="font-medium text-gray-800 mb-1">{title}</h4>
-          <p className="text-sm text-gray-600 mb-3">{description}</p>
-          <div className="flex items-center justify-between text-xs text-gray-500">
+          <h4 className="text-[18px] leading-[1.4] tracking-[-0.005em] font-medium text-charcoal-800 mb-2">
+            {title}
+          </h4>
+          <p className="text-[14px] leading-[1.55] tracking-[0.005em] font-normal text-charcoal-600 mb-4">
+            {description}
+          </p>
+          <div className="flex items-center justify-between text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
             <span>⏱️ {duration} min</span>
-            <span className="px-2 py-1 bg-gray-100 rounded">{difficulty}</span>
+            <span className="px-2 py-1 bg-sage-100 text-sage-600 rounded-md">
+              {difficulty}
+            </span>
           </div>
         </div>
       </div>
@@ -616,7 +655,7 @@ const CommunityTab: React.FC<{
   return (
     <div className="space-y-6">
       <Card className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        <h3 className="text-lg font-medium text-gray-800 mb-4">
           Healing Together 🌸
         </h3>
         <p className="text-gray-600 mb-4">
@@ -707,7 +746,7 @@ const LessonInterface: React.FC<{
         exit={{ scale: 0.9, opacity: 0 }}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-800">{lesson.name}</h2>
+          <h2 className="text-xl font-medium text-gray-800">{lesson.name}</h2>
           <Button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             ✕
           </Button>
@@ -763,7 +802,7 @@ const CelebrationModal: React.FC<{
         onClick={e => e.stopPropagation()}
       >
         <div className="text-4xl mb-4">🎉</div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Beautiful Work!
         </h3>
         <p className="text-gray-600 mb-6">

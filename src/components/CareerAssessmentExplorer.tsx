@@ -217,7 +217,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
           <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center">
             <span className="text-white text-4xl">🎯</span>
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl font-medium text-gray-800 mb-4">
             Discover Your Career Path
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
@@ -230,14 +230,14 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
           {getAssessmentPhases().map((phase, index) => (
             <div key={index} className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="text-3xl mb-3">{phase.icon}</div>
-              <h3 className="font-semibold text-gray-800 mb-2">{phase.name}</h3>
+              <h3 className="font-medium text-gray-800 mb-2">{phase.name}</h3>
               <p className="text-sm text-gray-600">{phase.description}</p>
             </div>
           ))}
         </div>
 
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="font-semibold text-blue-800 mb-3">✨ What Makes This Assessment Special</h3>
+          <h3 className="font-medium text-blue-800 mb-3">✨ What Makes This Assessment Special</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="text-blue-700">
               <div className="font-medium mb-1">Journal Pattern Analysis</div>
@@ -298,7 +298,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
         {/* Question content */}
         <div className="bg-white rounded-lg border border-gray-200 p-8">
           <div className="mb-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            <h3 className="text-xl font-medium text-gray-800 mb-3">
               {question.question}
             </h3>
             {question.description && (
@@ -567,7 +567,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
           <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto flex items-center justify-center">
             <div className="animate-spin w-8 h-8 border-4 border-white border-t-transparent rounded-full"></div>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-2xl font-medium text-gray-800">
             Analyzing Your Career Profile
           </h2>
           <div className="space-y-3 text-gray-600">
@@ -584,7 +584,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
       <div className="space-y-8">
         {/* Results header */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl font-medium text-gray-800 mb-4">
             Your Career Exploration Results
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -594,7 +594,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
 
         {/* Career matches */}
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-800">🎯 Top Career Matches</h3>
+          <h3 className="text-xl font-medium text-gray-800">🎯 Top Career Matches</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {assessmentState.careerMatches.slice(0, 6).map((match, index) => (
               <div
@@ -603,7 +603,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
                 onClick={() => setSelectedCareerForDetails(match)}
               >
                 <div className="flex justify-between items-start mb-4">
-                  <h4 className="font-semibold text-gray-800">{match.career.title}</h4>
+                  <h4 className="font-medium text-gray-800">{match.career.title}</h4>
                   <span className="text-sm font-medium text-blue-600">
                     {Math.round(match.matchScore * 100)}% match
                   </span>
@@ -636,7 +636,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
 
         {/* Key insights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">💡 Key Insights About You</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-4">💡 Key Insights About You</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {careerInsights.slice(0, 4).map((insight, index) => (
               <div key={index} className="space-y-2">
@@ -653,7 +653,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
         {/* Journal insights */}
         {journalAnalysisResults && (
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-6">
-            <h3 className="text-xl font-semibold text-purple-800 mb-4">
+            <h3 className="text-xl font-medium text-purple-800 mb-4">
               📖 Insights from Your Journal
             </h3>
             <div className="space-y-3">
@@ -669,7 +669,7 @@ const CareerAssessmentExplorer: React.FC<CareerAssessmentProps> = ({
 
         {/* Next steps */}
         <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-green-800 mb-4">🚀 Recommended Next Steps</h3>
+          <h3 className="text-xl font-medium text-green-800 mb-4">🚀 Recommended Next Steps</h3>
           <div className="space-y-3">
             <div className="flex items-center space-x-3">
               <span className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm">1</span>

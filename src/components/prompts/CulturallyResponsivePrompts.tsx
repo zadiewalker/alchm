@@ -418,7 +418,7 @@ export function CulturallyResponsivePrompts({
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Culturally-Responsive Prompts</h1>
+        <h1 className="text-3xl font-medium text-gray-800 mb-4">Culturally-Responsive Prompts</h1>
         <p className="text-lg text-gray-600">
           Journaling prompts that honor your intersectional identity and cultural wisdom. 
           These prompts are designed to affirm who you are while supporting your healing journey.
@@ -427,7 +427,7 @@ export function CulturallyResponsivePrompts({
 
       {/* Cultural Safety Notice */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-        <h3 className="font-semibold text-blue-800 mb-2">Cultural Responsiveness & Safety</h3>
+        <h3 className="font-medium text-blue-800 mb-2">Cultural Responsiveness & Safety</h3>
         <ul className="text-sm text-blue-700 space-y-1">
           <li>• Prompts are developed with input from community members and cultural practitioners</li>
           <li>• All cultural references include proper attribution and respect cultural origins</li>
@@ -438,7 +438,7 @@ export function CulturallyResponsivePrompts({
 
       {/* Category Filter */}
       <div className="mb-6">
-        <h3 className="font-semibold text-gray-800 mb-3">Filter by Category:</h3>
+        <h3 className="font-medium text-gray-800 mb-3">Filter by Category:</h3>
         <div className="flex flex-wrap gap-2">
           {['all', 'identity_affirmation', 'cultural_navigation', 'community_healing', 'ancestral_wisdom', 'systemic_awareness', 'chosen_family', 'intersectional_strength'].map(category => (
             <button
@@ -471,7 +471,7 @@ export function CulturallyResponsivePrompts({
 
       {/* Cultural Attribution Footer */}
       <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-        <h3 className="font-semibold text-gray-800 mb-3">Cultural Acknowledgments</h3>
+        <h3 className="font-medium text-gray-800 mb-3">Cultural Acknowledgments</h3>
         <p className="text-sm text-gray-600 mb-2">
           These prompts are created with deep respect for the wisdom traditions of marginalized communities. 
           We acknowledge the sources of cultural knowledge and commit to supporting community-led healing initiatives.

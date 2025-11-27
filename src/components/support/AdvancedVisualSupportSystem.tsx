@@ -528,7 +528,7 @@ export function AdvancedVisualSupportSystem({
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {solution.title}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -550,7 +550,7 @@ export function AdvancedVisualSupportSystem({
             <div className="space-y-3">
               {solution.steps.map((step) => (
                 <div key={step.id} className="flex items-start gap-3 p-3 bg-sanctuary-gray-50 rounded">
-                  <div className="w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-bold">
+                  <div className="w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
                     {step.order}
                   </div>
                   <div className="flex-1">
@@ -633,7 +633,7 @@ export function AdvancedVisualSupportSystem({
                 <Camera className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-sanctuary-gray-800">
+                <h2 className="text-xl font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Visual Support Sanctuary' : 'Advanced Visual Diagnostics'}
                 </h2>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -738,7 +738,7 @@ export function AdvancedVisualSupportSystem({
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-sage-600" />
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Your Gentle Solutions' : 'Generated Solutions'}
                 </h3>
               </div>
@@ -780,7 +780,7 @@ export function AdvancedVisualSupportSystem({
       {showSessionHistory && sessions.length > 0 && (
         <Card>
           <CardHeader>
-            <h3 className="text-lg font-semibold text-sanctuary-gray-800">Recent Sessions</h3>
+            <h3 className="text-lg font-medium text-sanctuary-gray-800">Recent Sessions</h3>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">

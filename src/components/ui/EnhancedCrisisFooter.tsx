@@ -128,7 +128,7 @@ export function EnhancedCrisisFooter({
     switch (state.touchTargetSize) {
       case 'emergency': return 'w-20 h-20 text-2xl';
       case 'crisis': return 'w-18 h-18 text-xl';
-      case 'large': return 'w-16 h-16 text-lg';
+      case 'large': return 'w-12 h-12 text-lg';
       default: return 'w-14 h-14 text-base';
     }
   };
@@ -233,7 +233,7 @@ export function EnhancedCrisisFooter({
                 >
                   <div className="text-2xl">{resource.icon}</div>
                   <div className="text-left flex-1">
-                    <div className="font-semibold text-lg">{resource.label}</div>
+                    <div className="font-medium text-lg">{resource.label}</div>
                     <div className="text-sm opacity-90">{resource.description}</div>
                   </div>
                 </button>

@@ -260,7 +260,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
               <BarChart3 className="h-5 w-5 text-blue-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-sage-900">{patternAnalysis.insights.length}</div>
+              <div className="text-2xl font-medium text-sage-900">{patternAnalysis.insights.length}</div>
               <div className="text-sm text-sage-600">Insights Discovered</div>
             </div>
           </div>
@@ -272,7 +272,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
               <Target className="h-5 w-5 text-green-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-sage-900">{patternAnalysis.writingPatterns.averageWords}</div>
+              <div className="text-2xl font-medium text-sage-900">{patternAnalysis.writingPatterns.averageWords}</div>
               <div className="text-sm text-sage-600">Avg Words/Entry</div>
             </div>
           </div>
@@ -284,7 +284,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
               <Calendar className="h-5 w-5 text-purple-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-sage-900 capitalize">{patternAnalysis.writingPatterns.preferredTime}</div>
+              <div className="text-2xl font-medium text-sage-900 capitalize">{patternAnalysis.writingPatterns.preferredTime}</div>
               <div className="text-sm text-sage-600">Peak Writing Time</div>
             </div>
           </div>
@@ -296,7 +296,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
               <Sparkles className="h-5 w-5 text-orange-600" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-sage-900 capitalize">{patternAnalysis.writingPatterns.consistency}</div>
+              <div className="text-2xl font-medium text-sage-900 capitalize">{patternAnalysis.writingPatterns.consistency}</div>
               <div className="text-sm text-sage-600">Consistency Level</div>
             </div>
           </div>
@@ -348,7 +348,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h3 className="text-lg font-semibold text-sage-900 mb-1">{insight.title}</h3>
+                          <h3 className="text-lg font-medium text-sage-900 mb-1">{insight.title}</h3>
                           <div className="flex items-center gap-3">
                             <Badge className="capitalize text-xs">{insight.type}</Badge>
                             <span className="text-xl">{getTrendIcon(insight.trend)}</span>
@@ -406,7 +406,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
       {/* Emotional Distribution Chart */}
       {patternAnalysis.emotionalTrends.length > 0 && (
         <Card className="p-6 border-sage-200">
-          <h3 className="text-lg font-semibold text-sage-900 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-medium text-sage-900 mb-4 flex items-center gap-2">
             <PieChart className="h-5 w-5 text-sage-600" />
             Emotional Distribution
           </h3>
@@ -426,7 +426,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
               return (
                 <div key={mood} className="text-center">
                   <div className="mb-2">
-                    <div className={`w-16 h-16 rounded-full ${getMoodColor(mood)} mx-auto flex items-center justify-center text-white font-bold`}>
+                    <div className={`w-16 h-16 rounded-full ${getMoodColor(mood)} mx-auto flex items-center justify-center text-white font-medium`}>
                       {percentage}%
                     </div>
                   </div>
@@ -442,7 +442,7 @@ export function AIPatternRecognition({ entries }: AIPatternRecognitionProps) {
       {/* Core Themes */}
       {patternAnalysis.themes.length > 0 && (
         <Card className="p-6 border-sage-200">
-          <h3 className="text-lg font-semibold text-sage-900 mb-4 flex items-center gap-2">
+          <h3 className="text-lg font-medium text-sage-900 mb-4 flex items-center gap-2">
             <Brain className="h-5 w-5 text-sage-600" />
             Most Explored Themes
           </h3>

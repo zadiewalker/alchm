@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Jony Ive Interaction Design System Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+  }
+  to { 
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathingGentle {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.015);
+    opacity: 0.9;
+  }
+}
+
+@keyframes progressFill {
+  0% { 
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(0.7);
+  }
+  100% { 
+    transform: scaleX(1);
+  }
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -56,6 +100,28 @@
 
 /* PERFORMANCE-CRITICAL: Inline critical styles first */
 /* Essential sanctuary design tokens for immediate render */
+/* GPU acceleration for smooth animations */
+* {
+  /* Enable hardware acceleration for better performance */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  /* Optimize font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+}
+
+/* High-performance scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 :root {
   /* Sage System - Performance optimized */
   --sage-primary: #a4b792;
@@ -64,10 +130,25 @@
   --sage-light: #f6f8f4;
   --sage-muted: #d6e0cd;
   
-  /* Sanctuary Foundation */
+  /* Sanctuary Foundation - Luxury Glass System */
   --sanctuary: #fefcfb;
-  --sanctuary-glass: rgba(254, 252, 251, 0.85);
-  --sanctuary-mist: rgba(254, 252, 251, 0.05);
+  --sanctuary-glass: rgba(254, 252, 251, 0.80);
+  --sanctuary-glass-light: rgba(254, 252, 251, 0.50);
+  --sanctuary-glass-heavy: rgba(254, 252, 251, 0.95);
+  --sanctuary-mist: rgba(254, 252, 251, 0.10);
+  
+  /* Luxury Color Opacity Standards */
+  --sage-10: rgba(164, 183, 146, 0.10);
+  --sage-20: rgba(164, 183, 146, 0.20);
+  --sage-50: rgba(164, 183, 146, 0.50);
+  --sage-80: rgba(164, 183, 146, 0.80);
+  --sage-95: rgba(164, 183, 146, 0.95);
+  
+  --white-10: rgba(255, 255, 255, 0.10);
+  --white-20: rgba(255, 255, 255, 0.20);
+  --white-50: rgba(255, 255, 255, 0.50);
+  --white-80: rgba(255, 255, 255, 0.80);
+  --white-95: rgba(255, 255, 255, 0.95);
   
   /* Performance-optimized font stack - instant render */
   --font-system: 'Sanctuary', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -79,10 +160,16 @@
   --space-md: calc(var(--space-unit) * 3);
   --space-lg: calc(var(--space-unit) * 4);
   
-  /* Essential radii */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  /* Luxury radii - Apple-level precision */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  
+  /* Luxury Shadow System - Three-tier hierarchy */
+  --shadow-subtle: 0 4px 16px rgba(164, 183, 146, 0.08), 0 2px 8px rgba(164, 183, 146, 0.04);
+  --shadow-medium: 0 8px 24px rgba(164, 183, 146, 0.12), 0 4px 12px rgba(164, 183, 146, 0.08);
+  --shadow-high: 0 16px 40px rgba(164, 183, 146, 0.16), 0 8px 20px rgba(164, 183, 146, 0.12);
   
   /* Performance-tuned animations */
   --ease-sanctuary: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -90,12 +177,15 @@
   --duration-base: 300ms;
 }
 
-/* Critical body styles for FCP */
+/* Critical body styles for FCP - Performance Optimized */
 html {
   font-family: var(--font-system);
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Performance optimizations */
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeSpeed;
 }
 
 body {
@@ -106,6 +196,12 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  /* Performance optimizations */
+  will-change: scroll-position;
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+  /* Better scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* CRITICAL: Inline critical sanctuary styles for sub-1s FCP */
@@ -175,6 +271,12 @@ body {
   box-shadow: 0 2px 8px rgba(164, 183, 146, 0.2);
   will-change: transform;
   transform: translate3d(0, 0, 0);
+  /* Performance optimizations */
+  backface-visibility: hidden;
+  perspective: 1000px;
+  /* Touch optimization */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sanctuary-button:hover {
@@ -183,10 +285,8 @@ body {
   box-shadow: 0 4px 16px rgba(164, 183, 146, 0.25);
 }
 
-/* DEFERRED: Load non-critical styles after FCP */
-@media print {
-  @import '../styles/alchm-jony-ive-foundation.css';
-}
+/* CRITICAL: Load Jony Ive foundation for consistent design system */
+@import '../styles/alchm-jony-ive-foundation.css';
 
 /* PERFORMANCE-OPTIMIZED: Age Verification Animations */
 @keyframes fade-in {
@@ -408,35 +508,42 @@ body {
   padding: 0;
 }
 
-/* Sacred Typography Hierarchy - Semantic HTML Styling */
+/* Sacred Typography Hierarchy - Semantic HTML Styling with Trauma-Informed Enhancements */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: var(--font-weight-light);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-snug); /* Enhanced from tight for better readability */
   letter-spacing: var(--letter-spacing-snug);
   margin: 0;
   color: inherit;
+  /* Better rendering for all devices */
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 h1 {
   font-size: 2.5rem; /* 40px */
   font-weight: var(--font-weight-thin);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-snug); /* Improved from tight */
   letter-spacing: var(--letter-spacing-tight);
+  /* Enhanced for mobile */
+  max-width: 20ch; /* Prevent overly long lines */
 }
 
 h2 {
   font-size: 2rem; /* 32px */
   font-weight: var(--font-weight-light);
-  line-height: var(--line-height-snug);
+  line-height: var(--line-height-normal); /* Enhanced from snug */
   letter-spacing: var(--letter-spacing-snug);
+  max-width: 30ch;
 }
 
 h3 {
   font-size: 1.5rem; /* 24px */
   font-weight: var(--font-weight-light);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-comfortable); /* Enhanced from normal */
   letter-spacing: var(--letter-spacing-normal);
+  max-width: 40ch;
 }
 
 h4 {
@@ -461,7 +568,7 @@ h6 {
   text-transform: uppercase;
 }
 
-/* Sacred Body Text */
+/* Sacred Body Text - Trauma-Informed Reading Experience */
 p {
   font-family: var(--font-text);
   font-size: 1rem; /* 16px */
@@ -469,6 +576,19 @@ p {
   line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-normal);
   margin: 0;
+  /* Enhanced readability */
+  max-width: 65ch; /* Optimal reading line length */
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+}
+
+/* Enhanced paragraph spacing for better flow */
+p + p {
+  margin-top: var(--space-md);
+}
+
+p:has(+ h1, + h2, + h3, + h4, + h5, + h6) {
+  margin-bottom: var(--space-lg);
 }
 
 /* Sacred Supporting Text */
@@ -479,13 +599,35 @@ small {
   letter-spacing: var(--letter-spacing-wide);
 }
 
-/* Sacred Interactive Text */
+/* Sacred Interactive Text - Enhanced Accessibility */
 a {
   font-family: inherit;
   font-weight: inherit;
   color: inherit;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+  transition: all var(--duration-breath) var(--ease-sanctuary);
+  /* Enhanced touch targets */
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  margin: calc(var(--space-xs) * -1) calc(var(--space-sm) * -1);
+  border-radius: var(--radius-sm);
+}
+
+/* Hover and focus states for links */
+a:hover {
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--sage-primary);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--sage-primary);
+  outline-offset: 2px;
+  background-color: var(--sage-light);
 }
 
 button, input, textarea, select {
@@ -733,14 +875,41 @@ code, pre {
   outline: 2px solid var(--sanctuary);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+  /* Performance optimization for focus states */
+  transition: outline-color var(--duration-fast) var(--ease-sanctuary);
 }
 
-/* Reduced motion respect */
+/* Performance-optimized focus for interactive elements */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  /* Use transform instead of box-shadow for better performance */
+  transform: translateZ(0) scale(1.02);
+  transition: transform var(--duration-fast) var(--ease-sanctuary);
+}
+
+/* Reduced motion respect - Enhanced for trauma-informed design */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  /* Maintain essential accessibility feedback with reduced motion */
+  *:focus-visible {
+    transition: outline-color 0.15s ease !important;
+    transition-duration: 0.15s !important;
+  }
+  
+  /* Crisis animations that should remain for safety */
+  .animate-crisis-attention,
+  .crisis-pulse {
+    animation: none !important;
+    /* Use static visual indicators instead */
+    border: 3px solid currentColor !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5) !important;
   }
 }
 
@@ -970,6 +1139,124 @@ code, pre {
   }
 }
 
+/* Sacred UX Error Handling Animations */
+@keyframes gentle-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+@keyframes gentle-fade {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes gentle-sparkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(180deg) scale(1.1);
+  }
+}
+
+/* Breathing Exercise Animations */
+@keyframes breathe-inhale {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+@keyframes breathe-hold {
+  0%, 100% { transform: scale(1.2); }
+}
+
+@keyframes breathe-exhale {
+  0% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes breathe-pause {
+  0%, 100% { transform: scale(1); }
+}
+
+@keyframes breathe-prepare {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Specific breathing circle animations for different phases */
+@keyframes breathe-circle-inhale {
+  0% { 
+    transform: scale(1);
+    border-width: 3px;
+  }
+  100% { 
+    transform: scale(1.3);
+    border-width: 5px;
+  }
+}
+
+@keyframes breathe-circle-hold {
+  0%, 100% { 
+    transform: scale(1.3);
+    border-width: 5px;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes breathe-circle-exhale {
+  0% { 
+    transform: scale(1.3);
+    border-width: 5px;
+  }
+  100% { 
+    transform: scale(1);
+    border-width: 3px;
+  }
+}
+
+@keyframes breathe-circle-pause {
+  0%, 100% { 
+    transform: scale(1);
+    border-width: 3px;
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
 @keyframes crisis-attention {
   0%, 100% {
     transform: scale(1);
@@ -1180,17 +1467,48 @@ code, pre {
 
 /* === ACCESSIBILITY ENHANCEMENTS === */
 
-/* High contrast mode support */
+/* High contrast mode support - Enhanced for accessibility */
 @media (prefers-contrast: high) {
   .sanctuary-glass {
-    background: rgba(254, 252, 251, 0.95);
-    border: 2px solid var(--sage-active);
+    background: rgba(254, 252, 251, 0.98) !important;
+    border: 3px solid var(--sage-active) !important;
   }
   
   .shadow-soft,
   .shadow-elevated,
   .shadow-floating {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
+  }
+  
+  /* Enhanced focus indicators for high contrast */
+  *:focus-visible {
+    outline-width: 4px !important;
+    outline-style: solid !important;
+    outline-color: currentColor !important;
+    outline-offset: 2px !important;
+  }
+  
+  /* Crisis buttons with enhanced contrast */
+  .bg-red-500,
+  .bg-red-600 {
+    background-color: #dc2626 !important;
+    border: 3px solid #991b1b !important;
+    color: #ffffff !important;
+  }
+  
+  /* All interactive elements get enhanced borders */
+  button,
+  a[href],
+  [role="button"],
+  [tabindex="0"] {
+    border: 2px solid currentColor !important;
+    min-height: 48px !important;
+  }
+  
+  /* Enhanced text contrast */
+  .text-sanctuary-gray-600,
+  .text-sanctuary-gray-500 {
+    color: var(--charcoal-800) !important;
   }
 }
 
@@ -1884,6 +2202,140 @@ code, pre {
   box-shadow: var(--crisis-safe-shadow) !important;
 }
 
+/* === JONY IVE PREMIUM ANIMATIONS === */
+
+/* Gentle breathing animation for sanctuary elements */
+@keyframes gentle-breathe {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(100%);
+  }
+  50% {
+    transform: scale(1.02) rotate(0.5deg);
+    filter: brightness(105%);
+  }
+}
+
+.animate-gentle-breathe {
+  animation: gentle-breathe 6s ease-in-out infinite;
+}
+
+/* Luxury glass morphism utilities - Apple-level precision */
+.bg-sanctuary-glass {
+  background: var(--sanctuary-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.bg-sanctuary-glass-light {
+  background: var(--sanctuary-glass-light);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.bg-sanctuary-glass-heavy {
+  background: var(--sanctuary-glass-heavy);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+}
+
+/* Luxury Shadow Utilities */
+.shadow-luxury-subtle {
+  box-shadow: var(--shadow-subtle);
+}
+
+.shadow-luxury-medium {
+  box-shadow: var(--shadow-medium);
+}
+
+.shadow-luxury-high {
+  box-shadow: var(--shadow-high);
+}
+
+/* Luxury Border Radius System - Apple Precision */
+.rounded-luxury-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-luxury-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-luxury-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-luxury-xl {
+  border-radius: var(--radius-xl);
+}
+
+/* Luxury Spacing System - 8px Grid */
+.p-luxury-xs { padding: 8px; }
+.p-luxury-sm { padding: 16px; }
+.p-luxury-md { padding: 24px; }
+.p-luxury-lg { padding: 32px; }
+.p-luxury-xl { padding: 48px; }
+.p-luxury-2xl { padding: 64px; }
+
+.px-luxury-xs { padding-left: 8px; padding-right: 8px; }
+.px-luxury-sm { padding-left: 16px; padding-right: 16px; }
+.px-luxury-md { padding-left: 24px; padding-right: 24px; }
+.px-luxury-lg { padding-left: 32px; padding-right: 32px; }
+.px-luxury-xl { padding-left: 48px; padding-right: 48px; }
+.px-luxury-2xl { padding-left: 64px; padding-right: 64px; }
+
+.py-luxury-xs { padding-top: 8px; padding-bottom: 8px; }
+.py-luxury-sm { padding-top: 16px; padding-bottom: 16px; }
+.py-luxury-md { padding-top: 24px; padding-bottom: 24px; }
+.py-luxury-lg { padding-top: 32px; padding-bottom: 32px; }
+.py-luxury-xl { padding-top: 48px; padding-bottom: 48px; }
+.py-luxury-2xl { padding-top: 64px; padding-bottom: 64px; }
+
+.m-luxury-xs { margin: 8px; }
+.m-luxury-sm { margin: 16px; }
+.m-luxury-md { margin: 24px; }
+.m-luxury-lg { margin: 32px; }
+.m-luxury-xl { margin: 48px; }
+.m-luxury-2xl { margin: 64px; }
+
+.mb-luxury-xs { margin-bottom: 8px; }
+.mb-luxury-sm { margin-bottom: 16px; }
+.mb-luxury-md { margin-bottom: 24px; }
+.mb-luxury-lg { margin-bottom: 32px; }
+.mb-luxury-xl { margin-bottom: 48px; }
+.mb-luxury-2xl { margin-bottom: 64px; }
+
+/* Luxury Animation System - Apple Timing */
+.transition-luxury {
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-luxury-fast {
+  transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-luxury-slow {
+  transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.bg-sage-glass {
+  background: rgba(164, 183, 146, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.bg-terracotta-glass {
+  background: rgba(203, 153, 126, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.bg-blush-glass {
+  background: rgba(238, 221, 211, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 /* === NEUROPLASTICITY ANIMATIONS === */
 
 /* Neural pathway formation animation */
@@ -2113,4 +2565,112 @@ code, pre {
 
 .animate-self-compassion-glow {
   animation: self-compassion-glow var(--healing-breath) ease-in-out infinite;
+}
+
+/* === JONY IVE PREMIUM MOBILE OPTIMIZATIONS === */
+
+/* Premium Mobile Experience - Luxury on Every Device */
+@media (max-width: 768px) {
+  /* Refined mobile typography */
+  .text-5xlarge {
+    font-size: 2.5rem !important; /* 40px */
+    line-height: 1.2 !important;
+    letter-spacing: -0.025em !important;
+  }
+  
+  .text-4xlarge {
+    font-size: 2rem !important; /* 32px */
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important;
+  }
+  
+  .text-3xlarge {
+    font-size: 1.75rem !important; /* 28px */
+    line-height: 1.3 !important;
+  }
+  
+  /* Enhanced mobile spacing */
+  .p-meditation {
+    padding: 2rem !important;
+  }
+  
+  .px-meditation {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+  
+  .py-meditation {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Mobile-optimized shadows for performance */
+  .shadow-sanctuary {
+    box-shadow: 0 4px 16px rgba(164, 183, 146, 0.12), 0 8px 24px rgba(164, 183, 146, 0.08) !important;
+  }
+  
+  .shadow-temple {
+    box-shadow: 0 8px 20px rgba(164, 183, 146, 0.16), 0 16px 32px rgba(164, 183, 146, 0.10) !important;
+  }
+  
+  /* Mobile touch optimization - Enhanced accessibility */
+  .min-h-\\[72px\\] {
+    min-height: 72px !important; /* Maintain larger touch targets */
+  }
+  
+  .min-w-\\[280px\\] {
+    min-width: 280px !important; /* Maintain adequate width */
+  }
+  
+  /* Crisis-safe mobile touch targets */
+  .min-h-touch-default {
+    min-height: 48px !important; /* Increased from 44px for easier access */
+  }
+  
+  .min-h-touch-crisis {
+    min-height: 56px !important; /* Larger for crisis situations */
+  }
+  
+  .min-h-touch-emergency {
+    min-height: 64px !important; /* Maximum size for emergency access */
+  }
+  
+  /* Reduce motion for accessibility and battery */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-gentle-breathe,
+    .animate-ping,
+    .animate-pulse {
+      animation: none !important;
+    }
+    
+    .hover\\:scale-\\[1\\.02\\]:hover {
+      transform: none !important;
+    }
+    
+    .hover\\:-translate-y-1:hover {
+      transform: none !important;
+    }
+    
+    .transition-all {
+      transition: opacity 0.2s ease !important;
+    }
+  }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  .bg-sanctuary-glass {
+    background: rgba(247, 247, 242, 0.95) !important;
+    border: 2px solid #a4b792 !important;
+  }
+  
+  .bg-sage-glass {
+    background: rgba(164, 183, 146, 0.3) !important;
+    border: 2px solid #7a8c6a !important;
+  }
+  
+  .text-sanctuary-100\\/90 {
+    color: #fefcfb !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+  }
 }

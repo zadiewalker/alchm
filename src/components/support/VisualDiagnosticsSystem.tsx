@@ -439,7 +439,7 @@ export function VisualDiagnosticsSystem({
               <Shield className="w-6 h-6 text-sage-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800">
                 Privacy Protection
               </h3>
               <p className="text-sm text-sanctuary-gray-600">
@@ -523,7 +523,7 @@ export function VisualDiagnosticsSystem({
                 <Camera className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Visual Support Helper' : 'Screenshot Analysis'}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">

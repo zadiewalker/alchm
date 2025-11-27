@@ -391,7 +391,7 @@ export function FirstSessionMagicMobile({
 
           {/* Step Content */}
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-semibold text-[#505c42] mb-3 tracking-tight leading-[1.6]">
+            <h2 className="text-2xl font-medium text-[#505c42] mb-3 tracking-tight leading-[1.6]">
               {currentStepData.title}
             </h2>
             <p className="text-[#7a8c6a] text-base leading-[1.7] mb-4">
@@ -453,7 +453,7 @@ export function FirstSessionMagicMobile({
                     handleResponse(currentStepData.id, 'write-now');
                     handleComplete({ ...responses, [currentStepData.id]: 'write-now' });
                   })}
-                  className="w-full py-4 px-6 bg-[#a4b792] hover:bg-[#93a682] text-white rounded-2xl text-base font-semibold min-h-[60px] transition-all duration-200 hover:shadow-lg"
+                  className="w-full py-4 px-6 bg-[#a4b792] hover:bg-[#93a682] text-white rounded-2xl text-base font-medium min-h-[60px] transition-all duration-200 hover:shadow-lg"
                   style={{
                     touchAction: 'manipulation',
                     WebkitTapHighlightColor: 'rgba(164, 183, 146, 0.3)'
@@ -500,7 +500,7 @@ export function FirstSessionMagicMobile({
                 onClick={handleNext}
                 disabled={!canProceed || isLoading}
                 className={`
-                  py-4 rounded-2xl text-base font-semibold min-h-[60px] transition-all duration-200
+                  py-4 rounded-2xl text-base font-medium min-h-[60px] transition-all duration-200
                   ${currentStep === 0 ? 'w-full' : 'flex-1'}
                   ${canProceed 
                     ? 'bg-[#a4b792] hover:bg-[#93a682] text-white hover:shadow-lg' 

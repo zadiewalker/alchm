@@ -158,7 +158,7 @@ export default function PerformanceMonitor() {
       {/* Header */}
       <div className="p-3 border-b border-gray-200 bg-gray-50 rounded-t-lg">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-800">
+          <h3 className="text-sm font-medium text-gray-800">
             🏥 ALCHM Performance Monitor
           </h3>
           <button
@@ -198,7 +198,7 @@ export default function PerformanceMonitor() {
                   <span className="text-gray-600 truncate flex-1 mr-2">
                     {resource.split('/').pop()}
                   </span>
-                  <span className={`font-mono ${time > 3000 ? 'text-red-600 font-bold' : time > 2000 ? 'text-yellow-600' : 'text-green-600'}`}>
+                  <span className={`font-mono ${time > 3000 ? 'text-red-600 font-medium' : time > 2000 ? 'text-yellow-600' : 'text-green-600'}`}>
                     {Math.round(time)}ms
                   </span>
                 </div>

@@ -161,7 +161,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
   const renderSetupPhase = () => (
     <Card className="border-2 border-purple-200 max-w-4xl mx-auto">
       <CardHeader className="text-center bg-gradient-to-r from-purple-100 to-indigo-100">
-        <CardTitle className="text-3xl font-bold text-purple-800 flex items-center justify-center gap-3">
+        <CardTitle className="text-3xl font-medium text-purple-800 flex items-center justify-center gap-3">
           <Shield className="h-8 w-8" />
           Trauma-Informed Beta Testing Setup
         </CardTitle>
@@ -192,7 +192,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
         {/* Framework Components Status */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-purple-800">Safety Protocols</h3>
+            <h3 className="text-lg font-medium text-purple-800">Safety Protocols</h3>
             <div className="space-y-2">
               {[
                 'Trauma-informed consent processes',
@@ -209,7 +209,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-purple-800">Cultural Competency</h3>
+            <h3 className="text-lg font-medium text-purple-800">Cultural Competency</h3>
             <div className="space-y-2">
               {[
                 'Community partnership network',
@@ -228,7 +228,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
 
         {/* Community Partners */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-purple-800 flex items-center gap-2">
+          <h3 className="text-lg font-medium text-purple-800 flex items-center gap-2">
             <Users className="h-5 w-5" />
             Community Partners Active
           </h3>
@@ -250,7 +250,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
             <div className="flex items-center gap-3">
               <AlertTriangle className="h-6 w-6 text-red-600" />
               <div>
-                <h4 className="font-semibold text-red-800">24/7 Crisis Support Active</h4>
+                <h4 className="font-medium text-red-800">24/7 Crisis Support Active</h4>
                 <p className="text-sm text-red-700">
                   Culturally competent crisis counselors standing by throughout testing
                 </p>
@@ -400,7 +400,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
   const renderResultsPhase = () => (
     <Card className="border-2 border-green-200 max-w-6xl mx-auto">
       <CardHeader className="text-center bg-gradient-to-r from-green-100 to-blue-100">
-        <CardTitle className="text-3xl font-bold text-green-800 flex items-center justify-center gap-3">
+        <CardTitle className="text-3xl font-medium text-green-800 flex items-center justify-center gap-3">
           <Crown className="h-8 w-8" />
           Beta Testing Complete - Community Wisdom Gathered
         </CardTitle>
@@ -440,7 +440,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
           ].map((metric, index) => (
             <div key={index} className="text-center p-6 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border">
               <metric.icon className={`h-8 w-8 mx-auto mb-3 text-${metric.color}-600`} />
-              <div className="text-3xl font-bold text-gray-800 mb-1">{metric.value.toFixed(1)}/5.0</div>
+              <div className="text-3xl font-medium text-gray-800 mb-1">{metric.value.toFixed(1)}/5.0</div>
               <div className="text-sm text-gray-600">{metric.label}</div>
             </div>
           ))}
@@ -450,7 +450,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
         <div className="text-center p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border-2 border-green-200">
           <div className="flex items-center justify-center gap-3 mb-4">
             <CheckCircle className="h-8 w-8 text-green-600" />
-            <h3 className="text-2xl font-bold text-green-800">Community Endorsed</h3>
+            <h3 className="text-2xl font-medium text-green-800">Community Endorsed</h3>
           </div>
           <p className="text-green-700">
             This beta testing validates that ALCHM shows strong potential as a culturally-responsive 
@@ -460,7 +460,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
 
         {/* Key Recommendations */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+          <h3 className="text-xl font-medium text-gray-800 flex items-center gap-2">
             <BookOpen className="h-6 w-6" />
             Community Recommendations
           </h3>
@@ -478,7 +478,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
 
         {/* Impact Statement */}
         <div className="p-6 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-          <h3 className="text-xl font-semibold text-purple-800 mb-3">Your Impact</h3>
+          <h3 className="text-xl font-medium text-purple-800 mb-3">Your Impact</h3>
           <p className="text-purple-700 leading-relaxed">
             Your participation in this trauma-informed beta testing has directly contributed to making 
             ALCHM a more culturally-responsive, accessible, and healing-centered platform. Your wisdom 
@@ -489,26 +489,26 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
 
         {/* Community Connections */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+          <h3 className="text-xl font-medium text-gray-800 flex items-center gap-2">
             <Users className="h-6 w-6" />
             Ongoing Community Connection
           </h3>
           <div className="grid md:grid-cols-3 gap-4">
             <Button className="h-16 bg-green-600 hover:bg-green-700 text-white">
               <div className="text-center">
-                <div className="font-semibold">Community Updates</div>
+                <div className="font-medium">Community Updates</div>
                 <div className="text-sm opacity-90">Stay informed on improvements</div>
               </div>
             </Button>
             <Button className="h-16 bg-blue-600 hover:bg-blue-700 text-white">
               <div className="text-center">
-                <div className="font-semibold">Healing Circles</div>
+                <div className="font-medium">Healing Circles</div>
                 <div className="text-sm opacity-90">Connect with peer support</div>
               </div>
             </Button>
             <Button className="h-16 bg-purple-600 hover:bg-purple-700 text-white">
               <div className="text-center">
-                <div className="font-semibold">Advocacy Opportunities</div>
+                <div className="font-medium">Advocacy Opportunities</div>
                 <div className="text-sm opacity-90">Champion community needs</div>
               </div>
             </Button>
@@ -526,7 +526,7 @@ const TraumaInformedBetaFramework: React.FC<TraumaInformedBetaFrameworkProps> = 
             <div className="animate-spin mx-auto">
               <Zap className="h-16 w-16 text-purple-600" />
             </div>
-            <h2 className="text-2xl font-bold text-purple-800">Initializing Framework</h2>
+            <h2 className="text-2xl font-medium text-purple-800">Initializing Framework</h2>
             <p className="text-purple-600">
               Setting up trauma-informed testing protocols and community partnerships...
             </p>
@@ -614,7 +614,7 @@ const ParticipantSetupForm: React.FC<{ onSetupComplete: (profile: ParticipantPro
 
   return (
     <div className="space-y-6 border-t pt-6">
-      <h3 className="text-xl font-semibold text-purple-800">Participant Setup</h3>
+      <h3 className="text-xl font-medium text-purple-800">Participant Setup</h3>
       
       {/* Cultural Background */}
       <div className="space-y-3">

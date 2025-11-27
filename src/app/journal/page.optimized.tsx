@@ -104,7 +104,7 @@ const AIInsightDisplay = memo(function AIInsightDisplay({
 
       {aiInsight.responseType === 'crisis_support' && aiInsight.resources && (
         <div className="mt-6 p-4 bg-red-500/20 rounded-lg border border-red-400/30">
-          <h4 className="font-semibold text-white mb-3">Crisis Support Resources:</h4>
+          <h4 className="font-medium text-white mb-3">Crisis Support Resources:</h4>
           <div className="space-y-2">
             {aiInsight.resources.map((resource: string, index: number) => (
               <div key={index} className="text-white/90 text-sm">
@@ -304,7 +304,7 @@ export default memo(function JournalPage() {
             <span>🆘 Crisis support available</span>
             <a 
               href="tel:988" 
-              className="bg-white text-red-600 px-4 py-2 rounded-lg font-bold min-h-[44px] min-w-[100px] flex items-center justify-center"
+              className="bg-white text-red-600 px-4 py-2 rounded-lg font-medium min-h-[44px] min-w-[100px] flex items-center justify-center"
               style={{ touchAction: 'manipulation' }}
             >
               Call 988
@@ -405,7 +405,7 @@ export default memo(function JournalPage() {
 
         {/* Crisis Support Notice - MOBILE EMERGENCY OPTIMIZATION */}
         <div className="mt-12 bg-white/15 backdrop-blur-sm rounded-2xl p-8 border-2 border-white/40 text-center crisis-emergency-isolation" style={{ marginBottom: '32px' }}>
-          <p className="text-white font-semibold text-base mb-6 crisis-support-text">
+          <p className="text-white font-medium text-base mb-6 crisis-support-text">
             Crisis Support Available 24/7
           </p>
           <div className="mb-6">

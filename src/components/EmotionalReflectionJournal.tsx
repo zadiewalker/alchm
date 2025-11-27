@@ -490,7 +490,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           Emotional Reflection & Journaling
         </h2>
         <p className="text-gray-600">
@@ -501,7 +501,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
       {/* Trauma-Informed Welcome */}
       {traumaInformedSettings.resourceReminders && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <h3 className="font-semibold text-green-800 mb-2">Your Emotional Journey</h3>
+          <h3 className="font-medium text-green-800 mb-2">Your Emotional Journey</h3>
           <p className="text-green-700 text-sm">
             Remember: You are the expert on your own experience. Share only what feels safe and helpful. 
             You can pause, skip, or stop at any time.
@@ -533,7 +533,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
       {activeSection === 'guided' && (
         <div className="space-y-6">
           <div className="mb-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            <h3 className="text-lg font-medium text-gray-800 mb-2">
               Guided Reflection Prompts
             </h3>
             <p className="text-gray-600 text-sm">
@@ -604,7 +604,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
           {/* Current Prompt Display */}
           {currentPrompt && (
             <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <h3 className="font-semibold text-blue-800 mb-2">{currentPrompt.title}</h3>
+              <h3 className="font-medium text-blue-800 mb-2">{currentPrompt.title}</h3>
               <p className="text-blue-700">{currentPrompt.prompt}</p>
               {currentPrompt.culturalAdaptation && (
                 <p className="text-blue-600 text-sm mt-2 italic">{currentPrompt.culturalAdaptation}</p>
@@ -795,14 +795,14 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
       {/* Pattern Recognition */}
       {activeSection === 'patterns' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="text-lg font-medium text-gray-800">
             Emotional Patterns & Insights
           </h3>
 
           {/* Detected Patterns */}
           {journalEntry.themes.length > 0 && (
             <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <h4 className="font-semibold text-yellow-800 mb-2">Themes Detected</h4>
+              <h4 className="font-medium text-yellow-800 mb-2">Themes Detected</h4>
               <div className="flex flex-wrap gap-2">
                 {journalEntry.themes.map((theme) => (
                   <span 
@@ -819,7 +819,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
           {/* Strengths Recognized */}
           {journalEntry.strengthsRecognized.length > 0 && (
             <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <h4 className="font-semibold text-green-800 mb-2">Strengths Recognized</h4>
+              <h4 className="font-medium text-green-800 mb-2">Strengths Recognized</h4>
               <div className="flex flex-wrap gap-2">
                 {journalEntry.strengthsRecognized.map((strength) => (
                   <span 
@@ -836,7 +836,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
           {/* Breakthrough Moments */}
           {journalEntry.breakthroughMoments.length > 0 && (
             <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
-              <h4 className="font-semibold text-purple-800 mb-2">Breakthrough Moments</h4>
+              <h4 className="font-medium text-purple-800 mb-2">Breakthrough Moments</h4>
               <div className="space-y-2">
                 {journalEntry.breakthroughMoments.map((moment, index) => (
                   <div key={index} className="text-purple-700 text-sm">
@@ -852,7 +852,7 @@ const EmotionalReflectionJournal: React.FC<EmotionalReflectionProps> = ({
       {/* AI Insights */}
       {activeSection === 'insights' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="text-lg font-medium text-gray-800">
             AI-Generated Insights
           </h3>
 

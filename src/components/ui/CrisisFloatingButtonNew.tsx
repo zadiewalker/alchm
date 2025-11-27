@@ -239,7 +239,7 @@ export function CrisisFloatingButton({
           {isCrisisDetected ? '🚨' : '🆘'}
         </div>
         
-        <h2 id="crisis-modal-title" className="text-3xl font-bold text-gray-900 mb-4">
+        <h2 id="crisis-modal-title" className="text-3xl font-medium text-gray-900 mb-4">
           {isCrisisDetected ? 'Emergency Support Now' : 'Crisis Support Available'}
         </h2>
         
@@ -261,7 +261,7 @@ export function CrisisFloatingButton({
           <a 
             ref={firstFocusableRef}
             href="tel:988"
-            className="block w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-bold py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-red-500/50 mb-2"
+            className="block w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-medium py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-red-500/50 mb-2"
             style={{ minHeight: '80px', touchAction: 'manipulation' }}
             aria-label="Call 988 Crisis Lifeline immediately"
           >
@@ -273,7 +273,7 @@ export function CrisisFloatingButton({
           {/* Text crisis line */}
           <a 
             href="sms:741741?body=HOME"
-            className="block w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-blue-500/50 mb-2"
+            className="block w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-blue-500/50 mb-2"
             style={{ minHeight: '80px', touchAction: 'manipulation' }}
             aria-label="Text HOME to 741741 for crisis support"
           >
@@ -288,7 +288,7 @@ export function CrisisFloatingButton({
               href="https://suicidepreventionlifeline.org/chat/"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-bold py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-green-500/50 mb-2"
+              className="block w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-medium py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-green-500/50 mb-2"
               style={{ minHeight: '80px', touchAction: 'manipulation' }}
               aria-label="Start live chat with crisis counselor"
             >
@@ -302,7 +302,7 @@ export function CrisisFloatingButton({
           {isCrisisDetected && (
             <a 
               href="tel:911"
-              className="block w-full bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-bold py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-orange-500/50 mb-2"
+              className="block w-full bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-medium py-6 px-8 rounded-2xl transition-colors touch-manipulation focus:outline-none focus:ring-4 focus:ring-orange-500/50 mb-2"
               style={{ minHeight: '80px', touchAction: 'manipulation' }}
               aria-label="Call 911 for immediate emergency assistance"
             >

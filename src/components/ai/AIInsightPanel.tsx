@@ -131,7 +131,7 @@ export function AIInsightPanel({
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Brain className="h-6 w-6 text-purple-400" />
-                <h2 className="text-xl font-bold text-white">AI Insights</h2>
+                <h2 className="text-xl font-medium text-white">AI Insights</h2>
                 <Badge 
                   variant="outline" 
                   className={`${getRiskLevelColor()} border-opacity-50`}
@@ -255,7 +255,7 @@ export function AIInsightPanel({
                           <TrendingUp className="h-5 w-5 text-blue-400" />
                           <span className="text-gray-300">Predicted mood improvement</span>
                         </div>
-                        <div className="text-2xl font-bold text-blue-400">
+                        <div className="text-2xl font-medium text-blue-400">
                           +{(insight.moodPrediction - 5).toFixed(1)}
                         </div>
                       </div>

@@ -97,7 +97,7 @@ export default function EnhancedPrivacyNotice({
       <div className="fixed bottom-0 left-0 right-0 z-50 bg-blue-900 text-white p-4 shadow-2xl">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-4">
           <div className="flex-1 text-center md:text-left">
-            <h3 className="font-semibold text-lg mb-1">{ageContent.title}</h3>
+            <h3 className="font-medium text-lg mb-1">{ageContent.title}</h3>
             <p className="text-blue-100 text-sm">
               {ageContent.description} {' '}
               <Link href="/privacy-policy.html" className="underline hover:text-white">
@@ -114,7 +114,7 @@ export default function EnhancedPrivacyNotice({
             </button>
             <button
               onClick={handleAccept}
-              className="px-6 py-2 bg-white text-blue-900 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+              className="px-6 py-2 bg-white text-blue-900 rounded-lg font-medium hover:bg-blue-50 transition-colors"
             >
               I Understand
             </button>
@@ -133,12 +133,12 @@ export default function EnhancedPrivacyNotice({
               <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl">🛡️</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">{ageContent.title}</h2>
+              <h2 className="text-2xl font-medium text-gray-900 mb-2">{ageContent.title}</h2>
               <p className="text-blue-600">{ageContent.description}</p>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6">
-              <h3 className="font-bold text-gray-800 mb-3">Your Privacy Rights & Protections</h3>
+              <h3 className="font-medium text-gray-800 mb-3">Your Privacy Rights & Protections</h3>
               <ul className="space-y-2">
                 {ageContent.highlights.map((highlight, index) => (
                   <li key={index} className="text-sm text-gray-700 flex items-start gap-2">
@@ -151,7 +151,7 @@ export default function EnhancedPrivacyNotice({
 
             {showGoogleSpecific && (
               <div className="bg-red-50 rounded-xl p-6 border-2 border-red-200">
-                <h3 className="font-bold text-red-800 mb-3">🔍 Google Authentication Data Collection</h3>
+                <h3 className="font-medium text-red-800 mb-3">🔍 Google Authentication Data Collection</h3>
                 <div className="space-y-2 text-sm text-red-800">
                   <p><strong>What Google collects during sign-in:</strong></p>
                   <ul className="ml-4 space-y-1 list-disc">
@@ -173,7 +173,7 @@ export default function EnhancedPrivacyNotice({
 
             {userAgeStatus === 'teen' && (
               <div className="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-200">
-                <h3 className="font-bold text-yellow-800 mb-3">🌟 Special Protections for Teen Users</h3>
+                <h3 className="font-medium text-yellow-800 mb-3">🌟 Special Protections for Teen Users</h3>
                 <div className="space-y-2 text-sm text-yellow-800">
                   <p><strong>Enhanced Privacy Measures:</strong></p>
                   <ul className="ml-4 space-y-1 list-disc">
@@ -188,10 +188,10 @@ export default function EnhancedPrivacyNotice({
             )}
 
             <div className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
-              <h3 className="font-bold text-green-800 mb-3">✅ Regulatory Compliance</h3>
+              <h3 className="font-medium text-green-800 mb-3">✅ Regulatory Compliance</h3>
               <div className="grid md:grid-cols-2 gap-4 text-sm text-green-800">
                 <div>
-                  <p className="font-semibold">🇺🇸 United States</p>
+                  <p className="font-medium">🇺🇸 United States</p>
                   <ul className="ml-4 list-disc">
                     <li>COPPA (Children's Privacy)</li>
                     <li>CCPA (California Privacy Rights)</li>
@@ -199,7 +199,7 @@ export default function EnhancedPrivacyNotice({
                   </ul>
                 </div>
                 <div>
-                  <p className="font-semibold">🌍 International</p>
+                  <p className="font-medium">🌍 International</p>
                   <ul className="ml-4 list-disc">
                     <li>GDPR (European Union)</li>
                     <li>PIPEDA (Canada)</li>
@@ -212,7 +212,7 @@ export default function EnhancedPrivacyNotice({
             <div className="space-y-4">
               <button
                 onClick={handleAccept}
-                className="w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-colors"
+                className="w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors"
               >
                 ✅ I Understand and Accept These Privacy Terms
               </button>
@@ -252,7 +252,7 @@ export default function EnhancedPrivacyNotice({
           <span className="text-2xl">🛡️</span>
         </div>
         <div className="flex-1">
-          <h3 className="font-bold text-blue-800 mb-2">{ageContent.title}</h3>
+          <h3 className="font-medium text-blue-800 mb-2">{ageContent.title}</h3>
           <p className="text-blue-700 text-sm mb-3">{ageContent.description}</p>
           <ul className="space-y-1 text-xs text-blue-600 mb-4">
             {ageContent.highlights.slice(0, 3).map((highlight, index) => (

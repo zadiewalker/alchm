@@ -300,7 +300,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
       <Card key={assessment.id} className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h3 className="text-lg font-semibold">{assessment.name}</h3>
+            <h3 className="text-lg font-medium">{assessment.name}</h3>
             <p className="text-sm text-gray-600">{assessment.description}</p>
             <p className="text-xs text-gray-500 mt-1">
               Assessed {assessment.frequency} • Last: {assessment.lastCompleted?.toLocaleDateString()}
@@ -308,7 +308,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
           </div>
           
           <div className="text-right">
-            <div className={`text-2xl font-bold ${
+            <div className={`text-2xl font-medium ${
               latestScore.category === 'low' ? 'text-green-600' :
               latestScore.category === 'moderate' ? 'text-amber-600' :
               latestScore.category === 'high' ? 'text-red-600' : 'text-red-800'
@@ -417,11 +417,11 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
 
         {/* Progress Summary */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Therapeutic Progress Summary</h3>
+          <h3 className="text-lg font-medium mb-4">Therapeutic Progress Summary</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <h4 className="font-medium mb-2">Targets Achieved</h4>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-medium text-green-600">
                 {therapeuticOutcomes.filter(o => o.progress >= 1).length}/{therapeuticOutcomes.length}
               </div>
               <div className="text-sm text-gray-600">outcome measures</div>
@@ -429,7 +429,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
             
             <div>
               <h4 className="font-medium mb-2">Average Progress</h4>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-medium text-blue-600">
                 {Math.round(therapeuticOutcomes.reduce((sum, o) => sum + o.progress, 0) / therapeuticOutcomes.length * 100)}%
               </div>
               <div className="text-sm text-gray-600">toward targets</div>
@@ -437,7 +437,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
             
             <div>
               <h4 className="font-medium mb-2">Improving Areas</h4>
-              <div className="text-2xl font-bold text-amber-600">
+              <div className="text-2xl font-medium text-amber-600">
                 {therapeuticOutcomes.filter(o => o.trend === 'improving').length}
               </div>
               <div className="text-sm text-gray-600">active improvements</div>
@@ -454,7 +454,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
     return (
       <div className="space-y-6">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Journal-Clinical Correlations</h3>
+          <h3 className="text-lg font-medium mb-4">Journal-Clinical Correlations</h3>
           <p className="text-sm text-gray-600 mb-4">
             Statistical relationships between your journaling patterns and clinical assessment scores.
           </p>
@@ -483,7 +483,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
 
         {/* Correlation Strength Guide */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Understanding Correlations</h3>
+          <h3 className="text-lg font-medium mb-4">Understanding Correlations</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <h4 className="font-medium mb-2">Strong (|r| ≥ 0.7)</h4>
@@ -513,7 +513,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
       <div className="space-y-6">
         <Card className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold">Professional Assessment Report</h3>
+            <h3 className="text-lg font-medium">Professional Assessment Report</h3>
             <div className="text-sm text-gray-500">
               Generated: {professionalReport.generatedDate.toLocaleDateString()}
             </div>
@@ -633,7 +633,7 @@ export const ProfessionalAssessmentIntegration: React.FC<ProfessionalAssessmentI
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Professional Assessment Integration</h2>
+          <h2 className="text-2xl font-medium">Professional Assessment Integration</h2>
           <p className="text-gray-600">
             Clinical-grade measurements correlated with your transformation journey
           </p>

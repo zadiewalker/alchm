@@ -229,7 +229,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
                 <span className="text-blue-600 text-xl">🎯</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {activeGoals.length}
                 </div>
                 <div className="text-sm text-gray-600">Active Goals</div>
@@ -243,7 +243,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
                 <span className="text-green-600 text-xl">✅</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getCompletedGoalsCount(activeGoals)}
                 </div>
                 <div className="text-sm text-gray-600">Completed Goals</div>
@@ -257,7 +257,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
                 <span className="text-purple-600 text-xl">📈</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {Math.round(getAverageProgress(activeGoals) * 100)}%
                 </div>
                 <div className="text-sm text-gray-600">Average Progress</div>
@@ -271,7 +271,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
                 <span className="text-orange-600 text-xl">🔥</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getActiveStreakDays(activeGoals)}
                 </div>
                 <div className="text-sm text-gray-600">Day Streak</div>
@@ -299,7 +299,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
               <div key={goal.goalId} className="bg-white rounded-lg border border-gray-200 p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="font-semibold text-gray-800">{goal.title}</h4>
+                    <h4 className="font-medium text-gray-800">{goal.title}</h4>
                     <p className="text-sm text-gray-600">{goal.category.replace('_', ' ').toUpperCase()}</p>
                   </div>
                   <span className={`px-2 py-1 rounded text-xs ${
@@ -399,7 +399,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Vision Board</h3>
+          <h3 className="text-xl font-medium text-gray-800">Vision Board</h3>
           <button
             onClick={() => setIsEditingVision(!isEditingVision)}
             className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
@@ -410,7 +410,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
         {/* Vision statement */}
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg p-8 text-center">
-          <h3 className="text-2xl font-bold mb-4">Your Vision</h3>
+          <h3 className="text-2xl font-medium mb-4">Your Vision</h3>
           <p className="text-lg opacity-90">
             {visionProfile.lifeVision?.visionStatement || "Define your inspiring vision for the future"}
           </p>
@@ -420,7 +420,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="text-2xl mb-3 text-center">💼</div>
-            <h4 className="font-semibold text-gray-800 mb-2 text-center">Career Vision</h4>
+            <h4 className="font-medium text-gray-800 mb-2 text-center">Career Vision</h4>
             <p className="text-sm text-gray-600 text-center">
               {visionProfile.careerVision?.description || "Your professional aspirations"}
             </p>
@@ -428,7 +428,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="text-2xl mb-3 text-center">🌟</div>
-            <h4 className="font-semibold text-gray-800 mb-2 text-center">Personal Vision</h4>
+            <h4 className="font-medium text-gray-800 mb-2 text-center">Personal Vision</h4>
             <p className="text-sm text-gray-600 text-center">
               {visionProfile.personalVision?.description || "Your personal growth goals"}
             </p>
@@ -436,7 +436,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="text-2xl mb-3 text-center">🌍</div>
-            <h4 className="font-semibold text-gray-800 mb-2 text-center">Impact Vision</h4>
+            <h4 className="font-medium text-gray-800 mb-2 text-center">Impact Vision</h4>
             <p className="text-sm text-gray-600 text-center">
               {visionProfile.impactVision?.description || "The impact you want to make"}
             </p>
@@ -444,7 +444,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="text-2xl mb-3 text-center">💎</div>
-            <h4 className="font-semibold text-gray-800 mb-2 text-center">Values</h4>
+            <h4 className="font-medium text-gray-800 mb-2 text-center">Values</h4>
             <div className="space-y-1">
               {identityProfile.personalIdentity?.coreValues?.slice(0, 3).map((value, index) => (
                 <div key={index} className="text-xs text-purple-600 text-center">
@@ -457,7 +457,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
         {/* Interactive vision board canvas */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Visual Vision Board</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Visual Vision Board</h4>
           <div className="relative w-full h-96 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border-2 border-dashed border-gray-300">
             {visionBoard.map((element) => (
               <div
@@ -491,12 +491,12 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
 
         {/* Role models and inspiration */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">🌟 Role Models & Inspiration</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">🌟 Role Models & Inspiration</h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {visionProfile.roleModels?.slice(0, 3).map((roleModel, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full mx-auto mb-3 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">
+                  <span className="text-white font-medium text-lg">
                     {roleModel.name?.charAt(0) || 'R'}
                   </span>
                 </div>
@@ -519,7 +519,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">
+            <h3 className="text-xl font-medium text-gray-800">
               Create SMART Goal - Step {getStepNumber(goalCreationState.currentStep)} of 6
             </h3>
             <button
@@ -576,7 +576,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
       case 'type':
         return (
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-800">What type of goal would you like to create?</h4>
+            <h4 className="text-lg font-medium text-gray-800">What type of goal would you like to create?</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {getGoalTypes().map((type) => (
                 <button
@@ -603,7 +603,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
       case 'specific':
         return (
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-gray-800">Make your goal Specific</h4>
+            <h4 className="text-lg font-medium text-gray-800">Make your goal Specific</h4>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Goal Title</label>
@@ -671,7 +671,7 @@ const SMARTGoalVisionPlanning: React.FC<GoalVisionPlanningProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             SMART Goals & Vision Planning
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

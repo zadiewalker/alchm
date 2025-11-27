@@ -169,7 +169,7 @@ export type SerializedJournalEntry = Omit<JournalEntry, 'createdAt' | 'updatedAt
 export interface QueryPerformance {
   queryType: string;
   duration: number;
-  typeof window !== 'undefined' && documentsRead: number;
+  documentsRead: number;
   cacheHit: boolean;
   timestamp: Date;
 }

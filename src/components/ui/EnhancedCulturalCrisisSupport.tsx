@@ -193,7 +193,7 @@ export function EnhancedCulturalCrisisSupport({
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-800 flex items-center gap-2">
+                          <h4 className="font-medium text-gray-800 flex items-center gap-2">
                             {resource.name}
                             {resource.culturallySpecific && (
                               <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
@@ -241,7 +241,7 @@ export function EnhancedCulturalCrisisSupport({
                 {/* Additional Safety Options */}
                 {userProfile?.riskFactors && (
                   <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <h4 className="font-semibold text-yellow-800 mb-2">Additional Safety Options</h4>
+                    <h4 className="font-medium text-yellow-800 mb-2">Additional Safety Options</h4>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Button
                         variant="outline"

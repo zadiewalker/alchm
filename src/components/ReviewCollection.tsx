@@ -65,26 +65,26 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
   const OverallRatingStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">How would you rate your ALCHM experience?</h2>
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">How would you rate your ALCHM experience?</h2>
         <p className="text-gray-600">Your feedback helps us improve trauma-informed care for everyone</p>
       </div>
 
       <div className="bg-blue-50 p-6 rounded-xl mb-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold text-blue-600">{userStats.daysUsing}</div>
+            <div className="text-2xl font-medium text-blue-600">{userStats.daysUsing}</div>
             <div className="text-sm text-blue-700">Days with ALCHM</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-green-600">{userStats.streakDays}</div>
+            <div className="text-2xl font-medium text-green-600">{userStats.streakDays}</div>
             <div className="text-sm text-green-700">Current Streak</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-purple-600">{userStats.badgesEarned}</div>
+            <div className="text-2xl font-medium text-purple-600">{userStats.badgesEarned}</div>
             <div className="text-sm text-purple-700">Badges Earned</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-amber-600">{userStats.journalEntries}</div>
+            <div className="text-2xl font-medium text-amber-600">{userStats.journalEntries}</div>
             <div className="text-sm text-amber-700">Journal Entries</div>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
     return (
       <div className="space-y-6">
         <div className="text-center mb-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-2">Rate Specific Aspects</h2>
+          <h2 className="text-xl font-medium text-gray-800 mb-2">Rate Specific Aspects</h2>
           <p className="text-gray-600">Help us understand what's working well</p>
         </div>
 
@@ -171,7 +171,7 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
             <div key={category.key} className="bg-gray-50 p-4 rounded-lg">
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <h3 className="font-semibold text-gray-800">{category.title}</h3>
+                  <h3 className="font-medium text-gray-800">{category.title}</h3>
                   <p className="text-sm text-gray-600">{category.description}</p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
   const WrittenReviewStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Share Your ALCHM Story</h2>
+        <h2 className="text-xl font-medium text-gray-800 mb-2">Share Your ALCHM Story</h2>
         <p className="text-gray-600">Your story could help others on their healing journey</p>
       </div>
 
@@ -280,7 +280,7 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
   const ImprovementsStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Help Us Improve</h2>
+        <h2 className="text-xl font-medium text-gray-800 mb-2">Help Us Improve</h2>
         <p className="text-gray-600">Your insights guide our trauma-informed development</p>
       </div>
 
@@ -317,7 +317,7 @@ export default function ReviewCollection({ userId, userStats, onSubmit, onSkip }
   const PermissionsStep = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-2">Review Sharing Options</h2>
+        <h2 className="text-xl font-medium text-gray-800 mb-2">Review Sharing Options</h2>
         <p className="text-gray-600">You have complete control over your review's visibility</p>
       </div>
 

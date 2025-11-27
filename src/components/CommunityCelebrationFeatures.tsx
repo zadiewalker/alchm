@@ -294,7 +294,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
         <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-yellow-800">🎉 Celebrate Together</h3>
+              <h3 className="text-lg font-medium text-yellow-800">🎉 Celebrate Together</h3>
               <p className="text-yellow-700">Join community celebrations and create meaningful connections</p>
             </div>
             <button
@@ -352,7 +352,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
                        celebration.type === 'progress_appreciation' ? '📈' : '✨'}
                     </span>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-800">{celebration.title}</h3>
+                      <h3 className="text-lg font-medium text-gray-800">{celebration.title}</h3>
                       <div className="text-sm text-gray-600">
                         {celebration.type.replace('_', ' ').toUpperCase()} • {celebration.celebrant.userName}
                       </div>
@@ -438,7 +438,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
         {upcomingCelebrations.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🎉</div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">No Upcoming Celebrations</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">No Upcoming Celebrations</h3>
             <p className="text-gray-600 mb-4">Be the first to create a celebration for your community!</p>
             <button
               onClick={() => setShowCreateModal(true)}
@@ -462,7 +462,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse" />
-                  <h3 className="text-lg font-semibold text-gray-800">LIVE: {celebration.title}</h3>
+                  <h3 className="text-lg font-medium text-gray-800">LIVE: {celebration.title}</h3>
                 </div>
                 <button
                   onClick={() => {
@@ -509,7 +509,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
         ) : (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🌟</div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">No Live Celebrations</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-2">No Live Celebrations</h3>
             <p className="text-gray-600">Check back later or create your own celebration!</p>
           </div>
         )}
@@ -526,7 +526,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
         <div className="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-semibold text-gray-800">{selectedCelebration.title}</h3>
+              <h3 className="text-2xl font-medium text-gray-800">{selectedCelebration.title}</h3>
               <button
                 onClick={() => setShowCelebrationModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -539,7 +539,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
               {/* Celebration overview */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Celebration Details</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Celebration Details</h4>
                   <div className="space-y-2 text-sm">
                     <div><span className="text-gray-600">Type:</span> {selectedCelebration.type.replace('_', ' ')}</div>
                     <div><span className="text-gray-600">Celebrant:</span> {selectedCelebration.celebrant.userName}</div>
@@ -550,7 +550,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Community</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Community</h4>
                   <div className="space-y-2">
                     <div className="text-sm text-gray-600">{selectedCelebration.participants.length} participants</div>
                     <div className="flex flex-wrap gap-2">
@@ -572,7 +572,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
               {/* Celebration activities */}
               {selectedCelebration.celebrationActivities.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Planned Activities</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Planned Activities</h4>
                   <div className="space-y-3">
                     {selectedCelebration.celebrationActivities.map((activity, index) => (
                       <div key={index} className="p-4 border border-gray-200 rounded-lg">
@@ -596,7 +596,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
               {/* Cultural elements */}
               {selectedCelebration.culturalElements.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Cultural Elements</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Cultural Elements</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {selectedCelebration.culturalElements.map((element, index) => (
                       <div key={index} className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
@@ -614,7 +614,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
               {/* Celebration responses */}
               {selectedCelebration.responses.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Community Responses</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Community Responses</h4>
                   <div className="max-h-64 overflow-y-auto space-y-3">
                     {selectedCelebration.responses.map((response, index) => (
                       <div key={index} className="p-3 bg-gray-50 rounded-lg">
@@ -665,7 +665,7 @@ const CommunityCelebrationFeatures: React.FC<CommunityCelebrationFeaturesProps> 
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Community Celebrations
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

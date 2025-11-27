@@ -242,7 +242,7 @@ export function ProfessionalTestimonials() {
             <div className="grid md:grid-cols-3 gap-4">
               {testimonial.clientOutcomes.map((outcome, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-2xl font-bold text-green-700">
+                  <div className="text-2xl font-medium text-green-700">
                     {outcome.improvement}
                   </div>
                   <div className="text-sm font-medium text-green-800">
@@ -327,19 +327,19 @@ export function ProfessionalTestimonials() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <div className="text-2xl font-bold text-blue-600">500+</div>
+              <div className="text-2xl font-medium text-blue-600">500+</div>
               <div className="text-sm text-slate-600">Licensed professionals</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-purple-600">89%</div>
+              <div className="text-2xl font-medium text-purple-600">89%</div>
               <div className="text-sm text-slate-600">Report improved outcomes</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-green-600">94%</div>
+              <div className="text-2xl font-medium text-green-600">94%</div>
               <div className="text-sm text-slate-600">Would recommend ALCHM</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-orange-600">15,000+</div>
+              <div className="text-2xl font-medium text-orange-600">15,000+</div>
               <div className="text-sm text-slate-600">Clients served</div>
             </div>
           </div>

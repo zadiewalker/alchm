@@ -268,7 +268,7 @@ export default function EmotionalReportCard({
         
         {/* Floating percentage */}
         <div className="absolute top-3 right-3 px-2 py-1 rounded-lg bg-white/80 backdrop-blur-sm">
-          <span className={`font-semibold text-sage-700 ${
+          <span className={`font-medium text-sage-700 ${
             isMobile ? 'text-base' : 'text-sm'
           }`}>
             {Math.round(value * 100)}%
@@ -277,7 +277,7 @@ export default function EmotionalReportCard({
         
         {/* Metric label */}
         <div className="absolute bottom-3 left-3">
-          <h4 className={`font-semibold text-sage-800 tracking-tight ${
+          <h4 className={`font-medium text-sage-800 tracking-tight ${
             isMobile ? 'text-base' : 'text-sm'
           }`}>
             {label}
@@ -341,7 +341,7 @@ export default function EmotionalReportCard({
             <span className="text-lg group-hover:scale-110 transition-transform duration-200">
               {getPatternIcon(pattern.type)}
             </span>
-            <h3 className="font-semibold text-sm tracking-tight">
+            <h3 className="font-medium text-sm tracking-tight">
               {pattern.title}
             </h3>
           </div>
@@ -406,7 +406,7 @@ export default function EmotionalReportCard({
           
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-1">
-              <h3 className="font-semibold text-sm text-sage-800 tracking-tight">
+              <h3 className="font-medium text-sm text-sage-800 tracking-tight">
                 {milestone.title}
               </h3>
               <span className={`text-xs px-2 py-1 rounded-full font-medium ${getCategoryColor(milestone.category)}`}>
@@ -441,7 +441,7 @@ export default function EmotionalReportCard({
           <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-sage-50 to-sage-100">
             <div className="w-6 h-6 bg-sage-400 rounded-full animate-gentle-pulse opacity-60" />
           </div>
-          <h3 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+          <h3 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
             Gathering Your Healing Insights
           </h3>
           <p className="text-sage-600 text-sm tracking-wide">
@@ -463,7 +463,7 @@ export default function EmotionalReportCard({
           <span className="text-2xl opacity-60 animate-gentle-breathe">🌱</span>
         </div>
         
-        <h3 className="text-sage-800 font-semibold text-xl mb-3 tracking-tight">
+        <h3 className="text-sage-800 font-medium text-xl mb-3 tracking-tight">
           Your Emotional Garden Is Growing
         </h3>
         
@@ -527,7 +527,7 @@ export default function EmotionalReportCard({
       <div className="p-8 pb-0">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-sage-800 font-semibold text-2xl mb-1 tracking-tight">
+            <h2 className="text-sage-800 font-medium text-2xl mb-1 tracking-tight">
               Your Emotional Journey
             </h2>
             <p className="text-sage-600 text-sm tracking-wide font-medium">
@@ -546,7 +546,7 @@ export default function EmotionalReportCard({
               <span className="text-xl animate-gentle-pulse">🌸</span>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold text-sage-700">
+              <div className="text-lg font-medium text-sage-700">
                 {journeyData.streakDays} days
               </div>
               <div className="text-xs text-sage-600 font-medium">
@@ -585,7 +585,7 @@ export default function EmotionalReportCard({
           <div className="space-y-6 animate-fade-in">
             {/* Emotional Metrics Grid */}
             <div>
-              <h3 className={`text-sage-800 font-semibold mb-4 tracking-tight ${
+              <h3 className={`text-sage-800 font-medium mb-4 tracking-tight ${
                 isMobile ? 'text-xl' : 'text-lg'
               }`}>
                 Emotional Landscape
@@ -625,7 +625,7 @@ export default function EmotionalReportCard({
                 : 'grid-cols-1 md:grid-cols-3'
             }`}>
               <div className="p-4 bg-gradient-to-br from-sage-50/50 to-sage-100/30 rounded-2xl border border-sage-100/50">
-                <div className="text-2xl font-bold text-sage-700 mb-1">
+                <div className="text-2xl font-medium text-sage-700 mb-1">
                   {journeyData.averageSessionLength.toFixed(1)}m
                 </div>
                 <div className="text-sm text-sage-600 font-medium">
@@ -634,7 +634,7 @@ export default function EmotionalReportCard({
               </div>
               
               <div className="p-4 bg-gradient-to-br from-blue-50/50 to-blue-100/30 rounded-2xl border border-blue-100/50">
-                <div className="text-2xl font-bold text-blue-700 mb-1">
+                <div className="text-2xl font-medium text-blue-700 mb-1">
                   +{Math.round(journeyData.emotionalVocabularyGrowth * 100)}%
                 </div>
                 <div className="text-sm text-blue-600 font-medium">
@@ -643,7 +643,7 @@ export default function EmotionalReportCard({
               </div>
               
               <div className="p-4 bg-gradient-to-br from-purple-50/50 to-purple-100/30 rounded-2xl border border-purple-100/50">
-                <div className="text-2xl font-bold text-purple-700 mb-1">
+                <div className="text-2xl font-medium text-purple-700 mb-1">
                   {Math.round(journeyData.metrics.insightDepth * 100)}%
                 </div>
                 <div className="text-sm text-purple-600 font-medium">
@@ -657,7 +657,7 @@ export default function EmotionalReportCard({
         {selectedTab === 'patterns' && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+              <h3 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
                 Healing Patterns We've Noticed
               </h3>
               <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -676,7 +676,7 @@ export default function EmotionalReportCard({
         {selectedTab === 'growth' && (
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h3 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+              <h3 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
                 Milestones & Celebrations
               </h3>
               <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -693,7 +693,7 @@ export default function EmotionalReportCard({
             {/* Encouragement */}
             <div className="p-6 bg-gradient-to-br from-sage-50/50 to-sage-100/30 rounded-2xl border border-sage-100/50 text-center">
               <div className="text-3xl mb-3 animate-gentle-sparkle">🌟</div>
-              <h4 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+              <h4 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
                 You're Doing Beautiful Work
               </h4>
               <p className="text-sage-600 text-sm leading-relaxed max-w-md mx-auto">

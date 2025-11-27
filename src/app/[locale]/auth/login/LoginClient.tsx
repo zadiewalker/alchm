@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { signInWithGoogle, signInWithEmail, validateAuthDomain, getCurrentDomainType } from '@/lib/auth/domain-aware-auth';
+import { signInWithEmail, validateAuthDomain, getCurrentDomainType } from '@/lib/auth/domain-aware-auth';
+import { ReliableAuthSystem } from '@/lib/auth/ReliableAuthSystem';
 import { Suspense } from 'react';
 import CrisisFloatingButton from '@/components/ui/CrisisFloatingButton';
 import NetworkResilience from '@/components/ui/NetworkResilience';
@@ -107,45 +108,6 @@ function LoginForm() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    setError(null);
-    setNetworkError(false);
-    
-    // Haptic feedback on mobile
-    if (isMobile && navigator.vibrate) {
-      navigator.vibrate(15);
-    }
-
-    try {
-      const result = await signInWithGoogle();
-      
-      if (result.error) {
-        setError(result.error);
-        setNetworkError(result.error.includes('Connection issue'));
-      } else if (result.user) {
-        // Success haptic feedback
-        if (isMobile && navigator.vibrate) {
-          navigator.vibrate([100, 50, 100]);
-        }
-        
-        // Handle age verification requirement for COPPA compliance
-        if (result.requiresAgeVerification) {
-          console.log('🔞 COPPA Compliance: Age verification required');
-          setPendingUser(result.user);
-          setShowAgeVerification(true);
-          return; // Don't redirect yet, wait for age verification
-        }
-        
-        router.push(redirectTo);
-      }
-    } catch (err: any) {
-      // Fallback error handling
-      setError('Something gentle went wrong. You\'re safe here.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAgeVerificationComplete = async (ageGroup: 'under13' | 'teen' | 'adult', requiresParentalConsent: boolean) => {
     if (!pendingUser) {
@@ -256,8 +218,8 @@ function LoginForm() {
         <h2 className="text-3xl font-light text-white mb-2">
           Welcome to ALCHM
         </h2>
-        <p className="text-white/80">
-          Your trauma-informed journaling companion
+        <p className="text-white/70">
+          Your sanctuary for healing
         </p>
       </div>
 
@@ -290,34 +252,6 @@ function LoginForm() {
         </div>
       )}
 
-      {/* Google Sign-in */}
-      <div className="space-y-4">
-        <button
-          type="button"
-          onClick={handleGoogleLogin}
-          disabled={loading || !!domainError}
-          className="w-full flex justify-center items-center py-3 px-4 border border-sage-300/30 rounded-xl text-white bg-sage-500/20 backdrop-blur-sm hover:bg-sage-500/30 hover:border-sage-300/50 hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 ease-out touch-safe"
-          style={{ 
-            minHeight: isMobile ? '56px' : '52px',
-            fontSize: isMobile ? '17px' : '16px',
-            touchAction: 'manipulation',
-            fontWeight: '500'
-          }}
-        >
-          {loading ? (
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-          ) : (
-            <span className="mr-3">🔐</span>
-          )}
-          Continue with Google
-        </button>
-
-        <div className="flex items-center justify-center">
-          <div className="flex-1 border-t border-white/20"></div>
-          <span className="px-4 text-white/60 text-sm">or continue with email</span>
-          <div className="flex-1 border-t border-white/20"></div>
-        </div>
-      </div>
 
       {/* Email Login Form */}
       <form className="space-y-6" onSubmit={handleEmailLogin}>
@@ -334,7 +268,7 @@ function LoginForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="appearance-none relative block w-full px-4 py-3 border border-white/20 placeholder-white/60 text-white bg-white/10 backdrop-blur-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+              className="appearance-none relative block w-full px-4 py-3 border border-white/20 placeholder-white/50 text-white bg-white/10 backdrop-blur-md rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 ease-out"
               style={{
                 minHeight: '52px',
                 fontSize: '16px', // Prevents iOS zoom
@@ -356,7 +290,7 @@ function LoginForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="appearance-none relative block w-full px-4 py-3 pr-12 border border-white/20 placeholder-white/60 text-white bg-white/10 backdrop-blur-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+              className="appearance-none relative block w-full px-4 py-3 pr-12 border border-white/20 placeholder-white/50 text-white bg-white/10 backdrop-blur-md rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-300 ease-out"
               style={{
                 minHeight: '52px',
                 fontSize: '16px', // Prevents iOS zoom
@@ -386,7 +320,7 @@ function LoginForm() {
           <button
             type="submit"
             disabled={loading || !!domainError}
-            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-medium rounded-xl text-white bg-sage-400 hover:bg-sage-500 hover:scale-[1.01] hover:shadow-soft active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 ease-out touch-safe"
+            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-normal rounded-2xl text-white bg-[#a4b792] hover:bg-[#93a682] hover:scale-[1.01] hover:shadow-xl active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-out touch-safe"
             style={{
               minHeight: isMobile ? '56px' : '52px',
               fontSize: isMobile ? '18px' : '16px',
@@ -400,18 +334,18 @@ function LoginForm() {
                 Entering your sanctuary...
               </div>
             ) : (
-              'Enter Your Sacred Space'
+              'Enter Your Sanctuary'
             )}
           </button>
         </div>
 
         <div className="text-center">
-          <span className="text-sm text-white/80">
+          <span className="text-sm text-white/70">
             New to ALCHM?{' '}
             <button 
               type="button"
               onClick={() => router.push('/auth/signup')}
-              className="font-medium text-sage-200 hover:text-white hover:scale-105 underline underline-offset-4 transition-all duration-300 ease-out"
+              className="font-normal text-white/80 hover:text-white hover:scale-[1.02] underline underline-offset-4 transition-all duration-300 ease-out"
               style={{
                 minHeight: '32px',
                 touchAction: 'manipulation'
@@ -428,7 +362,7 @@ function LoginForm() {
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mb-3">
           <button
             onClick={() => window.location.href = 'tel:988'}
-            className="touch-safe border border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out rounded-xl"
+            className="touch-safe border border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out rounded-2xl"
             style={{
               minHeight: '48px',
               minWidth: '120px',
@@ -442,7 +376,7 @@ function LoginForm() {
           </button>
           <button
             onClick={() => window.location.href = 'sms:741741&body=HOME'}
-            className="touch-safe border border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out rounded-xl"
+            className="touch-safe border border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out rounded-2xl"
             style={{
               minHeight: '48px',
               minWidth: '120px',
@@ -465,7 +399,7 @@ function LoginForm() {
                 setShowEmergencyBypass(true);
                 setAgeVerificationFailed(true);
               }}
-              className="w-full touch-safe border border-orange-500/50 bg-orange-500/10 text-orange-200 hover:bg-orange-500/20 hover:border-orange-500/70 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 ease-out rounded-xl"
+              className="w-full touch-safe border border-orange-400/30 bg-orange-500/10 text-orange-200 hover:bg-orange-500/20 hover:border-orange-400/50 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 ease-out rounded-2xl"
               style={{
                 minHeight: '44px',
                 padding: '12px 16px',
@@ -481,8 +415,8 @@ function LoginForm() {
             </p>
           </div>
         )}
-        <p className="text-white/60 text-sm">
-          Crisis support available 24/7 • We're journaling, not therapy • Privacy protected by design
+        <p className="text-white/50 text-sm">
+          Crisis support available 24/7 • Private & secure • All identities welcomed
         </p>
       </div>
     </>

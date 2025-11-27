@@ -56,7 +56,7 @@ export default function TechSupportEntry({
           <div className="h-full flex flex-col">
             {!embedded && (
               <div className="flex justify-between items-center p-4 border-b">
-                <h2 className="text-xl font-semibold">Technical Support</h2>
+                <h2 className="text-xl font-medium">Technical Support</h2>
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -85,7 +85,7 @@ export default function TechSupportEntry({
             <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Technical Support</h1>
+            <h1 className="text-3xl font-medium text-gray-800 dark:text-white">Technical Support</h1>
             <p className="text-gray-600 dark:text-gray-300">Khepera-powered assistance for your digital sanctuary</p>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function TechSupportEntry({
           <div className="flex items-center gap-4 mb-4">
             <MessageSquare className="w-8 h-8 text-purple-600" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">Start a Support Conversation</h2>
+              <h2 className="text-xl font-medium text-gray-800">Start a Support Conversation</h2>
               <p className="text-gray-600">Describe what's happening with your ALCHM sanctuary</p>
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function TechSupportEntry({
 
       {/* Common Issues */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">Common Issues</h3>
+        <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Common Issues</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {COMMON_ISSUES.map((issue, index) => (
             <motion.div
@@ -166,7 +166,7 @@ export default function TechSupportEntry({
 
       {/* Features */}
       <div className="mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">How We Support You</h3>
+        <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">How We Support You</h3>
         <div className="grid md:grid-cols-2 gap-6">
           {SUPPORT_FEATURES.map((feature, index) => (
             <motion.div
@@ -180,7 +180,7 @@ export default function TechSupportEntry({
                 <feature.icon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-800 dark:text-white mb-2">{feature.title}</h4>
+                <h4 className="font-medium text-gray-800 dark:text-white mb-2">{feature.title}</h4>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">{feature.description}</p>
               </div>
             </motion.div>
@@ -192,7 +192,7 @@ export default function TechSupportEntry({
       <Card className="p-6 bg-red-50 border-red-200">
         <div className="flex items-center gap-3 mb-4">
           <Shield className="w-6 h-6 text-red-600" />
-          <h3 className="text-lg font-semibold text-red-800">Crisis Support Always Available</h3>
+          <h3 className="text-lg font-medium text-red-800">Crisis Support Always Available</h3>
         </div>
         <p className="text-red-700 mb-4">
           If you're experiencing a crisis, immediate support is available regardless of any technical issues:

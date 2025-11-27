@@ -18,7 +18,7 @@ export const getAuth = jest.fn(() => ({
   })
 }))
 
-export const signInWithEmailAndPassword = jest.fn((auth: any, email: string, _password: string) => {
+export const signInWithEmailAndPassword = jest.fn((auth: any, email: string) => {
   const mockUser = {
     uid: 'test-user-id',
     email,
@@ -40,7 +40,7 @@ export const signInWithEmailAndPassword = jest.fn((auth: any, email: string, _pa
   })
 })
 
-export const createUserWithEmailAndPassword = jest.fn((auth: any, email: string, _password: string) => {
+export const createUserWithEmailAndPassword = jest.fn((auth: any, email: string) => {
   const mockUser = {
     uid: 'test-new-user-id',
     email,
@@ -62,7 +62,7 @@ export const createUserWithEmailAndPassword = jest.fn((auth: any, email: string,
   })
 })
 
-export const signOut = jest.fn((_auth: any) => {
+export const signOut = jest.fn(() => {
   mockCurrentUser = null
   return Promise.resolve()
 })

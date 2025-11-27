@@ -387,7 +387,7 @@ export default function CommunityConnections() {
             <Users className="h-12 w-12 text-purple-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Community Connections</h1>
+        <h1 className="text-3xl font-medium mb-4">Community Connections</h1>
         <p className="text-xl text-gray-600">
           Safe, supportive spaces for healing, growth, and wisdom sharing
         </p>
@@ -399,7 +399,7 @@ export default function CommunityConnections() {
           <div className="flex justify-center mb-3">
             <Users className="h-8 w-8 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-600">3</div>
+          <div className="text-2xl font-medium text-blue-600">3</div>
           <div className="text-sm text-gray-600">Support Circles</div>
         </Card>
 
@@ -407,7 +407,7 @@ export default function CommunityConnections() {
           <div className="flex justify-center mb-3">
             <Crown className="h-8 w-8 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-600">2</div>
+          <div className="text-2xl font-medium text-purple-600">2</div>
           <div className="text-sm text-gray-600">Mentor Matches</div>
         </Card>
 
@@ -415,7 +415,7 @@ export default function CommunityConnections() {
           <div className="flex justify-center mb-3">
             <Heart className="h-8 w-8 text-red-600" />
           </div>
-          <div className="text-2xl font-bold text-red-600">15</div>
+          <div className="text-2xl font-medium text-red-600">15</div>
           <div className="text-sm text-gray-600">Wisdom Shares</div>
         </Card>
 
@@ -423,7 +423,7 @@ export default function CommunityConnections() {
           <div className="flex justify-center mb-3">
             <Shield className="h-8 w-8 text-green-600" />
           </div>
-          <div className="text-2xl font-bold text-green-600">100%</div>
+          <div className="text-2xl font-medium text-green-600">100%</div>
           <div className="text-sm text-gray-600">Privacy Protected</div>
         </Card>
       </div>
@@ -433,7 +433,7 @@ export default function CommunityConnections() {
         <div className="flex items-start gap-4">
           <Shield className="h-8 w-8 text-blue-600 mt-1" />
           <div>
-            <h2 className="text-xl font-semibold mb-2">Privacy-First Community</h2>
+            <h2 className="text-xl font-medium mb-2">Privacy-First Community</h2>
             <p className="text-gray-700 mb-4">
               Every connection is designed with your safety and privacy as the top priority. 
               You control exactly what you share, with whom, and how you're identified.
@@ -456,7 +456,7 @@ export default function CommunityConnections() {
               <Users className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Join Support Circle</h3>
+          <h3 className="font-medium mb-2">Join Support Circle</h3>
           <p className="text-sm text-gray-600 mb-4">
             Connect with others on similar healing journeys in safe, moderated spaces
           </p>
@@ -472,7 +472,7 @@ export default function CommunityConnections() {
               <Crown className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Find Mentor</h3>
+          <h3 className="font-medium mb-2">Find Mentor</h3>
           <p className="text-sm text-gray-600 mb-4">
             Connect with experienced guides who've walked similar paths
           </p>
@@ -488,7 +488,7 @@ export default function CommunityConnections() {
               <Lightbulb className="h-8 w-8 text-green-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Share Wisdom</h3>
+          <h3 className="font-medium mb-2">Share Wisdom</h3>
           <p className="text-sm text-gray-600 mb-4">
             Offer insights and breakthroughs to help others on their journey
           </p>
@@ -505,7 +505,7 @@ export default function CommunityConnections() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Support Circles</h1>
+          <h1 className="text-2xl font-medium">Support Circles</h1>
           <p className="text-gray-600">Healing communities organized around shared experiences and goals</p>
         </div>
         <Button>
@@ -520,7 +520,7 @@ export default function CommunityConnections() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-xl font-semibold">{circle.name}</h2>
+                  <h2 className="text-xl font-medium">{circle.name}</h2>
                   <Badge variant={
                     circle.type === 'open' ? 'default' :
                     circle.type === 'moderated' ? 'secondary' :
@@ -648,7 +648,7 @@ export default function CommunityConnections() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Mentorship Connections</h1>
+          <h1 className="text-2xl font-medium">Mentorship Connections</h1>
           <p className="text-gray-600">Carefully matched guidance relationships based on shared experiences</p>
         </div>
         <Button>
@@ -663,7 +663,7 @@ export default function CommunityConnections() {
             <div className="flex items-start justify-between mb-6">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-xl font-semibold">{match.mentor.displayName}</h2>
+                  <h2 className="text-xl font-medium">{match.mentor.displayName}</h2>
                   <Badge variant="outline" className="capitalize">
                     {match.mentor.role}
                   </Badge>
@@ -706,25 +706,25 @@ export default function CommunityConnections() {
             {/* Compatibility Scores */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
               <div className="text-center">
-                <div className="text-lg font-semibold text-purple-600">
+                <div className="text-lg font-medium text-purple-600">
                   {match.compatibility.experienceAlignment}%
                 </div>
                 <div className="text-xs text-gray-600">Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-blue-600">
+                <div className="text-lg font-medium text-blue-600">
                   {match.compatibility.communicationStyle}%
                 </div>
                 <div className="text-xs text-gray-600">Communication</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-green-600">
+                <div className="text-lg font-medium text-green-600">
                   {match.compatibility.availability}%
                 </div>
                 <div className="text-xs text-gray-600">Availability</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-yellow-600">
+                <div className="text-lg font-medium text-yellow-600">
                   {match.compatibility.therapeuticApproach}%
                 </div>
                 <div className="text-xs text-gray-600">Approach</div>
@@ -771,7 +771,7 @@ export default function CommunityConnections() {
       </div>
 
       <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50">
-        <h2 className="text-lg font-semibold mb-4">Become a Mentor</h2>
+        <h2 className="text-lg font-medium mb-4">Become a Mentor</h2>
         <p className="text-gray-700 mb-4">
           Ready to share your wisdom and support others on their healing journey? 
           Our mentor program provides training, support, and community.
@@ -788,7 +788,7 @@ export default function CommunityConnections() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Wisdom Sharing</h1>
+          <h1 className="text-2xl font-medium">Wisdom Sharing</h1>
           <p className="text-gray-600">Anonymous insights, breakthroughs, and resources from the community</p>
         </div>
         <Button>
@@ -803,7 +803,7 @@ export default function CommunityConnections() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-lg font-semibold">{share.title}</h2>
+                  <h2 className="text-lg font-medium">{share.title}</h2>
                   <Badge variant="outline" className="capitalize">
                     {share.category}
                   </Badge>
@@ -883,7 +883,7 @@ export default function CommunityConnections() {
   const renderPrivacySettings = () => (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-2">Privacy & Safety Settings</h1>
+        <h1 className="text-2xl font-medium mb-2">Privacy & Safety Settings</h1>
         <p className="text-gray-600">
           Control how you connect with the community while maintaining your safety and comfort
         </p>
@@ -891,7 +891,7 @@ export default function CommunityConnections() {
 
       <div className="grid gap-6">
         <Card className="p-6">
-          <h2 className="text-lg font-semibold mb-4">Profile Visibility</h2>
+          <h2 className="text-lg font-medium mb-4">Profile Visibility</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 border rounded-lg">
               <div>
@@ -955,7 +955,7 @@ export default function CommunityConnections() {
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-lg font-semibold mb-4">Communication Preferences</h2>
+          <h2 className="text-lg font-medium mb-4">Communication Preferences</h2>
           <div className="space-y-4">
             <div>
               <div className="font-medium mb-2">Preferred Communication Methods</div>
@@ -1010,7 +1010,7 @@ export default function CommunityConnections() {
           <div className="flex items-start gap-3">
             <Shield className="h-6 w-6 text-green-600 mt-1" />
             <div>
-              <h3 className="font-semibold text-green-900 mb-2">Your Safety is Our Priority</h3>
+              <h3 className="font-medium text-green-900 mb-2">Your Safety is Our Priority</h3>
               <ul className="text-sm text-green-800 space-y-1">
                 <li>• All community interactions are monitored by trained professionals</li>
                 <li>• Anonymous reporting system for any safety concerns</li>

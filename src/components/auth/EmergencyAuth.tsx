@@ -63,7 +63,7 @@ export default function EmergencyAuth({
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
         <div className="max-w-sm w-full text-center">
           <div className="text-4xl mb-4">🆘</div>
-          <h1 className="text-xl font-bold text-gray-800 mb-4">
+          <h1 className="text-xl font-medium text-gray-800 mb-4">
             Crisis Support Access
           </h1>
           <p className="text-gray-700 mb-6">
@@ -72,7 +72,7 @@ export default function EmergencyAuth({
           
           <button
             onClick={handleSkipAuth}
-            className="w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded-lg font-bold text-lg mb-4 transition-colors"
+            className="w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded-lg font-medium text-lg mb-4 transition-colors"
             style={{ touchAction: 'manipulation' }}
           >
             Get Immediate Support
@@ -99,7 +99,7 @@ export default function EmergencyAuth({
       <div className="max-w-sm w-full bg-white rounded-lg shadow-lg p-6">
         <div className="text-center mb-6">
           <div className="text-3xl mb-2">🌿</div>
-          <h1 className="text-xl font-bold text-gray-800">Welcome to ALCHM</h1>
+          <h1 className="text-xl font-medium text-gray-800">Welcome to ALCHM</h1>
           <p className="text-gray-600 text-sm mt-2">
             Your safe space for healing and growth
           </p>

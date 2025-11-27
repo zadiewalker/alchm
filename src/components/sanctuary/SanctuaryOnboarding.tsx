@@ -75,7 +75,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Heart className="h-12 w-12 text-sage-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold text-white mb-2">
+            <h2 className="text-2xl font-medium text-white mb-2">
               Welcome to ALCHM Sanctuary
             </h2>
             <p className="text-gray-300 mb-4">
@@ -121,7 +121,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Shield className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-xl font-medium text-white mb-2">
               Your Privacy is Sacred
             </h2>
           </div>
@@ -166,7 +166,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Heart className="h-12 w-12 text-red-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-xl font-medium text-white mb-2">
               You're Never Alone
             </h2>
             <p className="text-gray-300">
@@ -212,7 +212,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Gift className="h-12 w-12 text-purple-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-xl font-medium text-white mb-2">
               Grace, Not Pressure
             </h2>
             <p className="text-gray-300">
@@ -270,7 +270,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Compass className="h-12 w-12 text-green-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-xl font-medium text-white mb-2">
               Finding Your Way
             </h2>
             <p className="text-gray-300">
@@ -342,7 +342,7 @@ export function SanctuaryOnboarding({
         <div className="space-y-4">
           <div className="text-center">
             <Settings className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
+            <h2 className="text-xl font-medium text-white mb-2">
               Make It Yours
             </h2>
             <p className="text-gray-300">

@@ -160,7 +160,7 @@ export default function CrisisSafetyValidator({
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <Shield className="h-6 w-6 text-red-600" />
-          <h2 className="text-xl font-semibold text-gray-900">Crisis Safety Validator</h2>
+          <h2 className="text-xl font-medium text-gray-900">Crisis Safety Validator</h2>
         </div>
         
         <div className="flex space-x-2">
@@ -218,21 +218,21 @@ export default function CrisisSafetyValidator({
             </div>
             
             <div className="text-center">
-              <div className={`text-lg font-bold ${healthMetrics.responseTime < 3000 ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={`text-lg font-medium ${healthMetrics.responseTime < 3000 ? 'text-green-600' : 'text-red-600'}`}>
                 {healthMetrics.responseTime}ms
               </div>
               <div className="text-xs text-gray-500">Response Time</div>
             </div>
             
             <div className="text-center">
-              <div className={`text-lg font-bold ${healthMetrics.availability >= 99.9 ? 'text-green-600' : 'text-yellow-600'}`}>
+              <div className={`text-lg font-medium ${healthMetrics.availability >= 99.9 ? 'text-green-600' : 'text-yellow-600'}`}>
                 {healthMetrics.availability.toFixed(1)}%
               </div>
               <div className="text-xs text-gray-500">Availability</div>
             </div>
             
             <div className="text-center">
-              <div className={`text-lg font-bold ${healthMetrics.errorRate === 0 ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={`text-lg font-medium ${healthMetrics.errorRate === 0 ? 'text-green-600' : 'text-red-600'}`}>
                 {(healthMetrics.errorRate * 100).toFixed(1)}%
               </div>
               <div className="text-xs text-gray-500">Error Rate</div>

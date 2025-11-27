@@ -19,7 +19,7 @@ export function OnboardingQuizExample() {
   if (variant === 'extended') {
     return (
       <Card className="p-6">
-        <h2 className="text-xl font-bold mb-4">Extended Pathway Discovery (8 Questions)</h2>
+        <h2 className="text-xl font-medium mb-4">Extended Pathway Discovery (8 Questions)</h2>
         <p className="text-gray-600 mb-4">
           This extended version helps us better understand your unique journey.
         </p>
@@ -44,7 +44,7 @@ export function OnboardingQuizExample() {
   // Control variant (standard 5 questions)
   return (
     <Card className="p-6">
-      <h2 className="text-xl font-bold mb-4">Pathway Discovery (5 Questions)</h2>
+      <h2 className="text-xl font-medium mb-4">Pathway Discovery (5 Questions)</h2>
       <p className="text-gray-600 mb-4">
         Help us recommend the perfect healing pathway for you.
       </p>
@@ -102,7 +102,7 @@ export function JournalPromptsExample() {
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">
+      <h3 className="text-lg font-medium mb-4">
         Journal Prompts - {config?.tone} Style
       </h3>
       <div className="space-y-3">
@@ -134,7 +134,7 @@ export function DashboardLayoutExample() {
   if (variant === 'list_focused') {
     return (
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Your Journey (List View)</h2>
+        <h2 className="text-2xl font-medium">Your Journey (List View)</h2>
         <div className="space-y-2">
           <div className="p-4 border rounded flex items-center justify-between">
             <div>
@@ -165,20 +165,20 @@ export function DashboardLayoutExample() {
   // Control variant (card-based)
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold">Your Journey</h2>
+      <h2 className="text-2xl font-medium">Your Journey</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="p-6">
-          <h3 className="font-semibold mb-2">Recent Entry</h3>
+          <h3 className="font-medium mb-2">Recent Entry</h3>
           <p className="text-sm text-gray-600 mb-4">Morning Reflection • 2 hours ago</p>
           <Button size="sm">Continue Writing</Button>
         </Card>
         <Card className="p-6">
-          <h3 className="font-semibold mb-2">Weekly Progress</h3>
+          <h3 className="font-medium mb-2">Weekly Progress</h3>
           <p className="text-sm text-gray-600 mb-4">7 entries completed</p>
           <Button size="sm" variant="outline">View Details</Button>
         </Card>
         <Card className="p-6">
-          <h3 className="font-semibold mb-2">New Insight</h3>
+          <h3 className="font-medium mb-2">New Insight</h3>
           <p className="text-sm text-gray-600 mb-4">Morning clarity pattern detected</p>
           <Button size="sm" variant="outline">Explore</Button>
         </Card>
@@ -193,7 +193,7 @@ export function FeatureFlagsExample() {
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Available Features</h3>
+      <h3 className="text-lg font-medium mb-4">Available Features</h3>
       <div className="space-y-2">
         {featureFlags.advancedAnalytics && (
           <div className="flex items-center space-x-2">
@@ -241,7 +241,7 @@ export default function ABTestExamples() {
   return (
     <div className="container mx-auto p-6 space-y-8">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">A/B Testing Examples</h1>
+        <h1 className="text-3xl font-medium mb-2">A/B Testing Examples</h1>
         <p className="text-gray-600">
           These components demonstrate how A/B tests adapt user experience in real-time.
         </p>

@@ -270,7 +270,7 @@ function ExportFormatSelector({ selectedFormat, onFormatChange }: ExportFormatSe
 
   return (
     <div className="space-y-breath">
-      <SacredText variant="caption" className="font-semibold">
+      <SacredText variant="caption" className="font-medium">
         Export Format
       </SacredText>
       <SacredGrid columns={3} gap="breath">
@@ -327,7 +327,7 @@ function DateRangeSelector({ dateRange, onDateRangeChange }: DateRangeSelectorPr
 
   return (
     <div className="space-y-breath">
-      <SacredText variant="caption" className="font-semibold">
+      <SacredText variant="caption" className="font-medium">
         Date Range
       </SacredText>
       <SacredGrid columns={3} gap="breath">
@@ -438,7 +438,7 @@ function ExportOptionsSelector({ options, onOptionsChange }: ExportOptionsSelect
 
   return (
     <div className="space-y-breath">
-      <SacredText variant="caption" className="font-semibold">
+      <SacredText variant="caption" className="font-medium">
         Export Options
       </SacredText>
       <div className="space-y-breath">
@@ -475,7 +475,7 @@ function ExportOptionsSelector({ options, onOptionsChange }: ExportOptionsSelect
 
       {/* Export Quality */}
       <div className="space-y-whisper">
-        <SacredText variant="caption" className="font-semibold text-sm">
+        <SacredText variant="caption" className="font-medium text-sm">
           Export Quality
         </SacredText>
         <div className="flex gap-breath">
@@ -531,7 +531,7 @@ function ExportPreview({ previewData, exportOptions }: ExportPreviewProps) {
     <SacredCard variant="warm" className="space-y-breath">
       <div className="flex items-center gap-gentle">
         <span className="text-2xl">👀</span>
-        <SacredText variant="caption" className="font-semibold">
+        <SacredText variant="caption" className="font-medium">
           Export Preview
         </SacredText>
       </div>
@@ -641,34 +641,34 @@ function PrivacyNotice() {
     <SacredCard variant="sacred" className="space-y-breath">
       <div className="flex items-center gap-gentle">
         <span className="text-2xl">🔒</span>
-        <SacredText variant="caption" className="font-semibold text-grounding-earth">
+        <SacredText variant="caption" className="font-medium text-grounding-earth">
           Privacy Protected Export
         </SacredText>
       </div>
       
       <ul className="space-y-whisper text-sm">
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>Your journal entries are exported directly from your device</span>
         </li>
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>No AI analysis, insights, or recommendations are included</span>
         </li>
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>This export represents your authentic voice and original thoughts</span>
         </li>
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>You have complete ownership and control over this content</span>
         </li>
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>Export is logged for audit purposes (metadata only, not content)</span>
         </li>
         <li className="flex items-start gap-whisper">
-          <span className="text-green-600 font-bold">✓</span>
+          <span className="text-green-600 font-medium">✓</span>
           <span>Compliant with FERPA, COPPA, GDPR, and CCPA privacy standards</span>
         </li>
       </ul>

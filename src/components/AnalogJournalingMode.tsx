@@ -142,7 +142,7 @@ export default function AnalogJournalingMode({
         <div className="bg-white rounded-lg shadow-sm border border-amber-200 p-6 mb-6">
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-2xl font-bold text-amber-900">Analog Journaling</h1>
+              <h1 className="text-2xl font-medium text-amber-900">Analog Journaling</h1>
               <p className="text-amber-700 mt-1">Your words, your wisdom, your pace</p>
             </div>
             <div className="text-right">
@@ -173,7 +173,7 @@ export default function AnalogJournalingMode({
         {/* Guidance Panel */}
         {showGuidance && (
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-6">
-            <h3 className="font-semibold text-amber-900 mb-3">{ANALOG_JOURNALING_GUIDANCE.introduction.title}</h3>
+            <h3 className="font-medium text-amber-900 mb-3">{ANALOG_JOURNALING_GUIDANCE.introduction.title}</h3>
             <p className="text-amber-800 mb-4">{ANALOG_JOURNALING_GUIDANCE.introduction.description}</p>
             
             <div className="grid md:grid-cols-2 gap-4">
@@ -201,7 +201,7 @@ export default function AnalogJournalingMode({
         {/* Grounding Techniques */}
         {showGrounding && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-            <h3 className="font-semibold text-green-900 mb-3">Grounding Techniques</h3>
+            <h3 className="font-medium text-green-900 mb-3">Grounding Techniques</h3>
             <div className="grid md:grid-cols-3 gap-4">
               {Object.entries(ANALOG_JOURNALING_GUIDANCE.grounding_techniques).map(([key, technique]) => (
                 <div key={key} className="bg-white rounded p-3">
@@ -218,7 +218,7 @@ export default function AnalogJournalingMode({
           {/* Prompt Selection */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border border-amber-200 p-4 sticky top-6">
-              <h2 className="font-semibold text-amber-900 mb-4">Choose Your Reflection</h2>
+              <h2 className="font-medium text-amber-900 mb-4">Choose Your Reflection</h2>
               
               <div className="space-y-2 mb-4">
                 {promptCategories.map((category) => (
@@ -282,7 +282,7 @@ export default function AnalogJournalingMode({
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm border border-amber-200 p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="font-semibold text-amber-900">Your Reflection Space</h2>
+                <h2 className="font-medium text-amber-900">Your Reflection Space</h2>
                 <div className="flex items-center space-x-3">
                   <span className="text-sm text-amber-600">
                     {currentPrompt?.difficulty} difficulty

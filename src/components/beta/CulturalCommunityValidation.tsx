@@ -353,7 +353,7 @@ const CulturalCommunityValidation: React.FC<CulturalValidationProps> = ({
                     className={`w-16 h-16 ${getScoreColor(score)}`}
                   >
                     <div className="text-center">
-                      <div className="text-lg font-bold">{score}</div>
+                      <div className="text-lg font-medium">{score}</div>
                       <div className="text-xs">{getScoreLabel(score)}</div>
                     </div>
                   </Button>
@@ -450,7 +450,7 @@ const CulturalCommunityValidation: React.FC<CulturalValidationProps> = ({
       <CardContent className="p-6 space-y-6">
         {/* Overall Score Display */}
         <div className="text-center p-6 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg">
-          <div className="text-4xl font-bold text-purple-800 mb-2">
+          <div className="text-4xl font-medium text-purple-800 mb-2">
             {calculateOverallScore().toFixed(1)}/5.0
           </div>
           <div className="text-lg text-purple-600">Overall Cultural Competency Score</div>
@@ -625,7 +625,7 @@ const CulturalCommunityValidation: React.FC<CulturalValidationProps> = ({
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-purple-800 mb-2">
+          <h1 className="text-3xl font-medium text-purple-800 mb-2">
             Cultural Community Validation
           </h1>
           <p className="text-purple-600">

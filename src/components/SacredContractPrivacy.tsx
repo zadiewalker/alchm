@@ -50,7 +50,7 @@ export default function SacredContractPrivacy({
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-t-lg">
-          <h1 className="text-2xl font-bold mb-2">{contract.sacredContract.title}</h1>
+          <h1 className="text-2xl font-medium mb-2">{contract.sacredContract.title}</h1>
           <p className="text-purple-100">
             {contract.country} • {contract.legalFramework}
           </p>
@@ -63,7 +63,7 @@ export default function SacredContractPrivacy({
         >
           {/* Primary Sacred Text */}
           <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg p-6 border border-purple-200">
-            <h2 className="text-xl font-semibold text-purple-800 mb-4">Sacred Promise</h2>
+            <h2 className="text-xl font-medium text-purple-800 mb-4">Sacred Promise</h2>
             <p className="text-lg text-purple-900 leading-relaxed">
               {contract.sacredContract.primaryText}
             </p>
@@ -77,7 +77,7 @@ export default function SacredContractPrivacy({
                 onClick={() => toggleSection('dataProtection')}
                 className="w-full text-left p-4 hover:bg-gray-50 flex justify-between items-center"
               >
-                <span className="font-semibold text-gray-800">Data Protection & Security</span>
+                <span className="font-medium text-gray-800">Data Protection & Security</span>
                 <span className="text-gray-500">
                   {expandedSection === 'dataProtection' ? '−' : '+'}
                 </span>
@@ -97,7 +97,7 @@ export default function SacredContractPrivacy({
                 onClick={() => toggleSection('aiPurpose')}
                 className="w-full text-left p-4 hover:bg-gray-50 flex justify-between items-center"
               >
-                <span className="font-semibold text-gray-800">AI Spiritual Guidance</span>
+                <span className="font-medium text-gray-800">AI Spiritual Guidance</span>
                 <span className="text-gray-500">
                   {expandedSection === 'aiPurpose' ? '−' : '+'}
                 </span>
@@ -117,7 +117,7 @@ export default function SacredContractPrivacy({
                 onClick={() => toggleSection('userRights')}
                 className="w-full text-left p-4 hover:bg-gray-50 flex justify-between items-center"
               >
-                <span className="font-semibold text-gray-800">Your Sacred Rights</span>
+                <span className="font-medium text-gray-800">Your Sacred Rights</span>
                 <span className="text-gray-500">
                   {expandedSection === 'userRights' ? '−' : '+'}
                 </span>
@@ -150,7 +150,7 @@ export default function SacredContractPrivacy({
                 onClick={() => toggleSection('culturalRespect')}
                 className="w-full text-left p-4 hover:bg-gray-50 flex justify-between items-center"
               >
-                <span className="font-semibold text-gray-800">Cultural Honor & Respect</span>
+                <span className="font-medium text-gray-800">Cultural Honor & Respect</span>
                 <span className="text-gray-500">
                   {expandedSection === 'culturalRespect' ? '−' : '+'}
                 </span>
@@ -167,7 +167,7 @@ export default function SacredContractPrivacy({
 
           {/* Legal Footnotes */}
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <h3 className="font-semibold text-gray-800 mb-3">Legal Compliance</h3>
+            <h3 className="font-medium text-gray-800 mb-3">Legal Compliance</h3>
             <div className="space-y-2 text-sm text-gray-600">
               <p>{contract.legalFootnotes.compliance}</p>
               <p>{contract.legalFootnotes.rights}</p>
@@ -242,7 +242,7 @@ export function SacredPrivacyBanner({
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex-1">
           <p className="text-sm text-gray-700">
-            <span className="font-semibold">Your reflections are sacred.</span> We protect your privacy with encryption and use AI only to support your spiritual growth.
+            <span className="font-medium">Your reflections are sacred.</span> We protect your privacy with encryption and use AI only to support your spiritual growth.
           </p>
         </div>
         

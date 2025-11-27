@@ -151,7 +151,7 @@ export default function MobileCrisisPerformanceMonitor({
             <span className="text-2xl">⚡</span>
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-white text-sm mb-1">
+            <h3 className="font-medium text-white text-sm mb-1">
               Connection Optimization
             </h3>
             <p className="text-orange-100 text-xs mb-3 leading-relaxed">

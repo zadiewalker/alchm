@@ -288,7 +288,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
       {/* Status Header */}
       <div className=\"bg-white rounded-lg shadow-sm border border-gray-200 p-6\">
         <div className=\"flex items-center justify-between mb-4\">
-          <h2 className=\"text-xl font-semibold text-gray-900 flex items-center space-x-2\">
+          <h2 className=\"text-xl font-medium text-gray-900 flex items-center space-x-2\">
             <Shield className=\"h-6 w-6 text-blue-600\" />
             <span>Crisis Detection & Safety</span>
           </h2>
@@ -304,7 +304,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
               <AlertTriangle className={`h-5 w-5 ${getCrisisLevelColor(dashboardState.crisisLevel)}`} />
               <span className=\"font-medium text-gray-900\">Crisis Level</span>
             </div>
-            <div className={`text-lg font-semibold ${getCrisisLevelColor(dashboardState.crisisLevel)}`}>
+            <div className={`text-lg font-medium ${getCrisisLevelColor(dashboardState.crisisLevel)}`}>
               {dashboardState.crisisLevel === 'none' ? 'None Detected' : dashboardState.crisisLevel.charAt(0).toUpperCase() + dashboardState.crisisLevel.slice(1)}
             </div>
           </div>
@@ -315,7 +315,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
               <Brain className=\"h-5 w-5 text-purple-600\" />
               <span className=\"font-medium text-gray-900\">Last Scan</span>
             </div>
-            <div className=\"text-lg font-semibold text-gray-700\">
+            <div className=\"text-lg font-medium text-gray-700\">
               {dashboardState.isScanning ? (
                 <div className=\"flex items-center space-x-2\">
                   <div className=\"animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600\"></div>
@@ -335,7 +335,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
               <Heart className=\"h-5 w-5 text-red-600\" />
               <span className=\"font-medium text-gray-900\">Interventions</span>
             </div>
-            <div className=\"text-lg font-semibold text-gray-700\">
+            <div className=\"text-lg font-medium text-gray-700\">
               {dashboardState.activeInterventions.length === 0 ? 'None Active' : 
                dashboardState.activeInterventions.length}
             </div>
@@ -353,7 +353,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
             className=\"bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200 p-6\"
           >
             <div className=\"flex items-center justify-between mb-4\">
-              <h3 className=\"text-lg font-semibold text-purple-900 flex items-center space-x-2\">
+              <h3 className=\"text-lg font-medium text-purple-900 flex items-center space-x-2\">
                 <span>✨</span>
                 <span>Khepera's Response</span>
               </h3>
@@ -394,7 +394,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
         <div className=\"grid grid-cols-1 lg:grid-cols-2 gap-6\">
           {/* Detected Patterns */}
           <div className=\"bg-white rounded-lg shadow-sm border border-gray-200 p-6\">
-            <h3 className=\"text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2\">
+            <h3 className=\"text-lg font-medium text-gray-900 mb-4 flex items-center space-x-2\">
               <Brain className=\"h-5 w-5 text-blue-600\" />
               <span>Detected Patterns</span>
             </h3>
@@ -426,7 +426,7 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
 
           {/* Cultural Considerations */}
           <div className=\"bg-white rounded-lg shadow-sm border border-gray-200 p-6\">
-            <h3 className=\"text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2\">
+            <h3 className=\"text-lg font-medium text-gray-900 mb-4 flex items-center space-x-2\">
               <Globe className=\"h-5 w-5 text-green-600\" />
               <span>Cultural Considerations</span>
             </h3>
@@ -448,11 +448,11 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
       {/* Assessment Summary */}
       {detectionResults && (
         <div className=\"bg-white rounded-lg shadow-sm border border-gray-200 p-6\">
-          <h3 className=\"text-lg font-semibold text-gray-900 mb-4\">Assessment Summary</h3>
+          <h3 className=\"text-lg font-medium text-gray-900 mb-4\">Assessment Summary</h3>
           <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4\">
             <div className=\"bg-gray-50 rounded-lg p-4\">
               <div className=\"text-sm font-medium text-gray-600 mb-1\">Risk Level</div>
-              <div className={`text-lg font-semibold ${
+              <div className={`text-lg font-medium ${
                 detectionResults.assessment.overallRiskLevel === 'critical' ? 'text-red-600' :
                 detectionResults.assessment.overallRiskLevel === 'high' ? 'text-orange-600' :
                 detectionResults.assessment.overallRiskLevel === 'moderate' ? 'text-yellow-600' :
@@ -463,19 +463,19 @@ const EnhancedCrisisDetectionDashboard: React.FC<CrisisDetectionDashboardProps> 
             </div>
             <div className=\"bg-gray-50 rounded-lg p-4\">
               <div className=\"text-sm font-medium text-gray-600 mb-1\">Confidence</div>
-              <div className=\"text-lg font-semibold text-gray-800\">
+              <div className=\"text-lg font-medium text-gray-800\">
                 {Math.round(detectionResults.assessment.confidenceScore * 100)}%
               </div>
             </div>
             <div className=\"bg-gray-50 rounded-lg p-4\">
               <div className=\"text-sm font-medium text-gray-600 mb-1\">Follow-up</div>
-              <div className=\"text-lg font-semibold text-gray-800\">
+              <div className=\"text-lg font-medium text-gray-800\">
                 {detectionResults.assessment.followUpTimeframe.replace('_', ' ')}
               </div>
             </div>
             <div className=\"bg-gray-50 rounded-lg p-4\">
               <div className=\"text-sm font-medium text-gray-600 mb-1\">Safety Needs</div>
-              <div className={`text-lg font-semibold ${
+              <div className={`text-lg font-medium ${
                 detectionResults.assessment.immediateSafetyNeeds ? 'text-red-600' : 'text-green-600'
               }`}>
                 {detectionResults.assessment.immediateSafetyNeeds ? 'Immediate' : 'Routine'}

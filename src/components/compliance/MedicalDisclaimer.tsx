@@ -85,7 +85,7 @@ export function MedicalDisclaimer({
       <Card className="max-w-md mx-auto">
         <CardContent className="p-4">
           <div className="text-center">
-            <h3 className="font-semibold text-lg mb-2">Important Notice</h3>
+            <h3 className="font-medium text-lg mb-2">Important Notice</h3>
             <p className="text-sm text-gray-700 mb-3">
               ALCHM supports emotional wellness but is not medical treatment. 
               For mental health emergencies, contact crisis resources immediately.
@@ -109,7 +109,7 @@ export function MedicalDisclaimer({
   return (
     <Card className="max-w-4xl mx-auto">
       <CardHeader>
-        <h2 className="text-2xl font-bold text-center text-gray-900">
+        <h2 className="text-2xl font-medium text-center text-gray-900">
           Important Medical Disclaimer
         </h2>
       </CardHeader>
@@ -139,7 +139,7 @@ export function MedicalDisclaimer({
 
         {/* Professional Care */}
         <div className="prose max-w-none">
-          <h3 className="text-lg font-semibold">Seek Professional Care</h3>
+          <h3 className="text-lg font-medium">Seek Professional Care</h3>
           <p>
             Always seek the advice of qualified health providers with any questions about your mental health. 
             Never disregard professional medical advice or delay seeking it because of information from this app.
@@ -153,7 +153,7 @@ export function MedicalDisclaimer({
         {/* Crisis Resources */}
         {showCrisisResources && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-red-800 mb-4 flex items-center">
+            <h3 className="text-lg font-medium text-red-800 mb-4 flex items-center">
               <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
@@ -162,7 +162,7 @@ export function MedicalDisclaimer({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {crisisResources.map((resource, index) => (
                 <div key={index} className="bg-white p-4 rounded border">
-                  <h4 className="font-semibold text-gray-900">{resource.name}</h4>
+                  <h4 className="font-medium text-gray-900">{resource.name}</h4>
                   <p className="text-sm text-gray-600 mb-2">{resource.description}</p>
                   <a 
                     href={resource.type === 'phone' ? `tel:${resource.contact}` : `sms:${resource.contact}`}
@@ -179,7 +179,7 @@ export function MedicalDisclaimer({
 
         {/* App Limitations */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">What ALCHM Does and Doesn't Do</h3>
+          <h3 className="text-lg font-medium text-blue-800 mb-2">What ALCHM Does and Doesn't Do</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <h4 className="font-medium text-green-800">✅ ALCHM Provides:</h4>

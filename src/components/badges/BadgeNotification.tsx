@@ -45,7 +45,7 @@ export default function BadgeNotification({ badgeIds, onDismiss, show }: BadgeNo
           <div className="flex items-center gap-3 mb-4">
             <div className="text-2xl">🏆</div>
             <div>
-              <h3 className="font-semibold text-[var(--sage)]">
+              <h3 className="font-medium text-[var(--sage)]">
                 New Badge{badges.length > 1 ? 's' : ''} Earned!
               </h3>
               <p className="text-sm text-[var(--ink-mute)]">
@@ -57,7 +57,7 @@ export default function BadgeNotification({ badgeIds, onDismiss, show }: BadgeNo
           <div className="space-y-3 mb-4">
             {badges.map((badge) => badge && (
               <div key={badge.name} className="flex items-center gap-3 p-3 rounded-xl bg-[var(--blush)]/30">
-                <div className="w-10 h-10 rounded-full bg-[var(--sage)] flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-10 h-10 rounded-full bg-[var(--sage)] flex items-center justify-center text-white font-medium text-sm">
                   {badge.category === 'presence' ? '🧘' : 
                    badge.category === 'reflection' ? '💭' :
                    badge.category === 'growth' ? '🌱' : '🤝'}

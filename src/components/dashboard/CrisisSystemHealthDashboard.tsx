@@ -192,7 +192,7 @@ export default function CrisisSystemHealthDashboard({
         )}
       </div>
       
-      <div className={`text-2xl font-bold ${color}`}>
+      <div className={`text-2xl font-medium ${color}`}>
         {value}{unit}
       </div>
       
@@ -243,7 +243,7 @@ export default function CrisisSystemHealthDashboard({
         <div className="flex items-center space-x-3">
           <Shield className="h-8 w-8 text-red-600" />
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Crisis System Health</h1>
+            <h1 className="text-2xl font-medium text-gray-900">Crisis System Health</h1>
             <p className="text-gray-600">Real-time monitoring of life-safety systems</p>
           </div>
         </div>

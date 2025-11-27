@@ -396,7 +396,7 @@ export function AccessibilityToggle() {
 
   return (
     <div className="fixed bottom-20 left-4 z-50 bg-white p-4 rounded-lg shadow-xl border-2 border-sage-300 max-w-xs">
-      <h3 className="text-lg font-semibold mb-3 text-sage-800">Accessibility Options</h3>
+      <h3 className="text-lg font-medium mb-3 text-sage-800">Accessibility Options</h3>
       
       <div className="space-y-3">
         <label className="flex items-center gap-2 cursor-pointer">

@@ -809,13 +809,13 @@ export default function OutcomeCorrelationAnalysis({
             <div key={correlation.correlationId} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 capitalize">
+                  <h3 className="font-medium text-gray-800 capitalize">
                     {correlation.primaryOutcome.replace('_', ' ')} → {correlation.secondaryOutcome.replace('_', ' ')}
                   </h3>
                   <div className="text-sm text-gray-600 capitalize">{correlation.correlationType.replace('_', ' ')}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-medium text-blue-600">
                     {correlation.correlationCoefficient.toFixed(2)}
                   </div>
                   <div className="text-sm text-gray-500">r-value</div>
@@ -870,7 +870,7 @@ export default function OutcomeCorrelationAnalysis({
           <div key={attribution.attributionId} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h3 className="font-semibold text-gray-800 capitalize">
+                <h3 className="font-medium text-gray-800 capitalize">
                   {attribution.pathwayId.replace('-', ' ')} Pathway
                 </h3>
                 <div className="text-sm text-gray-600">
@@ -878,7 +878,7 @@ export default function OutcomeCorrelationAnalysis({
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-medium text-green-600">
                   {(attribution.attributionScore * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-500">Attribution Score</div>
@@ -887,25 +887,25 @@ export default function OutcomeCorrelationAnalysis({
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">
+                <div className="text-lg font-medium text-blue-600">
                   {(attribution.causalContribution * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Causal Contribution</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-purple-600">
+                <div className="text-lg font-medium text-purple-600">
                   {(attribution.correlationStrength * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Correlation Strength</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-orange-600">
+                <div className="text-lg font-medium text-orange-600">
                   {(attribution.confidenceLevel * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Confidence Level</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-teal-600 capitalize">
+                <div className="text-lg font-medium text-teal-600 capitalize">
                   {attribution.effectSizeClassification.replace('_', ' ')}
                 </div>
                 <div className="text-sm text-gray-600">Effect Size</div>
@@ -922,7 +922,7 @@ export default function OutcomeCorrelationAnalysis({
                         <span className="text-sm font-medium text-green-800 capitalize">
                           {effect.effectType.replace('_', ' ')}
                         </span>
-                        <span className="text-sm font-bold text-green-600">
+                        <span className="text-sm font-medium text-green-600">
                           {effect.effectSize.toFixed(2)}
                         </span>
                       </div>
@@ -973,7 +973,7 @@ export default function OutcomeCorrelationAnalysis({
         ))}
         
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">Feature Attribution Analysis</h3>
+          <h3 className="font-medium text-gray-800 mb-4">Feature Attribution Analysis</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featureCorrelations.map((feature) => (
               <div key={feature.attributionId} className="bg-gray-50 rounded-lg p-4">
@@ -985,7 +985,7 @@ export default function OutcomeCorrelationAnalysis({
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">
+                    <div className="text-lg font-medium text-blue-600">
                       {(feature.attributionScore * 100).toFixed(0)}%
                     </div>
                   </div>
@@ -1025,13 +1025,13 @@ export default function OutcomeCorrelationAnalysis({
           <div key={model.modelId} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h3 className="font-semibold text-gray-800 capitalize">
+                <h3 className="font-medium text-gray-800 capitalize">
                   {model.targetOutcome.replace('_', ' ')} Prediction Model
                 </h3>
                 <div className="text-sm text-gray-600">{model.predictionHorizon.replace('_', ' ')} horizon</div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-medium text-green-600">
                   {(model.modelAccuracy * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-500">Accuracy</div>
@@ -1040,25 +1040,25 @@ export default function OutcomeCorrelationAnalysis({
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">
+                <div className="text-lg font-medium text-blue-600">
                   {(model.precisionScore * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Precision</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-purple-600">
+                <div className="text-lg font-medium text-purple-600">
                   {(model.recallScore * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Recall</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-orange-600">
+                <div className="text-lg font-medium text-orange-600">
                   {(model.f1Score * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">F1 Score</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-teal-600">
+                <div className="text-lg font-medium text-teal-600">
                   {(model.predictionConfidence * 100).toFixed(0)}%
                 </div>
                 <div className="text-sm text-gray-600">Confidence</div>
@@ -1077,7 +1077,7 @@ export default function OutcomeCorrelationAnalysis({
                         </div>
                         <div className="text-xs text-gray-600">{feature.description}</div>
                       </div>
-                      <div className="text-sm font-bold text-blue-600">
+                      <div className="text-sm font-medium text-blue-600">
                         {(feature.importance * 100).toFixed(0)}%
                       </div>
                     </div>
@@ -1135,13 +1135,13 @@ export default function OutcomeCorrelationAnalysis({
           <div key={causal.analysisId} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h3 className="font-semibold text-gray-800 capitalize">
+                <h3 className="font-medium text-gray-800 capitalize">
                   {causal.treatmentVariable.replace('_', ' ')} → {causal.outcomeVariable.replace('_', ' ')}
                 </h3>
                 <div className="text-sm text-gray-600 capitalize">{causal.causalMethod.replace('_', ' ')}</div>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-bold text-red-600">
+                <div className="text-2xl font-medium text-red-600">
                   {causal.causalEffectSize.toFixed(2)}
                 </div>
                 <div className="text-sm text-gray-500">Causal Effect</div>
@@ -1150,19 +1150,19 @@ export default function OutcomeCorrelationAnalysis({
             
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
               <div className="text-center">
-                <div className="text-lg font-bold text-green-600">
+                <div className="text-lg font-medium text-green-600">
                   {causal.treatmentEffect.averageTreatmentEffect.toFixed(2)}
                 </div>
                 <div className="text-sm text-gray-600">Average Treatment Effect</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">
+                <div className="text-lg font-medium text-blue-600">
                   {causal.treatmentEffect.treatmentOnTreatedEffect.toFixed(2)}
                 </div>
                 <div className="text-sm text-gray-600">Effect on Treated</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-purple-600 capitalize">
+                <div className="text-lg font-medium text-purple-600 capitalize">
                   {causal.evidenceStrength.replace('_', ' ')}
                 </div>
                 <div className="text-sm text-gray-600">Evidence Strength</div>
@@ -1234,19 +1234,19 @@ export default function OutcomeCorrelationAnalysis({
               <h4 className="font-medium text-yellow-800 mb-2">Sensitivity Analysis</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="text-lg font-bold text-yellow-600">
+                  <div className="text-lg font-medium text-yellow-600">
                     {causal.sensitivityAnalysis.robustnessValue.toFixed(2)}
                   </div>
                   <div className="text-sm text-yellow-700">Robustness Value</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-bold text-yellow-600">
+                  <div className="text-lg font-medium text-yellow-600">
                     {causal.sensitivityAnalysis.criticalValue.toFixed(2)}
                   </div>
                   <div className="text-sm text-yellow-700">Critical Value</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm font-bold text-yellow-800 capitalize">
+                  <div className="text-sm font-medium text-yellow-800 capitalize">
                     {causal.sensitivityAnalysis.robustnessConclusion.replace('_', ' ')}
                   </div>
                   <div className="text-sm text-yellow-700">Conclusion</div>
@@ -1271,7 +1271,7 @@ export default function OutcomeCorrelationAnalysis({
     <div className={`space-y-6 ${className}`}>
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Outcome Correlation Analysis</h2>
+          <h2 className="text-2xl font-medium text-gray-800">Outcome Correlation Analysis</h2>
           <p className="text-gray-600">Advanced correlation analysis and causal inference for outcome attribution</p>
         </div>
         

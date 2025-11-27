@@ -331,7 +331,11 @@ class FirebaseStudioMasterDiagnostic {
       { name: 'Bundle Size', check: () => this.checkBundleSize() },
       { name: 'Build Process', check: () => this.checkBuildProcess() },
       { name: 'Firebase Config', check: () => this.checkFirebaseConfig() },
-      { name: 'Environment Variables', check: () => this.checkEnvironmentVariables() }
+      { name: 'Environment Variables', check: () => this.checkEnvironmentVariables() },
+      { name: 'Google OAuth Configuration', check: () => this.checkGoogleOAuthConfig() },
+      { name: 'Cross-Platform Auth', check: () => this.testCrossPlatformAuth() },
+      { name: 'Security Compliance', check: () => this.checkSecurityCompliance() },
+      { name: 'Performance Metrics', check: () => this.checkPerformanceMetrics() }
     ];
     
     const results = [];
@@ -361,6 +365,415 @@ class FirebaseStudioMasterDiagnostic {
       readyForDeployment,
       checks: results,
       timestamp: new Date().toISOString()
+    };
+  }
+
+  async checkGoogleOAuthConfig() {
+    this.log('🔐 Validating Google OAuth 2.0 configuration...', 'step');
+    
+    const checks = {
+      firebaseConfig: false,
+      environmentVars: false,
+      authDomains: false,
+      oauthSettings: false
+    };
+    
+    const issues = [];
+    
+    // Check Firebase client configuration
+    const requiredEnvVars = [
+      'NEXT_PUBLIC_FIREBASE_API_KEY',
+      'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
+      'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
+      'NEXT_PUBLIC_FIREBASE_APP_ID'
+    ];
+    
+    let hasAllVars = true;
+    for (const varName of requiredEnvVars) {
+      if (!process.env[varName]) {
+        issues.push(`Missing environment variable: ${varName}`);
+        hasAllVars = false;
+      }
+    }
+    checks.environmentVars = hasAllVars;
+    
+    // Validate API key format
+    const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+    if (apiKey && !apiKey.startsWith('AIza')) {
+      issues.push('Invalid Firebase API key format');
+    }
+    
+    // Validate auth domain format
+    const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN;
+    if (authDomain) {
+      if (!authDomain.includes('.firebaseapp.com') && !authDomain.includes('.web.app')) {
+        issues.push('Invalid Firebase Auth domain format');
+      } else {
+        checks.authDomains = true;
+      }
+    }
+    
+    // Check Firebase configuration files
+    const firebaseConfigPath = path.join(process.cwd(), 'src/lib/firebase.ts');
+    if (fs.existsSync(firebaseConfigPath)) {
+      const configContent = fs.readFileSync(firebaseConfigPath, 'utf8');
+      
+      if (configContent.includes('getAuth') && configContent.includes('GoogleAuthProvider')) {
+        checks.firebaseConfig = true;
+      } else if (configContent.includes('initializeApp')) {
+        checks.firebaseConfig = true; // Basic initialization present
+      } else {
+        issues.push('Firebase client configuration incomplete');
+      }
+    } else {
+      issues.push('Firebase client configuration file not found');
+    }
+    
+    // Check authentication components
+    const authComponentPaths = [
+      'src/app/[locale]/auth/login/LoginClientOptimized.tsx',
+      'src/components/auth/SignInButtons.tsx'
+    ];
+    
+    let hasAuthComponents = false;
+    for (const componentPath of authComponentPaths) {
+      const fullPath = path.join(process.cwd(), componentPath);
+      if (fs.existsSync(fullPath)) {
+        const content = fs.readFileSync(fullPath, 'utf8');
+        if (content.includes('Google') && (content.includes('signIn') || content.includes('auth'))) {
+          hasAuthComponents = true;
+          break;
+        }
+      }
+    }
+    
+    if (!hasAuthComponents) {
+      issues.push('Google authentication components not found or incomplete');
+    } else {
+      checks.oauthSettings = true;
+    }
+    
+    if (issues.length > 0) {
+      throw new Error(`Google OAuth configuration issues: ${issues.join('; ')}`);
+    }
+    
+    return {
+      status: 'oauth_configured',
+      checks,
+      validatedDomains: [authDomain],
+      implementedProviders: ['google', 'email']
+    };
+  }
+
+  async testCrossPlatformAuth() {
+    this.log('📱 Testing cross-platform authentication compatibility...', 'step');
+    
+    const platforms = {
+      web: { tested: false, issues: [] },
+      mobile: { tested: false, issues: [] },
+      pwa: { tested: false, issues: [] },
+      crisis: { tested: false, issues: [] }
+    };
+    
+    // Test web authentication setup
+    const webLoginPath = path.join(process.cwd(), 'src/app/[locale]/auth/login/page.tsx');
+    if (fs.existsSync(webLoginPath)) {
+      platforms.web.tested = true;
+      
+      const content = fs.readFileSync(webLoginPath, 'utf8');
+      if (!content.includes('LoginClient')) {
+        platforms.web.issues.push('Login component not properly imported');
+      }
+    } else {
+      platforms.web.issues.push('Web login page not found');
+    }
+    
+    // Test mobile authentication components
+    const mobileComponents = [
+      'src/components/auth/MobileCrisisAuthButton.tsx',
+      'src/components/auth/EmergencyMobileAgeVerification.tsx'
+    ];
+    
+    let mobileComponentsFound = 0;
+    for (const component of mobileComponents) {
+      const componentPath = path.join(process.cwd(), component);
+      if (fs.existsSync(componentPath)) {
+        mobileComponentsFound++;
+      }
+    }
+    
+    if (mobileComponentsFound >= 1) {
+      platforms.mobile.tested = true;
+    } else {
+      platforms.mobile.issues.push('Mobile authentication components missing');
+    }
+    
+    // Test PWA configuration
+    const manifestPath = path.join(process.cwd(), 'public/manifest.json');
+    if (fs.existsSync(manifestPath)) {
+      try {
+        const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+        if (manifest.display === 'standalone' || manifest.display === 'fullscreen') {
+          platforms.pwa.tested = true;
+        } else {
+          platforms.pwa.issues.push('PWA display mode not optimized for authentication');
+        }
+      } catch (error) {
+        platforms.pwa.issues.push('Invalid manifest.json format');
+      }
+    } else {
+      platforms.pwa.issues.push('PWA manifest not found');
+    }
+    
+    // Test crisis authentication
+    const crisisComponents = [
+      'src/components/auth/CrisisSafeAuthenticationFlow.tsx',
+      'src/components/auth/EmergencyAuth.tsx'
+    ];
+    
+    let crisisComponentsFound = 0;
+    for (const component of crisisComponents) {
+      const componentPath = path.join(process.cwd(), component);
+      if (fs.existsSync(componentPath)) {
+        crisisComponentsFound++;
+      }
+    }
+    
+    if (crisisComponentsFound >= 1) {
+      platforms.crisis.tested = true;
+    } else {
+      platforms.crisis.issues.push('Crisis authentication components missing');
+    }
+    
+    // Emergency access routes
+    const emergencyRoutes = [
+      'public/mobile-emergency.html',
+      'public/emergency-login.html'
+    ];
+    
+    let emergencyRoutesFound = 0;
+    for (const route of emergencyRoutes) {
+      const routePath = path.join(process.cwd(), route);
+      if (fs.existsSync(routePath)) {
+        emergencyRoutesFound++;
+      }
+    }
+    
+    if (emergencyRoutesFound === 0) {
+      platforms.crisis.issues.push('Emergency access routes missing');
+    }
+    
+    // Calculate overall success
+    const totalIssues = Object.values(platforms)
+      .reduce((sum, platform) => sum + platform.issues.length, 0);
+    
+    if (totalIssues > 0) {
+      const allIssues = Object.entries(platforms)
+        .filter(([_, platform]) => platform.issues.length > 0)
+        .map(([name, platform]) => `${name}: ${platform.issues.join(', ')}`)
+        .join('; ');
+      
+      throw new Error(`Cross-platform authentication issues: ${allIssues}`);
+    }
+    
+    return {
+      status: 'cross_platform_ready',
+      platforms,
+      supportedPlatforms: Object.keys(platforms).filter(name => platforms[name].tested)
+    };
+  }
+
+  async checkSecurityCompliance() {
+    this.log('🔒 Checking security compliance...', 'step');
+    
+    const securityChecks = {
+      https: false,
+      headers: false,
+      firestore: false,
+      auth: false
+    };
+    
+    const issues = [];
+    
+    // Check HTTPS enforcement via Firebase hosting
+    const firebaseConfigPath = path.join(process.cwd(), 'firebase.json');
+    if (fs.existsSync(firebaseConfigPath)) {
+      const config = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+      
+      // Firebase hosting enforces HTTPS by default
+      if (config.hosting) {
+        securityChecks.https = true;
+      }
+      
+      // Check security headers
+      if (config.hosting && config.hosting[0] && config.hosting[0].headers) {
+        const headers = JSON.stringify(config.hosting[0].headers);
+        const requiredHeaders = [
+          'X-Frame-Options',
+          'X-Content-Type-Options',
+          'Referrer-Policy'
+        ];
+        
+        let hasAllHeaders = true;
+        for (const header of requiredHeaders) {
+          if (!headers.includes(header)) {
+            issues.push(`Missing security header: ${header}`);
+            hasAllHeaders = false;
+          }
+        }
+        securityChecks.headers = hasAllHeaders;
+      } else {
+        issues.push('Security headers not configured');
+      }
+    } else {
+      issues.push('Firebase configuration not found');
+    }
+    
+    // Check Firestore security rules
+    const rulesPath = path.join(process.cwd(), 'firestore.rules');
+    if (fs.existsSync(rulesPath)) {
+      const rules = fs.readFileSync(rulesPath, 'utf8');
+      
+      if (rules.includes('request.auth != null') && 
+          rules.includes('request.auth.uid')) {
+        securityChecks.firestore = true;
+      } else {
+        issues.push('Firestore security rules lack proper authentication checks');
+      }
+      
+      // Check for trauma-informed protections
+      if (!rules.includes('crisis') && !rules.includes('privacy')) {
+        issues.push('Firestore rules lack trauma-informed protections');
+      }
+    } else {
+      issues.push('Firestore security rules not found');
+    }
+    
+    // Check authentication security
+    const authFiles = [
+      'src/lib/validateSession.ts',
+      'src/lib/firebaseAdmin.ts'
+    ];
+    
+    let hasAuthSecurity = false;
+    for (const file of authFiles) {
+      const filePath = path.join(process.cwd(), file);
+      if (fs.existsSync(filePath)) {
+        const content = fs.readFileSync(filePath, 'utf8');
+        if (content.includes('verifyIdToken') || content.includes('verifySessionCookie')) {
+          hasAuthSecurity = true;
+          break;
+        }
+      }
+    }
+    
+    if (hasAuthSecurity) {
+      securityChecks.auth = true;
+    } else {
+      issues.push('Authentication security validation not implemented');
+    }
+    
+    if (issues.length > 0) {
+      throw new Error(`Security compliance issues: ${issues.join('; ')}`);
+    }
+    
+    return {
+      status: 'security_compliant',
+      checks: securityChecks,
+      enforcedProtections: ['https', 'auth_required', 'data_isolation']
+    };
+  }
+
+  async checkPerformanceMetrics() {
+    this.log('⚡ Checking performance optimization...', 'step');
+    
+    const performanceChecks = {
+      bundleOptimization: false,
+      lazyLoading: false,
+      caching: false,
+      crisisOptimization: false
+    };
+    
+    const issues = [];
+    
+    // Check Next.js configuration for optimization
+    const nextConfigPath = path.join(process.cwd(), 'next.config.js');
+    if (fs.existsSync(nextConfigPath)) {
+      const content = fs.readFileSync(nextConfigPath, 'utf8');
+      
+      // Check bundle optimization
+      if (content.includes('splitChunks') && content.includes('swcMinify')) {
+        performanceChecks.bundleOptimization = true;
+      } else {
+        issues.push('Bundle optimization not fully configured');
+      }
+      
+      // Check crisis-specific optimizations
+      if (content.includes('crisis') || content.includes('CRISIS')) {
+        performanceChecks.crisisOptimization = true;
+      } else {
+        issues.push('Crisis-specific performance optimizations missing');
+      }
+    } else {
+      issues.push('Next.js configuration not found');
+    }
+    
+    // Check lazy loading implementation
+    const loginComponent = path.join(process.cwd(), 'src/app/[locale]/auth/login/LoginClientOptimized.tsx');
+    if (fs.existsSync(loginComponent)) {
+      const content = fs.readFileSync(loginComponent, 'utf8');
+      
+      if (content.includes('dynamic') && content.includes('import(')) {
+        performanceChecks.lazyLoading = true;
+      } else {
+        issues.push('Authentication components not using lazy loading');
+      }
+    }
+    
+    // Check caching strategy
+    const firebaseConfigPath = path.join(process.cwd(), 'firebase.json');
+    if (fs.existsSync(firebaseConfigPath)) {
+      const config = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+      
+      if (config.hosting && config.hosting[0] && config.hosting[0].headers) {
+        const headers = JSON.stringify(config.hosting[0].headers);
+        
+        if (headers.includes('Cache-Control') && headers.includes('max-age')) {
+          performanceChecks.caching = true;
+        } else {
+          issues.push('Caching headers not properly configured');
+        }
+      } else {
+        issues.push('Firebase hosting headers not configured');
+      }
+    }
+    
+    // Check for service worker
+    const swPaths = [
+      'public/sw.js',
+      'public/crisis-sw.js'
+    ];
+    
+    let hasServiceWorker = false;
+    for (const swPath of swPaths) {
+      if (fs.existsSync(path.join(process.cwd(), swPath))) {
+        hasServiceWorker = true;
+        break;
+      }
+    }
+    
+    if (!hasServiceWorker) {
+      issues.push('Service worker not found for offline capabilities');
+    }
+    
+    if (issues.length > 0) {
+      throw new Error(`Performance optimization issues: ${issues.join('; ')}`);
+    }
+    
+    return {
+      status: 'performance_optimized',
+      checks: performanceChecks,
+      optimizations: ['bundle_splitting', 'lazy_loading', 'caching', 'crisis_mode']
     };
   }
 

@@ -9,14 +9,14 @@ export default function NotFound() {
       <div className="max-w-md w-full text-center">
         {/* 404 Animation */}
         <div className="mb-8">
-          <div className="text-6xl font-bold text-gray-300 mb-4">
+          <div className="text-6xl font-light text-gray-300 mb-4">
             404
           </div>
           <div className="text-4xl mb-4">🔍</div>
         </div>
 
         {/* Title and Description */}
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-light text-gray-900 mb-4">
           Page Not Found
         </h1>
         

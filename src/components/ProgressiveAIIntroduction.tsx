@@ -81,14 +81,14 @@ export default function ProgressiveAIIntroduction({
             <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">✨</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Your Digital Sanctuary</h2>
+            <h2 className="text-2xl font-medium text-gray-900 mb-2">Welcome to Your Digital Sanctuary</h2>
             <p className="text-gray-600">
               ALCHM is designed to support your emotional wellness journey with respect, privacy, and cultural sensitivity.
             </p>
           </div>
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-900 mb-2">What Makes ALCHM Special</h3>
+            <h3 className="font-medium text-blue-900 mb-2">What Makes ALCHM Special</h3>
             <ul className="text-blue-800 text-sm space-y-1">
               <li>• Trauma-informed approach designed by mental health experts</li>
               <li>• Cultural responsiveness honoring diverse healing traditions</li>
@@ -100,7 +100,7 @@ export default function ProgressiveAIIntroduction({
 
           {consentFlow?.requiresParentalConsent && (
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h3 className="font-semibold text-green-900 mb-2">For Young Journalers</h3>
+              <h3 className="font-medium text-green-900 mb-2">For Young Journalers</h3>
               <p className="text-green-800 text-sm">
                 We've designed special protections for young people, including parental oversight and extra privacy safeguards.
               </p>
@@ -118,7 +118,7 @@ export default function ProgressiveAIIntroduction({
       content: (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">What is AI-Assisted Journaling?</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">What is AI-Assisted Journaling?</h2>
             <p className="text-gray-700 mb-4">
               AI (Artificial Intelligence) can help enhance your journaling experience by offering gentle insights 
               and supportive prompts. Think of it as a thoughtful writing companion that never judges.
@@ -127,7 +127,7 @@ export default function ProgressiveAIIntroduction({
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h3 className="font-semibold text-green-900 mb-2">✅ What AI Does</h3>
+              <h3 className="font-medium text-green-900 mb-2">✅ What AI Does</h3>
               <ul className="text-green-800 text-sm space-y-1">
                 <li>• Offers gentle emotional insights</li>
                 <li>• Suggests reflection questions</li>
@@ -138,7 +138,7 @@ export default function ProgressiveAIIntroduction({
             </div>
 
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <h3 className="font-semibold text-red-900 mb-2">❌ What AI Does NOT Do</h3>
+              <h3 className="font-medium text-red-900 mb-2">❌ What AI Does NOT Do</h3>
               <ul className="text-red-800 text-sm space-y-1">
                 <li>• Diagnose mental health conditions</li>
                 <li>• Give medical advice</li>
@@ -150,7 +150,7 @@ export default function ProgressiveAIIntroduction({
           </div>
 
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <h3 className="font-semibold text-purple-900 mb-2">🔒 Your Privacy is Protected</h3>
+            <h3 className="font-medium text-purple-900 mb-2">🔒 Your Privacy is Protected</h3>
             <p className="text-purple-800 text-sm">
               All your journal entries are encrypted and private. AI processes your writing to help you, 
               but your personal thoughts are never shared with anyone. You control your data completely.
@@ -168,7 +168,7 @@ export default function ProgressiveAIIntroduction({
       content: (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">How Much AI Support Do You Want?</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">How Much AI Support Do You Want?</h2>
             <p className="text-gray-700 mb-4">
               You have complete control over how AI assists your journaling. Choose the level that feels right for you.
             </p>
@@ -194,7 +194,7 @@ export default function ProgressiveAIIntroduction({
                         onChange={() => setSelectedLevel(level.level)}
                         className="mr-3"
                       />
-                      <h3 className="font-semibold text-gray-900">{level.name}</h3>
+                      <h3 className="font-medium text-gray-900">{level.name}</h3>
                     </div>
                     <p className="text-gray-600 text-sm mb-3">{level.description}</p>
                     
@@ -276,7 +276,7 @@ export default function ProgressiveAIIntroduction({
       content: (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Pure Analog Journaling</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Pure Analog Journaling</h2>
             <p className="text-gray-700 mb-4">
               Prefer to journal without any AI assistance? That's perfectly valid. 
               Our analog mode offers rich, human-curated reflection experiences.
@@ -284,7 +284,7 @@ export default function ProgressiveAIIntroduction({
           </div>
 
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-            <h3 className="font-semibold text-amber-900 mb-4">Analog Mode Features</h3>
+            <h3 className="font-medium text-amber-900 mb-4">Analog Mode Features</h3>
             
             <div className="grid md:grid-cols-2 gap-4">
               <div>
@@ -340,14 +340,14 @@ export default function ProgressiveAIIntroduction({
       content: consentFlow?.requiresParentalConsent ? (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Parental Consent Required</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Parental Consent Required</h2>
             <p className="text-gray-700 mb-4">
               Since you're under 13, we need your parent or guardian to review and approve your AI interaction settings.
             </p>
           </div>
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-900 mb-2">What Your Parent/Guardian Will Review</h3>
+            <h3 className="font-medium text-blue-900 mb-2">What Your Parent/Guardian Will Review</h3>
             <ul className="text-blue-800 text-sm space-y-1">
               <li>• Your chosen AI interaction level</li>
               <li>• Privacy and safety protections in place</li>
@@ -375,7 +375,7 @@ export default function ProgressiveAIIntroduction({
           </div>
 
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <h3 className="font-semibold text-green-900 mb-2">Privacy Protection</h3>
+            <h3 className="font-medium text-green-900 mb-2">Privacy Protection</h3>
             <p className="text-green-800 text-sm">
               Your parent/guardian can review your settings and safety features, but they cannot read your actual journal entries. 
               Your thoughts remain completely private.
@@ -393,14 +393,14 @@ export default function ProgressiveAIIntroduction({
       content: (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Confirm Your AI Preferences</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Confirm Your AI Preferences</h2>
             <p className="text-gray-700 mb-4">
               Please review your choices. You can change these settings anytime in your preferences.
             </p>
           </div>
 
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-3">Your Selected Settings</h3>
+            <h3 className="font-medium text-gray-900 mb-3">Your Selected Settings</h3>
             
             <div className="space-y-3">
               <div>
@@ -445,7 +445,7 @@ export default function ProgressiveAIIntroduction({
           </div>
 
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 className="font-semibold text-blue-900 mb-2">Remember</h3>
+            <h3 className="font-medium text-blue-900 mb-2">Remember</h3>
             <ul className="text-blue-800 text-sm space-y-1">
               <li>• You can change these settings anytime</li>
               <li>• Your journal entries are always private and encrypted</li>
@@ -548,7 +548,7 @@ export default function ProgressiveAIIntroduction({
         {/* Step Content */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-medium text-gray-900 mb-2">
               {currentStepData?.title}
             </h1>
             <p className="text-gray-600">

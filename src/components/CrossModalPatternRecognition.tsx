@@ -451,7 +451,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
     <div className={`cross-modal-pattern-recognition ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Cross-Modal Pattern Recognition
         </h3>
         <p className="text-sm text-gray-600">
@@ -466,14 +466,14 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
             {activeAnalysis ? (
               <>
                 <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-semibold text-purple-700">
+                <span className="text-sm font-medium text-purple-700">
                   Analyzing Creative Patterns...
                 </span>
               </>
             ) : (
               <>
                 <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                <span className="text-sm font-semibold text-green-700">
+                <span className="text-sm font-medium text-green-700">
                   {discoveredPatterns.length} Healing Patterns Discovered
                 </span>
               </>
@@ -512,7 +512,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
       {showAnalysisDetails && (
         <div className="analysis-details mb-6 p-6 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-lg font-semibold text-gray-800">How Cross-Modal Pattern Recognition Works</h4>
+            <h4 className="text-lg font-medium text-gray-800">How Cross-Modal Pattern Recognition Works</h4>
             <button
               onClick={() => setShowAnalysisDetails(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -523,7 +523,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">🔍 Pattern Detection</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-3">🔍 Pattern Detection</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Our AI analyzes your creative sessions across voice, art, poetry, music, and movement to identify recurring 
                 patterns, sequences, and combinations that indicate specific healing processes.
@@ -531,7 +531,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
             </div>
             
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">🧠 Therapeutic Intelligence</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-3">🧠 Therapeutic Intelligence</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Each pattern is evaluated for its therapeutic significance, healing potential, and personal relevance 
                 based on trauma-informed creative therapy principles and somatic psychology.
@@ -539,7 +539,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
             </div>
             
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">🌱 Personalized Insights</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-3">🌱 Personalized Insights</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Insights are tailored to your unique creative healing style, offering actionable suggestions that honor 
                 your natural patterns while expanding your toolkit for growth.
@@ -547,7 +547,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
             </div>
             
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">🔒 Privacy-First Design</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-3">🔒 Privacy-First Design</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Pattern analysis happens locally on your device. Only anonymized, aggregated insights contribute to 
                 improving the system for the broader healing community.
@@ -567,7 +567,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
       {discoveredPatterns.length > 0 && (
         <div className="pattern-filter mb-6 p-4 bg-white rounded-2xl shadow-sm border border-gray-100">
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-semibold text-gray-700">Filter by Timeframe:</h4>
+            <h4 className="text-sm font-medium text-gray-700">Filter by Timeframe:</h4>
             <div className="filter-buttons flex gap-2">
               {['all', 'session', 'daily', 'weekly', 'monthly'].map(timeframe => (
                 <button
@@ -597,7 +597,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
               <div className="pattern-header p-6 bg-gradient-to-r from-purple-50 to-blue-50">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-800 mb-1">{pattern.name}</h4>
+                    <h4 className="text-lg font-medium text-gray-800 mb-1">{pattern.name}</h4>
                     <div className="flex items-center gap-3 text-sm text-gray-600">
                       <span>Frequency: {pattern.frequency}x</span>
                       <span>Confidence: {Math.round(pattern.confidence * 100)}%</span>
@@ -647,18 +647,18 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
               {/* Pattern Content */}
               <div className="pattern-content p-6">
                 <div className="healing-significance mb-4">
-                  <h5 className="text-sm font-semibold text-gray-700 mb-2">Healing Significance</h5>
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">Healing Significance</h5>
                   <p className="text-sm text-gray-700 leading-relaxed">{pattern.healingSignificance}</p>
                 </div>
                 
                 <div className="therapeutic-value mb-4">
-                  <h5 className="text-sm font-semibold text-gray-700 mb-2">Therapeutic Value</h5>
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">Therapeutic Value</h5>
                   <p className="text-sm text-gray-700 leading-relaxed">{pattern.therapeuticValue}</p>
                 </div>
                 
                 {/* Pattern Examples */}
                 <div className="pattern-examples">
-                  <h5 className="text-sm font-semibold text-gray-700 mb-3">Recent Examples</h5>
+                  <h5 className="text-sm font-medium text-gray-700 mb-3">Recent Examples</h5>
                   <div className="examples-timeline space-y-2">
                     {pattern.examples.slice(0, 2).map(example => (
                       <div key={example.id} className="example p-3 bg-gray-50 rounded-lg">
@@ -719,7 +719,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
       ) : !activeAnalysis && (
         <div className="empty-state text-center py-12">
           <div className="text-6xl mb-4">🔍</div>
-          <h4 className="text-lg font-semibold text-gray-700 mb-2">
+          <h4 className="text-lg font-medium text-gray-700 mb-2">
             Discovering Your Creative Patterns
           </h4>
           <p className="text-sm text-gray-600 max-w-md mx-auto mb-6">
@@ -747,7 +747,7 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
           <div className="modal-content bg-white rounded-3xl max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="modal-header p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <h4 className="text-xl font-semibold text-gray-800">
+                <h4 className="text-xl font-medium text-gray-800">
                   Pattern Insights: {selectedPattern.name}
                 </h4>
                 <button
@@ -766,12 +766,12 @@ const CrossModalPatternRecognition: React.FC<CrossModalPatternRecognitionProps> 
                 .map(insight => (
                   <div key={insight.id} className="insight-content space-y-4">
                     <div className="insight p-4 bg-purple-50 rounded-lg">
-                      <h5 className="text-sm font-semibold text-purple-800 mb-2">Personal Insight</h5>
+                      <h5 className="text-sm font-medium text-purple-800 mb-2">Personal Insight</h5>
                       <p className="text-sm text-gray-700 leading-relaxed">{insight.insight}</p>
                     </div>
                     
                     <div className="action-suggestion p-4 bg-green-50 rounded-lg">
-                      <h5 className="text-sm font-semibold text-green-800 mb-2">Suggested Action</h5>
+                      <h5 className="text-sm font-medium text-green-800 mb-2">Suggested Action</h5>
                       <p className="text-sm text-gray-700 leading-relaxed">{insight.actionSuggestion}</p>
                     </div>
                     

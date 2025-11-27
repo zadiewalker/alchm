@@ -213,7 +213,7 @@ const EmergencySanctuaryButton: React.FC<EmergencySanctuaryButtonProps> = ({
             <motion.span
               animate={!batterySaver ? { rotate: isExpanded ? 45 : 0 } : {}}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="text-2xl font-bold"
+              className="text-2xl font-medium"
             >
               {isExpanded ? '✕' : 'SOS'}
             </motion.span>
@@ -231,7 +231,7 @@ const EmergencySanctuaryButton: React.FC<EmergencySanctuaryButtonProps> = ({
               >
                 <div className="sanctuary-glass sanctuary-card p-6 space-y-4">
                   <div className="text-center mb-4">
-                    <h3 className="sanctuary-heading-secondary text-lg font-semibold mb-2">
+                    <h3 className="sanctuary-heading-secondary text-lg font-medium mb-2">
                       Crisis Support Resources
                     </h3>
                     <p className="sanctuary-body-small text-sm opacity-80">

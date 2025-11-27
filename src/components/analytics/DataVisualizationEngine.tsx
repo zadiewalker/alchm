@@ -261,7 +261,7 @@ const OrganicInsightRadar: React.FC<{ insights: InsightScores }> = ({ insights }
                 y={coords.y + 20}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="text-xs font-bold fill-sage-800"
+                className="text-xs font-medium fill-sage-800"
               >
                 {item.value}%
               </text>
@@ -291,7 +291,7 @@ const EmotionalVocabularyGrowth: React.FC<{ data: MoodDataPoint[] }> = ({ data }
       <div className="grid grid-cols-3 gap-4 text-center">
         {vocabularyData.slice(-3).map((point, index) => (
           <div key={index} className="bg-sage-50 rounded-lg p-4">
-            <div className="text-2xl font-bold text-sage-800 mb-1">
+            <div className="text-2xl font-medium text-sage-800 mb-1">
               {point.score}
             </div>
             <div className="text-sm text-sage-600 mb-2">Sophistication Score</div>

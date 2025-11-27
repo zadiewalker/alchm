@@ -215,7 +215,7 @@ export function BiasInterruptionSystem({ content }: { content: string }) {
             <div className="flex items-start gap-3">
               <span className="text-yellow-600 text-xl">⚠️</span>
               <div className="flex-1">
-                <h4 className="font-semibold text-yellow-800 mb-2">
+                <h4 className="font-medium text-yellow-800 mb-2">
                   Language Check: "{alert.content}"
                 </h4>
                 <p className="text-sm text-yellow-700 mb-3">{alert.explanation}</p>
@@ -275,7 +275,7 @@ export function SystemicOppressionValidator({
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-2xl">🛡️</span>
-          <h3 className="text-lg font-semibold text-red-800">
+          <h3 className="text-lg font-medium text-red-800">
             Systemic Context
           </h3>
         </div>
@@ -291,12 +291,12 @@ export function SystemicOppressionValidator({
 
       <div className="space-y-4">
         <div className="bg-red-100 rounded-lg p-4">
-          <h4 className="font-semibold text-red-900 mb-2">This is Systemic, Not Personal</h4>
+          <h4 className="font-medium text-red-900 mb-2">This is Systemic, Not Personal</h4>
           <p className="text-red-800">{relevantValidation.validation_message}</p>
         </div>
 
         <div className="bg-orange-100 rounded-lg p-4">
-          <h4 className="font-semibold text-orange-900 mb-2">Reframe</h4>
+          <h4 className="font-medium text-orange-900 mb-2">Reframe</h4>
           <p className="text-orange-800">{relevantValidation.reframe}</p>
         </div>
 
@@ -309,7 +309,7 @@ export function SystemicOppressionValidator({
               className="space-y-4"
             >
               <div className="bg-green-100 rounded-lg p-4">
-                <h4 className="font-semibold text-green-900 mb-2">Action Steps</h4>
+                <h4 className="font-medium text-green-900 mb-2">Action Steps</h4>
                 <ul className="space-y-1">
                   {relevantValidation.action_steps.map((step, index) => (
                     <li key={index} className="text-green-800 text-sm flex items-start gap-2">
@@ -321,7 +321,7 @@ export function SystemicOppressionValidator({
               </div>
 
               <div className="bg-blue-100 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 mb-2">Community Resources</h4>
+                <h4 className="font-medium text-blue-900 mb-2">Community Resources</h4>
                 <ul className="space-y-1">
                   {relevantValidation.community_resources.map((resource, index) => (
                     <li key={index} className="text-blue-800 text-sm flex items-start gap-2">
@@ -417,7 +417,7 @@ export function LiberationHealingApproaches({ profile }: { profile: AntiOppressi
 
   return (
     <Card className="p-6 bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200">
-      <h3 className="text-lg font-semibold text-purple-800 mb-6">
+      <h3 className="text-lg font-medium text-purple-800 mb-6">
         🌟 Liberation-Oriented Healing
       </h3>
 
@@ -442,7 +442,7 @@ export function LiberationHealingApproaches({ profile }: { profile: AntiOppressi
       <div className="space-y-4">
         {getApproaches().map((approach, index) => (
           <Card key={index} className="p-4 bg-white border-purple-100">
-            <h4 className="font-semibold text-purple-900 mb-2">{approach.title}</h4>
+            <h4 className="font-medium text-purple-900 mb-2">{approach.title}</h4>
             <p className="text-purple-800 mb-3">{approach.description}</p>
             
             <div className="mb-3">
@@ -516,7 +516,7 @@ export function PowerPrivilegeEducation() {
 
   return (
     <Card className="p-6 bg-gradient-to-br from-green-50 to-teal-50 border-green-200">
-      <h3 className="text-lg font-semibold text-green-800 mb-6">
+      <h3 className="text-lg font-medium text-green-800 mb-6">
         📚 Power & Privilege Education
       </h3>
 
@@ -529,7 +529,7 @@ export function PowerPrivilegeEducation() {
             }`}
             onClick={() => setCurrentTopic(currentTopic === topic.id ? null : topic.id)}
           >
-            <h4 className="font-semibold text-green-800 mb-2">{topic.title}</h4>
+            <h4 className="font-medium text-green-800 mb-2">{topic.title}</h4>
             <p className="text-sm text-green-600">
               {currentTopic === topic.id ? 'Click to collapse' : 'Click to learn more'}
             </p>
@@ -548,10 +548,10 @@ export function PowerPrivilegeEducation() {
             {educationTopics.map(topic => (
               topic.id === currentTopic && (
                 <Card key={topic.id} className="p-6 bg-white border-green-200">
-                  <h4 className="font-semibold text-green-900 mb-4">{topic.title}</h4>
+                  <h4 className="font-medium text-green-900 mb-4">{topic.title}</h4>
                   <p className="text-green-800 mb-4 leading-relaxed">{topic.content}</p>
                   <div className="bg-green-100 rounded-lg p-4">
-                    <h5 className="font-semibold text-green-900 mb-2">Reflection:</h5>
+                    <h5 className="font-medium text-green-900 mb-2">Reflection:</h5>
                     <p className="text-green-800">{topic.action}</p>
                   </div>
                 </Card>

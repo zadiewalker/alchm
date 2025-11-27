@@ -195,7 +195,7 @@ export function BetaRecruitment({ onApplicationSubmit }: BetaRecruitmentProps) {
     return (
       <Card className="p-8 text-center">
         <div className="text-green-600 text-2xl mb-4">✓</div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+        <h3 className="text-xl font-medium text-gray-900 mb-2">
           Application Submitted Successfully!
         </h3>
         <p className="text-gray-600 mb-6">
@@ -220,7 +220,7 @@ export function BetaRecruitment({ onApplicationSubmit }: BetaRecruitmentProps) {
             >
               ← Back to Opportunities
             </Button>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-medium text-gray-900 mb-2">
               Apply for {selectedRecruitment.title}
             </h2>
             <p className="text-gray-600">
@@ -314,7 +314,7 @@ export function BetaRecruitment({ onApplicationSubmit }: BetaRecruitmentProps) {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl font-medium text-gray-900 mb-4">
           Join Our Beta Testing Program
         </h1>
         <p className="text-lg text-gray-600">
@@ -324,7 +324,7 @@ export function BetaRecruitment({ onApplicationSubmit }: BetaRecruitmentProps) {
 
       {recruitments.length === 0 ? (
         <Card className="p-8 text-center">
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-medium text-gray-900 mb-2">
             No Active Recruitments
           </h3>
           <p className="text-gray-600">
@@ -336,7 +336,7 @@ export function BetaRecruitment({ onApplicationSubmit }: BetaRecruitmentProps) {
           {recruitments.map((recruitment) => (
             <Card key={recruitment.id} className="p-6">
               <div className="mb-4">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-medium text-gray-900 mb-2">
                   {recruitment.title}
                 </h3>
                 <p className="text-gray-600 mb-4">

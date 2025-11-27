@@ -171,7 +171,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold mb-2">Pathway Phases:</h4>
+                  <h4 className="font-medium mb-2">Pathway Phases:</h4>
                   <ul className="list-disc list-inside space-y-1">
                     {selectedPathway.phases.map((phase, index) => (
                       <li key={index} className="capitalize">{phase.replace('_', ' ')}</li>
@@ -179,7 +179,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">AI Coaching Specialization:</h4>
+                  <h4 className="font-medium mb-2">AI Coaching Specialization:</h4>
                   <p className="text-sm">{selectedPathway.ai_coaching.khepera_specialization}</p>
                   <p className="text-sm">Tone: {selectedPathway.ai_coaching.coaching_tone}</p>
                 </div>
@@ -267,7 +267,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
             </p>
             {economicStressProfile && (
               <div className="mt-4 p-4 bg-blue-100 rounded-lg">
-                <h4 className="font-semibold mb-2">Your Economic Stress Profile:</h4>
+                <h4 className="font-medium mb-2">Your Economic Stress Profile:</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <strong>Financial Anxiety Level:</strong> {economicStressProfile.economic_trauma_symptoms.financial_anxiety_severity}/10
@@ -337,7 +337,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
 
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-semibold mb-4">Mutual Aid Networks</h3>
+            <h3 className="text-xl font-medium mb-4">Mutual Aid Networks</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {mutualAidNetworks.map((network) => (
                 <Card key={network.id}>
@@ -372,7 +372,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold mb-4">Systemic Change Opportunities</h3>
+            <h3 className="text-xl font-medium mb-4">Systemic Change Opportunities</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {systemicChangeOpportunities.map((opportunity) => (
                 <Card key={opportunity.id}>
@@ -428,7 +428,7 @@ const EconomicJusticePathwayInterface: React.FC<EconomicJusticePathwayInterfaceP
   return (
     <div className="container mx-auto p-6 max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Economic Justice & Resource Navigation</h1>
+        <h1 className="text-3xl font-medium mb-2">Economic Justice & Resource Navigation</h1>
         <p className="text-gray-600">
           Revolutionary pathways for financial empowerment, community healing, and systemic change
         </p>

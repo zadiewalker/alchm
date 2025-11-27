@@ -38,12 +38,12 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
         <div className="space-y-4">
           <div className="text-center">
             <div className="text-6xl mb-4">✨</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Hello, I'm Khepera</h3>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">Hello, I'm Khepera</h3>
             <p className="text-gray-600">An AI designed to support your emotional journey</p>
           </div>
           
           <div className="bg-blue-50 p-4 rounded-lg">
-            <h4 className="font-semibold text-blue-900 mb-2">What I Am:</h4>
+            <h4 className="font-medium text-blue-900 mb-2">What I Am:</h4>
             <ul className="text-blue-800 space-y-1 text-sm">
               <li>• An artificial intelligence trained in emotional support</li>
               <li>• Available 24/7 for reflection and insights</li>
@@ -62,7 +62,7 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
       content: (
         <div className="space-y-4">
           <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-            <h4 className="font-semibold text-amber-900 mb-2">What I Cannot Do:</h4>
+            <h4 className="font-medium text-amber-900 mb-2">What I Cannot Do:</h4>
             <ul className="text-amber-800 space-y-1 text-sm">
               <li>• Provide medical diagnosis or treatment</li>
               <li>• Replace professional therapy or counseling</li>
@@ -72,7 +72,7 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
           </div>
           
           <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-            <h4 className="font-semibold text-green-900 mb-2">For Professional Support:</h4>
+            <h4 className="font-medium text-green-900 mb-2">For Professional Support:</h4>
             <p className="text-green-800 text-sm">
               If you need therapy, crisis support, or medical care, please contact licensed 
               mental health professionals or emergency services.
@@ -89,7 +89,7 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
       content: (
         <div className="space-y-4">
           <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-            <h4 className="font-semibold text-purple-900 mb-2">AI vs. Human Support:</h4>
+            <h4 className="font-medium text-purple-900 mb-2">AI vs. Human Support:</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
                 <h5 className="font-medium text-purple-800 mb-1">✨ Khepera (AI)</h5>
@@ -127,14 +127,14 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
           
           <div className="space-y-3">
             <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h4 className="font-semibold text-blue-900 mb-2">Continue with Khepera</h4>
+              <h4 className="font-medium text-blue-900 mb-2">Continue with Khepera</h4>
               <p className="text-blue-800 text-sm">
                 Start your emotional journey with AI-powered support and insights.
               </p>
             </div>
             
             <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-              <h4 className="font-semibold text-green-900 mb-2">Connect with Human Support</h4>
+              <h4 className="font-medium text-green-900 mb-2">Connect with Human Support</h4>
               <p className="text-green-800 text-sm">
                 We can help you find licensed mental health professionals in your area.
               </p>
@@ -196,7 +196,7 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
 
       {/* Step content */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-[#2e2e2e] mb-3">{currentStepData.title}</h2>
+        <h2 className="text-3xl font-medium text-[#2e2e2e] mb-3">{currentStepData.title}</h2>
         <p className="text-[#2e2e2e]/70 text-lg">{currentStepData.subtitle}</p>
       </div>
 
@@ -206,7 +206,7 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
 
       {/* Question and responses */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900 text-center">
+        <h3 className="text-lg font-medium text-gray-900 text-center">
           {currentStepData.question}
         </h3>
         
@@ -215,13 +215,13 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
             <>
               <button
                 onClick={() => handleStepResponse(false)}
-                className="flex-1 px-8 py-4 bg-[#a4b792] text-white font-semibold rounded-xl hover:bg-[#93a682] transition-all duration-200 shadow-sm"
+                className="flex-1 px-8 py-4 bg-[#a4b792] text-white font-medium rounded-xl hover:bg-[#93a682] transition-all duration-200 shadow-sm"
               >
                 Continue with Khepera
               </button>
               <button
                 onClick={() => handleStepResponse(true)}
-                className="flex-1 px-8 py-4 bg-[#d4756b] text-white font-semibold rounded-xl hover:bg-[#c66b5b] transition-all duration-200 shadow-sm"
+                className="flex-1 px-8 py-4 bg-[#d4756b] text-white font-medium rounded-xl hover:bg-[#c66b5b] transition-all duration-200 shadow-sm"
               >
                 Find Human Support
               </button>
@@ -230,13 +230,13 @@ export const AIConsentFlow: React.FC<AIConsentFlowProps> = ({
             <>
               <button
                 onClick={() => handleStepResponse(true)}
-                className="flex-1 px-8 py-4 bg-[#a4b792] text-white font-semibold rounded-xl hover:bg-[#93a682] transition-all duration-200 shadow-sm"
+                className="flex-1 px-8 py-4 bg-[#a4b792] text-white font-medium rounded-xl hover:bg-[#93a682] transition-all duration-200 shadow-sm"
               >
                 Yes, I Understand
               </button>
               <button
                 onClick={handleDecline}
-                className="px-8 py-4 border-2 border-[#a4b792]/30 text-[#2e2e2e] font-semibold rounded-xl hover:bg-[#a4b792]/5 transition-all duration-200"
+                className="px-8 py-4 border-2 border-[#a4b792]/30 text-[#2e2e2e] font-medium rounded-xl hover:bg-[#a4b792]/5 transition-all duration-200"
               >
                 Not Right Now
               </button>
@@ -284,7 +284,7 @@ export const AITransparencySettingsPanel: React.FC<AITransparencySettingsProps> 
   return (
     <div className={`space-y-6 ${className}`}>
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">AI Transparency Preferences</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">AI Transparency Preferences</h3>
         <p className="text-sm text-gray-600 mb-6">
           Customize how you receive information about AI interactions to meet your comfort level.
         </p>

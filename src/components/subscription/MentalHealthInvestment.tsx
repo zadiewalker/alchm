@@ -115,14 +115,14 @@ export function MentalHealthInvestment({ timeframe = 18 }: MentalHealthInvestmen
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
               <div className="text-sm text-slate-600">Your Investment</div>
-              <div className="text-3xl font-bold text-blue-700">
+              <div className="text-3xl font-medium text-blue-700">
                 ${totalInvestment}
               </div>
               <div className="text-xs text-slate-500">One-time 18-month commitment</div>
             </div>
             <div className="space-y-2">
               <div className="text-sm text-slate-600">Estimated Lifetime Value</div>
-              <div className="text-3xl font-bold text-green-700">
+              <div className="text-3xl font-medium text-green-700">
                 ${estimatedLifetimeValue.toLocaleString()}
               </div>
               <div className="text-xs text-slate-500">Conservative 5-year projection</div>
@@ -159,7 +159,7 @@ export function MentalHealthInvestment({ timeframe = 18 }: MentalHealthInvestmen
                 {metric.icon}
               </div>
               <div>
-                <div className={`text-2xl font-bold ${metric.color}`}>
+                <div className={`text-2xl font-medium ${metric.color}`}>
                   {metric.value}
                 </div>
                 <div className="text-sm font-medium text-slate-700">
@@ -201,7 +201,7 @@ export function MentalHealthInvestment({ timeframe = 18 }: MentalHealthInvestmen
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 <div className="flex-shrink-0 w-16 text-center">
-                  <div className="text-lg font-bold text-purple-600">
+                  <div className="text-lg font-medium text-purple-600">
                     {milestone.month}mo
                   </div>
                 </div>

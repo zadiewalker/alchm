@@ -298,7 +298,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
                     x={node.position.x}
                     y={node.position.y - 30}
                     textAnchor="middle"
-                    className="text-yellow-500 text-sm font-bold animate-bounce"
+                    className="text-yellow-500 text-sm font-medium animate-bounce"
                   >
                     🎉
                   </text>
@@ -481,7 +481,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
         </svg>
 
         <div className="absolute top-4 left-4 text-white">
-          <h3 className="text-lg font-semibold mb-2">Your Growth Constellation</h3>
+          <h3 className="text-lg font-medium mb-2">Your Growth Constellation</h3>
           <p className="text-sm opacity-80">Each star represents a moment of growth in your journey</p>
         </div>
       </div>
@@ -495,7 +495,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Your Transformation Timeline</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">Your Transformation Timeline</h3>
           <p className="text-gray-600">A chronological view of your personal growth journey</p>
         </div>
 
@@ -518,7 +518,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
                 {/* Timeline content */}
                 <div className="flex-1 bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-gray-800">{moment.title}</h4>
+                    <h4 className="font-medium text-gray-800">{moment.title}</h4>
                     <span className="text-sm text-gray-500">{moment.date.toLocaleDateString()}</span>
                   </div>
                   <p className="text-gray-600 text-sm mb-3">{moment.description}</p>
@@ -560,7 +560,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">{selectedNode.title}</h3>
+            <h3 className="text-xl font-medium text-gray-800">{selectedNode.title}</h3>
             <button
               onClick={() => setShowNodeDetails(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -647,7 +647,7 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Growth Journey</h2>
+            <h2 className="text-2xl font-medium text-gray-800 mb-2">Your Growth Journey</h2>
             <p className="text-gray-600">Visualize your personal development in beautiful, meaningful ways</p>
           </div>
           
@@ -720,20 +720,20 @@ const GrowthJourneyVisualization: React.FC<GrowthJourneyVisualizationProps> = ({
 
       {/* Journey insights */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">🔍 Journey Insights</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-4">🔍 Journey Insights</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600">{journeyNodes.length}</div>
+            <div className="text-3xl font-medium text-blue-600">{journeyNodes.length}</div>
             <div className="text-sm text-gray-600">Growth Moments</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600">
+            <div className="text-3xl font-medium text-purple-600">
               {journeyNodes.filter(n => n.significance === 'transformational').length}
             </div>
             <div className="text-sm text-gray-600">Transformational Events</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">
+            <div className="text-3xl font-medium text-green-600">
               {Math.round((Date.now() - journeyNodes[0]?.date.getTime()) / (1000 * 60 * 60 * 24) || 0)}
             </div>
             <div className="text-sm text-gray-600">Days of Growth</div>

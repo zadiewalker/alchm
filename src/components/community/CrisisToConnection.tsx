@@ -474,7 +474,7 @@ export default function CrisisToConnection({
             >
               <div className="text-center mb-4">
                 <Heart className="w-8 h-8 text-rose-500 mx-auto mb-2" />
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-medium text-gray-900">
                   You Don't Have to Face This Alone
                 </h3>
                 <p className="text-sm text-gray-600 mt-1">
@@ -669,7 +669,7 @@ const CommunityBridgeDetail = ({
         <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-${bridge.color}-100 mb-3`}>
           <div className={`text-${bridge.color}-600`}>{bridge.icon}</div>
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+        <h3 className="text-lg font-medium text-gray-900 mb-1">
           {bridge.title}
         </h3>
         <p className="text-sm text-gray-600">

@@ -207,7 +207,7 @@ export default function ComplianceDashboard() {
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Legal Compliance Dashboard</h1>
+          <h1 className="text-3xl font-medium text-gray-900">Legal Compliance Dashboard</h1>
           <p className="text-gray-600 mt-2">Monitor regulatory compliance, legal updates, and audit status</p>
         </div>
         <div className="flex space-x-3">
@@ -229,7 +229,7 @@ export default function ComplianceDashboard() {
         <Card className={`border-2 ${getStatusColor(complianceMetrics.complianceStatus)}`}>
           <CardContent className="p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold">{complianceMetrics.overallScore}%</div>
+              <div className="text-3xl font-medium">{complianceMetrics.overallScore}%</div>
               <div className="text-sm font-medium uppercase tracking-wide">
                 Overall Compliance
               </div>
@@ -243,7 +243,7 @@ export default function ComplianceDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-600">{complianceMetrics.criticalViolations}</div>
+              <div className="text-3xl font-medium text-red-600">{complianceMetrics.criticalViolations}</div>
               <div className="text-sm font-medium text-gray-700">Critical Violations</div>
               <div className="text-xs text-gray-500 mt-1">Immediate action required</div>
             </div>
@@ -253,7 +253,7 @@ export default function ComplianceDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-600">{alertSummary.total}</div>
+              <div className="text-3xl font-medium text-yellow-600">{alertSummary.total}</div>
               <div className="text-sm font-medium text-gray-700">Active Alerts</div>
               <div className="text-xs text-gray-500 mt-1">{alertSummary.critical} critical, {alertSummary.high} high</div>
             </div>
@@ -263,7 +263,7 @@ export default function ComplianceDashboard() {
         <Card>
           <CardContent className="p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">{complianceMetrics.pendingActions}</div>
+              <div className="text-3xl font-medium text-blue-600">{complianceMetrics.pendingActions}</div>
               <div className="text-sm font-medium text-gray-700">Pending Actions</div>
               <div className="text-xs text-gray-500 mt-1">Across all regulations</div>
             </div>
@@ -301,7 +301,7 @@ export default function ComplianceDashboard() {
           {/* Regulation Compliance Scores */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Compliance by Regulation</h3>
+              <h3 className="text-lg font-medium">Compliance by Regulation</h3>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
@@ -337,7 +337,7 @@ export default function ComplianceDashboard() {
           {/* Recent Alerts */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Recent Alerts</h3>
+              <h3 className="text-lg font-medium">Recent Alerts</h3>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -364,7 +364,7 @@ export default function ComplianceDashboard() {
           {/* Upcoming Deadlines */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Upcoming Deadlines</h3>
+              <h3 className="text-lg font-medium">Upcoming Deadlines</h3>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
@@ -388,7 +388,7 @@ export default function ComplianceDashboard() {
           {/* Quick Actions */}
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Quick Actions</h3>
+              <h3 className="text-lg font-medium">Quick Actions</h3>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button onClick={() => setActiveTab('audits')} className="w-full" variant="outline">
@@ -414,7 +414,7 @@ export default function ComplianceDashboard() {
           <Card>
             <CardHeader>
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Compliance Audits</h3>
+                <h3 className="text-lg font-medium">Compliance Audits</h3>
                 <Button onClick={runComplianceAudit} disabled={isRunningAudit}>
                   {isRunningAudit ? 'Running...' : 'Run New Audit'}
                 </Button>
@@ -425,15 +425,15 @@ export default function ComplianceDashboard() {
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center p-4 border rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">{auditResults.gdpr.score}%</div>
+                      <div className="text-2xl font-medium text-blue-600">{auditResults.gdpr.score}%</div>
                       <div className="text-sm text-gray-600">GDPR Compliance</div>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">{auditResults.ccpa.score}%</div>
+                      <div className="text-2xl font-medium text-blue-600">{auditResults.ccpa.score}%</div>
                       <div className="text-sm text-gray-600">CCPA Compliance</div>
                     </div>
                     <div className="text-center p-4 border rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">{auditResults.coppa.score}%</div>
+                      <div className="text-2xl font-medium text-blue-600">{auditResults.coppa.score}%</div>
                       <div className="text-sm text-gray-600">COPPA Compliance</div>
                     </div>
                   </div>
@@ -441,7 +441,7 @@ export default function ComplianceDashboard() {
                   {/* Violations */}
                   {auditResults.gdpr.violations.length > 0 && (
                     <div>
-                      <h4 className="font-semibold mb-3">Critical Violations</h4>
+                      <h4 className="font-medium mb-3">Critical Violations</h4>
                       <div className="space-y-2">
                         {auditResults.gdpr.violations.map((violation: any) => (
                           <div key={violation.id} className="p-3 border-l-4 border-red-500 bg-red-50">
@@ -474,24 +474,24 @@ export default function ComplianceDashboard() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Active Compliance Alerts</h3>
+              <h3 className="text-lg font-medium">Active Compliance Alerts</h3>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center p-3 bg-red-50 border border-red-200 rounded-lg">
-                  <div className="text-xl font-bold text-red-700">{alertSummary.critical}</div>
+                  <div className="text-xl font-medium text-red-700">{alertSummary.critical}</div>
                   <div className="text-sm text-red-600">Critical</div>
                 </div>
                 <div className="text-center p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <div className="text-xl font-bold text-yellow-700">{alertSummary.high}</div>
+                  <div className="text-xl font-medium text-yellow-700">{alertSummary.high}</div>
                   <div className="text-sm text-yellow-600">High</div>
                 </div>
                 <div className="text-center p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="text-xl font-bold text-blue-700">{alertSummary.medium}</div>
+                  <div className="text-xl font-medium text-blue-700">{alertSummary.medium}</div>
                   <div className="text-sm text-blue-600">Medium</div>
                 </div>
                 <div className="text-center p-3 bg-gray-50 border border-gray-200 rounded-lg">
-                  <div className="text-xl font-bold text-gray-700">{alertSummary.low}</div>
+                  <div className="text-xl font-medium text-gray-700">{alertSummary.low}</div>
                   <div className="text-sm text-gray-600">Low</div>
                 </div>
               </div>
@@ -501,7 +501,7 @@ export default function ComplianceDashboard() {
                   <div key={alert.id} className="p-4 border rounded-lg">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <div className="font-semibold">{alert.title}</div>
+                        <div className="font-medium">{alert.title}</div>
                         <div className="text-sm text-gray-600 mt-1">
                           Created: {new Date(alert.createdAt).toLocaleString()}
                         </div>
@@ -528,20 +528,20 @@ export default function ComplianceDashboard() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Legal Updates & Requirements</h3>
+              <h3 className="text-lg font-medium">Legal Updates & Requirements</h3>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="text-center p-3 border rounded-lg">
-                  <div className="text-xl font-bold">{legalUpdateSummary.totalUpdates}</div>
+                  <div className="text-xl font-medium">{legalUpdateSummary.totalUpdates}</div>
                   <div className="text-sm text-gray-600">Total Updates</div>
                 </div>
                 <div className="text-center p-3 border rounded-lg">
-                  <div className="text-xl font-bold text-yellow-600">{legalUpdateSummary.pendingImplementation}</div>
+                  <div className="text-xl font-medium text-yellow-600">{legalUpdateSummary.pendingImplementation}</div>
                   <div className="text-sm text-gray-600">Pending</div>
                 </div>
                 <div className="text-center p-3 border rounded-lg">
-                  <div className="text-xl font-bold text-red-600">{legalUpdateSummary.overdueActions}</div>
+                  <div className="text-xl font-medium text-red-600">{legalUpdateSummary.overdueActions}</div>
                   <div className="text-sm text-gray-600">Overdue</div>
                 </div>
               </div>
@@ -551,7 +551,7 @@ export default function ComplianceDashboard() {
                   <div key={update.id} className="p-4 border rounded-lg">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <div className="font-semibold">{update.title}</div>
+                        <div className="font-medium">{update.title}</div>
                         <div className="text-sm text-gray-600 mt-1">
                           Deadline: {new Date(update.deadline).toLocaleDateString()}
                         </div>
@@ -578,7 +578,7 @@ export default function ComplianceDashboard() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Compliance Reports</h3>
+              <h3 className="text-lg font-medium">Compliance Reports</h3>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -605,7 +605,7 @@ export default function ComplianceDashboard() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Compliance Monitoring Settings</h3>
+              <h3 className="text-lg font-medium">Compliance Monitoring Settings</h3>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

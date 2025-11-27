@@ -156,7 +156,7 @@ export function IntelligentEntriesArchive() {
       <div className="min-h-screen bg-gradient-to-br from-sage-50 to-sage-100 p-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-red-50 border border-red-200 rounded-xl p-8">
-            <h2 className="text-xl font-semibold text-red-800 mb-2">Unable to Load Archive</h2>
+            <h2 className="text-xl font-medium text-red-800 mb-2">Unable to Load Archive</h2>
             <p className="text-red-600">{error}</p>
           </div>
         </div>
@@ -171,7 +171,7 @@ export function IntelligentEntriesArchive() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-sage-900 flex items-center gap-2">
+              <h1 className="text-2xl font-medium text-sage-900 flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-sage-600" />
                 Wisdom Archive
               </h1>
@@ -256,19 +256,19 @@ export function IntelligentEntriesArchive() {
                 <div className="mt-6 pt-6 border-t border-sage-200">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-sage-900">{archiveStats.totalEntries}</div>
+                      <div className="text-2xl font-medium text-sage-900">{archiveStats.totalEntries}</div>
                       <div className="text-sm text-sage-600">Entries</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-sage-900">{archiveStats.totalWords.toLocaleString()}</div>
+                      <div className="text-2xl font-medium text-sage-900">{archiveStats.totalWords.toLocaleString()}</div>
                       <div className="text-sm text-sage-600">Words</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-sage-900">{archiveStats.averageWords}</div>
+                      <div className="text-2xl font-medium text-sage-900">{archiveStats.averageWords}</div>
                       <div className="text-sm text-sage-600">Avg Words</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-sage-900">
+                      <div className="text-2xl font-medium text-sage-900">
                         {archiveStats.dateRange ? 
                           Math.ceil((archiveStats.dateRange.end.getTime() - archiveStats.dateRange.start.getTime()) / (1000 * 60 * 60 * 24)) 
                           : 0}
@@ -305,7 +305,7 @@ export function IntelligentEntriesArchive() {
                       <div className="p-6">
                         {/* Entry Header */}
                         <div className="flex items-start justify-between mb-3">
-                          <h3 className="font-semibold text-sage-900 line-clamp-2 group-hover:text-sage-700">
+                          <h3 className="font-medium text-sage-900 line-clamp-2 group-hover:text-sage-700">
                             {entry.title || 'Untitled Entry'}
                           </h3>
                           <div className="flex items-center gap-1 ml-2 flex-shrink-0">
@@ -353,7 +353,7 @@ export function IntelligentEntriesArchive() {
             <div className="p-6 border-b border-sage-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-sage-900">{selectedEntry.title || 'Untitled Entry'}</h2>
+                  <h2 className="text-xl font-medium text-sage-900">{selectedEntry.title || 'Untitled Entry'}</h2>
                   <p className="text-sage-600">{formatDate(selectedEntry.createdAt)}</p>
                 </div>
                 <Button

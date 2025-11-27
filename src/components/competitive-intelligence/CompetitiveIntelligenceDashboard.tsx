@@ -198,7 +198,7 @@ function DashboardHeader({
     <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-medium text-gray-900">
             Competitive Intelligence Dashboard
           </h1>
           <p className="text-gray-600 mt-1">
@@ -373,7 +373,7 @@ function MetricCard({
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
+          <p className="text-2xl font-medium text-gray-900 mt-1">{value}</p>
           <p className="text-sm text-gray-500">{subtitle}</p>
         </div>
         <div className={`text-right ${trendColor}`}>
@@ -403,7 +403,7 @@ function StrategicInsightsCard({ executiveSummary }: { executiveSummary: any }) 
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Strategic Recommendations
       </h3>
       <div className="space-y-3">
@@ -429,25 +429,25 @@ function MarketPositionCard({ marketPosition }: { marketPosition: any }) {
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Market Position Analysis
       </h3>
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Overall Rank</span>
-          <span className="font-semibold">#{marketPosition.overallRank}</span>
+          <span className="font-medium">#{marketPosition.overallRank}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Category Rank</span>
-          <span className="font-semibold">#{marketPosition.categoryRank}</span>
+          <span className="font-medium">#{marketPosition.categoryRank}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Market Share</span>
-          <span className="font-semibold">{marketPosition.marketShare}%</span>
+          <span className="font-medium">{marketPosition.marketShare}%</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Positioning</span>
-          <span className="font-semibold">{marketPosition.positioning}</span>
+          <span className="font-medium">{marketPosition.positioning}</span>
         </div>
         
         <div className="mt-4 pt-4 border-t border-gray-200">
@@ -484,7 +484,7 @@ function RecentAlertsCard({ alerts }: { alerts: CompetitiveAlert[] }) {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Recent Alerts</h3>
+        <h3 className="text-lg font-medium text-gray-900">Recent Alerts</h3>
         <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
           View all →
         </button>
@@ -530,7 +530,7 @@ function TopOpportunitiesCard({ opportunities }: { opportunities: MarketOpportun
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Top Opportunities</h3>
+        <h3 className="text-lg font-medium text-gray-900">Top Opportunities</h3>
         <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
           View all →
         </button>
@@ -577,7 +577,7 @@ function ThreatAssessmentCard({ threatAssessment }: { threatAssessment: any }) {
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Threat Assessment
       </h3>
       

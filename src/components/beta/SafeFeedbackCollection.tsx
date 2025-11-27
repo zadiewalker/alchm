@@ -531,7 +531,7 @@ const SafeFeedbackCollection: React.FC<SafeFeedbackCollectionProps> = ({
                           className={`w-16 h-16 ${getScaleColor(score)}`}
                         >
                           <div className="text-center">
-                            <div className="text-lg font-bold">{score}</div>
+                            <div className="text-lg font-medium">{score}</div>
                             <div className="text-xs">{getScaleLabel(score)}</div>
                           </div>
                         </Button>
@@ -815,7 +815,7 @@ const SafeFeedbackCollection: React.FC<SafeFeedbackCollectionProps> = ({
         <Card className="max-w-md w-full">
           <CardContent className="p-8 text-center space-y-6">
             <Pause className="h-16 w-16 text-green-600 mx-auto" />
-            <h2 className="text-2xl font-bold text-green-800">Take Your Time</h2>
+            <h2 className="text-2xl font-medium text-green-800">Take Your Time</h2>
             <p className="text-green-600">
               Your wellbeing comes first. Take as much time as you need before continuing.
             </p>
@@ -845,7 +845,7 @@ const SafeFeedbackCollection: React.FC<SafeFeedbackCollectionProps> = ({
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-purple-800 mb-2">
+          <h1 className="text-3xl font-medium text-purple-800 mb-2">
             Safe Feedback Collection
           </h1>
           <p className="text-purple-600">

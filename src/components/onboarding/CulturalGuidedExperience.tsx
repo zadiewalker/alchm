@@ -87,7 +87,7 @@ function CulturalCheckIn({ userContext, onComplete, onSkip }: CulturalStepProps)
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-4">Cultural Check-In</h2>
+        <h2 className="text-2xl font-medium mb-4">Cultural Check-In</h2>
         <p className="text-gray-600">
           Let's pause and honor how you're showing up as your full, cultural self today.
         </p>
@@ -211,7 +211,7 @@ function IdentityAffirmation({ userContext, onComplete, onSkip }: CulturalStepPr
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-4">Identity Affirmation</h2>
+        <h2 className="text-2xl font-medium mb-4">Identity Affirmation</h2>
         <p className="text-gray-600">
           Choose the affirmations that resonate with your soul today. 
           Your identity deserves celebration.
@@ -335,7 +335,7 @@ function AncestralWisdom({ userContext, onComplete, onSkip }: CulturalStepProps)
       className="space-y-6"
     >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-4">Ancestral Wisdom</h2>
+        <h2 className="text-2xl font-medium mb-4">Ancestral Wisdom</h2>
         <p className="text-gray-600">
           Connect with the wisdom that flows through your lineage - biological, spiritual, or chosen.
         </p>
@@ -343,7 +343,7 @@ function AncestralWisdom({ userContext, onComplete, onSkip }: CulturalStepProps)
 
       {!selectedWisdomTradition ? (
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold mb-4">Choose a source of wisdom:</h3>
+          <h3 className="text-lg font-medium mb-4">Choose a source of wisdom:</h3>
           <div className="grid grid-cols-1 gap-3">
             {wisdomTraditions.map((tradition) => (
               <button
@@ -351,7 +351,7 @@ function AncestralWisdom({ userContext, onComplete, onSkip }: CulturalStepProps)
                 onClick={() => setSelectedWisdomTradition(tradition.id)}
                 className="p-4 text-left rounded-lg border-2 border-gray-200 hover:border-purple-300 transition-all"
               >
-                <div className="font-semibold">{tradition.name}</div>
+                <div className="font-medium">{tradition.name}</div>
                 <div className="text-sm text-gray-600 mt-1">{tradition.description}</div>
               </button>
             ))}
@@ -361,7 +361,7 @@ function AncestralWisdom({ userContext, onComplete, onSkip }: CulturalStepProps)
         <div className="space-y-6">
           <div className="bg-purple-50 p-4 rounded-lg">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
+              <h3 className="text-lg font-medium">
                 {wisdomTraditions.find(t => t.id === selectedWisdomTradition)?.name}
               </h3>
               <Button 
@@ -503,7 +503,7 @@ export default function CulturalGuidedExperience({
         className="text-center py-12"
       >
         <div className="text-6xl mb-6">🌟</div>
-        <h2 className="text-3xl font-bold mb-4">Journey Complete</h2>
+        <h2 className="text-3xl font-medium mb-4">Journey Complete</h2>
         <p className="text-xl text-gray-600">
           You've honored your cultural wisdom and embraced your authentic self.
         </p>
@@ -516,7 +516,7 @@ export default function CulturalGuidedExperience({
       {/* Progress indicator */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">Cultural Guided Experience</h1>
+          <h1 className="text-2xl font-medium">Cultural Guided Experience</h1>
           <div className="text-sm text-gray-600">
             Step {currentStepIndex + 1} of {experienceSteps.length}
           </div>
@@ -535,7 +535,7 @@ export default function CulturalGuidedExperience({
         <div className="flex items-start gap-3">
           <div className="text-blue-500 text-xl">ℹ️</div>
           <div>
-            <h3 className="font-semibold text-blue-900">Cultural Respect Notice</h3>
+            <h3 className="font-medium text-blue-900">Cultural Respect Notice</h3>
             <p className="text-blue-700 text-sm mt-1">
               {currentStep.respectfulGuidance} This experience honors {currentStep.culturalOrigin}.
             </p>

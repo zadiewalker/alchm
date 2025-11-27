@@ -288,7 +288,7 @@ export default function RacialJusticeLiberationHealing({
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">✊</span>
-              <h3 className="text-lg font-semibold text-red-800">
+              <h3 className="text-lg font-medium text-red-800">
                 Liberation Healing
               </h3>
             </div>
@@ -308,7 +308,7 @@ export default function RacialJusticeLiberationHealing({
             animate={{ opacity: 1, y: 0 }}
             className="mb-6"
           >
-            <h4 className="font-semibold text-red-900 mb-3">
+            <h4 className="font-medium text-red-900 mb-3">
               {currentHealing.title}
             </h4>
             
@@ -363,7 +363,7 @@ export default function RacialJusticeLiberationHealing({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🛡️</span>
-              <h3 className="text-lg font-semibold text-blue-800">
+              <h3 className="text-lg font-medium text-blue-800">
                 Microaggression Processing
               </h3>
             </div>
@@ -390,7 +390,7 @@ export default function RacialJusticeLiberationHealing({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {microaggressionProcessors.map((processor, index) => (
                   <Card key={index} className="p-4 bg-white">
-                    <h4 className="font-semibold text-blue-800 mb-2 capitalize">
+                    <h4 className="font-medium text-blue-800 mb-2 capitalize">
                       {processor.type.replace('_', ' ')}
                     </h4>
                     <p className="text-sm text-blue-700 mb-3">
@@ -424,7 +424,7 @@ export default function RacialJusticeLiberationHealing({
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🔥</span>
-            <h3 className="text-lg font-semibold text-purple-800">
+            <h3 className="text-lg font-medium text-purple-800">
               Resistance as Healing
             </h3>
           </div>
@@ -479,7 +479,7 @@ export default function RacialJusticeLiberationHealing({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">⚡</span>
-              <h3 className="text-lg font-semibold text-green-800">
+              <h3 className="text-lg font-medium text-green-800">
                 Activism Energy Check
               </h3>
             </div>
@@ -599,7 +599,7 @@ export function RacialHealingCommunityConnector({
 
   return (
     <Card className="p-6 bg-gradient-to-br from-indigo-50 to-blue-50 border-indigo-200">
-      <h3 className="text-lg font-semibold text-indigo-800 mb-4">
+      <h3 className="text-lg font-medium text-indigo-800 mb-4">
         🌍 Community Healing Resources
       </h3>
       
@@ -610,7 +610,7 @@ export function RacialHealingCommunityConnector({
       <div className="space-y-4">
         {getRelevantResources().map((community, index) => (
           <div key={index}>
-            <h4 className="font-semibold text-indigo-800 mb-2 capitalize">
+            <h4 className="font-medium text-indigo-800 mb-2 capitalize">
               {community.identity} Community Resources
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

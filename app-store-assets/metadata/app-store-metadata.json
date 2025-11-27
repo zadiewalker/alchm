@@ -4,7 +4,7 @@
     "tagline": "AI-Powered Emotional Healing",
     "description": {
       "short": "Transform your healing journey with trauma-informed AI journaling. ALCHM provides personalized insights, crisis support, and sacred space for emotional growth.",
-      "long": "ALCHM revolutionizes mental wellness through trauma-informed AI journaling. Our platform combines cutting-edge emotional intelligence with sacred healing practices to create a safe space for personal transformation.\n\n🌱 KEY FEATURES:\n• Trauma-informed AI that understands your emotional patterns\n• Real-time crisis intervention and safety resources\n• Personalized insights from your journal entries\n• Multi-archetype guidance (Sage, Coach, Poet)\n• Privacy-first design with local-first storage\n• Cultural responsiveness and identity affirmation\n• Habit formation with neuroplasticity principles\n\n🛡️ SAFETY & PRIVACY:\n• HIPAA-compliant security measures\n• Crisis detection with immediate resource connection\n• No data selling or third-party sharing\n• End-to-end encryption for all personal content\n• COPPA compliant for younger users\n\n✨ EVIDENCE-BASED APPROACH:\nBuilt on trauma-informed care principles, our AI provides non-diagnostic support that reflects your wisdom back to you. Unlike other apps, ALCHM never attempts to diagnose or replace professional therapy.\n\n🎯 WHO IT'S FOR:\n• Anyone seeking emotional growth and self-understanding\n• People healing from trauma or difficult life experiences\n• Individuals wanting AI-powered insights without compromising privacy\n• Those looking for culturally responsive mental health support\n\n📱 PREMIUM FEATURES:\n• Advanced emotional pattern analysis\n• Extended crisis resource database\n• Unlimited AI insights and archetype responses\n• Priority customer support\n• Enhanced privacy controls\n\nALCHM isn't just another journaling app—it's your personal sanctuary for healing, growth, and transformation. Download today and begin your journey toward emotional freedom."
+      "long": "⚠️ NOT MEDICAL ADVICE - For emergency mental health support, call 988 (Suicide & Crisis Lifeline)\n\nALCHM is a trauma-informed journaling platform that provides supportive insights and resources for emotional growth and self-reflection.\n\n🌱 KEY FEATURES:\n• Trauma-informed AI that recognizes emotional patterns\n• Crisis resource directory and safety tools\n• Personalized journaling insights and reflections\n• Multi-perspective guidance (Sage, Coach, Poet)\n• Privacy-first design with encrypted storage\n• Cultural responsiveness and identity affirmation\n• Evidence-based wellness tracking\n\n🛡️ SAFETY & PRIVACY:\n• Bank-level security measures\n• Crisis resource connection (not monitoring)\n• No data selling or third-party sharing\n• End-to-end encryption for personal content\n• Age-appropriate design for users 12+\n\n✨ SUPPORTIVE APPROACH:\nBuilt on trauma-informed principles, our AI provides educational support and reflects your wisdom back to you. ALCHM is designed to complement, not replace, professional mental health care.\n\n🎯 WHO IT'S FOR:\n• Teens and adults seeking emotional growth tools\n• Individuals interested in structured self-reflection\n• People wanting AI-powered insights with privacy protection\n• Those seeking culturally responsive wellness support\n\n📱 PREMIUM FEATURES:\n• Enhanced pattern recognition\n• Extended resource library\n• Unlimited AI responses\n• Priority customer support\n• Advanced privacy controls\n\n⚕️ DISCLAIMER: ALCHM is an educational and self-help tool, not a medical device or therapeutic service. Always consult healthcare professionals for medical advice."
     },
     "keywords": "journaling, mental health, trauma, therapy, mindfulness, emotional intelligence, AI, wellness, self-care, healing, crisis support, privacy, HIPAA, trauma-informed",
     "category": "Health & Fitness",
@@ -318,7 +318,7 @@
       "Infrequent/Mild Medical/Treatment Information",
       "Infrequent/Mild Mature/Suggestive Themes"
     ],
-    "rationale": "App deals with mental health topics that may not be suitable for children under 12. Content is educational and supportive in nature.",
+    "rationale": "App contains educational content about emotional wellness and trauma-informed practices. Content includes crisis resources and mental health information appropriate for ages 12+ with parental guidance. All content is educational, supportive, and non-diagnostic in nature.",
     "questionnaire": {
       "matureThemes": "Infrequent/Mild",
       "violence": "None",
@@ -330,7 +330,9 @@
       "profanity": "None",
       "sexualContent": "None",
       "horror": "None",
-      "seventeenPlus": false
+      "seventeenPlus": false,
+      "parentalGuidanceRecommended": true,
+      "educationalContent": true
     }
   },
   "pricing": {

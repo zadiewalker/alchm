@@ -215,7 +215,7 @@ export default function PerformanceExcellenceDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Performance Excellence Dashboard</h1>
+          <h1 className="text-3xl font-medium text-gray-900">Performance Excellence Dashboard</h1>
           <p className="text-gray-600 mt-1">Real-time monitoring • Crisis-optimized • 95+ Lighthouse target</p>
         </div>
         
@@ -227,7 +227,7 @@ export default function PerformanceExcellenceDashboard() {
           
           <div className="text-right">
             <div className="text-sm text-gray-500">Lighthouse Score</div>
-            <div className={`text-2xl font-bold ${getScoreColor(lighthouseScore)}`}>
+            <div className={`text-2xl font-medium ${getScoreColor(lighthouseScore)}`}>
               {lighthouseScore}/100
             </div>
           </div>
@@ -237,7 +237,7 @@ export default function PerformanceExcellenceDashboard() {
       {/* Critical Alerts */}
       {alerts.length > 0 && (
         <Card className="p-4 border-red-200 bg-red-50">
-          <h3 className="text-lg font-semibold text-red-800 mb-3">Active Performance Alerts</h3>
+          <h3 className="text-lg font-medium text-red-800 mb-3">Active Performance Alerts</h3>
           <div className="space-y-2 max-h-32 overflow-y-auto">
             {alerts.slice(0, 3).map(alert => (
               <div key={alert.id} className={`px-3 py-2 rounded border text-sm ${getSeverityColor(alert.severity)}`}>
@@ -267,7 +267,7 @@ export default function PerformanceExcellenceDashboard() {
             
             <div className="mt-4">
               <div className="flex items-baseline">
-                <span className="text-2xl font-bold text-gray-900">
+                <span className="text-2xl font-medium text-gray-900">
                   {metric.value !== null ? 
                     (metric.name === 'CLS' ? metric.value.toFixed(3) : Math.round(metric.value)) 
                     : '--'
@@ -303,10 +303,10 @@ export default function PerformanceExcellenceDashboard() {
 
       {/* Crisis Metrics */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Crisis-Critical Performance</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Crisis-Critical Performance</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-medium text-blue-600">
               {crisisMetrics.emergencyButtonResponseTime ? 
                 `${Math.round(crisisMetrics.emergencyButtonResponseTime)}ms` : '--'
               }
@@ -316,7 +316,7 @@ export default function PerformanceExcellenceDashboard() {
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-medium text-green-600">
               {crisisMetrics.journalSaveTime ? 
                 `${Math.round(crisisMetrics.journalSaveTime)}ms` : '--'
               }
@@ -326,7 +326,7 @@ export default function PerformanceExcellenceDashboard() {
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-medium text-purple-600">
               {crisisMetrics.authLoadTime ? 
                 `${Math.round(crisisMetrics.authLoadTime)}ms` : '--'
               }
@@ -339,7 +339,7 @@ export default function PerformanceExcellenceDashboard() {
 
       {/* Performance Budget Status */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance Budget Status</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Performance Budget Status</h3>
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm text-gray-600">Page Category: {pageCategory.replace('_', ' ')}</span>
           <span className={`px-3 py-1 rounded text-sm font-medium ${
@@ -375,31 +375,31 @@ export default function PerformanceExcellenceDashboard() {
       {/* Real-Time Metrics */}
       {realTimeData && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Real-Time System Health</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Real-Time System Health</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-medium text-blue-600">
                 {realTimeData.activeUsers || 0}
               </div>
               <div className="text-sm text-gray-500">Active Users</div>
             </div>
             
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-medium text-green-600">
                 {realTimeData.uptime || '99.9%'}
               </div>
               <div className="text-sm text-gray-500">Uptime (24h)</div>
             </div>
             
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-medium text-purple-600">
                 {realTimeData.avgResponseTime || '--'}ms
               </div>
               <div className="text-sm text-gray-500">Avg Response Time</div>
             </div>
             
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-medium text-orange-600">
                 {realTimeData.errorRate || '0.0%'}
               </div>
               <div className="text-sm text-gray-500">Error Rate</div>
@@ -410,7 +410,7 @@ export default function PerformanceExcellenceDashboard() {
 
       {/* Quick Actions */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
         <div className="flex flex-wrap gap-3">
           <button 
             onClick={() => window.open('https://pagespeed.web.dev/', '_blank')}

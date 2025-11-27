@@ -105,7 +105,7 @@ const SystemHealthIndicator: React.FC<{
         <span className="text-sm font-medium">{label}</span>
         <span className="text-lg">{statusIcons[status]}</span>
       </div>
-      <div className="text-2xl font-bold">
+      <div className="text-2xl font-medium">
         {value.toFixed(unit === 'ms' ? 0 : 1)}{unit}
       </div>
       <div className="text-xs mt-1">
@@ -144,7 +144,7 @@ const WebVitalsChart: React.FC<{ metrics: PerformanceMetrics | null }> = ({ metr
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Core Web Vitals</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Core Web Vitals</h3>
       <div className="space-y-4">
         {vitals.map((vital) => (
           <div key={vital.name} className="space-y-2">
@@ -155,7 +155,7 @@ const WebVitalsChart: React.FC<{ metrics: PerformanceMetrics | null }> = ({ metr
                   (Target: &lt;{vital.threshold}{vital.unit})
                 </span>
               </div>
-              <span className="font-bold">
+              <span className="font-medium">
                 {vital.value.toFixed(vital.name === 'CLS' ? 3 : 0)}{vital.unit}
               </span>
             </div>
@@ -199,11 +199,11 @@ const CompetitivePositioning: React.FC<{ data: CompetitiveData | null }> = ({ da
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Position</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Market Position</h3>
       <div className="space-y-6">
         {/* Market Ranking */}
         <div className="text-center">
-          <div className="text-3xl font-bold text-blue-600 mb-2">
+          <div className="text-3xl font-medium text-blue-600 mb-2">
             #{data.marketPosition.ranking}
           </div>
           <div className="text-sm text-gray-600">Market Ranking</div>
@@ -217,11 +217,11 @@ const CompetitivePositioning: React.FC<{ data: CompetitiveData | null }> = ({ da
           <h4 className="font-medium text-gray-900">Feature Competitiveness</h4>
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Our Features</span>
-            <span className="font-bold text-blue-600">{data.featureComparison.ourFeatures}</span>
+            <span className="font-medium text-blue-600">{data.featureComparison.ourFeatures}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Industry Average</span>
-            <span className="font-bold text-gray-600">{data.featureComparison.industryAverage}</span>
+            <span className="font-medium text-gray-600">{data.featureComparison.industryAverage}</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
@@ -238,7 +238,7 @@ const CompetitivePositioning: React.FC<{ data: CompetitiveData | null }> = ({ da
           <h4 className="font-medium text-gray-900">Pricing Strategy</h4>
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Position</span>
-            <span className={`font-bold capitalize ${
+            <span className={`font-medium capitalize ${
               data.pricing.pricePosition === 'premium' ? 'text-purple-600' :
               data.pricing.pricePosition === 'competitive' ? 'text-blue-600' :
               'text-green-600'
@@ -256,13 +256,13 @@ const CompetitivePositioning: React.FC<{ data: CompetitiveData | null }> = ({ da
           <h4 className="font-medium text-gray-900">User Sentiment</h4>
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Our Rating</span>
-            <span className="font-bold text-yellow-600">
+            <span className="font-medium text-yellow-600">
               {data.sentiment.ourRating.toFixed(1)} ⭐
             </span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Industry Average</span>
-            <span className="font-bold text-gray-600">
+            <span className="font-medium text-gray-600">
               {data.sentiment.industryAverage.toFixed(1)} ⭐
             </span>
           </div>
@@ -304,32 +304,32 @@ const SecurityCompliance: React.FC<{ metrics: PerformanceMetrics | null }> = ({ 
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Security & Compliance</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Security & Compliance</h3>
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">SSL Grade</span>
-          <span className={`px-3 py-1 rounded-full font-bold ${getGradeColor(security.ssl_grade)}`}>
+          <span className={`px-3 py-1 rounded-full font-medium ${getGradeColor(security.ssl_grade)}`}>
             {security.ssl_grade}
           </span>
         </div>
 
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Vulnerability Score</span>
-          <span className="font-bold text-green-600">
+          <span className="font-medium text-green-600">
             {security.vulnerability_score}/100
           </span>
         </div>
 
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Compliance Score</span>
-          <span className="font-bold text-blue-600">
+          <span className="font-medium text-blue-600">
             {security.compliance_score}%
           </span>
         </div>
 
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Threats Blocked (24h)</span>
-          <span className="font-bold text-red-600">
+          <span className="font-medium text-red-600">
             {security.threats_blocked.toLocaleString()}
           </span>
         </div>
@@ -362,7 +362,7 @@ const SystemAvailability: React.FC<{ metrics: PerformanceMetrics | null }> = ({ 
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Service Availability</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Service Availability</h3>
       <div className="space-y-3">
         {services.map((service) => (
           <div key={service.name} className="flex items-center justify-between">
@@ -378,7 +378,7 @@ const SystemAvailability: React.FC<{ metrics: PerformanceMetrics | null }> = ({ 
                 </span>
               )}
             </div>
-            <span className="font-bold">
+            <span className="font-medium">
               {service.uptime.toFixed(2)}%
             </span>
           </div>
@@ -387,7 +387,7 @@ const SystemAvailability: React.FC<{ metrics: PerformanceMetrics | null }> = ({ 
       
       <div className="mt-4 pt-4 border-t border-gray-200">
         <div className="text-center">
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-medium text-green-600">
             {metrics.system.uptime.toFixed(2)}%
           </div>
           <div className="text-sm text-gray-600">Overall System Uptime</div>
@@ -508,7 +508,7 @@ export const PerformanceMonitoringDashboard: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Performance Monitoring</h1>
+          <h1 className="text-3xl font-medium text-gray-900">Performance Monitoring</h1>
           <p className="text-gray-600">
             Real-time system performance and competitive intelligence
           </p>
@@ -579,7 +579,7 @@ export const PerformanceMonitoringDashboard: React.FC = () => {
       {/* Additional Insights */}
       {competitiveData && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Competitive Insights</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Competitive Insights</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-medium text-gray-900 mb-3">Our Advantages</h4>

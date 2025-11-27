@@ -131,7 +131,7 @@ export default function AIOptOutToggle({
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">AI-Assisted Journaling</h2>
+          <h2 className="text-2xl font-medium text-gray-900 mb-4">AI-Assisted Journaling</h2>
           
           <div className="space-y-4 mb-6">
             <p className="text-gray-700">
@@ -141,7 +141,7 @@ export default function AIOptOutToggle({
             </p>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h3 className="font-semibold text-blue-900 mb-2">What Our AI Does</h3>
+              <h3 className="font-medium text-blue-900 mb-2">What Our AI Does</h3>
               <ul className="text-blue-800 text-sm space-y-1">
                 <li>• Provides gentle, trauma-informed reflection insights</li>
                 <li>• Suggests culturally-appropriate coping strategies</li>
@@ -152,7 +152,7 @@ export default function AIOptOutToggle({
             </div>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h3 className="font-semibold text-green-900 mb-2">What Our AI Does NOT Do</h3>
+              <h3 className="font-medium text-green-900 mb-2">What Our AI Does NOT Do</h3>
               <ul className="text-green-800 text-sm space-y-1">
                 <li>• Diagnose mental health conditions</li>
                 <li>• Provide medical or psychiatric advice</li>
@@ -163,7 +163,7 @@ export default function AIOptOutToggle({
             </div>
 
             <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-              <h3 className="font-semibold text-purple-900 mb-2">Your Choices</h3>
+              <h3 className="font-medium text-purple-900 mb-2">Your Choices</h3>
               <ul className="text-purple-800 text-sm space-y-1">
                 <li>• You can disable AI features at any time</li>
                 <li>• You can use analog (non-AI) journaling mode</li>
@@ -174,7 +174,7 @@ export default function AIOptOutToggle({
             </div>
 
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-              <h3 className="font-semibold text-yellow-900 mb-2">Important Disclaimer</h3>
+              <h3 className="font-medium text-yellow-900 mb-2">Important Disclaimer</h3>
               <p className="text-yellow-800 text-sm">
                 <strong>I am an AI assistant designed to support your journaling practice.</strong> I am not a 
                 licensed healthcare provider and cannot diagnose conditions or recommend specific treatments. 
@@ -211,7 +211,7 @@ export default function AIOptOutToggle({
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">AI Interaction Preferences</h3>
+          <h3 className="text-lg font-medium text-gray-900">AI Interaction Preferences</h3>
           <p className="text-gray-600 text-sm">Control how AI assists your journaling experience</p>
         </div>
         <button

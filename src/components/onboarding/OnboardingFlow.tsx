@@ -1,9 +1,19 @@
+/*
+ * ALCHM Onboarding Flow - Trauma-Informed First Impressions
+ * Jony Ive Refinement for App Store Excellence
+ * 
+ * Every first interaction must feel like entering a sanctuary.
+ * Building trust through transparency, empowerment through choice.
+ */
+
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { PageTransition } from '@/components/ui/LoadingState';
+import { useUserActionTracking } from '@/components/monitoring/PerformanceMonitor';
 import AITransparency from '@/components/ui/AITransparency';
 import MedicalDisclaimer from '@/components/ui/MedicalDisclaimer';
 
@@ -280,6 +290,28 @@ const PATHWAY_DESCRIPTIONS = {
 
 export default function OnboardingFlow() {
   const router = useRouter();
+  const { trackAction } = useUserActionTracking();
+  
+  // Add trauma-informed animation CSS
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes gentle-float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-4px); }
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(8px); }
+        100% { opacity: 1; transform: translateY(0px); }
+      }
+      @keyframes breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [pathwayScores, setPathwayScores] = useState({
@@ -290,6 +322,13 @@ export default function OnboardingFlow() {
   });
   const [recommendedPathway, setRecommendedPathway] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
+
+  // Track onboarding performance
+  useEffect(() => {
+    const action = trackAction('OnboardingFlow_Start');
+    return () => action.end();
+  }, [trackAction]);
 
   const currentQuestion = ONBOARDING_QUESTIONS[currentStep];
   const isLastQuestion = currentStep === ONBOARDING_QUESTIONS.length - 1;
@@ -298,6 +337,9 @@ export default function OnboardingFlow() {
   const handleAnswer = (optionId: string) => {
     const option = currentQuestion?.options.find(opt => opt.id === optionId);
     if (!option || !currentQuestion) return;
+
+    // Track user interaction
+    trackAction(`OnboardingAnswer_${currentQuestion.id}_${optionId}`);
 
     // Update answers
     const newAnswers = { ...answers, [currentQuestion.id]: optionId };
@@ -318,10 +360,16 @@ export default function OnboardingFlow() {
       
       setRecommendedPathway(recommended);
       setShowResults(true);
+      trackAction('OnboardingFlow_Complete');
     } else {
-      // Move to next question
-      setTimeout(() => setCurrentStep(currentStep + 1), 300);
+      // Trauma-informed gentle transition
+      setTimeout(() => setCurrentStep(currentStep + 1), 600);
     }
+  };
+
+  const handleCrisisSupport = () => {
+    trackAction('OnboardingFlow_CrisisSupport');
+    window.location.href = 'tel:988';
   };
 
   const startPathway = () => {
@@ -349,7 +397,12 @@ export default function OnboardingFlow() {
         <div className="max-w-2xl w-full">
           <div className="text-center mb-8">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#5E8E7F] flex items-center justify-center">
-              <span className="text-2xl">✨</span>
+              <span className="text-3xl" style={{
+                animation: 'gentle-float 3s ease-in-out infinite',
+                filter: 'drop-shadow(0 4px 8px rgba(164, 183, 146, 0.25))'
+              }}>
+                🪲
+              </span>
             </div>
             <h1 className="text-3xl font-light text-white mb-2">Your Healing Journey Begins</h1>
             <p className="text-white/80">Based on your responses, we recommend starting here:</p>
@@ -358,7 +411,7 @@ export default function OnboardingFlow() {
           <Card className="bg-white/5 border-white/10 p-8 mb-6">
             <div className={`w-full h-32 rounded-xl ${pathway.color} mb-6 flex items-center justify-center`}>
               <div className="text-center text-white">
-                <h2 className="text-2xl font-bold mb-1">{pathway.title}</h2>
+                <h2 className="text-2xl font-medium mb-1">{pathway.title}</h2>
                 <p className="opacity-90">{pathway.subtitle}</p>
               </div>
             </div>
@@ -419,15 +472,28 @@ export default function OnboardingFlow() {
   }
 
   return (
-    <div className="min-h-screen bg-[#2D2D30] flex items-center justify-center p-4">
+    <div 
+      className="min-h-screen bg-[#2D2D30] flex items-center justify-center p-4"
+      style={{
+        animation: 'fadeIn 1s ease-in-out',
+      }}
+    >
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#5E8E7F]/20 flex items-center justify-center">
-            <span className="text-2xl">🌱</span>
+            <span className="text-3xl animate-pulse" style={{
+              animation: 'gentle-float 3s ease-in-out infinite',
+              filter: 'drop-shadow(0 4px 8px rgba(164, 183, 146, 0.25))'
+            }}>
+              🪲
+            </span>
           </div>
           <h1 className="text-3xl font-light text-white mb-2">Welcome to Your Digital Sanctuary</h1>
-          <p className="text-white/80">Let's find the perfect starting point for your healing journey</p>
+          <p className="text-white/80 mb-2">Let's find the perfect starting point for your healing journey</p>
+          <p className="text-white/60 text-sm">
+            Take your time. You can pause anytime or access emergency support below.
+          </p>
         </div>
 
         {/* Progress Bar */}
@@ -441,7 +507,10 @@ export default function OnboardingFlow() {
           <div className="w-full bg-white/10 rounded-full h-2">
             <div 
               className="bg-[#5E8E7F] h-2 rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
+              style={{ 
+                width: `${progress}%`,
+                animation: 'breathe 4s ease-in-out infinite'
+              }}
             />
           </div>
         </div>
@@ -489,6 +558,17 @@ export default function OnboardingFlow() {
             className="text-white/60 hover:text-white/80 text-sm"
           >
             Skip and explore all pathways
+          </Button>
+        </div>
+
+        {/* Crisis Support - Always Accessible */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <Button
+            onClick={handleCrisisSupport}
+            className="bg-red-600 hover:bg-red-700 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+            aria-label="Emergency crisis support - Call 988"
+          >
+            <span className="text-xl group-hover:scale-110 transition-transform duration-200">🆘</span>
           </Button>
         </div>
       </div>

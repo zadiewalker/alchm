@@ -259,11 +259,11 @@ export function MobileAnalyticsDashboard({
         </span>
       </div>
       
-      <h3 className="text-lg font-semibold mb-2 tracking-tight">
+      <h3 className="text-lg font-medium mb-2 tracking-tight">
         {metric.label}
       </h3>
       
-      <div className="text-3xl font-bold mb-3 tracking-tight">
+      <div className="text-3xl font-medium mb-3 tracking-tight">
         {formatValue(metric.value, metric.unit)}
       </div>
       
@@ -310,7 +310,7 @@ export function MobileAnalyticsDashboard({
         <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-sage-50 to-sage-100">
           <div className={`w-6 h-6 bg-sage-400 rounded-full ${!reduceMotion ? 'animate-gentle-pulse' : ''} opacity-60`} />
         </div>
-        <h3 className="text-sage-800 font-semibold text-xl mb-2 tracking-tight">
+        <h3 className="text-sage-800 font-medium text-xl mb-2 tracking-tight">
           Gathering Your Insights
         </h3>
         <p className="text-sage-600 text-base">
@@ -328,7 +328,7 @@ export function MobileAnalyticsDashboard({
           <div className="flex items-center">
             <span className="text-red-400 text-2xl mr-3">🆘</span>
             <div>
-              <h3 className="text-red-800 font-semibold text-lg">Crisis Support Mode</h3>
+              <h3 className="text-red-800 font-medium text-lg">Crisis Support Mode</h3>
               <p className="text-red-600">Showing essential insights only. You're not alone.</p>
             </div>
           </div>
@@ -337,7 +337,7 @@ export function MobileAnalyticsDashboard({
 
       {/* Header */}
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-semibold text-sage-800 mb-2 tracking-tight">
+        <h2 className="text-2xl font-medium text-sage-800 mb-2 tracking-tight">
           Your Healing Journey
         </h2>
         <p className="text-sage-600 text-base">
@@ -382,7 +382,7 @@ export function MobileAnalyticsDashboard({
           <div className={`text-3xl mb-3 ${!reduceMotion ? 'animate-gentle-sparkle' : ''}`}>
             🌟
           </div>
-          <h3 className="text-sage-800 font-semibold text-xl mb-2 tracking-tight">
+          <h3 className="text-sage-800 font-medium text-xl mb-2 tracking-tight">
             You're Doing Beautiful Work
           </h3>
           <p className="text-sage-600 text-base leading-relaxed">

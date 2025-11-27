@@ -193,7 +193,7 @@ export default function VisualDiagnosticsInterface({
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Emotional Preparation */}
       <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
-        <h2 className="text-xl font-semibold text-purple-800 mb-3">
+        <h2 className="text-xl font-medium text-purple-800 mb-3">
           ✨ Visual Technical Support
         </h2>
         <p className="text-purple-700 leading-relaxed">
@@ -205,7 +205,7 @@ export default function VisualDiagnosticsInterface({
       {showPrivacyNotice && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <Card className="max-w-md w-full p-6 bg-white">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            <h3 className="text-lg font-medium mb-4 text-gray-800">
               Screenshot Privacy Protection
             </h3>
             <div className="space-y-3 text-sm text-gray-600">
@@ -252,7 +252,7 @@ export default function VisualDiagnosticsInterface({
           {/* Screenshot Upload Area */}
           <Card className="p-8">
             <div className="text-center space-y-6">
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-lg font-medium text-gray-800">
                 Share a Screenshot of Your Technical Issue
               </h3>
               
@@ -317,7 +317,7 @@ export default function VisualDiagnosticsInterface({
           {/* Description Input */}
           {selectedImage && (
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-lg font-medium text-gray-800 mb-4">
                 Describe What You're Experiencing (Optional)
               </h3>
               <textarea
@@ -393,7 +393,7 @@ function VisualDiagnosticsResults({
     <div className="space-y-6">
       {/* Emotional Support Header */}
       <Card className="p-6 bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-        <h2 className="text-xl font-semibold text-green-800 mb-3">
+        <h2 className="text-xl font-medium text-green-800 mb-3">
           ✨ Visual Analysis Complete
         </h2>
         <p className="text-green-700 mb-4">
@@ -409,7 +409,7 @@ function VisualDiagnosticsResults({
       {/* Crisis Resources if Applicable */}
       {result.crisisResources && (
         <Card className="p-6 border-red-200 bg-red-50">
-          <h3 className="text-lg font-semibold text-red-800 mb-4">
+          <h3 className="text-lg font-medium text-red-800 mb-4">
             🚨 Immediate Support Available
           </h3>
           <div className="space-y-3">
@@ -426,7 +426,7 @@ function VisualDiagnosticsResults({
       {/* Detected Issues */}
       {result.detectedIssues && result.detectedIssues.length > 0 && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             Technical Issues Identified
           </h3>
           <div className="space-y-4">
@@ -485,7 +485,7 @@ function VisualDiagnosticsResults({
       {/* Interface Analysis */}
       {result.interfaceAnalysis && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             ALCHM Interface Status
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -514,7 +514,7 @@ function VisualDiagnosticsResults({
       {/* Safety Reminders */}
       {result.guidance?.safetyReminders && (
         <Card className="p-6 bg-blue-50 border-blue-200">
-          <h3 className="text-lg font-semibold text-blue-800 mb-3">
+          <h3 className="text-lg font-medium text-blue-800 mb-3">
             Safety Reminders
           </h3>
           <div className="space-y-2">
@@ -530,7 +530,7 @@ function VisualDiagnosticsResults({
       {/* Fallback Options */}
       {result.fallbackOptions && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             Alternative Support Options
           </h3>
           <div className="space-y-2">
@@ -640,7 +640,7 @@ function VisualGuideModal({ issue, userEmotionalState, onClose }: VisualGuideMod
       <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-white">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-medium text-gray-800">
               Visual Step-by-Step Guide
             </h2>
             <Button onClick={onClose} variant="outline" size="sm">
@@ -666,7 +666,7 @@ function VisualGuideModal({ issue, userEmotionalState, onClose }: VisualGuideMod
                   {currentStepData.stepNumber}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800">{currentStepData.title}</h3>
+                  <h3 className="font-medium text-gray-800">{currentStepData.title}</h3>
                   <p className="text-sm text-gray-500">
                     Estimated time: {currentStepData.estimatedTime}
                   </p>

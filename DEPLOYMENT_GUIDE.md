@@ -1,6 +1,6 @@
-# 🚀 ALCHM Production Deployment Guide
+# 🚀 ALCHM Multi-Environment Deployment Guide
 
-**Complete environment setup and deployment instructions for hypergrowth-ready ALCHM.**
+**Complete multi-environment deployment configuration for ALCHM's trauma-informed journaling platform with Firebase Studio optimization.**
 
 ## 📋 Prerequisites Checklist
 
@@ -25,21 +25,43 @@ Before starting deployment, ensure you have:
 - [ ] **Lighthouse** - Performance auditing
 - [ ] **Docker** - Containerization (future scaling)
 
-## 🎯 Quick Start (5 Minutes)
+## 🎯 Quick Start - Multi-Environment Setup
 
+### Production Deployment (Full Safety Checks)
 ```bash
-# 1. Clone and navigate to project
-git clone <your-repo-url>
-cd alchm
+# Comprehensive production deployment with safety validation
+npm run deploy:safe:production
 
-# 2. Run automated environment setup
-./scripts/environment-setup.sh
-
-# 3. Deploy to production
+# Or using the enhanced script
 ./scripts/deploy-production.sh
+```
 
-# 4. Verify deployment
-./scripts/health-check.sh
+### Staging Deployment
+```bash
+# Deploy to staging environment
+npm run deploy:safe:staging
+
+# Switch to staging and deploy
+npm run firebase:switch:staging
+firebase deploy --only hosting:main,functions
+```
+
+### Preview Channel (Testing)
+```bash
+# Create preview channel for testing
+npm run firebase:preview:create
+
+# Emergency preview (1-day expiry)
+npm run firebase:preview:emergency
+```
+
+### Environment Switching
+```bash
+# Switch between environments
+npm run firebase:switch:prod      # Production
+npm run firebase:switch:staging   # Staging  
+npm run firebase:switch:preview   # Preview
+npm run firebase:switch:dev       # Development
 ```
 
 ## Overview
@@ -48,12 +70,40 @@ ALCHM is a trauma-informed, AI-powered journaling OS built with Next.js and Fire
 
 ### Architecture Summary
 - **Frontend**: Next.js 15 with React 18 and TypeScript
-- **Backend**: Firebase Functions with Next.js standalone
-- **Database**: Firestore with security rules
-- **Hosting**: Firebase Hosting
-- **Authentication**: Firebase Auth
+- **Backend**: Firebase Functions with Node.js 20
+- **Database**: Firestore with security rules and indexes
+- **Hosting**: Firebase Hosting with multi-site configuration
+- **Authentication**: Firebase Auth with crisis-safe fallbacks
 - **Payment Processing**: Stripe integration
 - **AI Services**: Google AI and Khepera AI integration
+- **Monitoring**: Real-time health checks and crisis detection
+- **Environments**: Production, Staging, Preview, Development
+
+## 🏗️ Multi-Environment Configuration
+
+### Environment Overview
+
+ALCHM uses a comprehensive multi-environment setup designed for mental health application reliability:
+
+| Environment | Purpose | URL | Configuration |
+|-------------|---------|-----|---------------|
+| **Production** | Live application | alchmapp.web.app | Full safety checks, 1GB memory, minInstances: 1 |
+| **Staging** | Pre-production testing | alchmapp-staging.web.app | Medium safety, 512MB memory, minInstances: 0 |
+| **Preview** | Feature testing | alchmapp-preview.web.app | Basic safety, 256MB memory, temporary channels |
+| **Development** | Development testing | alchmapp-dev.web.app | Development mode, minimal resources |
+
+### Firebase Configuration Files
+
+- `firebase.json` - Production configuration with enhanced security
+- `firebase.staging.json` - Staging configuration with reduced resources
+- `firebase.preview.json` - Preview configuration for temporary deployments
+- `.firebaserc` - Multi-project environment mappings
+
+### Site Mappings
+
+Each environment supports dual hosting targets:
+- **Main Site**: Primary application (alchmapp, alchmapp-staging, etc.)
+- **Emergency Site**: Crisis-accessible fallback (alchm-digital-sanctuary, etc.)
 
 ## Prerequisites
 

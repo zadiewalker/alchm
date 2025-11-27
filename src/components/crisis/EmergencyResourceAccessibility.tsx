@@ -588,7 +588,7 @@ export default function EmergencyResourceAccessibility({
               </div>
               
               <div className="text-left flex-1">
-                <div className="font-semibold text-lg">
+                <div className="font-medium text-lg">
                   {resource.shortName}
                 </div>
                 <div className="text-sm opacity-90 mb-1">

@@ -40,6 +40,8 @@
     "deploy:zero-cache": "npm run deploy:cache-busting",
     "cache:force-update": "npm run version:generate && npm run build && firebase deploy --only hosting",
     "cache:clear": "node -e \"console.log('🧹 Manual cache clearing tools available at /force-update.html')\"",
+    "security:monitor": "node scripts/security-monitor.js",
+    "security:audit": "npm audit --audit-level moderate && node scripts/validate-security.js",
     "deploy:staging": "bash scripts/deploy-with-performance-gates.sh staging",
     "deploy:verify": "npm run build:with-version && npm run version:verify",
     "deploy:verify:staging": "node scripts/verify-deployment.js staging",
@@ -105,7 +107,6 @@
     "package:app-store-assets": "npm run generate:app-store-screenshots && echo '📦 App Store assets packaged in /app-store/screenshots/'",
     "test:app-store-readiness": "echo '🧪 Testing App Store readiness...' && node -e \"console.log('✅ Ready for submission - see /app-store/COMPREHENSIVE_APP_STORE_READINESS_FINAL_REPORT.md')\"",
     "security:check": "node scripts/validate-security.js",
-    "security:audit": "npm audit --audit-level moderate && node scripts/validate-security.js",
     "security:setup": "bash scripts/setup-secure-env.sh",
     "deploy:secure": "bash scripts/secure-deploy.sh",
     "config:validate": "node -e \"console.log(require('./src/lib/config.ts').validateEnvironmentVariables())\"",
@@ -227,16 +228,16 @@
     "npm": ">=8.0.0"
   },
   "buildInfo": {
-    "version": "1.0.0-2025-11-19-18-07-30",
-    "deployVersion": "1.0.0-01c9f4ee-1763575650803",
-    "buildTime": "2025-11-19T18:07:30.801Z",
-    "buildTimestamp": 1763575650803,
+    "version": "1.0.0-2025-11-26-18-52-48",
+    "deployVersion": "1.0.0-1535d02f-1764183168205",
+    "buildTime": "2025-11-26T18:52:48.204Z",
+    "buildTimestamp": 1764183168205,
     "git": {
-      "hash": "01c9f4ee",
+      "hash": "1535d02f",
       "branch": "main",
-      "commitMessage": "🌿 SACRED CACHE CLEARING SYSTEM: Complete mobile cache solution\n\nSacred Loading Screen Updates:\n- Updated layout.tsx loading screen with sage green crisis buttons\n- Replaced harsh red (#dc2626) with trauma-informed sage design\n- Added glass morphism effects and proper Sacred styling\n\nComprehensive Cache Clearing Tools:\n- Enhanced force-update.html with Sacred scarab branding\n- Added mobile-cache-clear.js for automated mobile cache clearing\n- Implements complete cache invalidation for Service Workers, localStorage, and IndexedDB\n- Includes Sacred version tracking and mobile device detection\n\nCache Clearing Features:\n- Clears all browser caches (Service Worker, HTTP, localStorage)\n- Unregisters old Service Workers and Firebase offline data\n- Forces reload with Sacred version parameters\n- Mobile-optimized with touch-friendly Sacred design\n- Includes emergency fallback mechanisms\n\nThis ensures users can see the complete Sacred Threshold Experience with:\n✅ Custom ALCHM scarab (🪲) instead of shield emoji\n✅ Trauma-informed sage green crisis buttons with glass effects\n✅ Sacred Age Verification with Jony Ive design principles\n✅ Mobile-friendly cache clearing for all devices\n\n🤖 Generated with Claude Code (https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
+      "commitMessage": "🔒 SECURITY: Fix Playwright vulnerability (CVE-GHSA-7mvr-c777-76hp)\n\nCritical security fix:\n- Updated @playwright/test from 1.55.0 to ^1.56.1\n- Addresses high severity SSL certificate verification vulnerability\n- Generated package-lock.json for dependency vulnerability scanning\n- Enables npm audit for continuous security monitoring\n\nPriority 1 security remediation from comprehensive ALCHM audit.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
     },
-    "cacheVersion": "v1763575650803",
+    "cacheVersion": "v1764183168205",
     "environment": "production"
   }
 }

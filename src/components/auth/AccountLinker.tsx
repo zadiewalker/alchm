@@ -128,7 +128,7 @@ export function AccountLinker({ email, pendingCredential, onSuccess, onCancel }:
       <div className="flex items-start gap-3">
         <div className="text-amber-600 mt-0.5">⚠️</div>
         <div className="flex-1">
-          <h3 className="font-semibold text-amber-900 mb-2">Account Already Exists</h3>
+          <h3 className="font-medium text-amber-900 mb-2">Account Already Exists</h3>
           <p className="text-sm text-amber-800 mb-4">
             An account with <strong>{email}</strong> already exists. 
             To continue, sign in with your existing provider first, then we'll link this new sign-in method.

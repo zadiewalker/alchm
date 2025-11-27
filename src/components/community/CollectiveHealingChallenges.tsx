@@ -253,19 +253,19 @@ export default function CollectiveHealingChallenges({ ephemeralIdentity }: Colle
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-300 mb-1">896,844</div>
+            <div className="text-2xl font-medium text-emerald-300 mb-1">896,844</div>
             <div className="text-emerald-200/70 text-xs">Healing Actions Completed</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-300 mb-1">14,615</div>
+            <div className="text-2xl font-medium text-emerald-300 mb-1">14,615</div>
             <div className="text-emerald-200/70 text-xs">Active Participants</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-300 mb-1">127</div>
+            <div className="text-2xl font-medium text-emerald-300 mb-1">127</div>
             <div className="text-emerald-200/70 text-xs">Completed Challenges</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-300 mb-1">93%</div>
+            <div className="text-2xl font-medium text-emerald-300 mb-1">93%</div>
             <div className="text-emerald-200/70 text-xs">Report Feeling Better</div>
           </div>
         </div>
@@ -484,7 +484,7 @@ export default function CollectiveHealingChallenges({ ephemeralIdentity }: Colle
 
         <Card className="bg-green-500/10 border-green-500/20 p-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-300 mb-2">
+            <div className="text-3xl font-medium text-green-300 mb-2">
               {myProgress.completedDays.length} / {selectedChallenge.duration}
             </div>
             <div className="text-green-200/80 text-sm mb-4">Days Completed</div>

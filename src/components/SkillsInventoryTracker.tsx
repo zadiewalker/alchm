@@ -163,7 +163,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
                 <span className="text-blue-600 text-xl">📊</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getTotalSkillsCount(skillsData)}
                 </div>
                 <div className="text-sm text-gray-600">Total Skills</div>
@@ -177,7 +177,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
                 <span className="text-green-600 text-xl">🏆</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getAdvancedSkillsCount(skillsData)}
                 </div>
                 <div className="text-sm text-gray-600">Advanced Skills</div>
@@ -191,7 +191,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
                 <span className="text-orange-600 text-xl">📈</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getActivePathwaysCount(skillsData)}
                 </div>
                 <div className="text-sm text-gray-600">Learning Pathways</div>
@@ -205,7 +205,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
                 <span className="text-purple-600 text-xl">🎯</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {skillGaps.filter(gap => gap.priority === 'critical').length}
                 </div>
                 <div className="text-sm text-gray-600">Critical Gaps</div>
@@ -221,7 +221,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl">{category.icon}</span>
-                  <h3 className="text-lg font-semibold text-gray-800">{category.name}</h3>
+                  <h3 className="text-lg font-medium text-gray-800">{category.name}</h3>
                 </div>
                 <button
                   onClick={() => {
@@ -262,7 +262,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
 
         {/* Recent progress */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">📈 Recent Progress</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">📈 Recent Progress</h3>
           <div className="space-y-3">
             {getRecentSkillProgress(skillsData).map((progress, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
@@ -292,7 +292,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
         {/* Category selection */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">Skills Assessment</h3>
+            <h3 className="text-lg font-medium text-gray-800">Skills Assessment</h3>
             <button
               onClick={() => setShowAddSkillModal(true)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -340,7 +340,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
             <div key={index} className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h4 className="font-semibold text-gray-800">{skill.name}</h4>
+                  <h4 className="font-medium text-gray-800">{skill.name}</h4>
                   <p className="text-sm text-gray-600">{skill.category}</p>
                 </div>
                 <button
@@ -413,7 +413,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Skills Gap Analysis</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">Skills Gap Analysis</h3>
           <p className="text-gray-600">
             Identify and prioritize skills needed for your target career paths
           </p>
@@ -422,7 +422,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
         {/* Critical gaps */}
         {criticalGaps.length > 0 && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h4 className="text-lg font-semibold text-red-700 mb-4">🚨 Critical Gaps</h4>
+            <h4 className="text-lg font-medium text-red-700 mb-4">🚨 Critical Gaps</h4>
             <div className="space-y-4">
               {criticalGaps.map((gap, index) => (
                 <div key={index} className="p-4 bg-red-50 border border-red-200 rounded-lg">
@@ -461,7 +461,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
         {/* High priority gaps */}
         {highPriorityGaps.length > 0 && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h4 className="text-lg font-semibold text-orange-700 mb-4">⚠️ High Priority Gaps</h4>
+            <h4 className="text-lg font-medium text-orange-700 mb-4">⚠️ High Priority Gaps</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {highPriorityGaps.map((gap, index) => (
                 <div key={index} className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
@@ -489,7 +489,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
         {/* Medium priority gaps */}
         {mediumPriorityGaps.length > 0 && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h4 className="text-lg font-semibold text-blue-700 mb-4">💡 Development Opportunities</h4>
+            <h4 className="text-lg font-medium text-blue-700 mb-4">💡 Development Opportunities</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {mediumPriorityGaps.map((gap, index) => (
                 <div key={index} className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
@@ -555,7 +555,7 @@ const SkillsInventoryTracker: React.FC<SkillsTrackerProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Skills Inventory & Development Tracker
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

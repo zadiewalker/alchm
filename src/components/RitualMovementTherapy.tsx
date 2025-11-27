@@ -668,7 +668,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           Ritual & Movement Therapy
         </h2>
         <p className="text-gray-600">
@@ -678,7 +678,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
 
       {/* Cultural Acknowledgment */}
       <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
-        <h3 className="font-semibold text-purple-800 mb-2">Cultural Respect & Awareness</h3>
+        <h3 className="font-medium text-purple-800 mb-2">Cultural Respect & Awareness</h3>
         <p className="text-purple-700 text-sm">
           These practices honor universal principles of healing while respecting cultural traditions. 
           We approach all practices with reverence and avoid appropriation by focusing on your own 
@@ -711,7 +711,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
         <div className="space-y-6">
           {/* Intention Setting */}
           <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h3 className="font-semibold text-blue-800 mb-3">Your Intention</h3>
+            <h3 className="font-medium text-blue-800 mb-3">Your Intention</h3>
             <div className="space-y-2 text-blue-700 text-sm">
               <p><strong>Emotion to Transform:</strong> {intentionSetting.emotionToTransform}</p>
               <p><strong>Desired Outcome:</strong> {intentionSetting.desiredOutcome}</p>
@@ -722,7 +722,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
 
           {/* Ritual Type Selection */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Choose Ritual Type</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">Choose Ritual Type</h3>
             <div className="grid gap-4 md:grid-cols-2">
               {ritualTypes.map((ritual) => (
                 <div 
@@ -757,7 +757,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
 
           {/* Movement Type Selection */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Choose Movement Type</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">Choose Movement Type</h3>
             <div className="grid gap-4 md:grid-cols-2">
               {movementTypes.map((movement) => (
                 <div 
@@ -802,7 +802,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
             <div className="text-center">
               <button
                 onClick={startRitualSession}
-                className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors"
+                className="px-8 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
               >
                 Begin Sacred Practice ({ritualDesign.estimatedDuration} min)
               </button>
@@ -814,12 +814,12 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
       {/* Ritual Tab */}
       {activeTab === 'ritual' && ritualDesign && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Ritual Elements</h3>
+          <h3 className="text-lg font-medium text-gray-800">Ritual Elements</h3>
           
           {/* Current Phase Indicator */}
           <div className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg">
             <div className="flex justify-between items-center mb-2">
-              <h4 className="font-semibold text-purple-800">Current Phase: {currentPhase}</h4>
+              <h4 className="font-medium text-purple-800">Current Phase: {currentPhase}</h4>
               <span className="text-purple-600 text-sm">
                 Step {sessionProgress.currentStep} of {sessionProgress.totalSteps}
               </span>
@@ -861,7 +861,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
 
           {/* Materials Needed */}
           <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <h4 className="font-semibold text-yellow-800 mb-3">Materials & Preparation</h4>
+            <h4 className="font-medium text-yellow-800 mb-3">Materials & Preparation</h4>
             <div className="space-y-2">
               {ritualDesign.materials.map((material, index) => (
                 <div key={index} className="flex justify-between items-center text-sm">
@@ -882,12 +882,12 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
       {/* Movement Tab */}
       {activeTab === 'movement' && ritualDesign && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Movement Sequences</h3>
+          <h3 className="text-lg font-medium text-gray-800">Movement Sequences</h3>
           
           {ritualDesign.movements.map((sequence) => (
             <div key={sequence.sequenceId} className="space-y-4">
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-2">{sequence.name}</h4>
+                <h4 className="font-medium text-green-800 mb-2">{sequence.name}</h4>
                 <p className="text-green-700 text-sm mb-3">{sequence.description}</p>
                 <div className="flex space-x-4 text-sm">
                   <span className="text-green-600">Duration: {sequence.duration} min</span>
@@ -911,7 +911,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
               {/* Safety & Modifications */}
               {ritualDesign.accessibilityModifications.length > 0 && (
                 <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h5 className="font-semibold text-blue-800 mb-2">Your Modifications</h5>
+                  <h5 className="font-medium text-blue-800 mb-2">Your Modifications</h5>
                   <div className="space-y-1">
                     {ritualDesign.accessibilityModifications.map((mod, index) => (
                       <div key={index} className="text-blue-700 text-sm">
@@ -929,7 +929,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
       {/* Integration Tab */}
       {activeTab === 'integration' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Integration & Reflection</h3>
+          <h3 className="text-lg font-medium text-gray-800">Integration & Reflection</h3>
           
           {/* Experience Tracking */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1062,7 +1062,7 @@ const RitualMovementTherapy: React.FC<RitualMovementProps> = ({
           <div className="text-center">
             <button
               onClick={completeRitualSession}
-              className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
+              className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
             >
               Complete & Save Session
             </button>

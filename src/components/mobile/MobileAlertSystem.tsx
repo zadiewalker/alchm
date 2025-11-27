@@ -250,14 +250,14 @@ export default function MobileAlertSystem() {
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
             <div className={`w-3 h-3 rounded-full ${isOnline ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
-            <h1 className="text-xl font-bold text-gray-900">Crisis Alert System</h1>
+            <h1 className="text-xl font-medium text-gray-900">Crisis Alert System</h1>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-600">
               {alerts.length} Active Alerts
             </span>
             {alerts.filter(a => a.riskLevel === 'EXTREME').length > 0 && (
-              <div className="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
+              <div className="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-medium animate-pulse">
                 EXTREME
               </div>
             )}
@@ -279,7 +279,7 @@ export default function MobileAlertSystem() {
                 {/* Alert Header */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${getRiskLevelColor(alert.riskLevel)}`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getRiskLevelColor(alert.riskLevel)}`}>
                       {alert.riskLevel}
                     </span>
                     <span className="text-xs text-gray-500">
@@ -323,13 +323,13 @@ export default function MobileAlertSystem() {
                     <>
                       <button
                         onClick={() => acknowledgeAlert(alert.id)}
-                        className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-blue-700 transition-colors"
+                        className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors"
                       >
                         🔔 Acknowledge (2min)
                       </button>
                       <button
                         onClick={() => respondToAlert(alert.id)}
-                        className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-green-700 transition-colors"
+                        className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg font-medium text-sm hover:bg-green-700 transition-colors"
                       >
                         🚨 Respond Now
                       </button>
@@ -339,14 +339,14 @@ export default function MobileAlertSystem() {
                   {alert.status === 'acknowledged' && (
                     <button
                       onClick={() => respondToAlert(alert.id)}
-                      className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg font-semibold text-sm hover:bg-green-700 transition-colors animate-pulse"
+                      className="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg font-medium text-sm hover:bg-green-700 transition-colors animate-pulse"
                     >
                       🚨 Begin Response
                     </button>
                   )}
                   
                   {alert.status === 'responding' && (
-                    <div className="flex-1 bg-gray-600 text-white py-3 px-4 rounded-lg text-center font-semibold text-sm">
+                    <div className="flex-1 bg-gray-600 text-white py-3 px-4 rounded-lg text-center font-medium text-sm">
                       ⏳ Response In Progress
                     </div>
                   )}
@@ -357,7 +357,7 @@ export default function MobileAlertSystem() {
                   <div className="mt-3 bg-yellow-100 border border-yellow-400 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-yellow-800">
                       <span className="text-lg">⚠️</span>
-                      <span className="font-semibold text-sm">
+                      <span className="font-medium text-sm">
                         Escalation Level {alert.escalationLevel}
                       </span>
                     </div>

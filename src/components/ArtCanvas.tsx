@@ -437,7 +437,7 @@ const ArtCanvas: React.FC<ArtCanvasProps> = ({
     <div className={`art-canvas ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Digital Art Therapy
         </h3>
         <p className="text-sm text-gray-600">
@@ -451,7 +451,7 @@ const ArtCanvas: React.FC<ArtCanvasProps> = ({
         {/* Therapeutic Color Palette */}
         <div className="color-palette mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-semibold text-gray-700">Therapeutic Colors</h4>
+            <h4 className="text-sm font-medium text-gray-700">Therapeutic Colors</h4>
             <button
               onClick={() => setShowColorMeanings(!showColorMeanings)}
               className="text-xs text-sage-600 hover:text-sage-800"
@@ -478,7 +478,7 @@ const ArtCanvas: React.FC<ArtCanvasProps> = ({
                 
                 {showColorMeanings && (
                   <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-10 bg-black text-white text-xs p-2 rounded-lg shadow-lg w-32 text-center">
-                    <div className="font-semibold">{color.name}</div>
+                    <div className="font-medium">{color.name}</div>
                     <div className="text-gray-300">{color.meaning}</div>
                   </div>
                 )}
@@ -618,14 +618,14 @@ const ArtCanvas: React.FC<ArtCanvasProps> = ({
         {/* Gesture Analysis */}
         {gesturePatterns.length > 0 && (
           <div className="gesture-analysis mt-6 p-4 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">Expression Analysis</h4>
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Expression Analysis</h4>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
               {['circular', 'linear', 'chaotic', 'rhythmic'].map((type) => {
                 const count = gesturePatterns.filter(g => g.type === type).length;
                 return (
                   <div key={type} className="text-center">
-                    <div className="text-lg font-semibold text-sage-700">{count}</div>
+                    <div className="text-lg font-medium text-sage-700">{count}</div>
                     <div className="text-xs text-gray-600 capitalize">{type}</div>
                   </div>
                 );

@@ -75,7 +75,7 @@ function DemoContent() {
               <div className="flex items-start gap-4">
                 <div className="text-3xl">{scenario.icon}</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-semibold text-lg mb-2">
+                  <h3 className="text-white font-medium text-lg mb-2">
                     {scenario.title}
                   </h3>
                   <p className="text-white/70 text-sm mb-4 leading-relaxed">
@@ -101,7 +101,7 @@ function DemoContent() {
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-xl">🎯</span>
               </div>
-              <h3 className="text-white font-semibold mb-2">Radical Simplicity</h3>
+              <h3 className="text-white font-medium mb-2">Radical Simplicity</h3>
               <p className="text-white/70 text-sm leading-relaxed">
                 Every interaction is purposeful. No clutter, no confusion—just what you need.
               </p>
@@ -111,7 +111,7 @@ function DemoContent() {
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-xl">💚</span>
               </div>
-              <h3 className="text-white font-semibold mb-2">Trauma-Informed</h3>
+              <h3 className="text-white font-medium mb-2">Trauma-Informed</h3>
               <p className="text-white/70 text-sm leading-relaxed">
                 Safe spaces with gentle animations, easy escape routes, and crisis support.
               </p>
@@ -121,7 +121,7 @@ function DemoContent() {
               <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-xl">📱</span>
               </div>
-              <h3 className="text-white font-semibold mb-2">Mobile-First</h3>
+              <h3 className="text-white font-medium mb-2">Mobile-First</h3>
               <p className="text-white/70 text-sm leading-relaxed">
                 Optimized for one-handed use, large touch targets, and crisis accessibility.
               </p>

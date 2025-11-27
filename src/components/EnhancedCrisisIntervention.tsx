@@ -364,7 +364,7 @@ export function EnhancedCrisisIntervention({
                   {state.crisisDetection?.riskLevel === 'critical' && (
                     <div className="p-6 bg-red-50 border-2 border-red-200 rounded-2xl">
                       <div className="text-center mb-4">
-                        <h4 className="text-lg font-semibold text-red-800 mb-2">
+                        <h4 className="text-lg font-medium text-red-800 mb-2">
                           🚨 Immediate Help Available
                         </h4>
                         <p className="text-red-700 text-sm">
@@ -374,7 +374,7 @@ export function EnhancedCrisisIntervention({
                       
                       <Button
                         onClick={() => handleResourceClick('emergency_crisis', 'emergency', 'tel:988')}
-                        className="w-full mb-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-4"
+                        className="w-full mb-3 bg-red-600 hover:bg-red-700 text-white font-medium py-4"
                       >
                         <span className="text-2xl mr-3">📞</span>
                         Call 988 - Crisis Lifeline
@@ -401,7 +401,7 @@ export function EnhancedCrisisIntervention({
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h4 className="font-semibold text-ink text-lg">
+                          <h4 className="font-medium text-ink text-lg">
                             {resource.name}
                           </h4>
                           {resource.culturalSpecialty && (
@@ -466,7 +466,7 @@ export function EnhancedCrisisIntervention({
                   {/* Offline emergency fallback */}
                   {offlineMode && availableResources.length === 0 && (
                     <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl">
-                      <h4 className="font-semibold text-amber-800 mb-4">
+                      <h4 className="font-medium text-amber-800 mb-4">
                         📶 Offline Emergency Resources
                       </h4>
                       <div className="space-y-2">

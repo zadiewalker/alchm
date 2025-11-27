@@ -366,7 +366,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
       <Card className="p-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-2xl font-bold">Pathway Prescription System</h2>
+            <h2 className="text-2xl font-medium">Pathway Prescription System</h2>
             <p className="text-gray-600 mt-2">
               Prescribe evidence-based ALCHM pathways as therapeutic homework
             </p>
@@ -380,7 +380,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
       {/* Active Prescriptions */}
       {activePrescriptions.length > 0 && (
         <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Active Prescriptions</h3>
+          <h3 className="text-xl font-medium mb-4">Active Prescriptions</h3>
           <div className="space-y-4">
             {activePrescriptions.map(prescription => {
               const metrics = progressMetrics[prescription.pathwayId];
@@ -388,7 +388,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
                 <div key={prescription.id} className="border rounded-lg p-4">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h4 className="font-semibold text-lg">{prescription.pathwayName}</h4>
+                      <h4 className="font-medium text-lg">{prescription.pathwayName}</h4>
                       <p className="text-sm text-gray-600">
                         Prescribed: {prescription.prescriptionDate.toDate().toLocaleDateString()}
                       </p>
@@ -508,7 +508,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
       {/* Prescription Form Modal */}
       {showPrescriptionForm && (
         <Card className="p-6 border-2 border-blue-200">
-          <h3 className="text-xl font-semibold mb-4">Prescribe New Pathway</h3>
+          <h3 className="text-xl font-medium mb-4">Prescribe New Pathway</h3>
           
           {!selectedPathway ? (
             <div className="space-y-4">
@@ -521,7 +521,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
                     onClick={() => setSelectedPathway(pathway)}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <h5 className="font-semibold">{pathway.name}</h5>
+                      <h5 className="font-medium">{pathway.name}</h5>
                       <div className="flex gap-2">
                         <Badge className={getDifficultyColor(pathway.difficultyLevel)}>
                           {pathway.difficultyLevel}
@@ -557,7 +557,7 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
           ) : (
             <div className="space-y-6">
               <div className="border rounded-lg p-4 bg-blue-50">
-                <h4 className="font-semibold text-blue-900">{selectedPathway.name}</h4>
+                <h4 className="font-medium text-blue-900">{selectedPathway.name}</h4>
                 <p className="text-blue-800 text-sm">{selectedPathway.description}</p>
               </div>
 
@@ -667,13 +667,13 @@ export default function PathwayPrescription({ therapistId, clientUserId }: Pathw
       {/* Completed Prescriptions */}
       {completedPrescriptions.length > 0 && (
         <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Completed Prescriptions</h3>
+          <h3 className="text-xl font-medium mb-4">Completed Prescriptions</h3>
           <div className="space-y-3">
             {completedPrescriptions.map(prescription => (
               <div key={prescription.id} className="border rounded-lg p-4">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h4 className="font-semibold">{prescription.pathwayName}</h4>
+                    <h4 className="font-medium">{prescription.pathwayName}</h4>
                     <p className="text-sm text-gray-600">
                       {prescription.prescriptionDate.toDate().toLocaleDateString()} - 
                       {prescription.updatedAt.toDate().toLocaleDateString()}

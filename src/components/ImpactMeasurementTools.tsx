@@ -468,7 +468,7 @@ export default function ImpactMeasurementTools({
             <div key={tool.toolId} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800">{tool.toolName}</h3>
+                  <h3 className="font-medium text-gray-800">{tool.toolName}</h3>
                   <div className="text-sm text-gray-600 capitalize">{tool.toolType.replace('_', ' ')}</div>
                 </div>
                 <div className="text-right">
@@ -507,7 +507,7 @@ export default function ImpactMeasurementTools({
         </div>
         
         <div className="bg-gray-50 rounded-lg p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">Completed Assessments</h3>
+          <h3 className="font-medium text-gray-800 mb-4">Completed Assessments</h3>
           <div className="space-y-3">
             {completedAssessments.map((assessment) => (
               <div key={assessment.assessmentId} className="bg-white rounded-lg p-4 border border-gray-200">
@@ -544,10 +544,10 @@ export default function ImpactMeasurementTools({
           {impactChanges.map((change) => (
             <div key={change.calculationId} className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="text-center mb-4">
-                <h3 className="font-semibold text-gray-800 capitalize">
+                <h3 className="font-medium text-gray-800 capitalize">
                   {change.measurementDomain.replace('_', ' ')}
                 </h3>
-                <div className="text-3xl font-bold text-green-600 mt-2">
+                <div className="text-3xl font-medium text-green-600 mt-2">
                   +{change.changePercentage.toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-600">
@@ -588,7 +588,7 @@ export default function ImpactMeasurementTools({
         
         {qualityOfLifeData && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="font-semibold text-gray-800 mb-4">Quality of Life Assessment</h3>
+            <h3 className="font-medium text-gray-800 mb-4">Quality of Life Assessment</h3>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {[
@@ -598,7 +598,7 @@ export default function ImpactMeasurementTools({
                 { label: 'Purpose & Meaning', value: qualityOfLifeData.purposeAndMeaning }
               ].map((metric) => (
                 <div key={metric.label} className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{metric.value.toFixed(1)}</div>
+                  <div className="text-2xl font-medium text-blue-600">{metric.value.toFixed(1)}</div>
                   <div className="text-sm text-gray-600">{metric.label}</div>
                 </div>
               ))}
@@ -641,13 +641,13 @@ export default function ImpactMeasurementTools({
             <div key={outcome.measurementId} className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 capitalize">
+                  <h3 className="font-medium text-gray-800 capitalize">
                     {outcome.outcomeDomain.replace('_', ' ')}
                   </h3>
                   <div className="text-sm text-gray-600 capitalize">{outcome.outcomeType.replace('_', ' ')}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">{outcome.outcomeValue.toFixed(1)}</div>
+                  <div className="text-2xl font-medium text-blue-600">{outcome.outcomeValue.toFixed(1)}</div>
                   <div className="text-sm text-gray-500">{outcome.outcomeUnit.replace('_', ' ')}</div>
                 </div>
               </div>
@@ -678,12 +678,12 @@ export default function ImpactMeasurementTools({
         </div>
         
         <div className="bg-gray-50 rounded-lg p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">Well-Being Trends</h3>
+          <h3 className="font-medium text-gray-800 mb-4">Well-Being Trends</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {wellBeingTrends.map((trend) => (
               <div key={trend.measureId} className="bg-white rounded-lg p-4 border border-gray-200">
                 <div className="text-center">
-                  <div className="text-xl font-bold text-green-600">{trend.measureValue.toFixed(1)}</div>
+                  <div className="text-xl font-medium text-green-600">{trend.measureValue.toFixed(1)}</div>
                   <div className="text-sm text-gray-600 capitalize">{trend.measureDomain.replace('_', ' ')}</div>
                   <div className="text-xs text-gray-500 mt-1 capitalize">
                     {trend.measureType.replace('_', ' ')}
@@ -704,7 +704,7 @@ export default function ImpactMeasurementTools({
           <div key={dataset.datasetId} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="font-semibold text-gray-800 capitalize">
+                <h3 className="font-medium text-gray-800 capitalize">
                   {dataset.datasetType.replace('_', ' ')}
                 </h3>
                 <div className="text-sm text-gray-600">Dataset ID: {dataset.datasetId}</div>
@@ -721,19 +721,19 @@ export default function ImpactMeasurementTools({
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">{dataset.timeframeCoverage.dataPoints}</div>
+                <div className="text-lg font-medium text-blue-600">{dataset.timeframeCoverage.dataPoints}</div>
                 <div className="text-sm text-gray-600">Data Points</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">{(dataset.statisticalPower * 100).toFixed(0)}%</div>
+                <div className="text-lg font-medium text-blue-600">{(dataset.statisticalPower * 100).toFixed(0)}%</div>
                 <div className="text-sm text-gray-600">Statistical Power</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">{(dataset.culturalRepresentation * 100).toFixed(0)}%</div>
+                <div className="text-lg font-medium text-blue-600">{(dataset.culturalRepresentation * 100).toFixed(0)}%</div>
                 <div className="text-sm text-gray-600">Cultural Rep.</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600 capitalize">
+                <div className="text-lg font-medium text-blue-600 capitalize">
                   {dataset.publicationPotential.replace('_', ' ')}
                 </div>
                 <div className="text-sm text-gray-600">Pub. Potential</div>
@@ -774,25 +774,25 @@ export default function ImpactMeasurementTools({
         ))}
         
         <div className="bg-gray-50 rounded-lg p-6">
-          <h3 className="font-semibold text-gray-800 mb-4">Statistical Significance Results</h3>
+          <h3 className="font-medium text-gray-800 mb-4">Statistical Significance Results</h3>
           <div className="space-y-4">
             {statisticalResults.map((result) => (
               <div key={result.testId} className="bg-white rounded-lg p-4 border border-gray-200">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
                   <div className="text-center">
-                    <div className="text-lg font-bold text-red-600">{result.pValue.toFixed(4)}</div>
+                    <div className="text-lg font-medium text-red-600">{result.pValue.toFixed(4)}</div>
                     <div className="text-sm text-gray-600">P-value</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-blue-600">{result.effectSize.toFixed(2)}</div>
+                    <div className="text-lg font-medium text-blue-600">{result.effectSize.toFixed(2)}</div>
                     <div className="text-sm text-gray-600">Effect Size</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-green-600">{(result.powerAnalysis * 100).toFixed(0)}%</div>
+                    <div className="text-lg font-medium text-green-600">{(result.powerAnalysis * 100).toFixed(0)}%</div>
                     <div className="text-sm text-gray-600">Statistical Power</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold text-purple-600">{result.sampleSize.toLocaleString()}</div>
+                    <div className="text-lg font-medium text-purple-600">{result.sampleSize.toLocaleString()}</div>
                     <div className="text-sm text-gray-600">Sample Size</div>
                   </div>
                 </div>
@@ -823,7 +823,7 @@ export default function ImpactMeasurementTools({
     <div className={`space-y-6 ${className}`}>
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Impact Measurement Tools</h2>
+          <h2 className="text-2xl font-medium text-gray-800">Impact Measurement Tools</h2>
           <p className="text-gray-600">Validated assessment tools and research-grade impact measurement</p>
         </div>
         

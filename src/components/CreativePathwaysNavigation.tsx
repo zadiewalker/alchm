@@ -254,7 +254,7 @@ const CreativePathwaysNavigation: React.FC<CreativePathwaysNavigationProps> = ({
                 <div className="pathway-icon text-4xl mb-3 group-hover:scale-110 transition-transform">
                   {pathway.icon}
                 </div>
-                <h3 className="pathway-name text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="pathway-name text-lg font-medium text-gray-800 mb-2">
                   {pathway.name}
                 </h3>
                 <p className="pathway-description text-sm text-gray-600 leading-tight">
@@ -268,7 +268,7 @@ const CreativePathwaysNavigation: React.FC<CreativePathwaysNavigationProps> = ({
                   {pathway.icon}
                 </div>
                 <div className="pathway-info flex-1">
-                  <h3 className="pathway-name text-lg font-semibold text-gray-800">
+                  <h3 className="pathway-name text-lg font-medium text-gray-800">
                     {pathway.name}
                   </h3>
                   <p className="pathway-description text-sm text-gray-600">
@@ -294,7 +294,7 @@ const CreativePathwaysNavigation: React.FC<CreativePathwaysNavigationProps> = ({
             return (
               <div className="text-center">
                 <div className="text-2xl mb-2">{pathway.icon}</div>
-                <h4 className="font-semibold text-gray-800 mb-1">{pathway.name}</h4>
+                <h4 className="font-medium text-gray-800 mb-1">{pathway.name}</h4>
                 <p className="text-sm text-gray-600">{pathway.description}</p>
               </div>
             );
@@ -336,7 +336,7 @@ const CreativePathwaysNavigation: React.FC<CreativePathwaysNavigationProps> = ({
           <div className="hint-card bg-gradient-to-r from-sage-50 to-green-50 rounded-2xl p-6 border border-sage-200">
             <div className="text-center">
               <div className="text-4xl mb-3">✨</div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">
                 Welcome to Your Creative Sanctuary
               </h3>
               <p className="text-sm text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">

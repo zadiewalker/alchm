@@ -103,7 +103,7 @@ export default function ComplianceDashboard({ userRole }: { userRole: 'admin' | 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">ALCHM Compliance Dashboard</h1>
+              <h1 className="text-3xl font-medium text-gray-900">ALCHM Compliance Dashboard</h1>
               <p className="text-gray-600">Privacy & Security Monitoring for Educational Technology</p>
             </div>
             
@@ -193,11 +193,11 @@ function OverviewTab({ metrics }: { metrics: ComplianceMetrics | null }) {
       {/* Security Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Encryption Status</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Encryption Status</h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Encrypted Entries</span>
-              <span className="font-semibold text-green-600">
+              <span className="font-medium text-green-600">
                 {metrics.encryptionStatus.encrypted.toLocaleString()}
               </span>
             </div>
@@ -214,17 +214,17 @@ function OverviewTab({ metrics }: { metrics: ComplianceMetrics | null }) {
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">PII Protection</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">PII Protection</h3>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-medium text-blue-600">
                   {metrics.piiProtection.totalPIIDetected}
                 </div>
                 <div className="text-sm text-gray-500">PII Items Detected</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-medium text-green-600">
                   {metrics.piiProtection.totalPIIRedacted}
                 </div>
                 <div className="text-sm text-gray-500">PII Items Redacted</div>
@@ -252,22 +252,22 @@ function OverviewTab({ metrics }: { metrics: ComplianceMetrics | null }) {
 
       {/* Usage Statistics */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Platform Usage</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Platform Usage</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600">{metrics.totalUsers.toLocaleString()}</div>
+            <div className="text-3xl font-medium text-blue-600">{metrics.totalUsers.toLocaleString()}</div>
             <div className="text-sm text-gray-500">Total Users</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600">{metrics.totalEntries.toLocaleString()}</div>
+            <div className="text-3xl font-medium text-green-600">{metrics.totalEntries.toLocaleString()}</div>
             <div className="text-sm text-gray-500">Journal Entries</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600">{metrics.auditTrail.length}</div>
+            <div className="text-3xl font-medium text-purple-600">{metrics.auditTrail.length}</div>
             <div className="text-sm text-gray-500">Audit Events</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-orange-600">{metrics.securityIncidents.length}</div>
+            <div className="text-3xl font-medium text-orange-600">{metrics.securityIncidents.length}</div>
             <div className="text-sm text-gray-500">Security Incidents</div>
           </div>
         </div>
@@ -305,14 +305,14 @@ function ComplianceCard({
   return (
     <div className={`rounded-lg border p-6 ${statusColors[status]}`}>
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-semibold">{title}</h3>
+        <h3 className="font-medium">{title}</h3>
         <span className="text-2xl">{statusIcons[status]}</span>
       </div>
       <p className="text-sm opacity-75 mb-4">{description}</p>
       <div className="space-y-2">
         <div className="flex justify-between items-center">
           <span className="text-sm">Compliance Rate</span>
-          <span className="font-semibold">{percentage}%</span>
+          <span className="font-medium">{percentage}%</span>
         </div>
         <div className="w-full bg-white bg-opacity-50 rounded-full h-2">
           <div 
@@ -337,7 +337,7 @@ function AuditTab({ metrics }: { metrics: ComplianceMetrics | null }) {
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="px-6 py-4 border-b border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900">Audit Trail</h3>
+        <h3 className="text-lg font-medium text-gray-900">Audit Trail</h3>
         <p className="text-gray-600">Detailed log of all privacy and security events</p>
       </div>
       
@@ -378,7 +378,7 @@ function AuditTab({ metrics }: { metrics: ComplianceMetrics | null }) {
                   {event.userId}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                  <span className={`px-2 inline-flex text-xs leading-5 font-medium rounded-full ${
                     event.riskLevel === 'critical' ? 'bg-red-100 text-red-800' :
                     event.riskLevel === 'high' ? 'bg-orange-100 text-orange-800' :
                     event.riskLevel === 'medium' ? 'bg-yellow-100 text-yellow-800' :
@@ -409,7 +409,7 @@ function IncidentsTab({ metrics }: { metrics: ComplianceMetrics | null }) {
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Security Incidents</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Security Incidents</h3>
         
         {metrics.securityIncidents.length === 0 ? (
           <div className="text-center py-8">
@@ -457,7 +457,7 @@ function PoliciesTab() {
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Privacy Policies & Documentation</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Privacy Policies & Documentation</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">

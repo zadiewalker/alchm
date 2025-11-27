@@ -243,18 +243,18 @@ export default function EnhancedAgeVerification({
               <div className="w-20 h-20 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-3xl">👨‍👩‍👧‍👦</span>
               </div>
-              <h2 className="text-2xl font-bold text-red-800">Parental Consent Required</h2>
+              <h2 className="text-2xl font-medium text-red-800">Parental Consent Required</h2>
               <p className="text-red-600 font-medium mt-2">COPPA Protection Active</p>
             </div>
           </CardHeader>
           
           <CardContent className="p-6 space-y-6">
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-              <h3 className="font-bold text-red-800 text-lg mb-3">
+              <h3 className="font-medium text-red-800 text-lg mb-3">
                 🔒 Children's Online Privacy Protection Act (COPPA) Notice
               </h3>
               <div className="space-y-3 text-red-700">
-                <p className="font-semibold">
+                <p className="font-medium">
                   This application collects personal information and is not intended for children under 13.
                 </p>
                 <p>
@@ -271,7 +271,7 @@ export default function EnhancedAgeVerification({
             </div>
 
             <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4">
-              <h4 className="font-semibold text-yellow-800 mb-2">Alternative Resources for Young Users</h4>
+              <h4 className="font-medium text-yellow-800 mb-2">Alternative Resources for Young Users</h4>
               <p className="text-yellow-700 text-sm mb-3">
                 While ALCHM requires parental consent for users under 13, here are age-appropriate mental wellness resources:
               </p>
@@ -363,14 +363,14 @@ export default function EnhancedAgeVerification({
             <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
               <span className="text-2xl">🛡️</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Enhanced Age Verification</h2>
+            <h2 className="text-2xl font-medium text-gray-900">Enhanced Age Verification</h2>
             <p className="text-blue-600 font-medium mt-2">Privacy & Mental Health Protection</p>
           </div>
         </CardHeader>
         
         <CardContent className="p-6 space-y-6">
           <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-            <h3 className="font-bold text-blue-800 text-lg mb-3">
+            <h3 className="font-medium text-blue-800 text-lg mb-3">
               🔒 Why Age Verification is Required
             </h3>
             <div className="space-y-2 text-blue-700 text-sm">

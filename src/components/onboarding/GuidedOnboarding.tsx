@@ -470,7 +470,7 @@ export default function GuidedOnboarding({ onComplete, showSkip = true }: Guided
   
   // Crisis mode style overrides
   const touchTargetClass = isCrisisMode 
-    ? 'min-h-[60px] min-w-[60px] text-lg font-semibold border-2 border-red-400' 
+    ? 'min-h-[60px] min-w-[60px] text-lg font-medium border-2 border-red-400' 
     : 'min-h-[52px] min-w-[52px]';
     
   const crisisStyles = isCrisisMode ? {

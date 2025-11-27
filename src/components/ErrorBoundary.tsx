@@ -113,35 +113,17 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   private async reportError(error: any, errorInfo: ErrorInfo, errorId: string) {
     try {
-      // Send to error tracking service
-      await fetch('/api/errors/report', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+      // Only log to console for now - no API call that might cause more errors
+      console.log('Error reported:', {
+        errorId,
+        error: {
+          name: error.name,
+          message: error.message,
+          boundary: error.boundary,
+          timestamp: error.timestamp
         },
-        body: JSON.stringify({
-          errorId,
-          error: {
-            name: error.name,
-            message: error.message,
-            stack: error.stack,
-            boundary: error.boundary,
-            timestamp: error.timestamp,
-            userAgent: error.userAgent,
-            url: error.url,
-            userId: error.userId,
-            sessionId: error.sessionId,
-            buildId: error.buildId
-          },
-          errorInfo: {
-            componentStack: errorInfo.componentStack
-          },
-          context: {
-            retryCount: this.state.retryCount,
-            level: this.props.level
-          }
-        })
-      })
+        level: this.props.level
+      });
     } catch (reportingError) {
       console.error('Failed to report error:', reportingError)
     }
@@ -240,30 +222,30 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({
     switch (level) {
       case 'critical':
         return {
-          title: 'Critical Error',
-          message: 'A critical error has occurred. Please refresh the page or contact support.',
-          icon: '🚨',
+          title: 'You\'re safe here',
+          message: 'Something needs a gentle reset. Your healing space will return refreshed. Crisis support is always available.',
+          icon: '🌿',
           severity: 'high'
         }
       case 'page':
         return {
-          title: 'Page Error',
-          message: 'This page encountered an error. You can try refreshing or go back to the previous page.',
-          icon: '⚠️',
+          title: 'Taking a sacred pause',
+          message: 'This space needs a moment to breathe. Your journey can continue when you\'re ready.',
+          icon: '🌸',
           severity: 'medium'
         }
       case 'component':
         return {
-          title: 'Something went wrong',
-          message: 'A component failed to load. This might be a temporary issue.',
-          icon: '🔧',
+          title: 'A gentle moment',
+          message: 'Something paused for healing. Like nature, we grow through rest and renewal.',
+          icon: '🕊️',
           severity: 'low'
         }
       default:
         return {
-          title: 'Unexpected Error',
-          message: 'An unexpected error occurred.',
-          icon: '❌',
+          title: 'Breathing space',
+          message: 'Your sanctuary is taking a healing pause. All is well.',
+          icon: '✨',
           severity: 'medium'
         }
     }

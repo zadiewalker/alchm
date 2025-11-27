@@ -373,11 +373,11 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800">{stage.stageName}</h3>
+                  <h3 className="font-medium text-gray-800">{stage.stageName}</h3>
                   <div className="text-sm text-gray-600 capitalize">{stage.pathwayType} • Stage {stage.stageIndex}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600">{stage.completionPercentage}%</div>
+                  <div className="text-2xl font-medium text-blue-600">{stage.completionPercentage}%</div>
                   <div className="text-xs text-gray-500">complete</div>
                 </div>
               </div>
@@ -445,7 +445,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
 
         {/* Stage progression timeline */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Stage Progression Timeline</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Stage Progression Timeline</h3>
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300" />
@@ -465,7 +465,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
                     {/* Timeline content */}
                     <div className="flex-1 bg-gray-50 rounded-lg p-4">
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-semibold text-gray-800">{stage.stageName}</h4>
+                        <h4 className="font-medium text-gray-800">{stage.stageName}</h4>
                         <span className="text-sm text-gray-500">
                           {stage.currentDuration} days ({stage.expectedDuration} expected)
                         </span>
@@ -519,7 +519,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">✅</div>
               <div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {milestoneAnalyses.filter(m => m.completionStatus === 'completed').length}
                 </div>
                 <div className="text-sm opacity-80">Completed</div>
@@ -531,7 +531,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🔄</div>
               <div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {milestoneAnalyses.filter(m => m.completionStatus === 'in_progress').length}
                 </div>
                 <div className="text-sm opacity-80">In Progress</div>
@@ -543,7 +543,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">📊</div>
               <div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {milestoneAnalyses.length > 0 
                     ? Math.round(milestoneAnalyses.reduce((sum, m) => sum + m.completionQuality, 0) / milestoneAnalyses.length * 100)
                     : 0}%
@@ -557,7 +557,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">⏱️</div>
               <div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {milestoneAnalyses.length > 0
                     ? Math.round(milestoneAnalyses
                         .filter(m => m.timeToComplete)
@@ -573,7 +573,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
 
         {/* Milestone analysis table */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Detailed Milestone Analysis</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Detailed Milestone Analysis</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -654,12 +654,12 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
 
         {/* Milestone insights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">💡 Milestone Insights</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">💡 Milestone Insights</h3>
           <div className="space-y-4">
             {milestoneInsights.map((insight) => (
               <div key={insight.insightId} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-semibold text-gray-800">{insight.title}</h4>
+                  <h4 className="font-medium text-gray-800">{insight.title}</h4>
                   <span className={`px-2 py-1 text-xs rounded ${
                     insight.priority === 'critical' ? 'bg-red-100 text-red-700' :
                     insight.priority === 'high' ? 'bg-orange-100 text-orange-700' :
@@ -695,7 +695,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
         <div className="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-semibold text-gray-800">{selectedStage.stageName}</h3>
+              <h3 className="text-2xl font-medium text-gray-800">{selectedStage.stageName}</h3>
               <button
                 onClick={() => setShowStageModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -709,7 +709,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-1">
+                    <div className="text-3xl font-medium text-blue-600 mb-1">
                       {selectedStage.completionPercentage}%
                     </div>
                     <div className="text-sm text-blue-700">Completion</div>
@@ -718,7 +718,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
                 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-green-600 mb-1">
+                    <div className="text-3xl font-medium text-green-600 mb-1">
                       {selectedStage.completedMilestones}/{selectedStage.totalMilestones}
                     </div>
                     <div className="text-sm text-green-700">Milestones</div>
@@ -727,7 +727,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
                 
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-purple-600 mb-1">
+                    <div className="text-3xl font-medium text-purple-600 mb-1">
                       {Math.round(selectedStage.dailyEngagementAverage * 100)}%
                     </div>
                     <div className="text-sm text-purple-700">Engagement</div>
@@ -738,7 +738,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
               {/* Detailed metrics */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Progress Metrics</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Progress Metrics</h4>
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Current Duration:</span>
@@ -766,7 +766,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Cultural Adaptation</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Cultural Adaptation</h4>
                   <div className="space-y-3">
                     <div>
                       <div className="flex justify-between text-sm mb-1">
@@ -814,7 +814,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {selectedStage.riskFactors.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-3">🚨 Risk Factors</h4>
+                    <h4 className="font-medium text-gray-800 mb-3">🚨 Risk Factors</h4>
                     <div className="space-y-2">
                       {selectedStage.riskFactors.map((risk, index) => (
                         <div key={index} className="p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -831,7 +831,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
 
                 {selectedStage.accelerationOpportunities.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-gray-800 mb-3">🚀 Acceleration Opportunities</h4>
+                    <h4 className="font-medium text-gray-800 mb-3">🚀 Acceleration Opportunities</h4>
                     <div className="space-y-2">
                       {selectedStage.accelerationOpportunities.map((opportunity, index) => (
                         <div key={index} className="p-3 bg-green-50 border border-green-200 rounded-lg">
@@ -849,24 +849,24 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
 
               {/* Predictive analysis */}
               <div>
-                <h4 className="font-semibold text-gray-800 mb-3">🔮 Predictive Analysis</h4>
+                <h4 className="font-medium text-gray-800 mb-3">🔮 Predictive Analysis</h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-medium text-blue-600">
                       {Math.round(selectedStage.completionProbability * 100)}%
                     </div>
                     <div className="text-sm text-blue-700">Completion Probability</div>
                   </div>
                   
                   <div className="text-center p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">
+                    <div className="text-2xl font-medium text-orange-600">
                       {selectedStage.timeToCompletion}
                     </div>
                     <div className="text-sm text-orange-700">Days to Completion</div>
                   </div>
                   
                   <div className="text-center p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-medium text-purple-600">
                       {selectedStage.cohortPercentile}
                     </div>
                     <div className="text-sm text-purple-700">Cohort Percentile</div>
@@ -888,7 +888,7 @@ const PathwayProgressionTracking: React.FC<PathwayProgressionTrackingProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Pathway Progression Tracking
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

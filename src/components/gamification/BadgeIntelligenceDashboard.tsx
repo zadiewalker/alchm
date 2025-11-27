@@ -72,7 +72,7 @@ export default function BadgeIntelligenceDashboard() {
     <div className="space-y-8 p-6 bg-gradient-to-br from-sage-50 to-earth-50 min-h-screen">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-3xl font-bold text-sage-900">Badge Intelligence Dashboard</h1>
+        <h1 className="text-3xl font-medium text-sage-900">Badge Intelligence Dashboard</h1>
         <p className="text-sage-700 max-w-2xl mx-auto">
           Analytics that serve your healing journey. Every metric honors your growth, every recommendation supports your authentic self.
         </p>
@@ -201,7 +201,7 @@ export default function BadgeIntelligenceDashboard() {
                     <div className="space-y-3">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-semibold text-sage-800">{rec.personalizedTitle}</h4>
+                          <h4 className="font-medium text-sage-800">{rec.personalizedTitle}</h4>
                           <p className="text-sm text-sage-600 capitalize">Category: {rec.category}</p>
                         </div>
                         <div className="text-right">
@@ -335,28 +335,28 @@ export default function BadgeIntelligenceDashboard() {
                     <>
                       {/* Therapeutic Value Metrics */}
                       <div className="bg-sage-50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sage-800 mb-3">Therapeutic Value Analysis</h4>
+                        <h4 className="font-medium text-sage-800 mb-3">Therapeutic Value Analysis</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-sage-700">
+                            <div className="text-2xl font-medium text-sage-700">
                               {effectiveness.therapeuticValue.completionSatisfaction}%
                             </div>
                             <div className="text-sm text-sage-600">Completion Satisfaction</div>
                           </div>
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-sage-700">
+                            <div className="text-2xl font-medium text-sage-700">
                               {effectiveness.therapeuticValue.postCompletionBehavior.increasedSelfCompassion}%
                             </div>
                             <div className="text-sm text-sage-600">Self-Compassion Increase</div>
                           </div>
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-sage-700">
+                            <div className="text-2xl font-medium text-sage-700">
                               {effectiveness.therapeuticValue.postCompletionBehavior.sustainedJournalingPractice}%
                             </div>
                             <div className="text-sm text-sage-600">Sustained Practice</div>
                           </div>
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-sage-700">
+                            <div className="text-2xl font-medium text-sage-700">
                               +{effectiveness.therapeuticValue.healingMomentumChange}%
                             </div>
                             <div className="text-sm text-sage-600">Healing Momentum</div>
@@ -366,10 +366,10 @@ export default function BadgeIntelligenceDashboard() {
                       
                       {/* Trauma-Informed Impact */}
                       <div className="bg-earth-50 p-4 rounded-lg">
-                        <h4 className="font-semibold text-sage-800 mb-3">Trauma-Informed Safety Analysis</h4>
+                        <h4 className="font-medium text-sage-800 mb-3">Trauma-Informed Safety Analysis</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           <div className="text-center">
-                            <div className={`text-2xl font-bold ${
+                            <div className={`text-2xl font-medium ${
                               effectiveness.traumaInformedImpact.anxietyTriggerRate < 10 ? 'text-green-600' : 'text-amber-600'
                             }`}>
                               {effectiveness.traumaInformedImpact.anxietyTriggerRate}%
@@ -378,7 +378,7 @@ export default function BadgeIntelligenceDashboard() {
                             <div className="text-xs text-sage-500">(Lower is better)</div>
                           </div>
                           <div className="text-center">
-                            <div className={`text-2xl font-bold ${
+                            <div className={`text-2xl font-medium ${
                               effectiveness.traumaInformedImpact.shameActivation < 5 ? 'text-green-600' : 'text-amber-600'
                             }`}>
                               {effectiveness.traumaInformedImpact.shameActivation}%
@@ -387,7 +387,7 @@ export default function BadgeIntelligenceDashboard() {
                             <div className="text-xs text-sage-500">(Lower is better)</div>
                           </div>
                           <div className="text-center">
-                            <div className={`text-2xl font-bold ${
+                            <div className={`text-2xl font-medium ${
                               effectiveness.traumaInformedImpact.perfectionismIncrease < 10 ? 'text-green-600' : 'text-amber-600'
                             }`}>
                               {effectiveness.traumaInformedImpact.perfectionismIncrease}%
@@ -396,7 +396,7 @@ export default function BadgeIntelligenceDashboard() {
                             <div className="text-xs text-sage-500">(Lower is better)</div>
                           </div>
                           <div className="text-center">
-                            <div className="text-2xl font-bold text-sage-700">
+                            <div className="text-2xl font-medium text-sage-700">
                               {effectiveness.traumaInformedImpact.graceTokenUsageAfter}%
                             </div>
                             <div className="text-sm text-sage-600">Grace Token Use</div>
@@ -407,7 +407,7 @@ export default function BadgeIntelligenceDashboard() {
                       
                       {/* Quality Indicators */}
                       <div className="bg-white p-4 rounded-lg border border-sage-200">
-                        <h4 className="font-semibold text-sage-800 mb-3">Quality & Sustainability Metrics</h4>
+                        <h4 className="font-medium text-sage-800 mb-3">Quality & Sustainability Metrics</h4>
                         <div className="space-y-3">
                           {Object.entries(effectiveness.qualityIndicators).map(([key, value]) => (
                             <div key={key} className="flex items-center gap-3">
@@ -428,11 +428,11 @@ export default function BadgeIntelligenceDashboard() {
                       
                       {/* Concern Signals */}
                       <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                        <h4 className="font-semibold text-amber-800 mb-3">Concern Signal Monitoring</h4>
+                        <h4 className="font-medium text-amber-800 mb-3">Concern Signal Monitoring</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           {Object.entries(effectiveness.concernSignals).map(([key, value]) => (
                             <div key={key} className="text-center">
-                              <div className={`text-lg font-bold ${
+                              <div className={`text-lg font-medium ${
                                 value < 15 ? 'text-green-600' : value < 25 ? 'text-amber-600' : 'text-red-600'
                               }`}>
                                 {value}%

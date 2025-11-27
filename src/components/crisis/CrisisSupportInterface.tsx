@@ -186,7 +186,7 @@ export default function CrisisSupportInterface() {
                 )}
               </div>
               <div className="text-left">
-                <div className="font-semibold text-lg text-gray-800">{resource.text}</div>
+                <div className="font-medium text-lg text-gray-800">{resource.text}</div>
                 <div className="text-gray-600 text-sm">{resource.description}</div>
                 <div className="text-xs text-gray-500 mt-1">
                   {resource.type === 'call' ? 'Tap to call' : 'Tap to text'}

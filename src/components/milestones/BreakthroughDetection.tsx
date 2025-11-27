@@ -526,7 +526,7 @@ const BreakthroughCelebrationCard = ({
         <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/80 mb-3 ${getIconColor()}`}>
           {breakthrough.pattern.icon}
         </div>
-        <h3 className={`text-lg font-semibold ${getTextColor()} mb-1`}>
+        <h3 className={`text-lg font-medium ${getTextColor()} mb-1`}>
           Breakthrough Detected!
         </h3>
         <p className={`text-sm ${getTextColor()}/80`}>

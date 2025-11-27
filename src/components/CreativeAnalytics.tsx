@@ -324,7 +324,7 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
       <div className={`creative-analytics ${className}`}>
         <div className="text-center p-12 bg-gradient-to-br from-sage-50 to-green-50 rounded-3xl">
           <div className="text-4xl mb-4">📊</div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <h3 className="text-lg font-medium text-gray-800 mb-2">
             Creative Analytics Awaiting
           </h3>
           <p className="text-gray-600 max-w-md mx-auto">
@@ -340,7 +340,7 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
       {/* Header and Controls */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800">Creative Analytics</h3>
+          <h3 className="text-xl font-medium text-gray-800">Creative Analytics</h3>
           <p className="text-sm text-gray-600">Insights from your artistic healing journey</p>
         </div>
         
@@ -409,12 +409,12 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
       {/* Growth Metrics */}
       {growthMetrics.length > 0 && (
         <div className="growth-section mb-8">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Growth Tracking</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Growth Tracking</h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {growthMetrics.map((metric, i) => (
               <div key={i} className="growth-card p-4 bg-gradient-to-br from-sage-50 to-green-50 rounded-xl">
                 <div className="flex items-center justify-between mb-2">
-                  <h5 className="text-sm font-semibold text-gray-700">{metric.dimension}</h5>
+                  <h5 className="text-sm font-medium text-gray-700">{metric.dimension}</h5>
                   <div className={`text-xs px-2 py-1 rounded-full ${
                     metric.trend === 'increasing' ? 'bg-green-200 text-green-800' :
                     metric.trend === 'decreasing' ? 'bg-red-200 text-red-800' :
@@ -442,7 +442,7 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
 
       {/* Modality Distribution */}
       <div className="modality-section mb-8">
-        <h4 className="text-lg font-semibold text-gray-800 mb-4">Creative Modality Usage</h4>
+        <h4 className="text-lg font-medium text-gray-800 mb-4">Creative Modality Usage</h4>
         <div className="modality-chart bg-white rounded-xl p-6 shadow-sm border border-gray-100">
           {Object.entries(metrics.modalityDistribution).length > 0 ? (
             <div className="space-y-3">
@@ -487,12 +487,12 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
       {/* Insights */}
       {insights.length > 0 && (
         <div className="insights-section mb-8">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Creative Insights</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Creative Insights</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {insights.map((insight, i) => (
               <div key={i} className="insight-card p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl">
                 <div className="flex items-start justify-between mb-2">
-                  <h5 className="text-sm font-semibold text-gray-800">{insight.title}</h5>
+                  <h5 className="text-sm font-medium text-gray-800">{insight.title}</h5>
                   <div className="text-xs text-gray-500">
                     {Math.round(insight.confidence * 100)}% confidence
                   </div>
@@ -508,12 +508,12 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
       {/* Patterns */}
       {patterns.length > 0 && (
         <div className="patterns-section">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Creative Patterns</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Creative Patterns</h4>
           <div className="space-y-3">
             {patterns.map((pattern, i) => (
               <div key={i} className="pattern-card p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                 <div className="flex items-start justify-between mb-2">
-                  <h5 className="text-sm font-semibold text-gray-800">{pattern.pattern}</h5>
+                  <h5 className="text-sm font-medium text-gray-800">{pattern.pattern}</h5>
                   <div className="text-xs text-sage-600 bg-sage-100 px-2 py-1 rounded-full capitalize">
                     {pattern.type}
                   </div>
@@ -528,7 +528,7 @@ const CreativeAnalytics: React.FC<CreativeAnalyticsProps> = ({
 
       {/* Encouragement */}
       <div className="encouragement-section mt-8 p-6 bg-gradient-to-r from-sage-100 to-green-100 rounded-xl text-center">
-        <h4 className="text-lg font-semibold text-gray-800 mb-2">Your Creative Journey</h4>
+        <h4 className="text-lg font-medium text-gray-800 mb-2">Your Creative Journey</h4>
         <p className="text-sm text-gray-700">
           {metrics.totalSessions === 1 ? 
             "You've taken the beautiful first step in your creative healing journey. Each expression matters." :

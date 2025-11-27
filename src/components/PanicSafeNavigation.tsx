@@ -225,7 +225,7 @@ export default function PanicSafeNavigation({ isInCrisis = false, userPreference
             }}
             aria-label="Crisis mode active"
           >
-            <span className="text-white text-xs font-bold">!</span>
+            <span className="text-white text-xs font-medium">!</span>
           </div>
         )}
       </nav>

@@ -177,7 +177,7 @@ export function PerformanceMonitor() {
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex items-center gap-2 mb-4">
           <Zap className="w-5 h-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Performance Monitor</h3>
+          <h3 className="text-lg font-medium text-gray-900">Performance Monitor</h3>
         </div>
         <div className="text-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -192,7 +192,7 @@ export function PerformanceMonitor() {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Zap className="w-5 h-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">App Store Performance Monitor</h3>
+          <h3 className="text-lg font-medium text-gray-900">App Store Performance Monitor</h3>
         </div>
         <button
           onClick={startMonitoring}
@@ -217,7 +217,7 @@ export function PerformanceMonitor() {
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <div className="flex items-center gap-2 mb-2">
             <AlertTriangle className="w-5 h-5 text-red-600" />
-            <h4 className="font-semibold text-red-800">Performance Alerts</h4>
+            <h4 className="font-medium text-red-800">Performance Alerts</h4>
           </div>
           <ul className="space-y-1">
             {alerts.map((alert, index) => (
@@ -237,7 +237,7 @@ export function PerformanceMonitor() {
             {getStatusIcon(metrics.memoryUsage, APP_STORE_THRESHOLDS.maxMemoryMB)}
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${getStatusColor(metrics.memoryUsage, APP_STORE_THRESHOLDS.maxMemoryMB)}`}>
+            <span className={`text-2xl font-medium ${getStatusColor(metrics.memoryUsage, APP_STORE_THRESHOLDS.maxMemoryMB)}`}>
               {metrics.memoryUsage}
             </span>
             <span className="text-sm text-gray-500">MB</span>
@@ -256,7 +256,7 @@ export function PerformanceMonitor() {
             {getStatusIcon(metrics.loadTime, APP_STORE_THRESHOLDS.maxLoadTimeMs)}
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${getStatusColor(metrics.loadTime, APP_STORE_THRESHOLDS.maxLoadTimeMs)}`}>
+            <span className={`text-2xl font-medium ${getStatusColor(metrics.loadTime, APP_STORE_THRESHOLDS.maxLoadTimeMs)}`}>
               {metrics.loadTime}
             </span>
             <span className="text-sm text-gray-500">ms</span>
@@ -275,7 +275,7 @@ export function PerformanceMonitor() {
             {getStatusIcon(metrics.bundleSize, APP_STORE_THRESHOLDS.maxBundleSizeMB)}
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${getStatusColor(metrics.bundleSize, APP_STORE_THRESHOLDS.maxBundleSizeMB)}`}>
+            <span className={`text-2xl font-medium ${getStatusColor(metrics.bundleSize, APP_STORE_THRESHOLDS.maxBundleSizeMB)}`}>
               {metrics.bundleSize}
             </span>
             <span className="text-sm text-gray-500">MB</span>
@@ -294,7 +294,7 @@ export function PerformanceMonitor() {
             {getStatusIcon(metrics.crashRate, APP_STORE_THRESHOLDS.maxCrashRate)}
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${getStatusColor(metrics.crashRate, APP_STORE_THRESHOLDS.maxCrashRate)}`}>
+            <span className={`text-2xl font-medium ${getStatusColor(metrics.crashRate, APP_STORE_THRESHOLDS.maxCrashRate)}`}>
               {(metrics.crashRate * 100).toFixed(3)}
             </span>
             <span className="text-sm text-gray-500">%</span>
@@ -313,7 +313,7 @@ export function PerformanceMonitor() {
             {getStatusIcon(metrics.renderTime, APP_STORE_THRESHOLDS.maxRenderTimeMs)}
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${getStatusColor(metrics.renderTime, APP_STORE_THRESHOLDS.maxRenderTimeMs)}`}>
+            <span className={`text-2xl font-medium ${getStatusColor(metrics.renderTime, APP_STORE_THRESHOLDS.maxRenderTimeMs)}`}>
               {metrics.renderTime}
             </span>
             <span className="text-sm text-gray-500">ms</span>
@@ -335,7 +335,7 @@ export function PerformanceMonitor() {
             }
           </div>
           <div className="flex items-baseline gap-1">
-            <span className={`text-2xl font-bold ${
+            <span className={`text-2xl font-medium ${
               metrics.batteryImpact === 'low' ? 'text-green-600' : 
               metrics.batteryImpact === 'medium' ? 'text-yellow-600' : 'text-red-600'
             }`}>

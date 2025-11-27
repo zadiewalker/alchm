@@ -278,7 +278,7 @@ export function AccessibilityEnhancements({ children }: AccessibilityEnhancement
           <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-medium text-gray-900">
                   Accessibility Options
                 </h2>
                 <button

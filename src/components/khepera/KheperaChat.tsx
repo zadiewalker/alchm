@@ -457,7 +457,7 @@ export default function KheperaChat({
               breathingPhase="exhale"
             />
             <div>
-              <h3 className="text-white font-semibold text-lg">Khepera</h3>
+              <h3 className="text-white font-medium text-lg">Khepera</h3>
               <p className="text-white/80 text-sm">Your emotional concierge</p>
             </div>
           </div>

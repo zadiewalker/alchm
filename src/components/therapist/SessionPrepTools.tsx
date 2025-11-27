@@ -330,7 +330,7 @@ export default function SessionPrepTools({
       <Card className="p-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-2xl font-bold">AI-Powered Session Preparation</h2>
+            <h2 className="text-2xl font-medium">AI-Powered Session Preparation</h2>
             <p className="text-gray-600 mt-2">
               {upcomingSessionDate 
                 ? `Session Date: ${upcomingSessionDate.toLocaleDateString()}`
@@ -357,7 +357,7 @@ export default function SessionPrepTools({
         <>
           {/* AI Insights */}
           <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">AI-Generated Insights</h3>
+            <h3 className="text-xl font-medium mb-4">AI-Generated Insights</h3>
             <div className="grid gap-4">
               {aiInsights.map((insight, index) => (
                 <div key={index} className="border rounded-lg p-4">
@@ -369,7 +369,7 @@ export default function SessionPrepTools({
                     }>
                       {insight.type}
                     </Badge>
-                    <h4 className="font-semibold">{insight.title}</h4>
+                    <h4 className="font-medium">{insight.title}</h4>
                     <span className="text-sm text-gray-600">
                       {Math.round(insight.confidence * 100)}% confidence
                     </span>
@@ -408,7 +408,7 @@ export default function SessionPrepTools({
 
           {/* Therapeutic Focus Areas */}
           <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Recommended Therapeutic Focus</h3>
+            <h3 className="text-xl font-medium mb-4">Recommended Therapeutic Focus</h3>
             <div className="space-y-4">
               {therapeuticFoci.map((focus, index) => (
                 <div key={index} className="border rounded-lg p-4">
@@ -420,7 +420,7 @@ export default function SessionPrepTools({
                     }>
                       {focus.priority} priority
                     </Badge>
-                    <h4 className="font-semibold">{focus.area}</h4>
+                    <h4 className="font-medium">{focus.area}</h4>
                     <span className="text-sm text-gray-600">
                       ~{focus.estimatedSessionTime} minutes
                     </span>
@@ -434,7 +434,7 @@ export default function SessionPrepTools({
 
           {/* Intervention Recommendations */}
           <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Intervention Recommendations</h3>
+            <h3 className="text-xl font-medium mb-4">Intervention Recommendations</h3>
             <div className="space-y-4">
               {interventionRecommendations.map((intervention) => (
                 <div key={intervention.id} className="border rounded-lg p-4">
@@ -445,7 +445,7 @@ export default function SessionPrepTools({
                       onChange={() => toggleInterventionSelection(intervention.id)}
                       className="rounded"
                     />
-                    <h4 className="font-semibold">{intervention.name}</h4>
+                    <h4 className="font-medium">{intervention.name}</h4>
                     <Badge variant="outline">{intervention.type}</Badge>
                     <Badge variant={
                       intervention.riskLevel === 'high' ? 'destructive' :
@@ -479,13 +479,13 @@ export default function SessionPrepTools({
 
           {/* Session Structure */}
           <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Suggested Session Structure</h3>
+            <h3 className="text-xl font-medium mb-4">Suggested Session Structure</h3>
             <div className="space-y-3">
               {sessionStructure.map((phase, index) => (
                 <div key={index} className="flex items-start border rounded-lg p-4">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <h4 className="font-semibold">{phase.phase}</h4>
+                      <h4 className="font-medium">{phase.phase}</h4>
                       <Badge variant="outline">{phase.duration} min</Badge>
                     </div>
                     <p className="text-gray-700 mb-2">{phase.focus}</p>
@@ -504,7 +504,7 @@ export default function SessionPrepTools({
 
           {/* Therapist Notes */}
           <Card className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Therapist Notes & Customizations</h3>
+            <h3 className="text-xl font-medium mb-4">Therapist Notes & Customizations</h3>
             <Textarea
               value={therapistNotes}
               onChange={(e) => setTherapistNotes(e.target.value)}

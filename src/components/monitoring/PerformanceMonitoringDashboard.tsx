@@ -196,7 +196,7 @@ export default function PerformanceMonitoringDashboard() {
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-medium text-gray-900">
               🎯 ALCHM Performance Monitoring
             </h1>
             <p className="text-gray-600 mt-1">
@@ -260,7 +260,7 @@ export default function PerformanceMonitoringDashboard() {
 
           {/* Core Web Vitals */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               📊 Core Web Vitals (Crisis Thresholds)
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -268,7 +268,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.performance.score,
                 { good: 90, warning: 75 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {metrics.performance.score.toFixed(0)}
                   <span className="text-sm font-normal">/100</span>
                 </div>
@@ -284,7 +284,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.performance.lcp || 0,
                 { good: 1200, warning: 2500 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.performance.lcp)}
                 </div>
                 <div className="text-sm font-medium">LCP</div>
@@ -295,7 +295,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.performance.fid || 0,
                 { good: 50, warning: 100 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.performance.fid)}
                 </div>
                 <div className="text-sm font-medium">FID</div>
@@ -306,7 +306,7 @@ export default function PerformanceMonitoringDashboard() {
                 (metrics.performance.cls || 0) * 1000,
                 { good: 50, warning: 100 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {metrics.performance.cls?.toFixed(3) || 'N/A'}
                 </div>
                 <div className="text-sm font-medium">CLS</div>
@@ -317,7 +317,7 @@ export default function PerformanceMonitoringDashboard() {
 
           {/* Crisis Response Metrics */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🆘 Crisis Response Performance
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -325,7 +325,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.crisis.buttonResponseTime || 0,
                 { good: 100, warning: 200 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.crisis.buttonResponseTime)}
                 </div>
                 <div className="text-sm font-medium">Crisis Button</div>
@@ -336,7 +336,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.crisis.journalSaveTime || 0,
                 { good: 1000, warning: 2000 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.crisis.journalSaveTime)}
                 </div>
                 <div className="text-sm font-medium">Journal Save</div>
@@ -347,7 +347,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.crisis.resourceLoadTime || 0,
                 { good: 500, warning: 1000 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.crisis.resourceLoadTime)}
                 </div>
                 <div className="text-sm font-medium">Crisis Resources</div>
@@ -358,7 +358,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.crisis.detectionLatency || 0,
                 { good: 100, warning: 300 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.crisis.detectionLatency)}
                 </div>
                 <div className="text-sm font-medium">Crisis Detection</div>
@@ -369,7 +369,7 @@ export default function PerformanceMonitoringDashboard() {
 
           {/* System Health */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🔧 System Health
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -377,7 +377,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.system.errorRate,
                 { good: 1, warning: 5 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {metrics.system.errorRate.toFixed(1)}%
                 </div>
                 <div className="text-sm font-medium">Error Rate</div>
@@ -388,7 +388,7 @@ export default function PerformanceMonitoringDashboard() {
                 100 - metrics.system.availability,
                 { good: 0.1, warning: 0.5 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {metrics.system.availability.toFixed(2)}%
                 </div>
                 <div className="text-sm font-medium">Availability</div>
@@ -399,7 +399,7 @@ export default function PerformanceMonitoringDashboard() {
                 metrics.system.responseTime,
                 { good: 1000, warning: 2000 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {formatDuration(metrics.system.responseTime)}
                 </div>
                 <div className="text-sm font-medium">Response Time</div>
@@ -410,7 +410,7 @@ export default function PerformanceMonitoringDashboard() {
                 1000 - metrics.system.throughput,
                 { good: -500, warning: 0 }
               )}`}>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {metrics.system.throughput.toFixed(0)}
                 </div>
                 <div className="text-sm font-medium">Req/Min</div>
@@ -422,7 +422,7 @@ export default function PerformanceMonitoringDashboard() {
           {/* Recent Alerts */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-medium text-gray-900">
                 ⚠️ Recent Performance Alerts
               </h2>
               <label className="flex items-center space-x-2 text-sm">

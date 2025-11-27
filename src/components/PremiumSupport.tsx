@@ -324,7 +324,7 @@ export default function PremiumSupport() {
             <Shield className="h-12 w-12 text-red-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Priority Crisis Support</h1>
+        <h1 className="text-3xl font-medium mb-4">Priority Crisis Support</h1>
         <p className="text-xl text-gray-600">
           24/7 immediate response with professional escalation pathways
         </p>
@@ -338,7 +338,7 @@ export default function PremiumSupport() {
               <Shield className={`h-6 w-6 ${crisisSupport.isActive ? 'text-green-600' : 'text-red-600'}`} />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Crisis Support Status</h2>
+              <h2 className="text-xl font-medium">Crisis Support Status</h2>
               <p className={`text-sm ${crisisSupport.isActive ? 'text-green-700' : 'text-red-700'}`}>
                 {crisisSupport.isActive ? 'Active and Monitoring' : 'Inactive'}
               </p>
@@ -352,7 +352,7 @@ export default function PremiumSupport() {
         <div className="grid md:grid-cols-3 gap-6">
           <div>
             <h3 className="font-medium mb-2">Response Time</h3>
-            <div className="text-2xl font-bold text-blue-600">{crisisSupport.responseTime}</div>
+            <div className="text-2xl font-medium text-blue-600">{crisisSupport.responseTime}</div>
             <div className="text-sm text-gray-600">Average response for Oracle tier</div>
           </div>
 
@@ -385,7 +385,7 @@ export default function PremiumSupport() {
 
       {/* Escalation Path */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Crisis Escalation Pathway</h2>
+        <h2 className="text-xl font-medium mb-4">Crisis Escalation Pathway</h2>
         <div className="space-y-4">
           {crisisSupport.escalationPath.map((step, index) => (
             <div key={index} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
@@ -417,7 +417,7 @@ export default function PremiumSupport() {
               <Phone className="h-8 w-8 text-red-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Emergency Hotline</h3>
+          <h3 className="font-medium mb-2">Emergency Hotline</h3>
           <p className="text-sm text-gray-600 mb-4">
             Immediate connection to crisis professionals
           </p>
@@ -433,7 +433,7 @@ export default function PremiumSupport() {
               <MessageCircle className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Crisis Chat</h3>
+          <h3 className="font-medium mb-2">Crisis Chat</h3>
           <p className="text-sm text-gray-600 mb-4">
             Text-based crisis support with trained counselors
           </p>
@@ -449,7 +449,7 @@ export default function PremiumSupport() {
               <Video className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Video Session</h3>
+          <h3 className="font-medium mb-2">Video Session</h3>
           <p className="text-sm text-gray-600 mb-4">
             Face-to-face crisis intervention session
           </p>
@@ -462,7 +462,7 @@ export default function PremiumSupport() {
 
       {/* Crisis Resources */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Crisis Resources</h2>
+        <h2 className="text-xl font-medium mb-4">Crisis Resources</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h3 className="font-medium mb-3">Immediate Coping Strategies</h3>
@@ -512,7 +512,7 @@ export default function PremiumSupport() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">External Service Integration</h1>
+          <h1 className="text-2xl font-medium">External Service Integration</h1>
           <p className="text-gray-600">Connect with healthcare providers, therapy platforms, and wellness apps</p>
         </div>
         <Button>
@@ -540,7 +540,7 @@ export default function PremiumSupport() {
                   {integration.type === 'educational' && <Award className="h-6 w-6 text-yellow-600" />}
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold">{integration.name}</h2>
+                  <h2 className="text-lg font-medium">{integration.name}</h2>
                   <p className="text-gray-600">{integration.description}</p>
                   <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
                     <Badge variant="outline" className="capitalize">
@@ -640,7 +640,7 @@ export default function PremiumSupport() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Professional Consultations</h1>
+          <h1 className="text-2xl font-medium">Professional Consultations</h1>
           <p className="text-gray-600">Connect with licensed mental health professionals and specialists</p>
         </div>
         <Button>
@@ -655,7 +655,7 @@ export default function PremiumSupport() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-xl font-semibold">{consultation.provider.name}</h2>
+                  <h2 className="text-xl font-medium">{consultation.provider.name}</h2>
                   {consultation.provider.verified && (
                     <CheckCircle className="h-5 w-5 text-blue-500" />
                   )}
@@ -744,7 +744,7 @@ export default function PremiumSupport() {
         <div className="flex items-start gap-4">
           <Building className="h-8 w-8 text-blue-600 mt-1" />
           <div>
-            <h2 className="text-xl font-semibold mb-2">Enterprise Healthcare Integration</h2>
+            <h2 className="text-xl font-medium mb-2">Enterprise Healthcare Integration</h2>
             <p className="text-gray-700 mb-4">
               ALCHM partners with major healthcare systems to provide seamless care coordination. 
               Your progress data can be automatically shared with your treatment team while maintaining 
@@ -770,7 +770,7 @@ export default function PremiumSupport() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Enhanced Data Portability</h1>
+          <h1 className="text-2xl font-medium">Enhanced Data Portability</h1>
           <p className="text-gray-600">Export your data for therapy, education, research, and personal records</p>
         </div>
         <Button>
@@ -786,7 +786,7 @@ export default function PremiumSupport() {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-lg font-semibold capitalize">{exportData.scope} Data Export</h2>
+                  <h2 className="text-lg font-medium capitalize">{exportData.scope} Data Export</h2>
                   <Badge variant="outline" className="uppercase">
                     {exportData.format}
                   </Badge>
@@ -846,7 +846,7 @@ export default function PremiumSupport() {
 
       {/* Export Templates */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Export Templates</h2>
+        <h2 className="text-xl font-medium mb-4">Export Templates</h2>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="p-4 border rounded-lg text-center">
             <FileText className="h-8 w-8 text-blue-600 mx-auto mb-3" />
@@ -888,7 +888,7 @@ export default function PremiumSupport() {
         <div className="flex items-start gap-3">
           <Shield className="h-6 w-6 text-green-600 mt-1" />
           <div>
-            <h3 className="font-semibold text-green-900 mb-2">Data Rights & Compliance</h3>
+            <h3 className="font-medium text-green-900 mb-2">Data Rights & Compliance</h3>
             <ul className="text-sm text-green-800 space-y-1">
               <li>• Complete data ownership - you control all exports and sharing</li>
               <li>• HIPAA compliant data handling for all healthcare integrations</li>
@@ -912,7 +912,7 @@ export default function PremiumSupport() {
             <Crown className="h-8 w-8 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">Premium Support & Integration</h1>
+            <h1 className="text-3xl font-medium">Premium Support & Integration</h1>
             <p className="text-gray-600">Professional-grade support with seamless healthcare integration</p>
           </div>
         </div>

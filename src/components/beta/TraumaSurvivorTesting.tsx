@@ -263,7 +263,7 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
         <div className="max-w-4xl mx-auto">
           <Card className="border-2 border-purple-200 shadow-xl">
             <CardHeader className="text-center bg-gradient-to-r from-purple-100 to-indigo-100">
-              <CardTitle className="text-3xl font-bold text-purple-800 flex items-center justify-center gap-3">
+              <CardTitle className="text-3xl font-medium text-purple-800 flex items-center justify-center gap-3">
                 <Shield className="h-8 w-8" />
                 ALCHM Trauma-Informed Beta Testing
               </CardTitle>
@@ -275,7 +275,7 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
             <CardContent className="p-8 space-y-8">
               {/* Trauma-Informed Consent */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-semibold text-purple-800 flex items-center gap-2">
+                <h3 className="text-2xl font-medium text-purple-800 flex items-center gap-2">
                   <Heart className="h-6 w-6" />
                   Trauma-Informed Consent & Your Rights
                 </h3>
@@ -309,7 +309,7 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
 
               {/* Cultural Identity Honoring */}
               <div className="space-y-4">
-                <h3 className="text-2xl font-semibold text-purple-800 flex items-center gap-2">
+                <h3 className="text-2xl font-medium text-purple-800 flex items-center gap-2">
                   <Globe className="h-6 w-6" />
                   Honoring Your Cultural Identity
                 </h3>
@@ -324,7 +324,7 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
 
               {/* Crisis Support Information */}
               <div className="bg-red-50 border-2 border-red-200 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-red-800 flex items-center gap-2 mb-4">
+                <h3 className="text-xl font-medium text-red-800 flex items-center gap-2 mb-4">
                   <AlertTriangle className="h-6 w-6" />
                   Crisis Support Available
                 </h3>
@@ -478,7 +478,7 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
                 className="bg-white rounded-lg p-6 max-w-md w-full space-y-6"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-purple-800">Wellbeing Check</h3>
+                  <h3 className="text-xl font-medium text-purple-800">Wellbeing Check</h3>
                   <Button
                     onClick={() => setShowSafetyCheck(false)}
                     variant="ghost"
@@ -530,14 +530,14 @@ const TraumaSurvivorTesting: React.FC<TraumaSurvivorTestingProps> = ({
               className="fixed inset-0 bg-red-900 bg-opacity-95 flex items-center justify-center p-4 z-50"
             >
               <div className="bg-white rounded-lg p-8 max-w-2xl w-full space-y-6 text-center">
-                <h2 className="text-3xl font-bold text-red-800">Crisis Support Activated</h2>
+                <h2 className="text-3xl font-medium text-red-800">Crisis Support Activated</h2>
                 <p className="text-lg text-gray-700">
                   A crisis counselor is being connected immediately. You are not alone.
                 </p>
                 
                 <div className="space-y-4">
                   <div className="p-4 bg-red-50 rounded-lg">
-                    <h3 className="font-semibold text-red-800 mb-2">Immediate Resources:</h3>
+                    <h3 className="font-medium text-red-800 mb-2">Immediate Resources:</h3>
                     <p className="text-red-700">Crisis Text Line: Text HOME to 741741</p>
                     <p className="text-red-700">Suicide & Crisis Lifeline: 988</p>
                   </div>

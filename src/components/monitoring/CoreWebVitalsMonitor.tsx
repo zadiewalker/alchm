@@ -4,13 +4,13 @@
 // Trauma-informed performance tracking for vulnerable users
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { getCLS, getFID, getFCP, getLCP, getTTFB, Metric } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB, Metric } from 'web-vitals';
 
 // ===== INTERFACES =====
 
 interface WebVitalsMetrics {
   cls: number | null;    // Cumulative Layout Shift
-  fid: number | null;    // First Input Delay
+  inp: number | null;    // Interaction to Next Paint
   fcp: number | null;    // First Contentful Paint
   lcp: number | null;    // Largest Contentful Paint
   ttfb: number | null;   // Time to First Byte
@@ -32,14 +32,14 @@ interface TraumaInformedThresholds {
   crisisResources: {
     fcp: { good: 500, needsImprovement: 1000, poor: 2000 };
     lcp: { good: 1000, needsImprovement: 2000, poor: 4000 };
-    fid: { good: 25, needsImprovement: 50, poor: 100 };
+    inp: { good: 100, needsImprovement: 200, poor: 500 };
     cls: { good: 0.02, needsImprovement: 0.05, poor: 0.1 };
     ttfb: { good: 300, needsImprovement: 600, poor: 1000 };
   };
   generalApp: {
     fcp: { good: 1200, needsImprovement: 2000, poor: 4000 };
     lcp: { good: 2000, needsImprovement: 3000, poor: 6000 };
-    fid: { good: 50, needsImprovement: 100, poor: 300 };
+    inp: { good: 200, needsImprovement: 300, poor: 500 };
     cls: { good: 0.05, needsImprovement: 0.1, poor: 0.25 };
     ttfb: { good: 600, needsImprovement: 1000, poor: 2000 };
   };
@@ -52,7 +52,7 @@ const TRAUMA_INFORMED_THRESHOLDS: TraumaInformedThresholds = {
   crisisResources: {
     fcp: { good: 500, needsImprovement: 1000, poor: 2000 },     // Crisis resources must appear instantly
     lcp: { good: 1000, needsImprovement: 2000, poor: 4000 },   // Main crisis content loading
-    fid: { good: 25, needsImprovement: 50, poor: 100 },        // Crisis buttons must respond immediately
+    inp: { good: 100, needsImprovement: 200, poor: 500 },        // Crisis buttons must respond immediately
     cls: { good: 0.02, needsImprovement: 0.05, poor: 0.1 },    // Perfect visual stability during crisis
     ttfb: { good: 300, needsImprovement: 600, poor: 1000 }     // Server response for crisis features
   },
@@ -61,7 +61,7 @@ const TRAUMA_INFORMED_THRESHOLDS: TraumaInformedThresholds = {
   generalApp: {
     fcp: { good: 1200, needsImprovement: 2000, poor: 4000 },   // 3G network compatibility
     lcp: { good: 2000, needsImprovement: 3000, poor: 6000 },   // All devices including older smartphones
-    fid: { good: 50, needsImprovement: 100, poor: 300 },       // Trauma-responsive interaction
+    inp: { good: 200, needsImprovement: 300, poor: 500 },       // Trauma-responsive interaction
     cls: { good: 0.05, needsImprovement: 0.1, poor: 0.25 },    // Visual stability for trauma users
     ttfb: { good: 600, needsImprovement: 1000, poor: 2000 }    // General server response
   }
@@ -80,7 +80,7 @@ export default function CoreWebVitalsMonitor({
 }) {
   const [vitals, setVitals] = useState<WebVitalsMetrics>({
     cls: null,
-    fid: null,
+    inp: null,
     fcp: null,
     lcp: null,
     ttfb: null
@@ -127,7 +127,7 @@ export default function CoreWebVitalsMonitor({
     const thresholds = TRAUMA_INFORMED_THRESHOLDS[mode];
 
     // Cumulative Layout Shift - Critical for trauma users
-    getCLS((metric: Metric) => {
+    onCLS((metric: Metric) => {
       setVitals(prev => ({ ...prev, cls: metric.value }));
       
       const threshold = thresholds.cls;
@@ -160,7 +160,7 @@ export default function CoreWebVitalsMonitor({
     });
 
     // First Input Delay - Critical for crisis button responsiveness
-    getFID((metric: Metric) => {
+    onFID((metric: Metric) => {
       setVitals(prev => ({ ...prev, fid: metric.value }));
       
       const threshold = thresholds.fid;
@@ -193,7 +193,7 @@ export default function CoreWebVitalsMonitor({
     });
 
     // First Contentful Paint - Crisis resources must appear immediately
-    getFCP((metric: Metric) => {
+    onFCP((metric: Metric) => {
       setVitals(prev => ({ ...prev, fcp: metric.value }));
       
       const threshold = thresholds.fcp;
@@ -225,7 +225,7 @@ export default function CoreWebVitalsMonitor({
     });
 
     // Largest Contentful Paint - Main content visibility
-    getLCP((metric: Metric) => {
+    onLCP((metric: Metric) => {
       setVitals(prev => ({ ...prev, lcp: metric.value }));
       
       const threshold = thresholds.lcp;
@@ -257,7 +257,7 @@ export default function CoreWebVitalsMonitor({
     });
 
     // Time to First Byte - Server responsiveness
-    getTTFB((metric: Metric) => {
+    onTTFB((metric: Metric) => {
       setVitals(prev => ({ ...prev, ttfb: metric.value }));
       
       const threshold = thresholds.ttfb;

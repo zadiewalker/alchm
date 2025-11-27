@@ -322,7 +322,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
         <div className="journal-header mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-xl font-bold text-gray-800">Creative Journal</h2>
+              <h2 className="text-xl font-medium text-gray-800">Creative Journal</h2>
               <p className="text-sm text-gray-600">
                 Express yourself through multiple creative modalities
               </p>
@@ -351,7 +351,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
           {/* Mode Selector Dropdown */}
           {showModeSelector && (
             <div className="mode-selector-dropdown absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 p-4 z-20 w-80">
-              <h3 className="font-semibold text-gray-800 mb-4">Choose Your Expression Mode</h3>
+              <h3 className="font-medium text-gray-800 mb-4">Choose Your Expression Mode</h3>
               
               <div className="grid grid-cols-2 gap-3">
                 {Object.entries(creativeModes).map(([key, mode]) => (
@@ -368,7 +368,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
                     }`}
                   >
                     <div className="text-2xl mb-1">{mode.icon}</div>
-                    <div className="font-semibold text-gray-800 text-sm">{mode.name}</div>
+                    <div className="font-medium text-gray-800 text-sm">{mode.name}</div>
                     <div className="text-xs text-gray-600 leading-tight">{mode.description}</div>
                   </button>
                 ))}
@@ -454,7 +454,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
         {activeMode === 'multimodal' && (
           <div className="multimodal-canvas">
             <div className="canvas-header mb-6 text-center">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="text-lg font-medium text-gray-800 mb-2">
                 Creative Canvas
               </h3>
               <p className="text-sm text-gray-600">
@@ -484,7 +484,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
               {multimodalElements.length === 0 ? (
                 <div className="empty-canvas flex flex-col items-center justify-center h-96 text-center">
                   <div className="text-6xl mb-4 opacity-30">✨</div>
-                  <h4 className="text-lg font-semibold text-gray-600 mb-2">
+                  <h4 className="text-lg font-medium text-gray-600 mb-2">
                     Your Creative Canvas Awaits
                   </h4>
                   <p className="text-gray-500 max-w-md">
@@ -604,7 +604,7 @@ const CreativeJournalHub: React.FC<CreativeJournalHubProps> = ({
       {/* Session Insights - Only show when session has content */}
       {(sessionSummary.length > 0 || session.insights?.length) && !isFullscreen && (
         <div className="session-insights mt-6 p-4 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl">
-          <h4 className="font-semibold text-gray-800 mb-2">Session Insights</h4>
+          <h4 className="font-medium text-gray-800 mb-2">Session Insights</h4>
           <div className="insights-grid grid grid-cols-1 md:grid-cols-2 gap-4">
             
             {/* Modalities Used */}

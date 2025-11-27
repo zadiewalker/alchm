@@ -153,7 +153,7 @@ export const SkillGarden: React.FC<{
               
               {/* Mastery level indicator */}
               <motion.div
-                className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-lg"
+                className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-xs font-medium text-white shadow-lg"
                 animate={{ 
                   scale: isHovered ? 1.2 : 1,
                   rotate: isCelebrating ? [0, 360] : 0
@@ -544,7 +544,7 @@ export const BadgeGallery: React.FC<{
     <div className="space-y-6">
       {Object.entries(groupedBadges).map(([category, categoryBadges]) => (
         <div key={category} className="space-y-3">
-          <h3 className="text-lg font-semibold text-gray-800 capitalize">
+          <h3 className="text-lg font-medium text-gray-800 capitalize">
             {category.replace('_', ' ')} Badges
           </h3>
           
@@ -707,25 +707,25 @@ export const ProgressVisualization: React.FC<ProgressVisualizationProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Your Growth Journey</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Your Growth Journey</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-medium text-green-600">
                 {progress.totalLessonsCompleted}
               </div>
               <div className="text-sm text-gray-600">Lessons Completed</div>
             </div>
             
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-medium text-blue-600">
                 {badges.length}
               </div>
               <div className="text-sm text-gray-600">Badges Earned</div>
             </div>
             
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-medium text-purple-600">
                 {progress.currentStreak}
               </div>
               <div className="text-sm text-gray-600">Day Learning Streak</div>

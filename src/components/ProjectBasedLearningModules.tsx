@@ -201,12 +201,12 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
       <div className="space-y-6">
         {/* Recommended projects based on learning pathways */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Recommended for Your Learning Goals</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Recommended for Your Learning Goals</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getRecommendedProjects(projectTemplates, activePathways).map((template, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
                 <div className="flex justify-between items-start mb-3">
-                  <h4 className="font-semibold text-gray-800">{template.title}</h4>
+                  <h4 className="font-medium text-gray-800">{template.title}</h4>
                   <span className={`px-2 py-1 rounded text-xs ${
                     template.difficultyLevel === 'starter' ? 'bg-green-100 text-green-700' :
                     template.difficultyLevel === 'intermediate' ? 'bg-blue-100 text-blue-700' :
@@ -257,7 +257,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
           {getProjectCategories().map((category, index) => (
             <div key={index} className="bg-white rounded-lg border border-gray-200 p-6 text-center">
               <div className="text-3xl mb-3">{category.icon}</div>
-              <h3 className="font-semibold text-gray-800 mb-2">{category.name}</h3>
+              <h3 className="font-medium text-gray-800 mb-2">{category.name}</h3>
               <p className="text-sm text-gray-600 mb-4">{category.description}</p>
               <div className="text-sm text-blue-600">
                 {getProjectCountByCategory(projectTemplates, category.id)} projects available
@@ -268,7 +268,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
 
         {/* Industry-specific projects */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🏢 Industry-Specific Projects</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🏢 Industry-Specific Projects</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {targetCareers.slice(0, 4).map((career, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -299,7 +299,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Active Projects</h3>
+          <h3 className="text-xl font-medium text-gray-800">Active Projects</h3>
           <button
             onClick={() => setActiveTab('discover')}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -316,7 +316,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
               <div key={project.projectId} className="bg-white rounded-lg border border-gray-200 p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="font-semibold text-gray-800">{project.title}</h4>
+                    <h4 className="font-medium text-gray-800">{project.title}</h4>
                     <p className="text-sm text-gray-600">{project.category.replace('_', ' ').toUpperCase()}</p>
                   </div>
                   <span className={`px-2 py-1 rounded text-xs ${
@@ -422,7 +422,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Project Mentorship & Guidance</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">Project Mentorship & Guidance</h3>
           <p className="text-gray-600">
             Connect with industry professionals for project guidance, code reviews, and career advice
           </p>
@@ -430,7 +430,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
 
         {/* Available mentors */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">👥 Available Mentors</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">👥 Available Mentors</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {availableMentors.slice(0, 6).map((mentor, index) => (
               <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -472,7 +472,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
           {getMentorshipBenefits().map((benefit, index) => (
             <div key={index} className="bg-white rounded-lg border border-gray-200 p-6 text-center">
               <div className="text-3xl mb-3">{benefit.icon}</div>
-              <h4 className="font-semibold text-gray-800 mb-2">{benefit.title}</h4>
+              <h4 className="font-medium text-gray-800 mb-2">{benefit.title}</h4>
               <p className="text-sm text-gray-600">{benefit.description}</p>
             </div>
           ))}
@@ -487,7 +487,7 @@ const ProjectBasedLearningModules: React.FC<ProjectLearningProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Project-Based Learning
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

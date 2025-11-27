@@ -572,7 +572,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
     <div className={`creative-learning-badges ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Creative Healing Badges
         </h3>
         <p className="text-sm text-gray-600">
@@ -584,15 +584,15 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
       <div className="badge-stats mb-6 p-4 bg-gradient-to-r from-sage-50 to-green-50 rounded-2xl">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold text-sage-600">{badgeStats.unlocked}</div>
+            <div className="text-2xl font-medium text-sage-600">{badgeStats.unlocked}</div>
             <div className="text-xs text-gray-600">Badges Earned</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-green-600">{badgeStats.categories}</div>
+            <div className="text-2xl font-medium text-green-600">{badgeStats.categories}</div>
             <div className="text-xs text-gray-600">Categories Unlocked</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-medium text-blue-600">
               {Math.round((badgeStats.unlocked / badgeStats.total) * 100)}%
             </div>
             <div className="text-xs text-gray-600">Journey Completed</div>
@@ -645,7 +645,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
 
         {selectedCategory !== 'all' && (
           <div className="category-description p-3 bg-gradient-to-br from-sage-50 to-green-50 rounded-lg">
-            <h4 className="font-semibold text-gray-800 mb-1">
+            <h4 className="font-medium text-gray-800 mb-1">
               {BADGE_CATEGORIES[selectedCategory].icon} {BADGE_CATEGORIES[selectedCategory].name}
             </h4>
             <p className="text-sm text-gray-600">
@@ -673,7 +673,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
                 <div className={`text-4xl mb-2 ${badge.isUnlocked ? '' : 'grayscale opacity-50'}`}>
                   {badge.icon}
                 </div>
-                <h4 className={`font-bold text-lg ${badge.isUnlocked ? 'text-gray-800' : 'text-gray-500'}`}>
+                <h4 className={`font-medium text-lg ${badge.isUnlocked ? 'text-gray-800' : 'text-gray-500'}`}>
                   {badge.name}
                 </h4>
                 <div className="flex items-center justify-center gap-2 mt-1">
@@ -739,7 +739,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
       {filteredBadges.length === 0 && (
         <div className="empty-state text-center py-12">
           <div className="text-6xl mb-4 opacity-30">🏆</div>
-          <h4 className="text-lg font-semibold text-gray-700 mb-2">
+          <h4 className="text-lg font-medium text-gray-700 mb-2">
             No badges match your filters
           </h4>
           <p className="text-sm text-gray-600 max-w-md mx-auto">
@@ -758,7 +758,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
                   <div className={`text-6xl mb-3 ${selectedBadge.isUnlocked ? '' : 'grayscale opacity-50'}`}>
                     {selectedBadge.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800">{selectedBadge.name}</h3>
+                  <h3 className="text-xl font-medium text-gray-800">{selectedBadge.name}</h3>
                   <Badge className="mt-2 capitalize">
                     {selectedBadge.rarity}
                   </Badge>
@@ -773,19 +773,19 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-gray-700 mb-2">Description</h4>
+                  <h4 className="font-medium text-gray-700 mb-2">Description</h4>
                   <p className="text-sm text-gray-600">{selectedBadge.description}</p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-700 mb-2">Healing Value</h4>
+                  <h4 className="font-medium text-gray-700 mb-2">Healing Value</h4>
                   <p className="text-sm italic text-sage-700 bg-sage-50 p-3 rounded-lg">
                     {selectedBadge.healingValue}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-700 mb-2">Category</h4>
+                  <h4 className="font-medium text-gray-700 mb-2">Category</h4>
                   <p className="text-sm text-gray-600">
                     {BADGE_CATEGORIES[selectedBadge.category].icon} {BADGE_CATEGORIES[selectedBadge.category].name}
                   </p>
@@ -793,7 +793,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
 
                 {!selectedBadge.isUnlocked && (
                   <div>
-                    <h4 className="font-semibold text-gray-700 mb-2">Progress</h4>
+                    <h4 className="font-medium text-gray-700 mb-2">Progress</h4>
                     <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
                       <div 
                         className="bg-gradient-to-r from-sage-400 to-green-400 h-3 rounded-full"
@@ -808,7 +808,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
 
                 {selectedBadge.rewards.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-gray-700 mb-2">Rewards</h4>
+                    <h4 className="font-medium text-gray-700 mb-2">Rewards</h4>
                     <div className="space-y-2">
                       {selectedBadge.rewards.map((reward, i) => (
                         <div key={i} className="text-sm bg-blue-50 p-2 rounded">
@@ -828,7 +828,7 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
 
                 {selectedBadge.isUnlocked && selectedBadge.unlockedAt && (
                   <div>
-                    <h4 className="font-semibold text-gray-700 mb-2">Unlocked</h4>
+                    <h4 className="font-medium text-gray-700 mb-2">Unlocked</h4>
                     <p className="text-sm text-gray-600">
                       {selectedBadge.unlockedAt.toLocaleDateString()} at {selectedBadge.unlockedAt.toLocaleTimeString()}
                     </p>
@@ -845,12 +845,12 @@ export default function CreativeLearningBadges({ onBadgeUnlocked, className = ''
         <div className="celebration-modal fixed inset-0 bg-black/75 flex items-center justify-center z-50 p-4">
           <div className="celebration-content bg-white rounded-3xl p-8 text-center max-w-md transform animate-pulse">
             <div className="text-8xl mb-4 animate-bounce">🎉</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            <h3 className="text-2xl font-medium text-gray-800 mb-2">
               Badge Unlocked!
             </h3>
             
             <div className="text-6xl mb-4">{celebratingBadge.icon}</div>
-            <h4 className="text-xl font-semibold text-sage-700 mb-2">
+            <h4 className="text-xl font-medium text-sage-700 mb-2">
               {celebratingBadge.name}
             </h4>
             <p className="text-sm text-gray-600 mb-4">

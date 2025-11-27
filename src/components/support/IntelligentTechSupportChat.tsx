@@ -394,7 +394,7 @@ export default function IntelligentTechSupportChat() {
               <Bot className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-semibold">Technical Support</h3>
+              <h3 className="font-medium">Technical Support</h3>
               <p className="text-sm opacity-90">
                 {session ? `${session.personalityMode} mode • ${session.category}` : 'Khepera AI Support'}
               </p>
@@ -460,7 +460,7 @@ export default function IntelligentTechSupportChat() {
         <div className="bg-red-50 border-t border-red-200 p-4">
           <div className="flex items-center gap-2 mb-3">
             <AlertTriangle className="w-5 h-5 text-red-600" />
-            <h4 className="font-semibold text-red-800">Immediate Support Available</h4>
+            <h4 className="font-medium text-red-800">Immediate Support Available</h4>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button
@@ -487,7 +487,7 @@ export default function IntelligentTechSupportChat() {
       {/* Satisfaction Rating */}
       {session?.status === 'completed' && satisfactionLevel === null && (
         <div className="bg-blue-50 border-t border-blue-200 p-4">
-          <h4 className="font-semibold text-blue-800 mb-3">How was your support experience?</h4>
+          <h4 className="font-medium text-blue-800 mb-3">How was your support experience?</h4>
           <div className="flex gap-2">
             {[1, 2, 3, 4, 5].map((rating) => (
               <Button
@@ -663,7 +663,7 @@ function StepsComponent({ steps, onStepCompleted, currentStep, approach, pacing 
           }`}
         >
           <div className="flex items-start gap-3">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
               index < currentStep
                 ? 'bg-green-600 text-white'
                 : index === currentStep
@@ -714,14 +714,14 @@ function CrisisResourcesComponent({ resources, onContact }: CrisisResourcesCompo
     <div className="space-y-3">
       <div className="flex items-center gap-2 text-red-800 mb-3">
         <AlertTriangle className="w-5 h-5" />
-        <h4 className="font-semibold">Immediate Support Available</h4>
+        <h4 className="font-medium">Immediate Support Available</h4>
       </div>
       
       {resources.map((resource, index) => (
         <div key={index} className="p-3 bg-white rounded-lg border border-red-200">
           <div className="flex items-center justify-between">
             <div>
-              <h5 className="font-semibold text-red-800">{resource.name}</h5>
+              <h5 className="font-medium text-red-800">{resource.name}</h5>
               <p className="text-sm text-gray-600">{resource.description}</p>
               <p className="text-xs text-gray-500">{resource.availability}</p>
             </div>

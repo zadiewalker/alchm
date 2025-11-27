@@ -255,7 +255,7 @@ export default function NeuroplasticityVisualization({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <Card className="p-8 max-w-md mx-4 text-center space-y-4">
             <div className="text-2xl">🧠✨</div>
-            <h3 className="text-xl font-bold text-gray-900">
+            <h3 className="text-xl font-medium text-gray-900">
               Neuroplasticity Milestone Reached!
             </h3>
             <p className="text-gray-700">
@@ -287,7 +287,7 @@ export default function NeuroplasticityVisualization({
       {/* Main Visualization */}
       <Card className="p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-medium text-gray-900">
             Your Brain's Neural Pathway Development
           </h3>
           <div className="flex gap-2">
@@ -342,7 +342,7 @@ export default function NeuroplasticityVisualization({
             <div className="bg-indigo-50 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-600">Neuroplasticity Score</span>
-                <span className="text-2xl font-bold text-indigo-600">
+                <span className="text-2xl font-medium text-indigo-600">
                   {Math.round(neuroplasticityMetrics.neuroplasticityScore)}%
                 </span>
               </div>
@@ -363,8 +363,8 @@ export default function NeuroplasticityVisualization({
           <div className="grid grid-cols-2 gap-4">
             {/* Synaptic Strength */}
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-blue-900 mb-2">Synaptic Strength</h4>
-              <div className="text-2xl font-bold text-blue-600 mb-1">
+              <h4 className="font-medium text-blue-900 mb-2">Synaptic Strength</h4>
+              <div className="text-2xl font-medium text-blue-600 mb-1">
                 {Math.round(neuroplasticityMetrics.synapticStrengthChange)}%
               </div>
               <p className="text-xs text-blue-700">
@@ -374,8 +374,8 @@ export default function NeuroplasticityVisualization({
 
             {/* Myelination Progress */}
             <div className="bg-green-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-green-900 mb-2">Myelin Development</h4>
-              <div className="text-2xl font-bold text-green-600 mb-1">
+              <h4 className="font-medium text-green-900 mb-2">Myelin Development</h4>
+              <div className="text-2xl font-medium text-green-600 mb-1">
                 {Math.round(neuroplasticityMetrics.myelinationProgress)}%
               </div>
               <p className="text-xs text-green-700">
@@ -385,8 +385,8 @@ export default function NeuroplasticityVisualization({
 
             {/* Connection Density */}
             <div className="bg-purple-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-purple-900 mb-2">Connection Density</h4>
-              <div className="text-2xl font-bold text-purple-600 mb-1">
+              <h4 className="font-medium text-purple-900 mb-2">Connection Density</h4>
+              <div className="text-2xl font-medium text-purple-600 mb-1">
                 {Math.round(neuroplasticityMetrics.connectionDensityIncrease)}%
               </div>
               <p className="text-xs text-purple-700">
@@ -396,8 +396,8 @@ export default function NeuroplasticityVisualization({
 
             {/* BDNF Level */}
             <div className="bg-amber-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-amber-900 mb-2">BDNF Level</h4>
-              <div className="text-2xl font-bold text-amber-600 mb-1">
+              <h4 className="font-medium text-amber-900 mb-2">BDNF Level</h4>
+              <div className="text-2xl font-medium text-amber-600 mb-1">
                 {Math.round(neuroplasticityMetrics.bdnfLevel)}%
               </div>
               <p className="text-xs text-amber-700">
@@ -407,7 +407,7 @@ export default function NeuroplasticityVisualization({
 
             {/* Neurotransmitter Balance */}
             <div className="col-span-2 bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-gray-900 mb-3">Neurotransmitter Balance</h4>
+              <h4 className="font-medium text-gray-900 mb-3">Neurotransmitter Balance</h4>
               <div className="grid grid-cols-2 gap-3">
                 {Object.entries(neuroplasticityMetrics.neurotransmitterBalance).map(([neurotransmitter, level]) => (
                   <div key={neurotransmitter} className="flex items-center space-x-2">
@@ -416,7 +416,7 @@ export default function NeuroplasticityVisualization({
                       style={{ backgroundColor: getNeurotransmitterColor(neurotransmitter) }}
                     />
                     <span className="text-sm capitalize text-gray-700">{neurotransmitter}</span>
-                    <span className="text-sm font-semibold text-gray-900">
+                    <span className="text-sm font-medium text-gray-900">
                       {Math.round(level as number)}%
                     </span>
                   </div>
@@ -445,7 +445,7 @@ export default function NeuroplasticityVisualization({
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold capitalize">
+                    <h4 className="font-medium capitalize">
                       {milestone.milestoneType.replace('-', ' ')}
                     </h4>
                     <span className={`px-2 py-1 text-xs rounded ${

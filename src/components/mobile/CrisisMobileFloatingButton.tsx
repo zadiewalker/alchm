@@ -136,7 +136,7 @@ export function CrisisMobileFloatingButton({
       case 'normal':
         return 'w-14 h-14';
       case 'large':
-        return 'w-16 h-16';
+        return 'w-12 h-12';
       case 'emergency':
         return 'w-20 h-20 min-w-[80px] min-h-[80px]';
       default:
@@ -152,14 +152,14 @@ export function CrisisMobileFloatingButton({
           {/* Crisis Resources */}
           <div className="space-y-3">
             <div className="text-center mb-4">
-              <h3 className="text-red-800 font-semibold text-lg mb-1">Crisis Support</h3>
+              <h3 className="text-red-800 font-medium text-lg mb-1">Crisis Support</h3>
               <p className="text-red-600 text-sm">Immediate help is available</p>
             </div>
 
             {/* Emergency Call Button */}
             <Button
               onClick={handleEmergencyCall}
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 text-lg font-semibold rounded-xl transition-all duration-200 hover:shadow-lg min-h-[60px]"
+              className="w-full bg-red-600 hover:bg-red-700 text-white py-4 text-lg font-medium rounded-xl transition-all duration-200 hover:shadow-lg min-h-[60px]"
               style={{
                 touchAction: 'manipulation',
                 WebkitTapHighlightColor: 'rgba(220, 38, 38, 0.3)'

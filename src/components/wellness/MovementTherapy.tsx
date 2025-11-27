@@ -452,7 +452,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
     <div className={`movement-therapy ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Movement & Somatic Therapy
         </h3>
         <p className="text-sm text-gray-600">
@@ -463,7 +463,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {/* Energy Level Check-in */}
       {!activeMode && (
         <div className="energy-checkin mb-6 p-4 bg-sage-50 rounded-2xl">
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Energy Level Check-in</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-3">Energy Level Check-in</h4>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">Low Energy</span>
             <div className="flex items-center gap-2">
@@ -496,7 +496,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-green-100 to-sage-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">🌊</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Guided Movement</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Guided Movement</h4>
             <p className="text-xs text-gray-600 mb-2">Therapeutic movement prompts</p>
             {currentMood && (
               <p className="text-xs text-sage-600">{moodPrompts.length} prompts for {currentMood}</p>
@@ -509,7 +509,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-blue-100 to-sky-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">💃</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Free Form</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Free Form</h4>
             <p className="text-xs text-gray-600">Intuitive movement exploration</p>
           </button>
 
@@ -519,7 +519,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-purple-100 to-violet-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">🧘</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Somatic Exercises</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Somatic Exercises</h4>
             <p className="text-xs text-gray-600">Body awareness practices</p>
           </button>
         </div>
@@ -529,7 +529,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {activeMode === 'guided' && !selectedPrompt && (
         <div className="prompt-selection bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-lg font-semibold text-gray-800">Choose a Movement Prompt</h4>
+            <h4 className="text-lg font-medium text-gray-800">Choose a Movement Prompt</h4>
             <button
               onClick={() => setActiveMode(null)}
               className="text-gray-400 hover:text-gray-600"
@@ -545,7 +545,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
                 onClick={() => setSelectedPrompt(prompt)}
                 className="w-full p-4 bg-sage-50 rounded-xl text-left hover:bg-sage-100 transition-colors"
               >
-                <div className="font-semibold text-gray-800">{prompt.title}</div>
+                <div className="font-medium text-gray-800">{prompt.title}</div>
                 <div className="text-sm text-gray-600 mb-2">{prompt.description}</div>
                 <div className="text-xs text-sage-600 mb-2">
                   {Math.floor(prompt.duration / 60)} minutes • {prompt.therapeuticPurpose}
@@ -568,7 +568,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {activeMode === 'guided' && selectedPrompt && (
         <div className="guided-session bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="text-center mb-6">
-            <h4 className="text-xl font-semibold text-gray-800 mb-2">{selectedPrompt.title}</h4>
+            <h4 className="text-xl font-medium text-gray-800 mb-2">{selectedPrompt.title}</h4>
             <p className="text-gray-600 mb-4">{selectedPrompt.description}</p>
             
             {/* Movement Visualization */}
@@ -653,7 +653,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
         <div className="free-form-session bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="text-center">
             <div className="flex items-center justify-between mb-6">
-              <h4 className="text-lg font-semibold text-gray-800">Free Form Movement</h4>
+              <h4 className="text-lg font-medium text-gray-800">Free Form Movement</h4>
               <button
                 onClick={() => setActiveMode(null)}
                 className="text-gray-400 hover:text-gray-600"
@@ -720,7 +720,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {activeMode === 'somatic' && !selectedExercise && (
         <div className="exercise-selection bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-lg font-semibold text-gray-800">Somatic Exercises</h4>
+            <h4 className="text-lg font-medium text-gray-800">Somatic Exercises</h4>
             <button
               onClick={() => setActiveMode(null)}
               className="text-gray-400 hover:text-gray-600"
@@ -736,7 +736,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
                 onClick={() => setSelectedExercise(exercise)}
                 className="w-full p-4 bg-purple-50 rounded-xl text-left hover:bg-purple-100 transition-colors"
               >
-                <div className="font-semibold text-gray-800">{exercise.name}</div>
+                <div className="font-medium text-gray-800">{exercise.name}</div>
                 <div className="text-sm text-gray-600 mb-2">{exercise.description}</div>
                 <div className="text-xs text-purple-600 mb-2">
                   {Math.floor(exercise.duration / 60)} minutes • {exercise.category}
@@ -758,7 +758,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {activeMode === 'somatic' && selectedExercise && (
         <div className="somatic-session bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="text-center mb-6">
-            <h4 className="text-xl font-semibold text-gray-800 mb-2">{selectedExercise.name}</h4>
+            <h4 className="text-xl font-medium text-gray-800 mb-2">{selectedExercise.name}</h4>
             <p className="text-gray-600 mb-4">{selectedExercise.description}</p>
 
             {/* Step Progress */}
@@ -820,14 +820,14 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
       {/* Body Awareness Mapping */}
       {showBodyMap && (
         <div className="body-mapping bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
-          <h4 className="text-lg font-semibold text-gray-800 text-center mb-6">
+          <h4 className="text-lg font-medium text-gray-800 text-center mb-6">
             Body Awareness Check-in
           </h4>
           
           <div className="space-y-6">
             {/* Energy Level After */}
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">How is your energy now?</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-3">How is your energy now?</h5>
               <div className="flex items-center justify-center gap-2">
                 {[1,2,3,4,5,6,7,8,9,10].map(level => (
                   <button
@@ -847,7 +847,7 @@ const MovementTherapy: React.FC<MovementTherapyProps> = ({
 
             {/* Body Areas */}
             <div>
-              <h5 className="text-sm font-semibold text-gray-700 mb-3">
+              <h5 className="text-sm font-medium text-gray-700 mb-3">
                 What areas feel different? (tap to select)
               </h5>
               <div className="grid grid-cols-4 gap-2">

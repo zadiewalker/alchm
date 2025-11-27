@@ -63,7 +63,7 @@ export default function CulturalRitualSelector({
     return (
       <div className="max-w-4xl mx-auto p-6 space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-medium text-gray-800 mb-2">
             Choose Your Sacred Ritual
           </h2>
           <p className="text-gray-600">
@@ -82,7 +82,7 @@ export default function CulturalRitualSelector({
               }`}
               onClick={() => handleRitualSelect(ritual)}
             >
-              <h3 className="text-lg font-semibold mb-2">{ritual.region}</h3>
+              <h3 className="text-lg font-medium mb-2">{ritual.region}</h3>
               <p className="text-sm text-gray-600 mb-3">{ritual.groundingRitual.name}</p>
               
               <div className="space-y-2">
@@ -117,15 +117,15 @@ export default function CulturalRitualSelector({
     return (
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-medium text-gray-800 mb-2">
             {selectedRitual.groundingRitual.name}
           </h2>
           <p className="text-gray-600">{selectedRitual.region} Sacred Practice</p>
         </div>
 
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 text-center">
-          <h3 className="text-lg font-semibold mb-2">Sacred Phrase</h3>
-          <div className="text-xl font-bold text-indigo-800 mb-1">
+          <h3 className="text-lg font-medium mb-2">Sacred Phrase</h3>
+          <div className="text-xl font-medium text-indigo-800 mb-1">
             {selectedRitual.sacredPhrase.text}
           </div>
           <div className="text-sm italic text-gray-600">
@@ -140,7 +140,7 @@ export default function CulturalRitualSelector({
 
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Grounding Practice</h3>
+            <h3 className="text-lg font-medium">Grounding Practice</h3>
             <span className="text-sm text-gray-500">
               Step {currentStep + 1} of {selectedRitual.groundingRitual.instructions.length}
             </span>
@@ -184,14 +184,14 @@ export default function CulturalRitualSelector({
     return (
       <div className="max-w-2xl mx-auto p-6 space-y-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-medium text-gray-800 mb-2">
             Sacred Reflection
           </h2>
           <p className="text-gray-600">{selectedRitual.reflectionPrompt.theme}</p>
         </div>
 
         <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-3">Reflection Prompt</h3>
+          <h3 className="text-lg font-medium mb-3">Reflection Prompt</h3>
           <p className="text-lg text-gray-800 leading-relaxed mb-4">
             {selectedRitual.reflectionPrompt.question}
           </p>
@@ -211,7 +211,7 @@ export default function CulturalRitualSelector({
 
         <div className="space-y-4">
           <label className="block">
-            <span className="text-lg font-semibold text-gray-800">Your Reflection</span>
+            <span className="text-lg font-medium text-gray-800">Your Reflection</span>
             <textarea
               value={reflectionText}
               onChange={(e) => setReflectionText(e.target.value)}
@@ -242,7 +242,7 @@ export default function CulturalRitualSelector({
           <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
             <span className="text-2xl text-white">✨</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-2xl font-medium text-gray-800 mb-2">
             Sacred Practice Complete
           </h2>
           <p className="text-gray-600">

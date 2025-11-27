@@ -129,7 +129,7 @@ export default function BusinessIntelligenceDashboard({
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-medium text-gray-900 mb-2">
               Business Intelligence Dashboard
             </h1>
             <p className="text-gray-600">
@@ -220,7 +220,7 @@ export default function BusinessIntelligenceDashboard({
           {/* Revenue Analytics */}
           <Card className="p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">Revenue Intelligence</h2>
+              <h2 className="text-xl font-medium text-gray-900">Revenue Intelligence</h2>
               <Button variant="outline" size="sm">
                 <TrendingUp className="h-4 w-4 mr-2" />
                 View Details
@@ -232,7 +232,7 @@ export default function BusinessIntelligenceDashboard({
           {/* User Journey Analytics */}
           <Card className="p-6">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">User Journey</h2>
+              <h2 className="text-xl font-medium text-gray-900">User Journey</h2>
               <Button variant="outline" size="sm">
                 <Activity className="h-4 w-4 mr-2" />
                 Analyze
@@ -423,7 +423,7 @@ function MetricCard({
       <div className="mt-4">
         <h3 className="text-sm font-medium text-gray-600">{title}</h3>
         <div className="mt-2 flex items-baseline">
-          <p className="text-2xl font-semibold text-gray-900">
+          <p className="text-2xl font-medium text-gray-900">
             {formatValue(value)}
           </p>
           {change !== 0 && (
@@ -515,7 +515,7 @@ function UserJourneyChart({ dateRange }: { dateRange: string }) {
 function RevenueAnalyticsDashboard({ dateRange, accessLevel }: any) {
   return (
     <Card className="p-6 mb-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">Detailed Revenue Analytics</h2>
+      <h2 className="text-xl font-medium text-gray-900 mb-4">Detailed Revenue Analytics</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-4">
           <h3 className="font-medium text-gray-700">Subscription Tiers</h3>
@@ -543,7 +543,7 @@ function RevenueAnalyticsDashboard({ dateRange, accessLevel }: any) {
 function EngagementAnalyticsDashboard({ dateRange, accessLevel }: any) {
   return (
     <Card className="p-6 mb-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">User Engagement Analytics</h2>
+      <h2 className="text-xl font-medium text-gray-900 mb-4">User Engagement Analytics</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <h3 className="font-medium text-gray-700">Feature Adoption</h3>
@@ -565,13 +565,13 @@ function EngagementAnalyticsDashboard({ dateRange, accessLevel }: any) {
 function CrisisSafetyDashboard({ dateRange, accessLevel }: any) {
   return (
     <Card className="p-6 mb-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">Crisis Safety Analytics</h2>
+      <h2 className="text-xl font-medium text-gray-900 mb-4">Crisis Safety Analytics</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-4">
           <h3 className="font-medium text-gray-700">Detection Accuracy</h3>
           <div className="h-32 flex items-center justify-center bg-gray-50 rounded">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">98.5%</div>
+              <div className="text-2xl font-medium text-green-600">98.5%</div>
               <div className="text-sm text-gray-600">Accuracy Rate</div>
             </div>
           </div>
@@ -580,7 +580,7 @@ function CrisisSafetyDashboard({ dateRange, accessLevel }: any) {
           <h3 className="font-medium text-gray-700">Response Time</h3>
           <div className="h-32 flex items-center justify-center bg-gray-50 rounded">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">2.3s</div>
+              <div className="text-2xl font-medium text-blue-600">2.3s</div>
               <div className="text-sm text-gray-600">Avg Response</div>
             </div>
           </div>

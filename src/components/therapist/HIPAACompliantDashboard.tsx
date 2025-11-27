@@ -433,7 +433,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
         <Card className=\"p-8 max-w-md w-full mx-4\">
           <div className=\"flex flex-col items-center space-y-4 text-center\">
             <XCircle className=\"h-12 w-12 text-red-500\" />
-            <h2 className=\"text-xl font-semibold text-gray-900\">Dashboard Error</h2>
+            <h2 className=\"text-xl font-medium text-gray-900\">Dashboard Error</h2>
             <p className=\"text-gray-600\">{error}</p>
             <Button onClick={loadDashboardData} className=\"w-full\">
               <RefreshCw className=\"w-4 h-4 mr-2\" />
@@ -455,7 +455,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
             <div className=\"flex items-center space-x-4\">
               <Shield className=\"h-8 w-8 text-blue-600\" />
               <div>
-                <h1 className=\"text-xl font-semibold text-gray-900\">ALCHM Therapist Portal</h1>
+                <h1 className=\"text-xl font-medium text-gray-900\">ALCHM Therapist Portal</h1>
                 <p className=\"text-sm text-gray-500\">HIPAA-Compliant Dashboard</p>
               </div>
             </div>
@@ -565,7 +565,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <p className=\"text-sm font-medium text-gray-600\">Total Patients</p>
-                    <p className=\"text-3xl font-bold text-gray-900\">{dashboardMetrics?.totalPatients}</p>
+                    <p className=\"text-3xl font-medium text-gray-900\">{dashboardMetrics?.totalPatients}</p>
                   </div>
                   <Users className=\"w-8 h-8 text-blue-600\" />
                 </div>
@@ -575,7 +575,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <p className=\"text-sm font-medium text-gray-600\">High Risk</p>
-                    <p className=\"text-3xl font-bold text-red-600\">{dashboardMetrics?.highRiskPatients}</p>
+                    <p className=\"text-3xl font-medium text-red-600\">{dashboardMetrics?.highRiskPatients}</p>
                   </div>
                   <AlertTriangle className=\"w-8 h-8 text-red-600\" />
                 </div>
@@ -585,7 +585,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <p className=\"text-sm font-medium text-gray-600\">Pending Messages</p>
-                    <p className=\"text-3xl font-bold text-yellow-600\">{dashboardMetrics?.pendingMessages}</p>
+                    <p className=\"text-3xl font-medium text-yellow-600\">{dashboardMetrics?.pendingMessages}</p>
                   </div>
                   <MessageSquare className=\"w-8 h-8 text-yellow-600\" />
                 </div>
@@ -595,7 +595,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <p className=\"text-sm font-medium text-gray-600\">Compliance Score</p>
-                    <p className=\"text-3xl font-bold text-green-600\">{dashboardMetrics?.complianceScore}%</p>
+                    <p className=\"text-3xl font-medium text-green-600\">{dashboardMetrics?.complianceScore}%</p>
                   </div>
                   <Shield className=\"w-8 h-8 text-green-600\" />
                 </div>
@@ -606,7 +606,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
             <div className=\"grid grid-cols-1 lg:grid-cols-2 gap-8\">
               {/* Recent Patients */}
               <Card className=\"p-6\">
-                <h3 className=\"text-lg font-semibold text-gray-900 mb-4\">Recent Patients</h3>
+                <h3 className=\"text-lg font-medium text-gray-900 mb-4\">Recent Patients</h3>
                 <div className=\"space-y-4\">
                   {patients.slice(0, 5).map((patient) => (
                     <div key={patient.patientId} className=\"flex items-center justify-between p-3 bg-gray-50 rounded-lg\">
@@ -637,7 +637,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
 
               {/* Compliance Status */}
               <Card className=\"p-6\">
-                <h3 className=\"text-lg font-semibold text-gray-900 mb-4\">HIPAA Compliance Status</h3>
+                <h3 className=\"text-lg font-medium text-gray-900 mb-4\">HIPAA Compliance Status</h3>
                 <div className=\"space-y-4\">
                   <div className=\"flex items-center justify-between\">
                     <span className=\"text-sm text-gray-600\">Overall Status</span>
@@ -799,10 +799,10 @@ export const HIPAACompliantDashboard: React.FC = () => {
           <div className=\"space-y-6\">
             {/* Compliance Overview */}
             <Card className=\"p-6\">
-              <h3 className=\"text-lg font-semibold text-gray-900 mb-4\">HIPAA Compliance Overview</h3>
+              <h3 className=\"text-lg font-medium text-gray-900 mb-4\">HIPAA Compliance Overview</h3>
               <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">
                 <div className=\"text-center\">
-                  <div className={`text-3xl font-bold ${
+                  <div className={`text-3xl font-medium ${
                     complianceStatus?.overallStatus === 'compliant' ? 'text-green-600' : 'text-yellow-600'
                   }`}>
                     {complianceStatus?.complianceScore}%
@@ -810,13 +810,13 @@ export const HIPAACompliantDashboard: React.FC = () => {
                   <p className=\"text-sm text-gray-600\">Overall Score</p>
                 </div>
                 <div className=\"text-center\">
-                  <div className=\"text-3xl font-bold text-blue-600\">
+                  <div className=\"text-3xl font-medium text-blue-600\">
                     {complianceStatus?.auditFindings}
                   </div>
                   <p className=\"text-sm text-gray-600\">Audit Findings</p>
                 </div>
                 <div className=\"text-center\">
-                  <div className=\"text-3xl font-bold text-orange-600\">
+                  <div className=\"text-3xl font-medium text-orange-600\">
                     {complianceStatus?.remediationItems}
                   </div>
                   <p className=\"text-sm text-gray-600\">Remediation Items</p>
@@ -826,7 +826,7 @@ export const HIPAACompliantDashboard: React.FC = () => {
 
             {/* Active Alerts */}
             <Card className=\"p-6\">
-              <h3 className=\"text-lg font-semibold text-gray-900 mb-4\">Active Compliance Alerts</h3>
+              <h3 className=\"text-lg font-medium text-gray-900 mb-4\">Active Compliance Alerts</h3>
               <div className=\"space-y-4\">
                 {complianceAlerts.map((alert) => (
                   <div key={alert.alertId} className={`p-4 rounded-lg border-l-4 ${

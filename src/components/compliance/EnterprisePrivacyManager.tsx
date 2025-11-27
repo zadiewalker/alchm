@@ -209,7 +209,7 @@ export function EnterprisePrivacyDashboard() {
   return (
     <div className="space-y-6 p-6">
       <div className="border-l-4 border-blue-500 bg-blue-50 p-4">
-        <h2 className="text-xl font-semibold text-blue-900">Privacy & Compliance Center</h2>
+        <h2 className="text-xl font-medium text-blue-900">Privacy & Compliance Center</h2>
         <p className="text-blue-700">
           Your privacy is protected by HIPAA, FERPA, COPPA, and GDPR regulations. 
           Manage your consent preferences below.
@@ -287,7 +287,7 @@ function ComplianceStatusCard({
 
   return (
     <Card className={`border-l-4 border-${statusColor}-500 bg-${statusColor}-50 p-4`}>
-      <h3 className={`font-semibold text-${statusColor}-900`}>Compliance Status: {status}</h3>
+      <h3 className={`font-medium text-${statusColor}-900`}>Compliance Status: {status}</h3>
       <div className={`text-${statusColor}-700 space-y-2`}>
         <p>Account Type: {isMinor ? 'Minor Account' : 'Adult Account'}</p>
         {requiresParentalConsent && (
@@ -312,7 +312,7 @@ function GDPRConsentPanel({
 }) {
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">GDPR Privacy Preferences</h3>
+      <h3 className="text-lg font-medium mb-4">GDPR Privacy Preferences</h3>
       <p className="text-gray-600 mb-4">
         Under GDPR, you have the right to control how your personal data is processed. 
         You can withdraw consent at any time.
@@ -360,14 +360,14 @@ function HIPAAConsentPanel({
 }) {
   return (
     <Card className="p-6 border-l-4 border-blue-500">
-      <h3 className="text-lg font-semibold mb-4">HIPAA Health Information Protection</h3>
+      <h3 className="text-lg font-medium mb-4">HIPAA Health Information Protection</h3>
       <p className="text-gray-600 mb-4">
         Your mental health information is protected under HIPAA. We maintain strict security 
         standards and never share your health information without your explicit consent.
       </p>
 
       <div className="bg-blue-50 p-4 rounded-lg mb-4">
-        <h4 className="font-semibold text-blue-900">Your HIPAA Rights:</h4>
+        <h4 className="font-medium text-blue-900">Your HIPAA Rights:</h4>
         <ul className="list-disc list-inside text-blue-800 mt-2 space-y-1">
           <li>Right to access your health information</li>
           <li>Right to request corrections</li>
@@ -397,14 +397,14 @@ function CrisisInterventionConsentPanel({
 }) {
   return (
     <Card className="p-6 border-l-4 border-red-500">
-      <h3 className="text-lg font-semibold mb-4">Crisis Intervention Consent</h3>
+      <h3 className="text-lg font-medium mb-4">Crisis Intervention Consent</h3>
       <p className="text-gray-600 mb-4">
         If our AI detects signs of imminent danger or crisis, we may need to connect you 
         with qualified mental health professionals or emergency services.
       </p>
 
       <div className="bg-red-50 p-4 rounded-lg mb-4">
-        <h4 className="font-semibold text-red-900">Crisis Intervention includes:</h4>
+        <h4 className="font-medium text-red-900">Crisis Intervention includes:</h4>
         <ul className="list-disc list-inside text-red-800 mt-2 space-y-1">
           <li>Immediate safety resource recommendations</li>
           <li>Connection with crisis counselors</li>
@@ -433,7 +433,7 @@ function DataRetentionPanel({
 }) {
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Data Retention Preferences</h3>
+      <h3 className="text-lg font-medium mb-4">Data Retention Preferences</h3>
       <p className="text-gray-600 mb-4">
         Choose how long you want your data to be retained. You can request deletion at any time.
       </p>
@@ -491,14 +491,14 @@ function COPPAParentalConsentPanel({
 }) {
   return (
     <Card className="p-6 border-l-4 border-purple-500">
-      <h3 className="text-lg font-semibold mb-4">COPPA Child Protection</h3>
+      <h3 className="text-lg font-medium mb-4">COPPA Child Protection</h3>
       <p className="text-gray-600 mb-4">
         This account requires parental consent under COPPA (Children's Online Privacy Protection Act). 
         Enhanced privacy protections are automatically applied.
       </p>
 
       <div className="bg-purple-50 p-4 rounded-lg mb-4">
-        <h4 className="font-semibold text-purple-900">COPPA Protections Active:</h4>
+        <h4 className="font-medium text-purple-900">COPPA Protections Active:</h4>
         <ul className="list-disc list-inside text-purple-800 mt-2 space-y-1">
           <li>No behavioral advertising</li>
           <li>Minimal data collection</li>
@@ -529,14 +529,14 @@ function FERPAEducationalConsentPanel({
 }) {
   return (
     <Card className="p-6 border-l-4 border-green-500">
-      <h3 className="text-lg font-semibold mb-4">FERPA Educational Records</h3>
+      <h3 className="text-lg font-medium mb-4">FERPA Educational Records</h3>
       <p className="text-gray-600 mb-4">
         If you're using ALCHM through your school, your educational records are protected 
         under FERPA (Family Educational Rights and Privacy Act).
       </p>
 
       <div className="bg-green-50 p-4 rounded-lg mb-4">
-        <h4 className="font-semibold text-green-900">FERPA Protections:</h4>
+        <h4 className="font-medium text-green-900">FERPA Protections:</h4>
         <ul className="list-disc list-inside text-green-800 mt-2 space-y-1">
           <li>Educational records privacy</li>
           <li>Parent/guardian access rights</li>

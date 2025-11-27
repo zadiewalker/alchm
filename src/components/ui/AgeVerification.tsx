@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { getFirebaseAuth } from '@/lib/firebase';
 
 interface AgeVerificationProps {
-  onVerified?: (ageStatus: 'adult' | 'teen' | 'minor' | 'emergency_access') => void;
-  onParentalConsentRequired?: () => void;
+  onVerified?: (ageStatus: 'adult' | 'emergency_access') => void;
+  onAdultVerified?: () => void;
   className?: string;
 }
 
@@ -20,32 +20,53 @@ const isIOS = () => {
   return /iPad|iPhone|iPod/.test(navigator.userAgent);
 };
 
-// Crisis emergency access component - Trauma-informed design
+// Crisis emergency access component - Compact, trauma-informed design
 const CrisisEmergencyAccess = ({ 
   onEmergencyAccess 
 }: { 
   onEmergencyAccess: () => void; 
 }) => (
-  <div className="bg-amber-50/80 border border-amber-200/60 rounded-2xl p-6 mb-8 backdrop-blur-sm">
-    <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full shadow-soft">
-      <div className="w-6 h-6 bg-white/40 rounded-full flex items-center justify-center">
-        <div className="w-3 h-3 bg-white/60 rounded-full animate-pulse"></div>
+  <div className="bg-gray-50/80 border border-gray-200/60 rounded-lg p-4 mb-6 backdrop-blur-sm">
+    <div className="text-center">
+      <p className="text-gray-600 text-xs mb-3 font-light">
+        Need immediate help?
+      </p>
+      <div className="flex items-center justify-center gap-3 mb-3">
+        <a
+          href="tel:988"
+          className="flex items-center gap-1 bg-red-500/90 hover:bg-red-600 text-white text-xs font-medium px-2 py-1.5 rounded-lg
+                     focus:ring-2 focus:ring-red-300/50 focus:outline-none transition-all duration-300
+                     min-h-[36px] min-w-[64px] touch-manipulation shadow-sm hover:shadow-md"
+          aria-label="Call 988 suicide and crisis lifeline"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          988
+        </a>
+        <a
+          href="sms:741741&body=HOME"
+          className="flex items-center gap-1 bg-blue-500/90 hover:bg-blue-600 text-white text-xs font-medium px-2 py-1.5 rounded-lg
+                     focus:ring-2 focus:ring-blue-300/50 focus:outline-none transition-all duration-300
+                     min-h-[36px] min-w-[64px] touch-manipulation shadow-sm hover:shadow-md"
+          aria-label="Text HOME to 741741 crisis text line"
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+          </svg>
+          HOME
+        </a>
       </div>
+      <button
+        onClick={onEmergencyAccess}
+        className="text-xs text-gray-500 hover:text-gray-700 underline font-light
+                   focus:outline-none focus:ring-2 focus:ring-gray-300 rounded
+                   transition-colors duration-200"
+        aria-label="Access emergency support without age verification"
+      >
+        Emergency sanctuary access
+      </button>
     </div>
-    <h3 className="text-amber-800 font-light text-lg mb-3 text-center tracking-wide">Need Support?</h3>
-    <p className="text-amber-700/80 text-sm mb-5 text-center font-light leading-relaxed">
-      Immediate access to healing resources
-    </p>
-    <button
-      onClick={onEmergencyAccess}
-      className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-medium py-4 px-6 rounded-2xl
-                 focus:ring-4 focus:ring-amber-300/50 focus:outline-none transition-all duration-500
-                 min-h-[56px] touch-manipulation shadow-soft hover:shadow-elevated hover:-translate-y-0.5
-                 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-      aria-label="Access crisis support immediately without age verification"
-    >
-      Access Support Now
-    </button>
   </div>
 );
 
@@ -65,8 +86,8 @@ const AccessibleYearPicker = ({
   const [selectedIndex, setSelectedIndex] = useState(25); // Focus on ~1995
   const modalRef = useRef<HTMLDivElement>(null);
   
-  // Years from 1940-2010 as specified, focusing on adult range
-  const years = Array.from({ length: 71 }, (_, i) => 2010 - i);
+  // Years from 1940-2006 as specified, focusing on adult range (18+)
+  const years = Array.from({ length: 67 }, (_, i) => 2006 - i);
   
   // Handle year selection
   const handleYearSelect = useCallback((year: number) => {
@@ -139,10 +160,16 @@ const AccessibleYearPicker = ({
 
         {/* Main picker - Jony Ive inspired */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-[#a4b792] to-[#93a682] rounded-full flex items-center justify-center shadow-elevated">
-            <div className="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm">
-              <div className="w-4 h-4 bg-white/50 rounded-full animate-pulse"></div>
-            </div>
+          <div className="mb-6">
+            <span 
+              className="text-5xl block text-center"
+              style={{
+                filter: 'drop-shadow(0 4px 12px rgba(164, 183, 146, 0.2))',
+                animation: 'gentle-float 3s ease-in-out infinite'
+              }}
+            >
+              🪲
+            </span>
           </div>
           <h2 id="year-picker-title" className="text-3xl font-extralight text-[#2a2d2a] mb-3 text-center tracking-tight">
             Birth Year
@@ -250,24 +277,40 @@ const AccessibleYearPicker = ({
 
 export default function AgeVerification({ 
   onVerified, 
-  onParentalConsentRequired,
+  onAdultVerified,
   className = '' 
 }: AgeVerificationProps) {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
   const [showWelcome, setShowWelcome] = useState(false);
   const [showYearPicker, setShowYearPicker] = useState(false);
-  const [showMinorGuidance, setShowMinorGuidance] = useState(false);
-  const [ageStatus, setAgeStatus] = useState<'adult' | 'teen' | 'minor' | null>(null);
+  const [showUnderageMessage, setShowUnderageMessage] = useState(false);
+  const [ageStatus, setAgeStatus] = useState<'adult' | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Check existing verification on mount
+  // Check existing verification on mount - Mobile-safe hydration guard
   useEffect(() => {
+    let hasChecked = false;
+    let isMounted = true;
+    
     const checkExistingVerification = () => {
+      // Mobile-specific SSR and hydration guards
+      if (hasChecked || !isMounted || typeof window === 'undefined' || typeof document === 'undefined') {
+        return;
+      }
+      
+      // Additional mobile browser safety check
+      if (typeof Storage === 'undefined') {
+        setShowWelcome(true);
+        return;
+      }
+      
+      hasChecked = true;
+      
       try {
-        const sessionVerified = sessionStorage.getItem('alchm_age_session_verified');
-        const emergencyAccess = sessionStorage.getItem('alchm_emergency_access');
-        const verifiedTimestamp = localStorage.getItem('alchm_age_verified_timestamp');
-        const ageCategory = localStorage.getItem('alchm_age_category');
+        const sessionVerified = sessionStorage?.getItem('alchm_age_session_verified');
+        const emergencyAccess = sessionStorage?.getItem('alchm_emergency_access');
+        const verifiedTimestamp = localStorage?.getItem('alchm_age_verified_timestamp');
+        const ageCategory = localStorage?.getItem('alchm_age_category');
         
         // Priority check for emergency access
         if (emergencyAccess === 'true' && sessionVerified === 'true') {
@@ -289,40 +332,58 @@ export default function AgeVerification({
           return;
         }
       } catch (error) {
-        // Graceful fallback - never block access due to technical issues
-        console.info('Verification check encountered an issue, showing welcome screen');
+        // Mobile-safe error handling - never block access
+        console.info('Verification check failed (mobile), showing welcome screen');
       }
       
-      // Show welcome if no valid verification
-      setShowWelcome(true);
+      // Show welcome if no valid verification (mobile-safe)
+      if (isMounted) {
+        setShowWelcome(true);
+      }
     };
 
-    // Check authentication state
+    // Mobile-safe auth listener setup
     const setupAuthListener = async () => {
+      // Skip auth setup on mobile if already checked or unmounted
+      if (!isMounted || hasChecked) {
+        return () => {};
+      }
+      
       try {
         const { onAuthStateChanged } = await import('firebase/auth');
         const auth = await getFirebaseAuth();
         
         return onAuthStateChanged(auth, (user) => {
-          checkExistingVerification();
+          if (!hasChecked && isMounted) {
+            checkExistingVerification();
+          }
         }, (error) => {
-          console.warn('Auth state check failed, proceeding with local verification:', error);
-          checkExistingVerification();
+          console.warn('Auth state check failed (mobile):', error);
+          if (!hasChecked && isMounted) {
+            checkExistingVerification();
+          }
         });
       } catch (error) {
-        console.warn('Firebase Auth initialization failed, proceeding with local verification:', error);
-        checkExistingVerification();
-        return () => {}; // Return empty unsubscribe function
+        console.warn('Firebase Auth failed (mobile), using local verification:', error);
+        if (!hasChecked && isMounted) {
+          checkExistingVerification();
+        }
+        return () => {};
       }
     };
     
     let unsubscribe: (() => void) | null = null;
+    
+    // Initial check first
+    checkExistingVerification();
+    
+    // Then setup auth listener for future changes
     setupAuthListener().then(unsub => {
       unsubscribe = unsub;
     });
 
-    checkExistingVerification();
     return () => {
+      isMounted = false; // Cleanup mount guard
       if (unsubscribe) {
         unsubscribe();
       }
@@ -341,9 +402,7 @@ export default function AgeVerification({
     setTimeout(() => {
       try {
         if (age < 18) {
-          setAgeStatus('minor');
-          setShowMinorGuidance(true);
-          onParentalConsentRequired?.();
+          setShowUnderageMessage(true);
           setIsProcessing(false);
           return;
         }
@@ -364,11 +423,17 @@ export default function AgeVerification({
           console.info('Storage unavailable, continuing with session-only verification');
         }
         
-        // Gentle completion transition
+        // Gentle completion transition with navigation
         setTimeout(() => {
           setShowWelcome(false);
           onVerified?.('adult');
+          onAdultVerified?.();
           setIsProcessing(false);
+          
+          // CRITICAL: Navigate to authentication after verification
+          if (typeof window !== 'undefined') {
+            window.location.href = '/auth/login';
+          }
         }, 800);
       } catch (error) {
         // Trauma-informed error handling - never blame the user
@@ -406,10 +471,10 @@ export default function AgeVerification({
   }, [onVerified]);
 
   // Don't render if already verified
-  if (isVerified || (!showWelcome && !showMinorGuidance)) return null;
+  if (isVerified || (!showWelcome && !showUnderageMessage)) return null;
 
-  // Minor guidance screen - Compassionate design
-  if (showMinorGuidance) {
+  // Underage message screen - Compassionate design for 18+ requirement
+  if (showUnderageMessage) {
     return (
       <div className={`fixed inset-0 z-50 bg-gradient-to-br from-[#f8f9f6] via-[#fefcfb] to-[#f5f7f2] flex items-center justify-center p-6 ${className}`}>
         <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-10 max-w-md w-full shadow-floating border border-white/40">
@@ -422,23 +487,23 @@ export default function AgeVerification({
             
             <div className="space-y-4">
               <h2 className="text-3xl font-extralight text-[#2a2d2a] tracking-tight">
-                Your Path Awaits
+                Coming of Age
               </h2>
               <p className="text-[#93a682] font-light text-lg leading-relaxed tracking-wide">
-                We honor your journey wherever you are
+                ALCHM is designed for users 18 and older. Your healing journey is important, and there are wonderful resources available for you.
               </p>
             </div>
             
             <div className="space-y-4">
               <button
-                onClick={() => window.open('https://kidshealth.org/teen/', '_blank')}
+                onClick={() => window.open('https://www.7cups.com/', '_blank')}
                 className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 
                          text-white font-medium py-5 px-8 rounded-2xl
                          focus:ring-4 focus:ring-purple-300/50 focus:outline-none transition-all duration-500
                          min-h-[64px] touch-manipulation shadow-soft hover:shadow-elevated hover:-translate-y-0.5
                          ease-[cubic-bezier(0.25,0.46,0.45,0.94)] text-lg tracking-wide"
               >
-                Find Resources for Your Journey
+                Find Age-Appropriate Support
               </button>
               
               <button
@@ -477,11 +542,17 @@ export default function AgeVerification({
       <div className={`fixed inset-0 z-50 bg-gradient-to-br from-[#f8f9f6] via-[#fefcfb] to-[#f5f7f2] flex items-center justify-center p-6 ${className}`}>
         <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-10 max-w-md w-full shadow-floating border border-white/40">
           <div className="text-center space-y-8">
-            {/* Sanctuary icon with breathing animation */}
-            <div className="w-24 h-24 mx-auto bg-gradient-to-br from-[#a4b792] to-[#93a682] rounded-full flex items-center justify-center shadow-elevated animate-gentle-breathe">
-              <div className="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <div className="w-6 h-6 bg-white/50 rounded-full animate-pulse"></div>
-              </div>
+            {/* Khepera Scarab Icon - Symbol of transformation */}
+            <div className="verification-icon mb-6">
+              <span 
+                className="text-7xl block text-center"
+                style={{
+                  filter: 'drop-shadow(0 8px 16px rgba(164, 183, 146, 0.25))',
+                  animation: 'gentle-float 3s ease-in-out infinite'
+                }}
+              >
+                🪲
+              </span>
             </div>
             
             {/* Invisible elegance typography */}
@@ -557,6 +628,15 @@ export default function AgeVerification({
           }
           50% {
             transform: scale(1.05);
+          }
+        }
+        
+        @keyframes gentle-float {
+          0%, 100% { 
+            transform: translateY(0px); 
+          }
+          50% { 
+            transform: translateY(-6px); 
           }
         }
         

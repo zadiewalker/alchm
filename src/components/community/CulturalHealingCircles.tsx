@@ -279,11 +279,11 @@ export default function CulturalHealingCircles({ ephemeralIdentity }: CulturalHe
 
               <div className="grid grid-cols-2 gap-4 text-xs mb-4">
                 <div>
-                  <div className="text-[#5E8E7F] font-bold">{tradition.activeCircles}</div>
+                  <div className="text-[#5E8E7F] font-medium">{tradition.activeCircles}</div>
                   <div className="text-white/60">Active Circles</div>
                 </div>
                 <div>
-                  <div className="text-[#5E8E7F] font-bold">{tradition.totalMembers}</div>
+                  <div className="text-[#5E8E7F] font-medium">{tradition.totalMembers}</div>
                   <div className="text-white/60">Community Members</div>
                 </div>
               </div>

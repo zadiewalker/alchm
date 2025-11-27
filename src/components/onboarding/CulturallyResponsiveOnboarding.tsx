@@ -105,7 +105,7 @@ function CulturalIdentityStep({ data, onUpdate, onNext, isFirst }: OnboardingSte
     >
       <Card className="p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-4">Welcome to Your Healing Journey</h2>
+          <h2 className="text-2xl font-medium mb-4">Welcome to Your Healing Journey</h2>
           <p className="text-gray-600">
             We want to honor all the identities and wisdom traditions you bring. 
             This helps us create a space that truly feels like home for you.
@@ -113,7 +113,7 @@ function CulturalIdentityStep({ data, onUpdate, onNext, isFirst }: OnboardingSte
         </div>
         
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">How do you identify culturally?</h3>
+          <h3 className="text-lg font-medium mb-4">How do you identify culturally?</h3>
           <p className="text-sm text-gray-500 mb-6">
             Select all that feel true for you. Your identities are complex and beautiful.
           </p>
@@ -143,7 +143,7 @@ function CulturalIdentityStep({ data, onUpdate, onNext, isFirst }: OnboardingSte
         </div>
         
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">What languages do you speak?</h3>
+          <h3 className="text-lg font-medium mb-4">What languages do you speak?</h3>
           <p className="text-sm text-gray-500 mb-6">
             We believe healing can happen in any language. Select all that you're comfortable with.
           </p>
@@ -202,7 +202,7 @@ function IntersectionalIdentityStep({ data, onUpdate, onNext, onBack }: Onboardi
     >
       <Card className="p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-4">Your Full Self</h2>
+          <h2 className="text-2xl font-medium mb-4">Your Full Self</h2>
           <p className="text-gray-600">
             We know identity is complex. This helps us provide support that honors all parts of who you are.
             You can skip any question that doesn't feel safe or relevant.
@@ -211,7 +211,7 @@ function IntersectionalIdentityStep({ data, onUpdate, onNext, onBack }: Onboardi
         
         {/* LGBTQ+ Identity */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Sexual Orientation & Gender Identity</h3>
+          <h3 className="text-lg font-medium mb-4">Sexual Orientation & Gender Identity</h3>
           <p className="text-sm text-gray-500 mb-4">
             This helps us connect you with affirming resources and support.
           </p>
@@ -234,7 +234,7 @@ function IntersectionalIdentityStep({ data, onUpdate, onNext, onBack }: Onboardi
         
         {/* Neurodivergence */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Neurodivergence</h3>
+          <h3 className="text-lg font-medium mb-4">Neurodivergence</h3>
           <p className="text-sm text-gray-500 mb-4">
             Different brains need different support. We celebrate neurodiversity.
           </p>
@@ -257,7 +257,7 @@ function IntersectionalIdentityStep({ data, onUpdate, onNext, onBack }: Onboardi
         
         {/* Immigration Status */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Immigration Status</h3>
+          <h3 className="text-lg font-medium mb-4">Immigration Status</h3>
           <p className="text-sm text-gray-500 mb-4">
             This helps us connect you with safe, appropriate resources. Your information is always encrypted.
           </p>
@@ -322,7 +322,7 @@ function SafetyAssessmentStep({ data, onUpdate, onNext, onBack }: OnboardingStep
     >
       <Card className="p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-4">Your Safety Matters</h2>
+          <h2 className="text-2xl font-medium mb-4">Your Safety Matters</h2>
           <p className="text-gray-600">
             We want to make sure ALCHM feels completely safe for you. 
             These questions help us customize your privacy settings and support.
@@ -331,7 +331,7 @@ function SafetyAssessmentStep({ data, onUpdate, onNext, onBack }: OnboardingStep
         
         {/* Family Acceptance */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">How accepting is your family of your identity and mental health needs?</h3>
+          <h3 className="text-lg font-medium mb-4">How accepting is your family of your identity and mental health needs?</h3>
           
           <div className="grid grid-cols-1 gap-3">
             {[
@@ -361,7 +361,7 @@ function SafetyAssessmentStep({ data, onUpdate, onNext, onBack }: OnboardingStep
         
         {/* Additional Safety Needs */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">Privacy & Safety Preferences</h3>
+          <h3 className="text-lg font-medium mb-4">Privacy & Safety Preferences</h3>
           
           <div className="space-y-4">
             <label className="flex items-center gap-3 p-4 rounded-lg border hover:bg-gray-50 cursor-pointer">
@@ -453,7 +453,7 @@ function HealingPreferencesStep({ data, onUpdate, onNext, onBack, isLast }: Onbo
     >
       <Card className="p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-4">Your Healing Style</h2>
+          <h2 className="text-2xl font-medium mb-4">Your Healing Style</h2>
           <p className="text-gray-600">
             There are many paths to healing. Let's find the ones that resonate with your soul.
           </p>
@@ -461,7 +461,7 @@ function HealingPreferencesStep({ data, onUpdate, onNext, onBack, isLast }: Onbo
         
         {/* Healing Approaches */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">What approaches to healing feel right for you?</h3>
+          <h3 className="text-lg font-medium mb-4">What approaches to healing feel right for you?</h3>
           <p className="text-sm text-gray-500 mb-6">Select all that speak to you</p>
           
           <div className="grid grid-cols-1 gap-3">
@@ -498,7 +498,7 @@ function HealingPreferencesStep({ data, onUpdate, onNext, onBack, isLast }: Onbo
         
         {/* Communication Preferences */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold mb-4">How do you prefer to receive support?</h3>
+          <h3 className="text-lg font-medium mb-4">How do you prefer to receive support?</h3>
           
           <div className="grid grid-cols-1 gap-4">
             <div>

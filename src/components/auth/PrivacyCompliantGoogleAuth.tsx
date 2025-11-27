@@ -137,7 +137,7 @@ export default function PrivacyCompliantGoogleAuth({
       }
 
       onSuccess?.();
-      router.push('/dashboard');
+      router.push('/en/sanctuary');
     } catch (err: any) {
       // Privacy-conscious error handling
       let errorMessage = 'Authentication encountered an issue. Your privacy is protected.';
@@ -191,7 +191,7 @@ export default function PrivacyCompliantGoogleAuth({
               <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl">🛡️</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-medium text-gray-900 mb-2">
                 Privacy & Data Protection Notice
               </h2>
               <p className="text-green-600 font-medium">
@@ -200,7 +200,7 @@ export default function PrivacyCompliantGoogleAuth({
             </div>
             
             <div className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
-              <h3 className="font-bold text-green-800 mb-3">🔒 GDPR, CCPA & COPPA Compliant</h3>
+              <h3 className="font-medium text-green-800 mb-3">🔒 GDPR, CCPA & COPPA Compliant</h3>
               <div className="space-y-3 text-sm text-green-800">
                 <p><strong>Age Status:</strong> {ageStatus === 'teen' ? 'Teen (17-18) - Enhanced protections apply' : 'Adult (18+)'}</p>
                 <p><strong>Data Minimization:</strong> We collect only essential data for core functionality.</p>
@@ -208,7 +208,7 @@ export default function PrivacyCompliantGoogleAuth({
                 <p><strong>Storage Limitation:</strong> Automatic deletion policies protect your long-term privacy.</p>
                 <p><strong>Your Rights:</strong> Access, correct, export, or delete your data anytime.</p>
                 {ageStatus === 'teen' && (
-                  <p className="font-bold text-green-900">
+                  <p className="font-medium text-green-900">
                     🌟 Teen Protection: Enhanced crisis detection, parental notification options, and stricter data limits.
                   </p>
                 )}
@@ -216,7 +216,7 @@ export default function PrivacyCompliantGoogleAuth({
             </div>
             
             <div className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
-              <h3 className="font-bold text-blue-800 mb-3">📋 What Google Authentication Collects</h3>
+              <h3 className="font-medium text-blue-800 mb-3">📋 What Google Authentication Collects</h3>
               <ul className="space-y-2 text-sm text-blue-800 list-disc ml-4">
                 <li><strong>Email address:</strong> For account identification and recovery</li>
                 <li><strong>Display name:</strong> For personalization (optional)</li>
@@ -231,7 +231,7 @@ export default function PrivacyCompliantGoogleAuth({
             <div className="space-y-4">
               <button
                 onClick={handlePrivacyConsentAccept}
-                className="w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold transition-colors"
+                className="w-full px-6 py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-colors"
               >
                 ✅ I Understand & Accept Privacy Terms
               </button>
@@ -275,7 +275,7 @@ export default function PrivacyCompliantGoogleAuth({
               <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-2xl">⚙️</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-medium text-gray-900 mb-2">
                 Granular Data Collection Consent
               </h2>
               <p className="text-purple-600 font-medium">
@@ -295,7 +295,7 @@ export default function PrivacyCompliantGoogleAuth({
                     className="mt-1 h-5 w-5 text-red-600 rounded border-2 border-red-300"
                   />
                   <div className="flex-1">
-                    <label htmlFor="google-profile" className="block font-bold text-red-800 cursor-pointer">
+                    <label htmlFor="google-profile" className="block font-medium text-red-800 cursor-pointer">
                       🔑 Google Profile Access (Required)
                     </label>
                     <p className="text-sm text-red-700 mt-1">
@@ -316,7 +316,7 @@ export default function PrivacyCompliantGoogleAuth({
                     className="mt-1 h-5 w-5 text-yellow-600 rounded border-2 border-yellow-300"
                   />
                   <div className="flex-1">
-                    <label htmlFor="analytics" className="block font-bold text-yellow-800 cursor-pointer">
+                    <label htmlFor="analytics" className="block font-medium text-yellow-800 cursor-pointer">
                       📊 Usage Analytics (Optional)
                     </label>
                     <p className="text-sm text-yellow-700 mt-1">
@@ -337,7 +337,7 @@ export default function PrivacyCompliantGoogleAuth({
                     className="mt-1 h-5 w-5 text-blue-600 rounded border-2 border-blue-300"
                   />
                   <div className="flex-1">
-                    <label htmlFor="ai-processing" className="block font-bold text-blue-800 cursor-pointer">
+                    <label htmlFor="ai-processing" className="block font-medium text-blue-800 cursor-pointer">
                       🤖 AI-Powered Insights (Optional)
                     </label>
                     <p className="text-sm text-blue-700 mt-1">
@@ -358,7 +358,7 @@ export default function PrivacyCompliantGoogleAuth({
                     className="mt-1 h-5 w-5 text-green-600 rounded border-2 border-green-300"
                   />
                   <div className="flex-1">
-                    <label htmlFor="crash-reporting" className="block font-bold text-green-800 cursor-pointer">
+                    <label htmlFor="crash-reporting" className="block font-medium text-green-800 cursor-pointer">
                       🐛 Error Reporting (Optional)
                     </label>
                     <p className="text-sm text-green-700 mt-1">
@@ -370,7 +370,7 @@ export default function PrivacyCompliantGoogleAuth({
             </div>
             
             <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
-              <h3 className="font-bold text-gray-800 mb-2">🔒 Your Privacy Rights</h3>
+              <h3 className="font-medium text-gray-800 mb-2">🔒 Your Privacy Rights</h3>
               <ul className="text-sm text-gray-700 space-y-1 list-disc ml-4">
                 <li>Change these preferences anytime in settings</li>
                 <li>Export all your data in machine-readable format</li>
@@ -383,7 +383,7 @@ export default function PrivacyCompliantGoogleAuth({
               <button
                 onClick={() => handleDataConsentComplete(dataConsent)}
                 disabled={!dataConsent.googleProfile}
-                className={`w-full px-6 py-4 rounded-xl font-semibold transition-colors ${
+                className={`w-full px-6 py-4 rounded-xl font-medium transition-colors ${
                   dataConsent.googleProfile
                     ? 'bg-purple-600 hover:bg-purple-700 text-white'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -434,7 +434,7 @@ export default function PrivacyCompliantGoogleAuth({
           ) : (
             <span className="text-2xl">🔐</span>
           )}
-          <span className="font-semibold">
+          <span className="font-medium">
             {loading ? 'Entering sanctuary...' : 'Continue with Google'}
           </span>
         </div>

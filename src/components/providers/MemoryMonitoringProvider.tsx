@@ -194,7 +194,7 @@ function MemoryMonitorOverlay() {
     &lt;div className="fixed bottom-4 right-4 bg-black/90 text-white text-xs p-3 rounded-lg font-mono z-50 max-w-xs"&gt;
       &lt;div className="flex items-center gap-2 mb-2"&gt;
         &lt;div className={`w-2 h-2 rounded-full ${getStatusColor()}`}&gt;&lt;/div&gt;
-        &lt;span className="font-semibold"&gt;Memory Monitor&lt;/span&gt;
+        &lt;span className="font-medium"&gt;Memory Monitor&lt;/span&gt;
       &lt;/div&gt;
       
       &lt;div className="space-y-1"&gt;

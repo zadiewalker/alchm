@@ -96,14 +96,14 @@ export default function BetaAccess({ referralCode }: BetaAccessProps) {
               <svg className="mx-auto h-12 w-12" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <h2 className="text-xl font-bold text-gray-800 mt-2">Welcome to ALCHM Beta!</h2>
+              <h2 className="text-xl font-medium text-gray-800 mt-2">Welcome to ALCHM Beta!</h2>
             </div>
           ) : (
             <div className="text-blue-600 mb-4">
               <svg className="mx-auto h-12 w-12" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
-              <h2 className="text-xl font-bold text-gray-800 mt-2">You're on the Waitlist</h2>
+              <h2 className="text-xl font-medium text-gray-800 mt-2">You're on the Waitlist</h2>
             </div>
           )}
         </div>
@@ -116,7 +116,7 @@ export default function BetaAccess({ referralCode }: BetaAccessProps) {
           <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-4">
             <p className="text-sm font-medium text-green-800 mb-2">Your Beta Code:</p>
             <div className="flex items-center justify-between bg-white p-2 rounded border">
-              <code className="text-lg font-mono font-bold text-green-700">{result.betaCode}</code>
+              <code className="text-lg font-mono font-medium text-green-700">{result.betaCode}</code>
               <button
                 onClick={() => navigator.clipboard.writeText(result.betaCode!)}
                 className="text-green-600 hover:text-green-800"
@@ -134,11 +134,11 @@ export default function BetaAccess({ referralCode }: BetaAccessProps) {
           <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg mb-4">
             <div className="grid grid-cols-2 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-blue-600">#{result.waitlistPosition}</div>
+                <div className="text-2xl font-medium text-blue-600">#{result.waitlistPosition}</div>
                 <div className="text-sm text-blue-700">Your Position</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-blue-600">{result.estimatedWaitWeeks}</div>
+                <div className="text-2xl font-medium text-blue-600">{result.estimatedWaitWeeks}</div>
                 <div className="text-sm text-blue-700">Est. Weeks</div>
               </div>
             </div>
@@ -169,7 +169,7 @@ export default function BetaAccess({ referralCode }: BetaAccessProps) {
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg">
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
+        <h1 className="text-2xl font-medium text-gray-800 mb-2">
           Join ALCHM Beta
         </h1>
         <p className="text-gray-600">

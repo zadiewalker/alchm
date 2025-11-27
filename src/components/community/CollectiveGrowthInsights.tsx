@@ -231,7 +231,7 @@ export default function CollectiveGrowthInsights({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {Object.entries(selectedInsight.supportingData).map(([key, value]) => (
                   <div key={key} className="text-center">
-                    <div className={`text-2xl font-bold ${typeConfig.textColor}`}>
+                    <div className={`text-2xl font-medium ${typeConfig.textColor}`}>
                       {typeof value === 'number' ? value.toLocaleString() : String(value)}
                     </div>
                     <div className="text-white/60 text-xs capitalize">

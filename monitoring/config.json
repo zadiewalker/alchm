@@ -4,14 +4,18 @@
         "https://alchmapp.web.app/"
     ],
     "monitoring": {
-        "interval": 30000,
-        "timeout": 10000,
-        "retries": 3
+        "interval": 10000,
+        "timeout": 5000,
+        "retries": 3,
+        "sacred_timing_interval": 1000
     },
     "alerts": {
-        "responseTime": 3000,
-        "errorRate": 5,
+        "responseTime": 1000,
+        "errorRate": 2,
         "stylingFailure": 1,
+        "sacredTimingViolation": 1,
+        "crisisResourceDelay": 1,
+        "authFailure": 1,
         "webhookUrl": ""
     },
     "performance": {
@@ -19,11 +23,49 @@
         "lcpTarget": 2000,
         "fidTarget": 50,
         "clsTarget": 0.05,
-        "ttiTarget": 3000
+        "ttiTarget": 3000,
+        "crisisResourceTarget": 1000,
+        "sacredTransitionTarget": 300,
+        "kepheraAnimationFps": 60,
+        "breathingCycleTarget": 10000
     },
     "sacredContract": {
         "expectedMarginTop": "5rem",
         "expectedBackground": "rgba(34, 51, 68, 0.15)",
-        "expectedColor": "white"
+        "expectedColor": "white",
+        "transitions": {
+            "duration": 300,
+            "easing": "cubic-bezier(0.4, 0, 0.2, 1)",
+            "tolerance": 50
+        },
+        "colors": {
+            "offWhite": "#f7f7f2",
+            "sageGreen": "#a4b792",
+            "colorAccuracy": 0.95
+        },
+        "khepera": {
+            "breathingRate": 6,
+            "cycleTime": 10000,
+            "animationFps": 60,
+            "haloRadius": "100px"
+        }
+    },
+    "crisisProtocols": {
+        "resourceLoadTimeout": 1000,
+        "authBypassTimeout": 2000,
+        "offlineGracePeriod": 5000,
+        "emergencyContactDelay": 500
+    },
+    "authentication": {
+        "googleOauthTimeout": 3000,
+        "statePeristenceCheck": 1000,
+        "crossPlatformSync": 2000,
+        "mobileOptimization": true
+    },
+    "budgetEnforcement": {
+        "bundleSizeLimit": 500000,
+        "imageOptimization": true,
+        "cacheStrategy": "stale-while-revalidate",
+        "memoryThreshold": 50000000
     }
 }

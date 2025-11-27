@@ -134,7 +134,7 @@ export const CrisisAwareAITransparency: React.FC<{
         <span className="text-2xl">⚠️</span>
         <div className="flex-1">
           <p className="text-red-800 font-medium mb-2">{crisis.message}</p>
-          <button className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors">
+          <button className="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors">
             {crisis.action}
           </button>
         </div>

@@ -392,7 +392,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
     <div className={`poetry-lab ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Poetry Laboratory
         </h3>
         <p className="text-sm text-gray-600">
@@ -405,7 +405,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
         
         {/* Poetry Form Selector */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Poetry Form</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Poetry Form</label>
           <select
             value={selectedForm}
             onChange={(e) => setSelectedForm(e.target.value as PoetryForm)}
@@ -424,7 +424,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
 
         {/* AI Collaboration Mode */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">AI Collaboration</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">AI Collaboration</label>
           <select
             value={aiMode}
             onChange={(e) => setAiMode(e.target.value as AICollaborationType)}
@@ -450,7 +450,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
         <div className="prompt-section mb-6 p-4 bg-gradient-to-r from-sage-100 to-green-100 rounded-2xl">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h4 className="text-sm font-semibold text-gray-700 mb-2">Therapeutic Prompt</h4>
+              <h4 className="text-sm font-medium text-gray-700 mb-2">Therapeutic Prompt</h4>
               <p className="text-gray-800 italic leading-relaxed">"{currentPrompt}"</p>
             </div>
             <button
@@ -472,7 +472,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
           value={poemTitle}
           onChange={(e) => setPoemTitle(e.target.value)}
           placeholder="Poem title (optional)"
-          className="w-full p-3 mb-4 rounded-lg border border-sage-200 text-lg font-semibold text-gray-800 focus:ring-2 focus:ring-sage-300 focus:border-transparent"
+          className="w-full p-3 mb-4 rounded-lg border border-sage-200 text-lg font-medium text-gray-800 focus:ring-2 focus:ring-sage-300 focus:border-transparent"
         />
 
         {/* Main Text Area */}
@@ -501,7 +501,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
         {/* AI Suggestions */}
         {aiSuggestions.length > 0 && aiMode !== 'none' && (
           <div className="ai-suggestions mt-4 p-4 bg-blue-50 rounded-lg">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">AI Suggestions</h4>
+            <h4 className="text-sm font-medium text-gray-700 mb-2">AI Suggestions</h4>
             <div className="flex flex-wrap gap-2">
               {aiSuggestions.map((suggestion, i) => (
                 <button
@@ -574,13 +574,13 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
       {/* Poetry Analysis */}
       {showAnalysis && analysis && (
         <div className="analysis-panel mt-6 p-6 bg-gradient-to-br from-purple-50 to-blue-50 rounded-3xl">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Poetry Analysis</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Poetry Analysis</h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Themes and Insights */}
             <div>
-              <h5 className="font-semibold text-gray-700 mb-2">Themes</h5>
+              <h5 className="font-medium text-gray-700 mb-2">Themes</h5>
               <div className="flex flex-wrap gap-2 mb-4">
                 {analysis.themes.map((theme, i) => (
                   <span key={i} className="px-3 py-1 bg-purple-200 text-purple-800 rounded-full text-sm">
@@ -589,7 +589,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
                 ))}
               </div>
               
-              <h5 className="font-semibold text-gray-700 mb-2">Therapeutic Insights</h5>
+              <h5 className="font-medium text-gray-700 mb-2">Therapeutic Insights</h5>
               <div className="space-y-2">
                 {analysis.therapeuticInsights.map((insight, i) => (
                   <p key={i} className="text-sm text-gray-700 leading-relaxed">
@@ -601,7 +601,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
             
             {/* Metrics and Highlights */}
             <div>
-              <h5 className="font-semibold text-gray-700 mb-2">Strongest Lines</h5>
+              <h5 className="font-medium text-gray-700 mb-2">Strongest Lines</h5>
               <div className="space-y-2 mb-4">
                 {analysis.strongestLines.map((line, i) => (
                   <p key={i} className="text-sm italic text-gray-800 pl-3 border-l-2 border-sage-300">
@@ -610,7 +610,7 @@ const PoetryLab: React.FC<PoetryLabProps> = ({
                 ))}
               </div>
               
-              <h5 className="font-semibold text-gray-700 mb-2">Metrics</h5>
+              <h5 className="font-medium text-gray-700 mb-2">Metrics</h5>
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>
                   <span className="text-gray-600">Emotional Intensity:</span>

@@ -254,7 +254,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">📈</div>
               <div>
-                <div className="text-2xl font-bold">{metricsOverview.totalGrowthScore}</div>
+                <div className="text-2xl font-medium">{metricsOverview.totalGrowthScore}</div>
                 <div className="text-sm opacity-80">Growth Score</div>
               </div>
             </div>
@@ -269,7 +269,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">⚡</div>
               <div>
-                <div className="text-2xl font-bold">{metricsOverview.progressionVelocity.toFixed(1)}</div>
+                <div className="text-2xl font-medium">{metricsOverview.progressionVelocity.toFixed(1)}</div>
                 <div className="text-sm opacity-80">Milestones/Month</div>
               </div>
             </div>
@@ -283,7 +283,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">💎</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(metricsOverview.engagementQuality * 100)}%</div>
+                <div className="text-2xl font-medium">{Math.round(metricsOverview.engagementQuality * 100)}%</div>
                 <div className="text-sm opacity-80">Engagement Quality</div>
               </div>
             </div>
@@ -304,7 +304,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
                  metricsOverview.riskLevel === 'medium' ? '⚠️' : '🚨'}
               </div>
               <div>
-                <div className="text-2xl font-bold capitalize">{metricsOverview.riskLevel}</div>
+                <div className="text-2xl font-medium capitalize">{metricsOverview.riskLevel}</div>
                 <div className="text-sm opacity-80">Risk Level</div>
               </div>
             </div>
@@ -317,7 +317,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
 
         {/* Growth trajectory chart */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Growth Trajectory</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Growth Trajectory</h3>
           <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
             <div className="text-gray-500">
               Growth trajectory visualization would be implemented here
@@ -329,12 +329,12 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
 
         {/* Recent insights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔍 Latest Insights</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔍 Latest Insights</h3>
           <div className="space-y-4">
             {analyticsInsights.slice(0, 5).map((insight) => (
               <div key={insight.insightId} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-semibold text-gray-800">{insight.title}</h4>
+                  <h4 className="font-medium text-gray-800">{insight.title}</h4>
                   <div className="flex items-center space-x-2">
                     <span className={`px-2 py-1 text-xs rounded ${
                       insight.impactPotential === 'critical' ? 'bg-red-100 text-red-700' :
@@ -368,12 +368,12 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
         {/* Risk alerts */}
         {riskAlerts.length > 0 && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-red-800 mb-4">🚨 Risk Alerts</h3>
+            <h3 className="text-lg font-medium text-red-800 mb-4">🚨 Risk Alerts</h3>
             <div className="space-y-4">
               {riskAlerts.map((alert) => (
                 <div key={alert.alertId} className="p-4 bg-white border border-red-200 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-red-800">{alert.title}</h4>
+                    <h4 className="font-medium text-red-800">{alert.title}</h4>
                     <div className="flex items-center space-x-2">
                       <span className={`px-2 py-1 text-xs rounded ${
                         alert.severity === 'critical' ? 'bg-red-200 text-red-800' :
@@ -407,17 +407,17 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
 
         {/* Pathway progress summary */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🛤️ Pathway Progress Summary</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🛤️ Pathway Progress Summary</h3>
           <div className="space-y-4">
             {pathwayStages.map((stage) => (
               <div key={stage.stageId} className="border border-gray-200 rounded-lg p-4">
                 <div className="flex justify-between items-center mb-3">
                   <div>
-                    <h4 className="font-semibold text-gray-800">{stage.stageName}</h4>
+                    <h4 className="font-medium text-gray-800">{stage.stageName}</h4>
                     <div className="text-sm text-gray-600 capitalize">{stage.pathwayType} pathway</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-blue-600">{stage.completionPercentage}%</div>
+                    <div className="text-2xl font-medium text-blue-600">{stage.completionPercentage}%</div>
                     <div className="text-xs text-gray-500">complete</div>
                   </div>
                 </div>
@@ -476,12 +476,12 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {predictiveModels.map((model) => (
             <div key={model.modelType} className="bg-white rounded-lg border border-gray-200 p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 capitalize">
+              <h3 className="text-lg font-medium text-gray-800 mb-4 capitalize">
                 {model.modelType.replace('_', ' ')}
               </h3>
               
               <div className="text-center mb-4">
-                <div className="text-4xl font-bold text-blue-600">
+                <div className="text-4xl font-medium text-blue-600">
                   {Math.round(model.currentPrediction * 100)}%
                 </div>
                 <div className="text-sm text-gray-600">Current Prediction</div>
@@ -515,19 +515,19 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
 
         {/* Growth predictions */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔮 Growth Predictions</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔮 Growth Predictions</h3>
           <div className="space-y-4">
             {growthPredictions.map((prediction) => (
               <div key={prediction.predictionId} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-semibold text-gray-800 capitalize">
+                    <h4 className="font-medium text-gray-800 capitalize">
                       {prediction.predictionType.replace('_', ' ')}
                     </h4>
                     <div className="text-sm text-gray-600">{prediction.timeHorizon}</div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">
+                    <div className="text-lg font-medium text-blue-600">
                       {typeof prediction.prediction === 'number' 
                         ? `${Math.round(prediction.prediction * 100)}%`
                         : prediction.prediction}
@@ -566,14 +566,14 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
 
         {/* Scenario analysis */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">📊 Scenario Analysis</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">📊 Scenario Analysis</h3>
           <div className="space-y-4">
             {['optimistic', 'realistic', 'pessimistic'].map((scenario) => (
               <div key={scenario} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex justify-between items-center">
-                  <h4 className="font-semibold text-gray-800 capitalize">{scenario} Scenario</h4>
+                  <h4 className="font-medium text-gray-800 capitalize">{scenario} Scenario</h4>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">
+                    <div className="text-lg font-medium text-blue-600">
                       {scenario === 'optimistic' ? '85%' :
                        scenario === 'realistic' ? '70%' : '55%'}
                     </div>
@@ -601,7 +601,7 @@ const UserGrowthAnalytics: React.FC<UserGrowthAnalyticsProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             User Growth Analytics
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

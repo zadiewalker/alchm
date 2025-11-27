@@ -363,7 +363,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
     <div className={`multisensory-hub ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Multi-Sensory Expression Hub
         </h3>
         <p className="text-sm text-gray-600 max-w-2xl mx-auto">
@@ -374,7 +374,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
       {/* Experience Selection */}
       {!activeExperience && (
         <div className="experience-selection">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">Choose Your Synesthetic Journey</h4>
+          <h4 className="text-lg font-medium text-gray-800 mb-4">Choose Your Synesthetic Journey</h4>
           
           <div className="experiences-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {moodAppropriateExperiences.map(experience => (
@@ -390,7 +390,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
                      experience.primarySense === 'tactile' ? '✋' :
                      experience.primarySense === 'olfactory' ? '👃' : '👅'}
                   </div>
-                  <h5 className="text-lg font-semibold text-gray-800 mb-2">{experience.name}</h5>
+                  <h5 className="text-lg font-medium text-gray-800 mb-2">{experience.name}</h5>
                   <p className="text-sm text-gray-600 mb-3">{experience.description}</p>
                 </div>
                 
@@ -419,7 +419,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
       {activeExperience && isSessionActive && (
         <div className="active-session bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
           <div className="text-center mb-8">
-            <h4 className="text-2xl font-semibold text-gray-800 mb-2">{activeExperience.name}</h4>
+            <h4 className="text-2xl font-medium text-gray-800 mb-2">{activeExperience.name}</h4>
             <p className="text-gray-600 mb-4">{activeExperience.description}</p>
             
             {/* Session Timer */}
@@ -432,7 +432,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
           {/* Guidance Steps */}
           <div className="guidance-section mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h5 className="text-lg font-semibold text-gray-800">Step {currentStep + 1} of {activeExperience.guidance.length}</h5>
+              <h5 className="text-lg font-medium text-gray-800">Step {currentStep + 1} of {activeExperience.guidance.length}</h5>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
@@ -458,7 +458,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
 
           {/* Cross-Sensory Mappings */}
           <div className="mappings-interactive mb-8">
-            <h5 className="text-lg font-semibold text-gray-800 mb-4">Explore Cross-Sensory Connections</h5>
+            <h5 className="text-lg font-medium text-gray-800 mb-4">Explore Cross-Sensory Connections</h5>
             
             <div className="mappings-grid grid grid-cols-1 md:grid-cols-2 gap-4">
               {activeExperience.synestheticMappings.map((mapping, i) => (
@@ -477,7 +477,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
                   className="mapping-card p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-teal-300 hover:shadow-md transition-all duration-200 text-left"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <div className="text-sm font-semibold text-gray-800">{mapping.trigger}</div>
+                    <div className="text-sm font-medium text-gray-800">{mapping.trigger}</div>
                     <div className="text-xs text-teal-600 bg-teal-100 px-2 py-1 rounded-full">
                       {Math.round(mapping.intensity * 100)}%
                     </div>
@@ -495,25 +495,25 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
           {/* Session Progress */}
           {synestheticResponses.length > 0 && (
             <div className="session-progress mb-8">
-              <h5 className="text-lg font-semibold text-gray-800 mb-4">Your Synesthetic Journey</h5>
+              <h5 className="text-lg font-medium text-gray-800 mb-4">Your Synesthetic Journey</h5>
               <div className="progress-summary p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                   <div>
-                    <div className="text-xl font-semibold text-purple-600">{sensoryInputs.length}</div>
+                    <div className="text-xl font-medium text-purple-600">{sensoryInputs.length}</div>
                     <div className="text-xs text-gray-600">Sensory Inputs</div>
                   </div>
                   <div>
-                    <div className="text-xl font-semibold text-blue-600">{synestheticResponses.length}</div>
+                    <div className="text-xl font-medium text-blue-600">{synestheticResponses.length}</div>
                     <div className="text-xs text-gray-600">Cross-Connections</div>
                   </div>
                   <div>
-                    <div className="text-xl font-semibold text-teal-600">
+                    <div className="text-xl font-medium text-teal-600">
                       {Math.round((synestheticResponses.reduce((sum, r) => sum + r.emotionalResonance, 0) / synestheticResponses.length) * 100)}%
                     </div>
                     <div className="text-xs text-gray-600">Emotional Resonance</div>
                   </div>
                   <div>
-                    <div className="text-xl font-semibold text-cyan-600">
+                    <div className="text-xl font-medium text-cyan-600">
                       {new Set(sensoryInputs.map(i => i.sense)).size}
                     </div>
                     <div className="text-xs text-gray-600">Senses Activated</div>
@@ -550,14 +550,14 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
       {/* Getting Started Guide */}
       {!activeExperience && (
         <div className="getting-started mt-12 p-8 bg-gradient-to-br from-sage-50 to-green-50 rounded-3xl">
-          <h4 className="text-xl font-semibold text-gray-800 text-center mb-6">
+          <h4 className="text-xl font-medium text-gray-800 text-center mb-6">
             Understanding Multi-Sensory Healing
           </h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="concept text-center">
               <div className="text-4xl mb-3">🧠</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Neuroplasticity</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Neuroplasticity</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Cross-sensory experiences create new neural pathways, expanding your capacity for emotional processing and healing.
               </p>
@@ -565,7 +565,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
             
             <div className="concept text-center">
               <div className="text-4xl mb-3">🌈</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Synesthesia</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Synesthesia</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 When one sense triggers another, it creates rich, multi-dimensional experiences that can unlock new forms of self-understanding.
               </p>
@@ -573,7 +573,7 @@ const MultiSensoryExpressionHub: React.FC<MultiSensoryExpressionHubProps> = ({
             
             <div className="concept text-center">
               <div className="text-4xl mb-3">💫</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Integration</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Integration</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Multi-sensory practices help integrate fragmented experiences, creating wholeness and coherence in your healing journey.
               </p>

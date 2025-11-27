@@ -90,7 +90,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
             <div className="w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full flex items-center justify-center">
               <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full"></div>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">
+            <h2 className="text-xl font-medium text-gray-900 mb-2">
               Initializing Privacy Protection
             </h2>
             <p className="text-gray-600 text-sm">
@@ -250,14 +250,14 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
               <div className="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-3xl">✅</span>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">Privacy Preferences</h2>
+              <h2 className="text-2xl font-medium text-gray-900">Privacy Preferences</h2>
               <p className="text-green-600 font-medium mt-2">Age Verified - Configure Your Data Choices</p>
             </div>
           </CardHeader>
           
           <CardContent className="p-6 space-y-6">
             <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6">
-              <h3 className="font-bold text-green-800 text-lg mb-3">
+              <h3 className="font-medium text-green-800 text-lg mb-3">
                 🎉 Welcome to ALCHM
               </h3>
               <p className="text-green-700">
@@ -267,7 +267,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-bold text-gray-900 text-lg">Choose Your Data Sharing Preferences:</h4>
+              <h4 className="font-medium text-gray-900 text-lg">Choose Your Data Sharing Preferences:</h4>
               
               <div className="space-y-4">
                 <div className="border border-gray-200 rounded-lg p-4">
@@ -382,7 +382,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h5 className="font-bold text-blue-800 mb-2">Your Privacy Rights:</h5>
+              <h5 className="font-medium text-blue-800 mb-2">Your Privacy Rights:</h5>
               <ul className="text-sm text-blue-700 space-y-1">
                 <li>• You can change these preferences anytime in your account settings</li>
                 <li>• You can request access to, correction of, or deletion of your data</li>
@@ -429,18 +429,18 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
               <div className="w-20 h-20 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-4">
                 <span className="text-3xl">👨‍👩‍👧‍👦</span>
               </div>
-              <h2 className="text-2xl font-bold text-red-800">Parental Consent Required</h2>
+              <h2 className="text-2xl font-medium text-red-800">Parental Consent Required</h2>
               <p className="text-red-600 font-medium mt-2">COPPA Protection Notice - {ageGroup} User</p>
             </div>
           </CardHeader>
           
           <CardContent className="p-6 space-y-6">
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-              <h3 className="font-bold text-red-800 text-lg mb-3">
+              <h3 className="font-medium text-red-800 text-lg mb-3">
                 🔒 Federal Law Requires Parental Consent
               </h3>
               <div className="space-y-3 text-red-700">
-                <p className="font-semibold">
+                <p className="font-medium">
                   The Children's Online Privacy Protection Act (COPPA) requires verifiable parental 
                   consent for users under 18 using mental health applications.
                 </p>
@@ -456,7 +456,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
             </div>
 
             <div className="space-y-4">
-              <h4 className="font-bold text-gray-900">Parent/Guardian Information:</h4>
+              <h4 className="font-medium text-gray-900">Parent/Guardian Information:</h4>
               
               <div className="grid gap-4">
                 <div>
@@ -567,7 +567,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
             <div className="w-16 h-16 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
               <span className="text-3xl">⚠️</span>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               Privacy Compliance Issue
             </h2>
             <div className="space-y-2 text-sm text-gray-600 mb-6">
@@ -597,7 +597,7 @@ export default function UniversalAgeVerificationGate({ children }: UniversalAgeV
           <div className="w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full flex items-center justify-center">
             <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full"></div>
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">
+          <h2 className="text-xl font-medium text-gray-900 mb-2">
             Verifying Privacy Compliance
           </h2>
           <p className="text-gray-600 text-sm">

@@ -113,7 +113,7 @@ const ActivityCorrelationCard: React.FC<{ correlation: ActivityCorrelation }> = 
           </div>
         </div>
         <div className="text-right">
-          <div className="text-lg font-bold text-sage-800">
+          <div className="text-lg font-medium text-sage-800">
             {correlation.averageMoodWhenPresent.toFixed(1)}
           </div>
           <div className="text-xs text-sage-500">avg mood</div>

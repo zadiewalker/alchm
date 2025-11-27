@@ -246,11 +246,11 @@ export class TraumaInformedErrorBoundary extends Component<Props, State> {
                   Technical details (development only)
                 </summary>
                 <div className="mt-2 p-4 bg-sanctuary-gray-50 rounded text-xs font-mono text-sanctuary-gray-700">
-                  <div className="font-bold mb-2">Error:</div>
+                  <div className="font-medium mb-2">Error:</div>
                   <div className="mb-4">{this.state.error.message}</div>
                   {this.state.error.stack && (
                     <>
-                      <div className="font-bold mb-2">Stack Trace:</div>
+                      <div className="font-medium mb-2">Stack Trace:</div>
                       <pre className="whitespace-pre-wrap text-xs">
                         {this.state.error.stack.substring(0, 1000)}
                       </pre>

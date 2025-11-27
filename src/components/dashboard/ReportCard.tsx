@@ -377,7 +377,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
           </div>
         </div>
         
-        <h3 className="text-ink font-semibold text-xl mb-3 tracking-tight">
+        <h3 className="text-ink font-medium text-xl mb-3 tracking-tight">
           Your Identity Map Is Emerging
         </h3>
         
@@ -459,7 +459,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
           <div>
-            <h3 className="text-ink font-semibold text-2xl mb-1 tracking-tight">
+            <h3 className="text-ink font-medium text-2xl mb-1 tracking-tight">
               Identity Evolution Report
             </h3>
             <p className="text-muted text-sm tracking-wide font-medium">
@@ -476,7 +476,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
             <div className={`flex items-center justify-center w-10 h-10 rounded-2xl ${getTrendBg(insights.evolutionTrend)} transition-all duration-300`}>
               <span className={`text-xl font-medium ${getTrendColor(insights.evolutionTrend)}`}>{getTrendIcon(insights.evolutionTrend)}</span>
             </div>
-            <div className={`px-4 py-2 rounded-2xl font-semibold text-sm ${getEvolutionColorClass(insights.overallEvolution)} transition-all duration-300`}>
+            <div className={`px-4 py-2 rounded-2xl font-medium text-sm ${getEvolutionColorClass(insights.overallEvolution)} transition-all duration-300`}>
               {formatPercentage(insights.overallEvolution)}%
             </div>
           </div>
@@ -492,12 +492,12 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
           ].map((metric, index) => (
             <div key={index} className="group/metric bg-sage-50/30 hover:bg-sage-50/50 p-4 rounded-2xl border border-sage-100/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-0.5">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-muted text-xs font-semibold tracking-wide uppercase">
+                <span className="text-muted text-xs font-medium tracking-wide uppercase">
                   {metric.label}
                 </span>
                 <div className="w-2 h-2 rounded-full bg-sage-200 group-hover/metric:bg-sage-300 transition-colors duration-200" />
               </div>
-              <div className={`text-2xl font-bold tracking-tight ${metric.value >= 0.8 ? 'text-sage-600' : metric.value >= 0.6 ? 'text-amber-600' : 'text-rose-500'}`}>
+              <div className={`text-2xl font-medium tracking-tight ${metric.value >= 0.8 ? 'text-sage-600' : metric.value >= 0.6 ? 'text-amber-600' : 'text-rose-500'}`}>
                 {formatPercentage(metric.value)}%
               </div>
             </div>
@@ -507,17 +507,17 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
         {/* Evolution Insights */}
         {evolutionInsights.length > 0 && (
           <div className="mb-8">
-            <h4 className="text-ink font-semibold text-sm mb-4 tracking-wide uppercase">
+            <h4 className="text-ink font-medium text-sm mb-4 tracking-wide uppercase">
               Recent Evolution Insights
             </h4>
             <div className="space-y-3">
               {evolutionInsights.slice(0, 2).map((insight, index) => (
                 <div key={index} className="group/insight bg-gradient-to-r from-sage-50/30 to-sage-100/20 p-4 rounded-2xl border border-sage-100/60 hover:shadow-soft transition-all duration-300">
                   <div className="flex items-start justify-between mb-2">
-                    <h5 className="text-ink font-semibold text-sm tracking-tight">
+                    <h5 className="text-ink font-medium text-sm tracking-tight">
                       {insight.title}
                     </h5>
-                    <div className={`px-2 py-1 rounded-lg text-xs font-semibold ${
+                    <div className={`px-2 py-1 rounded-lg text-xs font-medium ${
                       insight.type === 'breakthrough' ? 'bg-purple-100 text-purple-700' :
                       insight.type === 'integration' ? 'bg-blue-100 text-blue-700' :
                       insight.type === 'gift_activation' ? 'bg-amber-100 text-amber-700' :
@@ -543,7 +543,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
               <div className="w-3 h-3 bg-sage-400 rounded-full animate-gentle-pulse" />
             </div>
             <div>
-              <div className="text-ink font-semibold text-base tracking-tight">
+              <div className="text-ink font-medium text-base tracking-tight">
                 {insights.streakDays} day streak
               </div>
               <div className="text-muted text-xs font-medium">
@@ -552,7 +552,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
             </div>
           </div>
           
-          <div className={`px-3 py-1.5 rounded-xl text-xs font-semibold ${getTrendColor(insights.evolutionTrend)} ${getTrendBg(insights.evolutionTrend)} border transition-all duration-200 ${
+          <div className={`px-3 py-1.5 rounded-xl text-xs font-medium ${getTrendColor(insights.evolutionTrend)} ${getTrendBg(insights.evolutionTrend)} border transition-all duration-200 ${
             insights.evolutionTrend === 'accelerating' ? 'border-purple-200' : 
             insights.evolutionTrend === 'steady' ? 'border-sage-200' :
             insights.evolutionTrend === 'integrating' ? 'border-blue-200' :
@@ -565,7 +565,7 @@ export default function ReportCard({ timeframe = 'month', variant = 'compact' }:
         {/* Action Button - Crisis-Optimized Navigation */}
         <CrisisOptimizedButton
           href="/analytics"
-          className="block w-full py-4 text-center bg-gradient-to-r from-sage-50 to-sage-100/80 hover:from-sage-100 hover:to-sage-200/80 text-sage-700 hover:text-sage-800 rounded-2xl text-sm font-semibold border border-sage-200 hover:border-sage-300 transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 tracking-wide group/btn"
+          className="block w-full py-4 text-center bg-gradient-to-r from-sage-50 to-sage-100/80 hover:from-sage-100 hover:to-sage-200/80 text-sage-700 hover:text-sage-800 rounded-2xl text-sm font-medium border border-sage-200 hover:border-sage-300 transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 tracking-wide group/btn"
         >
           <span className="group-hover/btn:tracking-wider transition-all duration-200">Explore Identity Map</span>
         </CrisisOptimizedButton>

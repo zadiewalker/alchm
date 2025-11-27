@@ -205,7 +205,7 @@ const TherapeuticGoalCard: React.FC<{ goal: TherapeuticGoalProgress }> = ({ goal
       <div className="flex items-center justify-between mb-3">
         <h4 className="font-medium text-sage-800">{goal.goalArea}</h4>
         <div className="text-right">
-          <div className="text-lg font-bold text-sage-800">
+          <div className="text-lg font-medium text-sage-800">
             {goal.progressPercentage.toFixed(0)}%
           </div>
           <div className="text-xs text-sage-500">Progress</div>
@@ -472,25 +472,25 @@ export const TherapistSummaryReports: React.FC<TherapistSummaryReportsProps> = (
       {activeSection === 'overview' && (
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-sage-800 mb-1">
+            <div className="text-2xl font-medium text-sage-800 mb-1">
               {reportData.insights.resilience}%
             </div>
             <div className="text-sm text-sage-600">Resilience Score</div>
           </Card>
           <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-sage-800 mb-1">
+            <div className="text-2xl font-medium text-sage-800 mb-1">
               {reportData.insights.emotionalVocabulary}%
             </div>
             <div className="text-sm text-sage-600">Emotional Vocabulary</div>
           </Card>
           <Card className="p-4 text-center">
-            <div className="text-2xl font-bold text-sage-800 mb-1">
+            <div className="text-2xl font-medium text-sage-800 mb-1">
               {reportData.insights.selfAwareness}%
             </div>
             <div className="text-sm text-sage-600">Self-Awareness</div>
           </Card>
           <Card className="p-4 text-center">
-            <div className={`text-2xl font-bold mb-1 ${
+            <div className={`text-2xl font-medium mb-1 ${
               reportData.progress.trend === 'improving' ? 'text-green-600' :
               reportData.progress.trend === 'stable' ? 'text-amber-600' : 'text-red-600'
             }`}>

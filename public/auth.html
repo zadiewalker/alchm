@@ -73,7 +73,53 @@
     .w-5 { width: 1.25rem; }
     .h-5 { height: 1.25rem; }
   </style>
-</head>
+
+<script>
+// ALCHM Emergency Cache Buster - v1763242665984
+(function() {
+  const CURRENT_VERSION = 'v1763242665984';
+  const STORED_VERSION = localStorage.getItem('alchm-version');
+  
+  if (STORED_VERSION !== CURRENT_VERSION) {
+    console.log('🔄 Version change detected, clearing caches');
+    localStorage.setItem('alchm-version', CURRENT_VERSION);
+    
+    // Clear all caches
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('alchm')) caches.delete(name);
+        });
+      });
+    }
+    
+    // Force reload after cache clear
+    setTimeout(() => window.location.reload(true), 100);
+  }
+  
+  // Register emergency service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/emergency-sw.js?v=' + CURRENT_VERSION, {
+      updateViaCache: 'none'
+    }).then(registration => {
+      console.log('✅ Emergency SW registered:', CURRENT_VERSION);
+      
+      // Force update check every 30 seconds
+      setInterval(() => {
+        registration.update();
+      }, 30000);
+      
+      // Listen for SW messages
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data.type === 'FORCE_RELOAD') {
+          window.location.reload(true);
+        }
+      });
+      
+    }).catch(console.error);
+  }
+})();
+</script></head>
 <body class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 gradient-bg">
   <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 container">
     <div class="max-w-md w-full space-y-8 card">

@@ -387,7 +387,7 @@ export default function ResearchCollaboration() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Active Research Studies</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Active Research Studies</h1>
           <p className="text-gray-600">Contribute to evidence-based mental health research</p>
         </div>
         <div className="flex gap-3">
@@ -418,7 +418,7 @@ export default function ResearchCollaboration() {
                     <Microscope className="h-5 w-5 text-blue-600" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{study.title}</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{study.title}</h3>
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
                       <span className="flex items-center gap-1">
                         <Building2 className="h-4 w-4" />
@@ -463,21 +463,21 @@ export default function ResearchCollaboration() {
             {/* Study Metrics */}
             <div className="grid grid-cols-4 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">
+                <div className="text-lg font-medium text-blue-600">
                   {study.participantCount.enrolled}/{study.participantCount.target}
                 </div>
                 <div className="text-xs text-gray-600">Participants</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-emerald-600">{study.participantCount.completed}</div>
+                <div className="text-lg font-medium text-emerald-600">{study.participantCount.completed}</div>
                 <div className="text-xs text-gray-600">Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-purple-600">{study.participatingTherapists}</div>
+                <div className="text-lg font-medium text-purple-600">{study.participatingTherapists}</div>
                 <div className="text-xs text-gray-600">Therapists</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-amber-600">
+                <div className="text-lg font-medium text-amber-600">
                   {Math.round((study.participantCount.enrolled / study.participantCount.target) * 100)}%
                 </div>
                 <div className="text-xs text-gray-600">Enrolled</div>
@@ -557,7 +557,7 @@ export default function ResearchCollaboration() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Research Contributions</h1>
+          <h1 className="text-2xl font-medium text-gray-900">My Research Contributions</h1>
           <p className="text-gray-600">Track your data contributions and research impact</p>
         </div>
         <Button>
@@ -572,7 +572,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-sage-100 rounded-xl w-fit mx-auto mb-3">
             <Users className="h-6 w-6 text-sage-600" />
           </div>
-          <div className="text-2xl font-bold text-sage-700 mb-1">
+          <div className="text-2xl font-medium text-sage-700 mb-1">
             {contributions.reduce((sum, c) => sum + c.clientsEnrolled, 0)}
           </div>
           <div className="text-sm text-sage-600">Clients Enrolled</div>
@@ -582,7 +582,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-blue-100 rounded-xl w-fit mx-auto mb-3">
             <Database className="h-6 w-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-700 mb-1">
+          <div className="text-2xl font-medium text-blue-700 mb-1">
             {contributions.reduce((sum, c) => sum + c.dataPointsContributed, 0)}
           </div>
           <div className="text-sm text-blue-600">Data Points</div>
@@ -592,7 +592,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-emerald-100 rounded-xl w-fit mx-auto mb-3">
             <BookOpen className="h-6 w-6 text-emerald-600" />
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mb-1">2</div>
+          <div className="text-2xl font-medium text-emerald-700 mb-1">2</div>
           <div className="text-sm text-emerald-600">Active Studies</div>
         </Card>
 
@@ -600,7 +600,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-purple-100 rounded-xl w-fit mx-auto mb-3">
             <Award className="h-6 w-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-700 mb-1">27</div>
+          <div className="text-2xl font-medium text-purple-700 mb-1">27</div>
           <div className="text-sm text-purple-600">CE Credits Earned</div>
         </Card>
       </div>
@@ -615,7 +615,7 @@ export default function ResearchCollaboration() {
             <Card key={contribution.studyId} className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{study.title}</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">{study.title}</h3>
                   <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                     <span>Last contribution: {contribution.lastContribution}</span>
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(contribution.privacy_level)}`}>
@@ -638,19 +638,19 @@ export default function ResearchCollaboration() {
 
               <div className="grid md:grid-cols-4 gap-4 mb-4">
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <div className="text-lg font-bold text-blue-700">{contribution.clientsEnrolled}</div>
+                  <div className="text-lg font-medium text-blue-700">{contribution.clientsEnrolled}</div>
                   <div className="text-xs text-blue-600">Clients Enrolled</div>
                 </div>
                 <div className="text-center p-3 bg-emerald-50 rounded-lg">
-                  <div className="text-lg font-bold text-emerald-700">{contribution.dataPointsContributed}</div>
+                  <div className="text-lg font-medium text-emerald-700">{contribution.dataPointsContributed}</div>
                   <div className="text-xs text-emerald-600">Data Points</div>
                 </div>
                 <div className="text-center p-3 bg-purple-50 rounded-lg">
-                  <div className="text-lg font-bold text-purple-700 capitalize">{contribution.contributionType.replace('-', ' ')}</div>
+                  <div className="text-lg font-medium text-purple-700 capitalize">{contribution.contributionType.replace('-', ' ')}</div>
                   <div className="text-xs text-purple-600">Contribution Type</div>
                 </div>
                 <div className="text-center p-3 bg-amber-50 rounded-lg">
-                  <div className="text-lg font-bold text-amber-700">{contribution.compensation.earned || contribution.compensation.amount}</div>
+                  <div className="text-lg font-medium text-amber-700">{contribution.compensation.earned || contribution.compensation.amount}</div>
                   <div className="text-xs text-amber-600 capitalize">{contribution.compensation.type}</div>
                 </div>
               </div>
@@ -678,7 +678,7 @@ export default function ResearchCollaboration() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Research Publications</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Research Publications</h1>
           <p className="text-gray-600">Collaborative research outputs and academic contributions</p>
         </div>
         <Button>
@@ -697,7 +697,7 @@ export default function ResearchCollaboration() {
                     <FileText className="h-5 w-5 text-emerald-600" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{publication.title}</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{publication.title}</h3>
                     <div className="flex items-center gap-4 text-sm text-gray-600 mb-2">
                       <span className="font-medium">{publication.journal}</span>
                       {publication.impactFactor && (
@@ -801,7 +801,7 @@ export default function ResearchCollaboration() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Collaboration Opportunities</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Collaboration Opportunities</h1>
           <p className="text-gray-600">Discover research partnerships and funding opportunities</p>
         </div>
         <Button>
@@ -821,7 +821,7 @@ export default function ResearchCollaboration() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">{opportunity.title}</h3>
+                      <h3 className="text-lg font-medium text-gray-900">{opportunity.title}</h3>
                       <div className="flex items-center gap-1 px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">
                         <Star className="h-3 w-3" />
                         {opportunity.match_score}% match
@@ -916,7 +916,7 @@ export default function ResearchCollaboration() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Research Analytics</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Research Analytics</h1>
           <p className="text-gray-600">Platform-wide research insights and trends</p>
         </div>
         <Button>
@@ -931,7 +931,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-sage-100 rounded-xl w-fit mx-auto mb-3">
             <Microscope className="h-6 w-6 text-sage-600" />
           </div>
-          <div className="text-2xl font-bold text-sage-700 mb-1">147</div>
+          <div className="text-2xl font-medium text-sage-700 mb-1">147</div>
           <div className="text-sm text-sage-600">Active Studies</div>
           <div className="text-xs text-sage-500 mt-1">+12 this quarter</div>
         </Card>
@@ -940,7 +940,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-blue-100 rounded-xl w-fit mx-auto mb-3">
             <Users className="h-6 w-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-700 mb-1">2,847</div>
+          <div className="text-2xl font-medium text-blue-700 mb-1">2,847</div>
           <div className="text-sm text-blue-600">Research Participants</div>
           <div className="text-xs text-blue-500 mt-1">89% retention rate</div>
         </Card>
@@ -949,7 +949,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-emerald-100 rounded-xl w-fit mx-auto mb-3">
             <FileText className="h-6 w-6 text-emerald-600" />
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mb-1">234</div>
+          <div className="text-2xl font-medium text-emerald-700 mb-1">234</div>
           <div className="text-sm text-emerald-600">Publications</div>
           <div className="text-xs text-emerald-500 mt-1">67% open access</div>
         </Card>
@@ -958,7 +958,7 @@ export default function ResearchCollaboration() {
           <div className="p-3 bg-purple-100 rounded-xl w-fit mx-auto mb-3">
             <Award className="h-6 w-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-700 mb-1">$18.2M</div>
+          <div className="text-2xl font-medium text-purple-700 mb-1">$18.2M</div>
           <div className="text-sm text-purple-600">Research Funding</div>
           <div className="text-xs text-purple-500 mt-1">From 47 grants</div>
         </Card>
@@ -971,14 +971,14 @@ export default function ResearchCollaboration() {
             <TrendingUp className="h-6 w-6 text-emerald-600" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Research Impact Metrics</h3>
+            <h3 className="text-lg font-medium text-gray-900">Research Impact Metrics</h3>
             <p className="text-sm text-gray-600">Platform contributions to mental health research</p>
           </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center p-4 bg-blue-50 rounded-lg">
-            <div className="text-3xl font-bold text-blue-700 mb-2">23%</div>
+            <div className="text-3xl font-medium text-blue-700 mb-2">23%</div>
             <div className="text-sm font-medium text-blue-600 mb-1">Faster Recovery</div>
             <div className="text-xs text-blue-500">
               With AI-assisted interventions vs. control groups
@@ -986,7 +986,7 @@ export default function ResearchCollaboration() {
           </div>
           
           <div className="text-center p-4 bg-emerald-50 rounded-lg">
-            <div className="text-3xl font-bold text-emerald-700 mb-2">4.7x</div>
+            <div className="text-3xl font-medium text-emerald-700 mb-2">4.7x</div>
             <div className="text-sm font-medium text-emerald-600 mb-1">Higher Engagement</div>
             <div className="text-xs text-emerald-500">
               Compared to traditional journaling methods
@@ -994,7 +994,7 @@ export default function ResearchCollaboration() {
           </div>
           
           <div className="text-center p-4 bg-purple-50 rounded-lg">
-            <div className="text-3xl font-bold text-purple-700 mb-2">67%</div>
+            <div className="text-3xl font-medium text-purple-700 mb-2">67%</div>
             <div className="text-sm font-medium text-purple-600 mb-1">Crisis Prevention</div>
             <div className="text-xs text-purple-500">
               Effective early warning system accuracy
@@ -1010,7 +1010,7 @@ export default function ResearchCollaboration() {
             <Shield className="h-6 w-6 text-red-600" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Ethical Research Standards</h3>
+            <h3 className="text-lg font-medium text-gray-900">Ethical Research Standards</h3>
             <p className="text-sm text-gray-600">Our commitment to responsible research practices</p>
           </div>
         </div>
@@ -1081,7 +1081,7 @@ export default function ResearchCollaboration() {
             <Microscope className="h-8 w-8 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Research Collaboration</h1>
+            <h1 className="text-3xl font-medium text-gray-900 mb-1">Research Collaboration</h1>
             <p className="text-gray-600">Advancing evidence-based mental health care through research</p>
           </div>
         </div>

@@ -188,7 +188,7 @@ export function CrisisEscalationDashboard() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Crisis Escalation Command Center</h1>
+          <h1 className="text-3xl font-medium text-gray-900 mb-2">Crisis Escalation Command Center</h1>
           <p className="text-gray-600">Real-time monitoring and coordination of emergency interventions</p>
         </div>
 
@@ -199,7 +199,7 @@ export function CrisisEscalationDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Active Events</p>
-                  <p className="text-3xl font-bold text-red-600">{metrics.totalActiveEvents}</p>
+                  <p className="text-3xl font-medium text-red-600">{metrics.totalActiveEvents}</p>
                 </div>
                 <div className="p-3 bg-red-100 rounded-full">
                   <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +217,7 @@ export function CrisisEscalationDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Avg Response</p>
-                  <p className="text-3xl font-bold text-blue-600">{metrics.averageResponseTime}m</p>
+                  <p className="text-3xl font-medium text-blue-600">{metrics.averageResponseTime}m</p>
                 </div>
                 <div className="p-3 bg-blue-100 rounded-full">
                   <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,7 +231,7 @@ export function CrisisEscalationDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Resolution Rate</p>
-                  <p className="text-3xl font-bold text-green-600">{Math.round(metrics.resolutionRate * 100)}%</p>
+                  <p className="text-3xl font-medium text-green-600">{Math.round(metrics.resolutionRate * 100)}%</p>
                 </div>
                 <div className="p-3 bg-green-100 rounded-full">
                   <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,7 +245,7 @@ export function CrisisEscalationDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Professional Utilization</p>
-                  <p className="text-3xl font-bold text-purple-600">{Math.round(metrics.professionalUtilization * 100)}%</p>
+                  <p className="text-3xl font-medium text-purple-600">{Math.round(metrics.professionalUtilization * 100)}%</p>
                 </div>
                 <div className="p-3 bg-purple-100 rounded-full">
                   <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,7 +262,7 @@ export function CrisisEscalationDashboard() {
           <div className="lg:col-span-2">
             <Card className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Active Crisis Events</h2>
+                <h2 className="text-xl font-medium text-gray-900">Active Crisis Events</h2>
                 <div className="flex space-x-4">
                   <select 
                     value={filterSeverity} 
@@ -359,7 +359,7 @@ export function CrisisEscalationDashboard() {
           <div className="space-y-6">
             {/* Available Professionals */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Available Professionals</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Available Professionals</h3>
               <div className="space-y-3 max-h-64 overflow-y-auto">
                 {professionals.filter(p => p.status === 'available').map((professional) => (
                   <div key={professional.id} className="bg-green-50 border border-green-200 rounded-lg p-3">
@@ -383,7 +383,7 @@ export function CrisisEscalationDashboard() {
 
             {/* Busy Professionals */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Busy Professionals</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Busy Professionals</h3>
               <div className="space-y-3 max-h-48 overflow-y-auto">
                 {professionals.filter(p => p.status !== 'available' && p.status !== 'offline').map((professional) => (
                   <div key={professional.id} className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
@@ -405,7 +405,7 @@ export function CrisisEscalationDashboard() {
 
             {/* Crisis Resources */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Crisis Resources</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Crisis Resources</h3>
               <div className="space-y-3">
                 {resources.map((resource) => (
                   <div key={resource.id} className="bg-white border border-gray-200 rounded-lg p-3">
@@ -436,7 +436,7 @@ export function CrisisEscalationDashboard() {
         {selectedEvent && (
           <div className="mt-8">
             <Card className="p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              <h3 className="text-xl font-medium text-gray-900 mb-4">
                 Crisis Event Details - {selectedEvent.id}
               </h3>
               

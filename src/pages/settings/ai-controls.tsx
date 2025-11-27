@@ -302,7 +302,7 @@ function AIControlsHeader({ preferences, onEmergencyOptOut }: AIControlsHeaderPr
         <div className="flex items-center justify-center gap-gentle">
           <span className="text-2xl">{getStatusIcon()}</span>
           <div>
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Current Level: {preferences.interactionLevel.charAt(0).toUpperCase() + preferences.interactionLevel.slice(1)}
             </SacredText>
             <SacredText variant="caption" className={`text-sm ${getStatusColor()}`}>
@@ -397,7 +397,7 @@ function AIControlsSidebar({ preferences, controller, onShowOptOut }: AIControls
       {/* Quick Status */}
       <SacredCard variant="gentle">
         <div className="space-y-breath">
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             Quick Status
           </SacredText>
           
@@ -423,7 +423,7 @@ function AIControlsSidebar({ preferences, controller, onShowOptOut }: AIControls
       {/* Quick Actions */}
       <SacredCard variant="gentle">
         <div className="space-y-breath">
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             Quick Actions
           </SacredText>
           
@@ -470,7 +470,7 @@ function AIControlsSidebar({ preferences, controller, onShowOptOut }: AIControls
       {/* Help & Support */}
       <SacredCard variant="gentle">
         <div className="space-y-breath">
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             Help & Support
           </SacredText>
           

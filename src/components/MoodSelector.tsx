@@ -331,7 +331,7 @@ export function MoodSelector({
               
               {/* Mood name */}
               <div 
-                className={`text-sm font-semibold text-center transition-colors duration-200 ${
+                className={`text-sm font-medium text-center transition-colors duration-200 ${
                   isSelected || isHovered ? 'text-white' : 'text-sanctuary-gray-700'
                 }`}
               >

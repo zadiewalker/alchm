@@ -37,7 +37,7 @@ export default function UserFeedback() {
       <Card className="p-6 max-w-md mx-auto">
         <div className="text-center">
           <div className="text-2xl mb-2">🙏</div>
-          <h3 className="text-lg font-semibold mb-2">Thank you!</h3>
+          <h3 className="text-lg font-medium mb-2">Thank you!</h3>
           <p className="text-sm text-[var(--ink-mute)] mb-4">
             Your feedback helps us create a better space for reflection.
           </p>
@@ -56,7 +56,7 @@ export default function UserFeedback() {
     <Card className="p-6 max-w-md mx-auto">
       <div className="text-center mb-4">
         <div className="text-2xl mb-2">💭</div>
-        <h3 className="text-lg font-semibold mb-2">How was your experience?</h3>
+        <h3 className="text-lg font-medium mb-2">How was your experience?</h3>
         <p className="text-sm text-[var(--ink-mute)]">
           Help us improve ALCHM with your thoughts
         </p>

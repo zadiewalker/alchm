@@ -29,6 +29,10 @@ import { edgeCrisisSafetyMiddleware } from './src/middleware/crisis-safety-middl
 export async function middleware(req: NextRequest) {
   const startTime = Date.now();
   const { pathname, search } = req.nextUrl;
+  
+  // EMERGENCY: Get user agent once and reuse throughout middleware
+  const userAgent = req.headers.get('user-agent')?.toLowerCase() || '';
+  const isMobile = userAgent.includes('mobile') || userAgent.includes('android') || userAgent.includes('iphone') || userAgent.includes('ipad');
   const sessionCookie = req.cookies.get('alchm_session')?.value;
 
   // CRITICAL: Crisis safety middleware intercepts ALL interactions FIRST
@@ -61,6 +65,21 @@ export async function middleware(req: NextRequest) {
   } catch (error) {
     // FAILSAFE: Never let crisis safety middleware failure break the app
     console.error('Crisis safety middleware error - continuing with standard flow', error);
+  }
+
+  // EMERGENCY: Mobile Age Verification Fallback Detection (using already declared userAgent)
+  
+  // Check if this is an age verification request that might fail on mobile
+  if (isMobile && (pathname.includes('/auth/signup') || pathname.includes('/auth/login') || pathname === '/')) {
+    // Check for JavaScript error indicators in headers or if this is a mobile browser known to have issues
+    const hasJSErrors = req.headers.get('x-js-error') === 'true';
+    const isProblematicBrowser = userAgent.includes('chrome') && userAgent.includes('mobile');
+    
+    // If we detect potential mobile issues, redirect to emergency fallback
+    if (hasJSErrors || isProblematicBrowser) {
+      const emergencyUrl = new URL('/emergency-age-verification.html', req.url);
+      return NextResponse.redirect(emergencyUrl, 307);
+    }
   }
 
   // PRIORITY: Handle panic button immediately
@@ -106,6 +125,9 @@ export async function middleware(req: NextRequest) {
     if (pathname.startsWith('/_next/static/') || pathname.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2)$/)) {
       response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
     }
+    // Add basic security headers to static assets
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('X-Frame-Options', 'DENY');
     return response;
   }
 
@@ -206,9 +228,30 @@ export async function middleware(req: NextRequest) {
   response.headers.set('x-alchm-locale', currentLocale);
   response.headers.set('x-alchm-performance-monitor', 'enabled');
   
-  // Add performance headers for mobile optimization
-  const userAgent = req.headers.get('user-agent')?.toLowerCase() || '';
-  if (userAgent.includes('mobile') || userAgent.includes('android') || userAgent.includes('iphone')) {
+  // SECURITY HEADERS - Comprehensive protection against common attacks
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  
+  // Content Security Policy - Trauma-informed with crisis resource allowances
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://apis.google.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: blob: https:",
+    "connect-src 'self' https://api.openai.com https://*.googleapis.com https://*.firebase.com https://*.firebaseapp.com https://*.cloudfunctions.net",
+    "frame-src 'self' https://www.google.com https://apis.google.com",
+    "form-action 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'"
+  ].join('; ');
+  response.headers.set('Content-Security-Policy', csp);
+  
+  // Add performance headers for mobile optimization (using already declared userAgent and isMobile)
+  if (isMobile) {
     response.headers.set('x-mobile-optimized', 'true');
     response.headers.set('x-mobile-performance', 'priority');
   }

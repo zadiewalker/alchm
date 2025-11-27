@@ -85,35 +85,37 @@ function CrisisFloatingButton() {
             // Additional haptic on touch for mobile reassurance
             if (navigator.vibrate) navigator.vibrate(15);
           }}
-          className={`touch-target-large crisis-accessible ${pulseAnimation ? 'animate-gentle-pulse' : ''}`}
+          className={`touch-target-large crisis-accessible ${pulseAnimation ? 'animate-sacred-pulse' : ''}`}
           style={{
-            width: '80px', // Increased from 60px for trauma-informed accessibility
-            height: '80px',
-            background: 'linear-gradient(145deg, #a4b792 0%, #8ea876 100%)',
-            border: '3px solid rgba(255, 255, 255, 0.8)', // High contrast for crisis visibility
+            width: '84px', // Luxury proportions - golden ratio derived
+            height: '84px',
+            background: 'linear-gradient(135deg, #a4b792 0%, #8fa37c 35%, #7a8c6a 100%)',
+            border: '2px solid rgba(255, 255, 255, 0.9)', // Premium clarity
             borderRadius: '50%',
-            boxShadow: '0 8px 32px rgba(164, 183, 146, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)',
-            backdropFilter: 'blur(20px)',
+            boxShadow: '0 12px 40px rgba(164, 183, 146, 0.35), 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(24px) saturate(120%)',
             color: 'white',
             cursor: 'pointer',
-            transition: 'all 0.3s ease',
+            transition: 'all 280ms cubic-bezier(0.4, 0, 0.2, 1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
             overflow: 'hidden',
-            // Ensure visibility in crisis - reduced to not block sign-in
             zIndex: 30,
-            // Prevent accidental scrolling
-            touchAction: 'manipulation'
+            touchAction: 'manipulation',
+            // Luxury hover preparation
+            transformStyle: 'preserve-3d'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 16px 48px rgba(164, 183, 146, 0.5), 0 4px 16px rgba(0, 0, 0, 0.2)';
+            e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
+            e.currentTarget.style.boxShadow = '0 20px 56px rgba(164, 183, 146, 0.45), 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.4)';
+            e.currentTarget.style.background = 'linear-gradient(135deg, #8fa37c 0%, #7a8c6a 35%, #677358 100%)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            e.currentTarget.style.boxShadow = '0 8px 32px rgba(164, 183, 146, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15)';
+            e.currentTarget.style.boxShadow = '0 12px 40px rgba(164, 183, 146, 0.35), 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3)';
+            e.currentTarget.style.background = 'linear-gradient(135deg, #a4b792 0%, #8fa37c 35%, #7a8c6a 100%)';
           }}
           onFocus={(e) => {
             e.currentTarget.style.outline = 'none';
@@ -170,7 +172,7 @@ function CrisisFloatingButton() {
               </div>
               <h3 style={{
                 fontSize: 'var(--text-xl)',
-                fontWeight: 'var(--font-semibold)',
+                fontWeight: 'var(--font-medium)',
                 color: 'var(--color-primary-dark)',
                 marginBottom: 'var(--space-whisper)',
                 letterSpacing: 'var(--tracking-wide)'

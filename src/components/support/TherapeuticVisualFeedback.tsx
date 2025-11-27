@@ -729,7 +729,7 @@ export function TherapeuticVisualFeedback({
           
           <CardContent className="text-center space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800 mb-2">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800 mb-2">
                 {traumaInformedMessage}
               </h3>
               {supportLevel !== 'minimal' && (

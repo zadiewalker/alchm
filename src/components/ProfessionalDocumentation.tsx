@@ -362,7 +362,7 @@ export default function ProfessionalDocumentation() {
               <TrendingUp className="h-6 w-6 text-green-600" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-green-600">87%</div>
+          <div className="text-2xl font-medium text-green-600">87%</div>
           <div className="text-sm text-gray-600">Overall Progress</div>
           <div className="text-xs text-green-600 mt-1">↑ 12% this month</div>
         </Card>
@@ -373,7 +373,7 @@ export default function ProfessionalDocumentation() {
               <Brain className="h-6 w-6 text-blue-600" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-blue-600">7.2</div>
+          <div className="text-2xl font-medium text-blue-600">7.2</div>
           <div className="text-sm text-gray-600">EI Score</div>
           <div className="text-xs text-blue-600 mt-1">↑ 1.1 improvement</div>
         </Card>
@@ -384,7 +384,7 @@ export default function ProfessionalDocumentation() {
               <Target className="h-6 w-6 text-purple-600" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-purple-600">5</div>
+          <div className="text-2xl font-medium text-purple-600">5</div>
           <div className="text-sm text-gray-600">Active Goals</div>
           <div className="text-xs text-purple-600 mt-1">2 near completion</div>
         </Card>
@@ -395,7 +395,7 @@ export default function ProfessionalDocumentation() {
               <Shield className="h-6 w-6 text-yellow-600" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-yellow-600">92%</div>
+          <div className="text-2xl font-medium text-yellow-600">92%</div>
           <div className="text-sm text-gray-600">Crisis Prevention</div>
           <div className="text-xs text-yellow-600 mt-1">Excellent early warning</div>
         </Card>
@@ -404,7 +404,7 @@ export default function ProfessionalDocumentation() {
       {/* Progress Metrics */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold">Progress Metrics</h2>
+          <h2 className="text-xl font-medium">Progress Metrics</h2>
           <div className="flex gap-2">
             <Button variant="outline" size="sm">
               <BarChart3 className="h-4 w-4 mr-2" />
@@ -441,7 +441,7 @@ export default function ProfessionalDocumentation() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-semibold">
+                <div className="text-lg font-medium">
                   {Math.round((metric.currentValue / metric.target) * 100)}%
                 </div>
                 <div className="text-xs text-gray-500">of target</div>
@@ -453,7 +453,7 @@ export default function ProfessionalDocumentation() {
 
       {/* Recent Activity */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
+        <h2 className="text-xl font-medium mb-4">Recent Activity</h2>
         <div className="space-y-3">
           <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
             <CheckCircle className="h-5 w-5 text-blue-600" />
@@ -490,7 +490,7 @@ export default function ProfessionalDocumentation() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Therapeutic Notes</h1>
+          <h1 className="text-2xl font-medium">Therapeutic Notes</h1>
           <p className="text-gray-600">Professional-grade session documentation</p>
         </div>
         <Button>
@@ -505,7 +505,7 @@ export default function ProfessionalDocumentation() {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-lg font-semibold">{note.date}</h2>
+                  <h2 className="text-lg font-medium">{note.date}</h2>
                   <Badge variant="outline" className="capitalize">
                     {note.sessionType.replace('-', ' ')}
                   </Badge>
@@ -541,23 +541,23 @@ export default function ProfessionalDocumentation() {
             {/* Mood Metrics */}
             <div className="grid grid-cols-5 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
               <div className="text-center">
-                <div className="text-lg font-semibold text-blue-600">{note.mood}/10</div>
+                <div className="text-lg font-medium text-blue-600">{note.mood}/10</div>
                 <div className="text-xs text-gray-600">Mood</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-red-600">{note.anxiety}/10</div>
+                <div className="text-lg font-medium text-red-600">{note.anxiety}/10</div>
                 <div className="text-xs text-gray-600">Anxiety</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-green-600">{note.energy}/10</div>
+                <div className="text-lg font-medium text-green-600">{note.energy}/10</div>
                 <div className="text-xs text-gray-600">Energy</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-yellow-600">{note.hopefulness}/10</div>
+                <div className="text-lg font-medium text-yellow-600">{note.hopefulness}/10</div>
                 <div className="text-xs text-gray-600">Hope</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold text-purple-600">{note.therapeuticAlliance}/10</div>
+                <div className="text-lg font-medium text-purple-600">{note.therapeuticAlliance}/10</div>
                 <div className="text-xs text-gray-600">Alliance</div>
               </div>
             </div>
@@ -644,7 +644,7 @@ export default function ProfessionalDocumentation() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Professional Reports</h1>
+          <h1 className="text-2xl font-medium">Professional Reports</h1>
           <p className="text-gray-600">Therapeutic-grade documentation and progress summaries</p>
         </div>
         <Button>
@@ -661,7 +661,7 @@ export default function ProfessionalDocumentation() {
               <FileText className="h-8 w-8 text-blue-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Progress Summary</h3>
+          <h3 className="font-medium mb-2">Progress Summary</h3>
           <p className="text-sm text-gray-600 mb-4">
             Comprehensive overview of therapeutic progress and achievements
           </p>
@@ -676,7 +676,7 @@ export default function ProfessionalDocumentation() {
               <Brain className="h-8 w-8 text-green-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">EI Assessment</h3>
+          <h3 className="font-medium mb-2">EI Assessment</h3>
           <p className="text-sm text-gray-600 mb-4">
             Detailed emotional intelligence evaluation with growth recommendations
           </p>
@@ -691,7 +691,7 @@ export default function ProfessionalDocumentation() {
               <Shield className="h-8 w-8 text-purple-600" />
             </div>
           </div>
-          <h3 className="font-semibold mb-2">Crisis Prevention</h3>
+          <h3 className="font-medium mb-2">Crisis Prevention</h3>
           <p className="text-sm text-gray-600 mb-4">
             Early warning system analysis and prevention strategies
           </p>
@@ -705,7 +705,7 @@ export default function ProfessionalDocumentation() {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-semibold">Sample Professional Report</h2>
+            <h2 className="text-xl font-medium">Sample Professional Report</h2>
             <div className="flex items-center gap-3 text-sm text-gray-600 mt-1">
               <span>Generated: March 15, 2024</span>
               <Badge>Therapist-Ready</Badge>
@@ -728,7 +728,7 @@ export default function ProfessionalDocumentation() {
         </div>
 
         <div className="prose max-w-none">
-          <h3 className="text-lg font-semibold mb-3">Executive Summary</h3>
+          <h3 className="text-lg font-medium mb-3">Executive Summary</h3>
           <p className="text-gray-700 mb-4">
             Client demonstrates significant progress in emotional regulation and self-awareness over the past 
             30 days. Notable improvements in crisis prevention capabilities (92% early warning detection) and 
@@ -736,7 +736,7 @@ export default function ProfessionalDocumentation() {
             self-compassion development shows promising trends.
           </p>
 
-          <h3 className="text-lg font-semibold mb-3">Key Findings</h3>
+          <h3 className="text-lg font-medium mb-3">Key Findings</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-1 mb-4">
             <li>Emotional Intelligence Score improved from 6.1 to 7.2 (18% increase)</li>
             <li>Crisis prevention system showing 92% accuracy in early warning detection</li>
@@ -745,7 +745,7 @@ export default function ProfessionalDocumentation() {
             <li>Integration of spiritual meaning-making practices supporting overall resilience</li>
           </ul>
 
-          <h3 className="text-lg font-semibold mb-3">Therapeutic Recommendations</h3>
+          <h3 className="text-lg font-medium mb-3">Therapeutic Recommendations</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-1">
             <li>Continue focus on self-compassion development through targeted interventions</li>
             <li>Explore somatic experiencing techniques for trauma processing</li>
@@ -761,7 +761,7 @@ export default function ProfessionalDocumentation() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Goal Tracking</h1>
+          <h1 className="text-2xl font-medium">Goal Tracking</h1>
           <p className="text-gray-600">Therapeutic and personal development objectives</p>
         </div>
         <Button>
@@ -776,7 +776,7 @@ export default function ProfessionalDocumentation() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-lg font-semibold">{goal.title}</h2>
+                  <h2 className="text-lg font-medium">{goal.title}</h2>
                   <Badge variant={
                     goal.priority === 'high' ? 'destructive' :
                     goal.priority === 'medium' ? 'default' : 'secondary'
@@ -898,7 +898,7 @@ export default function ProfessionalDocumentation() {
   const renderSharing = () => (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-2">Professional Sharing & Integration</h1>
+        <h1 className="text-2xl font-medium mb-2">Professional Sharing & Integration</h1>
         <p className="text-gray-600">
           Securely share your progress with mental health professionals and educational institutions
         </p>
@@ -910,7 +910,7 @@ export default function ProfessionalDocumentation() {
           <div className="flex items-center gap-3 mb-4">
             <Users className="h-8 w-8 text-blue-600" />
             <div>
-              <h2 className="text-lg font-semibold">Therapist Integration</h2>
+              <h2 className="text-lg font-medium">Therapist Integration</h2>
               <p className="text-sm text-gray-600">Share progress with your mental health provider</p>
             </div>
           </div>
@@ -936,7 +936,7 @@ export default function ProfessionalDocumentation() {
           <div className="flex items-center gap-3 mb-4">
             <Building className="h-8 w-8 text-green-600" />
             <div>
-              <h2 className="text-lg font-semibold">Educational Use</h2>
+              <h2 className="text-lg font-medium">Educational Use</h2>
               <p className="text-sm text-gray-600">Export data for research and academic purposes</p>
             </div>
           </div>
@@ -961,7 +961,7 @@ export default function ProfessionalDocumentation() {
 
       {/* Privacy Controls */}
       <Card className="p-6">
-        <h2 className="text-lg font-semibold mb-4">Privacy & Data Control</h2>
+        <h2 className="text-lg font-medium mb-4">Privacy & Data Control</h2>
         
         <div className="grid md:grid-cols-2 gap-6">
           <div>
@@ -1034,7 +1034,7 @@ export default function ProfessionalDocumentation() {
             <FileText className="h-8 w-8 text-blue-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold">Professional Documentation</h1>
+            <h1 className="text-3xl font-medium">Professional Documentation</h1>
             <p className="text-gray-600">Therapeutic-grade progress tracking and reporting</p>
           </div>
         </div>

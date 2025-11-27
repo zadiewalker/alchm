@@ -393,7 +393,7 @@ export default function SecurityAuditDashboard() {
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-medium text-gray-900">
                 Security Audit Dashboard
               </h1>
               <p className="text-gray-600">
@@ -432,7 +432,7 @@ export default function SecurityAuditDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2">
-                <div className="text-3xl font-bold text-gray-900">
+                <div className="text-3xl font-medium text-gray-900">
                   {metrics.overallCompliance.toFixed(1)}%
                 </div>
                 <div className={`px-2 py-1 rounded text-xs font-medium ${
@@ -452,7 +452,7 @@ export default function SecurityAuditDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2">
-                <div className={`text-3xl font-bold ${
+                <div className={`text-3xl font-medium ${
                   metrics.criticalIssues > 0 ? 'text-red-600' : 'text-green-600'
                 }`}>
                   {metrics.criticalIssues}
@@ -474,7 +474,7 @@ export default function SecurityAuditDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-2">
-                <div className={`text-3xl font-bold ${
+                <div className={`text-3xl font-medium ${
                   metrics.activeThreats > 0 ? 'text-red-600' : 'text-green-600'
                 }`}>
                   {metrics.activeThreats}
@@ -493,7 +493,7 @@ export default function SecurityAuditDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-gray-900">
+              <div className="text-3xl font-medium text-gray-900">
                 {metrics.pendingRemediation}
               </div>
             </CardContent>
@@ -504,7 +504,7 @@ export default function SecurityAuditDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg font-semibold">
+              <CardTitle className="text-lg font-medium">
                 Regulatory Compliance Status
               </CardTitle>
             </CardHeader>
@@ -551,7 +551,7 @@ export default function SecurityAuditDashboard() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg font-semibold">
+              <CardTitle className="text-lg font-medium">
                 Security Systems Status
               </CardTitle>
             </CardHeader>
@@ -600,7 +600,7 @@ export default function SecurityAuditDashboard() {
         {/* Alerts */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-lg font-semibold">
+            <CardTitle className="text-lg font-medium">
               Security Alerts ({alerts.filter(a => !a.resolved).length} active)
             </CardTitle>
             <Button 
@@ -670,7 +670,7 @@ export default function SecurityAuditDashboard() {
         {/* Active Reports */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="text-lg font-semibold">
+            <CardTitle className="text-lg font-medium">
               Audit Reports ({activeReports.filter(r => r.status !== 'COMPLETED').length} active)
             </CardTitle>
             <div className="space-x-2">

@@ -250,7 +250,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🔥</div>
               <div>
-                <div className="text-2xl font-bold">{activeStreaksCount}</div>
+                <div className="text-2xl font-medium">{activeStreaksCount}</div>
                 <div className="text-sm opacity-80">Active Streaks</div>
               </div>
             </div>
@@ -260,7 +260,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
             <div className="flex items-center space-x-3">
               <div className="text-3xl">📈</div>
               <div>
-                <div className="text-2xl font-bold">{longestCurrentStreak}</div>
+                <div className="text-2xl font-medium">{longestCurrentStreak}</div>
                 <div className="text-sm opacity-80">Longest Current</div>
               </div>
             </div>
@@ -270,7 +270,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
             <div className="flex items-center space-x-3">
               <div className="text-3xl">💎</div>
               <div>
-                <div className="text-2xl font-bold">{Math.max(...growthStreaks.map(s => s.longestStreak), 0)}</div>
+                <div className="text-2xl font-medium">{Math.max(...growthStreaks.map(s => s.longestStreak), 0)}</div>
                 <div className="text-sm opacity-80">Personal Best</div>
               </div>
             </div>
@@ -280,7 +280,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🏆</div>
               <div>
-                <div className="text-2xl font-bold">{consistencyRewards.length}</div>
+                <div className="text-2xl font-medium">{consistencyRewards.length}</div>
                 <div className="text-sm opacity-80">Rewards Earned</div>
               </div>
             </div>
@@ -289,7 +289,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
 
         {/* Featured active streaks */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔥 Your Active Growth Streaks</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔥 Your Active Growth Streaks</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {growthStreaks
               .filter(s => s.isActive)
@@ -304,7 +304,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
                 >
                   <div className="flex justify-between items-start mb-3">
                     <div>
-                      <h4 className="font-semibold text-gray-800 capitalize">
+                      <h4 className="font-medium text-gray-800 capitalize">
                         {streak.streakType.replace('_', ' ')}
                       </h4>
                       <div className="text-sm text-gray-600">
@@ -312,7 +312,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
                       </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-green-600">{streak.currentStreak}</div>
+                      <div className="text-2xl font-medium text-green-600">{streak.currentStreak}</div>
                       <div className="text-xs text-gray-500">days</div>
                     </div>
                   </div>
@@ -361,7 +361,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
           {activeStreaksCount === 0 && (
             <div className="text-center py-8">
               <div className="text-4xl mb-3">🌱</div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-2">Start Your Growth Journey</h4>
+              <h4 className="text-lg font-medium text-gray-800 mb-2">Start Your Growth Journey</h4>
               <p className="text-gray-600 mb-4">Build consistent habits that support your personal development</p>
               <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                 Start a Streak
@@ -372,7 +372,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
 
         {/* Recent consistency rewards */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🏆 Recent Consistency Rewards</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🏆 Recent Consistency Rewards</h3>
           <div className="space-y-4">
             {consistencyRewards
               .sort((a, b) => b.earnedAt.getTime() - a.earnedAt.getTime())
@@ -389,7 +389,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-yellow-800">{reward.title}</h4>
+                    <h4 className="font-medium text-yellow-800">{reward.title}</h4>
                     <p className="text-sm text-yellow-700">{reward.description}</p>
                     <div className="text-xs text-yellow-600 mt-1">
                       {reward.daysConsistent} days • {reward.earnedAt.toLocaleDateString()}
@@ -407,7 +407,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
         {/* Streak insights preview */}
         {streakInsights.length > 0 && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">💡 Streak Insights</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">💡 Streak Insights</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {streakInsights.slice(0, 4).map((insight) => (
                 <div key={insight.insightId} className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -444,7 +444,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
         {/* Streak management */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-semibold text-gray-800">Manage Your Growth Streaks</h3>
+            <h3 className="text-lg font-medium text-gray-800">Manage Your Growth Streaks</h3>
             <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
               Start New Streak
             </button>
@@ -455,14 +455,14 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
               <div key={streak.streakId} className="border border-gray-200 rounded-lg p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="text-lg font-semibold text-gray-800 capitalize mb-2">
+                    <h4 className="text-lg font-medium text-gray-800 capitalize mb-2">
                       {streak.streakType.replace('_', ' ')} Streak
                     </h4>
                     <p className="text-gray-600">{getStreakDescription(streak.streakType)}</p>
                   </div>
                   
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-green-600 mb-1">{streak.currentStreak}</div>
+                    <div className="text-3xl font-medium text-green-600 mb-1">{streak.currentStreak}</div>
                     <div className="text-sm text-gray-500">current days</div>
                     <div className="text-xs text-gray-400">best: {streak.longestStreak}</div>
                   </div>
@@ -558,7 +558,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
         <div className="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-semibold text-gray-800 capitalize">
+              <h3 className="text-2xl font-medium text-gray-800 capitalize">
                 {selectedStreak.streakType.replace('_', ' ')} Streak
               </h3>
               <button
@@ -573,22 +573,22 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
               {/* Streak overview */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="text-3xl font-bold text-green-600 mb-1">{selectedStreak.currentStreak}</div>
+                  <div className="text-3xl font-medium text-green-600 mb-1">{selectedStreak.currentStreak}</div>
                   <div className="text-sm text-green-700">Current Streak</div>
                 </div>
                 <div className="text-center p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600 mb-1">{selectedStreak.longestStreak}</div>
+                  <div className="text-3xl font-medium text-blue-600 mb-1">{selectedStreak.longestStreak}</div>
                   <div className="text-sm text-blue-700">Personal Best</div>
                 </div>
                 <div className="text-center p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                  <div className="text-3xl font-bold text-purple-600 mb-1">{selectedStreak.totalActiveDays}</div>
+                  <div className="text-3xl font-medium text-purple-600 mb-1">{selectedStreak.totalActiveDays}</div>
                   <div className="text-sm text-purple-700">Total Active Days</div>
                 </div>
               </div>
 
               {/* Upcoming milestones */}
               <div>
-                <h4 className="font-semibold text-gray-800 mb-3">Upcoming Milestones</h4>
+                <h4 className="font-medium text-gray-800 mb-3">Upcoming Milestones</h4>
                 <div className="space-y-3">
                   {getUpcomingMilestones(selectedStreak, streakMilestones).map((milestone, index) => (
                     <div key={index} className="p-4 border border-gray-200 rounded-lg">
@@ -598,7 +598,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
                           <p className="text-sm text-gray-600">{milestone.description}</p>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-bold text-blue-600">{milestone.daysRequired - selectedStreak.currentStreak}</div>
+                          <div className="text-lg font-medium text-blue-600">{milestone.daysRequired - selectedStreak.currentStreak}</div>
                           <div className="text-xs text-gray-500">days to go</div>
                         </div>
                       </div>
@@ -610,7 +610,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
               {/* Streak support */}
               {getStreakSupport(selectedStreak, streakSupport).length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Support & Encouragement</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Support & Encouragement</h4>
                   <div className="space-y-3">
                     {getStreakSupport(selectedStreak, streakSupport).map((support, index) => (
                       <div key={index} className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -646,7 +646,7 @@ const GrowthStreakConsistencyRewards: React.FC<GrowthStreakConsistencyRewardsPro
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Growth Streaks & Consistency
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

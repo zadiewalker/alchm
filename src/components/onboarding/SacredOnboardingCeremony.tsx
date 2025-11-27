@@ -319,7 +319,7 @@ function SacredConsent({ state, setState, onAdvance }: StepProps) {
           <div className="flex items-start gap-gentle">
             <span className="text-xl mt-whisper">🕊️</span>
             <div>
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 This is not therapy
               </SacredText>
               <SacredText variant="caption" className="text-sm text-subtle">
@@ -331,7 +331,7 @@ function SacredConsent({ state, setState, onAdvance }: StepProps) {
           <div className="flex items-start gap-gentle">
             <span className="text-xl mt-whisper">🔒</span>
             <div>
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 Your data is sacred
               </SacredText>
               <SacredText variant="caption" className="text-sm text-subtle">
@@ -343,7 +343,7 @@ function SacredConsent({ state, setState, onAdvance }: StepProps) {
           <div className="flex items-start gap-gentle">
             <span className="text-xl mt-whisper">🌱</span>
             <div>
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 Healing happens in your time
               </SacredText>
               <SacredText variant="caption" className="text-sm text-subtle">
@@ -591,7 +591,7 @@ function KheperaIntroduction({ state, setState, onAdvance }: StepProps) {
             <div className="flex items-start gap-breath">
               <span className="text-2xl">🤝</span>
               <div>
-                <SacredText variant="caption" className="font-semibold">
+                <SacredText variant="caption" className="font-medium">
                   Reflect With Me
                 </SacredText>
                 <SacredText variant="caption" className="text-sm opacity-80">
@@ -618,7 +618,7 @@ function KheperaIntroduction({ state, setState, onAdvance }: StepProps) {
             <div className="flex items-start gap-breath">
               <span className="text-2xl">🕊️</span>
               <div>
-                <SacredText variant="caption" className="font-semibold">
+                <SacredText variant="caption" className="font-medium">
                   Hold Space
                 </SacredText>
                 <SacredText variant="caption" className="text-sm opacity-80">

@@ -242,7 +242,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
               Oracle Tier - $9.99/month
             </Badge>
           </div>
-          <h1 className="text-3xl font-bold mb-2">Comprehensive Transformation Ecosystem</h1>
+          <h1 className="text-3xl font-medium mb-2">Comprehensive Transformation Ecosystem</h1>
           <p className="text-xl text-purple-100 mb-6">
             Professional-grade emotional intelligence development with spiritual depth and community support
           </p>
@@ -266,19 +266,19 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-yellow-400">{transformationProgress.emotionalIntelligence}%</div>
+              <div className="text-2xl font-medium text-yellow-400">{transformationProgress.emotionalIntelligence}%</div>
               <div className="text-sm text-purple-200">Emotional Intelligence</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">{transformationProgress.spiritualGrowth}%</div>
+              <div className="text-2xl font-medium text-blue-400">{transformationProgress.spiritualGrowth}%</div>
               <div className="text-sm text-purple-200">Spiritual Growth</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-400">{transformationProgress.meaningMaking}%</div>
+              <div className="text-2xl font-medium text-green-400">{transformationProgress.meaningMaking}%</div>
               <div className="text-sm text-purple-200">Meaning Making</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-pink-400">{transformationProgress.communityConnection}%</div>
+              <div className="text-2xl font-medium text-pink-400">{transformationProgress.communityConnection}%</div>
               <div className="text-sm text-purple-200">Community Connection</div>
             </div>
           </div>
@@ -293,7 +293,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
             <Card key={category.category} className="p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-3 mb-4">
                 <IconComponent className="h-6 w-6 text-purple-600" />
-                <h3 className="text-lg font-semibold">{category.category}</h3>
+                <h3 className="text-lg font-medium">{category.category}</h3>
               </div>
               <div className="space-y-3">
                 {category.items.slice(0, 2).map((item) => {
@@ -330,7 +330,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-6">
         <MessageCircle className="h-6 w-6 text-purple-600" />
-        <h2 className="text-2xl font-bold">Community Connection Hub</h2>
+        <h2 className="text-2xl font-medium">Community Connection Hub</h2>
       </div>
 
       <div className="grid gap-6">
@@ -348,7 +348,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
                   {connection.type === 'circle' && <Layers className="h-5 w-5" />}
                 </div>
                 <div>
-                  <h3 className="font-semibold">{connection.name}</h3>
+                  <h3 className="font-medium">{connection.name}</h3>
                   <p className="text-sm text-gray-600">{connection.description}</p>
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
       </div>
 
       <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50">
-        <h3 className="font-semibold mb-2">Privacy-First Community</h3>
+        <h3 className="font-medium mb-2">Privacy-First Community</h3>
         <p className="text-sm text-gray-600 mb-4">
           All community connections respect your privacy preferences and therapeutic boundaries. 
           Share only what feels safe and meaningful to your healing journey.
@@ -405,7 +405,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
       <div className="space-y-6">
         <div className="flex items-center gap-3 mb-6">
           <IconComponent className="h-6 w-6 text-purple-600" />
-          <h2 className="text-2xl font-bold">{category.category}</h2>
+          <h2 className="text-2xl font-medium">{category.category}</h2>
         </div>
 
         <div className="grid gap-4">
@@ -419,7 +419,7 @@ export default function OracleTier({ userId, onFeatureAccess }: OracleTierProps)
                     <ItemIcon className="h-6 w-6 text-purple-600" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-lg mb-2">{item.name}</h3>
+                    <h3 className="font-medium text-lg mb-2">{item.name}</h3>
                     <p className="text-gray-600 mb-4">{item.description}</p>
                     <Button variant="outline" size="sm">
                       Access Feature

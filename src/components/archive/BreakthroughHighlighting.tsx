@@ -294,7 +294,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-sage-900 mb-1 flex items-center gap-2">
+          <h2 className="text-xl font-medium text-sage-900 mb-1 flex items-center gap-2">
             <Award className="h-6 w-6 text-sage-600" />
             Breakthrough Moments
           </h2>
@@ -332,14 +332,14 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="p-4 border-sage-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-sage-900">{breakthroughMoments.length}</div>
+            <div className="text-2xl font-medium text-sage-900">{breakthroughMoments.length}</div>
             <div className="text-sm text-sage-600">Total Breakthroughs</div>
           </div>
         </Card>
         
         <Card className="p-4 border-sage-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-medium text-purple-600">
               {breakthroughMoments.filter(m => m.significance === 'major').length}
             </div>
             <div className="text-sm text-sage-600">Major Moments</div>
@@ -348,7 +348,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
         
         <Card className="p-4 border-sage-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-medium text-blue-600">
               {breakthroughMoments.filter(m => m.celebrationLevel === 'transformation').length}
             </div>
             <div className="text-sm text-sage-600">Transformations</div>
@@ -357,7 +357,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
         
         <Card className="p-4 border-sage-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-medium text-green-600">
               {Object.keys(momentsByType).length}
             </div>
             <div className="text-sm text-sage-600">Growth Areas</div>
@@ -412,7 +412,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
                         <Icon className="h-5 w-5 text-sage-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sage-900 group-hover:text-sage-700">
+                        <h3 className="font-medium text-sage-900 group-hover:text-sage-700">
                           {moment.title}
                         </h3>
                         <p className="text-sm text-sage-600 capitalize">{moment.type} breakthrough</p>
@@ -496,7 +496,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
                     })}
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-sage-900 flex items-center gap-2">
+                    <h2 className="text-xl font-medium text-sage-900 flex items-center gap-2">
                       {focusedBreakthrough.title}
                       <span className="text-2xl">{getCelebrationIcon(focusedBreakthrough.celebrationLevel)}</span>
                     </h2>
@@ -521,13 +521,13 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)] space-y-6">
               {/* Description */}
               <div>
-                <h3 className="font-semibold text-sage-900 mb-2">About This Breakthrough</h3>
+                <h3 className="font-medium text-sage-900 mb-2">About This Breakthrough</h3>
                 <p className="text-sage-700">{focusedBreakthrough.description}</p>
               </div>
 
               {/* Journal Entry */}
               <div className="bg-sage-50 rounded-lg p-4">
-                <h3 className="font-semibold text-sage-900 mb-2">Journal Entry</h3>
+                <h3 className="font-medium text-sage-900 mb-2">Journal Entry</h3>
                 <h4 className="font-medium text-sage-800 mb-1">
                   {focusedBreakthrough.entry.title || 'Untitled Entry'}
                 </h4>
@@ -545,7 +545,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
 
               {/* Indicators */}
               <div>
-                <h3 className="font-semibold text-sage-900 mb-3">Breakthrough Indicators</h3>
+                <h3 className="font-medium text-sage-900 mb-3">Breakthrough Indicators</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {focusedBreakthrough.indicators.map((indicator, index) => (
                     <li key={index} className="flex items-center gap-2 text-sage-700">
@@ -558,7 +558,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
 
               {/* Growth Areas */}
               <div>
-                <h3 className="font-semibold text-sage-900 mb-3">Growth Areas</h3>
+                <h3 className="font-medium text-sage-900 mb-3">Growth Areas</h3>
                 <div className="flex flex-wrap gap-2">
                   {focusedBreakthrough.growthAreas.map((area, index) => (
                     <Badge key={index} variant="outline" className="px-3 py-1">
@@ -570,7 +570,7 @@ export function BreakthroughHighlighting({ entries }: BreakthroughHighlightingPr
 
               {/* Emotional Impact */}
               <div>
-                <h3 className="font-semibold text-sage-900 mb-3">Emotional Impact</h3>
+                <h3 className="font-medium text-sage-900 mb-3">Emotional Impact</h3>
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1">
                     {[...Array(10)].map((_, i) => (

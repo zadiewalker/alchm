@@ -321,7 +321,7 @@ I discover I am enough.`,
             <PenTool className="h-12 w-12 text-pink-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Poet's Creative Studio</h1>
+        <h1 className="text-3xl font-medium mb-4">Poet's Creative Studio</h1>
         <p className="text-xl text-gray-600 mb-8">
           Transform your pain into beauty through the alchemy of metaphor and verse
         </p>
@@ -329,7 +329,7 @@ I discover I am enough.`,
 
       {/* Emotion Input */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">What are you feeling right now?</h2>
+        <h2 className="text-xl font-medium mb-4">What are you feeling right now?</h2>
         <div className="space-y-4">
           <textarea
             value={currentEmotion}
@@ -349,7 +349,7 @@ I discover I am enough.`,
 
       {/* Framework Selection */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Choose Your Metaphorical Framework</h2>
+        <h2 className="text-xl font-medium mb-4">Choose Your Metaphorical Framework</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {metaphoricalFrameworks.map((framework) => {
             const IconComponent = framework.icon;
@@ -365,7 +365,7 @@ I discover I am enough.`,
               >
                 <div className="flex items-center gap-3 mb-3">
                   <IconComponent className="h-6 w-6 text-pink-600" />
-                  <h3 className="font-semibold">{framework.name}</h3>
+                  <h3 className="font-medium">{framework.name}</h3>
                 </div>
                 <p className="text-sm text-gray-600 mb-3">{framework.description}</p>
                 
@@ -409,13 +409,13 @@ I discover I am enough.`,
       {generatedPoetry && (
         <Card className="p-8 bg-gradient-to-br from-pink-50 to-purple-50">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">{generatedPoetry.title}</h2>
+            <h2 className="text-2xl font-medium">{generatedPoetry.title}</h2>
             <Badge>{generatedPoetry.stage}</Badge>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="font-semibold mb-3">Your Transformative Poem</h3>
+              <h3 className="font-medium mb-3">Your Transformative Poem</h3>
               <div className="bg-white p-6 rounded-lg italic text-gray-700 leading-relaxed whitespace-pre-line">
                 {generatedPoetry.poem}
               </div>
@@ -446,7 +446,7 @@ I discover I am enough.`,
 
             <div className="space-y-6">
               <div>
-                <h3 className="font-semibold mb-3">Transformational Insights</h3>
+                <h3 className="font-medium mb-3">Transformational Insights</h3>
                 <ul className="space-y-2">
                   {generatedPoetry.insights.map((insight, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -458,7 +458,7 @@ I discover I am enough.`,
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">Metaphorical Framework</h3>
+                <h3 className="font-medium mb-3">Metaphorical Framework</h3>
                 <div className="bg-white p-4 rounded-lg">
                   <p className="text-sm text-gray-600 mb-2">Core Metaphor:</p>
                   <p className="italic text-pink-700">"{generatedPoetry.metaphor}"</p>
@@ -466,7 +466,7 @@ I discover I am enough.`,
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">Integration Guidance</h3>
+                <h3 className="font-medium mb-3">Integration Guidance</h3>
                 <div className="bg-white p-4 rounded-lg">
                   <p className="text-sm">
                     Read this poem when you need to remember that your pain has purpose 
@@ -490,7 +490,7 @@ I discover I am enough.`,
             <Compass className="h-12 w-12 text-purple-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Guided Transformation Prompts</h1>
+        <h1 className="text-3xl font-medium mb-4">Guided Transformation Prompts</h1>
         <p className="text-xl text-gray-600">
           Structured pathways for extracting wisdom and beauty from difficult experiences
         </p>
@@ -516,7 +516,7 @@ I discover I am enough.`,
                 </Button>
               </div>
 
-              <h3 className="text-lg font-semibold mb-3">{prompt.prompt}</h3>
+              <h3 className="text-lg font-medium mb-3">{prompt.prompt}</h3>
               
               <div className="mb-4">
                 <div className="text-sm font-medium text-gray-600 mb-2">
@@ -553,7 +553,7 @@ I discover I am enough.`,
             <BookOpen className="h-12 w-12 text-blue-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Your Poetry Library</h1>
+        <h1 className="text-3xl font-medium mb-4">Your Poetry Library</h1>
         <p className="text-xl text-gray-600">
           A collection of your transformative poems and healing insights
         </p>
@@ -564,7 +564,7 @@ I discover I am enough.`,
           <Card key={session.id} className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h3 className="text-lg font-semibold mb-1">{session.title}</h3>
+                <h3 className="text-lg font-medium mb-1">{session.title}</h3>
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   <span>{session.date}</span>
                   <Badge variant="outline">{session.stage}</Badge>
@@ -669,7 +669,7 @@ I discover I am enough.`,
               <Card key={framework.id} className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <IconComponent className="h-8 w-8 text-purple-600" />
-                  <h2 className="text-xl font-semibold">{framework.name}</h2>
+                  <h2 className="text-xl font-medium">{framework.name}</h2>
                 </div>
                 <p className="text-gray-600 mb-4">{framework.description}</p>
                 

@@ -128,7 +128,7 @@ export default function PWAInstaller() {
                 <span className="text-lg">📱</span>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-sm mb-1">Install ALCHM App</h3>
+                <h3 className="font-medium text-sm mb-1">Install ALCHM App</h3>
                 <p className="text-white/90 text-sm leading-relaxed mb-3">
                   Access your healing space offline. Install ALCHM for a better experience with faster loading and offline journaling.
                 </p>
@@ -171,7 +171,7 @@ export default function PWAInstaller() {
                 <span className="text-lg">🍎</span>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-sm mb-1">Install on iOS</h3>
+                <h3 className="font-medium text-sm mb-1">Install on iOS</h3>
                 <p className="text-white/90 text-sm leading-relaxed mb-2">
                   Tap the share button <span className="font-mono bg-white/20 px-1 rounded">⬆️</span> in Safari, then select "Add to Home Screen"
                 </p>

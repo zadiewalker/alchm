@@ -192,7 +192,7 @@
         <path d="M38 26 Q48 30 45 42 Q42 36 38 42" fill="white" opacity="0.9"/>
       </svg>
     </div>
-    <h1 style="font-size: 2rem; font-weight: 300; margin-bottom: 1rem; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Preparing Your Sanctuary</h1>
+    <h1 style="font-size: 2rem; font-weight: 300; margin-bottom: 1rem; color: white; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Preparing Your Sanctuary</h1>
     <p style="font-size: 1.125rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">Creating your safe space<span class="loading-dots">...</span></p>
     <div style="display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.1); padding: 1rem 1.5rem; border-radius: 16px; backdrop-filter: blur(10px);">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -227,10 +227,20 @@
       </div>
     </div>
     
+    <!-- Navigation Menu -->
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; text-align: center;">
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
+        <a href="/index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Home</a>
+        <a href="/pathways.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pathways</a>
+        <a href="/emotional-report-card.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Report Card</a>
+        <a href="/pricing-premium.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pricing</a>
+      </div>
+    </div>
+    
     <div class="container">
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;">
         <div>
-          <h1 style="font-size: 2rem; font-weight: 300; margin: 0; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Your Sanctuary</h1>
+          <h1 style="font-size: 2rem; font-weight: 300; margin: 0; color: white; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Your Sanctuary</h1>
           <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">Emotional growth journey</p>
         </div>
         <div style="display: flex; gap: 0.5rem;">
@@ -315,8 +325,102 @@
 
   <script>
     function startCheckIn() {
-      // Simulate emotional check-in flow
-      alert('Emotional check-in coming soon! This will be a guided experience with Khepera.');
+      // Create check-in modal instead of alert
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(8px);
+      `;
+      
+      modal.innerHTML = `
+        <div style="
+          background: white;
+          border-radius: 20px;
+          padding: 2rem;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        ">
+          <div style="margin-bottom: 1.5rem;">
+            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #cb997e, #e6a789); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+              <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="4" r="2" fill="white" opacity="0.9"/>
+                <ellipse cx="10" cy="12" rx="3" ry="5" fill="white"/>
+              </svg>
+            </div>
+            <h3 style="color: #2d3748; margin: 0 0 0.5rem 0; font-size: 1.25rem;">💚 How are you feeling today?</h3>
+            <p style="color: #6b7280; margin: 0; font-size: 0.875rem;">Take a moment to check in with yourself</p>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 2rem;">
+            <button onclick="completeCheckIn('😊', 'Great')" style="padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; background: white; cursor: pointer; transition: all 200ms ease; font-size: 0.875rem;">😊<br>Great</button>
+            <button onclick="completeCheckIn('😌', 'Good')" style="padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; background: white; cursor: pointer; transition: all 200ms ease; font-size: 0.875rem;">😌<br>Good</button>
+            <button onclick="completeCheckIn('😐', 'Okay')" style="padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; background: white; cursor: pointer; transition: all 200ms ease; font-size: 0.875rem;">😐<br>Okay</button>
+            <button onclick="completeCheckIn('😔', 'Low')" style="padding: 1rem; border: 2px solid #e5e7eb; border-radius: 12px; background: white; cursor: pointer; transition: all 200ms ease; font-size: 0.875rem;">😔<br>Low</button>
+          </div>
+          
+          <button onclick="closeCheckIn()" style="width: 100%; background: #f3f4f6; border: none; color: #6b7280; padding: 0.75rem; border-radius: 12px; cursor: pointer; font-size: 0.875rem;">Skip for now</button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Add click outside to close
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeCheckIn();
+        }
+      });
+    }
+    
+    function completeCheckIn(emoji, feeling) {
+      // Show success feedback
+      const modal = document.querySelector('div[style*="position: fixed"]');
+      modal.innerHTML = `
+        <div style="
+          background: white;
+          border-radius: 20px;
+          padding: 2rem;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        ">
+          <div style="margin-bottom: 1.5rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">${emoji}</div>
+            <h3 style="color: #2d3748; margin: 0 0 0.5rem 0; font-size: 1.25rem;">✨ Check-in Complete!</h3>
+            <p style="color: #6b7280; margin: 0; font-size: 0.875rem;">You're feeling ${feeling.toLowerCase()} today</p>
+          </div>
+          
+          <div style="background: rgba(164, 183, 146, 0.1); border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;">
+            <p style="color: #a4b792; margin: 0; font-size: 0.875rem; font-weight: 500;">+25 EXP earned! 🌟</p>
+          </div>
+          
+          <button onclick="closeCheckIn()" style="width: 100%; background: #a4b792; border: none; color: white; padding: 0.75rem; border-radius: 12px; cursor: pointer; font-size: 0.875rem;">Continue</button>
+        </div>
+      `;
+      
+      // Auto close after 3 seconds
+      setTimeout(() => {
+        closeCheckIn();
+      }, 3000);
+    }
+    
+    function closeCheckIn() {
+      const modal = document.querySelector('div[style*="position: fixed"]');
+      if (modal) {
+        modal.remove();
+      }
     }
     
     function toggleJournal() {

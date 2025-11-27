@@ -1,726 +1,600 @@
 'use client';
 
-// Force dynamic rendering for this page
-export const dynamic = 'force-dynamic';
-
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { User } from 'firebase/auth';
-import { getFirebaseAuth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { 
+  doc, 
+  getDoc, 
+  collection, 
+  addDoc, 
+  query, 
+  orderBy, 
+  limit, 
+  getDocs,
+  serverTimestamp,
+  onSnapshot
+} from 'firebase/firestore';
 
-// CRISIS-CRITICAL: Ultra-aggressive lazy loading for bundle optimization
-import { Suspense, lazy } from 'react';
-import dynamicImport from 'next/dynamic';
-
-const MedicalDisclaimer = dynamicImport(() => import('@/components/ui/MedicalDisclaimer'), {
-  ssr: false,
-  loading: () => <div className="animate-pulse bg-sanctuary-gray-100 rounded-lg h-16"></div>
-});
-
-// Lazy load CSS imports to reduce initial bundle
-const loadMobileStyles = () => {
-  if (typeof window !== 'undefined') {
-    import('@/styles/mobile-trauma-informed.css');
-    import('@/styles/trauma-informed-animations.css');
-    import('@/styles/mobile-browser-optimizations.css');
-  }
+// ============================================
+// DESIGN TOKENS
+// ============================================
+const COLORS = {
+  sage: '#a4b792',
+  sageDark: '#8fa07d',
+  sageLight: '#c8d4bc',
+  terracotta: '#cb997e',
+  charcoal: '#2e2e2e',
+  offWhite: '#f7f7f2',
+  blush: '#eeddd3',
 };
 
-// EMERGENCY: Progressive loading for non-critical dashboard features
-const EmotionalReportCard = dynamicImport(() => import('@/components/dashboard/EmotionalReportCard'), { 
-  ssr: false,
-  loading: () => (
-    <div className="bg-white rounded-lg p-6 shadow-sm border">
-      <div className="animate-pulse">
-        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-        <div className="h-8 bg-gray-200 rounded w-1/2"></div>
-      </div>
+// ============================================
+// CUSTOM ICONS (No Emojis)
+// ============================================
+const ScarabIcon = ({ size = 32, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <path d="M16 4C12 4 8 7 8 12C8 16 10 20 12 22L16 28L20 22C22 20 24 16 24 12C24 7 20 4 16 4Z" fill={color}/>
+    <ellipse cx="16" cy="14" rx="6" ry="4" fill="white" fillOpacity="0.3"/>
+    <circle cx="14" cy="12" r="1.5" fill="white" fillOpacity="0.8"/>
+    <circle cx="18" cy="12" r="1.5" fill="white" fillOpacity="0.8"/>
+  </svg>
+);
+
+const JournalIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <rect x="4" y="3" width="16" height="18" rx="2" stroke={color} strokeWidth="2" fill="none"/>
+    <line x1="8" y1="9" x2="16" y2="9" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="8" y1="13" x2="16" y2="13" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+    <line x1="8" y1="17" x2="12" y2="17" stroke={color} strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+const PathwayIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M3 12C3 12 7 4 12 4C17 4 21 12 21 12" stroke={color} strokeWidth="2" strokeLinecap="round" fill="none"/>
+    <path d="M3 12C3 12 7 20 12 20C17 20 21 12 21 12" stroke={color} strokeWidth="2" strokeLinecap="round" fill="none"/>
+    <circle cx="12" cy="12" r="2" fill={color}/>
+    <circle cx="6" cy="12" r="1" fill={color} fillOpacity="0.6"/>
+    <circle cx="18" cy="12" r="1" fill={color} fillOpacity="0.6"/>
+  </svg>
+);
+
+const InsightsIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M3 18V12C3 12 5 10 8 10C11 10 13 12 13 12C13 12 15 8 18 8C21 8 21 12 21 12V18" stroke={color} strokeWidth="2" strokeLinecap="round" fill="none"/>
+    <circle cx="8" cy="15" r="1.5" fill={color}/>
+    <circle cx="16" cy="14" r="1.5" fill={color}/>
+  </svg>
+);
+
+const BreatheIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="8" stroke={color} strokeWidth="2" fill="none"/>
+    <circle cx="12" cy="12" r="4" stroke={color} strokeWidth="1.5" fill="none" opacity="0.6"/>
+    <circle cx="12" cy="12" r="1.5" fill={color} opacity="0.8"/>
+    <path d="M12 4V8M12 16V20M20 12H16M8 12H4" stroke={color} strokeWidth="1" strokeLinecap="round" opacity="0.4"/>
+  </svg>
+);
+
+const HeartIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M20.84 4.61C19.32 3.08 17.16 2.84 15.54 3.84C14.84 4.25 14.12 4.92 12 7.58C9.88 4.92 9.16 4.25 8.46 3.84C6.84 2.84 4.68 3.08 3.16 4.61C0.32 7.45 3.26 12.44 12 21.35C20.74 12.44 23.68 7.45 20.84 4.61Z" fill={color}/>
+  </svg>
+);
+
+const ChevronRight = ({ size = 20, color = COLORS.charcoal }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 20 20" fill="none">
+    <path d="M7.5 5L12.5 10L7.5 15" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+// ============================================
+// KHEPERA AI COMPONENT
+// ============================================
+type KheperaMode = 'sage' | 'coach' | 'poet';
+
+interface KheperaMessage {
+  mode: KheperaMode;
+  message: string;
+  prompt?: string;
+}
+
+const KHEPERA_GREETINGS: Record<string, KheperaMessage[]> = {
+  morning: [
+    { mode: 'sage', message: "A new day offers new perspective. What truth are you sitting with this morning?", prompt: "What's one thing you're noticing about yourself today?" },
+    { mode: 'coach', message: "You showed up today. That's the first victory. What's one small thing you can do for yourself?", prompt: "What would make today feel complete?" },
+    { mode: 'poet', message: "The light returns, as it always does. As you will, too.", prompt: "What does the morning light remind you of?" },
+  ],
+  afternoon: [
+    { mode: 'sage', message: "The middle of the day is a threshold. How are you carrying what you've gathered so far?", prompt: "What has surprised you today?" },
+    { mode: 'coach', message: "Check in with yourself. Not to judge—just to notice. How are you, really?", prompt: "On a scale of stillness to storm, where are you right now?" },
+    { mode: 'poet', message: "Afternoon light is forgiving. It softens edges. Perhaps you can soften too.", prompt: "What would you tell your morning self?" },
+  ],
+  evening: [
+    { mode: 'sage', message: "The day is completing its arc. What did it teach you?", prompt: "What's one thing you'd like to release before sleep?" },
+    { mode: 'coach', message: "You made it through another day. That's not small. What are you proud of?", prompt: "Name one thing you did well today." },
+    { mode: 'poet', message: "Night comes not to end, but to hold. Let it hold you.", prompt: "What does rest mean to you tonight?" },
+  ],
+};
+
+const KheperaCompanion = ({ 
+  onPromptSelect 
+}: { 
+  onPromptSelect: (prompt: string) => void;
+}) => {
+  const [currentMessage, setCurrentMessage] = useState<KheperaMessage | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    const timeOfDay = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+    const messages = KHEPERA_GREETINGS[timeOfDay];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    setCurrentMessage(randomMessage);
+  }, []);
+
+  if (!currentMessage) return null;
+
+  const modeColors = {
+    sage: COLORS.sage,
+    coach: COLORS.terracotta,
+    poet: '#8b9dc3',
+  };
+
+  const modeLabels = {
+    sage: 'The Sage',
+    coach: 'The Coach',
+    poet: 'The Poet',
+  };
+
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full p-5 text-left"
+      >
+        <div className="flex items-start gap-4">
+          <div 
+            className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ backgroundColor: `${modeColors[currentMessage.mode]}20` }}
+          >
+            <ScarabIcon size={20} color={modeColors[currentMessage.mode]} />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <span 
+                className="text-xs font-medium px-2 py-1 rounded-full"
+                style={{ 
+                  backgroundColor: `${modeColors[currentMessage.mode]}15`,
+                  color: modeColors[currentMessage.mode]
+                }}
+              >
+                {modeLabels[currentMessage.mode]}
+              </span>
+              <span className="text-sm text-gray-500 font-medium">Khepera</span>
+            </div>
+            <div className="text-gray-700 leading-relaxed">
+              "{currentMessage.message}"
+            </div>
+          </div>
+        </div>
+      </button>
+
+      {/* Expanded State with Prompt */}
+      {isExpanded && currentMessage.prompt && (
+        <div className="px-5 pb-5 border-t border-gray-100">
+          <div className="pt-4">
+            <div className="text-sm font-medium text-gray-600 mb-2">Reflection prompt:</div>
+            <div className="text-sm text-gray-700 italic mb-4">
+              "{currentMessage.prompt}"
+            </div>
+            <button
+              onClick={() => {
+                onPromptSelect(currentMessage.prompt!);
+                setIsExpanded(false);
+              }}
+              className="text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+              style={{ 
+                backgroundColor: modeColors[currentMessage.mode],
+                color: 'white',
+              }}
+            >
+              Write about this
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  )
-});
+  );
+};
 
-// Load analytics only when user scrolls or after delay
-const SanctuaryAnalyticsDashboard = dynamicImport(() => import('@/components/dashboard/SanctuaryAnalyticsDashboard'), { 
-  ssr: false,
-  loading: () => (
-    <div className="bg-white rounded-lg p-6 shadow-sm border">
-      <div className="animate-pulse space-y-4">
-        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        <div className="h-32 bg-gray-200 rounded"></div>
-        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-      </div>
-    </div>
-  )
-});
-
-// Ultra-lightweight privacy toggle
-const QuickPrivacyToggle = dynamicImport(() => import('@/components/privacy/AnalyticsPrivacyControls').then(mod => ({ default: mod.QuickPrivacyToggle })), { 
-  ssr: false,
-  loading: () => <div className="w-12 h-6 bg-gray-200 rounded-full animate-pulse"></div>
-});
-
-// Progressive dashboard sections - commented out for emergency optimization
-// These will be loaded only when needed to reduce initial bundle size
-// const AdvancedAnalytics = dynamicImport(() => import('@/components/dashboard/AdvancedAnalytics'), {
-//   ssr: false,
-//   loading: () => null
-// });
-
-// const PathwayProgress = dynamicImport(() => import('@/components/dashboard/PathwayProgress'), {
-//   ssr: false,
-//   loading: () => null
-// });
-
-// Lazy load performance monitoring utilities
-const loadPerformanceMonitors = () => Promise.all([
-  import('@/lib/mobile-performance-crisis-monitor'),
-  import('@/lib/navigation-performance-monitor'),
-  import('@/lib/crisis-safe-navigation')
-]);
-
-export default function DashboardPage() {
+// ============================================
+// RECENT ENTRIES COMPONENT
+// ============================================
+const RecentEntries = ({ entries }: { entries: any[] }) => {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  
+  if (entries.length === 0) return null;
+
+  const formatDate = (timestamp: any) => {
+    if (!timestamp) return '';
+    const date = timestamp?.toDate?.() || new Date(timestamp);
+    const now = new Date();
+    const diffDays = Math.floor((now.getTime() - date.getTime()) / 86400000);
+    
+    if (diffDays === 0) return 'Today';
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-gray-900">Recent Entries</h3>
+        <button 
+          onClick={() => router.push('/entries')}
+          className="text-xs text-[#a4b792] hover:underline"
+        >
+          View all
+        </button>
+      </div>
+      <div className="space-y-3">
+      {entries.slice(0, 3).map((entry, index) => (
+        <button
+          key={entry.id || index}
+          onClick={() => router.push(`/entries/${entry.id}`)}
+          className="w-full text-left p-4 bg-white rounded-xl hover:shadow-md transition-all"
+        >
+          <div className="text-sm text-gray-700 line-clamp-2 mb-2">
+            {entry.content}
+          </div>
+          <div className="text-xs text-gray-500">
+            {formatDate(entry.createdAt)}
+          </div>
+        </button>
+      ))}
+      </div>
+    </div>
+  );
+};
+
+// ============================================
+// QUICK ACTIONS COMPONENT
+// ============================================
+const QuickActions = () => {
+  const router = useRouter();
+
+  const actions = [
+    {
+      id: 'pathways',
+      icon: PathwayIcon,
+      label: 'Pathways',
+      description: 'Guided healing',
+      route: '/pathways',
+      color: COLORS.sage,
+    },
+    {
+      id: 'breathe',
+      icon: BreatheIcon,
+      label: 'Breathe',
+      description: 'Find calm',
+      route: '/breathe',
+      color: COLORS.terracotta,
+    },
+    {
+      id: 'insights',
+      icon: InsightsIcon,
+      label: 'Insights',
+      description: 'Your patterns',
+      route: '/insights',
+      color: COLORS.sage,
+    },
+  ];
+
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      {actions.map((action) => (
+        <button
+          key={action.id}
+          onClick={() => router.push(action.route)}
+          className="flex flex-col items-center p-4 bg-white rounded-2xl hover:shadow-md transition-all active:scale-[0.98]"
+        >
+          <div 
+            className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
+            style={{ backgroundColor: `${action.color}15` }}
+          >
+            <action.icon size={24} color={action.color} />
+          </div>
+          <div className="text-sm font-medium text-gray-900">{action.label}</div>
+          <div className="text-xs text-gray-500">{action.description}</div>
+        </button>
+      ))}
+    </div>
+  );
+};
+
+// ============================================
+// MAIN DASHBOARD COMPONENT
+// ============================================
+export default function Dashboard() {
+  const router = useRouter();
+  
+  // State
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [navigationLoading, setNavigationLoading] = useState(false);
-  const [lastTouchTime, setLastTouchTime] = useState(0);
-  const [performanceSettings, setPerformanceSettings] = useState<any>(null);
-  const [navigationMonitor, setNavigationMonitor] = useState<any>(null);
-  const [showAdvancedFeatures, setShowAdvancedFeatures] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const [lowPerformanceMode, setLowPerformanceMode] = useState(false);
+  const [journalText, setJournalText] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const [entries, setEntries] = useState<any[]>([]);
+  const [stats, setStats] = useState({
+    streak: 0,
+    graceTokens: 2,
+    totalEntries: 0,
+  });
+  
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Auth & Data Loading
   useEffect(() => {
-    let unsubscribe: () => void;
-    
-    const initAuth = async () => {
-      try {
-        const auth = await getFirebaseAuth();
-        unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            setUser(user);
-          } else {
-            router.push('/auth/login');
-          }
-          setLoading(false);
-        });
-      } catch (error) {
-        console.error('Auth initialization error:', error);
-        setLoading(false);
-        router.push('/auth/login');
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (!firebaseUser) {
+        router.push('/');
+        return;
       }
-    };
 
-    initAuth();
+      try {
+        // Load user profile
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+        const userData = userDoc.data();
+        
+        setUser({
+          uid: firebaseUser.uid,
+          ...userData,
+        });
 
-    return () => {
-      if (unsubscribe) unsubscribe();
-    };
+        // Load entries
+        const entriesQuery = query(
+          collection(db, 'journals', firebaseUser.uid, 'entries'),
+          orderBy('createdAt', 'desc'),
+          limit(10)
+        );
+        
+        const entriesSnapshot = await getDocs(entriesQuery);
+        const entriesData = entriesSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setEntries(entriesData);
+
+        // Calculate stats
+        setStats({
+          streak: userData?.gamification?.currentStreak || 0,
+          graceTokens: userData?.gamification?.graceTokens?.available || 2,
+          totalEntries: entriesData.length,
+        });
+
+      } catch (error) {
+        console.error('Error loading data:', error);
+      }
+
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, [router]);
 
-  // CRISIS-CRITICAL: Lazy initialize performance monitoring and crisis-safe navigation
+  // Auto-resize textarea
   useEffect(() => {
-    let unsubscribeCrisis: (() => void) | null = null;
-    let unsubscribeNavAlerts: (() => void) | null = null;
-    
-    // Load mobile styles asynchronously
-    loadMobileStyles();
-    
-    // Initialize performance monitoring asynchronously
-    const initMonitoring = async () => {
-      try {
-        const [
-          { initializeMobilePerformanceMonitor },
-          { initializeNavigationMonitor },
-          { default: crisisNav }
-        ] = await loadPerformanceMonitors();
-        
-        const monitor = initializeMobilePerformanceMonitor();
-        const navMonitor = initializeNavigationMonitor();
-        setNavigationMonitor(navMonitor);
-        
-        // Initialize crisis-safe navigation system
-        crisisNav.setInCrisis(false);
-        
-        // Set up performance monitoring listeners
-        setPerformanceSettings(monitor.getSettings());
-        
-        // Crisis mode monitoring
-        unsubscribeCrisis = monitor.onCrisisMode((enabled: boolean) => {
-          if (enabled) {
-            console.log('Crisis mode enabled - optimizing for performance');
-            crisisNav.setInCrisis(true);
-          }
-        });
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 160)}px`;
+    }
+  }, [journalText]);
 
-        // Navigation performance monitoring
-        unsubscribeNavAlerts = navMonitor.onNavigationAlert((metric: any, severity: string) => {
-          console.warn('Navigation performance alert:', severity, metric);
-          
-          if (severity === 'crisis') {
-            monitor.forceCrisisMode();
-          }
-        });
-        
-      } catch (error) {
-        console.warn('Performance monitoring initialization failed:', error);
-      }
-    };
-    
-    // Delay initialization to avoid blocking initial render
-    setTimeout(initMonitoring, 100);
-    
-    // Listen for performance updates
-    const handlePerformanceUpdate = (event: any) => {
-      setPerformanceSettings(event.detail.settings);
-    };
-    
-    window.addEventListener('performanceUpdate', handlePerformanceUpdate);
-    
-    return () => {
-      window.removeEventListener('performanceUpdate', handlePerformanceUpdate);
-      if (unsubscribeCrisis) unsubscribeCrisis();
-      if (unsubscribeNavAlerts) unsubscribeNavAlerts();
-    };
-  }, [router]);
+  // Save entry
+  const handleSave = async () => {
+    if (!journalText.trim() || !user) return;
 
-  const handleSignOut = async () => {
+    setIsSaving(true);
     try {
-      setNavigationLoading(true);
-      const auth = await getFirebaseAuth();
-      await signOut(auth);
-      router.push('/');
+      const newEntry = {
+        content: journalText.trim(),
+        createdAt: serverTimestamp(),
+      };
+
+      const docRef = await addDoc(
+        collection(db, 'journals', user.uid, 'entries'),
+        newEntry
+      );
+
+      // Update local state
+      setEntries(prev => [{
+        id: docRef.id,
+        ...newEntry,
+        createdAt: new Date(),
+      }, ...prev]);
+
+      setJournalText('');
+      setStats(prev => ({
+        ...prev,
+        totalEntries: prev.totalEntries + 1,
+      }));
+
     } catch (error) {
-      console.error('Sign out error:', error);
-      setNavigationLoading(false);
+      console.error('Error saving:', error);
     }
+    setIsSaving(false);
   };
 
-  // Crisis-safe trauma-informed navigation with loading states and double-tap protection
-  const handleNavigation = async (path: string) => {
-    const now = Date.now();
-    if (now - lastTouchTime < 1000) return; // Prevent accidental double-taps
-    
-    setLastTouchTime(now);
-    setNavigationLoading(true);
-    
-    let navigationId: string | null = null;
-    
-    try {
-      // Add haptic feedback for supported devices
-      if ('vibrate' in navigator) {
-        navigator.vibrate(50);
-      }
-      
-      // Track navigation start
-      if (navigationMonitor) {
-        navigationId = navigationMonitor.trackNavigationStart(path);
-      }
-      
-      // Use Next.js router directly for reliable navigation
-      await router.push(path);
-      
-      // Track successful navigation
-      if (navigationMonitor && navigationId) {
-        navigationMonitor.trackNavigationEnd(navigationId, true);
-      }
-      
-      setNavigationLoading(false);
-    } catch (error) {
-      console.error('Navigation error:', error);
-      
-      // Track failed navigation
-      if (navigationMonitor && navigationId) {
-        navigationMonitor.trackNavigationEnd(navigationId, false, error.message);
-      }
-      
-      // Show trauma-informed error message
-      showNavigationError(path, error);
-      setNavigationLoading(false);
-    }
+  // Handle Khepera prompt selection
+  const handlePromptSelect = (prompt: string) => {
+    setJournalText(prompt + '\n\n');
+    textareaRef.current?.focus();
   };
 
-  const showNavigationError = (attemptedPath: string, error: any) => {
-    const errorNotice = document.createElement('div');
-    errorNotice.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(164, 183, 146, 0.95);
-      color: white;
-      padding: 24px;
-      border-radius: 12px;
-      max-width: 400px;
-      z-index: 999998;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(164, 183, 146, 0.3);
-    `;
-    
-    errorNotice.innerHTML = `
-      <div style="font-size: 32px; margin-bottom: 16px;">🌿</div>
-      <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 12px;">
-        Taking a gentle pause
-      </h3>
-      <p style="font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
-        We're having a small technical hiccup. Let's try a different approach.
-      </p>
-      <div style="display: flex; gap: 12px; justify-content: center;">
-        <button onclick="window.location.href='${attemptedPath}'" style="
-          background: white;
-          color: #a4b792;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 6px;
-          font-weight: bold;
-          cursor: pointer;
-        ">Try Again</button>
-        <button onclick="this.parentElement.parentElement.remove()" style="
-          background: transparent;
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.6);
-          padding: 10px 20px;
-          border-radius: 6px;
-          cursor: pointer;
-        ">Stay Here</button>
-      </div>
-      <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.3);">
-        <button onclick="window.open('tel:988', '_self')" style="
-          background: #dc2626;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 4px;
-          font-size: 12px;
-          cursor: pointer;
-        ">🆘 Need Support? Call 988</button>
-      </div>
-    `;
-    
-    document.body.appendChild(errorNotice);
-    
-    // Auto-remove after 10 seconds
-    setTimeout(() => {
-      if (errorNotice.parentElement) {
-        errorNotice.remove();
-      }
-    }, 10000);
+  // Get greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
   };
 
-  // Crisis support with enhanced mobile accessibility
-  const handleCrisisSupport = () => {
-    // Immediate haptic feedback for crisis support
-    if ('vibrate' in navigator) {
-      navigator.vibrate([100, 50, 100]); // Double pulse for urgency
-    }
-    
-    // Multiple fallback methods for crisis support
-    try {
-      window.open('tel:988', '_self');
-    } catch (error) {
-      // Fallback to showing the number
-      alert('Crisis Support: 988\nNational Suicide Prevention Lifeline');
-    }
-  };
-
+  // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#a4b792] to-[#8fa07d] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl mb-4 animate-gentle-pulse">🌿</div>
-          <h1 className="text-2xl font-light mb-4 text-sanctuary-white">Loading your sanctuary...</h1>
-          <div className="w-6 h-6 mx-auto border-2 border-sanctuary-white/25 border-t-sanctuary-white/70 rounded-full animate-spin"></div>
+          <div className="w-16 h-16 mx-auto mb-4 animate-breathe">
+            <ScarabIcon size={64} color="white" />
+          </div>
+          <div className="text-white text-lg font-light">Opening your sanctuary...</div>
         </div>
+        <style jsx>{`
+          @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+          .animate-breathe {
+            animation: breathe 2s ease-in-out infinite;
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-gradient-to-br from-sage-400 via-sage-500 to-sage-600">
-      {/* Sacred Sanctuary Backdrop */}
-      <div className="absolute inset-0 bg-gradient-to-br from-sanctuary/5 via-transparent to-sanctuary/10 pointer-events-none"></div>
-      
-      {/* Viewport meta for mobile optimization */}
-      <div className="sr-only">
-        ALCHM Dashboard - Your sanctuary for healing and growth
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#a4b792] to-[#8fa07d] text-white">
+        {/* Top Bar */}
+        <div className="flex justify-between items-center p-4">
+          <div className="w-8 h-8">
+            <ScarabIcon size={32} color="white" />
+          </div>
+          <button
+            onClick={() => signOut(auth)}
+            className="text-white/70 text-sm hover:text-white transition-colors"
+          >
+            Sign Out
+          </button>
+        </div>
+
+        {/* Greeting */}
+        <div className="px-6 pb-2">
+          <h1 className="text-2xl font-light mb-1">{getGreeting()}</h1>
+        </div>
+        <div className="px-6 pb-6">
+          <p className="text-white/80">Your sanctuary is ready</p>
+        </div>
+
+        {/* Stats Row */}
+        {(stats.streak > 0 || stats.totalEntries > 0) && (
+          <div className="px-6 pb-6 flex gap-4">
+            {stats.streak > 0 && (
+              <div className="flex items-center gap-2 text-white/90">
+                <div className="w-2 h-2 bg-white rounded-full">
+                </div>
+                <span className="text-sm">{stats.streak} day streak</span>
+              </div>
+            )}
+            {stats.totalEntries > 0 && (
+              <div className="text-white/90 text-sm">
+                {stats.totalEntries} entries
+              </div>
+            )}
+          </div>
+        )}
       </div>
-      
-      {/* Floating Header with Sanctuary Glass */}
-      <header className="relative z-10 mb-phi-xl">
-        <div className="sanctuary-glass border border-sanctuary/20 m-6 rounded-3xl p-phi-lg shadow-floating animate-sanctuary-float">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-phi-md">
-            <div className="flex-1">
-              <h1 className="text-xlarge font-light text-sanctuary mb-phi-xs tracking-normal animate-gentle-breathe">
-                Welcome to your sanctuary
-              </h1>
-              <p className="text-sanctuary/80 text-small font-light tracking-wide break-all">{user?.email}</p>
+
+      {/* Main Content */}
+      <div className="p-4 space-y-6 pb-20">
+        
+        {/* Khepera AI Companion */}
+        <KheperaCompanion onPromptSelect={handlePromptSelect} />
+
+        {/* Journal Card */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 bg-[#a4b792]/10 rounded-xl flex items-center justify-center">
+              <JournalIcon size={20} color={COLORS.sage} />
             </div>
-            <Button
-              onClick={handleSignOut}
-              variant="ghost"
-              size="touch"
-              disabled={navigationLoading}
-              className="sanctuary-glass border border-sanctuary/30 hover:border-sanctuary/50 hover:shadow-soft backdrop-blur-xl min-h-[52px] min-w-[120px] text-sanctuary rounded-2xl transition-all duration-400 hover:scale-105 active:scale-95"
-              aria-label="Sign out of ALCHM"
+            <div>
+              <h3 className="font-semibold text-gray-900">Journal</h3>
+              <p className="text-sm text-gray-500">Private & encrypted</p>
+            </div>
+          </div>
+
+          <textarea
+            ref={textareaRef}
+            value={journalText}
+            onChange={(e) => setJournalText(e.target.value)}
+            placeholder="What's on your mind?"
+            className="w-full resize-none bg-gray-50 rounded-xl p-4 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#a4b792]/30 transition-all min-h-[100px]"
+          />
+
+          {journalText.trim() && (
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="mt-4 px-6 py-3 bg-[#a4b792] text-white rounded-xl font-medium hover:bg-[#8fa07d] transition-colors disabled:opacity-50"
             >
-              {navigationLoading ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-sanctuary/25 border-t-sanctuary rounded-full animate-spin"></div>
-                  <span className="font-light">Signing out...</span>
-                </div>
-              ) : (
-                <span className="font-light">Sign Out</span>
-              )}
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      {/* Sacred Sanctuary Cards */}
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-phi-lg mb-phi-2xl">
-          
-          {/* Sacred Journal Card */}
-          <div 
-            onClick={() => handleNavigation('/journal')}
-            className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating hover:shadow-sacred cursor-pointer group transition-all duration-600 hover:scale-105 active:scale-98 touch-target-large"
-            style={{ touchAction: 'manipulation' }}
-            role="button"
-            tabIndex={0}
-            aria-label="Create new journal entry - Share your thoughts in a safe space"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleNavigation('/journal');
-              }
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md group-hover:animate-heart-sparkle transition-all duration-400" role="img" aria-label="Writing emoji">
-                ✍️
-              </div>
-              <h3 className="text-large font-light text-sage-700 mb-phi-sm tracking-normal">
-                Sacred Journal
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-small font-normal">
-                Express your thoughts in this protected sanctuary
-              </p>
-              {navigationLoading && (
-                <div className="mt-phi-sm flex items-center justify-center gap-2 text-sage-500">
-                  <div className="w-3 h-3 border-2 border-sage-400/25 border-t-sage-400 rounded-full animate-spin"></div>
-                  <span className="text-phi-xs font-light">Opening sanctuary...</span>
-                </div>
-              )}
-            </div>
-            
-            {/* Floating sparkle decoration */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">✨</div>
-          </div>
-
-          {/* Sacred Library Card */}
-          <div 
-            onClick={() => handleNavigation('/journals')}
-            className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating hover:shadow-sacred cursor-pointer group transition-all duration-600 hover:scale-105 active:scale-98 touch-target-large"
-            style={{ touchAction: 'manipulation' }}
-            role="button"
-            tabIndex={0}
-            aria-label="View past journal entries - Review your healing journey"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleNavigation('/journals');
-              }
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md group-hover:animate-heart-sparkle transition-all duration-400" role="img" aria-label="Books emoji">
-                📚
-              </div>
-              <h3 className="text-large font-light text-sage-700 mb-phi-sm tracking-normal">
-                Sacred Library
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-small font-normal">
-                Revisit your journey and celebrate growth
-              </p>
-              {navigationLoading && (
-                <div className="mt-phi-sm flex items-center justify-center gap-2 text-sage-500">
-                  <div className="w-3 h-3 border-2 border-sage-400/25 border-t-sage-400 rounded-full animate-spin"></div>
-                  <span className="text-phi-xs font-light">Opening library...</span>
-                </div>
-              )}
-            </div>
-            
-            {/* Floating sparkle decoration */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">✨</div>
-          </div>
-
-          {/* Community Healing Sanctuary */}
-          <div 
-            onClick={() => handleNavigation('/community')}
-            className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating hover:shadow-sacred cursor-pointer group transition-all duration-600 hover:scale-105 active:scale-98 touch-target-large"
-            style={{ touchAction: 'manipulation' }}
-            role="button"
-            tabIndex={0}
-            aria-label="Join healing community - Connect anonymously with others on similar journeys"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleNavigation('/community');
-              }
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md group-hover:animate-heart-sparkle transition-all duration-400" role="img" aria-label="Community emoji">
-                🌍
-              </div>
-              <h3 className="text-large font-light text-sage-700 mb-phi-sm tracking-normal">
-                Community Healing
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-small font-normal">
-                Connect anonymously with others on healing journeys
-              </p>
-              {navigationLoading && (
-                <div className="mt-phi-sm flex items-center justify-center gap-2 text-sage-500">
-                  <div className="w-3 h-3 border-2 border-sage-400/25 border-t-sage-400 rounded-full animate-spin"></div>
-                  <span className="text-phi-xs font-light">Connecting sanctuary...</span>
-                </div>
-              )}
-            </div>
-            
-            {/* Community sparkle decoration */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">🤝</div>
-          </div>
-
-          {/* Premium Sanctuary Card */}
-          <div 
-            onClick={() => handleNavigation('/pricing')}
-            className="organic-container sanctuary-glass border border-sage-400/30 p-phi-lg shadow-floating hover:shadow-sacred cursor-pointer group transition-all duration-600 hover:scale-105 active:scale-98 touch-target-large bg-gradient-to-br from-sanctuary/90 to-sage-50/90"
-            style={{ touchAction: 'manipulation' }}
-            role="button"
-            tabIndex={0}
-            aria-label="View premium features - Unlock advanced AI insights and healing tools"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleNavigation('/pricing');
-              }
-            }}
-          >
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md group-hover:animate-heart-sparkle transition-all duration-400" role="img" aria-label="Gem emoji">
-                💎
-              </div>
-              <h3 className="text-large font-light text-sage-700 mb-phi-sm tracking-normal">
-                Premium Sanctuary
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-small font-normal">
-                Unlock deeper wisdom and advanced healing tools
-              </p>
-              {navigationLoading && (
-                <div className="mt-phi-sm flex items-center justify-center gap-2 text-sage-500">
-                  <div className="w-3 h-3 border-2 border-sage-400/25 border-t-sage-400 rounded-full animate-spin"></div>
-                  <span className="text-phi-xs font-light">Loading sanctuary...</span>
-                </div>
-              )}
-            </div>
-            
-            {/* Premium sparkle decoration with golden hint */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">✨</div>
-            <div className="absolute -bottom-1 -left-1 text-warm-amber opacity-50 animate-gentle-sparkle animation-delay-1000">✨</div>
-          </div>
-
-          {/* Crisis Support Sanctuary - Enhanced Accessibility */}
-          <div 
-            onClick={handleCrisisSupport}
-            className="organic-container border-4 border-crisis-red/60 p-phi-lg shadow-floating hover:shadow-nurturing cursor-pointer group transition-all duration-600 hover:scale-105 active:scale-98 touch-target-emergency bg-gradient-to-br from-red-50/95 to-sanctuary/95 backdrop-blur-xl animate-crisis-attention"
-            style={{ touchAction: 'manipulation' }}
-            role="button"
-            tabIndex={0}
-            aria-label="Emergency crisis support - Call 988 National Suicide Prevention Lifeline immediately"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCrisisSupport();
-              }
-            }}
-          >
-            <div className="text-center">
-              <div className="text-7xl mb-phi-md group-hover:animate-heart-sparkle transition-all duration-400" role="img" aria-label="Emergency SOS emoji">
-                🆘
-              </div>
-              <h3 className="text-large font-medium text-crisis-red mb-phi-sm tracking-normal">
-                Crisis Sanctuary
-              </h3>
-              <p className="text-crisis-red leading-relaxed text-small font-medium mb-phi-xs">
-                Immediate help is available 24/7
-              </p>
-              <p className="text-crisis-red/80 text-micro font-medium">
-                Tap to call 988
-              </p>
-            </div>
-            
-            {/* Crisis attention pulse decoration */}
-            <div className="absolute inset-0 rounded-3xl border-2 border-crisis-red/20 animate-crisis-attention"></div>
-          </div>
-
-          {/* Sacred Growth Sanctuary */}
-          <div className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating group">
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md animate-gentle-breathe" role="img" aria-label="Seedling emoji">🌱</div>
-              <h3 className="text-phi-lg font-light text-sage-700 mb-phi-sm tracking-wide">
-                Sacred Growth
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-phi-sm font-light mb-phi-md">
-                Witnessing your healing journey unfold
-              </p>
-              
-              {/* Sacred Progress Visualization */}
-              <div className="relative">
-                <div className="bg-sage-100/60 rounded-full h-2 overflow-hidden backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-sage-400 to-sage-500 h-2 rounded-full w-1/3 transition-all duration-1000 animate-gentle-breathe shadow-soft"></div>
-                </div>
-                <div className="absolute -top-1 left-1/3 w-4 h-4 bg-sage-400 rounded-full shadow-soft animate-gentle-pulse transform -translate-x-1/2"></div>
-              </div>
-            </div>
-            
-            {/* Growth sparkle decoration */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">🌿</div>
-          </div>
-
-          {/* Sacred Resources Sanctuary */}
-          <div className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating group">
-            <div className="text-center">
-              <div className="text-6xl mb-phi-md animate-gentle-breathe" role="img" aria-label="Book emoji">📖</div>
-              <h3 className="text-phi-lg font-light text-sage-700 mb-phi-sm tracking-wide">
-                Sacred Resources
-              </h3>
-              <p className="text-sage-600 leading-relaxed text-phi-sm font-light mb-phi-md">
-                Wisdom guides for your healing path
-              </p>
-              
-              {/* Coming Soon Badge */}
-              <div className="inline-flex items-center px-phi-sm py-phi-xs bg-gradient-to-r from-sage-100/80 to-sage-50/80 rounded-full border border-sage-200/60 backdrop-blur-sm">
-                <span className="text-sage-600 text-phi-xs font-light">Sanctuary opening soon</span>
-                <div className="ml-2 w-2 h-2 bg-sage-400 rounded-full animate-gentle-pulse"></div>
-              </div>
-            </div>
-            
-            {/* Wisdom sparkle decoration */}
-            <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">📚</div>
-          </div>
-
-        </div>
-
-        {/* Sacred Insights Dashboard */}
-        <div className="mb-phi-2xl">
-          {user && (
-            <div className="space-y-phi-xl">
-              {/* Sacred Emotional Insights */}
-              <div className="sanctuary-glass border border-sanctuary/20 rounded-3xl p-phi-xl shadow-floating animate-sanctuary-float">
-                <EmotionalReportCard 
-                  timeframe="month" 
-                  showPrivacyIndicator={true}
-                />
-              </div>
-              
-              {/* Mobile Sacred Analytics Portal */}
-              <div className="lg:hidden">
-                <div 
-                  onClick={() => handleNavigation('/analytics')}
-                  className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating hover:shadow-sacred cursor-pointer group transition-all duration-600 hover:scale-102 active:scale-98 touch-target-large"
-                  style={{ touchAction: 'manipulation' }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label="View detailed emotional analytics - Explore your healing journey insights"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-phi-md">
-                      <div className="text-phi-2xl group-hover:animate-heart-sparkle transition-all duration-400">🌸</div>
-                      <div>
-                        <h3 className="text-phi-md font-light text-sage-700 mb-phi-xs tracking-wide">
-                          Sacred Analytics
-                        </h3>
-                        <p className="text-sage-600 text-phi-sm font-light leading-relaxed">
-                          Explore your complete healing journey
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-sage-400 group-hover:text-sage-600 transition-colors duration-400 text-phi-lg">
-                      →
-                    </div>
-                  </div>
-                  
-                  {/* Analytics sparkle decoration */}
-                  <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">📊</div>
-                </div>
-              </div>
-              
-              {/* Sacred Analytics Cathedral for Desktop */}
-              <div className="hidden lg:block">
-                <div className="sanctuary-glass border border-sanctuary/20 rounded-3xl p-phi-xl shadow-floating">
-                  <SanctuaryAnalyticsDashboard />
-                </div>
-              </div>
-            </div>
+              {isSaving ? 'Saving...' : 'Save Entry'}
+            </button>
           )}
         </div>
 
-        {/* Sacred Privacy Sanctuary */}
-        <div className="mb-phi-xl">
-          {user && (
-            <div className="organic-container sanctuary-glass border border-sanctuary/20 p-phi-lg shadow-floating">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-phi-md font-light text-sage-700 mb-phi-xs tracking-wide">Sacred Privacy</h3>
-                  <p className="text-sage-600 text-phi-xs font-light">Your data sanctuary remains under your control</p>
-                </div>
-                <div className="sanctuary-glass rounded-full p-phi-xs border border-sanctuary/30">
-                  <QuickPrivacyToggle userId={user.uid} />
-                </div>
-              </div>
-              
-              {/* Privacy sparkle decoration */}
-              <div className="absolute -top-2 -right-2 text-phi-sm opacity-60 animate-gentle-sparkle">🔒</div>
-            </div>
-          )}
-        </div>
-      </div>
+        {/* Quick Actions */}
+        <QuickActions />
 
-      {/* Sacred Crisis Support Portal - Floating Guardian */}
-      <div className="fixed bottom-phi-lg right-phi-lg z-50">
-        <div 
-          onClick={handleCrisisSupport}
-          className="organic-container bg-gradient-to-br from-crisis-red to-red-600 border-4 border-sanctuary/30 w-20 h-20 shadow-sacred animate-crisis-attention cursor-pointer group transition-all duration-400 hover:scale-110 active:scale-95 touch-target-emergency flex items-center justify-center"
-          style={{ 
-            touchAction: 'manipulation',
-            minWidth: '80px',
-            minHeight: '80px',
-            WebkitTapHighlightColor: 'rgba(220, 38, 38, 0.3)'
-          }}
-          role="button"
-          tabIndex={0}
-          aria-label="Emergency crisis support - Call 988 National Suicide Prevention Lifeline"
+        {/* Recent Entries */}
+        <RecentEntries entries={entries} />
+
+        {/* Journey Progress Teaser */}
+        <button
+          onClick={() => router.push('/journey')}
+          className="w-full p-5 rounded-2xl text-left transition-all hover:shadow-md"
+          style={{ backgroundColor: `${COLORS.blush}50` }}
         >
-          <span className="text-phi-xl text-sanctuary animate-gentle-pulse group-hover:animate-heart-sparkle" role="img" aria-label="Emergency SOS">🆘</span>
-          
-          {/* Crisis pulse ring */}
-          <div className="absolute inset-0 rounded-3xl border-2 border-crisis-red/40 animate-crisis-attention"></div>
-          <div className="absolute inset-0 rounded-3xl border border-sanctuary/40 animate-gentle-pulse"></div>
-        </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: `${COLORS.blush}80` }}
+              >
+                <ScarabIcon size={20} color={COLORS.sage} />
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900">Your Journey</h3>
+                <p className="text-sm text-gray-600">View progress & milestones</p>
+              </div>
+            </div>
+            <ChevronRight />
+          </div>
+        </button>
       </div>
-      
-      {/* Screen reader announcement for crisis support */}
-      <div className="sr-only" aria-live="polite" id="crisis-announcement">
-        Crisis support is always available. Tap the emergency button to call 988.
-      </div>
-      
-      {/* Medical Disclaimer - Important for user safety */}
-      <div className="mt-8 px-4">
-        <MedicalDisclaimer />
-      </div>
+
+      {/* Crisis Support — Redesigned (No Red) */}
+      <button
+        onClick={() => router.push('/crisis-support')}
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all active:scale-95"
+        aria-label="Get support"
+      >
+        <HeartIcon size={24} color={COLORS.sage} />
+      </button>
+
+      {/* Global Animations */}
+      <style jsx>{`
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.03); }
+        }
+        .animate-breathe {
+          animation: breathe 4s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }

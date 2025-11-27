@@ -220,7 +220,7 @@ export function FeedbackWidget({
             <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
+                  <h2 className="text-xl font-medium text-gray-900">
                     {success ? 'Feedback Sent!' : 'Send Feedback'}
                   </h2>
                   <Button

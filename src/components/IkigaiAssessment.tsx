@@ -115,7 +115,7 @@ const IkigaiAssessment: React.FC<IkigaiAssessmentProps> = ({
     <div className={`max-w-4xl mx-auto p-6 space-y-6 ${className}`}>
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           IKIGAI Discovery Journey
         </h1>
         <p className="text-gray-600 mb-4">
@@ -182,7 +182,7 @@ const IkigaiAssessment: React.FC<IkigaiAssessmentProps> = ({
       {/* Current Step */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-medium text-gray-900 mb-2">
             {currentStepData.title}
           </h2>
           <p className="text-gray-600 mb-2">{currentStepData.description}</p>
@@ -245,7 +245,7 @@ const IkigaiAssessment: React.FC<IkigaiAssessmentProps> = ({
       {/* Step Results */}
       {result && (
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-6 space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900 text-center">
+          <h3 className="text-xl font-medium text-gray-900 text-center">
             Step {currentStep - 1} Insights
           </h3>
 
@@ -331,7 +331,7 @@ const IkigaiAssessment: React.FC<IkigaiAssessmentProps> = ({
       {progress?.purposeStatement && currentStep > 6 && (
         <div className="bg-gradient-to-r from-gold-50 to-yellow-50 rounded-lg shadow-lg p-6 border border-yellow-200">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">🌟 Your IKIGAI</h3>
+            <h3 className="text-xl font-medium text-gray-900 mb-4">🌟 Your IKIGAI</h3>
             <blockquote className="text-lg text-gray-800 italic mb-4">
               "{progress.purposeStatement}"
             </blockquote>

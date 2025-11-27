@@ -108,7 +108,7 @@ export default function BadgeExporter() {
     return (
       <Card className="p-6">
         <div className="text-center">
-          <h3 className="text-lg font-semibold mb-2">No Badges Yet</h3>
+          <h3 className="text-lg font-medium mb-2">No Badges Yet</h3>
           <p className="text-[var(--ink-mute)] mb-4">
             Keep journaling to earn your first badges! Every entry brings you closer to meaningful achievements.
           </p>
@@ -121,26 +121,26 @@ export default function BadgeExporter() {
     <div className="space-y-6">
       {/* Badge Overview */}
       <Card className="p-6">
-        <h2 className="text-2xl font-semibold mb-4">Badge Portfolio Export</h2>
+        <h2 className="text-2xl font-medium mb-4">Badge Portfolio Export</h2>
         <div className="grid md:grid-cols-4 gap-4 mb-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[var(--sage)]">{badges.length}</div>
+            <div className="text-2xl font-medium text-[var(--sage)]">{badges.length}</div>
             <div className="text-sm text-[var(--ink-mute)]">Total Badges</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[var(--terra)]">
+            <div className="text-2xl font-medium text-[var(--terra)]">
               {badges.filter(b => b.category === 'presence').length}
             </div>
             <div className="text-sm text-[var(--ink-mute)]">Presence</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[var(--sage)]">
+            <div className="text-2xl font-medium text-[var(--sage)]">
               {badges.filter(b => b.category === 'reflection').length}
             </div>
             <div className="text-sm text-[var(--ink-mute)]">Reflection</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[var(--terra)]">
+            <div className="text-2xl font-medium text-[var(--terra)]">
               {badges.filter(b => b.category === 'growth').length + badges.filter(b => b.category === 'community').length}
             </div>
             <div className="text-sm text-[var(--ink-mute)]">Growth & Community</div>
@@ -149,11 +149,11 @@ export default function BadgeExporter() {
 
         {/* Recent Badges Preview */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-3">Recent Achievements</h3>
+          <h3 className="font-medium mb-3">Recent Achievements</h3>
           <div className="grid md:grid-cols-3 gap-4">
             {badges.slice(0, 3).map((badge) => (
               <div key={badge.id} className="flex items-center gap-3 p-3 rounded-xl bg-[var(--blush)]/30">
-                <div className="w-10 h-10 rounded-full bg-[var(--sage)] flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-[var(--sage)] flex items-center justify-center text-white font-medium">
                   {badge.name.charAt(0)}
                 </div>
                 <div className="flex-1">
@@ -168,7 +168,7 @@ export default function BadgeExporter() {
 
       {/* Export Configuration */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Export Settings</h3>
+        <h3 className="text-lg font-medium mb-4">Export Settings</h3>
         
         <div className="space-y-4">
           {/* Student Name */}
@@ -230,7 +230,7 @@ export default function BadgeExporter() {
 
       {/* Export Format Selection */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Choose Export Format</h3>
+        <h3 className="text-lg font-medium mb-4">Choose Export Format</h3>
         
         <div className="grid md:grid-cols-2 gap-4">
           {Object.entries(EXPORT_EXAMPLES).map(([format, info]) => (
@@ -244,7 +244,7 @@ export default function BadgeExporter() {
               onClick={() => setExportConfig(prev => ({ ...prev, format: format as any }))}
             >
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-semibold uppercase text-sm">{format}</h4>
+                <h4 className="font-medium uppercase text-sm">{format}</h4>
                 <span className="text-xs text-[var(--ink-mute)]">{info.fileExtension}</span>
               </div>
               <p className="text-sm text-[var(--ink-mute)] mb-2">{info.description}</p>
@@ -258,7 +258,7 @@ export default function BadgeExporter() {
       <Card className="p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-semibold">Ready to Export</h3>
+            <h3 className="font-medium">Ready to Export</h3>
             <p className="text-sm text-[var(--ink-mute)]">
               Export {badges.length} badges as {exportConfig.format.toUpperCase()}
             </p>

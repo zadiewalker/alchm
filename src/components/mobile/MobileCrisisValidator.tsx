@@ -279,7 +279,7 @@ export default function MobileCrisisValidator() {
       <div className="bg-white/95 backdrop-blur-md border border-gray-200 rounded-xl shadow-lg p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold text-sm text-gray-900">
+          <h3 className="font-medium text-sm text-gray-900">
             Crisis Safety Check
           </h3>
           <button

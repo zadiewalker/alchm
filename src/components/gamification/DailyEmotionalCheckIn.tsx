@@ -292,7 +292,7 @@ export default function DailyEmotionalCheckIn({
   } : {};
 
   const touchTargetClass = isCrisisMode 
-    ? 'min-h-[60px] min-w-[60px] text-lg font-semibold border-3' 
+    ? 'min-h-[60px] min-w-[60px] text-lg font-medium border-3' 
     : 'min-h-[48px] min-w-[48px]';
 
   if (isComplete) {

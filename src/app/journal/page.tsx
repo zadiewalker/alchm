@@ -70,7 +70,7 @@ const CrisisEmergencyPage = dynamicImport(() => import('@/components/crisis/Cris
       <div className="text-center">
         <div className="text-6xl mb-4 animate-pulse">🆘</div>
         <p className="text-xl text-gray-800">Emergency support loading...</p>
-        <a href="tel:988" className="mt-4 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-bold">
+        <a href="tel:988" className="mt-4 inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-medium">
           Call 988 Now
         </a>
       </div>
@@ -943,7 +943,7 @@ export default function JournalPage() {
       <div className="fixed bottom-phi-lg right-phi-lg z-50">
         <div
           onClick={() => window.open('tel:988', '_self')}
-          className="organic-container w-16 h-16 bg-gradient-to-br from-crisis-red to-red-600 border-4 border-sanctuary/30 shadow-sacred animate-crisis-attention cursor-pointer group transition-all duration-400 hover:scale-110 active:scale-95 flex items-center justify-center"
+          className="organic-container w-12 h-12 bg-gradient-to-br from-crisis-red to-red-600 border-4 border-sanctuary/30 shadow-sacred animate-crisis-attention cursor-pointer group transition-all duration-400 hover:scale-110 active:scale-95 flex items-center justify-center"
           title="Sacred crisis support - Call 988"
           aria-label="Sacred crisis support - Call 988"
         >

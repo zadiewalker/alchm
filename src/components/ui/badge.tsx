@@ -15,7 +15,7 @@ export function Badge({
   variant = 'default',
   ...props 
 }: BadgeProps) {
-  const baseClasses = 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
+  const baseClasses = 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2';
   
   const variantClasses = {
     default: 'border-transparent bg-purple-600 text-white hover:bg-purple-700',

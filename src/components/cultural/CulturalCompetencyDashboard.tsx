@@ -238,7 +238,7 @@ export default function CulturalCompetencyDashboard() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-medium text-gray-900">
             Cultural Competency Dashboard
           </h1>
           <p className="text-gray-600 mt-1">
@@ -278,7 +278,7 @@ export default function CulturalCompetencyDashboard() {
       {/* Critical Alerts */}
       {alerts.filter(alert => alert.severity === 'critical' || alert.severity === 'high').length > 0 && (
         <Card className="p-4 border-red-200 bg-red-50">
-          <h3 className="font-semibold text-red-800 mb-3">Critical Alerts</h3>
+          <h3 className="font-medium text-red-800 mb-3">Critical Alerts</h3>
           <div className="space-y-2">
             {alerts
               .filter(alert => alert.severity === 'critical' || alert.severity === 'high')
@@ -305,7 +305,7 @@ export default function CulturalCompetencyDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Overall Accuracy</p>
-              <p className={`text-2xl font-bold ${getAccuracyColor(metrics.overallAccuracy)}`}>
+              <p className={`text-2xl font-medium ${getAccuracyColor(metrics.overallAccuracy)}`}>
                 {(metrics.overallAccuracy * 100).toFixed(1)}%
               </p>
             </div>
@@ -320,7 +320,7 @@ export default function CulturalCompetencyDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Resource Accessibility</p>
-              <p className={`text-2xl font-bold ${getAccuracyColor(metrics.resourceAccessibility)}`}>
+              <p className={`text-2xl font-medium ${getAccuracyColor(metrics.resourceAccessibility)}`}>
                 {(metrics.resourceAccessibility * 100).toFixed(1)}%
               </p>
             </div>
@@ -335,7 +335,7 @@ export default function CulturalCompetencyDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Indigenous Compliance</p>
-              <p className={`text-2xl font-bold ${getAccuracyColor(metrics.indigenousCompliance)}`}>
+              <p className={`text-2xl font-medium ${getAccuracyColor(metrics.indigenousCompliance)}`}>
                 {(metrics.indigenousCompliance * 100).toFixed(1)}%
               </p>
             </div>
@@ -350,7 +350,7 @@ export default function CulturalCompetencyDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Community Rating</p>
-              <p className="text-2xl font-bold text-blue-600">
+              <p className="text-2xl font-medium text-blue-600">
                 {metrics.communityFeedback.averageRating.toFixed(1)}/5.0
               </p>
             </div>
@@ -366,7 +366,7 @@ export default function CulturalCompetencyDashboard() {
 
       {/* Community-Specific Accuracy */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Community-Specific Accuracy</h3>
+        <h3 className="text-lg font-medium mb-4">Community-Specific Accuracy</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from(metrics.communitySpecificAccuracy.entries()).map(([community, accuracy]) => (
             <div key={community} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -391,14 +391,14 @@ export default function CulturalCompetencyDashboard() {
 
       {/* Language Support Status */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Multilingual Crisis Support</h3>
+        <h3 className="text-lg font-medium mb-4">Multilingual Crisis Support</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {Array.from(metrics.languageAccuracy.entries()).map(([language, stats]) => (
             <div key={language} className="text-center p-3 bg-gray-50 rounded-lg">
               <p className="font-medium text-gray-900 mb-1">
                 {language.toUpperCase()}
               </p>
-              <p className={`text-lg font-bold ${getAccuracyColor(stats.accuracy)}`}>
+              <p className={`text-lg font-medium ${getAccuracyColor(stats.accuracy)}`}>
                 {(stats.accuracy * 100).toFixed(0)}%
               </p>
               <p className="text-xs text-gray-500">
@@ -411,18 +411,18 @@ export default function CulturalCompetencyDashboard() {
 
       {/* Bias Detection and Mitigation */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Bias Detection & Mitigation</h3>
+        <h3 className="text-lg font-medium mb-4">Bias Detection & Mitigation</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-gray-600">Detected Biases</span>
-              <span className="text-lg font-bold text-red-600">
+              <span className="text-lg font-medium text-red-600">
                 {metrics.biasDetection.detectedBiases}
               </span>
             </div>
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-gray-600">Mitigated Biases</span>
-              <span className="text-lg font-bold text-green-600">
+              <span className="text-lg font-medium text-green-600">
                 {metrics.biasDetection.mitigatedBiases}
               </span>
             </div>
@@ -451,7 +451,7 @@ export default function CulturalCompetencyDashboard() {
 
       {/* All Alerts */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">System Alerts</h3>
+        <h3 className="text-lg font-medium mb-4">System Alerts</h3>
         <div className="space-y-3">
           {alerts.length === 0 ? (
             <p className="text-gray-500 text-center py-8">No active alerts</p>

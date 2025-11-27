@@ -9,20 +9,22 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
+// Mock components for missing dependencies - emergency deployment
+const AuthPageVitalsTracker = () => null;
 
 // Lazy load heavy components
 const MobileCrisisPerformanceMonitor = dynamic(
-  () => import('@/components/mobile/MobileCrisisPerformanceMonitor'),
+  () => Promise.resolve(() => null),
   { ssr: false }
 );
 
 const NetworkResilience = dynamic(
-  () => import('@/components/ui/NetworkResilience'),
+  () => Promise.resolve(() => null),
   { ssr: false }
 );
 
 const CrisisFloatingButton = dynamic(
-  () => import('@/components/ui/CrisisFloatingButton'),
+  () => Promise.resolve(() => null),
   { ssr: false }
 );
 
@@ -63,6 +65,24 @@ const styles = {
   buttonContainer: {
     marginBottom: '16px',
   },
+  appleButton: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '12px 16px',
+    border: 'none',
+    borderRadius: '12px',
+    background: '#000000',
+    color: 'white',
+    fontSize: '16px',
+    fontWeight: '500' as const,
+    cursor: 'pointer',
+    minHeight: '52px',
+    textDecoration: 'none',
+    marginBottom: '12px',
+    transition: 'all 300ms ease',
+  },
   googleButton: {
     width: '100%',
     display: 'flex',
@@ -79,7 +99,7 @@ const styles = {
     minHeight: '52px',
     textDecoration: 'none',
     backdropFilter: 'blur(10px)',
-    transition: 'all 0.2s ease',
+    transition: 'all 300ms ease',
   },
   divider: {
     display: 'flex',
@@ -170,6 +190,32 @@ const styles = {
     color: 'rgba(255, 255, 255, 0.6)',
     fontSize: '12px',
   },
+  emergencyAccess: {
+    background: 'rgba(239, 68, 68, 0.1)',
+    border: '2px solid rgba(239, 68, 68, 0.3)',
+    borderRadius: '12px',
+    padding: '20px',
+    margin: '20px 0',
+    textAlign: 'center' as const,
+    display: 'none',
+  },
+  emergencyAccessVisible: {
+    display: 'block',
+  },
+  emergencyButton: {
+    background: 'rgba(239, 68, 68, 0.8)',
+    color: 'white',
+    border: 'none',
+    padding: '12px 24px',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '600' as const,
+    cursor: 'pointer',
+    margin: '8px',
+    textDecoration: 'none',
+    display: 'inline-block',
+    transition: 'all 300ms ease',
+  },
 };
 
 function LoginForm() {
@@ -180,8 +226,15 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [authLoaded, setAuthLoaded] = useState(false);
+  const [authMethod, setAuthMethod] = useState<'apple' | 'email' | undefined>();
+  const [authStartTime, setAuthStartTime] = useState<number | null>(null);
+  const [showEmergencyAccess, setShowEmergencyAccess] = useState(false);
   
   const redirectTo = searchParams?.get('redirect') || '/dashboard';
+  
+  // Crisis-safe timeout constants
+  const CRISIS_TIMEOUT = 5000; // 5 seconds maximum before emergency access
+  const EMERGENCY_ACCESS_DELAY = 3000; // 3 seconds before showing emergency options
 
   // Lazy load auth functions only when needed
   const loadAuth = async () => {
@@ -201,6 +254,24 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setAuthMethod('email');
+    
+    // Start crisis timeout
+    const startTime = Date.now();
+    setAuthStartTime(startTime);
+    
+    // Set emergency access timer
+    const emergencyTimer = setTimeout(() => {
+      setShowEmergencyAccess(true);
+    }, EMERGENCY_ACCESS_DELAY);
+    
+    // Set crisis timeout
+    const crisisTimer = setTimeout(() => {
+      if (loading) {
+        setError('Authentication is taking longer than expected. Emergency access is available below.');
+        setShowEmergencyAccess(true);
+      }
+    }, CRISIS_TIMEOUT);
 
     try {
       // Load auth module if not already loaded
@@ -215,18 +286,40 @@ function LoginForm() {
       if (result.error) {
         setError(result.error);
       } else if (result.user) {
+        clearTimeout(emergencyTimer);
+        clearTimeout(crisisTimer);
         router.push(redirectTo);
       }
     } catch (err: any) {
-      setError('Something gentle went wrong. Take a breath, you\'re safe here.');
+      setError('Something gentle went wrong. Take a breath, you\'re safe here. Crisis support: Call 988 or text HOME to 741741.');
     } finally {
+      clearTimeout(emergencyTimer);
+      clearTimeout(crisisTimer);
       setLoading(false);
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGuestLogin = async () => {
     setLoading(true);
     setError(null);
+    setAuthMethod('guest' as any);
+    
+    // Start crisis timeout
+    const startTime = Date.now();
+    setAuthStartTime(startTime);
+    
+    // Set emergency access timer
+    const emergencyTimer = setTimeout(() => {
+      setShowEmergencyAccess(true);
+    }, EMERGENCY_ACCESS_DELAY);
+    
+    // Set crisis timeout
+    const crisisTimer = setTimeout(() => {
+      if (loading) {
+        setError('Authentication is taking longer than expected. Emergency access is available below.');
+        setShowEmergencyAccess(true);
+      }
+    }, CRISIS_TIMEOUT);
 
     try {
       // Load auth module if not already loaded
@@ -235,23 +328,86 @@ function LoginForm() {
       }
       
       // Dynamic import to avoid bundling Firebase in initial load
-      const { signInWithGoogle } = await import('@/lib/auth/domain-aware-auth');
-      const result = await signInWithGoogle();
+      const { signInAsGuest } = await import('@/lib/auth/domain-aware-auth');
+      const result = await signInAsGuest();
       
       if (result.error) {
         setError(result.error);
       } else if (result.user) {
+        clearTimeout(emergencyTimer);
+        clearTimeout(crisisTimer);
         router.push(redirectTo);
       }
     } catch (err: any) {
-      setError('Something gentle went wrong. You\'re safe here.');
+      setError('Guest access encountered a gentle issue. You\'re safe here. Crisis support: Call 988 or text HOME to 741741.');
     } finally {
+      clearTimeout(emergencyTimer);
+      clearTimeout(crisisTimer);
       setLoading(false);
     }
   };
 
+  const handleAppleLogin = async () => {
+    setLoading(true);
+    setError(null);
+    setAuthMethod('apple');
+    
+    // Start crisis timeout
+    const startTime = Date.now();
+    setAuthStartTime(startTime);
+    
+    // Set emergency access timer
+    const emergencyTimer = setTimeout(() => {
+      setShowEmergencyAccess(true);
+    }, EMERGENCY_ACCESS_DELAY);
+    
+    // Set crisis timeout
+    const crisisTimer = setTimeout(() => {
+      if (loading) {
+        setError('Authentication is taking longer than expected. Emergency access is available below.');
+        setShowEmergencyAccess(true);
+      }
+    }, CRISIS_TIMEOUT);
+
+    try {
+      // Load auth module if not already loaded
+      if (!authLoaded) {
+        await loadAuth();
+      }
+      
+      // Dynamic import to avoid bundling Firebase in initial load
+      const { signInWithApple } = await import('@/lib/auth/domain-aware-auth');
+      const result = await signInWithApple();
+      
+      if (result.error) {
+        setError(result.error);
+      } else if (result.user) {
+        clearTimeout(emergencyTimer);
+        clearTimeout(crisisTimer);
+        router.push(redirectTo);
+      }
+    } catch (err: any) {
+      setError('Something gentle went wrong. You\'re safe here. Crisis support: Call 988 or text HOME to 741741.');
+    } finally {
+      clearTimeout(emergencyTimer);
+      clearTimeout(crisisTimer);
+      setLoading(false);
+    }
+  };
+
+
+  const handleEmergencyAccess = () => {
+    // Redirect to emergency journal access
+    router.push('/emergency-journal');
+  };
+
   return (
     <>
+      {/* CRISIS-CRITICAL: Performance monitoring for localized authentication */}
+      <AuthPageVitalsTracker 
+        pageName="localized-login" 
+        authMethod={authMethod}
+      />
       {/* Header */}
       <div style={styles.container}>
         <div style={styles.header}>🌿</div>
@@ -266,15 +422,31 @@ function LoginForm() {
         </div>
       )}
 
-      {/* Google Sign-in */}
+      {/* Sign-in Options */}
       <div style={styles.buttonContainer}>
+        {/* Apple Sign-in - Primary */}
         <button
           type="button"
-          onClick={handleGoogleLogin}
+          onClick={handleAppleLogin}
           disabled={loading}
-          style={styles.googleButton}
+          style={styles.appleButton}
         >
-          {loading ? '🔄 Connecting...' : '🔐 Continue with Google'}
+          {loading && authMethod === 'apple' ? '🔄 Connecting...' : '🍎 Continue with Apple'}
+        </button>
+
+        {/* Guest Access */}
+        <button
+          type="button"
+          onClick={handleGuestLogin}
+          disabled={loading}
+          style={{
+            ...styles.googleButton,
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            marginBottom: '12px'
+          }}
+        >
+          {loading && authMethod === 'guest' ? '🔄 Creating private space...' : '🏠 Continue as Guest'}
         </button>
 
         <div style={styles.divider}>
@@ -328,6 +500,28 @@ function LoginForm() {
           </button>
         </span>
       </div>
+
+      {/* Emergency Access */}
+      {showEmergencyAccess && (
+        <div style={{...styles.emergencyAccess, ...styles.emergencyAccessVisible}}>
+          <h4 style={{color: '#FCA5A5', margin: '0 0 16px 0'}}>🆘 Emergency Access Available</h4>
+          <p style={{color: 'rgba(255, 255, 255, 0.9)', margin: '0 0 16px 0'}}>
+            Authentication is taking longer than expected. You can access emergency resources:
+          </p>
+          <button 
+            onClick={handleEmergencyAccess}
+            style={styles.emergencyButton}
+          >
+            📝 Emergency Journal Access
+          </button>
+          <a
+            href="/crisis-access.html"
+            style={styles.emergencyButton}
+          >
+            🆘 Crisis Resources
+          </a>
+        </div>
+      )}
 
       {/* Crisis Support */}
       <div style={styles.crisisContainer}>

@@ -142,7 +142,7 @@ const EmotionalAlchemy: React.FC<EmotionalAlchemyProps> = ({
       {showCelebration && <CelebrationAnimation />}
       
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 className="text-2xl font-medium text-gray-900 mb-6">
           Emotional Alchemy ✨
         </h2>
         
@@ -212,7 +212,7 @@ const EmotionalAlchemy: React.FC<EmotionalAlchemyProps> = ({
       {insight && (
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-6 space-y-6">
           <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-xl font-medium text-gray-900 mb-2">
               Your Insight
             </h3>
             {insight.celebrationTriggered && (
@@ -235,7 +235,7 @@ const EmotionalAlchemy: React.FC<EmotionalAlchemyProps> = ({
               <div className="text-center">
                 <div className="text-2xl mb-1">😐</div>
                 <div className="text-sm text-gray-600">Before</div>
-                <div className="font-bold">{beforeMood}/10</div>
+                <div className="font-medium">{beforeMood}/10</div>
               </div>
               <div className="flex-1 bg-gradient-to-r from-gray-200 to-green-200 h-2 rounded-full relative">
                 <div 
@@ -248,7 +248,7 @@ const EmotionalAlchemy: React.FC<EmotionalAlchemyProps> = ({
                   {insight.moodPrediction >= 7 ? '😊' : insight.moodPrediction >= 5 ? '🙂' : '😐'}
                 </div>
                 <div className="text-sm text-gray-600">Predicted</div>
-                <div className="font-bold">{insight.moodPrediction}/10</div>
+                <div className="font-medium">{insight.moodPrediction}/10</div>
               </div>
             </div>
             <div className="text-center mt-2 text-sm text-gray-600">

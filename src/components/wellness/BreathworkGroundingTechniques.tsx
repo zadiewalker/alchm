@@ -515,7 +515,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
     <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           Breathwork & Grounding Techniques
         </h2>
         <p className="text-gray-600">
@@ -526,7 +526,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
       {/* Trauma-Informed Safety Notice */}
       {traumaInformedSettings?.safetyReminders && (
         <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h3 className="font-semibold text-blue-800 mb-2">Your Wellbeing First</h3>
+          <h3 className="font-medium text-blue-800 mb-2">Your Wellbeing First</h3>
           <ul className="text-blue-700 text-sm space-y-1">
             <li>• You have complete choice in what feels right for you</li>
             <li>• You can stop or modify any practice at any time</li>
@@ -566,7 +566,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
           {/* Active Breathing Session */}
           {breathingState.isActive && selectedTechnique && (
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl text-center">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              <h3 className="text-xl font-medium text-gray-800 mb-4">
                 {selectedTechnique.name}
               </h3>
               
@@ -581,7 +581,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
                       : 'border-gray-300 bg-gray-100'
                   }`}
                 >
-                  <span className="text-2xl font-bold text-gray-700">
+                  <span className="text-2xl font-medium text-gray-700">
                     {breathingState.phase === 'inhale' && '↑ IN'}
                     {breathingState.phase === 'exhale' && '↓ OUT'}
                     {breathingState.phase === 'hold_in' && '⏸ HOLD'}
@@ -619,7 +619,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
           {/* Technique Selection */}
           {!breathingState.isActive && (
             <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              <h3 className="text-lg font-medium text-gray-800 mb-4">
                 Recommended for You
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
@@ -667,7 +667,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
       {/* Grounding Tab */}
       {activeTab === 'grounding' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">
+          <h3 className="text-lg font-medium text-gray-800">
             Grounding Techniques
           </h3>
           <div className="grid gap-4">
@@ -729,7 +729,7 @@ const BreathworkGroundingTechniques: React.FC<BreathworkGroundingProps> = ({
       {/* Feedback Section */}
       {(sessionData.sessionId || selectedGrounding) && (
         <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-semibold text-gray-800 mb-4">How was your practice?</h3>
+          <h3 className="font-medium text-gray-800 mb-4">How was your practice?</h3>
           
           {/* Effectiveness Rating */}
           <div className="mb-4">

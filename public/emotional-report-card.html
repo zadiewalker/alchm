@@ -372,133 +372,216 @@
     </style>
 </head>
 
-<body class="page-background layout-safe">
+<body style="background: linear-gradient(135deg, #a4b792 0%, #8fa37c 20%, #93a682 80%, #a4b792 100%); margin: 0; padding: 0; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;">
     
-    <!-- Export Button -->
-    <button class="export-btn" onclick="exportReport()" aria-label="Export Report Card">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7,10 12,15 17,10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-    </button>
+    <!-- Khepera Concierge Bar -->
+    <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid rgba(164, 183, 146, 0.2); position: sticky; top: 0; z-index: 100;">
+        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #cb997e 0%, #e6a789 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: pulse 2s ease-in-out infinite;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="4" r="2" fill="white" opacity="0.9"/>
+                <ellipse cx="10" cy="12" rx="3" ry="5" fill="white"/>
+                <path d="M7 9 Q4 10 5 14 Q6 12 7 14" fill="white" opacity="0.8"/>
+                <path d="M13 9 Q16 10 15 14 Q14 12 13 14" fill="white" opacity="0.8"/>
+            </svg>
+        </div>
+        <div style="flex: 1; color: #2d3748; font-size: 0.9rem; font-weight: 500;">
+            Your emotional intelligence has grown 34% this month! Amazing progress 🌟
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: #6b7280; font-size: 0.875rem; font-weight: 500;">
+                <span>Level 8</span>
+                <div style="width: 60px; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
+                    <div style="width: 80%; height: 100%; background: linear-gradient(90deg, #a4b792, #8fa37c); border-radius: 3px;"></div>
+                </div>
+            </div>
+            <button onclick="exportReport()" style="background: rgba(164, 183, 146, 0.2); color: #2d3748; border: 1px solid rgba(164, 183, 146, 0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: all 200ms ease;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.5rem;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7,10 12,15 17,10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export
+            </button>
+        </div>
+    </div>
     
-    <div class="container">
-        <main class="content-sanctuary animate-gentle-fade">
+    <!-- Navigation Menu -->
+    <div style="background: rgba(255,255,255,0.1); padding: 1rem; text-align: center;">
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
+        <a href="/Users/zadiewalker/Desktop/alchm/out/index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Home</a>
+        <a href="/Users/zadiewalker/Desktop/alchm/out/dashboard.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Dashboard</a>
+        <a href="/Users/zadiewalker/Desktop/alchm/public/pathways.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pathways</a>
+        <a href="/Users/zadiewalker/Desktop/alchm/out/pricing-premium.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pricing</a>
+      </div>
+    </div>
+    
+    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem; color: white;">
+        <main>
             
             <!-- Header Section -->
-            <header class="text-center mb-12">
-                <h1 class="text-4xl font-light text-gray-900 mb-4">
-                    Your Emotional Intelligence Profile
-                </h1>
-                <p class="text-lg text-gray-600 mb-2">
-                    Identity Operating System • November 2024
-                </p>
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-sage-100 rounded-full">
-                    <div class="w-2 h-2 bg-sage-400 rounded-full animate-gentle-pulse"></div>
-                    <span class="text-sm font-medium text-sage-700">Evolution in Progress</span>
+            <header style="text-align: center; margin-bottom: 3rem;">
+                <!-- Achievement Badge -->
+                <div style="width: 120px; height: 120px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; backdrop-filter: blur(20px); position: relative;">
+                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <circle cx="30" cy="12" r="6" fill="white" opacity="0.9"/>
+                        <ellipse cx="30" cy="36" rx="8" ry="12" fill="white"/>
+                        <path d="M22 26 Q12 30 15 42 Q18 36 22 42" fill="white" opacity="0.9"/>
+                        <path d="M38 26 Q48 30 45 42 Q42 36 38 42" fill="white" opacity="0.9"/>
+                        <circle cx="18" cy="32" r="1.5" fill="rgba(255,255,255,0.8)"/>
+                        <circle cx="42" cy="32" r="1.5" fill="rgba(255,255,255,0.8)"/>
+                    </svg>
+                    <!-- Level indicator -->
+                    <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.875rem;">8</div>
+                </div>
+                
+                <h1 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Your Emotional Report Card</h1>
+                <p style="font-size: 1.125rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; text-shadow: 0 1px 6px rgba(0,0,0,0.2);">Level 8 Emotional Mastery • November 2024</p>
+                
+                <!-- Progress Stats -->
+                <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: white;">89%</div>
+                        <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">EQ Score</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: white;">+34%</div>
+                        <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">This Month</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: white;">42</div>
+                        <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Day Streak</div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem 2rem; border-radius: 20px; backdrop-filter: blur(10px); display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;"></div>
+                        <span style="font-size: 0.9rem; font-weight: 500; color: white;">Emotional Growth Accelerating</span>
+                    </div>
                 </div>
             </header>
             
             <!-- Identity Archetype Section -->
-            <section class="viz-container mb-8">
-                <h2 class="text-2xl font-medium text-gray-900 mb-6 text-center">
-                    Current Identity Archetype
-                </h2>
+            <section style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.2);">
+                <h2 style="font-size: 1.5rem; font-weight: 500; margin-bottom: 2rem; text-align: center; color: white;">Your Emotional Archetype</h2>
                 
-                <div class="archetype-mandala mb-6">
-                    <div class="archetype-center">
-                        <div class="text-3xl mb-2">🌱</div>
-                        <div class="text-sm font-medium text-gray-700 text-center">
-                            The Wounded<br>Healer
+                <!-- Archetype Visualization -->
+                <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; position: relative; animation: pulse 3s ease-in-out infinite;">
+                            <div style="font-size: 2.5rem;">🌱</div>
+                            <!-- Achievement ring -->
+                            <div style="position: absolute; inset: -8px; border: 3px solid transparent; border-top-color: #10b981; border-radius: 50%; animation: spin 8s linear infinite;"></div>
+                        </div>
+                        <h3 style="color: white; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">The Wounded Healer</h3>
+                        <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; max-width: 200px;">Transforming pain into wisdom that serves others</p>
+                    </div>
+                    
+                    <!-- Stats Display -->
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #10b981;">94%</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">Empathy</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #3b82f6;">87%</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">Wisdom</div>
+                        </div>
+                        <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 12px;">
+                            <div style="font-size: 1.25rem; font-weight: bold; color: #f59e0b;">91%</div>
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.8);">Service</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="text-center">
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">Integration Phase</h3>
-                    <p class="text-sm text-gray-600 mb-4">
-                        You're transforming personal pain into wisdom that serves others. 
-                        Your authentic vulnerability becomes a source of strength and healing.
-                    </p>
-                    
-                    <div class="flex justify-center gap-4 text-xs">
-                        <div class="px-3 py-1 bg-sage-100 text-sage-700 rounded-full">
-                            Empathy: 94%
-                        </div>
-                        <div class="px-3 py-1 bg-sage-100 text-sage-700 rounded-full">
-                            Wisdom: 87%
-                        </div>
-                        <div class="px-3 py-1 bg-sage-100 text-sage-700 rounded-full">
-                            Service: 91%
-                        </div>
+                <!-- Integration Status -->
+                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; text-align: center;">
+                    <h4 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.75rem;">Integration Phase: Advanced</h4>
+                    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; overflow: hidden; margin-bottom: 1rem;">
+                        <div style="width: 87%; height: 100%; background: linear-gradient(90deg, #10b981, #3b82f6); border-radius: 4px;"></div>
                     </div>
+                    <p style="color: rgba(255,255,255,0.9); font-size: 0.875rem; line-height: 1.4;">You're transforming personal challenges into profound wisdom. Your vulnerability has become a superpower for healing yourself and guiding others.</p>
                 </div>
             </section>
             
-            <!-- Core Intelligence Metrics -->
-            <section class="grid gap-6 mb-8" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <!-- Core Skills Dashboard -->
+            <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
                 
                 <!-- Emotional Intelligence -->
-                <div class="viz-container interactive">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Emotional Intelligence</h3>
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.2); transition: all 200ms ease; cursor: pointer; position: relative;" onclick="showSkillDetail('emotional-intelligence')">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3 style="color: white; font-size: 1rem; font-weight: 500; margin: 0;">Emotional Intelligence</h3>
+                        <div style="background: rgba(16, 185, 129, 0.2); color: #10b981; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">Level 8</div>
+                    </div>
                     
-                    <div class="complexity-radar mb-4">
-                        <div class="radar-grid"></div>
-                        <div class="radar-grid"></div>
-                        <div class="radar-grid"></div>
-                        
-                        <!-- Emotional data points -->
-                        <svg width="160" height="160" style="position: absolute; top: 0; left: 0;">
-                            <polygon points="80,20 120,50 140,80 120,110 80,140 40,110 20,80 40,50" 
-                                     fill="rgba(164, 183, 146, 0.3)" 
-                                     stroke="var(--sage-400)" 
-                                     stroke-width="2"/>
-                            
-                            <!-- Emotional nodes -->
-                            <circle cx="80" cy="30" r="4" fill="var(--sage-400)" class="emotion-node"/>
-                            <circle cx="115" cy="55" r="4" fill="var(--sage-500)" class="emotion-node"/>
-                            <circle cx="130" cy="80" r="4" fill="var(--sage-600)" class="emotion-node"/>
-                            <circle cx="115" cy="105" r="4" fill="var(--sage-400)" class="emotion-node"/>
+                    <!-- Progress Ring -->
+                    <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 1rem;">
+                        <svg width="80" height="80" style="transform: rotate(-90deg);">
+                            <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+                            <circle cx="40" cy="40" r="32" fill="none" stroke="#10b981" stroke-width="6" stroke-dasharray="201" stroke-dashoffset="22" stroke-linecap="round" style="animation: progress-ring 2s ease-out;"/>
                         </svg>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div class="text-2xl font-medium text-sage-600 mb-1">89%</div>
-                        <div class="text-sm text-gray-600">Multi-dimensional Analysis</div>
-                    </div>
-                </div>
-                
-                <!-- Growth Velocity -->
-                <div class="viz-container interactive">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Growth Velocity</h3>
-                    
-                    <div class="velocity-wave mb-4">
-                        <div class="wave-path"></div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="text-lg font-medium text-sage-700">Accelerating</div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <div style="color: white; font-size: 1.125rem; font-weight: bold;">89%</div>
                         </div>
                     </div>
                     
-                    <div class="text-center">
-                        <div class="text-2xl font-medium text-sage-600 mb-1">+32%</div>
-                        <div class="text-sm text-gray-600">30-day evolution rate</div>
+                    <!-- Skill Breakdown -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.75rem;">
+                        <div style="color: rgba(255,255,255,0.9);">Self-Awareness: <span style="color: #10b981; font-weight: 600;">92%</span></div>
+                        <div style="color: rgba(255,255,255,0.9);">Empathy: <span style="color: #3b82f6; font-weight: 600;">94%</span></div>
+                        <div style="color: rgba(255,255,255,0.9);">Regulation: <span style="color: #f59e0b; font-weight: 600;">86%</span></div>
+                        <div style="color: rgba(255,255,255,0.9);">Social Skills: <span style="color: #8b5cf6; font-weight: 600;">83%</span></div>
+                    </div>
+                    
+                    <div style="position: absolute; top: 1rem; right: 1rem; width: 12px; height: 12px; background: #10b981; border-radius: 50%; animation: pulse 2s ease-in-out infinite;"></div>
+                </div>
+                
+                <!-- Growth Velocity -->
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.2); transition: all 200ms ease; cursor: pointer;" onclick="showSkillDetail('growth-velocity')">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3 style="color: white; font-size: 1rem; font-weight: 500; margin: 0;">Growth Velocity</h3>
+                        <div style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">Accelerating</div>
+                    </div>
+                    
+                    <!-- Velocity Chart -->
+                    <div style="position: relative; height: 60px; margin-bottom: 1rem; overflow: hidden; border-radius: 8px; background: rgba(255,255,255,0.05);">
+                        <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.3) 50%, transparent 100%); animation: wave-flow 3s ease-in-out infinite;"></div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: 600; font-size: 1.125rem;">+34%</div>
+                    </div>
+                    
+                    <!-- Trend Indicators -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
+                        <span style="color: rgba(255,255,255,0.8);">30-day growth</span>
+                        <div style="display: flex; align-items: center; gap: 0.25rem; color: #10b981;">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                                <path d="M6 2L10 6H8V10H4V6H2L6 2Z"/>
+                            </svg>
+                            <span>Trending up</span>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Authenticity Index -->
-                <div class="viz-container interactive">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Authenticity Index</h3>
-                    
-                    <div class="service-gauge mb-4" style="--gauge-angle: 280deg;">
-                        <div class="gauge-arc">
-                            <div class="gauge-fill"></div>
-                        </div>
+                <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.2); transition: all 200ms ease; cursor: pointer;" onclick="showSkillDetail('authenticity')">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3 style="color: white; font-size: 1rem; font-weight: 500; margin: 0;">Authenticity Index</h3>
+                        <div style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">Aligned</div>
                     </div>
                     
-                    <div class="text-center mt-6">
-                        <div class="text-2xl font-medium text-sage-600 mb-1">93%</div>
-                        <div class="text-sm text-gray-600">Inner-outer alignment</div>
+                    <!-- Gauge Visualization -->
+                    <div style="position: relative; width: 80px; height: 40px; margin: 0 auto 1rem; overflow: hidden;">
+                        <div style="width: 80px; height: 80px; border: 6px solid rgba(255,255,255,0.2); border-radius: 50%; border-bottom-color: transparent; transform: rotate(-90deg);"></div>
+                        <div style="position: absolute; top: 0; left: 0; width: 80px; height: 80px; border: 6px solid #3b82f6; border-radius: 50%; border-right-color: transparent; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(-90deg); animation: gauge-fill 2s ease-out;"></div>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, 0); color: white; font-weight: bold; font-size: 1.125rem;">93%</div>
+                    </div>
+                    
+                    <div style="text-align: center; color: rgba(255,255,255,0.8); font-size: 0.875rem;">Inner-outer alignment</div>
+                    
+                    <!-- Alignment Factors -->
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; font-size: 0.75rem;">
+                        <div style="color: #10b981;">✓ Values</div>
+                        <div style="color: #10b981;">✓ Actions</div>
+                        <div style="color: #f59e0b;">~ Words</div>
                     </div>
                 </div>
                 
@@ -1060,6 +1143,61 @@
             }
         }
         
+        // Duolingo-style skill detail viewer
+        function showSkillDetail(skillType) {
+            const skillData = {
+                'emotional-intelligence': {
+                    title: 'Emotional Intelligence Level 8',
+                    description: 'You\'ve mastered advanced emotional pattern recognition and can navigate complex emotional situations with grace.',
+                    nextLevel: 'Practice emotional granularity in challenging situations to reach Level 9',
+                    exp: '+50 EXP'
+                },
+                'growth-velocity': {
+                    title: 'Growth Velocity: Accelerating',
+                    description: 'Your emotional growth rate is 34% faster than average. You\'re integrating insights rapidly and applying them consistently.',
+                    nextLevel: 'Maintain current practice streak to sustain acceleration',
+                    exp: '+25 EXP'
+                },
+                'authenticity': {
+                    title: 'Authenticity Index: 93%',
+                    description: 'Your inner values and outer expression are highly aligned. Others experience you as genuine and trustworthy.',
+                    nextLevel: 'Practice vulnerable communication to reach 95%+',
+                    exp: '+30 EXP'
+                }
+            };
+
+            const skill = skillData[skillType];
+            if (skill) {
+                alert(`🎯 ${skill.title}\n\n${skill.description}\n\n🎯 Next Level: ${skill.nextLevel}\n\n${skill.exp} earned for viewing!`);
+            }
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes progress-ring {
+                from { stroke-dashoffset: 201; }
+                to { stroke-dashoffset: 22; }
+            }
+            @keyframes wave-flow {
+                0%, 100% { transform: translateX(-50%); }
+                50% { transform: translateX(50%); }
+            }
+            @keyframes gauge-fill {
+                from { transform: rotate(-90deg) rotate(0deg); }
+                to { transform: rotate(-90deg) rotate(260deg); }
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.5; }
+            }
+        `;
+        document.head.appendChild(style);
+
         // Initialize all features when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
             initTooltips();

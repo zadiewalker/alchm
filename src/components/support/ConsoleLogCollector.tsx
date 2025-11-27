@@ -536,7 +536,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <HelpCircle className="w-6 h-6 text-blue-500" />
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800">
                 {traumaInformed ? 'How to Share Diagnostic Information' : 'Console Log Collection Guide'}
               </h3>
             </div>
@@ -569,7 +569,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
             
             <div className="space-y-2 text-sm">
               <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</div>
+                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-medium">1</div>
                 <div>
                   <p className="font-medium">Open Developer Tools</p>
                   <p className="text-sanctuary-gray-600">
@@ -579,7 +579,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
               </div>
               
               <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">2</div>
+                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-medium">2</div>
                 <div>
                   <p className="font-medium">Click the "Console" tab</p>
                   <p className="text-sanctuary-gray-600">
@@ -589,7 +589,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
               </div>
               
               <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">3</div>
+                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-medium">3</div>
                 <div>
                   <p className="font-medium">Reproduce the issue</p>
                   <p className="text-sanctuary-gray-600">
@@ -601,7 +601,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
               </div>
               
               <div className="flex gap-3">
-                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">4</div>
+                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-medium">4</div>
                 <div>
                   <p className="font-medium">Copy the messages</p>
                   <p className="text-sanctuary-gray-600">
@@ -653,7 +653,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
                 <Terminal className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Technical Information Helper' : 'Console Log Collector'}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -813,7 +813,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
                           <span className="text-sanctuary-gray-500">
                             {log.timestamp.toLocaleTimeString()}
                           </span>
-                          <span className={`px-1 rounded text-xs uppercase font-bold ${
+                          <span className={`px-1 rounded text-xs uppercase font-medium ${
                             log.level === 'error' ? 'bg-red-600 text-white' :
                             log.level === 'warn' ? 'bg-yellow-600 text-white' :
                             log.level === 'info' ? 'bg-blue-600 text-white' :
@@ -885,7 +885,7 @@ ${collectedLogs.performanceMetrics.map(metric =>
             <div className="flex items-center gap-3">
               <AlertTriangle className="w-6 h-6 text-amber-500" />
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'What We Found' : 'Error Summary'}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -898,28 +898,28 @@ ${collectedLogs.performanceMetrics.map(metric =>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="text-center p-3 bg-red-50 rounded-lg border border-red-100">
-                <div className="text-2xl font-bold text-red-600">
+                <div className="text-2xl font-medium text-red-600">
                   {collectedLogs.errorSummary.totalErrors}
                 </div>
                 <div className="text-xs text-red-700">Total Errors</div>
               </div>
               
               <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-100">
-                <div className="text-2xl font-bold text-blue-600">
+                <div className="text-2xl font-medium text-blue-600">
                   {collectedLogs.errorSummary.networkErrors}
                 </div>
                 <div className="text-xs text-blue-700">Network Issues</div>
               </div>
               
               <div className="text-center p-3 bg-purple-50 rounded-lg border border-purple-100">
-                <div className="text-2xl font-bold text-purple-600">
+                <div className="text-2xl font-medium text-purple-600">
                   {collectedLogs.errorSummary.authenticationErrors}
                 </div>
                 <div className="text-xs text-purple-700">Auth Issues</div>
               </div>
               
               <div className="text-center p-3 bg-orange-50 rounded-lg border border-orange-100">
-                <div className="text-2xl font-bold text-orange-600">
+                <div className="text-2xl font-medium text-orange-600">
                   {collectedLogs.errorSummary.javascriptErrors}
                 </div>
                 <div className="text-xs text-orange-700">JavaScript Errors</div>

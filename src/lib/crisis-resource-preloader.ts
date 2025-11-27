@@ -1,10 +1,14 @@
-/**
- * ALCHM Crisis Resource Preloader
- * Smart preloading system for sub-3-second crisis resource access
- * Predictive loading based on user patterns and risk indicators
- */
+'use client';
 
-import { culturalCrisisResources } from './cultural-crisis-resources';
+/**
+ * Crisis Resource Performance Enhancement System
+ * 
+ * Preloads critical crisis resources to meet <3s response requirement:
+ * - 988 Suicide & Crisis Lifeline
+ * - 741741 Crisis Text Line
+ * - Emergency breathing exercises
+ * - Crisis-safe navigation
+ */
 
 export interface CrisisResource {
   id: string;

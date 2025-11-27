@@ -57,7 +57,7 @@ const KPICard: React.FC<{
     <Card className="p-6 bg-white shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
       <div className="space-y-2">
         <p className="text-sm text-gray-600 font-medium">{title}</p>
-        <p className="text-2xl font-bold text-gray-900">
+        <p className="text-2xl font-medium text-gray-900">
           {formatValue(value)}
         </p>
         {change !== undefined && (
@@ -87,7 +87,7 @@ const RevenueChart: React.FC<{ data: any; loading: boolean }> = ({ data, loading
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Trends</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Revenue Trends</h3>
       <div className="h-64 flex items-center justify-center text-gray-500">
         {/* Placeholder for chart library integration */}
         <div className="text-center">
@@ -144,7 +144,7 @@ const EngagementHeatmap: React.FC<{ data: any; loading: boolean }> = ({ data, lo
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">User Engagement (28 days)</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">User Engagement (28 days)</h3>
       <div className="grid grid-cols-7 gap-2 mb-4">
         {heatmapData.map((day) => (
           <div
@@ -197,23 +197,23 @@ const CrisisSafetyMetrics: React.FC<{ data: any; loading: boolean }> = ({ data, 
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Crisis Safety Performance</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Crisis Safety Performance</h3>
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Total Interventions</span>
-          <span className="font-semibold text-blue-600">{crisisData.interventions}</span>
+          <span className="font-medium text-blue-600">{crisisData.interventions}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Avg Response Time</span>
-          <span className="font-semibold text-green-600">{crisisData.responseTime}s</span>
+          <span className="font-medium text-green-600">{crisisData.responseTime}s</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Effectiveness Score</span>
-          <span className="font-semibold text-purple-600">{crisisData.effectivenessScore}%</span>
+          <span className="font-medium text-purple-600">{crisisData.effectivenessScore}%</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Prevented Incidents</span>
-          <span className="font-semibold text-emerald-600">{crisisData.preventedIncidents}</span>
+          <span className="font-medium text-emerald-600">{crisisData.preventedIncidents}</span>
         </div>
         <div className="mt-4 p-3 bg-green-50 rounded-lg">
           <p className="text-sm text-green-800 font-medium">
@@ -262,7 +262,7 @@ const ConversionFunnel: React.FC<{ data: any; loading: boolean }> = ({ data, loa
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Conversion Funnel</h3>
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Conversion Funnel</h3>
       <div className="space-y-3">
         {steps.map((step, index) => {
           const percentage = (step.value / maxValue) * 100;
@@ -316,7 +316,7 @@ export const ExecutiveDashboard: React.FC = () => {
     return (
       <Card className="p-6 m-6">
         <div className="text-center text-red-600">
-          <p className="font-semibold">Error loading dashboard</p>
+          <p className="font-medium">Error loading dashboard</p>
           <p className="text-sm">{error}</p>
         </div>
       </Card>
@@ -328,7 +328,7 @@ export const ExecutiveDashboard: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">ALCHM Executive Dashboard</h1>
+          <h1 className="text-3xl font-medium text-gray-900">ALCHM Executive Dashboard</h1>
           <p className="text-gray-600">Real-time business intelligence and insights</p>
         </div>
         <div className="flex space-x-4">
@@ -447,14 +447,14 @@ export const ExecutiveDashboard: React.FC = () => {
       {/* Predictive Insights */}
       {insights && (
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Predictive Insights</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Predictive Insights</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <p className="text-sm text-gray-600">Next Month Forecast</p>
-              <p className="text-xl font-bold text-blue-600">
+              <p className="text-xl font-medium text-blue-600">
                 {insights.growthForecast.nextMonth.users} users
               </p>
-              <p className="text-lg font-semibold text-green-600">
+              <p className="text-lg font-medium text-green-600">
                 ${insights.growthForecast.nextMonth.revenue} revenue
               </p>
               <p className="text-sm text-gray-500">

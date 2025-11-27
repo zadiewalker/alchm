@@ -18,7 +18,7 @@ interface MobileCrisisAuthButtonProps {
 }
 
 export function MobileCrisisAuthButton({
-  redirectTo = '/dashboard',
+  redirectTo = '/en/sanctuary',
   onAuthSuccess,
   onAuthError,
   className,

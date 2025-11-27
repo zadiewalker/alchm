@@ -372,7 +372,7 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
   const renderDiscussions = () => (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Professional Discussions</h3>
+        <h3 className="text-xl font-medium">Professional Discussions</h3>
         <Button onClick={() => setShowNewDiscussion(true)}>
           Start Discussion
         </Button>
@@ -382,7 +382,7 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
         <Card key={discussion.id} className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h4 className="font-semibold text-lg">{discussion.title}</h4>
+              <h4 className="font-medium text-lg">{discussion.title}</h4>
               <p className="text-sm text-gray-600">
                 by {discussion.isAnonymous ? 'Anonymous Clinician' : discussion.authorName} 
                 ({discussion.authorCredentials}) • {discussion.createdAt.toDate().toLocaleDateString()}
@@ -417,7 +417,7 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
   const renderCaseConsultations = () => (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-semibold">Case Consultations</h3>
+        <h3 className="text-xl font-medium">Case Consultations</h3>
         <Button onClick={() => setShowNewConsultation(true)}>
           Request Consultation
         </Button>
@@ -427,7 +427,7 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
         <Card key={consultation.id} className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h4 className="font-semibold text-lg">{consultation.title}</h4>
+              <h4 className="font-medium text-lg">{consultation.title}</h4>
               <p className="text-sm text-gray-600">
                 Posted {consultation.createdAt.toDate().toLocaleDateString()}
               </p>
@@ -489,13 +489,13 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
 
   const renderResearchOpportunities = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold">Research Collaborations</h3>
+      <h3 className="text-xl font-medium">Research Collaborations</h3>
 
       {researchOpportunities.map(study => (
         <Card key={study.id} className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h4 className="font-semibold text-lg">{study.title}</h4>
+              <h4 className="font-medium text-lg">{study.title}</h4>
               <p className="text-sm text-gray-600">
                 Posted {study.createdAt.toDate().toLocaleDateString()}
               </p>
@@ -564,13 +564,13 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
 
   const renderCEUOpportunities = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold">Continuing Education</h3>
+      <h3 className="text-xl font-medium">Continuing Education</h3>
 
       {ceuOpportunities.map(opportunity => (
         <Card key={opportunity.id} className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h4 className="font-semibold text-lg">{opportunity.title}</h4>
+              <h4 className="font-medium text-lg">{opportunity.title}</h4>
               <p className="text-sm text-gray-600">
                 by {opportunity.provider} • {opportunity.credits} CEU credits
               </p>
@@ -626,13 +626,13 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
 
   const renderProfessionalNetwork = () => (
     <div className="space-y-4">
-      <h3 className="text-xl font-semibold">Professional Network</h3>
+      <h3 className="text-xl font-medium">Professional Network</h3>
 
       {professionalConnections.map(professional => (
         <Card key={professional.id} className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h4 className="font-semibold text-lg">{professional.name}</h4>
+              <h4 className="font-medium text-lg">{professional.name}</h4>
               <p className="text-sm text-gray-600">
                 {professional.credentials} • {professional.location}
               </p>
@@ -692,7 +692,7 @@ export default function CommunityNetwork({ therapistId, therapistProfile }: Comm
       <Card className="p-6">
         <div className="flex justify-between items-start">
           <div>
-            <h2 className="text-2xl font-bold">Professional Community Network</h2>
+            <h2 className="text-2xl font-medium">Professional Community Network</h2>
             <p className="text-gray-600 mt-2">
               Connect, collaborate, and grow with verified mental health professionals
             </p>

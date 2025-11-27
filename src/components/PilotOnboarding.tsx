@@ -32,12 +32,12 @@ const WelcomeStep = ({ onNext }: { onNext: () => void }) => (
       <div className="mx-auto w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
         <span className="text-3xl">🌟</span>
       </div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome to ALCHM Beta!</h1>
+      <h1 className="text-3xl font-medium text-gray-800 mb-2">Welcome to ALCHM Beta!</h1>
       <p className="text-gray-600 text-lg">Let's personalize your trauma-informed journaling experience</p>
     </div>
     
     <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
-      <h3 className="font-semibold text-blue-800 mb-3">🛡️ Your Safety Comes First</h3>
+      <h3 className="font-medium text-blue-800 mb-3">🛡️ Your Safety Comes First</h3>
       <p className="text-blue-700 text-sm leading-relaxed">
         This onboarding helps us understand your needs and preferences so we can provide the most supportive, 
         trauma-informed experience possible. All information is encrypted and never shared.
@@ -107,7 +107,7 @@ const CommunicationStyleStep = ({
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">How do you prefer to receive feedback?</h2>
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">How do you prefer to receive feedback?</h2>
         <p className="text-gray-600">This helps our AI match your communication preferences</p>
       </div>
 
@@ -142,7 +142,7 @@ const CommunicationStyleStep = ({
               </div>
               
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800 mb-2">{style.title}</h3>
+                <h3 className="font-medium text-gray-800 mb-2">{style.title}</h3>
                 <p className="text-gray-600 mb-3">{style.description}</p>
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <p className="text-sm italic text-gray-700">Example: {style.example}</p>
@@ -196,7 +196,7 @@ const GoalsStep = ({
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">What are your primary goals?</h2>
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">What are your primary goals?</h2>
         <p className="text-gray-600">Select all that resonate with you (we'll adapt as you grow)</p>
       </div>
 
@@ -231,7 +231,7 @@ const GoalsStep = ({
               </div>
               
               <div>
-                <h3 className="font-semibold text-gray-800 text-sm">{goal.title}</h3>
+                <h3 className="font-medium text-gray-800 text-sm">{goal.title}</h3>
                 <p className="text-gray-600 text-xs mt-1">{goal.description}</p>
               </div>
             </div>
@@ -272,7 +272,7 @@ const CrisisPreventionStep = ({
   return (
     <div className="space-y-6">
       <div className="bg-red-50 border border-red-200 p-6 rounded-xl mb-6">
-        <h2 className="text-xl font-bold text-red-800 mb-2">🚨 Crisis Prevention Setup</h2>
+        <h2 className="text-xl font-medium text-red-800 mb-2">🚨 Crisis Prevention Setup</h2>
         <p className="text-red-700 text-sm">
           ALCHM monitors for crisis indicators and can provide immediate support. 
           This is NOT a replacement for emergency services or professional care.
@@ -280,7 +280,7 @@ const CrisisPreventionStep = ({
       </div>
 
       <div>
-        <h3 className="font-semibold text-gray-800 mb-4">If we detect crisis indicators, how should we reach you?</h3>
+        <h3 className="font-medium text-gray-800 mb-4">If we detect crisis indicators, how should we reach you?</h3>
         
         <div className="space-y-3">
           {[
@@ -362,11 +362,11 @@ const CompletionStep = ({ preferences }: { preferences: UserPreferences }) => (
       <span className="text-3xl">🎉</span>
     </div>
     
-    <h2 className="text-3xl font-bold text-gray-800 mb-2">You're All Set!</h2>
+    <h2 className="text-3xl font-medium text-gray-800 mb-2">You're All Set!</h2>
     <p className="text-gray-600 text-lg">Your personalized ALCHM experience is ready</p>
     
     <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl">
-      <h3 className="font-semibold text-gray-800 mb-4">Your Personalization Summary:</h3>
+      <h3 className="font-medium text-gray-800 mb-4">Your Personalization Summary:</h3>
       <div className="space-y-2 text-sm text-left">
         <div className="flex justify-between">
           <span>Communication Style:</span>

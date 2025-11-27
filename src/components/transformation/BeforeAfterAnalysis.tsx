@@ -239,7 +239,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
                 </h4>
                 <div className={`flex items-center space-x-1 ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                   <span className="text-lg">{isPositive ? '↗' : '↘'}</span>
-                  <span className="font-bold">{Math.abs(Math.round(change))}%</span>
+                  <span className="font-medium">{Math.abs(Math.round(change))}%</span>
                 </div>
               </div>
               
@@ -284,7 +284,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
         <Card className="p-6">
           <div className="flex items-center space-x-2 mb-4">
             <span className="text-2xl">🌱</span>
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-medium">
               {sacredMode ? 'Early Sacred Expressions' : 'Initial Writing Sample'}
             </h3>
           </div>
@@ -314,7 +314,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
         <Card className="p-6">
           <div className="flex items-center space-x-2 mb-4">
             <span className="text-2xl">🪲</span>
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-medium">
               {sacredMode ? 'Transformed Sacred Voice' : 'Recent Writing Sample'}
             </h3>
           </div>
@@ -389,7 +389,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
       <div className="space-y-6">
         {themeChanges.map((category) => (
           <Card key={category.category} className="p-6">
-            <h3 className="text-lg font-semibold mb-4">{category.category}</h3>
+            <h3 className="text-lg font-medium mb-4">{category.category}</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -431,14 +431,14 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
       <div className="space-y-6">
         {/* Transformation Summary */}
         <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">
+          <h3 className="text-xl font-medium mb-4">
             {sacredMode ? 'Sacred Metamorphosis Summary' : 'Transformation Analysis Summary'}
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-3xl mb-2">📈</div>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-medium text-green-600">
                 +{Math.round(calculateChange(beforeData.metrics.avg_word_count, afterData.metrics.avg_word_count))}%
               </div>
               <div className="text-sm text-gray-600">Expression Depth</div>
@@ -446,7 +446,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
             
             <div className="text-center">
               <div className="text-3xl mb-2">🌅</div>
-              <div className="text-2xl font-bold text-amber-600">
+              <div className="text-2xl font-medium text-amber-600">
                 +{Math.round(calculateChange(beforeData.metrics.positive_sentiment, afterData.metrics.positive_sentiment))}%
               </div>
               <div className="text-sm text-gray-600">Positive Sentiment</div>
@@ -454,7 +454,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
             
             <div className="text-center">
               <div className="text-3xl mb-2">🔮</div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-medium text-blue-600">
                 +{Math.round(calculateChange(beforeData.metrics.future_orientation, afterData.metrics.future_orientation))}%
               </div>
               <div className="text-sm text-gray-600">Future Orientation</div>
@@ -464,7 +464,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
 
         {/* Key Insights */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4">Key Transformation Insights</h3>
+          <h3 className="text-lg font-medium mb-4">Key Transformation Insights</h3>
           <div className="space-y-4">
             {allInsights.map((insight, index) => (
               <div key={index} className="border-l-4 border-amber-500 pl-4">
@@ -507,7 +507,7 @@ export const BeforeAfterAnalysis: React.FC<BeforeAfterAnalysisProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-medium">
             {sacredMode ? 'Sacred Voice Evolution' : 'Writing Transformation Analysis'}
           </h2>
           <p className="text-gray-600">

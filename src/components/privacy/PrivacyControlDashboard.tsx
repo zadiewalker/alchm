@@ -140,9 +140,9 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Shield className={`w-5 h-5 ${getPrivacyScoreColor(dataSummary.privacyScore)}`} />
-            <h3 className="text-lg font-semibold">Privacy Score</h3>
+            <h3 className="text-lg font-medium">Privacy Score</h3>
           </div>
-          <div className={`text-2xl font-bold ${getPrivacyScoreColor(dataSummary.privacyScore)}`}>
+          <div className={`text-2xl font-medium ${getPrivacyScoreColor(dataSummary.privacyScore)}`}>
             {dataSummary.privacyScore}/100
           </div>
         </div>
@@ -174,7 +174,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
 
       {/* Quick Actions */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
+        <h3 className="text-lg font-medium mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Button
             variant="outline"
@@ -207,25 +207,25 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
 
       {/* Data Usage Summary */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Your Data at a Glance</h3>
+        <h3 className="text-lg font-medium mb-4">Your Data at a Glance</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{dataSummary.dataPoints.sessions}</div>
+            <div className="text-2xl font-medium text-blue-600">{dataSummary.dataPoints.sessions}</div>
             <div className="text-sm text-gray-600">Sessions Recorded</div>
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{dataSummary.dataPoints.insights}</div>
+            <div className="text-2xl font-medium text-green-600">{dataSummary.dataPoints.insights}</div>
             <div className="text-sm text-gray-600">Insights Generated</div>
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600">{dataSummary.researchContributions}</div>
+            <div className="text-2xl font-medium text-purple-600">{dataSummary.researchContributions}</div>
             <div className="text-sm text-gray-600">Research Contributions</div>
           </div>
           
           <div className="text-center">
-            <div className="text-2xl font-bold text-orange-600">{settings.dataRetentionDays}</div>
+            <div className="text-2xl font-medium text-orange-600">{settings.dataRetentionDays}</div>
             <div className="text-sm text-gray-600">Days Retention</div>
           </div>
         </div>
@@ -240,7 +240,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
   const renderAnalyticsSettings = () => (
     <div className="space-y-6">
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Analytics & Insights</h3>
+        <h3 className="text-lg font-medium mb-4">Analytics & Insights</h3>
         <div className="space-y-6">
           
           <div className="flex items-center justify-between">
@@ -313,7 +313,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
       </Card>
 
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Wellness Monitoring</h3>
+        <h3 className="text-lg font-medium mb-4">Wellness Monitoring</h3>
         <div className="space-y-6">
           
           <div className="flex items-center justify-between">
@@ -381,7 +381,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
   const renderSharingSettings = () => (
     <div className="space-y-6">
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Data Sharing & Research</h3>
+        <h3 className="text-lg font-medium mb-4">Data Sharing & Research</h3>
         <div className="space-y-6">
           
           <div className="flex items-center justify-between">
@@ -456,7 +456,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
   const renderRetentionSettings = () => (
     <div className="space-y-6">
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Data Retention</h3>
+        <h3 className="text-lg font-medium mb-4">Data Retention</h3>
         <div className="space-y-6">
           
           <div>
@@ -518,7 +518,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
       </Card>
 
       <Card className="p-6 border-red-200">
-        <h3 className="text-lg font-semibold mb-4 text-red-800">Danger Zone</h3>
+        <h3 className="text-lg font-medium mb-4 text-red-800">Danger Zone</h3>
         <div className="space-y-4">
           <div>
             <h4 className="font-medium mb-2">Delete Analytics Data</h4>
@@ -557,7 +557,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
   const renderExportSettings = () => (
     <div className="space-y-6">
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Data Export</h3>
+        <h3 className="text-lg font-medium mb-4">Data Export</h3>
         <div className="space-y-4">
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -604,7 +604,7 @@ export const PrivacyControlDashboard: React.FC<PrivacyControlProps> = ({
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Privacy & Data Control</h1>
+        <h1 className="text-3xl font-medium mb-2">Privacy & Data Control</h1>
         <p className="text-gray-600">
           Complete control over your data, analytics, and privacy settings. 
           Your healing journey belongs to you.

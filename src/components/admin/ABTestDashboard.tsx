@@ -82,7 +82,7 @@ export default function ABTestDashboard({ isAdmin = false }: ABTestDashboardProp
   return (
     <div className="space-y-6 p-6 bg-[#1E1E1E] min-h-screen text-white">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-[#E5E7EB]">A/B Testing Dashboard</h1>
+        <h1 className="text-3xl font-medium text-[#E5E7EB]">A/B Testing Dashboard</h1>
         {isAdmin && (
           <Button 
             onClick={() => loadTestData()}
@@ -104,7 +104,7 @@ export default function ABTestDashboard({ isAdmin = false }: ABTestDashboardProp
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-300">Active Tests</p>
-              <p className="text-2xl font-bold text-white">{activeTests.filter(t => t.isActive).length}</p>
+              <p className="text-2xl font-medium text-white">{activeTests.filter(t => t.isActive).length}</p>
             </div>
           </div>
         </Card>
@@ -118,7 +118,7 @@ export default function ABTestDashboard({ isAdmin = false }: ABTestDashboardProp
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-300">Significant Results</p>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-medium text-white">
                 {Array.from(testResults.values()).filter(r => r.significance >= 95).length}
               </p>
             </div>
@@ -134,7 +134,7 @@ export default function ABTestDashboard({ isAdmin = false }: ABTestDashboardProp
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-300">Total Participants</p>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-medium text-white">
                 {Array.from(testResults.values()).reduce((sum, r) => 
                   sum + r.variants.reduce((vSum, v) => vSum + v.participants, 0), 0
                 )}
@@ -154,7 +154,7 @@ export default function ABTestDashboard({ isAdmin = false }: ABTestDashboardProp
             <Card key={test.id} className="p-6 bg-[#2D2D30] border-gray-700">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-white mb-1">{test.name}</h3>
+                  <h3 className="text-lg font-medium text-white mb-1">{test.name}</h3>
                   <p className="text-sm text-gray-400 mb-2">{test.description}</p>
                   <div className="flex items-center space-x-3">
                     {getStatusBadge(test.isActive)}

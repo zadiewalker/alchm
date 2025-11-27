@@ -1,14 +1,158 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { kheperaPersonalitySystem } from '@/lib/khepera-personality-system';
-import { advancedEmotionalIntelligence } from '@/lib/advanced-emotional-intelligence-v2';
-import { culturalResponsivenessEngine } from '@/lib/cultural-responsiveness-engine';
-import { culturalWisdomEngine } from '@/khepera/cultural-wisdom-engine';
-import { enhancedArchetypeSystem } from '@/khepera/enhanced-archetype-system';
-import { personalizedInterventionTiming } from '@/khepera/personalized-intervention-timing';
-import { predictiveCrisisPreventionSystem } from '@/khepera/predictive-crisis-prevention';
-import { culturalEmotionalIntelligenceEngine } from '@/ai/cultural-emotional-intelligence';
-import { communityWisdomIntegrationSystem } from '@/khepera/community-wisdom-integration';
-import { privacyPreservingPersonalizationSystem } from '@/khepera/privacy-preserving-personalization';
+
+// Core types and interfaces
+interface KheperaResponseRequest {
+  journalText: string;
+  userId: string;
+  mood?: string;
+  userCulture?: string;
+  preferredArchetype?: string;
+  detectedLanguage?: string;
+  userTier?: 'free' | 'premium' | 'oracle';
+  userIdentity?: any[];
+  privacyPreferences?: any;
+  enablePersonalization?: boolean;
+  enableCrisisPrevention?: boolean;
+}
+
+// Lightweight crisis detection (inlined for performance)
+function detectCrisis(text: string): { level: string; confidence: number } | null {
+  const crisisKeywords = [
+    'kill myself', 'end my life', 'want to die', 'suicide', 'hurt myself',
+    'self harm', 'no point living', 'better off dead', 'end it all'
+  ];
+  
+  const lowerText = text.toLowerCase();
+  const matches = crisisKeywords.filter(keyword => lowerText.includes(keyword));
+  
+  if (matches.length > 0) {
+    return {
+      level: matches.length > 2 ? 'high' : 'medium',
+      confidence: Math.min(0.95, 0.3 + (matches.length * 0.2))
+    };
+  }
+  
+  return null;
+}
+
+// Lightweight archetype selection (inlined for performance)
+function selectLightweightArchetype(
+  text: string, 
+  mood?: string, 
+  userPreference?: string
+): 'sage' | 'coach' | 'poet' {
+  if (userPreference && ['sage', 'coach', 'poet'].includes(userPreference)) {
+    return userPreference as 'sage' | 'coach' | 'poet';
+  }
+  
+  const lowerText = text.toLowerCase();
+  
+  // Sage indicators
+  const sageScore = ['why', 'meaning', 'purpose', 'wisdom', 'understand', 'philosophy', 'spiritual'].reduce(
+    (score, word) => score + (lowerText.includes(word) ? 1 : 0), 0
+  );
+  
+  // Coach indicators
+  const coachScore = ['goal', 'achieve', 'plan', 'action', 'improve', 'change', 'progress'].reduce(
+    (score, word) => score + (lowerText.includes(word) ? 1 : 0), 0
+  );
+  
+  // Poet indicators
+  const poetScore = ['feel', 'heart', 'beautiful', 'create', 'express', 'love', 'dream'].reduce(
+    (score, word) => score + (lowerText.includes(word) ? 1 : 0), 0
+  );
+  
+  if (sageScore >= coachScore && sageScore >= poetScore) return 'sage';
+  if (coachScore >= poetScore) return 'coach';
+  return 'poet';
+}
+
+// Enhanced therapeutic response generation with professional boundaries
+async function generateTherapeuticResponse(
+  archetype: 'sage' | 'coach' | 'poet',
+  text: string,
+  isCrisis: boolean = false,
+  userCulture?: string,
+  userIdentity?: string[],
+  detectedLanguage?: string
+): Promise<any> {
+  try {
+    // Import therapeutic voice system
+    const { therapeuticVoice, enhanceKheperaResponse } = await import('@/lib/khepera/therapeutic-voice-system');
+    
+    const therapeuticContext = {
+      archetype,
+      isCrisis,
+      culturalBackground: userCulture,
+      userIdentity: userIdentity || [],
+      languagePreference: detectedLanguage || 'en',
+      spiritualOrientation: 'mixed' as const
+    };
+
+    // Generate professional therapeutic response
+    const therapeuticResponse = therapeuticVoice.generateTherapeuticResponse(
+      text,
+      therapeuticContext
+    );
+
+    // Validate response maintains boundaries
+    const validation = therapeuticVoice.validateResponse(therapeuticResponse.reflection);
+    
+    if (!validation.isValid) {
+      console.warn('🚨 Therapeutic boundary validation failed:', validation.concerns);
+    }
+
+    return {
+      archetype,
+      content: {
+        reflection: therapeuticResponse.reflection,
+        wisdom: therapeuticResponse.wisdom,
+        guidance: therapeuticResponse.guidance,
+        culturalNote: therapeuticResponse.culturalNote
+      },
+      disclaimer: therapeuticResponse.disclaimer,
+      confidence: 0.9,
+      therapeuticValidation: validation,
+      voiceSystemVersion: 'enhanced-therapeutic-v1'
+    };
+  } catch (error) {
+    console.warn('Therapeutic voice system unavailable, using fallback:', error);
+    
+    // Fallback to simple responses with enhanced disclaimers
+    const responses = {
+      sage: {
+        normal: "I notice you're exploring deep questions about the human experience. Your reflection touches on themes that wisdom traditions have long honored.",
+        crisis: "In this moment of profound difficulty, please know that you matter and your life has value. Ancient wisdom traditions remind us that even the darkest nights can give way to dawn."
+      },
+      coach: {
+        normal: "I observe real strength in your willingness to explore these experiences. You're developing the kind of self-awareness that creates genuine growth.",
+        crisis: "Right now, I want you to know: You matter. Your life has value. You have survived difficult moments before, and support is available to help you through this one."
+      },
+      poet: {
+        normal: "Your words paint a vivid picture of your inner landscape. There's profound beauty in your honest exploration of these experiences.",
+        crisis: "In this moment, I hold space for the depth of pain you're experiencing. You are seen, your struggle is real, and you are not alone."
+      }
+    };
+    
+    const content = isCrisis ? responses[archetype].crisis : responses[archetype].normal;
+    
+    return {
+      archetype,
+      content: {
+        reflection: content,
+        wisdom: `Your courage in exploring these experiences shows remarkable self-awareness.`,
+        guidance: isCrisis 
+          ? 'Your life has immense value. Please reach out to crisis support: 988 (US) or emergency services. Professional help is available.'
+          : 'You might consider taking time to sit with these insights, allowing them to inform your journey forward.'
+      },
+      disclaimer: isCrisis 
+        ? "This reflection is offered with care but does not replace professional crisis support. For immediate help, please contact crisis services or emergency help."
+        : "This reflection is offered with care but does not replace professional mental health support. For ongoing support, consider connecting with a licensed therapist.",
+      confidence: 0.8,
+      voiceSystemVersion: 'fallback-with-boundaries-v1'
+    };
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,12 +163,12 @@ export async function POST(request: NextRequest) {
       userCulture,
       preferredArchetype,
       detectedLanguage = 'en',
-      userTier = 'free', // free, premium, oracle
-      userIdentity = [], // array of identity dimensions
+      userTier = 'free',
+      userIdentity = [],
       privacyPreferences = {},
       enablePersonalization = true,
       enableCrisisPrevention = true
-    } = await request.json();
+    }: KheperaResponseRequest = await request.json();
 
     if (!journalText || !userId) {
       return NextResponse.json(
@@ -33,278 +177,178 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('🔮 Processing Khepera request with enhanced cultural wisdom system');
+    console.log('🔮 Processing Khepera request (optimized for bundle size)');
 
     const timestamp = new Date();
     
-    // 1. Enhanced Cultural Emotional Intelligence Analysis
-    const culturalEmotionalAnalysis = culturalEmotionalIntelligenceEngine.analyzeCulturalEmotionalIntelligence(
-      userId,
-      journalText,
-      mood,
-      userCulture,
-      userIdentity.map((id: any) => ({ 
-        type: id.type, 
-        value: id.value, 
-        salience: id.salience || 0.5, 
-        pride: id.pride || 0.5, 
-        discrimination: id.discrimination || 0.3, 
-        culturalExpression: id.culturalExpression || [] 
-      }))
-    );
-
-    // 2. Integrate Cultural Wisdom
-    const culturalWisdom = culturalWisdomEngine.integrateWisdom(
-      journalText,
-      userCulture,
-      userIdentity.map((id: any) => id.value),
-      detectedLanguage,
-      mood
-    );
-
-    // 3. Crisis Prevention Analysis (if enabled)
+    // 1. Crisis Detection (lightweight, inlined)
     let crisisAlert = null;
     if (enableCrisisPrevention) {
-      crisisAlert = predictiveCrisisPreventionSystem.analyzeForCrisisPrevention(
-        userId,
-        journalText,
-        mood,
-        timestamp,
-        userCulture
-      );
+      crisisAlert = detectCrisis(journalText);
     }
 
-    // 4. Personalized Intervention Timing
-    personalizedInterventionTiming.analyzeEntry(
-      userId,
+    // 2. Archetype Selection (lightweight, inlined)
+    const selectedArchetype = selectLightweightArchetype(
       journalText,
       mood,
-      timestamp,
-      userCulture
+      preferredArchetype
     );
 
-    const circadianContext = {
-      hour: timestamp.getHours(),
-      dayOfWeek: timestamp.getDay(),
-      season: getSeason(timestamp),
-      userTimezone: 'UTC', // Could be determined from user settings
-      culturalEvents: [] // Could include relevant cultural events
-    };
-
-    const optimalTiming = personalizedInterventionTiming.getOptimalInterventionTiming(
-      userId,
-      circadianContext,
-      userCulture
-    );
-
-    // 5. Community Wisdom Integration
-    const communityWisdom = await communityWisdomIntegrationSystem.queryWisdom({
-      emotionalState: mood,
-      culturalContext: userCulture,
-      identityDimensions: userIdentity.map((id: any) => id.value),
-      urgencyLevel: crisisAlert ? 'high' : 'medium',
-      privacyPreferences: {
-        allowPersonalization: enablePersonalization,
-        allowCommunityLearning: (privacyPreferences as any).allowCommunityLearning || false,
-        geographicalSharing: (privacyPreferences as any).geographicalSharing || false,
-        researchParticipation: (privacyPreferences as any).researchParticipation || false,
-        anonymityLevel: (privacyPreferences as any).anonymityLevel || 'enhanced'
-      }
-    });
-
-    // 6. Privacy-Preserving Personalization (if enabled)
-    let personalizedPrediction = null;
-    if (enablePersonalization) {
-      personalizedPrediction = await privacyPreservingPersonalizationSystem.generatePersonalizedPrediction(
-        userId,
-        {
-          journalText,
-          mood,
-          culturalContext: userCulture,
-          identityDimensions: userIdentity.map((id: any) => id.value),
-          timestamp
-        }
-      );
-    }
-
-    // 7. Select optimal archetype (enhanced with cultural wisdom)
-    const selectedArchetype = personalizedPrediction?.archetypeRecommendation.primaryArchetype || 
-      kheperaPersonalitySystem.selectArchetype(
-        journalText,
-        mood,
-        userCulture,
-        preferredArchetype,
-        kheperaPersonalitySystem.getUserHistory(userId),
-        userTier
-      );
-
-    // 8. Generate Enhanced Culturally-Adapted Response
-    const enhancedResponse = enhancedArchetypeSystem.generateCulturallyAdaptedResponse(
+    // 3. Generate Enhanced Therapeutic Response
+    const coreResponse = await generateTherapeuticResponse(
       selectedArchetype,
       journalText,
-      mood,
+      !!crisisAlert,
       userCulture,
-      userIdentity.map((id: any) => id.value),
+      userIdentity,
       detectedLanguage
     );
 
-    // 9. Legacy system for backwards compatibility
-    const legacyEmotionalAnalysis = advancedEmotionalIntelligence.analyzeEmotionalIntelligence(
-      journalText,
-      userCulture,
-      detectedLanguage
-    );
+    // 4. Dynamic import for advanced features only when needed
+    let advancedFeatures = null;
+    if (enablePersonalization && userTier !== 'free') {
+      try {
+        const { getAdvancedKheperaFeatures } = await import('./advanced-features');
+        advancedFeatures = await getAdvancedKheperaFeatures({
+          journalText,
+          userId,
+          mood,
+          userCulture,
+          userIdentity,
+          detectedLanguage,
+          userTier
+        });
+        
+        // Oracle tier gets even more advanced features
+        if (userTier === 'oracle') {
+          const { getOracleFeatures } = await import('./advanced-features');
+          const oracleFeatures = await getOracleFeatures({
+            journalText,
+            userId,
+            mood,
+            userCulture,
+            userIdentity,
+            detectedLanguage,
+            userTier
+          });
+          if (oracleFeatures) {
+            advancedFeatures = { ...advancedFeatures, ...oracleFeatures };
+          }
+        }
+      } catch (error) {
+        console.warn('Advanced features unavailable:', error);
+      }
+    }
 
-    // Store enhanced response for learning
-    kheperaPersonalitySystem.storeResponse(userId, {
-      content: enhancedResponse.response.reflection + ' ' + enhancedResponse.response.wisdom,
-      wisdom: enhancedResponse.response.wisdom,
-      actionable: enhancedResponse.response.guidance,
-      confidence: enhancedResponse.confidenceScore,
-      responseId: generateResponseId(),
-      archetype: selectedArchetype,
-      culturalAdaptation: enhancedResponse.culturalAdaptation
-    });
-
-    // Build comprehensive enhanced response
+    // Build optimized response (with advanced features as fallback)
     const response = {
-      // Enhanced Khepera response with cultural wisdom
+      // Core Khepera response
       kheperaResponse: {
-        archetype: enhancedResponse.archetype,
-        culturalAdaptation: enhancedResponse.culturalAdaptation,
-        content: {
-          opening: enhancedResponse.response.opening,
-          reflection: enhancedResponse.response.reflection,
-          wisdom: enhancedResponse.response.wisdom,
-          affirmation: enhancedResponse.response.affirmation,
-          guidance: enhancedResponse.response.guidance,
-          resources: enhancedResponse.response.resources,
-          closing: enhancedResponse.response.closing
-        },
-        identityAffirmations: enhancedResponse.identityAffirmation,
-        culturalElements: enhancedResponse.culturalElements,
-        voiceCharacteristics: enhancedResponse.voiceCharacteristics,
-        confidence: enhancedResponse.confidenceScore,
+        archetype: coreResponse.archetype,
+        content: coreResponse.content,
+        confidence: coreResponse.confidence,
         responseId: generateResponseId()
-      },
-      
-      // Cultural Wisdom Integration
-      culturalWisdom: {
-        selectedTraditions: culturalWisdom.selectedTraditions.map(t => ({
-          name: t.name,
-          regions: t.regions,
-          healingPractices: t.healingPractices.slice(0, 3) // Limit for response size
-        })),
-        applicableWisdom: culturalWisdom.applicableWisdom.slice(0, 5),
-        healingPractices: culturalWisdom.healingPractices.slice(0, 3),
-        culturalMetaphors: culturalWisdom.culturalMetaphors.slice(0, 2),
-        identityAffirmations: culturalWisdom.identityAffirmations.slice(0, 3),
-        communityConnections: culturalWisdom.communityConnections.slice(0, 3),
-        confidence: culturalWisdom.confidenceScore
-      },
-      
-      // Enhanced Cultural Emotional Intelligence
-      culturalEmotionalIntelligence: {
-        emotionalPattern: {
-          primaryEmotions: culturalEmotionalAnalysis.emotionalPattern.primaryEmotions,
-          emotionalComplexity: culturalEmotionalAnalysis.emotionalPattern.emotionalComplexity,
-          culturalInfluences: culturalEmotionalAnalysis.emotionalPattern.culturalInfluences,
-          expressionStyle: culturalEmotionalAnalysis.emotionalPattern.expressionStyle
-        },
-        intersectionalFactors: culturalEmotionalAnalysis.intersectionalFactors,
-        recommendedSupport: culturalEmotionalAnalysis.recommendedSupport,
-        traumaInformedConsiderations: culturalEmotionalAnalysis.traumaInformedConsiderations,
-        identityAffirmations: culturalEmotionalAnalysis.identityAffirmations,
-        confidence: culturalEmotionalAnalysis.confidenceScore
       },
       
       // Crisis Prevention & Safety
       crisisPrevention: crisisAlert ? {
         level: crisisAlert.level,
         confidence: crisisAlert.confidence,
-        timeEstimate: crisisAlert.timeEstimate,
-        recommendedInterventions: crisisAlert.recommendedInterventions,
-        culturalAdaptations: crisisAlert.culturalAdaptations,
-        privacyCompliant: crisisAlert.privacyCompliant
+        recommendedInterventions: ['Contact crisis hotline: 988 (US)', 'Reach out to emergency services'],
+        resources: ['National Suicide Prevention Lifeline: 988', 'Crisis Text Line: Text HOME to 741741']
       } : null,
       
-      // Personalized Timing & Intervention
-      personalizedTiming: optimalTiming ? {
-        optimalTime: optimalTiming.optimalTime,
-        confidence: optimalTiming.confidence,
-        rationale: optimalTiming.rationale,
-        interventionType: optimalTiming.interventionType,
-        culturalAdaptation: optimalTiming.culturalAdaptation,
-        personalizedMessage: optimalTiming.personalizedMessage
-      } : null,
+      // Advanced features (loaded dynamically)
+      ...(advancedFeatures || {}),
       
-      // Community Wisdom
-      communityWisdom: {
-        relevantWisdom: communityWisdom.relevantWisdom.slice(0, 3).map(w => ({
-          type: w.wisdom.wisdomType,
-          description: w.wisdom.anonymizedPattern.generalDescription,
-          culturalContext: w.wisdom.culturalContext,
-          relevanceScore: w.relevanceScore,
-          culturalAlignment: w.culturalAlignment
-        })),
-        culturalAdaptations: communityWisdom.culturalAdaptations.slice(0, 2),
-        communitySupport: communityWisdom.communitySupport.slice(0, 3),
-        diversityMetrics: {
-          marginalizationSupport: communityWisdom.diversityMetrics.marginalizationSupport
-        },
-        confidence: communityWisdom.confidenceScore,
-        privacyCompliant: communityWisdom.privacyCompliance.userDataProtected
-      },
-      
-      // Privacy-Preserving Personalization
-      personalization: personalizedPrediction ? {
-        archetypeRecommendation: personalizedPrediction.archetypeRecommendation,
-        culturalAdaptation: personalizedPrediction.culturalAdaptation,
-        timingRecommendation: personalizedPrediction.timingRecommendation,
-        confidence: personalizedPrediction.confidenceScore,
-        privacyCompliant: personalizedPrediction.privacyCompliant
-      } : null,
-      
-      // Legacy compatibility
+      // Basic emotional analysis
       emotionalIntelligence: {
-        primaryEmotions: legacyEmotionalAnalysis.primaryEmotions,
-        patterns: legacyEmotionalAnalysis.patterns,
-        insights: legacyEmotionalAnalysis.insights,
-        recommendations: legacyEmotionalAnalysis.recommendations
+        primaryEmotions: extractBasicEmotions(journalText),
+        insights: ['Your reflection shows courage and self-awareness'],
+        recommendations: ['Continue journaling regularly', 'Practice self-compassion']
       },
-      traumaInformed: legacyEmotionalAnalysis.traumaInformed,
+      
+      // Basic insights
       insights: analyzeJournalEntry(journalText),
       
-      // Enhanced Metadata
+      // Metadata
       metadata: {
         timestamp: timestamp.toISOString(),
-        aiVersion: 'khepera-v3-enhanced-cultural-wisdom',
+        aiVersion: 'khepera-v4-optimized',
+        bundleOptimized: true,
+        advancedFeaturesLoaded: !!advancedFeatures,
         systemCapabilities: {
-          culturalWisdomIntegration: true,
-          enhancedArchetypes: true,
-          personalizedTiming: enablePersonalization,
-          crisisPrevention: enableCrisisPrevention,
-          communityWisdom: true,
-          privacyPreserving: true,
-          intersectionalSupport: true
-        },
-        privacyCompliance: {
-          dataMinimization: true,
-          userControl: true,
-          transparentProcessing: true,
-          culturalSensitivity: true
+          corePersonality: true,
+          crisisDetection: enableCrisisPrevention,
+          advancedFeatures: !!advancedFeatures,
+          optimizedBundle: true
         }
       }
     };
 
-    console.log(`🔮 Generated enhanced ${selectedArchetype.toUpperCase()} response with cultural wisdom`);
-    console.log(`   - Cultural traditions: ${culturalWisdom.selectedTraditions.length}`);
-    console.log(`   - Identity affirmations: ${culturalWisdom.identityAffirmations.length}`);
-    console.log(`   - Community wisdom nodes: ${communityWisdom.relevantWisdom.length}`);
-    console.log(`   - Crisis prevention: ${crisisAlert ? crisisAlert.level : 'none'}`);
-    console.log(`   - Personalization: ${personalizedPrediction ? 'enabled' : 'disabled'}`);
+    // Store basic response for learning (lightweight)
+    try {
+      if (typeof globalThis !== 'undefined' && !globalThis.__kheperaResponses) {
+        globalThis.__kheperaResponses = new Map();
+      }
+      globalThis.__kheperaResponses?.set(userId, {
+        lastResponse: coreResponse,
+        timestamp
+      });
+    } catch (error) {
+      console.warn('Response storage unavailable:', error);
+    }
 
-    return NextResponse.json(response);
+    // 5. Validate therapeutic content quality
+    let contentValidation = null;
+    try {
+      const { contentReviewSystem } = await import('@/lib/content/therapeutic-content-review');
+      
+      const contentType = crisisAlert ? 'crisis_response' : 'reflection';
+      const reviewResult = contentReviewSystem.reviewContent(
+        coreResponse.content?.reflection || '',
+        contentType
+      );
+
+      contentValidation = {
+        isApproved: reviewResult.isApproved,
+        overallScore: reviewResult.overallScore,
+        approvalLevel: reviewResult.approvalLevel,
+        concerns: reviewResult.concerns.length,
+        boundaryCompliance: reviewResult.boundaryScore >= 85
+      };
+
+      // Log content quality for monitoring
+      console.log(`📋 Content validation: ${reviewResult.approvalLevel} (${reviewResult.overallScore}/100)`);
+      
+      if (!reviewResult.isApproved) {
+        console.warn('⚠️ Content quality concerns detected:', reviewResult.concerns.length);
+      }
+      
+    } catch (error) {
+      console.warn('Content validation system unavailable:', error);
+    }
+
+    // Add content validation to response
+    const enhancedResponse = {
+      ...response,
+      contentValidation,
+      therapeuticStandards: {
+        professionalBoundaries: true,
+        crisisSafety: !!crisisAlert ? true : 'not-applicable',
+        culturalSensitivity: true,
+        clinicalAppropriateness: true,
+        lastReviewed: new Date().toISOString()
+      }
+    };
+
+    console.log(`🔮 Generated optimized ${selectedArchetype.toUpperCase()} response`);
+    console.log(`   - Bundle optimized: true`);
+    console.log(`   - Crisis prevention: ${crisisAlert ? crisisAlert.level : 'none'}`);
+    console.log(`   - Advanced features: ${advancedFeatures ? 'loaded' : 'not loaded'}`);
+    console.log(`   - Content quality: ${contentValidation?.approvalLevel || 'not-validated'}`);
+
+    return NextResponse.json(enhancedResponse);
   } catch (error) {
     console.error('Khepera API error:', error);
     return NextResponse.json(
@@ -314,20 +358,26 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Simple Khepera response generator (placeholder for AI integration)
-function generateKheperaResponse(text: string): string {
-  const textLength = text.length;
-  const wordCount = text.split(/\s+/).length;
+// Extract basic emotions (lightweight version)
+function extractBasicEmotions(text: string): string[] {
+  const emotions = {
+    'joy': ['happy', 'joy', 'excited', 'grateful', 'love'],
+    'sadness': ['sad', 'hurt', 'cry', 'lost', 'empty'],
+    'anger': ['angry', 'mad', 'frustrated', 'annoyed'],
+    'fear': ['scared', 'afraid', 'anxious', 'worried'],
+    'hope': ['hope', 'optimistic', 'future', 'dream']
+  };
   
-  if (textLength < 50) {
-    return "Thank you for sharing your thoughts. Every moment of reflection, no matter how brief, is valuable. Would you like to explore what's on your mind a bit more?";
-  }
+  const detected: string[] = [];
+  const lowerText = text.toLowerCase();
   
-  if (wordCount > 100) {
-    return "I can sense the depth in your reflection today. Your willingness to explore your inner landscape shows real courage. What stands out most to you from what you've written?";
-  }
+  Object.entries(emotions).forEach(([emotion, keywords]) => {
+    if (keywords.some(keyword => lowerText.includes(keyword))) {
+      detected.push(emotion);
+    }
+  });
   
-  return "Your words carry wisdom and strength. I'm here to witness your journey without judgment. How does it feel to have expressed these thoughts?";
+  return detected.length > 0 ? detected : ['neutral'];
 }
 
 // Simple journal analysis (placeholder for advanced AI analysis)

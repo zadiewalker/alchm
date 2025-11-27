@@ -424,7 +424,7 @@ export default function EmergencyModeTest() {
         <div className="bg-gradient-to-r from-red-600 to-red-700 text-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold">Emergency Mode Test Suite</h2>
+              <h2 className="text-2xl font-medium">Emergency Mode Test Suite</h2>
               <p className="text-red-100 mt-1">Crisis system health monitoring</p>
             </div>
             <button
@@ -439,7 +439,7 @@ export default function EmergencyModeTest() {
         <div className="p-6 overflow-y-auto max-h-[70vh]">
           {/* System Status */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3">System Status</h3>
+            <h3 className="text-lg font-medium mb-3">System Status</h3>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {Object.entries(systemStatus).filter(([key]) => key !== 'overallHealth').map(([key, status]) => (
                 <div key={key} className="flex items-center gap-2">
@@ -460,7 +460,7 @@ export default function EmergencyModeTest() {
                   systemStatus.overallHealth === 'good' ? 'bg-blue-500' :
                   systemStatus.overallHealth === 'fair' ? 'bg-yellow-500' : 'bg-red-500'
                 }`} />
-                <span className="font-semibold">Overall Health: {systemStatus.overallHealth.toUpperCase()}</span>
+                <span className="font-medium">Overall Health: {systemStatus.overallHealth.toUpperCase()}</span>
               </div>
             </div>
           </div>
@@ -471,7 +471,7 @@ export default function EmergencyModeTest() {
               <button
                 onClick={runEmergencyTests}
                 disabled={isRunning}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                   isRunning 
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-red-600 text-white hover:bg-red-700'
@@ -490,7 +490,7 @@ export default function EmergencyModeTest() {
 
           {/* Test Results */}
           <div>
-            <h3 className="text-lg font-semibold mb-3">Test Results</h3>
+            <h3 className="text-lg font-medium mb-3">Test Results</h3>
             <div className="space-y-2">
               {testResults.map((test, index) => (
                 <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
@@ -504,7 +504,7 @@ export default function EmergencyModeTest() {
                     <div className="flex items-center gap-2">
                       <span className="font-medium">{test.test}</span>
                       {test.critical && (
-                        <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded">
+                        <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded">
                           CRITICAL
                         </span>
                       )}
@@ -526,7 +526,7 @@ export default function EmergencyModeTest() {
           {/* Developer Information */}
           {showDevMode && (
             <div className="mt-6 p-4 bg-gray-900 text-green-400 rounded-lg font-mono text-sm">
-              <h4 className="font-bold mb-2">Developer Information</h4>
+              <h4 className="font-medium mb-2">Developer Information</h4>
               <div className="space-y-1">
                 <p>User Agent: {typeof window !== 'undefined' && navigator.userAgent}</p>
                 <p>Screen: {typeof window !== 'undefined' && window.screen.width}x{typeof window !== 'undefined' && window.screen.height}</p>

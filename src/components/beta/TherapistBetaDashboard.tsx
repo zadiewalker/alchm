@@ -236,7 +236,7 @@ export default function TherapistBetaDashboard({ therapistId, therapistProfile }
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <h2 className="mt-4 text-xl font-semibold text-gray-900">Loading Therapist Dashboard...</h2>
+          <h2 className="mt-4 text-xl font-medium text-gray-900">Loading Therapist Dashboard...</h2>
           <p className="text-gray-600 mt-2">Initializing mock client data and testing scenarios</p>
         </div>
       </div>
@@ -250,7 +250,7 @@ export default function TherapistBetaDashboard({ therapistId, therapistProfile }
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">ALCHM Therapist Beta Dashboard</h1>
+              <h1 className="text-2xl font-medium text-gray-900">ALCHM Therapist Beta Dashboard</h1>
               <p className="text-sm text-gray-600">Licensed Professional Testing Environment • Mock Data Only</p>
             </div>
             <div className="flex items-center space-x-4">
@@ -506,7 +506,7 @@ function MetricCard({
           <Icon className="w-6 h-6" />
         </div>
         <div className="ml-4">
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-2xl font-medium text-gray-900">{value}</p>
           <p className="text-sm font-medium text-gray-900">{title}</p>
           <p className="text-xs text-gray-500">{subtitle}</p>
         </div>
@@ -526,7 +526,7 @@ function ClientsTab({
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-900">Mock Client Cohort</h2>
+        <h2 className="text-xl font-medium text-gray-900">Mock Client Cohort</h2>
         <button 
           onClick={onGenerateNewCohort}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -581,7 +581,7 @@ function CrisisTab({
 }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">Crisis Detection Testing</h2>
+      <h2 className="text-xl font-medium text-gray-900">Crisis Detection Testing</h2>
       
       <div className="space-y-4">
         {alerts.map((alert) => (
@@ -651,7 +651,7 @@ function InsightsTab({
 }) {
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">AI Clinical Insights</h2>
+      <h2 className="text-xl font-medium text-gray-900">AI Clinical Insights</h2>
       
       <div className="space-y-4">
         {insights.map((insight) => (
@@ -746,7 +746,7 @@ function FeedbackTab({
 
   return (
     <div className="max-w-4xl">
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">Professional Feedback</h2>
+      <h2 className="text-xl font-medium text-gray-900 mb-6">Professional Feedback</h2>
       
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -917,7 +917,7 @@ function TrainingTab({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-gray-900">Beta Training Modules</h2>
+      <h2 className="text-xl font-medium text-gray-900">Beta Training Modules</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {trainingModules.map((module) => (

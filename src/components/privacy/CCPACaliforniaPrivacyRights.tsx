@@ -509,7 +509,7 @@ export default function CCPACaliforniaPrivacyRights({
       <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
         <div className="text-center">
           <span className="text-4xl block mb-4">🐻</span>
-          <h3 className="text-lg font-bold text-blue-800 mb-2">California Privacy Rights (CCPA)</h3>
+          <h3 className="text-lg font-medium text-blue-800 mb-2">California Privacy Rights (CCPA)</h3>
           <p className="text-blue-700">
             CCPA rights are available to California residents. Your current state: {userLocation.state || 'Unknown'}
           </p>
@@ -537,7 +537,7 @@ export default function CCPACaliforniaPrivacyRights({
       <div className="bg-red-50 rounded-2xl p-6 border-2 border-red-200">
         <div className="text-center">
           <span className="text-4xl block mb-4">⚠️</span>
-          <h3 className="text-lg font-bold text-red-800 mb-2">Error Loading CCPA Information</h3>
+          <h3 className="text-lg font-medium text-red-800 mb-2">Error Loading CCPA Information</h3>
           <p className="text-red-700">Unable to load your California privacy rights information.</p>
           <button
             onClick={loadCCPAComplianceRecord}
@@ -557,7 +557,7 @@ export default function CCPACaliforniaPrivacyRights({
         <div className="flex items-start gap-3 mb-4">
           <span className="text-2xl">🐻</span>
           <div>
-            <h3 className="text-xl font-bold text-purple-800">California Consumer Privacy Act (CCPA) Rights</h3>
+            <h3 className="text-xl font-medium text-purple-800">California Consumer Privacy Act (CCPA) Rights</h3>
             <p className="text-sm text-purple-700">
               Your privacy rights as a California resident under the California Consumer Privacy Act
             </p>
@@ -566,7 +566,7 @@ export default function CCPACaliforniaPrivacyRights({
 
         <div className="bg-purple-50 rounded-lg p-4 mb-4">
           <div className="flex items-center gap-3 mb-3">
-            <span className={`px-3 py-1 rounded-full text-sm font-bold ${
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
               complianceRecord.complianceStatus === 'compliant' ? 'bg-green-200 text-green-800' :
               complianceRecord.complianceStatus === 'violation' ? 'bg-red-200 text-red-800' :
               'bg-yellow-200 text-yellow-800'
@@ -580,21 +580,21 @@ export default function CCPACaliforniaPrivacyRights({
 
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
-              <div className="text-lg font-bold text-blue-800">{complianceRecord.personalInfoCategories.length}</div>
+              <div className="text-lg font-medium text-blue-800">{complianceRecord.personalInfoCategories.length}</div>
               <div className="text-sm text-blue-600">Data Categories</div>
             </div>
             <div className="bg-green-50 rounded-lg p-3 border border-green-200">
-              <div className="text-lg font-bold text-green-800">{complianceRecord.consumerRequests.length}</div>
+              <div className="text-lg font-medium text-green-800">{complianceRecord.consumerRequests.length}</div>
               <div className="text-sm text-green-600">Consumer Requests</div>
             </div>
             <div className="bg-yellow-50 rounded-lg p-3 border border-yellow-200">
-              <div className="text-lg font-bold text-yellow-800">
+              <div className="text-lg font-medium text-yellow-800">
                 {Object.values(complianceRecord.optOutStatus).filter(status => status === true).length}
               </div>
               <div className="text-sm text-yellow-600">Opt-Out Settings</div>
             </div>
             <div className="bg-purple-50 rounded-lg p-3 border border-purple-200">
-              <div className="text-lg font-bold text-purple-800">
+              <div className="text-lg font-medium text-purple-800">
                 {complianceRecord.businessEntity === 'small' ? 'Small' : 'Large'}
               </div>
               <div className="text-sm text-purple-600">Business Entity</div>
@@ -605,14 +605,14 @@ export default function CCPACaliforniaPrivacyRights({
 
       {/* Your CCPA Rights */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-green-200">
-        <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-green-800 mb-4 flex items-center gap-2">
           <span>⚖️</span>
           Your California Privacy Rights
         </h3>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-            <h4 className="font-bold text-green-800 mb-2">📋 Right to Know</h4>
+            <h4 className="font-medium text-green-800 mb-2">📋 Right to Know</h4>
             <p className="text-sm text-green-700 mb-3">
               Request information about personal information collected, used, disclosed, or sold.
             </p>
@@ -625,7 +625,7 @@ export default function CCPACaliforniaPrivacyRights({
           </div>
 
           <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-            <h4 className="font-bold text-red-800 mb-2">🗑️ Right to Delete</h4>
+            <h4 className="font-medium text-red-800 mb-2">🗑️ Right to Delete</h4>
             <p className="text-sm text-red-700 mb-3">
               Request deletion of personal information we have collected.
             </p>
@@ -638,7 +638,7 @@ export default function CCPACaliforniaPrivacyRights({
           </div>
 
           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-            <h4 className="font-bold text-blue-800 mb-2">🚫 Right to Opt-Out</h4>
+            <h4 className="font-medium text-blue-800 mb-2">🚫 Right to Opt-Out</h4>
             <p className="text-sm text-blue-700 mb-3">
               Opt-out of the sale or sharing of your personal information.
             </p>
@@ -651,7 +651,7 @@ export default function CCPACaliforniaPrivacyRights({
           </div>
 
           <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-            <h4 className="font-bold text-yellow-800 mb-2">✏️ Right to Correct</h4>
+            <h4 className="font-medium text-yellow-800 mb-2">✏️ Right to Correct</h4>
             <p className="text-sm text-yellow-700 mb-3">
               Request correction of inaccurate personal information.
             </p>
@@ -665,7 +665,7 @@ export default function CCPACaliforniaPrivacyRights({
         </div>
 
         <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-          <h4 className="font-bold text-orange-800 mb-2">🔒 Right to Non-Discrimination</h4>
+          <h4 className="font-medium text-orange-800 mb-2">🔒 Right to Non-Discrimination</h4>
           <p className="text-sm text-orange-700">
             You have the right not to receive discriminatory treatment for exercising your CCPA rights. 
             We will not deny goods or services, charge different prices, or provide different service quality 
@@ -676,7 +676,7 @@ export default function CCPACaliforniaPrivacyRights({
 
       {/* Opt-Out Preferences */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-blue-200">
-        <h3 className="text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-blue-800 mb-4 flex items-center gap-2">
           <span>🛡️</span>
           Your Opt-Out Preferences
         </h3>
@@ -684,7 +684,7 @@ export default function CCPACaliforniaPrivacyRights({
         <div className="space-y-4">
           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 flex items-center justify-between">
             <div>
-              <div className="font-bold text-blue-800">Sale of Personal Information</div>
+              <div className="font-medium text-blue-800">Sale of Personal Information</div>
               <div className="text-sm text-blue-700">
                 Currently: {complianceRecord.optOutStatus.personalInfoSale ? 'Opted Out' : 'Opted In'}
               </div>
@@ -703,7 +703,7 @@ export default function CCPACaliforniaPrivacyRights({
 
           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 flex items-center justify-between">
             <div>
-              <div className="font-bold text-blue-800">Cross-Context Behavioral Advertising</div>
+              <div className="font-medium text-blue-800">Cross-Context Behavioral Advertising</div>
               <div className="text-sm text-blue-700">
                 Currently: {complianceRecord.optOutStatus.crossContextBehavioralAds ? 'Opted Out' : 'Opted In'}
               </div>
@@ -722,7 +722,7 @@ export default function CCPACaliforniaPrivacyRights({
 
           <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200 flex items-center justify-between">
             <div>
-              <div className="font-bold text-yellow-800">Sensitive Personal Information Processing</div>
+              <div className="font-medium text-yellow-800">Sensitive Personal Information Processing</div>
               <div className="text-sm text-yellow-700">
                 Limited to service provision only: {complianceRecord.optOutStatus.sensitivePersonalInfoProcessing ? 'Yes' : 'No'}
               </div>
@@ -747,7 +747,7 @@ export default function CCPACaliforniaPrivacyRights({
 
       {/* Personal Information Categories */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-        <h3 className="text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-purple-800 mb-4 flex items-center gap-2">
           <span>📊</span>
           Personal Information We Collect
         </h3>
@@ -757,16 +757,16 @@ export default function CCPACaliforniaPrivacyRights({
             <div key={category.id} className="bg-purple-50 rounded-lg p-4 border border-purple-200">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <div className="font-bold text-purple-800">{category.category}</div>
+                  <div className="font-medium text-purple-800">{category.category}</div>
                   <div className="text-sm text-purple-700">Examples: {category.examples.join(', ')}</div>
                 </div>
                 <div className="flex gap-2">
                   {category.sensitivePersonalInfo && (
-                    <span className="px-2 py-1 bg-red-200 text-red-800 rounded text-xs font-bold">
+                    <span className="px-2 py-1 bg-red-200 text-red-800 rounded text-xs font-medium">
                       SENSITIVE
                     </span>
                   )}
-                  <span className={`px-2 py-1 rounded text-xs font-bold ${
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${
                     category.collected ? 'bg-blue-200 text-blue-800' : 'bg-gray-200 text-gray-800'
                   }`}>
                     {category.collected ? 'COLLECTED' : 'NOT COLLECTED'}
@@ -796,7 +796,7 @@ export default function CCPACaliforniaPrivacyRights({
 
       {/* Consumer Requests History */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-orange-200">
-        <h3 className="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-orange-800 mb-4 flex items-center gap-2">
           <span>📝</span>
           Consumer Requests History
         </h3>
@@ -812,14 +812,14 @@ export default function CCPACaliforniaPrivacyRights({
               <div key={request.id} className="bg-orange-50 rounded-lg p-4 border border-orange-200">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <div className="font-bold text-orange-800 capitalize">
+                    <div className="font-medium text-orange-800 capitalize">
                       {request.requestType.replace('_', ' ')} Request
                     </div>
                     <div className="text-sm text-orange-700">
                       Submitted: {new Date(request.submittedDate).toLocaleDateString()}
                     </div>
                   </div>
-                  <div className={`px-2 py-1 rounded text-xs font-bold ${
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${
                     request.status === 'completed' ? 'bg-green-200 text-green-800' :
                     request.status === 'denied' ? 'bg-red-200 text-red-800' :
                     request.status === 'processing' ? 'bg-blue-200 text-blue-800' :
@@ -862,7 +862,7 @@ export default function CCPACaliforniaPrivacyRights({
       {showRequestModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-4 capitalize">
+            <h3 className="text-xl font-medium text-gray-900 mb-4 capitalize">
               CCPA {requestType.replace('_', ' ')} Request
             </h3>
             
@@ -907,7 +907,7 @@ export default function CCPACaliforniaPrivacyRights({
 
       {/* CCPA Information */}
       <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-        <h4 className="font-bold text-gray-800 mb-2">ℹ️ About CCPA</h4>
+        <h4 className="font-medium text-gray-800 mb-2">ℹ️ About CCPA</h4>
         <div className="text-sm text-gray-700 space-y-2">
           <p>
             The California Consumer Privacy Act (CCPA) gives California residents specific rights regarding their personal information.

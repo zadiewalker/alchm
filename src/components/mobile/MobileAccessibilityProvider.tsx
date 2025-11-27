@@ -451,7 +451,7 @@ export function useAccessibilityStyles() {
       state.largeTouch && 'min-h-18 min-w-18 p-4',
       state.tremorCompensation && 'border-2 border-gray-300',
       state.highContrast && 'border-black text-black bg-white',
-      state.motorDifficulty === 'severe' && 'text-xl font-bold',
+      state.motorDifficulty === 'severe' && 'text-xl font-medium',
       state.crisisMode && 'bg-red-600 text-white border-red-700',
       state.emergencyMode && 'bg-red-700 text-white border-red-800 shadow-xl'
     ].filter(Boolean).join(' '),

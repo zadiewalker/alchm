@@ -170,7 +170,7 @@ export function CrisisInterventionOverlay({
             </div>
             
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+              <h3 className="text-lg font-medium text-gray-900 mb-1">
                 {intervention.title}
               </h3>
               <p className="text-sm text-gray-700 leading-relaxed">
@@ -268,7 +268,7 @@ export function CrisisInterventionOverlay({
       {selectedResource && (
         <div className="absolute inset-0 z-10 bg-black/70 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl p-6 max-w-sm w-full">
-            <h3 className="font-semibold text-gray-900 mb-2">{selectedResource.name}</h3>
+            <h3 className="font-medium text-gray-900 mb-2">{selectedResource.name}</h3>
             <p className="text-sm text-gray-600 mb-4">{selectedResource.description}</p>
             
             <div className="space-y-3">

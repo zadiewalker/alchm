@@ -282,7 +282,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🏆</div>
               <div>
-                <div className="text-2xl font-bold">{achievements.length}</div>
+                <div className="text-2xl font-medium">{achievements.length}</div>
                 <div className="text-sm opacity-80">Achievements Unlocked</div>
               </div>
             </div>
@@ -292,7 +292,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🎯</div>
               <div>
-                <div className="text-2xl font-bold">{milestones.filter(m => m.completedAt).length}</div>
+                <div className="text-2xl font-medium">{milestones.filter(m => m.completedAt).length}</div>
                 <div className="text-sm opacity-80">Milestones Reached</div>
               </div>
             </div>
@@ -302,7 +302,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🏅</div>
               <div>
-                <div className="text-2xl font-bold">{badges.length}</div>
+                <div className="text-2xl font-medium">{badges.length}</div>
                 <div className="text-sm opacity-80">Badges Earned</div>
               </div>
             </div>
@@ -312,7 +312,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">⭐</div>
               <div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {Math.round((achievementStats?.overallProgress || 0) * 100)}%
                 </div>
                 <div className="text-sm opacity-80">Overall Progress</div>
@@ -323,7 +323,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
 
         {/* Recent achievements */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎉 Recent Achievements</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎉 Recent Achievements</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {achievements
               .filter(a => a.unlockedAt)
@@ -351,7 +351,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
                       </span>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-800">{achievement.title}</h4>
+                      <h4 className="font-medium text-gray-800">{achievement.title}</h4>
                       <p className="text-sm text-gray-600">{achievement.category.replace('_', ' ').toUpperCase()}</p>
                     </div>
                   </div>
@@ -371,7 +371,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
 
         {/* Milestone progress */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🛤️ Milestone Progress</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🛤️ Milestone Progress</h3>
           <div className="space-y-4">
             {milestoneJourneys.map((journey) => (
               <div key={journey.journeyId} className="border border-gray-200 rounded-lg p-4">
@@ -406,7 +406,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
 
         {/* Progress towards next achievements */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Progress Towards Next Achievements</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Progress Towards Next Achievements</h3>
           <div className="space-y-4">
             {achievementProgress
               .filter(progress => progress.currentProgress > 0 && progress.currentProgress < 1)
@@ -454,7 +454,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
     return (
       <div className="space-y-6">
         <div className="text-center">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Achievement Gallery</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">Achievement Gallery</h3>
           <p className="text-gray-600">Your collection of personal development achievements</p>
         </div>
 
@@ -464,7 +464,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
 
           return (
             <div key={category} className="bg-white rounded-lg border border-gray-200 p-6">
-              <h4 className="text-lg font-semibold text-gray-800 mb-4 capitalize">
+              <h4 className="text-lg font-medium text-gray-800 mb-4 capitalize">
                 {category.replace('_', ' ')} Achievements
               </h4>
               
@@ -493,7 +493,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
                         </span>
                       </div>
                       <div className="flex-1">
-                        <h5 className="font-semibold text-gray-800">{achievement.title}</h5>
+                        <h5 className="font-medium text-gray-800">{achievement.title}</h5>
                         <p className="text-sm text-gray-600 capitalize">{achievement.difficulty}</p>
                       </div>
                     </div>
@@ -529,7 +529,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
         <div className="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 text-center">
           <div className="mb-6">
             <div className="text-6xl mb-4 animate-bounce">🎉</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">{activeCelebration.title}</h3>
+            <h3 className="text-2xl font-medium text-gray-800 mb-2">{activeCelebration.title}</h3>
             <p className="text-gray-600">{activeCelebration.description}</p>
           </div>
 
@@ -591,7 +591,7 @@ const AchievementMilestoneSystem: React.FC<AchievementMilestoneSystemProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Achievements & Milestones
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

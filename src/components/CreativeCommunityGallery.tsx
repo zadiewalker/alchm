@@ -375,7 +375,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
     <div className={`creative-community-gallery ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Creative Community Gallery
         </h3>
         <p className="text-sm text-gray-600">
@@ -430,7 +430,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
       {showGuidelines && (
         <div className="guidelines-modal mb-6 p-6 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl border border-sage-200">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-lg font-semibold text-gray-800">Sacred Community Guidelines</h4>
+            <h4 className="text-lg font-medium text-gray-800">Sacred Community Guidelines</h4>
             <button
               onClick={() => setShowGuidelines(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -525,7 +525,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
                     </span>
                   </div>
                   
-                  <h5 className="font-semibold text-gray-800 mb-1">
+                  <h5 className="font-medium text-gray-800 mb-1">
                     {creative.title || 'Untitled Expression'}
                   </h5>
                   <div className="text-xs text-gray-600 mb-2">
@@ -640,7 +640,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
           {filteredCreatives.length === 0 && (
             <div className="empty-state text-center py-12">
               <div className="text-6xl mb-4">🌱</div>
-              <h4 className="text-lg font-semibold text-gray-700 mb-2">
+              <h4 className="text-lg font-medium text-gray-700 mb-2">
                 Nurturing Creative Community
               </h4>
               <p className="text-sm text-gray-600 max-w-md mx-auto">
@@ -656,13 +656,13 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
       {viewMode === 'share' && (
         <div className="share-view">
           <div className="share-form bg-white rounded-2xl p-6 shadow-lg border border-gray-100 max-w-2xl mx-auto">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+            <h4 className="text-lg font-medium text-gray-800 mb-4 text-center">
               Share Your Creative Healing
             </h4>
             
             <div className="anonymous-identity mb-6 p-4 bg-sage-50 rounded-lg text-center">
               <p className="text-sm text-gray-700 mb-2">
-                You're sharing as: <span className="font-semibold text-sage-700">{userAnonymousName}</span>
+                You're sharing as: <span className="font-medium text-sage-700">{userAnonymousName}</span>
               </p>
               <p className="text-xs text-gray-600">
                 Your identity is protected. Only you know who you are in this sacred space.
@@ -713,7 +713,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
               </div>
               
               <div className="privacy-settings p-4 bg-purple-50 rounded-lg">
-                <h5 className="text-sm font-semibold text-gray-700 mb-3">Privacy & Community Settings</h5>
+                <h5 className="text-sm font-medium text-gray-700 mb-3">Privacy & Community Settings</h5>
                 
                 <div className="space-y-2">
                   <label className="flex items-center gap-2">
@@ -780,7 +780,7 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
           <div className="modal-content bg-white rounded-3xl max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="modal-header p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <h4 className="text-xl font-semibold text-gray-800">
+                <h4 className="text-xl font-medium text-gray-800">
                   {selectedCreative.title || 'Creative Expression'}
                 </h4>
                 <button
@@ -799,20 +799,20 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
               {/* Full content would be displayed here based on type */}
               <div className="healing-context mb-6">
                 <div className="intention mb-4 p-4 bg-purple-50 rounded-lg">
-                  <h5 className="text-sm font-semibold text-purple-800 mb-2">Healing Intention</h5>
+                  <h5 className="text-sm font-medium text-purple-800 mb-2">Healing Intention</h5>
                   <p className="text-sm text-gray-700">{selectedCreative.metadata.healingIntention}</p>
                 </div>
                 
                 {selectedCreative.healing.breakthrough && (
                   <div className="breakthrough mb-4 p-4 bg-green-50 rounded-lg">
-                    <h5 className="text-sm font-semibold text-green-800 mb-2">Breakthrough</h5>
+                    <h5 className="text-sm font-medium text-green-800 mb-2">Breakthrough</h5>
                     <p className="text-sm text-gray-700">{selectedCreative.healing.breakthrough}</p>
                   </div>
                 )}
                 
                 {selectedCreative.healing.wisdom_shared && (
                   <div className="wisdom mb-4 p-4 bg-blue-50 rounded-lg">
-                    <h5 className="text-sm font-semibold text-blue-800 mb-2">Wisdom Shared</h5>
+                    <h5 className="text-sm font-medium text-blue-800 mb-2">Wisdom Shared</h5>
                     <p className="text-sm text-gray-700">{selectedCreative.healing.wisdom_shared}</p>
                   </div>
                 )}
@@ -820,11 +820,11 @@ const CreativeCommunityGallery: React.FC<CreativeCommunityGalleryProps> = ({
               
               {/* Community reflections would go here */}
               <div className="community-section">
-                <h5 className="text-lg font-semibold text-gray-800 mb-4">Community Witnessing</h5>
+                <h5 className="text-lg font-medium text-gray-800 mb-4">Community Witnessing</h5>
                 
                 {selectedCreative.community.healingWitness.length > 0 && (
                   <div className="healing-witness mb-6">
-                    <h6 className="text-sm font-semibold text-gray-700 mb-2">Healing Witness</h6>
+                    <h6 className="text-sm font-medium text-gray-700 mb-2">Healing Witness</h6>
                     <div className="space-y-2">
                       {selectedCreative.community.healingWitness.map(witness => (
                         <div key={witness.id} className="witness p-3 bg-blue-50 rounded-lg">

@@ -648,7 +648,7 @@ const MobileCrisisExperienceTesting: React.FC<MobileCrisisTestingProps> = ({
   const renderScenarioSelection = () => (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-purple-800 mb-2">
+        <h2 className="text-2xl font-medium text-purple-800 mb-2">
           Mobile Crisis Experience Testing
         </h2>
         <p className="text-purple-600">
@@ -732,13 +732,13 @@ const MobileCrisisExperienceTesting: React.FC<MobileCrisisTestingProps> = ({
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-bold text-blue-800">{currentScenario.name}</h3>
+                <h3 className="text-xl font-medium text-blue-800">{currentScenario.name}</h3>
                 <p className="text-blue-600">Crisis scenario in progress</p>
               </div>
               
               <div className="flex items-center gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-800">{remainingTime}s</div>
+                  <div className="text-2xl font-medium text-blue-800">{remainingTime}s</div>
                   <div className="text-xs text-blue-600">remaining</div>
                 </div>
                 
@@ -800,7 +800,7 @@ const MobileCrisisExperienceTesting: React.FC<MobileCrisisTestingProps> = ({
                 {[1, 2, 3, 4, 5].map((level) => (
                   <div
                     key={level}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${
                       level <= participantStress
                         ? level <= 2 ? 'bg-green-500 text-white' :
                           level <= 3 ? 'bg-yellow-500 text-white' :

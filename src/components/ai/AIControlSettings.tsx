@@ -310,7 +310,7 @@ function AILevelCard({ level, isSelected, onSelect }: AILevelCardProps) {
           <div className="flex items-center gap-gentle">
             <span className="text-2xl">{getLevelIcon()}</span>
             <div>
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 {level.name}
               </SacredText>
               <SacredText variant="caption" className="text-xs text-subtle">
@@ -416,7 +416,7 @@ function GranularControlCard({ option, isEnabled, onToggle, parentLevel }: Granu
         <div className="flex items-start justify-between">
           <div className="flex-grow">
             <div className="flex items-center gap-gentle mb-whisper">
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 {option.feature}
               </SacredText>
               {!canToggle && (
@@ -541,7 +541,7 @@ function DataProcessingStatus({ currentPreferences }: { currentPreferences?: Use
         <div className="flex items-center gap-gentle">
           <span className="text-2xl">🔐</span>
           <div>
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Current Data Processing
             </SacredText>
             <SacredText variant="caption" className={`text-sm ${getStatusColor()}`}>
@@ -582,7 +582,7 @@ function PrivacyRights() {
       <div className="space-y-breath">
         <div className="flex items-center gap-gentle">
           <span className="text-2xl">⚖️</span>
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             Your Privacy Rights
           </SacredText>
         </div>
@@ -606,7 +606,7 @@ function DataControls({ onShowTransparency }: { onShowTransparency: () => void }
   return (
     <SacredCard variant="gentle">
       <div className="space-y-breath">
-        <SacredText variant="caption" className="font-semibold">
+        <SacredText variant="caption" className="font-medium">
           Data Management Actions
         </SacredText>
         
@@ -707,7 +707,7 @@ function AnalogJournalingPreview({ alternative }: AnalogJournalingPreviewProps) 
       <div className="space-y-breath">
         <div className="text-center">
           <span className="text-3xl">📝</span>
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             {alternative.title}
           </SacredText>
         </div>
@@ -845,7 +845,7 @@ function OptOutStep({ step, choices, onChoiceChange, onNext, onPrevious, onCompl
       case 1:
         return (
           <div className="space-y-breath">
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Are you sure you want to disable AI features?
             </SacredText>
             <div className="space-y-breath">
@@ -875,7 +875,7 @@ function OptOutStep({ step, choices, onChoiceChange, onNext, onPrevious, onCompl
         return (
           <div className="space-y-breath text-center">
             <span className="text-3xl">✅</span>
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Opt-Out Complete
             </SacredText>
             <SacredText variant="body">
@@ -999,7 +999,7 @@ function TransparencySection({ title, icon, items, type }: TransparencySectionPr
       <div className="space-y-breath">
         <div className="flex items-center gap-gentle">
           <span className="text-2xl">{icon}</span>
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             {title}
           </SacredText>
         </div>
@@ -1025,7 +1025,7 @@ function DataUsageSection({ data }: { data: any }) {
       <div className="space-y-breath">
         <div className="flex items-center gap-gentle">
           <span className="text-2xl">📊</span>
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             How Your Data Is Used
           </SacredText>
         </div>

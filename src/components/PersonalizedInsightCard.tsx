@@ -104,7 +104,7 @@ export default function PersonalizedInsightCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {getResponseTypeIcon()}
-            <CardTitle className="text-xl font-semibold text-[#2e2e2e]">
+            <CardTitle className="text-xl font-medium text-[#2e2e2e]">
               Your Personal Insight
             </CardTitle>
           </div>
@@ -159,7 +159,7 @@ export default function PersonalizedInsightCard({
             <div className="flex items-start gap-4">
               <Sparkles className="h-6 w-6 text-[#a4b792] mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-[#a4b792] mb-2">Gentle Suggestion</p>
+                <p className="text-sm font-medium text-[#a4b792] mb-2">Gentle Suggestion</p>
                 <p className="text-[#2e2e2e]/80 leading-relaxed">
                   {gentleAction}
                 </p>

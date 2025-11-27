@@ -169,7 +169,7 @@ export function TransparencyDashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">ALCHM Transparency Dashboard</h1>
+              <h1 className="text-3xl font-medium text-gray-900">ALCHM Transparency Dashboard</h1>
               <p className="mt-2 text-gray-600">
                 Real-time insights into our impact, safety measures, and accountability practices
               </p>
@@ -234,7 +234,7 @@ export function TransparencyDashboard() {
         {/* Impact Metrics */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🌱 Wellness Impact
             </h2>
             <div className="space-y-4">
@@ -266,7 +266,7 @@ export function TransparencyDashboard() {
           </Card>
 
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🚨 Crisis Prevention
             </h2>
             <div className="space-y-4">
@@ -303,7 +303,7 @@ export function TransparencyDashboard() {
         {/* Community & Research Impact */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🤝 Community Support
             </h2>
             <div className="space-y-4">
@@ -335,7 +335,7 @@ export function TransparencyDashboard() {
           </Card>
 
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🔬 Research Contributions
             </h2>
             <div className="space-y-4">
@@ -370,7 +370,7 @@ export function TransparencyDashboard() {
         {/* Privacy & Transparency */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               🔒 Privacy Protection
             </h2>
             <div className="space-y-4">
@@ -402,7 +402,7 @@ export function TransparencyDashboard() {
           </Card>
 
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               📊 Transparency Measures
             </h2>
             <div className="space-y-4">
@@ -436,7 +436,7 @@ export function TransparencyDashboard() {
 
         {/* Action Items & Links */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-medium text-gray-900 mb-4">
             📋 Transparency Resources
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -472,7 +472,7 @@ export function TransparencyDashboard() {
           <div className="flex items-start space-x-3">
             <div className="text-blue-600 text-xl">🔒</div>
             <div>
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">
+              <h3 className="text-lg font-medium text-blue-900 mb-2">
                 Privacy-First Transparency
               </h3>
               <p className="text-blue-800 mb-3">
@@ -516,7 +516,7 @@ function StatusCard({ title, value, icon, status }: StatusCardProps) {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium opacity-75">{title}</p>
-          <p className="text-2xl font-bold">{value}</p>
+          <p className="text-2xl font-medium">{value}</p>
         </div>
         <div className="text-2xl">{icon}</div>
       </div>
@@ -541,7 +541,7 @@ function MetricRow({ label, value, trend, description, trendPositive = true }: M
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-gray-900">{label}</span>
           <div className="flex items-center space-x-2">
-            <span className="text-lg font-semibold text-gray-900">{value}</span>
+            <span className="text-lg font-medium text-gray-900">{value}</span>
             <span className={`text-sm font-medium ${trendColor}`}>{trend}</span>
           </div>
         </div>
@@ -567,7 +567,7 @@ function TransparencyLink({ title, description, href, icon }: TransparencyLinkPr
       <div className="flex items-start space-x-3">
         <div className="text-xl">{icon}</div>
         <div>
-          <h3 className="text-sm font-semibold text-gray-900 group-hover:text-blue-700">
+          <h3 className="text-sm font-medium text-gray-900 group-hover:text-blue-700">
             {title}
           </h3>
           <p className="text-xs text-gray-600 mt-1">{description}</p>

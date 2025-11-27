@@ -6,8 +6,10 @@
  * Caches essential crisis resources and provides offline fallbacks
  */
 
-const CACHE_NAME = 'alchm-crisis-v1';
-const CRISIS_CACHE_NAME = 'alchm-crisis-resources-v1';
+// CRISIS-CRITICAL: Static version to prevent infinite reload loops
+const BUILD_VERSION = '1.0.0';
+const CACHE_NAME = `alchm-crisis-v1-${BUILD_VERSION}`;
+const CRISIS_CACHE_NAME = `alchm-crisis-resources-v1-${BUILD_VERSION}`;
 
 // Essential crisis resources to cache
 const CRISIS_RESOURCES = [
@@ -112,23 +114,34 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event
+// Activate event - aggressive cache cleaning
 self.addEventListener('activate', (event) => {
-  console.log('Crisis service worker activating...');
+  console.log('Crisis service worker activating with aggressive cache cleaning...');
   
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
+          // Keep only the current version of crisis caches
           if (cacheName !== CACHE_NAME && cacheName !== CRISIS_CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
+            console.log('🧹 Aggressively deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     }).then(() => {
-      console.log('Crisis service worker activated');
+      console.log('✅ Crisis service worker activated with clean cache');
       return self.clients.claim();
+    }).then(() => {
+      // Immediately take control of all tabs
+      return self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+          if (client.url && client.navigate) {
+            console.log('🔄 Refreshing client for cache update');
+            client.navigate(client.url);
+          }
+        });
+      });
     })
   );
 });
@@ -392,4 +405,58 @@ self.addEventListener('notificationclick', (event) => {
   }
 });
 
-console.log('Crisis service worker loaded and ready');
+// Message handler for cache invalidation and updates
+self.addEventListener('message', (event) => {
+  const { data } = event;
+  
+  if (data.type === 'SKIP_WAITING') {
+    console.log('🚀 Skipping waiting - immediate activation');
+    self.skipWaiting();
+    return;
+  }
+  
+  if (data.type === 'CLEAR_ALL_CACHES') {
+    console.log('🧹 Manual cache clear requested');
+    event.waitUntil(
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            console.log('🗑️ Clearing cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      }).then(() => {
+        console.log('✅ All caches cleared');
+        // Notify clients
+        return self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage({ type: 'CACHES_CLEARED' });
+          });
+        });
+      })
+    );
+    return;
+  }
+  
+  if (data.type === 'FORCE_UPDATE') {
+    console.log('🔄 Force update requested');
+    event.waitUntil(self.registration.update());
+    return;
+  }
+  
+  if (data.type === 'PRELOAD_CRISIS_RESOURCES') {
+    console.log('🚨 Preloading crisis resources');
+    event.waitUntil(
+      caches.open(CRISIS_CACHE_NAME).then((cache) => {
+        return cache.addAll(CRISIS_RESOURCES.map(url => new Request(url, { 
+          cache: 'reload' // Force fresh fetch
+        })));
+      }).catch((error) => {
+        console.warn('⚠️ Crisis resource preload failed:', error);
+      })
+    );
+    return;
+  }
+});
+
+console.log(`Crisis service worker v${BUILD_VERSION} loaded and ready`);

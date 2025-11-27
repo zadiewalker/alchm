@@ -24,15 +24,15 @@
         },
         {
           "source": "/api/khepera/**",
-          "function": "detectCrisis"
+          "function": "crisisDetection"
         },
         {
           "source": "/api/crisis-detection",
-          "function": "detectCrisis"
+          "function": "crisisDetection"
         },
         {
           "source": "/api/crisis-detection/**",
-          "function": "detectCrisis"
+          "function": "crisisDetection"
         },
         {
           "source": "/api/health",
@@ -64,7 +64,7 @@
         },
         {
           "source": "/en/dashboard",
-          "destination": "/en/dashboard.html"
+          "destination": "/dashboard.html"
         },
         {
           "source": "/en/journal",
@@ -72,19 +72,19 @@
         },
         {
           "source": "/en/auth/login",
-          "destination": "/en/auth/login.html"
+          "destination": "/index.html"
         },
         {
           "source": "/en/auth/signup",
-          "destination": "/en/auth/signup.html"
+          "destination": "/index.html"
         },
         {
           "source": "/en/emergency",
           "destination": "/en/emergency.html"
         },
         {
-          "source": "/en/crisis",
-          "destination": "/en/crisis.html"
+          "source": "/en/crisis-support",
+          "destination": "/crisis-support.html"
         },
         {
           "source": "/en/pathways",
@@ -97,6 +97,352 @@
         {
           "source": "/en/pricing/premium",
           "destination": "/en/pricing/premium.html"
+        },
+        {
+          "source": "/insights",
+          "destination": "/en/insights.html"
+        },
+        {
+          "source": "/en/insights",
+          "destination": "/en/insights.html"
+        },
+        {
+          "source": "/es/insights",
+          "destination": "/es/insights.html"
+        },
+        {
+          "source": "/pt/insights",
+          "destination": "/pt/insights.html"
+        },
+        {
+          "source": "/ko/insights",
+          "destination": "/ko/insights.html"
+        },
+        {
+          "source": "/hi/insights",
+          "destination": "/hi/insights.html"
+        },
+        {
+          "source": "/de/insights",
+          "destination": "/de/insights.html"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "/",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-root\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "firebase-studio-fix-2025-11-23-19-36"
+            }
+          ]
+        },
+        {
+          "source": "/index.html",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-index\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "firebase-studio-fix-2025-11-23-19-36"
+            }
+          ]
+        },
+        {
+          "source": "/_next/static/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-assets\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "firebase-studio-fix-2025-11-23-19-36"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(woff|woff2|ttf|otf)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "public, max-age=2592000"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=3600, must-revalidate"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(json|xml)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**/*.html",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-html\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "firebase-studio-fix-2025-11-23-19-36"
+            }
+          ]
+        },
+        {
+          "source": "/sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/*sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/manifest.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/version.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Version-File",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "source": "/build-info.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/javascript"
+            }
+          ]
+        },
+        {
+          "source": "/api/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "X-Content-Type-Options", 
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=()"
+            },
+            {
+              "key": "X-Mobile-Optimized",
+              "value": "trauma-informed"
+            },
+            {
+              "key": "X-Crisis-Ready",
+              "value": "true"
+            },
+            {
+              "key": "X-Touch-Targets",
+              "value": "accessibility-enhanced"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false
+    },
+    {
+      "site": "alchm-digital-sanctuary", 
+      "public": "out",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/mobile-emergency",
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/emergency-age-verify",
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/emergency-dashboard",
+          "destination": "/emergency-dashboard.html"
         },
         {
           "source": "**",
@@ -250,11 +596,11 @@
           ]
         },
         {
-          "source": "/api/**",
+          "source": "/version.json",
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
             },
             {
               "key": "Pragma",
@@ -263,157 +609,15 @@
             {
               "key": "Expires",
               "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "**",
-          "headers": [
-            {
-              "key": "X-Frame-Options",
-              "value": "DENY"
             },
             {
-              "key": "X-Content-Type-Options", 
-              "value": "nosniff"
-            },
-            {
-              "key": "Referrer-Policy",
-              "value": "strict-origin-when-cross-origin"
-            },
-            {
-              "key": "Permissions-Policy",
-              "value": "camera=(), microphone=(), geolocation=()"
-            },
-            {
-              "key": "X-Mobile-Optimized",
-              "value": "trauma-informed"
-            },
-            {
-              "key": "X-Crisis-Ready",
+              "key": "X-Version-File",
               "value": "true"
-            },
-            {
-              "key": "X-Touch-Targets",
-              "value": "accessibility-enhanced"
-            }
-          ]
-        }
-      ],
-      "cleanUrls": true,
-      "trailingSlash": false
-    },
-    {
-      "site": "alchm-digital-sanctuary", 
-      "public": "out",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "rewrites": [
-        {
-          "source": "/mobile-emergency",
-          "destination": "/mobile-emergency.html"
-        },
-        {
-          "source": "/emergency-age-verify",
-          "destination": "/mobile-emergency.html"
-        },
-        {
-          "source": "/emergency-dashboard",
-          "destination": "/emergency-dashboard.html"
-        }
-      ],
-      "redirects": [
-        {
-          "source": "/dashboard",
-          "destination": "https://alchmapp.web.app/dashboard",
-          "type": 301
-        },
-        {
-          "source": "/journal",
-          "destination": "https://alchmapp.web.app/journal",
-          "type": 301
-        },
-        {
-          "source": "/login",
-          "destination": "https://alchmapp.web.app/login",
-          "type": 301
-        }
-      ],
-      "headers": [
-        {
-          "source": "/_next/static/**",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public, max-age=31536000, immutable"
             }
           ]
         },
         {
-          "source": "**/*.@(js|css)",
-          "headers": [
-            {
-              "key": "Cache-Control", 
-              "value": "no-cache, no-store, must-revalidate, max-age=0"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"no-cache\""
-            },
-            {
-              "key": "Last-Modified",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(woff|woff2|ttf|otf)",
-          "headers": [
-            {
-              "key": "Cache-Control", 
-              "value": "public, max-age=2592000"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public, max-age=3600, must-revalidate"
-            }
-          ]
-        },
-        {
-          "source": "**/*.@(json|xml)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "**/*.html",
+          "source": "/build-info.js",
           "headers": [
             {
               "key": "Cache-Control",
@@ -428,63 +632,8 @@
               "value": "0"
             },
             {
-              "key": "ETag",
-              "value": "W/\"no-cache\""
-            },
-            {
-              "key": "Last-Modified",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "/sw.js",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "/*sw.js",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "source": "/manifest.json",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache, no-store, must-revalidate"
-            },
-            {
-              "key": "Pragma",
-              "value": "no-cache"
-            },
-            {
-              "key": "Expires",
-              "value": "0"
+              "key": "Content-Type",
+              "value": "application/javascript"
             }
           ]
         },

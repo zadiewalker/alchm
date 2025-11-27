@@ -263,7 +263,7 @@ export default function PerformanceAnalyticsDashboard() {
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-medium text-gray-900">
               🏥 ALCHM Performance Analytics
             </h1>
             <p className="text-gray-600 mt-2">
@@ -302,7 +302,7 @@ export default function PerformanceAnalyticsDashboard() {
             <span className="text-2xl">🛡️</span>
           </div>
           <div className="mt-4">
-            <div className="text-3xl font-bold text-gray-900">
+            <div className="text-3xl font-medium text-gray-900">
               {data.crisisMetrics.userSafetyScore}%
             </div>
             <p className="text-sm text-gray-600">
@@ -318,7 +318,7 @@ export default function PerformanceAnalyticsDashboard() {
             <span className="text-2xl">🚨</span>
           </div>
           <div className="mt-4">
-            <div className="text-3xl font-bold text-gray-900">
+            <div className="text-3xl font-medium text-gray-900">
               {data.userContext.crisisUsers}
             </div>
             <p className="text-sm text-gray-600">
@@ -334,7 +334,7 @@ export default function PerformanceAnalyticsDashboard() {
             <span className="text-2xl">📱</span>
           </div>
           <div className="mt-4">
-            <div className="text-3xl font-bold text-gray-900">
+            <div className="text-3xl font-medium text-gray-900">
               {formatPercentage(data.userContext.mobileUsers / data.userContext.totalUsers)}
             </div>
             <p className="text-sm text-gray-600">
@@ -350,7 +350,7 @@ export default function PerformanceAnalyticsDashboard() {
             <span className="text-2xl">⚠️</span>
           </div>
           <div className="mt-4">
-            <div className="text-3xl font-bold text-red-600">
+            <div className="text-3xl font-medium text-red-600">
               {data.alerts.critical}
             </div>
             <p className="text-sm text-gray-600">
@@ -363,7 +363,7 @@ export default function PerformanceAnalyticsDashboard() {
       {/* Core Web Vitals */}
       <div className="bg-white rounded-lg shadow-sm border mb-8">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-medium text-gray-900">
             📊 Core Web Vitals (Trauma-Informed Thresholds)
           </h2>
           <p className="text-gray-600 mt-1">
@@ -379,7 +379,7 @@ export default function PerformanceAnalyticsDashboard() {
                   <h4 className="text-sm font-medium uppercase">{key}</h4>
                   <span>{getTrendIcon(metric.trend)}</span>
                 </div>
-                <div className="text-2xl font-bold">
+                <div className="text-2xl font-medium">
                   {key === 'cls' ? metric.value.toFixed(3) : formatTime(metric.value)}
                 </div>
                 <div className="text-xs mt-1">
@@ -394,7 +394,7 @@ export default function PerformanceAnalyticsDashboard() {
       {/* Crisis Resource Performance */}
       <div className="bg-white rounded-lg shadow-sm border mb-8">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-medium text-gray-900">
             🚨 Crisis Resource Performance
           </h2>
           <p className="text-gray-600 mt-1">
@@ -418,7 +418,7 @@ export default function PerformanceAnalyticsDashboard() {
                     <p className="text-sm text-gray-600">{resource}</p>
                   </div>
                   <div className="text-right">
-                    <div className={`text-lg font-bold ${
+                    <div className={`text-lg font-medium ${
                       time > 3000 ? 'text-red-600' : 
                       time > 2000 ? 'text-yellow-600' : 
                       'text-green-600'
@@ -439,7 +439,7 @@ export default function PerformanceAnalyticsDashboard() {
       {/* Mobile Trauma Metrics */}
       <div className="bg-white rounded-lg shadow-sm border mb-8">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-medium text-gray-900">
             📱 Mobile Trauma-Informed Metrics
           </h2>
           <p className="text-gray-600 mt-1">
@@ -451,7 +451,7 @@ export default function PerformanceAnalyticsDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-4 border rounded-lg">
               <h4 className="text-sm font-medium text-gray-700 mb-2">Touch Responsiveness</h4>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-medium text-gray-900">
                 {formatTime(data.mobileMetrics.touchResponsiveness)}
               </div>
               <div className="text-xs text-gray-600">Target: <100ms</div>
@@ -459,7 +459,7 @@ export default function PerformanceAnalyticsDashboard() {
             
             <div className="p-4 border rounded-lg">
               <h4 className="text-sm font-medium text-gray-700 mb-2">Battery Impact</h4>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-medium text-gray-900">
                 {formatPercentage(data.mobileMetrics.batteryImpact)}
               </div>
               <div className="text-xs text-gray-600">Remaining battery</div>
@@ -467,7 +467,7 @@ export default function PerformanceAnalyticsDashboard() {
             
             <div className="p-4 border rounded-lg">
               <h4 className="text-sm font-medium text-gray-700 mb-2">Memory Pressure</h4>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-medium text-gray-900">
                 {formatPercentage(data.mobileMetrics.memoryPressure)}
               </div>
               <div className="text-xs text-gray-600">Target: <70%</div>
@@ -475,7 +475,7 @@ export default function PerformanceAnalyticsDashboard() {
             
             <div className="p-4 border rounded-lg">
               <h4 className="text-sm font-medium text-gray-700 mb-2">Accessibility Score</h4>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-medium text-gray-900">
                 {formatPercentage(data.mobileMetrics.accessibilityCompliance)}
               </div>
               <div className="text-xs text-gray-600">WCAG compliance</div>
@@ -499,7 +499,7 @@ export default function PerformanceAnalyticsDashboard() {
       {data.alerts.lastAlert && (
         <div className="bg-white rounded-lg shadow-sm border">
           <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-medium text-gray-900">
               🚨 Recent Performance Alerts
             </h2>
           </div>

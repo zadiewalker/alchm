@@ -196,7 +196,7 @@ export default function SacredAgeVerification({
             </div>
             
             <div className="space-y-4">
-              <h2 className="text-3xl font-semibold text-charcoal tracking-tight leading-none">
+              <h2 className="text-3xl font-medium text-charcoal tracking-tight leading-none">
                 Growing Into Wisdom
               </h2>
               <p className="text-charcoal/70 font-normal text-17 leading-relaxed">
@@ -210,7 +210,7 @@ export default function SacredAgeVerification({
                 whileTap={{ scale: 0.98 }}
                 onClick={() => window.open('https://www.7cups.com/teen/', '_blank')}
                 className="w-full bg-gradient-to-r from-terracotta to-terracotta/80 hover:from-terracotta/90 hover:to-terracotta/70 
-                         text-white font-semibold py-5 px-8 rounded-2xl
+                         text-white font-medium py-5 px-8 rounded-2xl
                          shadow-soft hover:shadow-elevated transition-all duration-300 ease-out
                          min-h-[56px] touch-manipulation"
               >
@@ -289,7 +289,7 @@ export default function SacredAgeVerification({
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="text-center mb-10 space-y-3"
               >
-                <h1 className="text-32 font-semibold text-charcoal tracking-tight leading-none">
+                <h1 className="text-32 font-medium text-charcoal tracking-tight leading-none">
                   Welcome to ALCHM
                 </h1>
                 <p className="text-17 font-normal text-charcoal/70 leading-relaxed">
@@ -360,7 +360,7 @@ export default function SacredAgeVerification({
                     disabled={!selectedYear || isProcessing}
                     className="w-full bg-gradient-to-r from-sage to-sage/90 hover:from-sage/90 hover:to-sage/80
                              disabled:from-charcoal/10 disabled:to-charcoal/10
-                             text-off-white disabled:text-charcoal/40 font-semibold text-17
+                             text-off-white disabled:text-charcoal/40 font-medium text-17
                              py-5 px-10 rounded-2xl min-h-[56px] 
                              shadow-soft hover:shadow-elevated disabled:shadow-none
                              transition-all duration-300 ease-out touch-manipulation
@@ -386,7 +386,7 @@ export default function SacredAgeVerification({
                     <div className="flex items-center justify-center gap-2 text-center">
                       <span className="text-sage text-16">🔒</span>
                       <div className="text-13 text-charcoal/70 font-medium">
-                        <p className="font-semibold">Your privacy is sacred</p>
+                        <p className="font-medium">Your privacy is sacred</p>
                         <p className="text-12 opacity-80">Stored locally • End-to-end encrypted • Never shared</p>
                       </div>
                     </div>
@@ -412,7 +412,7 @@ export default function SacredAgeVerification({
                   whileTap={{ scale: 0.97 }}
                   className="flex-1 flex items-center justify-center gap-2 
                            bg-sage/15 hover:bg-sage/25 border border-sage/30
-                           text-charcoal font-semibold text-15 px-6 py-4 rounded-xl
+                           text-charcoal font-medium text-15 px-6 py-4 rounded-xl
                            min-h-[52px] shadow-soft hover:shadow-elevated
                            transition-all duration-200 ease-out touch-manipulation
                            focus:ring-4 focus:ring-sage/30 focus:outline-none"
@@ -430,7 +430,7 @@ export default function SacredAgeVerification({
                   whileTap={{ scale: 0.97 }}
                   className="flex-1 flex items-center justify-center gap-2 
                            bg-sage/15 hover:bg-sage/25 border border-sage/30
-                           text-charcoal font-semibold text-15 px-6 py-4 rounded-xl
+                           text-charcoal font-medium text-15 px-6 py-4 rounded-xl
                            min-h-[52px] shadow-soft hover:shadow-elevated
                            transition-all duration-200 ease-out touch-manipulation
                            focus:ring-4 focus:ring-sage/30 focus:outline-none"

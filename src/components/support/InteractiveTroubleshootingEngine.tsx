@@ -549,7 +549,7 @@ export function InteractiveTroubleshootingEngine({
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-xl font-semibold text-sanctuary-gray-800">
+              <h2 className="text-xl font-medium text-sanctuary-gray-800">
                 {traumaInformed ? 'Guided Sanctuary Restoration' : 'Interactive Troubleshooting'}
               </h2>
               <p className="text-sm text-sanctuary-gray-600">
@@ -596,7 +596,7 @@ export function InteractiveTroubleshootingEngine({
             </div>
             
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800 mb-2">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800 mb-2">
                 {currentStep.title}
               </h3>
               <p className="text-sanctuary-gray-600 leading-relaxed">
@@ -889,7 +889,7 @@ export function InteractiveTroubleshootingEngine({
           <CardContent className="p-6">
             <div className="text-center">
               <div className="text-4xl mb-4">🎉</div>
-              <h3 className="text-xl font-semibold text-green-800 mb-2">
+              <h3 className="text-xl font-medium text-green-800 mb-2">
                 {traumaInformed 
                   ? 'Your Sanctuary Has Been Restored!' 
                   : 'Troubleshooting Complete!'

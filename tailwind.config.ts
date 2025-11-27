@@ -5,67 +5,82 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Sacred Sage Palette - Unified with CSS tokens
+        // Sacred Sage Palette - Premium Digital Sanctuary (Updated for visual superiority)
         sage: {
-          50: '#f6f8f4',    // --sage-whisper
-          100: '#e8eae3',   // --sage-breath
-          200: '#d1d6c7',   // --sage-calm
-          300: '#b4bca2',
-          400: '#a4b792',   // --sage-heart (primary)
-          500: '#93a682',   // --sage-root
-          600: '#7a8c6a',   // --sage-earth
-          700: '#626d54',   // --sage-wisdom
-          800: '#4f5843',
-          900: '#3d4435',
+          50: '#f8faf7',    // Whisper - Ethereal lightness
+          100: '#f0f4ed',   // Breath - Gentle presence  
+          200: '#e1e8da',   // Calm - Serene foundation
+          300: '#c8d4bb',   // Peace - Tranquil expansion
+          400: '#a4b792',   // Heart - Primary brand essence
+          500: '#8fa37c',   // Soul - Rich depth
+          600: '#7a8c6a',   // Earth - Grounded wisdom
+          700: '#677358',   // Forest - Deep contemplation
+          800: '#4f5843',   // Shadow - Mysterious depth
+          900: '#3d4435',   // Void - Infinite possibility
+          950: '#2a2f26',   // Essence - Pure intention
         },
         
-        // Premium Digital Sanctuary - Off-White Breathing Space
-        offwhite: {
-          DEFAULT: '#f7f7f2',    // Primary off-white
-          warm: '#faf9f5',       // Slightly warmer variant
+        // Premium Digital Sanctuary - Off-White Breathing Space (Refined for expensive feel)
+        sanctuary: {
+          50: '#fdfdfc',         // Pure light
+          100: '#fafaf8',        // Whisper white
+          200: '#f7f7f2',        // Primary sanctuary (your main off-white)
+          300: '#f2f3ed',        // Gentle warmth
+          400: '#eeefe8',        // Soft embrace
+          500: '#e8e9e0',        // Grounded light
+          DEFAULT: '#f7f7f2',    // Primary sanctuary space
+          warm: '#faf9f5',       // Gentle warmth variant
+          glass: 'rgba(247, 247, 242, 0.85)',  // Transparent sanctuary
+          mist: 'rgba(247, 247, 242, 0.15)',   // Subtle presence
         },
 
-        // Terracotta Palette - Warmth & Humanity
+        // Terracotta Palette - Warmth & Humanity (Refined for premium warmth)
         terracotta: {
-          50: '#fdf7f0',
-          100: '#f7e6d3',
-          200: '#e4bda8',        // --color-terracotta-light
-          300: '#d4a574',
-          400: '#cb997e',        // --color-terracotta (primary)
-          500: '#b5835f',        // --color-terracotta-dark
-          600: '#a0815a',
-          700: '#8b6d4a',
-          800: '#6d5438',
-          900: '#4a3826',
-          mist: 'rgba(203, 153, 126, 0.1)',
+          50: '#fefaf8',         // Gentle warmth whisper
+          100: '#fcf2ed',        // Soft embrace
+          200: '#f5e1d3',        // Light terracotta - nurturing
+          300: '#e8c5a0',        // Warm comfort
+          400: '#cb997e',        // Heart - Primary terracotta essence
+          500: '#b8845f',        // Soul - Rich earthen depth
+          600: '#a0704a',        // Deep warmth
+          700: '#8b5d3a',        // Grounded strength
+          800: '#6d462a',        // Rich earth
+          900: '#4a301b',        // Deep roots
+          950: '#2f1e12',        // Infinite earth
+          mist: 'rgba(203, 153, 126, 0.08)',    // Gentle presence
+          glass: 'rgba(203, 153, 126, 0.12)',   // Warm transparency
         },
 
-        // Charcoal Palette - Grounded Authority
+        // Charcoal Palette - Grounded Authority (Refined for sophistication)
         charcoal: {
-          50: '#f8f8f8',
-          100: '#e5e5e5',
-          200: '#d1d1d1',
-          300: '#b8b8b8',
-          400: '#9e9e9e',
-          500: '#6b6b6b',         // --color-charcoal-light
-          600: '#4a4a4a',         // --color-charcoal-medium
-          700: '#424242',
-          800: '#2e2e2e',         // --color-charcoal (primary)
-          900: '#1a1a1a',
+          50: '#fafafa',         // Whisper gray
+          100: '#f2f2f2',        // Soft gray
+          200: '#e4e4e4',        // Light gray
+          300: '#d1d1d1',        // Medium light
+          400: '#b8b8b8',        // Balanced gray
+          500: '#8c8c8c',        // Neutral authority
+          600: '#6b6b6b',        // Medium authority
+          700: '#4a4a4a',        // Strong presence
+          800: '#2e2e2e',        // Primary charcoal essence
+          900: '#1a1a1a',        // Deep authority
+          950: '#0d0d0d',        // Infinite depth
         },
         
-        // Soft Blush Palette - Emotional Softness
+        // Soft Blush Palette - Emotional Softness (Refined for gentle comfort)
         blush: {
-          50: '#faf8f7',
-          100: '#f7f0eb',        // --color-blush-light
-          200: '#eeddd3',        // --color-blush (primary)
-          300: '#e0d0c8',
-          400: '#ddc4b5',        // --color-blush-dark
-          500: '#c5a5a5',
-          600: '#b89494',
-          700: '#a08080',
-          800: '#806060',
-          900: '#604545',
+          50: '#fdfbfa',         // Pure softness
+          100: '#f9f5f2',        // Gentle whisper
+          200: '#eeddd3',        // Primary blush essence
+          300: '#e5d1c4',        // Warm comfort
+          400: '#ddc4b5',        // Deep embrace
+          500: '#d1b5a6',        // Grounded softness
+          600: '#c5a597',        // Rich tenderness
+          700: '#b39588',        // Deep compassion
+          800: '#9a7f73',        // Strong warmth
+          900: '#7d675e',        // Infinite tenderness
+          950: '#5e4e47',        // Essential softness
+          mist: 'rgba(238, 221, 211, 0.08)',   // Gentle presence
+          glass: 'rgba(238, 221, 211, 0.12)',  // Soft transparency
         },
 
         // Functional Colors for Premium Digital Sanctuary
@@ -208,17 +223,17 @@ const config: Config = {
         '3xl': '96px',    // --space-3xl - Hero/landing sections
         '4xl': '128px',   // --space-4xl - Dramatic spacing
         
-        // Sacred Geometry Spacing - Fibonacci & Golden Ratio Based
-        'breath': '8px',      // --space-1 - breath
-        'gentle': '16px',     // --space-2 - gentle space
-        'contemplative': '24px', // --space-3 - contemplative space
-        'mindful': '32px',    // --space-4 - mindful distance
-        'fibonacci': '40px',  // --space-5 - Fibonacci
-        'harmonic': '48px',   // --space-6 - harmonic space
-        'phi': '52px',        // --space-phi - Golden ratio space
-        'meditation': '64px', // --space-8 - Fibonacci
-        'expansive': '96px',  // --space-12 - wide meditation
-        'sanctuary': '128px', // --space-16 - expansive breath
+        // Sacred Geometry Spacing - Refined Mathematical Harmony (Fibonacci & Golden Ratio)
+        'whisper': '2px',     // Micro-adjustment
+        'breath': '8px',      // Base breathing unit
+        'gentle': '13px',     // Fibonacci sequence
+        'contemplative': '21px', // Fibonacci progression
+        'mindful': '34px',    // Fibonacci progression  
+        'harmonic': '55px',   // Fibonacci progression
+        'meditation': '89px', // Fibonacci progression
+        'expansive': '144px', // Fibonacci progression
+        'sanctuary': '233px', // Fibonacci progression
+        'infinite': '377px',  // Fibonacci progression
         '13': '104px',        // --space-13 - Fibonacci
         '21': '168px',        // --space-21 - Fibonacci
         
@@ -250,29 +265,34 @@ const config: Config = {
       },
       
       boxShadow: {
-        // Sacred Shadow System - Gentle Elevation & Divine Light
-        'whisper': '0 1px 2px rgba(164, 183, 146, 0.04)',        // Barely there
-        'breath': '0 2px 4px rgba(164, 183, 146, 0.06)',         // Gentle presence
-        'blessing': '0 4px 8px rgba(164, 183, 146, 0.08)',       // Sacred blessing
-        'sanctuary': '0 8px 24px rgba(164, 183, 146, 0.12)',     // Sanctuary depth
-        'temple': '0 16px 48px rgba(164, 183, 146, 0.15)',       // Temple majesty
-        'divine': '0 24px 72px rgba(164, 183, 146, 0.18)',       // Divine presence
+        // Sacred Shadow System - Premium Elevation with Sophisticated Depth
+        'whisper': '0 0.5px 1px rgba(164, 183, 146, 0.04), 0 1px 2px rgba(164, 183, 146, 0.02)',
+        'breath': '0 1px 3px rgba(164, 183, 146, 0.08), 0 2px 8px rgba(164, 183, 146, 0.04)',
+        'gentle': '0 2px 6px rgba(164, 183, 146, 0.10), 0 4px 16px rgba(164, 183, 146, 0.06)',
+        'blessing': '0 4px 12px rgba(164, 183, 146, 0.12), 0 8px 24px rgba(164, 183, 146, 0.08)',
+        'sanctuary': '0 8px 20px rgba(164, 183, 146, 0.16), 0 16px 40px rgba(164, 183, 146, 0.10)',
+        'temple': '0 12px 28px rgba(164, 183, 146, 0.20), 0 24px 56px rgba(164, 183, 146, 0.12)',
+        'divine': '0 16px 36px rgba(164, 183, 146, 0.24), 0 32px 72px rgba(164, 183, 146, 0.16)',
+        'transcendent': '0 24px 48px rgba(164, 183, 146, 0.28), 0 48px 96px rgba(164, 183, 146, 0.20)',
         
-        // Legacy shadow support
-        'gentle': '0 2px 4px rgba(164, 183, 146, 0.06)',
+        // Legacy shadow support (for backward compatibility)
         'soft': '0 4px 8px rgba(164, 183, 146, 0.08)',
         'sacred': '0 8px 24px rgba(164, 183, 146, 0.12)',
+        'elevated': '0 12px 28px rgba(164, 183, 146, 0.15)',
+        'floating': '0 16px 36px rgba(164, 183, 146, 0.18)',
       },
       
       borderRadius: {
-        // Sacred Radii - Organic, Nature-Inspired Curves
-        'whisper': '4px',    // Subtle rounding - gentle touch
-        'breath': '8px',     // Breathing curve - natural flow
-        'embrace': '12px',   // Embracing curve - welcoming form
-        'sanctuary': '16px', // Sanctuary curve - protective space
-        'temple': '24px',    // Temple curve - sacred architecture
-        'sacred': '32px',    // Sacred curve - divine geometry
-        'infinite': '50%',   // Infinite curve - circle of wholeness
+        // Sacred Radii - Organic, Premium Curves (Refined for luxury feel)
+        'whisper': '2px',    // Micro-detail - subtle precision
+        'breath': '6px',     // Gentle flow - natural breath
+        'caress': '10px',    // Soft touch - intimate connection
+        'embrace': '14px',   // Welcoming form - protective embrace
+        'sanctuary': '18px', // Sacred space - premium shelter
+        'temple': '24px',    // Divine architecture - majestic presence
+        'cosmos': '32px',    // Infinite geometry - transcendent form
+        'eternal': '40px',   // Boundless curve - eternal beauty
+        'infinite': '50%',   // Perfect circle - wholeness embodied
         
         // Legacy support
         'sm': '8px',      // var(--radius-sm)
@@ -282,23 +302,37 @@ const config: Config = {
       },
       
       transitionDuration: {
-        // Sacred Animation Timing - Ritual-Like, Meaningful Movements
+        // Jony Ive Timing - Mathematical Precision for Luxury Interactions
+        '150': '150ms',       // Quick micro-interactions
+        '280': '280ms',       // Standard Jony Ive button timing
+        '420': '420ms',       // Thoughtful state changes
+        '680': '680ms',       // Meaningful transformations
+        '1000': '1000ms',     // Dramatic reveals
+        
+        // Sacred Animation Timing - Ritual-Like, Meaningful Movements  
         'whisper': '150ms',   // Quick blessing
-        'breath': '300ms',    // One gentle breath
-        'pulse': '600ms',     // Heartbeat rhythm
-        'meditation': '1200ms', // Deep contemplation
-        'ritual': '2000ms',   // Sacred ceremony
+        'breath': '280ms',    // Jony Ive standard - one gentle breath
+        'pulse': '420ms',     // Thoughtful rhythm
+        'meditation': '680ms', // Deep contemplation
+        'ritual': '1000ms',   // Sacred ceremony
         
         // Legacy timing support
         'fast': '150ms',
-        'base': '300ms',
-        'slow': '600ms',
+        'base': '280ms',      // Updated to Jony Ive standard
+        'slow': '420ms',
       },
       
       transitionTimingFunction: {
+        // Jony Ive Easing Functions - Luxury Interaction Physics
+        'luxury': 'cubic-bezier(0.4, 0, 0.2, 1)',            // Material Design standard - Jony's preference  
+        'elegant': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',   // Gentle acceleration
+        'thoughtful': 'cubic-bezier(0.23, 1, 0.32, 1)',      // Considered deceleration
+        'premium': 'cubic-bezier(0.165, 0.84, 0.44, 1)',     // Sophisticated ease-out
+        'magical': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', // Apple-style bounce
+        
         // Sacred Easing Functions - Natural Movement Patterns
         'blessing': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',  // Gentle blessing
-        'prayer': 'cubic-bezier(0.23, 1, 0.32, 1)',          // Rising prayer
+        'prayer': 'cubic-bezier(0.23, 1, 0.32, 1)',          // Rising prayer  
         'meditation': 'cubic-bezier(0.165, 0.84, 0.44, 1)',  // Deep meditation
         'emergence': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', // Soul emergence
         
@@ -318,6 +352,12 @@ const config: Config = {
         'prayer-transition': 'prayer-transition 1200ms cubic-bezier(0.23, 1, 0.32, 1)',
         'celebration-bloom': 'celebration-bloom 2s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
         
+        // Sanctuary-specific animations
+        'breathe': 'breathe 4s ease-in-out infinite',
+        'breathe-slow': 'breathe-slow 6s ease-in-out infinite',
+        'pulse-gentle': 'pulse-gentle 2s ease-in-out infinite',
+        'celebrate': 'celebrate 0.6s ease-in-out',
+
         // Legacy animations
         'breathing': 'gentle-breathing 8s ease-in-out infinite',
         'sanctuary-float': 'sanctuary-float 6s ease-in-out infinite',
@@ -454,6 +494,26 @@ const config: Config = {
           },
         },
         
+        // Sanctuary-specific keyframes
+        'breathe': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.02)' },
+        },
+        'breathe-slow': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' },
+        },
+        'pulse-gentle': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
+        },
+        'celebrate': {
+          '0%': { transform: 'scale(1) rotate(0deg)' },
+          '25%': { transform: 'scale(1.1) rotate(-5deg)' },
+          '75%': { transform: 'scale(1.1) rotate(5deg)' },
+          '100%': { transform: 'scale(1) rotate(0deg)' },
+        },
+        
         // Legacy keyframes
         'gentle-breathing': {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
@@ -494,20 +554,37 @@ const config: Config = {
       },
       
       fontSize: {
-        // Sacred Typography Scale - Unified with CSS Foundation
-        // Trauma-informed: 16px minimum base, enhanced line heights for stress reading
+        // Jony Ive Typography Scale - Mathematical Precision for Healing
+        // Golden ratio progression: 16px base × 1.618 = perfect harmony
         
-        'micro': ['12px', { lineHeight: '1.5', letterSpacing: '0.025em', fontWeight: '400' }],
-        'small': ['14px', { lineHeight: '1.6', letterSpacing: '0.015em', fontWeight: '400' }],
-        'base': ['16px', { lineHeight: '1.7', letterSpacing: '0', fontWeight: '400' }],
-        'medium': ['18px', { lineHeight: '1.6', letterSpacing: '-0.01em', fontWeight: '400' }],
-        'large': ['24px', { lineHeight: '1.5', letterSpacing: '-0.015em', fontWeight: '300' }],
-        'xlarge': ['32px', { lineHeight: '1.4', letterSpacing: '-0.02em', fontWeight: '300' }],
-        '2xlarge': ['40px', { lineHeight: '1.3', letterSpacing: '-0.025em', fontWeight: '200' }],
-        '3xlarge': ['56px', { lineHeight: '1.2', letterSpacing: '-0.03em', fontWeight: '200' }],
+        'caption': ['12px', { lineHeight: '1.75', letterSpacing: '0.03em', fontWeight: '400' }],     // 12px - Small details
+        'footnote': ['14px', { lineHeight: '1.7', letterSpacing: '0.02em', fontWeight: '400' }],     // 14px - Supporting text  
+        'body': ['16px', { lineHeight: '1.75', letterSpacing: '0.01em', fontWeight: '400' }],        // 16px - Body text (base)
+        'callout': ['18px', { lineHeight: '1.65', letterSpacing: '0.005em', fontWeight: '400' }],    // 18px - Enhanced body
+        'subhead': ['20px', { lineHeight: '1.6', letterSpacing: '0em', fontWeight: '400' }],         // 20px - Prominent text
+        'title3': ['24px', { lineHeight: '1.5', letterSpacing: '-0.01em', fontWeight: '300' }],      // 24px - Small headings
+        'title2': ['28px', { lineHeight: '1.45', letterSpacing: '-0.015em', fontWeight: '300' }],    // 28px - Medium headings
+        'title1': ['32px', { lineHeight: '1.4', letterSpacing: '-0.02em', fontWeight: '300' }],      // 32px - Large headings
+        'largeTitle': ['40px', { lineHeight: '1.35', letterSpacing: '-0.025em', fontWeight: '200' }], // 40px - Section headers
+        'display': ['48px', { lineHeight: '1.3', letterSpacing: '-0.03em', fontWeight: '200' }],     // 48px - Hero text
         
-        // Crisis Typography - Enhanced readability
-        'crisis': ['20px', { lineHeight: '1.8', letterSpacing: '0.01em', fontWeight: '500' }],
+        // Crisis Typography - Enhanced for vulnerable states
+        'crisis': ['20px', { lineHeight: '1.8', letterSpacing: '0.02em', fontWeight: '500' }],       // Clear, readable
+        'crisis-large': ['24px', { lineHeight: '1.75', letterSpacing: '0.015em', fontWeight: '500' }], // Emergency buttons
+        'crisis-xl': ['32px', { lineHeight: '1.6', letterSpacing: '0.01em', fontWeight: '600' }],    // Critical alerts
+        
+        // Legacy support - maintaining backward compatibility
+        'whisper': ['12px', { lineHeight: '1.75', letterSpacing: '0.03em', fontWeight: '300' }],
+        'micro': ['12px', { lineHeight: '1.7', letterSpacing: '0.03em', fontWeight: '400' }],
+        'small': ['14px', { lineHeight: '1.7', letterSpacing: '0.015em', fontWeight: '400' }],
+        'base': ['16px', { lineHeight: '1.75', letterSpacing: '0', fontWeight: '400' }],
+        'medium': ['18px', { lineHeight: '1.65', letterSpacing: '-0.008em', fontWeight: '400' }],
+        'large': ['20px', { lineHeight: '1.6', letterSpacing: '-0.012em', fontWeight: '400' }],
+        'xlarge': ['24px', { lineHeight: '1.5', letterSpacing: '-0.015em', fontWeight: '300' }],
+        '2xlarge': ['32px', { lineHeight: '1.4', letterSpacing: '-0.02em', fontWeight: '300' }],
+        '3xlarge': ['40px', { lineHeight: '1.35', letterSpacing: '-0.025em', fontWeight: '200' }],
+        '4xlarge': ['48px', { lineHeight: '1.3', letterSpacing: '-0.03em', fontWeight: '200' }],
+        '5xlarge': ['56px', { lineHeight: '1.25', letterSpacing: '-0.035em', fontWeight: '100' }],
       },
       
       fontFamily: {

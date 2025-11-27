@@ -240,7 +240,7 @@ export default function IntersectionalIdentityMapping({
   const IdentityMapView = () => (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-bold text-purple-800 mb-2">Your Intersectional Identity Map</h3>
+        <h3 className="text-xl font-medium text-purple-800 mb-2">Your Intersectional Identity Map</h3>
         <p className="text-purple-600 text-sm">
           Each circle represents an aspect of your identity. Overlapping areas show intersections.
         </p>
@@ -297,7 +297,7 @@ export default function IntersectionalIdentityMapping({
             y="150"
             textAnchor="middle"
             dy="0.35em"
-            className="text-xs font-bold"
+            className="text-xs font-medium"
             fill="#92400E"
           >
             YOU
@@ -314,7 +314,7 @@ export default function IntersectionalIdentityMapping({
                 className="w-4 h-4 rounded-full"
                 style={{ backgroundColor: getIdentityColor(identity.category) }}
               />
-              <h4 className="font-semibold capitalize">
+              <h4 className="font-medium capitalize">
                 {identity.category.replace('_', ' ')}
               </h4>
             </div>
@@ -336,7 +336,7 @@ export default function IntersectionalIdentityMapping({
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🔍</span>
-              <h3 className="text-lg font-semibold text-indigo-800">
+              <h3 className="text-lg font-medium text-indigo-800">
                 Intersectional Insight
               </h3>
             </div>
@@ -351,25 +351,25 @@ export default function IntersectionalIdentityMapping({
 
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-indigo-900 mb-2">{currentInsight.title}</h4>
+              <h4 className="font-medium text-indigo-900 mb-2">{currentInsight.title}</h4>
               <p className="text-indigo-800">{currentInsight.insight}</p>
             </div>
 
             <div className="bg-indigo-100 rounded-lg p-4">
-              <h5 className="font-semibold text-indigo-900 mb-2">Validation:</h5>
+              <h5 className="font-medium text-indigo-900 mb-2">Validation:</h5>
               <p className="text-indigo-800">{currentInsight.validation}</p>
             </div>
 
             {currentInsight.actionStep && (
               <div className="bg-purple-100 rounded-lg p-4">
-                <h5 className="font-semibold text-purple-900 mb-2">Action Step:</h5>
+                <h5 className="font-medium text-purple-900 mb-2">Action Step:</h5>
                 <p className="text-purple-800">{currentInsight.actionStep}</p>
               </div>
             )}
 
             {currentInsight.communityResource && (
               <div className="bg-green-100 rounded-lg p-4">
-                <h5 className="font-semibold text-green-900 mb-2">Community Resource:</h5>
+                <h5 className="font-medium text-green-900 mb-2">Community Resource:</h5>
                 <p className="text-green-800">{currentInsight.communityResource}</p>
               </div>
             )}
@@ -379,7 +379,7 @@ export default function IntersectionalIdentityMapping({
 
       {/* Intersectional Experiences */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Your Intersectional Experiences</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-4">Your Intersectional Experiences</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-3">
@@ -423,7 +423,7 @@ export default function IntersectionalIdentityMapping({
   const IntersectionalStrengthsView = () => (
     <div className="space-y-6">
       <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-        <h3 className="text-lg font-semibold text-green-800 mb-4">
+        <h3 className="text-lg font-medium text-green-800 mb-4">
           💪 Intersectional Strengths
         </h3>
         <p className="text-green-700 mb-6">
@@ -432,7 +432,7 @@ export default function IntersectionalIdentityMapping({
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <h4 className="font-semibold text-green-800 mb-3">Your Superpowers:</h4>
+            <h4 className="font-medium text-green-800 mb-3">Your Superpowers:</h4>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
                 <span className="text-green-600">✨</span>
@@ -458,7 +458,7 @@ export default function IntersectionalIdentityMapping({
           </div>
           
           <div>
-            <h4 className="font-semibold text-green-800 mb-3">Your Wisdom:</h4>
+            <h4 className="font-medium text-green-800 mb-3">Your Wisdom:</h4>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
                 <span className="text-green-600">🌟</span>
@@ -615,7 +615,7 @@ export function IntersectionalCommunityFinder({
 
   return (
     <Card className="p-6 bg-gradient-to-br from-teal-50 to-blue-50 border-teal-200">
-      <h3 className="text-lg font-semibold text-teal-800 mb-4">
+      <h3 className="text-lg font-medium text-teal-800 mb-4">
         🌍 Intersectional Community Resources
       </h3>
       
@@ -627,7 +627,7 @@ export function IntersectionalCommunityFinder({
         {communityRecommendations.map((community, index) => (
           <Card key={index} className="p-4 bg-white border-teal-100">
             <div className="flex items-start justify-between mb-2">
-              <h4 className="font-semibold text-teal-800">{community.name}</h4>
+              <h4 className="font-medium text-teal-800">{community.name}</h4>
               <span className="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full capitalize">
                 {community.type.replace('_', ' ')}
               </span>

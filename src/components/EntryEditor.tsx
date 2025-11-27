@@ -62,7 +62,7 @@ export default function EntryEditor({ entry, onClose, onSave }: EntryEditorProps
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h2 className="text-xl font-semibold mb-1">
+            <h2 className="text-xl font-medium mb-1">
               {isEditing ? 'Edit Entry' : 'View Entry'}
             </h2>
             <p className="text-sm text-[var(--ink-mute)]">

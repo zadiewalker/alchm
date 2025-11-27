@@ -239,7 +239,7 @@ export function AnnotatedScreenshot({
                 >
                   {/* Step Number */}
                   {annotation.order && (
-                    <div className="absolute -top-3 -left-3 w-6 h-6 bg-white border-2 border-current rounded-full flex items-center justify-center text-xs font-bold">
+                    <div className="absolute -top-3 -left-3 w-6 h-6 bg-white border-2 border-current rounded-full flex items-center justify-center text-xs font-medium">
                       {annotation.order}
                     </div>
                   )}
@@ -542,7 +542,7 @@ export function InteractiveWalkthrough({
             </div>
             
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800 mb-2">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800 mb-2">
                 {currentStep.title}
               </h3>
               <p className="text-sanctuary-gray-600">

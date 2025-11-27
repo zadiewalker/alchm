@@ -228,7 +228,7 @@ export function PrivacyDataProtection() {
         <div className="flex items-start gap-3">
           <Shield className="w-6 h-6 text-blue-600 mt-1" />
           <div>
-            <h4 className="font-semibold text-blue-900 mb-2">Privacy-First Design</h4>
+            <h4 className="font-medium text-blue-900 mb-2">Privacy-First Design</h4>
             <p className="text-blue-800 text-sm leading-relaxed">
               ALCHM is built with privacy as a core principle. Your journal entries are encrypted, 
               stored locally first, and you maintain full control over your data. We never sell 
@@ -243,7 +243,7 @@ export function PrivacyDataProtection() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="w-6 h-6 text-yellow-600 mt-1" />
             <div>
-              <h4 className="font-semibold text-yellow-900 mb-2">COPPA Protection Active</h4>
+              <h4 className="font-medium text-yellow-900 mb-2">COPPA Protection Active</h4>
               <p className="text-yellow-800 text-sm leading-relaxed">
                 Additional privacy protections are active for users under 18. Data collection is 
                 further minimized, and parental consent may be required for certain features.
@@ -255,7 +255,7 @@ export function PrivacyDataProtection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <h4 className="font-semibold text-green-900 mb-3">What We Collect</h4>
+          <h4 className="font-medium text-green-900 mb-3">What We Collect</h4>
           <ul className="text-sm text-green-800 space-y-1">
             {DATA_CATEGORIES.filter(cat => cat.collected).map(cat => (
               <li key={cat.id} className="flex items-center gap-2">
@@ -267,7 +267,7 @@ export function PrivacyDataProtection() {
         </div>
 
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <h4 className="font-semibold text-red-900 mb-3">What We Never Collect</h4>
+          <h4 className="font-medium text-red-900 mb-3">What We Never Collect</h4>
           <ul className="text-sm text-red-800 space-y-1">
             {NEVER_COLLECTED.slice(0, 4).map((item, index) => (
               <li key={index} className="flex items-center gap-2">
@@ -296,7 +296,7 @@ export function PrivacyDataProtection() {
       </div>
 
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Your Rights & Controls</h4>
+        <h4 className="font-medium text-gray-900 mb-4">Your Rights & Controls</h4>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div>
             <h5 className="font-medium text-gray-800 mb-2">Access & Export</h5>
@@ -318,7 +318,7 @@ export function PrivacyDataProtection() {
   const renderSettings = () => (
     <div className="space-y-6">
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h4 className="font-semibold text-gray-900 mb-4">Privacy Controls</h4>
+        <h4 className="font-medium text-gray-900 mb-4">Privacy Controls</h4>
         
         <div className="space-y-4">
           {Object.entries(privacySettings).map(([key, value]) => {
@@ -390,7 +390,7 @@ export function PrivacyDataProtection() {
         <div key={category.id} className="bg-white border border-gray-200 rounded-lg p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h4 className="font-semibold text-gray-900">{category.name}</h4>
+              <h4 className="font-medium text-gray-900">{category.name}</h4>
               <p className="text-sm text-gray-600 mt-1">{category.description}</p>
             </div>
             <div className="flex items-center gap-2">
@@ -437,7 +437,7 @@ export function PrivacyDataProtection() {
           <div className="flex items-center gap-3 mb-4">
             <Download className="w-6 h-6 text-blue-600" />
             <div>
-              <h4 className="font-semibold text-gray-900">Export Your Data</h4>
+              <h4 className="font-medium text-gray-900">Export Your Data</h4>
               <p className="text-sm text-gray-600">Download all your information</p>
             </div>
           </div>
@@ -457,7 +457,7 @@ export function PrivacyDataProtection() {
           <div className="flex items-center gap-3 mb-4">
             <Trash2 className="w-6 h-6 text-red-600" />
             <div>
-              <h4 className="font-semibold text-gray-900">Delete Account</h4>
+              <h4 className="font-medium text-gray-900">Delete Account</h4>
               <p className="text-sm text-gray-600">Permanently remove all data</p>
             </div>
           </div>
@@ -477,7 +477,7 @@ export function PrivacyDataProtection() {
 
       {consentHistory.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h4 className="font-semibold text-gray-900 mb-4">Consent History</h4>
+          <h4 className="font-medium text-gray-900 mb-4">Consent History</h4>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {consentHistory.slice(0, 10).map((record, index) => (
               <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg text-sm">
@@ -500,7 +500,7 @@ export function PrivacyDataProtection() {
         <div className="flex items-start gap-3">
           <Shield className="w-6 h-6 text-blue-600 mt-1" />
           <div>
-            <h4 className="font-semibold text-blue-900 mb-2">Need Help?</h4>
+            <h4 className="font-medium text-blue-900 mb-2">Need Help?</h4>
             <p className="text-blue-800 text-sm mb-3">
               If you have questions about your privacy or need assistance with data requests, 
               our support team is here to help.
@@ -523,7 +523,7 @@ export function PrivacyDataProtection() {
       <div className="border-b border-gray-200 p-6">
         <div className="flex items-center gap-2 mb-2">
           <Shield className="w-6 h-6 text-blue-600" />
-          <h3 className="text-xl font-semibold text-gray-900">Privacy & Data Protection</h3>
+          <h3 className="text-xl font-medium text-gray-900">Privacy & Data Protection</h3>
         </div>
         <p className="text-gray-600">
           Manage your privacy settings and understand how your data is protected

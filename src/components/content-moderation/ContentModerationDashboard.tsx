@@ -91,7 +91,7 @@ export function ContentModerationDashboard() {
     <div className="space-y-6 p-6 bg-white min-h-screen">
       {/* Header */}
       <div className="border-b border-gray-200 pb-4">
-        <h1 className="text-2xl font-semibold text-gray-900">Content Moderation Dashboard</h1>
+        <h1 className="text-2xl font-medium text-gray-900">Content Moderation Dashboard</h1>
         <p className="text-sm text-gray-600 mt-1">
           AI-powered content safety and therapeutic value monitoring
         </p>
@@ -126,7 +126,7 @@ export function ContentModerationDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Content Analyzed</p>
-                <p className="text-2xl font-bold text-gray-900">{metrics.totalContentAnalyzed.toLocaleString()}</p>
+                <p className="text-2xl font-medium text-gray-900">{metrics.totalContentAnalyzed.toLocaleString()}</p>
               </div>
               <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center">
                 <svg className="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,7 +140,7 @@ export function ContentModerationDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Therapeutic Content</p>
-                <p className="text-2xl font-bold text-green-600">{metrics.therapeuticContentPercentage.toFixed(1)}%</p>
+                <p className="text-2xl font-medium text-green-600">{metrics.therapeuticContentPercentage.toFixed(1)}%</p>
               </div>
               <div className="h-8 w-8 bg-green-100 rounded-full flex items-center justify-center">
                 <svg className="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -154,7 +154,7 @@ export function ContentModerationDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Safety Interventions</p>
-                <p className="text-2xl font-bold text-orange-600">{metrics.safetyInterventions}</p>
+                <p className="text-2xl font-medium text-orange-600">{metrics.safetyInterventions}</p>
               </div>
               <div className="h-8 w-8 bg-orange-100 rounded-full flex items-center justify-center">
                 <svg className="h-4 w-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,7 +168,7 @@ export function ContentModerationDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Flagged Content</p>
-                <p className="text-2xl font-bold text-red-600">{metrics.flaggedContent}</p>
+                <p className="text-2xl font-medium text-red-600">{metrics.flaggedContent}</p>
               </div>
               <div className="h-8 w-8 bg-red-100 rounded-full flex items-center justify-center">
                 <svg className="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

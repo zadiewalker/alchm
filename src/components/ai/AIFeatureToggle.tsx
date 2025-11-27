@@ -145,7 +145,7 @@ export function AIFeatureToggle({
             <span className="text-2xl">{getFeatureIcon()}</span>
             <div className="flex-grow">
               <div className="flex items-center gap-gentle mb-whisper">
-                <SacredText variant="caption" className="font-semibold">
+                <SacredText variant="caption" className="font-medium">
                   {featureName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                 </SacredText>
                 {isCriticalFeature() && (
@@ -305,7 +305,7 @@ function AdvancedSettings({ featureControl, pendingChanges, onChange, disabled }
 
   return (
     <SacredCard variant="gentle" className="space-y-breath">
-      <SacredText variant="caption" className="font-semibold text-sm">
+      <SacredText variant="caption" className="font-medium text-sm">
         Advanced Configuration
       </SacredText>
       

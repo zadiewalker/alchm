@@ -242,7 +242,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
                 <span className="text-blue-600 text-xl">🤝</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {accountabilityPartnerships.length}
                 </div>
                 <div className="text-sm text-gray-600">Active Partnerships</div>
@@ -256,7 +256,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
                 <span className="text-green-600 text-xl">👥</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {studyGroups.length}
                 </div>
                 <div className="text-sm text-gray-600">Study Groups</div>
@@ -270,7 +270,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
                 <span className="text-purple-600 text-xl">🌟</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {peerMentorships.length}
                 </div>
                 <div className="text-sm text-gray-600">Mentorships</div>
@@ -284,7 +284,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
                 <span className="text-orange-600 text-xl">🔥</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getAccountabilityStreak(recentCheckIns)}
                 </div>
                 <div className="text-sm text-gray-600">Day Streak</div>
@@ -295,7 +295,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
 
         {/* Recent activity */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔄 Recent Support Activity</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔄 Recent Support Activity</h3>
           <div className="space-y-4">
             {getRecentSupportActivity(recentCheckIns, accountabilityPartnerships).map((activity, index) => (
               <div key={index} className="flex items-center space-x-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -316,7 +316,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-6 text-center">
             <div className="text-3xl mb-3">🤝</div>
-            <h3 className="text-lg font-semibold mb-2">Find an Accountability Partner</h3>
+            <h3 className="text-lg font-medium mb-2">Find an Accountability Partner</h3>
             <p className="text-sm opacity-90 mb-4">Connect with someone who shares your goals</p>
             <button
               onClick={() => setActiveTab('partnerships')}
@@ -328,7 +328,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
 
           <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-6 text-center">
             <div className="text-3xl mb-3">👥</div>
-            <h3 className="text-lg font-semibold mb-2">Join a Study Group</h3>
+            <h3 className="text-lg font-medium mb-2">Join a Study Group</h3>
             <p className="text-sm opacity-90 mb-4">Learn together with peers in your field</p>
             <button
               onClick={() => setActiveTab('study_groups')}
@@ -340,7 +340,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
 
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-6 text-center">
             <div className="text-3xl mb-3">🌟</div>
-            <h3 className="text-lg font-semibold mb-2">Peer Mentorship</h3>
+            <h3 className="text-lg font-medium mb-2">Peer Mentorship</h3>
             <p className="text-sm opacity-90 mb-4">Exchange expertise with fellow learners</p>
             <button
               onClick={() => setActiveTab('mentorship')}
@@ -353,7 +353,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
 
         {/* Recommended connections */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">💡 Recommended for You</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">💡 Recommended for You</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Recommended partners */}
             <div>
@@ -418,7 +418,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Accountability Partnerships</h3>
+          <h3 className="text-xl font-medium text-gray-800">Accountability Partnerships</h3>
           <button
             onClick={() => setShowPartnershipModal(true)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -438,7 +438,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
                   </span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-800">{partnership.partnerName}</h4>
+                  <h4 className="font-medium text-gray-800">{partnership.partnerName}</h4>
                   <p className="text-sm text-gray-600">
                     {partnership.partnershipType.replace('_', ' ').toUpperCase()} Partnership
                   </p>
@@ -512,7 +512,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">Find Accountability Partner</h3>
+            <h3 className="text-xl font-medium text-gray-800">Find Accountability Partner</h3>
             <button
               onClick={() => setShowPartnershipModal(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -580,7 +580,7 @@ const AccountabilityPeerSupport: React.FC<AccountabilityPeerSupportProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Accountability & Peer Support
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

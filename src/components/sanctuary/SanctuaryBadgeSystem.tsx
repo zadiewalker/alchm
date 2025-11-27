@@ -211,7 +211,7 @@ export function SanctuaryBadgeSystem({
               <Badge className="mb-2" variant="outline">
                 Badge Earned!
               </Badge>
-              <h3 className="font-semibold text-white mb-2">{newlyEarnedBadge.name}</h3>
+              <h3 className="font-medium text-white mb-2">{newlyEarnedBadge.name}</h3>
               <p className="text-sm text-gray-300 mb-3">{newlyEarnedBadge.description}</p>
               <div className="bg-black/20 rounded-lg p-3 mb-4">
                 <p className="text-sm italic text-gray-200">

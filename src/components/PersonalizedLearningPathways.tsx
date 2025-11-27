@@ -166,7 +166,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
                 <span className="text-blue-600 text-xl">🛤️</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {activePathways.length}
                 </div>
                 <div className="text-sm text-gray-600">Active Pathways</div>
@@ -180,7 +180,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
                 <span className="text-green-600 text-xl">🎯</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getCompletedMilestonesCount(activePathways)}
                 </div>
                 <div className="text-sm text-gray-600">Milestones Completed</div>
@@ -194,7 +194,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
                 <span className="text-purple-600 text-xl">📚</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getTotalLearningHours(activePathways)}
                 </div>
                 <div className="text-sm text-gray-600">Learning Hours</div>
@@ -208,7 +208,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
                 <span className="text-orange-600 text-xl">⚡</span>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-800">
+                <div className="text-2xl font-medium text-gray-800">
                   {getAverageLearningVelocity(learningAnalytics)}%
                 </div>
                 <div className="text-sm text-gray-600">Learning Velocity</div>
@@ -219,7 +219,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
 
         {/* Recent progress */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">📈 Recent Progress</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">📈 Recent Progress</h3>
           <div className="space-y-4">
             {getRecentProgress(activePathways).map((progress, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-lg">
@@ -239,7 +239,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
         {/* Pathway recommendations */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">💡 Recommended Pathways</h3>
+            <h3 className="text-lg font-medium text-gray-800">💡 Recommended Pathways</h3>
             <button
               onClick={() => setActiveTab('recommendations')}
               className="text-blue-600 hover:text-blue-700 text-sm"
@@ -291,7 +291,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-semibold text-gray-800">Active Learning Pathways</h3>
+          <h3 className="text-xl font-medium text-gray-800">Active Learning Pathways</h3>
           <button
             onClick={() => setShowPathwayModal(true)}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -305,7 +305,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
             <div key={pathway.pathwayId} className="bg-white rounded-lg border border-gray-200 p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h4 className="font-semibold text-gray-800">{pathway.skillTarget}</h4>
+                  <h4 className="font-medium text-gray-800">{pathway.skillTarget}</h4>
                   <p className="text-sm text-gray-600">
                     {pathway.currentLevel} → {pathway.targetLevel}
                   </p>
@@ -387,7 +387,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-gray-800">
+            <h3 className="text-xl font-medium text-gray-800">
               Create Personalized Learning Pathway
             </h3>
             <button
@@ -565,7 +565,7 @@ const PersonalizedLearningPathways: React.FC<LearningPathwaysProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Personalized Learning Pathways
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

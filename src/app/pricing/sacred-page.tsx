@@ -43,7 +43,7 @@ function SacredPricingCard({
           {title}
         </h3>
         <div className="mb-4">
-          <span className="text-2xlarge font-thin text-sage-active">
+          <span className="text-2xlarge font-light text-sage-active">
             {price}
           </span>
           {price !== 'Free' && (

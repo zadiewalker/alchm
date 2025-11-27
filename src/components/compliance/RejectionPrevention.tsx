@@ -454,7 +454,7 @@ export function RejectionPrevention() {
           <div className="flex items-center gap-2">
             <Shield className="w-6 h-6 text-blue-600" />
             <div>
-              <h3 className="text-xl font-semibold text-gray-900">App Store Rejection Prevention</h3>
+              <h3 className="text-xl font-medium text-gray-900">App Store Rejection Prevention</h3>
               <p className="text-gray-600">Comprehensive checklist to prevent common rejection reasons</p>
             </div>
           </div>
@@ -472,7 +472,7 @@ export function RejectionPrevention() {
       <div className="p-6 border-b border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-gray-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-gray-900">{readinessScore}%</div>
+            <div className="text-2xl font-medium text-gray-900">{readinessScore}%</div>
             <div className="text-sm text-gray-600">Ready for Submission</div>
           </div>
           <div className={`p-4 rounded-lg text-center ${
@@ -480,7 +480,7 @@ export function RejectionPrevention() {
             rejectionRisk === 'Low' ? 'bg-yellow-50' :
             rejectionRisk === 'Medium' ? 'bg-orange-50' : 'bg-red-50'
           }`}>
-            <div className={`text-2xl font-bold ${
+            <div className={`text-2xl font-medium ${
               rejectionRisk === 'Very Low' ? 'text-green-600' :
               rejectionRisk === 'Low' ? 'text-yellow-600' :
               rejectionRisk === 'Medium' ? 'text-orange-600' : 'text-red-600'
@@ -488,11 +488,11 @@ export function RejectionPrevention() {
             <div className="text-sm text-gray-600">Rejection Risk</div>
           </div>
           <div className="bg-gray-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-gray-900">{workRemaining}h</div>
+            <div className="text-2xl font-medium text-gray-900">{workRemaining}h</div>
             <div className="text-sm text-gray-600">Est. Work Remaining</div>
           </div>
           <div className="bg-gray-50 p-4 rounded-lg text-center">
-            <div className="text-2xl font-bold text-gray-900">{stats.compliant}/{checklist.length}</div>
+            <div className="text-2xl font-medium text-gray-900">{stats.compliant}/{checklist.length}</div>
             <div className="text-sm text-gray-600">Items Complete</div>
           </div>
         </div>
@@ -507,7 +507,7 @@ export function RejectionPrevention() {
                   <Icon className={`w-4 h-4 ${config.color}`} />
                   <span className="text-sm font-medium text-gray-900 capitalize">{config.label}</span>
                 </div>
-                <div className={`text-lg font-bold ${config.color}`}>{count}</div>
+                <div className={`text-lg font-medium ${config.color}`}>{count}</div>
               </div>
             );
           })}
@@ -565,7 +565,7 @@ export function RejectionPrevention() {
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <h4 className="font-semibold text-gray-900">{item.title}</h4>
+                        <h4 className="font-medium text-gray-900">{item.title}</h4>
                         <span className={`text-xs px-2 py-1 rounded ${statusConfig.bgColor} ${statusConfig.color} font-medium`}>
                           {statusConfig.label}
                         </span>

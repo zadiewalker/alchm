@@ -79,7 +79,7 @@ export default function CrisisSupportInterface({
         <div className="bg-red-600 text-white p-6 rounded-t-lg">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-2xl font-bold mb-2">{urgentMessage}</h2>
+              <h2 className="text-2xl font-medium mb-2">{urgentMessage}</h2>
               <p className="text-red-100">{message}</p>
             </div>
             {onClose && (
@@ -98,7 +98,7 @@ export default function CrisisSupportInterface({
         <div className="p-6 space-y-6">
           {/* Immediate Steps */}
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h3 className="font-semibold text-yellow-800 mb-3">Immediate Steps:</h3>
+            <h3 className="font-medium text-yellow-800 mb-3">Immediate Steps:</h3>
             <ul className="space-y-2">
               {immediateSteps.map((step, index) => (
                 <li key={index} className="flex items-start text-yellow-800">
@@ -111,7 +111,7 @@ export default function CrisisSupportInterface({
 
           {/* Primary Crisis Line */}
           <div className="border-2 border-blue-200 rounded-lg p-6 bg-blue-50">
-            <h3 className="text-xl font-semibold text-blue-800 mb-2">{crisisLine.name}</h3>
+            <h3 className="text-xl font-medium text-blue-800 mb-2">{crisisLine.name}</h3>
             <p className="text-blue-700 mb-4">{crisisLine.availability}</p>
             
             {/* Action Buttons */}
@@ -119,7 +119,7 @@ export default function CrisisSupportInterface({
               {action === 'clickToCall' && (
                 <button
                   onClick={() => handlePhoneCall(crisisLine.phone)}
-                  className="w-full bg-green-600 text-white py-4 px-6 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center"
+                  className="w-full bg-green-600 text-white py-4 px-6 rounded-lg text-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center"
                 >
                   <span className="mr-2">📞</span>
                   Call {crisisLine.phone}
@@ -129,7 +129,7 @@ export default function CrisisSupportInterface({
               {crisisLine.textSupport && (
                 <button
                   onClick={() => handleTextMessage(crisisLine.textSupport)}
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center"
+                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center"
                 >
                   <span className="mr-2">💬</span>
                   Text {crisisLine.textSupport}
@@ -139,7 +139,7 @@ export default function CrisisSupportInterface({
               {crisisLine.chatSupport && (
                 <button
                   onClick={() => handleWebChat(crisisLine.chatSupport)}
-                  className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center"
+                  className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-purple-700 transition-colors flex items-center justify-center"
                 >
                   <span className="mr-2">💻</span>
                   Start Web Chat
@@ -149,7 +149,7 @@ export default function CrisisSupportInterface({
               {crisisLine.website && (
                 <button
                   onClick={() => handleWebsite(crisisLine.website)}
-                  className="w-full bg-gray-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center"
+                  className="w-full bg-gray-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors flex items-center justify-center"
                 >
                   <span className="mr-2">🌐</span>
                   Visit Website
@@ -169,7 +169,7 @@ export default function CrisisSupportInterface({
           {/* Cultural Guidance */}
           {culturalGuidance && (
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <h3 className="font-semibold text-green-800 mb-2">Remember:</h3>
+              <h3 className="font-medium text-green-800 mb-2">Remember:</h3>
               <p className="text-green-700">{culturalGuidance}</p>
             </div>
           )}
@@ -188,7 +188,7 @@ export default function CrisisSupportInterface({
                 <div className="space-y-3">
                   {secondaryResources.map((resource) => (
                     <div key={resource.id} className="border border-gray-200 rounded-lg p-4">
-                      <h4 className="font-semibold text-gray-800">{resource.name}</h4>
+                      <h4 className="font-medium text-gray-800">{resource.name}</h4>
                       <p className="text-gray-600 text-sm mb-2">{resource.availability}</p>
                       
                       <div className="flex flex-wrap gap-2">
@@ -226,13 +226,13 @@ export default function CrisisSupportInterface({
 
           {/* Emergency Services */}
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <h3 className="font-semibold text-red-800 mb-2">In Immediate Danger?</h3>
+            <h3 className="font-medium text-red-800 mb-2">In Immediate Danger?</h3>
             <p className="text-red-700 mb-3">If you are in immediate physical danger, call emergency services:</p>
             
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => handlePhoneCall('911')}
-                className="bg-red-600 text-white py-2 px-4 rounded font-semibold hover:bg-red-700"
+                className="bg-red-600 text-white py-2 px-4 rounded font-medium hover:bg-red-700"
               >
                 🚨 Emergency: 911
               </button>
@@ -240,7 +240,7 @@ export default function CrisisSupportInterface({
               {userCountry === 'brazil' && (
                 <button
                   onClick={() => handlePhoneCall('192')}
-                  className="bg-red-600 text-white py-2 px-4 rounded font-semibold hover:bg-red-700"
+                  className="bg-red-600 text-white py-2 px-4 rounded font-medium hover:bg-red-700"
                 >
                   🚨 SAMU: 192
                 </button>
@@ -249,7 +249,7 @@ export default function CrisisSupportInterface({
               {userCountry === 'uk' && (
                 <button
                   onClick={() => handlePhoneCall('999')}
-                  className="bg-red-600 text-white py-2 px-4 rounded font-semibold hover:bg-red-700"
+                  className="bg-red-600 text-white py-2 px-4 rounded font-medium hover:bg-red-700"
                 >
                   🚨 Emergency: 999
                 </button>
@@ -258,7 +258,7 @@ export default function CrisisSupportInterface({
               {userCountry === 'india' && (
                 <button
                   onClick={() => handlePhoneCall('102')}
-                  className="bg-red-600 text-white py-2 px-4 rounded font-semibold hover:bg-red-700"
+                  className="bg-red-600 text-white py-2 px-4 rounded font-medium hover:bg-red-700"
                 >
                   🚨 Emergency: 102
                 </button>

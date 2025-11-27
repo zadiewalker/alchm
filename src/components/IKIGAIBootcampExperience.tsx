@@ -274,7 +274,7 @@ const IKIGAIBootcampExperience: React.FC<IKIGAIBootcampProps> = ({
             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
               <span className="text-white text-2xl">✨</span>
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <h3 className="text-xl font-medium text-gray-800 mb-2">
               Beautiful discoveries!
             </h3>
             <p className="text-gray-600">
@@ -304,13 +304,13 @@ const IKIGAIBootcampExperience: React.FC<IKIGAIBootcampProps> = ({
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">IKIGAI Discovery Bootcamp</h1>
+              <h1 className="text-2xl font-medium text-gray-800">IKIGAI Discovery Bootcamp</h1>
               <p className="text-gray-600 mt-1">Your purpose awaits discovery</p>
             </div>
             
             <div className="text-right">
               <div className="text-sm text-gray-500">Session Progress</div>
-              <div className="text-lg font-semibold text-purple-600">
+              <div className="text-lg font-medium text-purple-600">
                 {Math.round(getProgressVisualization().overallProgress * 100)}%
               </div>
             </div>
@@ -341,7 +341,7 @@ const IKIGAIBootcampExperience: React.FC<IKIGAIBootcampProps> = ({
               <span className="text-white text-xl">🎯</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              <h2 className="text-xl font-medium text-gray-800 mb-2">
                 {discoveryState.currentPhase.replace('_', ' ').toUpperCase()}
               </h2>
               <p className="text-gray-600 leading-relaxed">

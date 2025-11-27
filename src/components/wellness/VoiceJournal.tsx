@@ -292,7 +292,7 @@ const VoiceJournal: React.FC<VoiceJournalProps> = ({
     <div className={`voice-journal ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Voice Journaling
         </h3>
         <p className="text-sm text-gray-600">
@@ -434,7 +434,7 @@ const VoiceJournal: React.FC<VoiceJournalProps> = ({
         {/* Transcript Display */}
         {transcript && voiceState === 'complete' && (
           <div className="transcript-section mt-6 p-6 bg-white rounded-2xl border border-sage-200">
-            <h4 className="text-sm font-semibold text-gray-700 mb-3">Transcript</h4>
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Transcript</h4>
             <p className="text-gray-800 leading-relaxed text-sm">
               {transcript}
             </p>
@@ -444,33 +444,33 @@ const VoiceJournal: React.FC<VoiceJournalProps> = ({
         {/* Emotional Analysis */}
         {emotionalAnalysis && voiceState === 'complete' && (
           <div className="analysis-section mt-6 p-6 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl">
-            <h4 className="text-sm font-semibold text-gray-700 mb-4">Emotional Tone Analysis</h4>
+            <h4 className="text-sm font-medium text-gray-700 mb-4">Emotional Tone Analysis</h4>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-xs text-gray-600 mb-1">Dominant Emotion</div>
-                <div className="font-semibold text-sage-700 capitalize">
+                <div className="font-medium text-sage-700 capitalize">
                   {emotionalAnalysis.dominant}
                 </div>
               </div>
               
               <div>
                 <div className="text-xs text-gray-600 mb-1">Confidence</div>
-                <div className="font-semibold text-sage-700">
+                <div className="font-medium text-sage-700">
                   {Math.round(emotionalAnalysis.confidence * 100)}%
                 </div>
               </div>
               
               <div>
                 <div className="text-xs text-gray-600 mb-1">Energy Level</div>
-                <div className="font-semibold text-sage-700 capitalize">
+                <div className="font-medium text-sage-700 capitalize">
                   {emotionalAnalysis.energy}
                 </div>
               </div>
               
               <div>
                 <div className="text-xs text-gray-600 mb-1">Emotional Valence</div>
-                <div className="font-semibold text-sage-700 capitalize">
+                <div className="font-medium text-sage-700 capitalize">
                   {emotionalAnalysis.valence}
                 </div>
               </div>

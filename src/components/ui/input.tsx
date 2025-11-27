@@ -1,97 +1,189 @@
 /* 
- * ALCHM SACRED INPUT COMPONENT
- * "Every field becomes a space for expression"
+ * ALCHM Sacred Design System - Input Component
+ * "Every field becomes a sanctuary for expression"
  * 
- * Trauma-informed inputs that feel safe and never jarring.
- * Glass morphism meets healing-centered interaction design.
+ * Trauma-informed inputs that welcome words without judgment.
+ * Each keystroke should feel safe, supported, held.
  */
 
 'use client';
 
-import React from 'react';
+import React, { forwardRef, useState } from 'react';
+import { COLORS, SPACING, RADIUS, A11Y } from '@/design-system/tokens';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant?: 'default' | 'sanctuary' | 'journal';
-  error?: boolean;
+  label?: string;
+  helper?: string;
+  error?: string;
+  icon?: React.ReactNode;
+  variant?: 'default' | 'journal' | 'crisis';
+  reducedMotion?: boolean;
 }
 
-export function Input({ 
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ 
   className = '', 
-  variant = 'sanctuary',
-  error = false,
+  label,
+  helper,
+  error,
+  icon,
+  variant = 'default',
+  reducedMotion = false,
   ...props 
-}: InputProps) {
+}, ref) => {
+  const [isFocused, setIsFocused] = useState(false);
   
-  // Sacred Foundation
-  const baseClasses = [
-    'alchm-input',
-    'transition-all duration-base ease-gentle',
-    'focus-visible:outline-none'
-  ].join(' ');
-  
-  // Sacred Variants
-  const variantClasses = {
-    default: 'bg-sanctuary border border-sanctuary-gray-200 text-sanctuary-gray-800',
-    sanctuary: 'sanctuary-glass backdrop-blur-xl text-sage-700 placeholder:text-sage-500/60',
-    journal: 'bg-transparent border-0 text-sanctuary placeholder:text-sanctuary/50 text-large font-light'
-  };
-  
-  // Error state
-  const errorClasses = error ? 'border-crisis-red focus:border-crisis-red' : '';
+  // Sacred foundation - inputs must never feel demanding
+  const inputClasses = `
+    w-full px-4 py-3.5
+    ${icon ? 'pl-12' : ''}
+    bg-white
+    border-2 rounded-xl
+    text-gray-900 placeholder-gray-400
+    ${reducedMotion ? '' : 'transition-all duration-200'}
+    focus:outline-none
+    ${error 
+      ? 'border-[#c9a090] focus:border-[#c9a090]' 
+      : isFocused 
+        ? 'border-[#a4b792] shadow-sm' 
+        : 'border-gray-200 hover:border-gray-300'
+    }
+    ${variant === 'journal' ? 'text-lg leading-relaxed' : ''}
+    ${variant === 'crisis' ? 'min-h-[56px] text-lg' : ''}
+    ${className}
+  `.trim().replace(/\s+/g, ' ');
   
   return (
-    <input
-      className={`
-        ${baseClasses} 
-        ${variantClasses[variant]} 
-        ${errorClasses}
-        ${className}
-      `.trim()}
-      {...props}
-    />
+    <div className="w-full">
+      {label && (
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+        </label>
+      )}
+      
+      <div className="relative">
+        {icon && (
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="text-gray-400">
+              {icon}
+            </div>
+          </div>
+        )}
+        
+        <input
+          ref={ref}
+          onFocus={(e) => {
+            setIsFocused(true);
+            props.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setIsFocused(false);
+            props.onBlur?.(e);
+          }}
+          className={inputClasses}
+          {...props}
+        />
+      </div>
+      
+      {(helper || error) && (
+        <p className={`mt-2 text-sm ${
+          error 
+            ? 'text-[#c9a090]' 
+            : 'text-gray-500'
+        }`}>
+          {error || helper}
+        </p>
+      )}
+    </div>
   );
-}
+});
+
+Input.displayName = 'Input';
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  variant?: 'default' | 'sanctuary' | 'journal';
-  error?: boolean;
+  label?: string;
+  helper?: string;
+  error?: string;
+  variant?: 'default' | 'journal' | 'crisis';
+  reducedMotion?: boolean;
+  autoResize?: boolean;
 }
 
-export function Textarea({ 
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ 
   className = '', 
-  variant = 'sanctuary',
-  error = false,
+  label,
+  helper,
+  error,
+  variant = 'default',
+  reducedMotion = false,
+  autoResize = false,
   ...props 
-}: TextareaProps) {
+}, ref) => {
+  const [isFocused, setIsFocused] = useState(false);
   
-  // Sacred Foundation for textarea
-  const baseClasses = [
-    'alchm-input',
-    'alchm-textarea',
-    'transition-all duration-base ease-gentle',
-    'focus-visible:outline-none',
-    'resize-none'
-  ].join(' ');
+  // Sacred foundation for textarea - the heart of journaling
+  const textareaClasses = `
+    w-full px-4 py-3.5
+    bg-white
+    border-2 rounded-xl
+    text-gray-900 placeholder-gray-400
+    ${reducedMotion ? '' : 'transition-all duration-200'}
+    focus:outline-none
+    resize-none
+    ${error 
+      ? 'border-[#c9a090] focus:border-[#c9a090]' 
+      : isFocused 
+        ? 'border-[#a4b792] shadow-sm' 
+        : 'border-gray-200 hover:border-gray-300'
+    }
+    ${variant === 'journal' ? 'text-lg leading-relaxed min-h-[120px]' : 'min-h-[100px]'}
+    ${variant === 'crisis' ? 'min-h-[80px] text-lg' : ''}
+    ${className}
+  `.trim().replace(/\s+/g, ' ');
   
-  // Sacred Variants
-  const variantClasses = {
-    default: 'bg-sanctuary border border-sanctuary-gray-200 text-sanctuary-gray-800',
-    sanctuary: 'sanctuary-glass backdrop-blur-xl text-sage-700 placeholder:text-sage-500/60',
-    journal: 'bg-transparent border-0 text-sanctuary placeholder:text-sanctuary/50 text-large font-light leading-relaxed min-h-[300px]'
+  // Auto-resize functionality for journal entries
+  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    if (autoResize) {
+      const target = e.currentTarget;
+      target.style.height = 'auto';
+      target.style.height = `${Math.min(target.scrollHeight, 400)}px`;
+    }
+    props.onInput?.(e);
   };
   
-  // Error state
-  const errorClasses = error ? 'border-crisis-red focus:border-crisis-red' : '';
-  
   return (
-    <textarea
-      className={`
-        ${baseClasses} 
-        ${variantClasses[variant]} 
-        ${errorClasses}
-        ${className}
-      `.trim()}
-      {...props}
-    />
+    <div className="w-full">
+      {label && (
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+        </label>
+      )}
+      
+      <textarea
+        ref={ref}
+        onFocus={(e) => {
+          setIsFocused(true);
+          props.onFocus?.(e);
+        }}
+        onBlur={(e) => {
+          setIsFocused(false);
+          props.onBlur?.(e);
+        }}
+        onInput={handleInput}
+        className={textareaClasses}
+        {...props}
+      />
+      
+      {(helper || error) && (
+        <p className={`mt-2 text-sm ${
+          error 
+            ? 'text-[#c9a090]' 
+            : 'text-gray-500'
+        }`}>
+          {error || helper}
+        </p>
+      )}
+    </div>
   );
-}
+});
+
+Textarea.displayName = 'Textarea';

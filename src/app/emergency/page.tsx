@@ -14,26 +14,26 @@ const CrisisEmergencyPage = dynamic(() => import('@/components/crisis/CrisisEmer
     <div className="min-h-screen bg-red-50 flex items-center justify-center p-4">
       <div className="text-center max-w-sm">
         <div className="text-6xl mb-4 animate-pulse">🆘</div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Emergency Support Loading</h1>
+        <h1 className="text-2xl font-medium text-gray-800 mb-4">Emergency Support Loading</h1>
         <p className="text-gray-700 mb-6">Help is on the way...</p>
         
         {/* Immediate crisis resources while loading */}
         <div className="space-y-3">
           <a
             href="tel:988"
-            className="block w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded-lg font-bold text-lg"
+            className="block w-full bg-red-600 hover:bg-red-700 text-white p-4 rounded-lg font-medium text-lg"
           >
             📞 Call 988 Crisis Line
           </a>
           <a
             href="sms:741741"
-            className="block w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg font-bold text-lg"
+            className="block w-full bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg font-medium text-lg"
           >
             💬 Text Crisis Line
           </a>
           <a
             href="tel:911"
-            className="block w-full bg-gray-800 hover:bg-gray-900 text-white p-4 rounded-lg font-bold text-lg"
+            className="block w-full bg-gray-800 hover:bg-gray-900 text-white p-4 rounded-lg font-medium text-lg"
           >
             🚨 Emergency Services
           </a>
@@ -103,7 +103,7 @@ export default function EmergencyPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center">
         <div className="text-6xl mb-6">🆘</div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        <h1 className="text-3xl font-medium text-gray-800 mb-4">
           Emergency Access
         </h1>
         <p className="text-lg text-gray-700 mb-8">
@@ -117,7 +117,7 @@ export default function EmergencyPage() {
               setCrisisSeverity('immediate');
               setMode('crisis');
             }}
-            className="w-full bg-red-600 hover:bg-red-700 text-white p-6 rounded-lg font-bold text-lg transition-colors shadow-lg"
+            className="w-full bg-red-600 hover:bg-red-700 text-white p-6 rounded-lg font-medium text-lg transition-colors shadow-lg"
           >
             🚨 I Need Help Right Now
           </button>
@@ -128,7 +128,7 @@ export default function EmergencyPage() {
               setCrisisSeverity('urgent');
               setMode('crisis');
             }}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white p-6 rounded-lg font-bold text-lg transition-colors shadow-lg"
+            className="w-full bg-orange-600 hover:bg-orange-700 text-white p-6 rounded-lg font-medium text-lg transition-colors shadow-lg"
           >
             💙 I Need Crisis Support
           </button>
@@ -136,7 +136,7 @@ export default function EmergencyPage() {
           {/* Emergency Journal */}
           <button
             onClick={() => setMode('journal')}
-            className="w-full bg-green-600 hover:bg-green-700 text-white p-6 rounded-lg font-bold text-lg transition-colors shadow-lg"
+            className="w-full bg-green-600 hover:bg-green-700 text-white p-6 rounded-lg font-medium text-lg transition-colors shadow-lg"
           >
             📝 Emergency Journal Access
           </button>

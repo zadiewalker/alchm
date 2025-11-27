@@ -109,7 +109,7 @@ export default function CommunityPage() {
       <div className="fixed bottom-phi-lg right-phi-lg z-50">
         <div
           onClick={() => window.open('tel:988', '_self')}
-          className="organic-container w-16 h-16 bg-gradient-to-br from-crisis-red to-red-600 border-4 border-sanctuary/30 shadow-sacred animate-crisis-attention cursor-pointer group transition-all duration-400 hover:scale-110 active:scale-95 flex items-center justify-center"
+          className="organic-container w-12 h-12 bg-gradient-to-br from-crisis-red to-red-600 border-4 border-sanctuary/30 shadow-sacred animate-crisis-attention cursor-pointer group transition-all duration-400 hover:scale-110 active:scale-95 flex items-center justify-center"
           title="Sacred crisis support - Call 988"
           aria-label="Sacred crisis support - Call 988"
         >

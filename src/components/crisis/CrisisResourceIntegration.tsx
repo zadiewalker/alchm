@@ -195,7 +195,7 @@ export function CrisisResourceIntegration({
       {/* Crisis alert banner */}
       {crisisAlert && crisisAlert.level !== 'none' && (
         <div 
-          className={`fixed top-0 left-0 right-0 z-40 p-4 text-center text-white font-bold ${
+          className={`fixed top-0 left-0 right-0 z-40 p-4 text-center text-white font-medium ${
             crisisAlert.level === 'immediate' 
               ? 'bg-red-600 animate-pulse' 
               : 'bg-orange-500'
@@ -223,7 +223,7 @@ export function CrisisResourceIntegration({
               window.focus();
               window.location.href = 'tel:988';
             }}
-            className="w-16 h-16 bg-red-600 text-white rounded-full shadow-2xl animate-bounce"
+            className="w-12 h-12 bg-red-600 text-white rounded-full shadow-2xl animate-bounce"
             title="Emergency: Call 988"
           >
             🆘

@@ -261,38 +261,38 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
 
     return (
       <Card className="p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-4">
+        <h3 className="text-xl font-medium mb-4">
           {sacredMode ? 'Sacred Community Metamorphosis' : 'Community Transformation Impact'}
         </h3>
         
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="text-center">
             <div className="text-2xl mb-1">🌍</div>
-            <div className="text-2xl font-bold text-amber-600">{communityStats.totalStories.toLocaleString()}</div>
+            <div className="text-2xl font-medium text-amber-600">{communityStats.totalStories.toLocaleString()}</div>
             <div className="text-xs text-gray-600">Transformation Stories</div>
           </div>
           
           <div className="text-center">
             <div className="text-2xl mb-1">📈</div>
-            <div className="text-2xl font-bold text-green-600">{Math.round(communityStats.collectiveGrowth * 100)}%</div>
+            <div className="text-2xl font-medium text-green-600">{Math.round(communityStats.collectiveGrowth * 100)}%</div>
             <div className="text-xs text-gray-600">Collective Growth</div>
           </div>
           
           <div className="text-center">
             <div className="text-2xl mb-1">✨</div>
-            <div className="text-2xl font-bold text-blue-600">{Math.round(communityStats.averageTransformation * 100)}%</div>
+            <div className="text-2xl font-medium text-blue-600">{Math.round(communityStats.averageTransformation * 100)}%</div>
             <div className="text-xs text-gray-600">Average Progress</div>
           </div>
           
           <div className="text-center">
             <div className="text-2xl mb-1">💫</div>
-            <div className="text-2xl font-bold text-purple-600">{communityStats.inspirationGiven.toLocaleString()}</div>
+            <div className="text-2xl font-medium text-purple-600">{communityStats.inspirationGiven.toLocaleString()}</div>
             <div className="text-xs text-gray-600">Inspirations Shared</div>
           </div>
           
           <div className="text-center">
             <div className="text-2xl mb-1">🤗</div>
-            <div className="text-2xl font-bold text-pink-600">{communityStats.supportOffered.toLocaleString()}</div>
+            <div className="text-2xl font-medium text-pink-600">{communityStats.supportOffered.toLocaleString()}</div>
             <div className="text-xs text-gray-600">Support Messages</div>
           </div>
         </div>
@@ -309,7 +309,7 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
           <div className="flex items-center space-x-3">
             <span className="text-3xl">{userStory.sacredSymbol}</span>
             <div>
-              <h3 className="text-lg font-semibold">Your Transformation Journey</h3>
+              <h3 className="text-lg font-medium">Your Transformation Journey</h3>
               <p className="text-sm text-gray-600">
                 {userStory.isShared ? 'Shared with community' : 'Private (not shared)'}
               </p>
@@ -368,7 +368,7 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
           <div className="flex items-center space-x-3">
             <span className="text-3xl">{story.sacredSymbol}</span>
             <div>
-              <h3 className="font-semibold">{story.title}</h3>
+              <h3 className="font-medium">{story.title}</h3>
               <p className="text-sm text-gray-600">by {story.anonymousId}</p>
               <p className="text-xs text-gray-500">{story.timeframe} transformation</p>
             </div>
@@ -475,7 +475,7 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <Card className="max-w-md w-full p-6">
-          <h3 className="text-lg font-semibold mb-4">Share Your Transformation</h3>
+          <h3 className="text-lg font-medium mb-4">Share Your Transformation</h3>
           
           <div className="space-y-4 mb-6">
             <p className="text-sm text-gray-600">
@@ -531,7 +531,7 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-medium">
             {sacredMode ? 'Sacred Community of Transformation' : 'Community Transformation Stories'}
           </h2>
           <p className="text-gray-600">
@@ -584,7 +584,7 @@ export const CommunityTransformation: React.FC<CommunityTransformationProps> = (
 
       {/* Collective Wisdom */}
       <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-4">Collective Transformation Insights</h3>
+        <h3 className="text-xl font-medium mb-4">Collective Transformation Insights</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <h4 className="font-medium mb-2">Most Transformative Practices</h4>

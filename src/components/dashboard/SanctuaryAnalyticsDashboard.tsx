@@ -305,7 +305,7 @@ const GrowthRings = ({ categories, size = 'medium' }: GrowthRingProps) => {
       {hoveredCategory && (
         <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-soft border border-sage-100 max-w-xs z-10">
           <div className="text-center">
-            <div className="font-semibold text-sm text-sage-800 mb-1">
+            <div className="font-medium text-sm text-sage-800 mb-1">
               {hoveredCategory}
             </div>
             <div className="text-xs text-sage-600 leading-relaxed">
@@ -361,7 +361,7 @@ const InsightGarden = ({ insights, interactive = true }: InsightGardenProps) => 
                 {getInsightIcon(insight.type)}
               </div>
               
-              <h3 className="font-semibold text-sm text-sage-800 mb-1 tracking-tight">
+              <h3 className="font-medium text-sm text-sage-800 mb-1 tracking-tight">
                 {insight.title}
               </h3>
               
@@ -404,7 +404,7 @@ const InsightGarden = ({ insights, interactive = true }: InsightGardenProps) => 
               <div className="text-4xl mb-3">
                 {getInsightIcon(selectedInsight.type)}
               </div>
-              <h2 className="text-xl font-semibold text-sage-800 mb-2">
+              <h2 className="text-xl font-medium text-sage-800 mb-2">
                 {selectedInsight.title}
               </h2>
             </div>
@@ -554,7 +554,7 @@ export default function SanctuaryAnalyticsDashboard() {
             <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-sage-50 to-sage-100">
               <div className="w-6 h-6 bg-sage-400 rounded-full animate-gentle-pulse opacity-60" />
             </div>
-            <h3 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+            <h3 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
               Creating Your Sanctuary Analytics
             </h3>
             <p className="text-sage-600 text-sm tracking-wide">
@@ -571,7 +571,7 @@ export default function SanctuaryAnalyticsDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold text-sage-800 mb-2 tracking-tight">
+          <h1 className="text-3xl font-medium text-sage-800 mb-2 tracking-tight">
             Your Healing Sanctuary
           </h1>
           <p className="text-sage-600 text-sm">
@@ -588,7 +588,7 @@ export default function SanctuaryAnalyticsDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Mood flow */}
         <div className="bg-gradient-to-br from-white/60 to-white/40 border border-sage-100/60 rounded-3xl shadow-soft p-6 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold text-sage-800 mb-4 tracking-tight">
+          <h2 className="text-xl font-medium text-sage-800 mb-4 tracking-tight">
             Emotional Flow
           </h2>
           <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -599,7 +599,7 @@ export default function SanctuaryAnalyticsDashboard() {
 
         {/* Growth rings */}
         <div className="bg-gradient-to-br from-white/60 to-white/40 border border-sage-100/60 rounded-3xl shadow-soft p-6 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold text-sage-800 mb-4 tracking-tight">
+          <h2 className="text-xl font-medium text-sage-800 mb-4 tracking-tight">
             Growth Dimensions
           </h2>
           <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -613,7 +613,7 @@ export default function SanctuaryAnalyticsDashboard() {
 
       {/* Insight garden */}
       <div className="bg-gradient-to-br from-white/60 to-white/40 border border-sage-100/60 rounded-3xl shadow-soft p-6 backdrop-blur-sm">
-        <h2 className="text-xl font-semibold text-sage-800 mb-4 tracking-tight">
+        <h2 className="text-xl font-medium text-sage-800 mb-4 tracking-tight">
           Your Insight Garden
         </h2>
         <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -626,7 +626,7 @@ export default function SanctuaryAnalyticsDashboard() {
       <div className="bg-gradient-to-br from-sage-50/60 to-sage-100/40 border border-sage-200/60 rounded-3xl shadow-soft p-6 backdrop-blur-sm">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-3 h-3 bg-emerald-400 rounded-full animate-gentle-pulse" />
-          <h3 className="text-lg font-semibold text-sage-800 tracking-tight">
+          <h3 className="text-lg font-medium text-sage-800 tracking-tight">
             Privacy Protected Analytics
           </h3>
         </div>

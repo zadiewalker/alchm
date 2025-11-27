@@ -537,7 +537,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-sage-900 mb-1 flex items-center gap-2">
+          <h2 className="text-xl font-medium text-sage-900 mb-1 flex items-center gap-2">
             <FileText className="h-6 w-6 text-sage-600" />
             Therapeutic Progress Reports
           </h2>
@@ -611,7 +611,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
                         <Icon className="h-5 w-5 text-sage-600" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-sage-900">{report.title}</h3>
+                        <h3 className="font-medium text-sage-900">{report.title}</h3>
                         <Badge className={getReportTypeColor(report.reportType)}>
                           {report.reportType}
                         </Badge>
@@ -695,7 +695,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
             <div className="p-6 border-b border-sage-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-sage-900">{selectedReport.title}</h2>
+                  <h2 className="text-xl font-medium text-sage-900">{selectedReport.title}</h2>
                   <p className="text-sage-600">Preview Mode - Confidential Information Protected</p>
                 </div>
                 <Button
@@ -710,7 +710,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
             
             <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)] space-y-6">
               <div className="bg-sage-50 rounded-lg p-4">
-                <h3 className="font-semibold text-sage-900 mb-2">Report Overview</h3>
+                <h3 className="font-medium text-sage-900 mb-2">Report Overview</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="text-sage-600">Generated:</span>
@@ -736,7 +736,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
               {selectedReport.sections.map((section, index) => (
                 <div key={index} className="border border-sage-200 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-sage-900">{section.title}</h3>
+                    <h3 className="font-medium text-sage-900">{section.title}</h3>
                     {section.confidential && (
                       <Badge className="bg-amber-100 text-amber-800">
                         <Lock className="h-3 w-3 mr-1" />
@@ -789,7 +789,7 @@ export function TherapistReports({ entries }: TherapistReportsProps) {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full">
             <div className="p-6 border-b border-sage-200">
-              <h2 className="text-xl font-bold text-sage-900">Privacy & Consent Settings</h2>
+              <h2 className="text-xl font-medium text-sage-900">Privacy & Consent Settings</h2>
               <p className="text-sage-600 mt-1">Control how your therapeutic reports are generated and shared</p>
             </div>
             

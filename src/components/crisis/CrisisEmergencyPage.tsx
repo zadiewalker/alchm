@@ -152,7 +152,7 @@ export default function CrisisEmergencyPage({
               className="text-center mb-12"
             >
               <h1 
-                className="font-semibold tracking-tight leading-none text-off-white mb-5"
+                className="font-medium tracking-tight leading-none text-off-white mb-5"
                 style={{ fontSize: '36px', color: '#f7f7f2', letterSpacing: '-0.8px' }}
               >
                 {sacredMessage.title}
@@ -237,7 +237,7 @@ export default function CrisisEmergencyPage({
                       {resource.icon}
                     </div>
                     <div className="flex-1">
-                      <div className="font-semibold text-lg" style={{ color: '#2e2e2e', marginBottom: '4px' }}>
+                      <div className="font-medium text-lg" style={{ color: '#2e2e2e', marginBottom: '4px' }}>
                         {resource.primary}
                       </div>
                       <div className="text-sm opacity-60" style={{ color: '#2e2e2e' }}>

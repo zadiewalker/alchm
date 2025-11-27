@@ -139,7 +139,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Data Retention & Privacy</h1>
+          <h1 className="text-3xl font-medium text-gray-900 mb-2">Data Retention & Privacy</h1>
           <p className="text-gray-600">
             Manage how long your data is stored and request deletion in compliance with FERPA, COPPA, and GDPR.
           </p>
@@ -147,17 +147,17 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
 
         {/* Data Summary */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Data Summary</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-4">Your Data Summary</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <div className="bg-blue-50 rounded-lg p-4">
-              <div className="text-2xl font-bold text-blue-600">{summary?.totalDataItems || 0}</div>
+              <div className="text-2xl font-medium text-blue-600">{summary?.totalDataItems || 0}</div>
               <div className="text-sm text-blue-800">Total Data Items</div>
             </div>
             
             {summary?.dataByType && Object.entries(summary.dataByType).map(([type, count]) => (
               <div key={type} className="bg-gray-50 rounded-lg p-4">
-                <div className="text-xl font-semibold text-gray-900">{count}</div>
+                <div className="text-xl font-medium text-gray-900">{count}</div>
                 <div className="text-sm text-gray-600">{getDataTypeDisplayName(type)}</div>
               </div>
             ))}
@@ -185,7 +185,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
         {/* Upcoming Expirations */}
         {summary?.nextExpirations && summary.nextExpirations.length > 0 && (
           <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Upcoming Data Expirations</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Upcoming Data Expirations</h2>
             <div className="space-y-3">
               {summary.nextExpirations.map((expiration, index) => (
                 <div key={index} className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
@@ -204,7 +204,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
 
         {/* Retention Preferences */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Retention Preferences</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-4">Retention Preferences</h2>
           
           <div className="space-y-6">
             {/* Journal Retention */}
@@ -267,7 +267,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
         {/* Active Deletion Requests */}
         {summary?.deletionRequests && summary.deletionRequests.length > 0 && (
           <div className="bg-white rounded-lg shadow p-6 mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Active Deletion Requests</h2>
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Active Deletion Requests</h2>
             <div className="space-y-3">
               {summary.deletionRequests.map((request, index) => (
                 <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -299,7 +299,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
 
         {/* Data Deletion Section */}
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Request Data Deletion</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-4">Request Data Deletion</h2>
           <p className="text-gray-600 mb-4">
             You have the right to request deletion of your personal data under GDPR Article 17 (Right to be Forgotten).
           </p>
@@ -316,7 +316,7 @@ export default function DataRetentionManager({ userId }: { userId: string }) {
         {showDeletionDialog && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Request Data Deletion</h3>
+              <h3 className="text-lg font-medium text-gray-900 mb-4">Request Data Deletion</h3>
               
               <div className="space-y-4">
                 {/* Deletion Type */}

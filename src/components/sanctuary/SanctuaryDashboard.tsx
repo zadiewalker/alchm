@@ -104,7 +104,7 @@ export function SanctuaryDashboard({
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-3 mb-3">
           <Heart className="h-8 w-8 text-sage-400" />
-          <h1 className="text-3xl font-bold text-white">Your Sanctuary</h1>
+          <h1 className="text-3xl font-medium text-white">Your Sanctuary</h1>
         </div>
         <p className="text-gray-300">
           A safe space for healing, growth, and authentic self-expression
@@ -380,19 +380,19 @@ export function SanctuaryDashboard({
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-sage-200">{progressData.graceTokens}</div>
+                    <div className="text-2xl font-medium text-sage-200">{progressData.graceTokens}</div>
                     <div className="text-xs text-sage-400">Grace tokens</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-sage-200">2</div>
+                    <div className="text-2xl font-medium text-sage-200">2</div>
                     <div className="text-xs text-sage-400">Quests/week</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-sage-200">3mo</div>
+                    <div className="text-2xl font-medium text-sage-200">3mo</div>
                     <div className="text-xs text-sage-400">Storage</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-sage-200">∞</div>
+                    <div className="text-2xl font-medium text-sage-200">∞</div>
                     <div className="text-xs text-sage-400">Support</div>
                   </div>
                 </div>

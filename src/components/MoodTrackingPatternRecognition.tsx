@@ -492,7 +492,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
     <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           Mood Tracking & Pattern Recognition
         </h2>
         <p className="text-gray-600">
@@ -525,7 +525,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
       {activeView === 'quick' && (
         <div className="space-y-6">
           <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 mb-4">
               How are you feeling right now?
             </h3>
           </div>
@@ -647,7 +647,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
           <div className="text-center">
             <button
               onClick={submitMoodEntry}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
             >
               Save Mood Entry
             </button>
@@ -658,7 +658,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
       {/* Detailed Entry */}
       {activeView === 'detailed' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Detailed Mood Entry</h3>
+          <h3 className="text-lg font-medium text-gray-800">Detailed Mood Entry</h3>
           
           {/* Extended Mood Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -780,7 +780,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
           <div className="text-center">
             <button
               onClick={submitMoodEntry}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
             >
               Save Detailed Entry
             </button>
@@ -793,7 +793,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
         <div className="space-y-6">
           {/* Time Range Selector */}
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-gray-800">Pattern Analysis</h3>
+            <h3 className="text-lg font-medium text-gray-800">Pattern Analysis</h3>
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value as any)}
@@ -810,8 +810,8 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
           {moodStatistics && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-2">Average Mood</h4>
-                <div className="text-2xl font-bold text-blue-900">{moodStatistics.averages.mood}</div>
+                <h4 className="font-medium text-blue-800 mb-2">Average Mood</h4>
+                <div className="text-2xl font-medium text-blue-900">{moodStatistics.averages.mood}</div>
                 <div className="text-sm text-blue-700">
                   Trend: {moodStatistics.trendDirection}
                   {moodStatistics.trend !== 0 && (
@@ -823,14 +823,14 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
               </div>
 
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <h4 className="font-semibold text-green-800 mb-2">Energy Level</h4>
-                <div className="text-2xl font-bold text-green-900">{moodStatistics.averages.energy}</div>
+                <h4 className="font-medium text-green-800 mb-2">Energy Level</h4>
+                <div className="text-2xl font-medium text-green-900">{moodStatistics.averages.energy}</div>
                 <div className="text-sm text-green-700">Variability: {moodStatistics.variability}</div>
               </div>
 
               <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <h4 className="font-semibold text-yellow-800 mb-2">Stress Level</h4>
-                <div className="text-2xl font-bold text-yellow-900">{moodStatistics.averages.stress}</div>
+                <h4 className="font-medium text-yellow-800 mb-2">Stress Level</h4>
+                <div className="text-2xl font-medium text-yellow-900">{moodStatistics.averages.stress}</div>
                 <div className="text-sm text-yellow-700">{moodStatistics.entryCount} entries</div>
               </div>
             </div>
@@ -838,7 +838,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
 
           {/* Detected Patterns */}
           <div>
-            <h4 className="font-semibold text-gray-800 mb-4">Detected Patterns</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Detected Patterns</h4>
             <div className="space-y-4">
               {patternVisualizations.map((pattern) => (
                 <div 
@@ -901,7 +901,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
           {moodStatistics?.insights && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
-                <h5 className="font-semibold text-purple-800 mb-2">Common Emotions</h5>
+                <h5 className="font-medium text-purple-800 mb-2">Common Emotions</h5>
                 <div className="space-y-1">
                   {moodStatistics.insights.mostCommonEmotions.map((emotion, index) => (
                     <div key={emotion} className="text-sm text-purple-700">
@@ -912,7 +912,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
               </div>
 
               <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                <h5 className="font-semibold text-red-800 mb-2">Common Triggers</h5>
+                <h5 className="font-medium text-red-800 mb-2">Common Triggers</h5>
                 <div className="space-y-1">
                   {moodStatistics.insights.mostCommonTriggers.map((trigger, index) => (
                     <div key={trigger} className="text-sm text-red-700">
@@ -923,7 +923,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
               </div>
 
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <h5 className="font-semibold text-green-800 mb-2">Effective Coping</h5>
+                <h5 className="font-medium text-green-800 mb-2">Effective Coping</h5>
                 <div className="space-y-1">
                   {moodStatistics.insights.mostEffectiveCoping.map((coping, index) => (
                     <div key={coping} className="text-sm text-green-700">
@@ -940,7 +940,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
       {/* AI Insights */}
       {activeView === 'insights' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">AI-Generated Insights</h3>
+          <h3 className="text-lg font-medium text-gray-800">AI-Generated Insights</h3>
           
           {aiInsights.length > 0 ? (
             <div className="space-y-4">
@@ -993,11 +993,11 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
       {/* Trends & Predictions */}
       {activeView === 'trends' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Trends & Predictions</h3>
+          <h3 className="text-lg font-medium text-gray-800">Trends & Predictions</h3>
           
           {/* Future Feature Placeholder */}
           <div className="p-8 bg-gradient-to-br from-blue-50 to-purple-50 border border-blue-200 rounded-lg text-center">
-            <h4 className="font-semibold text-gray-800 mb-4">Predictive Analytics Coming Soon</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Predictive Analytics Coming Soon</h4>
             <p className="text-gray-600 mb-4">
               Advanced trend analysis and mood predictions based on your personal patterns, 
               seasonal factors, and life events.
@@ -1015,7 +1015,7 @@ const MoodTrackingPatternRecognition: React.FC<MoodTrackingProps> = ({
           {/* Current Trends Preview */}
           {moodStatistics && (
             <div className="p-4 bg-white border border-gray-200 rounded-lg">
-              <h4 className="font-semibold text-gray-800 mb-3">Current Trend Summary</h4>
+              <h4 className="font-medium text-gray-800 mb-3">Current Trend Summary</h4>
               <div className="space-y-2 text-sm">
                 <p>
                   <strong>Overall Direction:</strong> 

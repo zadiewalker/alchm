@@ -196,7 +196,7 @@ export const KheperaTransformationTracker: React.FC = () => {
       {/* Sacred Visualization */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-semibold">Sacred Metamorphosis Journey</h3>
+          <h3 className="text-xl font-medium">Sacred Metamorphosis Journey</h3>
           <Button
             variant="outline"
             size="sm"
@@ -211,7 +211,7 @@ export const KheperaTransformationTracker: React.FC = () => {
       {/* Current Stage Insights */}
       {transformationData && (
         <Card className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Current Transformation Stage</h3>
+          <h3 className="text-xl font-medium mb-4">Current Transformation Stage</h3>
           {(() => {
             const currentStage = transformationStages.find(s => s.active);
             if (!currentStage) return null;
@@ -300,7 +300,7 @@ export const KheperaTransformationTracker: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Khepera Transformation Tracker</h1>
+        <h1 className="text-3xl font-medium mb-2">Khepera Transformation Tracker</h1>
         <p className="text-gray-600">
           {sacredMode 
             ? "Sacred journey of metamorphosis guided by ancient wisdom" 

@@ -252,7 +252,7 @@ export const EnhancedJournalInterface: React.FC<EnhancedJournalInterfaceProps> =
                 transition={{ duration: 0.3 }}
               >
                 <div className="space-y-6">
-                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center space-x-2">
+                  <h3 className="text-lg font-medium text-gray-800 dark:text-gray-200 flex items-center space-x-2">
                     <Sparkles className="w-5 h-5 text-indigo-500" />
                     <span>Writing Insights</span>
                   </h3>

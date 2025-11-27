@@ -166,7 +166,7 @@ export default function CrisisValidationDashboard({
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           Crisis Detection Validation Dashboard
         </h1>
         <p className="text-gray-600">
@@ -193,7 +193,7 @@ export default function CrisisValidationDashboard({
 
       {/* Control Panel */}
       <Card className="mb-8 p-6">
-        <h2 className="text-xl font-semibold mb-4">Validation Controls</h2>
+        <h2 className="text-xl font-medium mb-4">Validation Controls</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Test Categories */}
@@ -300,12 +300,12 @@ export default function CrisisValidationDashboard({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Metrics Overview */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Validation Metrics</h2>
+            <h2 className="text-xl font-medium mb-4">Validation Metrics</h2>
             
             <div className="space-y-4">
               {/* Compliance Status */}
               <div className={`p-3 rounded-lg ${getComplianceStatus(currentValidation.metrics).className}`}>
-                <div className="font-semibold">
+                <div className="font-medium">
                   Status: {getComplianceStatus(currentValidation.metrics).status}
                 </div>
                 <div className="text-sm mt-1">
@@ -316,7 +316,7 @@ export default function CrisisValidationDashboard({
               {/* Key Metrics */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 p-3 rounded">
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-medium text-blue-600">
                     {(currentValidation.metrics.accuracy * 100).toFixed(1)}%
                   </div>
                   <div className="text-sm text-gray-600">Overall Accuracy</div>
@@ -324,7 +324,7 @@ export default function CrisisValidationDashboard({
                 </div>
                 
                 <div className="bg-gray-50 p-3 rounded">
-                  <div className="text-2xl font-bold text-green-600">
+                  <div className="text-2xl font-medium text-green-600">
                     {(currentValidation.metrics.emergencyDetectionAccuracy * 100).toFixed(1)}%
                   </div>
                   <div className="text-sm text-gray-600">Emergency Detection</div>
@@ -332,7 +332,7 @@ export default function CrisisValidationDashboard({
                 </div>
                 
                 <div className="bg-gray-50 p-3 rounded">
-                  <div className="text-2xl font-bold text-orange-600">
+                  <div className="text-2xl font-medium text-orange-600">
                     {(currentValidation.metrics.falsePositiveRate * 100).toFixed(2)}%
                   </div>
                   <div className="text-sm text-gray-600">False Positive Rate</div>
@@ -340,7 +340,7 @@ export default function CrisisValidationDashboard({
                 </div>
                 
                 <div className="bg-gray-50 p-3 rounded">
-                  <div className="text-2xl font-bold text-purple-600">
+                  <div className="text-2xl font-medium text-purple-600">
                     {currentValidation.metrics.maxResponseTime.toFixed(0)}ms
                   </div>
                   <div className="text-sm text-gray-600">Max Response Time</div>
@@ -350,7 +350,7 @@ export default function CrisisValidationDashboard({
 
               {/* Cultural Competency */}
               <div className="bg-blue-50 p-3 rounded">
-                <div className="text-lg font-semibold text-blue-800">
+                <div className="text-lg font-medium text-blue-800">
                   Cultural Competency: {(currentValidation.metrics.culturalCompetencyScore * 100).toFixed(1)}%
                 </div>
                 <div className="text-sm text-blue-600 mt-1">
@@ -362,33 +362,33 @@ export default function CrisisValidationDashboard({
 
           {/* Detailed Breakdown */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Test Case Breakdown</h2>
+            <h2 className="text-xl font-medium mb-4">Test Case Breakdown</h2>
             
             <div className="space-y-3">
               <div className="flex justify-between items-center p-2 bg-gray-50 rounded">
                 <span className="text-sm font-medium">Total Tests</span>
-                <span className="font-bold">{currentValidation.metrics.totalTests}</span>
+                <span className="font-medium">{currentValidation.metrics.totalTests}</span>
               </div>
               
               <div className="flex justify-between items-center p-2 bg-green-50 rounded">
                 <span className="text-sm font-medium text-green-700">Tests Passed</span>
-                <span className="font-bold text-green-700">{currentValidation.metrics.passed}</span>
+                <span className="font-medium text-green-700">{currentValidation.metrics.passed}</span>
               </div>
 
               <div className="flex justify-between items-center p-2 bg-blue-50 rounded">
                 <span className="text-sm font-medium text-blue-700">Avg Response Time</span>
-                <span className="font-bold text-blue-700">{currentValidation.metrics.avgResponseTime.toFixed(1)}ms</span>
+                <span className="font-medium text-blue-700">{currentValidation.metrics.avgResponseTime.toFixed(1)}ms</span>
               </div>
 
               <div className="flex justify-between items-center p-2 bg-purple-50 rounded">
                 <span className="text-sm font-medium text-purple-700">Resource Load Time</span>
-                <span className="font-bold text-purple-700">{currentValidation.metrics.resourceLoadTime.toFixed(1)}ms</span>
+                <span className="font-medium text-purple-700">{currentValidation.metrics.resourceLoadTime.toFixed(1)}ms</span>
               </div>
             </div>
 
             {/* Recommendations */}
             <div className="mt-6">
-              <h3 className="font-semibold text-gray-900 mb-2">Clinical Recommendations</h3>
+              <h3 className="font-medium text-gray-900 mb-2">Clinical Recommendations</h3>
               <div className="space-y-1">
                 {generateRecommendations(currentValidation.metrics).map((rec, idx) => (
                   <div key={idx} className="text-sm text-gray-600 flex items-start">
@@ -409,7 +409,7 @@ export default function CrisisValidationDashboard({
 
       {/* Validation History */}
       <Card className="p-6">
-        <h2 className="text-xl font-semibold mb-4">Validation History</h2>
+        <h2 className="text-xl font-medium mb-4">Validation History</h2>
         
         {validationHistory.length > 0 ? (
           <div className="overflow-x-auto">
@@ -462,7 +462,7 @@ export default function CrisisValidationDashboard({
       {/* Compliance Report */}
       {complianceReport && (
         <Card className="p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4">Clinical Compliance Report</h2>
+          <h2 className="text-xl font-medium mb-4">Clinical Compliance Report</h2>
           <pre className="text-xs bg-gray-50 p-4 rounded overflow-x-auto whitespace-pre-wrap">
             {complianceReport}
           </pre>

@@ -162,7 +162,7 @@ export default function EnhancedAIOptOut({
     <div className="space-y-6">
       {/* Current AI Status */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">AI Interaction Controls</h2>
+        <h2 className="text-xl font-medium text-gray-900 mb-4">AI Interaction Controls</h2>
         
         <div className="flex justify-between items-center mb-4">
           <div>
@@ -222,7 +222,7 @@ export default function EnhancedAIOptOut({
       {/* Granular Controls */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Detailed AI Controls</h3>
+          <h3 className="text-lg font-medium text-gray-900">Detailed AI Controls</h3>
           <button
             onClick={() => setShowGranularControls(!showGranularControls)}
             className="text-blue-600 hover:text-blue-800 text-sm"
@@ -295,7 +295,7 @@ export default function EnhancedAIOptOut({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-screen overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">How AI Works in ALCHM</h2>
+              <h2 className="text-2xl font-medium text-gray-900">How AI Works in ALCHM</h2>
               <button
                 onClick={() => setShowTransparencyReport(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -306,7 +306,7 @@ export default function EnhancedAIOptOut({
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">What Our AI Does</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-3">What Our AI Does</h3>
                 <ul className="space-y-2">
                   {transparencyReport.whatAIDoes.map((item, index) => (
                     <li key={index} className="flex items-start">
@@ -318,7 +318,7 @@ export default function EnhancedAIOptOut({
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">What Our AI Does NOT Do</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-3">What Our AI Does NOT Do</h3>
                 <ul className="space-y-2">
                   {transparencyReport.whatAIDoesNOT.map((item, index) => (
                     <li key={index} className="flex items-start">
@@ -330,7 +330,7 @@ export default function EnhancedAIOptOut({
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Data and Privacy</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-3">Your Data and Privacy</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   {Object.entries(transparencyReport.howYourDataIsUsed).map(([key, value]) => (
                     <div key={key} className="bg-gray-50 rounded p-3">
@@ -342,7 +342,7 @@ export default function EnhancedAIOptOut({
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Your Rights</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-3">Your Rights</h3>
                 <div className="grid md:grid-cols-2 gap-2">
                   {transparencyReport.yourRights.map((right, index) => (
                     <div key={index} className="flex items-start">
@@ -354,7 +354,7 @@ export default function EnhancedAIOptOut({
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Safety Measures</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-3">Safety Measures</h3>
                 <ul className="space-y-2">
                   {transparencyReport.safetyMeasures.map((measure, index) => (
                     <li key={index} className="flex items-start">
@@ -383,7 +383,7 @@ export default function EnhancedAIOptOut({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-screen overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Modify AI Settings</h2>
+              <h2 className="text-2xl font-medium text-gray-900">Modify AI Settings</h2>
               <button
                 onClick={() => setShowOptOutDialog(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -407,7 +407,7 @@ export default function EnhancedAIOptOut({
 
             {/* Current Step */}
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
                 {optOutProcess.steps[currentStep]?.title}
               </h3>
               <p className="text-gray-600 mb-4">
@@ -433,7 +433,7 @@ export default function EnhancedAIOptOut({
               {/* Show analog alternative on first step */}
               {currentStep === 1 && optOutProcess.alternativeOffered && (
                 <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-amber-900 mb-2">
+                  <h4 className="font-medium text-amber-900 mb-2">
                     {optOutProcess.alternativeOffered.title}
                   </h4>
                   <ul className="text-amber-800 text-sm space-y-1">

@@ -132,7 +132,7 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-2xl font-semibold text-gray-800">Real-World Skill Transfer</h2>
+            <h2 className="text-2xl font-medium text-gray-800">Real-World Skill Transfer</h2>
             <p className="text-gray-600">Track how your emotional intelligence skills show up in daily life</p>
           </div>
           <Button
@@ -149,7 +149,7 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
             <Card key={metric.skill} className="p-6 bg-gradient-to-br from-white to-gray-50">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 capitalize">
+                  <h3 className="text-lg font-medium text-gray-800 capitalize">
                     {metric.skill.replace('_', ' ')}
                   </h3>
                   <p className="text-sm text-gray-500">
@@ -157,7 +157,7 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className={`text-2xl font-bold ${getSuccessColor(metric.successRate)}`}>
+                  <div className={`text-2xl font-medium ${getSuccessColor(metric.successRate)}`}>
                     {metric.successRate}%
                   </div>
                   <div className="text-xs text-gray-500">success rate</div>
@@ -167,14 +167,14 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">Current Streak</span>
-                  <span className="font-semibold text-orange-600">
+                  <span className="font-medium text-orange-600">
                     {metric.currentStreak} days
                   </span>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">Confidence Level</span>
-                  <span className="font-semibold text-blue-600">
+                  <span className="font-medium text-blue-600">
                     {metric.averageConfidence}/10
                   </span>
                 </div>
@@ -216,7 +216,7 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
 
         {/* Recent Applications */}
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Applications</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Recent Applications</h3>
           
           <div className="space-y-4">
             {applications.slice(0, 3).map((application, index) => (
@@ -268,7 +268,7 @@ const RealWorldSkillTracker: React.FC<RealWorldSkillTrackerProps> = ({
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <Card className="max-w-md w-full p-6 bg-white">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Log Real-World Application</h3>
+              <h3 className="text-lg font-medium">Log Real-World Application</h3>
               <button
                 onClick={() => setShowApplicationForm(false)}
                 className="text-gray-400 hover:text-gray-600"

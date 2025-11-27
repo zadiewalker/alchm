@@ -7,8 +7,50 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
 import { getServerConfig } from '@/lib/config';
+import { withCrisisRateLimit } from '@/lib/rate-limiting';
+
+// EMERGENCY: Lightweight OpenAI client for crisis routes
+// Reduces bundle from 490KB to ~50KB for crisis user safety
+interface OpenAICompletion {
+  choices: Array<{
+    message: {
+      content: string;
+    };
+  }>;
+}
+
+class LightweightOpenAI {
+  private apiKey: string;
+  private baseURL = 'https://api.openai.com/v1';
+
+  constructor(config: { apiKey: string }) {
+    this.apiKey = config.apiKey;
+  }
+
+  async createCompletion(params: {
+    model: string;
+    messages: Array<{ role: string; content: string }>;
+    temperature: number;
+    max_tokens: number;
+    response_format: { type: string };
+  }): Promise<{ choices: Array<{ message: { content: string } }> }> {
+    const response = await fetch(`${this.baseURL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status}`);
+    }
+
+    return response.json();
+  }
+}
 
 // Types for crisis detection
 interface CrisisAnalysis {
@@ -122,18 +164,15 @@ const CULTURAL_CRISIS_INDICATORS = {
   religious: ['lost faith', 'religious trauma', 'community shunned', 'blasphemy guilt', 'spiritual crisis']
 };
 
-// Initialize OpenAI with secure configuration
-function getOpenAIInstance(): OpenAI {
+// Initialize lightweight OpenAI client for emergency crisis detection
+function getOpenAIInstance(): LightweightOpenAI {
   try {
     const serverConfig = getServerConfig();
-    return new OpenAI({
+    return new LightweightOpenAI({
       apiKey: serverConfig.ai.openaiApiKey,
-      ...(serverConfig.ai.openaiProjectId && { 
-        project: serverConfig.ai.openaiProjectId 
-      }),
     });
   } catch (error) {
-    console.error('Failed to initialize OpenAI:', error);
+    console.error('Failed to initialize lightweight OpenAI:', error);
     throw new Error('Crisis detection service configuration error');
   }
 }
@@ -296,7 +335,8 @@ function getEmergencyContacts(): EmergencyContact[] {
   ];
 }
 
-export async function POST(request: NextRequest) {
+// Internal handler function
+async function crisisDetectionHandler(request: NextRequest) {
   try {
     const startTime = Date.now();
     const { text, userId, userLanguage } = await request.json();
@@ -343,7 +383,7 @@ export async function POST(request: NextRequest) {
     // AI-powered analysis for subtle crisis indicators
     const openai = getOpenAIInstance();
     
-    const completion = await openai.chat.completions.create({
+    const completion = await openai.createCompletion({
       model: 'gpt-4o-mini', // Fast, cost-effective for crisis detection
       messages: [
         {
@@ -469,6 +509,9 @@ Prioritize user safety above all other considerations.`
     });
   }
 }
+
+// Export rate-limited POST handler
+export const POST = withCrisisRateLimit(crisisDetectionHandler);
 
 // Health check endpoint
 export async function GET() {

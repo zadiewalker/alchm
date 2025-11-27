@@ -368,7 +368,7 @@ export default function UserRightsPortal() {
       <div className="flex items-center justify-center min-h-screen">
         <Card className="max-w-md w-full">
           <CardHeader>
-            <h2 className="text-xl font-bold">Authentication Required</h2>
+            <h2 className="text-xl font-medium">Authentication Required</h2>
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 mb-4">
@@ -388,7 +388,7 @@ export default function UserRightsPortal() {
       {/* Header */}
       <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
         <CardHeader>
-          <h1 className="text-2xl font-bold text-blue-900">Your Privacy Rights Portal</h1>
+          <h1 className="text-2xl font-medium text-blue-900">Your Privacy Rights Portal</h1>
           <p className="text-blue-700">
             Exercise your data protection rights under GDPR, CCPA, and other privacy laws.
             You have complete control over your personal information.
@@ -424,7 +424,7 @@ export default function UserRightsPortal() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Account Information</h3>
+              <h3 className="text-lg font-medium">Account Information</h3>
             </CardHeader>
             <CardContent className="space-y-2">
               <div><strong>Email:</strong> {userDataSummary.accountInfo.email}</div>
@@ -437,7 +437,7 @@ export default function UserRightsPortal() {
 
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Journal Data Summary</h3>
+              <h3 className="text-lg font-medium">Journal Data Summary</h3>
             </CardHeader>
             <CardContent className="space-y-2">
               <div><strong>Total Entries:</strong> {userDataSummary.journalData.entryCount}</div>
@@ -449,7 +449,7 @@ export default function UserRightsPortal() {
 
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">AI Interactions</h3>
+              <h3 className="text-lg font-medium">AI Interactions</h3>
             </CardHeader>
             <CardContent className="space-y-2">
               <div><strong>Total Interactions:</strong> {userDataSummary.aiInteractions.totalInteractions}</div>
@@ -460,7 +460,7 @@ export default function UserRightsPortal() {
 
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Data Processing</h3>
+              <h3 className="text-lg font-medium">Data Processing</h3>
             </CardHeader>
             <CardContent className="space-y-2">
               <div><strong>Processing Purposes:</strong> {userDataSummary.dataProcessing.purposes.join(', ')}</div>
@@ -476,7 +476,7 @@ export default function UserRightsPortal() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Request Data Export</h3>
+              <h3 className="text-lg font-medium">Request Data Export</h3>
               <p className="text-gray-600">Download a copy of all your personal data</p>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -516,7 +516,7 @@ export default function UserRightsPortal() {
           {exportRequests.length > 0 && (
             <Card>
               <CardHeader>
-                <h3 className="text-lg font-semibold">Your Export Requests</h3>
+                <h3 className="text-lg font-medium">Your Export Requests</h3>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -555,7 +555,7 @@ export default function UserRightsPortal() {
         <div className="space-y-6">
           <Card className="border-red-200 bg-red-50">
             <CardHeader>
-              <h3 className="text-lg font-semibold text-red-800">Delete Your Data</h3>
+              <h3 className="text-lg font-medium text-red-800">Delete Your Data</h3>
               <p className="text-red-700">
                 ⚠️ <strong>Warning:</strong> This action cannot be undone. All your data will be permanently deleted.
               </p>
@@ -596,7 +596,7 @@ export default function UserRightsPortal() {
           {deletionRequests.length > 0 && (
             <Card>
               <CardHeader>
-                <h3 className="text-lg font-semibold">Deletion Requests</h3>
+                <h3 className="text-lg font-medium">Deletion Requests</h3>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -632,7 +632,7 @@ export default function UserRightsPortal() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <h3 className="text-lg font-semibold">Request Data Correction</h3>
+              <h3 className="text-lg font-medium">Request Data Correction</h3>
               <p className="text-gray-600">Correct any inaccurate personal information</p>
             </CardHeader>
             <CardContent>
@@ -710,7 +710,7 @@ export default function UserRightsPortal() {
           {correctionRequests.length > 0 && (
             <Card>
               <CardHeader>
-                <h3 className="text-lg font-semibold">Your Correction Requests</h3>
+                <h3 className="text-lg font-medium">Your Correction Requests</h3>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -743,7 +743,7 @@ export default function UserRightsPortal() {
       {activeTab === 'consent' && (
         <Card>
           <CardHeader>
-            <h3 className="text-lg font-semibold">Consent Management</h3>
+            <h3 className="text-lg font-medium">Consent Management</h3>
             <p className="text-gray-600">Manage your consent preferences</p>
           </CardHeader>
           <CardContent>
@@ -764,7 +764,7 @@ export default function UserRightsPortal() {
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <Card className="max-w-md w-full">
             <CardHeader className="bg-red-50 border-b border-red-200">
-              <h3 className="text-lg font-semibold text-red-800">Confirm Account Deletion</h3>
+              <h3 className="text-lg font-medium text-red-800">Confirm Account Deletion</h3>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <p className="text-gray-700">

@@ -196,7 +196,7 @@ function PronounOptionCard({ option, selected, onSelect }: PronounOptionCardProp
     >
       <div className="space-y-whisper">
         <div className="flex items-center justify-between">
-          <SacredText variant="caption" className="font-semibold">
+          <SacredText variant="caption" className="font-medium">
             {option.label}
           </SacredText>
           {selected && (
@@ -235,7 +235,7 @@ function CustomPronounInput({ value, onChange }: CustomPronounInputProps) {
 
   return (
     <SacredCard variant="sacred" className="custom-pronoun-input">
-      <SacredText variant="caption" className="font-semibold mb-breath">
+      <SacredText variant="caption" className="font-medium mb-breath">
         Define your custom pronouns
       </SacredText>
       
@@ -277,7 +277,7 @@ function PronounPrivacyControls({
 }: PronounPrivacyControlsProps) {
   return (
     <SacredCard variant="gentle" className="pronoun-privacy-controls">
-      <SacredText variant="caption" className="font-semibold mb-breath">
+      <SacredText variant="caption" className="font-medium mb-breath">
         Privacy Settings
       </SacredText>
       

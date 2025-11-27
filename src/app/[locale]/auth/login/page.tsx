@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import LoginClientOptimized from './LoginClientOptimized';
+import { redirect } from 'next/navigation';
 
 // Generate static params for supported locales
 export async function generateStaticParams() {
@@ -11,10 +11,11 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: 'Login - ALCHM',
-  description: 'Sign in to your ALCHM trauma-informed journaling sanctuary',
+  title: 'Start Healing - ALCHM',
+  description: 'Begin your trauma-informed journaling journey with ALCHM',
 };
 
+// Redirect login page to main landing page for guest-first experience
 export default function LoginPage() {
-  return <LoginClientOptimized />;
+  redirect('/');
 }

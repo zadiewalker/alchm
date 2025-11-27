@@ -158,7 +158,7 @@ export default function IndigenousWisdomIntegration({
   return (
     <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 border-green-200">
       <div className="mb-6">
-        <h3 className="text-lg font-semibold text-green-800 mb-2">
+        <h3 className="text-lg font-medium text-green-800 mb-2">
           {userProfile.isIndigenous ? '🪶 Indigenous Wisdom for Healing' : '🌍 Learning from Indigenous Wisdom'}
         </h3>
         
@@ -190,7 +190,7 @@ export default function IndigenousWisdomIntegration({
             onClick={() => handleWisdomSelection(wisdom)}
           >
             <div className="flex items-start justify-between mb-3">
-              <h4 className="font-semibold text-green-800">{wisdom.title}</h4>
+              <h4 className="font-medium text-green-800">{wisdom.title}</h4>
               {wisdom.isForIndigenousUsersOnly && (
                 <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
                   Community Knowledge
@@ -209,7 +209,7 @@ export default function IndigenousWisdomIntegration({
 
       {selectedWisdom && (
         <Card className="mt-6 p-4 bg-green-50 border-green-200">
-          <h4 className="font-semibold text-green-800 mb-3">Guidance: {selectedWisdom.title}</h4>
+          <h4 className="font-medium text-green-800 mb-3">Guidance: {selectedWisdom.title}</h4>
           
           {selectedWisdom.educationalContent && (
             <div className="mb-4">
@@ -273,7 +273,7 @@ export function IndigenousCommunityVerification({
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Indigenous Community Verification</h3>
+      <h3 className="text-lg font-medium mb-4">Indigenous Community Verification</h3>
       <p className="text-sm text-gray-600 mb-6">
         This helps us provide appropriate cultural content while respecting traditional knowledge protocols.
       </p>
@@ -390,7 +390,7 @@ export function IndigenousReciprocityTracker() {
 
   return (
     <Card className="p-6 bg-yellow-50 border-yellow-200">
-      <h3 className="text-lg font-semibold text-yellow-800 mb-4">
+      <h3 className="text-lg font-medium text-yellow-800 mb-4">
         🤝 Reciprocity & Respect Tracker
       </h3>
       <p className="text-sm text-yellow-700 mb-4">

@@ -33,7 +33,7 @@ export default function RatingPrompt({ onDismiss, onRate }: RatingPromptProps) {
         <CardContent className="p-4">
           <div className="flex items-start justify-between mb-3">
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-white mb-1">
+              <h3 className="text-sm font-medium text-white mb-1">
                 Help ALCHM get featured! 🌟
               </h3>
               <p className="text-xs text-purple-200 leading-tight">

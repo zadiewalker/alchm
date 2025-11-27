@@ -458,7 +458,7 @@ export default function JournalEntryComponent({
             <CardContent className="pt-6">
               <div className="text-center">
                 <Zap className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
-                <p className="text-lg font-bold text-white">{user.currentStreak} days</p>
+                <p className="text-lg font-medium text-white">{user.currentStreak} days</p>
                 <p className="text-sm text-gray-400">Current streak</p>
                 <p className="text-xs text-gray-500 mt-1">
                   Best: {user.longestStreak} days

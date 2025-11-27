@@ -81,7 +81,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   return (
     <Card className={`relative ${getStatusColor(status)} ${isCrisisMetric ? 'ring-2 ring-blue-200' : ''}`}>
       {isCrisisMetric && (
-        <div className="absolute top-2 right-2 text-blue-600 font-bold text-xs">
+        <div className="absolute top-2 right-2 text-blue-600 font-medium text-xs">
           CRISIS
         </div>
       )}
@@ -92,7 +92,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">
+        <div className="text-2xl font-medium">
           {typeof value === 'number' ? value.toLocaleString() : value}
           <span className="text-sm font-normal ml-1">{unit}</span>
         </div>
@@ -326,17 +326,17 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
         <CardContent className="pt-0">
           <div className="grid grid-cols-3 gap-2 text-xs">
             <div className="text-center">
-              <div className="font-bold text-lg">
+              <div className="font-medium text-lg">
                 {performanceStatus.lcp ? Math.round(performanceStatus.lcp.value) : '—'}ms
               </div>
               <div>LCP</div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-lg">{criticalIssuesCount}</div>
+              <div className="font-medium text-lg">{criticalIssuesCount}</div>
               <div>Critical Issues</div>
             </div>
             <div className="text-center">
-              <div className="font-bold text-lg">
+              <div className="font-medium text-lg">
                 {crisisResourceHealth.healthyResources}/{crisisResourceHealth.totalResources}
               </div>
               <div>Resources OK</div>
@@ -359,7 +359,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
             <div className="flex items-center justify-center gap-3 text-red-800">
               <span className="text-2xl animate-pulse">🚨</span>
               <div className="text-center">
-                <div className="font-bold text-lg">EMERGENCY MODE ACTIVE</div>
+                <div className="font-medium text-lg">EMERGENCY MODE ACTIVE</div>
                 <div className="text-sm">Automated performance protection enabled</div>
               </div>
               <span className="text-2xl animate-pulse">🚨</span>
@@ -370,7 +370,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
 
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Performance Monitoring Dashboard</h1>
+        <h1 className="text-2xl font-medium">Performance Monitoring Dashboard</h1>
         <div className="flex items-center gap-4">
           <div className="text-sm text-gray-500">
             Last updated: {lastUpdate.toLocaleTimeString()}
@@ -387,7 +387,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
 
       {/* Core Web Vitals */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">Core Web Vitals</h2>
+        <h2 className="text-xl font-medium mb-4">Core Web Vitals</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard
             title="Largest Contentful Paint"
@@ -433,7 +433,7 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
 
       {/* Crisis Resources */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">Crisis Resources Health</h2>
+        <h2 className="text-xl font-medium mb-4">Crisis Resources Health</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard
             title="Healthy Resources"
@@ -495,28 +495,28 @@ export const PerformanceDashboard: React.FC<PerformanceDashboardProps> = ({
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div className="text-center">
-              <div className="font-bold text-2xl text-green-600">
+              <div className="font-medium text-2xl text-green-600">
                 {performanceStatus.lcp && performanceStatus.getStatus(performanceStatus.lcp) === 'healthy' ? '✅' : '⚠️'}
               </div>
               <div>Performance</div>
             </div>
             
             <div className="text-center">
-              <div className="font-bold text-2xl text-green-600">
+              <div className="font-medium text-2xl text-green-600">
                 {crisisResourceHealth.downResources === 0 ? '✅' : '🚨'}
               </div>
               <div>Crisis Resources</div>
             </div>
             
             <div className="text-center">
-              <div className="font-bold text-2xl text-green-600">
+              <div className="font-medium text-2xl text-green-600">
                 {budgetViolations.filter(v => v.violationType === 'EMERGENCY').length === 0 ? '✅' : '🚨'}
               </div>
               <div>Budget Compliance</div>
             </div>
             
             <div className="text-center">
-              <div className="font-bold text-2xl text-green-600">
+              <div className="font-medium text-2xl text-green-600">
                 {isEmergency ? '🚨' : '✅'}
               </div>
               <div>Emergency Mode</div>

@@ -170,15 +170,15 @@ export default function EmergencyMobileAgeVerification({
     },
     crisisButton: {
       flex: 1,
-      padding: '16px 12px',
+      padding: '12px 8px',
       background: '#dc2626',
       color: 'white',
       textDecoration: 'none',
-      borderRadius: '12px',
-      fontSize: '14px',
+      borderRadius: '10px',
+      fontSize: '13px',
       fontWeight: '600' as const,
       textAlign: 'center' as const,
-      minHeight: '56px',
+      minHeight: '44px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -300,7 +300,7 @@ export default function EmergencyMobileAgeVerification({
     >
     <div style={styles.overlay}>
       <div style={styles.container}>
-        <span style={styles.icon}>🛡️</span>
+        <span style={styles.icon}>🪲</span>
         
         <h1 style={styles.title}>Welcome to ALCHM</h1>
         <p style={styles.subtitle}>
@@ -339,8 +339,15 @@ export default function EmergencyMobileAgeVerification({
           </select>
         </div>
 
+
         <button
-          onClick={handleVerification}
+          onClick={() => {
+            if (!selectedYear) {
+              setError('Please select your birth year to continue');
+              return;
+            }
+            handleVerification();
+          }}
           disabled={!selectedYear || isLoading}
           style={{
             ...styles.button,
@@ -359,6 +366,35 @@ export default function EmergencyMobileAgeVerification({
 
         <div style={styles.privacy}>
           Your privacy is protected • Stored locally • Never shared
+        </div>
+        
+        {/* Privacy Policy Link - Prominently displayed for Google verification */}
+        <div style={{ textAlign: 'center', marginTop: '16px' }}>
+          <a 
+            href="/privacy-policy.html"
+            style={{
+              color: '#93a682',
+              fontSize: '14px',
+              textDecoration: 'underline',
+              textUnderlineOffset: '2px',
+              minHeight: '44px',
+              minWidth: '44px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '8px 16px',
+              transition: 'color 0.2s ease',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.color = '#7d8f6f';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.color = '#93a682';
+            }}
+            aria-label="Read our privacy policy"
+          >
+            Privacy Policy
+          </a>
         </div>
       </div>
 

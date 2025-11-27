@@ -103,7 +103,7 @@ export function SupportiveMetricDisplay({
     <Card className={`bg-white border-sage-100 hover:shadow-soft transition-all duration-300 ${className}`}>
       <CardContent className={sizeClasses[size]}>
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-semibold text-sage-600 uppercase tracking-wide">
+          <span className="text-xs font-medium text-sage-600 uppercase tracking-wide">
             {label}
           </span>
           <div className={`p-1.5 rounded-lg ${getTrendColor()}`}>
@@ -112,7 +112,7 @@ export function SupportiveMetricDisplay({
         </div>
         
         <div className="flex items-baseline gap-2 mb-2">
-          <span className="text-3xl font-bold text-ink tracking-tight">
+          <span className="text-3xl font-medium text-ink tracking-tight">
             {formatValue()}
           </span>
           {trend === 'improving' && (
@@ -232,7 +232,7 @@ export function HealingProgressRing({
         
         {/* Center value */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`text-2xl font-bold ${colors.text}`}>
+          <span className={`text-2xl font-medium ${colors.text}`}>
             {Math.round(percentage)}%
           </span>
         </div>
@@ -240,7 +240,7 @@ export function HealingProgressRing({
       
       {showLabel && (
         <div className="text-center mt-4">
-          <h4 className="font-semibold text-ink text-sm mb-1">{label}</h4>
+          <h4 className="font-medium text-ink text-sm mb-1">{label}</h4>
           {description && (
             <p className="text-xs text-muted leading-relaxed max-w-[120px]">
               {description}
@@ -287,7 +287,7 @@ export function EmotionalPatternViz({
   return (
     <Card className={`bg-white border-sage-100 ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">💭</span>
           {title}
         </CardTitle>
@@ -351,7 +351,7 @@ export function GrowthIndicatorsViz({
   return (
     <Card className={`bg-white border-sage-100 ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">📈</span>
           {title}
         </CardTitle>
@@ -366,11 +366,11 @@ export function GrowthIndicatorsViz({
                 className={`p-4 rounded-xl border ${colors.bg} ${colors.border} transition-all duration-300 hover:shadow-soft`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className={`font-semibold text-sm ${colors.text}`}>
+                  <h4 className={`font-medium text-sm ${colors.text}`}>
                     {indicator.name}
                   </h4>
                   <div className="flex items-center gap-2">
-                    <span className={`text-sm font-bold ${colors.text}`}>
+                    <span className={`text-sm font-medium ${colors.text}`}>
                       {Math.round(indicator.value * 100)}%
                     </span>
                     <HealingProgressRing
@@ -426,7 +426,7 @@ export function GentleTrendViz({
   return (
     <Card className={`bg-white border-sage-100 ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold">
+        <CardTitle className="text-ink text-lg font-medium">
           {title}
         </CardTitle>
         {description && (
@@ -499,7 +499,7 @@ export function HealingMilestoneCelebration({
   return (
     <Card className={`bg-white border-sage-100 ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">🎉</span>
           {title}
         </CardTitle>
@@ -516,7 +516,7 @@ export function HealingMilestoneCelebration({
                   {getMilestoneIcon(milestone.significanceScore)}
                 </span>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-ink text-sm mb-1">
+                  <h4 className="font-medium text-ink text-sm mb-1">
                     {milestone.name}
                   </h4>
                   <p className="text-xs text-muted leading-relaxed mb-2">
@@ -585,7 +585,7 @@ export function SupportiveRecommendations({
   return (
     <Card className={`bg-white border-sage-100 ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">🌟</span>
           {title}
         </CardTitle>
@@ -602,7 +602,7 @@ export function SupportiveRecommendations({
                   {getRecommendationIcon(rec.type)}
                 </span>
                 <div className="flex-1">
-                  <h4 className="font-semibold text-sm mb-1">
+                  <h4 className="font-medium text-sm mb-1">
                     {rec.title}
                   </h4>
                   <p className="text-xs leading-relaxed mb-2">

@@ -563,7 +563,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
     <div className={`music-therapy ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Music Therapy Studio
         </h3>
         <p className="text-sm text-gray-600">
@@ -582,7 +582,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-sage-100 to-green-100 rounded-2xl text-center hover:shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="text-3xl mb-2">🌊</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Soundscapes</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Soundscapes</h4>
             <p className="text-xs text-gray-600">Therapeutic frequencies</p>
             {currentMood && (
               <p className="text-xs text-sage-600 mt-1">{availableSoundscapes.length} for {currentMood}</p>
@@ -595,7 +595,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-blue-100 to-sky-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">🫁</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Breathing</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Breathing</h4>
             <p className="text-xs text-gray-600">Guided breath work</p>
           </button>
 
@@ -605,7 +605,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-purple-100 to-violet-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">🎵</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Toning</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Toning</h4>
             <p className="text-xs text-gray-600">Sacred frequencies</p>
           </button>
 
@@ -615,7 +615,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
             className="mode-card p-6 bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl text-center hover:shadow-md transition-all duration-200"
           >
             <div className="text-3xl mb-2">🥁</div>
-            <h4 className="font-semibold text-gray-800 mb-1">Rhythm</h4>
+            <h4 className="font-medium text-gray-800 mb-1">Rhythm</h4>
             <p className="text-xs text-gray-600">Regulatory patterns</p>
           </button>
         </div>
@@ -625,7 +625,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
       {activeMode === 'soundscape' && (
         <div className="soundscape-mode bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-lg font-semibold text-gray-800">Therapeutic Soundscapes</h4>
+            <h4 className="text-lg font-medium text-gray-800">Therapeutic Soundscapes</h4>
             <button
               onClick={() => {stopAudio(); setActiveMode(null);}}
               className="text-gray-400 hover:text-gray-600"
@@ -642,7 +642,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
                   onClick={() => setSelectedSoundscape(soundscape)}
                   className="w-full p-4 bg-sage-50 rounded-xl text-left hover:bg-sage-100 transition-colors"
                 >
-                  <div className="font-semibold text-gray-800">{soundscape.name}</div>
+                  <div className="font-medium text-gray-800">{soundscape.name}</div>
                   <div className="text-sm text-gray-600 mb-2">{soundscape.description}</div>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-sage-600">{soundscape.therapeuticPurpose}</span>
@@ -656,7 +656,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
           ) : (
             <div className="soundscape-player text-center">
               <div className="mb-6">
-                <h5 className="text-xl font-semibold text-gray-800 mb-2">{selectedSoundscape.name}</h5>
+                <h5 className="text-xl font-medium text-gray-800 mb-2">{selectedSoundscape.name}</h5>
                 <p className="text-gray-600 mb-4">{selectedSoundscape.description}</p>
                 
                 {/* Frequency Visualization */}
@@ -726,7 +726,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
       {activeMode === 'breathing' && (
         <div className="breathing-mode bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-lg font-semibold text-gray-800">Guided Breathing</h4>
+            <h4 className="text-lg font-medium text-gray-800">Guided Breathing</h4>
             <button
               onClick={() => {stopAudio(); setActiveMode(null);}}
               className="text-gray-400 hover:text-gray-600"
@@ -743,7 +743,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
                   onClick={() => setSelectedBreathing(pattern)}
                   className="w-full p-4 bg-blue-50 rounded-xl text-left hover:bg-blue-100 transition-colors"
                 >
-                  <div className="font-semibold text-gray-800">{pattern.name}</div>
+                  <div className="font-medium text-gray-800">{pattern.name}</div>
                   <div className="text-sm text-gray-600 mb-2">{pattern.description}</div>
                   <div className="text-xs text-blue-600">
                     {pattern.inhale}s inhale • {pattern.hold > 0 ? `${pattern.hold}s hold • ` : ''}{pattern.exhale}s exhale • {pattern.cycles} cycles
@@ -761,7 +761,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
           ) : (
             <div className="breathing-exercise text-center">
               <div className="mb-6">
-                <h5 className="text-xl font-semibold text-gray-800 mb-2">{selectedBreathing.name}</h5>
+                <h5 className="text-xl font-medium text-gray-800 mb-2">{selectedBreathing.name}</h5>
                 <p className="text-gray-600">{selectedBreathing.description}</p>
               </div>
 
@@ -843,7 +843,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
       {activeMode === 'toning' && (
         <div className="toning-mode bg-white rounded-3xl p-6 shadow-lg border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h4 className="text-lg font-semibold text-gray-800">Sacred Toning</h4>
+            <h4 className="text-lg font-medium text-gray-800">Sacred Toning</h4>
             <button
               onClick={() => {stopAudio(); setActiveMode(null);}}
               className="text-gray-400 hover:text-gray-600"
@@ -856,7 +856,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
             
             {/* Frequency Control */}
             <div className="frequency-control">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-gray-700 mb-3">
                 Frequency: {toneSettings.frequency}Hz
               </label>
               <input
@@ -877,7 +877,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
 
             {/* Volume Control */}
             <div className="volume-control">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-gray-700 mb-3">
                 Volume: {Math.round(toneSettings.volume * 100)}%
               </label>
               <input
@@ -893,7 +893,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
 
             {/* Modulation Control */}
             <div className="modulation-control">
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-gray-700 mb-3">
                 Modulation: {toneSettings.modulation}Hz
               </label>
               <input
@@ -912,7 +912,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
 
             {/* Preset Frequencies */}
             <div className="preset-frequencies">
-              <div className="text-sm font-semibold text-gray-700 mb-3">Sacred Frequencies</div>
+              <div className="text-sm font-medium text-gray-700 mb-3">Sacred Frequencies</div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {[
                   { freq: 136.1, name: 'Om', chakra: 'Universal' },
@@ -933,7 +933,7 @@ const MusicTherapy: React.FC<MusicTherapyProps> = ({
                         : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
                     }`}
                   >
-                    <div className="font-semibold">{preset.name}</div>
+                    <div className="font-medium">{preset.name}</div>
                     <div className="text-xs opacity-75">{preset.freq}Hz</div>
                   </button>
                 ))}

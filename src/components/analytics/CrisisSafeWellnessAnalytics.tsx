@@ -404,7 +404,7 @@ export default function CrisisSafeWellnessAnalytics() {
   } : {};
   
   const touchTargetClass = isCrisisMode 
-    ? 'min-h-[60px] min-w-[60px] text-lg font-semibold border-2 border-sage-400' 
+    ? 'min-h-[60px] min-w-[60px] text-lg font-medium border-2 border-sage-400' 
     : 'min-h-[52px] min-w-[52px]';
 
   if (isLoading) {
@@ -450,7 +450,7 @@ export default function CrisisSafeWellnessAnalytics() {
           <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-xl bg-sage-400 opacity-90" />
         </div>
         <h1 className={`text-2xl sm:text-4xl md:text-5xl font-light text-ink mb-3 sm:mb-4 tracking-tight ${
-          isCrisisMode ? 'text-3xl sm:text-4xl font-semibold' : ''
+          isCrisisMode ? 'text-3xl sm:text-4xl font-medium' : ''
         }`}>
           Your Wellness Journey
         </h1>
@@ -508,12 +508,12 @@ export default function CrisisSafeWellnessAnalytics() {
           }`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-sage-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {safeMetrics.resilience}%
             </div>
             <div className={`text-ink font-medium text-sm mb-3 ${
-              isCrisisMode ? 'text-base font-semibold' : ''
+              isCrisisMode ? 'text-base font-medium' : ''
             }`}>
               Inner Strength
             </div>
@@ -533,12 +533,12 @@ export default function CrisisSafeWellnessAnalytics() {
           }`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-blue-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {safeMetrics.growth}%
             </div>
             <div className={`text-ink font-medium text-sm mb-3 ${
-              isCrisisMode ? 'text-base font-semibold' : ''
+              isCrisisMode ? 'text-base font-medium' : ''
             }`}>
               Personal Growth
             </div>
@@ -559,12 +559,12 @@ export default function CrisisSafeWellnessAnalytics() {
             }`} />
             <div className="relative text-center">
               <div className={`text-3xl sm:text-4xl font-light text-emerald-600 mb-2 tracking-tight ${
-                isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+                isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
               }`}>
                 {safeMetrics.reflectionStreak}
               </div>
               <div className={`text-ink font-medium text-sm mb-3 ${
-                isCrisisMode ? 'text-base font-semibold' : ''
+                isCrisisMode ? 'text-base font-medium' : ''
               }`}>
                 Reflection Days
               </div>
@@ -585,12 +585,12 @@ export default function CrisisSafeWellnessAnalytics() {
           }`} />
           <div className="relative text-center">
             <div className={`text-3xl sm:text-4xl font-light text-violet-600 mb-2 tracking-tight ${
-              isCrisisMode ? 'text-4xl sm:text-5xl font-semibold' : ''
+              isCrisisMode ? 'text-4xl sm:text-5xl font-medium' : ''
             }`}>
               {safeMetrics.insightsGained}
             </div>
             <div className={`text-ink font-medium text-sm mb-3 ${
-              isCrisisMode ? 'text-base font-semibold' : ''
+              isCrisisMode ? 'text-base font-medium' : ''
             }`}>
               Insights Gained
             </div>
@@ -641,7 +641,7 @@ export default function CrisisSafeWellnessAnalytics() {
 
         <div className="space-y-6">
           <Card className="bg-gradient-to-br from-sage-50 to-sage-100 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-sage-200">
-            <h3 className="text-ink font-semibold mb-4">Milestones Reached</h3>
+            <h3 className="text-ink font-medium mb-4">Milestones Reached</h3>
             <div className="space-y-3">
               {safeMetrics.milestonesReached.length > 0 ? (
                 safeMetrics.milestonesReached.map((milestone, index) => (
@@ -661,14 +661,14 @@ export default function CrisisSafeWellnessAnalytics() {
           </Card>
 
           <Card className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-sage-100 shadow-card">
-            <h3 className="text-ink font-semibold mb-4">Next Growth Opportunity</h3>
+            <h3 className="text-ink font-medium mb-4">Next Growth Opportunity</h3>
             <p className="text-sage-700 text-sm leading-relaxed mb-6">
               {safeMetrics.nextGrowthOpportunity}
             </p>
             <Button 
               onClick={() => handleTouchSafeAction(() => window.location.href = '/journal')}
               className={`${touchTargetClass} w-full bg-sage-400 hover:bg-sage-500 text-white py-3 px-4 rounded-2xl font-medium transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 touch-target ${
-                isCrisisMode ? 'py-4 text-lg font-semibold bg-sage-500 border-2 border-sage-600' : ''
+                isCrisisMode ? 'py-4 text-lg font-medium bg-sage-500 border-2 border-sage-600' : ''
               }`}
             >
               Continue Reflecting
@@ -676,7 +676,7 @@ export default function CrisisSafeWellnessAnalytics() {
           </Card>
 
           <Card className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-sage-100 shadow-card">
-            <h3 className="text-ink font-semibold mb-4">Share Your Progress</h3>
+            <h3 className="text-ink font-medium mb-4">Share Your Progress</h3>
             <p className="text-sage-600 text-sm mb-6 leading-relaxed">
               Export your wellness highlights to celebrate with your support system.
             </p>
@@ -684,7 +684,7 @@ export default function CrisisSafeWellnessAnalytics() {
               onClick={() => handleTouchSafeAction(exportSafeWellnessData)}
               variant="outline"
               className={`${touchTargetClass} w-full py-3 px-4 rounded-2xl font-medium transition-all duration-200 touch-target ${
-                isCrisisMode ? 'py-4 text-lg font-semibold border-2 border-sage-400' : ''
+                isCrisisMode ? 'py-4 text-lg font-medium border-2 border-sage-400' : ''
               }`}
             >
               Export Highlights
@@ -700,7 +700,7 @@ export default function CrisisSafeWellnessAnalytics() {
             <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-400 rounded-xl sm:rounded-2xl opacity-80" />
           </div>
           <div className="flex-1">
-            <h3 className="text-ink font-semibold text-base sm:text-lg mb-3">
+            <h3 className="text-ink font-medium text-base sm:text-lg mb-3">
               Your Wellness, Your Privacy
             </h3>
             <p className="text-muted text-sm leading-relaxed mb-4">

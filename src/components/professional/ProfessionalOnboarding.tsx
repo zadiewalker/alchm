@@ -238,7 +238,7 @@ export default function ProfessionalOnboarding() {
           <Users className="h-6 w-6 text-sage-600" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Personal Information</h2>
+          <h2 className="text-xl font-medium text-gray-900">Personal Information</h2>
           <p className="text-sm text-gray-600">Tell us about yourself to personalize your experience</p>
         </div>
       </div>
@@ -410,7 +410,7 @@ export default function ProfessionalOnboarding() {
           <Award className="h-6 w-6 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Professional Credentials</h2>
+          <h2 className="text-xl font-medium text-gray-900">Professional Credentials</h2>
           <p className="text-sm text-gray-600">Upload your licenses and certifications for verification</p>
         </div>
       </div>
@@ -420,7 +420,7 @@ export default function ProfessionalOnboarding() {
         <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-blue-900 mb-1">Primary Professional License</h3>
+              <h3 className="font-medium text-blue-900 mb-1">Primary Professional License</h3>
               <p className="text-sm text-blue-800">Your main clinical license (required)</p>
             </div>
             <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -501,7 +501,7 @@ export default function ProfessionalOnboarding() {
         {/* Additional Credentials */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Additional Credentials</h3>
+            <h3 className="font-medium text-gray-900">Additional Credentials</h3>
             <Button variant="secondary" size="sm">
               <Upload className="h-4 w-4 mr-2" />
               Add Credential
@@ -590,7 +590,7 @@ export default function ProfessionalOnboarding() {
           <Shield className="h-6 w-6 text-red-600" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">HIPAA & Compliance</h2>
+          <h2 className="text-xl font-medium text-gray-900">HIPAA & Compliance</h2>
           <p className="text-sm text-gray-600">Complete required training and privacy certifications</p>
         </div>
       </div>
@@ -600,7 +600,7 @@ export default function ProfessionalOnboarding() {
         <div className="p-6 bg-red-50 rounded-xl border border-red-200">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-red-900 mb-1">HIPAA Privacy Training</h3>
+              <h3 className="font-medium text-red-900 mb-1">HIPAA Privacy Training</h3>
               <p className="text-sm text-red-800">Complete our HIPAA-compliant training module</p>
             </div>
             <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
@@ -648,7 +648,7 @@ export default function ProfessionalOnboarding() {
         <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="font-semibold text-blue-900 mb-1">Background Verification</h3>
+              <h3 className="font-medium text-blue-900 mb-1">Background Verification</h3>
               <p className="text-sm text-blue-800">Professional background check through verified partner</p>
             </div>
             <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -692,7 +692,7 @@ export default function ProfessionalOnboarding() {
 
         {/* Agreement & Terms */}
         <div className="p-6 bg-gray-50 rounded-xl border border-gray-200">
-          <h3 className="font-semibold text-gray-900 mb-4">Professional Agreement</h3>
+          <h3 className="font-medium text-gray-900 mb-4">Professional Agreement</h3>
           
           <div className="space-y-4">
             <div className="flex items-start gap-3">
@@ -765,7 +765,7 @@ export default function ProfessionalOnboarding() {
           <CheckCircle2 className="h-6 w-6 text-emerald-600" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Review & Submit</h2>
+          <h2 className="text-xl font-medium text-gray-900">Review & Submit</h2>
           <p className="text-sm text-gray-600">Review your information before submitting for verification</p>
         </div>
       </div>
@@ -775,26 +775,26 @@ export default function ProfessionalOnboarding() {
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="p-6 text-center border-emerald-200">
             <CheckCircle2 className="h-8 w-8 text-emerald-500 mx-auto mb-3" />
-            <div className="text-lg font-semibold text-emerald-700 mb-1">Personal Info</div>
+            <div className="text-lg font-medium text-emerald-700 mb-1">Personal Info</div>
             <div className="text-sm text-emerald-600">Complete</div>
           </Card>
 
           <Card className="p-6 text-center border-blue-200">
             <Clock className="h-8 w-8 text-blue-500 mx-auto mb-3" />
-            <div className="text-lg font-semibold text-blue-700 mb-1">Credentials</div>
+            <div className="text-lg font-medium text-blue-700 mb-1">Credentials</div>
             <div className="text-sm text-blue-600">Pending Review</div>
           </Card>
 
           <Card className="p-6 text-center border-amber-200">
             <AlertCircle className="h-8 w-8 text-amber-500 mx-auto mb-3" />
-            <div className="text-lg font-semibold text-amber-700 mb-1">HIPAA Training</div>
+            <div className="text-lg font-medium text-amber-700 mb-1">HIPAA Training</div>
             <div className="text-sm text-amber-600">In Progress</div>
           </Card>
         </div>
 
         {/* Next Steps */}
         <div className="p-6 bg-sage-50 rounded-xl border border-sage-200">
-          <h3 className="font-semibold text-sage-900 mb-4">Next Steps</h3>
+          <h3 className="font-medium text-sage-900 mb-4">Next Steps</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="w-6 h-6 bg-sage-100 rounded-full flex items-center justify-center">
@@ -865,7 +865,7 @@ export default function ProfessionalOnboarding() {
         <div className="w-20 h-20 bg-gradient-to-br from-sage-100 to-sage-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <Heart className="h-10 w-10 text-sage-600" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Professional Onboarding</h1>
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">Professional Onboarding</h1>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Join our community of trauma-informed mental health professionals. We'll guide you through 
           a secure verification process to ensure the highest standards of care.

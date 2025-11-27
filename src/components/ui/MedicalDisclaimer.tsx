@@ -68,8 +68,8 @@ export function MedicalDisclaimer({
         <div className="flex items-start gap-3">
           <Shield className="w-6 h-6 text-red-600 mt-0.5 flex-shrink-0" />
           <div>
-            <h4 className="font-bold text-red-900 mb-2 text-lg">Immediate Safety Notice</h4>
-            <p className="text-red-800 font-semibold mb-3">
+            <h4 className="font-medium text-red-900 mb-2 text-lg">Immediate Safety Notice</h4>
+            <p className="text-red-800 font-medium mb-3">
               <strong>ALCHM cannot provide emergency mental health care.</strong> If you're having thoughts of self-harm or suicide, please contact professional help immediately.
             </p>
             <div className="space-y-2 mb-4">
@@ -139,12 +139,12 @@ export function MedicalDisclaimer({
           <div className="w-16 h-16 bg-amber-100 rounded-full mx-auto mb-4 flex items-center justify-center">
             <AlertTriangle className="w-8 h-8 text-amber-600" />
           </div>
-          <h3 className="text-2xl font-bold text-amber-900 mb-2">Important Medical Disclaimer</h3>
+          <h3 className="text-2xl font-medium text-amber-900 mb-2">Important Medical Disclaimer</h3>
         </div>
         
         <div className="space-y-4 text-amber-800">
           <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-            <h4 className="font-bold mb-2">ALCHM is NOT medical treatment</h4>
+            <h4 className="font-medium mb-2">ALCHM is NOT medical treatment</h4>
             <p className="text-sm">
               This platform provides journaling tools and AI-powered reflection guidance for educational and wellness purposes only. 
               It is not therapy, medical treatment, psychological counseling, or professional mental health care.
@@ -152,7 +152,7 @@ export function MedicalDisclaimer({
           </div>
           
           <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <h4 className="font-bold mb-2 text-blue-900">Seek Professional Care</h4>
+            <h4 className="font-medium mb-2 text-blue-900">Seek Professional Care</h4>
             <p className="text-sm text-blue-800">
               For mental health concerns, diagnosis, or treatment, please consult with licensed healthcare professionals, 
               therapists, or counselors in your area.
@@ -161,7 +161,7 @@ export function MedicalDisclaimer({
           
           {showCrisisResources && (
             <div className="p-4 bg-red-50 rounded-lg border border-red-200">
-              <h4 className="font-bold mb-3 text-red-900">Crisis Resources</h4>
+              <h4 className="font-medium mb-3 text-red-900">Crisis Resources</h4>
               <div className="space-y-2">
                 {CRISIS_RESOURCES.immediate.map((resource) => (
                   <a
@@ -203,7 +203,7 @@ export function MedicalDisclaimer({
       <div className="flex items-start gap-3">
         <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
         <div className="text-sm">
-          <h4 className="font-semibold text-amber-900 mb-1">
+          <h4 className="font-medium text-amber-900 mb-1">
             {context === 'ai_response' ? 'AI Guidance Disclaimer' : 'Medical Disclaimer'}
           </h4>
           

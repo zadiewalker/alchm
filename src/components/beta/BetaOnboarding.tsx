@@ -109,7 +109,7 @@ export function BetaOnboarding({ onComplete }: BetaOnboardingProps) {
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">Beta Testing Setup</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Beta Testing Setup</h1>
           <span className="text-sm text-gray-500">
             {currentStep + 1} of {steps.length}
           </span>
@@ -126,7 +126,7 @@ export function BetaOnboarding({ onComplete }: BetaOnboardingProps) {
       {/* Step Content */}
       <Card className="p-6">
         <div className="mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <h2 className="text-xl font-medium text-gray-900 mb-2">
             {steps[currentStep].title}
           </h2>
           <p className="text-gray-600">
@@ -689,7 +689,7 @@ function CompleteStep({ loading }: any) {
       ) : (
         <div>
           <div className="text-green-600 text-4xl mb-4">✓</div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-medium text-gray-900 mb-2">
             Welcome to the Beta Program!
           </h3>
           <p className="text-gray-600 mb-6">

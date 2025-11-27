@@ -59,12 +59,52 @@ npm run build || {
   exit 1;
 }
 
-# STEP 10: Firebase Hosting Emulator Test
+# STEP 10: Mobile Deployment Readiness Check
+echo "📱 Checking mobile deployment readiness..."
+if [ -f "scripts/mobile-deployment-optimization.js" ]; then
+  echo "✅ Mobile deployment validation script found"
+  
+  # Quick validation of mobile optimization components
+  if grep -q "touch-safe\|crisis-accessible" src/styles/globals.css 2>/dev/null; then
+    echo "✅ Mobile accessibility CSS detected"
+  else
+    echo "⚠️ Mobile accessibility CSS not found - ensure touch targets are optimized"
+  fi
+  
+  # Check for service worker
+  if [ -f "public/sw.js" ] || [ -f "src/app/sw.js" ]; then
+    echo "✅ Service worker found for offline functionality"
+  else
+    echo "⚠️ No service worker found - offline crisis access may be limited"
+  fi
+  
+  # Check for crisis-specific pages
+  if [ -f "src/app/crisis-resources/page.tsx" ] || [ -f "public/crisis-resources.html" ]; then
+    echo "✅ Crisis resources page found"
+  else
+    echo "⚠️ Crisis resources page not found"
+  fi
+  
+else
+  echo "⚠️ Mobile deployment validation script not found"
+  echo "   Run 'npm run mobile:validate' before production deployment"
+fi
+
+# STEP 11: Firebase Hosting Emulator Test
 if [ -f "firebase.json" ]; then
-  echo "🌐 Launching Firebase Emulator..."
-  npx firebase emulators:start --only hosting
+  echo "🌐 Launching Firebase Emulator for testing..."
+  echo "   Use Ctrl+C to stop and continue with deployment"
+  timeout 30s npx firebase emulators:start --only hosting || true
 else
   echo "⚠️ firebase.json not found. Skipping emulator launch."
 fi
 
-echo "✅ ALCHM Pre-Publish Audit Complete. You’re ready to deploy! 🛸"
+echo ""
+echo "✅ ALCHM Pre-Publish Audit Complete!"
+echo "🚀 Ready for mobile-optimized deployment!"
+echo ""
+echo "Next steps:"
+echo "1. Run deployment: ./scripts/deploy-mobile-optimized.sh staging"
+echo "2. Validate mobile performance: npm run mobile:validate"
+echo "3. For production: ./scripts/deploy-mobile-optimized.sh production"
+echo ""

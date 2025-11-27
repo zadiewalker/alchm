@@ -302,7 +302,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🎮</div>
               <div>
-                <div className="text-2xl font-bold">{gameStats?.totalGamesPlayed || 0}</div>
+                <div className="text-2xl font-medium">{gameStats?.totalGamesPlayed || 0}</div>
                 <div className="text-sm opacity-80">Games Played</div>
               </div>
             </div>
@@ -312,7 +312,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">📈</div>
               <div>
-                <div className="text-2xl font-bold">{Object.keys(skillProgress).length}</div>
+                <div className="text-2xl font-medium">{Object.keys(skillProgress).length}</div>
                 <div className="text-sm opacity-80">Skills Improved</div>
               </div>
             </div>
@@ -322,7 +322,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">⭐</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(gameStats?.averageScore || 0)}</div>
+                <div className="text-2xl font-medium">{Math.round(gameStats?.averageScore || 0)}</div>
                 <div className="text-sm opacity-80">Average Score</div>
               </div>
             </div>
@@ -332,7 +332,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🕐</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(gameStats?.totalTimeSpent || 0)}</div>
+                <div className="text-2xl font-medium">{Math.round(gameStats?.totalTimeSpent || 0)}</div>
                 <div className="text-sm opacity-80">Hours Practiced</div>
               </div>
             </div>
@@ -349,7 +349,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
             >
               <div className="text-center">
                 <div className="text-4xl mb-4">{category.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">{category.name}</h3>
+                <h3 className="text-lg font-medium text-gray-800 mb-2">{category.name}</h3>
                 <p className="text-sm text-gray-600 mb-4">{category.description}</p>
                 <div className="text-sm text-blue-600 font-medium">
                   {category.gameCount} games available
@@ -361,7 +361,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
 
         {/* Recommended games */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Recommended for You</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Recommended for You</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {availableGames
               .filter(game => getGameRecommendationScore(game, targetSkills, skillProgress) > 0.7)
@@ -373,7 +373,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
                   onClick={() => startGame(game)}
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-semibold text-gray-800">{game.title}</h4>
+                    <h4 className="font-medium text-gray-800">{game.title}</h4>
                     <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
                       {game.sessionDuration}min
                     </span>
@@ -402,7 +402,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
 
         {/* Recent game history */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🏆 Recent Game Results</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🏆 Recent Game Results</h3>
           <div className="space-y-4">
             {gameHistory.slice(0, 5).map((result) => {
               const game = availableGames.find(g => g.gameId === result.gameId);
@@ -426,7 +426,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
                   </div>
                   
                   <div className="text-right">
-                    <div className="text-lg font-bold text-blue-600">{result.score}/100</div>
+                    <div className="text-lg font-medium text-blue-600">{result.score}/100</div>
                     <div className="text-sm text-gray-600">
                       +{result.skillsImproved.length} skills
                     </div>
@@ -446,7 +446,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
       return (
         <div className="space-y-6">
           <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Reflection Games</h3>
+            <h3 className="text-xl font-medium text-gray-800 mb-2">Reflection Games</h3>
             <p className="text-gray-600">Deepen self-awareness through guided reflection exercises</p>
           </div>
 
@@ -459,7 +459,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
                   className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer"
                   onClick={() => startGame(game)}
                 >
-                  <h4 className="font-semibold text-gray-800 mb-3">{game.title}</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">{game.title}</h4>
                   <p className="text-sm text-gray-600 mb-4">{game.description}</p>
                   
                   <div className="space-y-2 mb-4">
@@ -485,7 +485,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
     return (
       <div className="bg-white rounded-lg border border-gray-200 p-8">
         <div className="mb-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{currentReflectionGame.title}</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">{currentReflectionGame.title}</h3>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className="bg-purple-500 h-2 rounded-full transition-all"
@@ -558,7 +558,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
         <div className="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-medium text-gray-800">
                 {selectedGame?.title || 'Skill-Building Game'}
               </h3>
               <button
@@ -587,7 +587,7 @@ const SkillBuildingMiniGames: React.FC<SkillBuildingMiniGamesProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Skill-Building Mini-Games
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

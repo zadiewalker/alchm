@@ -7,8 +7,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   createAccountWithEmail, 
-  signInWithGoogle,
-  signInWithGoogleMobile,
   signInWithApple,
   signInWithAppleMobile
 } from '@/lib/auth/authFunctions';
@@ -107,72 +105,6 @@ function SignupPageContent() {
     }
   };
 
-  const handleGoogleSignup = async () => {
-    setLoading(true);
-    setError(null);
-
-    // CRISIS-CRITICAL: Privacy compliance check with proper verification
-    const { ageVerified, isCompliant } = getAgeVerificationState();
-    if (!ageVerified || !isCompliant) {
-      setError('Age verification and privacy consent required before account creation.');
-      setLoading(false);
-      return;
-    }
-
-    // Crisis-safe haptic feedback on mobile
-    if (isMobile && navigator.vibrate) {
-      navigator.vibrate(15);
-    }
-
-    try {
-      console.log('🔐 Starting privacy-compliant Google signup...');
-      
-      // Validate consent for account creation
-      const canCreateAccount = await validateFeatureAccess('essential_functionality');
-      if (!canCreateAccount) {
-        setError('Account creation requires essential functionality consent.');
-        setLoading(false);
-        return;
-      }
-      
-      // Use mobile-optimized authentication
-      const result = isMobile 
-        ? await signInWithGoogleMobile()
-        : await signInWithGoogle();
-      
-      if (result.error) {
-        console.log('🔐 Mobile signup error:', result.error);
-        setError(result.error);
-      } else if (result.user) {
-        console.log('🔐 Privacy-compliant signup successful');
-        
-        // Success haptic feedback for mobile users
-        if (isMobile && navigator.vibrate) {
-          navigator.vibrate([100, 50, 100]);
-        }
-        
-        // Mobile-optimized navigation
-        if (isMobile) {
-          await new Promise(resolve => setTimeout(resolve, 100));
-        }
-        
-        router.push('/dashboard');
-      }
-    } catch (err: any) {
-      console.error('🚨 Privacy-compliant Google signup error:', err);
-      
-      // Mobile-specific error handling
-      if (err.code === 'auth/popup-blocked' && isMobile) {
-        setError('Please allow popups in your browser settings and try again.');
-      } else if (err.code === 'auth/popup-closed-by-user') {
-        setError('Signup was cancelled. Take your time - we\'ll be here when you\'re ready.');
-      } else {
-        setError('Account creation encountered a gentle hiccup. You\'re safe here - please try again.');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleAppleSignup = async () => {
     setLoading(true);
@@ -264,39 +196,8 @@ function SignupPageContent() {
         </div>
       )}
 
-      {/* Google Sign-up */}
+      {/* Apple Sign-up */}
       <div className="space-y-4">
-        <button
-          type="button"
-          onClick={handleGoogleSignup}
-          disabled={loading}
-          className="w-full flex justify-center items-center py-3 px-4 border border-sage-300/30 rounded-xl text-white bg-sage-500/20 backdrop-blur-sm hover:bg-sage-500/30 hover:border-sage-300/50 hover:scale-[1.01] active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-sage-400/30 focus:ring-offset-2 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 ease-out touch-safe"
-          style={{
-            minHeight: isMobile ? '60px' : '52px', // Crisis accessibility
-            fontSize: isMobile ? '18px' : '16px', // Larger for distress readability
-            touchAction: 'manipulation',
-            fontWeight: '500',
-            padding: isMobile ? '20px 24px' : '12px 16px' // Enhanced touch area
-          }}
-          aria-label="Sign up with Google - Crisis-safe authentication"
-        >
-          {loading ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-              Creating your sanctuary safely...
-            </>
-          ) : (
-            <>
-              <span className="mr-3">🔐</span>
-              {isMobile && mobileCapabilities?.supportsPopups === false 
-                ? 'Continue with Google (Mobile)' 
-                : 'Continue with Google'
-              }
-            </>
-          )}
-        </button>
-
-        {/* Apple Sign-up */}
         <button
           type="button"
           onClick={handleAppleSignup}

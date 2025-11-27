@@ -74,7 +74,7 @@ export default function ReferralSystem() {
   return (
     <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           Share the Healing Journey
         </h2>
         <p className="text-gray-600">
@@ -85,19 +85,19 @@ export default function ReferralSystem() {
       {/* Referral Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="text-center bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-purple-600">
+          <div className="text-2xl font-medium text-purple-600">
             {referralData.invitesRemaining}
           </div>
           <div className="text-sm text-gray-600">Invites Left</div>
         </div>
         <div className="text-center bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-blue-600">
+          <div className="text-2xl font-medium text-blue-600">
             {referralData.totalReferrals}
           </div>
           <div className="text-sm text-gray-600">Invited</div>
         </div>
         <div className="text-center bg-white p-4 rounded-lg shadow-sm">
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-medium text-green-600">
             {referralData.successfulReferrals}
           </div>
           <div className="text-sm text-gray-600">Joined</div>
@@ -151,7 +151,7 @@ export default function ReferralSystem() {
 
       {/* Referral Rewards */}
       <div className="bg-white p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-800 mb-3">Referral Rewards</h3>
+        <h3 className="font-medium text-gray-800 mb-3">Referral Rewards</h3>
         <div className="space-y-2">
           {referralData.referralRewards.map((reward, index) => (
             <div
@@ -173,7 +173,7 @@ export default function ReferralSystem() {
                 </span>
               </div>
               {reward.unlocked && (
-                <span className="text-green-600 font-semibold">Unlocked!</span>
+                <span className="text-green-600 font-medium">Unlocked!</span>
               )}
             </div>
           ))}

@@ -365,7 +365,7 @@ export default function PredictiveWellnessDashboard({
       {/* Header with safety indicator */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h1 className="text-2xl font-bold text-gray-900">Predictive Wellness Insights</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Predictive Wellness Insights</h1>
           <Badge className={getCrisisRiskColor(crisisRiskLevel)}>
             <Shield className="w-3 h-3 mr-1" />
             Safety Level: {crisisRiskLevel}
@@ -407,7 +407,7 @@ export default function PredictiveWellnessDashboard({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900 capitalize">
+            <div className="text-2xl font-medium text-gray-900 capitalize">
               {wellnessTrajectoryDirection}
             </div>
             {dashboardState.predictions.wellness_trajectory && (
@@ -431,7 +431,7 @@ export default function PredictiveWellnessDashboard({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-medium text-gray-900">
               {dashboardState.predictions.neuroplasticity?.optimal_plasticity_windows?.length || 0}
             </div>
             <p className="text-xs text-gray-500 mt-1">
@@ -449,7 +449,7 @@ export default function PredictiveWellnessDashboard({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-medium text-gray-900">
               {dashboardState.predictions.habit_formation?.overall_habit_formation_readiness || 0}%
             </div>
             <p className="text-xs text-gray-500 mt-1">
@@ -467,7 +467,7 @@ export default function PredictiveWellnessDashboard({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-medium text-gray-900">
               {immediateOpportunities.length}
             </div>
             <p className="text-xs text-gray-500 mt-1">
@@ -510,7 +510,7 @@ export default function PredictiveWellnessDashboard({
           <div className="flex items-center space-x-3">
             <AlertCircle className="w-6 h-6 text-red-600" />
             <div>
-              <h3 className="font-semibold text-red-800">Wellness Support Needed</h3>
+              <h3 className="font-medium text-red-800">Wellness Support Needed</h3>
               <p className="text-red-700">
                 Our analysis indicates you may benefit from additional support right now. 
                 Would you like to connect with crisis resources or adjust your support plan?
@@ -551,7 +551,7 @@ export default function PredictiveWellnessDashboard({
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Current Neural Readiness</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">Current Neural Readiness</h4>
                     <div className="flex items-center space-x-4">
                       <div className="flex-1 bg-gray-200 rounded-full h-2">
                         <div 
@@ -566,7 +566,7 @@ export default function PredictiveWellnessDashboard({
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Optimal Learning Windows Today</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">Optimal Learning Windows Today</h4>
                     <div className="space-y-2">
                       {dashboardState.predictions.neuroplasticity.optimal_plasticity_windows.slice(0, 3).map((window, index) => (
                         <div key={index} className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
@@ -606,19 +606,19 @@ export default function PredictiveWellnessDashboard({
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-2xl font-bold text-green-700">
+                      <div className="text-2xl font-medium text-green-700">
                         {dashboardState.predictions.habit_formation.overall_habit_formation_readiness}%
                       </div>
                       <div className="text-sm text-green-600">Overall Readiness</div>
                     </div>
                     <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-700">
+                      <div className="text-2xl font-medium text-blue-700">
                         {dashboardState.predictions.habit_formation.success_probabilities.overall_success_probability}%
                       </div>
                       <div className="text-sm text-blue-600">Success Probability</div>
                     </div>
                     <div className="text-center p-3 bg-purple-50 rounded-lg">
-                      <div className="text-2xl font-bold text-purple-700">
+                      <div className="text-2xl font-medium text-purple-700">
                         {dashboardState.predictions.habit_formation.recommended_habits.length}
                       </div>
                       <div className="text-sm text-purple-600">Recommended Habits</div>
@@ -626,7 +626,7 @@ export default function PredictiveWellnessDashboard({
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Top Habit Recommendations</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">Top Habit Recommendations</h4>
                     <div className="space-y-3">
                       {dashboardState.predictions.habit_formation.recommended_habits.slice(0, 3).map((habit, index) => (
                         <div key={index} className="p-4 border border-gray-200 rounded-lg hover:border-green-300 transition-colors">
@@ -672,7 +672,7 @@ export default function PredictiveWellnessDashboard({
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Current Resilience Profile</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">Current Resilience Profile</h4>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {[
                         { 
@@ -723,7 +723,7 @@ export default function PredictiveWellnessDashboard({
                   </div>
                   
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Immediate Opportunities</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">Immediate Opportunities</h4>
                     <div className="space-y-3">
                       {dashboardState.predictions.resilience_building.immediate_resilience_opportunities.slice(0, 2).map((opportunity, index) => (
                         <div key={index} className="p-4 border border-gray-200 rounded-lg bg-gradient-to-r from-pink-50 to-purple-50">
@@ -772,7 +772,7 @@ export default function PredictiveWellnessDashboard({
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Current Wellness Coordinates</h4>
+                        <h4 className="font-medium text-gray-900 mb-2">Current Wellness Coordinates</h4>
                         <div className="space-y-2">
                           {[
                             { label: 'Emotional Wellbeing', value: dashboardState.predictions.wellness_trajectory.current_wellness_coordinates.emotional_wellbeing },
@@ -797,7 +797,7 @@ export default function PredictiveWellnessDashboard({
                       </div>
                       
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">Trajectory Momentum</h4>
+                        <h4 className="font-medium text-gray-900 mb-2">Trajectory Momentum</h4>
                         <div className="p-4 bg-blue-50 rounded-lg">
                           <div className="flex items-center space-x-2 mb-2">
                             {getTrajectoryIcon(dashboardState.predictions.wellness_trajectory.trajectory_momentum.overall_direction)}

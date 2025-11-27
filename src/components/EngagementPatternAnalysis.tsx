@@ -282,7 +282,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">💫</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(overallEngagement * 100)}%</div>
+                <div className="text-2xl font-medium">{Math.round(overallEngagement * 100)}%</div>
                 <div className="text-sm opacity-80">Overall Engagement</div>
               </div>
             </div>
@@ -297,7 +297,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🎯</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(consistencyScore * 100)}%</div>
+                <div className="text-2xl font-medium">{Math.round(consistencyScore * 100)}%</div>
                 <div className="text-sm opacity-80">Consistency Score</div>
               </div>
             </div>
@@ -311,7 +311,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🔄</div>
               <div>
-                <div className="text-2xl font-bold">{detectedPatterns.length}</div>
+                <div className="text-2xl font-medium">{detectedPatterns.length}</div>
                 <div className="text-sm opacity-80">Patterns Detected</div>
               </div>
             </div>
@@ -324,7 +324,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🚀</div>
               <div>
-                <div className="text-2xl font-bold">{Math.round(optimizationPotential * 100)}%</div>
+                <div className="text-2xl font-medium">{Math.round(optimizationPotential * 100)}%</div>
                 <div className="text-sm opacity-80">Optimization Potential</div>
               </div>
             </div>
@@ -336,7 +336,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Engagement trends chart */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Engagement Trends Over Time</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Engagement Trends Over Time</h3>
           <div className="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
             <div className="text-gray-500">
               Engagement trends visualization would be implemented here
@@ -348,7 +348,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Detected patterns summary */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔍 Key Engagement Patterns</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔍 Key Engagement Patterns</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {detectedPatterns
               .filter(p => p.strength >= 0.6)
@@ -364,7 +364,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
                   }}
                 >
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-semibold text-gray-800">{pattern.patternName}</h4>
+                    <h4 className="font-medium text-gray-800">{pattern.patternName}</h4>
                     <div className="flex items-center space-x-1">
                       <div className={`w-2 h-2 rounded-full ${
                         pattern.stability === 'stable' ? 'bg-green-500' :
@@ -394,7 +394,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Key insights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">💡 Key Engagement Insights</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">💡 Key Engagement Insights</h3>
           <div className="space-y-4">
             {engagementInsights
               .filter(i => i.impact === 'high' || i.impact === 'critical')
@@ -402,7 +402,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
               .map((insight) => (
                 <div key={insight.insightId} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-gray-800">{insight.title}</h4>
+                    <h4 className="font-medium text-gray-800">{insight.title}</h4>
                     <div className="flex items-center space-x-2">
                       <span className={`px-2 py-1 text-xs rounded ${
                         insight.impact === 'critical' ? 'bg-red-100 text-red-700' :
@@ -435,7 +435,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Optimization opportunities */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🚀 Optimization Opportunities</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🚀 Optimization Opportunities</h3>
           <div className="space-y-4">
             {optimizationSuggestions
               .filter(s => s.priority === 'high' || s.priority === 'critical')
@@ -443,7 +443,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
               .map((suggestion) => (
                 <div key={suggestion.suggestionId} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-gray-800">{suggestion.title}</h4>
+                    <h4 className="font-medium text-gray-800">{suggestion.title}</h4>
                     <div className="flex items-center space-x-2">
                       <span className={`px-2 py-1 text-xs rounded ${
                         suggestion.priority === 'critical' ? 'bg-red-100 text-red-700' :
@@ -496,7 +496,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
       <div className="space-y-6">
         {/* Daily engagement patterns */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">⏰ Daily Engagement Patterns</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">⏰ Daily Engagement Patterns</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Hourly engagement heatmap */}
             <div>
@@ -555,7 +555,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Seasonal and cultural patterns */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🌍 Cultural & Seasonal Patterns</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🌍 Cultural & Seasonal Patterns</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h4 className="font-medium text-gray-800 mb-3">Cultural Event Correlations</h4>
@@ -597,11 +597,11 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
         {/* Optimal engagement windows */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Optimal Engagement Windows</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Optimal Engagement Windows</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {getOptimalWindows(temporalData, detectedPatterns).map((window, index) => (
               <div key={index} className="p-4 border border-gray-200 rounded-lg">
-                <h4 className="font-semibold text-gray-800 mb-2">{window.windowName}</h4>
+                <h4 className="font-medium text-gray-800 mb-2">{window.windowName}</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Best Time:</span>
@@ -639,7 +639,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
         <div className="bg-white rounded-lg max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-8">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-semibold text-gray-800">{selectedPattern.patternName}</h3>
+              <h3 className="text-2xl font-medium text-gray-800">{selectedPattern.patternName}</h3>
               <button
                 onClick={() => setShowPatternModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -652,21 +652,21 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
               {/* Pattern overview */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600 mb-1">
+                  <div className="text-2xl font-medium text-blue-600 mb-1">
                     {Math.round(selectedPattern.strength * 100)}%
                   </div>
                   <div className="text-sm text-blue-700">Pattern Strength</div>
                 </div>
                 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600 mb-1">
+                  <div className="text-2xl font-medium text-green-600 mb-1">
                     {Math.round(selectedPattern.predictiveValue * 100)}%
                   </div>
                   <div className="text-sm text-green-700">Predictive Value</div>
                 </div>
                 
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-purple-600 mb-1 capitalize">
+                  <div className="text-2xl font-medium text-purple-600 mb-1 capitalize">
                     {selectedPattern.stability}
                   </div>
                   <div className="text-sm text-purple-700">Stability</div>
@@ -675,13 +675,13 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
 
               {/* Pattern description */}
               <div>
-                <h4 className="font-semibold text-gray-800 mb-2">Pattern Description</h4>
+                <h4 className="font-medium text-gray-800 mb-2">Pattern Description</h4>
                 <p className="text-gray-700">{selectedPattern.description}</p>
               </div>
 
               {/* Impact analysis */}
               <div>
-                <h4 className="font-semibold text-gray-800 mb-3">Impact Analysis</h4>
+                <h4 className="font-medium text-gray-800 mb-3">Impact Analysis</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="flex justify-between text-sm mb-1">
@@ -740,7 +740,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
               {/* Trigger conditions */}
               {selectedPattern.triggerConditions.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Trigger Conditions</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Trigger Conditions</h4>
                   <div className="space-y-2">
                     {selectedPattern.triggerConditions.map((condition, index) => (
                       <div key={index} className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -755,7 +755,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
               {/* Cultural influences */}
               {selectedPattern.culturalInfluences.length > 0 && (
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-3">Cultural Influences</h4>
+                  <h4 className="font-medium text-gray-800 mb-3">Cultural Influences</h4>
                   <div className="space-y-2">
                     {selectedPattern.culturalInfluences.map((influence, index) => (
                       <div key={index} className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
@@ -784,7 +784,7 @@ const EngagementPatternAnalysis: React.FC<EngagementPatternAnalysisProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Engagement Pattern Analysis
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

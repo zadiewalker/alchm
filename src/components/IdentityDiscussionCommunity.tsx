@@ -243,7 +243,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-blue-600 text-2xl">🤝</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+            <h2 className="text-2xl font-medium text-gray-800 mb-2">
               Community Guidelines & Cultural Safety
             </h2>
             <p className="text-gray-600">
@@ -254,7 +254,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
           <div className="space-y-6 mb-8">
             {community.communityGuidelines.map((guideline, index) => (
               <div key={index} className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-semibold text-gray-800 mb-2">{guideline.title}</h3>
+                <h3 className="font-medium text-gray-800 mb-2">{guideline.title}</h3>
                 <p className="text-gray-700 text-sm mb-2">{guideline.description}</p>
                 <ul className="text-sm text-gray-600 space-y-1">
                   {guideline.specificRules.map((rule, ruleIndex) => (
@@ -310,7 +310,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
     return (
       <div className="space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-3xl font-medium text-gray-800 mb-4">
             Identity Discussion Spaces
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -321,7 +321,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
 
         {Object.entries(spaceCategories).map(([category, spaces]) => (
           <div key={category} className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4 capitalize">
+            <h3 className="text-xl font-medium text-gray-800 mb-4 capitalize">
               {category.replace('_', ' ')} Discussions
             </h3>
             
@@ -385,7 +385,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
                 ← Back to Spaces
               </button>
               <span className="text-xl">{getSpaceIcon(activeSpace.category)}</span>
-              <h2 className="text-xl font-semibold text-gray-800">{activeSpace.name}</h2>
+              <h2 className="text-xl font-medium text-gray-800">{activeSpace.name}</h2>
             </div>
             
             <button
@@ -409,7 +409,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
         {showPostForm && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Share Your Experience</h3>
+              <h3 className="text-lg font-medium text-gray-800">Share Your Experience</h3>
               <button
                 onClick={() => setShowPostForm(false)}
                 className="text-gray-600 hover:text-gray-800"
@@ -610,7 +610,7 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Identity Discussion Community
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -666,13 +666,13 @@ const IdentityDiscussionCommunity: React.FC<CommunityProps> = ({
         {currentView === 'discussion' || activeSpace ? renderActiveDiscussion() : null}
         {currentView === 'guidelines' && (
           <div className="bg-white rounded-lg border border-gray-200 p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Community Guidelines</h2>
+            <h2 className="text-2xl font-medium text-gray-800 mb-6">Community Guidelines</h2>
             {/* Guidelines content would be rendered here */}
           </div>
         )}
         {currentView === 'support' && (
           <div className="bg-white rounded-lg border border-gray-200 p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Support Resources</h2>
+            <h2 className="text-2xl font-medium text-gray-800 mb-6">Support Resources</h2>
             {/* Support resources would be rendered here */}
           </div>
         )}

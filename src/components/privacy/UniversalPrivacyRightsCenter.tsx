@@ -217,7 +217,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
       <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-200">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-6"></div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Loading Privacy Rights Center</h2>
+          <h2 className="text-2xl font-medium text-gray-900 mb-2">Loading Privacy Rights Center</h2>
           <p className="text-gray-600">Initializing your comprehensive privacy protection system...</p>
         </div>
       </div>
@@ -229,11 +229,11 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
       <div className="bg-red-50 rounded-2xl p-8 border-2 border-red-200">
         <div className="text-center">
           <span className="text-6xl block mb-4">⚠️</span>
-          <h2 className="text-2xl font-bold text-red-800 mb-2">Privacy Profile Error</h2>
+          <h2 className="text-2xl font-medium text-red-800 mb-2">Privacy Profile Error</h2>
           <p className="text-red-700 mb-4">Unable to load your privacy profile.</p>
           <button
             onClick={loadUserPrivacyProfile}
-            className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors"
+            className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
           >
             Retry Loading
           </button>
@@ -249,7 +249,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
         <div className="flex items-start gap-4 mb-6">
           <span className="text-4xl">🛡️</span>
           <div>
-            <h1 className="text-3xl font-bold mb-2">Universal Privacy Rights Center</h1>
+            <h1 className="text-3xl font-medium mb-2">Universal Privacy Rights Center</h1>
             <p className="text-blue-100">
               Comprehensive privacy protection under COPPA, FERPA, GDPR, and CCPA regulations
             </p>
@@ -259,8 +259,8 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
         {/* Overall Status */}
         <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xl font-bold">Overall Compliance Status</h3>
-            <span className={`px-4 py-2 rounded-full text-sm font-bold ${
+            <h3 className="text-xl font-medium">Overall Compliance Status</h3>
+            <span className={`px-4 py-2 rounded-full text-sm font-medium ${
               privacyProfile.complianceStatus.overall === 'compliant' ? 'bg-green-500 text-white' :
               privacyProfile.complianceStatus.overall === 'violation' ? 'bg-red-500 text-white' :
               'bg-yellow-500 text-white'
@@ -272,7 +272,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
           <div className="grid md:grid-cols-4 gap-4">
             {privacyProfile.applicableRegulations.includes('COPPA') && (
               <div className="text-center">
-                <div className={`text-lg font-bold mb-1 ${getComplianceColor(privacyProfile.complianceStatus.coppa)}`}>
+                <div className={`text-lg font-medium mb-1 ${getComplianceColor(privacyProfile.complianceStatus.coppa)}`}>
                   COPPA
                 </div>
                 <div className="text-sm text-blue-100 capitalize">
@@ -282,7 +282,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
             )}
             {privacyProfile.applicableRegulations.includes('FERPA') && (
               <div className="text-center">
-                <div className={`text-lg font-bold mb-1 ${getComplianceColor(privacyProfile.complianceStatus.ferpa)}`}>
+                <div className={`text-lg font-medium mb-1 ${getComplianceColor(privacyProfile.complianceStatus.ferpa)}`}>
                   FERPA
                 </div>
                 <div className="text-sm text-blue-100 capitalize">
@@ -292,7 +292,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
             )}
             {privacyProfile.applicableRegulations.includes('GDPR') && (
               <div className="text-center">
-                <div className={`text-lg font-bold mb-1 ${getComplianceColor(privacyProfile.complianceStatus.gdpr)}`}>
+                <div className={`text-lg font-medium mb-1 ${getComplianceColor(privacyProfile.complianceStatus.gdpr)}`}>
                   GDPR
                 </div>
                 <div className="text-sm text-blue-100 capitalize">
@@ -302,7 +302,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
             )}
             {privacyProfile.applicableRegulations.includes('CCPA') && (
               <div className="text-center">
-                <div className={`text-lg font-bold mb-1 ${getComplianceColor(privacyProfile.complianceStatus.ccpa)}`}>
+                <div className={`text-lg font-medium mb-1 ${getComplianceColor(privacyProfile.complianceStatus.ccpa)}`}>
                   CCPA
                 </div>
                 <div className="text-sm text-blue-100 capitalize">
@@ -399,14 +399,14 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
           <div className="space-y-6">
             {/* User Privacy Profile Summary */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <h2 className="text-2xl font-medium text-gray-900 mb-4 flex items-center gap-2">
                 <span>👤</span>
                 Your Privacy Profile
               </h2>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-3">Personal Information</h3>
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">Personal Information</h3>
                   <div className="space-y-2 text-sm text-gray-700">
                     <p><strong>Age:</strong> {privacyProfile.age} years</p>
                     <p><strong>Location:</strong> {privacyProfile.location.country}</p>
@@ -416,7 +416,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-3">Applicable Regulations</h3>
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">Applicable Regulations</h3>
                   <div className="flex flex-wrap gap-2">
                     {privacyProfile.applicableRegulations.map(reg => (
                       <span key={reg} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
@@ -490,14 +490,14 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
 
         {activeTab === 'settings' && (
           <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 className="text-2xl font-medium text-gray-900 mb-4 flex items-center gap-2">
               <span>⚙️</span>
               Privacy Settings
             </h2>
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-3">Location Settings</h3>
+                <h3 className="text-lg font-medium text-gray-800 mb-3">Location Settings</h3>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
@@ -550,7 +550,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
               </div>
 
               <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-3">Role Information</h3>
+                <h3 className="text-lg font-medium text-gray-800 mb-3">Role Information</h3>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Your Role</label>
                   <select
@@ -571,7 +571,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
 
               {(privacyProfile.userRole === 'student' || privacyProfile.userRole === 'educator') && (
                 <div>
-                  <h3 className="text-lg font-bold text-gray-800 mb-3">Educational Context</h3>
+                  <h3 className="text-lg font-medium text-gray-800 mb-3">Educational Context</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Institution</label>
@@ -614,7 +614,7 @@ export default function UniversalPrivacyRightsCenter({ userId }: UniversalPrivac
               )}
 
               <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                <h4 className="font-bold text-blue-800 mb-2">Privacy Protection Summary</h4>
+                <h4 className="font-medium text-blue-800 mb-2">Privacy Protection Summary</h4>
                 <div className="text-sm text-blue-700 space-y-1">
                   <p><strong>Regulations Applied:</strong> {privacyProfile.applicableRegulations.join(', ')}</p>
                   <p><strong>Enhanced Protection:</strong> {privacyProfile.age < 18 ? 'Yes (Minor)' : 'No'}</p>

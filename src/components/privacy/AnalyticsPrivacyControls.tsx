@@ -80,7 +80,7 @@ export default function AnalyticsPrivacyControls({
   return (
     <Card className={`bg-white border-sage-100 rounded-2xl shadow-soft ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">🔒</span>
           Analytics Privacy Controls
         </CardTitle>
@@ -94,7 +94,7 @@ export default function AnalyticsPrivacyControls({
         <div className="p-4 bg-sage-50 rounded-xl border border-sage-100">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <h4 className="font-semibold text-ink text-sm">Enable Analytics</h4>
+              <h4 className="font-medium text-ink text-sm">Enable Analytics</h4>
               <p className="text-xs text-muted">Generate insights from your journal entries</p>
             </div>
             <Switch
@@ -114,7 +114,7 @@ export default function AnalyticsPrivacyControls({
 
         {/* Emotional Analysis */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-ink text-sm flex items-center gap-2">
+          <h4 className="font-medium text-ink text-sm flex items-center gap-2">
             <span>💭</span>
             Emotional Analysis
           </h4>
@@ -150,7 +150,7 @@ export default function AnalyticsPrivacyControls({
 
         {/* Data Sharing */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-ink text-sm flex items-center gap-2">
+          <h4 className="font-medium text-ink text-sm flex items-center gap-2">
             <span>🤝</span>
             Research Contribution
           </h4>
@@ -181,7 +181,7 @@ export default function AnalyticsPrivacyControls({
 
         {/* Data Retention */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-ink text-sm flex items-center gap-2">
+          <h4 className="font-medium text-ink text-sm flex items-center gap-2">
             <span>⏰</span>
             Data Retention
           </h4>
@@ -209,7 +209,7 @@ export default function AnalyticsPrivacyControls({
 
         {/* Privacy Information */}
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-          <h4 className="font-semibold text-blue-800 text-sm mb-2 flex items-center gap-2">
+          <h4 className="font-medium text-blue-800 text-sm mb-2 flex items-center gap-2">
             <span>🛡️</span>
             Your Privacy is Protected
           </h4>
@@ -269,7 +269,7 @@ function LoadingPrivacyControls({ className }: { className: string }) {
   return (
     <Card className={`bg-white border-sage-100 rounded-2xl shadow-soft ${className}`}>
       <CardHeader className="pb-4">
-        <CardTitle className="text-ink text-lg font-semibold flex items-center gap-2">
+        <CardTitle className="text-ink text-lg font-medium flex items-center gap-2">
           <span className="text-xl">🔒</span>
           Analytics Privacy Controls
         </CardTitle>

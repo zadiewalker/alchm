@@ -497,7 +497,7 @@ export const NeuroplasticityDashboard: React.FC<NeuroplasticityDashboardProps> =
             
             <div className="space-y-4 text-sm text-yellow-800">
               <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
+                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-medium text-white">
                   1
                 </div>
                 <div>
@@ -507,7 +507,7 @@ export const NeuroplasticityDashboard: React.FC<NeuroplasticityDashboardProps> =
               </div>
               
               <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
+                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-medium text-white">
                   2
                 </div>
                 <div>
@@ -517,7 +517,7 @@ export const NeuroplasticityDashboard: React.FC<NeuroplasticityDashboardProps> =
               </div>
               
               <div className="flex items-start space-x-3">
-                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
+                <div className="w-6 h-6 bg-yellow-400 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-medium text-white">
                   3
                 </div>
                 <div>

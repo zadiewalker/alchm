@@ -523,7 +523,7 @@ export default function AdaptivePathways({
               {currentPathway.icon}
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-blue-900 mb-1">
+              <h3 className="text-sm font-medium text-blue-900 mb-1">
                 Current Journey: {currentPathway.name}
               </h3>
               <p className="text-xs text-blue-700 mb-2">
@@ -709,7 +709,7 @@ const PathwayDetailView = ({
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className={`text-${pathway.color}-600`}>{pathway.icon}</div>
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-medium text-gray-900">
             {pathway.name}
           </h3>
         </div>

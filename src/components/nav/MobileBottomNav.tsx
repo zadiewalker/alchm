@@ -116,18 +116,19 @@ export default function MobileBottomNav() {
           bottom: 0,
           left: 0,
           right: 0,
-          background: 'linear-gradient(180deg, rgba(164, 183, 146, 0.15) 0%, rgba(164, 183, 146, 0.25) 100%)',
-          backdropFilter: 'blur(30px) saturate(120%)',
-          WebkitBackdropFilter: 'blur(30px) saturate(120%)',
-          borderTop: '1px solid rgba(164, 183, 146, 0.3)',
-          padding: `20px 16px calc(20px + env(safe-area-inset-bottom, 0px))`, // Extra padding for thumb comfort
+          background: 'linear-gradient(180deg, rgba(164, 183, 146, 0.12) 0%, rgba(164, 183, 146, 0.20) 100%)',
+          backdropFilter: 'blur(32px) saturate(130%) brightness(105%)',
+          WebkitBackdropFilter: 'blur(32px) saturate(130%) brightness(105%)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.25)',
+          padding: `24px 20px calc(24px + env(safe-area-inset-bottom, 0px))`, 
           zIndex: 999,
           transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
-          transition: 'transform 0.3s ease', // Smooth but not jarring for trauma survivors
-          boxShadow: '0 -12px 40px rgba(164, 183, 146, 0.15), 0 -6px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(164, 183, 146, 0.2)',
-          borderRadius: '24px 24px 0 0', // Larger radius for premium feel
-          // Prevent thumb reaching too far up
-          maxHeight: '100px'
+          transition: 'transform 280ms cubic-bezier(0.4, 0, 0.2, 1)', 
+          boxShadow: '0 -16px 48px rgba(164, 183, 146, 0.18), 0 -8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+          borderRadius: '28px 28px 0 0', 
+          maxHeight: '110px',
+          // Luxury iOS-style blur enhancement
+          overflow: 'hidden'
         }}
         role="navigation"
         aria-label="Mobile navigation"
@@ -151,36 +152,43 @@ export default function MobileBottomNav() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '2px',
-                  padding: 'var(--space-whisper)',
-                  borderRadius: '12px',
+                  gap: '4px',
+                  padding: '8px 12px',
+                  borderRadius: '16px',
                   textDecoration: 'none',
-                  minWidth: '72px', // YC Partner thumb-zone optimization
-                  minHeight: '60px', // Trauma-informed minimum for anxiety
+                  minWidth: '76px', 
+                  minHeight: '64px', 
                   justifyContent: 'center',
-                  transition: 'all 0.2s var(--ease-sanctuary)',
+                  transition: 'all 280ms cubic-bezier(0.4, 0, 0.2, 1)',
                   background: isActive 
-                    ? 'rgba(164, 183, 146, 0.15)' 
+                    ? 'rgba(164, 183, 146, 0.18)' 
                     : 'transparent',
-                  transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                  transform: isActive ? 'scale(1.08)' : 'scale(1)',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  boxShadow: isActive 
+                    ? '0 4px 12px rgba(164, 183, 146, 0.15)' 
+                    : 'none',
+                  backdropFilter: isActive ? 'blur(8px)' : 'none'
                 }}
                 onTouchStart={(e) => {
-                  // Immediate visual feedback for anxiety reduction
-                  e.currentTarget.style.transform = isActive ? 'scale(1.02)' : 'scale(0.96)';
-                  e.currentTarget.style.background = 'rgba(164, 183, 146, 0.2)';
-                  // Gentle haptic confirmation
-                  if (navigator.vibrate) navigator.vibrate(8);
+                  // Jony Ive luxury touch feedback
+                  e.currentTarget.style.transform = isActive ? 'scale(1.05)' : 'scale(0.95)';
+                  e.currentTarget.style.background = 'rgba(164, 183, 146, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(164, 183, 146, 0.2)';
+                  // Premium haptic confirmation
+                  if (navigator.vibrate) navigator.vibrate([4, 2, 4]);
                 }}
                 onTouchEnd={(e) => {
-                  e.currentTarget.style.transform = isActive ? 'scale(1.05)' : 'scale(1)';
-                  e.currentTarget.style.background = isActive ? 'rgba(164, 183, 146, 0.15)' : 'transparent';
+                  e.currentTarget.style.transform = isActive ? 'scale(1.08)' : 'scale(1)';
+                  e.currentTarget.style.background = isActive ? 'rgba(164, 183, 146, 0.18)' : 'transparent';
+                  e.currentTarget.style.boxShadow = isActive ? '0 4px 12px rgba(164, 183, 146, 0.15)' : 'none';
                 }}
                 onTouchCancel={(e) => {
-                  // Handle interrupted touches gracefully
-                  e.currentTarget.style.transform = isActive ? 'scale(1.05)' : 'scale(1)';
-                  e.currentTarget.style.background = isActive ? 'rgba(164, 183, 146, 0.15)' : 'transparent';
+                  // Graceful luxury restoration
+                  e.currentTarget.style.transform = isActive ? 'scale(1.08)' : 'scale(1)';
+                  e.currentTarget.style.background = isActive ? 'rgba(164, 183, 146, 0.18)' : 'transparent';
+                  e.currentTarget.style.boxShadow = isActive ? '0 4px 12px rgba(164, 183, 146, 0.15)' : 'none';
                 }}
                 aria-label={item.label}
                 role="button"
@@ -216,7 +224,7 @@ export default function MobileBottomNav() {
                 {/* Label */}
                 <span style={{
                   fontSize: '10px',
-                  fontWeight: isActive ? 'var(--font-semibold)' : 'var(--font-medium)',
+                  fontWeight: isActive ? 'var(--font-medium)' : 'var(--font-medium)',
                   color: isActive 
                     ? 'var(--color-primary)' 
                     : 'rgba(254, 252, 251, 0.7)',

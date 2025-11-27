@@ -187,7 +187,7 @@ function CompactAnalyticsView({
       <CardHeader className="pb-6">
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="text-ink font-semibold text-2xl mb-1 tracking-tight">
+            <CardTitle className="text-ink font-medium text-2xl mb-1 tracking-tight">
               Your Healing Journey
             </CardTitle>
             <p className="text-muted text-sm tracking-wide font-medium">
@@ -200,7 +200,7 @@ function CompactAnalyticsView({
               <span className="text-xl font-medium">{getTrendIcon(trajectory)}</span>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-ink">
+              <div className="text-2xl font-medium text-ink">
                 {Math.round(overallScore)}%
               </div>
               <div className="text-xs text-muted uppercase tracking-wide">
@@ -322,7 +322,7 @@ function CompactAnalyticsView({
           <Link href="/analytics" className="block">
             <Button
               variant="ghost"
-              className="w-full py-4 text-center bg-gradient-to-r from-sage-50 to-sage-100/80 hover:from-sage-100 hover:to-sage-200/80 text-sage-700 hover:text-sage-800 rounded-2xl text-sm font-semibold border border-sage-200 hover:border-sage-300 transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 tracking-wide group/btn"
+              className="w-full py-4 text-center bg-gradient-to-r from-sage-50 to-sage-100/80 hover:from-sage-100 hover:to-sage-200/80 text-sage-700 hover:text-sage-800 rounded-2xl text-sm font-medium border border-sage-200 hover:border-sage-300 transition-all duration-200 hover:shadow-soft hover:-translate-y-0.5 active:translate-y-0 tracking-wide group/btn"
             >
               <span className="group-hover/btn:tracking-wider transition-all duration-200">
                 Explore Full Analytics
@@ -434,7 +434,7 @@ function InsufficientDataPrompt({ userId, className }: { userId: string; classNa
         </div>
       </div>
       
-      <h3 className="text-ink font-semibold text-xl mb-3 tracking-tight">
+      <h3 className="text-ink font-medium text-xl mb-3 tracking-tight">
         Your Analytics Are Growing
       </h3>
       

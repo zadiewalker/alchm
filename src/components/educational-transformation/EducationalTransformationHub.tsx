@@ -110,7 +110,7 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
               {getPathwayIcon(pathway.category)}
             </div>
             <div>
-              <CardTitle className="text-lg font-semibold text-gray-900">
+              <CardTitle className="text-lg font-medium text-gray-900">
                 {pathway.title}
               </CardTitle>
               <div className="flex items-center space-x-2 mt-1">
@@ -249,7 +249,7 @@ const LearningAnalyticsDashboard: React.FC<LearningAnalyticsDashboardProps> = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-gray-900">
+          <div className="text-2xl font-medium text-gray-900">
             {analytics.overallProgress.pathwaysCompleted}/
             {analytics.overallProgress.pathwaysStarted}
           </div>
@@ -272,7 +272,7 @@ const LearningAnalyticsDashboard: React.FC<LearningAnalyticsDashboardProps> = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-gray-900">
+          <div className="text-2xl font-medium text-gray-900">
             {Math.round(analytics.overallProgress.averageEngagement)}%
           </div>
           <p className="text-sm text-gray-600 mt-1">
@@ -473,7 +473,7 @@ export const EducationalTransformationHub: React.FC<EducationalTransformationHub
           <div className="flex items-center mb-4">
             <Zap className="h-8 w-8 text-blue-600 mr-3" />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-medium text-gray-900">
                 Educational Transformation Hub
               </h1>
               <p className="text-gray-600 mt-1">
@@ -518,7 +518,7 @@ export const EducationalTransformationHub: React.FC<EducationalTransformationHub
               <div>
                 <div className="flex items-center mb-6">
                   <Star className="h-6 w-6 text-blue-600 mr-2" />
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-medium text-gray-900">
                     Recommended for You
                   </h2>
                 </div>
@@ -537,7 +537,7 @@ export const EducationalTransformationHub: React.FC<EducationalTransformationHub
 
             {/* All Pathways */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl font-medium text-gray-900 mb-6">
                 All Learning Pathways
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -585,7 +585,7 @@ export const EducationalTransformationHub: React.FC<EducationalTransformationHub
                 {!hasProfile ? (
                   <div className="text-center py-8">
                     <Target className="mx-auto h-16 w-16 text-blue-600 mb-6" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    <h3 className="text-xl font-medium text-gray-900 mb-4">
                       Discover Your Optimal Learning Path
                     </h3>
                     <p className="text-gray-600 mb-6">
@@ -617,7 +617,7 @@ export const EducationalTransformationHub: React.FC<EducationalTransformationHub
                 ) : (
                   <div className="text-center py-8">
                     <Award className="mx-auto h-16 w-16 text-green-600 mb-6" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                    <h3 className="text-xl font-medium text-gray-900 mb-4">
                       Assessment Complete!
                     </h3>
                     <p className="text-gray-600 mb-6">

@@ -49,7 +49,8 @@ function getStoredVerification(): AgeVerificationState | null {
     }
   } catch (error) {
     console.error('Error reading age verification:', error);
-    // Clear corrupted data
+    // Trauma-informed: Gentle handling of data issues
+    // Clear corrupted data without alarming user
     sessionStorage.removeItem('alchm_age_verification');
   }
   
@@ -91,29 +92,60 @@ export default function EmergencyAuthWrapper({
   });
   const [showCrisisBypass, setShowCrisisBypass] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   // Check existing verification on mount
   useEffect(() => {
-    const stored = getStoredVerification();
-    if (stored) {
-      setVerificationState(stored);
+    try {
+      const stored = getStoredVerification();
+      if (stored) {
+        setVerificationState(stored);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error('🚨 CRITICAL: Age verification component error:', error);
+      // Trauma-informed: Show gentle fallback instead of technical error
+      setHasError(true);
+      setLoading(false);
+      
+      // Immediate redirect to static fallback for P0 incident
+      setTimeout(() => {
+        window.location.href = '/emergency-age-verification.html';
+      }, 100);
     }
-    setLoading(false);
   }, []);
 
-  // CRISIS-CRITICAL: Emergency bypass after timeout
+  // CRISIS-CRITICAL: Emergency bypass after timeout AND error detection
   useEffect(() => {
     if (!requiresAgeVerification) return;
     
     const timer = setTimeout(() => {
-      if (!verificationState.isVerified) {
+      if (!verificationState.isVerified && !hasError) {
         console.log('⚠️ Emergency: Showing crisis bypass option');
         setShowCrisisBypass(true);
       }
-    }, 30000); // Show bypass after 30 seconds
+    }, 15000); // Reduced to 15 seconds for crisis situations
     
     return () => clearTimeout(timer);
-  }, [verificationState.isVerified, requiresAgeVerification]);
+  }, [verificationState.isVerified, requiresAgeVerification, hasError]);
+
+  // EMERGENCY: Auto-redirect to static fallback on React component errors
+  useEffect(() => {
+    const errorHandler = (error: ErrorEvent) => {
+      console.error('🚨 EMERGENCY: Client-side error detected:', error);
+      if (error.message.includes('Application error') || 
+          error.message.includes('client side exception') ||
+          error.filename?.includes('_app') ||
+          error.filename?.includes('age') ||
+          error.filename?.includes('verification')) {
+        console.log('🚨 REDIRECTING TO STATIC FALLBACK');
+        window.location.href = '/emergency-age-verification.html';
+      }
+    };
+    
+    window.addEventListener('error', errorHandler);
+    return () => window.removeEventListener('error', errorHandler);
+  }, []);
 
   const handleVerificationComplete = (ageGroup: 'under13' | 'teen' | 'adult', requiresParentalConsent: boolean) => {
     console.log('✅ Age verification completed:', { ageGroup, requiresParentalConsent });
@@ -172,6 +204,77 @@ export default function EmergencyAuthWrapper({
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌿</div>
           <p>Loading your safe space...</p>
+          {/* Emergency timeout fallback */}
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              setTimeout(function() {
+                if (!window.alchm_verification_loaded) {
+                  console.log('🚨 EMERGENCY TIMEOUT: Redirecting to static fallback');
+                  window.location.href = '/emergency-age-verification.html';
+                }
+              }, 10000);
+            `
+          }} />
+        </div>
+      </div>
+    );
+  }
+
+  // EMERGENCY: If error detected, show immediate fallback options
+  if (hasError) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #a4b792 0%, #93a682 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '18px',
+        fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif',
+        padding: '20px'
+      }}>
+        <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌿</div>
+          <h2 style={{ marginBottom: '16px' }}>Something gentle went wrong</h2>
+          <p style={{ marginBottom: '24px', lineHeight: '1.4' }}>
+            Take a breath, you're safe here. We're gently redirecting you to continue your journey...
+          </p>
+          <div style={{ 
+            background: 'rgba(220, 38, 38, 0.1)', 
+            border: '1px solid rgba(220, 38, 38, 0.3)',
+            borderRadius: '12px',
+            padding: '16px',
+            marginBottom: '24px'
+          }}>
+            <a 
+              href="tel:988" 
+              style={{ 
+                color: '#fee', 
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '16px'
+              }}
+            >
+              📞 Crisis Support: Call 988
+            </a>
+          </div>
+          <button
+            onClick={() => window.location.href = '/emergency-age-verification.html'}
+            style={{
+              background: 'white',
+              color: '#333',
+              border: 'none',
+              borderRadius: '12px',
+              padding: '16px 24px',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              width: '100%'
+            }}
+          >
+            Continue to Backup System
+          </button>
         </div>
       </div>
     );
@@ -183,72 +286,99 @@ export default function EmergencyAuthWrapper({
   }
 
   // Show age verification with crisis bypass option
-  return (
-    <div style={{ position: 'relative' }}>
-      <MobileSafeAgeVerification
-        onVerificationComplete={handleVerificationComplete}
-        onExit={handleExit}
-      />
-      
-      {/* CRISIS-CRITICAL: Emergency bypass option */}
-      {showCrisisBypass && (
-        <div style={{
-          position: 'fixed',
-          bottom: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1000,
-          background: 'rgba(220, 38, 38, 0.95)',
-          color: 'white',
-          padding: '16px 24px',
-          borderRadius: '12px',
-          boxShadow: '0 8px 32px rgba(220, 38, 38, 0.3)',
-          textAlign: 'center',
-          maxWidth: '320px',
-          width: '90%',
-          fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif'
-        }}>
-          <div style={{ fontSize: '20px', marginBottom: '8px' }}>🚨</div>
-          <p style={{ 
-            fontSize: '14px', 
-            fontWeight: '600', 
-            margin: '0 0 12px 0',
-            lineHeight: '1.4'
+  try {
+    return (
+      <div style={{ position: 'relative' }}>
+        <MobileSafeAgeVerification
+          onVerificationComplete={handleVerificationComplete}
+          onExit={handleExit}
+        />
+        
+        {/* CRISIS-CRITICAL: Emergency bypass option */}
+        {showCrisisBypass && (
+          <div style={{
+            position: 'fixed',
+            bottom: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1000,
+            background: 'rgba(220, 38, 38, 0.95)',
+            color: 'white',
+            padding: '16px 24px',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(220, 38, 38, 0.3)',
+            textAlign: 'center',
+            maxWidth: '320px',
+            width: '90%',
+            fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif'
           }}>
-            Need immediate access for crisis support?
-          </p>
-          <button
-            onClick={handleCrisisBypass}
-            style={{
-              width: '100%',
-              background: 'white',
-              color: '#dc2626',
-              border: 'none',
-              borderRadius: '8px',
-              padding: '12px 16px',
-              fontSize: '16px',
-              fontWeight: '700',
-              cursor: 'pointer',
-              minHeight: '48px',
-              transition: 'all 0.2s ease',
-              touchAction: 'manipulation'
-            }}
-            onTouchStart={() => {
-              if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-            }}
-          >
-            Emergency Access
-          </button>
-          <p style={{ 
-            fontSize: '11px', 
-            margin: '8px 0 0 0', 
-            opacity: 0.9,
-            lineHeight: '1.3'
-          }}>
-            For users in crisis who need immediate journal access
-          </p>
-        </div>
-      )}
-    </div>
-  );
+            <div style={{ fontSize: '20px', marginBottom: '8px' }}>🚨</div>
+            <p style={{ 
+              fontSize: '14px', 
+              fontWeight: '600', 
+              margin: '0 0 12px 0',
+              lineHeight: '1.4'
+            }}>
+              Need immediate access for crisis support?
+            </p>
+            <button
+              onClick={handleCrisisBypass}
+              style={{
+                width: '100%',
+                background: 'white',
+                color: '#dc2626',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '12px 16px',
+                fontSize: '16px',
+                fontWeight: '700',
+                cursor: 'pointer',
+                minHeight: '48px',
+                transition: 'all 0.2s ease',
+                touchAction: 'manipulation'
+              }}
+              onTouchStart={() => {
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+              }}
+            >
+              Emergency Access
+            </button>
+            <p style={{ 
+              fontSize: '11px', 
+              margin: '8px 0 0 0', 
+              opacity: 0.9,
+              lineHeight: '1.3'
+            }}>
+              For users in crisis who need immediate journal access
+            </p>
+            <button
+              onClick={() => window.location.href = '/emergency-age-verification.html'}
+              style={{
+                width: '100%',
+                background: 'transparent',
+                color: 'white',
+                border: '1px solid white',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                marginTop: '8px',
+                touchAction: 'manipulation'
+              }}
+            >
+              Backup Verification System
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  } catch (error) {
+    console.error('🚨 CRITICAL ERROR in EmergencyAuthWrapper render:', error);
+    // Immediate fallback to static page
+    if (typeof window !== 'undefined') {
+      window.location.href = '/emergency-age-verification.html';
+    }
+    return null;
+  }
 }

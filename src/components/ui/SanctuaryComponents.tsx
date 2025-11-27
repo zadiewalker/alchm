@@ -26,10 +26,10 @@ export const SanctuaryText = forwardRef<HTMLElement, TextProps>(
       whisper: "text-xs font-normal tracking-wide text-sanctuary-gray-600 leading-relaxed",
       body: "text-sm font-normal tracking-wide text-sanctuary-gray-800 leading-relaxed",
       emphasis: "text-base font-medium tracking-wide text-sanctuary-gray-800 leading-relaxed",
-      subhead: "text-lg font-semibold tracking-wider text-sanctuary-gray-800 leading-normal",
-      heading: "text-2xl font-bold tracking-wider text-sanctuary-gray-800 leading-tight",
-      display: "text-4xl font-bold tracking-widest text-sanctuary-gray-800 leading-none",
-      monument: "text-6xl font-bold tracking-widest text-sanctuary-gray-800 leading-none"
+      subhead: "text-lg font-light tracking-wider text-sanctuary-gray-800 leading-normal",
+      heading: "text-2xl font-light tracking-wider text-sanctuary-gray-800 leading-tight",
+      display: "text-4xl font-light tracking-widest text-sanctuary-gray-800 leading-none",
+      monument: "text-6xl font-light tracking-widest text-sanctuary-gray-800 leading-none"
     };
 
     const Component = variant === 'monument' || variant === 'display' ? 'h1' : 
@@ -370,7 +370,7 @@ export const CrisisFloatingButton: React.FC<CrisisFloatingButtonProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-red-500 to-red-600",
+        "fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-red-500 to-red-600",
         "text-white rounded-full shadow-sacred hover:shadow-sanctuary",
         "flex items-center justify-center text-2xl",
         "transition-all duration-400 hover:scale-110",

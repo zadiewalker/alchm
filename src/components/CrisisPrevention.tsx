@@ -83,7 +83,7 @@ const CrisisPrevention: React.FC<CrisisPreventionProps> = ({
           <div className="flex items-center gap-3">
             <span className="text-2xl">{getRiskIcon(assessment.riskLevel)}</span>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-medium text-gray-900">
                 Support & Resources
               </h3>
               <div className="flex items-center gap-2 mt-1">

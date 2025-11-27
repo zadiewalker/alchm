@@ -262,7 +262,7 @@ function IdentityExplorer({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold mb-2">Identity Explorer</h3>
+        <h3 className="text-xl font-medium mb-2">Identity Explorer</h3>
         <p className="text-gray-600">
           Select the identities that feel true for you. You are complex and multifaceted.
         </p>
@@ -305,7 +305,7 @@ function IdentityExplorer({
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{identity.emoji}</span>
                   <div className="flex-1">
-                    <div className="font-semibold">{identity.label}</div>
+                    <div className="font-medium">{identity.label}</div>
                     <div className="text-sm text-gray-600 mt-1">{identity.strength}</div>
                   </div>
                   {isSelected && (
@@ -323,7 +323,7 @@ function IdentityExplorer({
       {selectedIdentities.length > 0 && (
         <div className="space-y-4">
           <div className="bg-purple-50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Your Selected Identities:</h4>
+            <h4 className="font-medium mb-2">Your Selected Identities:</h4>
             <div className="flex flex-wrap gap-2">
               {selectedIdentities.map(identity => (
                 <Chip
@@ -401,7 +401,7 @@ function IntersectionalInsights({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold mb-2">Intersectional Insights</h3>
+        <h3 className="text-xl font-medium mb-2">Intersectional Insights</h3>
         <p className="text-gray-600">
           Let's explore how your identities intersect to create your unique experience.
         </p>
@@ -410,7 +410,7 @@ function IntersectionalInsights({
       {/* Identity intersections */}
       {intersections.length > 0 && (
         <Card className="p-4">
-          <h4 className="font-semibold mb-3">Your Identity Intersections:</h4>
+          <h4 className="font-medium mb-3">Your Identity Intersections:</h4>
           <div className="space-y-2">
             {intersections.map((intersection, index) => (
               <div key={index} className="flex items-center gap-2 text-sm">
@@ -424,7 +424,7 @@ function IntersectionalInsights({
       
       {/* Intersectional considerations */}
       <Card className="p-4">
-        <h4 className="font-semibold mb-3">Considerations for your identities:</h4>
+        <h4 className="font-medium mb-3">Considerations for your identities:</h4>
         <div className="grid grid-cols-2 gap-2">
           {uniqueConsiderations.map((consideration, index) => (
             <Chip key={index} variant="blue" size="sm">
@@ -516,7 +516,7 @@ function AffirmationsAndResources({
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h3 className="text-xl font-semibold mb-2">Your Affirmations & Resources</h3>
+        <h3 className="text-xl font-medium mb-2">Your Affirmations & Resources</h3>
         <p className="text-gray-600">
           Celebrate your identities and connect with supportive communities.
         </p>
@@ -524,7 +524,7 @@ function AffirmationsAndResources({
       
       {/* Identity Affirmations */}
       <Card className="p-6">
-        <h4 className="font-semibold mb-4">Identity Affirmations</h4>
+        <h4 className="font-medium mb-4">Identity Affirmations</h4>
         <div className="space-y-3">
           {allAffirmations.map((affirmation, index) => (
             <motion.div
@@ -552,7 +552,7 @@ function AffirmationsAndResources({
       
       {/* Community Resources */}
       <Card className="p-6">
-        <h4 className="font-semibold mb-4">Community Resources</h4>
+        <h4 className="font-medium mb-4">Community Resources</h4>
         <p className="text-gray-600 mb-4">
           These resources understand the complexity of your intersectional experience:
         </p>
@@ -568,7 +568,7 @@ function AffirmationsAndResources({
       {/* Intersectional Strengths */}
       {experience.uniqueStrengths.length > 0 && (
         <Card className="p-6">
-          <h4 className="font-semibold mb-4">Your Intersectional Strengths</h4>
+          <h4 className="font-medium mb-4">Your Intersectional Strengths</h4>
           <div className="space-y-2">
             {experience.uniqueStrengths.map((strength, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -583,7 +583,7 @@ function AffirmationsAndResources({
       {/* Support Needs */}
       {experience.supportNeeds.length > 0 && (
         <Card className="p-6">
-          <h4 className="font-semibold mb-4">Your Support Needs</h4>
+          <h4 className="font-medium mb-4">Your Support Needs</h4>
           <p className="text-gray-600 mb-3">
             Knowing what you need is the first step to getting it:
           </p>
@@ -625,7 +625,7 @@ export default function IntersectionalWellnessHub({
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4">Intersectional Wellness Hub</h1>
+        <h1 className="text-3xl font-medium mb-4">Intersectional Wellness Hub</h1>
         <p className="text-xl text-gray-600">
           Celebrating the complexity and beauty of your multifaceted identity
         </p>

@@ -644,14 +644,14 @@ const CrisisMobileInterface = memo(function CrisisMobileInterface({
         }}>
           <div className="text-center mb-6">
             <div className="text-3xl mb-2">🆘</div>
-            <div className="text-xl font-bold mb-2">Emergency Support Active</div>
+            <div className="text-xl font-medium mb-2">Emergency Support Active</div>
             <div className="text-red-100 text-sm">Help is on the way. You are not alone.</div>
           </div>
           
           <div className="grid grid-cols-1 gap-4">
             <a 
               href="tel:988"
-              className="block bg-red-500 hover:bg-red-400 text-white font-bold py-6 px-6 rounded-2xl text-center transition-colors"
+              className="block bg-red-500 hover:bg-red-400 text-white font-medium py-6 px-6 rounded-2xl text-center transition-colors"
               style={{ 
                 minHeight: tremorCompensation ? '80px' : '72px',
                 touchAction: 'manipulation',
@@ -663,7 +663,7 @@ const CrisisMobileInterface = memo(function CrisisMobileInterface({
             
             <a 
               href="sms:741741?body=HOME"
-              className="block bg-blue-600 hover:bg-blue-500 text-white font-bold py-6 px-6 rounded-2xl text-center transition-colors"
+              className="block bg-blue-600 hover:bg-blue-500 text-white font-medium py-6 px-6 rounded-2xl text-center transition-colors"
               style={{ 
                 minHeight: tremorCompensation ? '80px' : '72px',
                 touchAction: 'manipulation',
@@ -679,7 +679,7 @@ const CrisisMobileInterface = memo(function CrisisMobileInterface({
                   onTherapistAlerted?.('emergency_escalation');
                   alert('Your therapist has been notified of this emergency and will contact you shortly.');
                 }}
-                className="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-6 px-6 rounded-2xl transition-colors"
+                className="w-full bg-green-600 hover:bg-green-500 text-white font-medium py-6 px-6 rounded-2xl transition-colors"
                 style={{ 
                   minHeight: tremorCompensation ? '80px' : '72px',
                   touchAction: 'manipulation',

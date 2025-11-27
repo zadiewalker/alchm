@@ -483,7 +483,7 @@ export default function KheperaMobileChat({
             <span className="text-white text-sm">🧘</span>
           </div>
           <div>
-            <h4 className="font-semibold text-calm-blue text-sm">{technique.title}</h4>
+            <h4 className="font-medium text-calm-blue text-sm">{technique.title}</h4>
             <p className="text-xs text-calm-blue/80">Step {groundingStep + 1} of {technique.steps.length}</p>
           </div>
         </div>
@@ -501,11 +501,11 @@ export default function KheperaMobileChat({
     return (
       <div className="px-4 py-4 bg-red-50 border-t border-red-200">
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-red-800">Immediate Support Available:</p>
+          <p className="text-sm font-medium text-red-800">Immediate Support Available:</p>
           
           <button
             onClick={() => window.location.href = 'tel:988'}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-red-600 text-white rounded-2xl font-semibold text-lg"
+            className="w-full flex items-center justify-center gap-3 py-4 bg-red-600 text-white rounded-2xl font-medium text-lg"
             style={{ minHeight: '56px' }}
           >
             <span>📞</span>
@@ -514,7 +514,7 @@ export default function KheperaMobileChat({
           
           <button
             onClick={() => window.location.href = 'sms:741741&body=CRISIS'}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-sage-400 text-white rounded-2xl font-semibold text-lg"
+            className="w-full flex items-center justify-center gap-3 py-4 bg-sage-400 text-white rounded-2xl font-medium text-lg"
             style={{ minHeight: '56px' }}
           >
             <span>💬</span>
@@ -572,7 +572,7 @@ export default function KheperaMobileChat({
             breathingPhase="exhale"
           />
           <div>
-            <h3 className="text-white font-semibold text-lg">Khepera</h3>
+            <h3 className="text-white font-medium text-lg">Khepera</h3>
             <p className="text-white/80 text-sm">Here for your healing journey</p>
           </div>
         </div>

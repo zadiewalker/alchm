@@ -356,7 +356,7 @@ const EmotionalIntelligenceDashboard: React.FC<EmotionalIntelligenceDashboardPro
     <div className={`emotional-intelligence-dashboard space-y-6 ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-medium text-gray-900 dark:text-white">
           Emotional Intelligence Dashboard
         </h2>
         <div className="flex space-x-2">
@@ -423,7 +423,7 @@ const EmotionalIntelligenceDashboard: React.FC<EmotionalIntelligenceDashboardPro
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 capitalize">
+                <div className="text-2xl font-medium text-blue-600 dark:text-blue-400 capitalize">
                   {dashboardState.currentEmotionalState.primaryEmotion.name}
                 </div>
                 <div className="space-y-2 text-sm">
@@ -540,7 +540,7 @@ const EmotionalIntelligenceDashboard: React.FC<EmotionalIntelligenceDashboardPro
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <div className="text-lg font-bold capitalize">
+                <div className="text-lg font-medium capitalize">
                   {dashboardState.currentEmotionalState.therapeuticPriority.urgency_level}
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 capitalize">

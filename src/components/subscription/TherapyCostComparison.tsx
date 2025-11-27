@@ -143,7 +143,7 @@ export function TherapyCostComparison({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-red-700">Total ({timeframe} months):</span>
-                  <span className={`text-2xl font-bold text-red-800 ${
+                  <span className={`text-2xl font-medium text-red-800 ${
                     animateResults ? 'animate-pulse' : ''
                   }`}>
                     ${therapyTotalCost.toLocaleString()}
@@ -176,7 +176,7 @@ export function TherapyCostComparison({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-green-700">Total ({timeframe} months):</span>
-                  <span className={`text-2xl font-bold text-green-800 ${
+                  <span className={`text-2xl font-medium text-green-800 ${
                     animateResults ? 'animate-pulse' : ''
                   }`}>
                     ${alchmTotalCost.toFixed(2)}
@@ -205,7 +205,7 @@ export function TherapyCostComparison({
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className={`text-3xl font-bold text-purple-700 ${
+                  <div className={`text-3xl font-medium text-purple-700 ${
                     animateResults ? 'animate-bounce' : ''
                   }`}>
                     ${savings.toLocaleString()}
@@ -213,7 +213,7 @@ export function TherapyCostComparison({
                   <div className="text-purple-600">Total saved</div>
                 </div>
                 <div>
-                  <div className={`text-3xl font-bold text-purple-700 ${
+                  <div className={`text-3xl font-medium text-purple-700 ${
                     animateResults ? 'animate-bounce' : ''
                   }`}>
                     {savingsPercentage}%
@@ -245,23 +245,23 @@ export function TherapyCostComparison({
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div className="text-center">
-                <div className="font-bold text-slate-800">
+                <div className="font-medium text-slate-800">
                   {Math.round(therapyTotalCost / alchmTotalCost)}x
                 </div>
                 <div className="text-slate-600">More cost-effective</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-slate-800">24/7</div>
+                <div className="font-medium text-slate-800">24/7</div>
                 <div className="text-slate-600">Availability</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-slate-800">
+                <div className="font-medium text-slate-800">
                   {timeframe * 30}
                 </div>
                 <div className="text-slate-600">Days of support</div>
               </div>
               <div className="text-center">
-                <div className="font-bold text-slate-800">∞</div>
+                <div className="font-medium text-slate-800">∞</div>
                 <div className="text-slate-600">Usage limit</div>
               </div>
             </div>

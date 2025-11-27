@@ -163,7 +163,7 @@ export function CrisisIntervention({
         <Card className="w-80 shadow-lg border-red-200 bg-red-50">
           <CardContent className="p-4">
             <div className="flex items-start justify-between mb-3">
-              <h3 className="font-semibold text-red-800">Need immediate help?</h3>
+              <h3 className="font-medium text-red-800">Need immediate help?</h3>
               <button
                 onClick={() => setIsVisible(false)}
                 className="text-red-600 hover:text-red-800"
@@ -206,7 +206,7 @@ export function CrisisIntervention({
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <Card className="max-w-md w-full bg-white shadow-2xl">
           <CardHeader className="bg-red-600 text-white text-center">
-            <h2 className="text-xl font-bold">Crisis Support Available</h2>
+            <h2 className="text-xl font-medium">Crisis Support Available</h2>
           </CardHeader>
           <CardContent className="p-6">
             <p className="text-center mb-6 text-gray-700">
@@ -221,7 +221,7 @@ export function CrisisIntervention({
                   aria-label={`Contact ${resource.name}`}
                 >
                   <div>
-                    <div className="font-semibold">{resource.name}</div>
+                    <div className="font-medium">{resource.name}</div>
                     <div className="text-sm text-gray-600">{resource.contact}</div>
                   </div>
                 </Button>
@@ -246,7 +246,7 @@ export function CrisisIntervention({
     return (
       <Card className="border-red-200 bg-red-50">
         <CardContent className="p-4">
-          <h3 className="font-semibold text-red-800 mb-3">Crisis Support</h3>
+          <h3 className="font-medium text-red-800 mb-3">Crisis Support</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
             {crisisResources.slice(0, 3).map((resource) => (
               <Button
@@ -270,7 +270,7 @@ export function CrisisIntervention({
   return (
     <Card className="max-w-4xl mx-auto">
       <CardHeader>
-        <h2 className="text-2xl font-bold text-center text-gray-900">
+        <h2 className="text-2xl font-medium text-center text-gray-900">
           Crisis Support Resources
         </h2>
         <p className="text-center text-gray-600">
@@ -280,13 +280,13 @@ export function CrisisIntervention({
       <CardContent>
         {/* Immediate Emergency */}
         <div className="bg-red-50 border-l-4 border-red-500 p-6 mb-6 rounded">
-          <h3 className="text-lg font-semibold text-red-800 mb-4">
+          <h3 className="text-lg font-medium text-red-800 mb-4">
             🚨 Immediate Emergency
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {crisisResources.slice(0, 3).map((resource) => (
               <div key={resource.id} className="bg-white p-4 rounded shadow">
-                <h4 className="font-semibold text-gray-900 mb-2">{resource.name}</h4>
+                <h4 className="font-medium text-gray-900 mb-2">{resource.name}</h4>
                 <p className="text-sm text-gray-600 mb-3">{resource.description}</p>
                 <Button
                   onClick={() => handleResourceContact(resource)}
@@ -307,13 +307,13 @@ export function CrisisIntervention({
 
         {/* Specialized Resources */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-4">
             Specialized Support Resources
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {crisisResources.slice(3).map((resource) => (
               <div key={resource.id} className="bg-gray-50 p-4 rounded border">
-                <h4 className="font-semibold text-gray-900 mb-2">{resource.name}</h4>
+                <h4 className="font-medium text-gray-900 mb-2">{resource.name}</h4>
                 <p className="text-sm text-gray-600 mb-2">{resource.description}</p>
                 {resource.specialization && (
                   <span className="inline-block text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded mb-2">
@@ -342,7 +342,7 @@ export function CrisisIntervention({
 
         {/* Additional Information */}
         <div className="mt-6 p-4 bg-blue-50 rounded border border-blue-200">
-          <h3 className="font-semibold text-blue-800 mb-2">Important Reminders</h3>
+          <h3 className="font-medium text-blue-800 mb-2">Important Reminders</h3>
           <ul className="text-sm text-blue-700 space-y-1">
             <li>• These resources are free and confidential</li>
             <li>• You don't need to be in immediate danger to call</li>

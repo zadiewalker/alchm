@@ -13,13 +13,40 @@
   <link rel="stylesheet" href="/styles/trauma-informed-animations.css">
   
   <style>
-    /* Enhanced Jony Ive Card System for Pathways */
+    /* Duolingo-style Pathways Design System */
     body {
-      background: linear-gradient(135deg, #a4b792 0%, #93a682 25%, #82956f 50%, #7a8c6a 75%, #6b7d5a 100%);
+      background: linear-gradient(135deg, #a4b792 0%, #8fa37c 20%, #93a682 80%, #a4b792 100%);
       color: white;
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
       -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Khepera Concierge Bar */
+    .khepera-bar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(164, 183, 146, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .khepera-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #cb997e 0%, #e6a789 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s ease-in-out infinite;
     }
     
     .gradient-sanctuary {
@@ -27,19 +54,34 @@
       min-height: 100vh;
     }
     
-    /* Premium Card Component */
-    .alchm-card {
-      background: rgba(254, 252, 251, 0.85);
+    /* Duolingo-style Learning Cards */
+    .pathway-card {
+      background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 200ms ease;
       cursor: pointer;
-      min-height: 240px;
-      display: flex;
-      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pathway-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+    
+    .pathway-card.completed {
+      background: rgba(255, 255, 255, 0.9);
+      color: #2d3748;
+    }
+    
+    .pathway-card.locked {
+      background: rgba(255, 255, 255, 0.05);
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     
     .alchm-card:hover {
@@ -104,13 +146,26 @@
     }
     
     .pathway-icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
       transition: all 300ms ease;
     }
     
-    .alchm-card:hover .pathway-icon {
-      animation: gentle-pulse 2s ease-in-out infinite;
+    .pathway-card:hover .pathway-icon {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.4);
+    }
+    
+    .pathway-card.completed .pathway-icon {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
     }
     
     @keyframes gentle-pulse {
@@ -187,247 +242,276 @@
       margin-top: 64px;
     }
   </style>
-</head>
+
+<script>
+// ALCHM Emergency Cache Buster - v1763242665984
+(function() {
+  const CURRENT_VERSION = 'v1763242665984';
+  const STORED_VERSION = localStorage.getItem('alchm-version');
+  
+  if (STORED_VERSION !== CURRENT_VERSION) {
+    console.log('🔄 Version change detected, clearing caches');
+    localStorage.setItem('alchm-version', CURRENT_VERSION);
+    
+    // Clear all caches
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('alchm')) caches.delete(name);
+        });
+      });
+    }
+    
+    // Force reload after cache clear
+    setTimeout(() => window.location.reload(true), 100);
+  }
+  
+  // Register emergency service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/emergency-sw.js?v=' + CURRENT_VERSION, {
+      updateViaCache: 'none'
+    }).then(registration => {
+      console.log('✅ Emergency SW registered:', CURRENT_VERSION);
+      
+      // Force update check every 30 seconds
+      setInterval(() => {
+        registration.update();
+      }, 30000);
+      
+      // Listen for SW messages
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data.type === 'FORCE_RELOAD') {
+          window.location.reload(true);
+        }
+      });
+      
+    }).catch(console.error);
+  }
+})();
+</script></head>
 <body class="font-sans min-h-screen">
   <!-- Main Container -->
   <div id="pathways-container" class="relative">
     
+    <!-- Khepera Concierge Bar -->
+    <div class="khepera-bar">
+      <div class="khepera-avatar">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="4" r="2" fill="white" opacity="0.9"/>
+          <ellipse cx="10" cy="12" rx="3" ry="5" fill="white"/>
+          <path d="M7 9 Q4 10 5 14 Q6 12 7 14" fill="white" opacity="0.8"/>
+          <path d="M13 9 Q16 10 15 14 Q14 12 13 14" fill="white" opacity="0.8"/>
+        </svg>
+      </div>
+      <div style="flex: 1; color: #2d3748; font-size: 0.9rem; font-weight: 500;">
+        Choose your emotional learning pathway! Each journey builds specific skills 🎯
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.5rem; color: #6b7280; font-size: 0.875rem; font-weight: 500;">
+        <span>Level 3</span>
+        <div style="width: 50px; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
+          <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #a4b792, #8fa37c); border-radius: 3px;"></div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Pathways Selection Screen -->
-    <div id="intro-screen" class="gradient-sanctuary">
+    <div id="intro-screen">
       <div class="max-w-6xl mx-auto px-6 py-8">
         
         <!-- Navigation -->
         <nav class="mb-8">
-          <a href="/dashboard" class="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back to Dashboard
-          </a>
+          <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
+            <a href="/Users/zadiewalker/Desktop/alchm/out/index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Home</a>
+            <a href="/Users/zadiewalker/Desktop/alchm/out/dashboard.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Dashboard</a>
+            <a href="/Users/zadiewalker/Desktop/alchm/public/emotional-report-card.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Report Card</a>
+            <a href="/Users/zadiewalker/Desktop/alchm/out/pricing-premium.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pricing</a>
+          </div>
         </nav>
 
         <!-- Hero Section -->
-        <header class="text-center mb-16 text-white gentle-fade-in">
-          <div class="mb-8">
-            <div class="text-white/60 text-sm uppercase tracking-wider mb-2 font-medium">
-              Identity Operating System
-            </div>
-            <h1 class="text-4xl md:text-6xl font-extralight mb-4 tracking-tight">
-              Your Pathways
-            </h1>
+        <header class="text-center mb-12 text-white">
+          <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; backdrop-filter: blur(20px);">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+              <path d="M25 5L30 15H40L32.5 22.5L35 32.5L25 27.5L15 32.5L17.5 22.5L10 15H20L25 5Z" fill="white" opacity="0.9"/>
+              <circle cx="25" cy="25" r="20" stroke="white" stroke-width="1" fill="none" opacity="0.5"/>
+              <circle cx="25" cy="25" r="15" stroke="white" stroke-width="1" fill="none" opacity="0.3"/>
+            </svg>
           </div>
-          <p class="text-xl md:text-2xl font-light opacity-90 max-w-3xl mx-auto leading-relaxed">
-            Discover guided journeys for authentic growth and healing
-          </p>
+          <h1 style="font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; text-shadow: 0 2px 12px rgba(0,0,0,0.2);">Emotional Learning Pathways</h1>
+          <p style="font-size: 1.125rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; text-shadow: 0 1px 6px rgba(0,0,0,0.2); max-width: 600px; margin-left: auto; margin-right: auto;">Level up your emotional intelligence with guided journeys designed like your favorite learning app</p>
+          
+          <!-- Progress Overview -->
+          <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: white;">2</div>
+              <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Active Paths</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: white;">340</div>
+              <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">EXP Earned</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: white;">12</div>
+              <div style="font-size: 0.875rem; color: rgba(255,255,255,0.8);">Day Streak</div>
+            </div>
+          </div>
         </header>
 
-        <!-- Foundation Pathways -->
-        <section class="space-y-16">
-          <div>
-            <div class="text-center mb-12 text-white">
-              <h2 class="text-2xl md:text-3xl font-light mb-4">Foundation Pathways</h2>
-              <p class="text-white/80 max-w-2xl mx-auto">
-                Essential pathways for building your authentic identity foundation
-              </p>
+        <!-- Learning Pathways Grid -->
+        <section>
+          <div class="text-center mb-8 text-white">
+            <h2 style="font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem;">Choose Your Journey</h2>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">Each pathway teaches specific emotional skills through interactive exercises</p>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+            <!-- Emotional Awareness - Active -->
+            <div class="pathway-card completed" onclick="selectPathway('emotional-awareness')">
+              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+                <div class="pathway-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+50 EXP</div>
+              </div>
+              <h3 style="color: #2d3748; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Emotional Awareness</h3>
+              <p style="color: #4a5568; font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Master the foundation of emotional intelligence</p>
+              <div style="display: flex; align-items: center; justify-content: between; color: #2d3748;">
+                <span style="font-size: 0.75rem; font-weight: 500;">7/7 lessons • Completed</span>
+                <button style="background: #10b981; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">Review</button>
+              </div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <!-- Self-Discovery -->
-              <div class="alchm-card" onclick="selectPathway('self-discovery')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🔍</div>
-                  <h3 class="alchm-card-title">Self-Discovery</h3>
-                  <p class="alchm-card-description">
-                    Explore your authentic self through guided reflection
-                  </p>
+
+            <!-- Resilience Building - In Progress -->
+            <div class="pathway-card" onclick="selectPathway('resilience')" style="background: rgba(255,255,255,0.9); color: #2d3748;">
+              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #cb997e, #e6a789); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">🌱</div>
+                <div style="background: #f59e0b; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+25 EXP</div>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Resilience Building</h3>
+              <p style="color: #4a5568; font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Develop strength through life's challenges</p>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="width: 100%; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
+                  <div style="width: 42%; height: 100%; background: linear-gradient(90deg, #cb997e, #e6a789); border-radius: 3px;"></div>
                 </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">4 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
+                <div style="display: flex; align-items: center; justify-content: between;">
+                  <span style="font-size: 0.75rem; font-weight: 500; color: #6b7280;">3/7 lessons • 42% complete</span>
+                  <button style="background: linear-gradient(135deg, #cb997e, #e6a789); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Continue</button>
                 </div>
               </div>
+            </div>
 
-              <!-- Emotional Awareness -->
-              <div class="alchm-card" onclick="selectPathway('emotional-awareness')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🌈</div>
-                  <h3 class="alchm-card-title">Emotional Awareness</h3>
-                  <p class="alchm-card-description">
-                    Develop deeper understanding of your emotional patterns
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">6 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+            <!-- Boundary Setting - Available -->
+            <div class="pathway-card" onclick="selectPathway('boundary-setting')">
+              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+                <div class="pathway-icon">🛡️</div>
+                <div style="background: rgba(164, 183, 146, 0.2); color: rgba(255,255,255,0.8); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+35 EXP</div>
               </div>
-
-              <!-- Values Clarification -->
-              <div class="alchm-card" onclick="selectPathway('values-clarification')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">✨</div>
-                  <h3 class="alchm-card-title">Values Clarification</h3>
-                  <p class="alchm-card-description">
-                    Identify and align with your core values
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">3 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+              <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Boundary Setting</h3>
+              <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Protect your energy and create healthy limits</p>
+              <div style="display: flex; align-items: center; justify-content: between;">
+                <span style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.7);">5 lessons • Not started</span>
+                <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Start</button>
               </div>
+            </div>
 
-              <!-- Boundary Setting -->
-              <div class="alchm-card" onclick="selectPathway('boundary-setting')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🛡️</div>
-                  <h3 class="alchm-card-title">Boundary Setting</h3>
-                  <p class="alchm-card-description">
-                    Learn healthy boundary practices for authentic living
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">5 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+            <!-- Self-Compassion - Locked -->
+            <div class="pathway-card locked">
+              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+                <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: rgba(255,255,255,0.5);">🔒</div>
+                <div style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+40 EXP</div>
+              </div>
+              <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: rgba(255,255,255,0.5);">Self-Compassion</h3>
+              <p style="color: rgba(255,255,255,0.4); font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Unlock by completing Resilience Building</p>
+              <div style="display: flex; align-items: center; justify-content: between;">
+                <span style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.4);">6 lessons • Locked</span>
+                <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: not-allowed;">Locked</button>
               </div>
             </div>
           </div>
 
-          <!-- Growth Pathways -->
-          <div>
-            <div class="text-center mb-12 text-white">
-              <h2 class="text-2xl md:text-3xl font-light mb-4">Growth Pathways</h2>
-              <p class="text-white/80 max-w-2xl mx-auto">
-                Advanced pathways for deepening your authentic expression
-              </p>
+          <!-- Daily Practice Section -->
+          <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.2);">
+            <div style="text-center; margin-bottom: 1.5rem;">
+              <h2 style="font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; color: white;">Today's Practice</h2>
+              <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Quick exercises to keep your emotional skills sharp</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <!-- Creative Expression -->
-              <div class="alchm-card" onclick="selectPathway('creative-expression')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🎨</div>
-                  <h3 class="alchm-card-title">Creative Expression</h3>
-                  <p class="alchm-card-description">
-                    Explore creativity as a path to authenticity
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">8 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('mindful-moment')">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧘</div>
+                <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Mindful Moment</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">3 minutes</p>
+                <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; width: 100%;">Start</button>
               </div>
-
-              <!-- Relationship Dynamics -->
-              <div class="alchm-card" onclick="selectPathway('relationship-dynamics')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🤝</div>
-                  <h3 class="alchm-card-title">Relationship Dynamics</h3>
-                  <p class="alchm-card-description">
-                    Navigate relationships from your authentic center
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">6 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+              
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('gratitude-boost')">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
+                <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Gratitude Boost</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">2 minutes</p>
+                <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; width: 100%;">Start</button>
               </div>
-
-              <!-- Purpose Discovery -->
-              <div class="alchm-card" onclick="selectPathway('purpose-discovery')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🧩</div>
-                  <h3 class="alchm-card-title">Purpose Discovery</h3>
-                  <p class="alchm-card-description">
-                    Uncover your unique purpose and calling
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">10 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Leadership Style -->
-              <div class="alchm-card" onclick="selectPathway('leadership-style')">
-                <div class="alchm-card-header">
-                  <div class="pathway-icon">🌟</div>
-                  <h3 class="alchm-card-title">Leadership Style</h3>
-                  <p class="alchm-card-description">
-                    Develop your authentic leadership approach
-                  </p>
-                </div>
-                <div class="alchm-card-content">
-                  <div class="alchm-card-meta">
-                    <span class="alchm-card-duration">7 weeks</span>
-                    <button class="alchm-btn">Begin</button>
-                  </div>
-                </div>
+              
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('emotion-check')">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">💝</div>
+                <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Emotion Check</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">1 minute</p>
+                <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; width: 100%;">Start</button>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Progress Dashboard -->
-        <section class="section-spacing">
-          <div class="sage-card max-w-4xl mx-auto">
-            <div class="text-center">
-              <h2 class="text-2xl font-light mb-2">Your Identity OS Progress</h2>
-              <p class="sage-100">Tracking your journey across all dimensions of authentic living</p>
+        <!-- Achievements Section -->
+        <section style="margin: 3rem 0;">
+          <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255,255,255,0.2);">
+            <div style="text-center; margin-bottom: 2rem;">
+              <h2 style="font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; color: white;">Your Achievements</h2>
+              <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem;">Celebrate your emotional learning milestones</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
-              <div class="text-center text-white">
-                <div class="text-3xl font-extralight mb-2">0</div>
-                <p class="sage-100 text-sm font-medium">Active Pathways</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem;">
+              <div style="text-center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.5rem; color: white;">🎯</div>
+                <h3 style="color: white; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem;">First Steps</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem;">Complete first lesson</p>
               </div>
-              <div class="text-center text-white">
-                <div class="text-3xl font-extralight mb-2">0</div>
-                <p class="sage-100 text-sm font-medium">Completed</p>
+              
+              <div style="text-center;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.5rem; color: white;">🔥</div>
+                <h3 style="color: white; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem;">Streak Master</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem;">7 day practice streak</p>
               </div>
-              <div class="text-center text-white">
-                <div class="text-3xl font-extralight mb-2">30%</div>
-                <p class="sage-100 text-sm font-medium">Coherence</p>
+              
+              <div style="text-center; opacity: 0.5;">
+                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border: 2px dashed rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.5rem; color: rgba(255,255,255,0.5);">🏆</div>
+                <h3 style="color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem;">Path Master</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">Complete full pathway</p>
               </div>
-              <div class="text-center text-white">
-                <div class="text-3xl font-extralight mb-2">Emerging</div>
-                <p class="sage-100 text-sm font-medium">Mastery Level</p>
+              
+              <div style="text-center; opacity: 0.5;">
+                <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border: 2px dashed rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.5rem; color: rgba(255,255,255,0.5);">⚡</div>
+                <h3 style="color: rgba(255,255,255,0.5); font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem;">Power User</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.75rem;">500 EXP earned</p>
               </div>
             </div>
           </div>
         </section>
 
         <!-- Crisis Support Footer -->
-        <div class="section-spacing max-w-3xl mx-auto">
-          <div class="crisis-card">
-            <div class="text-4xl mb-4">🆘</div>
-            <h3 class="text-xl font-medium">Crisis Support Available 24/7</h3>
-            <div class="mb-6">
-              <a href="tel:988" class="crisis-btn">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                Call 988 Now
-              </a>
-            </div>
-            <p class="text-gray-500 text-xs leading-relaxed">
-              ALCHM is a journaling platform, not medical treatment or therapy. Ages 17+.
-              <br />
+        <div style="margin-top: 3rem;">
+          <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(255,255,255,0.2);">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🆘</div>
+            <h3 style="color: white; font-size: 1.125rem; font-weight: 500; margin-bottom: 1rem;">Crisis Support Available 24/7</h3>
+            <a href="tel:988" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #dc2626; color: white; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 12px; font-weight: 500; transition: all 200ms ease; margin-bottom: 1rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call 988 Now
+            </a>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; line-height: 1.5;">
+              ALCHM is a journaling platform, not medical treatment or therapy. Ages 17+.<br>
               COPPA, GDPR & CCPA compliant. Your data is encrypted and protected.
             </p>
           </div>
@@ -616,6 +700,18 @@
     }
 
     function selectPathway(pathwayId) {
+      // Enhanced Duolingo-style pathway selection
+      if (pathwayId === 'emotional-awareness') {
+        alert('🎉 Congratulations! You\'ve completed this pathway. Review your progress or start a new one!');
+        return;
+      }
+      
+      if (pathwayId === 'resilience') {
+        alert('📚 Continuing your Resilience Building journey! Lesson 4 is ready for you.');
+        // In a real app, this would navigate to the specific lesson
+        return;
+      }
+      
       currentPathway = pathwayId;
       currentStep = 0;
       loadProgress().then(() => {
@@ -626,6 +722,16 @@
           showProgress();
         }
       });
+    }
+    
+    function startPractice(practiceId) {
+      const practices = {
+        'mindful-moment': 'Taking a mindful moment to check in with yourself...',
+        'gratitude-boost': 'Reflecting on what you\'re grateful for today...',
+        'emotion-check': 'Tuning into your current emotional state...'
+      };
+      
+      alert(`✨ ${practices[practiceId]} This practice will be available soon in the full version!`);
     }
 
     function showReflection(step) {

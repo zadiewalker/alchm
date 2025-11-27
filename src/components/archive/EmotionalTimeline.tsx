@@ -197,7 +197,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
       {/* Controls */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-sage-900 mb-1">Emotional Journey Timeline</h2>
+          <h2 className="text-xl font-medium text-sage-900 mb-1">Emotional Journey Timeline</h2>
           <p className="text-sage-600">Track your emotional evolution and growth patterns over time</p>
         </div>
         
@@ -250,7 +250,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
               {/* Period Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-sage-900">{period.label}</h3>
+                  <h3 className="text-lg font-medium text-sage-900">{period.label}</h3>
                   <div className="flex items-center gap-3 mt-1">
                     <span className="text-sm text-sage-600">{period.entries.length} entries</span>
                     <div className="flex items-center gap-1">
@@ -265,7 +265,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
                 
                 {/* Average Mood Indicator */}
                 <div className="text-center">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-medium ${
                     period.averageMood > 0.5 ? 'bg-green-500' :
                     period.averageMood < -0.5 ? 'bg-red-500' : 'bg-yellow-500'
                   }`}>
@@ -284,7 +284,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
                   {period.entries.map((entry, entryIndex) => (
                     <div key={entryIndex} className="relative flex items-start gap-4">
                       {/* Timeline Node */}
-                      <div className={`relative z-10 w-12 h-12 rounded-full border-4 ${getMoodColor(entry.mood)} flex items-center justify-center text-white font-bold`}>
+                      <div className={`relative z-10 w-12 h-12 rounded-full border-4 ${getMoodColor(entry.mood)} flex items-center justify-center text-white font-medium`}>
                         {getSignificanceIcon(entry.significance) || entry.moodScore}
                       </div>
                       
@@ -326,7 +326,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
       {/* Chart View */}
       {viewMode === 'chart' && (
         <Card className="p-6 border-sage-200">
-          <h3 className="text-lg font-semibold text-sage-900 mb-6">Mood Evolution Chart</h3>
+          <h3 className="text-lg font-medium text-sage-900 mb-6">Mood Evolution Chart</h3>
           
           <div className="relative h-64 bg-sage-50 rounded-lg p-4">
             {/* Y-axis labels */}
@@ -408,7 +408,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
               <TrendingUp className="h-5 w-5 text-green-600" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-sage-900">
+              <div className="text-lg font-medium text-sage-900">
                 {timelinePeriods.filter(p => p.trends.direction === 'up').length}
               </div>
               <div className="text-sm text-sage-600">Growth Periods</div>
@@ -422,7 +422,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
               <Heart className="h-5 w-5 text-blue-600" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-sage-900">
+              <div className="text-lg font-medium text-sage-900">
                 {timelineEntries.filter(e => e.significance === 'breakthrough').length}
               </div>
               <div className="text-sm text-sage-600">Breakthrough Moments</div>
@@ -436,7 +436,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
               <Brain className="h-5 w-5 text-purple-600" />
             </div>
             <div>
-              <div className="text-lg font-semibold text-sage-900">
+              <div className="text-lg font-medium text-sage-900">
                 {timelineEntries.filter(e => e.significance === 'insight').length}
               </div>
               <div className="text-sm text-sage-600">Key Insights</div>
@@ -452,7 +452,7 @@ export function EmotionalTimeline({ entries }: EmotionalTimelineProps) {
             <div className="p-6 border-b border-sage-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-sage-900">{focusedEntry.title}</h2>
+                  <h2 className="text-xl font-medium text-sage-900">{focusedEntry.title}</h2>
                   <div className="flex items-center gap-3 mt-1">
                     <span className="text-sage-600">
                       {focusedEntry.date.toLocaleDateString('en-US', {

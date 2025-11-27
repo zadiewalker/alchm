@@ -156,7 +156,7 @@ export function MobileCrisisOfflineManager() {
       {/* Header */}
       <div className="bg-red-600 text-white p-4 text-center">
         <div className="flex justify-between items-center">
-          <div className="text-2xl font-bold">🆘 Crisis Support</div>
+          <div className="text-2xl font-medium">🆘 Crisis Support</div>
           <button
             onClick={() => setShowCrisisPanel(false)}
             className="bg-red-500 hover:bg-red-400 text-white p-2 rounded-full min-h-[52px] min-w-[52px] flex items-center justify-center"
@@ -178,7 +178,7 @@ export function MobileCrisisOfflineManager() {
       
       {/* Critical Resources */}
       <div className="flex-1 p-4 space-y-4">
-        <div className="text-white text-lg font-semibold mb-4">
+        <div className="text-white text-lg font-medium mb-4">
           Immediate Help Available:
         </div>
         
@@ -193,7 +193,7 @@ export function MobileCrisisOfflineManager() {
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <div className="text-xl font-bold mb-2">{resource.title}</div>
+                  <div className="text-xl font-medium mb-2">{resource.title}</div>
                   <div className="text-red-100 text-sm mb-2">{resource.description}</div>
                   <div className="text-red-200 font-mono text-lg">{resource.contact}</div>
                 </div>
@@ -205,7 +205,7 @@ export function MobileCrisisOfflineManager() {
         ))}
         
         {/* Additional Resources */}
-        <div className="text-white text-lg font-semibold mt-8 mb-4">
+        <div className="text-white text-lg font-medium mt-8 mb-4">
           Additional Support:
         </div>
         
@@ -218,7 +218,7 @@ export function MobileCrisisOfflineManager() {
               className="w-full bg-red-600 hover:bg-red-500 text-white p-4 rounded-xl text-left touch-target-large min-h-[80px]"
               style={{ touchAction: 'manipulation' }}
             >
-              <div className="text-lg font-semibold">{resource.title}</div>
+              <div className="text-lg font-medium">{resource.title}</div>
               <div className="text-red-200 text-sm mt-1">{resource.description}</div>
               <div className="text-red-300 font-mono mt-2">{resource.contact}</div>
             </button>
@@ -226,7 +226,7 @@ export function MobileCrisisOfflineManager() {
         
         {/* Quick Coping Techniques */}
         <div className="bg-red-800/50 rounded-2xl p-4 mt-8">
-          <div className="text-white text-lg font-semibold mb-4">
+          <div className="text-white text-lg font-medium mb-4">
             🌿 Quick Calming Techniques:
           </div>
           
@@ -244,7 +244,7 @@ export function MobileCrisisOfflineManager() {
         <div className="bg-green-800/30 border-2 border-green-600 rounded-2xl p-4 mt-6">
           <div className="text-green-200 text-center mb-4">
             <div className="text-2xl mb-2">🤗</div>
-            <div className="font-semibold text-lg">You matter.</div>
+            <div className="font-medium text-lg">You matter.</div>
             <div className="text-sm mt-2">
               This crisis will pass. Help is available. You are not alone.
             </div>
@@ -275,7 +275,7 @@ export function MobileCrisisOfflineManager() {
               
               setTimeout(() => confirmation.remove(), 5000);
             }}
-            className="w-full bg-green-600 hover:bg-green-500 text-white font-semibold rounded-xl transition-colors"
+            className="w-full bg-green-600 hover:bg-green-500 text-white font-medium rounded-xl transition-colors"
             style={{ 
               touchAction: 'manipulation',
               padding: padding,
@@ -289,7 +289,7 @@ export function MobileCrisisOfflineManager() {
         {/* Privacy Notice */}
         <div className="bg-gray-800/50 rounded-xl p-3 mt-4">
           <div className="text-gray-300 text-xs text-center">
-            <div className="font-semibold mb-1">🔒 Your Privacy is Protected</div>
+            <div className="font-medium mb-1">🔒 Your Privacy is Protected</div>
             <div>
               Crisis interactions are logged anonymously for safety. 
               No personal information is shared without your consent.

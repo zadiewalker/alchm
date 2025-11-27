@@ -296,7 +296,7 @@ export default function PrivacyEnhancedMobileProvider({ children }: PrivacyEnhan
       {/* Crisis Mode Indicator */}
       {isCrisisMode && (
         <div className="fixed top-0 left-0 right-0 bg-red-600 text-white text-center py-2 z-50">
-          <span className="font-semibold">Crisis Support Active - Your Privacy Protected</span>
+          <span className="font-medium">Crisis Support Active - Your Privacy Protected</span>
           <button 
             onClick={disableCrisisMode}
             className="ml-4 px-3 py-1 bg-white text-red-600 rounded text-sm hover:bg-red-50"

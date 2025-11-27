@@ -169,7 +169,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
           <div className="flex items-start space-x-3">
             <span className="text-blue-600 text-2xl">👁️</span>
             <div>
-              <h3 className="font-semibold text-blue-800 mb-2">Perspective-Taking Exercise</h3>
+              <h3 className="font-medium text-blue-800 mb-2">Perspective-Taking Exercise</h3>
               <p className="text-blue-700">{exercise.scenario}</p>
             </div>
           </div>
@@ -310,7 +310,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
           <div className="flex items-start space-x-3">
             <span className="text-purple-600 text-2xl">💬</span>
             <div>
-              <h3 className="font-semibold text-purple-800 mb-2">Inclusive Communication Practice</h3>
+              <h3 className="font-medium text-purple-800 mb-2">Inclusive Communication Practice</h3>
               <p className="text-purple-700">{exercise.scenario}</p>
             </div>
           </div>
@@ -367,7 +367,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
           <div className="flex items-start space-x-3">
             <span className="text-green-600 text-2xl">🌍</span>
             <div>
-              <h3 className="font-semibold text-green-800 mb-2">Cultural Immersion Experience</h3>
+              <h3 className="font-medium text-green-800 mb-2">Cultural Immersion Experience</h3>
               <p className="text-green-700">{exercise.scenario}</p>
             </div>
           </div>
@@ -434,7 +434,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Empathy Building & Communication Development
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -445,7 +445,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
 
         {/* Exercise Type Selection */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Choose Your Practice Area</h2>
+          <h2 className="text-xl font-medium text-gray-800 mb-4">Choose Your Practice Area</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {getExerciseTypes().map((type) => (
               <div
@@ -471,7 +471,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
         {getCurrentExercise() && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-gray-800">
+              <h2 className="text-xl font-medium text-gray-800">
                 {getCurrentExercise()?.title}
               </h2>
               <div className="text-sm text-gray-500">
@@ -529,7 +529,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
         {/* Insights Panel */}
         {empathyInsights.length > 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 mb-4">
               💡 Your Empathy Insights
             </h3>
             <div className="space-y-3">
@@ -554,7 +554,7 @@ const EmpathyBuildingActivities: React.FC<EmpathyBuildingProps> = ({
         {/* Communication Skills Progress */}
         {communicationSkills.length > 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            <h3 className="text-lg font-medium text-gray-800 mb-4">
               📈 Communication Skills Development
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

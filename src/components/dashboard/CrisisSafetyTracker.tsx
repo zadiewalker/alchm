@@ -80,7 +80,7 @@ const CrisisStatusIndicator: React.FC<{
           <span className="font-medium text-sm">{label}</span>
         </div>
         {value && (
-          <span className="font-bold">{value}</span>
+          <span className="font-medium">{value}</span>
         )}
       </div>
     </div>
@@ -111,7 +111,7 @@ const ResponseTimeChart: React.FC<{ data: any; loading: boolean }> = ({ data, lo
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Crisis Response Times (24h)
       </h3>
       <div className="space-y-3">
@@ -163,12 +163,12 @@ const DetectionAccuracyPanel: React.FC<{ metrics: CrisisMetrics | null }> = ({ m
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Detection System Accuracy
       </h3>
       <div className="space-y-4">
         <div className="text-center">
-          <div className="text-3xl font-bold text-green-600 mb-2">
+          <div className="text-3xl font-medium text-green-600 mb-2">
             {detection.accuracy.toFixed(1)}%
           </div>
           <div className="text-sm text-gray-600">Overall Accuracy</div>
@@ -176,11 +176,11 @@ const DetectionAccuracyPanel: React.FC<{ metrics: CrisisMetrics | null }> = ({ m
 
         <div className="grid grid-cols-2 gap-4">
           <div className="text-center p-3 bg-red-50 rounded-lg">
-            <div className="text-xl font-bold text-red-600">{detection.falsePositives}</div>
+            <div className="text-xl font-medium text-red-600">{detection.falsePositives}</div>
             <div className="text-xs text-red-700">False Positives</div>
           </div>
           <div className="text-center p-3 bg-orange-50 rounded-lg">
-            <div className="text-xl font-bold text-orange-600">{detection.falseNegatives}</div>
+            <div className="text-xl font-medium text-orange-600">{detection.falseNegatives}</div>
             <div className="text-xs text-orange-700">False Negatives</div>
           </div>
         </div>
@@ -188,11 +188,11 @@ const DetectionAccuracyPanel: React.FC<{ metrics: CrisisMetrics | null }> = ({ m
         <div className="pt-4 border-t border-gray-200">
           <div className="flex justify-between text-sm">
             <span className="text-gray-600">Patterns Detected</span>
-            <span className="font-semibold">{detection.patternsDetected}</span>
+            <span className="font-medium">{detection.patternsDetected}</span>
           </div>
           <div className="flex justify-between text-sm mt-2">
             <span className="text-gray-600">Precision Rate</span>
-            <span className="font-semibold text-green-600">
+            <span className="font-medium text-green-600">
               {((detection.patternsDetected - detection.falsePositives) / detection.patternsDetected * 100).toFixed(1)}%
             </span>
           </div>
@@ -227,7 +227,7 @@ const ResourceAvailabilityGrid: React.FC<{ metrics: CrisisMetrics | null }> = ({
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">
         Crisis Resource Availability
       </h3>
       <div className="space-y-4">
@@ -257,7 +257,7 @@ const ResourceAvailabilityGrid: React.FC<{ metrics: CrisisMetrics | null }> = ({
         <div className="pt-4 border-t border-gray-200">
           <div className="flex justify-between items-center">
             <span className="text-sm font-medium">Overall Capacity</span>
-            <span className="text-lg font-bold text-blue-600">{resources.responseCapacity}%</span>
+            <span className="text-lg font-medium text-blue-600">{resources.responseCapacity}%</span>
           </div>
         </div>
       </div>
@@ -291,7 +291,7 @@ const CrisisAlertsPanel: React.FC<{ alerts: CrisisAlert[] }> = ({ alerts }) => {
   return (
     <Card className="p-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Crisis System Alerts</h3>
+        <h3 className="text-lg font-medium text-gray-900">Crisis System Alerts</h3>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value as any)}
@@ -462,7 +462,7 @@ export const CrisisSafetyTracker: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Crisis Safety Dashboard</h1>
+          <h1 className="text-3xl font-medium text-gray-900">Crisis Safety Dashboard</h1>
           <p className="text-gray-600">
             Real-time monitoring of crisis intervention effectiveness
           </p>
@@ -500,7 +500,7 @@ export const CrisisSafetyTracker: React.FC = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-blue-600 mb-2">
+          <div className="text-2xl font-medium text-blue-600 mb-2">
             {metrics?.interventions.total || 0}
           </div>
           <div className="text-sm text-gray-600">Total Interventions</div>
@@ -510,7 +510,7 @@ export const CrisisSafetyTracker: React.FC = () => {
         </Card>
 
         <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-green-600 mb-2">
+          <div className="text-2xl font-medium text-green-600 mb-2">
             {metrics?.outcomes.preventedIncidents || 0}
           </div>
           <div className="text-sm text-gray-600">Prevented Incidents</div>
@@ -520,7 +520,7 @@ export const CrisisSafetyTracker: React.FC = () => {
         </Card>
 
         <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-purple-600 mb-2">
+          <div className="text-2xl font-medium text-purple-600 mb-2">
             {metrics?.outcomes.followUpEngagement || 0}
           </div>
           <div className="text-sm text-gray-600">Follow-up Engaged</div>
@@ -530,7 +530,7 @@ export const CrisisSafetyTracker: React.FC = () => {
         </Card>
 
         <Card className="p-6 text-center">
-          <div className="text-2xl font-bold text-orange-600 mb-2">
+          <div className="text-2xl font-medium text-orange-600 mb-2">
             {metrics?.outcomes.userSatisfaction?.toFixed(1) || 0}
           </div>
           <div className="text-sm text-gray-600">User Satisfaction</div>

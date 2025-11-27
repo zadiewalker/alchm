@@ -536,7 +536,7 @@ export default function CrisisResourcesPage() {
       <div className={`min-h-screen ${isHighContrast ? 'bg-black text-white' : 'bg-gradient-to-br from-sage-primary via-sage-hover to-sage-active'} ${emergencyMode ? 'emergency-mode' : ''}`}>
       {/* Offline Status Banner */}
       {isOffline && (
-        <div className="bg-orange-500 text-white p-3 text-center font-bold animate-pulse">
+        <div className="bg-orange-500 text-white p-3 text-center font-medium animate-pulse">
           📶 You're offline - Emergency numbers still work
         </div>
       )}
@@ -551,7 +551,7 @@ export default function CrisisResourcesPage() {
       {/* Crisis Alert Banner - Enhanced */}
       <div className={`${isHighContrast ? 'bg-white text-black' : 'bg-red-600 text-white'} p-4 text-center border-b-4 border-red-800`}>
         <div className="max-w-4xl mx-auto">
-          <p className="text-xl font-bold mb-3 leading-tight">
+          <p className="text-xl font-medium mb-3 leading-tight">
             🆘 If you're in immediate danger, call 911
           </p>
           <p className="text-lg mb-4 opacity-90">
@@ -560,14 +560,14 @@ export default function CrisisResourcesPage() {
           <div className="flex flex-col gap-3 justify-center items-center">
             <button
               onClick={() => handleEmergencyCall('988', 'Suicide & Crisis Lifeline')}
-              className={`crisis-touch-target bg-white text-red-600 px-8 py-4 rounded-2xl font-bold text-xl hover:bg-red-50 transition-all transform hover:scale-105 min-w-[280px] min-h-[80px] flex items-center justify-center gap-3 shadow-xl ${emergencyMode ? 'animate-pulse' : ''}`}
+              className={`crisis-touch-target bg-white text-red-600 px-8 py-4 rounded-2xl font-medium text-xl hover:bg-red-50 transition-all transform hover:scale-105 min-w-[280px] min-h-[80px] flex items-center justify-center gap-3 shadow-xl ${emergencyMode ? 'animate-pulse' : ''}`}
               aria-label="Call 988 Suicide and Crisis Lifeline immediately"
             >
               📞 Call 988 Now
             </button>
             <button
               onClick={() => handleEmergencyText('741741', 'HOME')}
-              className={`crisis-touch-target bg-white text-red-600 px-8 py-4 rounded-2xl font-bold text-xl hover:bg-red-50 transition-all transform hover:scale-105 min-w-[280px] min-h-[80px] flex items-center justify-center gap-3 shadow-xl ${emergencyMode ? 'animate-pulse' : ''}`}
+              className={`crisis-touch-target bg-white text-red-600 px-8 py-4 rounded-2xl font-medium text-xl hover:bg-red-50 transition-all transform hover:scale-105 min-w-[280px] min-h-[80px] flex items-center justify-center gap-3 shadow-xl ${emergencyMode ? 'animate-pulse' : ''}`}
               aria-label="Text HOME to 741741 for crisis support"
             >
               💬 Text HOME to 741741
@@ -586,7 +586,7 @@ export default function CrisisResourcesPage() {
         <div className="max-w-6xl mx-auto px-6 py-6">
           <div className="flex justify-between items-start flex-wrap gap-4">
             <div className="flex-1 min-w-0">
-              <h1 className={`text-3xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-2 leading-tight`}>
+              <h1 className={`text-3xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-2 leading-tight`}>
                 Crisis Support Resources
               </h1>
               <p className={`${isHighContrast ? 'text-gray-300' : 'text-sage-active/70'} text-lg leading-relaxed`}>
@@ -629,18 +629,18 @@ export default function CrisisResourcesPage() {
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Immediate Crisis Support - Enhanced Mobile UX */}
         <section className="mb-12" data-crisis-level="immediate">
-          <h2 className={`text-3xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-8 text-center`}>
+          <h2 className={`text-3xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-8 text-center`}>
             Immediate Crisis Support
           </h2>
           <div className="grid gap-8 max-w-4xl mx-auto">
             {crisisResources.filter(r => r.urgent).map(resource => (
               <div key={resource.id} className={`${isHighContrast ? 'bg-gray-800 border-white' : 'bg-sanctuary-glass backdrop-blur-xl border-red-200'} rounded-3xl p-8 border-2 shadow-2xl transform transition-all hover:scale-102`}>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className={`w-16 h-16 ${isHighContrast ? 'bg-white text-black' : 'bg-red-500 text-white'} rounded-full flex items-center justify-center text-2xl shadow-lg`}>
+                  <div className={`w-12 h-12 ${isHighContrast ? 'bg-white text-black' : 'bg-red-500 text-white'} rounded-full flex items-center justify-center text-2xl shadow-lg`}>
                     🆘
                   </div>
                   <div className="flex-1">
-                    <h3 className={`text-2xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} leading-tight`}>{resource.name}</h3>
+                    <h3 className={`text-2xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} leading-tight`}>{resource.name}</h3>
                     <p className={`${isHighContrast ? 'text-gray-300' : 'text-sage-active/80'} text-lg mt-2 leading-relaxed`}>{resource.description}</p>
                   </div>
                 </div>
@@ -649,7 +649,7 @@ export default function CrisisResourcesPage() {
                   {resource.phone && (
                     <button
                       onClick={() => handleEmergencyCall(resource.phone, resource.description)}
-                      className={`crisis-touch-target ${isHighContrast ? 'bg-white text-black border-2 border-black' : 'bg-red-500 text-white'} px-8 py-6 rounded-2xl font-bold text-xl hover:bg-red-600 transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-xl min-h-[80px]`}
+                      className={`crisis-touch-target ${isHighContrast ? 'bg-white text-black border-2 border-black' : 'bg-red-500 text-white'} px-8 py-6 rounded-2xl font-medium text-xl hover:bg-red-600 transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-xl min-h-[80px]`}
                       aria-label={`Call ${resource.phone} for ${resource.description}`}
                     >
                       📞 Call {resource.phone}
@@ -658,7 +658,7 @@ export default function CrisisResourcesPage() {
                   {resource.text && (
                     <button
                       onClick={() => handleEmergencyText(resource.text, resource.text === '741741' ? 'HOME' : undefined)}
-                      className={`crisis-touch-target ${isHighContrast ? 'bg-gray-700 text-white border-2 border-gray-500' : 'bg-sage-primary text-sanctuary'} px-8 py-6 rounded-2xl font-bold text-xl hover:bg-sage-hover transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-xl min-h-[80px]`}
+                      className={`crisis-touch-target ${isHighContrast ? 'bg-gray-700 text-white border-2 border-gray-500' : 'bg-sage-primary text-sanctuary'} px-8 py-6 rounded-2xl font-medium text-xl hover:bg-sage-hover transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-xl min-h-[80px]`}
                       aria-label={`Text ${resource.text} for crisis support`}
                     >
                       💬 Text {resource.text}
@@ -669,7 +669,7 @@ export default function CrisisResourcesPage() {
                       href={resource.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`crisis-touch-target ${isHighContrast ? 'bg-gray-600 text-white border-2 border-gray-400' : 'bg-blue-500 text-white'} px-8 py-4 rounded-2xl font-bold text-lg hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg min-h-[64px]`}
+                      className={`crisis-touch-target ${isHighContrast ? 'bg-gray-600 text-white border-2 border-gray-400' : 'bg-blue-500 text-white'} px-8 py-4 rounded-2xl font-medium text-lg hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg min-h-[64px]`}
                       aria-label={`Visit ${resource.name} website`}
                     >
                       🌐 Visit Website
@@ -678,7 +678,7 @@ export default function CrisisResourcesPage() {
                 </div>
                 
                 <div className="flex flex-wrap gap-3 mt-6 justify-center">
-                  <span className={`${isHighContrast ? 'bg-white text-black' : 'bg-red-100 text-red-800'} px-4 py-2 rounded-full font-semibold text-base shadow-sm`}>
+                  <span className={`${isHighContrast ? 'bg-white text-black' : 'bg-red-100 text-red-800'} px-4 py-2 rounded-full font-medium text-base shadow-sm`}>
                     {resource.availability}
                   </span>
                   {resource.languages.slice(0, 3).map(lang => (
@@ -699,7 +699,7 @@ export default function CrisisResourcesPage() {
 
         {/* Specialized Support Filters */}
         <section className="mb-8">
-          <h3 className="text-xl font-semibold text-sage-active mb-4">Filter by Specialization</h3>
+          <h3 className="text-xl font-medium text-sage-active mb-4">Filter by Specialization</h3>
           <div className="flex flex-wrap gap-3">
             {specializedFilters.map(filter => (
               <button
@@ -727,7 +727,7 @@ export default function CrisisResourcesPage() {
 
         {/* All Crisis Resources */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-sage-active mb-6">
+          <h2 className="text-2xl font-medium text-sage-active mb-6">
             Additional Crisis Resources
             {selectedFilters.length > 0 && (
               <span className="text-lg font-normal text-sage-active/70 ml-2">
@@ -738,7 +738,7 @@ export default function CrisisResourcesPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredResources.filter(r => !r.urgent).map(resource => (
               <div key={resource.id} className="bg-sanctuary-glass backdrop-blur-xl rounded-3xl p-6 border border-sanctuary/30 shadow-xl">
-                <h3 className="text-lg font-bold text-sage-active mb-3">{resource.name}</h3>
+                <h3 className="text-lg font-medium text-sage-active mb-3">{resource.name}</h3>
                 <p className="text-sage-active/80 mb-4 text-sm leading-relaxed">{resource.description}</p>
                 
                 <div className="space-y-2 mb-4">
@@ -792,7 +792,7 @@ export default function CrisisResourcesPage() {
         {/* Cultural & Identity-Specific Resources */}
         <section className="mb-12">
           <div className={`${isHighContrast ? 'bg-gray-800 border-white' : 'bg-sanctuary-glass backdrop-blur-xl border-sanctuary/30'} rounded-3xl p-8 border-2 shadow-xl`}>
-            <h2 className={`text-3xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-6 text-center`}>
+            <h2 className={`text-3xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-6 text-center`}>
               Cultural & Identity-Affirming Support
             </h2>
             
@@ -805,7 +805,7 @@ export default function CrisisResourcesPage() {
             
             {/* Language Selection */}
             <div className="mb-8">
-              <h3 className={`text-lg font-semibold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-4 text-center`}>
+              <h3 className={`text-lg font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-4 text-center`}>
                 Choose Your Language / Elige tu idioma / Escolha seu idioma
               </h3>
               <div className="flex flex-wrap justify-center gap-3">
@@ -843,7 +843,7 @@ export default function CrisisResourcesPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCulturalResources.map(resource => (
                 <div key={resource.id} className={`${isHighContrast ? 'bg-gray-700 border-gray-500' : 'bg-white/80 border-purple-200'} rounded-2xl p-6 border-2 shadow-lg hover:shadow-xl transition-all`}>
-                  <h3 className={`text-lg font-bold ${isHighContrast ? 'text-white' : 'text-purple-900'} mb-3 leading-tight`}>{resource.name}</h3>
+                  <h3 className={`text-lg font-medium ${isHighContrast ? 'text-white' : 'text-purple-900'} mb-3 leading-tight`}>{resource.name}</h3>
                   <p className={`${isHighContrast ? 'text-gray-300' : 'text-purple-700'} mb-4 text-sm leading-relaxed`}>{resource.description}</p>
                   
                   <div className="space-y-3 mb-4">
@@ -900,13 +900,13 @@ export default function CrisisResourcesPage() {
 
         {/* International Resources */}
         <section className="mb-12">
-          <h2 className={`text-3xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-8 text-center`}>
+          <h2 className={`text-3xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-8 text-center`}>
             International Crisis Resources
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredInternationalResources.map(resource => (
               <div key={resource.id} className={`${isHighContrast ? 'bg-gray-800 border-white' : 'bg-sanctuary-glass backdrop-blur-xl border-sanctuary/30'} rounded-3xl p-6 border-2 shadow-xl hover:shadow-2xl transition-all`}>
-                <h3 className={`text-lg font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-3 leading-tight`}>{resource.name}</h3>
+                <h3 className={`text-lg font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-3 leading-tight`}>{resource.name}</h3>
                 <p className={`${isHighContrast ? 'text-gray-300' : 'text-sage-active/80'} mb-4 text-sm leading-relaxed`}>{resource.description}</p>
                 
                 <div className="space-y-3 mb-4">
@@ -952,10 +952,10 @@ export default function CrisisResourcesPage() {
         {/* Safety Planning */}
         <section className="mb-12">
           <div className="bg-sanctuary-glass backdrop-blur-xl rounded-3xl p-8 border border-sanctuary/30 shadow-xl">
-            <h2 className="text-2xl font-bold text-sage-active mb-6">Safety Planning</h2>
+            <h2 className="text-2xl font-medium text-sage-active mb-6">Safety Planning</h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-lg font-semibold text-sage-active mb-3">Create a Safety Plan</h3>
+                <h3 className="text-lg font-medium text-sage-active mb-3">Create a Safety Plan</h3>
                 <ul className="space-y-2 text-sage-active/80">
                   <li>• Identify personal warning signs</li>
                   <li>• List coping strategies that help</li>
@@ -966,7 +966,7 @@ export default function CrisisResourcesPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-sage-active mb-3">When to Seek Help</h3>
+                <h3 className="text-lg font-medium text-sage-active mb-3">When to Seek Help</h3>
                 <ul className="space-y-2 text-sage-active/80">
                   <li>• Thoughts of hurting yourself or others</li>
                   <li>• Feeling overwhelmed or hopeless</li>
@@ -983,20 +983,20 @@ export default function CrisisResourcesPage() {
         {/* Additional Support */}
         <section>
           <div className="text-center bg-sanctuary-glass backdrop-blur-xl rounded-3xl p-8 border border-sanctuary/30 shadow-xl">
-            <h2 className="text-2xl font-bold text-sage-active mb-4">You Are Not Alone</h2>
+            <h2 className="text-2xl font-medium text-sage-active mb-4">You Are Not Alone</h2>
             <p className="text-sage-active/80 text-lg mb-6 max-w-2xl mx-auto">
               Your life has value. Your struggles are valid. Support is available, and there are people who care about you and want to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/journal"
-                className="bg-sage-primary text-sanctuary px-8 py-3 rounded-full font-bold hover:bg-sage-hover transition-colors"
+                className="bg-sage-primary text-sanctuary px-8 py-3 rounded-full font-medium hover:bg-sage-hover transition-colors"
               >
                 Return to Your Journal
               </Link>
               <Link
                 href="/dashboard"
-                className="bg-sanctuary/50 text-sage-active px-8 py-3 rounded-full font-bold hover:bg-sanctuary/70 transition-colors"
+                className="bg-sanctuary/50 text-sage-active px-8 py-3 rounded-full font-medium hover:bg-sanctuary/70 transition-colors"
               >
                 Go to Dashboard
               </Link>
@@ -1008,10 +1008,10 @@ export default function CrisisResourcesPage() {
       {/* Enhanced Grounding Techniques Section */}
       <section className="mb-12">
         <div className={`${isHighContrast ? 'bg-gray-800 border-white' : 'bg-sanctuary-glass backdrop-blur-xl border-sanctuary/30'} rounded-3xl p-8 border-2 shadow-xl max-w-4xl mx-auto`}>
-          <h2 className={`text-3xl font-bold ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-6 text-center`}>Immediate Grounding & Breathing</h2>
+          <h2 className={`text-3xl font-medium ${isHighContrast ? 'text-white' : 'text-sage-active'} mb-6 text-center`}>Immediate Grounding & Breathing</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div className={`${isHighContrast ? 'bg-gray-700' : 'bg-blue-50'} p-6 rounded-2xl`}>
-              <h3 className={`text-xl font-semibold ${isHighContrast ? 'text-white' : 'text-blue-900'} mb-4 flex items-center gap-2`}>
+              <h3 className={`text-xl font-medium ${isHighContrast ? 'text-white' : 'text-blue-900'} mb-4 flex items-center gap-2`}>
                 🫁 Box Breathing
               </h3>
               <div className={`space-y-3 ${isHighContrast ? 'text-gray-300' : 'text-blue-800'} text-lg leading-relaxed`}>
@@ -1022,7 +1022,7 @@ export default function CrisisResourcesPage() {
               </div>
             </div>
             <div className={`${isHighContrast ? 'bg-gray-700' : 'bg-green-50'} p-6 rounded-2xl`}>
-              <h3 className={`text-xl font-semibold ${isHighContrast ? 'text-white' : 'text-green-900'} mb-4 flex items-center gap-2`}>
+              <h3 className={`text-xl font-medium ${isHighContrast ? 'text-white' : 'text-green-900'} mb-4 flex items-center gap-2`}>
                 🎯 5-4-3-2-1 Grounding
               </h3>
               <div className={`space-y-3 ${isHighContrast ? 'text-gray-300' : 'text-green-800'} text-lg leading-relaxed`}>
@@ -1035,7 +1035,7 @@ export default function CrisisResourcesPage() {
             </div>
           </div>
           <div className={`${isHighContrast ? 'bg-gray-700' : 'bg-purple-50'} p-6 rounded-2xl mt-6 text-center`}>
-            <h3 className={`text-xl font-semibold ${isHighContrast ? 'text-white' : 'text-purple-900'} mb-4`}>
+            <h3 className={`text-xl font-medium ${isHighContrast ? 'text-white' : 'text-purple-900'} mb-4`}>
               💫 Emergency Affirmations
             </h3>
             <div className={`${isHighContrast ? 'text-gray-300' : 'text-purple-800'} text-lg space-y-2`}>
@@ -1056,7 +1056,7 @@ export default function CrisisResourcesPage() {
           title="Emergency Crisis Support - Call 988 (Press F1)"
           aria-label="Emergency crisis support - Call 988 immediately"
         >
-          <span className="text-3xl font-bold">🆘</span>
+          <span className="text-3xl font-medium">🆘</span>
         </button>
       </div>
       

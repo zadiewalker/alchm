@@ -122,7 +122,7 @@ export function BetaAnalyticsDashboard({ userRole = 'beta_user', userId }: BetaA
     return (
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-medium text-gray-900 mb-2">
             Your Beta Testing Analytics
           </h1>
           <p className="text-gray-600">
@@ -133,25 +133,25 @@ export function BetaAnalyticsDashboard({ userRole = 'beta_user', userId }: BetaA
         {/* User Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="p-4">
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-medium text-blue-600">
               {userAnalytics.streak}
             </div>
             <div className="text-sm text-gray-600">Day Streak</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-medium text-green-600">
               {userAnalytics.feedbackContributions.reduce((sum: number, item: any) => sum + item.count, 0)}
             </div>
             <div className="text-sm text-gray-600">Total Contributions</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-2xl font-medium text-purple-600">
               {userAnalytics.featureUsage.length}
             </div>
             <div className="text-sm text-gray-600">Features Tested</div>
           </Card>
           <Card className="p-4">
-            <div className="text-2xl font-bold text-orange-600">
+            <div className="text-2xl font-medium text-orange-600">
               {userAnalytics.achievements.length}
             </div>
             <div className="text-sm text-gray-600">Achievements</div>
@@ -225,7 +225,7 @@ export function BetaAnalyticsDashboard({ userRole = 'beta_user', userId }: BetaA
       <div className="mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-medium text-gray-900 mb-2">
               Beta Testing Analytics
             </h1>
             <p className="text-gray-600">
@@ -267,43 +267,43 @@ export function BetaAnalyticsDashboard({ userRole = 'beta_user', userId }: BetaA
       {/* Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">
         <Card className="p-4">
-          <div className="text-2xl font-bold text-blue-600">
+          <div className="text-2xl font-medium text-blue-600">
             {analytics.overview.totalUsers}
           </div>
           <div className="text-sm text-gray-600">Total Users</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-green-600">
+          <div className="text-2xl font-medium text-green-600">
             {analytics.overview.activeUsers}
           </div>
           <div className="text-sm text-gray-600">Active Users</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-purple-600">
+          <div className="text-2xl font-medium text-purple-600">
             {analytics.overview.avgEngagementScore}
           </div>
           <div className="text-sm text-gray-600">Avg Engagement</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-red-600">
+          <div className="text-2xl font-medium text-red-600">
             {analytics.overview.bugReports}
           </div>
           <div className="text-sm text-gray-600">Bug Reports</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-yellow-600">
+          <div className="text-2xl font-medium text-yellow-600">
             {analytics.overview.featureRequests}
           </div>
           <div className="text-sm text-gray-600">Feature Requests</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-indigo-600">
+          <div className="text-2xl font-medium text-indigo-600">
             {analytics.overview.surveysCompleted}
           </div>
           <div className="text-sm text-gray-600">Surveys</div>
         </Card>
         <Card className="p-4">
-          <div className="text-2xl font-bold text-pink-600">
+          <div className="text-2xl font-medium text-pink-600">
             {analytics.overview.interviewsCompleted}
           </div>
           <div className="text-sm text-gray-600">Interviews</div>

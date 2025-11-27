@@ -376,7 +376,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
     <div className={`cultural-arts-integration ${className}`}>
       {/* Header */}
       <div className="text-center mb-8">
-        <h3 className="text-2xl font-semibold text-gray-800 mb-3">
+        <h3 className="text-2xl font-medium text-gray-800 mb-3">
           Cultural Arts Integration
         </h3>
         <p className="text-sm text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -390,7 +390,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
         <div className="flex items-start gap-4">
           <div className="text-3xl">🌍</div>
           <div>
-            <h4 className="text-lg font-semibold text-amber-800 mb-2">Cultural Respect & Awareness</h4>
+            <h4 className="text-lg font-medium text-amber-800 mb-2">Cultural Respect & Awareness</h4>
             <p className="text-sm text-amber-700 mb-3 leading-relaxed">
               These practices are simplified, respectful adaptations of sacred cultural traditions. 
               We approach them with humility, acknowledging their origins, and commit to supporting 
@@ -406,7 +406,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
       {/* Tradition Selection */}
       {!selectedTradition && (
         <div className="tradition-selection">
-          <h4 className="text-xl font-semibold text-gray-800 mb-6">Choose a Cultural Healing Tradition</h4>
+          <h4 className="text-xl font-medium text-gray-800 mb-6">Choose a Cultural Healing Tradition</h4>
           
           <div className="traditions-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {availableTraditions.map(tradition => (
@@ -423,7 +423,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
                      tradition.practiceType === 'ritual' ? '🕯️' :
                      tradition.practiceType === 'storytelling' ? '📚' : '🫁'}
                   </div>
-                  <h5 className="text-lg font-semibold text-gray-800 mb-2">{tradition.name}</h5>
+                  <h5 className="text-lg font-medium text-gray-800 mb-2">{tradition.name}</h5>
                   <div className="text-sm text-amber-700 font-medium mb-2">
                     {tradition.culture} • {tradition.region}
                   </div>
@@ -460,7 +460,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
       {selectedTradition && isSessionActive && (
         <div className="active-session bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
           <div className="text-center mb-8">
-            <h4 className="text-2xl font-semibold text-gray-800 mb-2">{selectedTradition.name}</h4>
+            <h4 className="text-2xl font-medium text-gray-800 mb-2">{selectedTradition.name}</h4>
             <div className="text-sm text-amber-700 font-medium mb-3">
               {selectedTradition.culture} • {selectedTradition.region}
             </div>
@@ -475,7 +475,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
 
           {/* Respectful Practice Guidelines */}
           <div className="respectful-guidelines mb-8 p-6 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl border-2 border-red-200">
-            <h5 className="text-lg font-semibold text-red-800 mb-4">🙏 Respectful Practice Guidelines</h5>
+            <h5 className="text-lg font-medium text-red-800 mb-4">🙏 Respectful Practice Guidelines</h5>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {selectedTradition.respectfulPractice.map((guideline, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -489,7 +489,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
           {/* Practice Guidance */}
           <div className="practice-guidance mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h5 className="text-lg font-semibold text-gray-800">
+              <h5 className="text-lg font-medium text-gray-800">
                 Guidance Step {currentStep + 1} of {selectedTradition.guidance.length}
               </h5>
               <div className="flex items-center gap-2">
@@ -517,12 +517,12 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
 
           {/* Cultural Elements Explorer */}
           <div className="elements-explorer mb-8">
-            <h5 className="text-lg font-semibold text-gray-800 mb-4">Explore Cultural Elements</h5>
+            <h5 className="text-lg font-medium text-gray-800 mb-4">Explore Cultural Elements</h5>
             
             <div className="elements-grid grid grid-cols-1 md:grid-cols-2 gap-4">
               {selectedTradition.elements.map((element, i) => (
                 <div key={i} className="element-card p-4 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">
-                  <h6 className="font-semibold text-gray-800 mb-2">{element.name}</h6>
+                  <h6 className="font-medium text-gray-800 mb-2">{element.name}</h6>
                   <p className="text-sm text-gray-700 mb-2"><strong>Meaning:</strong> {element.meaning}</p>
                   <p className="text-sm text-gray-700 mb-2"><strong>Practice:</strong> {element.practice}</p>
                   <p className="text-xs text-orange-700"><strong>Significance:</strong> {element.significance}</p>
@@ -533,7 +533,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
 
           {/* Cultural Awareness Reflection */}
           <div className="cultural-reflection mb-8">
-            <h5 className="text-lg font-semibold text-gray-800 mb-4">Cultural Awareness Reflection</h5>
+            <h5 className="text-lg font-medium text-gray-800 mb-4">Cultural Awareness Reflection</h5>
             
             <div className="space-y-4">
               {culturalAwarenessPrompts.map((prompt, i) => (
@@ -583,14 +583,14 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
       {/* Cultural Learning Resources */}
       {!selectedTradition && (
         <div className="learning-resources mt-12 p-8 bg-gradient-to-br from-sage-50 to-green-50 rounded-3xl">
-          <h4 className="text-xl font-semibold text-gray-800 text-center mb-6">
+          <h4 className="text-xl font-medium text-gray-800 text-center mb-6">
             Principles of Respectful Cultural Practice
           </h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="principle text-center">
               <div className="text-4xl mb-3">🙏</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Humility</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Humility</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Approach with genuine respect and acknowledgment that we are guests to these traditions.
               </p>
@@ -598,7 +598,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
             
             <div className="principle text-center">
               <div className="text-4xl mb-3">📚</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Learning</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Learning</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Commit to ongoing education about the cultures and contexts of these practices.
               </p>
@@ -606,7 +606,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
             
             <div className="principle text-center">
               <div className="text-4xl mb-3">🤝</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Support</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Support</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Actively support the communities and causes of the cultures we learn from.
               </p>
@@ -614,7 +614,7 @@ const CulturalArtsIntegration: React.FC<CulturalArtsIntegrationProps> = ({
             
             <div className="principle text-center">
               <div className="text-4xl mb-3">💝</div>
-              <h5 className="font-semibold text-gray-800 mb-2">Gratitude</h5>
+              <h5 className="font-medium text-gray-800 mb-2">Gratitude</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Express genuine appreciation for the wisdom and healing these traditions offer.
               </p>

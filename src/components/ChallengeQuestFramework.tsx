@@ -238,7 +238,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
       <div className="space-y-6">
         {/* Recommended for you */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Recommended for You</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Recommended for You</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recommendedQuests.slice(0, 6).map((quest) => (
               <div
@@ -250,7 +250,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
                 }}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <h4 className="font-semibold text-gray-800">{quest.title}</h4>
+                  <h4 className="font-medium text-gray-800">{quest.title}</h4>
                   <span className={`px-2 py-1 rounded text-xs ${
                     quest.difficulty === 'master' ? 'bg-purple-100 text-purple-700' :
                     quest.difficulty === 'advanced' ? 'bg-red-100 text-red-700' :
@@ -296,7 +296,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
               className="bg-white rounded-lg border border-gray-200 p-6 text-center hover:shadow-lg transition-shadow cursor-pointer"
             >
               <div className="text-3xl mb-3">{category.icon}</div>
-              <h3 className="font-semibold text-gray-800 mb-2">{category.name}</h3>
+              <h3 className="font-medium text-gray-800 mb-2">{category.name}</h3>
               <p className="text-sm text-gray-600 mb-3">{category.description}</p>
               <div className="text-sm text-blue-600 font-medium">
                 {category.questCount} quests available
@@ -307,7 +307,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
 
         {/* Featured challenges */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🔥 Featured Challenges</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🔥 Featured Challenges</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {seasonalChallenges.filter(c => c.isActive).slice(0, 4).map((challenge) => (
               <div
@@ -319,7 +319,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
                 }}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <h4 className="font-semibold text-gray-800">{challenge.title}</h4>
+                  <h4 className="font-medium text-gray-800">{challenge.title}</h4>
                   <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded text-xs">
                     {challenge.season}
                   </span>
@@ -368,7 +368,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
       <div className="space-y-6">
         {/* Active quests */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🚀 Active Quests</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🚀 Active Quests</h3>
           {activeQuests.length === 0 ? (
             <div className="text-center py-8">
               <div className="text-gray-400 text-4xl mb-4">🗺️</div>
@@ -391,7 +391,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
                   <div key={quest.questId} className="border border-gray-200 rounded-lg p-6">
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h4 className="font-semibold text-gray-800">{quest.title}</h4>
+                        <h4 className="font-medium text-gray-800">{quest.title}</h4>
                         <p className="text-sm text-gray-600">{quest.questType.replace('_', ' ').toUpperCase()}</p>
                       </div>
                       <span className={`px-2 py-1 rounded text-xs ${
@@ -493,7 +493,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
 
         {/* Active challenges */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🏃‍♀️ Active Challenges</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🏃‍♀️ Active Challenges</h3>
           {activeChallenges.length === 0 ? (
             <div className="text-center py-8">
               <div className="text-gray-400 text-4xl mb-4">🏁</div>
@@ -515,7 +515,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
                 return (
                   <div key={challenge.challengeId} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-start mb-3">
-                      <h4 className="font-semibold text-gray-800">{challenge.title}</h4>
+                      <h4 className="font-medium text-gray-800">{challenge.title}</h4>
                       <span className={`px-2 py-1 rounded text-xs ${
                         challenge.status === 'active' ? 'bg-green-100 text-green-700' :
                         'bg-gray-100 text-gray-700'
@@ -575,7 +575,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-800">{selectedQuest.title}</h3>
+            <h3 className="text-2xl font-medium text-gray-800">{selectedQuest.title}</h3>
             <button
               onClick={() => setShowQuestModal(false)}
               className="text-gray-400 hover:text-gray-600"
@@ -609,7 +609,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
 
             {/* Quest objectives preview */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-3">Quest Objectives</h4>
+              <h4 className="text-lg font-medium text-gray-800 mb-3">Quest Objectives</h4>
               <div className="space-y-3">
                 {((selectedQuest as QuestTemplate).objectives || selectedQuest.objectives)?.slice(0, 4).map((objective, index) => (
                   <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
@@ -627,7 +627,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
 
             {/* Skills and benefits */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-800 mb-3">Skills You'll Develop</h4>
+              <h4 className="text-lg font-medium text-gray-800 mb-3">Skills You'll Develop</h4>
               <div className="flex flex-wrap gap-2">
                 {((selectedQuest as QuestTemplate).skillTargets || []).map((skill, index) => (
                   <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
@@ -640,7 +640,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
             {/* Cultural considerations */}
             {(selectedQuest as QuestTemplate).culturalAdaptations?.length > 0 && (
               <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Cultural Adaptations</h4>
+                <h4 className="text-lg font-medium text-gray-800 mb-3">Cultural Adaptations</h4>
                 <div className="space-y-2">
                   {(selectedQuest as QuestTemplate).culturalAdaptations.map((adaptation, index) => (
                     <div key={index} className="p-3 bg-purple-50 border border-purple-200 rounded-lg">
@@ -680,7 +680,7 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Challenges & Quests
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -693,19 +693,19 @@ const ChallengeQuestFramework: React.FC<ChallengeQuestFrameworkProps> = ({
         {questStats && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-              <div className="text-2xl font-bold text-blue-600">{questStats.activeQuests}</div>
+              <div className="text-2xl font-medium text-blue-600">{questStats.activeQuests}</div>
               <div className="text-sm text-gray-600">Active Quests</div>
             </div>
             <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-              <div className="text-2xl font-bold text-orange-600">{questStats.activeChallenges}</div>
+              <div className="text-2xl font-medium text-orange-600">{questStats.activeChallenges}</div>
               <div className="text-sm text-gray-600">Active Challenges</div>
             </div>
             <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-              <div className="text-2xl font-bold text-green-600">{questStats.completedQuests}</div>
+              <div className="text-2xl font-medium text-green-600">{questStats.completedQuests}</div>
               <div className="text-sm text-gray-600">Completed Quests</div>
             </div>
             <div className="bg-white rounded-lg border border-gray-200 p-6 text-center">
-              <div className="text-2xl font-bold text-purple-600">{questStats.totalExperience}</div>
+              <div className="text-2xl font-medium text-purple-600">{questStats.totalExperience}</div>
               <div className="text-sm text-gray-600">Total XP Earned</div>
             </div>
           </div>

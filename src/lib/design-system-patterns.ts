@@ -13,21 +13,30 @@ export const DESIGN_PATTERNS = {
     emergency: 'bg-red-50 border border-red-200 rounded-3xl shadow-nurturing',
   },
 
-  // Button patterns following trauma-informed principles
+  // Button patterns following trauma-informed principles with luxury typography
   buttons: {
     primary: 'bg-sage-400 hover:bg-sage-500 text-sanctuary-white rounded-2xl font-medium transition-all duration-300 ease-sanctuary hover:transform hover:scale-[1.01] touch-target-default focus:outline-none focus:ring-2 focus:ring-sage-400/50',
     secondary: 'bg-sanctuary-white hover:bg-sage-50 text-sage-700 border border-sage-200 hover:border-sage-300 rounded-2xl font-medium transition-all duration-300 ease-sanctuary hover:transform hover:scale-[1.01] touch-target-default focus:outline-none focus:ring-2 focus:ring-sage-400/50',
     crisis: 'bg-crisis-red hover:bg-emergency-red text-sanctuary-white rounded-2xl font-medium transition-all duration-300 ease-sanctuary hover:transform hover:scale-[1.01] touch-target-crisis focus:outline-none focus:ring-2 focus:ring-red-400/50',
-    ghost: 'bg-transparent hover:bg-sage-100 text-sage-700 rounded-2xl font-medium transition-all duration-300 ease-sanctuary hover:transform hover:scale-[1.01] touch-target-default focus:outline-none focus:ring-2 focus:ring-sage-400/50',
+    ghost: 'bg-transparent hover:bg-sage-100 text-sage-700 rounded-2xl font-normal transition-all duration-300 ease-sanctuary hover:transform hover:scale-[1.01] touch-target-default focus:outline-none focus:ring-2 focus:ring-sage-400/50',
   },
 
-  // Typography patterns with trauma-informed line heights
+  // Typography patterns with luxury hierarchy and trauma-informed line heights
   typography: {
-    heading: 'text-sage-800 font-semibold leading-relaxed',
-    subheading: 'text-sage-600 font-medium leading-relaxed',
-    body: 'text-sage-700 leading-relaxed',
-    caption: 'text-sage-500 text-sm leading-relaxed',
-    crisis: 'text-red-700 font-medium leading-relaxed',
+    // Hero text - ultra-light for visual sophistication
+    display: 'text-sage-800 font-light text-4xl leading-tight tracking-tight',
+    // Page headings - light weight for elegant hierarchy
+    heading: 'text-sage-800 font-light text-2xl leading-snug tracking-tight',
+    // Section headings - light weight for consistent visual weight
+    subheading: 'text-sage-600 font-light text-xl leading-relaxed tracking-normal',
+    // Body text - normal weight for optimal readability
+    body: 'text-sage-700 font-normal text-base leading-relaxed tracking-normal',
+    // Supporting text - normal weight for readability
+    caption: 'text-sage-500 font-normal text-sm leading-relaxed tracking-wide',
+    // Emphasis text - medium weight only for true emphasis
+    emphasis: 'text-sage-800 font-medium text-base leading-relaxed tracking-normal',
+    // Crisis text with enhanced readability
+    crisis: 'text-red-700 font-medium text-lg leading-loose tracking-wide',
   },
 
   // Input field patterns
@@ -148,7 +157,11 @@ export const SANCTUARY_PALETTE = {
   },
 } as const;
 
-// Validation function to ensure components use design system
+// Luxury typography validation for Jony Ive standards
+export const LUXURY_FONT_WEIGHTS = ['light', 'normal', 'medium'] as const;
+export const DEPRECATED_FONT_WEIGHTS = ['thin', 'semibold', 'bold', 'extrabold', 'black'] as const;
+
+// Validation function to ensure components use luxury design system
 export const validateComponentStyles = (className: string): {
   isValid: boolean;
   warnings: string[];
@@ -159,6 +172,13 @@ export const validateComponentStyles = (className: string): {
   if (className.includes('#')) {
     warnings.push('Hardcoded hex colors detected. Use design system tokens.');
   }
+  
+  // Check for non-luxury font weights
+  DEPRECATED_FONT_WEIGHTS.forEach(weight => {
+    if (className.includes(`font-${weight}`)) {
+      warnings.push(`Deprecated font-${weight} detected. Use font-light, font-normal, or font-medium only for luxury hierarchy.`);
+    }
+  });
   
   // Check for non-standard spacing
   if (className.includes('p-') && !className.match(/p-(4|6|8)/)) {

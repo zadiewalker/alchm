@@ -286,7 +286,7 @@ export default function LGBTQIdentityAffirmation({
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🏳️‍🌈</span>
-              <h3 className="text-lg font-semibold text-purple-800">
+              <h3 className="text-lg font-medium text-purple-800">
                 Identity Affirmation
               </h3>
             </div>
@@ -348,7 +348,7 @@ export default function LGBTQIdentityAffirmation({
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <span className="text-2xl">✨</span>
-            <h3 className="text-lg font-semibold text-yellow-800">
+            <h3 className="text-lg font-medium text-yellow-800">
               Queer Joy Moment
             </h3>
           </div>
@@ -384,7 +384,7 @@ export default function LGBTQIdentityAffirmation({
         <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">🤗</span>
-            <h3 className="text-lg font-semibold text-blue-800">
+            <h3 className="text-lg font-medium text-blue-800">
               Chosen Family Builder
             </h3>
           </div>
@@ -417,7 +417,7 @@ export default function LGBTQIdentityAffirmation({
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card className="p-4 bg-white">
-                  <h4 className="font-semibold text-blue-800 mb-2">Online Communities</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">Online Communities</h4>
                   <ul className="text-sm text-blue-700 space-y-1">
                     <li>• Discord servers for your identity</li>
                     <li>• Reddit communities (r/lgbt, r/trans, etc.)</li>
@@ -427,7 +427,7 @@ export default function LGBTQIdentityAffirmation({
                 </Card>
                 
                 <Card className="p-4 bg-white">
-                  <h4 className="font-semibold text-blue-800 mb-2">Local Connections</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">Local Connections</h4>
                   <ul className="text-sm text-blue-700 space-y-1">
                     <li>• LGBTQ+ community centers</li>
                     <li>• Pride organizations</li>
@@ -446,7 +446,7 @@ export default function LGBTQIdentityAffirmation({
         <Card className="p-6 bg-gradient-to-br from-green-50 to-teal-50 border-green-200">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">🛡️</span>
-            <h3 className="text-lg font-semibold text-green-800">
+            <h3 className="text-lg font-medium text-green-800">
               Safety & Resilience
             </h3>
           </div>
@@ -516,7 +516,7 @@ export function LGBTQIdentityEvolution({
 
   return (
     <Card className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200">
-      <h3 className="text-lg font-semibold text-indigo-800 mb-4">
+      <h3 className="text-lg font-medium text-indigo-800 mb-4">
         🌈 Your Identity Journey
       </h3>
       

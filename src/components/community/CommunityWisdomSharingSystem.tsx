@@ -309,7 +309,7 @@ export default function CommunityWisdomSharingSystem() {
       onClick={() => setSelectedWisdom(wisdom)}
     >
       <div className="flex items-start justify-between mb-3">
-        <h4 className="font-semibold text-green-800">{wisdom.title}</h4>
+        <h4 className="font-medium text-green-800">{wisdom.title}</h4>
         <div className="flex gap-1">
           {wisdom.verification.verified_by_community && (
             <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
@@ -335,13 +335,13 @@ export default function CommunityWisdomSharingSystem() {
 
   const AppropriationGuidelines = () => (
     <Card className="p-6 bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300">
-      <h3 className="text-lg font-semibold text-yellow-800 mb-4">
+      <h3 className="text-lg font-medium text-yellow-800 mb-4">
         🛡️ Cultural Appropriation Prevention Guidelines
       </h3>
       
       <div className="space-y-4">
         <div className="bg-yellow-100 rounded-lg p-4">
-          <h4 className="font-semibold text-yellow-900 mb-2">Before Sharing Cultural Wisdom:</h4>
+          <h4 className="font-medium text-yellow-900 mb-2">Before Sharing Cultural Wisdom:</h4>
           <ul className="space-y-1 text-sm text-yellow-800">
             <li>• Is this from my own cultural heritage?</li>
             <li>• Do I have permission from the originating community?</li>
@@ -352,7 +352,7 @@ export default function CommunityWisdomSharingSystem() {
         </div>
         
         <div className="bg-orange-100 rounded-lg p-4">
-          <h4 className="font-semibold text-orange-900 mb-2">Red Flags of Appropriation:</h4>
+          <h4 className="font-medium text-orange-900 mb-2">Red Flags of Appropriation:</h4>
           <ul className="space-y-1 text-sm text-orange-800">
             <li>• Profiting from cultural practices not your own</li>
             <li>• Stripping cultural context from practices</li>
@@ -363,7 +363,7 @@ export default function CommunityWisdomSharingSystem() {
         </div>
         
         <div className="bg-green-100 rounded-lg p-4">
-          <h4 className="font-semibold text-green-900 mb-2">Respectful Engagement:</h4>
+          <h4 className="font-medium text-green-900 mb-2">Respectful Engagement:</h4>
           <ul className="space-y-1 text-sm text-green-800">
             <li>• Learn from community members, not internet extraction</li>
             <li>• Support businesses and organizations from originating communities</li>
@@ -390,7 +390,7 @@ export default function CommunityWisdomSharingSystem() {
               <div className="flex items-start gap-3">
                 <span className="text-red-500 text-xl">⚠️</span>
                 <div>
-                  <h4 className="font-semibold text-red-800 mb-2">Cultural Appropriation Alert</h4>
+                  <h4 className="font-medium text-red-800 mb-2">Cultural Appropriation Alert</h4>
                   <p className="text-red-700 text-sm">{appropriationAlert}</p>
                 </div>
               </div>
@@ -403,7 +403,7 @@ export default function CommunityWisdomSharingSystem() {
       <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-green-800 mb-2">
+            <h2 className="text-xl font-medium text-green-800 mb-2">
               🌍 Community Wisdom Sharing
             </h2>
             <p className="text-green-700">
@@ -437,7 +437,7 @@ export default function CommunityWisdomSharingSystem() {
         >
           <Card className="p-6 bg-white border-green-200">
             <div className="flex items-start justify-between mb-4">
-              <h3 className="text-lg font-semibold text-green-800">
+              <h3 className="text-lg font-medium text-green-800">
                 {selectedWisdom.title}
               </h3>
               <Button
@@ -458,7 +458,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* Attribution */}
               <div className="bg-blue-50 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 mb-2">Attribution & Origin</h4>
+                <h4 className="font-medium text-blue-900 mb-2">Attribution & Origin</h4>
                 <p className="text-blue-800 mb-2">
                   <strong>Source Community:</strong> {selectedWisdom.attribution_requirements.source_community}
                 </p>
@@ -474,7 +474,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* Respectful Use Guidelines */}
               <div className="bg-green-50 rounded-lg p-4">
-                <h4 className="font-semibold text-green-900 mb-2">How to Engage Respectfully</h4>
+                <h4 className="font-medium text-green-900 mb-2">How to Engage Respectfully</h4>
                 <ul className="space-y-1">
                   {selectedWisdom.educational_context.respectful_use_guidelines.map((guideline, index) => (
                     <li key={index} className="text-green-800 text-sm flex items-start gap-2">
@@ -487,7 +487,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* What NOT to Do */}
               <div className="bg-red-50 rounded-lg p-4">
-                <h4 className="font-semibold text-red-900 mb-2">What NOT to Do</h4>
+                <h4 className="font-medium text-red-900 mb-2">What NOT to Do</h4>
                 <ul className="space-y-1">
                   {selectedWisdom.educational_context.what_not_to_do.map((warning, index) => (
                     <li key={index} className="text-red-800 text-sm flex items-start gap-2">
@@ -500,7 +500,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* Reciprocity Suggestions */}
               <div className="bg-purple-50 rounded-lg p-4">
-                <h4 className="font-semibold text-purple-900 mb-2">Ways to Give Back (Reciprocity)</h4>
+                <h4 className="font-medium text-purple-900 mb-2">Ways to Give Back (Reciprocity)</h4>
                 <ul className="space-y-1">
                   {selectedWisdom.attribution_requirements.reciprocity_suggestions.map((suggestion, index) => (
                     <li key={index} className="text-purple-800 text-sm flex items-start gap-2">
@@ -513,7 +513,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* Learning Resources */}
               <div className="bg-teal-50 rounded-lg p-4">
-                <h4 className="font-semibold text-teal-900 mb-2">Deepen Your Learning</h4>
+                <h4 className="font-medium text-teal-900 mb-2">Deepen Your Learning</h4>
                 <ul className="space-y-1">
                   {selectedWisdom.educational_context.deeper_learning_resources.map((resource, index) => (
                     <li key={index} className="text-teal-800 text-sm flex items-start gap-2">
@@ -526,7 +526,7 @@ export default function CommunityWisdomSharingSystem() {
               
               {/* Verification Info */}
               <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Verification Status</h4>
+                <h4 className="font-medium text-gray-900 mb-2">Verification Status</h4>
                 <div className="space-y-2 text-sm">
                   <p className="text-gray-800">
                     <strong>Community Verified:</strong> {selectedWisdom.verification.verified_by_community ? 'Yes' : 'No'}
@@ -548,7 +548,7 @@ export default function CommunityWisdomSharingSystem() {
 
       {/* Community Submission Process */}
       <Card className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
-        <h3 className="text-lg font-semibold text-purple-800 mb-4">
+        <h3 className="text-lg font-medium text-purple-800 mb-4">
           🤝 Submit Community Wisdom
         </h3>
         
@@ -583,7 +583,7 @@ export default function CommunityWisdomSharingSystem() {
 
       {/* Search Function with Appropriation Check */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
+        <h3 className="text-lg font-medium text-gray-800 mb-4">
           🔍 Search Cultural Practices (with Appropriation Check)
         </h3>
         
@@ -620,7 +620,7 @@ export function CulturalKnowledgeKeeperVerification() {
 
   return (
     <Card className="p-6 bg-gradient-to-br from-indigo-50 to-blue-50 border-indigo-200">
-      <h3 className="text-lg font-semibold text-indigo-800 mb-6">
+      <h3 className="text-lg font-medium text-indigo-800 mb-6">
         🎓 Knowledge Keeper Verification Process
       </h3>
       
@@ -650,7 +650,7 @@ export function CulturalKnowledgeKeeperVerification() {
       <div className="space-y-4">
         {verificationStep === 1 && (
           <div>
-            <h4 className="font-semibold text-indigo-900 mb-4">Step 1: Cultural Identity</h4>
+            <h4 className="font-medium text-indigo-900 mb-4">Step 1: Cultural Identity</h4>
             <p className="text-indigo-700 mb-4">
               Please provide information about your cultural identity and community connection.
             </p>
@@ -665,7 +665,7 @@ export function CulturalKnowledgeKeeperVerification() {
         
         {verificationStep === 2 && (
           <div>
-            <h4 className="font-semibold text-indigo-900 mb-4">Step 2: Community Endorsement</h4>
+            <h4 className="font-medium text-indigo-900 mb-4">Step 2: Community Endorsement</h4>
             <p className="text-indigo-700 mb-4">
               We need verification from your community that you have permission to share this knowledge.
             </p>

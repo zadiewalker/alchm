@@ -385,7 +385,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🌟</div>
               <div>
-                <div className="text-2xl font-bold">{myMentorRecognitions.length}</div>
+                <div className="text-2xl font-medium">{myMentorRecognitions.length}</div>
                 <div className="text-sm opacity-80">Recognitions Given</div>
               </div>
             </div>
@@ -395,7 +395,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">💚</div>
               <div>
-                <div className="text-2xl font-bold">{receivedAppreciations.length}</div>
+                <div className="text-2xl font-medium">{receivedAppreciations.length}</div>
                 <div className="text-sm opacity-80">Appreciations Received</div>
               </div>
             </div>
@@ -405,7 +405,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🎯</div>
               <div>
-                <div className="text-2xl font-bold">{mentorshipMilestones.filter(m => m.achievedAt).length}</div>
+                <div className="text-2xl font-medium">{mentorshipMilestones.filter(m => m.achievedAt).length}</div>
                 <div className="text-sm opacity-80">Milestones Reached</div>
               </div>
             </div>
@@ -415,7 +415,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🤝</div>
               <div>
-                <div className="text-2xl font-bold">{activeMentorships.length}</div>
+                <div className="text-2xl font-medium">{activeMentorships.length}</div>
                 <div className="text-sm opacity-80">Active Mentorships</div>
               </div>
             </div>
@@ -426,7 +426,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-purple-800">Honor Your Mentors</h3>
+              <h3 className="text-lg font-medium text-purple-800">Honor Your Mentors</h3>
               <p className="text-purple-700">Express gratitude and recognize the wisdom that has guided your journey</p>
             </div>
           </div>
@@ -486,7 +486,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
 
         {/* Recent recognitions */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Mentor Recognitions</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">Recent Mentor Recognitions</h3>
           <div className="space-y-4">
             {myMentorRecognitions
               .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
@@ -495,7 +495,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
                 <div key={recognition.recognitionId} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex justify-between items-start mb-3">
                     <div>
-                      <h4 className="font-semibold text-gray-800">{recognition.title}</h4>
+                      <h4 className="font-medium text-gray-800">{recognition.title}</h4>
                       <div className="text-sm text-gray-600">
                         To: {getCommunityMentorName(recognition.toMentorId, communityMentors)} • 
                         {recognition.type.replace('_', ' ').toUpperCase()}
@@ -522,7 +522,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
         {/* Mentor appreciation received (if user is a mentor) */}
         {isMentor && receivedAppreciations.length > 0 && (
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">💚 Appreciation You've Received</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">💚 Appreciation You've Received</h3>
             <div className="space-y-4">
               {receivedAppreciations
                 .sort((a, b) => b.expressedAt.getTime() - a.expressedAt.getTime())
@@ -531,7 +531,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
                   <div key={appreciation.appreciationId} className="p-4 bg-green-50 border border-green-200 rounded-lg">
                     <div className="flex justify-between items-start mb-3">
                       <div>
-                        <h4 className="font-semibold text-green-800">
+                        <h4 className="font-medium text-green-800">
                           From: {appreciation.fromMenteeName}
                         </h4>
                         <div className="text-sm text-green-600 capitalize">
@@ -562,7 +562,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
 
         {/* Mentorship milestones */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🎯 Mentorship Milestones</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🎯 Mentorship Milestones</h3>
           <div className="space-y-4">
             {mentorshipMilestones
               .filter(m => m.achievedAt)
@@ -581,7 +581,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-blue-800">{milestone.title}</h4>
+                    <h4 className="font-medium text-blue-800">{milestone.title}</h4>
                     <p className="text-sm text-blue-700">{milestone.description}</p>
                     <div className="text-xs text-blue-600 mt-1">
                       {milestone.significance} • {milestone.achievedAt?.toLocaleDateString()}
@@ -598,7 +598,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
 
         {/* Community mentor highlights */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">🌟 Community Mentor Highlights</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">🌟 Community Mentor Highlights</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {communityMentors
               .sort((a, b) => b.impactMetrics.averageRating - a.impactMetrics.averageRating)
@@ -610,7 +610,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
                   onClick={() => setSelectedMentor(mentor)}
                 >
                   <div className="text-center mb-3">
-                    <h4 className="font-semibold text-gray-800">{mentor.mentorName}</h4>
+                    <h4 className="font-medium text-gray-800">{mentor.mentorName}</h4>
                     <div className="text-sm text-gray-600">
                       {mentor.specializations.slice(0, 2).map(s => s.name).join(', ')}
                     </div>
@@ -649,7 +649,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
         <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Give Mentor Recognition</h3>
+              <h3 className="text-xl font-medium text-gray-800">Give Mentor Recognition</h3>
               <button
                 onClick={() => setShowRecognitionModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -837,7 +837,7 @@ const MentorRecognitionSystems: React.FC<MentorRecognitionSystemsProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Mentor Recognition Systems
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

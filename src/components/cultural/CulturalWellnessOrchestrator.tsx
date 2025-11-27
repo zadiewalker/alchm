@@ -335,7 +335,7 @@ export default function CulturalWellnessOrchestrator({
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-6">
         <Card className="max-w-2xl w-full p-8 text-center">
           <div className="text-6xl mb-6">🌍</div>
-          <h2 className="text-2xl font-bold mb-4">Welcome to Your Cultural Wellness Journey</h2>
+          <h2 className="text-2xl font-medium mb-4">Welcome to Your Cultural Wellness Journey</h2>
           <p className="text-gray-600 mb-6">
             ALCHM honors all the identities and wisdom traditions you bring. 
             Let's set up your culturally-responsive experience.

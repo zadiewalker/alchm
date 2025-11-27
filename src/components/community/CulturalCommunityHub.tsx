@@ -247,7 +247,7 @@ export const CulturalCommunityHub: React.FC<CommunityHubProps> = ({
         <div className="absolute inset-0 flex items-center justify-center">
           {/* Central user */}
           <div className="relative">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sage-400 to-terracotta-400 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-sage-400 to-terracotta-400 flex items-center justify-center text-white font-medium text-lg shadow-lg">
               {currentUser.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </div>
             

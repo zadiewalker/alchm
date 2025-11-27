@@ -354,7 +354,7 @@ function EmergencyExitConfirm({
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-6 max-w-sm w-full text-center">
         <div className="text-4xl mb-4">🚪</div>
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">
+        <h2 className="text-xl font-medium text-gray-800 mb-2">
           Quick Exit?
         </h2>
         <p className="text-gray-600 mb-6">
@@ -364,7 +364,7 @@ function EmergencyExitConfirm({
         <div className="flex flex-col gap-3">
           <button
             onClick={onConfirm}
-            className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
+            className="bg-gray-600 hover:bg-gray-700 text-white font-medium py-4 px-6 rounded-xl transition-colors"
             style={{ minHeight: '60px', touchAction: 'manipulation' }}
           >
             Yes, exit safely
@@ -372,7 +372,7 @@ function EmergencyExitConfirm({
           
           <button
             onClick={onCancel}
-            className="bg-sage-500 hover:bg-sage-600 text-white font-semibold py-4 px-6 rounded-xl transition-colors"
+            className="bg-sage-500 hover:bg-sage-600 text-white font-medium py-4 px-6 rounded-xl transition-colors"
             style={{ minHeight: '60px', touchAction: 'manipulation' }}
           >
             Stay in ALCHM

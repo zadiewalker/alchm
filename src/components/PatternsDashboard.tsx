@@ -92,7 +92,7 @@ export default function PatternsDashboard() {
         </h3>
 
         {dashboard.needsAttention && (
-          <div className="bg-[#d4756b] text-white px-3 py-1 rounded-lg text-xs font-semibold uppercase tracking-wide">
+          <div className="bg-[#d4756b] text-white px-3 py-1 rounded-lg text-xs font-medium uppercase tracking-wide">
             💙 Extra Care
           </div>
         )}
@@ -107,7 +107,7 @@ export default function PatternsDashboard() {
       }}>
         {/* Writing Streak */}
         <div style={{ textAlign: 'center' }}>
-          <div className={`text-2xl font-bold mb-1 ${
+          <div className={`text-2xl font-medium mb-1 ${
             dashboard.writingStreak >= 3 ? 'text-[#a4b792]' : 'text-[#a4b792]/60'
           }`}>
             {dashboard.writingStreak}
@@ -119,7 +119,7 @@ export default function PatternsDashboard() {
 
         {/* Total Entries */}
         <div style={{ textAlign: 'center' }}>
-          <div className="text-2xl font-bold mb-1 text-[#a4b792]">
+          <div className="text-2xl font-medium mb-1 text-[#a4b792]">
             {dashboard.totalEntries}
           </div>
           <div style={{ fontSize: '0.8rem', color: '#666' }}>
@@ -130,7 +130,7 @@ export default function PatternsDashboard() {
         {/* Average Mood */}
         {dashboard.averageMood !== null && (
           <div style={{ textAlign: 'center' }}>
-            <div className={`text-2xl font-bold mb-1 ${
+            <div className={`text-2xl font-medium mb-1 ${
               dashboard.averageMood >= 6 ? 'text-[#a4b792]' : 
               dashboard.averageMood >= 4 ? 'text-[#a4b792]/70' : 'text-[#d4756b]'
             }`}>

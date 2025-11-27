@@ -304,7 +304,7 @@ export function CommunityHealingCircles({
     <div key={circle.id} className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{circle.name}</h3>
+          <h3 className="text-xl font-medium text-gray-800 mb-2">{circle.name}</h3>
           <p className="text-gray-600 mb-3">{circle.description}</p>
         </div>
         <div className="text-right">
@@ -408,7 +408,7 @@ export function CommunityHealingCircles({
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Community Healing Circles</h1>
+        <h1 className="text-3xl font-medium text-gray-800 mb-4">Community Healing Circles</h1>
         <p className="text-lg text-gray-600 max-w-3xl">
           Culturally-responsive spaces where healing happens in community. These circles honor diverse 
           healing traditions while creating safe, identity-affirming spaces for marginalized communities 
@@ -418,7 +418,7 @@ export function CommunityHealingCircles({
 
       {/* Cultural Safety Notice */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-        <h3 className="font-semibold text-blue-800 mb-2">Cultural Safety & Community Guidelines</h3>
+        <h3 className="font-medium text-blue-800 mb-2">Cultural Safety & Community Guidelines</h3>
         <ul className="text-sm text-blue-700 space-y-1">
           <li>• All healing traditions are honored with proper attribution and community permissions</li>
           <li>• Facilitators are community members and cultural practitioners</li>
@@ -431,7 +431,7 @@ export function CommunityHealingCircles({
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Healing Circles */}
         <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Available Healing Circles</h2>
+          <h2 className="text-2xl font-medium text-gray-800 mb-6">Available Healing Circles</h2>
           <div className="space-y-6">
             {healingCircles.map(renderHealingCircle)}
           </div>
@@ -439,11 +439,11 @@ export function CommunityHealingCircles({
 
         {/* Community Wisdom Sharing */}
         <div>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Community Wisdom Sharing</h2>
+          <h2 className="text-2xl font-medium text-gray-800 mb-6">Community Wisdom Sharing</h2>
           
           {selectedCircle && (
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h3 className="font-semibold text-gray-800 mb-4">Share Your Wisdom</h3>
+              <h3 className="font-medium text-gray-800 mb-4">Share Your Wisdom</h3>
               <p className="text-sm text-gray-600 mb-4">
                 Sharing in: <strong>{selectedCircle.name}</strong>
               </p>
@@ -481,7 +481,7 @@ export function CommunityHealingCircles({
           )}
 
           <div>
-            <h3 className="font-semibold text-gray-800 mb-4">Recent Community Wisdom</h3>
+            <h3 className="font-medium text-gray-800 mb-4">Recent Community Wisdom</h3>
             {wisdomSharings.length > 0 ? (
               wisdomSharings.map(renderWisdomSharing)
             ) : (

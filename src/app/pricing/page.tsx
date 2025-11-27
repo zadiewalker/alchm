@@ -254,7 +254,7 @@ export default function PricingPage() {
                 {/* Sacred Investment Display */}
                 <div className="mb-phi-lg">
                   <div className="flex items-baseline justify-center mb-phi-sm">
-                    <span className={`text-3xlarge md:text-8xl font-thin tracking-normal animate-gentle-pulse ${
+                    <span className={`text-3xlarge md:text-8xl font-light tracking-normal animate-gentle-pulse ${
                       offering.is_premium ? 'text-sage-700' : 'text-sage-800'
                     }`}>
                       {offering.investment}

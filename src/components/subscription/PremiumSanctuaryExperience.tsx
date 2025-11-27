@@ -105,11 +105,11 @@ export function PremiumSanctuaryExperience({
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <div className="text-2xl font-bold text-green-700">$150</div>
+                    <div className="text-2xl font-medium text-green-700">$150</div>
                     <div className="text-green-600">One therapy session</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-green-700">$8.33</div>
+                    <div className="text-2xl font-medium text-green-700">$8.33</div>
                     <div className="text-green-600">Per month with ALCHM</div>
                   </div>
                 </div>

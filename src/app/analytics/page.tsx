@@ -60,7 +60,7 @@ export default function AnalyticsPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-sage-50 to-sage-100">
             <div className="w-6 h-6 bg-sage-400 rounded-full animate-gentle-pulse opacity-60" />
           </div>
-          <h2 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+          <h2 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
             Preparing Your Sanctuary
           </h2>
           <p className="text-sage-600 text-sm tracking-wide">
@@ -76,7 +76,7 @@ export default function AnalyticsPage() {
       <div className="min-h-screen bg-gradient-to-br from-sage-primary to-sage-hover flex items-center justify-center p-4">
         <div className="bg-gradient-to-br from-white/60 to-white/40 border border-sage-100/60 rounded-3xl shadow-soft p-8 backdrop-blur-sm text-center max-w-md">
           <div className="text-4xl mb-4 animate-gentle-breathe">🌿</div>
-          <h2 className="text-sage-800 font-semibold text-lg mb-2 tracking-tight">
+          <h2 className="text-sage-800 font-medium text-lg mb-2 tracking-tight">
             Taking a Gentle Pause
           </h2>
           <p className="text-sage-600 text-sm mb-6 leading-relaxed">
@@ -111,7 +111,7 @@ export default function AnalyticsPage() {
               ← Back
             </Button>
             <div>
-              <h1 className="text-xl font-semibold text-white tracking-tight">
+              <h1 className="text-xl font-medium text-white tracking-tight">
                 Your Healing Analytics
               </h1>
               <p className="text-white/70 text-sm">
@@ -165,7 +165,7 @@ export default function AnalyticsPage() {
         <div className="mt-12 text-center">
           <div className="bg-gradient-to-br from-white/60 to-white/40 border border-sage-100/60 rounded-3xl shadow-soft p-8 backdrop-blur-sm">
             <div className="text-4xl mb-4 animate-gentle-sparkle">🌟</div>
-            <h2 className="text-sage-800 font-semibold text-xl mb-3 tracking-tight">
+            <h2 className="text-sage-800 font-medium text-xl mb-3 tracking-tight">
               Continue Your Journey
             </h2>
             <p className="text-sage-600 text-sm mb-6 leading-relaxed max-w-md mx-auto">

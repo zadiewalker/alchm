@@ -223,12 +223,12 @@ export function FlexiblePaymentOptions({
                       <div className="text-sm text-slate-500 line-through">
                         ${option.originalPrice}
                       </div>
-                      <div className="text-2xl font-bold text-green-600">
+                      <div className="text-2xl font-medium text-green-600">
                         ${option.discountedPrice.toFixed(2)}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-2xl font-bold text-slate-800">
+                    <div className="text-2xl font-medium text-slate-800">
                       ${option.originalPrice}
                     </div>
                   )}
@@ -330,7 +330,7 @@ export function FlexiblePaymentOptions({
               <div className="flex justify-between items-center">
                 <span className="text-green-700">Your sanctuary investment:</span>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-green-800">
+                  <div className="text-2xl font-medium text-green-800">
                     ${slidingScalePrice.toFixed(2)}
                   </div>
                   <div className="text-xs text-green-600">

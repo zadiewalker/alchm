@@ -674,7 +674,7 @@ export function VisualAnnotationEngine({
           <CardHeader>
             <div className="flex items-center gap-3">
               <Edit3 className="w-6 h-6 text-sage-600" />
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800">
                 {traumaInformed ? 'Gentle Annotation Tools' : 'Annotation Tools'}
               </h3>
             </div>
@@ -731,7 +731,7 @@ export function VisualAnnotationEngine({
       <Card className="overflow-hidden">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+            <h3 className="text-lg font-medium text-sanctuary-gray-800">
               {traumaInformed ? 'Your Annotated Guide' : 'Annotated Screenshot'}
             </h3>
             
@@ -863,7 +863,7 @@ export function VisualAnnotationEngine({
       {annotations.length > 0 && (
         <Card>
           <CardHeader>
-            <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+            <h3 className="text-lg font-medium text-sanctuary-gray-800">
               {traumaInformed ? 'Your Supportive Annotations' : 'Annotation Details'}
             </h3>
           </CardHeader>
@@ -946,7 +946,7 @@ export function VisualAnnotationEngine({
             <div className="flex items-center gap-3">
               <Sparkles className="w-6 h-6 text-sage-600" />
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {generatedSolution.title}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -970,7 +970,7 @@ export function VisualAnnotationEngine({
               </h4>
               {generatedSolution.steps.map((step) => (
                 <div key={step.id} className="flex items-start gap-3 p-2 bg-white rounded">
-                  <div className="w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-bold">
+                  <div className="w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
                     {step.order}
                   </div>
                   <div>

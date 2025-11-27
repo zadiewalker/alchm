@@ -353,7 +353,7 @@ export default function ProfessionalReferralSystem() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Professional Network</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Professional Network</h1>
           <p className="text-gray-600">Build and manage your referral network</p>
         </div>
         <div className="flex gap-3">
@@ -384,7 +384,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-sage-100 rounded-xl w-fit mx-auto mb-3">
             <Users className="h-6 w-6 text-sage-600" />
           </div>
-          <div className="text-2xl font-bold text-sage-700 mb-1">{networkMetrics.total_contacts}</div>
+          <div className="text-2xl font-medium text-sage-700 mb-1">{networkMetrics.total_contacts}</div>
           <div className="text-sm text-sage-600">Total Contacts</div>
           <div className="text-xs text-sage-500 mt-1">{networkMetrics.verified_professionals} verified</div>
         </Card>
@@ -393,7 +393,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-emerald-100 rounded-xl w-fit mx-auto mb-3">
             <CheckCircle2 className="h-6 w-6 text-emerald-600" />
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mb-1">{networkMetrics.referral_success_rate}%</div>
+          <div className="text-2xl font-medium text-emerald-700 mb-1">{networkMetrics.referral_success_rate}%</div>
           <div className="text-sm text-emerald-600">Success Rate</div>
           <div className="text-xs text-emerald-500 mt-1">{networkMetrics.successful_referrals} successful</div>
         </Card>
@@ -402,7 +402,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-blue-100 rounded-xl w-fit mx-auto mb-3">
             <Clock className="h-6 w-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-700 mb-1">{networkMetrics.average_response_time}</div>
+          <div className="text-2xl font-medium text-blue-700 mb-1">{networkMetrics.average_response_time}</div>
           <div className="text-sm text-blue-600">Avg Response</div>
           <div className="text-xs text-blue-500 mt-1">Typical turnaround</div>
         </Card>
@@ -411,7 +411,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-purple-100 rounded-xl w-fit mx-auto mb-3">
             <Heart className="h-6 w-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-700 mb-1">{networkMetrics.advocacy_actions}</div>
+          <div className="text-2xl font-medium text-purple-700 mb-1">{networkMetrics.advocacy_actions}</div>
           <div className="text-sm text-purple-600">Advocacy Actions</div>
           <div className="text-xs text-purple-500 mt-1">{networkMetrics.policy_impacts} policy impacts</div>
         </Card>
@@ -424,13 +424,13 @@ export default function ProfessionalReferralSystem() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                  <span className="text-sm font-semibold text-blue-700">
+                  <span className="text-sm font-medium text-blue-700">
                     {contact.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900">{contact.name}</h3>
+                    <h3 className="text-lg font-medium text-gray-900">{contact.name}</h3>
                     <span className="text-sm text-gray-600">{contact.title}</span>
                     {contact.verified && (
                       <div className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 border border-emerald-200">
@@ -517,15 +517,15 @@ export default function ProfessionalReferralSystem() {
             {/* Professional Stats */}
             <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
               <div className="text-center">
-                <div className="text-lg font-bold text-emerald-600">{contact.success_rate}%</div>
+                <div className="text-lg font-medium text-emerald-600">{contact.success_rate}%</div>
                 <div className="text-xs text-gray-600">Success Rate</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-blue-600">{contact.response_time}</div>
+                <div className="text-lg font-medium text-blue-600">{contact.response_time}</div>
                 <div className="text-xs text-gray-600">Response Time</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-bold text-purple-600">{contact.last_interaction}</div>
+                <div className="text-lg font-medium text-purple-600">{contact.last_interaction}</div>
                 <div className="text-xs text-gray-600">Last Contact</div>
               </div>
             </div>
@@ -547,7 +547,7 @@ export default function ProfessionalReferralSystem() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Referral Management</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Referral Management</h1>
           <p className="text-gray-600">Track and manage client referrals</p>
         </div>
         <Button>
@@ -559,19 +559,19 @@ export default function ProfessionalReferralSystem() {
       {/* Referral Summary */}
       <div className="grid md:grid-cols-4 gap-6">
         <Card className="p-6 text-center border-blue-200">
-          <div className="text-2xl font-bold text-blue-700 mb-1">12</div>
+          <div className="text-2xl font-medium text-blue-700 mb-1">12</div>
           <div className="text-sm text-blue-600">Pending Referrals</div>
         </Card>
         <Card className="p-6 text-center border-emerald-200">
-          <div className="text-2xl font-bold text-emerald-700 mb-1">89</div>
+          <div className="text-2xl font-medium text-emerald-700 mb-1">89</div>
           <div className="text-sm text-emerald-600">Completed</div>
         </Card>
         <Card className="p-6 text-center border-purple-200">
-          <div className="text-2xl font-bold text-purple-700 mb-1">4.8</div>
+          <div className="text-2xl font-medium text-purple-700 mb-1">4.8</div>
           <div className="text-sm text-purple-600">Avg Rating</div>
         </Card>
         <Card className="p-6 text-center border-amber-200">
-          <div className="text-2xl font-bold text-amber-700 mb-1">18h</div>
+          <div className="text-2xl font-medium text-amber-700 mb-1">18h</div>
           <div className="text-sm text-amber-600">Avg Response</div>
         </Card>
       </div>
@@ -583,7 +583,7 @@ export default function ProfessionalReferralSystem() {
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-medium text-gray-900">
                     Referral for {referral.client_initials}
                   </h3>
                   <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(referral.status)}`}>
@@ -707,7 +707,7 @@ export default function ProfessionalReferralSystem() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Professional Advocacy</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Professional Advocacy</h1>
           <p className="text-gray-600">Advance mental health policy and practice</p>
         </div>
         <Button>
@@ -722,7 +722,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-purple-100 rounded-xl w-fit mx-auto mb-3">
             <Zap className="h-6 w-6 text-purple-600" />
           </div>
-          <div className="text-2xl font-bold text-purple-700 mb-1">{networkMetrics.advocacy_actions}</div>
+          <div className="text-2xl font-medium text-purple-700 mb-1">{networkMetrics.advocacy_actions}</div>
           <div className="text-sm text-purple-600">Actions Taken</div>
           <div className="text-xs text-purple-500 mt-1">This year</div>
         </Card>
@@ -731,7 +731,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-emerald-100 rounded-xl w-fit mx-auto mb-3">
             <Target className="h-6 w-6 text-emerald-600" />
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mb-1">{networkMetrics.policy_impacts}</div>
+          <div className="text-2xl font-medium text-emerald-700 mb-1">{networkMetrics.policy_impacts}</div>
           <div className="text-sm text-emerald-600">Policy Impacts</div>
           <div className="text-xs text-emerald-500 mt-1">Successful changes</div>
         </Card>
@@ -740,7 +740,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-blue-100 rounded-xl w-fit mx-auto mb-3">
             <Users className="h-6 w-6 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold text-blue-700 mb-1">{networkMetrics.community_reach}</div>
+          <div className="text-2xl font-medium text-blue-700 mb-1">{networkMetrics.community_reach}</div>
           <div className="text-sm text-blue-600">Community Reach</div>
           <div className="text-xs text-blue-500 mt-1">People influenced</div>
         </Card>
@@ -749,7 +749,7 @@ export default function ProfessionalReferralSystem() {
           <div className="p-3 bg-amber-100 rounded-xl w-fit mx-auto mb-3">
             <Award className="h-6 w-6 text-amber-600" />
           </div>
-          <div className="text-2xl font-bold text-amber-700 mb-1">3</div>
+          <div className="text-2xl font-medium text-amber-700 mb-1">3</div>
           <div className="text-sm text-amber-600">Active Campaigns</div>
           <div className="text-xs text-amber-500 mt-1">Currently supporting</div>
         </Card>
@@ -766,7 +766,7 @@ export default function ProfessionalReferralSystem() {
                     <Lightbulb className="h-5 w-5 text-purple-600" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{action.title}</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{action.title}</h3>
                     <div className="flex items-center gap-3">
                       <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(action.status)}`}>
                         {action.status}
@@ -830,15 +830,15 @@ export default function ProfessionalReferralSystem() {
             {action.impact_metrics && (
               <div className="grid grid-cols-3 gap-4 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
                 <div className="text-center">
-                  <div className="text-lg font-bold text-emerald-700">{action.impact_metrics.reach}</div>
+                  <div className="text-lg font-medium text-emerald-700">{action.impact_metrics.reach}</div>
                   <div className="text-xs text-emerald-600">Reach</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-bold text-emerald-700">{action.impact_metrics.engagement}</div>
+                  <div className="text-lg font-medium text-emerald-700">{action.impact_metrics.engagement}</div>
                   <div className="text-xs text-emerald-600">Engagement</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-lg font-bold text-emerald-700">{action.impact_metrics.policy_changes}</div>
+                  <div className="text-lg font-medium text-emerald-700">{action.impact_metrics.policy_changes}</div>
                   <div className="text-xs text-emerald-600">Policy Changes</div>
                 </div>
               </div>
@@ -862,7 +862,7 @@ export default function ProfessionalReferralSystem() {
             <Heart className="h-8 w-8 text-purple-600" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-purple-900 mb-2">
+            <h3 className="text-lg font-medium text-purple-900 mb-2">
               Make Your Voice Heard
             </h3>
             <p className="text-sm text-purple-800 mb-3">
@@ -889,7 +889,7 @@ export default function ProfessionalReferralSystem() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Network Analytics</h1>
+          <h1 className="text-2xl font-medium text-gray-900">Network Analytics</h1>
           <p className="text-gray-600">Insights into your professional network and referral patterns</p>
         </div>
         <Button>
@@ -905,10 +905,10 @@ export default function ProfessionalReferralSystem() {
             <div className="p-2 bg-blue-100 rounded-lg">
               <BarChart3 className="h-6 w-6 text-blue-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">Referral Success Trends</h3>
+            <h3 className="text-lg font-medium text-gray-900">Referral Success Trends</h3>
           </div>
           <div className="text-center py-8">
-            <div className="text-3xl font-bold text-blue-700 mb-2">↗ 92%</div>
+            <div className="text-3xl font-medium text-blue-700 mb-2">↗ 92%</div>
             <div className="text-sm text-blue-600 mb-4">Success Rate (Last 6 Months)</div>
             <div className="text-xs text-gray-500">
               +8% improvement from previous period
@@ -921,10 +921,10 @@ export default function ProfessionalReferralSystem() {
             <div className="p-2 bg-emerald-100 rounded-lg">
               <TrendingUp className="h-6 w-6 text-emerald-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">Network Growth</h3>
+            <h3 className="text-lg font-medium text-gray-900">Network Growth</h3>
           </div>
           <div className="text-center py-8">
-            <div className="text-3xl font-bold text-emerald-700 mb-2">+15</div>
+            <div className="text-3xl font-medium text-emerald-700 mb-2">+15</div>
             <div className="text-sm text-emerald-600 mb-4">New Contacts This Quarter</div>
             <div className="text-xs text-gray-500">
               47 total professional contacts
@@ -940,7 +940,7 @@ export default function ProfessionalReferralSystem() {
             <PieChart className="h-6 w-6 text-purple-600" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Referral Patterns</h3>
+            <h3 className="text-lg font-medium text-gray-900">Referral Patterns</h3>
             <p className="text-sm text-gray-600">Analysis of your referral distribution</p>
           </div>
         </div>
@@ -1013,7 +1013,7 @@ export default function ProfessionalReferralSystem() {
             <Target className="h-6 w-6 text-sage-600" />
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Advocacy Impact Summary</h3>
+            <h3 className="text-lg font-medium text-gray-900">Advocacy Impact Summary</h3>
             <p className="text-sm text-gray-600">Your contributions to professional advocacy</p>
           </div>
         </div>
@@ -1025,7 +1025,7 @@ export default function ProfessionalReferralSystem() {
                 <FileText className="h-5 w-5 text-purple-600" />
                 <span className="font-medium text-purple-900">Policy Comments</span>
               </div>
-              <div className="text-2xl font-bold text-purple-700 mb-1">4</div>
+              <div className="text-2xl font-medium text-purple-700 mb-1">4</div>
               <div className="text-sm text-purple-600">Submitted this year</div>
             </div>
 
@@ -1034,7 +1034,7 @@ export default function ProfessionalReferralSystem() {
                 <Building2 className="h-5 w-5 text-blue-600" />
                 <span className="font-medium text-blue-900">Legislative Contacts</span>
               </div>
-              <div className="text-2xl font-bold text-blue-700 mb-1">7</div>
+              <div className="text-2xl font-medium text-blue-700 mb-1">7</div>
               <div className="text-sm text-blue-600">Representatives contacted</div>
             </div>
           </div>
@@ -1045,7 +1045,7 @@ export default function ProfessionalReferralSystem() {
                 <Users className="h-5 w-5 text-emerald-600" />
                 <span className="font-medium text-emerald-900">Community Outreach</span>
               </div>
-              <div className="text-2xl font-bold text-emerald-700 mb-1">2,847</div>
+              <div className="text-2xl font-medium text-emerald-700 mb-1">2,847</div>
               <div className="text-sm text-emerald-600">People reached</div>
             </div>
 
@@ -1054,7 +1054,7 @@ export default function ProfessionalReferralSystem() {
                 <Award className="h-5 w-5 text-amber-600" />
                 <span className="font-medium text-amber-900">Policy Changes</span>
               </div>
-              <div className="text-2xl font-bold text-amber-700 mb-1">5</div>
+              <div className="text-2xl font-medium text-amber-700 mb-1">5</div>
               <div className="text-sm text-amber-600">Influenced outcomes</div>
             </div>
           </div>
@@ -1072,7 +1072,7 @@ export default function ProfessionalReferralSystem() {
             <Users className="h-8 w-8 text-sage-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-1">Professional Network</h1>
+            <h1 className="text-3xl font-medium text-gray-900 mb-1">Professional Network</h1>
             <p className="text-gray-600">Build connections, make referrals, and advocate for change</p>
           </div>
         </div>

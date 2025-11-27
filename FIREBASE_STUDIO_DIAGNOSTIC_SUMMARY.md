@@ -3,11 +3,11 @@
 ==========================================
 
 📊 EXECUTIVE SUMMARY
-- Audit Duration: 1.63s
+- Audit Duration: 11.66s
 - Firebase Studio Compliance: 0/100 (F)
-- Total Issues: 39
+- Total Issues: 110
 - Critical Issues: 0
-- Warnings: 39
+- Warnings: 110
 - Auto-fixes Applied: 0
 
 ✅ NO CRITICAL ISSUES - READY FOR DEPLOYMENT
@@ -17,15 +17,15 @@ None ✅
 
 ⚠️ WARNINGS:
 ⚠️ Browser API usage without SSR protection: document
-   File: /Users/zadiewalker/Desktop/alchm/src/lib/privacy/consent-management.ts
+   File: /Users/zadiewalker/Desktop/alchm/src/app/api/crisis-detection/route.ts
+⚠️ Browser API usage without SSR protection: document
+   File: /Users/zadiewalker/Desktop/alchm/src/app/api/monitoring/crash-report/route.ts
 ⚠️ Browser API usage without SSR protection: window
-   File: /Users/zadiewalker/Desktop/alchm/src/lib/security.ts
-⚠️ Firebase import should be dynamic on client-side
-   File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-performance
-⚠️ Firebase import should be dynamic on client-side
-   File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: ../../lib/firebase-dynamic
-⚠️ Firebase import should be dynamic on client-side
-   File: /Users/zadiewalker/Desktop/alchm/src/components/auth/AuthProviderLoader.tsx, Import: firebase/auth
+   File: /Users/zadiewalker/Desktop/alchm/src/app/layout.tsx
+⚠️ Browser API usage without SSR protection: document
+   File: /Users/zadiewalker/Desktop/alchm/src/app/layout.tsx
+⚠️ Browser API usage without SSR protection: navigator
+   File: /Users/zadiewalker/Desktop/alchm/src/app/layout.tsx
 
 🔧 AUTO-FIXES APPLIED:
 None
@@ -40,6 +40,6 @@ None
 💡 Optimize Core Web Vitals (medium priority)
    Performance score is below recommended threshold.
 
-📄 Full detailed report: diagnostic-reports/firebase-studio-audit-1758901490514.json
+📄 Full detailed report: diagnostic-reports/firebase-studio-audit-1759873201758.json
 
-Generated: 2025-09-26T15:44:50.514Z
+Generated: 2025-10-07T21:40:01.758Z

@@ -231,7 +231,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
           >
             <div className="text-center">
               <div className="text-3xl mb-2">🤝</div>
-              <h3 className="text-lg font-semibold mb-1">Give Recognition</h3>
+              <h3 className="text-lg font-medium mb-1">Give Recognition</h3>
               <p className="text-sm opacity-90">Appreciate someone's growth journey</p>
             </div>
           </button>
@@ -254,7 +254,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
           >
             <div className="text-center">
               <div className="text-3xl mb-2">📖</div>
-              <h3 className="text-lg font-semibold mb-1">Share Your Story</h3>
+              <h3 className="text-lg font-medium mb-1">Share Your Story</h3>
               <p className="text-sm opacity-90">Inspire others with your journey</p>
             </div>
           </button>
@@ -265,7 +265,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
           {/* Recent celebrations */}
           {inspirationFeed.celebrations.length > 0 && (
             <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-yellow-800 mb-4">🎉 Recent Celebrations</h3>
+              <h3 className="text-lg font-medium text-yellow-800 mb-4">🎉 Recent Celebrations</h3>
               <div className="space-y-4">
                 {inspirationFeed.celebrations.slice(0, 3).map((celebration) => (
                   <div key={celebration.celebrationId} className="flex items-center space-x-4 p-4 bg-white rounded-lg border border-yellow-100">
@@ -303,7 +303,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">{story.title}</h3>
+                  <h3 className="text-lg font-medium text-gray-800 mb-2">{story.title}</h3>
                   <div className="flex items-center space-x-4 text-sm text-gray-600">
                     <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded capitalize">
                       {story.storyType.replace('_', ' ')}
@@ -426,7 +426,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">💚</div>
               <div>
-                <div className="text-2xl font-bold">{receivedRecognitions.length}</div>
+                <div className="text-2xl font-medium">{receivedRecognitions.length}</div>
                 <div className="text-sm opacity-80">Recognition Received</div>
               </div>
             </div>
@@ -436,7 +436,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">🤝</div>
               <div>
-                <div className="text-2xl font-bold">{givenRecognitions.length}</div>
+                <div className="text-2xl font-medium">{givenRecognitions.length}</div>
                 <div className="text-sm opacity-80">Recognition Given</div>
               </div>
             </div>
@@ -446,7 +446,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">📖</div>
               <div>
-                <div className="text-2xl font-bold">{mySharedStories.length}</div>
+                <div className="text-2xl font-medium">{mySharedStories.length}</div>
                 <div className="text-sm opacity-80">Stories Shared</div>
               </div>
             </div>
@@ -455,7 +455,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
 
         {/* Received recognition */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">💚 Recognition You've Received</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">💚 Recognition You've Received</h3>
           <div className="space-y-4">
             {receivedRecognitions.map((recognition) => (
               <div key={recognition.recognitionId} className="p-4 border border-gray-200 rounded-lg">
@@ -480,7 +480,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
 
         {/* Shared stories */}
         <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">📖 Your Shared Stories</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-4">📖 Your Shared Stories</h3>
           <div className="space-y-4">
             {mySharedStories.map((story) => (
               <div key={story.storyId} className="p-4 border border-gray-200 rounded-lg">
@@ -514,7 +514,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
         <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Give Recognition</h3>
+              <h3 className="text-xl font-medium text-gray-800">Give Recognition</h3>
               <button
                 onClick={() => setShowRecognitionModal(false)}
                 className="text-gray-400 hover:text-gray-600"
@@ -665,7 +665,7 @@ const RecognitionSharingSystem: React.FC<RecognitionSharingSystemProps> = ({
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl font-medium text-gray-800 mb-4">
             Recognition & Sharing
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">

@@ -174,7 +174,7 @@ export const AIHumanDistinction: React.FC<AIHumanDistinctionProps> = ({
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">{contextMessage.title}</h2>
+        <h2 className="text-2xl font-medium text-gray-900 mb-2">{contextMessage.title}</h2>
         <p className="text-gray-600 mb-2">{contextMessage.subtitle}</p>
         {contextMessage.emphasis && (
           <p className="text-sm font-medium text-blue-600 bg-blue-50 p-2 rounded-lg">
@@ -234,7 +234,7 @@ export const AIHumanDistinction: React.FC<AIHumanDistinctionProps> = ({
       {/* Comparison table for detailed view */}
       {selectedCategory === 'all' && (
         <div className="mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Comparison</h3>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Comparison</h3>
           <div className="overflow-x-auto">
             <table className="w-full border border-gray-200 rounded-lg">
               <thead className="bg-gray-50">
@@ -344,7 +344,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelect, isRecommen
             {service.type === 'ai' ? '✨' : '👤'}
           </span>
           <div>
-            <h3 className="font-semibold text-gray-900">{service.name}</h3>
+            <h3 className="font-medium text-gray-900">{service.name}</h3>
             <p className="text-sm text-gray-600">{service.description}</p>
           </div>
         </div>
@@ -397,7 +397,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onSelect, isRecommen
 
       <button
         onClick={onSelect}
-        className={`w-full px-4 py-2 text-white font-semibold rounded-lg transition-colors ${colors.button}`}
+        className={`w-full px-4 py-2 text-white font-medium rounded-lg transition-colors ${colors.button}`}
       >
         {service.type === 'ai' ? 'Start with Khepera' : 'Connect Now'}
       </button>

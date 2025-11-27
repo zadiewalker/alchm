@@ -394,7 +394,7 @@ export default function GDPRDataSubjectRightsCenter({
       <div className="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
         <div className="text-center">
           <span className="text-4xl block mb-4">🌍</span>
-          <h3 className="text-lg font-bold text-blue-800 mb-2">GDPR Rights Center</h3>
+          <h3 className="text-lg font-medium text-blue-800 mb-2">GDPR Rights Center</h3>
           <p className="text-blue-700">
             GDPR rights are available to EU residents. Your current location: {userLocation.country || 'Unknown'}
           </p>
@@ -424,7 +424,7 @@ export default function GDPRDataSubjectRightsCenter({
         <div className="flex items-start gap-3 mb-4">
           <span className="text-2xl">🇪🇺</span>
           <div>
-            <h3 className="text-xl font-bold text-blue-800">GDPR Data Subject Rights Center</h3>
+            <h3 className="text-xl font-medium text-blue-800">GDPR Data Subject Rights Center</h3>
             <p className="text-sm text-blue-700">
               European Union General Data Protection Regulation compliance for {userLocation.country} residents
             </p>
@@ -434,7 +434,7 @@ export default function GDPRDataSubjectRightsCenter({
         {complianceStatus && (
           <div className="bg-blue-50 rounded-lg p-4 mb-4">
             <div className="flex items-center gap-3 mb-3">
-              <span className={`px-3 py-1 rounded-full text-sm font-bold ${
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                 complianceStatus.overallCompliance === 'compliant' ? 'bg-green-200 text-green-800' :
                 complianceStatus.overallCompliance === 'violation' ? 'bg-red-200 text-red-800' :
                 'bg-yellow-200 text-yellow-800'
@@ -448,19 +448,19 @@ export default function GDPRDataSubjectRightsCenter({
 
             <div className="grid md:grid-cols-3 gap-4 mb-4">
               <div className="bg-blue-100 rounded-lg p-3">
-                <div className={`text-lg font-bold ${complianceStatus.dataProcessingCompliance ? 'text-green-700' : 'text-red-700'}`}>
+                <div className={`text-lg font-medium ${complianceStatus.dataProcessingCompliance ? 'text-green-700' : 'text-red-700'}`}>
                   {complianceStatus.dataProcessingCompliance ? '✅' : '❌'}
                 </div>
                 <div className="text-sm text-blue-800">Data Processing</div>
               </div>
               <div className="bg-blue-100 rounded-lg p-3">
-                <div className={`text-lg font-bold ${complianceStatus.consentManagementCompliance ? 'text-green-700' : 'text-red-700'}`}>
+                <div className={`text-lg font-medium ${complianceStatus.consentManagementCompliance ? 'text-green-700' : 'text-red-700'}`}>
                   {complianceStatus.consentManagementCompliance ? '✅' : '❌'}
                 </div>
                 <div className="text-sm text-blue-800">Consent Management</div>
               </div>
               <div className="bg-blue-100 rounded-lg p-3">
-                <div className={`text-lg font-bold ${complianceStatus.rightsResponseCompliance ? 'text-green-700' : 'text-red-700'}`}>
+                <div className={`text-lg font-medium ${complianceStatus.rightsResponseCompliance ? 'text-green-700' : 'text-red-700'}`}>
                   {complianceStatus.rightsResponseCompliance ? '✅' : '❌'}
                 </div>
                 <div className="text-sm text-blue-800">Rights Response</div>
@@ -469,7 +469,7 @@ export default function GDPRDataSubjectRightsCenter({
 
             {complianceStatus.pendingActions.length > 0 && (
               <div className="bg-yellow-100 rounded-lg p-3 border border-yellow-200">
-                <h5 className="font-bold text-yellow-800 mb-2">Pending Actions:</h5>
+                <h5 className="font-medium text-yellow-800 mb-2">Pending Actions:</h5>
                 <ul className="text-sm text-yellow-700 space-y-1">
                   {complianceStatus.pendingActions.map((action, index) => (
                     <li key={index} className="flex items-start gap-2">
@@ -486,14 +486,14 @@ export default function GDPRDataSubjectRightsCenter({
 
       {/* Your GDPR Rights */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-green-200">
-        <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-green-800 mb-4 flex items-center gap-2">
           <span>⚖️</span>
           Your GDPR Rights
         </h3>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-            <h4 className="font-bold text-green-800 mb-2">📋 Right of Access</h4>
+            <h4 className="font-medium text-green-800 mb-2">📋 Right of Access</h4>
             <p className="text-sm text-green-700 mb-3">
               Request a copy of all personal data we process about you.
             </p>
@@ -506,7 +506,7 @@ export default function GDPRDataSubjectRightsCenter({
           </div>
 
           <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-            <h4 className="font-bold text-blue-800 mb-2">📤 Right to Data Portability</h4>
+            <h4 className="font-medium text-blue-800 mb-2">📤 Right to Data Portability</h4>
             <p className="text-sm text-blue-700 mb-3">
               Export your data in a machine-readable format.
             </p>
@@ -519,7 +519,7 @@ export default function GDPRDataSubjectRightsCenter({
           </div>
 
           <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-            <h4 className="font-bold text-yellow-800 mb-2">✏️ Right of Rectification</h4>
+            <h4 className="font-medium text-yellow-800 mb-2">✏️ Right of Rectification</h4>
             <p className="text-sm text-yellow-700 mb-3">
               Request correction of inaccurate personal data.
             </p>
@@ -532,7 +532,7 @@ export default function GDPRDataSubjectRightsCenter({
           </div>
 
           <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-            <h4 className="font-bold text-red-800 mb-2">🗑️ Right of Erasure</h4>
+            <h4 className="font-medium text-red-800 mb-2">🗑️ Right of Erasure</h4>
             <p className="text-sm text-red-700 mb-3">
               Request deletion of your personal data.
             </p>
@@ -548,7 +548,7 @@ export default function GDPRDataSubjectRightsCenter({
 
       {/* Data Processing Records */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-        <h3 className="text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-purple-800 mb-4 flex items-center gap-2">
           <span>📊</span>
           Your Data Processing Records
         </h3>
@@ -558,11 +558,11 @@ export default function GDPRDataSubjectRightsCenter({
             <div key={record.id} className="bg-purple-50 rounded-lg p-4 border border-purple-200">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <div className="font-bold text-purple-800">{record.dataType}</div>
+                  <div className="font-medium text-purple-800">{record.dataType}</div>
                   <div className="text-sm text-purple-700">{record.processingPurpose}</div>
                 </div>
                 <div className="text-right">
-                  <div className={`px-2 py-1 rounded text-xs font-bold ${
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${
                     record.legalBasis === 'consent' ? 'bg-green-200 text-green-800' :
                     record.legalBasis === 'legitimate_interest' ? 'bg-blue-200 text-blue-800' :
                     'bg-gray-200 text-gray-800'
@@ -613,7 +613,7 @@ export default function GDPRDataSubjectRightsCenter({
 
       {/* Rights Requests History */}
       <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-orange-200">
-        <h3 className="text-xl font-bold text-orange-800 mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-medium text-orange-800 mb-4 flex items-center gap-2">
           <span>📝</span>
           Rights Requests History
         </h3>
@@ -629,14 +629,14 @@ export default function GDPRDataSubjectRightsCenter({
               <div key={request.id} className="bg-orange-50 rounded-lg p-4 border border-orange-200">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <div className="font-bold text-orange-800 capitalize">
+                    <div className="font-medium text-orange-800 capitalize">
                       {request.requestType.replace('_', ' ')} Request
                     </div>
                     <div className="text-sm text-orange-700">
                       Submitted: {new Date(request.requestDate).toLocaleDateString()}
                     </div>
                   </div>
-                  <div className={`px-2 py-1 rounded text-xs font-bold ${
+                  <div className={`px-2 py-1 rounded text-xs font-medium ${
                     request.status === 'completed' ? 'bg-green-200 text-green-800' :
                     request.status === 'rejected' ? 'bg-red-200 text-red-800' :
                     request.status === 'in_progress' ? 'bg-blue-200 text-blue-800' :
@@ -674,7 +674,7 @@ export default function GDPRDataSubjectRightsCenter({
       {showRequestModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-4 capitalize">
+            <h3 className="text-xl font-medium text-gray-900 mb-4 capitalize">
               {requestType.replace('_', ' ')} Request
             </h3>
             
@@ -719,7 +719,7 @@ export default function GDPRDataSubjectRightsCenter({
       {/* Contact Information */}
       {complianceStatus && (
         <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-          <h4 className="font-bold text-gray-800 mb-2">📞 Data Protection Contacts</h4>
+          <h4 className="font-medium text-gray-800 mb-2">📞 Data Protection Contacts</h4>
           <div className="text-sm text-gray-700 space-y-2">
             <p><strong>Data Protection Officer:</strong> <a href={`mailto:${complianceStatus.dataProtectionOfficerContact}`} className="text-blue-600 underline">{complianceStatus.dataProtectionOfficerContact}</a></p>
             <p><strong>Supervisory Authority:</strong> {complianceStatus.supervisoryAuthorityContact}</p>

@@ -182,7 +182,7 @@ export function BetaMessages({ showUnreadOnly = false, maxMessages = 10, compact
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           Beta Messages
         </h1>
         <p className="text-gray-600">
@@ -245,7 +245,7 @@ export function BetaMessages({ showUnreadOnly = false, maxMessages = 10, compact
         {/* Message List */}
         <div className="lg:col-span-2">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">
               Messages ({messages.length})
             </h2>
             
@@ -330,7 +330,7 @@ export function BetaMessages({ showUnreadOnly = false, maxMessages = 10, compact
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-xl">{getMessageIcon(selectedMessage.type)}</span>
-                  <h3 className="font-semibold text-gray-900">{selectedMessage.title}</h3>
+                  <h3 className="font-medium text-gray-900">{selectedMessage.title}</h3>
                 </div>
                 
                 <div className="flex items-center gap-2 mb-4">
@@ -451,7 +451,7 @@ export function MessageComposer() {
 
   return (
     <Card className="p-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-6">
+      <h2 className="text-xl font-medium text-gray-900 mb-6">
         Compose Message
       </h2>
 

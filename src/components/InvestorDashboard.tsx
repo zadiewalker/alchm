@@ -119,7 +119,7 @@ export default function InvestorDashboard({
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <Heart className="h-8 w-8 text-purple-400" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <span className="text-2xl font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                   ALCHM
                 </span>
               </div>
@@ -203,19 +203,19 @@ export default function InvestorDashboard({
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h4 className="font-semibold text-purple-300 mb-2">Market Opportunity</h4>
+                <h4 className="font-medium text-purple-300 mb-2">Market Opportunity</h4>
                 <p className="text-sm text-gray-300 mb-2">{investor_insights.market_opportunity.tam_size}</p>
                 <p className="text-sm text-gray-300">{investor_insights.market_opportunity.growth_rate}</p>
               </div>
               
               <div>
-                <h4 className="font-semibold text-purple-300 mb-2">Current Scale</h4>
+                <h4 className="font-medium text-purple-300 mb-2">Current Scale</h4>
                 <p className="text-sm text-gray-300 mb-2">{investor_insights.scaling_narrative.current_scale}</p>
                 <p className="text-sm text-gray-300">{investor_insights.scaling_narrative.growth_trajectory} monthly growth</p>
               </div>
               
               <div>
-                <h4 className="font-semibold text-purple-300 mb-2">Technical Readiness</h4>
+                <h4 className="font-medium text-purple-300 mb-2">Technical Readiness</h4>
                 <p className="text-sm text-gray-300 mb-2">{investor_insights.scaling_narrative.technical_readiness}</p>
                 <p className="text-sm text-gray-300">{investor_insights.scaling_narrative.ai_moat_strength}</p>
               </div>
@@ -255,25 +255,25 @@ export default function InvestorDashboard({
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400">
+                  <div className="text-2xl font-medium text-green-400">
                     {dashboard.live_demo?.current_demo_session.active_users_simulated.toLocaleString()}
                   </div>
                   <div className="text-sm text-gray-400">Simulated Active Users</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-400">
+                  <div className="text-2xl font-medium text-blue-400">
                     {dashboard.live_demo?.current_demo_session.ai_responses_generated}
                   </div>
                   <div className="text-sm text-gray-400">AI Responses Generated</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">
+                  <div className="text-2xl font-medium text-purple-400">
                     {dashboard.live_demo?.current_demo_session.crisis_interventions_demo}
                   </div>
                   <div className="text-sm text-gray-400">Crisis Interventions</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-400">
+                  <div className="text-2xl font-medium text-pink-400">
                     {dashboard.live_demo?.current_demo_session.response_time_current}ms
                   </div>
                   <div className="text-sm text-gray-400">Current Response Time</div>
@@ -401,25 +401,25 @@ export default function InvestorDashboard({
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">
+                <div className="text-2xl font-medium text-green-400">
                   ${dashboard.business_metrics.revenue.monthly_recurring_revenue.toLocaleString()}
                 </div>
                 <div className="text-sm text-gray-400">Monthly Recurring Revenue</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">
+                <div className="text-2xl font-medium text-blue-400">
                   ${dashboard.business_metrics.revenue.customer_acquisition_cost}
                 </div>
                 <div className="text-sm text-gray-400">Customer Acquisition Cost</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-400">
+                <div className="text-2xl font-medium text-purple-400">
                   ${dashboard.business_metrics.revenue.lifetime_value}
                 </div>
                 <div className="text-sm text-gray-400">Customer Lifetime Value</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-pink-400">
+                <div className="text-2xl font-medium text-pink-400">
                   {dashboard.business_metrics.revenue.churn_rate_monthly}%
                 </div>
                 <div className="text-sm text-gray-400">Monthly Churn Rate</div>
@@ -465,7 +465,7 @@ function MetricCard({ title, value, change, subtitle, icon, trend }: MetricCardP
             <TrendingUp className={`h-4 w-4 ${trendColor} ${trend === 'down' ? 'rotate-180' : ''}`} />
           )}
         </div>
-        <div className="text-2xl font-bold text-white mb-1">{value}</div>
+        <div className="text-2xl font-medium text-white mb-1">{value}</div>
         <div className="text-sm text-gray-400 mb-1">{title}</div>
         {change && (
           <div className={`text-sm font-medium ${trendColor}`}>

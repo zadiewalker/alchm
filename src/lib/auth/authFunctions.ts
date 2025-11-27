@@ -93,107 +93,6 @@ export async function signInWithEmail(email: string, password: string) {
   }
 }
 
-// Google Authentication with Mobile Support
-export async function signInWithGoogle() {
-  try {
-    const auth = await getAuthInstance();
-    const { GoogleAuthProvider, signInWithPopup } = await import('firebase/auth');
-    const provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    
-    // Use popup for desktop
-    const result = await signInWithPopup(auth, provider);
-    
-    // Check if user profile exists in Firestore, create if needed
-    if (result.user) {
-      await createUserProfileIfNeeded(result.user);
-    }
-    
-    return {
-      user: result.user,
-      error: null,
-      authMethod: 'popup'
-    };
-  } catch (error: any) {
-    console.error('Google sign-in error:', error);
-    return {
-      user: null,
-      error: getFriendlyErrorMessage(error.code || error.message)
-    };
-  }
-}
-
-// Mobile-optimized Google Authentication
-export async function signInWithGoogleMobile() {
-  try {
-    const auth = await getAuthInstance();
-    const { GoogleAuthProvider, signInWithPopup, signInWithRedirect } = await import('firebase/auth');
-    const provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    
-    // Mobile devices: Try popup first, fall back to redirect
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    if (isIOS) {
-      // iOS: Use redirect to avoid popup blocking
-      await signInWithRedirect(auth, provider);
-      
-      // Return pending state for iOS
-      return {
-        user: null,
-        error: null,
-        authMethod: 'redirect',
-        pending: true
-      };
-    } else {
-      // Android and other mobile: Try popup
-      const result = await signInWithPopup(auth, provider);
-      
-      // Check if user profile exists in Firestore, create if needed
-      if (result.user) {
-        await createUserProfileIfNeeded(result.user);
-      }
-      
-      return {
-        user: result.user,
-        error: null,
-        authMethod: 'mobile-popup'
-      };
-    }
-  } catch (error: any) {
-    console.error('Google mobile sign-in error:', error);
-    
-    // If popup fails on mobile, try redirect
-    if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-      try {
-        const auth = await getAuthInstance();
-        const { GoogleAuthProvider, signInWithRedirect } = await import('firebase/auth');
-        const provider = new GoogleAuthProvider();
-        await signInWithRedirect(auth, provider);
-        
-        return {
-          user: null,
-          error: null,
-          authMethod: 'redirect-fallback',
-          pending: true
-        };
-      } catch (redirectError: any) {
-        return {
-          user: null,
-          error: getFriendlyErrorMessage(redirectError.code || redirectError.message)
-        };
-      }
-    }
-    
-    return {
-      user: null,
-      error: getFriendlyErrorMessage(error.code || error.message)
-    };
-  }
-}
 
 // Create Account with Email/Password
 export async function createAccountWithEmail(email: string, password: string, displayName?: string) {
@@ -306,7 +205,7 @@ function getFriendlyErrorMessage(errorCode: string): string {
   }
 }
 
-// Apple Sign In Authentication
+// Apple Sign In Authentication (secondary option - guest-first is primary)
 export async function signInWithApple() {
   try {
     const auth = await getAuthInstance();
@@ -418,6 +317,26 @@ export async function signInWithAppleMobile() {
     }
   } catch (error: any) {
     console.error('Apple mobile sign-in error:', error);
+    return {
+      user: null,
+      error: getFriendlyErrorMessage(error.code || error.message)
+    };
+  }
+}
+
+// Guest/Anonymous Sign In Authentication
+export async function signInAsGuest() {
+  try {
+    const auth = await getAuthInstance();
+    const { signInAnonymously } = await import('firebase/auth');
+    const result = await signInAnonymously(auth);
+    
+    return {
+      user: result.user,
+      error: null
+    };
+  } catch (error: any) {
+    console.error('Guest sign-in error:', error);
     return {
       user: null,
       error: getFriendlyErrorMessage(error.code || error.message)

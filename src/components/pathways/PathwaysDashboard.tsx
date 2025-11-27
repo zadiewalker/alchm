@@ -1,391 +1,407 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { PathwayCard } from './PathwayCard';
-import { BotanicalProgress } from './BotanicalProgress';
-import { CommunityWisdom } from './CommunityWisdom';
-import { CrisisFloatingButton } from '@/components/ui/CrisisFloatingButton';
-import { motion, AnimatePresence } from 'framer-motion';
+import { collection, query, where, orderBy, getDocs, doc, updateDoc, setDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-// Pathway Categories with Botanical Metaphors
-const PATHWAY_CATEGORIES = {
-  selfAwareness: {
-    title: 'Self-Awareness Journey',
-    subtitle: 'Cultivating mindful presence and emotional recognition',
-    icon: '🌱',
-    gradient: 'from-green-400/20 to-emerald-600/20',
-    pathways: [
-      {
-        id: 'mindful-awareness',
-        title: 'Mindful Awareness',
-        description: 'Develop present-moment awareness through gentle practices',
-        duration: '3 weeks',
-        progress: 65,
-        difficulty: 'Foundation',
-        participants: 1247
-      },
-      {
-        id: 'emotional-recognition',
-        title: 'Emotional Recognition',
-        description: 'Learn to identify and name your emotions with compassion',
-        duration: '4 weeks',
-        progress: 0,
-        difficulty: 'Foundation',
-        participants: 892
-      }
-    ]
-  },
-  emotionalRegulation: {
-    title: 'Emotional Regulation Garden',
-    subtitle: 'Growing skills for stress management and emotional balance',
-    icon: '🌿',
-    gradient: 'from-blue-400/20 to-teal-600/20',
-    pathways: [
-      {
-        id: 'stress-sanctuary',
-        title: 'Stress Sanctuary',
-        description: 'Create inner calm through proven relaxation techniques',
-        duration: '5 weeks',
-        progress: 0,
-        difficulty: 'Foundation',
-        participants: 1456
-      },
-      {
-        id: 'emotional-balance',
-        title: 'Emotional Balance',
-        description: 'Advanced techniques for emotional equilibrium',
-        duration: '6 weeks',
-        progress: 0,
-        difficulty: 'Growth',
-        participants: 734
-      }
-    ]
-  },
-  connectionGrove: {
-    title: 'Connection Grove',
-    subtitle: 'Nurturing relationships, communication, and empathy',
-    icon: '🌳',
-    gradient: 'from-purple-400/20 to-indigo-600/20',
-    pathways: [
-      {
-        id: 'empathy-circle',
-        title: 'Empathy Circle',
-        description: 'Deepen your capacity for understanding others',
-        duration: '4 weeks',
-        progress: 0,
-        difficulty: 'Foundation',
-        participants: 923
-      },
-      {
-        id: 'healthy-boundaries',
-        title: 'Healthy Boundaries',
-        description: 'Learn to set and maintain loving boundaries',
-        duration: '5 weeks',
-        progress: 0,
-        difficulty: 'Growth',
-        participants: 687
-      }
-    ]
-  },
-  resilienceForest: {
-    title: 'Resilience Forest',
-    subtitle: 'Building strength through trauma recovery and growth',
-    icon: '🌲',
-    gradient: 'from-amber-400/20 to-orange-600/20',
-    pathways: [
-      {
-        id: 'trauma-healing',
-        title: 'Trauma Healing',
-        description: 'Gentle approaches to processing difficult experiences',
-        duration: '8 weeks',
-        progress: 0,
-        difficulty: 'Guided',
-        participants: 543,
-        requiresSupport: true
-      },
-      {
-        id: 'post-traumatic-growth',
-        title: 'Post-Traumatic Growth',
-        description: 'Discover meaning and strength after adversity',
-        duration: '10 weeks',
-        progress: 0,
-        difficulty: 'Advanced',
-        participants: 312
-      }
-    ]
-  },
-  purposeMeadow: {
-    title: 'Purpose Meadow',
-    subtitle: 'Discovering meaning, setting goals, and living your values',
-    icon: '🌻',
-    gradient: 'from-yellow-400/20 to-gold-600/20',
-    pathways: [
-      {
-        id: 'values-discovery',
-        title: 'Values Discovery',
-        description: 'Uncover what truly matters to you',
-        duration: '3 weeks',
-        progress: 0,
-        difficulty: 'Foundation',
-        participants: 1123
-      },
-      {
-        id: 'life-purpose',
-        title: 'Life Purpose',
-        description: 'Align your actions with your deeper calling',
-        duration: '7 weeks',
-        progress: 0,
-        difficulty: 'Growth',
-        participants: 654
-      }
-    ]
-  }
+// Design System
+const COLORS = {
+  sage: '#a4b792',
+  sageLight: '#b8c7a6',
+  sageDark: '#8fa078',
+  cream: '#f7f5f0',
+  charcoal: '#2d2d2d',
+  warmWhite: '#fefdfb'
 };
 
-interface UserProgress {
-  totalPathwaysStarted: number;
-  totalPathwaysCompleted: number;
-  currentlyActive: number;
-  weeklyProgress: number;
-  healingMomentum: 'emerging' | 'growing' | 'blooming' | 'flourishing';
-  milestones: Array<{
-    id: string;
+// Custom SVG Icons
+const ScarabIcon = ({ size = 32, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+    <path d="M16 4C12 4 8 7 8 12C8 16 10 20 12 22L16 28L20 22C22 20 24 16 24 12C24 7 20 4 16 4Z" fill={color}/>
+    <ellipse cx="16" cy="14" rx="6" ry="4" fill="white" fillOpacity="0.3"/>
+    <circle cx="14" cy="12" r="1.5" fill="white" fillOpacity="0.8"/>
+    <circle cx="18" cy="12" r="1.5" fill="white" fillOpacity="0.8"/>
+  </svg>
+);
+
+const TreeIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M12 2L8 8H16L12 2Z" fill={color}/>
+    <path d="M9 8L5 14H13L9 8Z" fill={color} fillOpacity="0.7"/>
+    <path d="M15 8L11 14H19L15 8Z" fill={color} fillOpacity="0.7"/>
+    <rect x="11" y="14" width="2" height="8" fill={color}/>
+  </svg>
+);
+
+const CrystalIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <path d="M12 2L6 8L12 14L18 8L12 2Z" fill={color}/>
+    <path d="M6 8L12 14L12 22L6 16L6 8Z" fill={color} fillOpacity="0.6"/>
+    <path d="M18 8L12 14L12 22L18 16L18 8Z" fill={color} fillOpacity="0.6"/>
+  </svg>
+);
+
+const FlowerIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="7" r="3" fill={color}/>
+    <circle cx="7" cy="12" r="3" fill={color} fillOpacity="0.8"/>
+    <circle cx="17" cy="12" r="3" fill={color} fillOpacity="0.8"/>
+    <circle cx="12" cy="17" r="3" fill={color} fillOpacity="0.8"/>
+    <circle cx="12" cy="12" r="2" fill="white"/>
+  </svg>
+);
+
+const CompassIcon = ({ size = 24, color = COLORS.sage }: { size?: number; color?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="2" fill="none"/>
+    <path d="M12 2L14 10L12 12L10 10L12 2Z" fill={color}/>
+    <circle cx="12" cy="12" r="2" fill={color}/>
+  </svg>
+);
+
+// Pathway data structure
+interface Pathway {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: React.ComponentType<{ size?: number; color?: string }>;
+  progress: number;
+  isLocked: boolean;
+  estimatedTime: string;
+  description: string;
+  sessions: number;
+  completedSessions: number;
+  nextSession?: {
     title: string;
-    achievedAt: Date;
-    category: string;
-  }>;
+    duration: string;
+  };
+}
+
+interface UserProgress {
+  userId: string;
+  pathwayProgress: Record<string, number>;
+  completedPathways: string[];
+  currentPathway?: string;
+  lastActivityDate?: Date;
 }
 
 export function PathwaysDashboard() {
   const { user } = useAuth();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const router = useRouter();
+  const [pathways, setPathways] = useState<Pathway[]>([]);
   const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showCommunityWisdom, setShowCommunityWisdom] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Initialize pathways data
+  const initializePathways = (): Pathway[] => [
+    {
+      id: 'foundation',
+      title: 'Foundation of Self',
+      subtitle: 'Begin your inner journey',
+      icon: ScarabIcon,
+      progress: 0,
+      isLocked: false,
+      estimatedTime: '2-3 weeks',
+      description: 'Establish a foundation of self-awareness and emotional safety. Learn grounding techniques and build your inner sanctuary.',
+      sessions: 8,
+      completedSessions: 0,
+      nextSession: {
+        title: 'Creating Sacred Space',
+        duration: '15 minutes'
+      }
+    },
+    {
+      id: 'emotional-alchemy',
+      title: 'Emotional Alchemy',
+      subtitle: 'Transform pain into wisdom',
+      icon: CrystalIcon,
+      progress: 0,
+      isLocked: true,
+      estimatedTime: '3-4 weeks',
+      description: 'Explore the depths of emotional experience and learn to transform difficult feelings into sources of strength.',
+      sessions: 12,
+      completedSessions: 0
+    },
+    {
+      id: 'growth-mindset',
+      title: 'Growth & Resilience',
+      subtitle: 'Cultivate inner strength',
+      icon: TreeIcon,
+      progress: 0,
+      isLocked: true,
+      estimatedTime: '4-5 weeks',
+      description: 'Build resilience and develop a growth mindset that supports your continued evolution.',
+      sessions: 10,
+      completedSessions: 0
+    },
+    {
+      id: 'authentic-expression',
+      title: 'Authentic Expression',
+      subtitle: 'Find your true voice',
+      icon: FlowerIcon,
+      progress: 0,
+      isLocked: true,
+      estimatedTime: '3-4 weeks',
+      description: 'Learn to express your authentic self with confidence and create meaningful connections.',
+      sessions: 9,
+      completedSessions: 0
+    },
+    {
+      id: 'life-design',
+      title: 'Life Design',
+      subtitle: 'Create your intentional life',
+      icon: CompassIcon,
+      progress: 0,
+      isLocked: true,
+      estimatedTime: '5-6 weeks',
+      description: 'Design a life aligned with your values and create a roadmap for your continued growth.',
+      sessions: 15,
+      completedSessions: 0
+    }
+  ];
 
   useEffect(() => {
-    // Simulate loading user progress
-    setTimeout(() => {
-      setUserProgress({
-        totalPathwaysStarted: 3,
-        totalPathwaysCompleted: 1,
-        currentlyActive: 2,
-        weeklyProgress: 68,
-        healingMomentum: 'growing',
-        milestones: [
-          {
-            id: '1',
-            title: 'First Week of Mindful Awareness',
-            achievedAt: new Date('2024-01-15'),
-            category: 'Self-Awareness Journey'
-          }
-        ]
-      });
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+    if (user?.uid) {
+      loadUserProgress();
+    }
+  }, [user]);
 
-  const handlePathwayStart = (pathwayId: string) => {
-    console.log('Starting pathway:', pathwayId);
-    // Implementation would integrate with pathway system
+  const loadUserProgress = async () => {
+    if (!user?.uid) return;
+
+    try {
+      // Load journal entries to calculate progress
+      const journalsRef = collection(db, 'journals');
+      const q = query(
+        journalsRef,
+        where('userId', '==', user.uid),
+        orderBy('timestamp', 'desc')
+      );
+      
+      const snapshot = await getDocs(q);
+      const entryCount = snapshot.size;
+      
+      // Initialize pathways
+      const initialPathways = initializePathways();
+      
+      // Calculate progress based on journal entries and other factors
+      const progressData: UserProgress = {
+        userId: user.uid,
+        pathwayProgress: {},
+        completedPathways: [],
+        lastActivityDate: new Date()
+      };
+
+      // Basic progress calculation
+      let foundationProgress = Math.min((entryCount * 12.5), 100); // 8 sessions = 100%
+      
+      initialPathways[0].progress = foundationProgress;
+      initialPathways[0].completedSessions = Math.floor(foundationProgress / 12.5);
+      
+      // Unlock next pathway when previous is 75% complete
+      if (foundationProgress >= 75) {
+        initialPathways[1].isLocked = false;
+        initialPathways[1].progress = Math.max(0, (foundationProgress - 75) * 4);
+      }
+      
+      if (foundationProgress >= 100 && initialPathways[1].progress >= 75) {
+        initialPathways[2].isLocked = false;
+      }
+
+      setPathways(initialPathways);
+      setUserProgress(progressData);
+      
+    } catch (error) {
+      console.error('Error loading user progress:', error);
+      setPathways(initializePathways());
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (isLoading) {
+  const handlePathwaySelect = async (pathway: Pathway) => {
+    if (pathway.isLocked) return;
+    
+    try {
+      // Update user's current pathway
+      if (userProgress) {
+        const progressRef = doc(db, 'userProgress', user!.uid);
+        await setDoc(progressRef, {
+          ...userProgress,
+          currentPathway: pathway.id,
+          lastActivityDate: new Date()
+        }, { merge: true });
+      }
+
+      // Navigate to pathway session
+      router.push(`/pathway/${pathway.id}`);
+      
+    } catch (error) {
+      console.error('Error updating pathway selection:', error);
+    }
+  };
+
+  if (loading) {
     return (
-      <div className="min-h-screen gradient-sanctuary flex items-center justify-center">
-        <motion.div
-          className="text-center text-white"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="w-16 h-16 bg-white/20 rounded-full animate-gentle-pulse mb-6 mx-auto backdrop-blur-sm" />
-          <h2 className="text-2xl font-light mb-2">Preparing Your Healing Garden</h2>
-          <p className="text-white/80">Loading your pathway constellation...</p>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="animate-pulse">
+              <div className="bg-white/10 rounded-xl h-64 mb-4"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen gradient-sanctuary">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Hero Section */}
-        <motion.header
-          className="text-center mb-16 text-white"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="mb-8">
-            <div className="text-white/60 text-sm uppercase tracking-wider mb-3 font-medium">
-              Your Healing Journey
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extralight mb-6 tracking-tight">
-              Pathways Dashboard
-            </h1>
-            <p className="text-xl md:text-2xl font-light opacity-90 max-w-4xl mx-auto leading-relaxed">
-              Transform your healing journey into an organic exploration through landscapes of growth, 
-              where each step forward is honored with intentional care.
-            </p>
-          </div>
-          
-          {/* Journey Overview */}
-          {userProgress && (
-            <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-extralight mb-2">{userProgress.totalPathwaysStarted}</div>
-                <p className="text-white/80 text-sm">Pathways Explored</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-extralight mb-2">{userProgress.currentlyActive}</div>
-                <p className="text-white/80 text-sm">Currently Growing</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-extralight mb-2">{userProgress.weeklyProgress}%</div>
-                <p className="text-white/80 text-sm">This Week</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <div className="text-3xl font-extralight mb-2 capitalize">{userProgress.healingMomentum}</div>
-                <p className="text-white/80 text-sm">Healing Momentum</p>
-              </div>
-            </motion.div>
-          )}
-        </motion.header>
-
-        {/* Botanical Progress Visualization */}
-        {userProgress && (
-          <motion.section
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <BotanicalProgress userProgress={userProgress} />
-          </motion.section>
-        )}
-
-        {/* Pathway Categories */}
-        <motion.section
-          className="space-y-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          {Object.entries(PATHWAY_CATEGORIES).map(([categoryKey, category], index) => (
-            <motion.div
-              key={categoryKey}
-              className="space-y-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              {/* Category Header */}
-              <div className="text-center space-y-4">
-                <div className={`inline-flex items-center gap-4 px-8 py-4 rounded-3xl bg-gradient-to-r ${category.gradient} backdrop-blur-sm border border-white/20`}>
-                  <span className="text-4xl">{category.icon}</span>
-                  <div className="text-left">
-                    <h2 className="text-2xl md:text-3xl font-light text-white mb-1">
-                      {category.title}
-                    </h2>
-                    <p className="text-white/80 text-sm max-w-md">
-                      {category.subtitle}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Pathway Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                {category.pathways.map((pathway) => (
-                  <motion.div
-                    key={pathway.id}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <PathwayCard
-                      pathway={pathway}
-                      onStart={() => handlePathwayStart(pathway.id)}
-                      category={category}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.section>
-
-        {/* Community Wisdom Section */}
-        <motion.section
-          className="mt-24 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-light text-white mb-4">
-              Community Wisdom
-            </h2>
-            <p className="text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Anonymous insights and encouragement from fellow travelers on the healing journey
-            </p>
-          </div>
-          
-          <div className="max-w-4xl mx-auto">
-            <CommunityWisdom />
-          </div>
-        </motion.section>
-
-        {/* Emergency Support */}
-        <motion.section
-          className="mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
-          <Card className="max-w-3xl mx-auto bg-red-50/80 backdrop-blur-sm border-red-200/50 border-2">
-            <div className="p-8 text-center">
-              <div className="text-5xl mb-6">🆘</div>
-              <h3 className="text-2xl font-light text-sanctuary-gray-800 mb-4">
-                Crisis Support Available 24/7
-              </h3>
-              <p className="text-sanctuary-gray-600 mb-6 leading-relaxed">
-                If you're experiencing thoughts of self-harm or suicide, please reach out immediately. 
-                You are not alone, and help is always available.
-              </p>
-              <div className="space-y-4">
-                <Button
-                  onClick={() => window.open('tel:988', '_self')}
-                  className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg gap-3"
-                  size="lg"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  Call 988 Suicide & Crisis Lifeline
-                </Button>
-                <p className="text-sanctuary-gray-500 text-sm">
-                  ALCHM is a journaling platform, not medical treatment. Always consult healthcare professionals for mental health support.
-                </p>
-              </div>
-            </div>
-          </Card>
-        </motion.section>
+    <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-light text-white mb-4">
+          Your Healing Pathways
+        </h1>
+        <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+          Each pathway is designed to guide your growth with intention and care. 
+          Progress at your own pace through these transformative journeys.
+        </p>
       </div>
 
-      {/* Crisis Floating Button */}
-      <CrisisFloatingButton />
+      {/* Progress Overview */}
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-12 border border-white/20">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-light text-white">Your Journey</h2>
+          <div className="text-white/80">
+            {pathways.filter(p => p.progress > 0).length} of {pathways.length} pathways started
+          </div>
+        </div>
+        
+        <div className="space-y-3">
+          {pathways.map(pathway => (
+            <div key={pathway.id} className="flex items-center gap-4">
+              <pathway.icon size={20} color={pathway.progress > 0 ? COLORS.sage : '#ffffff40'} />
+              <div className="flex-1">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-white/90 font-medium">{pathway.title}</span>
+                  <span className="text-white/60 text-sm">{pathway.progress.toFixed(0)}%</span>
+                </div>
+                <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-sage-400 to-sage-500 transition-all duration-500"
+                    style={{ width: `${pathway.progress}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Pathways Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {pathways.map((pathway, index) => (
+          <div
+            key={pathway.id}
+            className={`group relative bg-white/10 backdrop-blur-sm rounded-2xl p-8 border transition-all duration-300 ${
+              pathway.isLocked 
+                ? 'border-white/10 opacity-60 cursor-not-allowed' 
+                : 'border-white/20 hover:border-white/40 hover:bg-white/15 cursor-pointer transform hover:scale-105'
+            }`}
+            onClick={() => handlePathwaySelect(pathway)}
+          >
+            {/* Lock indicator */}
+            {pathway.isLocked && (
+              <div className="absolute top-4 right-4 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                  <path d="m8 11v-4a4 4 0 0 1 8 0"/>
+                </svg>
+              </div>
+            )}
+
+            {/* Icon */}
+            <div className="mb-6">
+              <pathway.icon size={48} color={pathway.isLocked ? '#ffffff40' : COLORS.sage} />
+            </div>
+
+            {/* Content */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-xl font-medium text-white mb-2">
+                  {pathway.title}
+                </h3>
+                <p className="text-white/70 text-sm">
+                  {pathway.subtitle}
+                </p>
+              </div>
+
+              <p className="text-white/80 text-sm leading-relaxed">
+                {pathway.description}
+              </p>
+
+              {/* Progress bar */}
+              {!pathway.isLocked && (
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/60 text-xs">
+                      {pathway.completedSessions}/{pathway.sessions} sessions
+                    </span>
+                    <span className="text-white/60 text-xs">
+                      {pathway.progress.toFixed(0)}% complete
+                    </span>
+                  </div>
+                  <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-sage-400 to-sage-500 transition-all duration-500"
+                      style={{ width: `${pathway.progress}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Session info */}
+              <div className="pt-2 border-t border-white/10">
+                {pathway.nextSession && !pathway.isLocked ? (
+                  <div className="space-y-1">
+                    <p className="text-white/90 text-sm font-medium">
+                      Next: {pathway.nextSession.title}
+                    </p>
+                    <p className="text-white/60 text-xs">
+                      {pathway.nextSession.duration} • {pathway.estimatedTime} total
+                    </p>
+                  </div>
+                ) : pathway.isLocked ? (
+                  <p className="text-white/50 text-sm">
+                    Complete previous pathway to unlock
+                  </p>
+                ) : (
+                  <p className="text-white/60 text-sm">
+                    {pathway.estimatedTime} estimated completion
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Wisdom footer */}
+      <div className="text-center mt-16 py-8">
+        <div className="max-w-2xl mx-auto">
+          <ScarabIcon size={32} color="#ffffff60" />
+          <p className="text-white/60 mt-4 italic">
+            "The journey of transformation begins with a single step into the unknown. 
+            Each pathway reveals new aspects of your authentic self."
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
+// Default export for compatibility
 export default PathwaysDashboard;

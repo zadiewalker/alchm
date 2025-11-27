@@ -24,6 +24,16 @@ export function ensureAdmin(): admin.app.App {
       // Get secure configuration with validation
       const serverConfig = getServerConfig();
       
+      // Check if we're in build time - if so, skip Firebase Admin initialization
+      if (process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build') {
+        throw new Error('Firebase Admin not available during build');
+      }
+      
+      // Check if required credentials are available
+      if (!serverConfig.firebase.projectId || !serverConfig.firebase.clientEmail || !serverConfig.firebase.privateKey) {
+        throw new Error('Missing Firebase Admin credentials');
+      }
+      
       // Construct service account from secure config
       const serviceAccount: admin.ServiceAccount = {
         projectId: serverConfig.firebase.projectId,

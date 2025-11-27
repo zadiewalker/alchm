@@ -330,7 +330,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
     <div className={`creative-expression-hub ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">
+        <h3 className="text-xl font-medium text-gray-800 mb-2">
           Creative Expression Sanctuary
         </h3>
         <p className="text-sm text-gray-600">
@@ -344,7 +344,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-medium text-gray-700">
                 Creative Session Active
               </span>
               <span className="text-lg font-light text-gray-600">
@@ -382,7 +382,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
       {/* Modality Selector Overlay */}
       {showModalitySelector && sessionActive && (
         <div className="modality-selector mb-6 p-4 bg-white rounded-2xl shadow-lg border border-gray-200">
-          <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">
+          <h4 className="text-sm font-medium text-gray-700 mb-3 text-center">
             Switch Creative Modality
           </h4>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -422,7 +422,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
           {/* Mood-Based Recommendations */}
           {currentMood && (
             <div className="mood-recommendations mb-6 p-4 bg-gradient-to-r from-sage-100 to-green-100 rounded-2xl">
-              <h4 className="text-sm font-semibold text-gray-700 mb-3">
+              <h4 className="text-sm font-medium text-gray-700 mb-3">
                 Recommended for {currentMood} energy:
               </h4>
               <div className="grid grid-cols-3 gap-3">
@@ -441,7 +441,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
                       `}
                     >
                       <div className="text-3xl mb-2">{modality.icon}</div>
-                      <div className="text-sm font-semibold text-gray-800">{modality.name}</div>
+                      <div className="text-sm font-medium text-gray-800">{modality.name}</div>
                       <div className="text-xs text-gray-600 mt-1">{modality.when}</div>
                     </button>
                   );
@@ -536,14 +536,14 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
       {/* Cross-Modal Insights */}
       {crossModalInsights.length > 0 && sessionActive && (
         <div className="cross-modal-insights mt-6 p-4 bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl">
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">
+          <h4 className="text-sm font-medium text-gray-700 mb-3">
             ✨ Creative Pattern Recognition
           </h4>
           
           <div className="space-y-3">
             {crossModalInsights.slice(-2).map((insight, i) => (
               <div key={i} className="insight-card p-3 bg-white/60 rounded-lg">
-                <div className="text-sm font-semibold text-purple-800">{insight.pattern}</div>
+                <div className="text-sm font-medium text-purple-800">{insight.pattern}</div>
                 <div className="text-xs text-gray-600 mt-1">{insight.meaning}</div>
                 <div className="text-xs italic text-purple-600 mt-1">{insight.therapeuticValue}</div>
               </div>
@@ -555,13 +555,13 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
       {/* Getting Started Guide */}
       {!sessionActive && (
         <div className="getting-started mt-8 p-6 bg-gradient-to-br from-sage-50 to-green-50 rounded-2xl">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+          <h4 className="text-lg font-medium text-gray-800 mb-4 text-center">
             How Multi-Modal Creative Healing Works
           </h4>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="concept">
-              <h5 className="text-sm font-semibold text-gray-700 mb-2">🌈 Multiple Pathways</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">🌈 Multiple Pathways</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Different emotions and experiences need different forms of expression. 
                 You can start with one modality and flow naturally to others as your healing needs evolve.
@@ -569,7 +569,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
             </div>
             
             <div className="concept">
-              <h5 className="text-sm font-semibold text-gray-700 mb-2">🔄 Cross-Modal Integration</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">🔄 Cross-Modal Integration</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Our AI recognizes patterns across your creative expressions, helping you discover 
                 deeper insights about your healing journey and emotional processing.
@@ -577,7 +577,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
             </div>
             
             <div className="concept">
-              <h5 className="text-sm font-semibold text-gray-700 mb-2">🎯 Mood-Guided Suggestions</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">🎯 Mood-Guided Suggestions</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Based on your current emotional state, we suggest the most therapeutic 
                 creative modalities to support your healing in this moment.
@@ -585,7 +585,7 @@ const CreativeExpressionHub: React.FC<CreativeExpressionHubProps> = ({
             </div>
             
             <div className="concept">
-              <h5 className="text-sm font-semibold text-gray-700 mb-2">💎 Trauma-Informed Approach</h5>
+              <h5 className="text-sm font-medium text-gray-700 mb-2">💎 Trauma-Informed Approach</h5>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Every creative tool is designed with trauma sensitivity, offering multiple 
                 ways to process experiences safely at your own pace.

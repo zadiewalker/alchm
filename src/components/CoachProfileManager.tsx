@@ -395,7 +395,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
     <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+        <h2 className="text-2xl font-medium text-gray-800 mb-2">
           AI Coach Management
         </h2>
         <p className="text-gray-600">
@@ -427,7 +427,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
       {activeTab === 'profiles' && (
         <div className="space-y-6">
           <div className="mb-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            <h3 className="text-lg font-medium text-gray-800 mb-2">
               Available Coach Profiles
             </h3>
             <p className="text-gray-600 text-sm">
@@ -449,7 +449,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
                 {/* Coach Header */}
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h4 className="text-xl font-semibold text-gray-800">{profile.name}</h4>
+                    <h4 className="text-xl font-medium text-gray-800">{profile.name}</h4>
                     <div className="flex items-center space-x-2 mt-1">
                       <span className={`px-2 py-1 text-xs rounded ${
                         profile.tone === 'mirror' ? 'bg-blue-100 text-blue-800' :
@@ -468,7 +468,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
                   </div>
                   
                   <div className="text-right">
-                    <div className="text-lg font-bold text-purple-600">
+                    <div className="text-lg font-medium text-purple-600">
                       {profile.effectivenessScore}/10
                     </div>
                     <div className="text-xs text-gray-500">effectiveness</div>
@@ -557,7 +557,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
       {/* Preferences Tab */}
       {activeTab === 'preferences' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Your Coaching Preferences</h3>
+          <h3 className="text-lg font-medium text-gray-800">Your Coaching Preferences</h3>
           
           {/* Tone Preference */}
           <div>
@@ -700,7 +700,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
       {/* Analytics Tab */}
       {activeTab === 'analytics' && coachingAnalytics && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Coaching Performance Analytics</h3>
+          <h3 className="text-lg font-medium text-gray-800">Coaching Performance Analytics</h3>
           
           {/* Effectiveness Ratings */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -708,8 +708,8 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
               const profile = availableProfiles.find(p => p.profileId === profileId);
               return (
                 <div key={profileId} className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <h4 className="font-semibold text-blue-800 mb-2">{profile?.name || profileId}</h4>
-                  <div className="text-2xl font-bold text-blue-900">{rating}/10</div>
+                  <h4 className="font-medium text-blue-800 mb-2">{profile?.name || profileId}</h4>
+                  <div className="text-2xl font-medium text-blue-900">{rating}/10</div>
                   <div className="text-sm text-blue-700">Effectiveness Rating</div>
                   <div className="text-xs text-blue-600 mt-1">
                     Engagement: {coachingAnalytics.engagementLevels[profileId]}/10
@@ -721,7 +721,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
 
           {/* Preferred Tones Chart */}
           <div className="p-4 bg-white border border-gray-200 rounded-lg">
-            <h4 className="font-semibold text-gray-800 mb-4">Your Tone Preferences</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Your Tone Preferences</h4>
             <div className="space-y-3">
               {coachingAnalytics.preferredTones.map((tone) => (
                 <div key={tone.tone} className="flex items-center justify-between">
@@ -742,13 +742,13 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
 
           {/* Session Outcomes */}
           <div className="p-4 bg-white border border-gray-200 rounded-lg">
-            <h4 className="font-semibold text-gray-800 mb-4">Session Outcomes</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Session Outcomes</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {Object.entries(coachingAnalytics.sessionOutcomes).map(([profileId, outcome]) => {
                 const profile = availableProfiles.find(p => p.profileId === profileId);
                 return (
                   <div key={profileId} className="text-center">
-                    <div className="text-lg font-bold text-gray-800">{outcome}/10</div>
+                    <div className="text-lg font-medium text-gray-800">{outcome}/10</div>
                     <div className="text-sm text-gray-600">{profile?.name} Outcomes</div>
                   </div>
                 );
@@ -758,7 +758,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
 
           {/* Recent Sessions Summary */}
           <div className="p-4 bg-white border border-gray-200 rounded-lg">
-            <h4 className="font-semibold text-gray-800 mb-4">Recent Sessions</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Recent Sessions</h4>
             <div className="space-y-3">
               {recentSessions.slice(0, 5).map((session) => (
                 <div key={session.sessionId} className="flex justify-between items-center p-3 bg-gray-50 rounded">
@@ -786,10 +786,10 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
       {/* Customize Tab */}
       {activeTab === 'customize' && (
         <div className="space-y-6">
-          <h3 className="text-lg font-semibold text-gray-800">Customize Your Coach</h3>
+          <h3 className="text-lg font-medium text-gray-800">Customize Your Coach</h3>
           
           <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <h4 className="font-semibold text-yellow-800 mb-2">Advanced Customization</h4>
+            <h4 className="font-medium text-yellow-800 mb-2">Advanced Customization</h4>
             <p className="text-yellow-700 text-sm">
               Create a personalized coach profile that adapts to your unique preferences and needs. 
               This feature combines elements from different coach types to create your perfect coaching companion.
@@ -798,7 +798,7 @@ const CoachProfileManager: React.FC<CoachProfileManagerProps> = ({
 
           {/* Coming Soon Placeholder */}
           <div className="p-8 bg-gradient-to-br from-purple-50 to-blue-50 border border-purple-200 rounded-lg text-center">
-            <h4 className="font-semibold text-gray-800 mb-4">Custom Coach Builder Coming Soon</h4>
+            <h4 className="font-medium text-gray-800 mb-4">Custom Coach Builder Coming Soon</h4>
             <p className="text-gray-600 mb-4">
               Advanced customization features will allow you to create a completely personalized AI coach 
               that learns and adapts to your unique communication style, goals, and preferences.

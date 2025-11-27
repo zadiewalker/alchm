@@ -83,7 +83,7 @@ export function LaunchReadinessDashboard({
       <div className="border-b border-gray-200 pb-4">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Launch Readiness Dashboard</h1>
+            <h1 className="text-2xl font-medium text-gray-900">Launch Readiness Dashboard</h1>
             <p className="text-sm text-gray-600 mt-1">
               Comprehensive validation of all critical business infrastructure systems
             </p>
@@ -110,7 +110,7 @@ export function LaunchReadinessDashboard({
             <div className="flex items-center space-x-3">
               <div className="text-3xl">{getStatusIcon(report.overall.status)}</div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-medium text-gray-900">
                   Overall Status: {report.overall.status.replace('_', ' ').toUpperCase()}
                 </h2>
                 <p className="text-sm text-gray-600">

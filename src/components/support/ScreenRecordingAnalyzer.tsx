@@ -470,7 +470,7 @@ export function ScreenRecordingAnalyzer({
               <Shield className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+              <h3 className="text-lg font-medium text-sanctuary-gray-800">
                 Screen Recording Privacy
               </h3>
               <p className="text-sm text-sanctuary-gray-600">
@@ -554,7 +554,7 @@ export function ScreenRecordingAnalyzer({
                 <Video className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Screen Recording Helper' : 'Screen Recording'}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">
@@ -765,7 +765,7 @@ export function ScreenRecordingAnalyzer({
             <div className="flex items-center gap-3">
               <CheckCircle className="w-6 h-6 text-green-500" />
               <div>
-                <h3 className="text-lg font-semibold text-sanctuary-gray-800">
+                <h3 className="text-lg font-medium text-sanctuary-gray-800">
                   {traumaInformed ? 'Understanding Your Experience' : 'Analysis Results'}
                 </h3>
                 <p className="text-sm text-sanctuary-gray-600">

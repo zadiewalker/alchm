@@ -142,18 +142,18 @@ export default function AppStorePrivacyPolicy({
     return (
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
-          <h2 className="text-xl font-bold">App Store Connect Privacy Information</h2>
+          <h2 className="text-xl font-medium">App Store Connect Privacy Information</h2>
           <p className="text-gray-600">Information for App Store privacy labels and compliance</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* iOS Privacy Labels */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">iOS Privacy Nutrition Labels</h3>
+            <h3 className="text-lg font-medium mb-4">iOS Privacy Nutrition Labels</h3>
             <div className="space-y-4">
               {privacyLabels.ios.dataTypes.map((item, index) => (
                 <div key={index} className="border rounded-lg p-4">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold">{item.category}</h4>
+                    <h4 className="font-medium">{item.category}</h4>
                     <div className="flex space-x-2">
                       <span className={`px-2 py-1 text-xs rounded ${
                         item.linkedToUser ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'
@@ -176,7 +176,7 @@ export default function AppStorePrivacyPolicy({
 
           {/* Data NOT Collected */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Data NOT Collected by ALCHM</h3>
+            <h3 className="text-lg font-medium mb-4">Data NOT Collected by ALCHM</h3>
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {privacyLabels.ios.notCollected.map((item, index) => (
@@ -197,7 +197,7 @@ export default function AppStorePrivacyPolicy({
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-medium text-gray-900 mb-2">
           ALCHM Privacy Policy
         </h1>
         <p className="text-gray-600 mb-4">
@@ -210,10 +210,10 @@ export default function AppStorePrivacyPolicy({
 
       {/* Privacy-First Banner */}
       <div className="bg-gradient-to-r from-blue-50 to-green-50 border-2 border-blue-200 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-blue-900 mb-3">🛡️ Privacy-First Mental Health Platform</h2>
+        <h2 className="text-xl font-medium text-blue-900 mb-3">🛡️ Privacy-First Mental Health Platform</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 className="font-semibold text-blue-800 mb-2">What Makes ALCHM Different:</h3>
+            <h3 className="font-medium text-blue-800 mb-2">What Makes ALCHM Different:</h3>
             <ul className="text-sm text-blue-700 space-y-1">
               <li>• Your journal entries stay on YOUR device</li>
               <li>• No selling of mental health data - ever</li>
@@ -223,7 +223,7 @@ export default function AppStorePrivacyPolicy({
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-blue-800 mb-2">App Store Compliance:</h3>
+            <h3 className="font-medium text-blue-800 mb-2">App Store Compliance:</h3>
             <ul className="text-sm text-blue-700 space-y-1">
               <li>• iOS Privacy Nutrition Labels: Complete</li>
               <li>• Android Data Safety: Full disclosure</li>
@@ -238,19 +238,19 @@ export default function AppStorePrivacyPolicy({
       {/* Key Privacy Principles */}
       <div className="grid md:grid-cols-3 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <h3 className="font-semibold text-green-800 mb-2">Data Minimization</h3>
+          <h3 className="font-medium text-green-800 mb-2">Data Minimization</h3>
           <p className="text-sm text-green-700">
             We collect only the minimum data necessary for app functionality. No excessive data harvesting.
           </p>
         </div>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="font-semibold text-blue-800 mb-2">User Control</h3>
+          <h3 className="font-medium text-blue-800 mb-2">User Control</h3>
           <p className="text-sm text-blue-700">
             You have complete control over your data - view, export, correct, or delete at any time.
           </p>
         </div>
         <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-          <h3 className="font-semibold text-purple-800 mb-2">Transparency</h3>
+          <h3 className="font-medium text-purple-800 mb-2">Transparency</h3>
           <p className="text-sm text-purple-700">
             Clear, jargon-free explanations of exactly how your data is used and protected.
           </p>
@@ -265,7 +265,7 @@ export default function AppStorePrivacyPolicy({
             onClick={() => toggleSection('mental-health')}
             className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50"
           >
-            <h3 className="font-semibold text-gray-900">
+            <h3 className="font-medium text-gray-900">
               🧠 Mental Health Data Protection (App Store Required)
             </h3>
             <span>{expandedSection === 'mental-health' ? '−' : '+'}</span>
@@ -274,7 +274,7 @@ export default function AppStorePrivacyPolicy({
             <div className="p-4 border-t bg-gray-50">
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">HIPAA-Aligned Protections:</h4>
+                  <h4 className="font-medium text-gray-800 mb-2">HIPAA-Aligned Protections:</h4>
                   <ul className="text-sm text-gray-700 space-y-1">
                     <li>• <strong>Encryption:</strong> {mentalHealthCompliance.hipaaAlignment.encryption}</li>
                     <li>• <strong>Access Controls:</strong> {mentalHealthCompliance.hipaaAlignment.accessControls}</li>
@@ -283,7 +283,7 @@ export default function AppStorePrivacyPolicy({
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">Ethical AI Standards:</h4>
+                  <h4 className="font-medium text-gray-800 mb-2">Ethical AI Standards:</h4>
                   <ul className="text-sm text-gray-700 space-y-1">
                     {mentalHealthCompliance.ethicalConsiderations.map((item, index) => (
                       <li key={index}>• {item}</li>
@@ -307,7 +307,7 @@ export default function AppStorePrivacyPolicy({
             onClick={() => toggleSection('age-protections')}
             className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50"
           >
-            <h3 className="font-semibold text-gray-900">
+            <h3 className="font-medium text-gray-900">
               👶 Children & Teen Privacy (COPPA Compliance)
             </h3>
             <span>{expandedSection === 'age-protections' ? '−' : '+'}</span>
@@ -316,7 +316,7 @@ export default function AppStorePrivacyPolicy({
             <div className="p-4 border-t bg-red-50">
               <div className="space-y-4">
                 <div className="bg-red-100 border border-red-300 rounded p-3">
-                  <h4 className="font-semibold text-red-800 mb-2">COPPA Compliance (Under 13):</h4>
+                  <h4 className="font-medium text-red-800 mb-2">COPPA Compliance (Under 13):</h4>
                   <ul className="text-sm text-red-700 space-y-1">
                     <li>• Robust age verification before any data collection</li>
                     <li>• Verifiable parental consent required</li>
@@ -326,7 +326,7 @@ export default function AppStorePrivacyPolicy({
                   </ul>
                 </div>
                 <div className="bg-yellow-100 border border-yellow-300 rounded p-3">
-                  <h4 className="font-semibold text-yellow-800 mb-2">Teen Protections (13-17):</h4>
+                  <h4 className="font-medium text-yellow-800 mb-2">Teen Protections (13-17):</h4>
                   <ul className="text-sm text-yellow-700 space-y-1">
                     <li>• Enhanced crisis detection and support resources</li>
                     <li>• Shortened data retention periods</li>
@@ -346,7 +346,7 @@ export default function AppStorePrivacyPolicy({
             onClick={() => toggleSection('app-store')}
             className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50"
           >
-            <h3 className="font-semibold text-gray-900">
+            <h3 className="font-medium text-gray-900">
               📱 App Store Privacy Information
             </h3>
             <span>{expandedSection === 'app-store' ? '−' : '+'}</span>
@@ -355,7 +355,7 @@ export default function AppStorePrivacyPolicy({
             <div className="p-4 border-t bg-blue-50">
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-blue-800 mb-2">Data Collected (iOS Privacy Labels):</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">Data Collected (iOS Privacy Labels):</h4>
                   <div className="space-y-2">
                     {privacyLabels.ios.dataTypes.map((item, index) => (
                       <div key={index} className="bg-white border rounded p-3">
@@ -378,7 +378,7 @@ export default function AppStorePrivacyPolicy({
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-blue-800 mb-2">What We DON'T Collect:</h4>
+                  <h4 className="font-medium text-blue-800 mb-2">What We DON'T Collect:</h4>
                   <div className="bg-green-100 border border-green-300 rounded p-3">
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       {privacyLabels.ios.notCollected.map((item, index) => (
@@ -401,7 +401,7 @@ export default function AppStorePrivacyPolicy({
             onClick={() => toggleSection('your-rights')}
             className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-50"
           >
-            <h3 className="font-semibold text-gray-900">
+            <h3 className="font-medium text-gray-900">
               ⚖️ Your Privacy Rights (GDPR/CCPA)
             </h3>
             <span>{expandedSection === 'your-rights' ? '−' : '+'}</span>
@@ -410,7 +410,7 @@ export default function AppStorePrivacyPolicy({
             <div className="p-4 border-t bg-purple-50">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-semibold text-purple-800 mb-2">GDPR Rights (EU Users):</h4>
+                  <h4 className="font-medium text-purple-800 mb-2">GDPR Rights (EU Users):</h4>
                   <ul className="text-sm text-purple-700 space-y-1">
                     <li>• Right to Access (Article 15)</li>
                     <li>• Right to Rectification (Article 16)</li>
@@ -421,7 +421,7 @@ export default function AppStorePrivacyPolicy({
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-purple-800 mb-2">CCPA Rights (California Users):</h4>
+                  <h4 className="font-medium text-purple-800 mb-2">CCPA Rights (California Users):</h4>
                   <ul className="text-sm text-purple-700 space-y-1">
                     <li>• Right to Know what data is collected</li>
                     <li>• Right to Delete personal information</li>
@@ -444,15 +444,15 @@ export default function AppStorePrivacyPolicy({
 
       {/* Contact & Support */}
       <div className="bg-gray-50 border rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact & Support</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-4">Contact & Support</h3>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Privacy Inquiries:</h4>
+            <h4 className="font-medium text-gray-800 mb-2">Privacy Inquiries:</h4>
             <p className="text-sm text-gray-700">Email: privacy@alchm.app</p>
             <p className="text-sm text-gray-700">Response time: Within 48 hours</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-800 mb-2">Data Protection Officer:</h4>
+            <h4 className="font-medium text-gray-800 mb-2">Data Protection Officer:</h4>
             <p className="text-sm text-gray-700">Email: dpo@alchm.app</p>
             <p className="text-sm text-gray-700">For GDPR-related inquiries</p>
           </div>
@@ -468,7 +468,7 @@ export default function AppStorePrivacyPolicy({
 
       {/* Quick Actions */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h3 className="font-semibold text-blue-800 mb-3">Quick Privacy Actions</h3>
+        <h3 className="font-medium text-blue-800 mb-3">Quick Privacy Actions</h3>
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm">
             📥 Download My Data

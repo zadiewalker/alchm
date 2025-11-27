@@ -294,24 +294,24 @@ export default function DataMinimizationEngine() {
     return (
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <h3 className="text-lg font-semibold">Data Minimization Dashboard</h3>
+          <h3 className="text-lg font-medium">Data Minimization Dashboard</h3>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-green-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-green-800">{metrics.activeCollections}</div>
+              <div className="text-2xl font-medium text-green-800">{metrics.activeCollections}</div>
               <div className="text-sm text-green-600">Active Collections</div>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-blue-800">{metrics.userOptedOut}</div>
+              <div className="text-2xl font-medium text-blue-800">{metrics.userOptedOut}</div>
               <div className="text-sm text-blue-600">User Opt-outs</div>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-purple-800">{metrics.retentionReduced}</div>
+              <div className="text-2xl font-medium text-purple-800">{metrics.retentionReduced}</div>
               <div className="text-sm text-purple-600">Reduced Retention</div>
             </div>
             <div className="bg-orange-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-orange-800">100%</div>
+              <div className="text-2xl font-medium text-orange-800">100%</div>
               <div className="text-sm text-orange-600">GDPR Compliant</div>
             </div>
           </div>
@@ -340,7 +340,7 @@ export default function DataMinimizationEngine() {
         <CardHeader className="bg-blue-50 border-b">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-xl font-bold">Data Minimization Controls</h2>
+              <h2 className="text-xl font-medium">Data Minimization Controls</h2>
               <p className="text-sm text-gray-600">Comprehensive privacy protection for mental health data</p>
             </div>
             <Button onClick={() => setShowSettings(false)} variant="outline" size="sm">
@@ -351,7 +351,7 @@ export default function DataMinimizationEngine() {
         
         <CardContent className="p-6">
           <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
-            <h3 className="font-semibold text-green-800 mb-2">🛡️ Privacy-First Design</h3>
+            <h3 className="font-medium text-green-800 mb-2">🛡️ Privacy-First Design</h3>
             <p className="text-sm text-green-700">
               ALCHM collects minimal data necessary for core functionality. You have complete control 
               over what data is collected, how it's used, and how long it's retained.
@@ -364,7 +364,7 @@ export default function DataMinimizationEngine() {
               
               return (
                 <div key={category}>
-                  <h3 className="text-lg font-semibold mb-3 capitalize">
+                  <h3 className="text-lg font-medium mb-3 capitalize">
                     {category} Data Collections
                     <span className="ml-2 text-sm text-gray-500">
                       ({categoryCollections.filter(c => c.isActive).length}/{categoryCollections.length} active)
@@ -376,7 +376,7 @@ export default function DataMinimizationEngine() {
                       <div key={collection.id} className="border border-gray-200 rounded-lg p-4">
                         <div className="flex justify-between items-start mb-3">
                           <div className="flex-1">
-                            <h4 className="font-semibold text-gray-900 flex items-center">
+                            <h4 className="font-medium text-gray-900 flex items-center">
                               {collection.name}
                               {collection.isActive ? (
                                 <span className="ml-2 bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Active</span>
@@ -436,7 +436,7 @@ export default function DataMinimizationEngine() {
           </div>
 
           <div className="mt-8 border-t pt-6">
-            <h3 className="text-lg font-semibold mb-4">Data Subject Rights</h3>
+            <h3 className="text-lg font-medium mb-4">Data Subject Rights</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Button onClick={exportUserData} variant="outline" className="flex-1">
                 📥 Export All Data

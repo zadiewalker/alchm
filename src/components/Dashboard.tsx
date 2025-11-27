@@ -155,84 +155,99 @@ export default function Dashboard({ user }: DashboardProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
+    <div className="w-full max-w-7xl mx-auto px-6 py-8 space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-[39px] leading-[1.2] tracking-[-0.025em] font-light text-charcoal-800 mb-3">
             {getGreeting()}
           </h1>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Badge 
               variant="outline" 
-              className={`bg-gradient-to-r ${getTierColor()} text-white border-0`}
+              className={`bg-gradient-to-r ${getTierColor()} text-sanctuary border-0 px-3 py-1`}
             >
               {user.tier.charAt(0).toUpperCase() + user.tier.slice(1).replace('-', ' ')} Tier
             </Badge>
-            <span className="text-gray-400">•</span>
-            <span className="text-gray-400">{getStreakMotivation()}</span>
+            <span className="text-charcoal-400">•</span>
+            <span className="text-[16px] leading-[1.6] tracking-[0] font-normal text-charcoal-600">
+              {getStreakMotivation()}
+            </span>
           </div>
         </div>
         
         <Button 
+          variant="primary"
+          size="large"
           onClick={() => setShowNewEntry(true)}
-          className="bg-purple-600 hover:bg-purple-700"
         >
-          <Plus className="h-4 w-4 mr-2" />
+          <Plus className="h-5 w-5 mr-2" />
           New Entry
         </Button>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-slate-800/50 border-slate-700">
-          <CardContent className="pt-6">
+        <Card variant="gentle" padding="medium">
+          <CardContent spacing="tight">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-white">{user.currentStreak}</p>
-                <p className="text-sm text-gray-400">Day streak</p>
+                <p className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
+                  {user.currentStreak}
+                </p>
+                <p className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Day streak
+                </p>
               </div>
-              <Zap className="h-8 w-8 text-yellow-400" />
+              <Zap className="h-8 w-8 text-sage-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800/50 border-slate-700">
-          <CardContent className="pt-6">
+        <Card variant="gentle" padding="medium">
+          <CardContent spacing="tight">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-white">{user.totalEntries}</p>
-                <p className="text-sm text-gray-400">Total entries</p>
+                <p className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
+                  {user.totalEntries}
+                </p>
+                <p className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Total entries
+                </p>
               </div>
-              <Book className="h-8 w-8 text-blue-400" />
+              <Book className="h-8 w-8 text-sage-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800/50 border-slate-700">
-          <CardContent className="pt-6">
+        <Card variant="gentle" padding="medium">
+          <CardContent spacing="tight">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
                   {engagementMetrics?.averageMoodAfter.toFixed(1) || '-'}
                 </p>
-                <p className="text-sm text-gray-400">Avg mood</p>
+                <p className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Avg mood
+                </p>
               </div>
-              <Heart className="h-8 w-8 text-pink-400" />
+              <Heart className="h-8 w-8 text-sage-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-slate-800/50 border-slate-700">
-          <CardContent className="pt-6">
+        <Card variant="gentle" padding="medium">
+          <CardContent spacing="tight">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-[25px] leading-[1.3] tracking-[-0.015em] font-normal text-sage-500 mb-1">
                   {user.tier === 'free' ? '30' : '∞'}
                 </p>
-                <p className="text-sm text-gray-400">Days storage</p>
+                <p className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                  Days storage
+                </p>
               </div>
-              <Shield className="h-8 w-8 text-green-400" />
+              <Shield className="h-8 w-8 text-sage-400" />
             </div>
           </CardContent>
         </Card>
@@ -242,21 +257,24 @@ export default function Dashboard({ user }: DashboardProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Entries */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card variant="elevated" padding="none">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-purple-400" />
+              <CardTitle className="flex items-center gap-3" level="h3">
+                <Calendar className="h-5 w-5 text-sage-400" />
                 Recent Entries
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent spacing="default">
               {recentEntries.length === 0 ? (
-                <div className="text-center py-8">
-                  <Book className="h-12 w-12 text-gray-600 mx-auto mb-4" />
-                  <p className="text-gray-400 mb-4">No entries yet. Start your journey!</p>
+                <div className="text-center py-12">
+                  <Book className="h-12 w-12 text-charcoal-400 mx-auto mb-4" />
+                  <p className="text-[16px] leading-[1.6] tracking-[0] font-normal text-charcoal-600 mb-6">
+                    No entries yet. Start your journey!
+                  </p>
                   <Button 
+                    variant="primary"
+                    size="medium"
                     onClick={() => setShowNewEntry(true)}
-                    className="bg-purple-600 hover:bg-purple-700"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Write your first entry
@@ -265,43 +283,50 @@ export default function Dashboard({ user }: DashboardProps) {
               ) : (
                 <div className="space-y-4">
                   {recentEntries.slice(0, 5).map((entry) => (
-                    <div 
+                    <Card
                       key={entry.id} 
-                      className="p-4 bg-slate-900/50 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors cursor-pointer"
+                      variant="gentle"
+                      padding="medium"
+                      interactive
+                      className="cursor-pointer"
                     >
-                      <div className="flex items-start justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className="text-sm text-gray-400">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-[14px] leading-[1.3] tracking-[0.015em] font-medium text-charcoal-600">
                             {new Date(entry.createdAt.seconds * 1000).toLocaleDateString()}
                           </div>
                           {entry.aiProcessed && (
-                            <Badge variant="outline" className="border-blue-400 text-blue-300 text-xs">
+                            <Badge variant="outline" className="border-sage-400 text-sage-600 text-xs px-2 py-0.5">
                               AI Analyzed
                             </Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Heart className="h-4 w-4 text-pink-400" />
-                          <span className="text-sm text-gray-400">{entry.moodBefore}/10</span>
+                        <div className="flex items-center gap-2">
+                          <Heart className="h-4 w-4 text-sage-400" />
+                          <span className="text-[14px] leading-[1.3] tracking-[0.015em] font-medium text-charcoal-600">
+                            {entry.moodBefore}/10
+                          </span>
                         </div>
                       </div>
-                      <p className="text-gray-300 text-sm line-clamp-2">
+                      <p className="text-[16px] leading-[1.6] tracking-[0] font-normal text-charcoal-700 line-clamp-2 mb-3">
                         {entry.text}
                       </p>
-                      <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-gray-500">{entry.wordCount} words</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-charcoal-600">
+                          {entry.wordCount} words
+                        </span>
                         {entry.moodAfter && entry.moodDelta && (
-                          <div className="flex items-center gap-1 text-xs text-green-400">
+                          <div className="flex items-center gap-2 text-[12px] leading-[1.3] tracking-[0.05em] font-medium uppercase text-sage-600">
                             <TrendingUp className="h-3 w-3" />
                             +{entry.moodDelta.toFixed(1)} mood improvement
                           </div>
                         )}
                       </div>
-                    </div>
+                    </Card>
                   ))}
                   
                   {recentEntries.length > 5 && (
-                    <Button variant="outline" className="w-full border-gray-600">
+                    <Button variant="outline" size="medium" fullWidth>
                       View all entries ({recentEntries.length})
                     </Button>
                   )}
@@ -323,11 +348,11 @@ export default function Dashboard({ user }: DashboardProps) {
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-blue-400">87%</p>
+                    <p className="text-2xl font-medium text-blue-400">87%</p>
                     <p className="text-sm text-gray-400">Consistency score</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-2xl font-bold text-green-400">+2.3</p>
+                    <p className="text-2xl font-medium text-green-400">+2.3</p>
                     <p className="text-sm text-gray-400">Avg mood improvement</p>
                   </div>
                 </div>

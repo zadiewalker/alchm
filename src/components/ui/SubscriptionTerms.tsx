@@ -14,7 +14,7 @@ export default function SubscriptionTerms({ className = '' }: SubscriptionTermsP
     <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 ${className}`}>
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-900">
+          <h3 className="text-sm font-medium text-gray-900">
             Subscription Terms & Conditions
           </h3>
           <button

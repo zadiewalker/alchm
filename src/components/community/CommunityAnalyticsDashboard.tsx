@@ -250,19 +250,19 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
-                <div className="text-green-300 font-bold text-sm">0</div>
+                <div className="text-green-300 font-medium text-sm">0</div>
                 <div className="text-green-200/60 text-xs">Individual Records</div>
               </div>
               <div>
-                <div className="text-green-300 font-bold text-sm">100%</div>
+                <div className="text-green-300 font-medium text-sm">100%</div>
                 <div className="text-green-200/60 text-xs">Anonymous Data</div>
               </div>
               <div>
-                <div className="text-green-300 font-bold text-sm">∞</div>
+                <div className="text-green-300 font-medium text-sm">∞</div>
                 <div className="text-green-200/60 text-xs">Privacy Level</div>
               </div>
               <div>
-                <div className="text-green-300 font-bold text-sm">24/7</div>
+                <div className="text-green-300 font-medium text-sm">24/7</div>
                 <div className="text-green-200/60 text-xs">Data Protection</div>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
                  '→ Stable'}
               </div>
             </div>
-            <div className="text-2xl font-bold text-white mb-2">{metric.value}</div>
+            <div className="text-2xl font-medium text-white mb-2">{metric.value}</div>
             <h3 className="text-white/90 font-medium text-sm mb-1">{metric.title}</h3>
             <p className="text-white/60 text-xs leading-relaxed">{metric.description}</p>
           </Card>
@@ -378,7 +378,7 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-[#5E8E7F] font-bold text-lg">{insight.confidence}%</div>
+                  <div className="text-[#5E8E7F] font-medium text-lg">{insight.confidence}%</div>
                   <div className="text-white/60 text-xs">Confidence</div>
                 </div>
               </div>
@@ -388,7 +388,7 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4 border-t border-white/10">
                 {Object.entries(insight.anonymizedData).map(([key, value]) => (
                   <div key={key} className="text-center">
-                    <div className="text-[#5E8E7F] font-bold">
+                    <div className="text-[#5E8E7F] font-medium">
                       {typeof value === 'number' ? 
                         (value > 100 ? value.toLocaleString() : `${value}${key.includes('percentage') || key.includes('rate') || key.includes('score') ? '%' : ''}`) : 
                         value}
@@ -414,7 +414,7 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
               <div className="flex justify-between items-start mb-3">
                 <h3 className="text-white font-medium text-lg">{pattern.pattern}</h3>
                 <div className="text-right">
-                  <div className="text-[#5E8E7F] font-bold text-xl">{pattern.prevalence}%</div>
+                  <div className="text-[#5E8E7F] font-medium text-xl">{pattern.prevalence}%</div>
                   <div className="text-white/60 text-xs">Prevalence</div>
                 </div>
               </div>
@@ -451,19 +451,19 @@ export default function CommunityAnalyticsDashboard({}: CommunityAnalyticsDashbo
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-300 mb-1">1.2M+</div>
+              <div className="text-3xl font-medium text-purple-300 mb-1">1.2M+</div>
               <div className="text-purple-200/70 text-sm">Healing Actions</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-300 mb-1">84K+</div>
+              <div className="text-3xl font-medium text-purple-300 mb-1">84K+</div>
               <div className="text-purple-200/70 text-sm">Support Connections</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-300 mb-1">47</div>
+              <div className="text-3xl font-medium text-purple-300 mb-1">47</div>
               <div className="text-purple-200/70 text-sm">Cultural Traditions</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-300 mb-1">100%</div>
+              <div className="text-3xl font-medium text-purple-300 mb-1">100%</div>
               <div className="text-purple-200/70 text-sm">Anonymous</div>
             </div>
           </div>

@@ -414,7 +414,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
     <div className={`creative-community ${className}`}>
       {/* Header */}
       <div className="text-center mb-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-medium text-gray-800 mb-2">
           Creative Community
         </h3>
         <p className="text-sm text-gray-600">
@@ -483,7 +483,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
 
           {/* Community Guidelines */}
           <div className="guidelines mb-6 p-4 bg-blue-50 rounded-xl border border-blue-100">
-            <h4 className="font-semibold text-blue-800 mb-2">Community Guidelines</h4>
+            <h4 className="font-medium text-blue-800 mb-2">Community Guidelines</h4>
             <ul className="text-sm text-blue-700 space-y-1">
               <li>• This is a trauma-informed, healing-focused space</li>
               <li>• All creative expression is welcome and celebrated</li>
@@ -505,7 +505,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
                       {share.author.isAnonymous ? '🎭' : '✨'}
                     </div>
                     <div>
-                      <div className="font-semibold text-gray-800">{share.author.displayName}</div>
+                      <div className="font-medium text-gray-800">{share.author.displayName}</div>
                       <div className="flex items-center gap-2 text-xs text-gray-500">
                         <span>{formatRelativeTime(share.timestamp)}</span>
                         {share.metadata.mood && (
@@ -528,7 +528,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
                 {/* Share Content */}
                 <div className="share-content mb-4">
                   {share.content.title && (
-                    <h4 className="font-semibold text-gray-800 mb-2">{share.content.title}</h4>
+                    <h4 className="font-medium text-gray-800 mb-2">{share.content.title}</h4>
                   )}
                   
                   {share.type === 'art' && share.content.imageData && (
@@ -662,7 +662,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
         <div className="share-tab">
           {!shareMode ? (
             <div className="share-mode-selection">
-              <h4 className="text-lg font-semibold text-gray-800 mb-6 text-center">
+              <h4 className="text-lg font-medium text-gray-800 mb-6 text-center">
                 What would you like to share?
               </h4>
               
@@ -679,14 +679,14 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
                     className="share-type-card p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-sage-300 hover:shadow-sm transition-all duration-200 text-center"
                   >
                     <div className="text-3xl mb-2">{shareType.icon}</div>
-                    <div className="font-semibold text-gray-800 mb-1">{shareType.name}</div>
+                    <div className="font-medium text-gray-800 mb-1">{shareType.name}</div>
                     <div className="text-xs text-gray-600">{shareType.description}</div>
                   </button>
                 ))}
               </div>
 
               <div className="sharing-inspiration p-4 bg-gradient-to-r from-sage-50 to-green-50 rounded-xl">
-                <h5 className="font-semibold text-gray-800 mb-2">Sharing as Healing</h5>
+                <h5 className="font-medium text-gray-800 mb-2">Sharing as Healing</h5>
                 <p className="text-sm text-gray-700 leading-relaxed">
                   When we share our creative expressions, we transform isolation into connection. 
                   Your vulnerability gives others permission to be authentic too. Every share contributes 
@@ -697,7 +697,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
           ) : (
             <div className="share-creation bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-6">
-                <h4 className="text-lg font-semibold text-gray-800">
+                <h4 className="text-lg font-medium text-gray-800">
                   Share Your {shareMode?.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </h4>
                 <button
@@ -711,7 +711,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
               <div className="space-y-6">
                 {/* Title */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Title (optional)
                   </label>
                   <input
@@ -729,7 +729,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
                 {/* Content based on type */}
                 {shareMode === 'poetry' && (
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Your Poetry
                     </label>
                     <textarea
@@ -747,7 +747,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
 
                 {shareMode === 'reflection' && (
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Your Reflection
                     </label>
                     <textarea
@@ -765,7 +765,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
 
                 {/* Therapeutic Tags */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Therapeutic Themes (optional)
                   </label>
                   <div className="therapeutic-tags-input">
@@ -805,7 +805,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
 
                 {/* Sharing Settings */}
                 <div className="sharing-settings p-4 bg-sage-50 rounded-xl">
-                  <h5 className="font-semibold text-gray-800 mb-3">Sharing Settings</h5>
+                  <h5 className="font-medium text-gray-800 mb-3">Sharing Settings</h5>
                   
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     {/* Intention */}
@@ -932,7 +932,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
       {/* Circles Tab */}
       {activeTab === 'circles' && (
         <div className="circles-tab">
-          <h4 className="text-lg font-semibold text-gray-800 mb-6 text-center">
+          <h4 className="text-lg font-medium text-gray-800 mb-6 text-center">
             Creative Healing Circles
           </h4>
           
@@ -942,7 +942,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h5 className="font-semibold text-gray-800">{circle.name}</h5>
+                      <h5 className="font-medium text-gray-800">{circle.name}</h5>
                       {circle.isPrivate && (
                         <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
                           Private
@@ -983,7 +983,7 @@ const CreativeCommunity: React.FC<CreativeCommunityProps> = ({
         <div className="my-shares-tab text-center">
           <div className="empty-state py-12">
             <div className="text-4xl mb-4">📝</div>
-            <h4 className="text-lg font-semibold text-gray-800 mb-2">
+            <h4 className="text-lg font-medium text-gray-800 mb-2">
               Your Creative Shares
             </h4>
             <p className="text-gray-600 mb-6">

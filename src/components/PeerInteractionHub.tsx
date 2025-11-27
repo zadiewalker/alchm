@@ -222,7 +222,7 @@ export default function PeerInteractionHub({
           <div className="flex items-start gap-gentle">
             <span className="text-2xl">🛡️</span>
             <div className="flex-grow">
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 Safe Space Active
               </SacredText>
               <SacredText variant="body" className="text-sm">
@@ -240,7 +240,7 @@ export default function PeerInteractionHub({
           <div className="flex items-start gap-gentle">
             <span className="text-2xl">🌍</span>
             <div className="flex-grow">
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 Cultural Guidance Available
               </SacredText>
               <SacredText variant="body" className="text-sm">
@@ -368,7 +368,7 @@ export default function PeerInteractionHub({
           <div className="space-y-breath">
             <div className="flex items-center gap-gentle">
               <span className="text-2xl">🚨</span>
-              <SacredText variant="caption" className="font-semibold text-grounding-earth">
+              <SacredText variant="caption" className="font-medium text-grounding-earth">
                 Report a Concern
               </SacredText>
             </div>
@@ -387,7 +387,7 @@ export default function PeerInteractionHub({
 
         <SacredCard variant="gentle">
           <div className="space-y-breath">
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Community Guidelines
             </SacredText>
             <ul className="space-y-whisper text-sm">
@@ -413,7 +413,7 @@ export default function PeerInteractionHub({
 
         <SacredCard variant="gentle">
           <div className="space-y-breath">
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               Privacy Controls
             </SacredText>
             <div className="grid grid-cols-2 gap-breath text-sm">
@@ -531,7 +531,7 @@ function InteractionTypeSelector({ interactionType, safetyMode, onSelect }: Inte
           <div className="flex items-center gap-gentle">
             <span className="text-2xl">{interactionType.icon}</span>
             <div>
-              <SacredText variant="caption" className="font-semibold">
+              <SacredText variant="caption" className="font-medium">
                 {interactionType.title}
               </SacredText>
               <div className="flex items-center gap-whisper">
@@ -622,7 +622,7 @@ function ActiveInteractionCard({ interaction, safetyMode }: ActiveInteractionCar
         <div className="flex items-start gap-gentle">
           <span className="text-xl">{getInteractionIcon()}</span>
           <div>
-            <SacredText variant="caption" className="font-semibold">
+            <SacredText variant="caption" className="font-medium">
               {interaction.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
             </SacredText>
             <SacredText variant="caption" className="text-sm text-subtle">

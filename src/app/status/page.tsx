@@ -173,7 +173,7 @@ export default function StatusPage() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">ALCHM System Status</h1>
+              <h1 className="text-3xl font-medium text-gray-900">ALCHM System Status</h1>
               <p className="text-gray-600 mt-1">Real-time status and performance monitoring</p>
             </div>
             
@@ -194,7 +194,7 @@ export default function StatusPage() {
         {/* Current Incidents */}
         {incidents.filter(i => i.status !== 'resolved').length > 0 && (
           <Card className="p-6 border-red-200 bg-red-50">
-            <h2 className="text-xl font-semibold text-red-800 mb-4">Active Incidents</h2>
+            <h2 className="text-xl font-medium text-red-800 mb-4">Active Incidents</h2>
             <div className="space-y-4">
               {incidents
                 .filter(i => i.status !== 'resolved')
@@ -235,7 +235,7 @@ export default function StatusPage() {
 
         {/* System Components */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">System Components</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-6">System Components</h2>
           <div className="space-y-4">
             {systemStatus.map(system => (
               <div key={system.component} className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
@@ -261,11 +261,11 @@ export default function StatusPage() {
 
         {/* Performance Metrics */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Performance Metrics</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-6">Performance Metrics</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {performanceMetrics.map(metric => (
               <div key={metric.name} className="text-center">
-                <div className={`text-2xl font-bold ${getMetricStatusColor(metric.status)}`}>
+                <div className={`text-2xl font-medium ${getMetricStatusColor(metric.status)}`}>
                   {metric.value.toFixed(metric.name.includes('Time') ? 0 : 1)}{metric.unit}
                 </div>
                 <div className="text-sm text-gray-600 mt-1">{metric.name}</div>
@@ -292,7 +292,7 @@ export default function StatusPage() {
 
         {/* Incident History */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent Incidents</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-6">Recent Incidents</h2>
           {incidents.length === 0 ? (
             <div className="text-center py-8 text-gray-600">
               <div className="text-4xl mb-2">✅</div>
@@ -340,7 +340,7 @@ export default function StatusPage() {
 
         {/* System Information */}
         <Card className="p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">System Information</h2>
+          <h2 className="text-xl font-medium text-gray-900 mb-6">System Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="font-medium text-gray-900 mb-3">Crisis Support Guarantee</h3>

@@ -387,7 +387,7 @@ export default function EmotionalIntelligenceAssessment() {
             <Brain className="h-12 w-12 text-purple-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Advanced Emotional Intelligence Assessment</h1>
+        <h1 className="text-3xl font-medium mb-4">Advanced Emotional Intelligence Assessment</h1>
         <p className="text-xl text-gray-600 mb-8">
           Professional-grade evaluation designed for deep self-understanding and therapeutic alignment
         </p>
@@ -397,7 +397,7 @@ export default function EmotionalIntelligenceAssessment() {
         <Card className="p-6">
           <div className="flex items-center gap-3 mb-4">
             <Heart className="h-6 w-6 text-red-500" />
-            <h3 className="text-lg font-semibold">What You'll Discover</h3>
+            <h3 className="text-lg font-medium">What You'll Discover</h3>
           </div>
           <ul className="space-y-2 text-sm">
             <li className="flex items-center gap-2">
@@ -422,7 +422,7 @@ export default function EmotionalIntelligenceAssessment() {
         <Card className="p-6">
           <div className="flex items-center gap-3 mb-4">
             <Clock className="h-6 w-6 text-blue-500" />
-            <h3 className="text-lg font-semibold">Assessment Details</h3>
+            <h3 className="text-lg font-medium">Assessment Details</h3>
           </div>
           <ul className="space-y-2 text-sm">
             <li className="flex items-center gap-2">
@@ -449,7 +449,7 @@ export default function EmotionalIntelligenceAssessment() {
         <div className="flex items-start gap-4">
           <Shield className="h-6 w-6 text-purple-600 mt-1" />
           <div>
-            <h3 className="font-semibold mb-2">Professional-Grade Assessment</h3>
+            <h3 className="font-medium mb-2">Professional-Grade Assessment</h3>
             <p className="text-sm text-gray-600 mb-4">
               This assessment is designed to therapeutic standards and can be shared with mental health 
               professionals to support your treatment goals. Your responses are private and secure.
@@ -494,7 +494,7 @@ export default function EmotionalIntelligenceAssessment() {
             <Badge className="mb-4 capitalize">
               {currentQuestion.category.replace('-', ' ')}
             </Badge>
-            <h2 className="text-xl font-semibold mb-4">{currentQuestion.question}</h2>
+            <h2 className="text-xl font-medium mb-4">{currentQuestion.question}</h2>
           </div>
 
           {currentQuestion.type === 'scale' && (
@@ -515,7 +515,7 @@ export default function EmotionalIntelligenceAssessment() {
                 <span>Usually/Always</span>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">
+                <div className="text-2xl font-medium text-purple-600">
                   {responses[currentQuestion.id] || 5}/10
                 </div>
               </div>
@@ -587,7 +587,7 @@ export default function EmotionalIntelligenceAssessment() {
           <Sparkles className="h-12 w-12 text-purple-600 animate-pulse" />
         </div>
       </div>
-      <h2 className="text-2xl font-bold">Analyzing Your Responses</h2>
+      <h2 className="text-2xl font-medium">Analyzing Your Responses</h2>
       <p className="text-gray-600">
         Our advanced algorithms are processing your assessment responses and generating 
         personalized insights and recommendations...
@@ -606,7 +606,7 @@ export default function EmotionalIntelligenceAssessment() {
             <Award className="h-12 w-12 text-green-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Your Emotional Intelligence Profile</h1>
+        <h1 className="text-3xl font-medium mb-4">Your Emotional Intelligence Profile</h1>
         <p className="text-xl text-gray-600">
           Comprehensive analysis with therapeutic-grade insights and recommendations
         </p>
@@ -616,11 +616,11 @@ export default function EmotionalIntelligenceAssessment() {
       <Card className="p-6 bg-gradient-to-r from-purple-50 to-blue-50">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Overall EI Score</h2>
+            <h2 className="text-2xl font-medium mb-2">Overall EI Score</h2>
             <p className="text-gray-600">Across all five core domains</p>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-purple-600">
+            <div className="text-4xl font-medium text-purple-600">
               {Math.round(assessmentResults.reduce((sum, result) => sum + result.score, 0) / assessmentResults.length)}
             </div>
             <div className="text-sm text-gray-600">out of 50</div>
@@ -634,7 +634,7 @@ export default function EmotionalIntelligenceAssessment() {
         {assessmentResults.map((result) => (
           <Card key={result.category} className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">{result.category}</h3>
+              <h3 className="text-lg font-medium">{result.category}</h3>
               <Badge variant={
                 result.level === 'mastery' ? 'default' :
                 result.level === 'advanced' ? 'secondary' :
@@ -709,7 +709,7 @@ export default function EmotionalIntelligenceAssessment() {
             <Target className="h-12 w-12 text-blue-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-4">Your Personalized Growth Plan</h1>
+        <h1 className="text-3xl font-medium mb-4">Your Personalized Growth Plan</h1>
         <p className="text-xl text-gray-600">
           Evidence-based roadmap for emotional intelligence development
         </p>
@@ -718,7 +718,7 @@ export default function EmotionalIntelligenceAssessment() {
       {growthPlan.map((plan, index) => (
         <Card key={index} className="p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold">{plan.area}</h2>
+            <h2 className="text-xl font-medium">{plan.area}</h2>
             <Badge>{plan.timeframe}</Badge>
           </div>
 
