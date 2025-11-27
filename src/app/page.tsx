@@ -327,7 +327,7 @@ export default function StreamlinedAuthPage() {
           <div className="text-center mt-8">
             <a 
               href="/crisis-support" 
-              className="group inline-flex items-center gap-3 text-footnote text-sage-600 hover:text-sage-700 font-medium transition-all duration-280 ease-luxury"
+              className="group inline-flex items-center gap-3 text-footnote text-charcoal-800 hover:text-sage-700 font-semibold transition-all duration-280 ease-luxury"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="transition-transform duration-280 group-hover:scale-110">
                 <path d="M20.84 4.61C19.32 3.08 17.16 2.84 15.54 3.84C14.84 4.25 14.12 4.92 12 7.58C9.88 4.92 9.16 4.25 8.46 3.84C6.84 2.84 4.68 3.08 3.16 4.61C0.32 7.45 3.26 12.44 12 21.35C20.74 12.44 23.68 7.45 20.84 4.61Z" fill="currentColor"/>

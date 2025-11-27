@@ -114,7 +114,7 @@ const FAQ_DATA = [
   },
   {
     question: 'What if I can\'t afford a paid plan?',
-    answer: 'The Sanctuary plan provides a complete, powerful journaling experience forever free. We also offer sliding scale pricing and hardship exemptions. Everyone deserves access to healing tools.'
+    answer: 'The Sanctuary plan provides a complete, powerful journaling experience forever free. Everyone deserves access to healing tools.'
   }
 ] as const;
 
@@ -344,12 +344,12 @@ export default function PricingPage({ params }: PricingPageProps) {
               <div className="text-center">
                 <div className="w-12 h-12 bg-[#a4b792] rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-sanctuary-gray-900 mb-2">Sliding Scale</h3>
+                <h3 className="text-lg font-medium text-sanctuary-gray-900 mb-2">Quality Service</h3>
                 <p className="text-sanctuary-gray-600 text-sm leading-relaxed">
-                  Financial hardship shouldn't prevent healing. We offer sliding scale pricing and hardship exemptions.
+                  Professional-grade tools and support designed for your healing journey.
                 </p>
               </div>
             </div>

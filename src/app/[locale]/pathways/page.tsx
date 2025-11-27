@@ -3,6 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/lib/useAuth';
+import { 
+  PathwayIcon, 
+  HeartIcon, 
+  JourneyIcon, 
+  SettingsIcon, 
+  SeedlingIcon, 
+  BreatheIcon, 
+  ClockIcon, 
+  MilestoneIcon 
+} from '@/components/ui/SimpleIcons';
 
 interface Pathway {
   id: string;
@@ -27,26 +38,17 @@ interface Pathway {
 }
 
 export default function PathwaysPage() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading, authInitialized } = useAuth();
   const [selectedPathway, setSelectedPathway] = useState<Pathway | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    // Simple auth check using cookie
-    const cookies = document.cookie.split(';');
-    const sessionCookie = cookies.find(c => c.trim().startsWith('alchm_session='));
-    
-    if (sessionCookie) {
-      const uid = sessionCookie.split('=')[1];
-      setUser({ uid });
-    } else {
+    // Redirect to login if not authenticated and auth is initialized
+    if (authInitialized && !loading && !user) {
+      console.log('🚪 Pathways: Redirecting to login - no authenticated user');
       router.push('/en/auth/login');
-      return;
     }
-    
-    setLoading(false);
-  }, [router]);
+  }, [authInitialized, loading, user, router]);
 
   if (loading) {
     return (

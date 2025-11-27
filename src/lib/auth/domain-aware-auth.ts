@@ -122,7 +122,14 @@ export async function signInWithEmail(
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ uid: result.user.uid }),
+          body: JSON.stringify({ 
+            uid: result.user.uid,
+            user: {
+              uid: result.user.uid,
+              email: result.user.email,
+              displayName: result.user.displayName
+            }
+          }),
         });
       } catch (error) {
         console.warn('Failed to create server session:', error);
@@ -195,7 +202,14 @@ export async function signInWithApple(): Promise<{
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ uid: result.user.uid }),
+          body: JSON.stringify({ 
+            uid: result.user.uid,
+            user: {
+              uid: result.user.uid,
+              email: result.user.email,
+              displayName: result.user.displayName
+            }
+          }),
         });
       } catch (error) {
         console.warn('Failed to create server session:', error);
@@ -229,7 +243,6 @@ export async function signInWithApple(): Promise<{
       requiresAgeVerification: false
     };
   }
-  */
 }
 
 /**
@@ -267,7 +280,15 @@ export async function signInAsGuest(): Promise<{
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ uid: result.user.uid, isAnonymous: true }),
+          body: JSON.stringify({ 
+            uid: result.user.uid, 
+            user: {
+              uid: result.user.uid,
+              email: result.user.email,
+              displayName: result.user.displayName
+            },
+            isAnonymous: true 
+          }),
         });
       } catch (error) {
         console.warn('Failed to create server session:', error);

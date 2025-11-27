@@ -32,12 +32,51 @@ interface KheperaChatProps {
 
 const QUICK_REPLIES: QuickReply[] = [
   { id: 'feeling-overwhelmed', text: 'I\'m feeling overwhelmed', type: 'emotional', icon: '💫' },
-  { id: 'need-grounding', text: 'Help me ground myself', type: 'practical', icon: '🌱' },
-  { id: 'want-reflection', text: 'I want to reflect', type: 'reflection', icon: '✨' },
-  { id: 'celebrating', text: 'I\'m celebrating something', type: 'emotional', icon: '🎉' },
-  { id: 'need-pause', text: 'I need a pause', type: 'practical', icon: '⏸️' },
-  { id: 'ready-to-write', text: 'Ready to journal', type: 'reflection', icon: '✍️' }
+  { id: 'feeling-sad', text: 'I\'m feeling sad', type: 'emotional', icon: '💙' },
+  { id: 'feeling-anxious', text: 'I\'m feeling anxious', type: 'emotional', icon: '😰' },
+  { id: 'feeling-angry', text: 'I\'m feeling angry', type: 'emotional', icon: '🔥' },
+  { id: 'feeling-joyful', text: 'I\'m feeling joyful', type: 'emotional', icon: '✨' },
+  { id: 'feeling-confused', text: 'I\'m feeling confused', type: 'emotional', icon: '🤔' },
+  { id: 'take-me-journal', text: 'Take me to journal', type: 'practical', icon: '✍️' },
+  { id: 'show-me-dashboard', text: 'Show me my progress', type: 'practical', icon: '📈' },
+  { id: 'need-grounding', text: 'I need grounding', type: 'practical', icon: '🌱' },
+  { id: 'ready-pathways', text: 'Show me healing paths', type: 'reflection', icon: '🛤️' }
 ];
+
+// ===== EMOTIONAL CONCIERGE FEATURES =====
+
+const APP_FEATURES = {
+  'overwhelmed': {
+    primary: '/crisis-resources',
+    secondary: '/journal',
+    message: 'I sense you\'re feeling overwhelmed. Let me guide you to some immediate support tools and then to journaling for processing.'
+  },
+  'sad': {
+    primary: '/journal',
+    secondary: '/community',
+    message: 'I notice you\'re feeling sad. Writing can be healing, and connecting with others who understand can provide comfort.'
+  },
+  'anxious': {
+    primary: '/crisis-resources',
+    secondary: '/dashboard',
+    message: 'I feel your anxiety. Let\'s start with some grounding exercises, then look at your progress to build confidence.'
+  },
+  'angry': {
+    primary: '/journal',
+    secondary: '/pathways',
+    message: 'I acknowledge your anger - it often carries important wisdom. Let\'s channel it through expression and boundary work.'
+  },
+  'joyful': {
+    primary: '/dashboard',
+    secondary: '/community',
+    message: 'What beautiful energy you\'re bringing! Let\'s celebrate your growth and share this positive momentum.'
+  },
+  'confused': {
+    primary: '/journal',
+    secondary: '/pathways',
+    message: 'I see you\'re seeking clarity. Writing often reveals insights, and structured pathways can guide your exploration.'
+  }
+};
 
 // ===== MAIN CHAT COMPONENT =====
 
@@ -59,6 +98,8 @@ export default function KheperaChat({
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+  const [isProactiveMode, setIsProactiveMode] = useState(true);
+  const [userEmotionalState, setUserEmotionalState] = useState<string>('neutral');
   
   // ===== REFS =====
   
@@ -96,12 +137,64 @@ export default function KheperaChat({
     if (isOpen && messages.length === 0) {
       setTimeout(() => {
         addKheperaMessage(
-          "Hello, beautiful soul. I'm Khepera, your emotional concierge. I'm here to support you on your healing journey. How are you feeling right now?",
+          "Hello, beautiful soul. I'm Khepera, your emotional concierge. I'm here to guide you to exactly what you need for your healing journey. How are you feeling as you arrive in your sanctuary today?",
           'affirmation'
         );
       }, 800);
     }
   }, [isOpen, messages.length]);
+
+  // ===== EMOTIONAL STATE DETECTION =====
+
+  const detectEmotionalState = useCallback((text: string): string => {
+    const lowerText = text.toLowerCase();
+    const emotionalKeywords = {
+      overwhelmed: ['overwhelmed', 'too much', 'can\'t handle', 'stressed', 'pressure', 'chaotic'],
+      sad: ['sad', 'depressed', 'down', 'empty', 'hopeless', 'crying', 'hurt', 'lonely'],
+      anxious: ['anxious', 'worried', 'nervous', 'panic', 'fear', 'scared', 'restless'],
+      angry: ['angry', 'mad', 'frustrated', 'furious', 'rage', 'annoyed', 'pissed'],
+      joyful: ['happy', 'joy', 'excited', 'grateful', 'amazing', 'wonderful', 'blessed'],
+      confused: ['confused', 'lost', 'don\'t know', 'unclear', 'mixed up', 'uncertain']
+    };
+
+    for (const [emotion, keywords] of Object.entries(emotionalKeywords)) {
+      if (keywords.some(keyword => lowerText.includes(keyword))) {
+        return emotion;
+      }
+    }
+    return 'neutral';
+  }, []);
+
+  // ===== CONCIERGE GUIDANCE =====
+
+  const provideEmotionalGuidance = useCallback((emotion: string) => {
+    const guidance = APP_FEATURES[emotion as keyof typeof APP_FEATURES];
+    if (!guidance) return;
+
+    addKheperaMessage(guidance.message, 'reflection');
+    
+    // Add action buttons for recommended features
+    setTimeout(() => {
+      addKheperaMessage(
+        `Would you like me to take you to one of these healing spaces?
+
+🎯 **Primary Recommendation**: ${guidance.primary === '/crisis-resources' ? 'Crisis Support & Grounding' : 
+            guidance.primary === '/journal' ? 'Sacred Journaling Space' :
+            guidance.primary === '/dashboard' ? 'Your Growth Dashboard' :
+            guidance.primary === '/pathways' ? 'Healing Pathways' :
+            guidance.primary === '/community' ? 'Community Connection' : 'Healing Space'}
+
+🌿 **Also Available**: ${guidance.secondary === '/crisis-resources' ? 'Crisis Support & Grounding' : 
+            guidance.secondary === '/journal' ? 'Sacred Journaling Space' :
+            guidance.secondary === '/dashboard' ? 'Your Growth Dashboard' :
+            guidance.secondary === '/pathways' ? 'Healing Pathways' :
+            guidance.secondary === '/community' ? 'Community Connection' : 'Healing Space'}
+
+Just let me know what feels right for you, or I can continue to chat and support you here.`,
+        'affirmation'
+      );
+    }, 2000);
+  }, [addKheperaMessage]);
   
   // ===== CRISIS KEYWORD DETECTION =====
   
@@ -169,6 +262,16 @@ export default function KheperaChat({
       }, 1000);
       return;
     }
+
+    // Emotional state detection and concierge guidance
+    const detectedEmotion = detectEmotionalState(content);
+    setUserEmotionalState(detectedEmotion);
+    
+    if (isProactiveMode && detectedEmotion !== 'neutral') {
+      setTimeout(() => {
+        provideEmotionalGuidance(detectedEmotion);
+      }, 2000);
+    }
     
     // Simulate Khepera typing
     setIsKheperaTyping(true);
@@ -177,16 +280,75 @@ export default function KheperaChat({
       // Simulate API call delay (replace with actual API call)
       await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
       
-      // Mock response (replace with actual AI response)
-      const responses = [
-        "Thank you for sharing that with me. Your feelings are completely valid and important.",
-        "I hear you, and I want you to know that what you're experiencing matters.",
-        "That sounds like it takes a lot of strength. How are you taking care of yourself right now?",
-        "I'm grateful you felt safe enough to share this with me. What feels most supportive for you today?",
-        "Your awareness and willingness to reflect shows such wisdom. What are you noticing about this experience?"
-      ];
+      // Enhanced emotional response with concierge functionality
+      let response = '';
       
-      const response = responses[Math.floor(Math.random() * responses.length)];
+      // Check if user is asking for navigation
+      const lowerContent = content.toLowerCase();
+      if (lowerContent.includes('take me') || lowerContent.includes('go to') || lowerContent.includes('show me')) {
+        if (lowerContent.includes('journal')) {
+          response = "I'd be happy to take you to your sacred journaling space. This is where you can process emotions and find clarity through writing.";
+          setTimeout(() => {
+            addKheperaMessage("Navigating to your journal... 🌿", 'text');
+            // Here you would actually navigate: window.location.href = '/journal';
+          }, 2000);
+        } else if (lowerContent.includes('dashboard')) {
+          response = "Let me guide you to your growth dashboard where you can see your healing journey unfold.";
+          setTimeout(() => {
+            addKheperaMessage("Taking you to your sanctuary dashboard... ✨", 'text');
+            // Here you would actually navigate: window.location.href = '/dashboard';
+          }, 2000);
+        } else if (lowerContent.includes('pathways')) {
+          response = "I'll show you to the healing pathways - structured guidance for your growth.";
+          setTimeout(() => {
+            addKheperaMessage("Opening healing pathways for you... 🌱", 'text');
+            // Here you would actually navigate: window.location.href = '/pathways';
+          }, 2000);
+        } else if (lowerContent.includes('crisis') || lowerContent.includes('help')) {
+          response = "I'm taking you to immediate support resources right now.";
+          setTimeout(() => {
+            addKheperaMessage("Connecting you to crisis support... 🆘", 'text');
+            // Here you would actually navigate: window.location.href = '/crisis-resources';
+          }, 2000);
+        }
+      } else {
+        // Contextual responses based on emotional state
+        const emotionResponses = {
+          overwhelmed: [
+            "I can feel the weight you're carrying. Your nervous system is asking for support, and that's completely understandable.",
+            "Being overwhelmed shows you care deeply. Let's find tools to help you feel more grounded and centered."
+          ],
+          sad: [
+            "I honor the sadness you're experiencing. These feelings deserve gentle attention and care.",
+            "Your tears and sorrow are sacred expressions of your humanity. I'm here to support you through this."
+          ],
+          anxious: [
+            "I notice the anxiety stirring within you. Your body is trying to protect you - let's find safety together.",
+            "Anxiety often carries important information. Let's explore what it's trying to tell you."
+          ],
+          angry: [
+            "I feel the fire of your anger. This emotion often points to important boundaries and values.",
+            "Your anger is valid and often carries wisdom about what matters to you most."
+          ],
+          joyful: [
+            "What beautiful energy you're radiating! Joy is medicine for both you and everyone around you.",
+            "I love feeling this positive energy. Let's explore how to honor and expand this experience."
+          ],
+          confused: [
+            "I sense you're in a space of uncertainty, which actually holds great potential for growth.",
+            "Confusion often precedes clarity. Let's explore this space together with gentle curiosity."
+          ],
+          neutral: [
+            "Thank you for sharing that with me. Your feelings are completely valid and important.",
+            "I hear you, and I want you to know that what you're experiencing matters.",
+            "Your awareness and willingness to reflect shows such wisdom."
+          ]
+        };
+        
+        const emotionResponseList = emotionResponses[userEmotionalState as keyof typeof emotionResponses] || emotionResponses.neutral;
+        response = emotionResponseList[Math.floor(Math.random() * emotionResponseList.length)];
+      }
+      
       addKheperaMessage(response, 'reflection');
       
     } catch (error) {
@@ -200,8 +362,46 @@ export default function KheperaChat({
   }, [detectCrisis, onCrisisDetected, addKheperaMessage]);
   
   const handleQuickReply = useCallback((reply: QuickReply) => {
+    // Handle navigation quick replies directly
+    if (reply.id === 'take-me-journal') {
+      addKheperaMessage("Perfect! Let me take you to your sacred journaling space where you can process and explore your emotions. 🌿", 'text');
+      setTimeout(() => {
+        addKheperaMessage("Opening your journal... ✍️", 'text');
+        // Navigation would happen here: window.location.href = '/journal';
+      }, 1500);
+      return;
+    }
+    
+    if (reply.id === 'show-me-dashboard') {
+      addKheperaMessage("I'd love to show you your growth dashboard where you can see your healing journey unfold! ✨", 'text');
+      setTimeout(() => {
+        addKheperaMessage("Taking you to your sanctuary dashboard... 📈", 'text');
+        // Navigation would happen here: window.location.href = '/dashboard';
+      }, 1500);
+      return;
+    }
+    
+    if (reply.id === 'ready-pathways') {
+      addKheperaMessage("Wonderful! The healing pathways offer structured guidance for your growth and self-discovery. 🛤️", 'text');
+      setTimeout(() => {
+        addKheperaMessage("Opening healing pathways for you... 🌱", 'text');
+        // Navigation would happen here: window.location.href = '/pathways';
+      }, 1500);
+      return;
+    }
+    
+    if (reply.id === 'need-grounding') {
+      addKheperaMessage("I understand you need some grounding. Let me connect you to immediate support resources and techniques. 🌱", 'text');
+      setTimeout(() => {
+        addKheperaMessage("Taking you to grounding and crisis support... 🆘", 'text');
+        // Navigation would happen here: window.location.href = '/crisis-resources';
+      }, 1500);
+      return;
+    }
+    
+    // Handle emotional state quick replies
     handleSendMessage(reply.text, reply.type as Message['type']);
-  }, [handleSendMessage]);
+  }, [handleSendMessage, addKheperaMessage]);
   
   // ===== CHAT TOGGLE HANDLERS =====
   
@@ -458,7 +658,12 @@ export default function KheperaChat({
             />
             <div>
               <h3 className="text-white font-medium text-lg">Khepera</h3>
-              <p className="text-white/80 text-sm">Your emotional concierge</p>
+              <p className="text-white/80 text-sm">
+                {userEmotionalState !== 'neutral' 
+                  ? `Supporting your ${userEmotionalState} feelings` 
+                  : 'Your emotional concierge & guide'
+                }
+              </p>
             </div>
           </div>
           

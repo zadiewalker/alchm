@@ -8,6 +8,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Save, Heart, MessageCircle, Sprout, Users, Crown, Activity, Brain, PenTool, BookOpen, Shield } from 'lucide-react';
 import { useSacredMetrics } from '@/hooks/useSacredMetrics';
+import dynamic from 'next/dynamic';
+
+// Dynamic import for enhanced Khepera chat - essential for emotional journaling
+const KheperaChat = dynamic(
+  () => import('@/components/khepera/KheperaChat'),
+  { 
+    ssr: false,
+    loading: () => null
+  }
+);
 
 export default function JournalPage() {
   const router = useRouter();
@@ -454,6 +464,9 @@ export default function JournalPage() {
           </div>
         </div>
       )}
+
+      {/* Enhanced Khepera Emotional Concierge */}
+      <KheperaChat userId={user?.uid} />
     </div>
   );
 }

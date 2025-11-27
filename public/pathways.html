@@ -24,30 +24,6 @@
       padding: 0;
     }
     
-    /* Khepera Concierge Bar */
-    .khepera-bar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      border-bottom: 1px solid rgba(164, 183, 146, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .khepera-avatar {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #cb997e 0%, #e6a789 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse 2s ease-in-out infinite;
-    }
     
     .gradient-sanctuary {
       background: linear-gradient(135deg, #a4b792 0%, #93a682 25%, #82956f 50%, #7a8c6a 75%, #6b7d5a 100%);
@@ -71,6 +47,60 @@
       transform: translateY(-4px);
       background: rgba(255, 255, 255, 0.25);
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    
+    .pathway-card:hover .pathway-icon {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Enhanced button hover states */
+    .pathway-card button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Navigation hover effects */
+    nav a:hover {
+      background: rgba(255,255,255,0.2) !important;
+      transform: translateY(-1px);
+    }
+    
+    /* Missing CSS classes */
+    .btn-sage {
+      background: linear-gradient(135deg, #a4b792, #8fa37c);
+      color: white;
+      border: none;
+      transition: all 200ms ease;
+    }
+    
+    .btn-sage:hover {
+      background: linear-gradient(135deg, #8fa37c, #7a8c6a);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(164, 183, 146, 0.3);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .max-w-3xl {
+      max-width: 48rem;
+    }
+    
+    .max-w-4xl {
+      max-width: 56rem;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    .space-y-3 > * + * {
+      margin-top: 0.75rem;
     }
     
     .pathway-card.completed {
@@ -262,8 +292,8 @@
       });
     }
     
-    // Force reload after cache clear
-    setTimeout(() => window.location.reload(true), 100);
+    // Skip force reload to prevent loops
+    console.log('✅ Cache cleared, continuing with fresh content');
   }
   
   // Register emergency service worker
@@ -281,7 +311,8 @@
       // Listen for SW messages
       navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data.type === 'FORCE_RELOAD') {
-          window.location.reload(true);
+          console.log('🔄 SW requesting reload');
+          // Skip automatic reload to prevent loops
         }
       });
       
@@ -293,26 +324,6 @@
   <!-- Main Container -->
   <div id="pathways-container" class="relative">
     
-    <!-- Khepera Concierge Bar -->
-    <div class="khepera-bar">
-      <div class="khepera-avatar">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <circle cx="10" cy="4" r="2" fill="white" opacity="0.9"/>
-          <ellipse cx="10" cy="12" rx="3" ry="5" fill="white"/>
-          <path d="M7 9 Q4 10 5 14 Q6 12 7 14" fill="white" opacity="0.8"/>
-          <path d="M13 9 Q16 10 15 14 Q14 12 13 14" fill="white" opacity="0.8"/>
-        </svg>
-      </div>
-      <div style="flex: 1; color: #2d3748; font-size: 0.9rem; font-weight: 500;">
-        Choose your emotional learning pathway! Each journey builds specific skills 🎯
-      </div>
-      <div style="display: flex; align-items: center; gap: 0.5rem; color: #6b7280; font-size: 0.875rem; font-weight: 500;">
-        <span>Level 3</span>
-        <div style="width: 50px; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
-          <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #a4b792, #8fa37c); border-radius: 3px;"></div>
-        </div>
-      </div>
-    </div>
     
     <!-- Pathways Selection Screen -->
     <div id="intro-screen">
@@ -323,7 +334,7 @@
           <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; max-width: 600px; margin: 0 auto;">
             <a href="/Users/zadiewalker/Desktop/alchm/out/index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Home</a>
             <a href="/Users/zadiewalker/Desktop/alchm/out/dashboard.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Dashboard</a>
-            <a href="/Users/zadiewalker/Desktop/alchm/public/emotional-report-card.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Report Card</a>
+            <a href="/Users/zadiewalker/Desktop/alchm/out/emotional-report-card.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Report Card</a>
             <a href="/Users/zadiewalker/Desktop/alchm/out/pricing-premium.html" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-size: 0.875rem; transition: all 200ms ease;">Pricing</a>
           </div>
         </nav>
@@ -365,27 +376,24 @@
           </div>
           
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-            <!-- Emotional Awareness - Active -->
-            <div class="pathway-card completed" onclick="selectPathway('emotional-awareness')">
-              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
-                <div class="pathway-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+50 EXP</div>
+            <!-- Emotional Awareness - Completed -->
+            <div class="pathway-card completed" onclick="selectPathway('emotional-awareness')" style="position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -10px; right: -10px; background: #10b981; color: white; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 2;">✓</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">🧠</div>
+                <div style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500;">+50 EXP</div>
               </div>
               <h3 style="color: #2d3748; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Emotional Awareness</h3>
               <p style="color: #4a5568; font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Master the foundation of emotional intelligence</p>
-              <div style="display: flex; align-items: center; justify-content: between; color: #2d3748;">
-                <span style="font-size: 0.75rem; font-weight: 500;">7/7 lessons • Completed</span>
-                <button style="background: #10b981; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">Review</button>
+              <div style="display: flex; align-items: center; justify-content: space-between; color: #2d3748;">
+                <span style="font-size: 0.75rem; font-weight: 500;">7/7 lessons • Completed 🏆</span>
+                <button style="background: #10b981; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; transition: all 200ms ease;">Review</button>
               </div>
             </div>
 
             <!-- Resilience Building - In Progress -->
             <div class="pathway-card" onclick="selectPathway('resilience')" style="background: rgba(255,255,255,0.9); color: #2d3748;">
-              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
                 <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #cb997e, #e6a789); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white;">🌱</div>
                 <div style="background: #f59e0b; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+25 EXP</div>
               </div>
@@ -395,7 +403,7 @@
                 <div style="width: 100%; height: 6px; background: rgba(164, 183, 146, 0.3); border-radius: 3px; overflow: hidden;">
                   <div style="width: 42%; height: 100%; background: linear-gradient(90deg, #cb997e, #e6a789); border-radius: 3px;"></div>
                 </div>
-                <div style="display: flex; align-items: center; justify-content: between;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
                   <span style="font-size: 0.75rem; font-weight: 500; color: #6b7280;">3/7 lessons • 42% complete</span>
                   <button style="background: linear-gradient(135deg, #cb997e, #e6a789); color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Continue</button>
                 </div>
@@ -404,13 +412,13 @@
 
             <!-- Boundary Setting - Available -->
             <div class="pathway-card" onclick="selectPathway('boundary-setting')">
-              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
                 <div class="pathway-icon">🛡️</div>
                 <div style="background: rgba(164, 183, 146, 0.2); color: rgba(255,255,255,0.8); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+35 EXP</div>
               </div>
               <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Boundary Setting</h3>
               <p style="color: rgba(255,255,255,0.8); font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Protect your energy and create healthy limits</p>
-              <div style="display: flex; align-items: center; justify-content: between;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.7);">5 lessons • Not started</span>
                 <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500;">Start</button>
               </div>
@@ -418,13 +426,13 @@
 
             <!-- Self-Compassion - Locked -->
             <div class="pathway-card locked">
-              <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
                 <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: rgba(255,255,255,0.5);">🔒</div>
                 <div style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-left: auto;">+40 EXP</div>
               </div>
               <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: rgba(255,255,255,0.5);">Self-Compassion</h3>
               <p style="color: rgba(255,255,255,0.4); font-size: 0.875rem; line-height: 1.4; margin-bottom: 1rem;">Unlock by completing Resilience Building</p>
-              <div style="display: flex; align-items: center; justify-content: between;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.4);">6 lessons • Locked</span>
                 <button disabled style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; cursor: not-allowed;">Locked</button>
               </div>
@@ -439,21 +447,21 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('mindful-moment')">
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 300ms ease;" onclick="startPractice('mindful-moment')" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(0)';">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧘</div>
                 <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Mindful Moment</h3>
                 <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">3 minutes</p>
                 <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; width: 100%;">Start</button>
               </div>
               
-              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('gratitude-boost')">
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 300ms ease;" onclick="startPractice('gratitude-boost')" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(0)';">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
                 <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Gratitude Boost</h3>
                 <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">2 minutes</p>
                 <button style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.75rem; font-weight: 500; width: 100%;">Start</button>
               </div>
               
-              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 200ms ease;" onclick="startPractice('emotion-check')">
+              <div style="background: rgba(255,255,255,0.15); border-radius: 16px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 300ms ease;" onclick="startPractice('emotion-check')" onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='translateY(0)';">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">💝</div>
                 <h3 style="color: white; font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Emotion Check</h3>
                 <p style="color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-bottom: 1rem;">1 minute</p>
@@ -613,19 +621,45 @@
   </div>
 
   <script>
-    // Initialize Firebase
+    // Initialize Firebase with error handling
     const firebaseConfig = {
       apiKey: "AIzaSyCqjfzvykK6q55vLH7F0FEuyK0cppGhD3w",
-      authDomain: "alchm-digital-sanctuary.firebaseapp.com",
+      authDomain: "alchm-digital-sanctuary.firebaseapp.com", 
       projectId: "alchm-digital-sanctuary",
       storageBucket: "alchm-digital-sanctuary.firebasestorage.app",
       messagingSenderId: "171911707668",
       appId: "1:171911707668:web:9750f89ed6f6352a257b01"
     };
     
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    let auth, db;
+    
+    try {
+      firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      db = firebase.firestore();
+      console.log('✅ Firebase initialized successfully');
+    } catch (error) {
+      console.warn('⚠️ Firebase initialization failed, running in demo mode:', error);
+      // Create mock auth and db for demo mode
+      auth = {
+        currentUser: { uid: 'demo-user' },
+        onAuthStateChanged: (callback) => callback({ uid: 'demo-user' }),
+        signInAnonymously: () => Promise.resolve({ user: { uid: 'demo-user' } })
+      };
+      db = {
+        collection: () => ({
+          add: (data) => {
+            console.log('Demo mode: Saving data:', data);
+            return Promise.resolve({ id: 'demo-id' });
+          },
+          where: () => ({
+            orderBy: () => ({
+              get: () => Promise.resolve({ docs: [] })
+            })
+          })
+        })
+      };
+    }
 
     // Pathway data
     const PATHWAYS = {
@@ -666,6 +700,30 @@
           { prompt: "When do you feel most seen and understood?", context: "Belonging starts with belonging to yourself." },
           { prompt: "What communities hold space for all of who you are?", context: "Your people are out there." }
         ]
+      },
+      'boundary-setting': {
+        name: 'Boundary Setting',
+        symbol: '🛡️',
+        reflections: [
+          { prompt: "What drains your energy that you could say no to?", context: "Boundaries protect your sacred energy." },
+          { prompt: "When do you feel safest to be yourself?", context: "Safety allows authenticity to flourish." },
+          { prompt: "What would you do if you knew no one would be upset?", context: "Your needs matter as much as others'." },
+          { prompt: "How do you want to be treated by others?", context: "You teach people how to treat you." },
+          { prompt: "What boundaries would your future self thank you for?", context: "Today's boundaries create tomorrow's freedom." }
+        ]
+      },
+      'emotional-awareness': {
+        name: 'Emotional Awareness',
+        symbol: '✅',
+        reflections: [
+          { prompt: "What emotions visited you today?", context: "Emotions are messengers, not masters." },
+          { prompt: "When do you feel most emotionally balanced?", context: "Balance is found in awareness, not perfection." },
+          { prompt: "What triggers tend to catch you off guard?", context: "Knowing your triggers gives you power over them." },
+          { prompt: "How do emotions move through your body?", context: "Your body holds wisdom about your emotional state." },
+          { prompt: "What would you tell someone else feeling what you feel?", context: "Compassion for others often unlocks self-compassion." },
+          { prompt: "What emotions do you judge yourself for having?", context: "All emotions are valid visitors in your experience." },
+          { prompt: "How has your emotional awareness grown?", context: "Growth is often invisible until you look back." }
+        ]
       }
     };
 
@@ -673,20 +731,31 @@
     let currentStep = 0;
     let completedSteps = [];
 
-    // Check authentication
+    // Check authentication - guest-friendly approach
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        alert('Please sign in to access Pathways');
-        window.location.href = '/auth';
+        console.log('No user found, attempting anonymous sign in');
+        // Try to create anonymous session
+        auth.signInAnonymously().then((result) => {
+          console.log('Anonymous user created:', result.user.uid);
+        }).catch((error) => {
+          console.log('Demo mode - proceeding without authentication:', error);
+          // Allow full guest access - don't block the user
+        });
+      } else {
+        console.log('User authenticated:', user.uid);
       }
     });
 
-    // Sign out
-    document.getElementById('sign-out-btn').addEventListener('click', () => {
-      auth.signOut().then(() => {
-        window.location.href = '/';
+    // Sign out function - only add listener if element exists
+    const signOutBtn = document.getElementById('sign-out-btn');
+    if (signOutBtn) {
+      signOutBtn.addEventListener('click', () => {
+        auth.signOut().then(() => {
+          window.location.href = '/';
+        });
       });
-    });
+    }
 
     // Word count
     document.getElementById('reflection-text').addEventListener('input', (e) => {
@@ -702,36 +771,107 @@
     function selectPathway(pathwayId) {
       // Enhanced Duolingo-style pathway selection
       if (pathwayId === 'emotional-awareness') {
-        alert('🎉 Congratulations! You\'ve completed this pathway. Review your progress or start a new one!');
+        showPathwayDetails('emotional-awareness', 'completed');
         return;
       }
       
       if (pathwayId === 'resilience') {
-        alert('📚 Continuing your Resilience Building journey! Lesson 4 is ready for you.');
-        // In a real app, this would navigate to the specific lesson
+        showPathwayDetails('resilience', 'in-progress');
+        return;
+      }
+      
+      if (pathwayId === 'boundary-setting') {
+        showPathwayDetails('boundary-setting', 'available');
         return;
       }
       
       currentPathway = pathwayId;
       currentStep = 0;
-      loadProgress().then(() => {
-        const nextStep = completedSteps.length;
-        if (nextStep < PATHWAYS[pathwayId].reflections.length) {
-          showReflection(nextStep);
-        } else {
-          showProgress();
+      
+      if (PATHWAYS[pathwayId]) {
+        loadProgress().then(() => {
+          const nextStep = completedSteps.length;
+          if (nextStep < PATHWAYS[pathwayId].reflections.length) {
+            showReflection(nextStep);
+          } else {
+            showProgress();
+          }
+        });
+      } else {
+        alert('This pathway is not available yet. More content coming soon!');
+      }
+    }
+    
+    function showPathwayDetails(pathwayId, status) {
+      const messages = {
+        'emotional-awareness': {
+          completed: '🎉 Congratulations! You\'ve completed Emotional Awareness pathway!\n\n✅ 7/7 lessons complete\n🏆 50 EXP earned\n\n🔄 Review lessons\n🚀 Start new pathway',
+          'in-progress': 'Continue your emotional awareness journey!',
+          available: 'Ready to start your emotional awareness journey?'
+        },
+        'resilience': {
+          'in-progress': '🌱 Resilience Building Pathway\n\n📍 Currently on lesson 4 of 7\n💫 25 EXP earned so far\n⚡ 42% complete\n\n🎯 Ready to continue your growth?',
+          completed: 'Resilience pathway completed!',
+          available: 'Start building your resilience!'
+        },
+        'boundary-setting': {
+          available: '🛡️ Boundary Setting Pathway\n\n🎓 5 powerful lessons ahead\n💎 35 EXP to earn\n🌟 Learn to protect your energy\n\n✨ Ready to start?',
+          'in-progress': 'Continue your boundary setting journey!',
+          completed: 'Boundary setting mastered!'
         }
-      });
+      };
+      
+      const message = messages[pathwayId]?.[status] || 'Pathway information not available';
+      
+      if (confirm(message + '\n\nWould you like to continue?')) {
+        if (status === 'available' && PATHWAYS[pathwayId]) {
+          currentPathway = pathwayId;
+          currentStep = 0;
+          completedSteps = [];
+          showReflection(0);
+        } else if (status === 'in-progress' && PATHWAYS[pathwayId]) {
+          currentPathway = pathwayId;
+          loadProgress().then(() => {
+            const nextStep = completedSteps.length;
+            if (nextStep < PATHWAYS[pathwayId].reflections.length) {
+              showReflection(nextStep);
+            } else {
+              showProgress();
+            }
+          });
+        } else {
+          alert('This pathway will be fully available soon!');
+        }
+      }
     }
     
     function startPractice(practiceId) {
       const practices = {
-        'mindful-moment': 'Taking a mindful moment to check in with yourself...',
-        'gratitude-boost': 'Reflecting on what you\'re grateful for today...',
-        'emotion-check': 'Tuning into your current emotional state...'
+        'mindful-moment': {
+          message: '🧘 Mindful Moment Practice',
+          description: 'Take 3 minutes to breathe and check in with yourself',
+          instruction: '1. Close your eyes\n2. Take 5 deep breaths\n3. Notice what you\'re feeling\n4. Send yourself compassion'
+        },
+        'gratitude-boost': {
+          message: '✨ Gratitude Boost Practice', 
+          description: 'Reflect on 3 things you\'re grateful for today',
+          instruction: '1. Think of something small you\'re grateful for\n2. Think of someone you appreciate\n3. Think of a moment that brought you joy'
+        },
+        'emotion-check': {
+          message: '💝 Emotion Check Practice',
+          description: 'Tune into your current emotional state',
+          instruction: '1. Name what you\'re feeling\n2. Where do you feel it in your body?\n3. What does this emotion need?\n4. Offer yourself kindness'
+        }
       };
       
-      alert(`✨ ${practices[practiceId]} This practice will be available soon in the full version!`);
+      const practice = practices[practiceId];
+      if (confirm(`${practice.message}\n\n${practice.description}\n\n${practice.instruction}\n\nWould you like to start this practice?`)) {
+        // Simulate practice completion
+        setTimeout(() => {
+          alert('🎆 Practice completed! +5 EXP earned.\n\nGreat work taking care of your emotional well-being.');
+        }, 2000);
+        alert('⏳ Starting practice... Take your time and be gentle with yourself.');
+      }
     }
 
     function showReflection(step) {
@@ -752,7 +892,22 @@
     async function saveReflection() {
       const user = auth.currentUser;
       if (!user) {
-        alert('Please sign in to save');
+        // Save to localStorage as fallback
+        const reflection = {
+          pathwayId: currentPathway,
+          stepNumber: currentStep,
+          content: document.getElementById('reflection-text').value,
+          timestamp: Date.now()
+        };
+        
+        const saved = JSON.parse(localStorage.getItem('pathways_reflections') || '[]');
+        saved.push(reflection);
+        localStorage.setItem('pathways_reflections', JSON.stringify(saved));
+        
+        completedSteps.push(currentStep);
+        showProgress();
+        
+        alert('Reflection saved locally! Sign in to sync across devices.');
         return;
       }
 
@@ -763,8 +918,10 @@
       }
 
       const btn = document.getElementById('save-reflection-btn');
-      btn.disabled = true;
-      btn.textContent = 'Saving...';
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+      }
 
       try {
         const pathway = PATHWAYS[currentPathway];
@@ -788,14 +945,31 @@
         console.error('Error saving:', error);
         alert('Failed to save. Please try again.');
       } finally {
-        btn.disabled = false;
-        btn.textContent = 'Save Reflection';
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Save Reflection';
+        }
       }
     }
 
     async function loadProgress() {
       const user = auth.currentUser;
-      if (!user) return;
+      
+      if (!user) {
+        // Load from localStorage for guest users
+        try {
+          const saved = JSON.parse(localStorage.getItem('pathways_reflections') || '[]');
+          completedSteps = saved
+            .filter(r => r.pathwayId === currentPathway)
+            .map(r => r.stepNumber)
+            .sort((a, b) => a - b);
+          console.log('Loaded guest progress from localStorage:', completedSteps);
+        } catch (error) {
+          console.error('Error loading local progress:', error);
+          completedSteps = [];
+        }
+        return;
+      }
 
       try {
         const snapshot = await db.collection('pathway_reflections')
@@ -805,9 +979,19 @@
           .get();
         
         completedSteps = snapshot.docs.map(doc => doc.data().stepNumber);
+        console.log('Loaded Firebase progress:', completedSteps);
       } catch (error) {
-        console.error('Error loading progress:', error);
-        completedSteps = [];
+        console.error('Error loading Firebase progress:', error);
+        // Fallback to localStorage
+        try {
+          const saved = JSON.parse(localStorage.getItem('pathways_reflections') || '[]');
+          completedSteps = saved
+            .filter(r => r.pathwayId === currentPathway)
+            .map(r => r.stepNumber)
+            .sort((a, b) => a - b);
+        } catch (localError) {
+          completedSteps = [];
+        }
       }
     }
 

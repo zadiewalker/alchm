@@ -7,27 +7,35 @@ import { cookies } from 'next/headers';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { uid, user } = body;
+    const { uid, user, isAnonymous } = body;
 
-    if (!uid || !user) {
+    // Support both formats from domain-aware-auth.ts
+    const userId = uid;
+    const userEmail = user?.email || null;
+    const userDisplayName = user?.displayName || null;
+
+    if (!userId) {
       return NextResponse.json(
-        { error: 'Missing required session data' },
+        { error: 'Missing required session data: uid' },
         { status: 400 }
       );
     }
 
+    console.log('🔐 Creating session for user:', userId, isAnonymous ? '(anonymous)' : '');
+
     // Create session cookie (simplified for crisis response)
     const sessionData = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
+      uid: userId,
+      email: userEmail,
+      displayName: userDisplayName,
+      isAnonymous: !!isAnonymous,
       createdAt: Date.now(),
       expiresAt: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
     };
 
     const response = NextResponse.json({ 
       success: true,
-      sessionId: uid 
+      sessionId: userId 
     });
 
     // Set secure session cookie
@@ -35,6 +43,15 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/'
+    });
+
+    // Also set client-side cookie for compatibility
+    response.cookies.set('alchm_session', userId, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
       maxAge: 24 * 60 * 60, // 24 hours
       path: '/'
     });

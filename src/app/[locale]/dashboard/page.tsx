@@ -6,6 +6,16 @@ import { useAuth } from '@/lib/useAuth';
 import { SanctuaryDashboard } from '@/components/dashboard/SanctuaryDashboard';
 import { InlineAgeVerification } from '@/components/auth/InlineAgeVerification';
 import { ScarabIcon } from '../../../components/icons/AlchmIcons';
+import dynamic from 'next/dynamic';
+
+// Dynamic import for enhanced Khepera chat
+const KheperaChat = dynamic(
+  () => import('@/components/khepera/KheperaChat'),
+  { 
+    ssr: false,
+    loading: () => null
+  }
+);
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
@@ -116,15 +126,19 @@ export default function DashboardPage() {
           onVerified={handleAgeVerified}
           onDeclined={handleAgeDeclined}
         />
+        <KheperaChat userId={user?.uid} />
       </>
     );
   }
 
   // Guest mode or authenticated user - show the dashboard
   return (
-    <SanctuaryDashboard 
-      user={user} 
-      isGuest={guestMode || !user} 
-    />
+    <>
+      <SanctuaryDashboard 
+        user={user} 
+        isGuest={guestMode || !user} 
+      />
+      <KheperaChat userId={user?.uid} />
+    </>
   );
 }
