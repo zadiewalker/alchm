@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/useAuth';
-import EmotionalReportCard from './EmotionalReportCard';
 import { emotionalAnalytics } from '@/lib/privacy-preserving-emotional-analytics';
 
 // Organic visualization components
@@ -581,8 +580,7 @@ export default function SanctuaryAnalyticsDashboard() {
         <TimeframeSelector />
       </div>
 
-      {/* Main report card */}
-      <EmotionalReportCard timeframe={timeframe} />
+      {/* Real analytics will be added here */}
 
       {/* Organic visualizations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
