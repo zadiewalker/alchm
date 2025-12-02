@@ -6,8 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'out',
   server: {
     androidScheme: 'https',
-    iosScheme: 'https',
-    url: process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000'
+    iosScheme: 'https'
   },
   ios: {
     contentInset: 'automatic',
