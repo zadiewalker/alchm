@@ -120,7 +120,7 @@ const sanctuaryWisdom = [
   },
   {
     question: 'What if financial stress makes investment difficult?',
-    answer: 'Essential Sanctuary provides a complete, powerful healing experience forever gifted. We also offer sliding scale sanctuary access and hardship exemptions. Financial struggle should never block the path to healing.'
+    answer: 'Essential Sanctuary provides a complete, powerful healing experience forever gifted. Financial struggle should never block the path to healing.'
   },
   {
     question: 'How do I know this investment serves my healing?',
@@ -158,7 +158,7 @@ export default function PricingPage() {
 
   const handlePaymentError = (error: string) => {
     console.error('Payment error:', error);
-    alert(error + '\n\nFor assistance or sliding scale options, please contact support.');
+    alert(error + '\n\nFor assistance, please contact support.');
     setSelectedOffering(null);
   };
 
@@ -354,7 +354,7 @@ export default function PricingPage() {
             <h2 className="text-3xl font-light text-sanctuary-gray-900 mb-6">
               Your Peace of Mind Matters
             </h2>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-sage-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -379,17 +379,6 @@ export default function PricingPage() {
                 </p>
               </div>
               
-              <div className="text-center">
-                <div className="w-16 h-16 bg-sage-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-medium text-sanctuary-gray-900 mb-2">Sliding Scale</h3>
-                <p className="text-sanctuary-gray-600 text-sm leading-relaxed">
-                  Financial hardship shouldn't prevent healing. We offer sliding scale pricing and hardship exemptions.
-                </p>
-              </div>
             </div>
           </div>
         </div>

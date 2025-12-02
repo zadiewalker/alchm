@@ -1,0 +1,51 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with sage green gradient -->
+  <rect width="1024" height="1024" fill="#a4b792"/>
+  
+  <!-- Subtle inner gradient for depth -->
+  <rect width="1024" height="1024" fill="url(#background-gradient)"/>
+  
+  <!-- Journal/Book symbol -->
+  <g transform="translate(212, 256)">
+    <!-- Book pages/spine -->
+    <rect x="0" y="0" width="600" height="512" rx="32" fill="white" opacity="0.95"/>
+    <rect x="16" y="16" width="568" height="480" rx="16" fill="#f8f9fa"/>
+    
+    <!-- Binding -->
+    <rect x="48" y="32" width="8" height="448" fill="#a4b792" opacity="0.6"/>
+    
+    <!-- Writing lines suggesting journal entries -->
+    <rect x="96" y="96" width="320" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+    <rect x="96" y="128" width="280" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+    <rect x="96" y="160" width="300" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+    <rect x="96" y="192" width="260" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+    
+    <rect x="96" y="256" width="240" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+    <rect x="96" y="288" width="320" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+    <rect x="96" y="320" width="200" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+    
+    <!-- Healing symbol - stylized leaf/growth -->
+    <g transform="translate(420, 300)">
+      <path d="M0 80 C20 60, 40 40, 80 20 C120 0, 160 20, 180 60 C180 80, 160 100, 140 120 C120 140, 100 160, 80 160 C60 160, 40 140, 20 120 C0 100, 0 80 Z" 
+            fill="#7c9b6b" opacity="0.7"/>
+      <path d="M20 100 C40 80, 60 70, 80 70 C100 70, 120 80, 140 100" 
+            stroke="#5a7a49" stroke-width="2" fill="none" opacity="0.8"/>
+      <circle cx="80" cy="90" r="3" fill="#5a7a49" opacity="0.6"/>
+    </g>
+  </g>
+  
+  <!-- Subtle geometric pattern for texture -->
+  <pattern id="texture" patternUnits="userSpaceOnUse" width="40" height="40">
+    <circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/>
+  </pattern>
+  <rect width="1024" height="1024" fill="url(#texture)"/>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <radialGradient id="background-gradient" cx="0.5" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#b8c7a7;stop-opacity:0.3"/>
+      <stop offset="70%" style="stop-color:#a4b792;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#8a9e75;stop-opacity:0.2"/>
+    </radialGradient>
+  </defs>
+</svg>

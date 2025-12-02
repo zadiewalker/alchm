@@ -221,7 +221,7 @@ export default function DashboardPage() {
         <div>
           <button
             onClick={() => router.push('/journal/new')}
-            className="w-full bg-white rounded-2xl p-6 shadow-lg text-left transition-all active:scale-[0.98] hover:shadow-xl border border-gray-100"
+            className="w-full bg-white rounded-2xl p-6 shadow-lg text-left transition-all active:scale-[0.98] hover:shadow-xl border border-gray-100 hover:border-gray-200 ring-1 ring-black/[0.02] hover:ring-black/[0.04]"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -255,7 +255,7 @@ export default function DashboardPage() {
             </h3>
             <button
               onClick={() => router.push(`/entry/${recentEntry.id}`)}
-              className="w-full bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-shadow border border-gray-100"
+              className="w-full bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-all border border-gray-100/60 hover:border-gray-200/80 ring-1 ring-black/[0.015] hover:ring-black/[0.025]"
             >
               <div className="text-sm text-gray-500 mb-2">
                 {recentEntry.createdAt ? getTimeAgo(recentEntry.createdAt) : 'Recent'}
@@ -280,7 +280,7 @@ export default function DashboardPage() {
             {/* Past Entries */}
             <button
               onClick={() => router.push('/entries')}
-              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-shadow border border-gray-100"
+              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-all border border-gray-100/70 hover:border-gray-200/90 ring-1 ring-black/[0.01] hover:ring-black/[0.02] backdrop-blur-sm"
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.sage + '20' }}>
                 <BookIcon size={20} color={COLORS.sage} />
@@ -294,7 +294,7 @@ export default function DashboardPage() {
             {/* Pathways */}
             <button
               onClick={() => router.push('/pathways')}
-              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-shadow border border-gray-100"
+              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-all border border-gray-100/70 hover:border-gray-200/90 ring-1 ring-black/[0.01] hover:ring-black/[0.02] backdrop-blur-sm"
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.sage + '20' }}>
                 <PathIcon size={20} color={COLORS.sage} />
@@ -307,7 +307,7 @@ export default function DashboardPage() {
             {stats.totalEntries > 0 && (
               <button
                 onClick={() => router.push('/insights')}
-                className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-shadow border border-gray-100"
+                className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-all border border-gray-100/70 hover:border-gray-200/90 ring-1 ring-black/[0.01] hover:ring-black/[0.02] backdrop-blur-sm"
               >
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.sage + '20' }}>
                   <ChartIcon size={20} color={COLORS.sage} />
@@ -320,7 +320,7 @@ export default function DashboardPage() {
             {/* Settings */}
             <button
               onClick={() => router.push('/settings')}
-              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-shadow border border-gray-100"
+              className="bg-white rounded-xl p-4 shadow-sm text-left hover:shadow-md transition-all border border-gray-100/70 hover:border-gray-200/90 ring-1 ring-black/[0.01] hover:ring-black/[0.02] backdrop-blur-sm"
             >
               <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style={{ backgroundColor: COLORS.sage + '20' }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={COLORS.sage} strokeWidth="2">
@@ -340,7 +340,7 @@ export default function DashboardPage() {
         {/* GUEST PROMPT (if anonymous) */}
         {/* ============================================ */}
         {user?.isAnonymous && stats.totalEntries > 2 && (
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100/70 hover:border-gray-200/90 ring-1 ring-black/[0.01] hover:ring-black/[0.02] backdrop-blur-sm">
             <h3 className="font-medium mb-2" style={{ color: COLORS.charcoal }}>
               Save your progress
             </h3>

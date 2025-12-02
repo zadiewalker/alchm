@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Icon Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #a4b792;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .preview {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .icon-item {
+            text-align: center;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        .icon-item img {
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .icon-item .label {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            background: #a4b792;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #8a9e75;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .progress {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .critical {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            font-size: 18px;
+            text-align: center;
+        }
+        .download-all {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 ALCHM Icon Generator</h1>
+        
+        <div class="critical status">
+            ⚠️ <strong>CRITICAL:</strong> 1024x1024 App Store icon is REQUIRED for submission
+        </div>
+        
+        <div class="preview">
+            <h3>Source Icon Design</h3>
+            <svg id="sourceIcon" width="200" height="200" viewBox="0 0 1024 1024">
+                <!-- Background with sage green gradient -->
+                <rect width="1024" height="1024" fill="#a4b792"/>
+                
+                <!-- Subtle inner gradient for depth -->
+                <rect width="1024" height="1024" fill="url(#background-gradient)"/>
+                
+                <!-- Journal/Book symbol -->
+                <g transform="translate(212, 256)">
+                    <!-- Book pages/spine -->
+                    <rect x="0" y="0" width="600" height="512" rx="32" fill="white" opacity="0.95"/>
+                    <rect x="16" y="16" width="568" height="480" rx="16" fill="#f8f9fa"/>
+                    
+                    <!-- Binding -->
+                    <rect x="48" y="32" width="8" height="448" fill="#a4b792" opacity="0.6"/>
+                    
+                    <!-- Writing lines suggesting journal entries -->
+                    <rect x="96" y="96" width="320" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+                    <rect x="96" y="128" width="280" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+                    <rect x="96" y="160" width="300" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+                    <rect x="96" y="192" width="260" height="3" rx="1.5" fill="#a4b792" opacity="0.4"/>
+                    
+                    <rect x="96" y="256" width="240" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+                    <rect x="96" y="288" width="320" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+                    <rect x="96" y="320" width="200" height="3" rx="1.5" fill="#a4b792" opacity="0.3"/>
+                    
+                    <!-- Healing symbol - stylized leaf/growth -->
+                    <g transform="translate(420, 300)">
+                        <path d="M0 80 C20 60, 40 40, 80 20 C120 0, 160 20, 180 60 C180 80, 160 100, 140 120 C120 140, 100 160, 80 160 C60 160, 40 140, 20 120 C0 100, 0 80 Z" 
+                              fill="#7c9b6b" opacity="0.7"/>
+                        <path d="M20 100 C40 80, 60 70, 80 70 C100 70, 120 80, 140 100" 
+                              stroke="#5a7a49" stroke-width="2" fill="none" opacity="0.8"/>
+                        <circle cx="80" cy="90" r="3" fill="#5a7a49" opacity="0.6"/>
+                    </g>
+                </g>
+                
+                <!-- Gradient definitions -->
+                <defs>
+                    <radialGradient id="background-gradient" cx="0.5" cy="0.3" r="0.8">
+                        <stop offset="0%" style="stop-color:#b8c7a7;stop-opacity:0.3"/>
+                        <stop offset="70%" style="stop-color:#a4b792;stop-opacity:0.1"/>
+                        <stop offset="100%" style="stop-color:#8a9e75;stop-opacity:0.2"/>
+                    </radialGradient>
+                </defs>
+            </svg>
+            <p>ALCHM icon design featuring a journal with sage green branding and healing leaf symbol</p>
+        </div>
+        
+        <div class="download-all">
+            <button onclick="generateAllIcons()">🚀 Generate All App Store Icons</button>
+            <button onclick="generateCriticalIcon()">⚡ Generate 1024x1024 Only</button>
+        </div>
+        
+        <div id="status"></div>
+        <div id="iconGrid" class="icon-grid"></div>
+    </div>
+
+    <script>
+        const iconSizes = {
+            'App Store (CRITICAL)': { size: 1024, filename: 'app-store-icon.png', critical: true },
+            'iPhone @3x': { size: 180, filename: 'icon-180x180.png' },
+            'iPhone @2x': { size: 120, filename: 'icon-120x120.png' },
+            'iPhone Settings @3x': { size: 87, filename: 'icon-87x87.png' },
+            'iPhone Spotlight @2x': { size: 80, filename: 'icon-80x80.png' },
+            'iPhone Spotlight': { size: 60, filename: 'icon-60x60.png' },
+            'iPhone Settings @2x': { size: 58, filename: 'icon-58x58.png' },
+            'iPhone Notification @2x': { size: 40, filename: 'icon-40x40.png' },
+            'iPhone Settings': { size: 29, filename: 'icon-29x29.png' },
+            'iPhone Notification': { size: 20, filename: 'icon-20x20.png' },
+            'iPad Pro': { size: 167, filename: 'icon-167x167.png' },
+            'iPad @2x': { size: 152, filename: 'icon-152x152.png' },
+            'iPad': { size: 76, filename: 'icon-76x76.png' },
+            'PWA Large': { size: 512, filename: 'icon-512x512.png' },
+            'PWA Standard': { size: 192, filename: 'icon-192x192.png' },
+            'Apple Touch Icon': { size: 180, filename: 'apple-touch-icon.png' }
+        };
+
+        function updateStatus(message, type = 'progress') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+        }
+
+        function svgToPng(svgElement, size) {
+            return new Promise((resolve, reject) => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = size;
+                canvas.height = size;
+
+                const data = new XMLSerializer().serializeToString(svgElement);
+                const svg = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
+                const url = URL.createObjectURL(svg);
+
+                const img = new Image();
+                img.onload = () => {
+                    ctx.drawImage(img, 0, 0, size, size);
+                    URL.revokeObjectURL(url);
+                    
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/png');
+                };
+                img.onerror = reject;
+                img.src = url;
+            });
+        }
+
+        function downloadBlob(blob, filename) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function createIconElement(blob, label, size, filename, critical = false) {
+            const iconItem = document.createElement('div');
+            iconItem.className = 'icon-item';
+            
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(blob);
+            img.width = Math.min(64, size);
+            img.height = Math.min(64, size);
+            img.alt = label;
+            
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'label';
+            labelDiv.innerHTML = `${label}<br>${size}×${size}${critical ? '<br><strong>CRITICAL</strong>' : ''}`;
+            
+            const downloadBtn = document.createElement('button');
+            downloadBtn.innerHTML = '💾';
+            downloadBtn.style.fontSize = '12px';
+            downloadBtn.style.padding = '4px 8px';
+            downloadBtn.onclick = () => downloadBlob(blob, filename);
+            
+            iconItem.appendChild(img);
+            iconItem.appendChild(labelDiv);
+            iconItem.appendChild(downloadBtn);
+            
+            if (critical) {
+                iconItem.style.border = '3px solid #dc3545';
+                iconItem.style.backgroundColor = '#fff3cd';
+            }
+            
+            return iconItem;
+        }
+
+        async function generateCriticalIcon() {
+            updateStatus('🎯 Generating critical 1024x1024 App Store icon...', 'progress');
+            
+            try {
+                const svgElement = document.getElementById('sourceIcon');
+                const blob = await svgToPng(svgElement, 1024);
+                
+                const iconGrid = document.getElementById('iconGrid');
+                iconGrid.innerHTML = '';
+                
+                const iconElement = createIconElement(blob, 'App Store Icon', 1024, 'app-store-icon.png', true);
+                iconGrid.appendChild(iconElement);
+                
+                // Auto-download the critical icon
+                downloadBlob(blob, 'app-store-icon.png');
+                
+                updateStatus('✅ Critical 1024x1024 App Store icon generated and downloaded!', 'success');
+            } catch (error) {
+                updateStatus('❌ Error generating icon: ' + error.message, 'error');
+            }
+        }
+
+        async function generateAllIcons() {
+            updateStatus('🚀 Generating all App Store icons... This may take a moment.', 'progress');
+            
+            const iconGrid = document.getElementById('iconGrid');
+            iconGrid.innerHTML = '';
+            
+            let generated = 0;
+            const total = Object.keys(iconSizes).length;
+            
+            try {
+                const svgElement = document.getElementById('sourceIcon');
+                
+                for (const [label, config] of Object.entries(iconSizes)) {
+                    updateStatus(`📱 Generating ${label} (${config.size}×${config.size})... ${generated + 1}/${total}`, 'progress');
+                    
+                    const blob = await svgToPng(svgElement, config.size);
+                    const iconElement = createIconElement(blob, label, config.size, config.filename, config.critical);
+                    iconGrid.appendChild(iconElement);
+                    
+                    // Auto-download critical icons
+                    if (config.critical) {
+                        downloadBlob(blob, config.filename);
+                    }
+                    
+                    generated++;
+                    
+                    // Small delay to prevent UI blocking
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                updateStatus(`✅ Successfully generated all ${total} icons! Critical icons auto-downloaded.`, 'success');
+                
+            } catch (error) {
+                updateStatus('❌ Error generating icons: ' + error.message, 'error');
+            }
+        }
+
+        // Generate preview on load
+        window.addEventListener('load', () => {
+            updateStatus('👋 Ready to generate ALCHM icons. Click "Generate All App Store Icons" to begin.', 'progress');
+        });
+    </script>
+</body>
+</html>

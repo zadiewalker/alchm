@@ -1,0 +1,106 @@
+# ALCHM App Store Connect Metadata - Ready to Copy/Paste
+
+## APP NAME (30 characters max)
+ALCHM - Journal for Growth
+
+## SUBTITLE (30 characters max)  
+Transform emotions into wisdom
+
+## KEYWORDS (100 characters max - comma separated, no spaces after commas)
+journal,mental health,trauma,AI,therapy,wellness,mindfulness,healing,growth,emotional intelligence
+
+## PROMOTIONAL TEXT (170 characters max)
+World's first trauma-informed journaling OS. Transform emotions into wisdom with AI companion trained in trauma-informed practices. Your data stays private.
+
+## DESCRIPTION (4000 characters max)
+
+Transform your emotional experiences into lasting wisdom with ALCHM, the world's first trauma-informed journaling Operating System.
+
+✨ WHY ALCHM IS DIFFERENT
+
+Unlike other apps, ALCHM was built from the ground up with trauma survivors in mind:
+• Gentle, non-triggering design
+• Real insights, never fake data
+• Privacy-first architecture (your data stays yours)
+• Crisis support integration
+
+🤖 KHEPERA: YOUR AI HEALING COMPANION
+
+Meet Khepera, an AI trained specifically in trauma-informed practices:
+• Reflects your own wisdom back to you
+• Never diagnoses or gives medical advice
+• Learns your unique healing patterns
+• Available 24/7 for emotional support
+
+📊 AUTHENTIC GROWTH TRACKING
+
+Track your genuine progress with:
+• Emotional pattern recognition
+• Real data only (no fabricated percentages)
+• Healing milestone celebrations
+• Trauma-informed progress insights
+
+🎯 STRUCTURED HEALING PATHWAYS
+
+Guided growth journeys including:
+• Emotional Awareness & Regulation
+• Trauma Recovery & Resilience
+• Identity & Self-Compassion
+• Stress & Anxiety Management
+
+🔒 PRIVACY & SAFETY FIRST
+
+Your sanctuary, your rules:
+• End-to-end encryption
+• Local-first data storage
+• No data selling or sharing
+• 24/7 crisis resource access
+
+🌍 CULTURALLY RESPONSIVE
+
+Healing wisdom from multiple traditions:
+• Multi-language support
+• Cultural trauma awareness
+• LGBTQ+ affirming design
+• Neurodivergent accessibility
+
+Perfect for:
+• Trauma survivors seeking growth
+• Therapy clients supplementing treatment
+• Mental health professionals
+• Anyone wanting authentic emotional development
+
+⚠️ IMPORTANT: ALCHM supplements but doesn't replace professional therapy. If you're in crisis, contact emergency services immediately.
+
+Start your healing journey today. You deserve a sanctuary for growth.
+
+## WHAT'S NEW IN VERSION 1.0 (Build 3)
+• Enhanced dashboard with subtle visual improvements
+• Real data analytics (removed all fabricated metrics)
+• Improved loading performance for Past Entries and Pathways
+• Simplified Premium Features experience
+• Crisis safety optimizations
+
+## PRIVACY POLICY URL
+https://alchm.app/privacy
+
+## TERMS OF SERVICE URL  
+https://alchm.app/terms
+
+## SUPPORT URL
+https://alchm.app/support
+
+## MARKETING URL
+https://alchm.app
+
+## APP REVIEW INFORMATION
+Username: testuser@alchm.app
+Password: TestFlight2024!
+Notes: This app processes trauma-related content. Reviewers can test with sample entries provided in the demo mode. Crisis resources are real and functional.
+
+## AGE RATING
+17+
+Reasons: 
+- Medical/Treatment Information: Frequent/Intense
+- Mature/Suggestive Themes: Frequent/Intense (trauma content)
+- Alcohol, Tobacco, or Drug Use: Infrequent/Mild (substance abuse recovery content)

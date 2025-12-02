@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Apps and Games Tab Design Template</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        .asset-container {
+            width: 864px; /* 4320px / 5 for screen viewing */
+            height: 216px; /* 1080px / 5 for screen viewing */
+            background: linear-gradient(90deg, #fefdfb 0%, #f8f9fa 100%);
+            position: relative;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .phone-mockup {
+            width: 120px;
+            height: 180px;
+            background: #000;
+            border-radius: 16px;
+            padding: 4px;
+            margin-right: 40px;
+            flex-shrink: 0;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #fefdfb;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .app-interface {
+            padding: 12px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            margin: -12px -12px 12px -12px;
+            padding: 16px 12px 12px 12px;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        .app-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .app-subtitle {
+            font-size: 8px;
+            opacity: 0.8;
+        }
+        
+        .dashboard-cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            border: 1px solid rgba(164, 183, 146, 0.25);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        
+        .card-title {
+            font-size: 8px;
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 4px;
+        }
+        
+        .card-content {
+            font-size: 6px;
+            color: #666;
+            line-height: 1.2;
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .metric-value {
+            color: #8fa078;
+            font-weight: 600;
+        }
+        
+        .content-section {
+            flex: 1;
+            padding-left: 20px;
+        }
+        
+        .main-headline {
+            font-size: 36px;
+            font-weight: 300;
+            color: #2d2d2d;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 2px;
+        }
+        
+        .feature-description {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.3;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #8fa078;
+            font-weight: 500;
+        }
+        
+        .trust-icon {
+            font-size: 14px;
+        }
+        
+        .design-notes {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 1000px;
+        }
+        
+        .actual-size-note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .layout-section {
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="actual-size-note">
+        <strong>PRODUCTION NOTE:</strong> This is a scaled-down preview. The actual Photoshop file will be 4320 x 1080 pixels at 300 DPI. 
+        File name: <code>ALCHM_[AppAppleID]_20241202_AppStore_AppsGamesWatch.psd</code>
+    </div>
+
+    <div class="asset-container">
+        <div class="phone-mockup">
+            <div class="phone-screen">
+                <div class="app-interface">
+                    <div class="app-header">
+                        <div class="app-title">ALCHM</div>
+                        <div class="app-subtitle">Safe space for growth</div>
+                    </div>
+                    
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="card-title">Recent Entry</div>
+                            <div class="card-content">Today I felt overwhelmed but managed to practice self-compassion...</div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-title">This Week</div>
+                            <div class="metric">
+                                <span>Journal entries</span>
+                                <span class="metric-value">4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-title">Emotional Growth</div>
+                            <div class="card-content">Self-awareness pathway: 60% complete</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h1 class="main-headline">Safe space for healing and growth</h1>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">
+                        <div class="feature-title">AI-powered insights</div>
+                        <div class="feature-description">Khepera companion trained in trauma-informed practices</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🚨</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Crisis support when needed</div>
+                        <div class="feature-description">24/7 crisis resources integrated seamlessly</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Privacy-first design</div>
+                        <div class="feature-description">Your data stays yours, always encrypted</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <div class="feature-title">Real analytics only</div>
+                        <div class="feature-description">Authentic insights, never fabricated metrics</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Trauma-informed design</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Built by trauma survivors</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">✓</span>
+                    <span>Mental health professional endorsed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="design-notes">
+        <h3>Apps and Games Tab Design Specifications</h3>
+        <ul>
+            <li><strong>Dimensions:</strong> 4320 x 1080 pixels (shown scaled down 5:1)</li>
+            <li><strong>Format:</strong> Photoshop PSD with Smart Objects</li>
+            <li><strong>Purpose:</strong> Horizontal banner for Apps and Games tabs featuring</li>
+            <li><strong>Layout Strategy:</strong> Split-screen with app preview and feature highlights</li>
+        </ul>
+        
+        <h4>Layout Structure:</h4>
+        <div class="layout-grid">
+            <div class="layout-section">
+                <strong>Left Side (30%)</strong><br>
+                iPhone Mockup<br>
+                - Dashboard interface<br>
+                - Real app screens<br>
+                - Build #4 improvements
+            </div>
+            <div class="layout-section">
+                <strong>Right Side (70%)</strong><br>
+                Content Area<br>
+                - Hero headline<br>
+                - 4 key features grid<br>
+                - Trust indicators
+            </div>
+        </div>
+        
+        <h4>Key Messaging Hierarchy:</h4>
+        <ol>
+            <li><strong>Primary Headline:</strong> "Safe space for healing and growth"</li>
+            <li><strong>Feature Grid (2x2):</strong>
+                <ul>
+                    <li>AI-powered insights (Khepera companion)</li>
+                    <li>Crisis support when needed (24/7 resources)</li>
+                    <li>Privacy-first design (your data stays yours)</li>
+                    <li>Real analytics only (never fabricated)</li>
+                </ul>
+            </li>
+            <li><strong>Trust Indicators:</strong>
+                <ul>
+                    <li>Trauma-informed design</li>
+                    <li>Built by trauma survivors</li>
+                    <li>Mental health professional endorsed</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <h4>iPhone Mockup Content:</h4>
+        <ul>
+            <li><strong>Header:</strong> ALCHM with "Safe space for growth" tagline</li>
+            <li><strong>Dashboard Cards (showing Build #4 improvements):</strong>
+                <ul>
+                    <li>Recent entry preview with trauma-informed content</li>
+                    <li>Real metrics (journal entries this week: 4)</li>
+                    <li>Pathway progress (emotional growth: 60% complete)</li>
+                    <li>Subtle white borders on all cards (Build #4 improvement)</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h4>Design Principles:</h4>
+        <ul>
+            <li><strong>Trauma-Informed Visual Design:</strong>
+                <ul>
+                    <li>Soft, calming color palette (sage greens)</li>
+                    <li>Generous whitespace for breathing room</li>
+                    <li>Rounded corners and gentle shadows</li>
+                    <li>No harsh contrasts or aggressive elements</li>
+                </ul>
+            </li>
+            <li><strong>Professional Credibility:</strong>
+                <ul>
+                    <li>Clean, medical-grade typography</li>
+                    <li>Feature icons that convey trust and safety</li>
+                    <li>Real app interface (not conceptual)</li>
+                    <li>Professional color scheme</li>
+                </ul>
+            </li>
+            <li><strong>Accessibility:</strong>
+                <ul>
+                    <li>High contrast ratios for text readability</li>
+                    <li>Large enough touch targets (24px minimum)</li>
+                    <li>Clear visual hierarchy</li>
+                    <li>Meaningful icon/text combinations</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h4>Technical Requirements:</h4>
+        <ul>
+            <li><strong>Resolution:</strong> 300 DPI for crisp quality at all sizes</li>
+            <li><strong>Color Mode:</strong> RGB for digital display</li>
+            <li><strong>Smart Objects:</strong> All text and icons must be embedded</li>
+            <li><strong>File Size:</strong> Optimize for under 500 MB</li>
+            <li><strong>Layers:</strong> Organize in groups (Phone Mockup, Content, Background)</li>
+        </ul>
+        
+        <h4>Brand Consistency:</h4>
+        <ul>
+            <li><strong>Colors:</strong> Exact hex values from ALCHM brand palette</li>
+            <li><strong>Typography:</strong> SF Pro Display family only</li>
+            <li><strong>Iconography:</strong> Consistent with app interface</li>
+            <li><strong>Messaging:</strong> Trauma-informed language throughout</li>
+        </ul>
+        
+        <h4>Competitive Differentiation:</h4>
+        <ul>
+            <li><strong>vs. Other Mental Health Apps:</strong>
+                <ul>
+                    <li>Explicitly trauma-informed (others are general wellness)</li>
+                    <li>Real data only (competitors often show fake metrics)</li>
+                    <li>Crisis integration (not just mood tracking)</li>
+                    <li>Privacy-first messaging (stronger than competitors)</li>
+                </ul>
+            </li>
+            <li><strong>vs. Journaling Apps:</strong>
+                <ul>
+                    <li>AI companion trained for healing (not just prompts)</li>
+                    <li>Professional therapy complement positioning</li>
+                    <li>Community safety and support features</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h4>Success Metrics:</h4>
+        <ul>
+            <li><strong>Click-through rate from feature placement:</strong> Target 8%+</li>
+            <li><strong>Conversion to app page:</strong> Target 25%+</li>
+            <li><strong>Time spent viewing asset:</strong> Target 3+ seconds</li>
+            <li><strong>Professional recognition:</strong> Feature in Health & Fitness</li>
+        </ul>
+    </div>
+</body>
+</html>

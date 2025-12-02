@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Build #4 TestFlight Feedback Form</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fefdfb;
+            color: #2d2d2d;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-weight: 300;
+            font-size: 28px;
+        }
+        
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #a4b792;
+        }
+        
+        .form-section h3 {
+            color: #2d2d2d;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .priority-high {
+            border-left-color: #d76b6b;
+        }
+        
+        .priority-medium {
+            border-left-color: #ffc107;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #2d2d2d;
+        }
+        
+        .required {
+            color: #d76b6b;
+        }
+        
+        .question input[type="text"],
+        .question input[type="email"],
+        .question textarea,
+        .question select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        .question textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .rating-scale {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .rating-option:hover {
+            border-color: #a4b792;
+            background: rgba(164, 183, 146, 0.1);
+        }
+        
+        .rating-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .yes-no {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .yes-no label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: normal;
+        }
+        
+        .yes-no label:hover {
+            border-color: #a4b792;
+            background: rgba(164, 183, 146, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .submission-note {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #28a745;
+            margin: 30px 0;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-1px);
+        }
+        
+        .timeline-note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🪲 ALCHM Build #4 Testing Feedback</h1>
+        <p>Help us ensure ALCHM is safe, stable, and ready for broader testing</p>
+    </div>
+    
+    <div class="timeline-note">
+        <strong>⏰ URGENT:</strong> This is 24-hour internal testing for Build #4. Please complete testing and submit feedback by <strong>[DATE + 24 hours]</strong>. Your feedback determines if we proceed to Friends & Family testing.
+    </div>
+    
+    <form action="[GOOGLE_FORM_ACTION_URL]" method="POST">
+        
+        <!-- Section 1: Tester Information -->
+        <div class="form-section">
+            <h3>📋 Tester Information</h3>
+            
+            <div class="question">
+                <label for="tester-name">Your Name <span class="required">*</span></label>
+                <input type="text" id="tester-name" name="tester_name" required>
+            </div>
+            
+            <div class="question">
+                <label for="role">Your Role <span class="required">*</span></label>
+                <select id="role" name="role" required>
+                    <option value="">Select your role...</option>
+                    <option value="developer">Developer</option>
+                    <option value="designer">Designer/UX</option>
+                    <option value="mental-health">Mental Health Professional</option>
+                    <option value="trauma-survivor">Trauma Survivor/Lived Experience</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label for="device">Device & iOS Version <span class="required">*</span></label>
+                <input type="text" id="device" name="device" placeholder="e.g., iPhone 15, iOS 17.1" required>
+                <div class="help-text">Find this in Settings → General → About</div>
+            </div>
+            
+            <div class="question">
+                <label for="testing-time">How long did you test? <span class="required">*</span></label>
+                <select id="testing-time" name="testing_time" required>
+                    <option value="">Select duration...</option>
+                    <option value="5-10-minutes">5-10 minutes</option>
+                    <option value="10-20-minutes">10-20 minutes</option>
+                    <option value="20-30-minutes">20-30 minutes</option>
+                    <option value="30+-minutes">30+ minutes</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Section 2: Critical Issues (P0) -->
+        <div class="form-section priority-high">
+            <h3>🚨 Critical Issues (App Breaking)</h3>
+            
+            <div class="question">
+                <label>Did the app crash at any point? <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="app_crashed" value="yes" required>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="app_crashed" value="no" required>
+                        No
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="crash-details">If yes, when did it crash? Please describe exactly what you were doing:</label>
+                <textarea id="crash-details" name="crash_details" placeholder="e.g., 'App crashed when I tapped Save on my journal entry' or 'Crashed when opening Past Entries'"></textarea>
+            </div>
+            
+            <div class="question">
+                <label>Can you complete a full journal entry (write and save)? <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="journal_completion" value="yes" required>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="journal_completion" value="no" required>
+                        No
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="broken-features">Are there any features that are completely broken or unusable?</label>
+                <textarea id="broken-features" name="broken_features" placeholder="List any features that don't work at all"></textarea>
+            </div>
+        </div>
+        
+        <!-- Section 3: High Priority Issues (P1) -->
+        <div class="form-section priority-medium">
+            <h3>⚠️ Performance & Usability Issues</h3>
+            
+            <div class="question">
+                <label>Dashboard loading speed rating: <span class="required">*</span></label>
+                <div class="rating-scale">
+                    <label class="rating-option">
+                        <input type="radio" name="dashboard_speed" value="1" required>
+                        1 - Very slow (5+ seconds)
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="dashboard_speed" value="2" required>
+                        2 - Slow (3-5 seconds)
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="dashboard_speed" value="3" required>
+                        3 - OK (1-3 seconds)
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="dashboard_speed" value="4" required>
+                        4 - Fast (under 1 second)
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="dashboard_speed" value="5" required>
+                        5 - Instant
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Past Entries page loading: <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="past_entries_loading" value="works-fast" required>
+                        Works Fast
+                    </label>
+                    <label>
+                        <input type="radio" name="past_entries_loading" value="works-slow" required>
+                        Works But Slow
+                    </label>
+                    <label>
+                        <input type="radio" name="past_entries_loading" value="failed" required>
+                        Failed to Load
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Pathways page loading: <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="pathways_loading" value="works-fast" required>
+                        Works Fast
+                    </label>
+                    <label>
+                        <input type="radio" name="pathways_loading" value="works-slow" required>
+                        Works But Slow
+                    </label>
+                    <label>
+                        <input type="radio" name="pathways_loading" value="failed" required>
+                        Failed to Load
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="navigation-issues">Any navigation issues or things that feel broken?</label>
+                <textarea id="navigation-issues" name="navigation_issues" placeholder="e.g., 'Back button doesn't work on X page' or 'Menu closes unexpectedly'"></textarea>
+            </div>
+        </div>
+        
+        <!-- Section 4: Visual/UX Assessment -->
+        <div class="form-section">
+            <h3>🎨 Visual Design & User Experience</h3>
+            
+            <div class="question">
+                <label>Dashboard card borders visibility (Build #4 improvement): <span class="required">*</span></label>
+                <div class="rating-scale">
+                    <label class="rating-option">
+                        <input type="radio" name="card_borders" value="1" required>
+                        1 - Can't see them
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="card_borders" value="2" required>
+                        2 - Barely visible
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="card_borders" value="3" required>
+                        3 - Subtle but good
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="card_borders" value="4" required>
+                        4 - Clear and helpful
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="card_borders" value="5" required>
+                        5 - Perfect visibility
+                    </label>
+                </div>
+                <div class="help-text">Dashboard cards should have subtle white borders around them</div>
+            </div>
+            
+            <div class="question">
+                <label>Overall app polish and professional appearance: <span class="required">*</span></label>
+                <div class="rating-scale">
+                    <label class="rating-option">
+                        <input type="radio" name="app_polish" value="1" required>
+                        1 - Looks broken
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="app_polish" value="2" required>
+                        2 - Rough edges
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="app_polish" value="3" required>
+                        3 - Good enough
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="app_polish" value="4" required>
+                        4 - Professional
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="app_polish" value="5" required>
+                        5 - Very polished
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="visual-issues">Anything that looks "off" or visually broken?</label>
+                <textarea id="visual-issues" name="visual_issues" placeholder="Describe any design issues, alignment problems, or visual bugs"></textarea>
+            </div>
+        </div>
+        
+        <!-- Section 5: Emotional Safety (Critical for ALCHM) -->
+        <div class="form-section priority-high">
+            <h3>🛡️ Emotional Safety Assessment</h3>
+            <p style="color: #666; margin-bottom: 20px;"><em>This is critical for ALCHM's trauma-informed mission. Please be honest about any concerns.</em></p>
+            
+            <div class="question">
+                <label>The app feels emotionally safe to use: <span class="required">*</span></label>
+                <div class="rating-scale">
+                    <label class="rating-option">
+                        <input type="radio" name="emotional_safety" value="1" required>
+                        1 - Feels unsafe
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="emotional_safety" value="2" required>
+                        2 - Some concerns
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="emotional_safety" value="3" required>
+                        3 - Neutral
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="emotional_safety" value="4" required>
+                        4 - Feels safe
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="emotional_safety" value="5" required>
+                        5 - Very safe
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Any triggering, inappropriate, or concerning content? <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="triggering_content" value="yes" required>
+                        Yes - I found something concerning
+                    </label>
+                    <label>
+                        <input type="radio" name="triggering_content" value="no" required>
+                        No - All content felt appropriate
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="safety-concerns">If yes, please describe what felt triggering or inappropriate:</label>
+                <textarea id="safety-concerns" name="safety_concerns" placeholder="Please describe specifically what content or interaction felt concerning. This helps us improve safety."></textarea>
+                <div class="help-text">Your feedback here is anonymous but critical for user safety</div>
+            </div>
+            
+            <div class="question">
+                <label>Would you feel comfortable using this app daily for personal journaling? <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="daily_comfort" value="yes" required>
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="daily_comfort" value="no" required>
+                        No
+                    </label>
+                    <label>
+                        <input type="radio" name="daily_comfort" value="maybe" required>
+                        Maybe/Unsure
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="comfort-explanation">Please explain your comfort level:</label>
+                <textarea id="comfort-explanation" name="comfort_explanation" placeholder="What makes you feel comfortable or uncomfortable about daily use?"></textarea>
+            </div>
+        </div>
+        
+        <!-- Section 6: Overall Assessment -->
+        <div class="form-section">
+            <h3>⭐ Overall Assessment</h3>
+            
+            <div class="question">
+                <label>Overall rating for Build #4: <span class="required">*</span></label>
+                <div class="rating-scale">
+                    <label class="rating-option">
+                        <input type="radio" name="overall_rating" value="1" required>
+                        ⭐ 1 star
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="overall_rating" value="2" required>
+                        ⭐⭐ 2 stars
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="overall_rating" value="3" required>
+                        ⭐⭐⭐ 3 stars
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="overall_rating" value="4" required>
+                        ⭐⭐⭐⭐ 4 stars
+                    </label>
+                    <label class="rating-option">
+                        <input type="radio" name="overall_rating" value="5" required>
+                        ⭐⭐⭐⭐⭐ 5 stars
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Is Build #4 ready for Friends & Family testing (20 non-technical users)? <span class="required">*</span></label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="ready_for_phase2" value="yes" required>
+                        ✅ Yes - Ready to proceed
+                    </label>
+                    <label>
+                        <input type="radio" name="ready_for_phase2" value="no" required>
+                        ❌ No - Needs fixes first
+                    </label>
+                    <label>
+                        <input type="radio" name="ready_for_phase2" value="maybe" required>
+                        ⚠️ Maybe - Minor concerns
+                    </label>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label for="readiness-explanation">Please explain your readiness assessment:</label>
+                <textarea id="readiness-explanation" name="readiness_explanation" placeholder="What needs to be fixed before broader testing? Or why is it ready?" required></textarea>
+            </div>
+            
+            <div class="question">
+                <label for="top-priority-fix">What's the #1 priority fix needed before launch?</label>
+                <textarea id="top-priority-fix" name="top_priority_fix" placeholder="The most important thing to fix or improve"></textarea>
+            </div>
+            
+            <div class="question">
+                <label for="best-improvement">What's the best improvement you noticed in Build #4?</label>
+                <textarea id="best-improvement" name="best_improvement" placeholder="What worked well or improved from previous versions?"></textarea>
+            </div>
+        </div>
+        
+        <!-- Section 7: Additional Feedback -->
+        <div class="form-section">
+            <h3>💬 Additional Comments</h3>
+            
+            <div class="question">
+                <label for="additional-feedback">Any other feedback, suggestions, or observations:</label>
+                <textarea id="additional-feedback" name="additional_feedback" placeholder="Anything else you think we should know about this build"></textarea>
+            </div>
+            
+            <div class="question">
+                <label>Would you be willing to participate in Phase 2 (Friends & Family) testing if we proceed?</label>
+                <div class="yes-no">
+                    <label>
+                        <input type="radio" name="phase2_participation" value="yes">
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="phase2_participation" value="no">
+                        No
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="submission-note">
+            <strong>🙏 Thank You!</strong> Your feedback is crucial for ALCHM's mission to provide safe, trauma-informed digital healing tools. This testing directly impacts the safety and effectiveness of the app for trauma survivors.
+        </div>
+        
+        <button type="submit" class="submit-button">Submit Feedback</button>
+    </form>
+    
+    <div style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">
+        <p>Questions? Contact: [your-email]</p>
+        <p>Expected completion time: 15-20 minutes</p>
+    </div>
+</body>
+</html>

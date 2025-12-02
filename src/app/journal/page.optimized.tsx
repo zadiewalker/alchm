@@ -292,8 +292,8 @@ export default memo(function JournalPage() {
       className={`min-h-screen ${capabilities?.isVeryLowEnd ? 'very-low-end-device' : ''} ${capabilities?.isLowEnd ? 'low-end-device' : ''} ${isOffline ? 'offline-mode' : ''}`}
       style={containerStyle}
     >
-      {/* Mobile Performance Monitor (only in dev) */}
-      {process.env.NODE_ENV === 'development' && (
+      {/* Mobile Performance Monitor removed from production */}
+      {process.env.NODE_ENV === 'development' && false && (
         <MobilePerformanceMonitor showDebugInfo={true} />
       )}
 

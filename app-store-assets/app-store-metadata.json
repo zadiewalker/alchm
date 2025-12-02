@@ -1,0 +1,19 @@
+{
+  "app_name": "ALCHM",
+  "subtitle": "Your Sanctuary for Healing",
+  "promotional_text": "Transform your inner world. AI-powered journaling meets ancient wisdom for profound emotional growth and self-discovery.",
+  "description": "ALCHM is the world's first Identity Operating System — a sanctuary where you can process emotions, discover patterns, and transform pain into wisdom.\n\n**Write Your Truth**\nPour your thoughts into a safe, private space. Our AI doesn't just listen — it responds with the wisdom of seven distinct perspectives: The Therapist, The Body, The Healer, The Nurturer, The Coach, The Shadow, and The Sage.\n\n**Receive Multi-Dimensional Insight**\nEvery journal entry unlocks responses from different healing modalities:\n• Psychotherapeutic insight for pattern recognition\n• Somatic wisdom for body-based healing  \n• Compassionate nurturing for self-love\n• Accountability coaching for forward movement\n• Shadow work for deeper integration\n• Sage perspective for meaning-making\n\n**Walk Transformative Pathways**\nStructured journeys guide you through emotional awareness, shadow integration, inner child healing, relationship patterns, and more. Each pathway is designed like therapy — with an arc of descent and emergence.\n\n**Track Real Progress**\nSee genuine statistics about your practice. No fabricated metrics — only real data showing your journaling streak, entry patterns, and growth over time.\n\n**Privacy First**\nYour innermost thoughts deserve protection. ALCHM uses end-to-end encryption. We never sell your data. Your journal is yours alone.\n\n**Crisis Support**\n24/7 access to crisis resources. One tap connects you to the 988 Suicide & Crisis Lifeline.\n\nBegin your healing journey today. Your sanctuary awaits.",
+  "keywords": "journal,therapy,mental health,ai,healing,emotions,wellness,meditation,mindfulness,self-care",
+  "category": "Health & Fitness",
+  "secondary_category": "Lifestyle",
+  "age_rating": "17+ (Frequent/Intense Medical/Treatment Information)",
+  "privacy_policy_url": "https://alchmapp.web.app/privacy",
+  "terms_of_service_url": "https://alchmapp.web.app/terms",
+  "support_url": "https://alchmapp.web.app/support",
+  "marketing_url": "https://alchmapp.web.app",
+  "demo_account": {
+    "email": "reviewer@alchm.app",
+    "password": "[TO_BE_SET]",
+    "instructions": "Create a journal entry to see AI responses. Test crisis button for 988 access."
+  }
+}

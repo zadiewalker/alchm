@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Product Page Asset Design Template</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        .asset-container {
+            width: 864px; /* 4320px / 5 for screen viewing */
+            height: 216px; /* 1080px / 5 for screen viewing */
+            background: linear-gradient(135deg, #fefdfb 0%, #f8f9fa 20%, #ffffff 100%);
+            position: relative;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+        
+        .content-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .text-content {
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .main-headline {
+            font-size: 32px;
+            font-weight: 300;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+        
+        .sub-headline {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        
+        .professional-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #8fa078;
+            font-weight: 500;
+        }
+        
+        .badge-icon {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+        
+        .cta-section {
+            margin-top: 16px;
+        }
+        
+        .download-note {
+            font-size: 11px;
+            color: #8fa078;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .app-preview {
+            width: 300px;
+            height: 180px;
+            background: #000;
+            border-radius: 16px;
+            padding: 6px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .preview-screen {
+            width: 100%;
+            height: 100%;
+            background: #fefdfb;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .app-status-bar {
+            height: 20px;
+            background: #a4b792;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .app-content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            border-left: 3px solid #a4b792;
+            flex: 1;
+        }
+        
+        .card-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 4px;
+        }
+        
+        .card-text {
+            font-size: 8px;
+            color: #666;
+            line-height: 1.3;
+        }
+        
+        .security-indicator {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(164, 183, 146, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 8px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .design-notes {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 1000px;
+        }
+        
+        .actual-size-note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .credibility-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .credibility-section {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="actual-size-note">
+        <strong>PRODUCTION NOTE:</strong> This is a scaled-down preview. The actual Photoshop file will be 4320 x 1080 pixels at 300 DPI. 
+        File name: <code>ALCHM_[AppAppleID]_20241202_AppStore_ProductPage_DeveloperPage.psd</code>
+    </div>
+
+    <div class="asset-container">
+        <div class="content-section">
+            <div class="text-content">
+                <h1 class="main-headline">Built by trauma survivors, for trauma survivors</h1>
+                <p class="sub-headline">Professional-grade mental wellness platform with evidence-based trauma-informed practices</p>
+                
+                <div class="professional-badges">
+                    <div class="badge">
+                        <div class="badge-icon">🏥</div>
+                        <span>Endorsed by mental health professionals</span>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🔒</div>
+                        <span>HIPAA-level security and privacy protection</span>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🎓</div>
+                        <span>Evidence-based trauma intervention methods</span>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🤝</div>
+                        <span>Complements professional therapy sessions</span>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <div class="download-note">
+                        <span>📱</span>
+                        <span>Your healing journey starts here</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-preview">
+                <div class="security-indicator">🔐 Encrypted</div>
+                <div class="preview-screen">
+                    <div class="app-status-bar">ALCHM - Your Sanctuary</div>
+                    
+                    <div class="app-content">
+                        <div class="feature-card">
+                            <div class="card-title">Professional Integration</div>
+                            <div class="card-text">Share insights with your therapist through secure, permission-based reports</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="card-title">Cultural Responsiveness</div>
+                            <div class="card-text">Healing approaches that honor your identity and lived experiences</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="card-title">Safety-First Design</div>
+                            <div class="card-text">Every interaction designed with trauma-informed principles in mind</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="card-title">24/7 Crisis Support</div>
+                            <div class="card-text">Always-available resources when you need support most</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="design-notes">
+        <h3>Product Page Asset Design Specifications</h3>
+        <ul>
+            <li><strong>Dimensions:</strong> 4320 x 1080 pixels (shown scaled down 5:1)</li>
+            <li><strong>Format:</strong> Photoshop PSD with Smart Objects</li>
+            <li><strong>Purpose:</strong> Professional credibility and developer page featuring</li>
+            <li><strong>Target Audience:</strong> Mental health professionals and serious users seeking trauma-informed care</li>
+        </ul>
+        
+        <h4>Key Messaging Strategy:</h4>
+        <div class="credibility-grid">
+            <div class="credibility-section">
+                <h5>Professional Credibility</h5>
+                <ul>
+                    <li>Built by trauma survivors (authentic lived experience)</li>
+                    <li>Endorsed by mental health professionals</li>
+                    <li>HIPAA-level security standards</li>
+                    <li>Evidence-based intervention methods</li>
+                    <li>Therapy complement positioning</li>
+                </ul>
+            </div>
+            <div class="credibility-section">
+                <h5>Differentiation Points</h5>
+                <ul>
+                    <li>Professional integration capabilities</li>
+                    <li>Cultural responsiveness emphasis</li>
+                    <li>Safety-first design philosophy</li>
+                    <li>24/7 crisis support integration</li>
+                    <li>Trauma-informed at every level</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h4>Visual Design Elements:</h4>
+        <ul>
+            <li><strong>Color Palette:</strong> Clean whites and soft sage greens for medical credibility</li>
+            <li><strong>Typography:</strong> Professional, readable fonts with clear hierarchy</li>
+            <li><strong>Layout:</strong> Balanced split between credibility messaging and app preview</li>
+            <li><strong>Icons:</strong> Professional medical and security symbols</li>
+            <li><strong>App Preview:</strong> Shows professional features rather than casual journaling</li>
+        </ul>
+        
+        <h4>Target User Messaging:</h4>
+        <ul>
+            <li><strong>Primary:</strong> "Built by trauma survivors, for trauma survivors"</li>
+            <li><strong>Secondary:</strong> "Professional-grade mental wellness platform"</li>
+            <li><strong>Supporting:</strong> Evidence-based, HIPAA-level security, therapy complement</li>
+            <li><strong>Trust Indicators:</strong> Professional endorsement, security certification</li>
+        </ul>
+        
+        <h4>Professional Badge System:</h4>
+        <ul>
+            <li><strong>Medical Endorsement:</strong> 🏥 Endorsed by mental health professionals</li>
+            <li><strong>Security Certification:</strong> 🔒 HIPAA-level security and privacy protection</li>
+            <li><strong>Evidence-Based:</strong> 🎓 Evidence-based trauma intervention methods</li>
+            <li><strong>Integration Ready:</strong> 🤝 Complements professional therapy sessions</li>
+        </ul>
+        
+        <h4>App Preview Content Strategy:</h4>
+        <ul>
+            <li><strong>Focus:</strong> Professional features over personal journaling</li>
+            <li><strong>Features Highlighted:</strong>
+                <ul>
+                    <li>Professional integration (therapist sharing)</li>
+                    <li>Cultural responsiveness</li>
+                    <li>Safety-first design</li>
+                    <li>24/7 crisis support</li>
+                </ul>
+            </li>
+            <li><strong>Security Indicator:</strong> Prominent encryption badge</li>
+            <li><strong>Interface Style:</strong> Clean, medical-grade appearance</li>
+        </ul>
+        
+        <h4>Competitive Positioning:</h4>
+        <ul>
+            <li><strong>vs. Consumer Wellness Apps:</strong> Professional-grade credibility</li>
+            <li><strong>vs. Clinical Tools:</strong> User-friendly interface with lived experience design</li>
+            <li><strong>vs. Therapy Apps:</strong> Complement rather than replace therapy</li>
+            <li><strong>vs. General Journaling:</strong> Trauma-specific expertise and safety</li>
+        </ul>
+        
+        <h4>Usage Context:</h4>
+        <ul>
+            <li><strong>Developer Page:</strong> Establishes ALCHM team's professional credibility</li>
+            <li><strong>Product Page:</strong> Convinces professionals and serious users</li>
+            <li><strong>Search Results:</strong> Differentiates from consumer wellness apps</li>
+            <li><strong>Professional Referrals:</strong> Supports therapist recommendations</li>
+        </ul>
+        
+        <h4>Technical Requirements:</h4>
+        <ul>
+            <li><strong>Resolution:</strong> 300 DPI for professional quality</li>
+            <li><strong>Color Profile:</strong> sRGB for consistent digital display</li>
+            <li><strong>Text:</strong> All fonts embedded as Smart Objects</li>
+            <li><strong>Layers:</strong> Organized groups (Header, Badges, Preview, Background)</li>
+            <li><strong>File Size:</strong> Optimized under 500 MB</li>
+            <li><strong>Format:</strong> PSD with all elements editable</li>
+        </ul>
+        
+        <h4>Success Metrics:</h4>
+        <ul>
+            <li><strong>Professional Downloads:</strong> Higher conversion from mental health professionals</li>
+            <li><strong>App Store Featuring:</strong> Health & Fitness category professional section</li>
+            <li><strong>Search Performance:</strong> "professional trauma therapy app" ranking</li>
+            <li><strong>Credibility Assessment:</strong> Professional user retention rates</li>
+        </ul>
+    </div>
+</body>
+</html>

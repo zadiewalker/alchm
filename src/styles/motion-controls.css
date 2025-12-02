@@ -1,0 +1,405 @@
+/*
+ * Trauma-Informed Motion Controls
+ * 
+ * Comprehensive motion and animation controls for trauma survivors
+ * and users with vestibular disorders, seizure sensitivity, and motion sensitivity
+ */
+
+/* === MOTION PREFERENCE DETECTION === */
+
+/* Respect system-level reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Maintain essential crisis animations */
+  .crisis-pulse,
+  .emergency-indicator,
+  .crisis-attention,
+  [data-critical-animation="true"] {
+    animation-duration: 1s !important;
+    animation-iteration-count: infinite !important;
+  }
+  
+  /* Disable potentially triggering effects */
+  .parallax,
+  [data-parallax],
+  .parallax-element {
+    transform: none !important;
+    will-change: auto !important;
+  }
+  
+  .zoom-animation,
+  .scale-animation {
+    transform: none !important;
+  }
+  
+  .rotation-animation,
+  .rotate-animation {
+    transform: none !important;
+  }
+  
+  /* Stop auto-playing media */
+  video,
+  audio {
+    autoplay: false !important;
+  }
+}
+
+/* === MOTION CONTROL CLASSES === */
+
+/* Motion Reduce State - Applied via JavaScript */
+.motion-reduce *,
+.motion-reduce *::before,
+.motion-reduce *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Motion Safe State - Default animations allowed */
+.motion-safe {
+  /* Enable smooth animations */
+  --motion-duration: 300ms;
+  --motion-distance: 10px;
+  --transition-duration: 0.3s;
+}
+
+/* Animation Paused State - Emergency stop */
+.animations-paused *,
+.animations-paused *::before,
+.animations-paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* Parallax Disabled */
+.parallax-disabled [data-parallax],
+.parallax-disabled .parallax,
+.parallax-disabled .parallax-element {
+  transform: none !important;
+  will-change: auto !important;
+  position: static !important;
+}
+
+/* Transitions Minimal */
+.transitions-minimal *,
+.transitions-minimal *::before,
+.transitions-minimal *::after {
+  transition-duration: 0.1s !important;
+}
+
+/* Flashing Limited - Prevent seizure triggers */
+.flashing-limited [data-flashing],
+.flashing-limited .strobe,
+.flashing-limited .blink,
+.flashing-limited .flash {
+  animation: none !important;
+}
+
+/* Autoplay Disabled */
+.autoplay-disabled video,
+.autoplay-disabled audio,
+.autoplay-disabled [autoplay] {
+  autoplay: false !important;
+}
+
+/* Motion Sensitivity Active Indicator */
+.motion-sensitivity-active {
+  --motion-safe: 0;
+  --motion-reduce: 1;
+}
+
+/* === CSS CUSTOM PROPERTIES FOR MOTION CONTROL === */
+
+:root {
+  /* Default motion values */
+  --motion-duration: 300ms;
+  --motion-distance: 10px;
+  --transition-duration: 0.3s;
+  --motion-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Crisis-safe motion values */
+  --crisis-motion-duration: 0.01ms;
+  --crisis-motion-distance: 0px;
+  --crisis-transition-duration: 0.1s;
+  
+  /* Motion safety flags */
+  --motion-safe: 1;
+  --motion-reduce: 0;
+}
+
+/* Crisis mode overrides */
+.crisis-mode {
+  --motion-duration: var(--crisis-motion-duration);
+  --motion-distance: var(--crisis-motion-distance);
+  --transition-duration: var(--crisis-transition-duration);
+  --motion-safe: 0;
+  --motion-reduce: 1;
+}
+
+/* === MOTION-SAFE ANIMATIONS === */
+
+/* Use CSS custom properties for responsive animations */
+.motion-controlled-fade {
+  opacity: 0;
+  animation: fade-in var(--motion-duration, 0.01ms) var(--motion-easing, ease) forwards;
+}
+
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+.motion-controlled-slide-up {
+  transform: translateY(var(--motion-distance, 0px));
+  animation: slide-up var(--motion-duration, 0.01ms) var(--motion-easing, ease) forwards;
+}
+
+@keyframes slide-up {
+  to { transform: translateY(0); }
+}
+
+.motion-controlled-scale {
+  transform: scale(0.95);
+  animation: scale-in var(--motion-duration, 0.01ms) var(--motion-easing, ease) forwards;
+}
+
+@keyframes scale-in {
+  to { transform: scale(1); }
+}
+
+/* Hover animations that respect motion preferences */
+.motion-controlled-button {
+  transition: 
+    background-color var(--transition-duration, 0.1s) ease,
+    transform var(--transition-duration, 0.1s) ease,
+    box-shadow var(--transition-duration, 0.1s) ease;
+}
+
+.motion-controlled-button:hover {
+  transform: translateY(calc(var(--motion-distance, 0px) * -0.2));
+}
+
+/* === ESSENTIAL CRISIS ANIMATIONS === */
+
+/* These animations remain active even in reduced motion mode for safety */
+@keyframes crisis-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes emergency-indicator {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes crisis-attention {
+  0%, 100% {
+    background-color: #dc2626;
+  }
+  50% {
+    background-color: #ef4444;
+  }
+}
+
+/* Apply essential animations */
+.crisis-pulse {
+  animation: crisis-pulse 2s ease-in-out infinite;
+}
+
+.emergency-indicator {
+  animation: emergency-indicator 1.5s ease-out infinite;
+}
+
+.crisis-attention {
+  animation: crisis-attention 1s ease-in-out infinite;
+}
+
+/* === VESTIBULAR DISORDER CONSIDERATIONS === */
+
+/* Prevent motion that can trigger vestibular disorders */
+.vestibular-safe {
+  /* No rotation */
+  transform: none !important;
+  /* No parallax scrolling */
+  background-attachment: scroll !important;
+  /* No oscillating motion */
+  animation: none !important;
+}
+
+/* Limit simultaneous motion */
+.motion-limit-simultaneous > * {
+  animation-delay: calc(var(--motion-duration, 0ms) * 0.1);
+}
+
+/* === SEIZURE PREVENTION === */
+
+/* Prevent rapid flashing and high contrast changes */
+.seizure-safe {
+  /* No rapid color changes */
+  animation: none !important;
+  /* Limit contrast ratio changes */
+  filter: none !important;
+}
+
+/* Limit flash frequency to below 3Hz */
+@keyframes safe-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.8; }
+}
+
+.safe-flash {
+  animation: safe-blink 1s ease-in-out infinite;
+}
+
+/* === MOTION CONTROL UTILITIES === */
+
+/* Emergency motion stop button */
+.motion-emergency-stop {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  touch-action: manipulation;
+}
+
+.motion-emergency-stop:hover {
+  background: #b91c1c;
+  transform: none; /* No motion on the stop button itself */
+}
+
+/* Motion control panel */
+.motion-control-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9998;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+}
+
+.motion-control-panel h3 {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.motion-control-panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.motion-control-panel input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* === RESPONSIVE MOTION CONTROLS === */
+
+/* Mobile-specific motion considerations */
+@media (max-width: 768px) {
+  /* Reduce motion intensity on mobile */
+  .motion-controlled-slide-up {
+    --motion-distance: 5px;
+  }
+  
+  /* Larger touch targets for motion controls */
+  .motion-emergency-stop {
+    width: 72px;
+    height: 72px;
+  }
+  
+  /* Simplified motion panel for mobile */
+  .motion-control-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: none;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .motion-control-panel.open {
+    transform: translateY(0);
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .motion-emergency-stop {
+    border: 3px solid white;
+  }
+  
+  .motion-control-panel {
+    border-width: 3px;
+    border-color: #000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .motion-control-panel {
+    background: #1f2937;
+    border-color: #374151;
+    color: white;
+  }
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+
+/* Use hardware acceleration efficiently */
+.motion-controlled-element {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Remove will-change after animations complete */
+.motion-controlled-element.animation-complete {
+  will-change: auto;
+}
+
+/* Optimize for battery life */
+@media (prefers-reduced-data: reduce) {
+  .motion-controlled-element {
+    animation: none !important;
+    transition: none !important;
+  }
+}

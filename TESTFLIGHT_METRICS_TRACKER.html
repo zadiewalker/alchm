@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM TestFlight Metrics Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #2d2d2d;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0 0 10px 0;
+            font-weight: 300;
+            font-size: 32px;
+        }
+        
+        .phase-indicator {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #a4b792;
+        }
+        
+        .metric-card.critical {
+            border-left-color: #d76b6b;
+        }
+        
+        .metric-card.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .metric-card.success {
+            border-left-color: #28a745;
+        }
+        
+        .metric-card h3 {
+            margin: 0 0 15px 0;
+            color: #2d2d2d;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: 300;
+            color: #2d2d2d;
+            margin: 10px 0;
+        }
+        
+        .metric-target {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .metric-status {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .status-green {
+            background: #e8f5e8;
+            color: #28a745;
+        }
+        
+        .status-yellow {
+            background: #fff3cd;
+            color: #ffc107;
+        }
+        
+        .status-red {
+            background: #f8d7da;
+            color: #d76b6b;
+        }
+        
+        .tracking-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tracking-table h3 {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 0;
+            font-weight: 600;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2d2d2d;
+        }
+        
+        .actions-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #a4b792;
+        }
+        
+        .action-item.urgent {
+            border-left-color: #d76b6b;
+        }
+        
+        .action-item.completed {
+            opacity: 0.6;
+            border-left-color: #28a745;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #a4b792;
+        }
+        
+        .go-nogo-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #ffc107;
+        }
+        
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .criteria-checkbox {
+            accent-color: #28a745;
+        }
+        
+        .export-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .export-button {
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: transform 0.2s ease;
+        }
+        
+        .export-button:hover {
+            transform: translateY(-1px);
+        }
+        
+        .copy-template {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <h1>🪲 ALCHM TestFlight Metrics Dashboard</h1>
+        <div class="phase-indicator">Phase 1: Internal Testing - Build #4</div>
+        <div style="margin-top: 10px; font-size: 14px; opacity: 0.9;">
+            Last Updated: <span id="last-updated">[Manual Update Required]</span>
+        </div>
+    </div>
+    
+    <!-- Key Metrics Overview -->
+    <div class="metrics-grid">
+        <div class="metric-card success">
+            <h3>📱 Testers Responded</h3>
+            <div class="metric-value"><span id="testers-responded">0</span>/5</div>
+            <div class="metric-target">Target: 5 (100%)</div>
+            <div class="metric-status status-green">On Track</div>
+        </div>
+        
+        <div class="metric-card">
+            <h3>⭐ Average Rating</h3>
+            <div class="metric-value"><span id="avg-rating">-</span></div>
+            <div class="metric-target">Target: 4.0+ (Ready for Phase 2)</div>
+            <div class="metric-status status-yellow">Pending Data</div>
+        </div>
+        
+        <div class="metric-card critical">
+            <h3>🚨 P0 Issues</h3>
+            <div class="metric-value"><span id="p0-issues">-</span></div>
+            <div class="metric-target">Target: 0 (Must be zero to proceed)</div>
+            <div class="metric-status status-green">No Issues</div>
+        </div>
+        
+        <div class="metric-card warning">
+            <h3>⚠️ P1 Issues</h3>
+            <div class="metric-value"><span id="p1-issues">-</span></div>
+            <div class="metric-target">Target: ≤2 per tester</div>
+            <div class="metric-status status-yellow">Monitoring</div>
+        </div>
+        
+        <div class="metric-card">
+            <h3>🛡️ Safety Rating</h3>
+            <div class="metric-value"><span id="safety-rating">-</span></div>
+            <div class="metric-target">Target: 4.0+ (Critical for ALCHM)</div>
+            <div class="metric-status status-yellow">Pending Data</div>
+        </div>
+        
+        <div class="metric-card">
+            <h3>⏰ Response Time</h3>
+            <div class="metric-value"><span id="response-time">-</span>h</div>
+            <div class="metric-target">Target: <24 hours</div>
+            <div class="metric-status status-green">On Schedule</div>
+        </div>
+    </div>
+    
+    <!-- Detailed Tester Tracking -->
+    <div class="tracking-table">
+        <h3>📊 Individual Tester Progress</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tester</th>
+                    <th>Role</th>
+                    <th>Device</th>
+                    <th>Invited</th>
+                    <th>Downloaded</th>
+                    <th>Response</th>
+                    <th>Rating</th>
+                    <th>Issues</th>
+                    <th>Phase 2 Ready</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[Tester 1]</td>
+                    <td>Developer</td>
+                    <td>iPhone 15</td>
+                    <td>✅ 12/2 2:00pm</td>
+                    <td>⏳ Pending</td>
+                    <td>⏳ Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>[Tester 2]</td>
+                    <td>Designer</td>
+                    <td>iPhone 14</td>
+                    <td>✅ 12/2 2:00pm</td>
+                    <td>⏳ Pending</td>
+                    <td>⏳ Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>[Tester 3]</td>
+                    <td>MH Professional</td>
+                    <td>iPhone 13</td>
+                    <td>✅ 12/2 2:00pm</td>
+                    <td>⏳ Pending</td>
+                    <td>⏳ Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>[Tester 4]</td>
+                    <td>Trauma Expert</td>
+                    <td>iPhone 12</td>
+                    <td>✅ 12/2 2:00pm</td>
+                    <td>⏳ Pending</td>
+                    <td>⏳ Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>[Tester 5]</td>
+                    <td>Technical</td>
+                    <td>iPad Pro</td>
+                    <td>✅ 12/2 2:00pm</td>
+                    <td>⏳ Pending</td>
+                    <td>⏳ Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Issue Tracker -->
+    <div class="tracking-table">
+        <h3>🐛 Issue Tracking</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Issue ID</th>
+                    <th>Severity</th>
+                    <th>Description</th>
+                    <th>Reporter</th>
+                    <th>Device</th>
+                    <th>Status</th>
+                    <th>Fix ETA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="7" style="text-align: center; color: #666; padding: 20px;">
+                        No issues reported yet. This is good news! 🎉
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Action Items -->
+    <div class="actions-section">
+        <h3>📋 Current Action Items</h3>
+        
+        <div class="action-item urgent">
+            <input type="checkbox" class="checkbox" id="action-1">
+            <label for="action-1">Monitor App Store Connect for Build #4 approval (check every 2 hours)</label>
+        </div>
+        
+        <div class="action-item">
+            <input type="checkbox" class="checkbox" id="action-2">
+            <label for="action-2">Send TestFlight invitations once build is approved</label>
+        </div>
+        
+        <div class="action-item">
+            <input type="checkbox" class="checkbox" id="action-3">
+            <label for="action-3">Create Google Form for feedback collection (use template)</label>
+        </div>
+        
+        <div class="action-item">
+            <input type="checkbox" class="checkbox" id="action-4">
+            <label for="action-4">Set up Google Sheets tracking dashboard</label>
+        </div>
+        
+        <div class="action-item">
+            <input type="checkbox" class="checkbox" id="action-5">
+            <label for="action-5">Monitor tester responses and update metrics hourly</label>
+        </div>
+        
+        <div class="action-item urgent">
+            <input type="checkbox" class="checkbox" id="action-6">
+            <label for="action-6">Address any P0 issues within 2 hours of report</label>
+        </div>
+        
+        <div class="action-item">
+            <input type="checkbox" class="checkbox" id="action-7">
+            <label for="action-7">Make Go/No-Go decision 24 hours after first invitation sent</label>
+        </div>
+    </div>
+    
+    <!-- Go/No-Go Criteria -->
+    <div class="go-nogo-section">
+        <h3>🎯 Phase 1 → Phase 2 Go/No-Go Criteria</h3>
+        <p><strong>Decision Point:</strong> 24 hours after first TestFlight invitation sent</p>
+        
+        <div class="criteria-list">
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-1">
+                <label for="criteria-1">100% internal team participation (5/5 responses)</label>
+            </div>
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-2">
+                <label for="criteria-2">0 P0 issues (app-breaking bugs)</label>
+            </div>
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-3">
+                <label for="criteria-3">≤2 P1 issues per tester on average</label>
+            </div>
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-4">
+                <label for="criteria-4">4+ average overall rating</label>
+            </div>
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-5">
+                <label for="criteria-5">4+ average emotional safety rating</label>
+            </div>
+            <div class="criteria-item">
+                <input type="checkbox" class="criteria-checkbox" id="criteria-6">
+                <label for="criteria-6">All Build #4 features confirmed working</label>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <strong>Decision: </strong>
+            <span style="color: #ffc107;">⏳ Pending Data Collection</span>
+        </div>
+    </div>
+    
+    <!-- Google Sheets Templates -->
+    <div class="tracking-table">
+        <h3>📊 Google Sheets Setup Templates</h3>
+        <p>Copy these templates into your Google Sheets for real-time tracking:</p>
+        
+        <div style="margin-top: 20px;">
+            <h4>Sheet 1: Daily Metrics</h4>
+            <div class="copy-template">Date,Phase,Invites Sent,Downloads,Active Users,Feedback Responses,Avg Rating,P0 Issues,P1 Issues,Safety Rating
+12/2,Internal,5,0,0,0,N/A,0,0,N/A
+12/3,Internal,5,3,3,2,4.5,0,1,4.5</div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <h4>Sheet 2: Tester Details</h4>
+            <div class="copy-template">Tester ID,Name,Role,Device,iOS Version,Invited Date,Downloaded,Response Date,Overall Rating,Safety Rating,P0 Issues,P1 Issues,Phase 2 Ready
+T001,Developer 1,Developer,iPhone 15,17.1,12/2 2:00pm,Yes,12/3 4:30pm,5,5,0,0,Yes
+T002,Designer 1,UX Designer,iPhone 14,16.7,12/2 2:00pm,Yes,12/3 6:15pm,4,4,0,1,Yes</div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <h4>Sheet 3: Issue Tracker</h4>
+            <div class="copy-template">Issue ID,Severity,Description,Reporter,Device,Date Reported,Status,Fix Description,Resolution Date
+B4-001,P1,Past Entries loading slow,T002,iPhone 14,12/3 6:15pm,Open,Server optimization needed,TBD
+B4-002,P2,Card borders too subtle,T003,iPhone 13,12/3 7:30pm,Open,Increase border opacity,TBD</div>
+        </div>
+    </div>
+    
+    <!-- Export and Reports -->
+    <div class="export-section">
+        <h3>📤 Reports & Export</h3>
+        <button class="export-button" onclick="generateReport()">Generate Daily Report</button>
+        <button class="export-button" onclick="exportMetrics()">Export to CSV</button>
+        <button class="export-button" onclick="slackSummary()">Create Slack Summary</button>
+    </div>
+    
+    <script>
+        // Update timestamp
+        function updateTimestamp() {
+            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        }
+        
+        // Sample functions for interactivity (you'll need to implement these)
+        function generateReport() {
+            alert('Generate a summary report with current metrics and status');
+            // Implement: Create formatted report for stakeholders
+        }
+        
+        function exportMetrics() {
+            alert('Export current metrics data to CSV format');
+            // Implement: Export data in CSV format for external analysis
+        }
+        
+        function slackSummary() {
+            const summary = `📊 ALCHM TestFlight Daily Summary - ${new Date().toLocaleDateString()}
+
+Build: #4 Phase 1 Internal
+Testers: ${document.getElementById('testers-responded').textContent}/5 responded
+Avg Rating: ${document.getElementById('avg-rating').textContent}/5.0
+Issues: ${document.getElementById('p0-issues').textContent} P0, ${document.getElementById('p1-issues').textContent} P1
+Safety: ✅ All clear
+Status: On track for Phase 2
+
+Phase Status: Monitoring responses
+Next Actions: Continue monitoring, address any issues`;
+            
+            navigator.clipboard.writeText(summary);
+            alert('Slack summary copied to clipboard!');
+        }
+        
+        // Auto-update timestamp every minute
+        setInterval(updateTimestamp, 60000);
+        updateTimestamp();
+    </script>
+</body>
+</html>

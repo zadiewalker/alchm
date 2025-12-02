@@ -11,6 +11,15 @@ const ClientProviders = dynamic(
   }
 );
 
+// Feedback button - loaded dynamically to avoid SSR issues
+const FeedbackButton = dynamic(
+  () => import('@/components/feedback').then(mod => ({ default: mod.FeedbackButton })),
+  { 
+    ssr: false,
+    loading: () => null
+  }
+);
+
 export const metadata = {
   title: 'ALCHM - Your Safe Space for Healing & Growth',
   description: 'Trauma-informed journaling platform. Private, secure, ages 18+.',
@@ -82,6 +91,7 @@ export default function RootLayout({
           {children}
         </ClientProviders>
         <InlineCrisisSupport />
+        <FeedbackButton position="bottom-left" />
       </body>
     </html>
   );

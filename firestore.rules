@@ -434,6 +434,14 @@ service cloud.firestore {
       allow write: if false;
     }
     
+    // ===== FEEDBACK COLLECTION =====
+    
+    // Feedback - anyone can create, only admins can read/update
+    match /feedback/{feedbackId} {
+      allow create: if true; // Anyone can submit feedback
+      allow read, update, delete: if false; // Admin SDK only
+    }
+    
     // ===== FALLBACK RULES =====
     
     // Default deny for any unmatched paths

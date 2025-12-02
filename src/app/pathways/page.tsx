@@ -1,13 +1,13 @@
 'use client';
 
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/lib/useAuth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import dynamicImport from 'next/dynamic';
 
 // CRISIS-CRITICAL: Lazy load PathwaysDashboard to reduce bundle size
-const PathwaysDashboard = dynamicImport(() => import('@/components/pathways/PathwaysDashboard').then(mod => ({ default: mod.PathwaysDashboard })), {
+const PathwaysDashboard = dynamicImport(() => import('@/components/Pathways/PathwaysDashboard').then(mod => ({ default: mod.PathwaysDashboard })), {
   ssr: false,
   loading: () => (
     <div className="max-w-7xl mx-auto px-6 py-12">

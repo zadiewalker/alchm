@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHM Universal Asset Design Template</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        .asset-container {
+            width: 1048px; /* 5244px / 5 for screen viewing */
+            height: 590px;  /* 2950px / 5 for screen viewing */
+            background: linear-gradient(135deg, #a4b792 0%, #8fa078 100%);
+            position: relative;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M50 30c-11 0-20 9-20 20s9 20 20 20 20-9 20-20-9-20-20-20zm0 30c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 80px 80px;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+        
+        .text-content {
+            flex: 1;
+            color: white;
+            max-width: 500px;
+        }
+        
+        .main-headline {
+            font-size: 48px;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .sub-headline {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-icon {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+        
+        .phone-mockup {
+            position: relative;
+            width: 240px;
+            height: 480px;
+            background: #000;
+            border-radius: 32px;
+            padding: 8px;
+            margin-left: 40px;
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #fefdfb;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .app-interface {
+            padding: 20px;
+            height: 100%;
+        }
+        
+        .app-header {
+            background: #a4b792;
+            margin: -20px -20px 20px -20px;
+            padding: 40px 20px 20px 20px;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .app-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .app-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .journal-entry {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #a4b792;
+        }
+        
+        .entry-text {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+        }
+        
+        .khepera-response {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px;
+            border-left: 4px solid #8fa078;
+        }
+        
+        .khepera-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #8fa078;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .khepera-text {
+            font-size: 10px;
+            line-height: 1.4;
+            color: #2d2d2d;
+        }
+        
+        .crisis-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #d76b6b;
+            color: white;
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .design-notes {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .actual-size-note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="actual-size-note">
+        <strong>PRODUCTION NOTE:</strong> This is a scaled-down preview. The actual Photoshop file will be 5244 x 2950 pixels at 300 DPI. 
+        File name: <code>ALCHM_[AppAppleID]_20241202_AppStore_Universal.psd</code>
+    </div>
+
+    <div class="asset-container">
+        <div class="background-pattern"></div>
+        
+        <div class="content">
+            <div class="text-content">
+                <h1 class="main-headline">Transform emotions into wisdom</h1>
+                <p class="sub-headline">World's first trauma-informed journaling OS with AI companion trained for healing</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <span class="feature-icon">🔒</span>
+                        Privacy-first
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🤖</span>
+                        AI companion
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">📊</span>
+                        Real insights
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🚨</span>
+                        Crisis support
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div class="app-interface">
+                        <div class="app-header">
+                            <div class="app-title">ALCHM</div>
+                            <div class="app-subtitle">Your sanctuary for growth</div>
+                        </div>
+                        
+                        <div class="journal-entry">
+                            <div class="entry-text">
+                                Today felt overwhelming with work stress, but I managed to take some deep breaths during my lunch break. I'm trying to remember that it's okay to feel anxious sometimes.
+                            </div>
+                        </div>
+                        
+                        <div class="khepera-response">
+                            <div class="khepera-label">
+                                🪲 Khepera
+                            </div>
+                            <div class="khepera-text">
+                                It sounds like you showed real self-compassion today by recognizing your stress and taking care of yourself with breathing exercises. That awareness, paired with gentle self-care, reflects wisdom and strength.
+                            </div>
+                        </div>
+                        
+                        <div class="crisis-button">Crisis Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="design-notes">
+        <h3>Universal Asset Design Specifications</h3>
+        <ul>
+            <li><strong>Dimensions:</strong> 5244 x 2950 pixels (shown scaled down)</li>
+            <li><strong>Format:</strong> Photoshop PSD with Smart Objects</li>
+            <li><strong>Purpose:</strong> Primary promotional asset for App Store featuring</li>
+            <li><strong>Key Elements:</strong>
+                <ul>
+                    <li>Hero headline: "Transform emotions into wisdom"</li>
+                    <li>iPhone mockup showing real ALCHM interface</li>
+                    <li>Journal entry with Khepera AI response</li>
+                    <li>Feature highlights with icons</li>
+                    <li>ALCHM sage green brand gradient background</li>
+                    <li>Subtle scarab beetle pattern overlay</li>
+                </ul>
+            </li>
+            <li><strong>Brand Colors:</strong>
+                <ul>
+                    <li>Primary: #a4b792 (sage green)</li>
+                    <li>Secondary: #8fa078 (sage dark)</li>
+                    <li>Background: #fefdfb (warm white)</li>
+                    <li>Text: #2d2d2d (charcoal)</li>
+                </ul>
+            </li>
+            <li><strong>Typography:</strong> SF Pro Display (Light/Regular weights)</li>
+            <li><strong>Messaging Focus:</strong> Trauma-informed, AI-powered, privacy-first healing</li>
+        </ul>
+        
+        <h4>Critical Requirements:</h4>
+        <ul>
+            <li>All text must be embedded Smart Objects (not linked)</li>
+            <li>iPhone mockup content shows actual ALCHM interface</li>
+            <li>Colors must exactly match ALCHM brand palette</li>
+            <li>File size under 500 MB preferred</li>
+            <li>Resolution: 300 DPI for crisp quality</li>
+        </ul>
+    </div>
+</body>
+</html>

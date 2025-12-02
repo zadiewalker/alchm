@@ -501,19 +501,35 @@ export function SignInButtons() {
     setError(null);
     
     try {
+      console.log('🔑 Starting anonymous authentication...');
       const result = await signInAnonymously(auth);
       
       if (result.user) {
+        console.log('✅ Anonymous authentication successful:', result.user.uid);
+        
         // Handle successful anonymous auth same as regular auth
         const authPerformance = monitorAuthFlow();
         
         try {
           // Create anonymous session
-          await fetch('/api/auth/session', {
+          console.log('🔐 Creating anonymous session...');
+          const sessionResponse = await fetch('/api/auth/session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ uid: result.user.uid, isAnonymous: true }),
+            body: JSON.stringify({ 
+              uid: result.user.uid, 
+              user: { uid: result.user.uid, email: null, displayName: 'Guest User' },
+              isAnonymous: true 
+            }),
           });
+
+          if (!sessionResponse.ok) {
+            const errorData = await sessionResponse.text();
+            throw new Error(`Session creation failed: ${sessionResponse.status} - ${errorData}`);
+          }
+          
+          const sessionData = await sessionResponse.json();
+          console.log('✅ Anonymous session created:', sessionData.sessionId);
           
           authPerformance.recordComplete();
           
@@ -567,17 +583,31 @@ export function SignInButtons() {
           document.body.appendChild(transitionMessage);
           
           setTimeout(() => {
+            console.log('🧭 Navigating to:', redirectUrl);
             window.location.href = redirectUrl;
           }, 2000);
-        } catch (e) {
-          console.error("Guest session creation error:", e);
+        } catch (e: any) {
+          console.error("🚨 Guest session creation error:", e);
           setBusy(false);
-          setError("Guest access failed. Please try again.");
+          setError("Guest access authentication succeeded but session creation failed. Please try refreshing the page and trying again.");
         }
+      } else {
+        console.error("🚨 Anonymous authentication returned no user");
+        setBusy(false);
+        setError("Authentication completed but no user data received. Please try again.");
       }
     } catch (e: any) {
+      console.error("🚨 Anonymous authentication failed:", e);
       setBusy(false);
-      setError("Guest access encountered an issue. Please try email or Apple sign-in instead.");
+      
+      // Provide specific error messages based on error code
+      if (e.code === 'auth/operation-not-allowed') {
+        setError("Anonymous authentication is not enabled. Please contact support or try email sign-in instead.");
+      } else if (e.code === 'auth/network-request-failed') {
+        setError("Network connection issue. Please check your internet and try again.");
+      } else {
+        setError("Guest access encountered an issue. Please try email or Apple sign-in instead.");
+      }
     }
   }, [auth]);
 
