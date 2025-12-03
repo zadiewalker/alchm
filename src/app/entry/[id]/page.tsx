@@ -1,5 +1,8 @@
 'use client';
 
+// For static export, we can't pre-generate user-specific entries
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '@/lib/useAuth';

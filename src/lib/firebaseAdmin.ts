@@ -176,3 +176,7 @@ export async function getUidFromSessionCookie(
     return null;
   }
 }
+
+// Additional exports for compatibility
+export const initializeFirebaseAdmin = ensureAdmin;
+export const adminDb = getDb;

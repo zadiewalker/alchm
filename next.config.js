@@ -8,9 +8,9 @@ const nextConfig = {
     unoptimized: true
   },
   
-  // Performance Optimizations
-  swcMinify: true,
-  compress: true,
+  // Performance Optimizations (disabled CSS minification for build fix)
+  swcMinify: false,
+  compress: false,
   poweredByHeader: false,
   
   // Cache Busting for deployments
@@ -36,7 +36,15 @@ const nextConfig = {
   
   // Static export for Firebase Hosting
   output: 'export',
-  distDir: 'out'
+  distDir: 'out',
+  skipTrailingSlashRedirect: true,
+  
+  // Webpack config to fix CSS parsing error
+  webpack: (config) => {
+    // Disable CSS optimization that's causing the parsing error
+    config.optimization.minimize = false;
+    return config;
+  }
 }
 
 module.exports = nextConfig

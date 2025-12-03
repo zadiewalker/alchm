@@ -79,3 +79,6 @@ export function useAuth() {
 
   return { user, loading, authInitialized };
 }
+
+// Legacy export alias for backwards compatibility
+export const useAuthContext = useAuth;

@@ -34,3 +34,9 @@ export class RateLimiter {
 
 export const createRateLimiter = (maxAttempts?: number, windowMs?: number) => 
   new RateLimiter(maxAttempts, windowMs);
+
+// Crisis-specific rate limiter
+export const withCrisisRateLimit = (identifier: string): boolean => {
+  const crisisLimiter = new RateLimiter(5, 60000); // 5 attempts per minute
+  return crisisLimiter.isAllowed(identifier);
+};
