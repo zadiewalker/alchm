@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* iOS Safe Areas */
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+
+/* Base Reset */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+  background: linear-gradient(to bottom, #8B9A7C, #A8B5A0);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* iOS Scrolling Fix */
+.scrollable {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  flex: 1;
+}
+
+/* Full Height Container */
+.page-container {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--sat);
+  padding-bottom: var(--sab);
+}
+
+/* Anti-aliasing for text */
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar for WebKit */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1px;
+}
+
+/* Prevent text selection on buttons */
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Input styling for iOS */
+input, textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+/* Remove iOS input shadows */
+input[type="text"], 
+input[type="email"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+  box-shadow: none;
+  outline: none;
+}
