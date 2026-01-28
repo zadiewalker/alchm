@@ -1,9 +1,7 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function PricingPage() {
-  const router = useRouter();
 
   const plans = [
     {
@@ -52,26 +50,18 @@ export default function PricingPage() {
   ];
 
   const handleSelectPlan = (planId: string) => {
-    if (planId === 'sanctuary') {
-      // Already on free plan
-      return;
-    }
-    
-    // TODO: Integrate with Stripe
-    console.log('Selecting plan:', planId);
-    
-    // For now, navigate to dashboard
-    router.push('/dashboard');
+    // For demo purposes, just log the selection
+    console.log('Selected plan:', planId);
   };
 
   return (
     <div className="page-container bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0]">
       {/* Fixed Header */}
       <header className="px-6 pt-4 pb-2 flex items-center">
-        <button onClick={() => router.back()} className="group relative">
+        <Link href="/dashboard" className="group relative">
           <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 group-active:bg-white/15 rounded-lg transition-all duration-300" />
           <span className="relative text-white/70 text-lg">← Back</span>
-        </button>
+        </Link>
         <h1 className="text-white text-xl font-light ml-4">Choose Your Journey</h1>
       </header>
 

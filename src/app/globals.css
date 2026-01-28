@@ -2,90 +2,205 @@
 @tailwind components;
 @tailwind utilities;
 
-/* iOS Safe Areas */
+/* ═══════════════════════════════════════════════════════════════════
+   ALCHM DESIGN SYSTEM
+   A digital sanctuary for healing and transformation
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────
+   CSS Custom Properties
+   ───────────────────────────────────────────────────────────────────── */
 :root {
+  /* Safe Area Insets (iOS) */
   --sat: env(safe-area-inset-top);
   --sar: env(safe-area-inset-right);
   --sab: env(safe-area-inset-bottom);
   --sal: env(safe-area-inset-left);
+  
+  /* Sanctuary Colors */
+  --sage-deep: #8B9A7C;
+  --sage-light: #A8B5A0;
+  --sage-whisper: #B8C4AD;
+  
+  /* Surface Opacities */
+  --glass-subtle: rgba(255, 255, 255, 0.05);
+  --glass-elevated: rgba(255, 255, 255, 0.10);
+  --glass-active: rgba(255, 255, 255, 0.15);
+  --glass-prominent: rgba(255, 255, 255, 0.20);
 }
 
-/* Base Reset */
-html, body {
+/* ─────────────────────────────────────────────────────────────────────
+   Base Reset
+   ───────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
   height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: none;
-  background: linear-gradient(to bottom, #8B9A7C, #A8B5A0);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-
-/* iOS Scrolling Fix */
-.scrollable {
-  overflow-y: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
+  background-attachment: fixed;
+  color: white;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-  flex: 1;
+  overscroll-behavior-y: none;
 }
 
-/* Full Height Container */
+/* ─────────────────────────────────────────────────────────────────────
+   Page Container
+   The foundation for every screen
+   ───────────────────────────────────────────────────────────────────── */
 .page-container {
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   min-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   padding-top: var(--sat);
   padding-bottom: var(--sab);
+  padding-left: var(--sal);
+  padding-right: var(--sar);
 }
 
-/* Anti-aliasing for text */
-.antialiased {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ─────────────────────────────────────────────────────────────────────
+   Scrollable Areas (iOS-optimized)
+   ───────────────────────────────────────────────────────────────────── */
+.scrollable {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  /* Hide scrollbar but keep functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Custom scrollbar for WebKit */
-::-webkit-scrollbar {
-  width: 2px;
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+/* ─────────────────────────────────────────────────────────────────────
+   Glass Surfaces
+   ───────────────────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass-elevated);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 1px;
+.glass-subtle {
+  background: var(--glass-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Prevent text selection on buttons */
+.glass-card {
+  background: var(--glass-elevated);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Button Resets
+   ───────────────────────────────────────────────────────────────────── */
 button {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Input styling for iOS */
-input, textarea {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
-/* Remove iOS input shadows */
-input[type="text"], 
-input[type="email"],
-input[type="password"],
-textarea {
-  -webkit-appearance: none;
-  box-shadow: none;
+button:focus {
   outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Input Resets
+   ───────────────────────────────────────────────────────────────────── */
+input, textarea {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+textarea {
+  resize: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Typography Utilities
+   ───────────────────────────────────────────────────────────────────── */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Transition Utilities
+   ───────────────────────────────────────────────────────────────────── */
+.transition-gentle {
+  transition: all 0.3s ease-out;
+}
+
+.transition-slow {
+  transition: all 0.5s ease-out;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Safe Touch Targets (44px minimum per Apple HIG)
+   ───────────────────────────────────────────────────────────────────── */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Sanctuary-Specific Utilities
+   ───────────────────────────────────────────────────────────────────── */
+.sanctuary-gradient {
+  background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
+}
+
+.fade-bottom {
+  background: linear-gradient(to top, var(--sage-light), transparent);
+}
+
+.fade-top {
+  background: linear-gradient(to bottom, var(--sage-deep), transparent);
 }

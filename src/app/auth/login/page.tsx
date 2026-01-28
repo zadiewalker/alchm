@@ -1,111 +1,36 @@
 'use client';
-import { useState } from 'react';
-import { signIn } from '../../../lib/auth';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const router = useRouter();
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      await signIn(email, password);
-      router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      background: 'linear-gradient(180deg, #C8D4BC 0%, #A4B792 50%, #8A9A78 100%)',
-      color: 'white',
-      fontFamily: 'system-ui',
-      padding: '20px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
-      <div style={{ 
-        background: 'rgba(255, 255, 255, 0.1)', 
-        padding: '2rem', 
-        borderRadius: '12px',
-        backdropFilter: 'blur(10px)',
-        maxWidth: '400px',
-        width: '100%'
-      }}>
-        <h1 style={{ textAlign: 'center', marginBottom: '2rem', fontWeight: 300 }}>Sign In</h1>
-        
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            style={{
-              width: '100%',
-              padding: '12px',
-              margin: '0 0 1rem 0',
-              border: 'none',
-              borderRadius: '8px',
-              background: 'rgba(255, 255, 255, 0.9)',
-              color: '#333'
-            }}
-          />
-          
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            style={{
-              width: '100%',
-              padding: '12px',
-              margin: '0 0 1rem 0',
-              border: 'none',
-              borderRadius: '8px',
-              background: 'rgba(255, 255, 255, 0.9)',
-              color: '#333'
-            }}
-          />
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col px-6 relative">
+      {/* Header */}
+      <div className="pt-16 pb-8 flex items-center">
+        <Link href="/" className="text-white/70 text-lg mr-4">← Back</Link>
+        <h1 className="text-3xl text-white font-extralight tracking-[0.2em]">Sign In</h1>
+      </div>
 
-          {error && <div style={{ color: '#ff6b6b', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
-
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: '100%',
-              padding: '12px',
-              background: loading ? 'rgba(255, 255, 255, 0.3)' : '#fff',
-              color: loading ? 'rgba(255, 255, 255, 0.7)' : '#333',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              marginBottom: '1rem'
-            }}
+      {/* Simple Content */}
+      <div className="flex-1 flex items-center justify-center">
+        <div className="text-center max-w-[320px]">
+          <div className="text-white/80 text-6xl mb-6">🔑</div>
+          <h2 className="text-white text-xl font-light mb-4">Welcome Back</h2>
+          <p className="text-white/60 text-sm mb-8">Sign in to your healing sanctuary</p>
+          <Link 
+            href="/dashboard"
+            className="inline-block px-8 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-sm hover:bg-white/20 transition-all duration-300 mb-4"
           >
-            {loading ? 'Signing In...' : 'Sign In'}
-          </button>
-        </form>
-
-        <div style={{ textAlign: 'center' }}>
-          <a href="/auth/signup" style={{ color: 'white' }}>Don't have an account? Sign up</a><br />
-          <a href="/" style={{ color: 'white', fontSize: '0.9rem', marginTop: '1rem', display: 'inline-block' }}>← Back to Home</a><br />
-          <a href="/emergency" style={{ color: 'white', fontSize: '0.9rem' }}>Crisis Support: 988</a>
+            Demo Login
+          </Link>
+          <div className="text-white/50 text-xs">
+            <Link href="/auth/signup" className="underline">Create Account</Link>
+          </div>
         </div>
+      </div>
+
+      {/* Crisis Support */}
+      <div className="pb-10">
+        <p className="text-white/40 text-xs text-center tracking-wide">Crisis support available · 988</p>
       </div>
     </div>
   );
