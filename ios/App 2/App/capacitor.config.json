@@ -1,0 +1,10 @@
+{
+	"appId": "com.alchm.app",
+	"appName": "ALCHM",
+	"webDir": "public",
+	"server": {
+		"url": "http://localhost:3001",
+		"cleartext": true
+	},
+	"packageClassList": []
+}

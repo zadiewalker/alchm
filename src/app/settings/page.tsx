@@ -17,6 +17,8 @@ export default function SettingsPage() {
   const [safeWords, setSafeWords] = useState(['breathe', 'safe', 'grounded']);
   const [newSafeWord, setNewSafeWord] = useState('');
   const [cleared, setCleared] = useState(false);
+  const [subscription, setSubscription] = useState<any>(null);
+  const [loadingSubscription, setLoadingSubscription] = useState(true);
 
   // Load settings from localStorage
   useEffect(() => {
@@ -61,6 +63,33 @@ export default function SettingsPage() {
     saveSettings();
   }, [notifications, gentleReminders, crisisSupport, journalReminders, privateMode, soundHealing, breathingCues, darkMode, customCrisisNumber, preferredName, supportPerson, safeWords]);
 
+  // Load subscription status
+  useEffect(() => {
+    const loadSubscription = async () => {
+      try {
+        const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
+        const response = await fetch('/api/stripe/subscription-status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userEmail }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setSubscription(data);
+        }
+      } catch (error) {
+        console.error('Error loading subscription:', error);
+      } finally {
+        setLoadingSubscription(false);
+      }
+    };
+
+    loadSubscription();
+  }, []);
+
   const addSafeWord = () => {
     if (newSafeWord.trim() && !safeWords.includes(newSafeWord.trim())) {
       setSafeWords([...safeWords, newSafeWord.trim()]);
@@ -81,6 +110,30 @@ export default function SettingsPage() {
       keys.forEach(key => localStorage.removeItem(key));
       setCleared(true);
       setTimeout(() => setCleared(false), 3000);
+    }
+  };
+
+  const openCustomerPortal = async () => {
+    try {
+      const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
+      const response = await fetch('/api/stripe/portal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail,
+          returnUrl: window.location.href,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Error opening customer portal:', error);
+      alert('Sorry, there was an error opening the billing portal. Please try again.');
     }
   };
 
@@ -258,6 +311,60 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
+
+        {/* Subscription Management */}
+        {!loadingSubscription && (
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+            <h2 className="text-white text-lg font-light mb-4 flex items-center gap-3">
+              <span>💳</span> Subscription
+            </h2>
+            
+            <div className="space-y-4">
+              {subscription?.isActive ? (
+                <>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-white text-sm">Current Plan</span>
+                      <p className="text-white/60 text-xs mt-1 capitalize">
+                        {subscription.planType === 'sanctuary' ? 'Sanctuary (Free)' : 
+                         subscription.planType === 'growth' ? 'Growth ($4.99/month)' : 
+                         subscription.planType === 'transformation' ? 'Transformation ($9.99/month)' : 'Unknown'}
+                      </p>
+                    </div>
+                    <div className="text-green-400 text-sm">Active</div>
+                  </div>
+                  
+                  <button
+                    onClick={openCustomerPortal}
+                    className="w-full px-6 py-3 bg-white/20 hover:bg-white/30 border border-white/20 rounded-xl text-white text-sm transition-all duration-300"
+                  >
+                    Manage Subscription
+                  </button>
+                  <p className="text-white/60 text-xs text-center">
+                    Update billing info, change plans, or cancel subscription
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="text-center">
+                    <span className="text-white text-sm">Sanctuary Plan (Free)</span>
+                    <p className="text-white/60 text-xs mt-1">You're currently on the free plan</p>
+                  </div>
+                  
+                  <Link
+                    href="/pricing"
+                    className="block w-full px-6 py-3 bg-white/20 hover:bg-white/30 border border-white/20 rounded-xl text-white text-sm text-center transition-all duration-300"
+                  >
+                    Upgrade Your Journey
+                  </Link>
+                  <p className="text-white/60 text-xs text-center">
+                    Access advanced features and personalized guidance
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Privacy & Data */}
         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
