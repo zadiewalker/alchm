@@ -19,32 +19,32 @@ export default function PricingPage() {
       current: true
     },
     {
-      id: 'deep-cut',
-      name: 'Deep Cut',
-      price: '$9',
+      id: 'growth',
+      name: 'Growth',
+      price: '$4.99',
       period: '/month',
-      description: 'Cut through to deeper healing',
+      description: 'Deepen your healing journey',
       features: [
         'Everything in Sanctuary',
-        'Advanced Khepera perspectives',
-        'All 5 healing pathways',
-        'Progress tracking & analytics',
-        'Community healing circles'
+        'Advanced AI insights',
+        'Healing pathways',
+        'Progress tracking',
+        'Community access'
       ],
       popular: true
     },
     {
-      id: 'oracle',
-      name: 'Oracle',
-      price: '$19',
+      id: 'transformation',
+      name: 'Transformation',
+      price: '$9.99',
       period: '/month',
-      description: 'Wisdom-guided transformation',
+      description: 'Complete healing ecosystem',
       features: [
-        'Everything in Deep Cut',
-        'Oracle-level Khepera insights',
-        'Personalized healing guidance',
-        'Shadow work mastery tools',
-        'Priority spiritual mentoring'
+        'Everything in Growth',
+        'Priority Khepera responses',
+        'Personalized healing plans',
+        'Expert content access',
+        'One-on-one guidance'
       ]
     }
   ];
@@ -145,8 +145,6 @@ export default function PricingPage() {
                     ? 'Current Plan'
                     : plan.id === 'sanctuary' 
                     ? 'Get Started Free'
-                    : plan.id === 'oracle' 
-                    ? 'Unlock Oracle Wisdom'
                     : `Choose ${plan.name}`
                   }
                 </span>
