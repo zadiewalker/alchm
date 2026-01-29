@@ -1,0 +1,83 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is an admin
+    function isAdmin() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.verified == true;
+    }
+    
+    // Helper function to check admin permission
+    function hasAdminPermission(permission) {
+      return isAdmin() && 
+             permission in get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.permissions;
+    }
+    
+    // Allow users to read and write their own journal entries
+    match /journal-entries/{document} {
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Allow users to read and write their own user profile data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Allow admins to read anonymized user data for demographics (without personal info)
+      allow read: if hasAdminPermission('view_crisis_events');
+    }
+    
+    // User analyses - allow users to read their own, admins can't access (privacy protection)
+    match /users/{userId}/analyses/{analysisId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Crisis events - admin access only with proper permissions
+    match /crisisEvents/{eventId} {
+      allow read: if hasAdminPermission('view_crisis_events');
+      allow write: if hasAdminPermission('escalate_crisis') || hasAdminPermission('resolve_crisis');
+      // Only allow server-side writes (functions can bypass these rules)
+    }
+    
+    // Admin users collection - only system admins can manage
+    match /adminUsers/{adminId} {
+      allow read: if request.auth != null && request.auth.uid == adminId;
+      allow write: if hasAdminPermission('manage_admin_users');
+    }
+    
+    // Alert rules - admin access only
+    match /alertRules/{ruleId} {
+      allow read, write: if hasAdminPermission('manage_alerts');
+    }
+    
+    // Alert logs - admin read access only
+    match /alertLog/{logId} {
+      allow read: if hasAdminPermission('view_analytics');
+      // Write access only for functions
+    }
+    
+    // Admin audit log - system admin access only
+    match /adminAuditLog/{logId} {
+      allow read: if hasAdminPermission('system_configuration');
+      // Write access only for functions
+    }
+    
+    // System health data - admin read access
+    match /systemHealth/{healthId} {
+      allow read: if hasAdminPermission('view_analytics');
+      // Write access only for functions
+    }
+    
+    // Daily analytics - admin read access
+    match /dailyAnalytics/{date} {
+      allow read: if hasAdminPermission('view_analytics');
+      // Write access only for functions
+    }
+    
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

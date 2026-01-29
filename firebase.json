@@ -1,0 +1,867 @@
+{
+  "hosting": [
+    {
+      "site": "alchmapp",
+      "public": "out",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**",
+        "**/*.map",
+        "**/*.d.ts",
+        "**/tsconfig.json",
+        "**/*.backup",
+        "**/*.disabled"
+      ],
+      "rewrites": [
+        {
+          "source": "/",
+          "destination": "/index.html"
+        },
+        {
+          "source": "/mobile-emergency",
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/emergency-age-verify", 
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/api/khepera/**",
+          "function": "crisisDetection"
+        },
+        {
+          "source": "/api/crisis-detection",
+          "function": "crisisDetection"
+        },
+        {
+          "source": "/api/crisis-detection/**",
+          "function": "crisisDetection"
+        },
+        {
+          "source": "/api/health",
+          "function": "healthCheck"
+        },
+        {
+          "source": "/api/health/ping",
+          "function": "healthCheck"
+        },
+        {
+          "source": "/home",
+          "destination": "/home.html"
+        },
+        {
+          "source": "/dashboard",
+          "destination": "/dashboard.html"
+        },
+        {
+          "source": "/journal", 
+          "destination": "/journal.html"
+        },
+        {
+          "source": "/emergency",
+          "destination": "/emergency.html"
+        },
+        {
+          "source": "/entries",
+          "destination": "/entries.html"
+        },
+        {
+          "source": "/journals",
+          "destination": "/en/journals.html"
+        },
+        {
+          "source": "/pathways",
+          "destination": "/en/pathways.html"
+        },
+        {
+          "source": "/pricing",
+          "destination": "/en/pricing.html"
+        },
+        {
+          "source": "/settings",
+          "destination": "/settings.html"
+        },
+        {
+          "source": "/auth/login",
+          "destination": "/auth/login.html"
+        },
+        {
+          "source": "/auth/signup",
+          "destination": "/auth/signup.html"
+        },
+        {
+          "source": "/en/dashboard",
+          "destination": "/dashboard.html"
+        },
+        {
+          "source": "/en/journal",
+          "destination": "/en/journal.html"
+        },
+        {
+          "source": "/en/auth/login",
+          "destination": "/index.html"
+        },
+        {
+          "source": "/en/auth/signup",
+          "destination": "/index.html"
+        },
+        {
+          "source": "/en/emergency",
+          "destination": "/en/emergency.html"
+        },
+        {
+          "source": "/en/crisis-support",
+          "destination": "/crisis-support.html"
+        },
+        {
+          "source": "/en/pathways",
+          "destination": "/en/pathways.html"
+        },
+        {
+          "source": "/en/pricing",
+          "destination": "/en/pricing.html"
+        },
+        {
+          "source": "/en/pricing/premium",
+          "destination": "/en/pricing/premium.html"
+        },
+        {
+          "source": "/insights",
+          "destination": "/en/insights.html"
+        },
+        {
+          "source": "/en/insights",
+          "destination": "/en/insights.html"
+        },
+        {
+          "source": "/es/insights",
+          "destination": "/es/insights.html"
+        },
+        {
+          "source": "/pt/insights",
+          "destination": "/pt/insights.html"
+        },
+        {
+          "source": "/ko/insights",
+          "destination": "/ko/insights.html"
+        },
+        {
+          "source": "/hi/insights",
+          "destination": "/hi/insights.html"
+        },
+        {
+          "source": "/de/insights",
+          "destination": "/de/insights.html"
+        },
+        {
+          "source": "/en/journals",
+          "destination": "/en/journals.html"
+        },
+        {
+          "source": "/es/journals", 
+          "destination": "/es/journals.html"
+        },
+        {
+          "source": "/pt/journals",
+          "destination": "/pt/journals.html"
+        },
+        {
+          "source": "/ko/journals",
+          "destination": "/ko/journals.html"
+        },
+        {
+          "source": "/hi/journals",
+          "destination": "/hi/journals.html"
+        },
+        {
+          "source": "/de/journals",
+          "destination": "/de/journals.html"
+        },
+        {
+          "source": "/es/pathways",
+          "destination": "/es/pathways.html"
+        },
+        {
+          "source": "/pt/pathways",
+          "destination": "/pt/pathways.html"
+        },
+        {
+          "source": "/ko/pathways",
+          "destination": "/ko/pathways.html"
+        },
+        {
+          "source": "/hi/pathways",
+          "destination": "/hi/pathways.html"
+        },
+        {
+          "source": "/de/pathways",
+          "destination": "/de/pathways.html"
+        },
+        {
+          "source": "/es/pricing",
+          "destination": "/es/pricing.html"
+        },
+        {
+          "source": "/pt/pricing",
+          "destination": "/pt/pricing.html"
+        },
+        {
+          "source": "/ko/pricing",
+          "destination": "/ko/pricing.html"
+        },
+        {
+          "source": "/hi/pricing",
+          "destination": "/hi/pricing.html"
+        },
+        {
+          "source": "/de/pricing",
+          "destination": "/de/pricing.html"
+        },
+        {
+          "source": "/404",
+          "destination": "/404.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "/",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-root\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "BEGIN_JOURNEY_FIX_1767592940_URGENT"
+            }
+          ]
+        },
+        {
+          "source": "/index.html",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-index\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "BEGIN_JOURNEY_FIX_1767592940_URGENT"
+            }
+          ]
+        },
+        {
+          "source": "/_next/static/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-assets\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "BEGIN_JOURNEY_FIX_1767592940_URGENT"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(woff|woff2|ttf|otf)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "public, max-age=2592000"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=3600, must-revalidate"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(json|xml)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**/*.html",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache-html\""
+            },
+            {
+              "key": "X-Cache-Buster",
+              "value": "BEGIN_JOURNEY_FIX_1767592940_URGENT"
+            }
+          ]
+        },
+        {
+          "source": "/sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/*sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/manifest.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/version.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Version-File",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "source": "/build-info.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/javascript"
+            }
+          ]
+        },
+        {
+          "source": "/api/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "X-Content-Type-Options", 
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=()"
+            },
+            {
+              "key": "X-Mobile-Optimized",
+              "value": "trauma-informed"
+            },
+            {
+              "key": "X-Crisis-Ready",
+              "value": "true"
+            },
+            {
+              "key": "X-Touch-Targets",
+              "value": "accessibility-enhanced"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false
+    },
+    {
+      "site": "alchm-digital-sanctuary", 
+      "public": "out",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/mobile-emergency",
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/emergency-age-verify",
+          "destination": "/mobile-emergency.html"
+        },
+        {
+          "source": "/emergency-dashboard",
+          "destination": "/emergency-dashboard.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "/_next/static/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache\""
+            },
+            {
+              "key": "Last-Modified",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(woff|woff2|ttf|otf)",
+          "headers": [
+            {
+              "key": "Cache-Control", 
+              "value": "public, max-age=2592000"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=3600, must-revalidate"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(json|xml)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**/*.html",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"no-cache\""
+            },
+            {
+              "key": "Last-Modified",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/*sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/manifest.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "/version.json",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Version-File",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "source": "/build-info.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate, max-age=0"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/javascript"
+            }
+          ]
+        },
+        {
+          "source": "/api/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "X-Content-Type-Options", 
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=()"
+            },
+            {
+              "key": "X-Mobile-Optimized",
+              "value": "trauma-informed"
+            },
+            {
+              "key": "X-Crisis-Ready",
+              "value": "true"
+            },
+            {
+              "key": "X-Touch-Targets",
+              "value": "accessibility-enhanced"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": false,
+      "trailingSlash": false
+    }
+  ],
+  
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local",
+        "*.disabled",
+        "src/**/*.disabled",
+        "test/**",
+        "**/*.test.js",
+        "**/*.spec.js"
+      ],
+      "predeploy": [
+        "cd functions && npm ci --only=production && npm run build"
+      ],
+      "runtime": "nodejs20",
+      "memory": "512MB",
+      "timeout": "60s",
+      "minInstances": 0,
+      "maxInstances": 10,
+      "concurrency": 1000,
+      "cpu": 1,
+      "environmentVariables": {
+        "NODE_ENV": "production",
+        "CRISIS_ESCALATION_ENABLED": "true",
+        "MONITORING_LEVEL": "HIGH"
+      },
+      "labels": {
+        "deployment-type": "production",
+        "app": "alchm",
+        "environment": "prod"
+      }
+    }
+  ],
+
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+
+  "storage": {
+    "rules": "storage.rules"
+  },
+
+  "database": {
+    "rules": "database.rules.json"
+  },
+
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  },
+
+  "extensions": {},
+
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5002
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    },
+    "singleProjectMode": true,
+    "logging": {
+      "level": "DEBUG"
+    }
+  }
+}

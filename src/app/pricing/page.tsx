@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function PricingPage() {
 
@@ -49,9 +50,47 @@ export default function PricingPage() {
     }
   ];
 
-  const handleSelectPlan = (planId: string) => {
-    // For demo purposes, just log the selection
-    console.log('Selected plan:', planId);
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const handleSelectPlan = async (planId: string) => {
+    if (planId === 'sanctuary') {
+      // Free plan - no payment needed
+      return;
+    }
+
+    setLoading(planId);
+
+    try {
+      // Get user email from localStorage or context
+      const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
+      const userName = localStorage.getItem('userName') || '';
+
+      const response = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          planType: planId,
+          userEmail,
+          userName,
+          returnUrl: window.location.origin,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error(data.error || 'Failed to create checkout session');
+      }
+    } catch (error) {
+      console.error('Error starting checkout:', error);
+      alert('Sorry, there was an error processing your request. Please try again.');
+    } finally {
+      setLoading(null);
+    }
   };
 
   return (
@@ -130,10 +169,10 @@ export default function PricingPage() {
               {/* CTA Button */}
               <button
                 onClick={() => handleSelectPlan(plan.id)}
-                disabled={plan.current}
+                disabled={plan.current || loading === plan.id}
                 className={`w-full group relative py-3 ${
                   plan.current ? 'opacity-50' : ''
-                }`}
+                } ${loading === plan.id ? 'opacity-75 cursor-wait' : ''}`}
               >
                 <div className={`absolute inset-0 transition-all duration-300 rounded-lg ${
                   plan.popular
@@ -141,7 +180,9 @@ export default function PricingPage() {
                     : 'bg-white/20 group-hover:bg-white/30 group-active:bg-white/35'
                 }`} />
                 <span className="relative text-white font-medium">
-                  {plan.current 
+                  {loading === plan.id 
+                    ? 'Processing...'
+                    : plan.current 
                     ? 'Current Plan'
                     : plan.id === 'sanctuary' 
                     ? 'Get Started Free'
