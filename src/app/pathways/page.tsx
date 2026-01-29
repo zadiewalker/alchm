@@ -5,40 +5,34 @@ export default function PathwaysPage() {
 
   const pathways = [
     {
-      id: 'mindfulness',
-      title: 'Mindfulness',
-      emoji: '🧘‍♀️',
-      description: 'Cultivate present-moment awareness and inner peace'
+      id: 'foundation',
+      title: 'Foundation',
+      emoji: '🏗️',
+      description: 'Build the essential groundwork for your healing journey'
     },
     {
-      id: 'breathwork',
-      title: 'Breathwork',
-      emoji: '🌬️',
-      description: 'Harness the power of conscious breathing'
+      id: 'calm-the-storm',
+      title: 'Calm the Storm',
+      emoji: '🌊',
+      description: 'Learn to navigate and soothe intense emotions and overwhelm'
     },
     {
-      id: 'movement',
-      title: 'Movement',
-      emoji: '💃',
-      description: 'Heal through gentle movement and embodiment'
+      id: 'honoring-loss',
+      title: 'Honoring Loss',
+      emoji: '🕯️',
+      description: 'Process grief and honor what has been lost with compassion'
     },
     {
-      id: 'creativity',
-      title: 'Creative Expression',
-      emoji: '🎨',
-      description: 'Express your inner world through art and creativity'
+      id: 'enough-as-you-are',
+      title: 'Enough as You Are',
+      emoji: '💙',
+      description: 'Embrace self-acceptance and recognize your inherent worth'
     },
     {
-      id: 'nature',
-      title: 'Nature Connection',
-      emoji: '🌿',
-      description: 'Find healing in your connection with the natural world'
-    },
-    {
-      id: 'community',
-      title: 'Community',
-      emoji: '🤝',
-      description: 'Build meaningful connections and support networks'
+      id: 'shadow-work',
+      title: 'Shadow Work',
+      emoji: '🌑',
+      description: 'Integrate the hidden and disowned parts of yourself'
     }
   ];
 
@@ -80,13 +74,10 @@ export default function PathwaysPage() {
         */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {pathways.map((pathway) => (
-            <button
+            <Link
               key={pathway.id}
-              onClick={() => {
-                // TODO: Navigate to specific pathway detail
-                console.log('Selected pathway:', pathway.id);
-              }}
-              className="group relative p-8 text-left touch-target"
+              href={`/pathways/${pathway.id}`}
+              className="group relative p-8 text-left touch-target block"
             >
               <div className="glass-card absolute inset-0 group-hover:bg-white/15 group-active:bg-white/20 transition-slow" />
               <div className="relative">
@@ -98,7 +89,7 @@ export default function PathwaysPage() {
                   {pathway.description}
                 </p>
               </div>
-            </button>
+            </Link>
           ))}
         </div>
       </div>
