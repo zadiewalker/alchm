@@ -271,41 +271,76 @@ export const getEmergencyResources = () => [
   }
 ];
 
-// Real-time content monitoring hook for React components
+// Real-time content monitoring hook for React components - SSR SAFE
 export const useCrisisMonitoring = (userId: string) => {
+  // Always return SSR-safe structure
   if (typeof window === 'undefined') {
-    // Return default values for server-side rendering
     return {
       notifications: [],
       isMonitoring: false,
       checkContent: async () => ({ riskLevel: 'low', recommendedAction: 'monitor', suggestedResources: [] }),
-      getCrisisResources: async () => []
+      getCrisisResources: async () => [],
+      isClient: false
     };
   }
 
-  // This hook should be used inside React components with proper imports
-  const { useState, useEffect } = require('react');
+  // Only import React hooks on client side to avoid SSR errors
+  let useState: any, useEffect: any;
+  try {
+    const React = require('react');
+    useState = React.useState;
+    useEffect = React.useEffect;
+  } catch (error) {
+    console.error('React hooks not available:', error);
+    return {
+      notifications: [],
+      isMonitoring: false,
+      checkContent: async () => ({ riskLevel: 'low', recommendedAction: 'monitor', suggestedResources: [] }),
+      getCrisisResources: async () => [],
+      isClient: false
+    };
+  }
   
   const [notifications, setNotifications] = useState([]);
   const [isMonitoring, setIsMonitoring] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Mark as client-side after hydration
+    setIsClient(true);
+    
     if (!userId) return;
 
     setIsMonitoring(true);
-    const unsubscribe = crisisMonitoring.subscribeToNotifications(userId, setNotifications);
+    
+    try {
+      const unsubscribe = crisisMonitoring.subscribeToNotifications(userId, setNotifications);
 
-    return () => {
-      unsubscribe();
+      return () => {
+        unsubscribe();
+        setIsMonitoring(false);
+      };
+    } catch (error) {
+      console.error('Crisis monitoring subscription failed:', error);
       setIsMonitoring(false);
-    };
+    }
   }, [userId]);
 
   return {
     notifications,
     isMonitoring,
-    checkContent: (content: string, contentType?: 'journal_entry' | 'community_post' | 'chat_message') =>
-      crisisMonitoring.monitorContent(content, userId, contentType || 'journal_entry'),
-    getCrisisResources: (riskLevel: string) => crisisMonitoring.getCrisisResources(riskLevel)
+    isClient,
+    checkContent: (content: string, contentType?: 'journal_entry' | 'community_post' | 'chat_message') => {
+      if (!isClient) {
+        return Promise.resolve({ riskLevel: 'low', recommendedAction: 'monitor', suggestedResources: [] });
+      }
+      return crisisMonitoring.monitorContent(content, userId, contentType || 'journal_entry');
+    },
+    getCrisisResources: (riskLevel: string) => {
+      if (!isClient) {
+        return Promise.resolve([]);
+      }
+      return crisisMonitoring.getCrisisResources(riskLevel);
+    }
   };
 };
