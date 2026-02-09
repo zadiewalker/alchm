@@ -212,14 +212,15 @@ class HIPAAAuditLogger {
    */
   private async storeAuditLogsLocally(logs: AuditLogEntry[]): Promise<void> {
     try {
-      const { secureStorage } = await import('./secureStorage');
-      const existingLogs = await secureStorage.getItem('hipaa_audit_logs', true) || [];
-      const updatedLogs = [...existingLogs, ...logs];
+      // Simple localStorage fallback for audit logs
+      const existingLogs = localStorage.getItem('hipaa_audit_logs');
+      const parsedLogs = existingLogs ? JSON.parse(existingLogs) : [];
+      const updatedLogs = [...parsedLogs, ...logs];
       
       // Keep only last 1000 entries locally to prevent storage overflow
       const trimmedLogs = updatedLogs.slice(-1000);
       
-      await secureStorage.setItem('hipaa_audit_logs', trimmedLogs, true);
+      localStorage.setItem('hipaa_audit_logs', JSON.stringify(trimmedLogs));
     } catch (error) {
       console.error('Local audit storage failed:', error);
       throw error;
@@ -315,8 +316,8 @@ class HIPAAAuditLogger {
    */
   async getAuditSummary(days: number = 30): Promise<any> {
     try {
-      const { secureStorage } = await import('./secureStorage');
-      const logs = await secureStorage.getItem('hipaa_audit_logs', true) || [];
+      const existingLogs = localStorage.getItem('hipaa_audit_logs');
+      const logs = existingLogs ? JSON.parse(existingLogs) : [];
       
       const cutoffDate = new Date();
       cutoffDate.setDate(cutoffDate.getDate() - days);
