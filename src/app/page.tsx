@@ -53,7 +53,7 @@ export default function SplashPage() {
         </div>
 
         {/* Title */}
-        <h1 className="mt-8 text-[42px] font-light tracking-[0.35em] mb-4 uppercase" style={{ color: 'rgba(255, 255, 255, 0.92)' }}>
+        <h1 className="mt-6 text-[42px] font-light tracking-[0.35em] mb-4 uppercase" style={{ color: 'rgba(255, 255, 255, 0.92)' }}>
           ALCHM
         </h1>
 
@@ -71,8 +71,8 @@ export default function SplashPage() {
               alignItems: 'center',
               justifyContent: 'center',
               width: '100%',
-              paddingTop: '20px',
-              paddingBottom: '20px',
+              paddingTop: '16px',
+              paddingBottom: '16px',
               borderRadius: '9999px',
               backgroundColor: '#E5C97D',
               textDecoration: 'none',
