@@ -8,7 +8,7 @@ export const revalidate = false;
 
 export default function SplashPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col items-center justify-center px-8 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col items-center justify-center px-8 relative">
       {/* Faint organic texture overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
       
@@ -23,7 +23,7 @@ export default function SplashPage() {
             aria-label="Khepera scarab"
           >
             {/* ===== SUN DISK — soft muted gold circle ===== */}
-            <circle cx="32" cy="6" r="5.5" fill="#E8C56D" />
+            <circle cx="32" cy="6" r="5.5" fill="#E5C97D" />
 
             {/* ===== HEAD — dome/bell shape, NOT a circle ===== */}
             <path
@@ -74,7 +74,7 @@ export default function SplashPage() {
               paddingTop: '20px',
               paddingBottom: '20px',
               borderRadius: '9999px',
-              backgroundColor: '#E8C56D',
+              backgroundColor: '#E5C97D',
               textDecoration: 'none',
               cursor: 'pointer',
             }}
