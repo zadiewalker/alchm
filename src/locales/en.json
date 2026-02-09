@@ -1,0 +1,97 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "journal": "Journal",
+    "insights": "Insights",
+    "pathways": "Pathways",
+    "transformation": "Transformation",
+    "community": "Community",
+    "settings": "Settings"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "start": "Start",
+    "complete": "Complete",
+    "edit": "Edit",
+    "delete": "Delete",
+    "share": "Share",
+    "export": "Export"
+  },
+  "mentalHealth": {
+    "mood": "Mood",
+    "anxiety": "Anxiety",
+    "depression": "Depression",
+    "stress": "Stress",
+    "wellbeing": "Well-being",
+    "mindfulness": "Mindfulness",
+    "meditation": "Meditation",
+    "gratitude": "Gratitude",
+    "selfCare": "Self-care",
+    "healing": "Healing",
+    "growth": "Growth",
+    "transformation": "Transformation",
+    "resilience": "Resilience",
+    "breakthrough": "Breakthrough"
+  },
+  "crisis": {
+    "emergencyNotice": "If you are in immediate danger, please contact emergency services (911) or go to your nearest emergency room.",
+    "immediateHelp": "Need immediate help?",
+    "hotlineNumbers": "Crisis Hotlines",
+    "safetyPlan": "Safety Plan",
+    "crisisResources": "Crisis Resources",
+    "emergencyContacts": "Emergency Contacts"
+  },
+  "cultural": {
+    "healingApproach": "Healing Approach",
+    "communitySupport": "Community Support",
+    "familyInvolvement": "Family Involvement",
+    "spiritualPractices": "Spiritual Practices",
+    "traditionalWisdom": "Traditional Wisdom"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}",
+    "moodTracker": "How are you feeling today?",
+    "recentInsights": "Recent Insights",
+    "upcomingChallenges": "Today's Challenges",
+    "progressOverview": "Your Journey"
+  },
+  "journal": {
+    "newEntry": "New Journal Entry",
+    "placeholder": "What's on your mind today?",
+    "aiInsights": "AI Insights",
+    "emotionalTone": "Emotional Tone",
+    "suggestedTags": "Suggested Tags",
+    "saveEntry": "Save Entry"
+  },
+  "insights": {
+    "patternAnalysis": "Pattern Analysis",
+    "personalityProfile": "Personality Profile",
+    "predictiveModel": "Predictive Insights",
+    "thematicAnalysis": "Thematic Analysis",
+    "recommendations": "Personalized Recommendations"
+  },
+  "transformation": {
+    "dailyChallenge": "Daily Challenge",
+    "challengeLibrary": "Challenge Library",
+    "personalGrowth": "Personal Growth",
+    "mindfulnessPractice": "Mindfulness Practice",
+    "gratitudePractice": "Gratitude Practice"
+  },
+  "community": {
+    "healingCircles": "Healing Circles",
+    "sharedWisdom": "Shared Wisdom",
+    "supportGroups": "Support Groups",
+    "mentorship": "Mentorship",
+    "anonymousSharing": "Anonymous Sharing"
+  },
+  "settings": {
+    "language": "Language",
+    "region": "Region",
+    "culturalPreferences": "Cultural Preferences",
+    "privacySettings": "Privacy",
+    "notificationSettings": "Notifications",
+    "crisisContacts": "Crisis Contacts"
+  }
+}

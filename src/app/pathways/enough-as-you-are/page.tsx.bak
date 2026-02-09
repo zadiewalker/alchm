@@ -1,0 +1,149 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+
+const steps = [
+  {
+    title: 'Noticing',
+    content: `There are voices in your head that aren't necessarily yours. They might sound like people from your past, or critics you've internalized.
+
+You don't have to believe everything you think about yourself. Some of those thoughts were never yours to begin with.
+
+What if you could observe these thoughts with curiosity instead of immediately believing them?`,
+    prompt: 'What critical thoughts about yourself feel the most familiar? Where might they have come from?',
+  },
+  {
+    title: 'Witnessing Strength',
+    content: `You have survived every difficult day you have ever had. That is not an accident.
+
+Somewhere along the way, you developed resilience, wisdom, coping skills. You found ways to keep going even when it was hard.
+
+Your survival is not just endurance - it is evidence of your strength.`,
+    prompt: 'What are three difficult things you have navigated that someone else might struggle with?',
+  },
+  {
+    title: 'Recognizing Impact',
+    content: `You have blind spots when it comes to your own value. You notice your mistakes in vivid detail, but your positive impact often goes unnoticed by you.
+
+Others see things in you that you might miss. Their appreciation is not charity - it is recognition of something real.
+
+Your worth is not dependent on your accomplishments, but your contributions do matter.`,
+    prompt: 'What do people consistently thank you for or come to you about? What does this say about your qualities?',
+  },
+  {
+    title: 'Reauthoring',
+    content: `The story you tell yourself about who you are has been edited by many hands - some loving, some critical, some indifferent.
+
+You get to be the author of your own story now. You can include the difficult chapters without making them the whole book.
+
+Your story is still being written. Who you have been does not limit who you are becoming.`,
+    prompt: 'If you had to describe yourself with the same kindness you would show a good friend, what would you say?',
+  },
+  {
+    title: 'Permission',
+    content: `You do not need permission to take up space, to have needs, to make mistakes, to grow at your own pace.
+
+You do not need permission to be where you are in your healing journey, or to change direction when something is not working.
+
+The approval you have been seeking from others - you can give it to yourself.`,
+    prompt: 'What would you do or try if you fully believed you were worthy of taking up space?',
+  },
+  {
+    title: 'Claiming',
+    content: `Your worth is not something you achieve or earn. It is something you recognize that was already there.
+
+You are enough - not because you have fixed all your problems, but because you are a human being deserving of care.
+
+This is not positive thinking. This is the truth beneath all the stories.`,
+    prompt: 'What would change in your life if you truly knew you were enough as you are right now?',
+  },
+];
+
+export default function EnoughAsYouArePathway() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [journalEntry, setJournalEntry] = useState('');
+  
+  const step = steps[currentStep];
+  const isLastStep = currentStep === steps.length - 1;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+      {/* Header */}
+      <header className="px-6 pt-14 pb-4">
+        <Link href="/pathways/" className="text-white/60 text-base mb-4 inline-block">
+          ← Back
+        </Link>
+        <h1 className="text-white text-2xl font-light">Enough as You Are</h1>
+        <p className="text-white/50 text-sm mt-1">Reconnecting with your worth</p>
+        
+        {/* Progress dots */}
+        <div className="flex gap-2 mt-4">
+          {steps.map((_, i) => (
+            <div 
+              key={i}
+              className={`h-1 flex-1 rounded-full transition-colors ${
+                i <= currentStep ? 'bg-[#A8B5A0]/60' : 'bg-white/15'
+              }`}
+            />
+          ))}
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="flex-1 px-6 pb-24 overflow-y-auto">
+        <div className="bg-[#A8B5A0]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#A8B5A0]/20 mb-6">
+          <h2 className="text-white text-xl font-light mb-4">{step.title}</h2>
+          <div className="text-white/70 text-base leading-relaxed whitespace-pre-line">
+            {step.content}
+          </div>
+        </div>
+
+        {/* Journal prompt */}
+        <div className="mb-6">
+          <p className="text-white/50 text-sm mb-3 italic">"{step.prompt}"</p>
+          <textarea
+            value={journalEntry}
+            onChange={(e) => setJournalEntry(e.target.value)}
+            placeholder="Write whatever comes..."
+            className="w-full h-32 bg-[#A8B5A0]/10 backdrop-blur-sm rounded-xl p-4 
+                       text-white text-base leading-relaxed
+                       placeholder:text-white/30
+                       border border-[#A8B5A0]/15
+                       focus:bg-[#A8B5A0]/20 focus:outline-none focus:border-[#A8B5A0]/30
+                       transition-all duration-300 resize-none"
+          />
+        </div>
+
+        {/* Navigation */}
+        <div className="flex gap-3">
+          {currentStep > 0 && (
+            <button
+              onClick={() => setCurrentStep(currentStep - 1)}
+              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 transition-colors"
+            >
+              <span className="text-white/70 text-sm">Back</span>
+            </button>
+          )}
+          
+          <button
+            onClick={() => {
+              if (!isLastStep) {
+                setCurrentStep(currentStep + 1);
+                setJournalEntry('');
+              }
+            }}
+            className="flex-1 px-6 py-3 rounded-full bg-[#A8B5A0]/25 hover:bg-[#A8B5A0]/35 transition-all duration-200 ease-out active:scale-[0.98] min-h-[44px]"
+          >
+            <span className="text-white text-sm font-medium">
+              {isLastStep ? 'Complete' : 'Continue'}
+            </span>
+          </button>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  );
+}

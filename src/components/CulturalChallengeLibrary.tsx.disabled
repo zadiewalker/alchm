@@ -1,0 +1,352 @@
+'use client';
+import { useState, useMemo } from 'react';
+import { useTranslation } from './LocalizationProvider';
+import { CULTURAL_CHALLENGES, CulturalChallengeEngine } from '@/lib/culturalChallenges';
+import { CulturalAdaptation } from '@/lib/i18n';
+
+export default function CulturalChallengeLibrary() {
+  const { t, culturalContext } = useTranslation();
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedChallenge, setSelectedChallenge] = useState<any>(null);
+
+  // Get culturally appropriate challenges
+  const appropriateChallenges = useMemo(() => {
+    const culturallyFiltered = CulturalChallengeEngine.getCulturallyAppropriate(
+      CULTURAL_CHALLENGES, 
+      culturalContext
+    );
+    
+    // Adapt each challenge for the current cultural context
+    return culturallyFiltered.map(challenge => 
+      CulturalChallengeEngine.adaptChallenge(challenge, culturalContext)
+    );
+  }, [culturalContext]);
+
+  const categories = [
+    { id: 'all', name: t('All Categories'), icon: '✨' },
+    { id: 'mindfulness', name: t('mentalHealth.mindfulness'), icon: '🧘' },
+    { id: 'gratitude', name: t('mentalHealth.gratitude'), icon: '🙏' },
+    { id: 'reflection', name: 'Reflection', icon: '💭' },
+    { id: 'connection', name: 'Connection', icon: '🤝' },
+  ];
+
+  const difficulties = [
+    { id: 'all', name: 'All Levels', color: 'text-white' },
+    { id: 'gentle', name: 'Gentle', color: 'text-green-400' },
+    { id: 'moderate', name: 'Moderate', color: 'text-blue-400' },
+    { id: 'deep', name: 'Deep', color: 'text-purple-400' },
+  ];
+
+  const filteredChallenges = useMemo(() => {
+    let filtered = appropriateChallenges;
+
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(challenge => challenge.type === selectedCategory);
+    }
+
+    if (selectedDifficulty !== 'all') {
+      filtered = filtered.filter(challenge => challenge.difficulty === selectedDifficulty);
+    }
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(challenge => 
+        challenge.title.toLowerCase().includes(query) ||
+        challenge.description.toLowerCase().includes(query) ||
+        challenge.tags.some((tag: string) => tag.toLowerCase().includes(query))
+      );
+    }
+
+    return filtered;
+  }, [selectedCategory, selectedDifficulty, searchQuery, appropriateChallenges]);
+
+  const getDifficultyColor = (difficulty: string) => {
+    const colors = {
+      gentle: 'text-green-400',
+      moderate: 'text-blue-400',
+      deep: 'text-purple-400',
+    };
+    return colors[difficulty as keyof typeof colors] || 'text-gray-400';
+  };
+
+  const getCategoryIcon = (type: string) => {
+    const culturalEmojis = CulturalAdaptation.getCulturallyAppropriateEmojis(culturalContext);
+    const iconMap = {
+      mindfulness: '🧘',
+      gratitude: '🙏',
+      reflection: culturalEmojis.wisdom,
+      connection: culturalEmojis.heart,
+    };
+    return iconMap[type as keyof typeof iconMap] || '✨';
+  };
+
+  const startChallenge = (challenge: any) => {
+    localStorage.setItem('selected_challenge', JSON.stringify(challenge));
+    localStorage.setItem('challenge_start_time', new Date().toISOString());
+    setSelectedChallenge(challenge);
+  };
+
+  return (
+    <div className="cultural-challenge-library max-w-6xl mx-auto p-6">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <div className="text-4xl mb-4">📚</div>
+        <h2 className="text-2xl text-white font-light mb-3">
+          {t('transformation.challengeLibrary')}
+        </h2>
+        <p className="text-white/70 text-sm">
+          {culturalContext.culturalValues.collectivism > 0.6 
+            ? "Discover practices that honor both your individual growth and community values"
+            : "Explore our collection of transformation practices and find what resonates with you today"
+          }
+        </p>
+      </div>
+
+      {/* Cultural Context Banner */}
+      {culturalContext.culturalValues.spirituality > 0.6 && (
+        <div className="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 border border-purple-500/30 rounded-2xl p-4 mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-2xl">🕯️</span>
+            <h3 className="text-purple-200 font-medium">Spiritually Aligned Practices</h3>
+          </div>
+          <p className="text-purple-100/80 text-sm">
+            These practices have been adapted to honor spiritual traditions and inner wisdom paths.
+            Each practice can be combined with prayer, meditation, or spiritual reflection as feels appropriate.
+          </p>
+        </div>
+      )}
+
+      {/* Filters */}
+      <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 mb-8">
+        <h3 className="text-white text-lg font-light mb-4">Find Your Perfect Challenge</h3>
+        
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Search */}
+          <div>
+            <label className="block text-white/80 text-sm mb-2">Search</label>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search challenges, tags..."
+              className="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            />
+          </div>
+
+          {/* Category Filter */}
+          <div>
+            <label className="block text-white/80 text-sm mb-2">Category</label>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            >
+              {categories.map(category => (
+                <option key={category.id} value={category.id} className="bg-gray-900">
+                  {category.icon} {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Difficulty Filter */}
+          <div>
+            <label className="block text-white/80 text-sm mb-2">Difficulty</label>
+            <select
+              value={selectedDifficulty}
+              onChange={(e) => setSelectedDifficulty(e.target.value)}
+              className="w-full bg-black/30 border border-white/20 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            >
+              {difficulties.map(difficulty => (
+                <option key={difficulty.id} value={difficulty.id} className="bg-gray-900">
+                  {difficulty.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Challenge Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredChallenges.map((challenge: any) => (
+          <div key={challenge.id} className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">{getCategoryIcon(challenge.type)}</span>
+              <div className="flex-1">
+                <h3 className="text-white font-medium">{challenge.title}</h3>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="text-white/60">{challenge.estimatedTime} min</span>
+                  <span className="text-white/40">•</span>
+                  <span className={getDifficultyColor(challenge.difficulty)}>
+                    {challenge.difficulty}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-white/70 text-sm mb-4 leading-relaxed">
+              {challenge.description}
+            </p>
+
+            {/* Cultural Adaptation Indicator */}
+            {challenge.adaptiveContext && (
+              <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-3 mb-4">
+                <div className="text-blue-200 text-xs font-medium mb-1">Culturally Adapted</div>
+                <div className="text-blue-100/80 text-xs">
+                  {CulturalChallengeEngine.generateCulturalInsight(challenge, culturalContext)}
+                </div>
+              </div>
+            )}
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {challenge.tags.slice(0, 3).map((tag: string) => (
+                <span
+                  key={tag}
+                  className="bg-purple-600/20 text-purple-200 px-2 py-1 rounded text-xs"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <button
+              onClick={() => startChallenge(challenge)}
+              className="w-full bg-purple-600/30 hover:bg-purple-600/40 border border-purple-500/30 text-white py-2 rounded-lg font-medium transition-colors"
+            >
+              {culturalContext.culturalValues.formalityLevel > 0.6 ? 'Begin Practice' : 'Start Challenge'}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* No Results */}
+      {filteredChallenges.length === 0 && (
+        <div className="text-center py-12">
+          <div className="text-6xl mb-4 opacity-50">🔍</div>
+          <h3 className="text-white text-lg font-light mb-2">No Challenges Found</h3>
+          <p className="text-white/50 text-sm mb-4">
+            Try adjusting your filters or search terms to find more challenges.
+          </p>
+          <button
+            onClick={() => {
+              setSelectedCategory('all');
+              setSelectedDifficulty('all');
+              setSearchQuery('');
+            }}
+            className="bg-blue-600/30 border border-blue-500/30 text-blue-200 px-4 py-2 rounded-lg hover:bg-blue-600/40 transition-colors"
+          >
+            Clear Filters
+          </button>
+        </div>
+      )}
+
+      {/* Challenge Detail Modal */}
+      {selectedChallenge && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gray-900 border border-white/20 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{getCategoryIcon(selectedChallenge.type)}</span>
+                <div>
+                  <h3 className="text-white text-xl font-medium">{selectedChallenge.title}</h3>
+                  <p className="text-white/60 text-sm">
+                    {selectedChallenge.category} • {selectedChallenge.estimatedTime} min • 
+                    <span className={`${getDifficultyColor(selectedChallenge.difficulty)} ml-1`}>
+                      {selectedChallenge.difficulty}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedChallenge(null)}
+                className="text-white/60 hover:text-white text-xl"
+              >
+                ×
+              </button>
+            </div>
+
+            <p className="text-white/80 mb-6 leading-relaxed">
+              {selectedChallenge.description}
+            </p>
+
+            <div className="bg-black/30 p-4 rounded-lg mb-6">
+              <h4 className="text-white font-medium mb-3">
+                {culturalContext.culturalValues.spirituality > 0.6 ? 'Sacred Practice:' : 'Challenge Prompt:'}
+              </h4>
+              <p className="text-white/90 italic leading-relaxed mb-4">
+                "{selectedChallenge.prompt}"
+              </p>
+              
+              <h5 className="text-white/80 text-sm font-medium mb-2">Instructions:</h5>
+              <ol className="space-y-2">
+                {selectedChallenge.instructions.map((instruction: string, index: number) => (
+                  <li key={index} className="text-white/70 text-sm flex gap-3">
+                    <span className="text-purple-400 font-medium">{index + 1}.</span>
+                    <span>{instruction}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Cultural Insight */}
+            <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4 mb-6">
+              <h5 className="text-blue-200 font-medium mb-2">Cultural Adaptation</h5>
+              <p className="text-blue-100/80 text-sm">
+                {CulturalChallengeEngine.generateCulturalInsight(selectedChallenge, culturalContext)}
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setSelectedChallenge(null)}
+                className="flex-1 bg-gray-600/30 border border-gray-500/30 text-white py-2 rounded-lg transition-colors"
+              >
+                {culturalContext.culturalValues.formalityLevel > 0.6 ? 'Cancel' : 'Not Now'}
+              </button>
+              <button
+                onClick={() => {
+                  alert(`${culturalContext.culturalValues.spirituality > 0.6 ? 'Sacred practice' : 'Challenge'} started! This would normally take you to the practice interface.`);
+                  setSelectedChallenge(null);
+                }}
+                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-medium transition-colors"
+              >
+                {culturalContext.culturalValues.spirituality > 0.6 ? 'Begin Sacred Practice' : 'Begin Challenge'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cultural Statistics */}
+      <div className="mt-12 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+        <h3 className="text-white text-lg font-light mb-4 text-center">
+          {culturalContext.culturalValues.collectivism > 0.6 ? 'Community Practice Collection' : 'Practice Collection'}
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {categories.slice(1).map(category => {
+            const count = appropriateChallenges.filter(challenge => challenge.type === category.id).length;
+            return (
+              <div key={category.id} className="text-center">
+                <div className="text-2xl mb-2">{getCategoryIcon(category.id)}</div>
+                <div className="text-white font-medium">{count}</div>
+                <div className="text-white/60 text-sm">{category.name}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="text-center mt-6">
+          <p className="text-white/50 text-sm">
+            {appropriateChallenges.length} culturally-adapted practices designed for your growth journey
+          </p>
+          <p className="text-white/40 text-xs mt-1">
+            Practices automatically adapted based on your cultural preferences and healing traditions
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

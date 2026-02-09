@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,7 +12,41 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+let app: any;
+let auth: any;
+let db: any;
+let functions: any;
+
+try {
+  console.log('🔥 Initializing Firebase...');
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  functions = getFunctions(app);
+  
+  // Set auth settings for iOS WebView compatibility
+  if (typeof window !== 'undefined') {
+    // Ensure auth persistence works on iOS
+    auth.settings = {
+      appVerificationDisabledForTesting: false,
+    };
+  }
+  
+  console.log('✅ Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization failed:', error);
+  // Create fallback objects to prevent app crash
+  app = null;
+  auth = {
+    currentUser: null,
+    onAuthStateChanged: (callback: any) => {
+      callback(null);
+      return () => {};
+    }
+  };
+  db = null;
+  functions = null;
+}
+
+export { auth, db, functions };
 export default app;

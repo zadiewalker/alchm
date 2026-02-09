@@ -270,7 +270,10 @@ export function AlertsPanel() {
                 <input
                   type="number"
                   value={newAlert.threshold}
-                  onChange={(e) => setNewAlert({ ...newAlert, threshold: parseInt(e.target.value) })}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value);
+                    setNewAlert({ ...newAlert, threshold: isNaN(value) ? 1 : value });
+                  }}
                   className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm"
                   min="1"
                 />

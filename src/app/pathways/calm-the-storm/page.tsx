@@ -126,7 +126,7 @@ export default function CalmTheStormPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-700 to-slate-800 flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#7BB3D4] to-[#5A9BC4] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -144,7 +144,7 @@ export default function CalmTheStormPathway() {
                 key={i}
                 onClick={() => setStormLevel(i + 1)}
                 className={`h-3 w-6 rounded cursor-pointer transition-all duration-300 ${
-                  i < stormLevel ? 'bg-red-400' : 'bg-white/20'
+                  i < stormLevel ? 'bg-[#E8C56D]' : 'bg-white/20'
                 }`}
               />
             ))}
@@ -157,7 +157,7 @@ export default function CalmTheStormPathway() {
               key={index}
               className={`h-2 flex-1 rounded-full transition-all duration-500 ${
                 completed[index] 
-                  ? 'bg-blue-400' 
+                  ? 'bg-[#E8C56D]' 
                   : index === currentStage 
                   ? 'bg-white/40' 
                   : 'bg-white/20'
@@ -172,12 +172,12 @@ export default function CalmTheStormPathway() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">{currentStageData.icon}</div>
           <h2 className="text-xl text-white font-light mb-3">{currentStageData.title}</h2>
-          <p className="text-white/60 text-sm italic">"{currentStageData.challenge}"</p>
+          <p className="text-blue-200 text-sm italic">"{currentStageData.challenge}"</p>
         </div>
 
         <div className="space-y-6">
           {currentStageData.exercises.map((exercise, exerciseIndex) => (
-            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-blue-300/20 rounded-2xl p-6">
               <h3 className="text-white text-lg font-light mb-4">{exercise.prompt}</h3>
               
               {exercise.interactive && currentStage === 1 ? (
@@ -187,8 +187,8 @@ export default function CalmTheStormPathway() {
                     disabled={isBreathing}
                     className={`px-8 py-4 rounded-full text-lg transition-all duration-300 ${
                       isBreathing 
-                        ? 'bg-blue-500/30 text-white cursor-default' 
-                        : 'bg-blue-500/20 hover:bg-blue-500/30 text-white'
+                        ? 'bg-[#E8C56D]/30 text-white cursor-default' 
+                        : 'bg-[#E8C56D]/20 hover:bg-[#E8C56D]/30 text-white'
                     }`}
                   >
                     {isBreathing ? `Breathing... ${breathCount}/10` : 'Begin Storm Breathing'}
@@ -196,7 +196,7 @@ export default function CalmTheStormPathway() {
                   {isBreathing && (
                     <div className="mt-6">
                       <div className="w-20 h-20 mx-auto rounded-full bg-white/20 flex items-center justify-center animate-pulse">
-                        <div className="w-12 h-12 rounded-full bg-blue-400/40"></div>
+                        <div className="w-12 h-12 rounded-full bg-[#E8C56D]/40"></div>
                       </div>
                       <p className="text-white/70 mt-4 text-sm">
                         Breathe in... hold... breathe out...
@@ -209,7 +209,7 @@ export default function CalmTheStormPathway() {
                   value={responses[currentStage * 2 + exerciseIndex] || ''}
                   onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                   placeholder={exercise.placeholder}
-                  className="w-full h-32 bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                  className="w-full h-32 bg-white/10 border border-blue-300/20 rounded-xl p-4 text-white placeholder-blue-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50"
                 />
               )}
             </div>
@@ -232,8 +232,8 @@ export default function CalmTheStormPathway() {
               disabled={completed[currentStage]}
               className={`px-6 py-3 rounded-full text-sm transition-all duration-300 ${
                 completed[currentStage]
-                  ? 'bg-blue-400/30 text-white cursor-default'
-                  : 'bg-white/20 hover:bg-blue-400/30 text-white'
+                  ? 'bg-[#E8C56D]/30 text-white cursor-default'
+                  : 'bg-white/20 hover:bg-[#E8C56D]/30 text-white'
               }`}
             >
               {completed[currentStage] ? '✓ Storm Calmed' : 'Complete Stage'}

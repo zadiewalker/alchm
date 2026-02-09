@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8 flex items-center">
         <Link href="/" className="text-white/70 text-lg mr-4">← Back</Link>
@@ -52,11 +52,6 @@ export default function WelcomePage() {
             Enter Your Sanctuary
           </Link>
         </div>
-      </div>
-
-      {/* Crisis Support */}
-      <div className="pb-10">
-        <p className="text-white/40 text-xs text-center tracking-wide">Crisis support available · 988</p>
       </div>
     </div>
   );

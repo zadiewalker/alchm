@@ -17,9 +17,9 @@ import {
   formatTime,
   detectUserLocale,
   getAvailableLocales
-} from '../../lib/globalization/i18n';
-import { getLocaleConfig, type LocaleConfig } from '../../lib/globalization/index';
-import { getCulturalAdaptation, type CulturalAdaptation } from '../../lib/globalization/culturalAdaptation';
+} from '../../lib/globalization.backup/i18n';
+import { getLocaleConfig, type LocaleConfig } from '../../lib/globalization.backup/index';
+import { getCulturalAdaptation, type CulturalAdaptation } from '../../lib/globalization.backup/culturalAdaptation';
 
 interface UserCulturalPreferences {
   spiritualInclusivity: boolean;

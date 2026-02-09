@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "alchm-sanctuary",
+  "buildCommand": "echo 'Using pre-built files'",
+  "outputDirectory": "out",
+  "installCommand": "echo 'No install needed'",
+  "framework": null,
+  "public": false,
+  "functions": {},
+  "routes": [
+    {
+      "src": "/sw.js",
+      "headers": {
+        "Service-Worker-Allowed": "/",
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "src": "/manifest.json",
+      "headers": {
+        "Content-Type": "application/manifest+json",
+        "Cache-Control": "public, max-age=3600"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options", 
+          "value": "nosniff"
+        }
+      ]
+    }
+  ]
+}

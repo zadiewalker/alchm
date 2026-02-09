@@ -1,0 +1,97 @@
+{
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "journal": "اليوميات",
+    "insights": "رؤى",
+    "pathways": "مسارات",
+    "transformation": "التحول",
+    "community": "المجتمع",
+    "settings": "الإعدادات"
+  },
+  "actions": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "continue": "متابعة",
+    "start": "بدء",
+    "complete": "إنهاء",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "share": "مشاركة",
+    "export": "تصدير"
+  },
+  "mentalHealth": {
+    "mood": "المزاج",
+    "anxiety": "القلق",
+    "depression": "الاكتئاب",
+    "stress": "الضغط النفسي",
+    "wellbeing": "الرفاهية",
+    "mindfulness": "اليقظة الذهنية",
+    "meditation": "التأمل",
+    "gratitude": "الامتنان",
+    "selfCare": "العناية بالذات",
+    "healing": "الشفاء",
+    "growth": "النمو",
+    "transformation": "التحول",
+    "resilience": "المرونة",
+    "breakthrough": "الاختراق"
+  },
+  "crisis": {
+    "emergencyNotice": "إذا كنت في خطر فوري، يرجى الاتصال بخدمات الطوارئ أو الذهاب إلى أقرب غرفة طوارئ.",
+    "immediateHelp": "تحتاج لمساعدة فورية؟",
+    "hotlineNumbers": "خطوط الأزمات",
+    "safetyPlan": "خطة الأمان",
+    "crisisResources": "موارد الأزمات",
+    "emergencyContacts": "جهات الاتصال الطارئة"
+  },
+  "cultural": {
+    "healingApproach": "نهج الشفاء",
+    "communitySupport": "الدعم المجتمعي",
+    "familyInvolvement": "مشاركة العائلة",
+    "spiritualPractices": "الممارسات الروحية",
+    "traditionalWisdom": "الحكمة التقليدية"
+  },
+  "dashboard": {
+    "welcome": "أهلاً بعودتك، {{name}}",
+    "moodTracker": "كيف تشعر اليوم؟",
+    "recentInsights": "الرؤى الأخيرة",
+    "upcomingChallenges": "تحديات اليوم",
+    "progressOverview": "رحلتك"
+  },
+  "journal": {
+    "newEntry": "مدخل يوميات جديد",
+    "placeholder": "ما الذي يدور في ذهنك اليوم؟",
+    "aiInsights": "رؤى الذكاء الاصطناعي",
+    "emotionalTone": "النبرة العاطفية",
+    "suggestedTags": "العلامات المقترحة",
+    "saveEntry": "حفظ المدخل"
+  },
+  "insights": {
+    "patternAnalysis": "تحليل الأنماط",
+    "personalityProfile": "الملف الشخصي",
+    "predictiveModel": "الرؤى التنبؤية",
+    "thematicAnalysis": "التحليل الموضوعي",
+    "recommendations": "التوصيات الشخصية"
+  },
+  "transformation": {
+    "dailyChallenge": "التحدي اليومي",
+    "challengeLibrary": "مكتبة التحديات",
+    "personalGrowth": "النمو الشخصي",
+    "mindfulnessPractice": "ممارسة اليقظة الذهنية",
+    "gratitudePractice": "ممارسة الامتنان"
+  },
+  "community": {
+    "healingCircles": "دوائر الشفاء",
+    "sharedWisdom": "الحكمة المشتركة",
+    "supportGroups": "مجموعات الدعم",
+    "mentorship": "التوجيه",
+    "anonymousSharing": "المشاركة المجهولة"
+  },
+  "settings": {
+    "language": "اللغة",
+    "region": "المنطقة",
+    "culturalPreferences": "التفضيلات الثقافية",
+    "privacySettings": "الخصوصية",
+    "notificationSettings": "الإشعارات",
+    "crisisContacts": "جهات الاتصال في الأزمات"
+  }
+}
