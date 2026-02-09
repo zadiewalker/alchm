@@ -3,11 +3,13 @@ import Link from 'next/link';
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col px-6 relative">
+      {/* Radial Overlay - LOCKDOWN SPEC */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       {/* Header */}
       <div className="pt-16 pb-8 flex items-center">
         <Link href="/dashboard" className="text-white/70 text-lg mr-4">← Back</Link>
-        <h1 className="text-3xl text-white font-extralight tracking-[0.2em]">Privacy</h1>
+        <h1 className="text-white text-3xl font-light">Privacy</h1>
       </div>
 
       {/* Simple Content */}
@@ -26,6 +28,13 @@ export default function PrivacyPage() {
             <Link href="/privacy-policy" className="underline">Privacy Policy</Link>
           </div>
         </div>
+      </div>
+      
+      {/* Crisis Footer - LOCKDOWN SPEC */}
+      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+        <p className="text-white/40 text-xs text-center tracking-wide">
+          Crisis support available · 988
+        </p>
       </div>
     </div>
   );

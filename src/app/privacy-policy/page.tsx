@@ -6,12 +6,14 @@ export default function PrivacyPolicy() {
   const [lastUpdated] = useState(new Date().toLocaleDateString());
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6 py-8">
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+      {/* Radial Overlay - LOCKDOWN SPEC */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
-          <div className="text-gray-600">
+          <h1 className="text-white text-3xl font-light mb-4">Privacy Policy</h1>
+          <div className="text-white/60">
             <p className="mb-2">ALCHM Digital Sanctuary - Trauma-Informed Journaling Platform</p>
             <p className="font-medium">Last Updated: {lastUpdated}</p>
             <p className="text-sm">Effective Date: January 26, 2026</p>
@@ -19,7 +21,7 @@ export default function PrivacyPolicy() {
           <div className="mt-4">
             <a 
               href="/dashboard" 
-              className="inline-block px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              className="bg-[#E5C97D] text-white px-6 py-3 rounded-full font-medium hover:bg-[#F2D99D] transition-all 300ms ease-out active:scale-[0.98] min-h-[44px] flex items-center justify-center"
             >
               ← Back to Dashboard
             </a>
@@ -555,21 +557,28 @@ export default function PrivacyPolicy() {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 text-center text-sm text-gray-600 border-t pt-8">
-          <p className="mb-4">
+        <div className="mt-12 text-center text-sm text-white/40 border-t border-white/10 pt-8">
+          <p className="mb-4 text-white/60">
             This privacy policy demonstrates ALCHM's commitment to protecting your mental health data 
             with the highest standards of privacy and security.
           </p>
-          <div className="flex justify-center space-x-6 text-blue-600">
+          <div className="flex justify-center space-x-6 text-[#E5C97D]">
             <a href="/privacy" className="hover:underline">Privacy Dashboard</a>
             <a href="/transparency" className="hover:underline">Transparency Report</a>
             <a href="/terms" className="hover:underline">Terms of Service</a>
             <a href="mailto:privacy@alchm.app" className="hover:underline">Privacy Questions</a>
           </div>
-          <p className="mt-4 text-gray-500">
+          <p className="mt-4 text-white/30">
             © 2026 ALCHM Digital Sanctuary. All rights reserved. | Privacy Policy Version 1.1
           </p>
         </div>
+      </div>
+      
+      {/* Crisis Footer - LOCKDOWN SPEC */}
+      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+        <p className="text-white/40 text-xs text-center tracking-wide">
+          Crisis support available · 988
+        </p>
       </div>
     </div>
   );

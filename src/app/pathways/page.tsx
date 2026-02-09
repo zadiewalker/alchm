@@ -58,50 +58,34 @@ const pathways = [
 export default function PathwaysPage() {
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+      {/* Radial Overlay - LOCKDOWN SPEC */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       {/* Header */}
-      <header className="px-6 pt-14 pb-6">
+      <header className="relative z-10 px-6 pt-14 pb-6">
         <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
           ← Back
         </Link>
         <h1 className="text-white text-3xl font-light">Pathways</h1>
-        <p className="text-white/50 text-base mt-2 leading-relaxed">
+        <p className="text-white/60 text-base mt-2 leading-relaxed">
           Guided journeys for when you're ready to go deeper
         </p>
       </header>
 
       {/* Pathways List */}
-      <div className="flex-1 px-6 overflow-y-auto">
+      <main className="relative z-10 flex-1 px-6 pb-32 overflow-y-auto">
         <div className="space-y-4">
           {pathways.map((pathway) =>
             pathway.available ? (
               <Link
                 key={pathway.id}
                 href={`/pathways/${pathway.id}/`}
-                className="block backdrop-blur-sm rounded-2xl p-5 shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-[0.98] group"
-                style={{
-                  background: `linear-gradient(135deg, rgba(${pathway.colorRgb}, 0.12) 0%, rgba(${pathway.colorRgb}, 0.06) 100%)`,
-                  border: `1px solid rgba(${pathway.colorRgb}, 0.15)`,
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = `linear-gradient(135deg, rgba(${pathway.colorRgb}, 0.20) 0%, rgba(${pathway.colorRgb}, 0.10) 100%)`;
-                  e.currentTarget.style.border = `1px solid rgba(${pathway.colorRgb}, 0.25)`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = `linear-gradient(135deg, rgba(${pathway.colorRgb}, 0.12) 0%, rgba(${pathway.colorRgb}, 0.06) 100%)`;
-                  e.currentTarget.style.border = `1px solid rgba(${pathway.colorRgb}, 0.15)`;
-                }}
+                className="block bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 hover:bg-white/15 transition-all 200ms ease active:scale-[0.98] group"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <div 
-                        className="w-3 h-3 rounded-full shadow-sm"
-                        style={{
-                          backgroundColor: pathway.color,
-                          boxShadow: `0 0 8px rgba(${pathway.colorRgb}, 0.4)`
-                        }} 
-                      />
+                      <div className="w-3 h-3 rounded-full bg-[#E5C97D]" />
                       <h2 className="text-white text-xl font-light">{pathway.title}</h2>
                     </div>
                     <p className="text-white/50 text-sm">{pathway.subtitle}</p>
@@ -119,15 +103,12 @@ export default function PathwaysPage() {
             ) : (
               <div
                 key={pathway.id}
-                className="block bg-white/6 backdrop-blur-sm rounded-2xl p-5 border border-white/5 opacity-60"
+                className="block bg-white/5 backdrop-blur-[12px] rounded-2xl p-6 border border-white/5 opacity-60"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <div 
-                        className="w-3 h-3 rounded-full opacity-50"
-                        style={{backgroundColor: pathway.color}} 
-                      />
+                      <div className="w-3 h-3 rounded-full bg-white/20 opacity-50" />
                       <h2 className="text-white/60 text-xl font-light">{pathway.title}</h2>
                     </div>
                     <p className="text-white/40 text-sm">{pathway.subtitle}</p>
@@ -148,12 +129,9 @@ export default function PathwaysPage() {
         <div className="mt-8">
           <Link 
             href="/pricing/"
-            className="block bg-gradient-to-br from-[#E8C56D]/8 to-[#E8C56D]/3 backdrop-blur-sm rounded-2xl p-4 border border-[#E8C56D]/15 hover:border-[#E8C56D]/25 hover:bg-gradient-to-br hover:from-[#E8C56D]/12 hover:to-[#E8C56D]/6 transition-all duration-200 ease-out active:scale-[0.98] text-center"
+            className="block bg-[#E5C97D] rounded-full py-4 px-6 text-white font-medium hover:bg-[#F2D99D] transition-all 300ms ease-out active:scale-[0.98] text-center min-h-[44px] flex items-center justify-center"
           >
-            <div className="flex items-center justify-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#E8C56D]/60" />
-              <span className="text-white/80 text-sm font-light">Unlock All Pathways</span>
-            </div>
+            <span className="text-sm">Unlock All Pathways</span>
           </Link>
         </div>
         
@@ -162,13 +140,13 @@ export default function PathwaysPage() {
           Take your time. These paths will be here whenever you're ready.
         </p>
         
-        {/* Crisis Support Footer */}
-        <div className="mt-8 pb-8 pt-6">
-          <p className="text-white/30 text-xs text-center tracking-wide">
-            Crisis support available · 988
-          </p>
-        </div>
-
+      </main>
+      
+      {/* Crisis Footer - LOCKDOWN SPEC */}
+      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+        <p className="text-white/40 text-xs text-center tracking-wide">
+          Crisis support available · 988
+        </p>
       </div>
 
     </div>

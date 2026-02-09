@@ -463,11 +463,18 @@ export default function TransparencyReport() {
             Next report: {new Date(new Date().setMonth(new Date().getMonth() + 3)).toLocaleDateString()}
           </p>
           <p className="mt-2">
-            <a href="/privacy" className="text-blue-600 hover:underline">Privacy Policy</a> | 
-            <a href="/terms" className="text-blue-600 hover:underline ml-2">Terms of Service</a> | 
-            <a href="/privacy" className="text-blue-600 hover:underline ml-2">Manage Privacy Settings</a>
+            <a href="/privacy" className="text-[#E5C97D] hover:underline">Privacy Policy</a> | 
+            <a href="/terms" className="text-[#E5C97D] hover:underline ml-2">Terms of Service</a> | 
+            <a href="/privacy" className="text-[#E5C97D] hover:underline ml-2">Manage Privacy Settings</a>
           </p>
         </div>
+      </div>
+      
+      {/* Crisis Footer - LOCKDOWN SPEC */}
+      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+        <p className="text-white/40 text-xs text-center tracking-wide">
+          Crisis support available · 988
+        </p>
       </div>
     </div>
   );
