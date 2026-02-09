@@ -117,7 +117,7 @@ export default function HonoringLossPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -132,7 +132,7 @@ export default function HonoringLossPathway() {
               key={index}
               className={`h-2 flex-1 rounded-full transition-all duration-500 ${
                 completed[index] 
-                  ? 'bg-purple-400' 
+                  ? 'bg-[#E8C56D]' 
                   : index === currentStage 
                   ? 'bg-white/40' 
                   : 'bg-white/20'
@@ -147,12 +147,12 @@ export default function HonoringLossPathway() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">{currentStageData.icon}</div>
           <h2 className="text-xl text-white font-light mb-3">{currentStageData.title}</h2>
-          <p className="text-purple-200 text-sm italic">"{currentStageData.challenge}"</p>
+          <p className="text-green-200 text-sm italic">"{currentStageData.challenge}"</p>
         </div>
 
         <div className="space-y-6">
           {currentStageData.exercises.map((exercise, exerciseIndex) => (
-            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-purple-300/20 rounded-2xl p-6">
+            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-green-300/20 rounded-2xl p-6">
               <h3 className="text-white text-lg font-light mb-4">{exercise.prompt}</h3>
               
               {exercise.interactive && currentStage === 3 ? (
@@ -162,17 +162,17 @@ export default function HonoringLossPathway() {
                       onClick={lightCandle}
                       className={`px-8 py-4 rounded-full text-lg transition-all duration-500 ${
                         candleLit 
-                          ? 'bg-yellow-500/40 text-white shadow-lg shadow-yellow-500/20' 
-                          : 'bg-purple-500/20 hover:bg-purple-500/30 text-white'
+                          ? 'bg-[#E8C56D]/40 text-white shadow-lg shadow-[#E8C56D]/20' 
+                          : 'bg-[#E8C56D]/20 hover:bg-[#E8C56D]/30 text-white'
                       }`}
                     >
                       {candleLit ? '🕯️ Candle is Lit' : 'Light Memorial Candle'}
                     </button>
                     
                     {candleLit && (
-                      <div className="mt-6 p-6 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
+                      <div className="mt-6 p-6 bg-[#E8C56D]/10 rounded-xl border border-[#E8C56D]/20">
                         <div className="text-4xl mb-4 animate-pulse">🕯️</div>
-                        <p className="text-yellow-200 text-sm">
+                        <p className="text-[#E8C56D] text-sm">
                           Your candle burns in honor of your loss. Speak to the flame.
                         </p>
                       </div>
@@ -183,7 +183,7 @@ export default function HonoringLossPathway() {
                     value={responses[currentStage * 2 + exerciseIndex] || ''}
                     onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                     placeholder={exercise.placeholder}
-                    className="w-full h-32 bg-white/10 border border-purple-300/20 rounded-xl p-4 text-white placeholder-purple-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-purple-400/50"
+                    className="w-full h-32 bg-white/10 border border-green-300/20 rounded-xl p-4 text-white placeholder-green-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50"
                   />
                 </div>
               ) : (
@@ -191,7 +191,7 @@ export default function HonoringLossPathway() {
                   value={responses[currentStage * 2 + exerciseIndex] || ''}
                   onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                   placeholder={exercise.placeholder}
-                  className="w-full h-40 bg-white/10 border border-purple-300/20 rounded-xl p-4 text-white placeholder-purple-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-purple-400/50 leading-relaxed"
+                  className="w-full h-40 bg-white/10 border border-green-300/20 rounded-xl p-4 text-white placeholder-green-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50 leading-relaxed"
                 />
               )}
             </div>
@@ -203,7 +203,7 @@ export default function HonoringLossPathway() {
           <div className="mt-6 text-center">
             <button
               onClick={createMemorial}
-              className="px-6 py-3 bg-purple-500/20 hover:bg-purple-500/30 rounded-full text-white text-sm transition-all duration-300"
+              className="px-6 py-3 bg-[#E8C56D]/20 hover:bg-[#E8C56D]/30 rounded-full text-white text-sm transition-all duration-300"
             >
               Create Your Memorial
             </button>
@@ -211,9 +211,9 @@ export default function HonoringLossPathway() {
         )}
 
         {memorialCreated && currentStage === 3 && (
-          <div className="mt-6 p-6 bg-purple-500/10 rounded-2xl border border-purple-300/20 text-center">
+          <div className="mt-6 p-6 bg-[#E8C56D]/10 rounded-2xl border border-[#E8C56D]/20 text-center">
             <div className="text-3xl mb-4">🏛️</div>
-            <p className="text-purple-200 text-sm">
+            <p className="text-[#E8C56D] text-sm">
               Your memorial has been created. This sacred space will always honor what you've lost.
             </p>
           </div>
@@ -235,8 +235,8 @@ export default function HonoringLossPathway() {
               disabled={completed[currentStage]}
               className={`px-6 py-3 rounded-full text-sm transition-all duration-300 ${
                 completed[currentStage]
-                  ? 'bg-purple-400/30 text-white cursor-default'
-                  : 'bg-white/20 hover:bg-purple-400/30 text-white'
+                  ? 'bg-[#E8C56D]/30 text-white cursor-default'
+                  : 'bg-white/20 hover:bg-[#E8C56D]/30 text-white'
               }`}
             >
               {completed[currentStage] ? '✓ Honored' : 'Complete Stage'}

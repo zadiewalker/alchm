@@ -1,0 +1,450 @@
+// Culturally Adapted Challenge System
+import { CulturalContext, CulturalAdaptation } from './i18n';
+import { Challenge } from './transformationEngine';
+
+export interface CulturalChallenge extends Challenge {
+  culturalAdaptations: {
+    collectivist: Partial<Challenge>;
+    individualist: Partial<Challenge>;
+    spiritual: Partial<Challenge>;
+    secular: Partial<Challenge>;
+    formal: Partial<Challenge>;
+    informal: Partial<Challenge>;
+  };
+  culturalSensitivity: {
+    appropriateFor: string[]; // Cultural contexts where this is appropriate
+    avoidFor: string[]; // Cultural contexts to avoid
+    alternatives: Record<string, string>; // Alternative challenges for different cultures
+  };
+}
+
+// Base challenges with cultural adaptations
+export const CULTURAL_CHALLENGES: CulturalChallenge[] = [
+  {
+    id: 'gratitude_practice',
+    title: 'Gratitude Practice',
+    description: 'Reflect on what you are grateful for',
+    category: 'gratitude',
+    type: 'gratitude',
+    difficulty: 'gentle',
+    estimatedTime: 10,
+    prompt: 'Take a moment to reflect on three things you are grateful for today.',
+    instructions: [
+      'Find a quiet space',
+      'Think of three specific things you are grateful for',
+      'Write them down or say them aloud',
+      'Reflect on why these matter to you'
+    ],
+    tags: ['gratitude', 'reflection', 'positivity'],
+    adaptiveContext: {
+      moodRange: [1, 10],
+      crisisAdapted: true,
+      connectionRequired: false
+    },
+    culturalAdaptations: {
+      collectivist: {
+        prompt: 'Reflect on three things your community, family, or relationships have brought you.',
+        instructions: [
+          'Find a quiet space or gather with loved ones',
+          'Think of three things involving your community you are grateful for',
+          'Share them with family/friends if comfortable',
+          'Reflect on how these connections enrich your life'
+        ]
+      },
+      individualist: {
+        prompt: 'Take time to appreciate your personal achievements and growth.',
+        instructions: [
+          'Find a private space for self-reflection',
+          'Think of three personal accomplishments or qualities you are grateful for',
+          'Write them in your personal journal',
+          'Reflect on your journey and progress'
+        ]
+      },
+      spiritual: {
+        prompt: 'Offer gratitude for the blessings and guidance in your spiritual journey.',
+        instructions: [
+          'Create a sacred space for reflection',
+          'Think of three spiritual blessings or moments of guidance',
+          'Offer a prayer or meditation of thanks',
+          'Reflect on your spiritual growth and connection'
+        ]
+      },
+      secular: {
+        prompt: 'Appreciate the positive aspects and opportunities in your life.',
+        instructions: [
+          'Find a comfortable space',
+          'Think of three concrete positives in your current situation',
+          'Consider the practical benefits they bring',
+          'Reflect on how to build upon these positives'
+        ]
+      },
+      formal: {
+        title: 'Formal Gratitude Reflection Exercise',
+        description: 'A structured practice for expressing appreciation and cultivating positive mindset.',
+        prompt: 'Please take time to formally acknowledge three aspects of your life for which you are grateful.'
+      },
+      informal: {
+        title: 'Gratitude Check-in',
+        description: 'A casual moment to appreciate the good stuff in life.',
+        prompt: 'Hey, what are three things making you smile today?'
+      }
+    },
+    culturalSensitivity: {
+      appropriateFor: ['all'],
+      avoidFor: [],
+      alternatives: {}
+    }
+  },
+  {
+    id: 'mindful_breathing',
+    title: 'Mindful Breathing',
+    description: 'Focus on your breath to center yourself',
+    category: 'mindfulness',
+    type: 'mindfulness',
+    difficulty: 'gentle',
+    estimatedTime: 5,
+    prompt: 'Take five minutes to focus completely on your breathing.',
+    instructions: [
+      'Sit comfortably with your back straight',
+      'Close your eyes or soften your gaze',
+      'Focus on your natural breath',
+      'When your mind wanders, gently return to your breath'
+    ],
+    tags: ['mindfulness', 'breathing', 'meditation'],
+    adaptiveContext: {
+      moodRange: [1, 10],
+      crisisAdapted: true,
+      connectionRequired: false
+    },
+    culturalAdaptations: {
+      collectivist: {
+        prompt: 'Practice breathing together with family or community, sharing the peace.',
+        instructions: [
+          'Invite family/friends to breathe together',
+          'Sit in a circle if possible',
+          'Synchronize your breathing as a group',
+          'Share the experience afterward'
+        ]
+      },
+      individualist: {
+        prompt: 'Find your personal center through focused individual breathing practice.',
+        instructions: [
+          'Find a private space where you won\'t be interrupted',
+          'Create your personal breathing routine',
+          'Focus on your individual rhythm and needs',
+          'Journal about your personal insights afterward'
+        ]
+      },
+      spiritual: {
+        title: 'Sacred Breath Prayer',
+        prompt: 'Connect with the divine through the sacred practice of conscious breathing.',
+        instructions: [
+          'Create a sacred space for practice',
+          'Begin with a prayer or intention',
+          'Breathe while focusing on divine connection',
+          'End with gratitude for the life force within you'
+        ]
+      },
+      secular: {
+        title: 'Focused Breathing Exercise',
+        prompt: 'Use controlled breathing to activate your parasympathetic nervous system.',
+        instructions: [
+          'Find a comfortable seated position',
+          'Use a systematic breathing pattern (4-7-8 or similar)',
+          'Focus on the physiological benefits of deep breathing',
+          'Notice the calming effects on your body and mind'
+        ]
+      },
+      formal: {
+        title: 'Structured Mindfulness Breathing Practice',
+        description: 'A formal meditation exercise for developing concentrated awareness.'
+      },
+      informal: {
+        title: 'Quick Breathing Reset',
+        description: 'A simple breathing technique to chill out and reset your energy.'
+      }
+    },
+    culturalSensitivity: {
+      appropriateFor: ['all'],
+      avoidFor: [],
+      alternatives: {}
+    }
+  },
+  {
+    id: 'family_reflection',
+    title: 'Family Wisdom Reflection',
+    description: 'Connect with ancestral wisdom and family teachings',
+    category: 'reflection',
+    type: 'reflection',
+    difficulty: 'moderate',
+    estimatedTime: 15,
+    prompt: 'Reflect on wisdom passed down through your family lineage.',
+    instructions: [
+      'Think of a family member who influenced your values',
+      'Recall a piece of wisdom they shared',
+      'Consider how this wisdom applies to your current situation',
+      'Honor their contribution to your growth'
+    ],
+    tags: ['family', 'wisdom', 'heritage', 'values'],
+    adaptiveContext: {
+      moodRange: [3, 10],
+      crisisAdapted: false,
+      connectionRequired: false
+    },
+    culturalAdaptations: {
+      collectivist: {
+        prompt: 'Honor the collective wisdom of your ancestors and community elders.',
+        instructions: [
+          'Gather family stories and shared wisdom',
+          'Reflect on how collective experiences shaped your values',
+          'Consider your responsibility to carry forward this wisdom',
+          'Share insights with family members if appropriate'
+        ]
+      },
+      individualist: {
+        prompt: 'Explore how family influences shaped your individual identity and values.',
+        instructions: [
+          'Identify specific family teachings that resonate with you personally',
+          'Reflect on how you\'ve adapted these teachings to your own life',
+          'Consider which aspects you want to carry forward or modify',
+          'Journal about your personal interpretation of family wisdom'
+        ]
+      },
+      spiritual: {
+        prompt: 'Connect with the spiritual lineage and sacred teachings of your ancestors.',
+        instructions: [
+          'Create a sacred space to honor your ancestors',
+          'Reflect on spiritual practices passed down through generations',
+          'Pray or meditate on the spiritual wisdom you\'ve inherited',
+          'Consider how to deepen your spiritual practice based on this heritage'
+        ]
+      },
+      secular: {
+        prompt: 'Analyze the practical life lessons and values inherited from your family.',
+        instructions: [
+          'Identify concrete skills or perspectives learned from family',
+          'Evaluate which family teachings serve you well in practical life',
+          'Consider how family experiences shaped your problem-solving approach',
+          'Plan how to apply these lessons to current challenges'
+        ]
+      },
+      formal: {
+        title: 'Ancestral Wisdom Integration Exercise',
+        description: 'A systematic exploration of familial influences on personal development.'
+      },
+      informal: {
+        title: 'Family Stories & Life Lessons',
+        description: 'Checking in with the awesome wisdom your family shared with you.'
+      }
+    },
+    culturalSensitivity: {
+      appropriateFor: ['collectivist', 'traditional', 'family-oriented'],
+      avoidFor: ['estranged-family', 'adoption-sensitive'],
+      alternatives: {
+        'estranged-family': 'mentor_wisdom_reflection',
+        'adoption-sensitive': 'chosen_family_reflection'
+      }
+    }
+  },
+  {
+    id: 'community_service_reflection',
+    title: 'Community Service Reflection',
+    description: 'Consider how you can contribute to your community',
+    category: 'connection',
+    type: 'action',
+    difficulty: 'moderate',
+    estimatedTime: 20,
+    prompt: 'Reflect on ways you can serve and contribute to your community.',
+    instructions: [
+      'Think about your community\'s needs',
+      'Consider your skills and resources',
+      'Identify one small way you could help',
+      'Plan when and how you might contribute'
+    ],
+    tags: ['service', 'community', 'contribution', 'purpose'],
+    adaptiveContext: {
+      moodRange: [4, 10],
+      crisisAdapted: false,
+      connectionRequired: false
+    },
+    culturalAdaptations: {
+      collectivist: {
+        prompt: 'Explore how your gifts can strengthen the collective well-being of your community.',
+        instructions: [
+          'Consider your community\'s collective needs and challenges',
+          'Reflect on how your contribution fits into the larger community fabric',
+          'Think about collaborative service opportunities with others',
+          'Plan how to coordinate with existing community efforts'
+        ]
+      },
+      individualist: {
+        prompt: 'Identify how your personal skills and passions can make a unique contribution.',
+        instructions: [
+          'Assess your individual strengths and interests',
+          'Research specific volunteer opportunities that match your skills',
+          'Consider how service aligns with your personal values and goals',
+          'Plan a service project that allows you to grow personally while helping others'
+        ]
+      },
+      spiritual: {
+        prompt: 'Contemplate how serving others is an expression of your spiritual values.',
+        instructions: [
+          'Pray or meditate on your calling to serve',
+          'Consider service as a spiritual practice and form of worship',
+          'Reflect on how helping others deepens your spiritual connection',
+          'Seek guidance on where your service is most needed'
+        ]
+      },
+      secular: {
+        prompt: 'Analyze the practical impact you can have on community challenges.',
+        instructions: [
+          'Research specific community issues that need addressing',
+          'Evaluate the most effective ways to contribute based on evidence',
+          'Consider the measurable impact of different service options',
+          'Plan a service approach that maximizes benefit to the community'
+        ]
+      },
+      formal: {
+        title: 'Community Contribution Assessment',
+        description: 'A structured analysis of opportunities for civic engagement and social contribution.'
+      },
+      informal: {
+        title: 'How Can I Help Out?',
+        description: 'Thinking about ways to give back and make a positive difference around you.'
+      }
+    },
+    culturalSensitivity: {
+      appropriateFor: ['community-oriented', 'stable-housing', 'resource-sufficient'],
+      avoidFor: ['crisis-situation', 'basic-needs-unmet'],
+      alternatives: {
+        'crisis-situation': 'self_care_focus',
+        'basic-needs-unmet': 'resource_seeking_support'
+      }
+    }
+  }
+];
+
+// Cultural challenge adaptation engine
+export class CulturalChallengeEngine {
+  static adaptChallenge(challenge: CulturalChallenge, culturalContext: CulturalContext): Challenge {
+    let adaptedChallenge = { ...challenge };
+
+    // Apply cultural value adaptations
+    if (culturalContext.culturalValues.collectivism > 0.6) {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.collectivist };
+    } else {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.individualist };
+    }
+
+    if (culturalContext.culturalValues.spirituality > 0.6) {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.spiritual };
+    } else {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.secular };
+    }
+
+    if (culturalContext.culturalValues.formalityLevel > 0.6) {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.formal };
+    } else {
+      adaptedChallenge = { ...adaptedChallenge, ...challenge.culturalAdaptations.informal };
+    }
+
+    // Apply communication style adaptation
+    if (adaptedChallenge.prompt) {
+      adaptedChallenge.prompt = CulturalAdaptation.adaptCommunicationStyle(
+        adaptedChallenge.prompt, 
+        culturalContext
+      );
+    }
+
+    if (adaptedChallenge.description) {
+      adaptedChallenge.description = CulturalAdaptation.adaptCommunicationStyle(
+        adaptedChallenge.description, 
+        culturalContext
+      );
+    }
+
+    // Apply healing practice adaptation
+    adaptedChallenge = CulturalAdaptation.adaptHealingPractice(adaptedChallenge, culturalContext);
+
+    return adaptedChallenge;
+  }
+
+  static getCulturallyAppropriate(
+    challenges: CulturalChallenge[], 
+    culturalContext: CulturalContext
+  ): CulturalChallenge[] {
+    return challenges.filter(challenge => {
+      // Check if challenge is appropriate for this cultural context
+      const appropriate = challenge.culturalSensitivity.appropriateFor.includes('all') ||
+        challenge.culturalSensitivity.appropriateFor.some(context => 
+          culturalContext.healingTraditions.includes(context) ||
+          this.matchesCulturalValue(context, culturalContext)
+        );
+
+      // Check if challenge should be avoided
+      const shouldAvoid = challenge.culturalSensitivity.avoidFor.some(context =>
+        this.matchesCulturalValue(context, culturalContext)
+      );
+
+      return appropriate && !shouldAvoid;
+    });
+  }
+
+  static getAlternativeChallenge(
+    originalChallenge: CulturalChallenge,
+    culturalContext: CulturalContext,
+    allChallenges: CulturalChallenge[]
+  ): CulturalChallenge | null {
+    // Look for culturally appropriate alternatives
+    for (const [context, alternativeId] of Object.entries(originalChallenge.culturalSensitivity.alternatives)) {
+      if (this.matchesCulturalValue(context, culturalContext)) {
+        const alternative = allChallenges.find(c => c.id === alternativeId);
+        if (alternative) return alternative;
+      }
+    }
+    return null;
+  }
+
+  static generateCulturalInsight(challenge: Challenge, culturalContext: CulturalContext): string {
+    const insights = [];
+
+    if (culturalContext.culturalValues.collectivism > 0.6) {
+      insights.push("This practice emphasizes community connection and shared growth.");
+    }
+
+    if (culturalContext.culturalValues.spirituality > 0.6) {
+      insights.push("This aligns with spiritual traditions and inner wisdom practices.");
+    }
+
+    if (culturalContext.culturalValues.familyInvolvement > 0.6) {
+      insights.push("Consider involving family members or honoring family wisdom in this practice.");
+    }
+
+    if (culturalContext.healingTraditions.includes('mindfulness')) {
+      insights.push("This practice draws from mindfulness traditions valued in your culture.");
+    }
+
+    return insights.length > 0 
+      ? `Cultural insight: ${insights.join(' ')}`
+      : "This practice can be adapted to honor your cultural values and traditions.";
+  }
+
+  private static matchesCulturalValue(context: string, culturalContext: CulturalContext): boolean {
+    switch (context) {
+      case 'collectivist':
+        return culturalContext.culturalValues.collectivism > 0.6;
+      case 'individualist':
+        return culturalContext.culturalValues.collectivism <= 0.4;
+      case 'spiritual':
+        return culturalContext.culturalValues.spirituality > 0.6;
+      case 'secular':
+        return culturalContext.culturalValues.spirituality <= 0.4;
+      case 'traditional':
+        return culturalContext.healingTraditions.includes('traditional');
+      case 'family-oriented':
+        return culturalContext.culturalValues.familyInvolvement > 0.6;
+      default:
+        return false;
+    }
+  }
+}

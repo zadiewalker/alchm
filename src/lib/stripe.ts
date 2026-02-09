@@ -132,12 +132,12 @@ export async function getSubscriptionStatus(customerId: string) {
   const subscription = subscriptions.data[0];
   const priceId = subscription.items.data[0]?.price.id;
   
-  let planType: 'sanctuary' | 'growth' | 'transformation' = 'sanctuary';
+  let planType: 'growth' | 'transformation' = 'growth';
   
-  if (priceId === STRIPE_CONFIG.prices.growth) {
-    planType = 'growth';
-  } else if (priceId === STRIPE_CONFIG.prices.transformation) {
+  if (priceId === STRIPE_CONFIG.prices.transformation) {
     planType = 'transformation';
+  } else {
+    planType = 'growth'; // Default to growth (free plan)
   }
 
   return {

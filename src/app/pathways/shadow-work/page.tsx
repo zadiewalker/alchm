@@ -126,7 +126,7 @@ export default function ShadowWorkPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#95A7D4] to-[#7A8BC4] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -143,7 +143,7 @@ export default function ShadowWorkPathway() {
               <div
                 key={i}
                 className={`h-3 w-6 rounded transition-all duration-300 ${
-                  i < integrationLevel ? 'bg-purple-500' : 'bg-white/20'
+                  i < integrationLevel ? 'bg-[#E8C56D]' : 'bg-white/20'
                 }`}
               />
             ))}
@@ -156,7 +156,7 @@ export default function ShadowWorkPathway() {
               key={index}
               className={`h-2 flex-1 rounded-full transition-all duration-500 ${
                 completed[index] 
-                  ? 'bg-purple-500' 
+                  ? 'bg-[#E8C56D]' 
                   : index === currentStage 
                   ? 'bg-white/40' 
                   : 'bg-white/20'
@@ -171,7 +171,7 @@ export default function ShadowWorkPathway() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">{currentStageData.icon}</div>
           <h2 className="text-xl text-white font-light mb-3">{currentStageData.title}</h2>
-          <p className="text-gray-300 text-sm italic">"{currentStageData.challenge}"</p>
+          <p className="text-blue-200 text-sm italic">"{currentStageData.challenge}"</p>
         </div>
 
         {/* Shadow Aspects Revealer for Stage 0 */}
@@ -179,22 +179,22 @@ export default function ShadowWorkPathway() {
           <div className="mb-6 text-center">
             <button
               onClick={revealShadow}
-              className="px-6 py-3 bg-purple-600/20 hover:bg-purple-600/30 rounded-full text-white text-sm transition-all duration-300"
+              className="px-6 py-3 bg-[#E8C56D]/20 hover:bg-[#E8C56D]/30 rounded-full text-white text-sm transition-all duration-300"
             >
               🔮 Reveal Shadow Aspects
             </button>
             
             {shadowRevealed && (
-              <div className="mt-4 p-6 bg-purple-900/20 rounded-2xl border border-purple-500/20">
-                <h4 className="text-purple-300 text-lg mb-4">Common Shadow Aspects:</h4>
+              <div className="mt-4 p-6 bg-[#E8C56D]/20 rounded-2xl border border-[#E8C56D]/20">
+                <h4 className="text-[#E8C56D] text-lg mb-4">Common Shadow Aspects:</h4>
                 <div className="grid grid-cols-1 gap-2">
                   {shadowAspects.map((aspect, index) => (
-                    <div key={index} className="p-3 bg-black/40 rounded-lg text-purple-200 text-sm">
+                    <div key={index} className="p-3 bg-black/40 rounded-lg text-blue-200 text-sm">
                       {aspect}
                     </div>
                   ))}
                 </div>
-                <p className="text-purple-300/70 text-xs mt-4 italic">
+                <p className="text-[#E8C56D]/70 text-xs mt-4 italic">
                   Which of these make you uncomfortable? That's where your shadow lives.
                 </p>
               </div>
@@ -204,14 +204,14 @@ export default function ShadowWorkPathway() {
 
         <div className="space-y-6">
           {currentStageData.exercises.map((exercise, exerciseIndex) => (
-            <div key={exerciseIndex} className="bg-white/5 backdrop-blur-md border border-gray-600/20 rounded-2xl p-6">
+            <div key={exerciseIndex} className="bg-white/5 backdrop-blur-md border border-blue-300/20 rounded-2xl p-6">
               <h3 className="text-white text-lg font-light mb-4">{exercise.prompt}</h3>
               
               <textarea
                 value={responses[currentStage * 2 + exerciseIndex] || ''}
                 onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                 placeholder={exercise.placeholder}
-                className="w-full h-40 bg-black/40 border border-gray-500/20 rounded-xl p-4 text-white placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/50 leading-relaxed"
+                className="w-full h-40 bg-black/40 border border-blue-300/20 rounded-xl p-4 text-white placeholder-blue-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50 leading-relaxed"
               />
             </div>
           ))}
@@ -219,18 +219,18 @@ export default function ShadowWorkPathway() {
 
         {/* Special Integration Ritual for Final Stage */}
         {currentStage === stages.length - 1 && (
-          <div className="mt-8 p-6 bg-gradient-to-r from-purple-900/20 to-indigo-900/20 rounded-2xl border border-purple-500/20 text-center">
+          <div className="mt-8 p-6 bg-gradient-to-r from-[#E8C56D]/20 to-[#E8C56D]/10 rounded-2xl border border-[#E8C56D]/20 text-center">
             <div className="text-4xl mb-4">⚡</div>
-            <h4 className="text-purple-200 text-lg mb-3">Integration Ritual</h4>
-            <p className="text-purple-300 text-sm mb-4">
+            <h4 className="text-[#E8C56D] text-lg mb-3">Integration Ritual</h4>
+            <p className="text-blue-200 text-sm mb-4">
               Place one hand on your heart and one on your stomach. Breathe deeply and say:
             </p>
-            <p className="text-purple-100 text-lg italic mb-4">
+            <p className="text-white text-lg italic mb-4">
               "I am both light and shadow. I am whole."
             </p>
             <button
               onClick={() => setIntegrationLevel(Math.min(integrationLevel + 1, 10))}
-              className="px-6 py-2 bg-purple-600/30 hover:bg-purple-600/40 rounded-full text-white text-sm transition-all duration-300"
+              className="px-6 py-2 bg-[#E8C56D]/30 hover:bg-[#E8C56D]/40 rounded-full text-white text-sm transition-all duration-300"
             >
               Complete Integration
             </button>
@@ -253,8 +253,8 @@ export default function ShadowWorkPathway() {
               disabled={completed[currentStage]}
               className={`px-6 py-3 rounded-full text-sm transition-all duration-300 ${
                 completed[currentStage]
-                  ? 'bg-purple-500/30 text-white cursor-default'
-                  : 'bg-white/20 hover:bg-purple-500/30 text-white'
+                  ? 'bg-[#E8C56D]/30 text-white cursor-default'
+                  : 'bg-white/20 hover:bg-[#E8C56D]/30 text-white'
               }`}
             >
               {completed[currentStage] ? '✓ Integrated' : 'Complete Stage'}

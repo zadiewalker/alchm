@@ -1,251 +1,157 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function EmergencyPage() {
   return (
-    <div style={{ 
-      minHeight: '100vh', 
-      background: 'linear-gradient(180deg, #C8D4BC 0%, #A4B792 50%, #8A9A78 100%)',
-      color: 'white',
-      fontFamily: 'system-ui',
-      padding: '20px'
-    }}>
-      <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
+      {/* Header */}
+      <header className="px-6 pt-14 pb-4">
+        <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
+          ← Back to Sanctuary
+        </Link>
+        <div className="flex items-center mb-2">
+          <span className="text-amber-200 text-2xl mr-3">☾</span>
+          <h1 className="text-white text-2xl font-light">Crisis Support</h1>
+        </div>
+        <p className="text-white/50 text-sm">You're not alone in this moment</p>
+      </header>
+
+      {/* Content */}
+      <div className="flex-1 px-6 overflow-y-auto">
         
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.1)',
-          padding: '2rem',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)',
-          marginBottom: '2rem',
-          textAlign: 'center'
-        }}>
-          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🤗</div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 300, marginBottom: '1rem' }}>
-            You're Not Alone
-          </h1>
-          <p style={{ fontSize: '1.1rem', opacity: 0.9, lineHeight: 1.6 }}>
-            If you're having thoughts of hurting yourself or others, please reach out for immediate support. 
-            Your life has value, and help is available 24/7.
-          </p>
+        {/* Gentle Welcome */}
+        <div className="bg-[#E8C56D]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C56D]/20 mb-6">
+          <div className="text-center">
+            <div className="text-4xl mb-4">🤗</div>
+            <h2 className="text-white text-xl font-light mb-4">You're Not Alone</h2>
+            <p className="text-white/70 text-base leading-relaxed">
+              If you're having thoughts of hurting yourself or others, please reach out for immediate support. 
+              Your life has value, and help is available 24/7.
+            </p>
+          </div>
         </div>
 
         {/* Immediate Crisis Support */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.15)',
-          padding: '2rem',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)',
-          marginBottom: '2rem',
-          border: '2px solid rgba(255, 255, 255, 0.3)'
-        }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 300, marginBottom: '1.5rem' }}>
-            🚨 Immediate Crisis Support
-          </h2>
+        <div className="bg-[#E8C56D]/20 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C56D]/25 mb-6">
+          <h3 className="text-white text-lg font-light mb-4 flex items-center">
+            <span className="text-amber-200 text-xl mr-3">☾</span>
+            Immediate Crisis Support
+          </h3>
           
-          <div style={{ display: 'grid', gap: '1rem' }}>
+          <div className="space-y-4">
             <a 
               href="tel:988"
-              style={{
-                display: 'block',
-                background: '#fff',
-                color: '#333',
-                padding: '1.5rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                textAlign: 'center'
-              }}
+              className="block bg-[#E8C56D] hover:bg-[#F2D99D] text-white p-6 rounded-xl transition-all duration-200 ease-out active:scale-[0.98] text-center"
             >
-              📞 Call 988 - Suicide & Crisis Lifeline
+              <div className="text-xl mb-2">📞</div>
+              <div className="font-medium text-lg">Call 988</div>
+              <div className="text-sm opacity-90">Suicide & Crisis Lifeline</div>
             </a>
             
             <a 
               href="sms:741741"
-              style={{
-                display: 'block',
-                background: 'rgba(255, 255, 255, 0.9)',
-                color: '#333',
-                padding: '1.5rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                textAlign: 'center'
-              }}
+              className="block bg-white/10 hover:bg-white/20 text-white p-6 rounded-xl transition-all duration-200 ease-out active:scale-[0.98] text-center border border-white/20"
             >
-              💬 Text HOME to 741741 - Crisis Text Line
+              <div className="text-xl mb-2">💬</div>
+              <div className="font-medium text-lg">Text HOME to 741741</div>
+              <div className="text-sm opacity-90">Crisis Text Line</div>
             </a>
             
             <a 
               href="tel:911"
-              style={{
-                display: 'block',
-                background: 'rgba(255, 255, 255, 0.8)',
-                color: '#333',
-                padding: '1.5rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontSize: '1.1rem',
-                fontWeight: 'bold',
-                textAlign: 'center'
-              }}
+              className="block bg-white/15 hover:bg-white/25 text-white p-6 rounded-xl transition-all duration-200 ease-out active:scale-[0.98] text-center border border-white/30"
             >
-              🚑 Call 911 - Emergency Services
+              <div className="text-xl mb-2">🚑</div>
+              <div className="font-medium text-lg">Call 911</div>
+              <div className="text-sm opacity-90">Emergency Services</div>
             </a>
           </div>
         </div>
 
         {/* Additional Support Resources */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.1)',
-          padding: '2rem',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)',
-          marginBottom: '2rem'
-        }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 300, marginBottom: '1.5rem' }}>
-            💚 Additional Support Resources
-          </h2>
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/15 mb-6">
+          <h3 className="text-white text-lg font-light mb-4 flex items-center">
+            <span className="text-[#8B9A7C] text-xl mr-3">💚</span>
+            Additional Support Resources
+          </h3>
           
-          <div style={{ display: 'grid', gap: '1rem' }}>
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              padding: '1rem',
-              borderRadius: '8px'
-            }}>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-                🌈 LGBTQ+ Crisis Support
-              </h3>
-              <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.9 }}>
-                Trevor Project Lifeline: <a href="tel:1-866-488-7386" style={{ color: 'white' }}>1-866-488-7386</a>
+          <div className="space-y-4">
+            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+              <h4 className="text-white text-base font-medium mb-2 flex items-center">
+                <span className="mr-2">🌈</span>
+                LGBTQ+ Crisis Support
+              </h4>
+              <p className="text-white/70 text-sm mb-1">
+                Trevor Project Lifeline: <a href="tel:1-866-488-7386" className="text-amber-200 underline">1-866-488-7386</a>
+              </p>
+              <p className="text-white/70 text-sm">
+                Text START to <a href="sms:678-678" className="text-amber-200 underline">678-678</a>
               </p>
             </div>
-            
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              padding: '1rem',
-              borderRadius: '8px'
-            }}>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-                🎯 Veterans Crisis Line
-              </h3>
-              <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.9 }}>
-                Call: <a href="tel:1-800-273-8255" style={{ color: 'white' }}>1-800-273-8255</a>, Press 1
+
+            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+              <h4 className="text-white text-base font-medium mb-2 flex items-center">
+                <span className="mr-2">🧠</span>
+                Mental Health Crisis
+              </h4>
+              <p className="text-white/70 text-sm mb-1">
+                NAMI Helpline: <a href="tel:1-800-950-6264" className="text-amber-200 underline">1-800-950-NAMI</a>
+              </p>
+              <p className="text-white/70 text-sm">
+                Monday–Friday, 10 AM–10 PM ET
               </p>
             </div>
-            
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              padding: '1rem',
-              borderRadius: '8px'
-            }}>
-              <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-                🌍 International Support
-              </h3>
-              <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem', opacity: 0.9 }}>
-                <a href="https://findahelpline.com" style={{ color: 'white', textDecoration: 'underline' }}>
-                  Find crisis support in your country
-                </a>
+
+            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+              <h4 className="text-white text-base font-medium mb-2 flex items-center">
+                <span className="mr-2">🌟</span>
+                Veterans Crisis Line
+              </h4>
+              <p className="text-white/70 text-sm mb-1">
+                Call: <a href="tel:1-800-273-8255" className="text-amber-200 underline">1-800-273-8255</a> (Press 1)
+              </p>
+              <p className="text-white/70 text-sm">
+                Text: <a href="sms:838255" className="text-amber-200 underline">838255</a>
               </p>
             </div>
           </div>
         </div>
 
-        {/* Self-Care in Crisis */}
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.1)',
-          padding: '2rem',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)',
-          marginBottom: '2rem'
-        }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 300, marginBottom: '1.5rem' }}>
-            🌱 Right Now, You Can:
-          </h2>
+        {/* Self-Care Reminders */}
+        <div className="bg-[#8B9A7C]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#8B9A7C]/20">
+          <h3 className="text-white text-lg font-light mb-4 flex items-center">
+            <span className="text-amber-200 text-xl mr-3">✨</span>
+            Gentle Reminders
+          </h3>
           
-          <div style={{ display: 'grid', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontSize: '1.5rem' }}>🫁</div>
-              <div>
-                <strong>Breathe slowly:</strong> In for 4, hold for 4, out for 6
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontSize: '1.5rem' }}>🤲</div>
-              <div>
-                <strong>Ground yourself:</strong> Name 5 things you can see, 4 you can touch, 3 you can hear
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontSize: '1.5rem' }}>💧</div>
-              <div>
-                <strong>Drink water</strong> and eat something if you haven't recently
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontSize: '1.5rem' }}>🔒</div>
-              <div>
-                <strong>Remove access</strong> to anything that might harm you
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ fontSize: '1.5rem' }}>👥</div>
-              <div>
-                <strong>Reach out</strong> to a trusted friend, family member, or counselor
-              </div>
-            </div>
+          <div className="space-y-3">
+            <p className="text-white/70 text-sm leading-relaxed">
+              • Crisis support available 24/7 - 988
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              • Your feelings are valid and temporary
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              • You don't have to face this alone
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              • Professional support can help you navigate difficult moments
+            </p>
+            <p className="text-white/70 text-sm leading-relaxed">
+              • This moment will pass, and help is available
+            </p>
           </div>
         </div>
 
-        {/* Navigation back */}
-        <div style={{ textAlign: 'center' }}>
-          <a 
-            href="/dashboard"
-            style={{
-              display: 'inline-block',
-              padding: '12px 24px',
-              background: 'rgba(255, 255, 255, 0.2)',
-              color: 'white',
-              textDecoration: 'none',
-              borderRadius: '8px',
-              marginRight: '1rem'
-            }}
-          >
-            ← Return to Dashboard
-          </a>
-          
-          <a 
-            href="/journal"
-            style={{
-              display: 'inline-block',
-              padding: '12px 24px',
-              background: 'rgba(255, 255, 255, 0.2)',
-              color: 'white',
-              textDecoration: 'none',
-              borderRadius: '8px'
-            }}
-          >
-            Continue Journaling
-          </a>
-        </div>
-        
-        <div style={{ 
-          textAlign: 'center',
-          marginTop: '2rem',
-          fontSize: '0.9rem',
-          opacity: 0.8
-        }}>
-          <p>
-            Remember: Crisis feelings are temporary. You are stronger than you know, 
-            and professional help can provide you with tools and support.
+        {/* Medical Disclaimer */}
+        <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
+          <p className="text-white/60 text-xs leading-relaxed text-center">
+            <strong>Medical Disclaimer:</strong> ALCHM is not a substitute for professional medical care, therapy, or emergency services. 
+            If you are experiencing a mental health emergency, please contact emergency services or a crisis hotline immediately.
           </p>
         </div>
-
+        
       </div>
     </div>
   );

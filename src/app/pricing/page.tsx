@@ -1,216 +1,161 @@
 'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { getStripe } from '@/lib/stripe';
+import { safeWindow } from '@/utils/browser';
 
 export default function PricingPage() {
+  const [loading, setLoading] = useState(false);
+  const [showCancelMessage, setShowCancelMessage] = useState(false);
 
-  const plans = [
-    {
-      id: 'sanctuary',
-      name: 'Sanctuary',
-      price: 'Free',
-      period: '',
-      description: 'Your safe space to begin healing',
-      features: [
-        'Unlimited journaling',
-        'Basic Khepera insights',
-        'Crisis support resources',
-        'Privacy protection'
-      ],
-      current: true
-    },
-    {
-      id: 'growth',
-      name: 'Growth',
-      price: '$4.99',
-      period: '/month',
-      description: 'Deepen your healing journey',
-      features: [
-        'Everything in Sanctuary',
-        'Advanced AI insights',
-        'Healing pathways',
-        'Progress tracking',
-        'Community access'
-      ],
-      popular: true
-    },
-    {
-      id: 'transformation',
-      name: 'Transformation',
-      price: '$9.99',
-      period: '/month',
-      description: 'Complete healing ecosystem',
-      features: [
-        'Everything in Growth',
-        'Priority Khepera responses',
-        'Personalized healing plans',
-        'Expert content access',
-        'One-on-one guidance'
-      ]
+  // Check for URL parameters on page load
+  useEffect(() => {
+    const urlParams = new URLSearchParams(safeWindow.location.search);
+    if (urlParams.get('canceled') === 'true') {
+      setShowCancelMessage(true);
+      setTimeout(() => setShowCancelMessage(false), 5000);
     }
-  ];
+  }, []);
 
-  const [loading, setLoading] = useState<string | null>(null);
-
-  const handleSelectPlan = async (planId: string) => {
-    if (planId === 'sanctuary') {
-      // Free plan - no payment needed
-      return;
-    }
-
-    setLoading(planId);
-
+  const handleSubscribe = async () => {
     try {
-      // Get user email from localStorage or context
-      const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
-      const userName = localStorage.getItem('userName') || '';
-
-      const response = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          planType: planId,
-          userEmail,
-          userName,
-          returnUrl: window.location.origin,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error(data.error || 'Failed to create checkout session');
-      }
+      setLoading(true);
+      
+      // Stripe Payment Link for Transformation subscription
+      const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/cNi7sK34kefhbhAaGW73G00';
+      
+      // Redirect to Stripe Payment Link
+      safeWindow.open(STRIPE_PAYMENT_LINK, '_self');
+      
     } catch (error) {
-      console.error('Error starting checkout:', error);
-      alert('Sorry, there was an error processing your request. Please try again.');
+      console.error('Subscription error:', error);
+      alert('Something went wrong. Please try again.');
     } finally {
-      setLoading(null);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="page-container bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0]">
-      {/* Fixed Header */}
-      <header className="px-6 pt-4 pb-2 flex items-center">
-        <Link href="/dashboard" className="group relative">
-          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 group-active:bg-white/15 rounded-lg transition-all duration-300" />
-          <span className="relative text-white/70 text-lg">← Back</span>
+    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
+      {/* Header */}
+      <header className="px-6 pt-14 pb-6">
+        <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block">
+          ← Back
         </Link>
-        <h1 className="text-white text-xl font-light ml-4">Choose Your Journey</h1>
+        
+        {/* Cancel Message */}
+        {showCancelMessage && (
+          <div className="mb-4 p-4 rounded-xl bg-yellow-500/20 border border-yellow-500/30">
+            <p className="text-yellow-200 text-sm">
+              Payment was canceled. No worries - you can subscribe anytime when you're ready.
+            </p>
+          </div>
+        )}
+        
+        <h1 className="text-white text-3xl font-light">Support Your Practice</h1>
+        <p className="text-white/60 text-base mt-2 leading-relaxed">
+          ALCHM is free to use. Premium unlocks deeper tools when you're ready.
+        </p>
       </header>
 
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 pb-24" style={{ WebkitOverflowScrolling: 'touch' }}>
-        
-        {/* Intro */}
-        <div className="text-center mb-8">
-          <p className="text-white/70 mb-6 max-w-md mx-auto">
-            Every healing journey is unique. Choose the level of support that feels right for you today.
+      {/* Pricing Cards */}
+      <div className="flex-1 px-6 pb-24 overflow-y-auto">
+        <div className="space-y-4">
+          
+          {/* Growth Tier */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <div className="flex items-baseline justify-between mb-1">
+              <h2 className="text-white text-2xl font-light">Growth</h2>
+              <span className="text-white/50 text-sm">Forever</span>
+            </div>
+            <p className="text-white/50 text-sm mb-5">
+              Your healing journey starts here
+            </p>
+            
+            <div className="space-y-3 mb-6">
+              {['Unlimited journaling', 'Khepera AI companion', 'Two guided pathways', 'Insights & reflections'].map((feature) => (
+                <div key={feature} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-[#E8C56D]/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-[#E8C56D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-white/80 text-sm">{feature}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="py-3 rounded-xl bg-white/5 text-center">
+              <span className="text-white/40 text-sm">Your current plan</span>
+            </div>
+          </div>
+
+          {/* Transformation Tier */}
+          <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
+            <div className="flex items-baseline justify-between mb-1">
+              <h2 className="text-white text-2xl font-light">Transformation</h2>
+              <div>
+                <span className="text-white text-2xl font-light">$4.99</span>
+                <span className="text-white/50 text-sm">/month</span>
+              </div>
+            </div>
+            <p className="text-white/50 text-sm mb-5">
+              Deeper work for profound change
+            </p>
+            
+            <div className="space-y-3 mb-6">
+              {[
+                'Everything in Growth',
+                'All five pathways',
+                'Khepera remembers your history',
+                'Deeper pattern insights',
+                'Export your journal anytime'
+              ].map((feature) => (
+                <div key={feature} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-[#E8C56D]/25 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-[#E8C56D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-white/90 text-sm">{feature}</span>
+                </div>
+              ))}
+            </div>
+            
+            <button 
+              onClick={handleSubscribe}
+              disabled={loading}
+              className="w-full py-4 rounded-xl bg-[#E8C56D] hover:bg-[#F2D99D] transition-all duration-200 active:scale-[0.98] shadow-lg shadow-[#E8C56D]/20 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="text-white text-base font-medium">
+                {loading ? 'Processing...' : 'Subscribe'}
+              </span>
+            </button>
+            
+            <p className="text-white/40 text-xs text-center mt-3">
+              $4.99/month. Cancel anytime.
+            </p>
+          </div>
+
+        </div>
+
+        {/* Trust Section */}
+        <div className="mt-8 text-center">
+          <p className="text-white/50 text-sm leading-relaxed">
+            No ads. No data selling. Cancel anytime.<br />
+            Your healing is the only thing that matters.
           </p>
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className={`relative ${
-                plan.popular 
-                  ? 'bg-white/20 border-2 border-white/40' 
-                  : 'bg-white/10 border border-white/20'
-              } p-6 rounded-xl backdrop-blur-sm`}
-            >
-              {/* Popular Badge */}
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white/30 text-white text-xs px-3 py-1 rounded-full">
-                  Most Popular
-                </div>
-              )}
-
-              {/* Current Badge */}
-              {plan.current && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white/30 text-white text-xs px-3 py-1 rounded-full">
-                  Current Plan
-                </div>
-              )}
-
-              <div className="text-center mb-6">
-                <h3 className="text-xl text-white font-light mb-2">
-                  {plan.name}
-                </h3>
-                <div className="mb-3">
-                  <span className="text-3xl text-white font-light">
-                    {plan.price}
-                  </span>
-                  <span className="text-white/70 text-sm">
-                    {plan.period}
-                  </span>
-                </div>
-                <p className="text-white/70 text-sm">
-                  {plan.description}
-                </p>
-              </div>
-
-              {/* Features */}
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center text-white/80 text-sm">
-                    <span className="text-white/60 mr-3">✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA Button */}
-              <button
-                onClick={() => handleSelectPlan(plan.id)}
-                disabled={plan.current || loading === plan.id}
-                className={`w-full group relative py-3 ${
-                  plan.current ? 'opacity-50' : ''
-                } ${loading === plan.id ? 'opacity-75 cursor-wait' : ''}`}
-              >
-                <div className={`absolute inset-0 transition-all duration-300 rounded-lg ${
-                  plan.popular
-                    ? 'bg-white/30 group-hover:bg-white/40 group-active:bg-white/45'
-                    : 'bg-white/20 group-hover:bg-white/30 group-active:bg-white/35'
-                }`} />
-                <span className="relative text-white font-medium">
-                  {loading === plan.id 
-                    ? 'Processing...'
-                    : plan.current 
-                    ? 'Current Plan'
-                    : plan.id === 'sanctuary' 
-                    ? 'Get Started Free'
-                    : `Choose ${plan.name}`
-                  }
-                </span>
-              </button>
-            </div>
-          ))}
+        {/* Philosophy */}
+        <div className="mt-6 bg-white/5 rounded-2xl p-5">
+          <p className="text-white/50 text-sm leading-relaxed text-center">
+            ALCHM will always have a meaningful free tier.<br />
+            Healing shouldn't be locked behind a paywall.
+          </p>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="mt-12 text-center">
-          <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm max-w-md mx-auto">
-            <h3 className="text-white font-light mb-4">🔒 Your Trust, Our Promise</h3>
-            <ul className="text-white/70 text-sm space-y-2">
-              <li>• Cancel anytime, no questions asked</li>
-              <li>• Your data always stays private</li>
-              <li>• No ads, ever</li>
-              <li>• Dedicated to your healing, not profit</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Fixed Footer */}
-      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
-        <p className="text-white/50 text-sm text-center">Invest in your healing journey</p>
       </div>
     </div>
   );

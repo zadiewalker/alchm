@@ -6,6 +6,7 @@ import {
   WISDOM_REFLECTION_PROMPT,
   CRISIS_RESOURCES 
 } from './aiPrompts';
+import { kheperaMemory } from './kheperaMemory';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -44,23 +45,37 @@ export interface JournalAnalysis {
 export async function analyzeJournalEntry(
   journalEntry: string,
   userId: string,
-  journalEntryId: string
+  journalEntryId: string,
+  selectedMoods?: string[]
 ): Promise<JournalAnalysis> {
   try {
+    // Get user context for personalized analysis
+    const userContext = await kheperaMemory.getUserContext(userId);
+    const contextualPrompt = kheperaMemory.generateContextualPrompt(userId, journalEntry);
+    
+    // Enhanced prompt with user context and mood information
+    let enhancedPrompt = TRAUMA_INFORMED_ANALYSIS_PROMPT.replace('{journalEntry}', journalEntry);
+    
+    if (selectedMoods && selectedMoods.length > 0) {
+      enhancedPrompt += `\n\nSelected Moods: ${selectedMoods.join(', ')}`;
+    }
+    
+    enhancedPrompt += contextualPrompt;
+
     // Run analysis calls in parallel for efficiency
     const [traumaInformedResponse, crisisDetectionResponse, emotionalThemesResponse, wisdomReflectionResponse] = 
       await Promise.all([
-        // Main trauma-informed analysis
+        // Main trauma-informed analysis with context
         openai.chat.completions.create({
           model: "gpt-4o",
           messages: [
             {
               role: "system",
-              content: "You are Khepera, a trauma-informed AI companion. Provide supportive, healing-focused insights."
+              content: "You are Khepera, a trauma-informed AI companion. Remember previous conversations and build upon past insights. Provide supportive, healing-focused responses that acknowledge the user's journey and growth."
             },
             {
               role: "user",
-              content: TRAUMA_INFORMED_ANALYSIS_PROMPT.replace('{journalEntry}', journalEntry)
+              content: enhancedPrompt
             }
           ],
           max_tokens: 800,
@@ -144,7 +159,7 @@ export async function analyzeJournalEntry(
     // Parse main analysis into structured format
     const analysis = parseTraumaInformedAnalysis(mainAnalysisText);
 
-    return {
+    const result = {
       id: `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       analysis,
       emotionalThemes,
@@ -156,6 +171,15 @@ export async function analyzeJournalEntry(
         journalEntryId
       }
     };
+
+    // Update user memory with this entry and insights
+    await kheperaMemory.updateUserContext(userId, {
+      content: journalEntry,
+      moods: selectedMoods || [],
+      kheperaInsights: result
+    });
+
+    return result;
 
   } catch (error) {
     console.error('AI Analysis Error:', error);

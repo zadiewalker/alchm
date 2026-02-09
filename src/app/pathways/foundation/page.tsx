@@ -91,7 +91,7 @@ export default function FoundationPathway() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -105,7 +105,7 @@ export default function FoundationPathway() {
               key={index}
               className={`h-2 flex-1 rounded-full transition-all duration-500 ${
                 completed[index] 
-                  ? 'bg-white/60' 
+                  ? 'bg-[#E8C56D]/70' 
                   : index === currentStage 
                   ? 'bg-white/40' 
                   : 'bg-white/20'
@@ -134,7 +134,7 @@ export default function FoundationPathway() {
                       value={responses[stageIndex * 2 + exerciseIndex] || ''}
                       onChange={(e) => handleResponse(stageIndex, exerciseIndex, e.target.value)}
                       placeholder={exercise.placeholder}
-                      className="w-full h-32 bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-white/30"
+                      className="w-full h-32 bg-white/10 border border-white/20 rounded-xl p-4 text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50"
                     />
                   </div>
                 ))}
@@ -156,8 +156,8 @@ export default function FoundationPathway() {
                     disabled={completed[currentStage]}
                     className={`px-6 py-3 rounded-full text-sm transition-all duration-300 ${
                       completed[currentStage]
-                        ? 'bg-white/30 text-white cursor-default'
-                        : 'bg-white/20 hover:bg-white/30 text-white'
+                        ? 'bg-[#E8C56D]/70 text-white cursor-default'
+                        : 'bg-[#E8C56D] hover:bg-[#E8C56D]/80 text-white'
                     }`}
                   >
                     {completed[currentStage] ? '✓ Completed' : 'Mark Complete'}

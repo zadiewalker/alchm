@@ -41,6 +41,8 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1;
 }
 
 body {
@@ -54,6 +56,11 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
+  transform: translateZ(0);
+  will-change: scroll-position;
+  /* Ensure content is visible */
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -125,6 +132,10 @@ button {
   padding: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  transform: translateZ(0);
 }
 
 button:focus {
@@ -172,6 +183,10 @@ textarea {
    Transition Utilities
    ───────────────────────────────────────────────────────────────────── */
 .transition-gentle {
+  transition: all 0.2s ease-out;
+}
+
+.transition-standard {
   transition: all 0.3s ease-out;
 }
 

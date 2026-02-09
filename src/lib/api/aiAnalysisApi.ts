@@ -109,41 +109,17 @@ async function makeAuthenticatedRequest(endpoint: string, options: RequestInit =
   return response;
 }
 
-// Main AI Analysis function
+// Main AI Analysis function - NOW USING ONLY LOCAL ANALYSIS FOR SPEED
 export async function analyzeJournalEntry(
   journalEntry: string,
   userId: string,
   journalEntryId: string
 ): Promise<JournalAnalysis> {
-  try {
-    console.log('Requesting AI analysis...');
-    
-    const request: AnalysisRequest = {
-      journalEntry,
-      userId,
-      journalEntryId
-    };
-
-    const response = await makeAuthenticatedRequest('/analyze', {
-      method: 'POST',
-      body: JSON.stringify(request),
-    });
-
-    const data = await response.json();
-    
-    if (!data.success) {
-      throw new Error(data.message || 'Analysis failed');
-    }
-
-    console.log('AI analysis completed successfully');
-    return data.analysis;
-
-  } catch (error) {
-    console.error('AI Analysis Error:', error);
-    
-    // Return supportive fallback analysis
-    return createFallbackAnalysis(userId, journalEntryId, error);
-  }
+  
+  console.log('🚀 Using instant local Khepera analysis for maximum speed');
+  
+  // Return immediate local analysis - no network calls, no delays
+  return createLocalAnalysis(journalEntry, userId, journalEntryId);
 }
 
 // Quick crisis detection (faster, separate endpoint)
@@ -205,6 +181,160 @@ export async function getUserAnalytics(userId: string) {
     console.error('Analytics Error:', error);
     return null;
   }
+}
+
+// Create instant local analysis for immediate responses
+function createLocalAnalysis(journalEntry: string, userId: string, journalEntryId: string): JournalAnalysis {
+  const text = journalEntry.toLowerCase();
+  const wordCount = journalEntry.trim().split(/\s+/).length;
+  
+  // Quick emotion detection
+  const emotionPatterns = {
+    grateful: ['thank', 'grateful', 'appreciate', 'blessed', 'thankful'],
+    anxious: ['anxious', 'worried', 'stress', 'nervous', 'overwhelm'],
+    sad: ['sad', 'down', 'depressed', 'lonely', 'empty', 'hopeless'],
+    angry: ['angry', 'mad', 'frustrated', 'annoyed', 'furious'],
+    happy: ['happy', 'joy', 'excited', 'amazing', 'wonderful', 'great'],
+    peaceful: ['calm', 'peaceful', 'serene', 'quiet', 'stillness'],
+    confused: ['confused', 'lost', 'uncertain', 'unclear', 'mixed'],
+    hopeful: ['hope', 'optimistic', 'better', 'improving', 'forward']
+  };
+  
+  const detectedEmotions = [];
+  for (const [emotion, words] of Object.entries(emotionPatterns)) {
+    if (words.some(word => text.includes(word))) {
+      detectedEmotions.push(emotion);
+    }
+  }
+  
+  // Quick strength identification
+  const strengthIndicators = [];
+  if (text.includes('try') || text.includes('trying')) strengthIndicators.push('perseverance');
+  if (text.includes('help') || text.includes('support')) strengthIndicators.push('seeking connection');
+  if (text.includes('understand') || text.includes('figure')) strengthIndicators.push('self-awareness');
+  if (text.includes('feel') || text.includes('emotion')) strengthIndicators.push('emotional intelligence');
+  if (wordCount > 50) strengthIndicators.push('thoughtful reflection');
+  
+  // Generate appropriate responses
+  const responses = {
+    emotionalRecognition: generateEmotionalRecognition(detectedEmotions),
+    strengthIdentification: generateStrengthResponse(strengthIndicators),
+    gentleInsight: generateInsight(text, detectedEmotions),
+    nurturingSuggestion: generateNurturingSuggestion(detectedEmotions)
+  };
+  
+  return {
+    id: `local_${Date.now()}`,
+    analysis: responses,
+    emotionalThemes: {
+      primaryEmotions: detectedEmotions.slice(0, 3),
+      emotionalJourney: 'Processing emotions through reflective writing',
+      copingStrategies: ['journaling', 'self-expression'],
+      growthIndicators: strengthIndicators,
+      supportiveNote: 'Your commitment to self-reflection shows great emotional courage'
+    },
+    wisdomReflection: generateWisdomReflection(detectedEmotions, strengthIndicators),
+    crisisAssessment: {
+      isCrisis: false,
+      confidenceLevel: 'low',
+      reasoning: 'Local analysis for immediate support',
+      suggestedResources: null
+    },
+    metadata: {
+      analyzedAt: new Date(),
+      userId,
+      journalEntryId
+    }
+  };
+}
+
+// Helper functions for local analysis
+function generateEmotionalRecognition(emotions: string[]): string {
+  if (emotions.length === 0) {
+    return "Thank you for sharing your thoughts with such openness and trust.";
+  }
+  
+  const emotionPhrases = {
+    grateful: "Your sense of gratitude shines through beautifully",
+    anxious: "I notice the weight of worry you're carrying",
+    sad: "Your sadness is felt and honored here",
+    angry: "I hear the frustration in your words",
+    happy: "Your joy is wonderful to witness", 
+    peaceful: "There's a lovely sense of calm in your reflection",
+    confused: "It's completely okay to feel uncertain",
+    hopeful: "Your hope is a beautiful light"
+  };
+  
+  const recognized = emotions.map(e => emotionPhrases[e] || `Your ${e} feelings are valid`);
+  return recognized[0] + (recognized.length > 1 ? `, and I also sense ${recognized.slice(1).join(' and ')}.` : '.');
+}
+
+function generateStrengthResponse(strengths: string[]): string {
+  if (strengths.length === 0) {
+    return "Your willingness to reflect shows remarkable courage and self-awareness.";
+  }
+  
+  const strengthPhrases = {
+    perseverance: "your determination to keep trying despite challenges",
+    'seeking connection': "your wisdom in reaching out for help and support",
+    'self-awareness': "your deep insight into your own experience",
+    'emotional intelligence': "your ability to recognize and name your feelings",
+    'thoughtful reflection': "your commitment to meaningful self-examination"
+  };
+  
+  const recognizedStrengths = strengths.map(s => strengthPhrases[s] || s);
+  return `I see ${recognizedStrengths.join(' and ')} as profound strengths in your healing journey.`;
+}
+
+function generateInsight(text: string, emotions: string[]): string {
+  const insights = [
+    "Every feeling you experience is part of your unique human journey.",
+    "Your emotional world is rich and complex, which shows the depth of your heart.",
+    "Writing these thoughts takes courage - you're creating space for healing.",
+    "Your feelings deserve to be witnessed and honored, just as they are.",
+    "This moment of reflection is an act of profound self-care."
+  ];
+  
+  // Choose insight based on dominant emotion
+  if (emotions.includes('grateful')) {
+    return "Gratitude has a way of opening our hearts to even more beauty in life.";
+  }
+  if (emotions.includes('sad')) {
+    return "Sadness often comes when we care deeply - it shows the tenderness of your heart.";
+  }
+  if (emotions.includes('anxious')) {
+    return "Anxiety often arises when we're trying to protect what matters to us.";
+  }
+  
+  return insights[Math.floor(Math.random() * insights.length)];
+}
+
+function generateNurturingSuggestion(emotions: string[]): string {
+  if (emotions.includes('anxious') || emotions.includes('overwhelm')) {
+    return "Take three slow, deep breaths. Place your hand on your heart and remind yourself: 'I am safe in this moment.'";
+  }
+  if (emotions.includes('sad')) {
+    return "Wrap yourself in something soft and warm. Your feelings deserve gentle care and patience.";
+  }
+  if (emotions.includes('angry')) {
+    return "Your anger is valid. Take a moment to move your body - stretch, walk, or shake out the tension.";
+  }
+  if (emotions.includes('grateful')) {
+    return "Let this gratitude settle into your heart. Notice how appreciation can be its own form of healing.";
+  }
+  
+  return "Be gentle with yourself today. You're exactly where you need to be in this moment.";
+}
+
+function generateWisdomReflection(emotions: string[], strengths: string[]): string {
+  const reflections = [
+    "In this moment of honest reflection, you demonstrate the profound wisdom that comes from turning toward your inner world with curiosity and care.",
+    "Your willingness to explore your feelings through writing shows a deep understanding of the healing power of expression and self-awareness.",
+    "There is something sacred about this pause you've taken to check in with yourself - it speaks to your innate wisdom about what your soul needs.",
+    "Through this practice of journaling, you're creating a conversation with the deepest parts of yourself, which is one of the most healing things we can do."
+  ];
+  
+  return reflections[Math.floor(Math.random() * reflections.length)];
 }
 
 // Create fallback analysis when AI fails

@@ -63,7 +63,7 @@ function JournalContent() {
     const hasKheperaResponse = selectedEntry.insights && selectedEntry.insights.length > 0 && selectedEntry.insights.some(insight => insight && insight.trim());
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
         {/* Header */}
         <header className="px-6 pt-14 pb-4">
           <Link href="/journal/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
@@ -79,10 +79,10 @@ function JournalContent() {
         </header>
 
         {/* Content */}
-        <div className="flex-1 px-6 pb-24 overflow-y-auto">
+        <div className="flex-1 px-6 overflow-y-auto">
           
           {/* Journal Entry */}
-          <div className="bg-[#E5C97D]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#E5C97D]/20 mb-6">
+          <div className="bg-[#E8C56D]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C56D]/20 mb-6">
             {selectedEntry.title && (
               <h2 className="text-white text-xl font-light mb-4">{selectedEntry.title}</h2>
             )}
@@ -96,7 +96,7 @@ function JournalContent() {
                 {selectedEntry.emotions.map((emotion, index) => (
                   <span 
                     key={index}
-                    className="text-xs bg-[#E5C97D]/20 text-[#E5C97D] px-3 py-1 rounded-full border border-[#E5C97D]/30"
+                    className="text-xs bg-[#E8C56D]/20 text-[#E8C56D] px-3 py-1 rounded-full border border-[#E8C56D]/30"
                   >
                     {emotion}
                   </span>
@@ -109,8 +109,8 @@ function JournalContent() {
           {hasKheperaResponse ? (
             <div className="bg-[#8B9A7C]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#8B9A7C]/20">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-[#E5C97D]/20 flex items-center justify-center mr-4 border border-[#E5C97D]/30">
-                  <span className="text-[#E5C97D] text-lg">☾</span>
+                <div className="w-12 h-12 rounded-full bg-[#E8C56D]/20 flex items-center justify-center mr-4 border border-[#E8C56D]/30">
+                  <span className="text-[#E8C56D] text-lg">☾</span>
                 </div>
                 <div>
                   <h3 className="text-white text-lg font-light">Khepera's Response</h3>
@@ -132,8 +132,8 @@ function JournalContent() {
                   let icon = '✨';
                   
                   if (type.includes('Emotional Recognition')) {
-                    bgColor = 'bg-[#E5C97D]/10';
-                    borderColor = 'border-[#E5C97D]/20';
+                    bgColor = 'bg-[#E8C56D]/10';
+                    borderColor = 'border-[#E8C56D]/20';
                     icon = '🌟';
                   } else if (type.includes('Therapeutic')) {
                     bgColor = 'bg-blue-500/10';
@@ -194,6 +194,13 @@ function JournalContent() {
               </p>
             </div>
           )}
+          
+          {/* Crisis Support Footer */}
+          <div className="mt-8 pb-8 pt-6">
+            <p className="text-white/30 text-xs text-center tracking-wide">
+              Crisis support available · 988
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -239,7 +246,7 @@ function JournalContent() {
           </div>
         ) : (
           /* Entries List */
-          <div className="space-y-4 pb-24">
+          <div className="space-y-4">
             <div className="text-white/60 text-sm mb-6">
               {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
             </div>
@@ -290,6 +297,13 @@ function JournalContent() {
             ))}
           </div>
         )}
+        
+        {/* Crisis Support Footer */}
+        <div className="mt-8 pb-8 pt-6">
+          <p className="text-white/30 text-xs text-center tracking-wide">
+            Crisis support available · 988
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -298,7 +312,7 @@ function JournalContent() {
 export default function JournalPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex items-center justify-center">
         <Loading message="Loading..." />
       </div>
     }>

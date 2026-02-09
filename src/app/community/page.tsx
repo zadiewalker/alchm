@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
+import Link from 'next/link';
 import StoryCreator from '@/components/community/StoryCreator';
 import HealingCircleManager from '@/components/community/HealingCircleManager';
 import WisdomLibrary from '@/components/community/WisdomLibrary';
 import CollectiveExperiences from '@/components/community/CollectiveExperiences';
+import GrowthHealingCircles from '@/components/community/GrowthHealingCircles';
+import { safeLocalStorage } from '@/utils/browser';
 import { 
   Heart, 
   Users, 
@@ -58,6 +61,8 @@ interface HealingCircle {
 
 export default function CommunityPage() {
   const { user } = useAuth();
+  const [userTier, setUserTier] = useState<'sanctuary' | 'growth' | 'transformation'>('sanctuary');
+  const [tierLoading, setTierLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'stories' | 'circles' | 'wisdom' | 'experiences'>('overview');
   const [stats, setStats] = useState<CommunityStats | null>(null);
   const [stories, setStories] = useState<CommunityStory[]>([]);
@@ -87,8 +92,23 @@ export default function CommunityPage() {
   ];
 
   useEffect(() => {
+    checkUserTier();
     loadCommunityData();
   }, [activeTab, selectedStage]);
+
+  const checkUserTier = async () => {
+    setTierLoading(true);
+    
+    // Get user tier from localStorage or subscription API
+    const storedTier = safeLocalStorage.getItem('userTier') as 'sanctuary' | 'growth' | 'transformation';
+    if (storedTier) {
+      setUserTier(storedTier);
+    }
+    
+    setTierLoading(false);
+  };
+
+  const canAccessCommunity = userTier === 'growth' || userTier === 'transformation';
 
   const loadCommunityData = async () => {
     setLoading(true);
@@ -209,6 +229,57 @@ export default function CommunityPage() {
           <button className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
             Sign In to Join
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show loading while checking tier
+  if (tierLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-purple-300 border-t-purple-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking access permissions...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show upgrade prompt for Sanctuary users
+  if (!canAccessCommunity) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex flex-col items-center justify-center px-6">
+        <div className="bg-white border border-purple-200 p-8 rounded-3xl shadow-lg max-w-md text-center">
+          <div className="text-6xl mb-6">🤝</div>
+          <h1 className="text-2xl text-gray-800 font-light mb-4">Community Healing Circles</h1>
+          <p className="text-gray-600 mb-6 leading-relaxed">
+            Join anonymous peer support groups and healing circles. Share your journey and connect with others walking similar paths.
+          </p>
+          <div className="bg-purple-50 p-4 rounded-xl mb-6">
+            <h3 className="text-purple-800 font-medium mb-2">Growth & Transformation Members Get:</h3>
+            <ul className="text-purple-700 text-sm space-y-1 text-left">
+              <li>• Anonymous healing circles</li>
+              <li>• Peer support groups</li>
+              <li>• Weekly guided discussions</li>
+              <li>• Safe story sharing</li>
+              <li>• Community wisdom library</li>
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <Link
+              href="/pricing"
+              className="block bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-full font-medium transition-all duration-300"
+            >
+              Upgrade to Access Community
+            </Link>
+            <Link
+              href="/dashboard"
+              className="block text-gray-500 hover:text-gray-700 py-3 px-6 font-light transition-all duration-300"
+            >
+              ← Back to Dashboard
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -459,67 +530,7 @@ export default function CommunityPage() {
 
         {/* Healing Circles Tab */}
         {activeTab === 'circles' && (
-          <div className="space-y-6">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Healing Circles</h2>
-                <div className="flex gap-2">
-                  <button className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-200 transition-colors">
-                    <Filter className="w-4 h-4" />
-                    Filter
-                  </button>
-                  <button 
-                    onClick={() => setShowCircleManager(true)}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-purple-700 transition-colors"
-                  >
-                    <Plus className="w-4 h-4" />
-                    Create Circle
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid gap-6">
-              {circles.map(circle => (
-                <div key={circle.id} className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{circle.name}</h3>
-                      <p className="text-gray-600 mb-3">{circle.description}</p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
-                        <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                          {circle.topic}
-                        </span>
-                        <span>{circle.currentCapacity}/{circle.maxCapacity} members</span>
-                        <span>{circle.meetingSchedule.frequency}</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-full bg-gray-200 rounded-full h-2 max-w-xs">
-                        <div 
-                          className="bg-purple-600 h-2 rounded-full" 
-                          style={{ width: `${(circle.currentCapacity / circle.maxCapacity) * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className="text-sm text-gray-500">
-                        {Math.round((circle.currentCapacity / circle.maxCapacity) * 100)}% full
-                      </span>
-                    </div>
-                    
-                    <button 
-                      onClick={() => setShowCircleManager(true)}
-                      className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                    >
-                      Join Circle
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <GrowthHealingCircles />
         )}
 
         {/* Placeholder tabs */}

@@ -130,7 +130,7 @@ export default function EnoughAsYouArePathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-800 to-pink-900 flex flex-col px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#B395D4] to-[#9A7AC7] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -148,7 +148,7 @@ export default function EnoughAsYouArePathway() {
                 key={i}
                 onClick={() => setSelfCompassionScore(i + 1)}
                 className={`h-3 w-6 rounded cursor-pointer transition-all duration-300 ${
-                  i < selfCompassionScore ? 'bg-pink-400' : 'bg-white/20'
+                  i < selfCompassionScore ? 'bg-[#E8C56D]' : 'bg-white/20'
                 }`}
               />
             ))}
@@ -161,7 +161,7 @@ export default function EnoughAsYouArePathway() {
               key={index}
               className={`h-2 flex-1 rounded-full transition-all duration-500 ${
                 completed[index] 
-                  ? 'bg-pink-400' 
+                  ? 'bg-[#E8C56D]' 
                   : index === currentStage 
                   ? 'bg-white/40' 
                   : 'bg-white/20'
@@ -176,28 +176,28 @@ export default function EnoughAsYouArePathway() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-4">{currentStageData.icon}</div>
           <h2 className="text-xl text-white font-light mb-3">{currentStageData.title}</h2>
-          <p className="text-pink-200 text-sm italic">"{currentStageData.challenge}"</p>
+          <p className="text-purple-200 text-sm italic">"{currentStageData.challenge}"</p>
         </div>
 
         {/* Random Affirmation Button */}
         <div className="text-center mb-6">
           <button
             onClick={showRandomAffirmation}
-            className="px-6 py-2 bg-pink-500/20 hover:bg-pink-500/30 rounded-full text-white text-sm transition-all duration-300"
+            className="px-6 py-2 bg-[#E8C56D]/20 hover:bg-[#E8C56D]/30 rounded-full text-white text-sm transition-all duration-300"
           >
             ✨ Get Affirmation
           </button>
           
           {affirmationShown && (
-            <div className="mt-4 p-4 bg-pink-500/20 rounded-xl border border-pink-300/20">
-              <p className="text-pink-100 text-lg font-light italic">"{affirmationShown}"</p>
+            <div className="mt-4 p-4 bg-[#E8C56D]/20 rounded-xl border border-[#E8C56D]/20">
+              <p className="text-purple-100 text-lg font-light italic">"{affirmationShown}"</p>
             </div>
           )}
         </div>
 
         <div className="space-y-6">
           {currentStageData.exercises.map((exercise, exerciseIndex) => (
-            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-pink-300/20 rounded-2xl p-6">
+            <div key={exerciseIndex} className="bg-white/10 backdrop-blur-md border border-purple-300/20 rounded-2xl p-6">
               <h3 className="text-white text-lg font-light mb-4">{exercise.prompt}</h3>
               
               {exercise.interactive && currentStage === 3 ? (
@@ -207,20 +207,20 @@ export default function EnoughAsYouArePathway() {
                       onClick={startMirrorWork}
                       className={`px-8 py-4 rounded-full text-lg transition-all duration-500 ${
                         mirrorWork 
-                          ? 'bg-yellow-500/40 text-white shadow-lg shadow-yellow-500/20' 
-                          : 'bg-pink-500/20 hover:bg-pink-500/30 text-white'
+                          ? 'bg-[#E8C56D]/40 text-white shadow-lg shadow-[#E8C56D]/20' 
+                          : 'bg-purple-500/20 hover:bg-purple-500/30 text-white'
                       }`}
                     >
                       {mirrorWork ? '🪞 Looking with Love' : 'Begin Mirror Work'}
                     </button>
                     
                     {mirrorWork && (
-                      <div className="mt-6 p-6 bg-yellow-500/10 rounded-xl border border-yellow-500/20">
+                      <div className="mt-6 p-6 bg-[#E8C56D]/10 rounded-xl border border-[#E8C56D]/20">
                         <div className="text-4xl mb-4 animate-pulse">🪞</div>
-                        <p className="text-yellow-200 text-sm mb-4">
+                        <p className="text-[#E8C56D] text-sm mb-4">
                           Look at yourself with kindness. Say "I love you exactly as you are."
                         </p>
-                        <div className="text-pink-200 text-lg italic animate-pulse">
+                        <div className="text-purple-200 text-lg italic animate-pulse">
                           "I love you exactly as you are"
                         </div>
                       </div>
@@ -231,7 +231,7 @@ export default function EnoughAsYouArePathway() {
                     value={responses[currentStage * 2 + exerciseIndex] || ''}
                     onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                     placeholder={exercise.placeholder}
-                    className="w-full h-32 bg-white/10 border border-pink-300/20 rounded-xl p-4 text-white placeholder-pink-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-pink-400/50"
+                    className="w-full h-32 bg-white/10 border border-purple-300/20 rounded-xl p-4 text-white placeholder-purple-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50"
                   />
                 </div>
               ) : (
@@ -239,7 +239,7 @@ export default function EnoughAsYouArePathway() {
                   value={responses[currentStage * 2 + exerciseIndex] || ''}
                   onChange={(e) => handleResponse(currentStage * 2 + exerciseIndex, e.target.value)}
                   placeholder={exercise.placeholder}
-                  className="w-full h-40 bg-white/10 border border-pink-300/20 rounded-xl p-4 text-white placeholder-pink-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-pink-400/50 leading-relaxed"
+                  className="w-full h-40 bg-white/10 border border-purple-300/20 rounded-xl p-4 text-white placeholder-purple-200/60 resize-none focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/50 leading-relaxed"
                 />
               )}
             </div>
@@ -262,8 +262,8 @@ export default function EnoughAsYouArePathway() {
               disabled={completed[currentStage]}
               className={`px-6 py-3 rounded-full text-sm transition-all duration-300 ${
                 completed[currentStage]
-                  ? 'bg-pink-400/30 text-white cursor-default'
-                  : 'bg-white/20 hover:bg-pink-400/30 text-white'
+                  ? 'bg-[#E8C56D]/30 text-white cursor-default'
+                  : 'bg-white/20 hover:bg-[#E8C56D]/30 text-white'
               }`}
             >
               {completed[currentStage] ? '✓ I Am Enough' : 'Complete Stage'}
