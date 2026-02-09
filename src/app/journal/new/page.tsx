@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { checkForCrisis } from '@/lib/crisisMonitoring';
+import { detectCrisisOffline, triggerOfflineIntervention } from '@/lib/offlineCrisisDetection';
+import { auditPHIAccess, auditCrisisEvent, auditDataChange } from '@/lib/hipaaAuditLogger';
 import CrisisInterventionModal from '@/components/crisis/CrisisInterventionModal';
 import SafetyPlanBuilder from '@/components/crisis/SafetyPlanBuilder';
 import { useData } from '@/hooks/useData';
@@ -101,28 +103,58 @@ export default function NewEntryPage() {
     setContent(prev => prev + (prev ? '\n\n' : '') + prompt + '\n');
   };
 
-  // Lightweight crisis monitoring - client-side only for instant performance
+  // ENHANCED crisis monitoring - offline-first for safety
   useEffect(() => {
     if (content.trim().length > 30) { // Only check if substantial content
-      const crisisResult = checkForCrisisContent(content);
+      // First: Offline crisis detection (always works)
+      const offlineResult = detectCrisisOffline(content);
       
-      if (crisisResult.detected) {
+      if (offlineResult.detected) {
         setCrisisDetected(true);
-        setCrisisLevel(crisisResult.level as 'low' | 'medium' | 'high' | 'critical');
+        setCrisisLevel(offlineResult.severity);
         
-        if (crisisResult.level === 'critical') {
-          // Immediate intervention for critical keywords
+        // Trigger intervention based on offline analysis
+        if (offlineResult.severity === 'critical' || offlineResult.urgency === 'immediate') {
           setShowCrisisModal(true);
-        } else if (crisisResult.level === 'medium') {
-          // Show gentle banner for medium risk
+          triggerOfflineIntervention(offlineResult.severity, offlineResult.urgency);
+          
+          // HIPAA Audit: Log critical crisis event
+          auditCrisisEvent(
+            userId, 
+            `${offlineResult.severity}_crisis`, 
+            'modal_intervention_triggered', 
+            'intervention_displayed'
+          );
+        } else if (offlineResult.severity === 'high' || offlineResult.urgency === 'urgent') {
           setShowCrisisBanner(true);
-        } else if (crisisResult.level === 'low') {
-          // Gentle banner for support keywords
+          
+          // HIPAA Audit: Log high-risk crisis event
+          auditCrisisEvent(
+            userId, 
+            `${offlineResult.severity}_concern`, 
+            'support_banner_shown', 
+            'resources_provided'
+          );
+        } else if (offlineResult.severity === 'medium') {
           setShowCrisisBanner(true);
         }
       } else {
-        setCrisisDetected(false);
-        setShowCrisisBanner(false);
+        // Fallback: Legacy client-side check for compatibility
+        const legacyResult = checkForCrisisContent(content);
+        
+        if (legacyResult.detected) {
+          setCrisisDetected(true);
+          setCrisisLevel(legacyResult.level as 'low' | 'medium' | 'high' | 'critical');
+          
+          if (legacyResult.level === 'critical') {
+            setShowCrisisModal(true);
+          } else {
+            setShowCrisisBanner(true);
+          }
+        } else {
+          setCrisisDetected(false);
+          setShowCrisisBanner(false);
+        }
       }
     } else {
       setCrisisDetected(false);
@@ -159,6 +191,9 @@ export default function NewEntryPage() {
         }
       }
       
+      // HIPAA Audit: Log PHI creation before saving
+      auditPHIAccess(userId, 'journal_entry', 'create');
+      
       // Save entry using proper dataService API
       const entryData = {
         content,
@@ -178,6 +213,9 @@ export default function NewEntryPage() {
       };
       
       const savedEntry = await saveJournalEntry(entryData);
+      
+      // HIPAA Audit: Log successful PHI creation
+      auditDataChange(userId, 'journal_entry', 'created', 'PHI');
       
       // Show success feedback
       setSaved(true);
@@ -834,11 +872,16 @@ export default function NewEntryPage() {
                   className={`
                     px-4 py-2.5 rounded-full text-sm font-medium
                     transition-all duration-200 active:scale-[0.97]
+                    focus:outline-none focus:ring-2 focus:ring-white/50
                     ${selectedMoods.includes(mood)
                       ? 'bg-[#E8C56D]/25 text-white border border-[#E8C56D]/50 shadow-sm shadow-[#E8C56D]/10'
-                      : 'bg-white/10 text-white/70 border border-white/10 hover:bg-[#E8C56D]/10 hover:border-[#E8C56D]/20 hover:text-white/90'
+                      : 'bg-white/10 text-white/70 border border-white/10 hover:bg-[#E8C56D]/10 hover:border-[#E8C56D]/20 hover:text-white/90 focus:bg-[#E8C56D]/10'
                     }
                   `}
+                  aria-label={`${selectedMoods.includes(mood) ? 'Remove' : 'Add'} ${mood} mood`}
+                  aria-pressed={selectedMoods.includes(mood)}
+                  type="button"
+                  role="checkbox"
                 >
                   {mood}
                 </button>
@@ -863,38 +906,66 @@ export default function NewEntryPage() {
                          text-white text-base leading-relaxed
                          placeholder:text-white/30
                          border border-white/10
-                         focus:bg-white/12 focus:border-[#E8C56D]/30 focus:outline-none
+                         focus:bg-white/12 focus:border-[#E8C56D]/30 focus:outline-none focus:ring-2 focus:ring-[#E8C56D]/20
                          transition-all duration-200 resize-none"
+              aria-label="Journal entry text area - Write about your thoughts, feelings, and experiences"
+              aria-describedby="character-count crisis-detection-info"
+              id="journal-textarea"
             />
-            <span className="absolute bottom-4 right-4 text-white/30 text-xs">
+            <span 
+              className="absolute bottom-4 right-4 text-white/30 text-xs"
+              id="character-count"
+              aria-live="polite"
+            >
               {content.length} characters
             </span>
+            <div 
+              id="crisis-detection-info"
+              className="sr-only"
+            >
+              This text will be automatically analyzed for crisis indicators to provide immediate support if needed.
+            </div>
           </div>
         </section>
 
         {/* Crisis Support Banner */}
         {showCrisisBanner && (
-          <section className="mb-6">
+          <section className="mb-6" role="alert" aria-live="assertive">
             <div className="bg-gradient-to-r from-[#E8C56D]/20 to-[#F2D99D]/10 backdrop-blur-sm rounded-2xl p-4 border border-[#E8C56D]/30">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-full bg-[#E8C56D]/20 flex items-center justify-center">
+                <div 
+                  className="w-8 h-8 rounded-full bg-[#E8C56D]/20 flex items-center justify-center"
+                  aria-hidden="true"
+                >
                   <span className="text-[#E8C56D] text-sm">💛</span>
                 </div>
-                <p className="text-[#E8C56D] text-sm font-medium">Support is here when you need it</p>
+                <h3 
+                  className="text-[#E8C56D] text-sm font-medium"
+                  id="crisis-support-heading"
+                >
+                  Support is here when you need it
+                </h3>
               </div>
-              <p className="text-white/80 text-sm mb-4 leading-relaxed">
+              <p 
+                className="text-white/80 text-sm mb-4 leading-relaxed"
+                role="status"
+              >
                 It sounds like you're going through a difficult time. Remember that you're not alone, and help is available 24/7.
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2" role="group" aria-labelledby="crisis-support-heading">
                 <button
                   onClick={() => safeWindow.open('tel:988', '_self')}
-                  className="px-4 py-2 bg-[#E8C56D] hover:bg-[#F2D99D] rounded-full text-white text-sm font-medium transition-all duration-200"
+                  className="px-4 py-2 bg-[#E8C56D] hover:bg-[#F2D99D] focus:bg-[#F2D99D] focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full text-white text-sm font-medium transition-all duration-200"
+                  aria-label="Call 988 Suicide and Crisis Lifeline - 24/7 crisis support"
+                  type="button"
                 >
                   Call 988
                 </button>
                 <button
                   onClick={() => setShowCrisisBanner(false)}
-                  className="px-4 py-2 bg-white/10 hover:bg-white/15 rounded-full text-white/70 text-sm transition-all duration-200"
+                  className="px-4 py-2 bg-white/10 hover:bg-white/15 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full text-white/70 text-sm transition-all duration-200"
+                  aria-label="Dismiss crisis support banner - I'm okay for now"
+                  type="button"
                 >
                   Thanks, I'm okay
                 </button>
@@ -908,21 +979,32 @@ export default function NewEntryPage() {
           <button 
             onClick={handleSendToKhepera}
             disabled={!canSend}
+            aria-label={canSend 
+              ? "Send journal entry to Khepera AI for compassionate therapeutic response" 
+              : "Send to Khepera button disabled - please write something first"
+            }
+            aria-describedby="khepera-description"
             className={`
               w-full py-4 rounded-xl
               flex items-center justify-center gap-3
               transition-all duration-200 active:scale-[0.98]
+              focus:outline-none focus:ring-2 focus:ring-white/50
               ${canSend
-                ? 'bg-[#E8C56D] hover:bg-[#F2D99D] text-white shadow-lg shadow-[#E8C56D]/20' 
+                ? 'bg-[#E8C56D] hover:bg-[#F2D99D] focus:bg-[#F2D99D] text-white shadow-lg shadow-[#E8C56D]/20' 
                 : 'bg-white/10 text-white/40 cursor-not-allowed'
               }
             `}
+            type="button"
           >
-            <KheperaScarab className="w-5 h-5" />
+            <KheperaScarab className="w-5 h-5" aria-hidden="true" />
             <span className="text-base font-medium">Send to Khepera</span>
           </button>
           {canSend && (
-            <p className="text-white/40 text-xs text-center mt-2">
+            <p 
+              className="text-white/40 text-xs text-center mt-2"
+              id="khepera-description"
+              role="status"
+            >
               Khepera responds instantly ⚡
             </p>
           )}

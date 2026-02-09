@@ -160,11 +160,13 @@ export function AdminAuthGuard({ children }: AdminAuthGuardProps) {
   return (
     <>
       {children}
-      {/* Store admin user data in context if needed */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.adminUser = ${JSON.stringify(adminUser)};`
-        }}
+      {/* Admin context provider - secure data sharing without XSS risk */}
+      <div 
+        id="admin-user-data" 
+        data-admin-role={adminUser.role}
+        data-admin-verified={adminUser.verified}
+        style={{ display: 'none' }}
+        aria-hidden="true"
       />
     </>
   );
