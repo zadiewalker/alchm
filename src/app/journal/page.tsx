@@ -63,9 +63,11 @@ function JournalContent() {
     const hasKheperaResponse = selectedEntry.insights && selectedEntry.insights.length > 0 && selectedEntry.insights.some(insight => insight && insight.trim());
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+        {/* Radial Overlay - LOCKDOWN SPEC */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
         {/* Header */}
-        <header className="px-6 pt-14 pb-4">
+        <header className="relative z-10 px-6 pt-14 pb-4">
           <Link href="/journal/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
             ← Back to Journal
           </Link>
@@ -79,10 +81,10 @@ function JournalContent() {
         </header>
 
         {/* Content */}
-        <div className="flex-1 px-6 overflow-y-auto">
+        <main className="relative z-10 flex-1 px-6 overflow-y-auto">
           
           {/* Journal Entry */}
-          <div className="bg-[#E8C56D]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#E8C56D]/20 mb-6">
+          <div className="bg-white/15 backdrop-blur-[12px] rounded-2xl p-6 border border-white/15 mb-6">
             {selectedEntry.title && (
               <h2 className="text-white text-xl font-light mb-4">{selectedEntry.title}</h2>
             )}
@@ -107,10 +109,10 @@ function JournalContent() {
 
           {/* Khepera's Response */}
           {hasKheperaResponse ? (
-            <div className="bg-[#8B9A7C]/15 backdrop-blur-sm rounded-2xl p-6 border border-[#8B9A7C]/20">
+            <div className="bg-white/15 backdrop-blur-[12px] rounded-2xl p-6 border border-white/15">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-[#E8C56D]/20 flex items-center justify-center mr-4 border border-[#E8C56D]/30">
-                  <span className="text-[#E8C56D] text-lg">☾</span>
+                <div className="w-12 h-12 rounded-full bg-[#E5C97D]/20 flex items-center justify-center mr-4 border border-[#E5C97D]/30">
+                  <span className="text-[#E5C97D] text-lg">☾</span>
                 </div>
                 <div>
                   <h3 className="text-white text-lg font-light">Khepera's Response</h3>
@@ -132,8 +134,8 @@ function JournalContent() {
                   let icon = '✨';
                   
                   if (type.includes('Emotional Recognition')) {
-                    bgColor = 'bg-[#E8C56D]/10';
-                    borderColor = 'border-[#E8C56D]/20';
+                    bgColor = 'bg-[#E5C97D]/10';
+                    borderColor = 'border-[#E5C97D]/20';
                     icon = '🌟';
                   } else if (type.includes('Therapeutic')) {
                     bgColor = 'bg-blue-500/10';
@@ -186,7 +188,7 @@ function JournalContent() {
               )}
             </div>
           ) : (
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 text-center">
+            <div className="bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 text-center">
               <div className="text-4xl mb-4">☾</div>
               <h3 className="text-white text-lg font-light mb-2">No AI Response</h3>
               <p className="text-white/60 text-sm">
@@ -195,29 +197,32 @@ function JournalContent() {
             </div>
           )}
           
-          {/* Crisis Support Footer */}
-          <div className="mt-8 pb-8 pt-6">
-            <p className="text-white/30 text-xs text-center tracking-wide">
-              Crisis support available · 988
-            </p>
-          </div>
+        </main>
+        
+        {/* Crisis Footer - LOCKDOWN SPEC */}
+        <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+          <p className="text-white/40 text-xs text-center tracking-wide">
+            Crisis support available · 988
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-container">
+    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+      {/* Radial Overlay - LOCKDOWN SPEC */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       {/* Header */}
-      <header className="p-6 pb-4">
+      <header className="relative z-10 px-6 pt-14 pb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Link href="/dashboard" className="text-white/70 text-lg mr-4 hover:text-white/90 transition-all duration-200 ease-out active:scale-[0.98]">← Back</Link>
-            <h1 className="text-2xl text-white font-extralight tracking-[0.2em]">Your Entries</h1>
+            <h1 className="text-white text-3xl font-light">Your Entries</h1>
           </div>
           <Link
             href="/journal/new"
-            className="glass-subtle px-6 py-2 rounded-full text-white text-sm hover:bg-white/20 transition-all duration-200 ease-out active:scale-[0.98] min-h-[44px] flex items-center justify-center"
+            className="bg-[#E5C97D] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#F2D99D] transition-all 300ms ease-out active:scale-[0.98] min-h-[44px] flex items-center justify-center"
           >
             + New
           </Link>
@@ -225,7 +230,7 @@ function JournalContent() {
       </header>
 
       {/* Content */}
-      <div className="scrollable px-6">
+      <main className="relative z-10 flex-1 px-6 pb-32 overflow-y-auto">
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <Loading message="Loading your entries..." />
@@ -234,12 +239,12 @@ function JournalContent() {
           /* Empty State */
           <div className="text-center py-12">
             <div className="text-4xl mb-4">📝</div>
-            <h3 className="text-xl font-medium text-white mb-2">No entries yet</h3>
+            <h3 className="text-white text-xl font-light mb-2">No entries yet</h3>
             <p className="text-white/70 mb-6 max-w-sm mx-auto">
               Start your healing journey by writing your first journal entry.
             </p>
             <Link href="/journal/new">
-              <button className="glass-card px-6 py-3 text-white font-medium transition-all duration-200 ease-out hover:bg-white/15 active:scale-[0.98] min-h-[44px]">
+              <button className="bg-[#E5C97D] text-white px-6 py-3 rounded-full font-medium transition-all 300ms ease-out hover:bg-[#F2D99D] active:scale-[0.98] min-h-[44px]">
                 Write Your First Entry
               </button>
             </Link>
@@ -253,7 +258,7 @@ function JournalContent() {
             
             {entries.map((entry) => (
               <Link key={entry.id} href={`/journal?id=${entry.id}`}>
-                <div className="glass-card p-4 transition-all duration-200 ease-out hover:bg-white/15 active:scale-[0.99]">
+                <div className="bg-white/10 backdrop-blur-[12px] border border-white/10 rounded-2xl p-6 transition-all 200ms ease hover:bg-white/15 active:scale-[0.99]">
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-white/70 text-sm">
                       {new Date(entry.createdAt).toLocaleDateString('en-US', {
@@ -269,7 +274,7 @@ function JournalContent() {
                   </div>
                   
                   {entry.title && (
-                    <h3 className="text-white font-medium mb-2 line-clamp-1">
+                    <h3 className="text-white font-light text-lg mb-2 line-clamp-1">
                       {entry.title}
                     </h3>
                   )}
@@ -298,12 +303,13 @@ function JournalContent() {
           </div>
         )}
         
-        {/* Crisis Support Footer */}
-        <div className="mt-8 pb-8 pt-6">
-          <p className="text-white/30 text-xs text-center tracking-wide">
-            Crisis support available · 988
-          </p>
-        </div>
+      </main>
+      
+      {/* Crisis Footer - LOCKDOWN SPEC */}
+      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
+        <p className="text-white/40 text-xs text-center tracking-wide">
+          Crisis support available · 988
+        </p>
       </div>
     </div>
   );
@@ -312,7 +318,7 @@ function JournalContent() {
 export default function JournalPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex items-center justify-center">
         <Loading message="Loading..." />
       </div>
     }>

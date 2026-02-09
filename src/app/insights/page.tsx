@@ -172,7 +172,7 @@ export default function InsightsPage() {
         {/* Calendar - Gentle Timeline */}
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-1 rounded-full bg-[#E8C56D]/40" />
+            <div className="w-1 h-1 rounded-full bg-[#E5C97D]/40" />
             <h2 className="text-white/50 text-sm tracking-wide">{monthName}</h2>
           </div>
           
@@ -221,26 +221,26 @@ export default function InsightsPage() {
         {journalEntries.length > 0 && (
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-1 h-1 rounded-full bg-[#E8C56D]/40" />
+            <div className="w-1 h-1 rounded-full bg-[#E5C97D]/40" />
             <h2 className="text-white/50 text-sm tracking-wide">What's emerging</h2>
           </div>
           
           <div className="space-y-3">
               {getMostCommonMood() && (
-                <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/5 hover:bg-[#E8C56D]/5 hover:border-[#E8C56D]/15 transition-all duration-200">
+                <div className="bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 hover:bg-white/15 transition-all 200ms ease">
                   <p className="text-white/50 text-sm mb-1">Most present feeling</p>
                   <p className="text-white/90 text-lg font-light">{getMostCommonMood()}</p>
                 </div>
               )}
               
               {getWritingPattern() && (
-                <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/5 hover:bg-[#E8C56D]/5 hover:border-[#E8C56D]/15 transition-all duration-200">
+                <div className="bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 hover:bg-white/15 transition-all 200ms ease">
                   <p className="text-white/50 text-sm mb-1">You often write</p>
                   <p className="text-white/90 text-lg font-light">{getWritingPattern()}</p>
                 </div>
               )}
               
-              <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-4 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all duration-200">
+              <div className="bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 hover:bg-white/15 transition-all 200ms ease">
                 <p className="text-white/50 text-sm mb-1">Total reflections</p>
                 <p className="text-white/90 text-lg font-light">{journalEntries.length}</p>
               </div>
