@@ -48,7 +48,7 @@ async function getOrCreateEncryptionKey(): Promise<CryptoKey> {
 function getSessionEntropy(): string {
   const timestamp = Date.now().toString();
   const userAgent = navigator.userAgent || 'unknown';
-  const screenInfo = `${screen.width || 0}x${${screen.height || 0}}`;
+  const screenInfo = `${screen.width || 0}x${screen.height || 0}`;
   const language = navigator.language || 'en';
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
   
@@ -58,7 +58,7 @@ function getSessionEntropy(): string {
 // Convert string to ArrayBuffer for encryption
 function stringToArrayBuffer(str: string): ArrayBuffer {
   const encoder = new TextEncoder();
-  return encoder.encode(str);
+  return encoder.encode(str).buffer;
 }
 
 // Convert ArrayBuffer to string for decryption

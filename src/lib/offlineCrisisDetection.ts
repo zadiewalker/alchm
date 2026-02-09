@@ -142,16 +142,16 @@ export function detectCrisisOffline(text: string): CrisisDetectionResult {
   });
 
   // Check for multiple concerning phrases (escalates severity)
-  if (totalMatches >= 5 && highestSeverity === 'medium') {
+  if (totalMatches >= 5 && getSeverityLevel(highestSeverity) <= getSeverityLevel('medium')) {
     highestSeverity = 'high';
   }
-  if (totalMatches >= 8 && highestSeverity === 'high') {
+  if (totalMatches >= 8 && getSeverityLevel(highestSeverity) <= getSeverityLevel('high')) {
     highestSeverity = 'critical';
   }
 
   // Check text length for context (longer text = more concerning if crisis words present)
   const textLength = words.length;
-  if (textLength > 100 && totalMatches > 0 && highestUrgency === 'moderate') {
+  if (textLength > 100 && totalMatches > 0 && getUrgencyLevel(highestUrgency) <= getUrgencyLevel('moderate')) {
     highestUrgency = 'high';
   }
 
