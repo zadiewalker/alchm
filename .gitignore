@@ -35,3 +35,8 @@ alchm-pwa*.zip
 ALCHM app icon*.png
 ALCHM app icon*.jpg
 ALCHM app icon*.jpeg
+
+Clean
+alchm
+debug_localstorage.js
+test_localStorage.js
