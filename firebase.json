@@ -13,6 +13,18 @@
         "**/*.backup",
         "**/*.disabled"
       ],
+      "redirects": [
+        {
+          "source": "/api/:path*",
+          "destination": "https://alchm.vercel.app/api/:path*",
+          "type": 307
+        },
+        {
+          "source": "/:path*",
+          "destination": "https://alchm.vercel.app/:path*",
+          "type": 307
+        }
+      ],
       "rewrites": [
         {
           "source": "/",
