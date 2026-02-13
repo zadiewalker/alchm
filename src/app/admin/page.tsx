@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { CrisisMonitoringDashboard } from "@/components/admin/CrisisMonitoringDashboard";
@@ -10,7 +9,6 @@ import { AdminAuthGuard } from "@/components/admin/AdminAuthGuard";
 export default function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {

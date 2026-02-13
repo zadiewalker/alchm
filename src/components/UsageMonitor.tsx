@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { openaiWithRateLimit } from '@/lib/openaiWithRateLimit';
+import { getUserUsageStats } from '@/lib/usageService';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 
 interface UsageStats {
   usage: {
@@ -31,6 +32,7 @@ export default function UsageMonitor({
   compact?: boolean;
 }) {
   const { user } = useAuth();
+  const { navigate } = useSafeNavigation(900);
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +48,7 @@ export default function UsageMonitor({
       setLoading(true);
       setError(null);
       
-      const stats = await openaiWithRateLimit.getUserUsageStats(user?.uid, subscriptionTier);
+      const stats = await getUserUsageStats(user?.uid, subscriptionTier);
       setUsageStats(stats);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load usage stats');
@@ -220,7 +222,7 @@ export default function UsageMonitor({
       {subscriptionTier === 'growth' && (
         <div className="mt-4 text-center">
           <button 
-            onClick={() => window.location.href = '/pricing/'}
+            onClick={() => navigate('/pricing', { source: 'usage-upgrade-cta' })}
             className="text-[#E5C97D] text-sm hover:text-[#F2D99D] transition-colors"
           >
             Upgrade for higher limits →

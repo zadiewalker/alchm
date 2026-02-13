@@ -8,7 +8,7 @@ export default function SettingsPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
       {/* Header */}
       <header className="px-6 pt-14 pb-6">
-        <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
+        <Link href="/dashboard" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
           ← Back
         </Link>
         <h1 className="text-white text-3xl font-light">Settings</h1>

@@ -51,7 +51,12 @@ const TOKEN_COSTS = {
 };
 
 export class RateLimiter {
-  private db = getFirestore();
+  private getDb() {
+    if (typeof window === 'undefined') {
+      throw new Error('Rate limiter is only available in the browser');
+    }
+    return getFirestore();
+  }
 
   async checkAndUpdateUsage(
     userId: string,
@@ -68,8 +73,9 @@ export class RateLimiter {
     reason?: string;
   }> {
     try {
+      const db = this.getDb();
       const today = new Date().toISOString().split('T')[0];
-      const usageRef = doc(this.db, 'userUsage', `${userId}_${today}`);
+      const usageRef = doc(db, 'userUsage', `${userId}_${today}`);
       
       // Get current usage
       const usageDoc = await getDoc(usageRef);
@@ -212,8 +218,9 @@ export class RateLimiter {
     };
   }> {
     try {
+      const db = this.getDb();
       const today = new Date().toISOString().split('T')[0];
-      const usageRef = doc(this.db, 'userUsage', `${userId}_${today}`);
+      const usageRef = doc(db, 'userUsage', `${userId}_${today}`);
       const usageDoc = await getDoc(usageRef);
 
       const usage: UserUsage = usageDoc.exists() 

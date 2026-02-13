@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function PrivacyPolicy() {
@@ -19,12 +20,12 @@ export default function PrivacyPolicy() {
             <p className="text-sm">Effective Date: January 26, 2026</p>
           </div>
           <div className="mt-4">
-            <a 
+            <Link 
               href="/dashboard" 
               className="bg-[#E5C97D] text-white px-6 py-3 rounded-full font-medium hover:bg-[#F2D99D] transition-all 300ms ease-out active:scale-[0.98] min-h-[44px] flex items-center justify-center"
             >
               ← Back to Dashboard
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -192,9 +193,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Request a complete copy of all personal data we hold about you, including journal entries and AI analyses.
                   </p>
-                  <a href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Request data export
-                  </a>
+                  </Link>
                 </div>
                 
                 <div>
@@ -202,9 +203,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Correct any inaccurate personal information or complete incomplete data.
                   </p>
-                  <a href="/dashboard" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/dashboard" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Update account info
-                  </a>
+                  </Link>
                 </div>
                 
                 <div>
@@ -212,9 +213,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Request deletion of your personal data ('right to be forgotten') with 30-day grace period.
                   </p>
-                  <a href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Delete account
-                  </a>
+                  </Link>
                 </div>
                 
                 <div>
@@ -222,9 +223,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Export your data in standard formats (JSON, CSV) for use with other services.
                   </p>
-                  <a href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Export data
-                  </a>
+                  </Link>
                 </div>
                 
                 <div>
@@ -232,9 +233,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Object to processing based on legitimate interests or for direct marketing.
                   </p>
-                  <a href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Manage consent
-                  </a>
+                  </Link>
                 </div>
                 
                 <div>
@@ -242,9 +243,9 @@ export default function PrivacyPolicy() {
                   <p className="text-gray-700 text-sm">
                     Limit how we process your data while maintaining your account.
                   </p>
-                  <a href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
+                  <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Restrict processing
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -359,9 +360,9 @@ export default function PrivacyPolicy() {
                   <strong>Easy Withdrawal:</strong> You can withdraw consent at any time through your privacy dashboard. 
                   Consent withdrawal is processed immediately and affects future data processing.
                 </p>
-                <a href="/privacy" className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">
+                <Link href="/privacy" className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">
                   Manage Consent Settings
-                </a>
+                </Link>
               </div>
             </div>
           </section>
@@ -540,12 +541,12 @@ export default function PrivacyPolicy() {
               <div className="bg-white border border-gray-200 rounded-lg p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-3">
-                  <a href="/privacy" className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-center">
+                  <Link href="/privacy" className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-center">
                     Privacy Dashboard
-                  </a>
-                  <a href="/transparency" className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-center">
+                  </Link>
+                  <Link href="/transparency" className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-center">
                     Transparency Report
-                  </a>
+                  </Link>
                   <a href="mailto:privacy@alchm.app" className="block px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 text-center">
                     Contact Privacy Team
                   </a>
@@ -563,9 +564,9 @@ export default function PrivacyPolicy() {
             with the highest standards of privacy and security.
           </p>
           <div className="flex justify-center space-x-6 text-[#E5C97D]">
-            <a href="/privacy" className="hover:underline">Privacy Dashboard</a>
-            <a href="/transparency" className="hover:underline">Transparency Report</a>
-            <a href="/terms" className="hover:underline">Terms of Service</a>
+            <Link href="/privacy" className="hover:underline">Privacy Dashboard</Link>
+            <Link href="/transparency" className="hover:underline">Transparency Report</Link>
+            <Link href="/terms" className="hover:underline">Terms of Service</Link>
             <a href="mailto:privacy@alchm.app" className="hover:underline">Privacy Questions</a>
           </div>
           <p className="mt-4 text-white/30">

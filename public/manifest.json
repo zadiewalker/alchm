@@ -1,0 +1,126 @@
+{
+  "name": "ALCHM - Digital Sanctuary for Healing",
+  "short_name": "ALCHM",
+  "description": "Your digital sanctuary for healing and transformation. Advanced AI-powered mental health support with crisis intervention, personalized growth pathways, and community healing circles.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#8B9A7C",
+  "theme_color": "#8B9A7C",
+  "orientation": "portrait-primary",
+  "categories": ["health", "lifestyle", "medical"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "mobile"
+    },
+    {
+      "src": "/screenshot-mobile-2.png", 
+      "sizes": "390x844",
+      "type": "image/png",
+      "platform": "mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Emergency Support",
+      "short_name": "Crisis",
+      "description": "Quick access to crisis support resources",
+      "url": "/crisis-support",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Daily Journal",
+      "short_name": "Journal",
+      "description": "Write in your healing journal",
+      "url": "/journal/new",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Transformation Practice",
+      "short_name": "Practice",
+      "description": "Start today's transformation practice",
+      "url": "/transformation",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/alchm/id123456789"
+    }
+  ]
+}

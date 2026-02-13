@@ -1,7 +1,13 @@
+'use client';
+
+import { BlockInProduction } from '@/components/BlockInProduction';
+
 // Ultra-minimal React component with NO hooks, NO complexity
 console.log('🔥 DebugReactPage: File loading')
 
 export default function DebugReactPage() {
+  if (process.env.NODE_ENV === 'production') return <BlockInProduction />;
+
   // Add immediate console logging
   console.log('🔥 DebugReactPage: Starting render')
   console.log('🔥 DebugReactPage: Node env:', process.env.NODE_ENV)
@@ -108,7 +114,7 @@ export default function DebugReactPage() {
             🪝 Test Hooks →
           </a>
           
-          <a href="/dashboard/" style={{ ...linkStyle, background: '#E5C97D' }}>
+          <a href="/dashboard" style={{ ...linkStyle, background: '#E5C97D' }}>
             🏠 Test Dashboard →
           </a>
           

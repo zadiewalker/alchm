@@ -827,7 +827,7 @@ export default function NewEntryPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
       {/* Header - Clean, no bullets */}
       <header className="px-6 pt-14 pb-4 flex items-center justify-between">
-        <Link href="/dashboard/" className="text-white/60 text-base">
+        <Link href="/dashboard" className="text-white/60 text-base">
           ← Back
         </Link>
         {/* Save as secondary/draft action */}

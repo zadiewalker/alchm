@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { collection, query, orderBy, limit, getDocs, where } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
@@ -463,9 +464,9 @@ export default function TransparencyReport() {
             Next report: {new Date(new Date().setMonth(new Date().getMonth() + 3)).toLocaleDateString()}
           </p>
           <p className="mt-2">
-            <a href="/privacy" className="text-[#E5C97D] hover:underline">Privacy Policy</a> | 
-            <a href="/terms" className="text-[#E5C97D] hover:underline ml-2">Terms of Service</a> | 
-            <a href="/privacy" className="text-[#E5C97D] hover:underline ml-2">Manage Privacy Settings</a>
+            <Link href="/privacy" className="text-[#E5C97D] hover:underline">Privacy Policy</Link> | 
+            <Link href="/terms" className="text-[#E5C97D] hover:underline ml-2">Terms of Service</Link> | 
+            <Link href="/privacy" className="text-[#E5C97D] hover:underline ml-2">Manage Privacy Settings</Link>
           </p>
         </div>
       </div>

@@ -1,10 +1,20 @@
+'use client';
+
+import { BlockInProduction } from '@/components/BlockInProduction';
+
 // Ultra-simple React component with NO hooks, NO complexity
 console.log('🧪 Simple test component file loading')
 
 export default function SimpleTestPage() {
+  if (process.env.NODE_ENV === 'production') return <BlockInProduction />;
   console.log('🧪 Simple test component rendering')
   
   const currentTime = new Date().toLocaleTimeString()
+  const userAgent = typeof navigator === 'undefined' ? 'server-render' : navigator.userAgent.slice(0, 50)
+  const platform = typeof navigator === 'undefined' ? 'server-render' : navigator.platform
+  const language = typeof navigator === 'undefined' ? 'server-render' : navigator.language
+  const cookiesEnabled = typeof navigator === 'undefined' ? 'server-render' : (navigator.cookieEnabled ? 'Yes' : 'No')
+  const online = typeof navigator === 'undefined' ? 'server-render' : (navigator.onLine ? 'Yes' : 'No')
   
   return (
     <div 
@@ -111,11 +121,11 @@ export default function SimpleTestPage() {
           }}
         >
           <strong>Debug Info:</strong><br />
-          User Agent: {navigator.userAgent.slice(0, 50)}...<br />
-          Platform: {navigator.platform}<br />
-          Language: {navigator.language}<br />
-          Cookies Enabled: {navigator.cookieEnabled ? 'Yes' : 'No'}<br />
-          Online: {navigator.onLine ? 'Yes' : 'No'}
+          User Agent: {userAgent}...<br />
+          Platform: {platform}<br />
+          Language: {language}<br />
+          Cookies Enabled: {cookiesEnabled}<br />
+          Online: {online}
         </div>
       </div>
     </div>

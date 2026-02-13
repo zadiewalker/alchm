@@ -1,9 +1,11 @@
 'use client'
+import { BlockInProduction } from '@/components/BlockInProduction'
 import { useState, useEffect } from 'react'
 
 console.log('🪝 DebugHooksPage: File loading')
 
 export default function DebugHooksPage() {
+  if (process.env.NODE_ENV === 'production') return <BlockInProduction />
   console.log('🪝 DebugHooksPage: Component starting render')
   
   const [status, setStatus] = useState('Initializing...')
@@ -227,7 +229,7 @@ export default function DebugHooksPage() {
 
         <div style={{ textAlign: 'center' }}>
           <a 
-            href="/dashboard/"
+            href="/dashboard"
             style={{
               display: 'inline-block',
               padding: '12px 24px',
