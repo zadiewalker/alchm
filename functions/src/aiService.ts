@@ -5,7 +5,7 @@ import {
   EMOTIONAL_THEMES_PROMPT,
   WISDOM_REFLECTION_PROMPT
 } from "./prompts";
-import { JournalAnalysis, CrisisDetectionResult, EmotionalThemes } from "./types";
+import { JournalAnalysis } from "./types";
 
 // Initialize OpenAI client with environment variable
 let openai: OpenAI | null = null;
@@ -32,108 +32,108 @@ export async function analyzeJournalEntry(
     console.log(`Starting AI analysis for user ${userId}, entry ${journalEntryId}`);
     const client = getOpenAIClient();
 
-    // Run analysis calls in parallel for efficiency
-    const [traumaInformedResponse, crisisDetectionResponse, emotionalThemesResponse, wisdomReflectionResponse] = 
-      await Promise.all([
-        // Main trauma-informed analysis
-        client.chat.completions.create({
-          model: "gpt-4o",
-          messages: [
-            {
-              role: "system",
-              content: "You are Khepera, a trauma-informed AI companion. Provide supportive, healing-focused insights."
-            },
-            {
-              role: "user",
-              content: TRAUMA_INFORMED_ANALYSIS_PROMPT.replace("{journalEntry}", journalEntry)
-            }
-          ],
-          max_tokens: 800,
-          temperature: 0.7,
-        }),
+    // Single comprehensive AI call for faster response
+    const comprehensivePrompt = `
+JOURNAL ENTRY TO ANALYZE:
+"${journalEntry}"
 
-        // Crisis detection (separate call for safety)
-        client.chat.completions.create({
-          model: "gpt-4o",
-          messages: [
-            {
-              role: "system", 
-              content: "You are a crisis detection system. Be conservative - only flag clear immediate dangers."
-            },
-            {
-              role: "user",
-              content: CRISIS_DETECTION_PROMPT.replace("{journalEntry}", journalEntry)
-            }
-          ],
-          max_tokens: 200,
-          temperature: 0.1, // Lower temperature for consistent crisis detection
-        }),
+Please provide a comprehensive analysis with the following structure:
 
-        // Emotional themes analysis
-        client.chat.completions.create({
-          model: "gpt-4o",
-          messages: [
-            {
-              role: "system",
-              content: "Analyze emotional themes with compassion and insight."
-            },
-            {
-              role: "user",
-              content: EMOTIONAL_THEMES_PROMPT.replace("{journalEntry}", journalEntry)
-            }
-          ],
-          max_tokens: 400,
-          temperature: 0.6,
-        }),
+1. CRISIS ASSESSMENT:
+${CRISIS_DETECTION_PROMPT.replace("{journalEntry}", "")}
 
-        // Wisdom reflection
-        client.chat.completions.create({
-          model: "gpt-4o",
-          messages: [
-            {
-              role: "system",
-              content: "Reflect the user's wisdom back to them with warmth and affirmation."
-            },
-            {
-              role: "user",
-              content: WISDOM_REFLECTION_PROMPT.replace("{journalEntry}", journalEntry)
-            }
-          ],
-          max_tokens: 300,
-          temperature: 0.8,
-        })
-      ]);
+2. TRAUMA-INFORMED ANALYSIS:
+${TRAUMA_INFORMED_ANALYSIS_PROMPT.replace("{journalEntry}", "")}
 
-    // Parse responses
-    const mainAnalysisText = traumaInformedResponse.choices[0]?.message?.content || "";
-    const crisisText = crisisDetectionResponse.choices[0]?.message?.content || "";
-    const emotionalThemesText = emotionalThemesResponse.choices[0]?.message?.content || "";
-    const wisdomText = wisdomReflectionResponse.choices[0]?.message?.content || "";
+3. EMOTIONAL THEMES:
+${EMOTIONAL_THEMES_PROMPT.replace("{journalEntry}", "")}
 
-    // Parse structured responses
-    const crisisAssessment = parseJSONResponse<CrisisDetectionResult>(crisisText, {
-      isCrisis: false,
-      confidenceLevel: "low",
-      reasoning: "Unable to assess",
-      suggestedResources: null
+4. WISDOM REFLECTION:
+${WISDOM_REFLECTION_PROMPT.replace("{journalEntry}", "")}
+
+Return your response in this exact JSON format:
+{
+  "crisisAssessment": {
+    "isCrisis": boolean,
+    "confidenceLevel": "low" | "medium" | "high",
+    "reasoning": "explanation",
+    "suggestedResources": ["resource1", "resource2"] or null
+  },
+  "analysis": {
+    "emotionalRecognition": "recognition text",
+    "strengthIdentification": "strength text", 
+    "gentleInsight": "insight text",
+    "nurturingSuggestion": "suggestion text"
+  },
+  "emotionalThemes": {
+    "primaryEmotions": ["emotion1", "emotion2"],
+    "emotionalJourney": "journey description",
+    "copingStrategies": ["strategy1"] or null,
+    "growthIndicators": ["indicator1"] or null,
+    "supportiveNote": "supportive message"
+  },
+  "wisdomReflection": "wisdom reflection text"
+}`;
+
+    const comprehensiveResponse = await client.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: "You are Khepera, a trauma-informed AI companion. Provide supportive, healing-focused insights. Always respond with valid JSON."
+        },
+        {
+          role: "user",
+          content: comprehensivePrompt
+        }
+      ],
+      max_tokens: 1500,
+      temperature: 0.7,
     });
 
-    const emotionalThemes = parseJSONResponse<EmotionalThemes>(emotionalThemesText, {
-      primaryEmotions: ["processing"],
+    // Parse comprehensive response
+    const responseText = comprehensiveResponse.choices[0]?.message?.content || "";
+    console.log("Raw AI response:", responseText);
+    
+    // Try to parse as JSON first
+    let parsedResponse: any = null;
+    try {
+      parsedResponse = parseJSONResponse(responseText, {});
+    } catch (error) {
+      console.warn("Failed to parse as JSON, falling back to text parsing");
+      parsedResponse = {};
+    }
+
+    // Extract components with fallbacks
+    const crisisAssessment = parsedResponse?.crisisAssessment || {
+      isCrisis: false,
+      confidenceLevel: "low" as const,
+      reasoning: "Unable to assess",
+      suggestedResources: null
+    };
+
+    const analysis = parsedResponse?.analysis || {
+      emotionalRecognition: "Thank you for sharing your thoughts with such honesty.",
+      strengthIdentification: "Your willingness to reflect shows deep self-awareness.",
+      gentleInsight: "Every moment of honest self-reflection is a gift you give yourself.",
+      nurturingSuggestion: "Take a gentle breath and acknowledge your courage in exploring your inner world."
+    };
+
+    const emotionalThemes = parsedResponse?.emotionalThemes || {
+      primaryEmotions: ["reflective"],
       emotionalJourney: "Exploring feelings with courage",
       copingStrategies: null,
       growthIndicators: null,
       supportiveNote: "You are brave for expressing your feelings"
-    });
+    };
 
-    // Parse main analysis into structured format
-    const analysis = parseTraumaInformedAnalysis(mainAnalysisText);
+    const wisdomReflection = parsedResponse?.wisdomReflection || "In sharing your thoughts, you demonstrate deep wisdom about the healing power of expression.";
 
     const result: JournalAnalysis = {
       id: `analysis_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       analysis,
       emotionalThemes,
-      wisdomReflection: wisdomText,
+      wisdomReflection,
       crisisAssessment,
       metadata: {
         analyzedAt: new Date(),
@@ -172,30 +172,7 @@ function parseJSONResponse<T>(jsonText: string, fallback: T): T {
   }
 }
 
-function parseTraumaInformedAnalysis(analysisText: string) {
-  // Simple parsing of the structured analysis
-  // In production, you might want more sophisticated parsing
-  return {
-    emotionalRecognition: extractSection(analysisText, "emotional recognition", "I see you are experiencing many feelings right now."),
-    strengthIdentification: extractSection(analysisText, "strength", "You showed courage by expressing yourself."),
-    gentleInsight: extractSection(analysisText, "insight", "This reflection shows your growing self-awareness."),
-    nurturingSuggestion: extractSection(analysisText, "suggestion", "Consider taking a moment to breathe and offer yourself compassion.")
-  };
-}
 
-function extractSection(text: string, keyword: string, fallback: string): string {
-  const lines = text.split("\n");
-  for (let i = 0; i < lines.length; i++) {
-    if (lines[i].toLowerCase().includes(keyword)) {
-      // Return the next line or the line after a colon
-      const nextLine = lines[i + 1] || lines[i].split(":")[1];
-      if (nextLine && nextLine.trim()) {
-        return nextLine.trim();
-      }
-    }
-  }
-  return fallback;
-}
 
 function createFallbackAnalysis(userId: string, journalEntryId: string): JournalAnalysis {
   return {

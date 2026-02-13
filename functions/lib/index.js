@@ -520,10 +520,10 @@ app.post("/admin/check-alerts", async (req, res) => {
 // Export the Express app as Firebase Functions
 exports.aiAnalysis = functions
     .runWith({
-    memory: "512MB",
-    timeoutSeconds: 60,
-    minInstances: 0,
-    maxInstances: 10
+    memory: "1GB", // More memory for faster processing
+    timeoutSeconds: 120, // Longer timeout for complex AI analysis  
+    minInstances: 1, // Keep 1 instance warm to avoid cold starts
+    maxInstances: 5 // Reduced max for cost efficiency
 })
     .https
     .onRequest(app);

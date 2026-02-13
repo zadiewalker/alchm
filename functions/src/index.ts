@@ -16,6 +16,13 @@ import {
   logPrivacyAction
 } from "./auditService";
 
+// Import budget monitoring services
+import {
+  processBudgetAlert,
+  trackDailyCosts,
+  cleanupOldUsageData
+} from "./budgetAlerts";
+
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
   admin.initializeApp();
@@ -580,10 +587,10 @@ app.post("/admin/check-alerts", async (req: express.Request, res: express.Respon
 // Export the Express app as Firebase Functions
 export const aiAnalysis = functions
   .runWith({
-    memory: "512MB",
-    timeoutSeconds: 60,
-    minInstances: 0,
-    maxInstances: 10
+    memory: "1GB",          // More memory for faster processing
+    timeoutSeconds: 120,     // Longer timeout for complex AI analysis  
+    minInstances: 1,         // Keep 1 instance warm to avoid cold starts
+    maxInstances: 5          // Reduced max for cost efficiency
   })
   .https
   .onRequest(app);
@@ -982,3 +989,12 @@ export const aiSystemValidation = functions
     
     return null;
   });
+
+// ============ BUDGET MONITORING FUNCTIONS ============
+
+// Export budget monitoring functions
+export {
+  processBudgetAlert,
+  trackDailyCosts,
+  cleanupOldUsageData
+} from "./budgetAlerts";
