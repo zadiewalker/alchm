@@ -63,7 +63,7 @@ export default function PathwaysPage() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       {/* Header */}
       <header className="relative z-10 px-6 pt-14 pb-6">
-        <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
+        <Link href="/dashboard" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
           ← Back
         </Link>
         <h1 className="text-white text-3xl font-light">Pathways</h1>

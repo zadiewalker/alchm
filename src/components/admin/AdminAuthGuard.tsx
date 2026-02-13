@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { useSafeNavigation } from "@/hooks/useSafeNavigation";
 
 interface AdminAuthGuardProps {
   children: ReactNode;
@@ -22,7 +22,7 @@ export function AdminAuthGuard({ children }: AdminAuthGuardProps) {
   const [adminUser, setAdminUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
-  const router = useRouter();
+  const { navigate } = useSafeNavigation(900);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
@@ -108,7 +108,7 @@ export function AdminAuthGuard({ children }: AdminAuthGuardProps) {
             You must be logged in to access the crisis monitoring dashboard.
           </p>
           <button
-            onClick={() => router.push("/auth/login")}
+            onClick={() => navigate("/auth/login", { source: "admin-auth-guard" })}
             className="bg-red-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors"
           >
             Go to Login

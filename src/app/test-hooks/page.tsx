@@ -1,9 +1,11 @@
 'use client'
+import { BlockInProduction } from '@/components/BlockInProduction'
 import { useState, useEffect } from 'react'
 
 console.log('🪝 Hook test component file loading')
 
 export default function TestHooksPage() {
+  if (process.env.NODE_ENV === 'production') return <BlockInProduction />
   console.log('🪝 Hook test component rendering')
   
   const [message, setMessage] = useState('⏳ Loading...')
@@ -173,7 +175,7 @@ export default function TestHooksPage() {
 
         <div>
           <a 
-            href="/dashboard/"
+            href="/dashboard"
             style={{
               display: 'inline-block',
               padding: '12px 24px',

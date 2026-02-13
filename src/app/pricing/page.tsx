@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getStripe } from '@/lib/stripe';
 import { safeWindow } from '@/utils/browser';
 
 export default function PricingPage() {
@@ -40,7 +39,7 @@ export default function PricingPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
       {/* Header */}
       <header className="px-6 pt-14 pb-6">
-        <Link href="/dashboard/" className="text-white/60 text-base mb-4 inline-block">
+        <Link href="/dashboard" className="text-white/60 text-base mb-4 inline-block">
           ← Back
         </Link>
         
