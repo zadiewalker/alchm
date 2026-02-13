@@ -1,0 +1,37 @@
+.vercel
+.env*.local
+.env
+functions/.env
+firebase-debug.log
+firebase-debug.*.log
+functions/firebase-debug.log
+functions/firebase-debug.*.log
+.next
+out
+out 2
+node_modules
+functions/node_modules
+
+# Local Firebase cache/artifacts
+.firebase/
+
+# Logs and diagnostics
+*.log
+*.log.*
+lighthouse-*.json
+
+# TypeScript and build cache
+*.tsbuildinfo
+
+# Local backup/duplicate files
+*.bak
+* 2.json
+* 2.js
+* 2.tsbuildinfo
+*.backup
+
+# Local archives/assets
+alchm-pwa*.zip
+ALCHM app icon*.png
+ALCHM app icon*.jpg
+ALCHM app icon*.jpeg

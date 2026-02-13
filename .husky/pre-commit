@@ -1,0 +1,16 @@
+# SACRED DESIGN PROTECTION - Pre-commit Hook
+echo "🛡️  Protecting ALCHM from design contamination..."
+
+# Run design validation before allowing commit
+npm run design:validate
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "🚫 COMMIT BLOCKED!"
+  echo "❌ Sacred design validation failed"
+  echo "💡 Fix color violations before committing"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Sacred design is protected - Commit allowed"
