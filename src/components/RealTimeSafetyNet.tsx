@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
+import { safeWindow } from '@/utils/browser';
+import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
 interface SafetyContact {
   id: string;
@@ -57,17 +59,17 @@ export default function RealTimeSafetyNet() {
 
   const loadSafetyNetwork = () => {
     try {
-      const contacts = localStorage.getItem('safety_contacts');
+      const contacts = getStorageItemWithFallback('safety_contacts');
       if (contacts) {
         setSafetyContacts(JSON.parse(contacts));
       }
 
-      const lastCheckInStr = localStorage.getItem('last_check_in');
+      const lastCheckInStr = getStorageItemWithFallback('last_check_in');
       if (lastCheckInStr) {
         setLastCheckIn(new Date(lastCheckInStr));
       }
 
-      const moodHistoryStr = localStorage.getItem('mood_history');
+      const moodHistoryStr = getStorageItemWithFallback('mood_history');
       if (moodHistoryStr) {
         const history = JSON.parse(moodHistoryStr);
         setMoodHistory(history.map((entry: any) => ({
@@ -177,8 +179,8 @@ export default function RealTimeSafetyNet() {
         setMoodHistory(updatedHistory);
         setLastCheckIn(new Date());
         
-        localStorage.setItem('mood_history', JSON.stringify(updatedHistory));
-        localStorage.setItem('last_check_in', new Date().toISOString());
+        setStorageItemNormalized('mood_history', JSON.stringify(updatedHistory));
+        setStorageItemNormalized('last_check_in', new Date().toISOString());
 
         // Check if crisis intervention needed
         if (mood <= 3) {
@@ -205,10 +207,10 @@ export default function RealTimeSafetyNet() {
     setShowEmergencyActions(true);
 
     // Log the crisis response
-    const crisisLog = localStorage.getItem('crisis_responses') || '[]';
+    const crisisLog = getStorageItemWithFallback('crisis_responses') || '[]';
     const responses = JSON.parse(crisisLog);
     responses.push(crisisResponse);
-    localStorage.setItem('crisis_responses', JSON.stringify(responses));
+    setStorageItemNormalized('crisis_responses', JSON.stringify(responses));
   };
 
   const addSafetyContact = (contact: Omit<SafetyContact, 'id'>) => {
@@ -219,7 +221,7 @@ export default function RealTimeSafetyNet() {
 
     const updatedContacts = [...safetyContacts, newContact];
     setSafetyContacts(updatedContacts);
-    localStorage.setItem('safety_contacts', JSON.stringify(updatedContacts));
+    setStorageItemNormalized('safety_contacts', JSON.stringify(updatedContacts));
     setShowAddContact(false);
   };
 
@@ -237,14 +239,14 @@ export default function RealTimeSafetyNet() {
 
     switch (method) {
       case 'call':
-        window.location.href = `tel:${contactInfo}`;
+        safeWindow.open(`tel:${contactInfo}`, '_self');
         break;
       case 'text':
-        window.location.href = `sms:${contactInfo}`;
+        safeWindow.open(`sms:${contactInfo}`, '_self');
         break;
       case 'email':
         if ('email' in contact && contact.email) {
-          window.location.href = `mailto:${contact.email}`;
+          safeWindow.open(`mailto:${contact.email}`, '_self');
         }
         break;
     }
@@ -259,10 +261,10 @@ export default function RealTimeSafetyNet() {
       };
 
       // Update crisis log
-      const crisisLog = localStorage.getItem('crisis_responses') || '[]';
+      const crisisLog = getStorageItemWithFallback('crisis_responses') || '[]';
       const responses = JSON.parse(crisisLog);
       responses[responses.length - 1] = finalResponse;
-      localStorage.setItem('crisis_responses', JSON.stringify(responses));
+      setStorageItemNormalized('crisis_responses', JSON.stringify(responses));
     }
 
     setIsInCrisis(false);

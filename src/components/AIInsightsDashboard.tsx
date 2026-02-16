@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useData } from '@/hooks/useData';
 import { advancedAI, AIInsight, PersonalityProfile, PredictiveModel, ThematicAnalysis, AIRecommendation } from '@/lib/advancedAI';
+import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
 export default function AIInsightsDashboard() {
   const { user } = useAuth();
@@ -55,9 +56,9 @@ export default function AIInsightsDashboard() {
       // Gather all user data
       const journalEntries = await getJournalEntries(50);
       const dreamEntries = await getDreamEntries();
-      const moodHistory = JSON.parse(localStorage.getItem('mood_history') || '[]');
-      const challengeCompletions = JSON.parse(localStorage.getItem('transformation_progress') || '{}').challengeHistory || [];
-      const pathwayProgress = JSON.parse(localStorage.getItem('pathway_progress') || '[]');
+      const moodHistory = JSON.parse(getStorageItemWithFallback('mood_history') || '[]');
+      const challengeCompletions = JSON.parse(getStorageItemWithFallback('transformation_progress') || '{}').challengeHistory || [];
+      const pathwayProgress = JSON.parse(getStorageItemWithFallback('pathway_progress') || '[]');
 
       const userData = {
         journalEntries,
@@ -109,7 +110,7 @@ export default function AIInsightsDashboard() {
         lastAnalysis: new Date()
       };
       
-      localStorage.setItem('ai_analysis', JSON.stringify(analysisData));
+      setStorageItemNormalized('ai_analysis', JSON.stringify(analysisData));
       setLastAnalysis(new Date());
       
       console.log('AI analysis complete');
@@ -120,7 +121,7 @@ export default function AIInsightsDashboard() {
 
   const loadCachedAnalysis = () => {
     try {
-      const cached = localStorage.getItem('ai_analysis');
+      const cached = getStorageItemWithFallback('ai_analysis');
       return cached ? JSON.parse(cached) : null;
     } catch {
       return null;
@@ -128,7 +129,7 @@ export default function AIInsightsDashboard() {
   };
 
   const getCurrentMood = (): number => {
-    const recent = localStorage.getItem('current_mood');
+    const recent = getStorageItemWithFallback('current_mood');
     if (recent) {
       const mood = parseInt(recent);
       return isNaN(mood) ? 5 : Math.max(1, Math.min(10, mood));

@@ -2,6 +2,7 @@
  * Safe browser API utilities for Capacitor + SSG compatibility
  * ENHANCED: Automatic encryption for mental health data
  */
+import { getStorageItemWithFallback, removeStorageItemNormalized, setStorageItemNormalized } from '@/lib/storageKeys';
 
 export const isBrowser = typeof window !== 'undefined';
 
@@ -37,7 +38,7 @@ export const safeLocalStorage = {
         return null;
       } else {
         // Non-health data can be accessed normally
-        return localStorage.getItem(key);
+        return getStorageItemWithFallback(key);
       }
     } catch {
       return null;
@@ -60,7 +61,7 @@ export const safeLocalStorage = {
         }).catch(console.error);
       } else {
         // Non-health data can be stored normally
-        localStorage.setItem(key, value);
+        setStorageItemNormalized(key, value);
       }
     } catch {
       // Storage full or blocked
@@ -71,7 +72,7 @@ export const safeLocalStorage = {
     if (!isBrowser) return;
     try {
       // Remove from all possible locations
-      localStorage.removeItem(key);
+      removeStorageItemNormalized(key);
       localStorage.removeItem(`encrypted_${key}`);
       localStorage.removeItem(`meta_${key}`);
       localStorage.removeItem(`pending_encrypt_${key}`);

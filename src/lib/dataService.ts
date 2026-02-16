@@ -15,6 +15,7 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { getStorageItemWithFallback, setStorageItemNormalized } from './storageKeys';
 
 // Types for our data structures
 export interface UserProfile {
@@ -111,7 +112,7 @@ class DataService {
   // Generic localStorage backup
   private getFromLocalStorage<T>(key: string): T | null {
     try {
-      const item = localStorage.getItem(key);
+      const item = getStorageItemWithFallback(key);
       return item ? JSON.parse(item) : null;
     } catch {
       return null;
@@ -120,7 +121,7 @@ class DataService {
 
   private setToLocalStorage<T>(key: string, data: T) {
     try {
-      localStorage.setItem(key, JSON.stringify(data));
+      setStorageItemNormalized(key, JSON.stringify(data));
     } catch (error) {
       console.warn('Failed to save to localStorage:', error);
     }
@@ -130,8 +131,8 @@ class DataService {
   async getUserProfile(): Promise<UserProfile | null> {
     if (!this.userId) {
       // Fallback to localStorage for anonymous users
-      const email = localStorage.getItem('userEmail') || '';
-      const tier = localStorage.getItem('userTier') as 'sanctuary' | 'growth' | 'transformation' || 'sanctuary';
+      const email = getStorageItemWithFallback('userEmail') || '';
+      const tier = getStorageItemWithFallback('userTier') as 'sanctuary' | 'growth' | 'transformation' || 'sanctuary';
       const localSettings = this.getFromLocalStorage<Record<string, any>>('alchm_settings');
       const settings = { ...this.getDefaultSettings(), ...(localSettings ?? {}) };
       
@@ -168,8 +169,8 @@ class DataService {
   async updateUserProfile(profile: Partial<UserProfile>): Promise<void> {
     if (!this.userId) {
       // Save to localStorage for anonymous users
-      if (profile.userTier) localStorage.setItem('userTier', profile.userTier);
-      if (profile.email) localStorage.setItem('userEmail', profile.email);
+      if (profile.userTier) setStorageItemNormalized('userTier', profile.userTier);
+      if (profile.email) setStorageItemNormalized('userEmail', profile.email);
       if (profile.settings) this.setToLocalStorage('alchm_settings', profile.settings);
       return;
     }

@@ -88,6 +88,7 @@ export const useData = () => {
         key.startsWith('dream_') || 
         key.startsWith('shadow_') || 
         key.startsWith('alchm_') ||
+        key.startsWith('alchm-') ||
         key.startsWith('pathway_')
       );
       return keys.length > 0;
@@ -113,6 +114,7 @@ export const useData = () => {
             key.startsWith('journal_') || 
             key.startsWith('dream_') || 
             key.startsWith('shadow_') ||
+            key.startsWith('alchm-') ||
             key.startsWith('pathway_')
           );
           keys.forEach(key => localStorage.removeItem(key));

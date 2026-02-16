@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth';
+import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
 interface RealtimeInsight {
   id: string;
@@ -303,7 +304,7 @@ export default function SmartJournalAnalyzer({
 
   const storeAnalysisData = (data: any) => {
     try {
-      const analysisHistory = JSON.parse(localStorage.getItem('writing_analysis_history') || '[]');
+      const analysisHistory = JSON.parse(getStorageItemWithFallback('writing_analysis_history') || '[]');
       analysisHistory.push({
         ...data,
         timestamp: new Date().toISOString(),
@@ -312,7 +313,7 @@ export default function SmartJournalAnalyzer({
       
       // Keep only last 20 analyses
       const recentAnalyses = analysisHistory.slice(-20);
-      localStorage.setItem('writing_analysis_history', JSON.stringify(recentAnalyses));
+      setStorageItemNormalized('writing_analysis_history', JSON.stringify(recentAnalyses));
     } catch (error) {
       console.error('Error storing analysis data:', error);
     }

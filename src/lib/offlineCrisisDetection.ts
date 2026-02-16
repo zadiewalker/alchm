@@ -234,10 +234,10 @@ export function triggerOfflineIntervention(severity: string, urgency: string) {
   };
 
   try {
-    const existingEvents = localStorage.getItem('offline_crisis_events');
+    const existingEvents = getStorageItemWithFallback('offline_crisis_events');
     const events = existingEvents ? JSON.parse(existingEvents) : [];
     events.push(crisisEvent);
-    localStorage.setItem('offline_crisis_events', JSON.stringify(events));
+    setStorageItemNormalized('offline_crisis_events', JSON.stringify(events));
   } catch (error) {
     console.error('Failed to store offline crisis event:', error);
   }
@@ -274,3 +274,4 @@ export function useOfflineCrisisDetection() {
     isOnline
   };
 }
+import { getStorageItemWithFallback, setStorageItemNormalized } from './storageKeys';
