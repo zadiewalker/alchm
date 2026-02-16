@@ -23,3 +23,15 @@
 - Quarantined middleware (dead in static export): `src/middleware.ts`, `src/middleware-legal.ts`, root `middleware.ts`
 - Quarantined legacy root `pages/` (removed `/api/reflection` from build output)
 - Build: ✅ Pages now `26` (down from `32` after removing debug/admin/test/api routes)
+
+## Phase 4: Drive TypeScript Errors to Zero
+- Updated `tsconfig.json` to only typecheck app code under `src/**` (and exclude `_quarantine/`, `out/`, etc.).
+- Quarantined dead/unreferenced modules that were still being typechecked:
+  - `src/lib/advancedAI.ts` + `src/components/AIInsightsDashboard.tsx`
+  - `src/lib/transformationEngine.ts` + `src/components/DailyTransformation.tsx` + `src/components/ChallengeLibrary.tsx`
+  - `src/lib/secureStorage.ts` (and removed secure-storage dynamic import from `src/utils/browser.ts`)
+  - `src/lib/aiService.ts` + `src/lib/kheperaMemory.ts`
+  - `src/lib/globalization.backup/` + `src/components/ui/LocaleProvider.tsx`
+- Removed dead navigation telemetry (Sentry/Prisma instrumentation chain) that only created build warnings.
+- TypeScript errors: ✅ `0`
+- Build: ✅ (`26` pages)

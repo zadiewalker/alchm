@@ -35,6 +35,22 @@ function greetingLabel() {
   return 'Good evening';
 }
 
+const primaryButtonStyle: React.CSSProperties = {
+  height: '44px',
+  width: '100%',
+  border: 'none',
+  borderRadius: DESIGN.radius.full,
+  backgroundColor: DESIGN.colors.gold,
+  color: '#ffffff',
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+  fontWeight: DESIGN.typography.weights.medium,
+  letterSpacing: '0.08em',
+  textTransform: 'uppercase',
+  cursor: 'pointer',
+  transition: DESIGN.transitions.normal,
+};
+
 export default function DashboardClient() {
   const router = useRouter();
   const { isInitialized, getJournalEntries } = useData();

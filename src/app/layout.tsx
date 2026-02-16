@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { SplashScreenManager } from '@/components/SplashScreenManager';
-import NavigationTelemetryObserver from '@/components/NavigationTelemetryObserver';
-import NavigationClickTelemetry from '@/components/NavigationClickTelemetry';
-import NavigationTelemetryPanel from '@/components/NavigationTelemetryPanel';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { CrisisFooter } from '@/components/CrisisFooter';
 import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
@@ -41,9 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StorageMigrationBootstrap />
         <SplashScreenManager />
-        <NavigationClickTelemetry />
-        <NavigationTelemetryObserver />
-        {process.env.NODE_ENV !== 'production' ? <NavigationTelemetryPanel /> : null}
         <PageTransition>{children}</PageTransition>
         <CrisisFooter />
       </body>
