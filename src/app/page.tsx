@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from 'react';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
+import { isFirstTimeUser } from '@/lib/onboarding';
 
 export default function SplashPage() {
   const { navigate } = useSafeNavigation(1200);
@@ -10,7 +11,8 @@ export default function SplashPage() {
   const navigateToDashboard = useCallback(() => {
     if (isNavigating) return;
     setIsNavigating(true);
-    navigate('/dashboard', { source: 'splash-cta' });
+    const destination = isFirstTimeUser() ? '/onboarding/' : '/dashboard/';
+    navigate(destination, { source: 'splash-cta' });
   }, [isNavigating, navigate]);
 
   return (

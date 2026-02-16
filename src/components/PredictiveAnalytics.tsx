@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useData } from '@/hooks/useData';
+import { setStorageItemNormalized } from '@/lib/storageKeys';
 
 interface RiskPattern {
   id: string;
@@ -82,7 +83,7 @@ export default function PredictiveAnalytics() {
       setLastAnalysis(new Date());
       
       // Store analysis locally
-      localStorage.setItem('predictive_analysis', JSON.stringify({
+      setStorageItemNormalized('predictive_analysis', JSON.stringify({
         trends: analysis.trends,
         patterns: analysis.patterns,
         warnings: analysis.warnings,

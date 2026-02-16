@@ -1,328 +1,362 @@
 'use client';
+
 import Link from 'next/link';
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import type React from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useData } from '@/hooks/useData';
-import { JournalEntry } from '@/lib/dataService';
-import Loading from '@/components/ui/Loading';
+import type { JournalEntry } from '@/lib/dataService';
+import { searchEntries, getAvailableMoods, getAvailableTags, getDateRange, type SearchFilters } from '@/lib/journalSearch';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { ErrorState } from '@/components/ui/ErrorState';
+import { DESIGN } from '@/lib/design';
+
+export default function JournalPage() {
+  return (
+    <Suspense
+      fallback={
+        <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+          <LoadingState message="Loading your entries..." variant="page" />
+        </SanctuaryLayout>
+      }
+    >
+      <JournalContent />
+    </Suspense>
+  );
+}
 
 function JournalContent() {
-  const [entries, setEntries] = useState<JournalEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
-  
+  const { getJournalEntries, isInitialized } = useData();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const entryId = searchParams.get('id');
-  
-  const { 
-    isInitialized, 
-    getJournalEntries
-  } = useData();
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [queryInput, setQueryInput] = useState('');
+  const [filters, setFilters] = useState<SearchFilters>({ query: '', moods: [], tags: [], hasReflection: false, minWordCount: 0 });
 
   useEffect(() => {
-    if (isInitialized) {
-      loadEntries();
-    }
-  }, [isInitialized, getJournalEntries]);
+    const timeout = window.setTimeout(() => {
+      setFilters((prev) => ({ ...prev, query: queryInput }));
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [queryInput]);
 
   useEffect(() => {
-    if (entryId && entries.length > 0) {
-      const entry = entries.find(e => e.id === entryId);
-      setSelectedEntry(entry || null);
-    } else {
-      setSelectedEntry(null);
-    }
-  }, [entryId, entries]);
+    let mounted = true;
+    setLoading(true);
+    getJournalEntries()
+      .then((items) => {
+        if (!mounted) return;
+        setEntries(items || []);
+        setError('');
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setError('Could not load your entries.');
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setLoading(false);
+      });
 
-  const loadEntries = async () => {
-    setIsLoading(true);
-    try {
-      const journalEntries = await getJournalEntries();
-      setEntries(journalEntries);
-    } catch (error) {
-      console.error('Error loading entries:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    return () => {
+      mounted = false;
+    };
+  }, [getJournalEntries]);
 
-  const formatDate = (date: Date | string) => {
-    const d = new Date(date);
-    return d.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric', 
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit'
+  const selectedEntry = useMemo(() => entries.find((entry) => entry.id === entryId) || null, [entries, entryId]);
+  const moods = useMemo(() => getAvailableMoods(entries).slice(0, 8), [entries]);
+  const tags = useMemo(() => getAvailableTags(entries).slice(0, 8), [entries]);
+  const dateRange = useMemo(() => getDateRange(entries), [entries]);
+  const searchResult = useMemo(() => searchEntries(entries, filters), [entries, filters]);
+
+  const toggleMood = (mood: string) => {
+    setFilters((prev) => {
+      const current = prev.moods || [];
+      const next = current.includes(mood) ? current.filter((item) => item !== mood) : [...current, mood];
+      return { ...prev, moods: next };
     });
   };
 
-  // If viewing individual entry
-  if (selectedEntry) {
-    const hasKheperaResponse = selectedEntry.insights && selectedEntry.insights.length > 0 && selectedEntry.insights.some(insight => insight && insight.trim());
+  const toggleTag = (tag: string) => {
+    setFilters((prev) => {
+      const current = prev.tags || [];
+      const next = current.includes(tag) ? current.filter((item) => item !== tag) : [...current, tag];
+      return { ...prev, tags: next };
+    });
+  };
 
+  if (!isInitialized || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
-        {/* Radial Overlay - LOCKDOWN SPEC */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
-        {/* Header */}
-        <header className="relative z-10 px-6 pt-14 pb-4">
-          <Link href="/journal/" className="text-white/60 text-base mb-4 inline-block hover:text-white/80 transition-all duration-200 ease-out active:scale-[0.98]">
-            ← Back to Journal
-          </Link>
-          <div className="flex items-center justify-between">
-            <h1 className="text-white text-2xl font-light">Your Entry</h1>
-            <div className="text-lg">
-              {selectedEntry.mood && selectedEntry.mood >= 8 ? '😊' : selectedEntry.mood && selectedEntry.mood >= 6 ? '😐' : selectedEntry.mood && selectedEntry.mood >= 4 ? '😔' : '😢'}
-            </div>
-          </div>
-          <p className="text-white/50 text-sm mt-1">{formatDate(selectedEntry.createdAt)}</p>
-        </header>
+      <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+        <LoadingState message="Loading your entries..." variant="page" />
+      </SanctuaryLayout>
+    );
+  }
 
-        {/* Content */}
-        <main className="relative z-10 flex-1 px-6 overflow-y-auto">
-          
-          {/* Journal Entry */}
-          <div className="bg-white/15 backdrop-blur-[12px] rounded-2xl p-6 border border-white/15 mb-6">
-            {selectedEntry.title && (
-              <h2 className="text-white text-xl font-light mb-4">{selectedEntry.title}</h2>
-            )}
-            
-            <div className="text-white/80 text-base leading-relaxed whitespace-pre-wrap mb-4">
+  if (error) {
+    return (
+      <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+        <ErrorState message={error} onRetry={() => router.refresh()} />
+      </SanctuaryLayout>
+    );
+  }
+
+  if (selectedEntry) {
+    return (
+      <SanctuaryLayout header={<SanctuaryHeader title="Your Entry" showBack />}>
+        <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
+          <SanctuaryCard elevated>
+            <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
+              {warmDate(selectedEntry.createdAt)}
+            </SanctuaryText>
+            <SanctuaryText variant="body" style={{ whiteSpace: 'pre-wrap' }}>
               {selectedEntry.content}
-            </div>
-            
-            {selectedEntry.emotions && selectedEntry.emotions.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4">
-                {selectedEntry.emotions.map((emotion, index) => (
-                  <span 
-                    key={index}
-                    className="text-xs bg-[#E8C56D]/20 text-[#E8C56D] px-3 py-1 rounded-full border border-[#E8C56D]/30"
-                  >
-                    {emotion}
-                  </span>
+            </SanctuaryText>
+            {selectedEntry.tags?.length ? (
+              <div style={{ display: 'flex', gap: DESIGN.spacing.xs, marginTop: DESIGN.spacing.sm, flexWrap: 'wrap' }}>
+                {selectedEntry.tags.map((tag) => (
+                  <span key={tag} style={tagPillStyle}>#{tag}</span>
                 ))}
+                {selectedEntry.type === 'checkin' ? <span style={tagPillStyle}>🌙 check-in</span> : null}
+                {selectedEntry.pathwayId ? <span style={tagPillStyle}>🧭 {selectedEntry.pathwayId}</span> : null}
               </div>
-            )}
-          </div>
+            ) : null}
+          </SanctuaryCard>
 
-          {/* Khepera's Response */}
-          {hasKheperaResponse ? (
-            <div className="bg-white/15 backdrop-blur-[12px] rounded-2xl p-6 border border-white/15">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-[#E5C97D]/20 flex items-center justify-center mr-4 border border-[#E5C97D]/30">
-                  <span className="text-[#E5C97D] text-lg">☾</span>
-                </div>
-                <div>
-                  <h3 className="text-white text-lg font-light">Khepera's Response</h3>
-                  <p className="text-white/50 text-sm">Your AI healing companion</p>
-                </div>
-              </div>
-              
-              <div className="space-y-5">
-                {selectedEntry.insights.map((insight, index) => {
-                  if (!insight || !insight.trim()) return null;
-                  
-                  // Parse the insight to extract the type and content
-                  const parts = insight.split(': ');
-                  const type = parts[0] || '';
-                  const content = parts.slice(1).join(': ') || insight;
-                  
-                  let bgColor = 'bg-white/5';
-                  let borderColor = 'border-white/10';
-                  let icon = '✨';
-                  
-                  if (type.includes('Emotional Recognition')) {
-                    bgColor = 'bg-[#E5C97D]/10';
-                    borderColor = 'border-[#E5C97D]/20';
-                    icon = '🌟';
-                  } else if (type.includes('Therapeutic')) {
-                    bgColor = 'bg-blue-500/10';
-                    borderColor = 'border-blue-500/20';
-                    icon = '🧠';
-                  } else if (type.includes('Nurturing')) {
-                    bgColor = 'bg-pink-500/10';
-                    borderColor = 'border-pink-500/20';
-                    icon = '💗';
-                  } else if (type.includes('Wisdom')) {
-                    bgColor = 'bg-purple-500/10';
-                    borderColor = 'border-purple-500/20';
-                    icon = '🔮';
-                  }
-                  
-                  return (
-                    <div key={index} className={`${bgColor} rounded-xl p-4 border ${borderColor}`}>
-                      {type && (
-                        <div className="flex items-center mb-2">
-                          <span className="mr-2">{icon}</span>
-                          <h4 className="text-white/90 text-sm font-medium">{type}</h4>
-                        </div>
-                      )}
-                      <p className="text-white/80 text-sm leading-relaxed">{content}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* AI Analysis Summary */}
-              {selectedEntry.aiAnalysis && (
-                <div className="mt-6 pt-5 border-t border-white/10">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                      <div className="text-white/50 text-xs mb-1">Emotional Tone</div>
-                      <div className="text-white font-medium">
-                        {selectedEntry.aiAnalysis.emotionalTone >= 8 ? 'Positive' : 
-                         selectedEntry.aiAnalysis.emotionalTone >= 6 ? 'Neutral' : 
-                         selectedEntry.aiAnalysis.emotionalTone >= 4 ? 'Contemplative' : 'Challenging'}
-                      </div>
-                    </div>
-                    <div className="bg-white/5 rounded-lg p-3 border border-white/10">
-                      <div className="text-white/50 text-xs mb-1">Themes</div>
-                      <div className="text-white text-sm">
-                        {selectedEntry.aiAnalysis.themes ? selectedEntry.aiAnalysis.themes.slice(0, 2).join(', ') : 'General'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="bg-white/10 backdrop-blur-[12px] rounded-2xl p-6 border border-white/10 text-center">
-              <div className="text-4xl mb-4">☾</div>
-              <h3 className="text-white text-lg font-light mb-2">No AI Response</h3>
-              <p className="text-white/60 text-sm">
-                This entry was created before Khepera's advanced response system was available.
-              </p>
-            </div>
-          )}
-          
-        </main>
-        
-        {/* Crisis Footer - LOCKDOWN SPEC */}
-        <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
-          <p className="text-white/40 text-xs text-center tracking-wide">
-            Crisis support available · 988
-          </p>
+          <SanctuaryCard style={{ background: DESIGN.colors.bgWarm }}>
+            <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.xs }}>
+              Khepera
+            </SanctuaryText>
+            <SanctuaryText variant="body">
+              {selectedEntry.insights?.[0] || "I'm still here with what you wrote. Return whenever you want to go deeper."}
+            </SanctuaryText>
+          </SanctuaryCard>
         </div>
-      </div>
+      </SanctuaryLayout>
+    );
+  }
+
+  if (!entries.length) {
+    return (
+      <SanctuaryLayout
+        header={
+          <SanctuaryHeader
+            title="Journal"
+            showBack
+            rightAction={
+              <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>
+                <Link href="/settings/" style={newLinkStyle}>Export</Link>
+                <Link href="/journal/new/" style={newLinkStyle}>New</Link>
+              </div>
+            }
+          />
+        }
+      >
+        <EmptyState
+          title="No entries yet"
+          message="This is where your words will live. There's no right way to begin."
+          actionLabel="Begin writing"
+          onAction={() => {
+            router.push('/journal/new/');
+          }}
+        />
+      </SanctuaryLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
-      {/* Radial Overlay - LOCKDOWN SPEC */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
-      {/* Header */}
-      <header className="relative z-10 px-6 pt-14 pb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Link href="/dashboard" className="text-white/70 text-lg mr-4 hover:text-white/90 transition-all duration-200 ease-out active:scale-[0.98]">← Back</Link>
-            <h1 className="text-white text-3xl font-light">Your Entries</h1>
-          </div>
-          <Link
-            href="/journal/new"
-            className="bg-[#E5C97D] text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-[#F2D99D] transition-all 300ms ease-out active:scale-[0.98] min-h-[44px] flex items-center justify-center"
-          >
-            + New
-          </Link>
-        </div>
-      </header>
-
-      {/* Content */}
-      <main className="relative z-10 flex-1 px-6 pb-32 overflow-y-auto">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <Loading message="Loading your entries..." />
-          </div>
-        ) : entries.length === 0 ? (
-          /* Empty State */
-          <div className="text-center py-12">
-            <div className="text-4xl mb-4">📝</div>
-            <h3 className="text-white text-xl font-light mb-2">No entries yet</h3>
-            <p className="text-white/70 mb-6 max-w-sm mx-auto">
-              Start your healing journey by writing your first journal entry.
-            </p>
-            <Link href="/journal/new">
-              <button className="bg-[#E5C97D] text-white px-6 py-3 rounded-full font-medium transition-all 300ms ease-out hover:bg-[#F2D99D] active:scale-[0.98] min-h-[44px]">
-                Write Your First Entry
-              </button>
-            </Link>
-          </div>
-        ) : (
-          /* Entries List */
-          <div className="space-y-4">
-            <div className="text-white/60 text-sm mb-6">
-              {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
+    <SanctuaryLayout
+      header={
+        <SanctuaryHeader
+          title="Journal"
+          showBack
+          rightAction={
+            <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>
+              <Link href="/settings/" style={newLinkStyle}>Export</Link>
+              <Link href="/journal/new/" style={newLinkStyle}>New</Link>
             </div>
-            
-            {entries.map((entry) => (
-              <Link key={entry.id} href={`/journal?id=${entry.id}`}>
-                <div className="bg-white/10 backdrop-blur-[12px] border border-white/10 rounded-2xl p-6 transition-all 200ms ease hover:bg-white/15 active:scale-[0.99]">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="text-white/70 text-sm">
-                      {new Date(entry.createdAt).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </div>
-                    <div className="text-lg">
-                      {entry.mood >= 8 ? '😊' : entry.mood >= 6 ? '😐' : entry.mood >= 4 ? '😔' : '😢'}
-                    </div>
+          }
+        />
+      }
+    >
+      <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
+        <SanctuaryCard>
+          <input
+            value={queryInput}
+            onChange={(event) => setQueryInput(event.target.value)}
+            placeholder="Search entries"
+            style={searchInputStyle}
+          />
+          <div style={{ marginTop: DESIGN.spacing.sm, display: 'flex', gap: DESIGN.spacing.xs, flexWrap: 'wrap', overflowX: 'auto' }}>
+            <FilterChip
+              label="All"
+              active={!filters.query && !(filters.moods && filters.moods.length) && !(filters.tags && filters.tags.length) && !filters.hasReflection}
+              onClick={() => setFilters({ query: '', moods: [], tags: [], hasReflection: false, minWordCount: 0 })}
+            />
+            {moods.map((mood) => (
+              <FilterChip key={mood} label={mood} active={(filters.moods || []).includes(mood)} onClick={() => toggleMood(mood)} />
+            ))}
+            {tags.map((tag) => (
+              <FilterChip key={tag} label={`#${tag}`} active={(filters.tags || []).includes(tag)} onClick={() => toggleTag(tag)} />
+            ))}
+            <FilterChip
+              label="Has reflection"
+              active={Boolean(filters.hasReflection)}
+              onClick={() => setFilters((prev) => ({ ...prev, hasReflection: !prev.hasReflection }))}
+            />
+          </div>
+          <div style={{ marginTop: DESIGN.spacing.sm, display: 'flex', gap: DESIGN.spacing.sm, flexWrap: 'wrap' }}>
+            <label style={labelStyle}>
+              From
+              <input
+                type="date"
+                value={filters.dateFrom || ''}
+                min={dateRange?.earliest}
+                max={dateRange?.latest}
+                onChange={(event) => setFilters((prev) => ({ ...prev, dateFrom: event.target.value || undefined }))}
+                style={dateInputStyle}
+              />
+            </label>
+            <label style={labelStyle}>
+              To
+              <input
+                type="date"
+                value={filters.dateTo || ''}
+                min={dateRange?.earliest}
+                max={dateRange?.latest}
+                onChange={(event) => setFilters((prev) => ({ ...prev, dateTo: event.target.value || undefined }))}
+                style={dateInputStyle}
+              />
+            </label>
+          </div>
+          <SanctuaryText variant="caption" style={{ marginTop: DESIGN.spacing.sm }}>
+            {searchResult.totalCount} entries match
+          </SanctuaryText>
+        </SanctuaryCard>
+
+        {!searchResult.entries.length ? (
+          <EmptyState title="No matches" message="No entries match. Try a different search or filter." />
+        ) : (
+          <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
+            {searchResult.entries.map((entry) => (
+              <Link key={entry.id} href={`/journal/?id=${entry.id}`} style={{ textDecoration: 'none' }}>
+                <SanctuaryCard>
+                  <SanctuaryText variant="caption" style={{ marginBottom: 6 }}>
+                    {warmDate(entry.createdAt)}
+                  </SanctuaryText>
+                  <SanctuaryText variant="body" style={{ marginBottom: 8 }}>
+                    {String(entry.content || '').slice(0, 160)}
+                  </SanctuaryText>
+                  <div style={{ display: 'flex', gap: DESIGN.spacing.xs, flexWrap: 'wrap' }}>
+                    {(entry.tags || []).slice(0, 4).map((tag) => (
+                      <span key={tag} style={tagPillStyle}>#{tag}</span>
+                    ))}
+                    {entry.type === 'checkin' ? <span style={tagPillStyle}>🌙 check-in</span> : null}
+                    {entry.pathwayId ? <span style={tagPillStyle}>🧭 {entry.pathwayId}</span> : null}
                   </div>
-                  
-                  {entry.title && (
-                    <h3 className="text-white font-light text-lg mb-2 line-clamp-1">
-                      {entry.title}
-                    </h3>
-                  )}
-                  
-                  <p className="text-white/80 text-sm line-clamp-3 leading-relaxed">
-                    {entry.content}
-                  </p>
-                  
-                  {entry.tags && entry.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {entry.tags.slice(0, 3).map((tag, index) => (
-                        <span 
-                          key={index}
-                          className="text-xs bg-white/10 text-white/70 px-2 py-1 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  <div className="text-white/40 text-right mt-3">→</div>
-                </div>
+                  {entry.insights?.length ? <SanctuaryText variant="khepera">Khepera reflected ✦</SanctuaryText> : null}
+                </SanctuaryCard>
               </Link>
             ))}
           </div>
         )}
-        
-      </main>
-      
-      {/* Crisis Footer - LOCKDOWN SPEC */}
-      <div className="fixed bottom-0 left-0 right-0 pb-8 pt-4 bg-gradient-to-t from-[#A8B5A0] to-transparent">
-        <p className="text-white/40 text-xs text-center tracking-wide">
-          Crisis support available · 988
-        </p>
       </div>
-    </div>
+    </SanctuaryLayout>
   );
 }
 
-export default function JournalPage() {
+function FilterChip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex items-center justify-center">
-        <Loading message="Loading..." />
-      </div>
-    }>
-      <JournalContent />
-    </Suspense>
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        minHeight: '34px',
+        borderRadius: DESIGN.radius.full,
+        border: `1px solid ${active ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
+        background: active ? 'rgba(232,197,109,0.2)' : DESIGN.colors.cardBg,
+        color: active ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary,
+        fontFamily: DESIGN.typography.sansSerif,
+        fontSize: DESIGN.typography.sizes.sm,
+        padding: '6px 10px',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {label}
+    </button>
   );
+}
+
+const newLinkStyle: React.CSSProperties = {
+  minWidth: '44px',
+  minHeight: '44px',
+  borderRadius: DESIGN.radius.full,
+  padding: '0 14px',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textDecoration: 'none',
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+  color: '#fff',
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+};
+
+const searchInputStyle: React.CSSProperties = {
+  width: '100%',
+  minHeight: '44px',
+  borderRadius: DESIGN.radius.md,
+  border: `1px solid ${DESIGN.colors.border}`,
+  background: DESIGN.colors.cardBg,
+  color: DESIGN.colors.textPrimary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.base,
+  padding: '10px 12px',
+};
+
+const tagPillStyle: React.CSSProperties = {
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.border}`,
+  color: DESIGN.colors.textSecondary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.xs,
+  padding: '3px 8px',
+};
+
+const labelStyle: React.CSSProperties = {
+  color: DESIGN.colors.textSecondary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.xs,
+  display: 'grid',
+  gap: 4,
+};
+
+const dateInputStyle: React.CSSProperties = {
+  minHeight: '36px',
+  borderRadius: DESIGN.radius.md,
+  border: `1px solid ${DESIGN.colors.border}`,
+  background: DESIGN.colors.cardBg,
+  color: DESIGN.colors.textPrimary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+  padding: '6px 10px',
+};
+
+function warmDate(date: Date | string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
 }

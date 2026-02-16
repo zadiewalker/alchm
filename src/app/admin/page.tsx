@@ -1,10 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import { CrisisMonitoringDashboard } from "@/components/admin/CrisisMonitoringDashboard";
-import { AdminAuthGuard } from "@/components/admin/AdminAuthGuard";
+import React, { useEffect, useState } from 'react';
+import type { User } from 'firebase/auth';
+import { AdminAuthGuard } from '@/components/admin/AdminAuthGuard';
+import { CrisisMonitoringDashboard } from '@/components/admin/CrisisMonitoringDashboard';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { DESIGN } from '@/lib/design';
+import { auth } from '@/lib/firebase';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
@@ -21,75 +27,72 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-          <p className="text-purple-600 font-medium">Loading admin dashboard...</p>
-        </div>
-      </div>
+      <SanctuaryLayout header={<SanctuaryHeader title="Admin" showBack />}>
+        <LoadingState message="Loading admin dashboard..." variant="page" />
+      </SanctuaryLayout>
     );
   }
 
   return (
     <AdminAuthGuard>
-      <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-        <div className="container mx-auto px-4 py-8">
-          {/* Header */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-purple-900 mb-2">
+      <SanctuaryLayout header={<SanctuaryHeader title="Admin" showBack />}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: DESIGN.spacing.lg }}>
+          <SanctuaryCard elevated>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: DESIGN.spacing.md }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: DESIGN.spacing.xs }}>
+                <SanctuaryText variant="title" as="h1">
                   Crisis Monitoring Dashboard
-                </h1>
-                <p className="text-purple-600">
-                  Real-time monitoring of user safety with privacy protection
-                </p>
+                </SanctuaryText>
+                <SanctuaryText variant="muted" as="p">
+                  Real-time monitoring of user safety with privacy protection.
+                </SanctuaryText>
               </div>
-              <div className="flex items-center space-x-4">
-                <div className="text-right">
-                  <p className="text-sm text-purple-600">Logged in as:</p>
-                  <p className="font-medium text-purple-900">{user?.email}</p>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: DESIGN.spacing.md }}>
+                <div style={{ textAlign: 'right' }}>
+                  <SanctuaryText variant="caption" as="div" style={{ color: DESIGN.colors.textSecondary }}>
+                    Logged in as
+                  </SanctuaryText>
+                  <SanctuaryText variant="body" as="div" style={{ fontWeight: DESIGN.typography.weights.medium }}>
+                    {user?.email || 'Unknown'}
+                  </SanctuaryText>
                 </div>
                 <button
+                  type="button"
                   onClick={() => auth.signOut()}
-                  className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
+                  style={{
+                    height: '44px',
+                    paddingLeft: DESIGN.spacing.md,
+                    paddingRight: DESIGN.spacing.md,
+                    borderRadius: DESIGN.radius.full,
+                    border: `1px solid ${DESIGN.colors.border}`,
+                    backgroundColor: 'rgba(232, 197, 109, 0.12)',
+                    color: DESIGN.colors.gold,
+                    fontFamily: DESIGN.typography.sansSerif,
+                    fontSize: DESIGN.typography.sizes.sm,
+                    cursor: 'pointer',
+                    transition: DESIGN.transitions.normal,
+                  }}
                 >
-                  Sign Out
+                  Sign out
                 </button>
               </div>
             </div>
-          </div>
+          </SanctuaryCard>
 
-          {/* Privacy Notice */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
-            <div className="flex items-start">
-              <div className="flex-shrink-0">
-                <svg 
-                  className="h-5 w-5 text-blue-500 mt-0.5" 
-                  fill="none" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth="2" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.865-.833-2.635 0L4.178 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-blue-800">Privacy Protection Active</h3>
-                <p className="text-sm text-blue-600 mt-1">
-                  All user data is anonymized. This dashboard displays only non-identifying information
-                  necessary for crisis intervention and system monitoring. All access is logged and audited.
-                </p>
-              </div>
-            </div>
-          </div>
+          <SanctuaryCard>
+            <SanctuaryText variant="title" as="h2" style={{ fontSize: DESIGN.typography.sizes.lg }}>
+              Privacy Protection Active
+            </SanctuaryText>
+            <SanctuaryText variant="muted" as="p" style={{ marginTop: DESIGN.spacing.sm }}>
+              This dashboard should display only non-identifying information necessary for safety monitoring. Treat any access as
+              sensitive and auditable.
+            </SanctuaryText>
+          </SanctuaryCard>
 
-          {/* Main Dashboard */}
           <CrisisMonitoringDashboard />
         </div>
-      </div>
+      </SanctuaryLayout>
     </AdminAuthGuard>
   );
 }

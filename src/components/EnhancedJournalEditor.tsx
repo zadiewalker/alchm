@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useData } from '@/hooks/useData';
 import { crisisDetection } from '@/lib/crisisDetection';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
+import { safeWindow } from '@/utils/browser';
+import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
 interface CrisisAlert {
   level: 'low' | 'moderate' | 'high' | 'critical';
@@ -23,6 +26,7 @@ export default function EnhancedJournalEditor({
 }) {
   const { user } = useAuth();
   const { saveDreamEntry, getJournalEntries } = useData();
+  const { navigate } = useSafeNavigation(900);
   const [content, setContent] = useState(initialContent);
   const [mood, setMood] = useState<number>(5);
   const [emotions, setEmotions] = useState<string[]>([]);
@@ -128,11 +132,11 @@ export default function EnhancedJournalEditor({
     };
 
     // Store in local storage for monitoring
-    const existingLogs = JSON.parse(localStorage.getItem('crisis_detection_logs') || '[]');
+    const existingLogs = JSON.parse(getStorageItemWithFallback('crisis_detection_logs') || '[]');
     existingLogs.push(logEntry);
     // Keep only last 100 entries
     const recentLogs = existingLogs.slice(-100);
-    localStorage.setItem('crisis_detection_logs', JSON.stringify(recentLogs));
+    setStorageItemNormalized('crisis_detection_logs', JSON.stringify(recentLogs));
   };
 
   const handleSave = async () => {
@@ -174,12 +178,11 @@ export default function EnhancedJournalEditor({
   };
 
   const seekImmediateHelp = () => {
-    // Redirect to crisis support
-    window.open('tel:988', '_self');
+    safeWindow.open('tel:988', '_self');
   };
 
   const openSafetyResources = () => {
-    window.open('/crisis-support', '_blank');
+    navigate('/emergency/', { source: 'enhanced-journal-editor' });
   };
 
   const emotionOptions = [
@@ -262,7 +265,7 @@ export default function EnhancedJournalEditor({
               </>
             )}
             <button
-              onClick={() => window.open('/crisis-support', '_blank')}
+              onClick={() => navigate('/emergency/', { source: 'enhanced-journal-editor' })}
               className="bg-[#8B9A7C] hover:bg-[#A8B5A0] text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
               💙 View Support Options

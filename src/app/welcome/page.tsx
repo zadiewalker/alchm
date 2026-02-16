@@ -1,58 +1,48 @@
 'use client';
+
+import type React from 'react';
 import Link from 'next/link';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { DESIGN } from '@/lib/design';
 
 export default function WelcomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
-      {/* Header */}
-      <div className="pt-16 pb-8 flex items-center">
-        <Link href="/" className="text-white/70 text-lg mr-4">← Back</Link>
-        <h1 className="text-3xl text-white font-extralight tracking-[0.2em]">Welcome</h1>
-      </div>
+    <SanctuaryLayout header={<SanctuaryHeader title="Welcome" showBack />}>
+      <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
+        <SanctuaryCard elevated>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Welcome to ALCHM</SanctuaryText>
+          <SanctuaryText variant="body">
+            Your digital sanctuary for healing and transformation. Khepera is here to reflect what is true for you.
+          </SanctuaryText>
+        </SanctuaryCard>
 
-      {/* Simple Content */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center max-w-[400px]">
-          <div className="text-white/80 text-6xl mb-6">🌱</div>
-          <h2 className="text-white text-2xl font-light mb-4">Welcome to ALCHM</h2>
-          <p className="text-white/60 text-sm mb-8 leading-relaxed">
-            Your digital sanctuary for healing and transformation. Begin your journey with Khepera, 
-            your AI companion trained in trauma-informed care.
-          </p>
-          
-          {/* Features */}
-          <div className="space-y-4 mb-8 text-left">
-            <div className="flex items-start space-x-3">
-              <span className="text-white/80 text-lg">💚</span>
-              <div>
-                <h3 className="text-white font-light">Safe & Private</h3>
-                <p className="text-white/50 text-xs">Your entries are secure and confidential</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <span className="text-white/80 text-lg">🔮</span>
-              <div>
-                <h3 className="text-white font-light">AI-Guided Insights</h3>
-                <p className="text-white/50 text-xs">Gentle wisdom from Khepera companion</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <span className="text-white/80 text-lg">🤗</span>
-              <div>
-                <h3 className="text-white font-light">Your Pace, Your Way</h3>
-                <p className="text-white/50 text-xs">You control your healing journey</p>
-              </div>
-            </div>
+        <SanctuaryCard>
+          <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
+            <SanctuaryText variant="body">Safe & private reflection space</SanctuaryText>
+            <SanctuaryText variant="body">AI-guided insights without judgment</SanctuaryText>
+            <SanctuaryText variant="body">Your pace, your way</SanctuaryText>
           </div>
+        </SanctuaryCard>
 
-          <Link 
-            href="/dashboard"
-            className="inline-block px-8 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-sm hover:bg-white/20 transition-all duration-300 mb-4"
-          >
-            Enter Your Sanctuary
-          </Link>
-        </div>
+        <Link href="/dashboard/" style={primaryActionStyle}>Enter Your Sanctuary</Link>
       </div>
-    </div>
+    </SanctuaryLayout>
   );
 }
+
+const primaryActionStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '44px',
+  padding: '12px 18px',
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+  color: '#fff',
+  textDecoration: 'none',
+  fontFamily: DESIGN.typography.sansSerif,
+};

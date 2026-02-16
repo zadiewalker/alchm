@@ -15,6 +15,7 @@ import {
   Timestamp
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { getStorageItemWithFallback, setStorageItemNormalized } from './storageKeys';
 
 // Types for our data structures
 export interface UserProfile {
@@ -48,10 +49,15 @@ export interface JournalEntry {
   mood?: number;
   emotions: string[];
   tags: string[];
+  type?: 'journal' | 'checkin';
   isPrivate: boolean;
   createdAt: Date;
   updatedAt: Date;
   pathwayId?: string;
+  pathwayStep?: number;
+  kheperaReflection?: string;
+  kheperaFrameworks?: string[];
+  moodWords?: string[];
   insights?: string[];
   aiAnalysis?: {
     emotionalTone: number;
@@ -111,7 +117,7 @@ class DataService {
   // Generic localStorage backup
   private getFromLocalStorage<T>(key: string): T | null {
     try {
-      const item = localStorage.getItem(key);
+      const item = getStorageItemWithFallback(key);
       return item ? JSON.parse(item) : null;
     } catch {
       return null;
@@ -120,9 +126,37 @@ class DataService {
 
   private setToLocalStorage<T>(key: string, data: T) {
     try {
-      localStorage.setItem(key, JSON.stringify(data));
+      setStorageItemNormalized(key, JSON.stringify(data));
     } catch (error) {
       console.warn('Failed to save to localStorage:', error);
+    }
+  }
+
+  private updateStreakMetrics(entryDate: Date) {
+    try {
+      const lastRaw = getStorageItemWithFallback('alchm-last-entry-date');
+      const lastDate = lastRaw ? new Date(lastRaw) : null;
+      const previousStreak = Number.parseInt(getStorageItemWithFallback('alchm-current-streak') || '0', 10) || 0;
+      const longest = Number.parseInt(getStorageItemWithFallback('alchm-longest-streak') || '0', 10) || 0;
+
+      let nextStreak = 1;
+      if (lastDate && !Number.isNaN(lastDate.getTime())) {
+        const dayDiff = Math.floor((entryDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+        if (dayDiff <= 0) {
+          nextStreak = Math.max(previousStreak, 1);
+        } else if (dayDiff === 1) {
+          nextStreak = previousStreak + 1;
+        } else if (dayDiff <= 3) {
+          nextStreak = Math.max(previousStreak, 1);
+        }
+      }
+
+      const nextLongest = Math.max(longest, nextStreak);
+      setStorageItemNormalized('alchm-last-entry-date', entryDate.toISOString());
+      setStorageItemNormalized('alchm-current-streak', String(nextStreak));
+      setStorageItemNormalized('alchm-longest-streak', String(nextLongest));
+    } catch {
+      // no-op
     }
   }
 
@@ -130,8 +164,8 @@ class DataService {
   async getUserProfile(): Promise<UserProfile | null> {
     if (!this.userId) {
       // Fallback to localStorage for anonymous users
-      const email = localStorage.getItem('userEmail') || '';
-      const tier = localStorage.getItem('userTier') as 'sanctuary' | 'growth' | 'transformation' || 'sanctuary';
+      const email = getStorageItemWithFallback('userEmail') || '';
+      const tier = getStorageItemWithFallback('userTier') as 'sanctuary' | 'growth' | 'transformation' || 'sanctuary';
       const localSettings = this.getFromLocalStorage<Record<string, any>>('alchm_settings');
       const settings = { ...this.getDefaultSettings(), ...(localSettings ?? {}) };
       
@@ -168,8 +202,8 @@ class DataService {
   async updateUserProfile(profile: Partial<UserProfile>): Promise<void> {
     if (!this.userId) {
       // Save to localStorage for anonymous users
-      if (profile.userTier) localStorage.setItem('userTier', profile.userTier);
-      if (profile.email) localStorage.setItem('userEmail', profile.email);
+      if (profile.userTier) setStorageItemNormalized('userTier', profile.userTier);
+      if (profile.email) setStorageItemNormalized('userEmail', profile.email);
       if (profile.settings) this.setToLocalStorage('alchm_settings', profile.settings);
       return;
     }
@@ -210,6 +244,7 @@ class DataService {
       const existingEntries = this.getFromLocalStorage<JournalEntry[]>('journal_entries') || [];
       existingEntries.push(fullEntry);
       this.setToLocalStorage('journal_entries', existingEntries);
+      this.updateStreakMetrics(new Date(entry.createdAt || Date.now()));
       return entryId;
     }
 
@@ -221,6 +256,7 @@ class DataService {
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       });
+      this.updateStreakMetrics(new Date(entry.createdAt || Date.now()));
       return docRef.id;
     } catch (error) {
       console.error('Error saving journal entry:', error);

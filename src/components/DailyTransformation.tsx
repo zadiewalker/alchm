@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useData } from '@/hooks/useData';
 import { transformationEngine, DailyPrompt, UserProgress, CompletedChallenge, Achievement } from '@/lib/transformationEngine';
+import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
 export default function DailyTransformation() {
   const { user } = useAuth();
@@ -32,6 +33,15 @@ export default function DailyTransformation() {
     }
   }, [isInitialized]);
 
+  const refreshChallenge = () => {
+    // Avoid hard reloads in Capacitor; just re-run the local prompt generation.
+    setShowChallenge(false);
+    setChallengeStarted(false);
+    setChallengeComplete(false);
+    setNewAchievements([]);
+    loadDailyTransformation();
+  };
+
   const loadDailyTransformation = async () => {
     try {
       setIsLoading(true);
@@ -58,7 +68,7 @@ export default function DailyTransformation() {
       setCurrentMood(mood);
       
       // Check for recent crisis level (from localStorage)
-      const recentCrisisLevel = localStorage.getItem('recent_crisis_level');
+      const recentCrisisLevel = getStorageItemWithFallback('recent_crisis_level');
       
       const prompt = transformationEngine.generateDailyPrompt(
         journalEntries,
@@ -76,7 +86,7 @@ export default function DailyTransformation() {
   };
 
   const loadUserProgress = async (): Promise<UserProgress> => {
-    const storedProgress = localStorage.getItem('transformation_progress');
+    const storedProgress = getStorageItemWithFallback('transformation_progress');
     
     if (storedProgress) {
       const progress = JSON.parse(storedProgress);
@@ -115,13 +125,13 @@ export default function DailyTransformation() {
   };
 
   const saveUserProgress = (progress: UserProgress) => {
-    localStorage.setItem('transformation_progress', JSON.stringify(progress));
+    setStorageItemNormalized('transformation_progress', JSON.stringify(progress));
     setUserProgress(progress);
   };
 
   const getCurrentMood = (): number => {
     // Check recent mood from journal entries or default assessment
-    const recentMood = localStorage.getItem('current_mood');
+    const recentMood = getStorageItemWithFallback('current_mood');
     if (recentMood) {
       const mood = parseInt(recentMood);
       return isNaN(mood) ? 5 : Math.max(1, Math.min(10, mood));
@@ -166,8 +176,8 @@ export default function DailyTransformation() {
     setChallengeComplete(true);
     
     // Store completion for crisis monitoring
-    localStorage.setItem('current_mood', completionData.emotionalStateAfter.toString());
-    localStorage.setItem('last_transformation_completion', new Date().toISOString());
+    setStorageItemNormalized('current_mood', completionData.emotionalStateAfter.toString());
+    setStorageItemNormalized('last_transformation_completion', new Date().toISOString());
   };
 
   const updateProgressWithCompletion = (progress: UserProgress, completion: CompletedChallenge): UserProgress => {
@@ -440,9 +450,9 @@ export default function DailyTransformation() {
           <p className="text-green-100/80 text-sm mb-6 leading-relaxed">
             You've completed your daily transformation challenge. Your commitment to growth is inspiring!
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
-              onClick={() => window.location.reload()}
+              onClick={refreshChallenge}
               className="bg-green-600/30 border border-green-500/30 text-green-200 px-6 py-2 rounded-lg hover:bg-green-600/40 transition-colors"
             >
               🔄 Check Tomorrow's Challenge

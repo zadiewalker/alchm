@@ -1,199 +1,342 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { safeWindow } from '@/utils/browser';
+import { useEffect, useState } from 'react';
+import type React from 'react';
+import { useRouter } from 'next/navigation';
+import { useData } from '@/hooks/useData';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { ErrorState } from '@/components/ui/ErrorState';
+import { DESIGN } from '@/lib/design';
+import type { JournalEntry } from '@/lib/dataService';
+import { getSessionCount, incrementSessionCountOncePerAppOpen } from '@/lib/onboarding';
+import { getReflectionUsageSummary } from '@/lib/subscription';
+import { getSettings } from '@/lib/settings';
+import { cancelReminder, scheduleReturnReminder } from '@/lib/notifications';
+import { getActivePathway, getPathwayById } from '@/lib/pathways';
+import {
+  dismissContinuityCardForSession,
+  generateContinuityCard,
+  generateDashboardGreeting,
+  getContinuityContext,
+  isContinuityCardDismissedForSession,
+  type ContinuityCard,
+} from '@/lib/continuity';
+
+function greetingLabel() {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}
 
 export default function DashboardClient() {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const router = useRouter();
+  const { isInitialized, getJournalEntries } = useData();
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const [loadingEntries, setLoadingEntries] = useState(true);
+  const [error, setError] = useState('');
+  const [sessionCount, setSessionCount] = useState(0);
+  const [reflectionSummary, setReflectionSummary] = useState(() => getReflectionUsageSummary());
+  const [continuityCard, setContinuityCard] = useState<ContinuityCard | null>(null);
+  const [greeting, setGreeting] = useState(greetingLabel());
+  const [showCheckIn, setShowCheckIn] = useState(false);
+  const [activePathwayId, setActivePathwayId] = useState('');
+  const [activeStep, setActiveStep] = useState(0);
 
-  // Get time-based greeting
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-
-  // Check for success parameter
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(safeWindow.location.search);
-      if (urlParams.get('success') === 'true') {
-        setShowSuccessMessage(true);
-        // Remove the parameter from URL
-        const newUrl = safeWindow.location.href.split('?')[0];
-        if (typeof window !== 'undefined') {
-          window.history.replaceState({}, document.title, newUrl);
-        }
-        // Hide message after 8 seconds
-        setTimeout(() => setShowSuccessMessage(false), 8000);
-      }
+    incrementSessionCountOncePerAppOpen();
+    setSessionCount(getSessionCount());
+    setReflectionSummary(getReflectionUsageSummary());
+    const context = getContinuityContext();
+    setGreeting(generateDashboardGreeting(context));
+    const card = generateContinuityCard(context);
+    if (card && !isContinuityCardDismissedForSession(card.type)) {
+      setContinuityCard(card);
+    }
+    const hour = new Date().getHours();
+    const settings = getSettings();
+    setShowCheckIn(settings.eveningCheckInEnabled && hour >= 18);
+    const active = getActivePathway();
+    setActivePathwayId(active?.pathwayId || '');
+    setActiveStep(active?.currentStep || 0);
+
+    if ((context.daysSinceLastEntry || 0) >= 2) {
+      scheduleReturnReminder().catch(() => {});
+    } else {
+      cancelReminder('return').catch(() => {});
     }
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+    setLoadingEntries(true);
+    getJournalEntries(3)
+      .then((items) => {
+        if (!mounted) return;
+        setEntries(items || []);
+        setError('');
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setError('Could not load recent entries right now.');
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setLoadingEntries(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [getJournalEntries]);
+
+  if (!isInitialized) {
+    return (
+      <SanctuaryLayout header={<SanctuaryHeader title="Dashboard" />}>
+        <LoadingState message="Preparing your sanctuary..." variant="page" />
+      </SanctuaryLayout>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
-      {/* Success Message */}
-      {showSuccessMessage && (
-        <div className="mx-6 mt-14 mb-4 p-4 rounded-xl bg-green-500/20 border border-green-500/30">
-          <div className="flex items-center gap-3">
-            <span className="text-green-300 text-lg">🎉</span>
-            <div>
-              <p className="text-green-200 font-medium">Welcome to Transformation!</p>
-              <p className="text-green-200/80 text-sm">Your subscription is active. Enjoy all the premium features!</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Header */}
-      <header className="px-6 pt-6 pb-6 flex items-start justify-between">
-        <div>
-          <p className="text-white/60 text-base mb-1">{greeting}</p>
-          <h1 className="text-white text-3xl font-light">Your Sanctuary</h1>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Link 
-            href="/emergency/"
-            className="w-10 h-10 rounded-full bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/20 flex items-center justify-center transition-all duration-200 ease-out active:scale-95"
-            title="Emergency Support"
-          >
-            <span className="text-amber-200 text-lg">☾</span>
-          </Link>
-          <Link 
-            href="/settings/"
-            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/15 flex items-center justify-center transition-all duration-200 ease-out active:scale-95"
-          >
-            <svg className="w-5 h-5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-            </svg>
-          </Link>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <div className="flex-1 px-6 overflow-y-auto">
-        
-        {/* Khepera Card - The Heart of the Dashboard */}
-        <section className="mb-8">
-          <div className="bg-gradient-to-br from-white/15 to-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/15 shadow-xl shadow-black/5">
-            {/* Khepera Icon */}
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#E5C97D]/25 to-[#E5C97D]/15 border border-[#E5C97D]/20 flex items-center justify-center mb-4">
-              <svg viewBox="0 0 100 100" className="w-7 h-7">
-                <circle cx="50" cy="12" r="8" fill="#E5C97D" />
-                <circle cx="50" cy="28" r="5" fill="white" fillOpacity="0.7" />
-                <ellipse cx="50" cy="55" rx="16" ry="24" fill="white" fillOpacity="0.7" />
-                <path d="M34 48 Q18 40 22 60 Q24 70 34 65 Z" fill="white" fillOpacity="0.7" />
-                <path d="M66 48 Q82 40 78 60 Q76 70 66 65 Z" fill="white" fillOpacity="0.7" />
-              </svg>
-            </div>
-            
-            <p className="text-white/90 text-lg leading-relaxed mb-1">
-              "What's present for you today?"
-            </p>
-            <p className="text-white/50 text-sm mb-5">— Khepera</p>
-            
-            <Link 
-              href="/journal/new/"
-              className="inline-block px-6 py-3 rounded-full bg-[#E5C97D] hover:bg-[#F2D99D]
-                         border border-[#E5C97D]/20 hover:border-[#F2D99D]/30
-                         shadow-md shadow-[#E5C97D]/20 hover:shadow-lg
-                         transition-all duration-200 ease-out active:scale-[0.98]
-                         min-h-[44px] flex items-center justify-center"
+    <SanctuaryLayout
+      header={
+        <SanctuaryHeader
+          title="Dashboard"
+          rightAction={
+            <Link
+              href="/settings/"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '44px',
+                height: '44px',
+                borderRadius: DESIGN.radius.full,
+                border: `1px solid ${DESIGN.colors.border}`,
+                color: DESIGN.colors.textPrimary,
+                textDecoration: 'none',
+                fontFamily: DESIGN.typography.sansSerif,
+              }}
             >
-              <span className="text-white text-sm font-medium">Begin writing</span>
+              ⚙
             </Link>
+          }
+        />
+      }
+    >
+      <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
+        <SanctuaryText variant="caption">
+          {sessionCount === 2 ? 'Welcome back.' : greeting}
+        </SanctuaryText>
+
+        {continuityCard ? (
+          <SanctuaryCard
+            style={{
+              borderColor: continuityCard.accent === 'gold' ? DESIGN.colors.goldDim : DESIGN.colors.sageLight,
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: DESIGN.spacing.sm }}>
+              <div>
+                <SanctuaryText
+                  variant="caption"
+                  style={{ color: continuityCard.accent === 'gold' ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary }}
+                >
+                  {continuityCard.title}
+                </SanctuaryText>
+                <SanctuaryText variant="body">{continuityCard.message}</SanctuaryText>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  dismissContinuityCardForSession(continuityCard.type);
+                  setContinuityCard(null);
+                }}
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  color: DESIGN.colors.textMuted,
+                  fontFamily: DESIGN.typography.sansSerif,
+                  fontSize: DESIGN.typography.sizes.lg,
+                }}
+                aria-label="Dismiss continuity card"
+              >
+                ×
+              </button>
+            </div>
+          </SanctuaryCard>
+        ) : null}
+
+        <SanctuaryCard elevated>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>
+            What's present for you today?
+          </SanctuaryText>
+          {sessionCount >= 3 && sessionCount <= 5 ? (
+            <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.xs }}>
+              Try today&apos;s prompt and let Khepera mirror back what it notices.
+            </SanctuaryText>
+          ) : null}
+          <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.md }}>
+            — Khepera
+          </SanctuaryText>
+          <button
+            type="button"
+            onClick={() => router.push('/journal/new/')}
+            style={{
+              minHeight: '44px',
+              borderRadius: DESIGN.radius.full,
+              border: `1px solid ${DESIGN.colors.goldDim}`,
+              padding: '10px 18px',
+              background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+              color: '#fff',
+              fontFamily: DESIGN.typography.sansSerif,
+              fontSize: DESIGN.typography.sizes.sm,
+            }}
+          >
+            Begin writing
+          </button>
+          {showCheckIn ? (
+            <button
+              type="button"
+              onClick={() => router.push('/checkin/')}
+              style={{
+                marginTop: DESIGN.spacing.sm,
+                ...secondaryButtonStyle,
+              }}
+            >
+              Check in
+            </button>
+          ) : null}
+          {reflectionSummary.tier === 'free' ? (
+            <button
+              type="button"
+              onClick={() => router.push('/pricing/')}
+              style={{
+                marginTop: DESIGN.spacing.sm,
+                border: 'none',
+                background: 'transparent',
+                padding: 0,
+                color: DESIGN.colors.textSecondary,
+                fontFamily: DESIGN.typography.sansSerif,
+                fontSize: DESIGN.typography.sizes.sm,
+                textDecoration: 'underline',
+                textAlign: 'left',
+              }}
+            >
+              {reflectionSummary.remaining === 0
+                ? 'Khepera reflections renew next month'
+                : `${reflectionSummary.remaining} reflections remaining this month`}
+            </button>
+          ) : null}
+        </SanctuaryCard>
+
+        <SanctuaryCard>
+          <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
+            <DashboardNav href="/journal/" title="Journal" subtitle="Your past reflections" />
+            <DashboardNav href="/insights/" title="Insights" subtitle="Patterns Khepera has noticed" />
+            <DashboardNav href="/pathways/" title="Pathways" subtitle="Guided healing journeys" />
+            <DashboardNav href="/community/" title="Community" subtitle="Anonymous wisdom moments" />
           </div>
-        </section>
+        </SanctuaryCard>
 
-        {/* Navigation Cards - Subtle but clearly tappable */}
-        <section className="space-y-3">
-          <Link 
-            href="/journal/"
-            className="flex items-center justify-between p-5 rounded-2xl
-                       bg-white/[0.07] hover:bg-white/[0.11]
-                       border border-white/[0.08] hover:border-white/[0.12]
-                       transition-all duration-200 active:scale-[0.99]
-                       group"
-          >
-            <div>
-              <h3 className="text-white/90 text-base font-medium mb-0.5">Journal</h3>
-              <p className="text-white/50 text-sm">Your past reflections</p>
-            </div>
-            
-            {/* Chevron - subtle affordance */}
-            <svg 
-              className="w-5 h-5 text-white/30 group-hover:text-white/50 
-                         group-hover:translate-x-0.5 transition-all duration-200" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth="1.5"
+        {activePathwayId ? (
+          <SanctuaryCard style={{ borderColor: DESIGN.colors.goldDim }}>
+            <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.xs }}>
+              Active pathway
+            </SanctuaryText>
+            <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
+              Day {activeStep + 1} of {getPathwayById(activePathwayId)?.duration || 1}:{' '}
+              {getPathwayById(activePathwayId)?.steps[activeStep]?.title || 'Current step'}
+            </SanctuaryText>
+            <button
+              type="button"
+              onClick={() => router.push(`/journal/new/?pathway=${activePathwayId}&step=${activeStep}`)}
+              style={primaryButtonStyle}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </Link>
+              Continue pathway
+            </button>
+          </SanctuaryCard>
+        ) : null}
 
-          <Link 
-            href="/insights/"
-            className="flex items-center justify-between p-5 rounded-2xl
-                       bg-white/[0.07] hover:bg-white/[0.11]
-                       border border-white/[0.08] hover:border-white/[0.12]
-                       transition-all duration-200 active:scale-[0.99]
-                       group"
-          >
-            <div>
-              <h3 className="text-white/90 text-base font-medium mb-0.5">Insights</h3>
-              <p className="text-white/50 text-sm">Patterns Khepera has noticed</p>
+        {loadingEntries ? <LoadingState message="Loading recent reflections..." variant="inline" /> : null}
+        {!loadingEntries && error ? <ErrorState variant="inline" message={error} /> : null}
+        {!loadingEntries && !error && !entries.length ? (
+          <EmptyState
+            title="Welcome to your sanctuary"
+            message="This is where your words will live. There's no right way to begin."
+            actionLabel="Begin"
+            onAction={() => router.push('/journal/new/')}
+          />
+        ) : null}
+
+        {!loadingEntries && !error && entries.length ? (
+          <SanctuaryCard>
+            <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
+              Recent entries
+            </SanctuaryText>
+            <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
+              {entries.map((entry) => (
+                <Link key={entry.id} href={`/journal/?id=${entry.id}`} style={{ textDecoration: 'none' }}>
+                  <div
+                    style={{
+                      border: `1px solid ${DESIGN.colors.borderLight}`,
+                      borderRadius: DESIGN.radius.md,
+                      padding: DESIGN.spacing.md,
+                    }}
+                  >
+                    <SanctuaryText variant="caption" style={{ marginBottom: 6 }}>
+                      {new Date(entry.createdAt).toLocaleDateString()}
+                    </SanctuaryText>
+                    <SanctuaryText variant="body">{String(entry.content || '').slice(0, 90) || 'Untitled reflection'}</SanctuaryText>
+                  </div>
+                </Link>
+              ))}
             </div>
-            
-            {/* Chevron - subtle affordance */}
-            <svg 
-              className="w-5 h-5 text-white/30 group-hover:text-white/50 
-                         group-hover:translate-x-0.5 transition-all duration-200" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth="1.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </Link>
-
-          <Link 
-            href="/pathways/"
-            className="flex items-center justify-between p-5 rounded-2xl
-                       bg-white/[0.07] hover:bg-white/[0.11]
-                       border border-white/[0.08] hover:border-white/[0.12]
-                       transition-all duration-200 active:scale-[0.99]
-                       group"
-          >
-            <div>
-              <h3 className="text-white/90 text-base font-medium mb-0.5">Pathways</h3>
-              <p className="text-white/50 text-sm">Guided healing journeys</p>
-            </div>
-            
-            {/* Chevron - subtle affordance */}
-            <svg 
-              className="w-5 h-5 text-white/30 group-hover:text-white/50 
-                         group-hover:translate-x-0.5 transition-all duration-200" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth="1.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </Link>
-
-        </section>
-
-        {/* Crisis Support Footer */}
-        <div className="mt-8 pb-8 pt-6">
-          <p className="text-white/30 text-xs text-center tracking-wide">
-            Crisis support available · 988
-          </p>
-        </div>
-
+          </SanctuaryCard>
+        ) : null}
       </div>
+    </SanctuaryLayout>
+  );
+}
 
-    </div>
+const secondaryButtonStyle: React.CSSProperties = {
+  minHeight: '44px',
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.border}`,
+  padding: '10px 18px',
+  background: DESIGN.colors.cardBg,
+  color: DESIGN.colors.textSecondary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+};
+
+function DashboardNav({ href, title, subtitle }: { href: string; title: string; subtitle: string }) {
+  return (
+    <Link
+      href={href}
+      style={{
+        borderRadius: DESIGN.radius.md,
+        border: `1px solid ${DESIGN.colors.borderLight}`,
+        padding: DESIGN.spacing.md,
+        textDecoration: 'none',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <div>
+        <SanctuaryText variant="body" style={{ marginBottom: 2 }}>
+          {title}
+        </SanctuaryText>
+        <SanctuaryText variant="caption">{subtitle}</SanctuaryText>
+      </div>
+      <SanctuaryText variant="muted">→</SanctuaryText>
+    </Link>
   );
 }

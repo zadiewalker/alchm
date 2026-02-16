@@ -2,6 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli'
 import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 
 const serverUrl = process.env.CAPACITOR_SERVER_URL;
+const useServerMode = process.env.CAPACITOR_USE_SERVER === 'true';
 const redirectHostHints: Record<string, string[]> = {
   'alchmapp.web.app': ['alchm.vercel.app'],
 };
@@ -46,15 +47,18 @@ function getAllowedNavigationHosts(urlValue?: string): string[] {
 const config: CapacitorConfig = {
   appId: 'com.alchm.sanctuary',
   appName: 'ALCHM',
-  // Server/API mode packaging: bundle minimal fallback web assets,
-  // but run the app from the configured remote Next.js server.
-  webDir: 'public',
-  server: {
-    ...(serverUrl ? { url: getEffectiveServerUrl(serverUrl) } : {}),
-    androidScheme: 'https',
-    cleartext: serverUrl ? getEffectiveServerUrl(serverUrl)?.startsWith('http://') : true,
-    allowNavigation: getAllowedNavigationHosts(serverUrl)
-  },
+  // Bundled static mode by default: Capacitor serves built Next.js export from out/.
+  webDir: 'out',
+  ...(useServerMode && serverUrl
+    ? {
+      server: {
+        url: getEffectiveServerUrl(serverUrl),
+        androidScheme: 'https',
+        cleartext: getEffectiveServerUrl(serverUrl)?.startsWith('http://'),
+        allowNavigation: getAllowedNavigationHosts(serverUrl),
+      },
+    }
+    : {}),
   ios: {
     contentInset: 'automatic',
     scrollEnabled: true,

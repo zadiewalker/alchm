@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
 import { transformationEngine, Challenge } from '@/lib/transformationEngine';
+import { setStorageItemNormalized } from '@/lib/storageKeys';
 
 export default function ChallengeLibrary() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -69,8 +70,8 @@ export default function ChallengeLibrary() {
 
   const startChallenge = (challenge: Challenge) => {
     // Store selected challenge for immediate use
-    localStorage.setItem('selected_challenge', JSON.stringify(challenge));
-    localStorage.setItem('challenge_start_time', new Date().toISOString());
+    setStorageItemNormalized('selected_challenge', JSON.stringify(challenge));
+    setStorageItemNormalized('challenge_start_time', new Date().toISOString());
     
     // Navigate to challenge interface or show modal
     setSelectedChallenge(challenge);

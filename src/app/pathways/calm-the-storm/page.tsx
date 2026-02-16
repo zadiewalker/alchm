@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 
 export default function CalmTheStormPathway() {
   const [currentStage, setCurrentStage] = useState(0);
@@ -126,7 +127,8 @@ export default function CalmTheStormPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#7BB3D4] to-[#5A9BC4] flex flex-col px-6 relative">
+    <SanctuaryLayout noPadding>
+      <div className="min-h-screen bg-gradient-to-b from-[#7BB3D4] to-[#5A9BC4] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -254,6 +256,7 @@ export default function CalmTheStormPathway() {
       <div className="pb-10">
         <p className="text-white/40 text-xs text-center tracking-wide">In crisis? Call 988 · You are not alone in this storm</p>
       </div>
-    </div>
+      </div>
+    </SanctuaryLayout>
   );
 }

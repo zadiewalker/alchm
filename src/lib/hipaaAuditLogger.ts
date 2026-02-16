@@ -213,14 +213,14 @@ class HIPAAAuditLogger {
   private async storeAuditLogsLocally(logs: AuditLogEntry[]): Promise<void> {
     try {
       // Simple localStorage fallback for audit logs
-      const existingLogs = localStorage.getItem('hipaa_audit_logs');
+      const existingLogs = getStorageItemWithFallback('hipaa_audit_logs');
       const parsedLogs = existingLogs ? JSON.parse(existingLogs) : [];
       const updatedLogs = [...parsedLogs, ...logs];
       
       // Keep only last 1000 entries locally to prevent storage overflow
       const trimmedLogs = updatedLogs.slice(-1000);
       
-      localStorage.setItem('hipaa_audit_logs', JSON.stringify(trimmedLogs));
+      setStorageItemNormalized('hipaa_audit_logs', JSON.stringify(trimmedLogs));
     } catch (error) {
       console.error('Local audit storage failed:', error);
       throw error;
@@ -316,7 +316,7 @@ class HIPAAAuditLogger {
    */
   async getAuditSummary(days: number = 30): Promise<any> {
     try {
-      const existingLogs = localStorage.getItem('hipaa_audit_logs');
+      const existingLogs = getStorageItemWithFallback('hipaa_audit_logs');
       const logs = existingLogs ? JSON.parse(existingLogs) : [];
       
       const cutoffDate = new Date();
@@ -364,3 +364,4 @@ export const auditAuth = (userId: string, action: string, success: boolean) => {
 export const auditDataChange = (userId: string, resource: string, action: string, dataType: 'PHI' | 'PII' | 'PUBLIC' = 'PHI') => {
   hipaaAuditLogger.logDataModification(userId, resource, action, dataType);
 };
+import { getStorageItemWithFallback, setStorageItemNormalized } from './storageKeys';

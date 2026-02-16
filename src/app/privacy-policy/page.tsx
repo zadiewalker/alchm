@@ -2,15 +2,18 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
 
 export default function PrivacyPolicy() {
   const [lastUpdated] = useState(new Date().toLocaleDateString());
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
-      {/* Radial Overlay - LOCKDOWN SPEC */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
-      <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
+    <SanctuaryLayout header={<SanctuaryHeader title="Privacy Policy" showBack />}>
+      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex flex-col">
+        {/* Radial Overlay - LOCKDOWN SPEC */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
+        <div className="relative z-10 max-w-4xl mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-white text-3xl font-light mb-4">Privacy Policy</h1>
@@ -580,7 +583,8 @@ export default function PrivacyPolicy() {
         <p className="text-white/40 text-xs text-center tracking-wide">
           Crisis support available · 988
         </p>
+        </div>
       </div>
-    </div>
+    </SanctuaryLayout>
   );
 }

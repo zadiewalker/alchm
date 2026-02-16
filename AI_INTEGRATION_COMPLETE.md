@@ -90,7 +90,7 @@
 
 ### OpenAI API Key Setup
 1. Get API key from https://platform.openai.com/
-2. Update `/functions/.env`: `OPENAI_API_KEY=sk-your-actual-key`
+2. Update `/functions/.env`: `OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE`
 3. Redeploy functions: `firebase deploy --only functions`
 
 **Current Status**: Functions deployed with placeholder key - will return supportive fallback responses until configured.
