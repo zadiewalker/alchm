@@ -9,8 +9,8 @@ BUILD PIPELINE
 --------------
 Status: ✅ HEALTHY
 
-Node: v20.19.4
-npm:  10.8.2
+Node: v22.22.0
+npm:  10.9.4
 
 next.config.js (key settings):
 3:  output: 'export',
@@ -30,9 +30,7 @@ Key pages sanity (_next refs + size):
 
 iOS DEPLOYMENT
 --------------
-Capacitor CLI: [31m[fatal][39m The Capacitor CLI requires NodeJS >=22.0.0
-        Please install the latest LTS version.
-NOT FOUND
+Capacitor CLI (Node 22): 8.0.2 (sync ok)
 
 capacitor.config (full):
 import type { CapacitorConfig } from '@capacitor/cli'
