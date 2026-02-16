@@ -19,7 +19,6 @@ let functions: any;
 
 if (typeof window !== 'undefined') {
   try {
-    console.log('🔥 Initializing Firebase...');
     app = getApps().length ? getApp() : initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
@@ -29,7 +28,6 @@ if (typeof window !== 'undefined') {
       appVerificationDisabledForTesting: false,
     };
 
-    console.log('✅ Firebase initialized successfully');
   } catch (error) {
     console.error('❌ Firebase initialization failed:', error);
     app = null;

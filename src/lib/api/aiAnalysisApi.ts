@@ -124,8 +124,6 @@ export async function analyzeJournalEntry(
   options: AnalysisOptions = {}
 ): Promise<JournalAnalysis> {
   
-  console.log('🚀 Using instant local Khepera analysis for maximum speed');
-  
   // Return immediate local analysis - no network calls, no delays
   return createLocalAnalysis(journalEntry, userId, journalEntryId, options);
 }

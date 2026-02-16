@@ -14,43 +14,32 @@ export const useData = () => {
   useEffect(() => {
     const initializeDataService = async () => {
       try {
-        console.log('🔄 Initializing data service...');
-        console.log('Platform:', Capacitor.getPlatform());
-        console.log('Auth loading:', authLoading);
-        console.log('User:', user ? 'logged in' : 'anonymous');
-
         // For ALCHM, we'll initialize immediately for anonymous users
         // Don't wait for auth to complete since we support anonymous usage
         if (!authLoading || (!user && authLoading)) {
           if (user) {
             // User is logged in - set up Firebase
-            console.log('🔐 Setting up authenticated data service');
             dataService.setUserId(user.uid);
             
             // Check if migration is needed
             const hasLocalData = checkForLocalStorageData();
             if (hasLocalData) {
-              console.log('📦 Migration needed - local data found');
               setMigrationStatus('pending');
             }
           } else {
             // Anonymous user - use localStorage
-            console.log('👤 Setting up anonymous data service');
             dataService.setUserId('');
           }
 
           // Load user profile
           try {
-            console.log('👤 Loading user profile...');
             const profile = await dataService.getUserProfile();
             setUserProfile(profile);
-            console.log('✅ User profile loaded');
           } catch (error) {
             console.error('❌ Error loading user profile:', error);
             // Don't fail initialization just because profile loading failed
           }
 
-          console.log('✅ Data service initialized');
           setIsInitialized(true);
         }
       } catch (error) {
@@ -70,7 +59,6 @@ export const useData = () => {
     
     const fallbackTimer = setTimeout(() => {
       if (!isInitialized) {
-        console.log(`🔧 Fallback initialization triggered (Platform: ${platform})`);
         dataService.setUserId('');
         setIsInitialized(true);
       }
@@ -93,7 +81,6 @@ export const useData = () => {
       );
       return keys.length > 0;
     } catch (error) {
-      console.log('localStorage not available:', error);
       return false;
     }
   };
@@ -119,7 +106,6 @@ export const useData = () => {
           );
           keys.forEach(key => localStorage.removeItem(key));
         } catch (error) {
-          console.log('Error clearing localStorage:', error);
         }
       }
       

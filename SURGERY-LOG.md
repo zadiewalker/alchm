@@ -50,3 +50,10 @@
 - Symptom: `next build` intermittently failed during "Collecting build traces" with missing `.next/server/**.nft.json`.
 - Fix: set `outputFileTracing: false` in `next.config.js` (static export in Capacitor does not need server tracing).
 - Verified: two consecutive clean builds succeed (`26` pages each).
+
+## Phase 7: Remove Production `console.log` + Quarantine More Unused UI
+- Quarantined unused debugging/bootstrap components: `src/components/CapacitorAppLoader.tsx`, `src/components/IOSWebViewFix.tsx`, `src/components/DebugWrapper.tsx`
+- Quarantined `src/scripts/` (not imported by the app; removed from `src/` to reduce noise/grep checks)
+- Removed all `console.log` calls from app code (`src/`) to avoid Safari Web Inspector noise in production builds.
+- TypeScript errors: ✅ `0`
+- Build: ✅ (`26` pages)

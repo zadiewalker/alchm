@@ -22,7 +22,6 @@ export function SplashScreenManager() {
       const hasDomContent = document.body.children.length > 0;
       
       if ((isDocumentReady && hasDomContent) || checks > 40) {
-        console.log('🌅 App fully ready for splash hide');
         setIsReady(true);
       } else {
         timeoutRef.current = setTimeout(checkReadyState, 100);
@@ -41,13 +40,11 @@ export function SplashScreenManager() {
   useEffect(() => {
     if (!isReady || hideAttempted.current) return;
 
-    console.log('🌅 SplashScreenManager: Starting precise hide sequence');
     hideAttempted.current = true;
 
     const hideSplashScreen = async () => {
       try {
         if (typeof window !== 'undefined' && (window as any).Capacitor) {
-          console.log('🌅 SplashScreenManager: Capacitor detected, importing SplashScreen');
           const { SplashScreen } = await import('@capacitor/splash-screen');
           
           await new Promise(resolve => setTimeout(resolve, 200));
@@ -56,12 +53,9 @@ export function SplashScreenManager() {
             await SplashScreen.hide({ 
               fadeOutDuration: 500
             });
-            console.log('🌅 Splash screen hidden - sanctuary ready');
           } catch (e) {
             console.warn('🌅 SplashScreen.hide() failed (non-critical):', e);
           }
-        } else {
-          console.log('🌅 SplashScreenManager: No Capacitor environment detected');
         }
       } catch (error) {
         console.error('🌅 SplashScreenManager: Critical error:', error);
