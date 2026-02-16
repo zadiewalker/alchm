@@ -35,3 +35,13 @@
 - Removed dead navigation telemetry (Sentry/Prisma instrumentation chain) that only created build warnings.
 - TypeScript errors: ✅ `0`
 - Build: ✅ (`26` pages)
+
+## Phase 5: Quarantine More Dead Weight (Admin/Monitoring/Payments)
+- Quarantined admin-only components (not reachable after removing `/admin` route): `src/components/admin/*`
+- Quarantined unused monitoring/telemetry wrappers: `src/components/AppInitializer.tsx`, `src/components/CapacitorErrorHandler.tsx`, `src/components/UsageMonitor.tsx`
+- Quarantined unused consent/pathway glue: `src/components/ConsentManager.tsx`, `src/lib/pathwayProgress.ts`
+- Quarantined server-only libs that should never ship in a static-export iOS WebView build:
+  - `src/lib/stripe.ts`, `src/lib/firebaseAdmin.ts`, `src/lib/openaiWithRateLimit.ts`, `src/lib/rateLimiting.ts`
+  - `src/lib/analytics.ts`, `src/lib/performance.ts`, `src/lib/hipaaAuditLogger.ts`, `src/lib/usageService.ts`, `src/lib/crisisMonitoring.ts`
+- TypeScript errors: ✅ `0`
+- Build: ✅ (`26` pages, stable from real path `/Users/zadiewalker/Desktop/alchm`)
