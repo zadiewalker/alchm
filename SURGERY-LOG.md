@@ -45,3 +45,8 @@
   - `src/lib/analytics.ts`, `src/lib/performance.ts`, `src/lib/hipaaAuditLogger.ts`, `src/lib/usageService.ts`, `src/lib/crisisMonitoring.ts`
 - TypeScript errors: ✅ `0`
 - Build: ✅ (`26` pages, stable from real path `/Users/zadiewalker/Desktop/alchm`)
+
+## Phase 6: Stabilize Next Build Tracing (Intermittent ENOENT)
+- Symptom: `next build` intermittently failed during "Collecting build traces" with missing `.next/server/**.nft.json`.
+- Fix: set `outputFileTracing: false` in `next.config.js` (static export in Capacitor does not need server tracing).
+- Verified: two consecutive clean builds succeed (`26` pages each).
