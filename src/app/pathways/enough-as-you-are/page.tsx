@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 
 export default function EnoughAsYouArePathway() {
   const [currentStage, setCurrentStage] = useState(0);
@@ -130,7 +131,8 @@ export default function EnoughAsYouArePathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#B395D4] to-[#9A7AC7] flex flex-col px-6 relative">
+    <SanctuaryLayout noPadding>
+      <div className="min-h-screen bg-gradient-to-b from-[#B395D4] to-[#9A7AC7] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -286,6 +288,7 @@ export default function EnoughAsYouArePathway() {
           You are inherently valuable · Crisis support: 988 · Your worth is not up for debate
         </p>
       </div>
-    </div>
+      </div>
+    </SanctuaryLayout>
   );
 }

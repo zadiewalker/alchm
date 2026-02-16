@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useData } from '@/hooks/useData';
-import { safeWindow } from '@/utils/browser';
 import { transformationEngine, DailyPrompt, UserProgress, CompletedChallenge, Achievement } from '@/lib/transformationEngine';
 import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
@@ -33,6 +32,15 @@ export default function DailyTransformation() {
       loadDailyTransformation();
     }
   }, [isInitialized]);
+
+  const refreshChallenge = () => {
+    // Avoid hard reloads in Capacitor; just re-run the local prompt generation.
+    setShowChallenge(false);
+    setChallengeStarted(false);
+    setChallengeComplete(false);
+    setNewAchievements([]);
+    loadDailyTransformation();
+  };
 
   const loadDailyTransformation = async () => {
     try {
@@ -442,9 +450,9 @@ export default function DailyTransformation() {
           <p className="text-green-100/80 text-sm mb-6 leading-relaxed">
             You've completed your daily transformation challenge. Your commitment to growth is inspiring!
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
-              onClick={() => safeWindow.reload()}
+              onClick={refreshChallenge}
               className="bg-green-600/30 border border-green-500/30 text-green-200 px-6 py-2 rounded-lg hover:bg-green-600/40 transition-colors"
             >
               🔄 Check Tomorrow's Challenge

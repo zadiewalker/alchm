@@ -1,84 +1,73 @@
 'use client';
+
+import type React from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import DreamAnalysis from '@/components/DreamAnalysis';
 import { safeLocalStorage } from '@/utils/browser';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { DESIGN } from '@/lib/design';
 
 export default function DreamsPage() {
   const [userTier, setUserTier] = useState<'sanctuary' | 'growth' | 'transformation'>('sanctuary');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check user's subscription tier from localStorage
     const storedTier = safeLocalStorage.getItem('userTier') as 'sanctuary' | 'growth' | 'transformation';
-    if (storedTier) {
-      setUserTier(storedTier);
-    }
+    if (storedTier) setUserTier(storedTier);
     setIsLoading(false);
   }, []);
 
-  const canAccess = userTier === 'transformation';
-
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-purple-900 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
+      <SanctuaryLayout header={<SanctuaryHeader title="Dreams" showBack />}>
+        <LoadingState message="Preparing dream space..." />
+      </SanctuaryLayout>
     );
   }
 
+  const canAccess = userTier === 'transformation';
+
   if (!canAccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-purple-900 flex flex-col items-center justify-center px-6">
-        <div className="bg-white/10 border border-white/20 p-8 rounded-3xl backdrop-blur-sm max-w-md text-center">
-          <div className="text-6xl mb-6">🌙</div>
-          <h1 className="text-2xl text-white font-light mb-4">Dream Analysis Locked</h1>
-          <p className="text-white/70 mb-6">
-            Access to advanced dream interpretation and subconscious analysis requires a Transformation subscription.
-          </p>
-          <div className="space-y-3">
-            <Link
-              href="/pricing/"
-              className="block bg-white/20 hover:bg-white/30 text-white py-3 px-6 rounded-full font-medium transition-all duration-300"
-            >
-              Upgrade to Transformation ($9.99/mo)
-            </Link>
-            <Link
-              href="/dashboard"
-              className="block text-white/70 hover:text-white py-3 px-6 font-light transition-all duration-300"
-            >
-              ← Back to Dashboard
-            </Link>
-          </div>
-        </div>
-      </div>
+      <SanctuaryLayout header={<SanctuaryHeader title="Dreams" showBack />}>
+        <SanctuaryCard elevated style={{ textAlign: 'center' }}>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Dream Analysis Locked</SanctuaryText>
+          <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.md }}>
+            Access to advanced dream interpretation requires a Transformation subscription.
+          </SanctuaryText>
+          <Link href="/pricing/" style={ctaStyle}>Upgrade to Transformation</Link>
+        </SanctuaryCard>
+      </SanctuaryLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-purple-900 flex flex-col px-6 relative">
-      {/* Header */}
-      <div className="pt-16 pb-8">
-        <div className="flex items-center mb-4">
-          <Link href="/dashboard" className="text-white/70 text-lg mr-4">← Back</Link>
-          <h1 className="text-2xl text-white font-extralight tracking-[0.2em]">Dreams & Intuition</h1>
-        </div>
-        <p className="text-white/70 text-sm font-light">
-          Unlock the wisdom of your subconscious through dream analysis and shadow integration
-        </p>
-      </div>
-
-      {/* Dream Analysis Component */}
-      <div className="flex-1">
+    <SanctuaryLayout header={<SanctuaryHeader title="Dreams & Intuition" showBack />}>
+      <SanctuaryCard>
+        <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
+          Unlock the wisdom of your subconscious through dream analysis and shadow integration.
+        </SanctuaryText>
         <DreamAnalysis />
-      </div>
-
-      {/* Crisis Support */}
-      <div className="pb-10">
-        <p className="text-white/40 text-xs text-center tracking-wide">
-          Dreams can reveal deep emotions · Your subconscious is wise
-        </p>
-      </div>
-    </div>
+      </SanctuaryCard>
+    </SanctuaryLayout>
   );
 }
+
+const ctaStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '44px',
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+  color: '#fff',
+  textDecoration: 'none',
+  fontFamily: DESIGN.typography.sansSerif,
+  padding: '10px 16px',
+};

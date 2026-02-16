@@ -18,6 +18,12 @@ import { DESIGN } from '@/lib/design';
 import { canAccessFeature } from '@/lib/subscription';
 import { UpgradePrompt } from '@/components/ui/UpgradePrompt';
 import { removeStorageItemNormalized } from '@/lib/storageKeys';
+import {
+  cancelReminder,
+  checkNotificationPermission,
+  requestNotificationPermission,
+  scheduleDailyReminder,
+} from '@/lib/notifications';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -33,6 +39,7 @@ export default function SettingsPage() {
   const [showExportSheet, setShowExportSheet] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportStatus, setExportStatus] = useState('');
+  const [notificationHint, setNotificationHint] = useState('');
   const [exportOptions, setExportOptions] = useState<ExportOptions>({
     format: 'json',
     includeReflections: true,
@@ -56,6 +63,20 @@ export default function SettingsPage() {
       mounted = false;
     };
   }, [getJournalEntries]);
+
+  useEffect(() => {
+    checkNotificationPermission()
+      .then((granted) => {
+        if (!granted) return;
+        if (settings.dailyReminderEnabled) {
+          scheduleDailyReminder(settings.dailyReminderTime, 'morning');
+        }
+        if (settings.eveningCheckInEnabled) {
+          scheduleDailyReminder(settings.eveningCheckInTime, 'evening');
+        }
+      })
+      .catch(() => {});
+  }, [settings.dailyReminderEnabled, settings.dailyReminderTime, settings.eveningCheckInEnabled, settings.eveningCheckInTime]);
 
   const onSave = (field: string, partial: Record<string, unknown>) => {
     update(partial);
@@ -119,6 +140,42 @@ export default function SettingsPage() {
     }
   };
 
+  const toggleDailyReminder = async (next: boolean) => {
+    if (next) {
+      const granted = await requestNotificationPermission();
+      if (!granted) {
+        setNotificationHint('To receive reminders, enable notifications for ALCHM in your device Settings.');
+        return;
+      }
+      setNotificationHint('');
+      await scheduleDailyReminder(settings.dailyReminderTime, 'morning');
+    } else {
+      await cancelReminder('morning');
+      setNotificationHint('');
+    }
+    onSave('dailyReminderEnabled', { dailyReminderEnabled: next });
+  };
+
+  const toggleEveningReminder = async (next: boolean) => {
+    if (next) {
+      if (!canAccessFeature('eveningCheckIn')) {
+        setUpgradeMessage('Evening check-in is available on the Reflections plan and above.');
+        return;
+      }
+      const granted = await requestNotificationPermission();
+      if (!granted) {
+        setNotificationHint('To receive reminders, enable notifications for ALCHM in your device Settings.');
+        return;
+      }
+      setNotificationHint('');
+      await scheduleDailyReminder(settings.eveningCheckInTime, 'evening');
+    } else {
+      await cancelReminder('evening');
+      setNotificationHint('');
+    }
+    onSave('eveningCheckInEnabled', { eveningCheckInEnabled: next });
+  };
+
   return (
     <SanctuaryLayout header={<SanctuaryHeader title="Settings" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
@@ -126,31 +183,36 @@ export default function SettingsPage() {
           <ToggleRow
             label="Daily reminder"
             value={settings.dailyReminderEnabled}
-            onChange={(value) => onSave('dailyReminderEnabled', { dailyReminderEnabled: value })}
+            onChange={toggleDailyReminder}
             saved={savedField === 'dailyReminderEnabled'}
           />
           <TimeRow
             label="Daily reminder time"
             value={settings.dailyReminderTime}
-            onChange={(value) => onSave('dailyReminderTime', { dailyReminderTime: value })}
+            onChange={async (value) => {
+              onSave('dailyReminderTime', { dailyReminderTime: value });
+              if (settings.dailyReminderEnabled) {
+                await scheduleDailyReminder(value, 'morning');
+              }
+            }}
           />
           <ToggleRow
             label="Evening check-in"
             value={settings.eveningCheckInEnabled}
-            onChange={(value) => {
-              if (value && !canAccessFeature('eveningCheckIn')) {
-                setUpgradeMessage('Evening check-in is available on the Reflections plan and above.');
-                return;
-              }
-              onSave('eveningCheckInEnabled', { eveningCheckInEnabled: value });
-            }}
+            onChange={toggleEveningReminder}
             saved={savedField === 'eveningCheckInEnabled'}
           />
           <TimeRow
             label="Evening check-in time"
             value={settings.eveningCheckInTime}
-            onChange={(value) => onSave('eveningCheckInTime', { eveningCheckInTime: value })}
+            onChange={async (value) => {
+              onSave('eveningCheckInTime', { eveningCheckInTime: value });
+              if (settings.eveningCheckInEnabled) {
+                await scheduleDailyReminder(value, 'evening');
+              }
+            }}
           />
+          {notificationHint ? <SanctuaryText variant="caption">{notificationHint}</SanctuaryText> : null}
         </Section>
 
         <Section title="Privacy">

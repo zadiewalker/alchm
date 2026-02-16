@@ -2,6 +2,7 @@
 
 import * as Sentry from '@sentry/react';
 import { Component, ReactNode } from 'react';
+import { safeWindow } from '@/utils/browser';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -71,9 +72,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       // Too many reloads - clear everything
       localStorage.clear()
       sessionStorage.clear()
-      window.location.href = '/'
+      safeWindow.open('/', '_self')
     } else {
-      window.location.reload()
+      // Avoid window.location.reload() in Capacitor (can create loops); re-open current URL instead.
+      safeWindow.open(safeWindow.location.href || '/', '_self')
     }
   }
 
@@ -88,7 +90,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       })
     }
     
-    window.location.href = '/'
+    safeWindow.open('/', '_self')
   }
 
   render() {

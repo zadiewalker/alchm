@@ -1,32 +1,46 @@
 'use client';
+
+import type React from 'react';
 import Link from 'next/link';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { DESIGN } from '@/lib/design';
 
 export default function SignupPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
-      {/* Header */}
-      <div className="pt-16 pb-8 flex items-center">
-        <Link href="/" className="text-white/70 text-lg mr-4">← Back</Link>
-        <h1 className="text-3xl text-white font-extralight tracking-[0.2em]">Join ALCHM</h1>
+    <SanctuaryLayout header={<SanctuaryHeader title="Join ALCHM" showBack />}>
+      <div style={{ minHeight: '65vh', display: 'grid', placeItems: 'center' }}>
+        <SanctuaryCard elevated style={{ width: '100%', maxWidth: 420, textAlign: 'center' }}>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.xs }}>Begin Your Journey</SanctuaryText>
+          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.md }}>Create your healing sanctuary</SanctuaryText>
+          <Link href="/dashboard/" style={primaryActionStyle}>Demo Signup</Link>
+          <SanctuaryText variant="muted" style={{ marginTop: DESIGN.spacing.md }}>
+            Already have an account? <Link href="/auth/login/" style={inlineLinkStyle}>Sign in</Link>
+          </SanctuaryText>
+        </SanctuaryCard>
       </div>
-
-      {/* Simple Content */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center max-w-[320px]">
-          <div className="text-white/80 text-6xl mb-6">🌱</div>
-          <h2 className="text-white text-xl font-light mb-4">Begin Your Journey</h2>
-          <p className="text-white/60 text-sm mb-8">Create your healing sanctuary</p>
-          <Link 
-            href="/dashboard"
-            className="inline-block px-8 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-sm hover:bg-white/20 transition-all duration-300 mb-4"
-          >
-            Demo Signup
-          </Link>
-          <div className="text-white/50 text-xs">
-            <Link href="/auth/login" className="underline">Already have an account?</Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    </SanctuaryLayout>
   );
 }
+
+const primaryActionStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '44px',
+  padding: '10px 18px',
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+  color: '#fff',
+  textDecoration: 'none',
+  fontFamily: DESIGN.typography.sansSerif,
+};
+
+const inlineLinkStyle: React.CSSProperties = {
+  color: DESIGN.colors.textKhepera,
+  textDecoration: 'underline',
+  fontFamily: DESIGN.typography.sansSerif,
+};

@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 
 export default function HonoringLossPathway() {
   const [currentStage, setCurrentStage] = useState(0);
@@ -117,7 +118,8 @@ export default function HonoringLossPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
+    <SanctuaryLayout noPadding>
+      <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -259,6 +261,7 @@ export default function HonoringLossPathway() {
           Grief can feel overwhelming · Crisis support: 988 · You don't have to carry this alone
         </p>
       </div>
-    </div>
+      </div>
+    </SanctuaryLayout>
   );
 }

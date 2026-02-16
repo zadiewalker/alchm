@@ -115,10 +115,6 @@ export const safeWindow = {
     if (!isBrowser) return null;
     return window.open(url, target);
   },
-  reload: () => {
-    if (!isBrowser) return;
-    window.location.reload();
-  },
 };
 
 export const safeNavigator = {

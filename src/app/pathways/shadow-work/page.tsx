@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 
 export default function ShadowWorkPathway() {
   const [currentStage, setCurrentStage] = useState(0);
@@ -126,7 +127,8 @@ export default function ShadowWorkPathway() {
   const currentStageData = stages[currentStage];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#95A7D4] to-[#7A8BC4] flex flex-col px-6 relative">
+    <SanctuaryLayout noPadding>
+      <div className="min-h-screen bg-gradient-to-b from-[#95A7D4] to-[#7A8BC4] flex flex-col px-6 relative">
       {/* Header */}
       <div className="pt-16 pb-8">
         <div className="flex items-center mb-4">
@@ -277,6 +279,7 @@ export default function ShadowWorkPathway() {
           Shadow work can bring up intense emotions · Crisis support: 988 · Integration takes time
         </p>
       </div>
-    </div>
+      </div>
+    </SanctuaryLayout>
   );
 }

@@ -36,6 +36,13 @@ export interface AnalysisRequest {
   journalEntryId: string;
 }
 
+export interface AnalysisOptions {
+  continuityContext?: string;
+  pathwayGuidance?: string;
+  reflectionFocus?: string;
+  isCheckin?: boolean;
+}
+
 export interface CrisisDetectionResult {
   isCrisis: boolean;
   confidenceLevel: 'low' | 'medium' | 'high';
@@ -113,13 +120,14 @@ async function makeAuthenticatedRequest(endpoint: string, options: RequestInit =
 export async function analyzeJournalEntry(
   journalEntry: string,
   userId: string,
-  journalEntryId: string
+  journalEntryId: string,
+  options: AnalysisOptions = {}
 ): Promise<JournalAnalysis> {
   
   console.log('🚀 Using instant local Khepera analysis for maximum speed');
   
   // Return immediate local analysis - no network calls, no delays
-  return createLocalAnalysis(journalEntry, userId, journalEntryId);
+  return createLocalAnalysis(journalEntry, userId, journalEntryId, options);
 }
 
 // Quick crisis detection (faster, separate endpoint)
@@ -184,7 +192,12 @@ export async function getUserAnalytics(userId: string) {
 }
 
 // Create instant local analysis for immediate responses
-function createLocalAnalysis(journalEntry: string, userId: string, journalEntryId: string): JournalAnalysis {
+function createLocalAnalysis(
+  journalEntry: string,
+  userId: string,
+  journalEntryId: string,
+  options: AnalysisOptions
+): JournalAnalysis {
   const text = journalEntry.toLowerCase();
   const wordCount = journalEntry.trim().split(/\s+/).length;
   
@@ -219,7 +232,7 @@ function createLocalAnalysis(journalEntry: string, userId: string, journalEntryI
   const responses = {
     emotionalRecognition: generateEmotionalRecognition(detectedEmotions),
     strengthIdentification: generateStrengthResponse(strengthIndicators),
-    gentleInsight: generateInsight(text, detectedEmotions),
+    gentleInsight: generateInsight(text, detectedEmotions, options),
     nurturingSuggestion: generateNurturingSuggestion(detectedEmotions)
   };
   
@@ -286,7 +299,11 @@ function generateStrengthResponse(strengths: string[]): string {
   return `I see ${recognizedStrengths.join(' and ')} as profound strengths in your healing journey.`;
 }
 
-function generateInsight(text: string, emotions: string[]): string {
+function generateInsight(text: string, emotions: string[], options: AnalysisOptions): string {
+  if (options.isCheckin) {
+    return "A brief check-in still matters. Let this be enough for tonight.";
+  }
+
   const insights = [
     "Every feeling you experience is part of your unique human journey.",
     "Your emotional world is rich and complex, which shows the depth of your heart.",
@@ -297,16 +314,31 @@ function generateInsight(text: string, emotions: string[]): string {
   
   // Choose insight based on dominant emotion
   if (emotions.includes('grateful')) {
-    return "Gratitude has a way of opening our hearts to even more beauty in life.";
+    return withContext("Gratitude has a way of opening our hearts to even more beauty in life.", options);
   }
   if (emotions.includes('sad')) {
-    return "Sadness often comes when we care deeply - it shows the tenderness of your heart.";
+    return withContext("Sadness often comes when we care deeply - it shows the tenderness of your heart.", options);
   }
   if (emotions.includes('anxious')) {
-    return "Anxiety often arises when we're trying to protect what matters to us.";
+    return withContext("Anxiety often arises when we're trying to protect what matters to us.", options);
   }
   
-  return insights[Math.floor(Math.random() * insights.length)];
+  return withContext(insights[Math.floor(Math.random() * insights.length)], options);
+}
+
+function withContext(base: string, options: AnalysisOptions): string {
+  const extra: string[] = [];
+
+  if (options.pathwayGuidance) {
+    extra.push(`Pathway focus: ${options.reflectionFocus || 'current step'}.`);
+  }
+
+  if (options.continuityContext) {
+    extra.push(options.continuityContext);
+  }
+
+  if (!extra.length) return base;
+  return `${base}\n\n${extra.join(' ')}`;
 }
 
 function generateNurturingSuggestion(emotions: string[]): string {

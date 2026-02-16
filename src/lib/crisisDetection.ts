@@ -367,3 +367,20 @@ export class CrisisDetectionService {
 }
 
 export const crisisDetection = new CrisisDetectionService();
+const CRISIS_TERMS = [
+  'suicide',
+  'kill myself',
+  'end my life',
+  'want to die',
+  'better off dead',
+  'self harm',
+  'hurt myself',
+  'no reason to live',
+  'can\'t go on',
+  'end it all',
+];
+
+export function detectCrisisLanguage(text: string): boolean {
+  const normalized = text.toLowerCase();
+  return CRISIS_TERMS.some((term) => normalized.includes(term));
+}

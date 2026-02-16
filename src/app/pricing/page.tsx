@@ -1,161 +1,116 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import type React from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { safeWindow } from '@/utils/browser';
+import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
+import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
+import { SanctuaryText } from '@/components/ui/SanctuaryText';
+import { DESIGN } from '@/lib/design';
+import { TIERS, getSubscription, setSubscriptionTier, type SubscriptionTier } from '@/lib/subscription';
+
+const order: SubscriptionTier[] = ['free', 'reflections', 'sanctuary'];
 
 export default function PricingPage() {
-  const [loading, setLoading] = useState(false);
-  const [showCancelMessage, setShowCancelMessage] = useState(false);
+  const [tier, setTier] = useState<SubscriptionTier>(() => getSubscription().tier);
+  const [status, setStatus] = useState('');
 
-  // Check for URL parameters on page load
-  useEffect(() => {
-    const urlParams = new URLSearchParams(safeWindow.location.search);
-    if (urlParams.get('canceled') === 'true') {
-      setShowCancelMessage(true);
-      setTimeout(() => setShowCancelMessage(false), 5000);
-    }
-  }, []);
-
-  const handleSubscribe = async () => {
-    try {
-      setLoading(true);
-      
-      // Stripe Payment Link for Transformation subscription
-      const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/cNi7sK34kefhbhAaGW73G00';
-      
-      // Redirect to Stripe Payment Link
-      safeWindow.open(STRIPE_PAYMENT_LINK, '_self');
-      
-    } catch (error) {
-      console.error('Subscription error:', error);
-      alert('Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const plans = useMemo(() => order.map((key) => ({ key, config: TIERS[key] })), []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col">
-      {/* Header */}
-      <header className="px-6 pt-14 pb-6">
-        <Link href="/dashboard" className="text-white/60 text-base mb-4 inline-block">
-          ← Back
-        </Link>
-        
-        {/* Cancel Message */}
-        {showCancelMessage && (
-          <div className="mb-4 p-4 rounded-xl bg-yellow-500/20 border border-yellow-500/30">
-            <p className="text-yellow-200 text-sm">
-              Payment was canceled. No worries - you can subscribe anytime when you're ready.
-            </p>
-          </div>
-        )}
-        
-        <h1 className="text-white text-3xl font-light">Support Your Practice</h1>
-        <p className="text-white/60 text-base mt-2 leading-relaxed">
-          ALCHM is free to use. Premium unlocks deeper tools when you're ready.
-        </p>
-      </header>
+    <SanctuaryLayout header={<SanctuaryHeader title="Pricing" showBack />}>
+      <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
+        {plans.map(({ key, config }) => {
+          const isCurrent = key === tier;
+          const isRecommended = key === 'reflections';
 
-      {/* Pricing Cards */}
-      <div className="flex-1 px-6 pb-24 overflow-y-auto">
-        <div className="space-y-4">
-          
-          {/* Growth Tier */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-            <div className="flex items-baseline justify-between mb-1">
-              <h2 className="text-white text-2xl font-light">Growth</h2>
-              <span className="text-white/50 text-sm">Forever</span>
-            </div>
-            <p className="text-white/50 text-sm mb-5">
-              Your healing journey starts here
-            </p>
-            
-            <div className="space-y-3 mb-6">
-              {['Unlimited journaling', 'Khepera AI companion', 'Two guided pathways', 'Insights & reflections'].map((feature) => (
-                <div key={feature} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#E8C56D]/20 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-[#E8C56D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-white/80 text-sm">{feature}</span>
+          return (
+            <SanctuaryCard key={key} elevated={isCurrent || isRecommended}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: DESIGN.spacing.sm, alignItems: 'center' }}>
+                <div>
+                  <SanctuaryText variant="title">{config.name}</SanctuaryText>
+                  <SanctuaryText variant="caption">{config.price}</SanctuaryText>
                 </div>
-              ))}
-            </div>
-            
-            <div className="py-3 rounded-xl bg-white/5 text-center">
-              <span className="text-white/40 text-sm">Your current plan</span>
-            </div>
-          </div>
-
-          {/* Transformation Tier */}
-          <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-6 border border-white/15">
-            <div className="flex items-baseline justify-between mb-1">
-              <h2 className="text-white text-2xl font-light">Transformation</h2>
-              <div>
-                <span className="text-white text-2xl font-light">$4.99</span>
-                <span className="text-white/50 text-sm">/month</span>
+                <div style={{ display: 'grid', gap: DESIGN.spacing.xs }}>
+                  {isRecommended ? <span style={badgeStyle}>Most popular</span> : null}
+                  {isCurrent ? <span style={currentBadgeStyle}>Current plan</span> : null}
+                </div>
               </div>
-            </div>
-            <p className="text-white/50 text-sm mb-5">
-              Deeper work for profound change
-            </p>
-            
-            <div className="space-y-3 mb-6">
-              {[
-                'Everything in Growth',
-                'All five pathways',
-                'Khepera remembers your history',
-                'Deeper pattern insights',
-                'Export your journal anytime'
-              ].map((feature) => (
-                <div key={feature} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#E8C56D]/25 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-[#E8C56D]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-white/90 text-sm">{feature}</span>
-                </div>
-              ))}
-            </div>
-            
-            <button 
-              onClick={handleSubscribe}
-              disabled={loading}
-              className="w-full py-4 rounded-xl bg-[#E8C56D] hover:bg-[#F2D99D] transition-all duration-200 active:scale-[0.98] shadow-lg shadow-[#E8C56D]/20 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span className="text-white text-base font-medium">
-                {loading ? 'Processing...' : 'Subscribe'}
-              </span>
-            </button>
-            
-            <p className="text-white/40 text-xs text-center mt-3">
-              $4.99/month. Cancel anytime.
-            </p>
-          </div>
 
-        </div>
+              <SanctuaryText variant="muted" style={{ marginTop: DESIGN.spacing.xs }}>
+                {config.description}
+              </SanctuaryText>
 
-        {/* Trust Section */}
-        <div className="mt-8 text-center">
-          <p className="text-white/50 text-sm leading-relaxed">
-            No ads. No data selling. Cancel anytime.<br />
-            Your healing is the only thing that matters.
-          </p>
-        </div>
+              <ul style={listStyle}>
+                {config.features.map((feature) => (
+                  <li key={feature}>{feature}</li>
+                ))}
+              </ul>
 
-        {/* Philosophy */}
-        <div className="mt-6 bg-white/5 rounded-2xl p-5">
-          <p className="text-white/50 text-sm leading-relaxed text-center">
-            ALCHM will always have a meaningful free tier.<br />
-            Healing shouldn't be locked behind a paywall.
-          </p>
-        </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSubscriptionTier(key);
+                  setTier(key);
+                  setStatus(`Plan updated: ${config.name}`);
+                }}
+                disabled={isCurrent}
+                style={{ ...ctaStyle, opacity: isCurrent ? 0.65 : 1 }}
+              >
+                {isCurrent ? 'Current plan' : 'Choose plan'}
+              </button>
+            </SanctuaryCard>
+          );
+        })}
 
+        {status ? <SanctuaryText variant="khepera">{status}</SanctuaryText> : null}
+
+        <SanctuaryText variant="muted" style={{ textAlign: 'center' }}>
+          Journal writing, crisis support, and data export are always available on every tier.
+        </SanctuaryText>
+        <Link href="/privacy-policy/" style={{ ...subtleLinkStyle, textAlign: 'center' }}>View privacy policy</Link>
       </div>
-    </div>
+    </SanctuaryLayout>
   );
 }
+
+const ctaStyle: React.CSSProperties = {
+  marginTop: DESIGN.spacing.md,
+  minHeight: '44px',
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+  color: '#fff',
+  fontFamily: DESIGN.typography.sansSerif,
+  padding: '10px 16px',
+};
+
+const listStyle: React.CSSProperties = {
+  margin: `${DESIGN.spacing.sm} 0 0`,
+  paddingLeft: 18,
+  color: DESIGN.colors.textSecondary,
+  fontFamily: DESIGN.typography.sansSerif,
+  lineHeight: DESIGN.typography.lineHeights.relaxed,
+};
+
+const subtleLinkStyle: React.CSSProperties = {
+  color: DESIGN.colors.textSecondary,
+  textDecoration: 'underline',
+  fontFamily: DESIGN.typography.sansSerif,
+};
+
+const badgeStyle: React.CSSProperties = {
+  borderRadius: DESIGN.radius.full,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  color: DESIGN.colors.textKhepera,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.xs,
+  padding: '4px 8px',
+};
+
+const currentBadgeStyle: React.CSSProperties = {
+  ...badgeStyle,
+  borderColor: DESIGN.colors.sage,
+  color: DESIGN.colors.sageBright,
+};
