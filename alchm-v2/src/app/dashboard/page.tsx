@@ -141,6 +141,62 @@ export default function DashboardPage() {
         </button>
       </div>
 
+      <div style={{ marginTop: '14px', display: 'flex', gap: '10px' }}>
+        <button
+          type="button"
+          onClick={() => router.push('/pathways/')}
+          aria-label="Open pathways"
+          style={{
+            flex: 1,
+            minHeight: '44px',
+            padding: '10px 12px',
+            borderRadius: DESIGN.radius.full,
+            border: `1px solid ${DESIGN.colors.border}`,
+            backgroundColor: 'rgba(255,255,255,0.04)',
+            color: DESIGN.colors.textPrimary,
+            fontFamily: DESIGN.typography.sansSerif,
+            cursor: 'pointer',
+          }}
+        >
+          Pathways
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push('/insights/')}
+          aria-label="Open insights"
+          style={{
+            flex: 1,
+            minHeight: '44px',
+            padding: '10px 12px',
+            borderRadius: DESIGN.radius.full,
+            border: `1px solid ${DESIGN.colors.border}`,
+            backgroundColor: 'rgba(255,255,255,0.04)',
+            color: DESIGN.colors.textPrimary,
+            fontFamily: DESIGN.typography.sansSerif,
+            cursor: 'pointer',
+          }}
+        >
+          Insights
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push('/pricing/')}
+          aria-label="Open pricing"
+          style={{
+            minHeight: '44px',
+            padding: '10px 12px',
+            borderRadius: DESIGN.radius.full,
+            border: `1px solid ${DESIGN.colors.border}`,
+            backgroundColor: 'rgba(255,255,255,0.04)',
+            color: DESIGN.colors.textPrimary,
+            fontFamily: DESIGN.typography.sansSerif,
+            cursor: 'pointer',
+          }}
+        >
+          Pricing
+        </button>
+      </div>
+
       {state === 'loading' ? <LoadingState label="Loading your sanctuary…" /> : null}
       {state === 'empty' ? (
         <EmptyState

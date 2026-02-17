@@ -27,7 +27,7 @@ export function CrisisFooter({ onOpen }: { onOpen: () => void }) {
           fontFamily: 'inherit',
         }}
       >
-        <span style={{ color: DESIGN.colors.textMuted, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}>
+        <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}>
           Crisis support available ·{' '}
         </span>
       </button>

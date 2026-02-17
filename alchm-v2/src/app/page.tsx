@@ -46,7 +46,7 @@ export default function SplashPage() {
             style={{ width: '56px', height: '72px' }}
             aria-label="Khepera scarab"
           >
-            <circle cx="32" cy="6" r="5.5" fill="#E5C97D" />
+            <circle cx="32" cy="6" r="5.5" fill="#D8CA7B" />
             <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#EAE5D9" />
             <path d="M28,15 Q24,8 22,6" stroke="#EAE5D9" strokeWidth="1.2" fill="none" strokeLinecap="round" />
             <path d="M36,15 Q40,8 42,6" stroke="#EAE5D9" strokeWidth="1.2" fill="none" strokeLinecap="round" />
@@ -64,7 +64,7 @@ export default function SplashPage() {
           style={{
             marginTop: '24px',
             marginBottom: '16px',
-            fontSize: '42px',
+            fontSize: '36px',
             fontWeight: 300,
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
@@ -73,7 +73,7 @@ export default function SplashPage() {
             fontFamily: DESIGN.typography.sansSerif,
           }}
         >
-          ALCHM
+          A L C H M
         </h1>
 
         <p
@@ -104,7 +104,7 @@ export default function SplashPage() {
               paddingBottom: '16px',
               borderRadius: DESIGN.radius.full,
               border: 'none',
-              backgroundColor: '#E5C97D',
+              backgroundColor: '#E8C56D',
               cursor: isNavigating ? 'default' : 'pointer',
               opacity: isNavigating ? 0.7 : 1,
             }}
@@ -114,7 +114,7 @@ export default function SplashPage() {
                 color: '#FFFFFF',
                 textTransform: 'uppercase',
                 letterSpacing: '0.12em',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: 500,
                 whiteSpace: 'nowrap',
                 fontFamily: DESIGN.typography.sansSerif,

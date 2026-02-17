@@ -3,6 +3,7 @@ import React from 'react';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { PageShell } from '@/components/PageShell';
+import { CapacitorBootstrap } from '@/components/CapacitorBootstrap';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body style={{ margin: 0, padding: 0 }}>
         {/* Crisis support available · 988 */}
         <ErrorBoundary name="root">
+          <CapacitorBootstrap />
           <PageShell>{children}</PageShell>
         </ErrorBoundary>
       </body>
