@@ -9,9 +9,17 @@ export const STORAGE_KEYS = {
   draft: 'alchm-draft-entry',
   subscription: 'alchm-subscription',
   onboardingComplete: 'alchm-onboarding-complete',
+  // Legacy keys kept for backward compatibility. ALCHM v2 does not display or
+  // encourage streak tracking anywhere (no guilt, no gamification).
   lastEntryDate: 'alchm-last-entry-date',
   currentStreak: 'alchm-current-streak',
   longestStreak: 'alchm-longest-streak',
+  // Disruption layer (anti-guilt streak tracking).
+  streak: 'alchm-streak',
+  graceResetDate: 'alchm-grace-reset-date',
+  // Local UX state (non-user-content).
+  lastShownStageId: 'alchm-last-shown-stage-id',
+  lastGraceShownForEntryDate: 'alchm-last-grace-shown-for-entry-date',
   anthropicApiKey: 'alchm-anthropic-api-key',
 } as const;
 
@@ -110,4 +118,3 @@ export function clearAllAlchmData(): void {
     }
   }
 }
-

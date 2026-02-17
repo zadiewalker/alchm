@@ -9,8 +9,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   dailyReminderTime: '09:00',
   eveningCheckInEnabled: false,
   eveningCheckInTime: '21:00',
-  analyticsEnabled: true,
-  crashReportingEnabled: true,
   autoSaveEnabled: true,
   autoSaveIntervalMs: 10000,
   preferredFramework: null,
@@ -41,4 +39,3 @@ export function updateSettings(partial: Partial<AppSettings>): AppSettings {
   saveSettings(next);
   return next;
 }
-

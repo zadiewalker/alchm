@@ -40,8 +40,6 @@ export interface AppSettings {
   dailyReminderTime: string;
   eveningCheckInEnabled: boolean;
   eveningCheckInTime: string;
-  analyticsEnabled: boolean;
-  crashReportingEnabled: boolean;
   autoSaveEnabled: boolean;
   autoSaveIntervalMs: number;
   preferredFramework: string | null;
