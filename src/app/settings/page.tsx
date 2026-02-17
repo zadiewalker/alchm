@@ -18,6 +18,7 @@ import { DESIGN } from '@/lib/design';
 import { canAccessFeature } from '@/lib/subscription';
 import { UpgradePrompt } from '@/components/ui/UpgradePrompt';
 import { removeStorageItemNormalized } from '@/lib/storageKeys';
+import { HealthDisclaimer } from '@/components/HealthDisclaimer';
 import {
   cancelReminder,
   checkNotificationPermission,
@@ -270,6 +271,8 @@ export default function SettingsPage() {
           <div style={{ display: 'grid', gap: DESIGN.spacing.xs }}>
             <SanctuaryText variant="caption">Made with care by ALCHM</SanctuaryText>
             <Link href="/privacy-policy/" style={resourceLinkStyle}>Privacy Policy</Link>
+            <Link href="/terms/" style={resourceLinkStyle}>Terms of Service</Link>
+            <HealthDisclaimer variant="compact" />
             <SanctuaryText variant="muted">Version {version}</SanctuaryText>
           </div>
         </Section>

@@ -128,6 +128,7 @@ export default function DashboardClient() {
           rightAction={
             <Link
               href="/settings/"
+              aria-label="Open settings"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',

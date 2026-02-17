@@ -8,6 +8,7 @@ import { useData } from '@/hooks/useData';
 import { completeOnboarding, isFirstTimeUser } from '@/lib/onboarding';
 import { DESIGN } from '@/lib/design';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
+import { HealthDisclaimer } from '@/components/HealthDisclaimer';
 
 const moods = ['anxious', 'heavy', 'numb', 'restless', 'tender', 'hopeful', 'alive', 'shattered', 'calm', 'burning'];
 const FIRST_PROMPT = 'What brought you here today?';
@@ -87,6 +88,7 @@ export default function OnboardingPage() {
             <Scarab />
             <h1 style={titleStyle}>Welcome to ALCHM</h1>
             <p style={bodyStyle}>A quiet space for reflection. No streaks. No scores. Just you and your words.</p>
+            <HealthDisclaimer variant="onboarding" />
             <button type="button" style={primaryButtonStyle} onClick={() => setStep(2)}>Continue</button>
           </section>
         ) : null}

@@ -57,3 +57,12 @@
 - Removed all `console.log` calls from app code (`src/`) to avoid Safari Web Inspector noise in production builds.
 - TypeScript errors: ✅ `0`
 - Build: ✅ (`26` pages)
+
+## Phase 8: App Store Compliance (Disclaimers + Terms + Pricing Safety)
+- Added `src/components/HealthDisclaimer.tsx` (includes 988 + AI disclosure).
+- Wired disclaimer into onboarding (`src/app/onboarding/page.tsx`) and Settings About section (`src/app/settings/page.tsx`).
+- Added Terms page: `src/app/terms/page.tsx` and linked from Settings and Pricing.
+- Pricing: removed any ability to "choose" a plan without StoreKit; page now states subscriptions are coming soon (`src/app/pricing/page.tsx`).
+- Subscription gating: disabled paywall until StoreKit exists, defaulting feature access to enabled (`src/lib/subscription.ts`).
+- Accessibility: added `aria-label` to 988 link in `src/components/CrisisFooter.tsx` and settings gear link on dashboard.
+- Added `APP_STORE_METADATA.md` draft (needs public URLs filled in).
