@@ -36,10 +36,10 @@ export function HealthDisclaimer({
   return (
     <div
       style={{
-        backgroundColor: variant === 'full' ? DESIGN.colors.cardBg : 'transparent',
-        border: variant === 'full' ? `1px solid ${DESIGN.colors.borderLight}` : 'none',
+        backgroundColor: DESIGN.colors.bgElevated,
+        border: `1px solid ${DESIGN.colors.borderLight}`,
         borderRadius: DESIGN.radius.lg,
-        padding: variant === 'full' ? '16px' : '0px',
+        padding: '16px',
       }}
     >
       <p style={textStyle}>
@@ -66,4 +66,3 @@ export function HealthDisclaimer({
     </div>
   );
 }
-

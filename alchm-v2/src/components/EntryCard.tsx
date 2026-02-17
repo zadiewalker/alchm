@@ -4,6 +4,14 @@ import React from 'react';
 import { DESIGN } from '@/lib/design';
 import type { JournalEntry } from '@/lib/types';
 
+const MOOD_LABELS: Record<number, string> = {
+  1: 'Heavy',
+  3: 'Anxious',
+  5: 'Neutral',
+  7: 'Hopeful',
+  9: 'Peaceful',
+};
+
 function formatDate(iso: string): string {
   try {
     const d = new Date(iso);
@@ -43,7 +51,9 @@ export function EntryCard({
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'baseline' }}>
         <div style={{ fontSize: '13px', color: DESIGN.colors.textMuted }}>{formatDate(entry.createdAt)}</div>
         {typeof entry.mood === 'number' ? (
-          <div style={{ fontSize: '12px', color: DESIGN.colors.textSecondary }}>Mood {entry.mood}</div>
+          <div style={{ fontSize: '12px', color: DESIGN.colors.sage300 }}>
+            {MOOD_LABELS[entry.mood] || 'Mood'}
+          </div>
         ) : null}
       </div>
       <div
@@ -92,4 +102,3 @@ export function EntryCard({
     </button>
   );
 }
-

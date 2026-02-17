@@ -43,44 +43,21 @@ export function CheckinSteps(props: {
           Anything else?
         </h1>
         <div style={{ marginTop: '8px', fontSize: '13px', color: DESIGN.colors.textSecondary }}>Just one sentence.</div>
-        <input
+        <textarea
           value={props.sentence}
           onChange={(e) => props.onSentence(e.target.value)}
           aria-label="Optional check-in sentence"
           placeholder="One sentence…"
-          style={{
-            marginTop: '14px',
-            width: '100%',
-            minHeight: '48px',
-            padding: '14px',
-            borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
-            fontSize: '16px',
-            outline: 'none',
-          }}
+          className="input"
+          style={{ marginTop: '14px', width: '100%', minHeight: '120px', fontFamily: DESIGN.typography.sansSerif, resize: 'none' }}
         />
         <div style={{ marginTop: '14px', display: 'flex', gap: '12px' }}>
           <button
             type="button"
             onClick={props.onDone}
             aria-label="Finish check-in"
-            style={{
-              flex: 1,
-              minHeight: '52px',
-              borderRadius: DESIGN.radius.full,
-              border: 'none',
-              backgroundColor: DESIGN.colors.gold,
-              color: '#fff',
-              fontFamily: DESIGN.typography.sansSerif,
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
-              fontSize: '15px',
-              fontWeight: DESIGN.typography.weights.medium,
-              cursor: 'pointer',
-            }}
+            className="btn-primary"
+            style={{ flex: 1, fontFamily: DESIGN.typography.sansSerif }}
           >
             Done
           </button>
@@ -88,16 +65,8 @@ export function CheckinSteps(props: {
             type="button"
             onClick={props.onSkip}
             aria-label="Skip sentence"
-            style={{
-              minHeight: '52px',
-              padding: '0 16px',
-              borderRadius: DESIGN.radius.full,
-              border: `1px solid ${DESIGN.colors.border}`,
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              color: DESIGN.colors.textPrimary,
-              fontFamily: DESIGN.typography.sansSerif,
-              cursor: 'pointer',
-            }}
+            className="btn-secondary"
+            style={{ minHeight: '52px', fontFamily: DESIGN.typography.sansSerif }}
           >
             Skip
           </button>
@@ -111,7 +80,7 @@ export function CheckinSteps(props: {
       <h1 style={{ margin: 0, fontSize: '22px', fontWeight: DESIGN.typography.weights.light, fontFamily: DESIGN.typography.sansSerif }}>
         Khepera&apos;s goodnight
       </h1>
-      <div style={{ marginTop: '12px', backgroundColor: 'rgba(232, 197, 109, 0.06)', border: `1px solid rgba(232, 197, 109, 0.18)`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+      <div className="card card-elevated" style={{ marginTop: '12px' }}>
         {props.isThinking ? <LoadingState label="Khepera is listening…" /> : null}
         {props.error ? <ErrorState title="Khepera couldn't reflect" message={props.error} /> : null}
         {props.kheperaText ? <TypewriterText text={props.kheperaText} speedCps={70} /> : null}
@@ -120,21 +89,8 @@ export function CheckinSteps(props: {
         type="button"
         onClick={props.onGoodnight}
         aria-label="Return to dashboard"
-        style={{
-          marginTop: '18px',
-          width: '100%',
-          minHeight: '52px',
-          borderRadius: DESIGN.radius.full,
-          border: 'none',
-          backgroundColor: DESIGN.colors.gold,
-          color: '#fff',
-          fontFamily: DESIGN.typography.sansSerif,
-          textTransform: 'uppercase',
-          letterSpacing: '0.12em',
-          fontSize: '15px',
-          fontWeight: DESIGN.typography.weights.medium,
-          cursor: 'pointer',
-        }}
+        className="btn-primary"
+        style={{ marginTop: '18px', width: '100%', fontFamily: DESIGN.typography.sansSerif }}
       >
         Goodnight ✦
       </button>
@@ -142,4 +98,3 @@ export function CheckinSteps(props: {
     </div>
   );
 }
-

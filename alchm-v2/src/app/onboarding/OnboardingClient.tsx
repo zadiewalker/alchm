@@ -76,6 +76,22 @@ export default function OnboardingClient() {
           Step {step} of 3
         </div>
       </div>
+      <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }} aria-label="Onboarding progress">
+        {[1, 2, 3].map((n) => {
+          const active = n === step;
+          return (
+            <div
+              key={n}
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '9999px',
+                backgroundColor: active ? DESIGN.colors.sage400 : 'rgba(164, 180, 148, 0.25)',
+              }}
+            />
+          );
+        })}
+      </div>
 
       <OnboardingSteps
         step={step}

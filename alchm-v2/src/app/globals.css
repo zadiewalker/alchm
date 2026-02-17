@@ -16,17 +16,48 @@
   --sar: env(safe-area-inset-right);
   --sab: env(safe-area-inset-bottom);
   --sal: env(safe-area-inset-left);
-  
-  /* Sanctuary Colors */
-  --sage-deep: #8B9A7C;
-  --sage-light: #A8B5A0;
-  --sage-whisper: #B8C4AD;
-  
-  /* Surface Opacities */
+
+  /* ─────────────────────────────────────────────────────────────
+     Sanctuary Palette (no pure black / near-black)
+     ───────────────────────────────────────────────────────────── */
+  --bg-sanctuary: #2D332A;
+  --bg-elevated: #343B30;
+  --bg-surface: #3B4236;
+  --bg-hover: #434A3D;
+
+  --sage-50: #F0F3ED;
+  --sage-100: #DDE4D6;
+  --sage-200: #C1CCBA;
+  --sage-300: #A4B494;
+  --sage-400: #8B9A7C;
+  --sage-500: #6B7A5E;
+  --sage-600: #4E5A44;
+
+  --gold-primary: #E8C87A;
+  --gold-soft: #F0D99A;
+  --gold-muted: #BFA65A;
+
+  --text-primary: #E8E4DC;
+  --text-secondary: #A4A08C;
+  --text-muted: #7A7768;
+  --text-inverse: #2D332A;
+
+  --border-subtle: rgba(164, 180, 148, 0.12);
+  --border-medium: rgba(164, 180, 148, 0.25);
+  --border-strong: rgba(164, 180, 148, 0.40);
+  --border-gold: rgba(232, 200, 122, 0.50);
+
+  /* Gradients */
+  --gradient-sanctuary: linear-gradient(180deg, #4E5A44 0%, #3B4236 120px, #2D332A 300px);
+  --gradient-onboarding: linear-gradient(180deg, #4E5A44 0%, #2D332A 60%);
+  --gradient-dashboard-header: linear-gradient(180deg, #4E5A44 0%, #3B4236 100%);
+  --gradient-card-warm: linear-gradient(180deg, #3B4236 0%, #343B30 100%);
+
+  /* Glass surfaces (kept subtle; heavy blur can feel sluggish in WKWebView) */
   --glass-subtle: rgba(255, 255, 255, 0.05);
-  --glass-elevated: rgba(255, 255, 255, 0.10);
-  --glass-active: rgba(255, 255, 255, 0.15);
-  --glass-prominent: rgba(255, 255, 255, 0.20);
+  --glass-elevated: rgba(255, 255, 255, 0.08);
+  --glass-active: rgba(255, 255, 255, 0.12);
+  --glass-prominent: rgba(255, 255, 255, 0.16);
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -50,8 +81,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
-  color: white;
+  background: var(--gradient-sanctuary);
+  color: var(--text-primary);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
@@ -100,8 +131,9 @@ body {
    ───────────────────────────────────────────────────────────────────── */
 .glass {
   background: var(--glass-elevated);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* backdrop-filter is expensive on iOS; keep it light */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -197,6 +229,119 @@ input::placeholder, textarea::placeholder {
 }
 
 textarea {
+  resize: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Sanctuary UI Primitives
+   ───────────────────────────────────────────────────────────────────── */
+.page-content {
+  background: var(--gradient-sanctuary);
+  min-height: 100vh;
+}
+
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 20px;
+  transition: background 0.2s ease;
+}
+
+.card:active {
+  background: var(--bg-hover);
+}
+
+.card-elevated {
+  background: var(--gradient-card-warm);
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 0 20px rgba(232, 200, 122, 0.06);
+}
+
+.btn-primary {
+  background: var(--gold-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 28px;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  min-height: 56px;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--gold-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 24px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  min-height: 44px;
+}
+
+.btn-destructive {
+  background: transparent;
+  color: #C47A6B;
+  border: 1px solid rgba(196, 122, 107, 0.3);
+  border-radius: 24px;
+  padding: 12px 24px;
+  min-height: 44px;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  color: var(--gold-primary);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 0;
+  min-height: 44px;
+}
+
+.mood-chip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 500;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.mood-chip-selected {
+  background: var(--sage-500);
+  border: 1px solid var(--sage-400);
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(139, 154, 124, 0.2);
+}
+
+.input {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  caret-color: var(--gold-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: var(--border-strong);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 154, 124, 0.10);
+}
+
+.journal-textarea {
+  min-height: 200px;
   resize: none;
 }
 

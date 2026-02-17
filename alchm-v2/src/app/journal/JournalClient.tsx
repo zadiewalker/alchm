@@ -47,38 +47,10 @@ export default function JournalClient() {
   return (
     <div style={{ padding: '28px 20px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-        <button
-          type="button"
-          onClick={() => router.push('/dashboard/')}
-          aria-label="Return to dashboard"
-          style={{
-            border: 'none',
-            background: 'transparent',
-            color: DESIGN.colors.gold,
-            fontFamily: DESIGN.typography.sansSerif,
-            fontSize: '15px',
-            cursor: 'pointer',
-            minHeight: '44px',
-            padding: 0,
-          }}
-        >
+        <button type="button" onClick={() => router.push('/dashboard/')} aria-label="Return to dashboard" className="btn-ghost">
           ← Dashboard
         </button>
-        <button
-          type="button"
-          onClick={() => router.push('/journal/new/')}
-          aria-label="Write a new journal entry"
-          style={{
-            minHeight: '44px',
-            padding: '10px 14px',
-            borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
-            cursor: 'pointer',
-          }}
-        >
+        <button type="button" onClick={() => router.push('/journal/new/')} aria-label="Write a new journal entry" className="btn-secondary">
           Write
         </button>
       </div>
@@ -89,18 +61,8 @@ export default function JournalClient() {
           onChange={(e) => setQuery(e.target.value)}
           aria-label="Search journal entries"
           placeholder="Search…"
-          style={{
-            width: '100%',
-            minHeight: '48px',
-            padding: '14px',
-            borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
-            fontSize: '16px',
-            outline: 'none',
-          }}
+          className="input"
+          style={{ width: '100%', fontFamily: DESIGN.typography.sansSerif }}
         />
       </div>
 
@@ -115,20 +77,8 @@ export default function JournalClient() {
               type="button"
               onClick={() => router.push('/journal/new/')}
               aria-label="Write your first journal entry"
-              style={{
-                minHeight: '52px',
-                padding: '0 18px',
-                borderRadius: DESIGN.radius.full,
-                border: 'none',
-                backgroundColor: DESIGN.colors.gold,
-                color: '#fff',
-                fontFamily: DESIGN.typography.sansSerif,
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-                fontSize: '15px',
-                fontWeight: DESIGN.typography.weights.medium,
-                cursor: 'pointer',
-              }}
+              className="btn-primary"
+              style={{ fontFamily: DESIGN.typography.sansSerif }}
             >
               Write your first
             </button>

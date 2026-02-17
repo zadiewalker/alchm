@@ -106,19 +106,16 @@ export function OnboardingSteps(props: {
       </div>
 
       <div style={{ marginTop: '16px' }}>
-        <input
+        <textarea
           value={props.content}
           onChange={(e) => props.setContent(e.target.value)}
           aria-label="Write your first journal entry"
           placeholder="One sentence is enough…"
+          className="input journal-textarea"
           style={{
             width: '100%',
-            minHeight: '48px',
-            padding: '14px',
+            minHeight: '160px',
             borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: '16px',
             outline: 'none',
@@ -153,4 +150,3 @@ export function OnboardingSteps(props: {
     </div>
   );
 }
-

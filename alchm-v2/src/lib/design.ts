@@ -2,27 +2,61 @@ import type React from 'react';
 
 export const DESIGN = {
   colors: {
-    bgDeep: '#1a1f16',
-    bgSurface: '#242b1e',
-    bgElevated: '#2d3527',
-    bgWarm: '#2a2520',
-    sageMuted: '#6b7a5e',
-    sage: '#8B9A7C',
-    sageLight: '#A8B5A0',
-    sageBright: '#c2d1b8',
-    goldDim: '#b89d4a',
-    gold: '#E8C56D',
-    goldBright: '#f5dfa0',
-    textPrimary: 'rgba(255, 255, 255, 0.92)',
-    textSecondary: 'rgba(255, 255, 255, 0.65)',
-    textMuted: 'rgba(255, 255, 255, 0.40)',
-    textKhepera: '#E8C56D',
-    error: '#c47a6a',
-    success: '#8ba88a',
-    border: 'rgba(255, 255, 255, 0.10)',
-    borderLight: 'rgba(255, 255, 255, 0.06)',
-    cardBg: 'rgba(255, 255, 255, 0.06)',
-    cardBgHover: 'rgba(255, 255, 255, 0.10)',
+    // Sanctuary palette (no pure black / near-black backgrounds).
+    bgDeep: '#2D332A', // sanctuary
+    bgElevated: '#343B30',
+    bgSurface: '#3B4236',
+    bgHover: '#434A3D',
+
+    // Sage spectrum (core brand).
+    sage50: '#F0F3ED',
+    sage100: '#DDE4D6',
+    sage200: '#C1CCBA',
+    sage300: '#A4B494',
+    sage400: '#8B9A7C',
+    sage500: '#6B7A5E',
+    sage600: '#4E5A44',
+
+    // Kept for backward compatibility across existing components.
+    sageMuted: '#6B7A5E',
+    sage: '#8B9A7C', // core sage
+    sageLight: '#A8B5A0', // splash gradient (protected in CLAUDE.md)
+    sageBright: '#C1CCBA',
+
+    // Gold / amber
+    gold: '#E8C87A',
+    goldBright: '#F0D99A',
+    goldDim: '#BFA65A',
+
+    // Text (warm cream, not pure white).
+    textPrimary: '#E8E4DC',
+    textSecondary: '#A4A08C',
+    textMuted: '#7A7768',
+    textInverse: '#2D332A',
+    textKhepera: '#E8C87A',
+
+    // Functional
+    crisis: '#D4A843',
+    error: '#C47A6B',
+    success: '#7A9A6B',
+    warning: '#D4A843',
+
+    // Borders (sage-based)
+    border: 'rgba(164, 180, 148, 0.25)',
+    borderLight: 'rgba(164, 180, 148, 0.12)',
+    borderStrong: 'rgba(164, 180, 148, 0.40)',
+    borderGold: 'rgba(232, 200, 122, 0.50)',
+
+    // Surfaces
+    cardBg: '#343B30',
+    cardBgHover: '#434A3D',
+  },
+  gradients: {
+    sanctuary: 'linear-gradient(180deg, #4E5A44 0%, #3B4236 120px, #2D332A 300px)',
+    onboarding: 'linear-gradient(180deg, #4E5A44 0%, #2D332A 60%)',
+    dashboardHeader: 'linear-gradient(180deg, #4E5A44 0%, #3B4236 100%)',
+    cardWarm: 'linear-gradient(180deg, #3B4236 0%, #343B30 100%)',
+    splash: 'linear-gradient(to bottom, #8B9A7C, #A8B5A0)',
   },
   typography: {
     sansSerif: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif",
@@ -78,17 +112,17 @@ export const DESIGN = {
 } as const;
 
 export const cardStyle = (elevated = false): React.CSSProperties => ({
-  backgroundColor: elevated ? DESIGN.colors.bgElevated : DESIGN.colors.cardBg,
+  background: elevated ? DESIGN.gradients.cardWarm : DESIGN.colors.cardBg,
   borderRadius: DESIGN.radius.lg,
-  border: `1px solid ${DESIGN.colors.border}`,
+  border: `1px solid ${elevated ? DESIGN.colors.borderGold : DESIGN.colors.borderLight}`,
   padding: DESIGN.spacing.lg,
-  boxShadow: elevated ? DESIGN.shadows.card : 'none',
+  boxShadow: elevated ? DESIGN.shadows.glow : 'none',
   transition: DESIGN.transitions.normal,
 });
 
 export const pageContainerStyle: React.CSSProperties = {
   minHeight: '100vh',
-  background: `linear-gradient(to bottom, ${DESIGN.colors.sage}, ${DESIGN.colors.sageLight})`,
+  background: DESIGN.gradients.sanctuary,
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   paddingLeft: DESIGN.spacing.pagePadding,

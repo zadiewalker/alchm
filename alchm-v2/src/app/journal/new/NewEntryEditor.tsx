@@ -4,6 +4,7 @@ import React from 'react';
 import { MoodSelector } from '@/components/MoodSelector';
 import { DESIGN } from '@/lib/design';
 import type { CrisisCheck } from '@/lib/crisis';
+import { getPathwayById } from '@/lib/pathways';
 
 export function NewEntryEditor(props: {
   content: string;
@@ -13,20 +14,41 @@ export function NewEntryEditor(props: {
   tags: string;
   setTags: (v: string) => void;
   pathwayId: string | null;
+  pathwayStep: number;
   crisis: CrisisCheck;
   onSave: () => void;
   canSave: boolean;
 }) {
+  const pathway = props.pathwayId ? getPathwayById(props.pathwayId) : null;
+  const pathwayStep = pathway ? (pathway.steps.find((s) => s.day === props.pathwayStep) || pathway.steps[0]) : null;
+
   return (
     <>
-      {props.pathwayId ? (
-        <div style={{ marginTop: '10px', fontSize: '12px', color: DESIGN.colors.textMuted }}>
-          Pathway entry
+      {pathway && pathwayStep ? (
+        <div
+          className="card"
+          style={{
+            marginTop: '14px',
+            padding: '16px',
+            borderLeft: `2px solid ${DESIGN.colors.gold}`,
+            background: DESIGN.gradients.cardWarm,
+          }}
+          aria-label="Pathway context"
+        >
+          <div style={{ fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', color: DESIGN.colors.sage400, fontWeight: 600 }}>
+            {pathway.framework.toUpperCase()} · Day {props.pathwayStep} of {pathway.duration}
+          </div>
+          <div style={{ marginTop: '8px', fontSize: '16px', color: DESIGN.colors.textPrimary, fontWeight: DESIGN.typography.weights.semibold }}>
+            {pathway.title}
+          </div>
+          <div style={{ marginTop: '10px', fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>
+            {pathwayStep.prompt}
+          </div>
         </div>
       ) : null}
 
-      <div style={{ marginTop: '14px' }}>
-        <div style={{ fontSize: '13px', color: DESIGN.colors.textMuted, marginBottom: '10px' }}>
+      <div style={{ marginTop: pathway ? '16px' : '14px' }}>
+        <div style={{ fontSize: '13px', color: DESIGN.colors.textSecondary, marginBottom: '10px' }}>
           Mood (optional)
         </div>
         <MoodSelector value={props.mood} onChange={props.setMood} />
@@ -38,19 +60,14 @@ export function NewEntryEditor(props: {
           onChange={(e) => props.setContent(e.target.value)}
           aria-label="Journal entry text"
           placeholder="Write what is true. One sentence is enough."
+          className="input journal-textarea"
           style={{
             width: '100%',
-            minHeight: '220px',
-            padding: '14px',
             borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: '16px',
             outline: 'none',
             lineHeight: 1.7,
-            resize: 'none',
           }}
         />
       </div>
@@ -61,14 +78,10 @@ export function NewEntryEditor(props: {
           onChange={(e) => props.setTags(e.target.value)}
           aria-label="Tags (comma separated)"
           placeholder="Tags (comma separated)…"
+          className="input"
           style={{
             width: '100%',
-            minHeight: '48px',
-            padding: '14px',
             borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: '16px',
             outline: 'none',
@@ -106,19 +119,12 @@ export function NewEntryEditor(props: {
         onClick={props.onSave}
         aria-label="Save journal entry"
         disabled={!props.canSave}
+        className="btn-primary"
         style={{
           marginTop: '18px',
           width: '100%',
-          minHeight: '52px',
           borderRadius: DESIGN.radius.full,
-          border: 'none',
-          backgroundColor: DESIGN.colors.gold,
-          color: '#fff',
           fontFamily: DESIGN.typography.sansSerif,
-          textTransform: 'uppercase',
-          letterSpacing: '0.12em',
-          fontSize: '15px',
-          fontWeight: DESIGN.typography.weights.medium,
           cursor: props.canSave ? 'pointer' : 'default',
           opacity: props.canSave ? 1 : 0.5,
         }}
@@ -128,4 +134,3 @@ export function NewEntryEditor(props: {
     </>
   );
 }
-

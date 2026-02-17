@@ -149,6 +149,7 @@ export default function NewEntryClient() {
             tags={tags}
             setTags={setTags}
             pathwayId={pathwayId}
+            pathwayStep={pathwayStep}
             crisis={crisis}
             onSave={onSave}
             canSave={!!content.trim()}

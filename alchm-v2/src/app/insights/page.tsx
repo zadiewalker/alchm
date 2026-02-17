@@ -9,6 +9,14 @@ import { DESIGN } from '@/lib/design';
 import type { JournalEntry, PageState } from '@/lib/types';
 import { getEntries } from '@/lib/journal';
 
+const MOOD_LABELS: Record<string, string> = {
+  '1': 'Heavy',
+  '3': 'Anxious',
+  '5': 'Neutral',
+  '7': 'Hopeful',
+  '9': 'Peaceful',
+};
+
 function topN<T extends string>(map: Record<T, number>, n: number): Array<{ key: T; count: number }> {
   return (Object.entries(map) as Array<[T, number]>)
     .sort((a, b) => b[1] - a[1])
@@ -82,24 +90,17 @@ export default function InsightsPage() {
       {state === 'empty' ? (
         <EmptyState
           title="Not enough data yet"
-          message="Write a few entries first. After about five, patterns start to appear."
+          message="Patterns take time. After five entries, this space will start to show what you have been carrying."
           action={
             <button
               type="button"
               onClick={() => router.push('/journal/new/')}
               aria-label="Write a journal entry"
+              className="btn-primary"
               style={{
-                minHeight: '52px',
                 padding: '0 18px',
                 borderRadius: DESIGN.radius.full,
-                border: 'none',
-                backgroundColor: DESIGN.colors.gold,
-                color: '#fff',
                 fontFamily: DESIGN.typography.sansSerif,
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-                fontSize: '15px',
-                fontWeight: DESIGN.typography.weights.medium,
                 cursor: 'pointer',
               }}
             >
@@ -111,13 +112,13 @@ export default function InsightsPage() {
 
       {state === 'ready' ? (
         <div style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ backgroundColor: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+          <div className="card" style={{ padding: '16px' }}>
             <div style={{ fontSize: '14px', fontWeight: DESIGN.typography.weights.semibold }}>Most common moods</div>
             <div style={{ marginTop: '10px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {stats.moods.length ? (
                 stats.moods.map((m) => (
                   <span key={m.key} style={{ fontSize: '12px', color: DESIGN.colors.textSecondary, border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.full, padding: '4px 8px' }}>
-                    Mood {m.key} · {m.count}
+                    {MOOD_LABELS[m.key] || 'Mood'} · {m.count}
                   </span>
                 ))
               ) : (
@@ -126,7 +127,7 @@ export default function InsightsPage() {
             </div>
           </div>
 
-          <div style={{ backgroundColor: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+          <div className="card" style={{ padding: '16px' }}>
             <div style={{ fontSize: '14px', fontWeight: DESIGN.typography.weights.semibold }}>Recurring tags</div>
             <div style={{ marginTop: '10px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {stats.tags.length ? (

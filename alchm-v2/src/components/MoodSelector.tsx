@@ -28,16 +28,11 @@ export function MoodSelector({
             type="button"
             onClick={() => onChange(m.value)}
             aria-label={`Select mood: ${m.label}`}
+            className={active ? 'mood-chip mood-chip-selected' : 'mood-chip'}
             style={{
-              minHeight: '44px',
-              padding: '10px 14px',
               borderRadius: DESIGN.radius.full,
-              border: `1px solid ${active ? 'rgba(232, 197, 109, 0.55)' : DESIGN.colors.border}`,
-              backgroundColor: active ? 'rgba(232, 197, 109, 0.12)' : 'rgba(255,255,255,0.04)',
-              color: active ? DESIGN.colors.textPrimary : DESIGN.colors.textSecondary,
-              cursor: 'pointer',
-              fontSize: '13px',
               fontFamily: 'inherit',
+              cursor: 'pointer',
             }}
           >
             {m.label}
@@ -47,4 +42,3 @@ export function MoodSelector({
     </div>
   );
 }
-

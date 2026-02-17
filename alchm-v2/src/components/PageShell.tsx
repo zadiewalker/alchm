@@ -20,13 +20,18 @@ export function PageShell({
 
   const bg = useMemo(() => {
     if (resolvedBackground === 'gradient') {
-      return `linear-gradient(to bottom, ${DESIGN.colors.sage}, ${DESIGN.colors.sageLight})`;
+      // Protected splash gradient (CLAUDE.md)
+      return DESIGN.gradients.splash;
     }
-    return DESIGN.colors.bgDeep;
+    // Inner sanctuary: deep sage gradient, never black.
+    return DESIGN.gradients.sanctuary;
   }, [resolvedBackground]);
 
   return (
-    <div className="page-container" style={{ background: bg, color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}>
+    <div
+      className="page-container"
+      style={{ background: bg, color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}
+    >
       <div className="scrollable">{children}</div>
       <CrisisModal open={crisisOpen} onClose={() => setCrisisOpen(false)} />
       <CrisisFooter onOpen={() => setCrisisOpen(true)} />

@@ -12,7 +12,7 @@ function SectionTitle({ children }: { children: string }) {
       style={{
         marginTop: '22px',
         fontSize: '13px',
-        color: DESIGN.colors.textMuted,
+        color: DESIGN.colors.sage400,
         letterSpacing: '0.10em',
         textTransform: 'uppercase',
         fontFamily: DESIGN.typography.sansSerif,
@@ -42,7 +42,7 @@ export function SettingsForm(props: {
       </h1>
 
       <SectionTitle>Reminders</SectionTitle>
-      <div style={{ marginTop: '12px', backgroundColor: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+      <div className="card" style={{ marginTop: '12px' }}>
         <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <span style={{ fontSize: '14px', color: DESIGN.colors.textPrimary }}>Daily reminder</span>
           <input type="checkbox" checked={props.settings.dailyReminderEnabled} onChange={(e) => props.update({ dailyReminderEnabled: e.target.checked })} aria-label="Toggle daily reminder" />
@@ -54,13 +54,14 @@ export function SettingsForm(props: {
             value={props.settings.dailyReminderTime}
             onChange={(e) => props.update({ dailyReminderTime: e.target.value })}
             aria-label="Daily reminder time"
-            style={{ background: 'transparent', border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.md, padding: '8px 10px', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}
+            className="input"
+            style={{ width: '140px', padding: '8px 10px', fontFamily: DESIGN.typography.sansSerif }}
           />
         </div>
       </div>
 
       <SectionTitle>Evening Check-in</SectionTitle>
-      <div style={{ marginTop: '12px', backgroundColor: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+      <div className="card" style={{ marginTop: '12px' }}>
         <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
           <span style={{ fontSize: '14px', color: DESIGN.colors.textPrimary }}>Enable check-in</span>
           <input type="checkbox" checked={props.settings.eveningCheckInEnabled} onChange={(e) => props.update({ eveningCheckInEnabled: e.target.checked })} aria-label="Toggle evening check-in" />
@@ -72,13 +73,25 @@ export function SettingsForm(props: {
             value={props.settings.eveningCheckInTime}
             onChange={(e) => props.update({ eveningCheckInTime: e.target.value })}
             aria-label="Evening check-in time"
-            style={{ background: 'transparent', border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.md, padding: '8px 10px', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}
+            className="input"
+            style={{ width: '140px', padding: '8px 10px', fontFamily: DESIGN.typography.sansSerif }}
           />
         </div>
       </div>
 
-      <SectionTitle>AI (Optional)</SectionTitle>
-      <div style={{ marginTop: '12px', backgroundColor: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+      <SectionTitle>Data</SectionTitle>
+      <div style={{ marginTop: '12px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+        <button type="button" onClick={props.onExport} aria-label="Export journal data" className="btn-secondary" style={{ fontFamily: DESIGN.typography.sansSerif }}>
+          Export
+        </button>
+        <button type="button" onClick={props.onClear} aria-label="Clear all data" className="btn-destructive" style={{ fontFamily: DESIGN.typography.sansSerif }}>
+          Clear all data
+        </button>
+      </div>
+      {props.exportStatus ? <div style={{ marginTop: '10px', fontSize: '12px', color: DESIGN.colors.textMuted }}>{props.exportStatus}</div> : null}
+
+      <SectionTitle>Reflections</SectionTitle>
+      <div className="card" style={{ marginTop: '12px' }}>
         <div style={{ fontSize: '13px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>
           To enable cloud reflections, you can add an Anthropic API key. If you leave this blank, Khepera will reflect locally.
         </div>
@@ -88,45 +101,23 @@ export function SettingsForm(props: {
           onBlur={props.onApiKeyCommit}
           aria-label="Anthropic API key"
           placeholder="Anthropic API key"
-          style={{
-            marginTop: '12px',
-            width: '100%',
-            minHeight: '48px',
-            padding: '14px',
-            borderRadius: DESIGN.radius.lg,
-            border: `1px solid ${DESIGN.colors.borderLight}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
-            fontSize: '16px',
-            outline: 'none',
-          }}
+          className="input"
+          style={{ marginTop: '12px', width: '100%', fontFamily: DESIGN.typography.sansSerif }}
         />
       </div>
 
-      <SectionTitle>Data</SectionTitle>
-      <div style={{ marginTop: '12px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <button type="button" onClick={props.onExport} aria-label="Export journal data" style={{ minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.full, border: `1px solid ${DESIGN.colors.border}`, backgroundColor: 'rgba(255,255,255,0.04)', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>
-          Export
-        </button>
-        <button type="button" onClick={props.onClear} aria-label="Clear all data" style={{ minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.full, border: `1px solid rgba(196, 122, 106, 0.35)`, backgroundColor: 'rgba(196, 122, 106, 0.10)', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>
-          Clear all data
-        </button>
-      </div>
-      {props.exportStatus ? <div style={{ marginTop: '10px', fontSize: '12px', color: DESIGN.colors.textMuted }}>{props.exportStatus}</div> : null}
-
       <SectionTitle>Legal</SectionTitle>
       <div style={{ marginTop: '12px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <button type="button" onClick={() => router.push('/privacy/')} aria-label="Open privacy policy" style={{ minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.full, border: `1px solid ${DESIGN.colors.border}`, backgroundColor: 'rgba(255,255,255,0.04)', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>
+        <button type="button" onClick={() => router.push('/privacy/')} aria-label="Open privacy policy" className="btn-ghost" style={{ fontFamily: DESIGN.typography.sansSerif }}>
           Privacy
         </button>
-        <button type="button" onClick={() => router.push('/terms/')} aria-label="Open terms of service" style={{ minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.full, border: `1px solid ${DESIGN.colors.border}`, backgroundColor: 'rgba(255,255,255,0.04)', color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>
+        <button type="button" onClick={() => router.push('/terms/')} aria-label="Open terms of service" className="btn-ghost" style={{ fontFamily: DESIGN.typography.sansSerif }}>
           Terms
         </button>
       </div>
 
       <SectionTitle>About</SectionTitle>
-      <div style={{ marginTop: '12px', backgroundColor: 'rgba(255,255,255,0.03)', border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.lg, padding: '14px' }}>
+      <div className="card" style={{ marginTop: '12px' }}>
         <div style={{ fontSize: '13px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>Version: 0.1</div>
         <div style={{ marginTop: '12px' }}>
           <HealthDisclaimer variant="compact" />
@@ -135,4 +126,3 @@ export function SettingsForm(props: {
     </>
   );
 }
-

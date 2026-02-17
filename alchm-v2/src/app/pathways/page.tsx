@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LoadingState } from '@/components/LoadingState';
 import { EmptyState } from '@/components/EmptyState';
@@ -26,6 +26,30 @@ export default function PathwaysPage() {
   }, []);
 
   const active = useMemo(() => (activeProgress?.pathwayId ? getPathwayById(activeProgress.pathwayId) : null), [activeProgress?.pathwayId]);
+  const activePercent = useMemo(() => {
+    if (!active || !activeProgress) return 0;
+    const completed = Math.max(0, (activeProgress.currentStep || 1) - 1);
+    return Math.min(1, completed / Math.max(1, active.duration));
+  }, [active, activeProgress]);
+
+  const lensDot = useCallback((framework: string) => {
+    const f = (framework || '').toLowerCase();
+    const color = f === 'somatic' ? DESIGN.colors.gold : f === 'cbt' ? DESIGN.colors.sage400 : DESIGN.colors.sage300;
+    return (
+      <span
+        aria-hidden="true"
+        style={{
+          display: 'inline-block',
+          width: '8px',
+          height: '8px',
+          borderRadius: '9999px',
+          backgroundColor: color,
+          boxShadow: `0 0 0 3px rgba(0,0,0,0.0)`,
+          marginRight: '8px',
+        }}
+      />
+    );
+  }, []);
 
   return (
     <div style={{ padding: '28px 20px' }}>
@@ -62,19 +86,24 @@ export default function PathwaysPage() {
         <>
           {active ? (
             <div
+              className="card card-elevated"
               style={{
                 marginTop: '18px',
-                backgroundColor: 'rgba(232, 197, 109, 0.06)',
-                border: `1px solid rgba(232, 197, 109, 0.18)`,
                 borderRadius: DESIGN.radius.lg,
                 padding: '14px',
               }}
             >
-              <div style={{ fontSize: '13px', color: DESIGN.colors.textKhepera, fontWeight: DESIGN.typography.weights.semibold }}>
+              <div style={{ fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', color: DESIGN.colors.sage400, fontWeight: 600 }}>
                 Active pathway
               </div>
               <div style={{ marginTop: '6px', fontSize: '16px', color: DESIGN.colors.textPrimary }}>
                 {active.title}
+              </div>
+              <div style={{ marginTop: '8px', fontSize: '13px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>
+                {active.description}
+              </div>
+              <div style={{ marginTop: '12px', height: '6px', backgroundColor: 'rgba(164, 180, 148, 0.18)', borderRadius: '9999px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${Math.round(activePercent * 100)}%`, backgroundColor: DESIGN.colors.sage500 }} />
               </div>
               <button
                 type="button"
@@ -85,17 +114,8 @@ export default function PathwaysPage() {
                   router.push('/journal/new/');
                 }}
                 aria-label="Continue active pathway"
-                style={{
-                  marginTop: '12px',
-                  minHeight: '44px',
-                  padding: '10px 14px',
-                  borderRadius: DESIGN.radius.full,
-                  border: `1px solid rgba(232, 197, 109, 0.30)`,
-                  backgroundColor: 'rgba(232, 197, 109, 0.10)',
-                  color: DESIGN.colors.textPrimary,
-                  fontFamily: DESIGN.typography.sansSerif,
-                  cursor: 'pointer',
-                }}
+                className="btn-secondary"
+                style={{ marginTop: '14px', borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}
               >
                 Continue →
               </button>
@@ -106,11 +126,10 @@ export default function PathwaysPage() {
             {CORE_PATHWAYS.map((p) => (
               <div
                 key={p.id}
+                className={activeProgress?.pathwayId === p.id ? 'card card-elevated' : 'card'}
                 style={{
-                  backgroundColor: DESIGN.colors.cardBg,
-                  border: `1px solid ${DESIGN.colors.border}`,
                   borderRadius: DESIGN.radius.lg,
-                  padding: '14px',
+                  padding: '16px',
                   fontFamily: DESIGN.typography.sansSerif,
                 }}
               >
@@ -121,7 +140,8 @@ export default function PathwaysPage() {
                   {p.description}
                 </div>
                 <div style={{ marginTop: '10px', fontSize: '12px', color: DESIGN.colors.textMuted }}>
-                  {p.duration} days · {p.framework.toUpperCase()}
+                  {p.duration} days · {lensDot(p.framework)}
+                  {p.framework.toUpperCase()}
                 </div>
                 <div style={{ marginTop: '12px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <button
@@ -134,16 +154,8 @@ export default function PathwaysPage() {
                       router.push('/journal/new/');
                     }}
                     aria-label={`Start pathway: ${p.title}`}
-                    style={{
-                      minHeight: '44px',
-                      padding: '10px 14px',
-                      borderRadius: DESIGN.radius.full,
-                      border: `1px solid ${DESIGN.colors.border}`,
-                      backgroundColor: 'rgba(255,255,255,0.04)',
-                      color: DESIGN.colors.textPrimary,
-                      fontFamily: DESIGN.typography.sansSerif,
-                      cursor: 'pointer',
-                    }}
+                    className="btn-secondary"
+                    style={{ borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}
                   >
                     Start →
                   </button>

@@ -50,30 +50,37 @@ export default function DashboardPage() {
 
   return (
     <div style={{ padding: '28px 20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-        <div>
-          <div style={{ fontSize: '22px', fontWeight: DESIGN.typography.weights.light }}>{greeting}</div>
-          <div style={{ marginTop: '8px', fontSize: '13px', color: DESIGN.colors.textSecondary }}>
-            Your sanctuary is open.
+      <div
+        className="card"
+        style={{
+          background: DESIGN.gradients.dashboardHeader,
+          border: `1px solid ${DESIGN.colors.borderLight}`,
+          padding: '18px',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
+          <div>
+            <div style={{ fontSize: '28px', fontWeight: 300, letterSpacing: '0.5px' }}>{greeting}</div>
+            <div style={{ marginTop: '8px', fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.5 }}>
+              Your sanctuary is open.
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={() => router.push('/settings/')}
+            aria-label="Open settings"
+            className="btn-ghost"
+            style={{
+              color: DESIGN.colors.textSecondary,
+              fontFamily: DESIGN.typography.sansSerif,
+              cursor: 'pointer',
+              padding: '8px 10px',
+              alignSelf: 'flex-start',
+            }}
+          >
+            Settings
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={() => router.push('/settings/')}
-          aria-label="Open settings"
-          style={{
-            minHeight: '44px',
-            padding: '10px 12px',
-            borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
-            cursor: 'pointer',
-          }}
-        >
-          Settings
-        </button>
       </div>
 
       <div style={{ marginTop: '18px', display: 'flex', gap: '12px' }}>
@@ -81,18 +88,11 @@ export default function DashboardPage() {
           type="button"
           onClick={() => router.push('/journal/new/')}
           aria-label="Write a new journal entry"
+          className="btn-primary"
           style={{
             flex: 1,
-            minHeight: '52px',
             borderRadius: DESIGN.radius.full,
-            border: 'none',
-            backgroundColor: DESIGN.colors.gold,
-            color: '#fff',
             fontFamily: DESIGN.typography.sansSerif,
-            textTransform: 'uppercase',
-            letterSpacing: '0.12em',
-            fontSize: '15px',
-            fontWeight: DESIGN.typography.weights.medium,
             cursor: 'pointer',
           }}
         >
@@ -103,13 +103,10 @@ export default function DashboardPage() {
             type="button"
             onClick={() => router.push('/checkin/')}
             aria-label="Evening check-in"
+            className="btn-secondary"
             style={{
-              minHeight: '52px',
               padding: '0 16px',
               borderRadius: DESIGN.radius.full,
-              border: `1px solid ${DESIGN.colors.border}`,
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              color: DESIGN.colors.textPrimary,
               fontFamily: DESIGN.typography.sansSerif,
               cursor: 'pointer',
             }}
@@ -146,14 +143,10 @@ export default function DashboardPage() {
           type="button"
           onClick={() => router.push('/pathways/')}
           aria-label="Open pathways"
+          className="btn-secondary"
           style={{
             flex: 1,
-            minHeight: '44px',
-            padding: '10px 12px',
             borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             cursor: 'pointer',
           }}
@@ -164,14 +157,10 @@ export default function DashboardPage() {
           type="button"
           onClick={() => router.push('/insights/')}
           aria-label="Open insights"
+          className="btn-secondary"
           style={{
             flex: 1,
-            minHeight: '44px',
-            padding: '10px 12px',
             borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             cursor: 'pointer',
           }}
@@ -182,13 +171,9 @@ export default function DashboardPage() {
           type="button"
           onClick={() => router.push('/pricing/')}
           aria-label="Open pricing"
+          className="btn-secondary"
           style={{
-            minHeight: '44px',
-            padding: '10px 12px',
             borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.border}`,
-            backgroundColor: 'rgba(255,255,255,0.04)',
-            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             cursor: 'pointer',
           }}
@@ -207,18 +192,11 @@ export default function DashboardPage() {
               type="button"
               onClick={() => router.push('/journal/new/')}
               aria-label="Write your first journal entry"
+              className="btn-primary"
               style={{
-                minHeight: '52px',
                 padding: '0 18px',
                 borderRadius: DESIGN.radius.full,
-                border: 'none',
-                backgroundColor: DESIGN.colors.gold,
-                color: '#fff',
                 fontFamily: DESIGN.typography.sansSerif,
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-                fontSize: '15px',
-                fontWeight: DESIGN.typography.weights.medium,
                 cursor: 'pointer',
               }}
             >
