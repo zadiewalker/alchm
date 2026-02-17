@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import React from 'react';
-import Script from 'next/script';
 import './globals.css';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { PageShell } from '@/components/PageShell';
@@ -28,9 +27,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Pre-hydration crash trap: if something throws before React mounts, show the error on screen. */}
-        <Script
-          id="alchm-prehydration-crash-trap"
-          strategy="beforeInteractive"
+        <script
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: `
 (function () {
