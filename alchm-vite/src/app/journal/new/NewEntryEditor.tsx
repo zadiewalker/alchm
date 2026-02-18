@@ -1,6 +1,6 @@
 
 import { useMemo, useRef, useState } from 'react';
-import { MoodSelector } from '@/components/MoodSelector';
+import { PromptCard } from '@/components/PromptCard';
 import { DESIGN } from '@/lib/design';
 import { getAdaptivePrompt, getPathwayById } from '@/lib/pathways';
 import { isVoiceSupported, startListening, type VoiceSession } from '@/lib/voice';
@@ -9,14 +9,16 @@ import { getTimeContext } from '@/lib/timeAware';
 export function NewEntryEditor(props: {
   content: string;
   setContent: (v: string) => void;
-  mood: number | undefined;
-  setMood: (v: number) => void;
   tags: string;
   setTags: (v: string) => void;
   pathwayId: string | null;
   pathwayStep: number;
   onSave: () => void;
   canSave: boolean;
+  writingPrompt: string;
+  emotionFamily: string | null;
+  usedSomatic: boolean;
+  preferredFramework: string | null;
 }) {
   const pathway = props.pathwayId ? getPathwayById(props.pathwayId) : null;
   const pathwayStep = pathway ? (pathway.steps.find((s) => s.day === props.pathwayStep) || pathway.steps[0]) : null;
@@ -58,6 +60,15 @@ export function NewEntryEditor(props: {
           </div>
         </div>
       ) : null}
+
+      <div style={{ marginTop: pathway ? '14px' : '16px' }}>
+        <PromptCard
+          prompt={props.writingPrompt}
+          emotionFamily={props.emotionFamily}
+          usedSomatic={props.usedSomatic}
+          preferredFramework={props.preferredFramework}
+        />
+      </div>
 
       <div style={{ marginTop: '16px' }}>
         <div style={{ position: 'relative' }} aria-label="Writing space">
@@ -141,11 +152,6 @@ export function NewEntryEditor(props: {
             {voiceError}
           </div>
         ) : null}
-      </div>
-
-      <div style={{ marginTop: pathway ? '16px' : '14px' }}>
-        <div style={{ fontSize: '13px', color: DESIGN.colors.textSecondary, marginBottom: '10px' }}>How does this feel?</div>
-        <MoodSelector value={props.mood} onChange={props.setMood} />
       </div>
 
       <div style={{ marginTop: '12px' }}>

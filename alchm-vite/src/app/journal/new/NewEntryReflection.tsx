@@ -11,6 +11,7 @@ export function NewEntryReflection(props: {
   reflectionError: string;
   crisis: CrisisCheck | null;
   onReflect: () => void;
+  onReflectionComplete?: () => void;
 }) {
   if (!props.visible) return null;
 
@@ -111,7 +112,7 @@ export function NewEntryReflection(props: {
             padding: '14px',
           }}
         >
-          <TypewriterText text={props.reflection} />
+          <TypewriterText text={props.reflection} onComplete={props.onReflectionComplete} />
           <div className="khepera-attribution" aria-label="Khepera disclosure">
             ─── Khepera · AI companion · not a therapist ───
           </div>

@@ -54,6 +54,12 @@ export function useKheperaReflection(args: { preferredFramework: string | null }
           preferredFramework: preferred,
           isCheckin: false,
           continuityContext: `Stage: ${stage.name}`,
+          depth: {
+            emotionLabel: entry.emotionSelection?.label ?? null,
+            emotionFamily: entry.emotionSelection?.familyId ?? null,
+            emotionSpecificId: entry.emotionSelection?.specificId ?? null,
+            sensation: entry.somatic ? { region: entry.somatic.region, description: entry.somatic.description } : null,
+          },
         });
 
         const time = getTimeContext();

@@ -132,3 +132,24 @@ export async function getExtractionText(args: {
   if (!result.ok) return { text: null, error: null };
   return { text: result.text, error: null };
 }
+
+export async function getFollowUpQuestion(args: {
+  systemPrompt: string;
+  userMessage: string;
+  apiKey: string;
+}): Promise<{ text: string | null; error: string | null }> {
+  const { systemPrompt, userMessage, apiKey } = args;
+  if (!apiKey) return { text: null, error: null };
+  if (!userMessage.trim()) return { text: null, error: null };
+
+  const result = await anthropicText({
+    apiKey,
+    model: MODEL,
+    system: systemPrompt,
+    messages: [{ role: 'user', content: userMessage }],
+    maxTokens: 100,
+  });
+
+  if (!result.ok) return { text: null, error: null };
+  return { text: result.text, error: null };
+}

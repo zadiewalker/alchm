@@ -14,6 +14,20 @@ export interface JournalEntry {
 
   // Mood is a 1-10 slider in the existing app (optional).
   mood?: number;
+  // Depth layer (optional, v2+): user-named emotion + somatic check-in.
+  emotionSelection?: {
+    familyId: import('@/lib/emotions').EmotionFamily;
+    specificId: string | null;
+    label: string;
+  };
+  somatic?: {
+    region: import('@/lib/somatic').BodyRegionId;
+    description: string | null;
+  };
+  followUp?: {
+    question: string;
+    response: string | null;
+  };
   // Optional post-reflection extraction (Intelligence Layer). Stored as strings so
   // older installs and UI mapping can evolve without breaking stored data.
   extractedMood?: string | null;

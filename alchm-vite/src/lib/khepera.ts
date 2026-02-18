@@ -4,6 +4,7 @@ import { TRAUMA_INFORMED_ANALYSIS_PROMPT } from '@/lib/aiPromptsLegacy';
 import type { JournalEntry } from '@/lib/types';
 import { buildKheperaContext, formatContextForPrompt } from '@/lib/context';
 import { getTimeContext } from '@/lib/timeAware';
+import { buildSomaticContext } from '@/lib/somatic';
 
 // The existing app's base prompt lives in src/lib/aiPrompts.ts.
 // We copy it into this project as aiPromptsLegacy.ts verbatim and build on it.
@@ -19,6 +20,12 @@ export interface KheperaContext {
   pathwayGuidance?: string;
   reflectionFocus?: string;
   isCheckin?: boolean;
+  depth?: {
+    emotionLabel: string | null;
+    emotionFamily: string | null;
+    emotionSpecificId: string | null;
+    sensation: import('@/lib/somatic').BodySensation | null;
+  };
 }
 
 export const STAGES = [
@@ -92,11 +99,34 @@ FORMAT:
   const memory = buildKheperaContext();
   const memoryString = formatContextForPrompt(memory);
 
+  const depthBits: string[] = [];
+  if (ctx.depth?.emotionLabel) {
+    depthBits.push(`The user identified their emotion as: ${ctx.depth.emotionLabel}${ctx.depth.emotionFamily ? ` (family: ${ctx.depth.emotionFamily})` : ''}.`);
+    if (ctx.depth.emotionSpecificId) {
+      depthBits.push('They chose a specific word rather than only a broad category.');
+    }
+  }
+  if (ctx.depth?.sensation) {
+    const som = buildSomaticContext(ctx.depth.sensation);
+    if (som) depthBits.push(som);
+  }
+
+  const reflectionShape = `
+REFLECTION SHAPE (Depth Layer):
+- Reference the specific emotion they named (use their word, not a synonym).
+- If they did a body check-in, acknowledge the physical sensation naturally.
+- Don't repeat their words back: add one new angle or reframe.
+- End with something that invites curiosity, not closure.
+- Keep it under 150 words.
+`;
+
   return [
     TRAUMA_INFORMED_ANALYSIS_PROMPT,
     safety,
     lenses,
     format,
+    depthBits.length ? `DEPTH CONTEXT:\n${depthBits.join('\n')}` : '',
+    reflectionShape,
     `CONTEXT:\n${contextBits.join('\n')}`,
     `--- CONTEXT FROM USER'S JOURNAL ---\n${memoryString}\n--- END CONTEXT ---`,
     time.kheperaModifier ? `TIME-AWARE NOTE:\n${time.kheperaModifier}` : '',
