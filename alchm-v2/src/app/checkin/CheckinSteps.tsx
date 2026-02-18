@@ -83,7 +83,14 @@ export function CheckinSteps(props: {
       <div className="card card-elevated" style={{ marginTop: '12px' }}>
         {props.isThinking ? <LoadingState label="Khepera is listening…" /> : null}
         {props.error ? <ErrorState title="Khepera couldn't reflect" message={props.error} /> : null}
-        {props.kheperaText ? <TypewriterText text={props.kheperaText} speedCps={70} /> : null}
+        {props.kheperaText ? (
+          <>
+            <TypewriterText text={props.kheperaText} speedCps={70} />
+            <div className="khepera-attribution" aria-label="Khepera disclosure">
+              ─── Khepera · AI companion · not a therapist ───
+            </div>
+          </>
+        ) : null}
       </div>
       <button
         type="button"

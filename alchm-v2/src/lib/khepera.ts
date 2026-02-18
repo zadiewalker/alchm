@@ -2,6 +2,8 @@
 
 import { TRAUMA_INFORMED_ANALYSIS_PROMPT } from '@/lib/aiPromptsLegacy';
 import type { JournalEntry } from '@/lib/types';
+import { buildKheperaContext, formatContextForPrompt } from '@/lib/context';
+import { getTimeContext } from '@/lib/timeAware';
 
 // The existing app's base prompt lives in src/lib/aiPrompts.ts.
 // We copy it into this project as aiPromptsLegacy.ts verbatim and build on it.
@@ -52,6 +54,7 @@ export function getCurrentStage(entryCount: number): KheperaStage {
 
 export function buildSystemPrompt(ctx: KheperaContext): string {
   const stage = getCurrentStage(ctx.entryCount);
+  const time = getTimeContext();
 
   const safety = `
 SAFETY & SCOPE:
@@ -86,12 +89,17 @@ FORMAT:
   contextBits.push(`Current streak: ${ctx.currentStreak}`);
   contextBits.push(`Stage: ${stage.name}. ${stage.promptModifier}`);
 
+  const memory = buildKheperaContext();
+  const memoryString = formatContextForPrompt(memory);
+
   return [
     TRAUMA_INFORMED_ANALYSIS_PROMPT,
     safety,
     lenses,
     format,
     `CONTEXT:\n${contextBits.join('\n')}`,
+    `--- CONTEXT FROM USER'S JOURNAL ---\n${memoryString}\n--- END CONTEXT ---`,
+    time.kheperaModifier ? `TIME-AWARE NOTE:\n${time.kheperaModifier}` : '',
   ].join('\n\n');
 }
 
@@ -104,4 +112,3 @@ export function getStoredReflection(entry: JournalEntry): string | null {
   }
   return null;
 }
-

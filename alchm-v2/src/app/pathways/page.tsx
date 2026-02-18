@@ -109,8 +109,7 @@ export default function PathwaysPage() {
                 type="button"
                 onClick={() => {
                   const stepNum = activeProgress?.currentStep || 1;
-                  const step = active.steps.find((s) => s.day === stepNum) || active.steps[0];
-                  saveDraft({ content: step?.prompt || '', pathwayId: active.id, pathwayStep: stepNum, tags: [] });
+                  saveDraft({ content: '', pathwayId: active.id, pathwayStep: stepNum, tags: [] });
                   router.push('/journal/new/');
                 }}
                 aria-label="Continue active pathway"
@@ -149,8 +148,7 @@ export default function PathwaysPage() {
                     onClick={() => {
                       const result = startPathway(p.id);
                       if (!result.ok) return;
-                      const step = p.steps.find((s) => s.day === 1) || p.steps[0];
-                      saveDraft({ content: step?.prompt || '', pathwayId: p.id, pathwayStep: 1, tags: [] });
+                      saveDraft({ content: '', pathwayId: p.id, pathwayStep: 1, tags: [] });
                       router.push('/journal/new/');
                     }}
                     aria-label={`Start pathway: ${p.title}`}

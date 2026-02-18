@@ -5,25 +5,61 @@ import { useRouter } from 'next/navigation';
 import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { DESIGN } from '@/lib/design';
-import type { AppSettings, PageState } from '@/lib/types';
+import type { AppSettings, JournalEntry, PageState } from '@/lib/types';
 import { clearAllAlchmData } from '@/lib/storage';
 import { getEntries } from '@/lib/journal';
 import { getSettings, saveSettings } from '@/lib/settings';
 import { getAnthropicApiKey, setAnthropicApiKey } from '@/lib/secrets';
-import { exportJournalData } from '@/lib/export';
 import { SettingsForm } from './SettingsForm';
+
+async function exportJournalData(args: { entries: JournalEntry[]; includeReflections: boolean }): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const entries = args.includeReflections
+      ? args.entries
+      : args.entries.map((e) => ({ ...e, kheperaReflection: undefined, insights: undefined, kheperaFrameworks: undefined }));
+
+    const payload = { exportedAt: new Date().toISOString(), entries };
+    const text = JSON.stringify(payload, null, 2);
+    const fileName = `alchm-export-${new Date().toISOString().slice(0, 10)}.json`;
+
+    try {
+      const mod = await import('@capacitor/share');
+      await mod.Share.share({ title: 'ALCHM Export', text, dialogTitle: 'Export your journal data' });
+      return { ok: true };
+    } catch {
+      // Share plugin may be unavailable on web; fall back to download.
+    }
+
+    if (typeof window !== 'undefined') {
+      const blob = new Blob([text], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      URL.revokeObjectURL(url);
+      return { ok: true };
+    }
+
+    return { ok: false, error: 'Export is unavailable in this environment.' };
+  } catch {
+    return { ok: false, error: 'Export failed.' };
+  }
+}
 
 export default function SettingsClient() {
   const router = useRouter();
   const [state, setState] = useState<PageState>('loading');
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [apiKey, setApiKey] = useState('');
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [exportStatus, setExportStatus] = useState<string>('');
 
   useEffect(() => {
     try {
       setSettings(getSettings());
       setApiKey(getAnthropicApiKey());
+      setEntries(getEntries());
       setState('ready');
     } catch {
       setState('error');
@@ -92,6 +128,7 @@ export default function SettingsClient() {
         onExport={onExport}
         onClear={onClear}
         exportStatus={exportStatus}
+        entries={entries}
       />
     </div>
   );

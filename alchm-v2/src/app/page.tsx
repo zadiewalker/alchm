@@ -6,6 +6,7 @@ import { DESIGN } from '@/lib/design';
 import { isOnboarded } from '@/lib/onboarding';
 
 export default function SplashPage() {
+  // PageState: handled inline on this splash screen (no async loads).
   const router = useRouter();
   const [isNavigating, setIsNavigating] = useState(false);
 

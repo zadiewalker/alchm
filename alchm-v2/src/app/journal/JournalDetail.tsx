@@ -62,9 +62,11 @@ export function JournalDetail({ entry, onClose }: { entry: JournalEntry; onClose
           aria-label="Khepera reflection"
         >
           {reflection}
+          <div className="khepera-attribution" aria-label="Khepera disclosure">
+            ─── Khepera · AI companion · not a therapist ───
+          </div>
         </div>
       ) : null}
     </div>
   );
 }
-

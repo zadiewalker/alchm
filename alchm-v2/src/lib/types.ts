@@ -14,6 +14,12 @@ export interface JournalEntry {
 
   // Mood is a 1-10 slider in the existing app (optional).
   mood?: number;
+  // Optional post-reflection extraction (Intelligence Layer). Stored as strings so
+  // older installs and UI mapping can evolve without breaking stored data.
+  extractedMood?: string | null;
+  extractedThemes?: string[];
+  intensity?: number; // 1-10
+  suggestedLens?: 'cbt' | 'ifs' | 'somatic' | 'narrative' | 'existential' | null;
   emotions: string[];
   tags: string[];
 

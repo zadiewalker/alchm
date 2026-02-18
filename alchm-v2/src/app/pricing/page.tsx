@@ -7,6 +7,7 @@ import { TIERS } from '@/lib/subscription';
 
 export default function PricingPage() {
   const router = useRouter();
+  // PageState: this page is purely static content (ready).
 
   return (
     <div style={{ padding: '28px 20px' }}>

@@ -6,6 +6,9 @@ import { getEntries, updateEntry } from '@/lib/journal';
 import { buildSystemPrompt, getCurrentStage } from '@/lib/khepera';
 import { createLocalReflection } from '@/lib/localReflection';
 import { getAnthropicApiKey } from '@/lib/secrets';
+import { extractInsights } from '@/lib/extract';
+import { getStreak } from '@/lib/streaks';
+import { getTimeContext } from '@/lib/timeAware';
 
 export function useKheperaReflection(args: { preferredFramework: string | null }) {
   const [reflection, setReflection] = useState('');
@@ -36,6 +39,7 @@ export function useKheperaReflection(args: { preferredFramework: string | null }
 
         const entryCount = getEntries().length;
         const stage = getCurrentStage(entryCount);
+        const streak = getStreak();
         const preferred =
           args.preferredFramework === 'cbt' ||
           args.preferredFramework === 'ifs' ||
@@ -47,18 +51,35 @@ export function useKheperaReflection(args: { preferredFramework: string | null }
 
         const systemPrompt = buildSystemPrompt({
           entryCount,
-          currentStreak: 0,
+          currentStreak: Math.max(0, Number(streak.currentStreak || 0)),
           preferredFramework: preferred,
           isCheckin: false,
           continuityContext: `Stage: ${stage.name}`,
         });
 
-        const result = await getReflection({ systemPrompt, userMessage: entry.content, apiKey });
+        const time = getTimeContext();
+        const result = await getReflection({
+          systemPrompt,
+          userMessage: entry.content,
+          apiKey,
+          maxTokens: time.ui.reflectionMaxTokens,
+        });
         if (result.error) {
           setReflectionError(result.error);
         } else if (result.text) {
           updateEntry(entryId, { kheperaReflection: result.text });
           setReflection(result.text);
+
+          // Optional extraction (cheap model) runs in the background.
+          const extraction = await extractInsights(entry.content, apiKey);
+          if (extraction) {
+            updateEntry(entryId, {
+              extractedMood: extraction.suggestedMood,
+              extractedThemes: extraction.themes,
+              intensity: extraction.intensity,
+              suggestedLens: extraction.suggestedLens,
+            });
+          }
         }
       } catch {
         setReflectionError('Khepera could not reflect right now. Your entry is saved.');
@@ -71,4 +92,3 @@ export function useKheperaReflection(args: { preferredFramework: string | null }
 
   return { reflection, setReflection, reflectionError, setReflectionError, isReflecting, reflect };
 }
-

@@ -3,6 +3,7 @@
 import type { JournalEntry, SubscriptionTier } from '@/lib/types';
 import { readJsonExact, removeKey, writeJson } from '@/lib/storage';
 import { canAccessFeature } from '@/lib/subscription';
+import { getEntries } from '@/lib/journal';
 
 export interface PathwayStep {
   day: number;
@@ -143,4 +144,24 @@ export function recordPathwayEntry(entry: JournalEntry): void {
   }
 
   writeJson(ACTIVE_KEY, next);
+}
+
+export function getAdaptivePrompt(pathwayId: string, dayNumber: number): string | null {
+  const pathway = getPathwayById(pathwayId);
+  if (!pathway) return null;
+  const day = pathway.steps.find((s) => s.day === dayNumber) || pathway.steps[0];
+  if (!day) return null;
+
+  if (dayNumber <= 1) return day.prompt;
+
+  // Day 2+: adapt only if the immediately previous day's entry exists.
+  const prev = getEntries().find((e) => e.pathwayId === pathwayId && e.pathwayStep === dayNumber - 1) || null;
+  if (!prev || !prev.content) return day.prompt;
+
+  const snippet = prev.content.slice(0, 200).replace(/\s+/g, ' ').trim();
+  const prefix = snippet
+    ? `Yesterday you wrote: "${snippet}${prev.content.length > 200 ? '…' : ''}"\n\nBuilding on that — `
+    : 'Building on that — ';
+
+  return prefix + day.prompt;
 }

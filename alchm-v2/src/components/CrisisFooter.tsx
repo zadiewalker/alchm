@@ -3,7 +3,7 @@
 import React from 'react';
 import { DESIGN } from '@/lib/design';
 
-export function CrisisFooter({ onOpen }: { onOpen: () => void }) {
+export function CrisisFooter() {
   return (
     <footer
       style={{
@@ -14,30 +14,43 @@ export function CrisisFooter({ onOpen }: { onOpen: () => void }) {
         fontFamily: DESIGN.typography.sansSerif,
       }}
     >
-      <button
-        type="button"
-        onClick={onOpen}
-        aria-label="Open crisis support resources"
+      <div
+        aria-label="Crisis support resources"
         style={{
-          background: 'transparent',
-          border: 'none',
-          padding: 0,
-          margin: 0,
-          cursor: 'pointer',
-          fontFamily: 'inherit',
+          display: 'inline-flex',
+          gap: '8px',
+          alignItems: 'baseline',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
         }}
       >
-        <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}>
-          Crisis support available ·{' '}
+        <span
+          style={{
+            color: 'rgba(255,255,255,0.45)',
+            fontSize: DESIGN.typography.sizes.sm,
+            fontFamily: DESIGN.typography.sansSerif,
+          }}
+        >
+          Crisis support available ·
         </span>
-      </button>
-      <a
-        href="tel:988"
-        aria-label="Call 988 Suicide and Crisis Lifeline"
-        style={{ color: DESIGN.colors.gold, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}
-      >
-        988
-      </a>
+        <a
+          href="tel:988"
+          aria-label="Call 988 Suicide and Crisis Lifeline"
+          style={{ color: DESIGN.colors.gold, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}
+        >
+          Call 988
+        </a>
+        <span aria-hidden="true" style={{ color: 'rgba(255,255,255,0.32)' }}>
+          ·
+        </span>
+        <a
+          href="sms:741741"
+          aria-label="Text 741741 to reach Crisis Text Line"
+          style={{ color: DESIGN.colors.gold, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}
+        >
+          Text 741741
+        </a>
+      </div>
     </footer>
   );
 }

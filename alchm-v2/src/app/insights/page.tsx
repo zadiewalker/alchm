@@ -6,57 +6,38 @@ import { LoadingState } from '@/components/LoadingState';
 import { EmptyState } from '@/components/EmptyState';
 import { ErrorState } from '@/components/ErrorState';
 import { DESIGN } from '@/lib/design';
-import type { JournalEntry, PageState } from '@/lib/types';
-import { getEntries } from '@/lib/journal';
-
-const MOOD_LABELS: Record<string, string> = {
-  '1': 'Heavy',
-  '3': 'Anxious',
-  '5': 'Neutral',
-  '7': 'Hopeful',
-  '9': 'Peaceful',
-};
-
-function topN<T extends string>(map: Record<T, number>, n: number): Array<{ key: T; count: number }> {
-  return (Object.entries(map) as Array<[T, number]>)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, n)
-    .map(([key, count]) => ({ key, count }));
-}
+import type { PageState } from '@/lib/types';
+import { generateInsightReport } from '@/lib/insights';
 
 export default function InsightsPage() {
   const router = useRouter();
   const [state, setState] = useState<PageState>('loading');
-  const [entries, setEntries] = useState<JournalEntry[]>([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     try {
-      const all = getEntries();
-      setEntries(all);
-      setState(all.length >= 5 ? 'ready' : 'empty');
+      // State is derived from on-device report; no network calls.
+      const report = generateInsightReport();
+      setState(report.entriesNeeded > 0 ? 'empty' : 'ready');
     } catch {
+      setError("ALCHM couldn't gather insights right now.");
       setState('error');
     }
   }, []);
 
-  const stats = useMemo(() => {
-    const moodCounts: Record<string, number> = {};
-    const tagCounts: Record<string, number> = {};
-    for (const e of entries) {
-      if (typeof e.mood === 'number') {
-        const key = String(e.mood);
-        moodCounts[key] = (moodCounts[key] || 0) + 1;
-      }
-      for (const t of e.tags || []) {
-        const k = t.toLowerCase();
-        tagCounts[k] = (tagCounts[k] || 0) + 1;
-      }
+  const report = useMemo(() => {
+    try {
+      return generateInsightReport();
+    } catch {
+      return { moodPatterns: [], themePatterns: [], temporalInsights: [], totalEntries: 0, entriesNeeded: 5 };
     }
-    return {
-      moods: topN(moodCounts as Record<string, number>, 5),
-      tags: topN(tagCounts as Record<string, number>, 8),
-    };
-  }, [entries]);
+  }, []);
+
+  const dots = useMemo(() => {
+    const total = 5;
+    const filled = Math.max(0, Math.min(total, report.totalEntries));
+    return Array.from({ length: total }, (_, i) => i < filled);
+  }, [report.totalEntries]);
 
   return (
     <div style={{ padding: '28px 20px' }}>
@@ -79,65 +60,116 @@ export default function InsightsPage() {
       </button>
 
       <h1 style={{ margin: '12px 0 0', fontSize: '22px', fontWeight: DESIGN.typography.weights.light, fontFamily: DESIGN.typography.sansSerif }}>
-        Insights
+        The Mirror
       </h1>
       <div style={{ marginTop: '8px', fontSize: '13px', color: DESIGN.colors.textSecondary }}>
-        A simple mirror of what you have been writing.
+        What Khepera notices in your words.
       </div>
 
       {state === 'loading' ? <LoadingState label="Gathering…" /> : null}
-      {state === 'error' ? <ErrorState onRetry={() => router.refresh()} /> : null}
+      {state === 'error' ? <ErrorState message={error} onRetry={() => router.refresh()} /> : null}
       {state === 'empty' ? (
         <EmptyState
-          title="Not enough data yet"
-          message="Patterns take time. After five entries, this space will start to show what you have been carrying."
+          title="Patterns take time."
+          message={`After five entries, I'll start to see what you see. ${report.entriesNeeded ? `${report.entriesNeeded} more to unlock.` : ''}`}
           action={
-            <button
-              type="button"
-              onClick={() => router.push('/journal/new/')}
-              aria-label="Write a journal entry"
-              className="btn-primary"
-              style={{
-                padding: '0 18px',
-                borderRadius: DESIGN.radius.full,
-                fontFamily: DESIGN.typography.sansSerif,
-                cursor: 'pointer',
-              }}
-            >
-              Write
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+              <div aria-label="Entries needed to unlock" style={{ display: 'flex', gap: '8px' }}>
+                {dots.map((on, idx) => (
+                  <span
+                    key={String(idx)}
+                    aria-hidden="true"
+                    style={{
+                      width: '10px',
+                      height: '10px',
+                      borderRadius: '9999px',
+                      backgroundColor: on ? DESIGN.colors.sage400 : 'transparent',
+                      border: `1px solid ${DESIGN.colors.borderLight}`,
+                      boxShadow: on ? '0 0 10px rgba(139, 154, 124, 0.18)' : 'none',
+                    }}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => router.push('/journal/new/')}
+                aria-label="Write a journal entry"
+                className="btn-primary"
+                style={{
+                  padding: '0 18px',
+                  borderRadius: DESIGN.radius.full,
+                  fontFamily: DESIGN.typography.sansSerif,
+                  cursor: 'pointer',
+                }}
+              >
+                Write
+              </button>
+            </div>
           }
         />
       ) : null}
 
       {state === 'ready' ? (
         <div style={{ marginTop: '18px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div className="card" style={{ padding: '16px' }}>
-            <div style={{ fontSize: '14px', fontWeight: DESIGN.typography.weights.semibold }}>Most common moods</div>
-            <div style={{ marginTop: '10px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {stats.moods.length ? (
-                stats.moods.map((m) => (
-                  <span key={m.key} style={{ fontSize: '12px', color: DESIGN.colors.textSecondary, border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.full, padding: '4px 8px' }}>
-                    {MOOD_LABELS[m.key] || 'Mood'} · {m.count}
-                  </span>
+          <div className="card" style={{ padding: '16px' }} aria-label="Mood landscape">
+            <div style={{ fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', color: DESIGN.colors.sage400, fontWeight: 600 }}>
+              Mood landscape
+            </div>
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {report.moodPatterns.map((m) => (
+                <div key={m.mood} style={{ display: 'grid', gridTemplateColumns: '90px 1fr 54px', gap: '10px', alignItems: 'center' }}>
+                  <div style={{ fontSize: '13px', color: DESIGN.colors.textPrimary, textTransform: 'capitalize' }}>{m.mood}</div>
+                  <div style={{ height: '8px', borderRadius: '9999px', backgroundColor: 'rgba(164, 180, 148, 0.18)', overflow: 'hidden' }}>
+                    <div style={{ width: `${m.percentage}%`, height: '100%', backgroundColor: DESIGN.colors.sage500 }} />
+                  </div>
+                  <div style={{ fontSize: '12px', color: DESIGN.colors.textMuted, textAlign: 'right' }}>
+                    {m.percentage}% {m.trend === 'rising' ? '↑' : m.trend === 'falling' ? '↓' : '→'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="card" style={{ padding: '16px' }} aria-label="Themes and threads">
+            <div style={{ fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', color: DESIGN.colors.sage400, fontWeight: 600 }}>
+              Threads
+            </div>
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {report.themePatterns.length ? (
+                report.themePatterns.map((t) => (
+                  <div key={t.theme}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+                      <div style={{ fontSize: '14px', color: DESIGN.colors.textPrimary }}>{t.theme}</div>
+                      <div style={{ fontSize: '12px', color: DESIGN.colors.textMuted }}>
+                        ×{t.count} {t.trend === 'rising' ? '↑' : t.trend === 'falling' ? '↓' : '→'}
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '6px', fontSize: '12px', color: DESIGN.colors.textMuted, lineHeight: 1.5 }}>
+                      since {t.firstSeen} · {t.associatedMoods.length ? `usually ${t.associatedMoods[0]}` : 'varied'}
+                    </div>
+                  </div>
                 ))
               ) : (
-                <span style={{ fontSize: '13px', color: DESIGN.colors.textMuted }}>No mood data yet.</span>
+                <div style={{ fontSize: '13px', color: DESIGN.colors.textMuted }}>No themes yet.</div>
               )}
             </div>
           </div>
 
-          <div className="card" style={{ padding: '16px' }}>
-            <div style={{ fontSize: '14px', fontWeight: DESIGN.typography.weights.semibold }}>Recurring tags</div>
-            <div style={{ marginTop: '10px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              {stats.tags.length ? (
-                stats.tags.map((t) => (
-                  <span key={t.key} style={{ fontSize: '12px', color: DESIGN.colors.textSecondary, border: `1px solid ${DESIGN.colors.borderLight}`, borderRadius: DESIGN.radius.full, padding: '4px 8px' }}>
-                    {t.key} · {t.count}
-                  </span>
+          <div className="card" style={{ padding: '16px' }} aria-label="Khepera notices">
+            <div style={{ fontSize: '12px', letterSpacing: '1.5px', textTransform: 'uppercase', color: DESIGN.colors.sage400, fontWeight: 600 }}>
+              Khepera notices
+            </div>
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {report.temporalInsights.length ? (
+                report.temporalInsights.map((i, idx) => (
+                  <div key={String(idx)} style={{ fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>
+                    “{i.description}”
+                  </div>
                 ))
               ) : (
-                <span style={{ fontSize: '13px', color: DESIGN.colors.textMuted }}>No tags yet.</span>
+                <div style={{ fontSize: '13px', color: DESIGN.colors.textMuted }}>
+                  Keep writing. The patterns will surface gently.
+                </div>
               )}
             </div>
           </div>
