@@ -1,252 +1,425 @@
-
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from '@/router';
-import { ErrorState } from '@/components/ErrorState';
-import { LoadingState } from '@/components/LoadingState';
-import { DESIGN } from '@/lib/design';
-import { addEntry, clearDraft, getDraft, saveDraft, updateEntry } from '@/lib/journal';
-import { checkForCrisis, type CrisisCheck } from '@/lib/crisis';
-import { getSettings } from '@/lib/settings';
-import type { JournalEntry, PageState } from '@/lib/types';
-import { recordPathwayEntry } from '@/lib/pathways';
-import { EmotionSelector, type EmotionSelection } from '@/components/EmotionSelector';
-import { SomaticCheckin } from '@/components/SomaticCheckin';
-import { buildWritingPrompt } from '@/lib/depthPrompts';
-import { findEmotion } from '@/lib/emotions';
-import { getClosing } from '@/lib/closing';
-import { buildFollowUpUserMessage, FOLLOW_UP_SYSTEM_PROMPT } from '@/lib/followUp';
-import { getFollowUpQuestion } from '@/lib/api';
-import type { BodySensation } from '@/lib/somatic';
-import { BODY_REGIONS, type BodyRegionId } from '@/lib/somatic';
-import { FollowUpCard } from '@/components/FollowUpCard';
-import { ClosingLine } from '@/components/ClosingLine';
-import { getAnthropicApiKey } from '@/lib/secrets';
+import { useEffect, useMemo, useState } from 'react';
+import { ErrorState, LoadingState } from '@/components/States';
+import { LAYER_BACKGROUNDS } from '@/lib/depth.design';
+import { EmotionSelector } from '@/components/depth/SelectionFlow';
+import type { EmotionSelection } from '@/components/depth/SelectionFlow';
+import { LayerBreadcrumb } from '@/components/depth/LayerBreadcrumb';
 import { NewEntryEditor } from './NewEntryEditor';
-import { NewEntryReflection } from './NewEntryReflection';
-import { useKheperaReflection } from './useKheperaReflection';
+import { PostEntryTransform } from './PostEntryTransform';
+import { useDepthEntryFlow } from './useDepthEntryFlow';
+import { haptics } from '@/services/haptics';
+import { BodyMap } from '@/components/BodyMap';
+import type { BodyLocation } from '@/services/somaticLog';
+import { EMOTION_MAP, FAMILY_LABELS, type EmotionFamily } from '@/lib/emotions';
+import type { BodyRegionId } from '@/lib/somatic';
+import { getEntries } from '@/lib/journal';
 
-function makeId(): string { return `${Date.now()}_${Math.random().toString(16).slice(2)}`; }
+const BODY_SUGGESTIONS: Partial<Record<BodyLocation, Array<{ family: EmotionFamily; id: string }>>> = {
+  chest: [{ family: 'fear', id: 'anxious' }, { family: 'sadness', id: 'grieving' }, { family: 'anger', id: 'angry' }, { family: 'trust', id: 'loved' }],
+  stomach: [{ family: 'fear', id: 'worried' }, { family: 'shame', id: 'guilty' }, { family: 'anticipation', id: 'nervous' }, { family: 'sadness', id: 'heavy' }],
+  throat: [{ family: 'fear', id: 'anxious' }, { family: 'anger', id: 'frustrated' }, { family: 'sadness', id: 'sad' }, { family: 'shame', id: 'ashamed' }],
+  jaw: [{ family: 'anger', id: 'angry' }, { family: 'fear', id: 'overwhelmed' }, { family: 'surprise', id: 'confused' }],
+  head: [{ family: 'fear', id: 'overwhelmed' }, { family: 'surprise', id: 'confused' }, { family: 'anticipation', id: 'nervous' }],
+  shoulders_left: [{ family: 'sadness', id: 'heavy' }, { family: 'anger', id: 'frustrated' }, { family: 'fear', id: 'anxious' }],
+  shoulders_right: [{ family: 'sadness', id: 'heavy' }, { family: 'anger', id: 'frustrated' }, { family: 'fear', id: 'anxious' }],
+  whole_body: [{ family: 'sadness', id: 'heavy' }, { family: 'fear', id: 'anxious' }, { family: 'surprise', id: 'confused' }, { family: 'joy', id: 'hopeful' }],
+  nowhere_specific: [{ family: 'sadness', id: 'numb' }, { family: 'fear', id: 'anxious' }, { family: 'surprise', id: 'confused' }],
+};
 
-function useDraftAutosave(args: {
-  enabled: boolean;
-  content: string;
-  mood: number | undefined;
-  tags: string;
-  pathwayId: string | null;
-  pathwayStep: number;
-  emotionSelection: EmotionSelection | null;
-  somatic: BodySensation | null;
-}) {
-  const timer = useRef<number | null>(null);
-  useEffect(() => {
-    if (!args.enabled) return;
-    if (timer.current) window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => {
-      const nextTags = args.tags.split(',').map((t) => t.trim()).filter(Boolean).slice(0, 12);
-      saveDraft({
-        content: args.content,
-        mood: args.mood,
-        tags: nextTags,
-        pathwayId: args.pathwayId || undefined,
-        pathwayStep: args.pathwayStep,
-        emotionSelection: args.emotionSelection || undefined,
-        somatic: args.somatic || undefined,
-      });
-    }, 2000);
-    return () => { if (timer.current) window.clearTimeout(timer.current); };
-  }, [args.content, args.enabled, args.mood, args.pathwayId, args.pathwayStep, args.tags, args.emotionSelection, args.somatic]);
+function toSelection(family: EmotionFamily, id: string): EmotionSelection {
+  const found = EMOTION_MAP[family].find((item) => item.id === id) || null;
+  if (found) return { familyId: family, specificId: id, label: found.label };
+  return { familyId: family, specificId: null, label: FAMILY_LABELS[family] };
+}
+
+function mapBodyToRegion(location: BodyLocation): BodyRegionId {
+  if (location === 'whole_body') return 'whole';
+  if (location === 'nowhere_specific') return 'nowhere';
+  if (location === 'solar_plexus') return 'stomach';
+  if (location === 'shoulders_left' || location === 'shoulders_right' || location === 'upper_back' || location === 'lower_back') return 'shoulders';
+  if (location === 'feet' || location === 'legs' || location === 'hips') return 'whole';
+  if (location === 'hands') return 'hands';
+  if (location === 'jaw') return 'face';
+  if (location === 'head') return 'head';
+  if (location === 'throat') return 'throat';
+  if (location === 'chest') return 'chest';
+  return 'stomach';
+}
+
+function bodyLabel(location: BodyLocation): string {
+  if (location === 'shoulders_left' || location === 'shoulders_right') return 'shoulders';
+  if (location === 'solar_plexus') return 'solar plexus';
+  if (location === 'nowhere_specific') return 'body';
+  if (location === 'whole_body') return 'whole body';
+  return location.replaceAll('_', ' ');
 }
 
 export default function NewEntryClient() {
   const router = useRouter();
-  const [state, setState] = useState<PageState>('loading');
-  const [content, setContent] = useState(''); const [mood, setMood] = useState<number | undefined>(undefined);
-  const [tags, setTags] = useState(''); const [pathwayId, setPathwayId] = useState<string | null>(null); const [pathwayStep, setPathwayStep] = useState(1);
-  const [emotionSel, setEmotionSel] = useState<EmotionSelection | null>(null);
-  const [somatic, setSomatic] = useState<BodySensation | null>(null);
-  const [layer, setLayer] = useState<'name' | 'feel' | 'write' | 'reflect' | 'explore' | 'closing'>('name');
-  const [savedId, setSavedId] = useState<string | null>(null); const [savedCrisis, setSavedCrisis] = useState<CrisisCheck | null>(null);
-  const [reflectionComplete, setReflectionComplete] = useState(false);
-  const [followUpQ, setFollowUpQ] = useState<string | null>(null);
-  const [followUpLoading, setFollowUpLoading] = useState(false);
-  const [closingText, setClosingText] = useState<string | null>(null);
-  const settings = useMemo(() => getSettings(), []);
-  const { reflection, setReflection, reflectionError, setReflectionError, isReflecting, reflect } = useKheperaReflection({ preferredFramework: settings.preferredFramework });
+  const flow = useDepthEntryFlow();
+  const journalEntryCount = useMemo(
+    () => getEntries().filter((entry) => entry.type !== 'check-in' && entry.type !== 'checkin').length,
+    [],
+  );
+  const [arrived, setArrived] = useState(flow.layer !== 'name');
+  const [manualEmotionMode, setManualEmotionMode] = useState(false);
+  const [showSpecificEmotionGrid, setShowSpecificEmotionGrid] = useState(false);
+  const [showCustomEmotionInput, setShowCustomEmotionInput] = useState(false);
+  const [customEmotionText, setCustomEmotionText] = useState('');
+  const [showCompletionMoment, setShowCompletionMoment] = useState(false);
+  const [bodySelection, setBodySelection] = useState<{ location: BodyLocation; sensation: string; intensity: number } | null>(null);
+  const selectedEmotion = flow.emotionSelection;
+  const showArrivingStage = !arrived && flow.layer === 'name' && !flow.savedId;
+  const showEmotionSummary = !!selectedEmotion && !(arrived && flow.layer === 'feel' && !flow.savedId);
+  const showFeelingStage = arrived && flow.layer === 'feel' && !flow.savedId;
+  const showWritingStage = !flow.savedId && (flow.layer === 'write' || flow.layer === 'reflect' || flow.layer === 'explore' || flow.layer === 'closing');
+  const hasUnsavedWriting = !flow.savedId && !!flow.content.trim();
+  const openCanvas = showArrivingStage || showFeelingStage || showWritingStage || !!flow.savedId;
+  const contextualSuggestions = useMemo(
+    () => bodySelection ? (BODY_SUGGESTIONS[bodySelection.location] || BODY_SUGGESTIONS.nowhere_specific || []).map((item) => toSelection(item.family, item.id)) : [],
+    [bodySelection],
+  );
+  const quickMoods: EmotionSelection[] = useMemo(() => ([
+    { familyId: 'sadness', specificId: 'heavy', label: 'Heavy' },
+    { familyId: 'fear', specificId: 'anxious', label: 'Anxious' },
+    { familyId: 'surprise', specificId: null, label: 'Neutral' },
+    { familyId: 'joy', specificId: 'hopeful', label: 'Hopeful' },
+    { familyId: 'joy', specificId: 'peaceful', label: 'Peaceful' },
+  ]), []);
+
+  const commitCustomEmotion = () => {
+    const label = customEmotionText.trim();
+    if (!label) return;
+    flow.setEmotionSelection({ familyId: 'surprise', specificId: null, label });
+    flow.onSomaticContinue();
+  };
 
   useEffect(() => {
-    try {
-      const draft = getDraft();
-      if (draft?.content) setContent(String(draft.content));
-      if (typeof draft?.mood === 'number') setMood(draft.mood);
-      if (Array.isArray(draft?.tags)) setTags(draft.tags.join(', '));
-      if (typeof draft?.pathwayId === 'string' && draft.pathwayId.trim()) setPathwayId(draft.pathwayId);
-      if (typeof draft?.pathwayStep === 'number' && Number.isFinite(draft.pathwayStep)) setPathwayStep(draft.pathwayStep);
-      if (draft?.emotionSelection && typeof draft.emotionSelection === 'object') setEmotionSel(draft.emotionSelection as EmotionSelection);
-      if (draft?.somatic && typeof draft.somatic === 'object') setSomatic(draft.somatic as BodySensation);
-      // Resume at the appropriate layer.
-      if (draft?.emotionSelection) setLayer(draft?.somatic ? 'write' : 'feel');
-      setState('ready');
-    } catch { setState('error'); }
-  }, []);
+    if (!showArrivingStage) return;
+    setBodySelection(null);
+    setShowCustomEmotionInput(false);
+    setShowSpecificEmotionGrid(false);
+    setCustomEmotionText('');
+    flow.setEmotionSelection(null);
+    flow.setSomatic(null);
+  }, [showArrivingStage]);
 
-  useDraftAutosave({ enabled: settings.autoSaveEnabled, content, mood, tags, pathwayId, pathwayStep, emotionSelection: emotionSel, somatic });
-
-  const selectedEmotion = useMemo(() => {
-    if (!emotionSel) return null;
-    return findEmotion({ family: emotionSel.familyId, specificId: emotionSel.specificId });
-  }, [emotionSel]);
-
-  const hintRegion = useMemo<BodyRegionId | null>(() => {
-    const hint = selectedEmotion?.somatic || null;
-    if (!hint) return null;
-    return BODY_REGIONS.some((r) => r.id === hint) ? (hint as BodyRegionId) : null;
-  }, [selectedEmotion?.somatic]);
-
-  const writingPrompt = useMemo(() => buildWritingPrompt(selectedEmotion, somatic), [selectedEmotion, somatic]);
-
-  const onSave = useCallback(() => {
-    const trimmed = content.trim(); if (!trimmed) return;
-    if (!emotionSel) return;
-    const now = new Date().toISOString();
-    const entry: JournalEntry = {
-      id: makeId(),
-      content: trimmed,
-      mood,
-      emotionSelection: emotionSel,
-      somatic: somatic || undefined,
-      emotions: [emotionSel.label],
-      tags: tags.split(',').map((t) => t.trim()).filter(Boolean).slice(0, 12),
-      type: 'journal',
-      isPrivate: true,
-      createdAt: now,
-      updatedAt: now,
-      pathwayId: pathwayId || undefined,
-      pathwayStep: pathwayId ? pathwayStep : undefined,
-    };
-    if (!addEntry(entry)) { setState('error'); return; }
-    clearDraft();
-    setSavedId(entry.id);
-    setSavedCrisis(checkForCrisis(entry.content));
-    setReflection('');
-    setReflectionError('');
-    setReflectionComplete(false);
-    setFollowUpQ(null);
-    setClosingText(null);
-    setLayer('reflect');
-    if (pathwayId) recordPathwayEntry(entry);
-  }, [content, emotionSel, mood, pathwayId, pathwayStep, somatic, tags, setReflection, setReflectionError]);
-
-  const onReflect = useCallback(() => { if (savedId) reflect(savedId); }, [reflect, savedId]);
-
-  const requestFollowUp = useCallback(async () => {
-    if (!savedId) return;
-    if (!reflection || followUpLoading || followUpQ) return;
-    // Follow-up is optional and should never block.
-    setFollowUpLoading(true);
-    try {
-      const apiKey = getAnthropicApiKey();
-      if (!apiKey) { setFollowUpLoading(false); return; }
-      const msg = buildFollowUpUserMessage(content.trim(), reflection);
-      const res = await getFollowUpQuestion({ systemPrompt: FOLLOW_UP_SYSTEM_PROMPT, userMessage: msg, apiKey });
-      if (res.text) setFollowUpQ(res.text);
-    } catch {
-      // silent
-    } finally {
-      setFollowUpLoading(false);
+  const onBack = () => {
+    if (flow.savedId) {
+      router.push('/dashboard/');
+      return;
     }
-  }, [content, followUpLoading, followUpQ, reflection, savedId]);
-
-  const onSaveFollowUpResponse = useCallback((resp: string) => {
-    if (!savedId || !followUpQ) return;
-    const trimmed = resp.trim();
-    if (!trimmed) return;
-    // Append into the entry content for portability, and also store structured followUp.
-    const appended = `${content.trim()}\n\n---\n\nKhepera asked: \"${followUpQ}\"\n\nYour response:\n${trimmed}`;
-    setContent(appended);
-    // Persist both.
-    updateEntry(savedId, { content: appended, followUp: { question: followUpQ, response: trimmed } });
-    setLayer('closing');
-  }, [content, followUpQ, savedId]);
-
-  const finishExplore = useCallback(() => {
-    setLayer('closing');
-  }, []);
+    if (flow.layer === 'write' || flow.layer === 'reflect' || flow.layer === 'explore' || flow.layer === 'closing') {
+      setArrived(true);
+      flow.setLayer('feel');
+      return;
+    }
+    if (flow.layer === 'feel') {
+      setShowSpecificEmotionGrid(false);
+      setShowCustomEmotionInput(false);
+      setArrived(false);
+      flow.setLayer('name');
+      return;
+    }
+    if (showArrivingStage || flow.layer === 'name') {
+      if (hasUnsavedWriting) {
+        const words = flow.content.trim().split(/\s+/).filter(Boolean).length;
+        if (words >= 20) {
+          const discard = window.confirm('You have unsaved writing. Discard it?');
+          if (!discard) return;
+        }
+      }
+      router.push('/dashboard/');
+      return;
+    }
+    router.back();
+  };
 
   return (
-    <div style={{ padding: '28px 20px' }}>
+    <div
+      style={{
+        padding: '22px 20px 30px',
+        background: openCanvas ? 'transparent' : LAYER_BACKGROUNDS[flow.layer],
+        borderRadius: openCanvas ? 0 : '22px',
+        border: openCanvas ? 'none' : '1px solid var(--border-subtle)',
+        boxShadow: openCanvas ? 'none' : 'inset 0 1px 0 rgba(240,243,237,0.04), 0 20px 46px rgba(45,51,42,0.24)',
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
-        <button type="button" onClick={() => router.push('/dashboard/')} aria-label="Return to dashboard" style={{ border: 'none', background: 'transparent', color: DESIGN.colors.gold, fontFamily: DESIGN.typography.sansSerif, fontSize: '15px', cursor: 'pointer', minHeight: '44px', padding: 0 }}>← Dashboard</button>
-        <button type="button" onClick={() => router.push('/journal/')} aria-label="Open journal list" style={{ border: 'none', background: 'transparent', color: DESIGN.colors.gold, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer', minHeight: '44px', padding: '0 8px' }}>Journal →</button>
+        <button type="button" aria-label="Back" onClick={onBack} style={{ border: 'none', background: 'transparent', color: 'var(--gold-primary)', cursor: 'pointer', minHeight: '44px', padding: 0, fontSize: '13px', letterSpacing: '0.5px' }}>
+          ← Back
+        </button>
+        <span style={{ minWidth: '44px' }} aria-hidden="true" />
       </div>
-      {state === 'loading' ? <LoadingState label="Preparing your page…" /> : null}
-      {state === 'error' ? <ErrorState message="ALCHM couldn't open the editor. Try again." onRetry={() => router.refresh()} /> : null}
-      {state === 'ready' ? (
+
+      {flow.state === 'loading' ? <LoadingState label="Preparing your page…" /> : null}
+      {flow.state === 'error' ? <ErrorState message="ALCHM could not open the editor. Try again." onRetry={() => router.refresh()} /> : null}
+
+      {flow.state === 'ready' ? (
         <>
-          <div style={{ marginTop: '16px' }}>
-            <EmotionSelector
-              value={emotionSel}
-              onChange={(sel) => {
-                setEmotionSel(sel);
-                // Move forward, but keep it optional.
-                if (layer === 'name') setLayer('feel');
-              }}
-            />
-          </div>
-
-          {emotionSel && layer === 'feel' ? (
-            <SomaticCheckin
-              hintRegion={hintRegion}
-              value={somatic}
-              onChange={(s) => setSomatic(s)}
-              onSkip={() => setLayer('write')}
-              onContinue={() => setLayer('write')}
-            />
+          {showArrivingStage ? (
+            <div style={{ marginTop: '30px', textAlign: 'center', padding: '30px 12px' }}>
+              <p style={{ fontSize: '24px', lineHeight: 1.35, margin: 0, color: 'var(--text-primary)', fontWeight: 300, letterSpacing: '-0.02em' }}>
+                Take a breath.
+              </p>
+              <p style={{ marginTop: '10px', fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                You don&apos;t have to know what you feel yet.
+              </p>
+              <div className="breathing-dot" style={{ margin: '24px auto 22px' }} />
+              <button
+                type="button"
+                className="btn-secondary"
+                style={{ minWidth: '180px' }}
+                onClick={() => {
+                  setArrived(true);
+                  setManualEmotionMode(false);
+                  setShowSpecificEmotionGrid(false);
+                  setShowCustomEmotionInput(false);
+                  setCustomEmotionText('');
+                  flow.setLayer('feel');
+                  void haptics.light();
+                }}
+              >
+                I&apos;m ready →
+              </button>
+              <button
+                type="button"
+                className="btn-ghost"
+                style={{ marginTop: '10px' }}
+                onClick={() => {
+                  setArrived(true);
+                  setManualEmotionMode(true);
+                  setShowSpecificEmotionGrid(false);
+                  setShowCustomEmotionInput(false);
+                  setCustomEmotionText('');
+                  flow.setLayer('feel');
+                  void haptics.light();
+                }}
+              >
+                I already know what I feel →
+              </button>
+            </div>
           ) : null}
 
-          {emotionSel && (layer === 'write' || layer === 'reflect' || layer === 'explore' || layer === 'closing') ? (
-            <NewEntryEditor
-              content={content}
-              setContent={setContent}
-              tags={tags}
-              setTags={setTags}
-              pathwayId={pathwayId}
-              pathwayStep={pathwayStep}
-              onSave={onSave}
-              canSave={!!content.trim() && !!emotionSel}
-              writingPrompt={writingPrompt}
-              emotionFamily={emotionSel.familyId}
-              usedSomatic={!!somatic}
-              preferredFramework={settings.preferredFramework}
-            />
+          {showFeelingStage ? (
+            <div style={{ marginTop: '16px' }}>
+              {!manualEmotionMode ? (
+                <>
+                  <div style={{ fontSize: '22px', color: 'var(--text-primary)', lineHeight: 1.3, fontWeight: 300, letterSpacing: '-0.02em' }}>
+                    Where do you feel it?
+                  </div>
+                  <p style={{ marginTop: '8px', fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    Tap wherever something is alive in your body right now.
+                  </p>
+                  <BodyMap
+                    onSelect={(payload) => {
+                      setBodySelection(payload);
+                      flow.setSomatic({ region: mapBodyToRegion(payload.location), description: payload.sensation || null });
+                      void haptics.selection();
+                    }}
+                    onSkip={() => {
+                      setManualEmotionMode(true);
+                    }}
+                  />
+                  {bodySelection ? (
+                    <div style={{ marginTop: '14px' }}>
+                      <div style={{ fontSize: '15px', color: 'var(--text-primary)', marginBottom: '8px' }}>
+                        Your {bodyLabel(bodySelection.location)} is {bodySelection.sensation || 'active'}.
+                      </div>
+                      <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                        That {bodySelection.sensation || 'feeling'} — does it feel more like:
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {contextualSuggestions.map((option) => (
+                          <button
+                            key={`${option.familyId}-${option.specificId || 'family'}`}
+                            type="button"
+                            className="mood-chip"
+                            onClick={() => {
+                              flow.setEmotionSelection(option);
+                              flow.onSomaticContinue();
+                            }}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-ghost"
+                        style={{ marginTop: '10px' }}
+                        onClick={() => {
+                          setManualEmotionMode(true);
+                          setShowCustomEmotionInput(true);
+                        }}
+                      >
+                        Or something else entirely →
+                      </button>
+                    </div>
+                  ) : null}
+                </>
+              ) : (
+                <>
+                  {!showSpecificEmotionGrid ? (
+                    <>
+                      <div style={{ fontSize: '22px', color: 'var(--text-primary)', lineHeight: 1.3, fontWeight: 300, letterSpacing: '-0.02em' }}>
+                        What&apos;s here with you?
+                      </div>
+                      <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                        {quickMoods.map((mood) => (
+                          <button
+                            key={`${mood.label}`}
+                            type="button"
+                            className="mood-chip"
+                            onClick={() => {
+                              setShowCustomEmotionInput(false);
+                              setCustomEmotionText('');
+                              flow.setEmotionSelection(mood);
+                              flow.onSomaticContinue();
+                            }}
+                          >
+                            {mood.label}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-ghost"
+                        style={{ marginTop: '10px' }}
+                        onClick={() => setShowSpecificEmotionGrid(true)}
+                        disabled={journalEntryCount < 5}
+                      >
+                        {journalEntryCount < 5 ? 'More emotions unlock after a few entries' : 'Something more specific →'}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-ghost"
+                        style={{ marginTop: '6px' }}
+                        onClick={() => setShowCustomEmotionInput((prev) => !prev)}
+                      >
+                        Or something else entirely →
+                      </button>
+                      {showCustomEmotionInput ? (
+                        <div style={{ marginTop: '8px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                          <input
+                            value={customEmotionText}
+                            onChange={(event) => setCustomEmotionText(event.target.value)}
+                            placeholder="Name it in your own words"
+                            className="input"
+                            style={{ flex: 1, minHeight: '40px' }}
+                            aria-label="Custom emotion label"
+                          />
+                          <button
+                            type="button"
+                            className="btn-secondary"
+                            onClick={commitCustomEmotion}
+                            disabled={!customEmotionText.trim()}
+                          >
+                            Continue →
+                          </button>
+                        </div>
+                      ) : null}
+                    </>
+                  ) : (
+                    <EmotionSelector
+                      value={selectedEmotion}
+                      lateNight={flow.lateNight}
+                      onChange={(selection) => {
+                        setShowCustomEmotionInput(false);
+                        setCustomEmotionText('');
+                        flow.setEmotionSelection(selection);
+                        flow.onSomaticContinue();
+                      }}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      flow.setEmotionSelection(null);
+                      flow.setLayer('write');
+                    }}
+                    style={{ marginTop: '10px', border: 'none', background: 'transparent', color: 'var(--text-muted)', minHeight: '44px', cursor: 'pointer' }}
+                    aria-label="Skip emotion and just write"
+                  >
+                    Just write →
+                  </button>
+                </>
+              )}
+            </div>
           ) : null}
 
-          <NewEntryReflection
-            visible={!!savedId}
-            isReflecting={isReflecting}
-            reflection={reflection}
-            reflectionError={reflectionError}
-            crisis={savedCrisis}
-            onReflect={onReflect}
-            onReflectionComplete={() => {
-              setReflectionComplete(true);
-              setLayer('explore');
-              if (savedId) {
-                const family = emotionSel?.familyId ?? null;
-                setClosingText(getClosing(family, savedId));
-              }
+          {showEmotionSummary ? (
+            <div style={{ marginTop: '12px', padding: '0 4px' }}>
+              <LayerBreadcrumb family={selectedEmotion!.familyId} specificLabel={selectedEmotion!.specificId ? selectedEmotion!.label : null} />
+            </div>
+          ) : null}
+
+          {showWritingStage ? (
+            <div style={{ marginTop: '14px' }}>
+              <NewEntryEditor
+                content={flow.content}
+                setContent={flow.setContent}
+                tags={flow.tags}
+                setTags={flow.setTags}
+                pathwayId={flow.pathwayId}
+                pathwayStep={flow.pathwayStep}
+                onSave={flow.onSave}
+                canSave={!flow.isSaving && !flow.savedId && !!flow.content.trim()}
+                isSaving={flow.isSaving}
+                writingPrompt={flow.writingPrompt}
+                emotionFamily={selectedEmotion?.familyId || null}
+                usedSomatic={!!flow.somatic}
+                preferredFramework={flow.settings.preferredFramework}
+                onBodyMapSelect={flow.setBodyMap}
+                contextualPlaceholder={(() => {
+                  const label = (selectedEmotion?.label || '').toLowerCase();
+                  if (label === 'neutral' || label === 'numb') {
+                    return 'Describe the nothing. Give it a shape, a color, a weight.';
+                  }
+                  if (selectedEmotion?.label || flow.somatic?.description) {
+                    return `Write from that place${flow.somatic?.region ? ` in your ${flow.somatic.region}` : ''}. What feels most true there?`;
+                  }
+                  return 'Write what is true. One sentence is enough.';
+                })()}
+              />
+              <div style={{ marginTop: '10px', fontSize: '12px', color: 'var(--text-muted)', letterSpacing: '0.2px' }}>Viewing through: {flow.lens}</div>
+            </div>
+          ) : null}
+
+          <PostEntryTransform
+            visible={!!flow.savedId}
+            entryId={flow.savedId || null}
+            entryText={flow.content}
+            moodLabel={flow.emotionSelection?.label || null}
+            pathwayStep={flow.pathwayStep}
+            isReflecting={flow.isReflecting}
+            reflection={flow.reflection}
+            reflectionKind={flow.reflectionKind}
+            reflectionError={flow.reflectionError}
+            crisis={flow.savedCrisis}
+            onReflect={() => {
+              if (flow.savedId) void flow.reflect(flow.savedId);
             }}
+            onDone={() => {
+              if (flow.pathwayId && flow.pathwayStep === 21 && !showCompletionMoment) {
+                setShowCompletionMoment(true);
+                return;
+              }
+              router.push('/dashboard/');
+            }}
+            onReflectionComplete={flow.onReflectionComplete}
           />
-
-          <FollowUpCard
-            visible={!!savedId && reflectionComplete && layer === 'explore'}
-            question={followUpQ}
-            isLoading={followUpLoading}
-            onRequest={() => void requestFollowUp()}
-            onSaveResponse={onSaveFollowUpResponse}
-            onDone={finishExplore}
-          />
-
-          <ClosingLine text={closingText} visible={reflectionComplete && (layer === 'explore' || layer === 'closing')} />
+          {showCompletionMoment ? (
+            <div className="card" style={{ marginTop: '12px', textAlign: 'center', padding: '22px 18px' }}>
+              <div style={{ fontSize: '24px', color: 'var(--text-primary)' }}>You finished something.</div>
+              <div style={{ marginTop: '4px', fontSize: '16px', color: 'var(--text-secondary)' }}>That matters.</div>
+              <div style={{ margin: '14px auto', width: '16px', height: '16px', borderRadius: '9999px', background: 'var(--gold-primary)' }} />
+              <button type="button" className="btn-primary" onClick={() => router.push('/dashboard/')}>
+                Return home →
+              </button>
+            </div>
+          ) : null}
         </>
       ) : null}
     </div>

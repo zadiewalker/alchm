@@ -21,6 +21,30 @@ export const STORAGE_KEYS = {
   lastShownStageId: 'alchm-last-shown-stage-id',
   lastGraceShownForEntryDate: 'alchm-last-grace-shown-for-entry-date',
   anthropicApiKey: 'alchm-anthropic-api-key',
+  selectedEntryId: 'alchm-selected-entry-id',
+  milestonesShown: 'alchm-milestones-shown',
+  lookbacksShown: 'alchm-lookbacks-shown',
+  invitationState: 'alchm-invitation-state',
+  pendingInvitationPrompt: 'alchm-pending-invitation-prompt',
+  pendingQuickEntry: 'alchm-pending-quick-entry',
+  growthProfile: 'alchm-growth-profile',
+  growthMarkers: 'alchm-growth-markers',
+  growthActivity: 'alchm-growth-activity-log',
+  growthWeeklyReflections: 'alchm-growth-weekly-reflections',
+  growthPendingMarkers: 'alchm-growth-pending-markers',
+  growthPendingPhase: 'alchm-growth-pending-phase',
+  pendingReflections: 'alchm-pending-reflections',
+  reportedReflections: 'alchm-reported-reflections',
+  startupErrorLog: 'alchm-startup-error-log',
+  featureFlags: 'alchm-feature-flags',
+  patternAnalysis: 'alchm-pattern-analysis',
+  patternAnalyses: 'alchm-pattern-analyses',
+  relationalEntities: 'alchm-relational-entities',
+  somaticLog: 'alchm-somatic-log',
+  pendingRupture: 'alchm-pending-rupture',
+  plateauReflectionOffered: 'alchm-plateau-reflection-offered',
+  mirrorTabSeen: 'alchm-mirror-tab-seen',
+  postEntryExerciseHistory: 'alchm-post-entry-exercise-history',
 } as const;
 
 const LEGACY_KEYS: Partial<Record<string, string[]>> = {
@@ -117,4 +141,21 @@ export function clearAllAlchmData(): void {
       // no-op
     }
   }
+}
+
+// Convenience accessors (kept here so "where state lives" is obvious).
+export function isOnboarded(): boolean {
+  return readJsonExact<boolean>(STORAGE_KEYS.onboardingComplete, false);
+}
+
+export function setOnboarded(): boolean {
+  return writeJson(STORAGE_KEYS.onboardingComplete, true);
+}
+
+export function getAnthropicApiKey(): string {
+  return readJsonExact<string>(STORAGE_KEYS.anthropicApiKey, '');
+}
+
+export function setAnthropicApiKey(value: string): boolean {
+  return writeJson(STORAGE_KEYS.anthropicApiKey, value);
 }
