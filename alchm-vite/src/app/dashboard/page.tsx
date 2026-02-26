@@ -1,171 +1,228 @@
-
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from '@/router';
-import { EntryCard } from '@/components/EntryCard';
-import { EmptyState } from '@/components/EmptyState';
-import { ErrorState } from '@/components/ErrorState';
-import { LoadingState } from '@/components/LoadingState';
+import { ErrorState, LoadingState } from '@/components/States';
+import { CheckInSheet } from '@/components/CheckInSheet';
 import { DESIGN } from '@/lib/design';
-import { getEntries } from '@/lib/journal';
-import { getCurrentStage } from '@/lib/khepera';
-import { getSettings } from '@/lib/settings';
-import { checkAndUpdateStreak, requestKindnessBreak, type StreakResult } from '@/lib/streaks';
-import type { JournalEntry, PageState } from '@/lib/types';
-import { readString, STORAGE_KEYS, writeString } from '@/lib/storage';
+import { STORAGE_KEYS, writeJson, writeString } from '@/lib/storage';
+import { useDashboardEngagement, formatDate } from '@/app/dashboard/useDashboardEngagement';
+import type { EmotionFamily } from '@/lib/emotions';
+import { haptics } from '@/services/haptics';
+import { getActivePathway, getPathwayById } from '@/lib/pathways';
 
-function moons(n: number): string {
-  const c = Math.max(0, Math.min(2, Math.floor(n)));
-  return `${c >= 1 ? '☽' : '○'} ${c >= 2 ? '☽' : '○'}`;
-}
-
-function daysBetweenUtc(a: Date, b: Date): number {
-  const dayMs = 86_400_000;
-  const aUtc = Date.UTC(a.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
-  const bUtc = Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate());
-  return Math.floor((aUtc - bUtc) / dayMs);
-}
-
-function pickGracePrompt(seed: number): string {
-  const prompts = [
-    'Write about what brought you back today.',
-    "What's one thing that's different since you were last here?",
-    'Start anywhere. Even one word.',
-    'What does today feel like?',
-  ];
-  return prompts[Math.abs(seed) % prompts.length];
-}
-
-type Continuity = { greeting: string; whisper: string; stageName: string; showGraceToken: boolean; gracePrompt: string | null; showStageTransition: boolean; stageId: string };
-function buildContinuity(entries: JournalEntry[]): Continuity {
-  const now = new Date();
-  const entryCount = entries.length;
-  const stage = getCurrentStage(entryCount);
-  let daysSinceLast = Number.POSITIVE_INFINITY;
-  let lastEntryIso = '';
-  if (entryCount) {
-    lastEntryIso = entries[0].createdAt || entries[0].updatedAt || '';
-    const d = new Date(lastEntryIso);
-    if (!Number.isNaN(d.getTime())) daysSinceLast = daysBetweenUtc(now, d);
-  }
-
-  let greeting = 'Welcome to your sanctuary.';
-  if (entryCount === 0) greeting = 'Welcome to your sanctuary.';
-  else if (daysSinceLast >= 3) greeting = 'Welcome back. Your sanctuary has been waiting.';
-  else if (now.getHours() < 12) greeting = 'Good morning.';
-  else if (now.getHours() < 17) greeting = 'Good afternoon.';
-  else greeting = 'The day is settling.';
-
-  const lastGraceShownFor = readString(STORAGE_KEYS.lastGraceShownForEntryDate, '');
-  const showGraceToken = entryCount > 0 && daysSinceLast >= 3 && lastGraceShownFor !== lastEntryIso;
-  const gracePrompt = showGraceToken ? pickGracePrompt(Date.parse(lastEntryIso) || now.getTime()) : null;
-
-  const lastShownStageId = readString(STORAGE_KEYS.lastShownStageId, '');
-  const showStageTransition = entryCount > 0 && stage.id !== lastShownStageId && stage.threshold > 0;
-
-  let whisper = "I'm Khepera. When you write, I listen.";
-  if (entryCount === 0) whisper = "I'm Khepera. When you write, I listen.";
-  else if (showGraceToken) whisper = "You were away. No streak broken. No points lost. You're here now, and that's enough.";
-  else if (showStageTransition) whisper = `Khepera has deepened. After ${stage.threshold} entries, I listen differently. More gently. You'll notice.`;
-  else if (entryCount === 1) whisper = 'You wrote your first entry. That took something.';
-  else if (daysSinceLast >= 7) whisper = "It's been a while. No judgment, only welcome.";
-  else if (entryCount >= 5) whisper = "Patterns are forming. When you're ready, The Mirror can hold them with you.";
-
-  return { greeting, whisper, stageName: stage.name, showGraceToken, gracePrompt, showStageTransition, stageId: stage.id };
+function getMoodDotColor(score?: number): string {
+  if (typeof score !== 'number') return 'var(--sage-500)';
+  if (score <= 2) return 'var(--sage-dark)';
+  if (score <= 4) return 'var(--gold-dark)';
+  if (score <= 6) return 'var(--sage-deep)';
+  if (score <= 8) return 'var(--sage-base)';
+  return 'var(--sage-mid)';
 }
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [state, setState] = useState<PageState>('loading');
-  const [recentEntry, setRecentEntry] = useState<JournalEntry | null>(null);
-  const [streak, setStreak] = useState<StreakResult | null>(null);
-  const [continuity, setContinuity] = useState<Continuity>(() => buildContinuity([]));
-  const settings = useMemo(() => getSettings(), []);
+  const [showCheckInFlow, setShowCheckInFlow] = useState(false);
+  const [isLingerMode, setIsLingerMode] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const quickPressTimer = useRef<number | null>(null);
+  const dashboard = useDashboardEngagement();
+  const activePathway = useMemo(() => {
+    const progress = getActivePathway();
+    if (!progress) return null;
+    const pathway = getPathwayById(progress.pathwayId);
+    if (!pathway) return null;
+    return { title: pathway.title, day: progress.currentStep || 1 };
+  }, [dashboard.state, dashboard.recentEntry?.id]);
+  const recentEntries = useMemo(
+    () => dashboard.entries
+      .filter((entry) => (entry.type !== 'check-in' && entry.type !== 'checkin') && !!entry.content)
+      .slice(0, 2),
+    [dashboard.entries],
+  );
 
   useEffect(() => {
-    try {
-      const all = getEntries();
-      setRecentEntry(all[0] || null);
-      setState(all.length ? 'ready' : 'empty');
-      setStreak(checkAndUpdateStreak());
-      const c = buildContinuity(all);
-      setContinuity(c);
-      if (c.showGraceToken && all[0]?.createdAt) writeString(STORAGE_KEYS.lastGraceShownForEntryDate, all[0].createdAt);
-      if (c.showStageTransition && c.stageId) writeString(STORAGE_KEYS.lastShownStageId, c.stageId);
-    } catch {
-      setRecentEntry(null);
-      setState('error');
-    }
-  }, []);
+    if (hasInteracted || showCheckInFlow) return;
+    const timer = window.setTimeout(() => setIsLingerMode(true), 10000);
+    return () => window.clearTimeout(timer);
+  }, [hasInteracted, showCheckInFlow]);
 
-  const showCheckin = useMemo(() => {
-    if (!settings.eveningCheckInEnabled) return false;
-    return new Date().getHours() >= 18;
-  }, [settings.eveningCheckInEnabled]);
+  const startWrite = () => {
+    setHasInteracted(true);
+    setIsLingerMode(false);
+    void haptics.medium();
+    dashboard.prefillFromTodayCheckIn();
+    router.push('/journal/new/');
+  };
+  const startQuickWrite = () => {
+    setHasInteracted(true);
+    setIsLingerMode(false);
+    writeJson(STORAGE_KEYS.pendingQuickEntry, true);
+    void haptics.light();
+    router.push('/journal/new/');
+  };
+  const onPressStart = () => {
+    if (quickPressTimer.current) window.clearTimeout(quickPressTimer.current);
+    quickPressTimer.current = window.setTimeout(() => {
+      quickPressTimer.current = null;
+      startQuickWrite();
+    }, 500);
+  };
+  const onPressEnd = () => {
+    if (!quickPressTimer.current) return;
+    window.clearTimeout(quickPressTimer.current);
+    quickPressTimer.current = null;
+  };
 
   return (
-    <div style={{ padding: '28px 20px' }}>
-      <div className="card" style={{ background: DESIGN.gradients.dashboardHeader, border: `1px solid ${DESIGN.colors.borderLight}`, padding: '18px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
-          <div>
-            <div style={{ fontSize: '28px', fontWeight: 300, letterSpacing: '0.5px' }}>{continuity.greeting}</div>
-            <div style={{ marginTop: '8px', fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.5 }}>Your sanctuary is open.</div>
+    <div
+      className="dashboard-breath"
+      style={{
+        minHeight: '100%',
+        padding: 'max(14px, env(safe-area-inset-top)) 24px calc(88px + env(safe-area-inset-bottom))',
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          type="button"
+          aria-label="Settings"
+          className="btn-ghost"
+          onClick={() => router.push('/settings/')}
+          style={{ minHeight: '34px', paddingInline: '10px', color: 'var(--text-secondary)' }}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8Zm9 3.4-1.9-.6a7.9 7.9 0 0 0-.5-1.3l1-1.7a1 1 0 0 0-.1-1.2l-1.4-1.4a1 1 0 0 0-1.2-.1l-1.7 1a7.9 7.9 0 0 0-1.3-.5L13 3a1 1 0 0 0-1-.8h-2a1 1 0 0 0-1 .8l-.6 1.9a7.9 7.9 0 0 0-1.3.5l-1.7-1a1 1 0 0 0-1.2.1L2.8 5.9a1 1 0 0 0-.1 1.2l1 1.7c-.2.4-.4.9-.5 1.3L1.3 12a1 1 0 0 0-.8 1v2a1 1 0 0 0 .8 1l1.9.6c.1.5.3.9.5 1.3l-1 1.7a1 1 0 0 0 .1 1.2l1.4 1.4a1 1 0 0 0 1.2.1l1.7-1c.4.2.9.4 1.3.5l.6 1.9a1 1 0 0 0 1 .8h2a1 1 0 0 0 1-.8l.6-1.9c.5-.1.9-.3 1.3-.5l1.7 1a1 1 0 0 0 1.2-.1l1.4-1.4a1 1 0 0 0 .1-1.2l-1-1.7c.2-.4.4-.9.5-1.3l1.9-.6a1 1 0 0 0 .8-1v-2a1 1 0 0 0-.8-1Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <section style={{ marginTop: '42px', textAlign: 'center' }}>
+        <h1 style={{ margin: 0, fontSize: '29px', lineHeight: 1.2, color: 'var(--text-primary)', fontWeight: 300, letterSpacing: '-0.02em' }}>{dashboard.greetingTitle}</h1>
+        <p style={{ marginTop: '10px', marginBottom: 0, fontSize: '15px', lineHeight: 1.6, color: 'var(--text-secondary)' }}>
+          {isLingerMode ? "You don't have to write today. You can just be here for a minute." : dashboard.greetingSubtitle}
+        </p>
+      </section>
+
+      <section style={{ marginTop: '40px' }}>
+        <button
+          type="button"
+          onClick={startWrite}
+          onMouseDown={onPressStart}
+          onMouseUp={onPressEnd}
+          onMouseLeave={onPressEnd}
+          onTouchStart={onPressStart}
+          onTouchEnd={onPressEnd}
+          aria-label="Write a new journal entry"
+          className="btn-primary"
+          style={{ width: '100%', fontFamily: DESIGN.typography.sansSerif }}
+        >
+          {dashboard.beginLabel}
+        </button>
+        <div style={{ marginTop: '8px', textAlign: 'center', fontSize: '13px', color: 'var(--text-secondary)' }}>{dashboard.ctaSubtext}</div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setHasInteracted(true);
+            setIsLingerMode(false);
+            setShowCheckInFlow((v) => !v);
+          }}
+          style={{
+            marginTop: '14px',
+            border: 'none',
+            background: 'transparent',
+            color: isLingerMode ? 'var(--gold-primary)' : 'var(--text-secondary)',
+            fontSize: '14px',
+            minHeight: '34px',
+            cursor: 'pointer',
+            padding: 0,
+            textDecoration: 'underline',
+            textUnderlineOffset: '3px',
+            width: '100%',
+            fontWeight: isLingerMode ? 600 : 400,
+          }}
+        >
+          {isLingerMode ? 'Just a check-in — no words needed →' : dashboard.secondaryLabel}
+        </button>
+      </section>
+      <CheckInSheet
+        open={showCheckInFlow}
+        onClose={() => setShowCheckInFlow(false)}
+        onDone={(mood) => {
+          const map: Record<string, { familyId: EmotionFamily; specificId: string | null; label: string }> = {
+            Heavy: { familyId: 'sadness', specificId: 'heavy', label: 'Heavy' },
+            Anxious: { familyId: 'fear', specificId: 'anxious', label: 'Anxious' },
+            Neutral: { familyId: 'surprise', specificId: null, label: 'Neutral' },
+            Hopeful: { familyId: 'joy', specificId: 'hopeful', label: 'Hopeful' },
+            Peaceful: { familyId: 'joy', specificId: 'peaceful', label: 'Peaceful' },
+          };
+          const selection = map[mood];
+          dashboard.saveQuickCheckIn(selection);
+          setShowCheckInFlow(false);
+        }}
+      />
+
+      {dashboard.state === 'loading' ? <LoadingState label="Loading your sanctuary…" /> : null}
+
+      {dashboard.state === 'empty' ? (
+        <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '13px', color: 'var(--text-tertiary)' }}>
+          Your first entry is waiting.
+        </div>
+      ) : null}
+
+      {dashboard.state === 'ready' && recentEntries.length > 0 ? (
+        <section style={{ marginTop: '30px' }}>
+          {recentEntries.map((entry, idx) => (
+            <div key={entry.id}>
+              {idx === 0 ? <div className="section-divider" /> : null}
+              <button
+                type="button"
+                onClick={() => {
+                  writeString(STORAGE_KEYS.selectedEntryId, entry.id);
+                  router.push('/entry/');
+                }}
+                aria-label="Open recent entry"
+                className="dashboard-recent-entry"
+                style={{ width: '100%', border: 'none', background: 'transparent', textAlign: 'left', cursor: 'pointer' }}
+              >
+                <div>
+                  <div className="dashboard-recent-entry-meta">
+                    <span
+                      className="dashboard-mood-dot"
+                      style={{ background: getMoodDotColor(entry.mood) }}
+                      aria-hidden="true"
+                    />
+                    {formatDate(entry.createdAt || entry.updatedAt)}
+                    {entry.depth?.emotion?.label || entry.emotionSelection?.label ? ` · ${entry.depth?.emotion?.label || entry.emotionSelection?.label}` : ''}
+                  </div>
+                  <div className="dashboard-recent-entry-preview">{entry.content || 'Check-in'}</div>
+                </div>
+                <span className="dashboard-recent-entry-arrow">→</span>
+              </button>
+              <div className="section-divider" />
+            </div>
+          ))}
+        </section>
+      ) : null}
+
+      {activePathway ? (
+        <section style={{ marginTop: '10px' }}>
+          <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+            Day {activePathway.day} of {activePathway.title} is waiting for you.
           </div>
-          <button type="button" onClick={() => router.push('/settings/')} aria-label="Open settings" className="btn-ghost" style={{ color: DESIGN.colors.textSecondary, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer', padding: '8px 10px', alignSelf: 'flex-start' }}>
-            Settings
+          <button
+            type="button"
+            className="btn-ghost"
+            style={{ marginTop: '2px', minHeight: '30px' }}
+            onClick={() => router.push('/pathways/')}
+          >
+            Continue →
           </button>
-        </div>
-      </div>
-
-      <div className="card" style={{ marginTop: '14px', padding: '16px' }} aria-label="Khepera presence">
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'baseline' }}>
-          <div style={{ fontSize: '12px', color: DESIGN.colors.textMuted, letterSpacing: '0.4px' }}>🪲 Khepera · {continuity.stageName}</div>
-          {streak ? <div style={{ fontSize: '12px', color: DESIGN.colors.textMuted }}>{streak.currentStreak} {streak.currentStreak === 1 ? 'day' : 'days'}</div> : null}
-        </div>
-        <div style={{ marginTop: '10px', fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>“{continuity.whisper}”</div>
-      </div>
-
-      {streak ? (
-        <div className="card" style={{ marginTop: '12px', padding: '16px' }} aria-label="Grace tokens and breaks">
-          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'baseline' }}>
-            <div style={{ fontSize: '14px', color: DESIGN.colors.textPrimary, fontWeight: DESIGN.typography.weights.semibold }}>{streak.currentStreak} {streak.currentStreak === 1 ? 'day' : 'days'}</div>
-            <div style={{ fontSize: '12px', color: DESIGN.colors.textMuted }}>{moons(streak.graceTokensRemaining)} grace tokens available</div>
-          </div>
-          <div style={{ marginTop: '10px', fontSize: '13px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>{streak.message}</div>
-          <button type="button" onClick={() => { requestKindnessBreak(); setStreak(checkAndUpdateStreak()); }} aria-label="Take a kindness break" className="btn-ghost" style={{ marginTop: '10px', fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>
-            Need a pause? Take a break →
-          </button>
-        </div>
+        </section>
       ) : null}
 
-      <div style={{ marginTop: '18px', display: 'flex', gap: '12px' }}>
-        <button type="button" onClick={() => router.push('/journal/new/')} aria-label="Write a new journal entry" className="btn-primary" style={{ flex: 1, borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>Write</button>
-        {showCheckin ? <button type="button" onClick={() => router.push('/checkin/')} aria-label="Evening check-in" className="btn-secondary" style={{ padding: '0 16px', borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>Check in</button> : null}
-      </div>
-
-      {state === 'loading' ? <LoadingState label="Loading your sanctuary…" /> : null}
-      {state === 'empty' ? (
-        <EmptyState
-          title="Your sanctuary is open."
-          message="Your journal is quiet. That's okay. When you're ready, write."
-          action={<button type="button" onClick={() => router.push('/journal/new/')} aria-label="Write your first journal entry" className="btn-primary" style={{ padding: '0 18px', borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>Write</button>}
-        />
-      ) : null}
-
-      {state === 'ready' ? (
-        <>
-          <div style={{ marginTop: '18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ fontSize: '14px', color: DESIGN.colors.textPrimary, fontWeight: DESIGN.typography.weights.semibold }}>Most recent</div>
-            <button type="button" onClick={() => router.push('/journal/')} aria-label="Open journal list" style={{ border: 'none', background: 'transparent', color: DESIGN.colors.gold, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer', minHeight: '44px', padding: '0 8px' }}>View all →</button>
-          </div>
-          {recentEntry ? <div style={{ marginTop: '12px' }}><EntryCard entry={recentEntry} onOpen={() => router.push('/journal/')} /></div> : null}
-          <div style={{ marginTop: '16px', display: 'flex', gap: '10px' }}>
-            <button type="button" onClick={() => router.push('/pathways/')} aria-label="Open pathways" className="btn-secondary" style={{ flex: 1, borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>Pathways</button>
-            <button type="button" onClick={() => router.push('/insights/')} aria-label="Open The Mirror" className="btn-secondary" style={{ flex: 1, borderRadius: DESIGN.radius.full, fontFamily: DESIGN.typography.sansSerif, cursor: 'pointer' }}>The Mirror</button>
-          </div>
-        </>
-      ) : null}
-
-      {state === 'error' ? <ErrorState message="ALCHM couldn't load your entries. Your data is still on your device." onRetry={() => router.refresh()} /> : null}
+      {dashboard.state === 'error' ? <ErrorState message="ALCHM couldn't load your entries. Your data is still on your device." onRetry={() => router.refresh()} /> : null}
     </div>
   );
 }

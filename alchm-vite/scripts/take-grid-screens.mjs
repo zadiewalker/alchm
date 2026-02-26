@@ -62,6 +62,11 @@ async function prep(page, withData) {
 }
 
 async function shot(page, name) {
+  await page.evaluate(() => {
+    const scroller = document.querySelector('.scrollable');
+    if (scroller) scroller.scrollTop = 0;
+    window.scrollTo(0, 0);
+  });
   await page.waitForTimeout(300);
   await page.screenshot({ path: `${out}/${name}.png`, fullPage: false });
 }
@@ -107,7 +112,7 @@ await area.click();
 await area.fill('I can feel this in my chest and my thoughts keep spiraling, but I am still here and that has to count for something.');
 await page.getByRole('button', { name: 'Save journal entry' }).click();
 
-await page.waitForTimeout(1100);
+await page.waitForTimeout(650);
 await shot(page, '07-dissolution');
 
 const skip = page.getByRole('button', { name: 'Skip to reflection →' });
@@ -156,7 +161,17 @@ await shot(page, '11-threshold');
 const enterThreshold = page.getByRole('button', { name: 'Enter →' });
 if (await enterThreshold.count()) {
   await enterThreshold.click();
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(700);
+  const ready = page.getByRole('button', { name: /I.?m ready/i });
+  if (await ready.count()) {
+    await ready.first().click();
+    await page.waitForFunction(
+      () => (document.body?.innerText || '').includes('Where do you feel it?'),
+      { timeout: 8000 },
+    );
+  } else {
+    await page.waitForTimeout(500);
+  }
 }
 await shot(page, '12-container-day');
 
@@ -165,11 +180,21 @@ if (await backBtn.count()) {
   await backBtn.click();
   await page.waitForTimeout(700);
 }
-await page.waitForFunction(() => {
-  const t = document.body?.innerText || '';
-  return t.includes('Something brought you here') || t.includes('Good morning') || t.includes('Good evening');
-}, { timeout: 10000 });
-await page.getByRole('tab', { name: 'Entries' }).click();
+
+let entriesTab = page.getByRole('tab', { name: 'Entries' });
+if (!(await entriesTab.count())) {
+  const backAgain = page.getByRole('button', { name: 'Back' }).first();
+  if (await backAgain.count()) {
+    await backAgain.click();
+    await page.waitForTimeout(700);
+  }
+}
+entriesTab = page.getByRole('tab', { name: 'Entries' });
+if (await entriesTab.count()) {
+  await entriesTab.first().click();
+} else {
+  await page.goto(`${base}/journal/`, { waitUntil: 'domcontentloaded' });
+}
 await page.waitForFunction(() => (document.body?.innerText || '').includes('Your entries'), { timeout: 10000 });
 await shot(page, '13-entries-list');
 

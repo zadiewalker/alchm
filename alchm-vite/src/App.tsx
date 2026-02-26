@@ -227,6 +227,14 @@ function PageShell({ children }: { children: React.ReactNode }) {
 
   const bg = useMemo(() => {
     if (pathname === '/') return DESIGN.gradients.splash;
+    if (pathname === '/dashboard') {
+      const hour = new Date().getHours();
+      if (hour >= 4 && hour < 7) return 'linear-gradient(180deg, var(--sage-dark) 0%, var(--sage-deep) 100%)';
+      if (hour >= 7 && hour < 12) return 'linear-gradient(180deg, var(--sage-base) 0%, var(--sage-deep) 100%)';
+      if (hour >= 12 && hour < 17) return 'linear-gradient(180deg, var(--sage-light) 0%, var(--sage-mid) 100%)';
+      if (hour >= 17 && hour < 22) return 'linear-gradient(180deg, var(--sage-mid) 0%, var(--sage-dark) 100%)';
+      return 'linear-gradient(180deg, var(--sage-dark) 0%, var(--sage-deep) 100%)';
+    }
     return DESIGN.gradients.sanctuary;
   }, [pathname]);
 
