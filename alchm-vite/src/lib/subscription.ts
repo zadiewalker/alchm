@@ -13,9 +13,9 @@ export interface TierConfig {
 
 export const TIERS: Record<SubscriptionTier, TierConfig> = {
   free: {
-    name: 'Free',
-    price: 'Free forever',
-    description: 'Journal and reflect, always.',
+    name: 'Sanctuary',
+    price: 'Free',
+    description: 'Journal entries, body check-ins, and Khepera reflections.',
     features: ['Unlimited journal entries', 'Mood tracking', '3 Khepera reflections per month', 'Crisis resources (always)', 'Data export'],
     limits: {
       entriesPerMonth: null,
@@ -29,9 +29,9 @@ export const TIERS: Record<SubscriptionTier, TierConfig> = {
     },
   },
   reflections: {
-    name: 'Reflections',
+    name: 'Transformation',
     price: '$4.99/mo',
-    description: 'Khepera, unlimited.',
+    description: 'Everything. Deeper Khepera analysis, therapeutic tools, and full sanctuary features.',
     features: ['Everything in Free', 'Unlimited Khepera reflections', 'Follow-up exchanges with Khepera', 'Evening check-in'],
     limits: {
       entriesPerMonth: null,
@@ -45,9 +45,9 @@ export const TIERS: Record<SubscriptionTier, TierConfig> = {
     },
   },
   sanctuary: {
-    name: 'Sanctuary',
+    name: 'Legacy Sanctuary',
     price: '$9.99/mo',
-    description: 'The full ALCHM experience.',
+    description: 'Legacy tier.',
     features: ['Everything in Reflections', 'Guided pathways', 'Theme extraction', 'Weekly sanctuary summaries'],
     limits: {
       entriesPerMonth: null,
@@ -119,4 +119,3 @@ export function canAccessFeature(feature: keyof TierLimits): boolean {
   if (typeof value === 'number') return value > 0;
   return value === null;
 }
-

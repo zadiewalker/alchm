@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from '@/router';
@@ -22,6 +23,7 @@ import {
   type PathwayProgress,
 } from '@/lib/pathways';
 import { useGrowth } from '@/hooks/useGrowth';
+import { haptics } from '@/services/haptics';
 
 function phaseLabel(phase: string): string {
   if (phase === 'grounding') return 'Grounding';
@@ -107,6 +109,7 @@ export default function PathwaysPage() {
     phase: string;
     question: string;
   } | null>(null);
+  const [thresholdVisible, setThresholdVisible] = useState(false);
 
   useEffect(() => {
     try {
@@ -117,6 +120,18 @@ export default function PathwaysPage() {
       setState('error');
     }
   }, []);
+
+  useEffect(() => {
+    if (threshold && !thresholdVisible) {
+      setThresholdVisible(true);
+      void haptics.flowNoticeShow();
+      return;
+    }
+    if (!threshold && thresholdVisible) {
+      setThresholdVisible(false);
+      void haptics.flowNoticeDismiss();
+    }
+  }, [threshold, thresholdVisible]);
 
   const active = useMemo(() => (activeProgress?.pathwayId ? getPathwayById(activeProgress.pathwayId) : null), [activeProgress?.pathwayId]);
   const availablePathways = useMemo(

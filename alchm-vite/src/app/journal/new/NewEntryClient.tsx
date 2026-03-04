@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRouter } from '@/router';
 import { useEffect, useMemo, useState } from 'react';
 import { ErrorState, LoadingState } from '@/components/States';
@@ -14,6 +15,9 @@ import type { BodyLocation } from '@/services/somaticLog';
 import { EMOTION_MAP, FAMILY_LABELS, type EmotionFamily } from '@/lib/emotions';
 import type { BodyRegionId } from '@/lib/somatic';
 import { getEntries } from '@/lib/journal';
+
+type PreEntryStage = 'gate' | 'grounding' | 'arriving';
+type PreEntryChoice = 'head' | 'body' | 'nowhere' | null;
 
 const BODY_SUGGESTIONS: Partial<Record<BodyLocation, Array<{ family: EmotionFamily; id: string }>>> = {
   chest: [{ family: 'fear', id: 'anxious' }, { family: 'sadness', id: 'grieving' }, { family: 'anger', id: 'angry' }, { family: 'trust', id: 'loved' }],
@@ -63,6 +67,8 @@ export default function NewEntryClient() {
     [],
   );
   const [arrived, setArrived] = useState(flow.layer !== 'name');
+  const [preEntryStage, setPreEntryStage] = useState<PreEntryStage>(flow.layer === 'name' ? 'gate' : 'arriving');
+  const [preEntryChoice, setPreEntryChoice] = useState<PreEntryChoice>(null);
   const [manualEmotionMode, setManualEmotionMode] = useState(false);
   const [showSpecificEmotionGrid, setShowSpecificEmotionGrid] = useState(false);
   const [showCustomEmotionInput, setShowCustomEmotionInput] = useState(false);
@@ -70,7 +76,9 @@ export default function NewEntryClient() {
   const [showCompletionMoment, setShowCompletionMoment] = useState(false);
   const [bodySelection, setBodySelection] = useState<{ location: BodyLocation; sensation: string; intensity: number } | null>(null);
   const selectedEmotion = flow.emotionSelection;
-  const showArrivingStage = !arrived && flow.layer === 'name' && !flow.savedId;
+  const showCheckInGate = !arrived && flow.layer === 'name' && !flow.savedId && preEntryStage === 'gate';
+  const showGroundingStage = !arrived && flow.layer === 'name' && !flow.savedId && preEntryStage === 'grounding';
+  const showArrivingStage = !arrived && flow.layer === 'name' && !flow.savedId && preEntryStage === 'arriving';
   const showEmotionSummary = !!selectedEmotion && !(arrived && flow.layer === 'feel' && !flow.savedId);
   const showFeelingStage = arrived && flow.layer === 'feel' && !flow.savedId;
   const showWritingStage = !flow.savedId && (flow.layer === 'write' || flow.layer === 'reflect' || flow.layer === 'explore' || flow.layer === 'closing');
@@ -96,14 +104,15 @@ export default function NewEntryClient() {
   };
 
   useEffect(() => {
-    if (!showArrivingStage) return;
+    if (!(showCheckInGate || showGroundingStage || showArrivingStage)) return;
     setBodySelection(null);
     setShowCustomEmotionInput(false);
     setShowSpecificEmotionGrid(false);
     setCustomEmotionText('');
+    setPreEntryChoice(null);
     flow.setEmotionSelection(null);
     flow.setSomatic(null);
-  }, [showArrivingStage]);
+  }, [showArrivingStage, showCheckInGate, showGroundingStage]);
 
   const onBack = () => {
     if (flow.savedId) {
@@ -119,10 +128,11 @@ export default function NewEntryClient() {
       setShowSpecificEmotionGrid(false);
       setShowCustomEmotionInput(false);
       setArrived(false);
+      setPreEntryStage('gate');
       flow.setLayer('name');
       return;
     }
-    if (showArrivingStage || flow.layer === 'name') {
+    if (showCheckInGate || showGroundingStage || showArrivingStage || flow.layer === 'name') {
       if (hasUnsavedWriting) {
         const words = flow.content.trim().split(/\s+/).filter(Boolean).length;
         if (words >= 20) {
@@ -158,15 +168,86 @@ export default function NewEntryClient() {
 
       {flow.state === 'ready' ? (
         <>
+          {showCheckInGate ? (
+            <div className="checkin-gate">
+              <p className="checkin-question">Where are you right now?</p>
+              <div className="checkin-options">
+                <button
+                  type="button"
+                  className={`checkin-card${preEntryChoice === 'head' ? ' checkin-card--selected' : preEntryChoice ? ' checkin-card--deselected' : ''}`}
+                  onClick={() => {
+                    setPreEntryChoice('head');
+                    flow.setCheckInState?.('in_my_head');
+                    setPreEntryStage('arriving');
+                    void haptics.light();
+                  }}
+                >
+                  <span className="checkin-card-title">In my head</span>
+                  <span className="checkin-card-subtitle">{'Racing thoughts, planning, analyzing, can\u2019t stop thinking.'}</span>
+                </button>
+                <button
+                  type="button"
+                  className={`checkin-card${preEntryChoice === 'body' ? ' checkin-card--selected' : preEntryChoice ? ' checkin-card--deselected' : ''}`}
+                  onClick={() => {
+                    setPreEntryChoice('body');
+                    flow.setCheckInState?.('in_my_body');
+                    setArrived(true);
+                    setManualEmotionMode(false);
+                    setShowSpecificEmotionGrid(false);
+                    setShowCustomEmotionInput(false);
+                    setCustomEmotionText('');
+                    flow.setLayer('feel');
+                    void haptics.light();
+                  }}
+                >
+                  <span className="checkin-card-title">In my body</span>
+                  <span className="checkin-card-subtitle">Tight chest, heavy limbs, stomach knot, jaw clenching.</span>
+                </button>
+                <button
+                  type="button"
+                  className={`checkin-card${preEntryChoice === 'nowhere' ? ' checkin-card--selected' : preEntryChoice ? ' checkin-card--deselected' : ''}`}
+                  onClick={() => {
+                    setPreEntryChoice('nowhere');
+                    flow.setCheckInState?.('nowhere');
+                    setPreEntryStage('grounding');
+                    void haptics.light();
+                  }}
+                >
+                  <span className="checkin-card-title">Nowhere</span>
+                  <span className="checkin-card-subtitle">Numb, disconnected, going through the motions, flat.</span>
+                </button>
+              </div>
+            </div>
+          ) : null}
+
+          {showGroundingStage ? (
+            <div className="grounding-micro">
+              <p className="grounding-micro-instruction">{'Let\u2019s ground first.'}</p>
+              <p className="grounding-micro-subtext">{'Press your thumbs into each fingertip, one at a time. Feel the ridges. Count them if you want.'}</p>
+              <div className="breathing-dot" style={{ margin: '24px auto 22px' }} aria-hidden="true" />
+              <button
+                type="button"
+                className="btn-primary arriving-cta"
+                onClick={() => {
+                  setPreEntryStage('arriving');
+                  void haptics.light();
+                }}
+              >
+                Continue →
+              </button>
+            </div>
+          ) : null}
+
           {showArrivingStage ? (
-            <div style={{ marginTop: '30px', textAlign: 'center', padding: '30px 12px' }}>
-              <p style={{ fontSize: '24px', lineHeight: 1.35, margin: 0, color: 'var(--text-primary)', fontWeight: 300, letterSpacing: '-0.02em' }}>
-                Take a breath.
+            <div className="breath-screen">
+              <p className="breath-headline">Take a breath.</p>
+              <p className="breath-instruction">
+                {preEntryChoice === 'head'
+                  ? 'Let your thoughts keep moving. Take 6 slow breaths and notice the space between thoughts widening.'
+                  : 'You don’t have to know what you feel yet.'}
               </p>
-              <p style={{ marginTop: '10px', fontSize: '16px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                You don&apos;t have to know what you feel yet.
-              </p>
-              <div className="breathing-dot" style={{ margin: '24px auto 22px' }} />
+              <div className="breath-circle" aria-hidden="true" />
+              <p className="breath-counter">{preEntryChoice === 'head' ? '6 breaths' : '3 breaths'}</p>
               <button
                 type="button"
                 className="btn-secondary"

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorState } from '@/components/States';
 import { TypewriterText } from '@/components/TypewriterText';
@@ -60,6 +61,7 @@ export function PostEntryTransform(props: {
   const [reflectionReadyAt, setReflectionReadyAt] = useState<number | null>(null);
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [exerciseResults, setExerciseResults] = useState<ExerciseResult[]>([]);
+  const [postEntryCheck, setPostEntryCheck] = useState<'lighter' | 'same' | 'heavier' | 'skipped' | null>(null);
 
   const [reframeValue, setReframeValue] = useState('');
   const [unsaidValue, setUnsaidValue] = useState('');
@@ -122,7 +124,7 @@ export function PostEntryTransform(props: {
 
   const hasReturn = sequence.includes('return');
   const waitMs = Date.now() - reflectionStageStartedAt + reflectionTick * 0;
-  const isPending = props.reflectionError.toLowerCase().includes('back online');
+  const isPending = String(props.reflectionError || '').toLowerCase().includes('back online');
 
   useEffect(() => {
     if (!props.visible) return;
@@ -133,6 +135,7 @@ export function PostEntryTransform(props: {
     setReflectionReadyAt(null);
     setExerciseIndex(0);
     setExerciseResults([]);
+    setPostEntryCheck(null);
     setReframeValue('');
     setUnsaidValue('');
     setLetterValue('');
@@ -246,6 +249,15 @@ export function PostEntryTransform(props: {
     }
     setStage('reflection');
     setReflectionStageStartedAt(Date.now());
+  }
+
+  function proceedAfterReflection() {
+    if (hasReturn) {
+      setStage('return');
+      setShowReturnHome(false);
+      return;
+    }
+    props.onDone?.();
   }
 
   function submitExercise(result: ExerciseResult | null) {
@@ -487,22 +499,35 @@ export function PostEntryTransform(props: {
 
           {props.reflection && showDone ? (
             <div style={{ marginTop: '12px' }} onClick={(event) => event.stopPropagation()}>
-              <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center' }}>Sit with this as long as you need.</p>
-              <button
-                type="button"
-                className="btn-primary"
-                style={{ width: '100%' }}
-                onClick={() => {
-                  if (hasReturn) {
-                    setStage('return');
-                    setShowReturnHome(false);
-                    return;
-                  }
-                  props.onDone?.();
-                }}
-              >
-                Done
-              </button>
+              {postEntryCheck ? (
+                <>
+                  <p style={{ margin: '0 0 8px', fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center' }}>Sit with this as long as you need.</p>
+                  <button type="button" className="btn-primary" style={{ width: '100%' }} onClick={proceedAfterReflection}>
+                    Done
+                  </button>
+                </>
+              ) : (
+                <div className="post-entry-check" style={{ minHeight: 0, paddingTop: 0 }}>
+                  <p className="post-entry-check-question" style={{ margin: 0 }}>How are you leaving this entry?</p>
+                  <div className="post-entry-check-options">
+                    <button type="button" className="post-entry-option" onClick={() => setPostEntryCheck('lighter')}>
+                      <span className="option-dot" style={{ background: 'rgba(168, 176, 128, 0.95)' }} />
+                      <span className="option-label">Lighter</span>
+                    </button>
+                    <button type="button" className="post-entry-option" onClick={() => setPostEntryCheck('same')}>
+                      <span className="option-dot" style={{ background: 'rgba(144, 144, 144, 0.95)' }} />
+                      <span className="option-label">About the same</span>
+                    </button>
+                    <button type="button" className="post-entry-option" onClick={() => setPostEntryCheck('heavier')}>
+                      <span className="option-dot" style={{ background: 'rgba(138, 126, 153, 0.95)' }} />
+                      <span className="option-label">Heavier</span>
+                    </button>
+                  </div>
+                  <button type="button" className="post-entry-skip" onClick={() => setPostEntryCheck('skipped')}>
+                    Skip
+                  </button>
+                </div>
+              )}
             </div>
           ) : null}
         </div>

@@ -23,6 +23,9 @@ export function NewEntryEditor(props: {
   const pathway = props.pathwayId ? getPathwayById(props.pathwayId) : null;
   const pathwayStep = pathway ? (pathway.steps.find((s) => s.day === props.pathwayStep) || pathway.steps[0]) : null;
   const adaptivePrompt = pathway && props.pathwayId ? getAdaptivePrompt(props.pathwayId, props.pathwayStep) : null;
+  const pathwayPromptText = pathwayStep
+    ? (typeof pathwayStep.prompt === 'string' ? pathwayStep.prompt : pathwayStep.prompt.question)
+    : '';
 
   const time = useMemo(() => getTimeContext(), []);
   const voiceOK = useMemo(() => {
@@ -56,7 +59,7 @@ export function NewEntryEditor(props: {
             {pathway.title}
           </div>
           <div style={{ marginTop: '10px', fontSize: '14px', color: DESIGN.colors.textSecondary, lineHeight: 1.6 }}>
-            {adaptivePrompt || pathwayStep.prompt}
+            {adaptivePrompt || pathwayPromptText}
           </div>
         </div>
       ) : null}
