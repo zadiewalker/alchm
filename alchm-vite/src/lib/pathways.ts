@@ -8,9 +8,10 @@ import { getEntries } from '@/lib/journal';
 export interface PathwayStep {
   day: number;
   title: string;
-  prompt: string;
+  prompt: string | { question: string };
   kheperaGuidance: string;
   reflectionFocus: string;
+  phase?: 'grounding' | 'pattern' | 'challenge' | 'integration';
 }
 
 export interface Pathway {
@@ -31,7 +32,15 @@ export interface PathwayProgress {
   entryIds: string[];
   completedAt?: string;
   status: 'active' | 'completed' | 'abandoned';
+  showMigrationPrompt?: boolean;
+  graduationReflection?: string;
+  graduationKheperaReflection?: string;
 }
+
+export type DayAvailability = {
+  day: number;
+  status: 'completed' | 'next' | 'available' | 'locked';
+};
 
 const ACTIVE_KEY = 'alchm-active-pathway';
 const HISTORY_KEY = 'alchm-pathway-progress';
@@ -151,17 +160,107 @@ export function getAdaptivePrompt(pathwayId: string, dayNumber: number): string 
   if (!pathway) return null;
   const day = pathway.steps.find((s) => s.day === dayNumber) || pathway.steps[0];
   if (!day) return null;
+  const prompt = typeof day.prompt === 'string' ? day.prompt : day.prompt.question;
 
-  if (dayNumber <= 1) return day.prompt;
+  if (dayNumber <= 1) return prompt;
 
   // Day 2+: adapt only if the immediately previous day's entry exists.
   const prev = getEntries().find((e) => e.pathwayId === pathwayId && e.pathwayStep === dayNumber - 1) || null;
-  if (!prev || !prev.content) return day.prompt;
+  if (!prev || !prev.content) return prompt;
 
   const snippet = prev.content.slice(0, 200).replace(/\s+/g, ' ').trim();
   const prefix = snippet
     ? `Yesterday you wrote: "${snippet}${prev.content.length > 200 ? '…' : ''}"\n\nBuilding on that — `
     : 'Building on that — ';
 
-  return prefix + day.prompt;
+  return prefix + prompt;
+}
+
+export function acknowledgeMigrationPrompt(): void {
+  const active = getActivePathway();
+  if (!active) return;
+  writeJson(ACTIVE_KEY, { ...active, showMigrationPrompt: false });
+}
+
+export function getPathwayPhase(_pathwayId: string, day: number): string {
+  if (day <= 5) return 'grounding';
+  if (day <= 10) return 'pattern';
+  if (day <= 16) return 'challenge';
+  return 'integration';
+}
+
+export function getPhaseProgress(progress: PathwayProgress | null): number {
+  if (!progress) return 0;
+  return Math.max(0, Math.min(100, Math.round((progress.completedSteps.length / 21) * 100)));
+}
+
+export function getDayAvailability(pathwayId: string, currentStep: number, completedSteps: number[]): DayAvailability[] {
+  const pathway = getPathwayById(pathwayId);
+  const duration = pathway?.duration || 21;
+  return Array.from({ length: duration }, (_, idx) => {
+    const day = idx + 1;
+    if (completedSteps.includes(day)) return { day, status: 'completed' };
+    if (day === currentStep) return { day, status: 'next' };
+    if (day < currentStep) return { day, status: 'available' };
+    return { day, status: 'locked' };
+  });
+}
+
+export function selectPathwayDay(pathwayId: string, day: number): { ok: boolean; message?: string } {
+  const active = getActivePathway();
+  if (!active || active.pathwayId !== pathwayId) return { ok: false, message: 'No active container found.' };
+  const next: PathwayProgress = { ...active, currentStep: day };
+  writeJson(ACTIVE_KEY, next);
+  return { ok: true };
+}
+
+export function restartActivePathway(): { ok: boolean; message?: string } {
+  const active = getActivePathway();
+  if (!active) return { ok: false, message: 'No active container to restart.' };
+  const next: PathwayProgress = { ...active, currentStep: 1, completedSteps: [], entryIds: [] };
+  writeJson(ACTIVE_KEY, next);
+  return { ok: true };
+}
+
+export function pauseActivePathway(): { ok: boolean; message?: string } {
+  const active = getActivePathway();
+  if (!active) return { ok: false, message: 'No active container to pause.' };
+  const next: PathwayProgress = { ...active, status: 'abandoned' };
+  const history = getPathwayHistory();
+  writeJson(HISTORY_KEY, [next, ...history]);
+  removeKey(ACTIVE_KEY);
+  return { ok: true };
+}
+
+export function getPathwayStartGate(pathwayId: string): { canStart: boolean; reason?: string } {
+  const active = getActivePathway();
+  if (active && active.pathwayId !== pathwayId) {
+    return { canStart: false, reason: 'One container at a time.' };
+  }
+  return { canStart: true };
+}
+
+export function getPathwayCooldownRemainingDays(): number {
+  return 0;
+}
+
+export function getPathwayMidpointDay(pathwayId: string): number {
+  const pathway = getPathwayById(pathwayId);
+  const duration = pathway?.duration || 21;
+  return Math.ceil(duration / 2);
+}
+
+export function getPathwayGuidance(pathwayId: string, day?: number): string {
+  const pathway = getPathwayById(pathwayId);
+  if (!pathway) return '';
+  const step = pathway.steps.find((s) => s.day === (day || 1)) || pathway.steps[0];
+  return step?.kheperaGuidance || '';
+}
+
+export async function savePathwayGraduationPackage(args: { pathwayId: string; reflection: string }): Promise<void> {
+  const history = getPathwayHistory();
+  const next = history.map((item) => (item.pathwayId === args.pathwayId && item.status === 'completed'
+    ? { ...item, graduationReflection: args.reflection }
+    : item));
+  writeJson(HISTORY_KEY, next);
 }

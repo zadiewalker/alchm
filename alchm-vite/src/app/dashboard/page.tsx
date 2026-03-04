@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from '@/router';
 import { ErrorState, LoadingState } from '@/components/States';

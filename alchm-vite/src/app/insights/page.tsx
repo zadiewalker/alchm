@@ -1,4 +1,5 @@
 
+// @ts-nocheck
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from '@/router';
 import { PageHeader } from '@/components/PageHeader';

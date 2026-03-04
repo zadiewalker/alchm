@@ -2,7 +2,7 @@
 
 export type PageState = 'loading' | 'ready' | 'empty' | 'error';
 
-export type EntryType = 'journal' | 'checkin' | 'onboarding';
+export type EntryType = 'journal' | 'checkin' | 'check-in' | 'onboarding';
 
 // Keep shapes compatible with the existing app's localStorage payloads.
 export interface JournalEntry {
@@ -15,6 +15,17 @@ export interface JournalEntry {
   // Mood is a 1-10 slider in the existing app (optional).
   mood?: number;
   // Depth layer (optional, v2+): user-named emotion + somatic check-in.
+  depth?: {
+    emotion?: {
+      familyId?: import('@/lib/emotions').EmotionFamily;
+      specificId?: string | null;
+      label?: string;
+    };
+    sensation?: {
+      region?: import('@/lib/somatic').BodyRegionId;
+      description?: string | null;
+    };
+  };
   emotionSelection?: {
     familyId: import('@/lib/emotions').EmotionFamily;
     specificId: string | null;
@@ -46,6 +57,9 @@ export interface JournalEntry {
 
   pathwayId?: string;
   pathwayStep?: number;
+  postEntryCheck?: 'lighter' | 'same' | 'heavier' | 'skipped';
+  postEntryData?: unknown;
+  kheperaSilenceMessage?: string | null;
 
   // Reflection storage has multiple historical fields in the existing codebase.
   kheperaReflection?: string;
