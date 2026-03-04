@@ -5,6 +5,7 @@ import { DESIGN } from '@/lib/design';
 import { CrisisFooter } from '@/components/CrisisFooter';
 import { BottomTabBar } from '@/components/BottomTabBar';
 import { GrowthProvider, useGrowth } from '@/hooks/useGrowth';
+import { isOnboarded } from '@/lib/onboarding';
 import { PhaseTransition } from '@/components/PhaseTransition';
 import { PageTransition } from '@/components/PageTransition';
 import { LiveAnnouncer } from '@/components/LiveAnnouncer';
@@ -25,6 +26,7 @@ const JournalNewPage = lazy(() => import('@/app/journal/new/NewEntryClient'));
 const JournalPage = lazy(() => import('@/app/journal/JournalClient'));
 const EntryDetailPage = lazy(() => import('@/app/entry/page'));
 const OnboardingPage = lazy(() => import('@/app/onboarding/OnboardingClient'));
+const PricingPage = lazy(() => import('@/app/pricing/page'));
 const PrivacyPage = lazy(() => import('@/app/privacy/page'));
 const PrivacyDataPage = lazy(() => import('@/app/privacy-data/page'));
 const QABodyMapPage = lazy(() => import('@/app/qa/body-map/page'));
@@ -43,7 +45,7 @@ function RouterView() {
   const view = useMemo(() => {
     switch (normalizedPathname) {
       case '/':
-        return <DashboardPage />;
+        return <RootPage />;
       case '/onboarding':
         return <OnboardingPage />;
       case '/dashboard':
@@ -64,6 +66,8 @@ function RouterView() {
         return <CheckinPage />;
       case '/settings':
         return <SettingsPage />;
+      case '/pricing':
+        return <PricingPage />;
       case '/privacy':
         return <PrivacyPage />;
       case '/privacy-data':
@@ -82,6 +86,10 @@ function RouterView() {
       <PageTransition transitionKey={`${normalizedPathname}:${refreshKey}`} kind={transition}>{view}</PageTransition>
     </Suspense>
   );
+}
+
+function RootPage() {
+  return isOnboarded() ? <DashboardPage /> : <OnboardingPage />;
 }
 
 export default function App() {
