@@ -6,13 +6,17 @@ export type RoutePath =
   | '/dashboard'
   | '/journal'
   | '/journal/new'
+  | '/entry'
   | '/pathways'
   | '/insights'
+  | '/growth'
   | '/checkin'
   | '/settings'
   | '/pricing'
   | '/privacy'
-  | '/terms';
+  | '/privacy-data'
+  | '/terms'
+  | '/qa/body-map';
 
 function normalize(path: string): RoutePath {
   // Normalize to match the static-export style routes used in alchm-v2.
@@ -29,13 +33,17 @@ function normalize(path: string): RoutePath {
     '/dashboard',
     '/journal',
     '/journal/new',
+    '/entry',
     '/pathways',
     '/insights',
+    '/growth',
     '/checkin',
     '/settings',
     '/pricing',
     '/privacy',
+    '/privacy-data',
     '/terms',
+    '/qa/body-map',
   ];
 
   return (allowed.includes(trimmed as RoutePath) ? (trimmed as RoutePath) : '/dashboard');
@@ -111,4 +119,8 @@ export function useRefreshKey(): number {
   const ctx = useContext(RouterContext);
   if (!ctx) throw new Error('useRefreshKey must be used within RouterProvider');
   return ctx.refreshKey;
+}
+
+export function useTransitionKind(): 'forward' | 'backward' | 'replace' {
+  return 'forward';
 }

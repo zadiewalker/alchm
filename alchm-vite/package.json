@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "qa:ios:snapshots": "node scripts/qa-ios-regression.mjs",
+    "qa:ios:voiceover": "node scripts/qa-voiceover-ios.mjs"
   },
   "dependencies": {
     "@capacitor/core": "^8.1.0",
