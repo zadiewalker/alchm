@@ -39,6 +39,26 @@ async function seed(page) {
   await page.reload({ waitUntil: 'domcontentloaded' });
 }
 
+async function seedActiveContainer(page) {
+  await page.goto(`${base}/dashboard/`, { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => {
+    localStorage.setItem(
+      'alchm-active-pathway',
+      JSON.stringify({
+        pathwayId: 'sitting-with-anxiety',
+        startedAt: new Date(Date.now() - 8 * 86400000).toISOString(),
+        currentStep: 11,
+        completedSteps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        entryIds: [],
+        status: 'active',
+        showMigrationPrompt: false,
+        migrationVersion: 2,
+      }),
+    );
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+}
+
 async function shot(page, file) {
   await page.waitForTimeout(350);
   await page.screenshot({ path: path.join(outDir, file), fullPage: false });
@@ -55,8 +75,17 @@ for (const vp of viewports) {
   const page = await context.newPage();
 
   await seed(page);
+  await page.goto(`${base}/journal/new/`, { waitUntil: 'domcontentloaded' });
+  await shot(page, `${vp.name}-checkin-gate.png`);
+
   await page.goto(`${base}/dashboard/`, { waitUntil: 'domcontentloaded' });
   await shot(page, `${vp.name}-dashboard-tab-chrome-footer.png`);
+
+  await page.goto(`${base}/journal/`, { waitUntil: 'domcontentloaded' });
+  await shot(page, `${vp.name}-journal-list.png`);
+
+  await page.goto(`${base}/settings/`, { waitUntil: 'domcontentloaded' });
+  await shot(page, `${vp.name}-settings-list.png`);
 
   await openBodyMap(page);
   await shot(page, `${vp.name}-bodymap-chip-grid.png`);
@@ -92,13 +121,18 @@ for (const vp of viewports) {
     await shot(page, `${vp.name}-bodymap-keyboard-transition.png`);
   }
 
+  await seedActiveContainer(page);
   await page.goto(`${base}/pathways/`, { waitUntil: 'domcontentloaded' });
-  const startButtons = page.locator('button', { hasText: /Continue|Begin/i });
-  if (await startButtons.count()) {
-    await startButtons.first().click();
+  await shot(page, `${vp.name}-containers-list-active.png`);
+
+  const continueContainer = page.locator('button', { hasText: /Continue active pathway|Continue container/i }).first();
+  if (await continueContainer.count()) {
+    await continueContainer.click();
     await page.waitForTimeout(500);
+    await shot(page, `${vp.name}-containers-threshold-day11.png`);
+  } else {
+    await shot(page, `${vp.name}-containers-threshold-day11-missing.png`);
   }
-  await shot(page, `${vp.name}-containers-threshold-fullscreen.png`);
 
   await browser.close();
 }

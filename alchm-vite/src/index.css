@@ -1288,7 +1288,7 @@ input[type="time"] {
   justify-content: flex-start;
   min-height: calc(100dvh - 160px);
   text-align: center;
-  padding: clamp(52px, 13vh, 120px) 8px 8px;
+  padding: clamp(14px, 5vh, 48px) 8px 8px;
 }
 
 .checkin-question {
@@ -1296,15 +1296,15 @@ input[type="time"] {
   font-weight: 300;
   letter-spacing: -0.015em;
   color: rgba(255, 255, 255, 0.90);
-  margin: 0 0 26px;
+  margin: 0 0 20px;
 }
 
 .checkin-options {
   width: 100%;
-  max-width: 340px;
+  max-width: 336px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .checkin-card {
