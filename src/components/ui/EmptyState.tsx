@@ -3,6 +3,7 @@
 import { DESIGN } from '@/lib/design';
 
 interface EmptyStateProps {
+  screen?: string;
   icon?: string;
   title: string;
   message: string;

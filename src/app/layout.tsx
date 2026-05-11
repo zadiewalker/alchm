@@ -4,6 +4,7 @@ import { SplashScreenManager } from '@/components/SplashScreenManager';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { CrisisFooter } from '@/components/CrisisFooter';
 import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
+import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
@@ -38,7 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StorageMigrationBootstrap />
         <SplashScreenManager />
-        <PageTransition>{children}</PageTransition>
+        <SubscriptionProvider>
+          <PageTransition>{children}</PageTransition>
+        </SubscriptionProvider>
         <CrisisFooter />
       </body>
     </html>

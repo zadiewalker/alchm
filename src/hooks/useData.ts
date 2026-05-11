@@ -2,9 +2,33 @@ import { useState, useEffect, useCallback } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { useAuth } from '@/lib/auth';
 import { dataService, UserProfile, JournalEntry, DreamEntry, PathwayProgress, ShadowWorkProgress } from '@/lib/dataService';
+import { dataService as containerDataService } from '@/services/data/dataService';
+import type { UserContainer } from '@/types/container';
 
 // Custom hook for data management
-export const useData = () => {
+type UseDataReturn = ReturnType<typeof createUseDataReturn>;
+
+function createUseDataReturn() {
+  return {} as {
+    isInitialized: boolean;
+    userProfile: UserProfile | null;
+    migrationStatus: 'none' | 'pending' | 'running' | 'completed' | 'error';
+    isLoggedIn: boolean;
+    migrateData: () => Promise<void>;
+    updateUserProfile: (updates: Partial<UserProfile>) => Promise<void>;
+    saveJournalEntry: (entry: Omit<JournalEntry, 'id' | 'userId'>) => Promise<string>;
+    getJournalEntries: (limit?: number) => Promise<JournalEntry[]>;
+    saveDreamEntry: (dream: Omit<DreamEntry, 'id' | 'userId'>) => Promise<string>;
+    getDreamEntries: () => Promise<DreamEntry[]>;
+    savePathwayProgress: (progress: Omit<PathwayProgress, 'id' | 'userId'>) => Promise<void>;
+    getPathwayProgress: (pathwayId: string) => Promise<PathwayProgress | null>;
+    saveShadowWorkProgress: (progress: Omit<ShadowWorkProgress, 'id' | 'userId'>) => Promise<void>;
+    getShadowWorkProgress: () => Promise<ShadowWorkProgress | null>;
+    getUserContainers: () => Promise<UserContainer[]>;
+  };
+}
+
+export const useData = (): UseDataReturn => {
   const { user, loading: authLoading } = useAuth();
   const [isInitialized, setIsInitialized] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
@@ -206,6 +230,15 @@ export const useData = () => {
     }
   }, []);
 
+  const getUserContainers = useCallback(async () => {
+    try {
+      return await containerDataService.getUserContainers();
+    } catch (error) {
+      console.error('Error getting user containers:', error);
+      return [];
+    }
+  }, []);
+
   return {
     // State
     isInitialized,
@@ -233,7 +266,10 @@ export const useData = () => {
     
     // Shadow work management
     saveShadowWorkProgress,
-    getShadowWorkProgress
+    getShadowWorkProgress,
+
+    // Container management
+    getUserContainers
   };
 };
 
