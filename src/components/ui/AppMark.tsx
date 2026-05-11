@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-import { ScarabLogo } from '@/components/ui/ScarabLogo';
 
 const SIZE_MAP = {
   sm: 'sm',
@@ -24,18 +23,35 @@ export function AppMark({
   style,
   ariaLabel,
 }: AppMarkProps): React.JSX.Element {
-  const variant =
+  const resolvedSize =
     typeof size === 'number'
-      ? size <= 40
-        ? 'sm'
-        : size <= 64
-        ? 'md'
-        : 'lg'
-      : SIZE_MAP[size];
+      ? size
+      : SIZE_MAP[size] === 'sm'
+      ? 28
+      : SIZE_MAP[size] === 'md'
+      ? 44
+      : 64;
+
+  const accessibilityProps = decorative
+    ? { 'aria-hidden': true }
+    : { role: 'img', 'aria-label': ariaLabel || 'ALCHM mark' };
 
   return (
-    <span className={className} style={style}>
-      <ScarabLogo variant={variant} decorative={decorative} ariaLabel={ariaLabel} />
+    <span
+      className={className}
+      style={{
+        display: 'inline-flex',
+        width: resolvedSize,
+        height: resolvedSize,
+        borderRadius: '999px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'var(--color-gold-soft)',
+        ...style,
+      }}
+      {...accessibilityProps}
+    >
+      ☾
     </span>
   );
 }
