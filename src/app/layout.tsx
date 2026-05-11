@@ -1,12 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { SplashScreenManager } from '@/components/SplashScreenManager';
-import NavigationTelemetryObserver from '@/components/NavigationTelemetryObserver';
-import NavigationClickTelemetry from '@/components/NavigationClickTelemetry';
-import NavigationTelemetryPanel from '@/components/NavigationTelemetryPanel';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { CrisisFooter } from '@/components/CrisisFooter';
 import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
+import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
@@ -41,10 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <StorageMigrationBootstrap />
         <SplashScreenManager />
-        <NavigationClickTelemetry />
-        <NavigationTelemetryObserver />
-        {process.env.NODE_ENV !== 'production' ? <NavigationTelemetryPanel /> : null}
-        <PageTransition>{children}</PageTransition>
+        <SubscriptionProvider>
+          <PageTransition>{children}</PageTransition>
+        </SubscriptionProvider>
         <CrisisFooter />
       </body>
     </html>

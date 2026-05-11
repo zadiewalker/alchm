@@ -40,3 +40,6 @@ Clean
 alchm
 debug_localstorage.js
 test_localStorage.js
+
+# Surgery quarantine (local safety net; do not commit)
+_quarantine/

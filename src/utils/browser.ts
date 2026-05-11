@@ -1,45 +1,15 @@
 /**
  * Safe browser API utilities for Capacitor + SSG compatibility
- * ENHANCED: Automatic encryption for mental health data
  */
 import { getStorageItemWithFallback, removeStorageItemNormalized, setStorageItemNormalized } from '@/lib/storageKeys';
 
 export const isBrowser = typeof window !== 'undefined';
 
-// Health data keys that require encryption
-const HEALTH_DATA_KEYS = [
-  'userEmail', 'journalEntries', 'safetyPlan', 'moodData', 
-  'therapyNotes', 'medicationReminders', 'crisisEvents', 'user_'
-];
-
-function isHealthData(key: string): boolean {
-  return HEALTH_DATA_KEYS.some(healthKey => key.includes(healthKey));
-}
-
 export const safeLocalStorage = {
   getItem: (key: string): string | null => {
     if (!isBrowser) return null;
     try {
-      if (isHealthData(key)) {
-        // For health data, check encrypted storage first
-        const encryptedData = localStorage.getItem(`encrypted_${key}`);
-        if (encryptedData) {
-          console.warn(`Health data "${key}" is encrypted and requires async decryption. Use secureStorage.getItem() for proper access.`);
-          return null; // Return null to force proper async usage
-        }
-        
-        // Check for legacy unencrypted data
-        const legacyData = localStorage.getItem(key);
-        if (legacyData) {
-          console.warn(`Unencrypted health data found for "${key}". This will be encrypted on next write.`);
-          return legacyData;
-        }
-        
-        return null;
-      } else {
-        // Non-health data can be accessed normally
-        return getStorageItemWithFallback(key);
-      }
+      return getStorageItemWithFallback(key);
     } catch {
       return null;
     }
@@ -48,21 +18,7 @@ export const safeLocalStorage = {
   setItem: (key: string, value: string): void => {
     if (!isBrowser) return;
     try {
-      if (isHealthData(key)) {
-        console.warn(`Health data "${key}" should be encrypted. Use secureStorage.setItem() for HIPAA compliance.`);
-        
-        // Store temporarily and trigger async encryption
-        localStorage.setItem(`pending_encrypt_${key}`, value);
-        
-        // Import and use secure storage asynchronously
-        import('@/lib/secureStorage').then(({ compatibleSecureStorage }) => {
-          compatibleSecureStorage.setItem(key, value);
-          localStorage.removeItem(`pending_encrypt_${key}`);
-        }).catch(console.error);
-      } else {
-        // Non-health data can be stored normally
-        setStorageItemNormalized(key, value);
-      }
+      setStorageItemNormalized(key, value);
     } catch {
       // Storage full or blocked
     }
@@ -71,11 +27,7 @@ export const safeLocalStorage = {
   removeItem: (key: string): void => {
     if (!isBrowser) return;
     try {
-      // Remove from all possible locations
       removeStorageItemNormalized(key);
-      localStorage.removeItem(`encrypted_${key}`);
-      localStorage.removeItem(`meta_${key}`);
-      localStorage.removeItem(`pending_encrypt_${key}`);
     } catch {
       // Ignore
     }

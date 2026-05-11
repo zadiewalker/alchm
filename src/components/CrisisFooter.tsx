@@ -15,7 +15,11 @@ export function CrisisFooter() {
       <span style={{ color: DESIGN.colors.textMuted, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}>
         If you're in crisis, call or text{' '}
       </span>
-      <a href="tel:988" style={{ color: DESIGN.colors.gold, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}>
+      <a
+        href="tel:988"
+        aria-label="Call 988 Suicide and Crisis Lifeline"
+        style={{ color: DESIGN.colors.gold, fontSize: DESIGN.typography.sizes.sm, fontFamily: DESIGN.typography.sansSerif }}
+      >
         988
       </a>
     </footer>

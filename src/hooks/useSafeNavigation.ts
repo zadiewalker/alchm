@@ -3,13 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef } from 'react';
 import { safeWindow } from '@/utils/browser';
-import {
-  buildAttemptEvent,
-  buildBlockedEvent,
-  buildFallbackEvent,
-  reportNavigationEvent,
-  setPendingNavigation,
-} from '@/lib/navigationTelemetry';
 
 function normalizePath(path: string): string {
   if (path.length > 1 && path.endsWith('/')) {
@@ -39,13 +32,6 @@ export function useSafeNavigation(defaultFallbackMs = 1200) {
       const fromPath = safeWindow.location.pathname || '/';
 
       if (inFlightRef.current) {
-        reportNavigationEvent(
-          buildBlockedEvent({
-            source,
-            fromPath,
-            toPath: normalizedPath,
-          })
-        );
         return;
       }
 
@@ -54,21 +40,6 @@ export function useSafeNavigation(defaultFallbackMs = 1200) {
       const startedAt = Date.now();
 
       inFlightRef.current = true;
-
-      reportNavigationEvent(
-        buildAttemptEvent({
-          source,
-          fromPath,
-          toPath: normalizedPath,
-        })
-      );
-      setPendingNavigation({
-        id: `${startedAt}-${normalizedPath}`,
-        source,
-        fromPath,
-        toPath: normalizedPath,
-        startedAt,
-      });
 
       const shouldBlockClientPush =
         typeof window !== 'undefined' &&
@@ -89,14 +60,6 @@ export function useSafeNavigation(defaultFallbackMs = 1200) {
 
       timerRef.current = setTimeout(() => {
         if (safeWindow.location.pathname !== normalizedPath) {
-          reportNavigationEvent(
-            buildFallbackEvent({
-              source,
-              fromPath,
-              toPath: normalizedPath,
-              durationMs: Date.now() - startedAt,
-            })
-          );
           safeWindow.open(normalizedPath, '_self');
         }
         inFlightRef.current = false;

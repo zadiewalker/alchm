@@ -124,8 +124,6 @@ export async function analyzeJournalEntry(
   options: AnalysisOptions = {}
 ): Promise<JournalAnalysis> {
   
-  console.log('🚀 Using instant local Khepera analysis for maximum speed');
-  
   // Return immediate local analysis - no network calls, no delays
   return createLocalAnalysis(journalEntry, userId, journalEntryId, options);
 }
@@ -213,7 +211,7 @@ function createLocalAnalysis(
     hopeful: ['hope', 'optimistic', 'better', 'improving', 'forward']
   };
   
-  const detectedEmotions = [];
+  const detectedEmotions: string[] = [];
   for (const [emotion, words] of Object.entries(emotionPatterns)) {
     if (words.some(word => text.includes(word))) {
       detectedEmotions.push(emotion);
@@ -221,7 +219,7 @@ function createLocalAnalysis(
   }
   
   // Quick strength identification
-  const strengthIndicators = [];
+  const strengthIndicators: string[] = [];
   if (text.includes('try') || text.includes('trying')) strengthIndicators.push('perseverance');
   if (text.includes('help') || text.includes('support')) strengthIndicators.push('seeking connection');
   if (text.includes('understand') || text.includes('figure')) strengthIndicators.push('self-awareness');

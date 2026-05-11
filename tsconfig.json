@@ -31,14 +31,15 @@
     "strictNullChecks": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts",
-    "out/types/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules",
-    "functions"
+    "functions",
+    "_quarantine",
+    "out"
   ]
 }

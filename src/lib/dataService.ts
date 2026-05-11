@@ -476,8 +476,6 @@ class DataService {
     if (!this.userId) return;
 
     try {
-      console.log('Starting localStorage migration to Firebase...');
-
       // Migrate journal entries
       const localJournalEntries = this.getFromLocalStorage<JournalEntry[]>('journal_entries') || [];
       for (const entry of localJournalEntries) {
@@ -531,8 +529,6 @@ class DataService {
         const mergedSettings = { ...this.getDefaultSettings(), ...localSettings };
         await this.updateUserProfile({ settings: mergedSettings });
       }
-
-      console.log('Migration completed successfully!');
     } catch (error) {
       console.error('Migration failed:', error);
       throw error;

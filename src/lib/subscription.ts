@@ -104,6 +104,10 @@ interface SubscriptionState {
 
 const STORAGE_KEY = 'alchm-subscription';
 
+// App Store readiness: until StoreKit is implemented, do not ship a paywall that
+// can never be completed. We default to all features enabled.
+const SUBSCRIPTIONS_ENABLED = false;
+
 function getNextMonthResetISO(from = new Date()): string {
   const next = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + 1, 1, 0, 0, 0));
   return next.toISOString();
@@ -111,7 +115,7 @@ function getNextMonthResetISO(from = new Date()): string {
 
 function defaultSubscription(): SubscriptionState {
   return {
-    tier: 'free',
+    tier: SUBSCRIPTIONS_ENABLED ? 'free' : 'sanctuary',
     expiresAt: null,
     reflectionsUsedThisMonth: 0,
     monthResetDate: getNextMonthResetISO(),
@@ -145,6 +149,7 @@ function hydrateAndReset(state: SubscriptionState): SubscriptionState {
 }
 
 export function getSubscription(): SubscriptionState {
+  if (!SUBSCRIPTIONS_ENABLED) return defaultSubscription();
   try {
     if (typeof window === 'undefined') return defaultSubscription();
     const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -164,12 +169,14 @@ export function getSubscription(): SubscriptionState {
 }
 
 export function setSubscriptionTier(tier: SubscriptionTier): SubscriptionState {
+  if (!SUBSCRIPTIONS_ENABLED) return defaultSubscription();
   const next = { ...getSubscription(), tier };
   saveSubscription(next);
   return next;
 }
 
 export function canUseKhepera(): { allowed: boolean; remaining: number | null; message?: string } {
+  if (!SUBSCRIPTIONS_ENABLED) return { allowed: true, remaining: null };
   const sub = getSubscription();
   const limit = TIERS[sub.tier].limits.kheperaReflections;
 
@@ -186,6 +193,7 @@ export function canUseKhepera(): { allowed: boolean; remaining: number | null; m
 }
 
 export function recordKheperaUsage(): void {
+  if (!SUBSCRIPTIONS_ENABLED) return;
   try {
     const sub = getSubscription();
     saveSubscription({
@@ -198,6 +206,7 @@ export function recordKheperaUsage(): void {
 }
 
 export function canUseFollowUp(): { allowed: boolean; remaining: number | null; message?: string } {
+  if (!SUBSCRIPTIONS_ENABLED) return { allowed: true, remaining: null };
   const sub = getSubscription();
   const limit = TIERS[sub.tier].limits.kheperaFollowUps;
 
@@ -213,6 +222,7 @@ export function canUseFollowUp(): { allowed: boolean; remaining: number | null; 
 }
 
 export function recordFollowUpUsage(): void {
+  if (!SUBSCRIPTIONS_ENABLED) return;
   try {
     const sub = getSubscription();
     saveSubscription({ ...sub, followUpsUsedThisMonth: sub.followUpsUsedThisMonth + 1 });
@@ -222,6 +232,7 @@ export function recordFollowUpUsage(): void {
 }
 
 export function canAccessFeature(feature: keyof TierLimits): boolean {
+  if (!SUBSCRIPTIONS_ENABLED) return true;
   const sub = getSubscription();
   const value = TIERS[sub.tier].limits[feature];
   if (typeof value === 'boolean') return value;
@@ -230,6 +241,7 @@ export function canAccessFeature(feature: keyof TierLimits): boolean {
 }
 
 export function getReflectionUsageSummary(): { tier: SubscriptionTier; used: number; remaining: number | null } {
+  if (!SUBSCRIPTIONS_ENABLED) return { tier: 'sanctuary', used: 0, remaining: null };
   const sub = getSubscription();
   const limit = TIERS[sub.tier].limits.kheperaReflections;
   const remaining = limit === null ? null : Math.max(0, limit - sub.reflectionsUsedThisMonth);
