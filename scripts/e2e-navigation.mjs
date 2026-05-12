@@ -388,7 +388,7 @@ async function run() {
             }
           }, { eventsKey: EVENTS_KEY, pendingKey: PENDING_KEY });
 
-          await clickLinkNavigation(page, page.getByRole('link', { name: linkCase.label }), linkCase.path);
+          await clickLinkNavigation(page, page.locator(`a[href="${linkCase.path}/"]`).first(), linkCase.path);
           await delay(250);
 
           const telemetry = await readTelemetry(page);

@@ -86,7 +86,7 @@ html {
 body {
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 4.75rem);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
   background-attachment: fixed;
