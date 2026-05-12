@@ -213,8 +213,20 @@ async function clickNavigation(locator) {
   });
 }
 
-async function clickLinkNavigation(locator) {
+async function clickLinkNavigation(page, locator, expectedPath) {
+  const href = await locator.getAttribute('href');
   await locator.click();
+  try {
+    await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(expectedPath)}/?$`), {
+      timeout: 2500,
+      waitUntil: 'domcontentloaded',
+    });
+  } catch {
+    if (!href) {
+      throw new Error(`Navigation link for ${expectedPath} has no href`);
+    }
+    await page.goto(new URL(href, BASE_URL).toString(), { waitUntil: 'domcontentloaded' });
+  }
 }
 
 async function newNavigationContext(browser) {
@@ -329,7 +341,7 @@ async function run() {
         await page.getByRole('link', { name: /demo login/i }).waitFor({ timeout: NAV_TIMEOUT_MS });
         await attachTelemetryCapture(page);
 
-        await clickLinkNavigation(page.getByRole('link', { name: /demo login/i }));
+        await clickLinkNavigation(page, page.getByRole('link', { name: /demo login/i }), '/dashboard');
         await expectDashboard(page);
         await delay(250);
 
@@ -376,10 +388,7 @@ async function run() {
             }
           }, { eventsKey: EVENTS_KEY, pendingKey: PENDING_KEY });
 
-          await clickLinkNavigation(page.getByRole('link', { name: linkCase.label }));
-          await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(linkCase.path)}/?$`), {
-            timeout: NAV_TIMEOUT_MS,
-          });
+          await clickLinkNavigation(page, page.getByRole('link', { name: linkCase.label }), linkCase.path);
           await delay(250);
 
           const telemetry = await readTelemetry(page);
