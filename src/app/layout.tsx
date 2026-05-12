@@ -3,6 +3,7 @@ import './globals.css';
 import { SplashScreenManager } from '@/components/SplashScreenManager';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { CrisisFooter } from '@/components/CrisisFooter';
+import { FooterNav } from '@/components/ui/FooterNav';
 import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
 import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
 
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SubscriptionProvider>
           <PageTransition>{children}</PageTransition>
         </SubscriptionProvider>
+        <FooterNav />
         <CrisisFooter />
       </body>
     </html>

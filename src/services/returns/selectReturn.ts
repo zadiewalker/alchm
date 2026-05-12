@@ -1,5 +1,5 @@
-import { loadEntries } from '@/services/journal/entriesService';
-import type { JournalEntry } from '@/types/journal';
+import { dataService, type JournalEntry } from '@/services/data/dataService';
+import type { EmotionalTone, ThemeTag } from '@/types/journal';
 import type { NotificationContext, ScheduledNotification } from '@/types/notifications';
 import type {
   ReturnCandidateMetadata,
@@ -21,9 +21,47 @@ function toCandidate(entry: JournalEntry): ReturnCandidateMetadata {
   return {
     entryId: entry.id,
     createdAt: toTimestamp(entry.createdAt),
-    emotionalTone: entry.emotionalTone,
-    themes: entry.themes,
+    emotionalTone: toEmotionalTone(entry),
+    themes: toThemes(entry),
   };
+}
+
+function toEmotionalTone(entry: JournalEntry): EmotionalTone {
+  if (entry.aiAnalysis?.emotionalTone !== undefined) {
+    return 'processing';
+  }
+
+  return 'processing';
+}
+
+function toThemes(entry: JournalEntry): ThemeTag[] {
+  const themes = entry.aiAnalysis?.themes || entry.tags;
+  return themes
+    .map((theme) => normalizeTheme(theme))
+    .filter((theme): theme is ThemeTag => Boolean(theme));
+}
+
+function normalizeTheme(theme: string): ThemeTag | null {
+  const normalized = theme.toLowerCase().replace(/[\s-]+/g, '_');
+  const allowedThemes = new Set<ThemeTag>([
+    'grief_loss',
+    'relationship_tension',
+    'self_worth',
+    'identity',
+    'work_purpose',
+    'fear_uncertainty',
+    'anger_injustice',
+    'body_health',
+    'creativity_expression',
+    'spirituality_meaning',
+    'rest_recovery',
+    'joy_gratitude',
+    'transition_change',
+    'boundary_setting',
+    'childhood_origin',
+  ]);
+
+  return allowedThemes.has(normalized as ThemeTag) ? (normalized as ThemeTag) : null;
 }
 
 function buildReturnHistory(
@@ -81,13 +119,13 @@ export async function selectReturn(
   }
 
   try {
-    const { entries } = await loadEntries({
-      userId: context.userId,
-      pageSize: 80,
-    });
+    dataService.setUserId(context.userId);
+    const entries = await dataService.getJournalEntries(80);
 
     const candidates = entries.map(toCandidate);
-    const candidatesById = new Map(candidates.map((candidate) => [candidate.entryId, candidate]));
+    const candidatesById = new Map<string, ReturnCandidateMetadata>(
+      candidates.map((candidate) => [candidate.entryId, candidate])
+    );
     const currentEntry = candidatesById.get(context.entryId);
 
     if (!currentEntry) {

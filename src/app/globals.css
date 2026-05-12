@@ -30,6 +30,44 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────
+   Container Atmospheres
+   Pure presentation tokens keyed from static container definitions.
+   ───────────────────────────────────────────────────────────────────── */
+[data-container-atmosphere] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--sage-whisper) 20%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-deep) 58%, transparent);
+  --container-atmosphere-edge: color-mix(in srgb, var(--sage-light) 28%, transparent);
+  background:
+    radial-gradient(circle at 50% 10%, var(--container-atmosphere-wash), transparent 38%),
+    linear-gradient(180deg, var(--container-atmosphere-depth), transparent 72%);
+}
+
+[data-container-atmosphere='quiet'] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--sage-whisper) 14%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-deep) 48%, transparent);
+}
+
+[data-container-atmosphere='grounded'] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--sage-deep) 22%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-deep) 66%, transparent);
+}
+
+[data-container-atmosphere='expansive'] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--sage-whisper) 30%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-light) 44%, transparent);
+}
+
+[data-container-atmosphere='low-demand'] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--glass-elevated) 70%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-deep) 42%, transparent);
+}
+
+[data-container-atmosphere='warm'] {
+  --container-atmosphere-wash: color-mix(in srgb, var(--glass-prominent) 80%, transparent);
+  --container-atmosphere-depth: color-mix(in srgb, var(--sage-light) 36%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
    Base Reset
    ───────────────────────────────────────────────────────────────────── */
 *, *::before, *::after {
@@ -48,7 +86,7 @@ html {
 body {
   height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 4.75rem);
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
   background-attachment: fixed;

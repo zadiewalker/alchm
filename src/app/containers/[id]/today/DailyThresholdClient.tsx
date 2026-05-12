@@ -74,6 +74,7 @@ export default function DailyThresholdClient() {
 
   return (
     <div
+      data-container-atmosphere={activeContainer.definition.atmosphere}
       style={{
         minHeight: '100vh',
         paddingTop: '60px',

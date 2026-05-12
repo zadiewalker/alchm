@@ -92,6 +92,7 @@ export function CompletionCeremonyClient(): React.JSX.Element | null {
   if (part === 'arrival') {
     return (
       <div
+        data-container-atmosphere={definition.atmosphere}
         style={{
           minHeight: '100vh',
           display: 'flex',
@@ -174,7 +175,10 @@ export function CompletionCeremonyClient(): React.JSX.Element | null {
   // ── PART 2: THE CARRY-FORWARD ─────────────────────────────────────────────
   if (part === 'carry_forward') {
     return (
-      <div style={{ minHeight: '100vh', padding: '60px 24px 100px', position: 'relative' }}>
+      <div
+        data-container-atmosphere={definition.atmosphere}
+        style={{ minHeight: '100vh', padding: '60px 24px 100px', position: 'relative' }}
+      >
         {backControl}
 
         <h2 style={{
@@ -265,16 +269,19 @@ export function CompletionCeremonyClient(): React.JSX.Element | null {
 
   // ── PART 3: THE CLOSING ───────────────────────────────────────────────────
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '48px 32px',
-      textAlign: 'center',
-      position: 'relative',
-    }}>
+    <div
+      data-container-atmosphere={definition.atmosphere}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '48px 32px',
+        textAlign: 'center',
+        position: 'relative',
+      }}
+    >
       {backControl}
 
       <h2 style={{
