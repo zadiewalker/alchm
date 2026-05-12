@@ -213,6 +213,10 @@ async function clickNavigation(locator) {
   });
 }
 
+async function clickLinkNavigation(locator) {
+  await locator.click();
+}
+
 async function newNavigationContext(browser) {
   const context = await browser.newContext();
   await context.addInitScript(() => {
@@ -325,7 +329,7 @@ async function run() {
         await page.getByRole('link', { name: /demo login/i }).waitFor({ timeout: NAV_TIMEOUT_MS });
         await attachTelemetryCapture(page);
 
-        await clickNavigation(page.getByRole('link', { name: /demo login/i }));
+        await clickLinkNavigation(page.getByRole('link', { name: /demo login/i }));
         await expectDashboard(page);
         await delay(250);
 
@@ -372,7 +376,7 @@ async function run() {
             }
           }, { eventsKey: EVENTS_KEY, pendingKey: PENDING_KEY });
 
-          await clickNavigation(page.getByRole('link', { name: linkCase.label }));
+          await clickLinkNavigation(page.getByRole('link', { name: linkCase.label }));
           await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(linkCase.path)}/?$`), {
             timeout: NAV_TIMEOUT_MS,
           });
