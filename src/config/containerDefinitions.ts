@@ -14,7 +14,7 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
     atmosphere: 'grounded',
     totalDays: 21,
     clinicalIntent: 'Help the user develop a curious, non-adversarial relationship with anxiety. Move from fighting the feeling to understanding its protective function. Ground in somatic awareness before cognitive exploration.',
-    openingRitual: 'Anxiety has been trying to tell you something.\n\nThis container creates space to finally hear it — not by silencing the feeling, but by sitting close enough to understand what it\'s protecting.\n\nThere\'s no rush. The container holds the pace.',
+    openingRitual: 'Anxiety has been trying to tell you something.\n\nThis container creates space to hear it more clearly — not by silencing the feeling, but by sitting close enough to understand what it\'s protecting.\n\nThere\'s no rush. The container holds the pace.',
 
     days: [
       // GROUNDING — Days 1–5
@@ -165,13 +165,13 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
         phase: 'integration',
         somaticAnchor: 'Notice: how does your body feel now compared to when you started?',
         prompt: 'Write a note to the version of yourself who arrived at Day 1 of this container. What do they need to know?',
-        kheperaIntent: 'Letter to self. Reflect with tenderness. Honor the work.'
+        kheperaIntent: 'Letter to self. Reflect with tenderness. Let this rest here.'
       },
 
       { 
         day: 21, 
         phase: 'integration',
-        prompt: 'This is the last day of this container. What are you taking with you?',
+        prompt: 'This is the closing threshold of this container. What are you carrying forward, if anything wants to come?',
         kheperaIntent: 'The closing. Be present. Let the user\'s words land. The closing ceremony opens after this entry.'
       },
     ],
@@ -187,7 +187,7 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
     atmosphere: 'warm',
     totalDays: 21,
     clinicalIntent: 'IFS-informed work with the inner critic as a protective part. Move from fighting the critic to getting curious about it. Never collude with self-attack. Never dismiss it. Find what it is protecting.',
-    openingRitual: 'The voice that judges you has been working very hard for a long time.\n\nThis container isn\'t about silencing it. It\'s about finally having a real conversation with it — and finding out what it\'s afraid would happen if it stopped.',
+    openingRitual: 'The voice that judges you has been working very hard for a long time.\n\nThis container isn\'t about silencing it. It\'s about having a more honest conversation with it — and finding out what it\'s afraid would happen if it stopped.',
 
     days: [
       { 
@@ -292,7 +292,7 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
       { 
         day: 15, 
         phase: 'contact',
-        prompt: 'Is there something the critic has been protecting you from that you\'re finally ready to face?',
+        prompt: 'Is there something the critic has been protecting you from that you\'re quietly able to meet?',
         kheperaIntent: 'Readiness. Do not push. Follow what comes.'
       },
 
@@ -335,7 +335,7 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
       { 
         day: 21, 
         phase: 'integration',
-        prompt: 'What are you taking with you when you leave this container?',
+        prompt: 'What are you carrying forward, if anything wants to come when you leave this container?',
         kheperaIntent: 'Closing. Let it be simple. Let the user name what is theirs.'
       },
     ],
