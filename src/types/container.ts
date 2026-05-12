@@ -11,6 +11,7 @@ export type ContainerCategory =
 export type ContainerPhase = 'grounding' | 'pattern' | 'contact' | 'integration';
 export type ContainerStatus = 'active' | 'paused' | 'completed' | 'abandoned';
 export type ContainerTier = 'sanctuary' | 'transformation';
+export type ContainerAtmosphere = 'quiet' | 'grounded' | 'expansive' | 'low-demand' | 'warm';
 
 // Authored content — static, lives in config, never in Firestore
 export interface ContainerDefinition {
@@ -20,6 +21,7 @@ export interface ContainerDefinition {
   description: string;
   category: ContainerCategory;
   tier: ContainerTier;
+  atmosphere: ContainerAtmosphere;
   totalDays: 7 | 14 | 21;
   clinicalIntent: string;      // Internal — never shown to user
   openingRitual: string;       // Khepera's first words when entering

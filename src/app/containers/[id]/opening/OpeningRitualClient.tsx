@@ -28,16 +28,19 @@ export default function OpeningRitualClient() {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '48px 32px',
-      textAlign: 'center',
-      position: 'relative',
-    }}>
+    <div
+      data-container-atmosphere={definition.atmosphere}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '48px 32px',
+        textAlign: 'center',
+        position: 'relative',
+      }}
+    >
       <BackButton
         navigation={{ fallback: `/containers/${containerId}` }}
         label="Back"
