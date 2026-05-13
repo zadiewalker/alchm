@@ -53,15 +53,15 @@ export default function InsightsPage() {
 
   if (!isInitialized || loading) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Insights" showBack />}>
-        <LoadingState message="Gathering your patterns..." variant="page" />
+      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+        <LoadingState message="Letting the reflections gather..." variant="page" />
       </SanctuaryLayout>
     );
   }
 
   if (error) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Insights" showBack />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
         <ErrorState variant="inline" message={error} />
       </SanctuaryLayout>
     );
@@ -69,21 +69,21 @@ export default function InsightsPage() {
 
   if (!entries.length) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Insights" showBack />}>
-        <EmptyState title="No insights yet" message="After a few entries, patterns will emerge here." />
+      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+        <EmptyState title="Nothing has gathered yet" message="After a few entries, themes may begin to appear here." />
       </SanctuaryLayout>
     );
   }
 
   return (
-    <SanctuaryLayout header={<SanctuaryHeader title="Insights" showBack />}>
+    <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         <SanctuaryCard>
           <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.xs }}>
-            Khepera notices
+            Khepera reflects
           </SanctuaryText>
           <SanctuaryText variant="body">
-            You have written {entries.length} reflections. Your words are building a clearer map of what you carry.
+            You have written {entries.length} reflections. Your words are building a gentler picture of what you carry.
           </SanctuaryText>
         </SanctuaryCard>
 
@@ -103,10 +103,10 @@ export default function InsightsPage() {
 
         <SanctuaryCard>
           <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-            Reflection cadence
+            Reflection rhythm
           </SanctuaryText>
           <SanctuaryText variant="body">
-            Last entry: {new Date(entries[0]?.createdAt || Date.now()).toLocaleDateString()}.
+            Most recent reflection: {new Date(entries[0]?.createdAt || Date.now()).toLocaleDateString()}.
           </SanctuaryText>
         </SanctuaryCard>
       </div>
