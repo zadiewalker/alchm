@@ -13,6 +13,8 @@
     "design:validate": "node scripts/validate-design.js",
     "dev": "next dev",
     "e2e:navigation": "node scripts/e2e-navigation.mjs",
+    "qa:khepera-guards": "node scripts/check-resurfacing-guardrails.js",
+    "qa:return-restraint-guards": "node scripts/check-resurfacing-guardrails.js",
     "lint": "eslint",
     "prepare": "husky",
     "start": "next start",

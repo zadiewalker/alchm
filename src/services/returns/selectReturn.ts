@@ -9,6 +9,17 @@ import type {
 import { rankCandidates } from './rankCandidates';
 import { suppressReturns } from './suppressReturns';
 
+const ALLOWED_TONES = new Set<EmotionalTone>([
+  'processing',
+  'grief',
+  'anger',
+  'anxiety',
+  'clarity',
+  'numbness',
+  'tenderness',
+  'ambivalence',
+]);
+
 function toTimestamp(value: JournalEntry['createdAt']): number {
   if (typeof (value as unknown as { toDate?: () => Date }).toDate === 'function') {
     return (value as unknown as { toDate: () => Date }).toDate().getTime();
@@ -27,18 +38,49 @@ function toCandidate(entry: JournalEntry): ReturnCandidateMetadata {
 }
 
 function toEmotionalTone(entry: JournalEntry): EmotionalTone {
-  if (entry.aiAnalysis?.emotionalTone !== undefined) {
-    return 'processing';
-  }
-
-  return 'processing';
+  return (
+    normalizeEmotionalTone(entry.emotionalTone)
+    ?? normalizeEmotionalTone(entry.aiAnalysis?.emotionalTone)
+    ?? normalizeEmotionalTone(entry.emotions[0])
+    ?? 'processing'
+  );
 }
 
 function toThemes(entry: JournalEntry): ThemeTag[] {
-  const themes = entry.aiAnalysis?.themes || entry.tags;
+  const themes = entry.themes?.length ? entry.themes : entry.aiAnalysis?.themes || entry.tags;
   return themes
     .map((theme) => normalizeTheme(theme))
     .filter((theme): theme is ThemeTag => Boolean(theme));
+}
+
+function normalizeEmotionalTone(value: unknown): EmotionalTone | null {
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const normalized = value.toLowerCase().replace(/[\s-]+/g, '_');
+  const aliases: Record<string, EmotionalTone> = {
+    anxious: 'anxiety',
+    anxiety: 'anxiety',
+    angry: 'anger',
+    anger: 'anger',
+    grief: 'grief',
+    heavy: 'grief',
+    numb: 'numbness',
+    numbness: 'numbness',
+    tender: 'tenderness',
+    tenderness: 'tenderness',
+    okay: 'clarity',
+    clear: 'clarity',
+    clarity: 'clarity',
+    searching: 'ambivalence',
+    mixed: 'ambivalence',
+    ambivalence: 'ambivalence',
+    processing: 'processing',
+  };
+  const tone = aliases[normalized] ?? normalized;
+
+  return ALLOWED_TONES.has(tone as EmotionalTone) ? (tone as EmotionalTone) : null;
 }
 
 function normalizeTheme(theme: string): ThemeTag | null {
