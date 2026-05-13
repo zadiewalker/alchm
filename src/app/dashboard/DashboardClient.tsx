@@ -17,7 +17,6 @@ import type { JournalEntry } from '@/lib/dataService';
 import { getSessionCount, incrementSessionCountOncePerAppOpen } from '@/lib/onboarding';
 import { getReflectionUsageSummary } from '@/lib/subscription';
 import { getSettings } from '@/lib/settings';
-import { cancelReminder, scheduleReturnReminder } from '@/lib/notifications';
 import { getActivePathway, getPathwayById } from '@/lib/pathways';
 import {
   dismissContinuityCardForSession,
@@ -81,12 +80,6 @@ export default function DashboardClient() {
     const active = getActivePathway();
     setActivePathwayId(active?.pathwayId || '');
     setActiveStep(active?.currentStep || 0);
-
-    if ((context.daysSinceLastEntry || 0) >= 2) {
-      scheduleReturnReminder().catch(() => {});
-    } else {
-      cancelReminder('return').catch(() => {});
-    }
   }, []);
 
   useEffect(() => {
@@ -150,7 +143,7 @@ export default function DashboardClient() {
     >
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         <SanctuaryText variant="caption">
-          {sessionCount === 2 ? 'Welcome back.' : greeting}
+          {sessionCount === 2 ? 'You are here.' : greeting}
         </SanctuaryText>
 
         {continuityCard ? (
