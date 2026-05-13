@@ -4,7 +4,7 @@ import { getFirestoreDb } from '@/services/firebase/firebaseService';
 import { STORAGE_KEYS } from '@/config/storageKeys';
 import { getStorageItemWithFallback, setStorageItemNormalized } from '@/utils/storage';
 import { getAllQueuedEntries } from '@/services/offline/localQueue';
-import type { QueuedEntry } from '@/types/journal';
+import type { EmotionalTone, QueuedEntry, ThemeTag } from '@/types/journal';
 
 export interface UserProfile {
   id: string;
@@ -44,9 +44,11 @@ export interface JournalEntry {
   kheperaReflection?: string;
   kheperaFrameworks?: string[];
   moodWords?: string[];
+  emotionalTone?: EmotionalTone;
+  themes?: ThemeTag[];
   insights?: string[];
   aiAnalysis?: {
-    emotionalTone: number;
+    emotionalTone: number | string;
     themes: string[];
     suggestions: string[];
     breakthroughDetected: boolean;
@@ -110,6 +112,10 @@ class DataService {
     return new Date();
   }
 
+  private toStringArray(value: unknown): string[] {
+    return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+  }
+
   private mapSessionToJournalEntry(id: string, data: Record<string, unknown>): JournalEntry {
     const content = typeof data.entryText === 'string'
       ? data.entryText
@@ -140,6 +146,18 @@ class DataService {
       kheperaReflection,
       insights: seed ? [seed] : [],
       moodWords: Array.isArray(data.moodWords) ? data.moodWords.filter((item): item is string => typeof item === 'string') : undefined,
+      emotionalTone: typeof data.emotionalTone === 'string' ? data.emotionalTone as EmotionalTone : undefined,
+      themes: this.toStringArray(data.themes) as ThemeTag[],
+      aiAnalysis: data.aiAnalysis && typeof data.aiAnalysis === 'object'
+        ? {
+          emotionalTone: typeof (data.aiAnalysis as { emotionalTone?: unknown }).emotionalTone === 'string' || typeof (data.aiAnalysis as { emotionalTone?: unknown }).emotionalTone === 'number'
+            ? (data.aiAnalysis as { emotionalTone: string | number }).emotionalTone
+            : 'processing',
+          themes: this.toStringArray((data.aiAnalysis as { themes?: unknown }).themes),
+          suggestions: this.toStringArray((data.aiAnalysis as { suggestions?: unknown }).suggestions),
+          breakthroughDetected: (data.aiAnalysis as { breakthroughDetected?: unknown }).breakthroughDetected === true,
+        }
+        : undefined,
     };
   }
 
@@ -158,6 +176,8 @@ class DataService {
       updatedAt: this.toDate(entry.syncedAt || entry.writtenAt),
       kheperaReflection: entry.kheperaResponse,
       insights: entry.seed ? [entry.seed] : [],
+      emotionalTone: entry.dominantTone,
+      themes: entry.recurringThemes as ThemeTag[],
     };
   }
 

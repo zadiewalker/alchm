@@ -43,6 +43,10 @@ export interface ReturnSelectionResult {
   entryId: string | null;
   returnType: ReturnType;
   suppressed: boolean;
-  reason?: 'high_intensity_hold' | 'missing_entry_context';
+  reason?:
+    | 'high_intensity_hold'
+    | 'missing_entry_context'
+    | 'weak_current_metadata'
+    | 'recent_return_spacing';
   candidate?: RankedReturnCandidate;
 }
