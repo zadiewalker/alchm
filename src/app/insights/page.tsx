@@ -41,14 +41,9 @@ export default function InsightsPage() {
     };
   }, [getJournalEntries]);
 
-  const moodCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    entries.forEach((entry) => {
-      entry.emotions?.forEach((emotion) => {
-        counts.set(emotion, (counts.get(emotion) || 0) + 1);
-      });
-    });
-    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  const recentlyNamedTones = useMemo(() => {
+    const tones = entries.flatMap((entry) => entry.emotions || []);
+    return Array.from(new Set(tones.filter(Boolean))).slice(0, 5);
   }, [entries]);
 
   if (!isInitialized || loading) {
@@ -89,13 +84,12 @@ export default function InsightsPage() {
 
         <SanctuaryCard>
           <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-            Most present moods
+            Recently named tones
           </SanctuaryText>
           <div style={{ display: 'grid', gap: DESIGN.spacing.xs }}>
-            {moodCounts.slice(0, 5).map(([emotion, count]) => (
+            {recentlyNamedTones.map((emotion) => (
               <div key={emotion} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <SanctuaryText variant="body">{emotion}</SanctuaryText>
-                <SanctuaryText variant="caption">{count}</SanctuaryText>
               </div>
             ))}
           </div>
