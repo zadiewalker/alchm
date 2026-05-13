@@ -126,7 +126,7 @@ export const CORE_CONTAINERS: Container[] = [
       { day: 4, title: 'The Face', prompt: "Think of someone you saw today. What did their face reveal beyond words?", kheperaGuidance: 'Reflect on social cues and empathy.', reflectionFocus: 'observation' },
       { day: 5, title: 'The Pattern', prompt: 'What did you do today on autopilot? How did it actually feel?', kheperaGuidance: 'Notice routine without judgment.', reflectionFocus: 'habit awareness' },
       { day: 6, title: 'The Absence', prompt: 'What was missing from today? Not wrong, simply absent.', kheperaGuidance: 'Hold absence with curiosity.', reflectionFocus: 'absence' },
-      { day: 7, title: 'The Shift', prompt: 'After a week of noticing, what do you see now that you missed before?', kheperaGuidance: 'Integrate the full week.', reflectionFocus: 'integration' },
+      { day: 7, title: 'The Shift', prompt: 'After a week of noticing, what feels clearer from here?', kheperaGuidance: 'Integrate the full week.', reflectionFocus: 'integration' },
     ], 'noticing'),
   },
 ];
