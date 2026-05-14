@@ -1,8 +1,7 @@
 'use client';
 
-// TODO: Before App Store submission, replace localStorage tier management
-// with StoreKit / RevenueCat in-app purchase verification.
-// Current implementation is for TestFlight testing only.
+// Compatibility subscription gate for legacy screens. Native StoreKit/RevenueCat
+// ownership lives in src/services/subscriptions; do not add new callers here.
 
 export type SubscriptionTier = 'free' | 'reflections' | 'sanctuary';
 

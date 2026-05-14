@@ -2,9 +2,8 @@
 
 import { getStorageItemWithFallback, setStorageItemNormalized } from '@/lib/storageKeys';
 
-// TODO: Community sharing requires server-side content moderation before
-// enabling public visibility. Current implementation stores locally only.
-// Do NOT enable public feed without moderation pipeline.
+// Local-only sharing store for the current community surface. Do not enable a
+// public feed without server-side moderation and an explicit product review.
 
 export interface SharedReflection {
   id: string;
