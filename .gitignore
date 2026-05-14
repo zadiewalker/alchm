@@ -7,10 +7,21 @@ firebase-debug.*.log
 functions/firebase-debug.log
 functions/firebase-debug.*.log
 .next
+.next *
+.next.__trash__*
 out
+out *
+out.__trash__*
 out 2
 node_modules
 functions/node_modules
+
+# Retired legacy app roots
+alchm-v2/
+alchm-vite/
+
+# Local duplicate workflow folders
+.github/workflows */
 
 # Local Firebase cache/artifacts
 .firebase/
