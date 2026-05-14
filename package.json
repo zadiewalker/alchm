@@ -26,6 +26,7 @@
     "sync:ios:server": "node -e \"if(!process.env.CAPACITOR_SERVER_URL){console.error('Missing CAPACITOR_SERVER_URL');process.exit(1)}\" && CAPACITOR_USE_SERVER=true npx cap sync ios"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "@capacitor/app": "^8.0.0",
     "@capacitor/core": "^8.0.2",
     "@capacitor/device": "^8.0.0",
