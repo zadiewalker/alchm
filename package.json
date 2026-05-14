@@ -6,14 +6,17 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "next build",
+    "build": "node scripts/prepare-next-build.js && next build",
     "build:safe": "bash scripts/safe-clean-build.sh",
     "design:check": "npm run design:validate --silent",
     "design:enforce": "npm run design:validate && npm run build",
     "design:validate": "node scripts/validate-design.js",
     "dev": "next dev",
     "e2e:navigation": "node scripts/e2e-navigation.mjs",
+    "qa:emotional-language-guards": "node scripts/check-emotional-language-guards.js",
+    "qa:governance": "npm run qa:emotional-language-guards && npm run qa:return-restraint-guards && npm run qa:khepera-guards && npm run qa:repository-coherence",
     "qa:khepera-guards": "node scripts/check-resurfacing-guardrails.js",
+    "qa:repository-coherence": "node scripts/check-repository-coherence.js",
     "qa:return-restraint-guards": "node scripts/check-resurfacing-guardrails.js",
     "lint": "eslint",
     "prepare": "husky",
