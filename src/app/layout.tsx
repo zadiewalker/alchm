@@ -6,10 +6,11 @@ import { CrisisFooter } from '@/components/CrisisFooter';
 import { FooterNav } from '@/components/ui/FooterNav';
 import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
 import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
+import { QueueReplayBootstrap } from '@/components/QueueReplayBootstrap';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
-  description: 'Your digital sanctuary for healing and transformation.',
+  description: 'A private space for quiet reflection.',
 };
 
 export const viewport: Viewport = {
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <StorageMigrationBootstrap />
+        <QueueReplayBootstrap />
         <SplashScreenManager />
         <SubscriptionProvider>
           <PageTransition>{children}</PageTransition>

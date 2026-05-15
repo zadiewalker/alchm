@@ -199,7 +199,7 @@ function findEvent(events, predicate) {
 
 async function openSplash(page) {
   await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
-  const cta = page.getByRole('button', { name: /begin your journey/i });
+  const cta = page.getByRole('button', { name: /open alchm/i });
   await cta.waitFor({ timeout: NAV_TIMEOUT_MS });
   return cta;
 }
@@ -427,7 +427,7 @@ async function run() {
         await attachTelemetryCapture(page);
 
         await page.evaluate(() => {
-          const button = document.querySelector('button[aria-label="Begin your journey"]');
+          const button = document.querySelector('button[aria-label="Open ALCHM"]');
           if (!(button instanceof HTMLButtonElement)) {
             throw new Error('Splash CTA button not found for double-click check');
           }

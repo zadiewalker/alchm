@@ -1,15 +1,20 @@
 import type { QueuedEntry } from '@/types/journal';
 import { recordOperationalException } from '@/services/monitoring/telemetry';
 
+type QueueStorage = {
+  get<T = unknown>(key: string): Promise<T | undefined>;
+  set(key: string, value: unknown): Promise<void>;
+  del(key: string): Promise<void>;
+  keys(): Promise<unknown[]>;
+};
+
 // Dynamic import with fallback to mock implementation
-async function getIDBKeyval() {
+async function getIDBKeyval(): Promise<QueueStorage> {
   try {
-    // Use eval to prevent webpack from bundling this at build time
-    const idbModule = await eval('import("idb-keyval")');
-    return idbModule;
+    return await import('idb-keyval') as QueueStorage;
   } catch {
     recordOperationalException('sync_issue', new Error('queue_idb_unavailable'), { state: 'queue_fallback_mock' });
-    return await import('./idbKeyvalMock');
+    return await import('./idbKeyvalMock') as QueueStorage;
   }
 }
 

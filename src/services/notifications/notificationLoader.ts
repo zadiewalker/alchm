@@ -42,12 +42,12 @@ export async function loadLocalNotificationsPlugin(): Promise<typeof LocalNotifi
     // Plugin not found in registry, try dynamic import as last resort
     console.log('[NotificationLoader] Plugin not in registry, attempting dynamic import');
     
-    // Use setTimeout to delay import and avoid webpack bundling issues
+    // Keep the native plugin behind an async boundary so web builds can still
+    // fall back calmly when the Capacitor runtime is unavailable.
     return new Promise((resolve) => {
       setTimeout(async () => {
         try {
-          // This won't be bundled if it's in a setTimeout
-          const module = await eval('import("@capacitor/local-notifications")');
+          const module = await import('@capacitor/local-notifications');
           resolve(module.LocalNotifications);
         } catch {
           console.warn('[NotificationLoader] Dynamic import failed, using mock');

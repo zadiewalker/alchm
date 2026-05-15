@@ -250,7 +250,7 @@ export default function DashboardClient() {
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
             <DashboardNav href="/journal/" title="Journal" subtitle="Your past reflections" />
             <DashboardNav href="/insights/" title="Insights" subtitle="Patterns Khepera has noticed" />
-            <DashboardNav href="/pathways/" title="Pathways" subtitle="Guided healing journeys" />
+            <DashboardNav href="/pathways/" title="Pathways" subtitle="Guided reflection paths" />
             <DashboardNav href="/community/" title="Community" subtitle="Anonymous wisdom moments" />
           </div>
         </SanctuaryCard>

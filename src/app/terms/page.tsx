@@ -22,14 +22,14 @@ export default function TermsPage() {
         <SanctuaryCard>
           <Section title="What ALCHM Is">
             <P>
-              ALCHM is a self-reflection and journaling application. It includes an AI companion called Khepera that
-              reflects on what you write.
+              ALCHM is a self-reflection and journaling application. It includes Khepera, an AI reflection system that
+              reflects what you write.
             </P>
           </Section>
 
           <Section title="What ALCHM Is Not">
             <P>
-              ALCHM is not a medical device or healthcare service. Khepera is an AI companion, not a therapist,
+              ALCHM is not a medical device or healthcare service. Khepera is an AI reflection system, not a therapist,
               counselor, psychologist, or medical professional. ALCHM does not diagnose, treat, cure, or prevent any
               condition.
             </P>
@@ -92,4 +92,3 @@ const linkStyle: React.CSSProperties = {
   textDecoration: 'underline',
   fontFamily: DESIGN.typography.sansSerif,
 };
-

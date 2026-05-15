@@ -2,7 +2,7 @@
 
 import { getStorageItemWithFallback } from '@/lib/storageKeys';
 
-export type ContinuityCardType = 'mood_shift' | 'streak_milestone' | 'stage_progress' | 'theme_echo' | 'return_welcome';
+export type ContinuityCardType = 'theme_echo';
 
 export interface ContinuityTheme {
   theme: string;
@@ -13,12 +13,9 @@ export interface ContinuityContext {
   daysSinceLastEntry: number | null;
   lastMood: string[] | null;
   lastEntrySnippet: string | null;
-  currentStreak: number;
   moodTrend: 'improving' | 'stable' | 'declining' | 'varied' | 'insufficient';
   recentMoods: string[];
   entryCountThisWeek: number;
-  kheperaStage: number;
-  stageProgress: number;
   themes: ContinuityTheme[];
 }
 
@@ -37,7 +34,6 @@ interface EntryShape {
 }
 
 const SESSION_DISMISS_KEY = 'alchm-continuity-dismissed-card';
-const STAGE_THRESHOLDS = [0, 7, 21, 50, 100];
 const HEAVY_MOODS = new Set(['shattered', 'heavy', 'anxious', 'restless', 'burning', 'numb']);
 const LIGHT_MOODS = new Set(['calm', 'hopeful', 'alive', 'tender']);
 
@@ -115,34 +111,16 @@ export function getContinuityContext(): ContinuityContext {
     const now = new Date();
     const daysSinceLastEntry = latest ? dayDiff(latest._date, now) : null;
     const recentMoods = entries.flatMap(coerceMoods).filter(Boolean).slice(0, 8);
-    const totalEntries = entries.length;
     const entryCountThisWeek = entries.filter((entry) => dayDiff(entry._date, now) <= 7).length;
-    const currentStreak = Number.parseInt(getStorageItemWithFallback('alchm-current-streak') || '0', 10) || 0;
     const themes = readThemes();
-
-    let stage = 1;
-    for (let index = STAGE_THRESHOLDS.length - 1; index >= 0; index -= 1) {
-      if (totalEntries >= STAGE_THRESHOLDS[index]) {
-        stage = index + 1;
-        break;
-      }
-    }
-    const currentFloor = STAGE_THRESHOLDS[Math.max(0, stage - 1)] || 0;
-    const nextThreshold = STAGE_THRESHOLDS[Math.min(STAGE_THRESHOLDS.length - 1, stage)] || 100;
-    const stageProgress = nextThreshold > currentFloor
-      ? Math.min(100, Math.round(((totalEntries - currentFloor) / (nextThreshold - currentFloor)) * 100))
-      : 100;
 
     return {
       daysSinceLastEntry,
       lastMood: latest ? coerceMoods(latest) : null,
       lastEntrySnippet: latest?.content ? String(latest.content).slice(0, 100) : null,
-      currentStreak,
       moodTrend: inferMoodTrend(recentMoods),
       recentMoods,
       entryCountThisWeek,
-      kheperaStage: Math.min(5, Math.max(1, stage)),
-      stageProgress,
       themes,
     };
   } catch {
@@ -150,12 +128,9 @@ export function getContinuityContext(): ContinuityContext {
       daysSinceLastEntry: null,
       lastMood: null,
       lastEntrySnippet: null,
-      currentStreak: 0,
       moodTrend: 'insufficient',
       recentMoods: [],
       entryCountThisWeek: 0,
-      kheperaStage: 1,
-      stageProgress: 0,
       themes: [],
     };
   }
@@ -167,66 +142,10 @@ export function generateDashboardGreeting(context: ContinuityContext): string {
 
   if (context.daysSinceLastEntry === null) return 'Welcome to ALCHM.';
   if (context.daysSinceLastEntry === 0) return timeLabel === 'late night' ? 'Back again tonight. Khepera is here.' : 'Back again. Khepera is here.';
-  if (context.daysSinceLastEntry === 1) return `Good ${timeLabel}.`;
-  if (context.daysSinceLastEntry <= 6) return 'Welcome back. No rush.';
-  return "It's good to see you. Khepera held your space.";
+  return `Good ${timeLabel}.`;
 }
 
 export function generateContinuityCard(context: ContinuityContext): ContinuityCard | null {
-  if (context.daysSinceLastEntry !== null && context.daysSinceLastEntry >= 3) {
-    return {
-      type: 'return_welcome',
-      title: 'The return',
-      message: `${context.daysSinceLastEntry} days away. Coming back is its own kind of courage.`,
-      accent: 'gold',
-    };
-  }
-
-  if ([7, 14, 30, 60, 100].includes(context.currentStreak)) {
-    return {
-      type: 'streak_milestone',
-      title: `${context.currentStreak} days`,
-      message: 'A steady rhythm of reflection is taking shape.',
-      accent: 'gold',
-    };
-  }
-
-  if (context.stageProgress >= 80 && context.kheperaStage < 5) {
-    return {
-      type: 'stage_progress',
-      title: 'Khepera is changing',
-      message: 'A new stage is close. Your words are deepening the mirror.',
-      accent: 'gold',
-    };
-  }
-
-  if (context.moodTrend === 'improving') {
-    return {
-      type: 'mood_shift',
-      title: 'A shift',
-      message: 'Something is shifting. Your recent entries are carrying a lighter tone.',
-      accent: 'sage',
-    };
-  }
-
-  if (context.moodTrend === 'declining') {
-    return {
-      type: 'mood_shift',
-      title: 'A heavier week',
-      message: 'These last few days have felt heavier. Khepera sees that.',
-      accent: 'sage',
-    };
-  }
-
-  if (context.moodTrend === 'varied') {
-    return {
-      type: 'mood_shift',
-      title: 'Full spectrum',
-      message: "You've moved through many emotional tones this week. All of it is welcome.",
-      accent: 'sage',
-    };
-  }
-
   if (context.themes.length >= 2) {
     const topThemes = context.themes.slice(0, 2).map((item) => item.theme).join(' and ');
     return {
@@ -260,18 +179,6 @@ export function isContinuityCardDismissedForSession(type: ContinuityCardType): b
 
 export function appendContinuityToPrompt(basePrompt: string, context: ContinuityContext): string {
   const additions: string[] = [];
-
-  if (context.daysSinceLastEntry !== null && context.daysSinceLastEntry > 2) {
-    additions.push(`The user is returning after ${context.daysSinceLastEntry} days away. Acknowledge this gently.`);
-  }
-
-  if (context.lastMood?.length) {
-    additions.push(`Their last entry mood(s): ${context.lastMood.join(', ')}.`);
-  }
-
-  if (context.moodTrend !== 'insufficient' && context.moodTrend !== 'stable') {
-    additions.push(`Recent mood trend: ${context.moodTrend}.`);
-  }
 
   if (context.themes.length) {
     additions.push(`Recurring themes: ${context.themes.map((item) => item.theme).join(', ')}.`);

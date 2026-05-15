@@ -9,16 +9,17 @@ function read(relativePath) {
   return fs.readFileSync(path.join(repo, relativePath), 'utf8');
 }
 
-test('footer tabs use one centralized internal navigation path', () => {
-  const tabBar = read('src/components/shell/TabBar.tsx');
-  const routes = read('src/utils/navigation.ts');
+test('footer navigation uses the canonical app routes', () => {
+  const footerNav = read('src/components/ui/FooterNav.tsx');
 
-  assert.match(tabBar, /useInternalNavigation/);
-  assert.match(tabBar, /type="button"/);
-  assert.match(tabBar, /onClick=\{\(\) => navigate\(tab\.path/);
-  assert.doesNotMatch(tabBar, /href=/);
-  assert.doesNotMatch(tabBar, /window\.location|location\.assign|location\.replace|useSafeNavigation/);
-  assert.match(routes, /\{ id: 'settings', label: 'Settings', path: '\/settings' \}/);
+  for (const route of ['/dashboard', '/journal', '/containers', '/insights', '/settings']) {
+    assert.match(footerNav, new RegExp(`href: '${route}'`));
+  }
+
+  assert.match(footerNav, /<Link/);
+  assert.match(footerNav, /aria-label="Primary navigation"/);
+  assert.match(footerNav, /aria-current=\{active \? 'page' : undefined\}/);
+  assert.doesNotMatch(footerNav, /window\.location|location\.assign|location\.replace|useSafeNavigation/);
 });
 
 test('internal navigation no-ops active tabs and prevents concurrent route pushes', () => {
@@ -51,28 +52,20 @@ test('internal navigation no-ops active tabs and prevents concurrent route pushe
 });
 
 test('settings remains allowed through root gating and crisis access remains present', () => {
-  const root = read('src/app/RootLayoutClient.tsx');
-  const shell = read('src/components/shell/AppShell.tsx');
-  const crisis = read('src/components/shell/CrisisFooter.tsx');
+  const root = read('src/app/layout.tsx');
+  const crisis = read('src/components/CrisisFooter.tsx');
 
-  assert.match(root, /pathname\?\.startsWith\('\/settings'\)/);
-  assert.match(shell, /<TabBar \/>/);
-  assert.match(shell, /<CrisisFooter onPress=\{\(\) => setCrisisOpen\(true\)\} \/>/);
-  assert.match(crisis, /Resources/);
-  assert.match(crisis, /pointerEvents: 'auto'/);
+  assert.match(root, /<FooterNav \/>/);
+  assert.match(root, /<CrisisFooter \/>/);
+  assert.match(crisis, /tel:988/);
+  assert.match(crisis, /Call 988 Suicide and Crisis Lifeline/);
 });
 
-test('non-footer overlays cannot permanently intercept bottom navigation taps', () => {
-  const prompt = read('src/components/notifications/NotificationPermissionPrompt.tsx');
+test('transient page transitions do not intercept bottom navigation taps', () => {
   const transition = read('src/components/ui/PageTransition.tsx');
-  const crisisModal = read('src/components/shell/CrisisModal.tsx');
-  const globals = read('src/app/globals.css');
+  const crisisModal = read('src/components/CrisisModal.tsx');
 
-  assert.match(prompt, /pointerEvents: 'none'/);
-  assert.match(prompt, /pointerEvents: 'auto'/);
-  assert.match(prompt, /zIndex: 80/);
-  assert.match(transition, /pointerEvents: visible \? 'auto' : 'none'/);
-  assert.match(crisisModal, /pointerEvents: 'auto'/);
-  assert.match(globals, /\.confirm-sheet-backdrop[\s\S]*pointer-events: auto;/);
-  assert.match(globals, /\.confirm-sheet-panel[\s\S]*pointer-events: auto;/);
+  assert.match(transition, /opacity: visible \? 1 : 0/);
+  assert.doesNotMatch(transition, /pointerEvents/);
+  assert.match(crisisModal, /zIndex: 90/);
 });

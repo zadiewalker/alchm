@@ -286,6 +286,8 @@ export async function processQueuedEntry(
           witness: offline.witness,
           perspective: offline.perspective,
           status: 'pending_khepera',
+          syncAttempts: (entry.syncAttempts ?? 0) + 1,
+          lastSyncAttempt: new Date().toISOString(),
           lastSyncError: error instanceof Error ? error.message : 'offline_fallback',
         });
 
@@ -440,6 +442,7 @@ export async function processQueuedEntry(
     await deps.releaseQueueEntry(entry.localId, processingOwner, {
       status: 'pending_sync',
       lastSyncAttempt: new Date().toISOString(),
+      syncAttempts: (entry.syncAttempts ?? 0) + 1,
       lastSyncError: syncIssue,
     });
     await onTransition?.('pending_sync', entry.localId);

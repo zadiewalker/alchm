@@ -17,18 +17,40 @@ const glob = require('glob');
 
 // Sacred color palette - ONLY these colors are allowed
 const SACRED_COLORS = {
-  sage: ['#8B9A7C', '#A8B5A0', '#6B7A5C'],
-  gold: ['#E5C97D', '#F2D99D', '#D4B76A'],
+  surface: ['#1a1f16', '#242b1e', '#2d3527', '#2a2520'],
+  sage: ['#8B9A7C', '#A8B5A0', '#6B7A5C', '#6b7a5e', '#c2d1b8'],
+  gold: ['#E5C97D', '#F2D99D', '#D4B76A', '#E8C56D', '#b89d4a', '#f5dfa0'],
   glass: [
+    'rgba(0, 0, 0, 0.55)',
+    'rgba(0, 0, 0, 0.65)',
     'rgba(255, 255, 255, 0.1)',
+    'rgba(255, 255, 255, 0.10)',
+    'rgba(255, 255, 255, 0.12)',
     'rgba(255, 255, 255, 0.15)', 
     'rgba(255, 255, 255, 0.2)',
-    'rgba(255, 255, 255, 0.05)'
+    'rgba(255, 255, 255, 0.05)',
+    'rgba(255, 255, 255, 0.06)',
+    'rgba(168, 181, 160, 0.92)',
+    'rgba(196, 122, 106, 0.14)',
+    'rgba(196, 122, 106, 0.18)',
+    'rgba(232, 197, 109, 0.12)',
+    'rgba(232, 197, 109, 0.15)',
+    'rgba(232, 197, 109, 0.2)'
   ],
-  crisis: ['#DC2626', '#B91C1C'], // ONLY for 988 emergency
+  crisis: ['#DC2626', '#B91C1C', '#c47a6a'], // ONLY for 988 emergency and existing error surfaces
   pathways: ['#D4A574', '#7BB3D4', '#D4A77B', '#B395D4', '#95A7D4'], // Unique healing pathway colors
   neutral: ['#ffffff', '#fff', '#000000', 'transparent'],
-  text: ['#1f2937', '#333', 'rgba(255, 255, 255, 0.9)', 'rgba(255, 255, 255, 0.8)', 'rgba(255, 255, 255, 0.7)']
+  text: [
+    '#1f2937',
+    '#333',
+    '#8ba88a',
+    'rgba(255, 255, 255, 0.92)',
+    'rgba(255, 255, 255, 0.9)',
+    'rgba(255, 255, 255, 0.8)',
+    'rgba(255, 255, 255, 0.7)',
+    'rgba(255, 255, 255, 0.65)',
+    'rgba(255, 255, 255, 0.40)'
+  ]
 };
 
 // Forbidden colors that contaminated our design before

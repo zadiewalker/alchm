@@ -2,9 +2,25 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function ownsUserPath(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function ownsCreatedDocument() {
+      return isSignedIn() && request.auth.uid == request.resource.data.userId;
+    }
+
+    function ownsExistingDocument() {
+      return isSignedIn() && request.auth.uid == resource.data.userId;
+    }
+
     // Helper function to check if user is an admin
     function isAdmin() {
-      return request.auth != null && 
+      return isSignedIn() &&
              exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid)) &&
              get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.verified == true;
     }
@@ -15,22 +31,57 @@ service cloud.firestore {
              permission in get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.permissions;
     }
     
-    // Allow users to read and write their own journal entries
-    match /journal-entries/{document} {
-      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    // Legacy dataService collections remain user-owned while active UI surfaces are retired or migrated.
+    match /journalEntries/{document} {
+      allow create: if ownsCreatedDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /dreamEntries/{document} {
+      allow create: if ownsCreatedDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /pathwayProgress/{document} {
+      allow create: if ownsCreatedDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /shadowWorkProgress/{document} {
+      allow create: if ownsCreatedDocument();
+      allow read, update, delete: if ownsExistingDocument();
     }
     
-    // Allow users to read and write their own user profile data
+    // Canonical user-owned ALCHM data lives under users/{uid}.
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if ownsUserPath(userId);
       // Allow admins to read anonymized user data for demographics (without personal info)
       allow read: if hasAdminPermission('view_crisis_events');
+
+      match /profile/{profileId} {
+        allow read, write: if ownsUserPath(userId);
+      }
+
+      match /sessions/{sessionId} {
+        allow read, write: if ownsUserPath(userId);
+      }
+
+      match /containers/{containerId} {
+        allow read, write: if ownsUserPath(userId);
+      }
+
+      match /khepera/{document} {
+        allow read, write: if ownsUserPath(userId);
+      }
+
+      match /kheperaDelayedReflections/{document} {
+        allow read, write: if ownsUserPath(userId);
+      }
     }
     
-    // User analyses - allow users to read their own, admins can't access (privacy protection)
+    // Legacy analysis documents are intentionally retired with the non-canonical analysis runtime.
     match /users/{userId}/analyses/{analysisId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if false;
     }
     
     // Crisis events - admin access only with proper permissions
@@ -42,7 +93,7 @@ service cloud.firestore {
     
     // Admin users collection - only system admins can manage
     match /adminUsers/{adminId} {
-      allow read: if request.auth != null && request.auth.uid == adminId;
+      allow read: if isSignedIn() && request.auth.uid == adminId;
       allow write: if hasAdminPermission('manage_admin_users');
     }
     

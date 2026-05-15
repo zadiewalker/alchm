@@ -1,7 +1,7 @@
 {
-  "name": "ALCHM - Digital Sanctuary for Healing",
+  "name": "ALCHM",
   "short_name": "ALCHM",
-  "description": "Your digital sanctuary for healing and transformation. Advanced AI-powered mental health support with crisis intervention, personalized growth pathways, and community healing circles.",
+  "description": "A private space for quiet reflection, journaling, and crisis-aware safety support.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#8B9A7C",
@@ -92,21 +92,8 @@
     {
       "name": "Daily Journal",
       "short_name": "Journal",
-      "description": "Write in your healing journal",
+      "description": "Write a journal entry",
       "url": "/journal/new",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Transformation Practice",
-      "short_name": "Practice",
-      "description": "Start today's transformation practice",
-      "url": "/transformation",
       "icons": [
         {
           "src": "/icon-192.png",

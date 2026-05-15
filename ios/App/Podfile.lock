@@ -10,6 +10,8 @@ PODS:
     - Capacitor
   - CapacitorKeyboard (8.0.0):
     - Capacitor
+  - CapacitorLocalNotifications (8.1.0):
+    - Capacitor
   - CapacitorNetwork (8.0.0):
     - Capacitor
   - CapacitorShare (8.0.0):
@@ -26,6 +28,7 @@ DEPENDENCIES:
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - "CapacitorLocalNotifications (from `../../node_modules/@capacitor/local-notifications`)"
   - "CapacitorNetwork (from `../../node_modules/@capacitor/network`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
@@ -44,6 +47,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/haptics"
   CapacitorKeyboard:
     :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorLocalNotifications:
+    :path: "../../node_modules/@capacitor/local-notifications"
   CapacitorNetwork:
     :path: "../../node_modules/@capacitor/network"
   CapacitorShare:
@@ -60,11 +65,12 @@ SPEC CHECKSUMS:
   CapacitorDevice: 9a16fb36a19ff391bf75afbe3cf16f883b3b3aa0
   CapacitorHaptics: 2079d9fa04c5a71e18663b4722323c304c58245c
   CapacitorKeyboard: d7868c079a4d5277a3deca27a10a488fcbbb8b69
+  CapacitorLocalNotifications: 910c3e45572b4adb92a32e7b6c3791d1eadadcbf
   CapacitorNetwork: 156f8096cbbce5337eb1769fcc0d6adc4b85d3f3
   CapacitorShare: 12f1d192170cbcf9f108fd675ac8e343761a4638
   CapacitorSplashScreen: 422880d7117605c30699eb4b21644b62db42e86c
   CapacitorStatusBar: 312e2e67928dfe9514c4a8916a1fd610552f5f35
 
-PODFILE CHECKSUM: 6897eede6f8a5841ba2537ac5eaa0e72542d9ae5
+PODFILE CHECKSUM: 0a316f2d948ccef1dc3642dd39d31218c2d52acc
 
 COCOAPODS: 1.16.2

@@ -132,34 +132,6 @@ class DataService {
     }
   }
 
-  private updateStreakMetrics(entryDate: Date) {
-    try {
-      const lastRaw = getStorageItemWithFallback('alchm-last-entry-date');
-      const lastDate = lastRaw ? new Date(lastRaw) : null;
-      const previousStreak = Number.parseInt(getStorageItemWithFallback('alchm-current-streak') || '0', 10) || 0;
-      const longest = Number.parseInt(getStorageItemWithFallback('alchm-longest-streak') || '0', 10) || 0;
-
-      let nextStreak = 1;
-      if (lastDate && !Number.isNaN(lastDate.getTime())) {
-        const dayDiff = Math.floor((entryDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
-        if (dayDiff <= 0) {
-          nextStreak = Math.max(previousStreak, 1);
-        } else if (dayDiff === 1) {
-          nextStreak = previousStreak + 1;
-        } else if (dayDiff <= 3) {
-          nextStreak = Math.max(previousStreak, 1);
-        }
-      }
-
-      const nextLongest = Math.max(longest, nextStreak);
-      setStorageItemNormalized('alchm-last-entry-date', entryDate.toISOString());
-      setStorageItemNormalized('alchm-current-streak', String(nextStreak));
-      setStorageItemNormalized('alchm-longest-streak', String(nextLongest));
-    } catch {
-      // no-op
-    }
-  }
-
   // User Profile Management
   async getUserProfile(): Promise<UserProfile | null> {
     if (!this.userId) {
@@ -244,7 +216,6 @@ class DataService {
       const existingEntries = this.getFromLocalStorage<JournalEntry[]>('journal_entries') || [];
       existingEntries.push(fullEntry);
       this.setToLocalStorage('journal_entries', existingEntries);
-      this.updateStreakMetrics(new Date(entry.createdAt || Date.now()));
       return entryId;
     }
 
@@ -256,7 +227,6 @@ class DataService {
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
       });
-      this.updateStreakMetrics(new Date(entry.createdAt || Date.now()));
       return docRef.id;
     } catch (error) {
       console.error('Error saving journal entry:', error);
