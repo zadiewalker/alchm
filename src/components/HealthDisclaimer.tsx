@@ -45,10 +45,10 @@ export function HealthDisclaimer({ variant = 'full' }: HealthDisclaimerProps) {
         background: DESIGN.colors.cardBg,
         padding: DESIGN.spacing.md,
       }}
-    >
-      <p style={textStyle}>
-        ALCHM is a self-reflection and journaling tool. Khepera is an AI companion powered by artificial intelligence, not a
-        therapist, counselor, or medical professional. ALCHM does not diagnose, treat, cure, or prevent any condition.
+      >
+        <p style={textStyle}>
+        ALCHM is a self-reflection and journaling tool. Khepera is an AI reflection system powered by artificial intelligence,
+        not a therapist, counselor, or medical professional. ALCHM does not diagnose, treat, cure, or prevent any condition.
       </p>
       <p style={{ ...textStyle, marginTop: DESIGN.spacing.sm }}>
         If you are in crisis, call or text{' '}
@@ -69,4 +69,3 @@ export function HealthDisclaimer({ variant = 'full' }: HealthDisclaimerProps) {
     </div>
   );
 }
-

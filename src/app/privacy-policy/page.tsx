@@ -55,15 +55,15 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-6">Our Commitment to Your Privacy</h2>
             <div className="prose prose-gray max-w-none">
               <p className="text-gray-700 leading-relaxed">
-                ALCHM is a trauma-informed digital sanctuary designed to support your mental health journey through 
-                AI-powered journaling. We understand the deeply personal nature of mental health data and are committed 
+                ALCHM is a trauma-informed digital sanctuary designed for private reflection through
+                AI-supported journaling. We understand the deeply personal nature of journal data and are committed
                 to protecting your privacy with the highest standards of security and transparency.
               </p>
               
               <div className="bg-green-50 border-l-4 border-green-500 p-4 my-6">
                 <h3 className="font-semibold text-green-900">Privacy-by-Design Principles</h3>
                 <ul className="text-green-800 mt-2 space-y-1">
-                  <li>• <strong>Data minimization:</strong> We collect only what's necessary for therapeutic value</li>
+                  <li>• <strong>Data minimization:</strong> We collect only what is necessary to provide the service</li>
                   <li>• <strong>Purpose limitation:</strong> Your data is used only for specified, legitimate purposes</li>
                   <li>• <strong>Transparency:</strong> Clear, understandable information about all data practices</li>
                   <li>• <strong>User control:</strong> You have complete control over your personal data</li>
@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
                 <ul className="text-gray-700 space-y-1">
                   <li>• Your written journal entries and personal reflections</li>
                   <li>• Timestamps and metadata (word count, entry frequency)</li>
-                  <li>• AI-generated emotional insights and therapeutic suggestions (with consent)</li>
+                  <li>• Khepera reflections generated from entries you submit for reflection</li>
                   <li>• Crisis detection results for safety monitoring (with consent)</li>
                 </ul>
                 <p className="text-sm text-gray-600 mt-2">
@@ -105,11 +105,11 @@ export default function PrivacyPolicy() {
               </div>
 
               <div className="border-l-4 border-orange-500 pl-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Usage Analytics (Optional)</h3>
+                <h3 className="font-semibold text-gray-900 mb-2">Operational Diagnostics</h3>
                 <ul className="text-gray-700 space-y-1">
-                  <li>• Anonymized feature usage patterns</li>
+                  <li>• Minimal operational events needed to keep the app reliable</li>
                   <li>• Performance metrics (page load times, error rates)</li>
-                  <li>• Aggregated user journey insights</li>
+                  <li>• Crash and failure signals with journal text excluded</li>
                 </ul>
                 <p className="text-sm text-gray-600 mt-2">
                   <strong>Legal basis:</strong> Legitimate interest (GDPR Article 6(1)(f)) or consent
@@ -124,18 +124,17 @@ export default function PrivacyPolicy() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-green-900 mb-3">🤖 AI-Powered Therapeutic Support</h3>
+                <h3 className="font-semibold text-green-900 mb-3">AI-Supported Reflection</h3>
                 <p className="text-green-800 text-sm mb-2">
-                  With your explicit consent, we use advanced AI to analyze your journal entries and provide:
+                  When you submit an entry for reflection, Khepera may return:
                 </p>
                 <ul className="text-green-700 text-sm space-y-1">
-                  <li>• Emotional recognition and validation</li>
-                  <li>• Personalized coping strategies</li>
-                  <li>• Strength identification and encouragement</li>
-                  <li>• Gentle insights for personal growth</li>
+                  <li>• A restrained reflection of what was written</li>
+                  <li>• A non-directive perspective</li>
+                  <li>• One open seed for further writing</li>
                 </ul>
                 <div className="text-xs text-green-600 mt-2 p-2 bg-green-100 rounded">
-                  <strong>Your control:</strong> You can disable AI analysis at any time in privacy settings
+                  <strong>Your control:</strong> You choose when to submit writing for reflection.
                 </div>
               </div>
 
@@ -328,8 +327,8 @@ export default function PrivacyPolicy() {
                 <div className="flex items-start space-x-3">
                   <span className="text-green-500 mt-1">✓</span>
                   <div>
-                    <strong className="text-gray-900">AI Journal Analysis:</strong>
-                    <span className="text-gray-700"> Choose whether to enable AI-powered insights and therapeutic suggestions.</span>
+                    <strong className="text-gray-900">Khepera Reflection:</strong>
+                    <span className="text-gray-700"> Choose when to submit writing for a restrained AI-generated reflection.</span>
                   </div>
                 </div>
                 

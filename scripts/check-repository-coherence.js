@@ -176,6 +176,40 @@ for (const legacyRoot of ['alchm-v2/', 'alchm-vite/']) {
   )
 }
 
+for (const generatedRoot of ['functions/lib/', 'functions/node_modules/']) {
+  const trackedGeneratedFiles = trackedFiles.filter((file) => file.startsWith(generatedRoot))
+  assert(
+    trackedGeneratedFiles.length === 0,
+    `${generatedRoot} must not contain tracked files:\n${trackedGeneratedFiles.join('\n')}`
+  )
+}
+
+for (const duplicateIosRoot of ['ios/App 2/', 'ios/capacitor-cordova-ios-plugins 2/']) {
+  const trackedDuplicateIosFiles = trackedFiles.filter((file) => file.startsWith(duplicateIosRoot))
+  assert(
+    trackedDuplicateIosFiles.length === 0,
+    `${duplicateIosRoot} must not contain tracked files:\n${trackedDuplicateIosFiles.join('\n')}`
+  )
+}
+
+const retiredFunctionSources = [
+  'functions/src/aiService.ts',
+  'functions/src/prompts.ts',
+  'functions/src/types.ts',
+  'functions/src/crisisDetection.ts',
+  'functions/src/crisisMonitoring.ts',
+  'functions/src/pathwaySystem.ts',
+  'functions/src/predictiveCrisisService.ts',
+  'functions/src/personalizedInterventionService.ts',
+  'functions/src/voiceAnalysisService.ts',
+]
+
+const trackedRetiredFunctionSources = retiredFunctionSources.filter((file) => trackedFiles.includes(file))
+assert(
+  trackedRetiredFunctionSources.length === 0,
+  `retired Firebase Functions AI and therapeutic surfaces must not be tracked:\n${trackedRetiredFunctionSources.join('\n')}`
+)
+
 if (process.exitCode) {
   process.exit(process.exitCode)
 }

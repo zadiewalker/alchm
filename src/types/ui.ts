@@ -1,4 +1,4 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import type { CSSProperties, ElementType, HTMLAttributes, ReactNode } from 'react';
 import type { BackNavigationConfig } from '@/types/navigation';
 
 export type AppLayoutProps = {
@@ -32,7 +32,7 @@ export type AppTextProps = {
   variant?: TextVariant;
   children: ReactNode;
   style?: CSSProperties;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   className?: string;
 };
 

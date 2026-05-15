@@ -100,7 +100,7 @@ export default function FoundationPathway() {
           <Link href="/pathways" className="text-white/70 text-lg mr-4">← Back</Link>
           <h1 className="text-2xl text-white font-extralight tracking-[0.2em]">Foundation</h1>
         </div>
-        <p className="text-white/70 text-sm font-light">Building the bedrock of your healing journey</p>
+        <p className="text-white/70 text-sm font-light">A quiet path for returning to what is here</p>
         <div className="mt-4 flex gap-2">
           {stages.map((_, index) => (
             <div

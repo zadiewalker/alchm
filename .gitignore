@@ -15,6 +15,9 @@ out.__trash__*
 out 2
 node_modules
 functions/node_modules
+functions/lib
+ios/App 2/
+ios/capacitor-cordova-ios-plugins 2/
 
 # Retired legacy app roots
 alchm-v2/

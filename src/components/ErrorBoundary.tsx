@@ -69,9 +69,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     sessionStorage.setItem('alchm-reload-count', newCount.toString())
     
     if (newCount > 3) {
-      // Too many reloads - clear everything
-      localStorage.clear()
-      sessionStorage.clear()
+      this.clearRecoveryState()
       safeWindow.open('/', '_self')
     } else {
       // Avoid window.location.reload() in Capacitor (can create loops); re-open current URL instead.
@@ -80,17 +78,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   handleReset = () => {
-    // Clear all data and restart
-    localStorage.clear()
-    sessionStorage.clear()
-    
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        names.forEach(name => caches.delete(name))
-      })
-    }
-    
+    this.clearRecoveryState()
     safeWindow.open('/', '_self')
+  }
+
+  clearRecoveryState = () => {
+    sessionStorage.removeItem('alchm-reload-count')
+    sessionStorage.removeItem('alchm-error-state')
   }
 
   render() {
@@ -128,7 +122,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                 onClick={this.handleReset}
                 className="w-full px-4 py-2 bg-white/10 rounded-xl text-xs opacity-70 hover:opacity-100 transition-opacity"
               >
-                Reset Everything & Start Fresh
+                Return to Start
               </button>
             </div>
 
@@ -157,7 +151,7 @@ export const SentryErrorBoundary = Sentry.withErrorBoundary(
       <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex items-center justify-center p-6">
         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md text-center">
           <h2 className="text-white text-xl font-light mb-4">Application Error</h2>
-          <p className="text-white/80 text-sm mb-6">{error instanceof Error ? error.message : 'An unexpected error occurred'}</p>
+          <p className="text-white/80 text-sm mb-6">Something interrupted this screen.</p>
           <button
             onClick={resetError}
             className="w-full py-3 rounded-xl bg-[#E5C97D] hover:bg-[#F2D99D] transition-all duration-200"

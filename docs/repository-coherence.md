@@ -46,6 +46,7 @@ Changes require extra review when they touch:
 - build/export lifecycle scripts
 - CI governance scripts
 - new app roots, duplicate apps, or legacy migration paths
+- Firebase Functions deployment surfaces
 
 ## Retired Legacy Roots
 
@@ -55,6 +56,22 @@ The repository retired these legacy app roots:
 - `alchm-vite/`
 
 Do not recreate or edit these as active product surfaces. Historical context remains in Git history. If old implementation details are needed, inspect history instead of restoring parallel app roots.
+
+## Firebase Functions Boundary
+
+`functions/` is a retired compatibility surface for Firebase Hosting rewrites and health checks. It must not contain AI analysis, predictive crisis logic, therapeutic-progress systems, emotional analytics, or alternate reflection generation.
+
+The canonical reflection and crisis-ordering path remains `src/services/journal/submissionPipeline.ts`. If future server functionality is needed, introduce it through an explicit architecture review instead of restoring old functions modules.
+
+Do not commit generated or installed function artifacts:
+
+- `functions/lib/`
+- `functions/node_modules/`
+
+Do not commit duplicate iOS roots:
+
+- `ios/App 2/`
+- `ios/capacitor-cordova-ios-plugins 2/`
 
 ## Stale Artifact Policy
 

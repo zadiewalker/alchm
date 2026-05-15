@@ -7,7 +7,6 @@ import { extractThemesFromEntry } from './extractThemes';
 import type { KheperaResponse, KheperaUserContext } from '@/types/khepera';
 import type { ReflectionTiming } from '@/types/khepera';
 import type { EmotionalTone, ThemeTag } from '@/types/journal';
-import type { CompanionTextRequest, CompanionTextResult } from './generateResponse';
 
 export interface GenerateKheperaInput {
   entryText: string;
@@ -104,13 +103,6 @@ export async function extractThemesForKheperaEntry(
   }
 
   return extractThemesFromEntry(entryText, kheperaResponse);
-}
-
-export async function generateCompanionText(
-  request: CompanionTextRequest
-): Promise<CompanionTextResult> {
-  const { createModelText } = await import('./generateResponse');
-  return createModelText(request);
 }
 
 export function buildOnboardingFallback(): OnboardingKheperaResult {

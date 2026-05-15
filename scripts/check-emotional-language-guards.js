@@ -50,6 +50,10 @@ for (const term of requiredGovernanceTerms) {
 }
 
 const governedSurfaces = [
+  'public/manifest.json',
+  'src/app/layout.tsx',
+  'src/app/page.tsx',
+  'src/app/welcome/page.tsx',
   'src/app/dashboard/DashboardClient.tsx',
   'src/app/community/page.tsx',
   'src/app/insights/page.tsx',
@@ -76,6 +80,13 @@ const forbiddenUserFacingCopy = [
   /\banalytics\b/i,
   /\bprogress\b/i,
   /growth journey/i,
+  /\bbegin your journey\b/i,
+  /\bhealing and transformation\b/i,
+  /\bhealing journal\b/i,
+  /\btransformation practice\b/i,
+  /\bpersonalized growth\b/i,
+  /\bcommunity healing circles\b/i,
+  /\bAI-powered mental health support\b/i,
   /leveling up/i,
   /\bmilestone\b/i,
   /\bachievement\b/i,

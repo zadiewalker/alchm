@@ -4,7 +4,6 @@ export interface AppSettings {
   dailyReminderTime: string;
   eveningCheckInEnabled: boolean;
   eveningCheckInTime: string;
-  analyticsEnabled: boolean;
   crashReportingEnabled: boolean;
   autoSaveEnabled: boolean;
   autoSaveIntervalMs: number;
@@ -18,7 +17,6 @@ const DEFAULT_SETTINGS: AppSettings = {
   dailyReminderTime: '09:00',
   eveningCheckInEnabled: false,
   eveningCheckInTime: '21:00',
-  analyticsEnabled: true,
   crashReportingEnabled: true,
   autoSaveEnabled: true,
   autoSaveIntervalMs: 10000,

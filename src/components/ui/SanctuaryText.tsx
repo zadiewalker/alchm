@@ -9,7 +9,7 @@ interface SanctuaryTextProps {
   variant?: TextVariant;
   children: React.ReactNode;
   style?: React.CSSProperties;
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
 }
 
 const variantStyles: Record<TextVariant, React.CSSProperties> = {

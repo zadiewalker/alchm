@@ -99,7 +99,6 @@ export default function SettingsPage() {
         dailyReminderTime: '09:00',
         eveningCheckInEnabled: false,
         eveningCheckInTime: '21:00',
-        analyticsEnabled: true,
         crashReportingEnabled: true,
         autoSaveEnabled: true,
         autoSaveIntervalMs: 10000,
@@ -217,12 +216,6 @@ export default function SettingsPage() {
         </Section>
 
         <Section title="Privacy">
-          <ToggleRow
-            label="Analytics"
-            value={settings.analyticsEnabled}
-            onChange={(value) => onSave('analyticsEnabled', { analyticsEnabled: value })}
-            saved={savedField === 'analyticsEnabled'}
-          />
           <ToggleRow
             label="Crash reporting"
             value={settings.crashReportingEnabled}

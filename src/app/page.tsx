@@ -46,7 +46,7 @@ export default function SplashPage() {
         </h1>
 
         <p className="mt-4 text-center text-[18px] font-light leading-relaxed max-w-[280px]" style={{ color: 'rgba(255, 255, 255, 0.65)' }}>
-          Your digital sanctuary for healing and transformation
+          A private space for quiet reflection
         </p>
 
         <div className="px-8 mt-12 w-full">
@@ -55,7 +55,7 @@ export default function SplashPage() {
             onClick={navigateToDashboard}
             disabled={isNavigating}
             className="flex items-center justify-center w-full py-4 rounded-full bg-[#E5C97D] disabled:opacity-70 disabled:cursor-not-allowed"
-            aria-label="Begin your journey"
+            aria-label="Open ALCHM"
           >
             <span
               style={{
@@ -67,7 +67,7 @@ export default function SplashPage() {
                 whiteSpace: 'nowrap',
               }}
             >
-              {isNavigating ? 'OPENING...' : 'BEGIN YOUR JOURNEY'}
+              {isNavigating ? 'OPENING...' : 'OPEN ALCHM'}
             </span>
           </button>
         </div>
