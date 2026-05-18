@@ -4,7 +4,6 @@ import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { JournalFlow } from '@/components/journal/JournalFlow';
-import { HealthDisclaimer } from '@/components/HealthDisclaimer';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { completeOnboarding, isFirstTimeUser } from '@/lib/onboarding';
 import { DESIGN } from '@/lib/design';
@@ -13,7 +12,7 @@ const FIRST_PROMPT = 'What brought you here today?';
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 3>(1);
 
   useEffect(() => {
     if (!isFirstTimeUser()) {
@@ -32,24 +31,16 @@ export default function OnboardingPage() {
         {step === 1 ? (
           <section style={panelStyle}>
             <Scarab />
-            <h1 style={titleStyle}>Welcome to ALCHM</h1>
-            <p style={bodyStyle}>A quiet space for reflection. No streaks. No scores. Just you and your words.</p>
-            <HealthDisclaimer variant="onboarding" />
-            <button type="button" style={primaryButtonStyle} onClick={() => setStep(2)}>Continue</button>
-          </section>
-        ) : null}
-
-        {step === 2 ? (
-          <section style={panelStyle}>
-            <Scarab />
-            <h2 style={titleStyle}>This is Khepera</h2>
-            <p style={bodyStyle}>
-              Khepera reflects what you write. Not a therapist. Not a chatbot. A mirror that stays close to your words.
-            </p>
-            <p style={bodyStyle}>
-              Before any reflection is returned, ALCHM checks for crisis language and offers direct support when needed.
-            </p>
-            <button type="button" style={primaryButtonStyle} onClick={() => setStep(3)}>Continue</button>
+            <p style={captionStyle}>ALCHM</p>
+            <h1 style={titleStyle}>Write what is here.</h1>
+            <p style={bodyStyle}>One entry begins this. Khepera answers in three parts.</p>
+            <div style={actionStackStyle}>
+              <button type="button" style={primaryButtonStyle} onClick={() => setStep(3)}>Start writing</button>
+              <button type="button" style={secondaryButtonStyle} onClick={finishOnboarding}>Not now</button>
+              <button type="button" style={quietButtonStyle} onClick={() => router.push('/emergency/')}>
+                In crisis? Resources
+              </button>
+            </div>
           </section>
         ) : null}
 
@@ -111,7 +102,7 @@ const titleStyle: React.CSSProperties = {
   margin: 0,
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.serif,
-  fontSize: DESIGN.typography.sizes['2xl'],
+  fontSize: DESIGN.typography.sizes.xxl,
   fontWeight: 500,
 };
 
@@ -123,6 +114,20 @@ const bodyStyle: React.CSSProperties = {
   lineHeight: String(DESIGN.typography.lineHeights.relaxed),
 };
 
+const captionStyle: React.CSSProperties = {
+  margin: 0,
+  color: DESIGN.colors.textMuted,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+};
+
+const actionStackStyle: React.CSSProperties = {
+  width: '100%',
+  display: 'grid',
+  gap: DESIGN.spacing.sm,
+  marginTop: DESIGN.spacing.sm,
+};
+
 const primaryButtonStyle: React.CSSProperties = {
   minHeight: '44px',
   borderRadius: DESIGN.radius.md,
@@ -130,6 +135,21 @@ const primaryButtonStyle: React.CSSProperties = {
   padding: '11px 18px',
   background: DESIGN.colors.bgElevated,
   color: DESIGN.colors.textPrimary,
+  fontFamily: DESIGN.typography.sansSerif,
+  fontSize: DESIGN.typography.sizes.sm,
+};
+
+const secondaryButtonStyle: React.CSSProperties = {
+  ...primaryButtonStyle,
+  background: DESIGN.colors.cardBg,
+  color: DESIGN.colors.textSecondary,
+};
+
+const quietButtonStyle: React.CSSProperties = {
+  minHeight: '44px',
+  border: 'none',
+  background: 'transparent',
+  color: DESIGN.colors.textMuted,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

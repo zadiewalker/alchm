@@ -67,6 +67,25 @@
   --radius-pill: 9999px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --screen-padding-horizontal: var(--page-padding-x);
+  --screen-top-padding: var(--space-4);
+  --content-max-width: 430px;
+  --nav-bar-height: 44px;
+  --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --font-size-sm: 13px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-3xl: 42px;
+  --text-title: 30px;
+  --text-seed: 30px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --line-height-base: 1.45;
+  --khepera-reflection-text: var(--khepera-text);
+  --khepera-perspective-text: var(--khepera-text);
+  --khepera-seed-text: var(--khepera-text);
 
   /* Legacy aliases */
   --sage-deep: var(--color-sage-600);
@@ -116,6 +135,236 @@
 [data-container-atmosphere='warm'] {
   --container-atmosphere-wash: color-mix(in srgb, var(--glass-prominent) 80%, transparent);
   --container-atmosphere-depth: color-mix(in srgb, var(--sage-light) 36%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   App Shell Surfaces
+   ───────────────────────────────────────────────────────────────────── */
+.app-shell-field {
+  background: var(--color-bg-app);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+}
+
+.app-main-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.content-width-shell {
+  width: 100%;
+  max-width: var(--content-max-width);
+}
+
+.alchm-presence,
+.screen-atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+}
+
+.alchm-presence {
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.15), transparent 36%),
+    linear-gradient(180deg, rgba(168, 181, 160, 0.92), transparent 78%);
+}
+
+.screen-atmosphere {
+  z-index: 0;
+  opacity: 0.72;
+}
+
+.card {
+  border: var(--border-muted);
+  border-radius: var(--radius-lg);
+  background: var(--surface-base);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card-standard {
+  padding: var(--space-4);
+}
+
+.card-elevated {
+  padding: var(--space-6);
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-surface);
+}
+
+.btn-primary {
+  min-height: 44px;
+  border: 1px solid var(--color-gold-400);
+  border-radius: var(--radius-pill);
+  background: var(--color-gold-400);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: 10px 18px;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Containers Catalog
+   ───────────────────────────────────────────────────────────────────── */
+.containers-loading,
+.containers-stack,
+.containers-grid,
+.containers-completed-list {
+  display: grid;
+}
+
+.containers-loading {
+  min-height: 40dvh;
+  place-items: center;
+}
+
+.containers-stack {
+  gap: var(--space-6);
+}
+
+.containers-grid {
+  gap: var(--space-4);
+}
+
+.containers-active-card,
+.container-card {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.containers-active-meta,
+.containers-completed-label,
+.container-card__category,
+.container-card__meta,
+.container-card__status-text {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-base);
+}
+
+.containers-active-title,
+.container-card__title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--text-title);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.containers-active-subtitle {
+  margin-top: calc(var(--space-1) * -1);
+}
+
+.containers-completed-list {
+  gap: var(--space-2);
+}
+
+.containers-journal-link {
+  min-height: 44px;
+  padding: var(--space-2);
+  text-align: center;
+}
+
+.container-card {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-6);
+  border: var(--border-visible);
+  border-radius: var(--radius-xl);
+  background-color: var(--surface-base);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.container-card[data-container-atmosphere] {
+  background:
+    radial-gradient(circle at 50% 0%, var(--container-atmosphere-wash), transparent 42%),
+    linear-gradient(180deg, var(--container-atmosphere-depth), transparent 82%),
+    var(--surface-base);
+}
+
+.container-card--active {
+  border-color: var(--container-atmosphere-edge);
+}
+
+.container-card--locked {
+  opacity: 0.74;
+}
+
+.container-card__accent {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--color-gold-400);
+  opacity: 0.75;
+}
+
+.container-card__header,
+.container-card__category-row,
+.container-card__meta-row,
+.container-card__phase,
+.container-card__status-row {
+  display: flex;
+  align-items: center;
+}
+
+.container-card__header,
+.container-card__meta-row {
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.container-card__category-row,
+.container-card__phase,
+.container-card__status-row {
+  gap: var(--space-2);
+}
+
+.container-card__category-icon,
+.container-card__phase-icon {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+}
+
+.container-card__tagline {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.container-card__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.container-card__status-dot.is-active {
+  background: var(--color-gold-400);
+  opacity: 1;
+}
+
+.container-card__action {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.container-card__action--secondary {
+  border: var(--border-muted);
+  background: var(--surface-base);
+  color: var(--color-text-secondary);
 }
 
 /* ─────────────────────────────────────────────────────────────────────

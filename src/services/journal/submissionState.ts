@@ -12,7 +12,7 @@ export function getSubmissionStatusMessage(result: JournalSubmissionResult): str
     case 'crisis_blocked':
       return 'Khepera did not continue. Crisis resources are shown here instead.';
     case 'reflection_limit':
-      return 'Transformation includes unlimited Khepera reflections.';
+      return 'Transformation keeps Khepera reflections available when you need more room.';
     default:
       return null;
   }

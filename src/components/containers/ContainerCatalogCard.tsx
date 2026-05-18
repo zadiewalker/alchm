@@ -62,6 +62,7 @@ export function ContainerCatalogCard({
         isActive ? 'container-card--active' : '',
         !canAccess ? 'container-card--locked' : '',
       ].filter(Boolean).join(' ')}
+      data-container-atmosphere={container.atmosphere}
     >
       {isActive && (
         <div className="container-card__accent" />
