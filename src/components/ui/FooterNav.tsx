@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { DESIGN } from '@/lib/design';
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard' },
@@ -22,7 +23,11 @@ export function FooterNav(): React.JSX.Element {
   return (
     <nav
       aria-label="Primary navigation"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[rgba(255,255,255,0.12)] bg-[#8B9A7C]/95 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] pt-2 backdrop-blur-xl"
+      className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] pt-2 backdrop-blur-xl"
+      style={{
+        background: 'color-mix(in srgb, var(--color-bg-app) 86%, transparent)',
+        borderTop: DESIGN.colors.border,
+      }}
     >
       <ul className="mx-auto grid max-w-md grid-cols-5 gap-1">
         {NAV_ITEMS.map((item) => {
@@ -34,11 +39,16 @@ export function FooterNav(): React.JSX.Element {
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 className={[
-                  'flex min-h-11 items-center justify-center rounded-2xl px-2 text-sm transition-colors',
+                  'flex min-h-11 items-center justify-center px-2 text-sm transition-colors',
                   active
-                    ? 'bg-[rgba(255,255,255,0.12)] text-[#F2D99D]'
-                    : 'text-[#F2D99D]/70 hover:text-[#F2D99D]',
+                    ? 'text-[var(--color-text-primary)]'
+                    : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]',
                 ].join(' ')}
+                style={{
+                  borderRadius: DESIGN.radius.md,
+                  background: active ? DESIGN.colors.bgElevated : 'transparent',
+                  fontFamily: DESIGN.typography.sansSerif,
+                }}
               >
                 {item.label}
               </Link>

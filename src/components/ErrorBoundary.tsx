@@ -3,6 +3,7 @@
 import * as Sentry from '@sentry/react';
 import { Component, ReactNode } from 'react';
 import { safeWindow } from '@/utils/browser';
+import { DESIGN } from '@/lib/design';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -96,14 +97,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
       // Enhanced error UI with reload loop detection
       return (
-        <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] 
-                        flex items-center justify-center p-6">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white max-w-md">
-            <h2 className="text-lg font-medium mb-3">Something went wrong</h2>
+        <div style={{ minHeight: '100vh', background: DESIGN.colors.bgSurface, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: DESIGN.spacing.md }}>
+          <div style={{ background: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: DESIGN.spacing.md, color: DESIGN.colors.textPrimary, maxWidth: 420 }}>
+            <h2 style={{ fontFamily: DESIGN.typography.serif, fontWeight: DESIGN.typography.weights.light, marginBottom: DESIGN.spacing.sm }}>Something went wrong</h2>
             
             {this.state.reloadCount > 2 && (
               <div className="mb-4 p-3 bg-red-500/20 rounded-xl">
-                <p className="text-sm text-red-200">
+                <p style={{ color: DESIGN.colors.error, fontFamily: DESIGN.typography.sansSerif, fontSize: DESIGN.typography.sizes.sm }}>
                   Multiple reload attempts detected. This might be a loop issue.
                 </p>
               </div>
@@ -112,7 +112,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             <div className="space-y-2">
               <button 
                 onClick={this.handleReload}
-                className="w-full px-4 py-2 bg-white/20 rounded-xl text-sm hover:bg-white/30 transition-colors"
+                style={{ width: '100%', minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.md, border: `1px solid ${DESIGN.colors.border}`, background: DESIGN.colors.bgElevated, color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}
                 disabled={this.state.reloadCount > 3}
               >
                 {this.state.reloadCount > 3 ? 'Too many attempts' : 'Reload App'}
@@ -120,7 +120,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               
               <button
                 onClick={this.handleReset}
-                className="w-full px-4 py-2 bg-white/10 rounded-xl text-xs opacity-70 hover:opacity-100 transition-opacity"
+                style={{ width: '100%', minHeight: '44px', padding: '10px 14px', borderRadius: DESIGN.radius.md, border: `1px solid ${DESIGN.colors.borderLight}`, background: DESIGN.colors.cardBg, color: DESIGN.colors.textSecondary, fontFamily: DESIGN.typography.sansSerif, marginTop: DESIGN.spacing.sm }}
               >
                 Return to Start
               </button>
@@ -148,15 +148,15 @@ export const SentryErrorBoundary = Sentry.withErrorBoundary(
   ({ children }: { children: ReactNode }) => <>{children}</>,
   {
     fallback: ({ error, resetError }) => (
-      <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] flex items-center justify-center p-6">
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-md text-center">
-          <h2 className="text-white text-xl font-light mb-4">Application Error</h2>
-          <p className="text-white/80 text-sm mb-6">Something interrupted this screen.</p>
+      <div style={{ minHeight: '100vh', background: DESIGN.colors.bgSurface, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: DESIGN.spacing.md }}>
+        <div style={{ background: DESIGN.colors.cardBg, border: `1px solid ${DESIGN.colors.border}`, borderRadius: DESIGN.radius.lg, padding: DESIGN.spacing.lg, maxWidth: 420, textAlign: 'center' }}>
+          <h2 style={{ color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.serif, fontWeight: DESIGN.typography.weights.light, marginBottom: DESIGN.spacing.sm }}>Application Error</h2>
+          <p style={{ color: DESIGN.colors.textSecondary, fontFamily: DESIGN.typography.sansSerif, fontSize: DESIGN.typography.sizes.sm, marginBottom: DESIGN.spacing.md }}>Something interrupted this screen.</p>
           <button
             onClick={resetError}
-            className="w-full py-3 rounded-xl bg-[#E5C97D] hover:bg-[#F2D99D] transition-all duration-200"
+            style={{ width: '100%', minHeight: '44px', borderRadius: DESIGN.radius.md, border: `1px solid ${DESIGN.colors.border}`, background: DESIGN.colors.bgElevated, color: DESIGN.colors.textPrimary, fontFamily: DESIGN.typography.sansSerif }}
           >
-            <span className="text-white text-sm font-medium">Reset</span>
+            <span>Reset</span>
           </button>
         </div>
       </div>

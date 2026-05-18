@@ -1,14 +1,35 @@
 'use client'
 
+import { DESIGN } from '@/lib/design'
+
 export default function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] 
-                    flex items-center justify-center">
-      <div className="text-center">
-        <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm 
-                        flex items-center justify-center mb-6 mx-auto animate-pulse">
+    <div
+      style={{
+        minHeight: '100vh',
+        background: DESIGN.colors.bgSurface,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <div style={{ textAlign: 'center' }}>
+        <div
+          className="animate-pulse"
+          style={{
+            width: 64,
+            height: 64,
+            borderRadius: DESIGN.radius.full,
+            background: DESIGN.colors.cardBg,
+            border: `1px solid ${DESIGN.colors.borderLight}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: `0 auto ${DESIGN.spacing.md}`,
+          }}
+        >
           {/* Khepera icon */}
-          <svg viewBox="0 0 100 100" className="w-8 h-8 text-white">
+          <svg viewBox="0 0 100 100" style={{ width: 32, height: 32, color: DESIGN.colors.textPrimary }}>
             <circle cx="50" cy="12" r="8" fill="currentColor" fillOpacity="0.9" />
             <circle cx="50" cy="26" r="5" fill="currentColor" fillOpacity="0.85" />
             <ellipse cx="50" cy="55" rx="15" ry="23" fill="currentColor" fillOpacity="0.85" />
@@ -16,8 +37,9 @@ export default function LoadingScreen() {
             <path d="M65 48 Q82 42 78 62 Q76 70 65 65 Z" fill="currentColor" fillOpacity="0.8" />
           </svg>
         </div>
-        <p className="text-white/60 text-sm">Loading ALCHM...</p>
-        <p className="text-white/40 text-xs mt-2">Preparing your sanctuary</p>
+        <p style={{ color: DESIGN.colors.textSecondary, fontFamily: DESIGN.typography.sansSerif, fontSize: DESIGN.typography.sizes.sm }}>
+          Loading ALCHM...
+        </p>
       </div>
     </div>
   )

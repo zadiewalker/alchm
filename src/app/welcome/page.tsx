@@ -27,7 +27,7 @@ export default function WelcomePage() {
           </div>
         </SanctuaryCard>
 
-        <Link href="/dashboard/" style={primaryActionStyle}>Enter Your Sanctuary</Link>
+        <Link href="/dashboard/" style={primaryActionStyle}>Open ALCHM</Link>
       </div>
     </SanctuaryLayout>
   );
@@ -39,10 +39,10 @@ const primaryActionStyle: React.CSSProperties = {
   justifyContent: 'center',
   minHeight: '44px',
   padding: '12px 18px',
-  borderRadius: DESIGN.radius.full,
-  border: `1px solid ${DESIGN.colors.goldDim}`,
-  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  borderRadius: DESIGN.radius.md,
+  border: `1px solid ${DESIGN.colors.border}`,
+  background: DESIGN.colors.bgElevated,
+  color: DESIGN.colors.textPrimary,
   textDecoration: 'none',
   fontFamily: DESIGN.typography.sansSerif,
 };

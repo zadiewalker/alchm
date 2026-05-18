@@ -378,8 +378,8 @@ function ToggleRow({ label, value, onChange, saved = false }: { label: string; v
           width: 52,
           height: 30,
           borderRadius: DESIGN.radius.full,
-          border: `1px solid ${value ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
-          background: value ? DESIGN.colors.gold : DESIGN.colors.cardBg,
+          border: `1px solid ${value ? DESIGN.colors.sageLight : DESIGN.colors.border}`,
+          background: value ? DESIGN.colors.bgWarm : DESIGN.colors.cardBg,
           transition: DESIGN.transitions.normal,
           position: 'relative',
         }}
@@ -390,7 +390,7 @@ function ToggleRow({ label, value, onChange, saved = false }: { label: string; v
             width: 22,
             height: 22,
             borderRadius: '50%',
-            background: '#fff',
+            background: DESIGN.colors.bgElevated,
             position: 'absolute',
             top: 3,
             left: value ? 26 : 4,
@@ -446,10 +446,10 @@ const rowStyle: React.CSSProperties = {
 const primaryButtonStyle: React.CSSProperties = {
   minHeight: '44px',
   borderRadius: DESIGN.radius.md,
-  border: `1px solid ${DESIGN.colors.goldDim}`,
+  border: `1px solid ${DESIGN.colors.border}`,
   padding: '10px 12px',
-  background: DESIGN.colors.gold,
-  color: '#fff',
+  background: DESIGN.colors.bgElevated,
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
 };
 

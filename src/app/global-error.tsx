@@ -1,5 +1,7 @@
 'use client';
 
+import { DESIGN } from '@/lib/design';
+
 export default function GlobalError({
   error,
   reset,
@@ -12,13 +14,33 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <div className="min-h-screen bg-gradient-to-b from-[#A8B09E] to-[#8B9A7C] flex flex-col items-center justify-center px-6">
-          <div className="text-center text-white">
-            <h2 className="text-2xl font-light mb-4">ALCHM</h2>
-            <p className="text-white/80 mb-6">Something went wrong</p>
+        <div
+          style={{
+            minHeight: '100vh',
+            background: DESIGN.colors.bgSurface,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: DESIGN.spacing.md,
+          }}
+        >
+          <div style={{ textAlign: 'center', color: DESIGN.colors.textPrimary }}>
+            <h2 style={{ fontFamily: DESIGN.typography.serif, fontWeight: DESIGN.typography.weights.light, marginBottom: DESIGN.spacing.sm }}>
+              ALCHM
+            </h2>
+            <p style={{ color: DESIGN.colors.textSecondary, marginBottom: DESIGN.spacing.md }}>Something went wrong</p>
             <button 
               onClick={() => reset()}
-              className="px-6 py-2 bg-[#E8C56D] text-white rounded-full"
+              style={{
+                minHeight: '44px',
+                padding: '10px 18px',
+                borderRadius: DESIGN.radius.md,
+                border: `1px solid ${DESIGN.colors.border}`,
+                background: DESIGN.colors.bgElevated,
+                color: DESIGN.colors.textPrimary,
+                fontFamily: DESIGN.typography.sansSerif,
+              }}
             >
               Try again
             </button>

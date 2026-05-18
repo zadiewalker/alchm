@@ -1,13 +1,13 @@
 {
   "name": "ALCHM",
   "short_name": "ALCHM",
-  "description": "A private space for quiet reflection, journaling, and crisis-aware safety support.",
+  "description": "A private space for quiet reflection and writing.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#8B9A7C",
-  "theme_color": "#8B9A7C",
+  "background_color": "#A8B5A0",
+  "theme_color": "#A8B5A0",
   "orientation": "portrait-primary",
-  "categories": ["health", "lifestyle", "medical"],
+  "categories": ["lifestyle", "utilities"],
   "lang": "en-US",
   "dir": "ltr",
   "scope": "/",
@@ -75,34 +75,7 @@
       "platform": "mobile"
     }
   ],
-  "shortcuts": [
-    {
-      "name": "Emergency Support",
-      "short_name": "Crisis",
-      "description": "Quick access to crisis support resources",
-      "url": "/crisis-support",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    },
-    {
-      "name": "Daily Journal",
-      "short_name": "Journal",
-      "description": "Write a journal entry",
-      "url": "/journal/new",
-      "icons": [
-        {
-          "src": "/icon-192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-      ]
-    }
-  ],
+  "shortcuts": [],
   "prefer_related_applications": true,
   "related_applications": [
     {

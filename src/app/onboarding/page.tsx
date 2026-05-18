@@ -64,7 +64,7 @@ export default function OnboardingPage() {
             completionContext={{
               destination: 'journal',
               title: 'The first entry is here.',
-              detail: 'This is your sanctuary. Nothing else is required.',
+              detail: 'This space is here when you need it. Nothing else is required.',
               ctaLabel: 'Enter ALCHM',
             }}
             onComplete={finishOnboarding}
@@ -78,14 +78,14 @@ export default function OnboardingPage() {
 function Scarab() {
   return (
     <svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" style={{ width: 44, height: 56, marginBottom: 8 }} aria-hidden="true">
-      <circle cx="32" cy="6" r="5.5" fill="#E5C97D" />
-      <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#EAE5D9" />
-      <ellipse cx="12" cy="36" rx="10" ry="9" fill="#EAE5D9" opacity="0.92" />
-      <ellipse cx="52" cy="36" rx="10" ry="9" fill="#EAE5D9" opacity="0.92" />
-      <ellipse cx="32" cy="45" rx="18" ry="25" fill="#EAE5D9" />
-      <path d="M32 19 L32 69" stroke="#8B9A7C" strokeWidth="2" opacity="0.75" />
-      <path d="M20 36 Q32 42 44 36" stroke="#8B9A7C" strokeWidth="2" fill="none" opacity="0.65" />
-      <path d="M18 49 Q32 57 46 49" stroke="#8B9A7C" strokeWidth="2" fill="none" opacity="0.65" />
+      <circle cx="32" cy="6" r="5.5" fill="var(--color-sage-500)" />
+      <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="var(--surface-elevated)" />
+      <ellipse cx="12" cy="36" rx="10" ry="9" fill="var(--surface-elevated)" opacity="0.92" />
+      <ellipse cx="52" cy="36" rx="10" ry="9" fill="var(--surface-elevated)" opacity="0.92" />
+      <ellipse cx="32" cy="45" rx="18" ry="25" fill="var(--surface-elevated)" />
+      <path d="M32 19 L32 69" stroke="var(--color-sage-500)" strokeWidth="2" opacity="0.75" />
+      <path d="M20 36 Q32 42 44 36" stroke="var(--color-sage-500)" strokeWidth="2" fill="none" opacity="0.65" />
+      <path d="M18 49 Q32 57 46 49" stroke="var(--color-sage-500)" strokeWidth="2" fill="none" opacity="0.65" />
     </svg>
   );
 }
@@ -125,11 +125,11 @@ const bodyStyle: React.CSSProperties = {
 
 const primaryButtonStyle: React.CSSProperties = {
   minHeight: '44px',
-  borderRadius: DESIGN.radius.full,
-  border: `1px solid ${DESIGN.colors.goldDim}`,
+  borderRadius: DESIGN.radius.md,
+  border: `1px solid ${DESIGN.colors.border}`,
   padding: '11px 18px',
-  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  background: DESIGN.colors.bgElevated,
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

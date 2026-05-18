@@ -18,8 +18,8 @@ export function UpgradePrompt({ feature, message, recommendedTier, onClose }: Up
     <div
       style={{
         borderRadius: DESIGN.radius.lg,
-        border: `1px solid ${DESIGN.colors.goldDim}`,
-        background: 'rgba(232,197,109,0.12)',
+        border: `1px solid ${DESIGN.colors.border}`,
+        background: DESIGN.colors.cardBg,
         padding: DESIGN.spacing.md,
         display: 'grid',
         gap: DESIGN.spacing.sm,
@@ -51,11 +51,11 @@ export function UpgradePrompt({ feature, message, recommendedTier, onClose }: Up
           onClick={() => router.push('/pricing/')}
           style={{
             minHeight: '44px',
-            borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.goldDim}`,
+            borderRadius: DESIGN.radius.md,
+            border: `1px solid ${DESIGN.colors.border}`,
             padding: '10px 14px',
-            background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-            color: '#fff',
+            background: DESIGN.colors.bgElevated,
+            color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
           }}
         >
