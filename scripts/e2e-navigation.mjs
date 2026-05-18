@@ -371,9 +371,10 @@ async function run() {
         await expectDashboard(page);
 
         const linkCases = [
-          { label: 'Journal', path: '/journal' },
-          { label: 'Insights', path: '/insights' },
-          { label: 'Pathways', path: '/pathways' },
+          { label: 'Entries', path: '/journal' },
+          { label: 'Containers', path: '/containers' },
+          { label: 'Mirror', path: '/insights' },
+          { label: 'Settings', path: '/settings' },
         ];
 
         const linkResults = [];

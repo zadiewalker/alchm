@@ -14,7 +14,7 @@ export default function LoginPage() {
       <div style={{ minHeight: '65vh', display: 'grid', placeItems: 'center' }}>
         <SanctuaryCard elevated style={{ width: '100%', maxWidth: 420, textAlign: 'center' }}>
           <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.xs }}>Welcome Back</SanctuaryText>
-          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.md }}>Sign in to your healing sanctuary</SanctuaryText>
+          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.md }}>Sign in to your private reflection space</SanctuaryText>
           <Link href="/dashboard/" style={primaryActionStyle}>Demo Login</Link>
           <SanctuaryText variant="muted" style={{ marginTop: DESIGN.spacing.md }}>
             Need an account? <Link href="/auth/signup/" style={inlineLinkStyle}>Create one</Link>

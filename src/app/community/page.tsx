@@ -16,14 +16,14 @@ export default function CommunityPage() {
   const reflections = useMemo(() => listSharedReflections(), [tick]);
 
   return (
-    <SanctuaryLayout header={<SanctuaryHeader title="Community" showBack />}>
+    <SanctuaryLayout header={<SanctuaryHeader title="Shared Reflections" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         <SanctuaryCard>
           <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.xs }}>
-            Anonymous wisdom moments
+            Shared reflections
           </SanctuaryText>
           <SanctuaryText variant="caption">
-            Community sharing is currently in local preview mode while moderation infrastructure is finalized.
+            Sharing is currently unavailable while moderation infrastructure is finalized.
           </SanctuaryText>
         </SanctuaryCard>
 
@@ -31,8 +31,8 @@ export default function CommunityPage() {
 
         {!reflections.length ? (
           <EmptyState
-            title="Community reflections are coming soon"
-            message="When community goes live, shared moments from people on similar journeys will appear here."
+            title="Shared reflections are unavailable"
+            message="This space will remain quiet until it can be moderated safely."
           />
         ) : (
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>

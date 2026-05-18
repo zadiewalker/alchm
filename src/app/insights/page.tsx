@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useData } from '@/hooks/useData';
 import type { JournalEntry } from '@/lib/dataService';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
@@ -29,7 +29,7 @@ export default function InsightsPage() {
       })
       .catch(() => {
         if (!mounted) return;
-        setError('Unable to load insights right now.');
+        setError('Unable to load Mirror right now.');
       })
       .finally(() => {
         if (!mounted) return;
@@ -41,22 +41,17 @@ export default function InsightsPage() {
     };
   }, [getJournalEntries]);
 
-  const recentlyNamedTones = useMemo(() => {
-    const tones = entries.flatMap((entry) => entry.emotions || []);
-    return Array.from(new Set(tones.filter(Boolean))).slice(0, 5);
-  }, [entries]);
-
   if (!isInitialized || loading) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
-        <LoadingState message="Letting the reflections gather..." variant="page" />
+      <SanctuaryLayout header={<SanctuaryHeader title="Mirror" showBack />}>
+        <LoadingState message="Opening Mirror..." variant="page" />
       </SanctuaryLayout>
     );
   }
 
   if (error) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="Mirror" showBack />}>
         <ErrorState variant="inline" message={error} />
       </SanctuaryLayout>
     );
@@ -64,43 +59,43 @@ export default function InsightsPage() {
 
   if (!entries.length) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
-        <EmptyState title="Nothing has gathered yet" message="After a few entries, themes may begin to appear here." />
+      <SanctuaryLayout header={<SanctuaryHeader title="Mirror" showBack />}>
+        <EmptyState title="Nothing to mirror yet" message="After you write, recent entries can appear here without scores or interpretation." />
       </SanctuaryLayout>
     );
   }
 
   return (
-    <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+    <SanctuaryLayout header={<SanctuaryHeader title="Mirror" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         <SanctuaryCard>
           <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.xs }}>
-            Khepera reflects
+            Mirror
           </SanctuaryText>
           <SanctuaryText variant="body">
-            You have written {entries.length} reflections. Your words are building a gentler picture of what you carry.
+            A quiet place to look back at recent writing without scores, rankings, or interpretation.
           </SanctuaryText>
         </SanctuaryCard>
 
         <SanctuaryCard>
           <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-            Recently named tones
+            Recent writing
           </SanctuaryText>
           <div style={{ display: 'grid', gap: DESIGN.spacing.xs }}>
-            {recentlyNamedTones.map((emotion) => (
-              <div key={emotion} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <SanctuaryText variant="body">{emotion}</SanctuaryText>
-              </div>
+            {entries.slice(0, 3).map((entry) => (
+              <SanctuaryText key={entry.id} variant="body">
+                {new Date(entry.createdAt).toLocaleDateString()}
+              </SanctuaryText>
             ))}
           </div>
         </SanctuaryCard>
 
         <SanctuaryCard>
           <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-            Reflection rhythm
+            Latest entry
           </SanctuaryText>
           <SanctuaryText variant="body">
-            Most recent reflection: {new Date(entries[0]?.createdAt || Date.now()).toLocaleDateString()}.
+            {new Date(entries[0]?.createdAt || Date.now()).toLocaleDateString()}
           </SanctuaryText>
         </SanctuaryCard>
       </div>

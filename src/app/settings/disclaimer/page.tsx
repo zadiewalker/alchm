@@ -12,7 +12,7 @@ export default function DisclaimerPage() {
       <SanctuaryCard elevated>
         <Section
           title="Not Medical Advice"
-          body="ALCHM supports reflection, mindfulness, and personal growth. It is not a substitute for professional medical advice, diagnosis, or treatment."
+          body="ALCHM supports private reflection and writing. It is not a substitute for professional medical advice, diagnosis, or treatment."
         />
         <Section
           title="Seek Professional Help"
@@ -24,7 +24,7 @@ export default function DisclaimerPage() {
         />
         <Section
           title="AI Companion"
-          body="Khepera provides supportive AI-generated reflections and is not a licensed therapist or clinical treatment provider."
+          body="Khepera provides AI-generated reflections and is not a licensed therapist or clinical treatment provider."
         />
         <Section
           title="Your Responsibility"
