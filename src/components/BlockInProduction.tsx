@@ -1,5 +1,7 @@
 'use client';
 
+import { DESIGN } from '@/lib/design';
+
 export function BlockInProduction() {
   if (process.env.NODE_ENV !== 'production') {
     return null;
@@ -12,9 +14,9 @@ export function BlockInProduction() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(to bottom, #8B9A7C, #A8B5A0)',
-        color: 'rgba(255,255,255,0.9)',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
+        background: DESIGN.colors.bgSurface,
+        color: DESIGN.colors.textPrimary,
+        fontFamily: DESIGN.typography.sansSerif,
         textAlign: 'center',
         padding: '24px',
       }}

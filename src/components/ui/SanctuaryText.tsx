@@ -18,12 +18,14 @@ const variantStyles: Record<TextVariant, React.CSSProperties> = {
     fontWeight: DESIGN.typography.weights.light,
     color: DESIGN.colors.textPrimary,
     lineHeight: DESIGN.typography.lineHeights.tight,
+    fontFamily: DESIGN.typography.serif,
   },
   title: {
     fontSize: DESIGN.typography.sizes.xl,
     fontWeight: DESIGN.typography.weights.light,
     color: DESIGN.colors.textPrimary,
     lineHeight: DESIGN.typography.lineHeights.normal,
+    fontFamily: DESIGN.typography.serif,
   },
   body: {
     fontSize: DESIGN.typography.sizes.base,
@@ -45,6 +47,7 @@ const variantStyles: Record<TextVariant, React.CSSProperties> = {
     fontSize: DESIGN.typography.sizes.sm,
     color: DESIGN.colors.textKhepera,
     lineHeight: DESIGN.typography.lineHeights.normal,
+    fontFamily: DESIGN.typography.serif,
   },
 };
 

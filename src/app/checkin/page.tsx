@@ -166,11 +166,11 @@ export default function CheckInPage() {
 
 const primaryButtonStyle: React.CSSProperties = {
   minHeight: '44px',
-  borderRadius: DESIGN.radius.full,
-  border: `1px solid ${DESIGN.colors.goldDim}`,
+  borderRadius: DESIGN.radius.md,
+  border: `1px solid ${DESIGN.colors.border}`,
   padding: '10px 18px',
-  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  background: DESIGN.colors.bgElevated,
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

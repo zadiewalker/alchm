@@ -37,15 +37,13 @@ function greetingLabel() {
 const primaryButtonStyle: React.CSSProperties = {
   height: '44px',
   width: '100%',
-  border: 'none',
-  borderRadius: DESIGN.radius.full,
-  backgroundColor: DESIGN.colors.gold,
-  color: '#ffffff',
+  border: `1px solid ${DESIGN.colors.border}`,
+  borderRadius: DESIGN.radius.md,
+  backgroundColor: DESIGN.colors.bgElevated,
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
   fontWeight: DESIGN.typography.weights.medium,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase',
   cursor: 'pointer',
   transition: DESIGN.transitions.normal,
 };
@@ -108,7 +106,7 @@ export default function DashboardClient() {
   if (!isInitialized) {
     return (
       <SanctuaryLayout header={<SanctuaryHeader title="Dashboard" />}>
-        <LoadingState message="Preparing your sanctuary..." variant="page" />
+        <LoadingState message="Preparing ALCHM..." variant="page" />
       </SanctuaryLayout>
     );
   }
@@ -200,11 +198,11 @@ export default function DashboardClient() {
             onClick={() => router.push('/journal/new/')}
             style={{
               minHeight: '44px',
-              borderRadius: DESIGN.radius.full,
-              border: `1px solid ${DESIGN.colors.goldDim}`,
+              borderRadius: DESIGN.radius.md,
+              border: `1px solid ${DESIGN.colors.border}`,
               padding: '10px 18px',
-              background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-              color: '#fff',
+              background: DESIGN.colors.bgElevated,
+              color: DESIGN.colors.textPrimary,
               fontFamily: DESIGN.typography.sansSerif,
               fontSize: DESIGN.typography.sizes.sm,
             }}
@@ -278,7 +276,7 @@ export default function DashboardClient() {
         {!loadingEntries && error ? <ErrorState variant="inline" message={error} /> : null}
         {!loadingEntries && !error && !entries.length ? (
           <EmptyState
-            title="Welcome to your sanctuary"
+            title="Welcome to your space"
             message="This is where your words will live. There's no right way to begin."
             actionLabel="Begin"
             onAction={() => router.push('/journal/new/')}

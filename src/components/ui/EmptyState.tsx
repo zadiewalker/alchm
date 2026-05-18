@@ -27,10 +27,10 @@ export function EmptyState({ icon = '☾', title, message, actionLabel, onAction
           style={{
             marginTop: DESIGN.spacing.md,
             minHeight: '44px',
-            borderRadius: DESIGN.radius.full,
-            border: `1px solid ${DESIGN.colors.goldDim}`,
-            background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-            color: '#fff',
+            borderRadius: DESIGN.radius.md,
+            border: `1px solid ${DESIGN.colors.border}`,
+            background: DESIGN.colors.bgElevated,
+            color: DESIGN.colors.textPrimary,
             padding: '10px 18px',
             fontFamily: DESIGN.typography.sansSerif,
           }}

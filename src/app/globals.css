@@ -17,10 +17,61 @@
   --sab: env(safe-area-inset-bottom);
   --sal: env(safe-area-inset-left);
   
-  /* Sanctuary Colors */
-  --sage-deep: #8B9A7C;
-  --sage-light: #A8B5A0;
-  --sage-whisper: #B8C4AD;
+  /* Canonical launch design tokens */
+  --font-family-body: "Jost", "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-family-heading: "Cormorant Garamond", "New York", Georgia, serif;
+  --font-family-khepera: "Cormorant Garamond", "New York", Georgia, serif;
+  --color-moss-900: #2a2520;
+  --color-sage-600: #8B9A7C;
+  --color-sage-500: #6b7a5e;
+  --color-sage-400: #A8B5A0;
+  --color-sage-300: #c2d1b8;
+  --color-gold-400: #b89d4a;
+  --color-gold-500: #E8C56D;
+  --color-gold-600: #f5dfa0;
+  --color-bark-400: #c47a6a;
+  --color-bg-app: #A8B5A0;
+  --surface-base: rgba(255, 255, 255, 0.15);
+  --surface-elevated: rgba(255, 255, 255, 0.20);
+  --surface-focus: rgba(232, 197, 109, 0.12);
+  --surface-quiet: rgba(255, 255, 255, 0.10);
+  --surface-held: rgba(168, 181, 160, 0.92);
+  --surface-reflective: rgba(255, 255, 255, 0.06);
+  --color-text-primary: #1f2937;
+  --color-text-secondary: rgba(0, 0, 0, 0.65);
+  --color-text-muted: rgba(0, 0, 0, 0.55);
+  --khepera-text: #6b7a5e;
+  --border-subtle: 1px solid rgba(0, 0, 0, 0.08);
+  --border-muted: 1px solid rgba(0, 0, 0, 0.10);
+  --border-visible: 1px solid rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.08);
+  --shadow-surface: 0 18px 42px rgba(0, 0, 0, 0.10);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow-held: 0 18px 40px rgba(0, 0, 0, 0.09);
+  --shadow-reflective: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(232, 197, 109, 0.15);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --page-padding-x: 20px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-pill: 9999px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Legacy aliases */
+  --sage-deep: var(--color-sage-600);
+  --sage-light: var(--color-sage-400);
+  --sage-whisper: var(--color-sage-300);
   
   /* Surface Opacities */
   --glass-subtle: rgba(255, 255, 255, 0.05);
@@ -87,10 +138,10 @@ body {
   height: 100%;
   margin: 0;
   padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 4.75rem);
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
+  font-family: var(--font-family-body);
+  background: var(--color-bg-app);
   background-attachment: fixed;
-  color: white;
+  color: var(--color-text-primary);
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
@@ -247,7 +298,7 @@ textarea {
    Sanctuary-Specific Utilities
    ───────────────────────────────────────────────────────────────────── */
 .sanctuary-gradient {
-  background: linear-gradient(to bottom, var(--sage-deep), var(--sage-light));
+  background: var(--color-bg-app);
 }
 
 .fade-bottom {

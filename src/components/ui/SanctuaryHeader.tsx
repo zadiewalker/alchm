@@ -21,8 +21,8 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
         zIndex: 20,
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 18px)',
         paddingBottom: DESIGN.spacing.md,
-        background: `linear-gradient(to bottom, ${DESIGN.colors.sageLight}, rgba(168,181,160,0.92))`,
-        backdropFilter: 'blur(8px)',
+        background: 'color-mix(in srgb, var(--color-bg-app) 88%, transparent)',
+        backdropFilter: 'blur(14px)',
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', gap: DESIGN.spacing.sm }}>
@@ -49,7 +49,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             margin: 0,
             textAlign: 'center',
             color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
+            fontFamily: DESIGN.typography.serif,
             fontSize: DESIGN.typography.sizes.xl,
             fontWeight: DESIGN.typography.weights.light,
           }}
