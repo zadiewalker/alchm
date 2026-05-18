@@ -24,22 +24,22 @@ export default function PathwaysPage() {
 
   if (!CORE_PATHWAYS.length) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Pathways" showBack />}>
-        <EmptyState title="No pathways yet" message="Guided journeys will appear here soon." />
+      <SanctuaryLayout header={<SanctuaryHeader title="Writing Paths" showBack />}>
+        <EmptyState title="No writing paths yet" message="Optional writing paths will appear here when they are ready." />
       </SanctuaryLayout>
     );
   }
 
   return (
-    <SanctuaryLayout header={<SanctuaryHeader title="Pathways" showBack />}>
+    <SanctuaryLayout header={<SanctuaryHeader title="Writing Paths" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         {active ? (
           <SanctuaryCard elevated style={{ borderColor: DESIGN.colors.goldDim }}>
             <SanctuaryText variant="caption" style={{ color: DESIGN.colors.textKhepera, marginBottom: DESIGN.spacing.xs }}>
-              Active pathway
+              Active path
             </SanctuaryText>
             <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.xs }}>
-              {getPathwayById(active.pathwayId)?.title || 'Current pathway'}
+              {getPathwayById(active.pathwayId)?.title || 'Current path'}
             </SanctuaryText>
             <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.md }}>
               Day {Math.min((active.currentStep || 0) + 1, getPathwayById(active.pathwayId)?.duration || 1)} of{' '}
@@ -50,7 +50,7 @@ export default function PathwaysPage() {
               onClick={() => router.push(`/journal/new/?pathway=${active.pathwayId}&step=${active.currentStep || 0}`)}
               style={primaryButtonStyle}
             >
-              Continue pathway
+              Continue path
             </button>
           </SanctuaryCard>
         ) : null}
@@ -96,7 +96,7 @@ export default function PathwaysPage() {
                     type="button"
                     onClick={() => {
                       if (!available) {
-                        setUpgradeMessage('Guided pathways are available on the Sanctuary tier.');
+                        setUpgradeMessage('Writing paths are available on the Sanctuary tier.');
                         return;
                       }
                       startPathway(pathway.id);
@@ -105,7 +105,7 @@ export default function PathwaysPage() {
                     }}
                     style={available ? primaryButtonStyle : secondaryButtonStyle}
                   >
-                    {available ? 'Start pathway' : 'Unlock in Sanctuary'}
+                    {available ? 'Start path' : 'Unlock in Sanctuary'}
                   </button>
                 )}
               </SanctuaryCard>
@@ -116,7 +116,7 @@ export default function PathwaysPage() {
         {completed.length ? (
           <SanctuaryCard>
             <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-              Completed journeys
+              Past writing paths
             </SanctuaryText>
             <div style={{ display: 'grid', gap: DESIGN.spacing.xs }}>
               {completed.slice(0, 5).map((item) => (
@@ -130,14 +130,14 @@ export default function PathwaysPage() {
 
         <Link href="/journal/" style={{ textDecoration: 'none' }}>
           <SanctuaryCard>
-            <SanctuaryText variant="body">Pathway entries appear in your journal with pathway labels.</SanctuaryText>
+            <SanctuaryText variant="body">Path entries appear in Entries with path labels.</SanctuaryText>
           </SanctuaryCard>
         </Link>
       </div>
 
       {upgradeMessage ? (
         <UpgradePrompt
-          feature="Guided pathways"
+          feature="Writing paths"
           message={upgradeMessage}
           recommendedTier="sanctuary"
           onClose={() => setUpgradeMessage('')}

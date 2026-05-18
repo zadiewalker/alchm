@@ -224,14 +224,14 @@ export default function SettingsPage() {
           />
         </Section>
 
-        <Section title="Journal">
+        <Section title="Entries">
           <ToggleRow
             label="Auto-save"
             value={settings.autoSaveEnabled}
             onChange={(value) => onSave('autoSaveEnabled', { autoSaveEnabled: value })}
             saved={savedField === 'autoSaveEnabled'}
           />
-          <ActionButton label="Export journal" onClick={() => setShowExportSheet(true)} saved={savedField === 'export'} />
+          <ActionButton label="Export entries" onClick={() => setShowExportSheet(true)} saved={savedField === 'export'} />
           {settings.lastExportDate ? (
             <SanctuaryText variant="caption">Last export: {new Date(settings.lastExportDate).toLocaleString()}</SanctuaryText>
           ) : null}
@@ -240,7 +240,7 @@ export default function SettingsPage() {
           {confirmClear ? (
             <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'rgba(196,122,106,0.18)' }}>
               <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
-                This will permanently delete all journal entries and settings. This cannot be undone.
+                This will permanently delete all entries and settings. This cannot be undone.
               </SanctuaryText>
               <div style={{ display: 'flex', gap: DESIGN.spacing.sm }}>
                 <button type="button" onClick={() => setConfirmClear(false)} style={secondaryButtonStyle}>
@@ -283,7 +283,7 @@ export default function SettingsPage() {
       {showExportSheet ? (
         <div style={sheetOverlayStyle} role="dialog" aria-modal="true">
           <div style={sheetStyle}>
-            <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Export Journal</SanctuaryText>
+            <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Export Entries</SanctuaryText>
 
             <label style={sheetRowStyle}>
               <SanctuaryText variant="caption">Format</SanctuaryText>

@@ -13,8 +13,8 @@ export default function SignupPage() {
     <SanctuaryLayout header={<SanctuaryHeader title="Join ALCHM" showBack />}>
       <div style={{ minHeight: '65vh', display: 'grid', placeItems: 'center' }}>
         <SanctuaryCard elevated style={{ width: '100%', maxWidth: 420, textAlign: 'center' }}>
-          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.xs }}>Begin Your Journey</SanctuaryText>
-          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.md }}>Create your healing sanctuary</SanctuaryText>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.xs }}>Begin Writing</SanctuaryText>
+          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.md }}>Create your private reflection space</SanctuaryText>
           <Link href="/dashboard/" style={primaryActionStyle}>Demo Signup</Link>
           <SanctuaryText variant="muted" style={{ marginTop: DESIGN.spacing.md }}>
             Already have an account? <Link href="/auth/login/" style={inlineLinkStyle}>Sign in</Link>

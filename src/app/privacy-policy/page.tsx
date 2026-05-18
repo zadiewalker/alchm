@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
         <div className="mb-8 text-center">
           <h1 className="text-white text-3xl font-light mb-4">Privacy Policy</h1>
           <div className="text-white/60">
-            <p className="mb-2">ALCHM Digital Sanctuary - Trauma-Informed Journaling Platform</p>
+            <p className="mb-2">ALCHM - Private Reflection Space</p>
             <p className="font-medium">Last Updated: {lastUpdated}</p>
             <p className="text-sm">Effective Date: January 26, 2026</p>
           </div>
@@ -141,13 +141,13 @@ export default function PrivacyPolicy() {
               <div className="bg-red-50 p-6 rounded-lg">
                 <h3 className="font-semibold text-red-900 mb-3">🚨 Crisis Detection & Safety</h3>
                 <p className="text-red-800 text-sm mb-2">
-                  To protect your wellbeing, we may analyze entries for signs of mental health crisis:
+                  To protect immediate safety, entries are checked for crisis language before AI reflection:
                 </p>
                 <ul className="text-red-700 text-sm space-y-1">
                   <li>• Detect potential self-harm indicators</li>
                   <li>• Provide immediate crisis resources</li>
-                  <li>• Anonymous reporting for safety monitoring</li>
-                  <li>• Statistical analysis for system improvement</li>
+                  <li>• Crisis resources are shown when needed</li>
+                  <li>• Crisis checks are not used for emotional scoring</li>
                 </ul>
                 <div className="text-xs text-red-600 mt-2 p-2 bg-red-100 rounded">
                   <strong>Legal basis:</strong> Vital interests (GDPR Article 6(1)(d)) - Your safety is paramount
@@ -160,9 +160,9 @@ export default function PrivacyPolicy() {
                   We use aggregated, anonymized data to enhance ALCHM:
                 </p>
                 <ul className="text-blue-700 text-sm space-y-1">
-                  <li>• Improve AI accuracy and therapeutic value</li>
-                  <li>• Optimize user experience and performance</li>
-                  <li>• Develop new mental health features</li>
+                  <li>• Maintain reflection quality and reliability</li>
+                  <li>• Improve app performance and accessibility</li>
+                  <li>• Maintain privacy, safety, and security controls</li>
                   <li>• Ensure platform reliability and security</li>
                 </ul>
               </div>
@@ -193,7 +193,7 @@ export default function PrivacyPolicy() {
                 <div>
                   <h4 className="font-medium text-gray-800 mb-2">🔍 Right to Access</h4>
                   <p className="text-gray-700 text-sm">
-                    Request a complete copy of all personal data we hold about you, including journal entries and AI analyses.
+                    Request a complete copy of all personal data we hold about you, including entries and Khepera reflections.
                   </p>
                   <Link href="/privacy" className="text-blue-600 text-sm hover:underline mt-1 block">
                     → Request data export
@@ -343,8 +343,8 @@ export default function PrivacyPolicy() {
                 <div className="flex items-start space-x-3">
                   <span className="text-green-500 mt-1">✓</span>
                   <div>
-                    <strong className="text-gray-900">Analytics Participation:</strong>
-                    <span className="text-gray-700"> Choose to share anonymized usage data for service improvement.</span>
+                    <strong className="text-gray-900">Operational Diagnostics:</strong>
+                    <span className="text-gray-700"> Choose whether crash reporting can support app reliability.</span>
                   </div>
                 </div>
                 
@@ -352,7 +352,7 @@ export default function PrivacyPolicy() {
                   <span className="text-green-500 mt-1">✓</span>
                   <div>
                     <strong className="text-gray-900">Research Participation:</strong>
-                    <span className="text-gray-700"> Opt into contributing anonymized data to mental health research.</span>
+                    <span className="text-gray-700"> ALCHM does not currently offer research-data participation.</span>
                   </div>
                 </div>
               </div>
@@ -393,7 +393,7 @@ export default function PrivacyPolicy() {
                   </div>
                   
                   <div className="bg-white p-4 rounded border">
-                    <h4 className="font-medium text-gray-900">AI Analysis Data</h4>
+                    <h4 className="font-medium text-gray-900">Khepera Reflection Data</h4>
                     <ul className="text-gray-700 text-sm mt-2 space-y-1">
                       <li>• Delete after 12 months</li>
                       <li>• Delete after 24 months (recommended)</li>
@@ -433,8 +433,8 @@ export default function PrivacyPolicy() {
               <div className="bg-green-50 border-2 border-green-200 rounded-lg p-6">
                 <h3 className="font-semibold text-green-900 mb-3">✅ Limited, Ethical Sharing</h3>
                 <ul className="text-green-800 space-y-2">
-                  <li>• Anonymized crisis statistics (for safety research)</li>
-                  <li>• Aggregated usage patterns (for service improvement)</li>
+                  <li>• Minimal operational diagnostics when enabled</li>
+                  <li>• Required infrastructure processing for app reliability</li>
                   <li>• Required legal compliance (with court orders)</li>
                   <li>• Essential service providers (with data processing agreements)</li>
                 </ul>
@@ -544,7 +544,7 @@ export default function PrivacyPolicy() {
                 <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   <Link href="/privacy" className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-center">
-                    Privacy Dashboard
+                    Privacy Settings
                   </Link>
                   <Link href="/transparency" className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 text-center">
                     Transparency Report
@@ -562,17 +562,17 @@ export default function PrivacyPolicy() {
         {/* Footer */}
         <div className="mt-12 text-center text-sm text-white/40 border-t border-white/10 pt-8">
           <p className="mb-4 text-white/60">
-            This privacy policy demonstrates ALCHM's commitment to protecting your mental health data 
+            This privacy policy demonstrates ALCHM&apos;s commitment to protecting your reflection data
             with the highest standards of privacy and security.
           </p>
           <div className="flex justify-center space-x-6 text-[#E5C97D]">
-            <Link href="/privacy" className="hover:underline">Privacy Dashboard</Link>
+            <Link href="/privacy" className="hover:underline">Privacy Settings</Link>
             <Link href="/transparency" className="hover:underline">Transparency Report</Link>
             <Link href="/terms" className="hover:underline">Terms of Service</Link>
             <a href="mailto:privacy@alchm.app" className="hover:underline">Privacy Questions</a>
           </div>
           <p className="mt-4 text-white/30">
-            © 2026 ALCHM Digital Sanctuary. All rights reserved. | Privacy Policy Version 1.1
+            © 2026 ALCHM. All rights reserved. | Privacy Policy Version 1.1
           </p>
         </div>
       </div>

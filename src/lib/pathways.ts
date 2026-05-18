@@ -38,7 +38,7 @@ export const CORE_PATHWAYS: Pathway[] = [
   {
     id: 'sitting-with-anxiety',
     title: 'Sitting With Anxiety',
-    description: 'A 5-day journey into what anxiety is trying to protect.',
+    description: 'A 5-day writing path for noticing what anxiety may be protecting.',
     duration: 5,
     framework: 'somatic',
     tier: 'sanctuary',

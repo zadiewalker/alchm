@@ -73,33 +73,22 @@ export default function JournalSuccessCeremony({
               </div>
               <h3 className="text-white text-lg font-light mb-2">Khepera Responds</h3>
               <p className="text-white/70 text-sm leading-relaxed">
-                "Your courage to share creates ripples of healing. I see your strength."
+                "Your words are here. I am staying with what you shared."
               </p>
             </div>
           </div>
         )}
 
-        {/* Stage 3: Progress Celebration */}
+        {/* Stage 3: Quiet close */}
         <div className={`transition-all duration-1000 ${stage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="text-center">
             <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/25 to-purple-400/15 border border-purple-400/20 flex items-center justify-center transition-transform duration-500 ${showCelebration ? 'scale-110' : 'scale-100'}`}>
               <span className="text-2xl">✨</span>
             </div>
-            <h3 className="text-white text-lg font-light mb-2">Healing Journey Continues</h3>
+            <h3 className="text-white text-lg font-light mb-2">Entry Complete</h3>
             <p className="text-white/60 text-sm mb-6">
-              Every reflection deepens your self-understanding and strengthens your sanctuary
+              Your writing has been saved. You can return when you are ready.
             </p>
-
-            {/* Progress Indicator */}
-            <div className="bg-white/10 rounded-full p-1 mb-6">
-              <div className="flex items-center justify-center space-x-2 py-2">
-                <div className="w-2 h-2 rounded-full bg-[#E5C97D]"></div>
-                <div className="w-6 h-0.5 bg-[#E5C97D]/50"></div>
-                <div className="w-2 h-2 rounded-full bg-[#E5C97D]/60"></div>
-                <div className="w-6 h-0.5 bg-white/20"></div>
-                <div className="w-2 h-2 rounded-full bg-white/30"></div>
-              </div>
-            </div>
 
             {/* Action Buttons */}
             <div className="space-y-3">
@@ -108,20 +97,20 @@ export default function JournalSuccessCeremony({
                 className="block w-full py-3 bg-[#E5C97D] hover:bg-[#F2D99D] text-white text-center rounded-xl font-medium transition-colors duration-200"
                 onClick={onComplete}
               >
-                Return to Sanctuary
+                Return to Dashboard
               </Link>
               <Link
-                href="/pathways"
+                href="/containers"
                 className="block w-full py-3 bg-white/10 hover:bg-white/20 text-white text-center rounded-xl border border-white/20 font-medium transition-colors duration-200"
                 onClick={onComplete}
               >
-                Explore Healing Pathways
+                Open Containers
               </Link>
               <button
                 onClick={onComplete}
                 className="w-full py-2 text-white/60 hover:text-white/80 text-sm transition-colors duration-200"
               >
-                Continue Journaling
+                Continue writing
               </button>
             </div>
           </div>

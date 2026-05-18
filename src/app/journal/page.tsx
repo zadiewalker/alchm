@@ -20,7 +20,7 @@ export default function JournalPage() {
   return (
     <Suspense
       fallback={
-        <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+        <SanctuaryLayout header={<SanctuaryHeader title="Entries" showBack />}>
           <LoadingState message="Loading your entries..." variant="page" />
         </SanctuaryLayout>
       }
@@ -96,7 +96,7 @@ function JournalContent() {
 
   if (!isInitialized || loading) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="Entries" showBack />}>
         <LoadingState message="Loading your entries..." variant="page" />
       </SanctuaryLayout>
     );
@@ -104,7 +104,7 @@ function JournalContent() {
 
   if (error) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Journal" showBack />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="Entries" showBack />}>
         <ErrorState message={error} onRetry={() => router.refresh()} />
       </SanctuaryLayout>
     );
@@ -150,7 +150,7 @@ function JournalContent() {
       <SanctuaryLayout
         header={
           <SanctuaryHeader
-            title="Journal"
+            title="Entries"
             showBack
             rightAction={
               <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>
@@ -177,7 +177,7 @@ function JournalContent() {
     <SanctuaryLayout
       header={
         <SanctuaryHeader
-          title="Journal"
+          title="Entries"
           showBack
           rightAction={
             <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>

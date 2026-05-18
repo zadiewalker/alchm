@@ -53,7 +53,7 @@ export function useTransformationAccess({
     hasAccess,
     hasOffering,
     isOpening: false,
-    label: hasAccess ? 'Open Transformation' : 'Upgrade to Transformation',
+    label: hasAccess ? 'Open Continuity' : 'Open Continuity',
     openTransformation,
     statusMessage: null,
   };

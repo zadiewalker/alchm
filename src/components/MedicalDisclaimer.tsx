@@ -30,11 +30,11 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
           <div className="space-y-4 text-sm text-gray-700">
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
               <h3 className="font-semibold text-yellow-900 mb-2">
-                🚨 This is not medical treatment
+                ALCHM is not medical care
               </h3>
               <p>
-                ALCHM is a digital wellness tool designed to support your mental health journey 
-                through guided journaling and AI-powered insights. It is <strong>not</strong> a 
+                ALCHM is a private writing space for reflection. Khepera offers AI-generated
+                reflections on what you write. It is <strong>not</strong> a
                 substitute for professional medical care, therapy, or psychiatric treatment.
               </p>
             </div>
@@ -48,7 +48,7 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-blue-500 mt-1">•</span>
-                  <span>AI insights are for reflection purposes only, not medical guidance</span>
+                  <span>AI reflections are for reflection purposes only, not medical guidance</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-blue-500 mt-1">•</span>
@@ -67,7 +67,7 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
               </h3>
               <p className="text-red-800">
                 Please contact emergency services immediately at 911 or call the 
-                988 Suicide & Crisis Lifeline. ALCHM's crisis detection is a supportive 
+                988 Suicide & Crisis Lifeline. ALCHM&apos;s crisis detection is a safety
                 feature but should not be relied upon as your sole safety resource.
               </p>
             </div>
@@ -75,7 +75,7 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
             <div className="text-xs text-gray-500 mt-4">
               <p>
                 By proceeding, you acknowledge that you have read and understood this disclaimer. 
-                You agree to use ALCHM as a wellness tool alongside, not instead of, 
+                You agree to use ALCHM as a reflection space alongside, not instead of,
                 professional medical care when needed.
               </p>
             </div>

@@ -248,10 +248,10 @@ export default function DashboardClient() {
 
         <SanctuaryCard>
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
-            <DashboardNav href="/journal/" title="Journal" subtitle="Your past reflections" />
-            <DashboardNav href="/insights/" title="Insights" subtitle="Patterns Khepera has noticed" />
-            <DashboardNav href="/pathways/" title="Pathways" subtitle="Guided reflection paths" />
-            <DashboardNav href="/community/" title="Community" subtitle="Anonymous wisdom moments" />
+            <DashboardNav href="/journal/" title="Entries" subtitle="Your writing archive" />
+            <DashboardNav href="/containers/" title="Containers" subtitle="Structured reflection spaces" />
+            <DashboardNav href="/insights/" title="Mirror" subtitle="A quiet look back at recent writing" />
+            <DashboardNav href="/settings/" title="Settings" subtitle="Privacy, export, and app controls" />
           </div>
         </SanctuaryCard>
 
@@ -269,7 +269,7 @@ export default function DashboardClient() {
               onClick={() => router.push(`/journal/new/?pathway=${activePathwayId}&step=${activeStep}`)}
               style={primaryButtonStyle}
             >
-              Continue pathway
+              Continue path
             </button>
           </SanctuaryCard>
         ) : null}

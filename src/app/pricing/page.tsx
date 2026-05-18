@@ -57,7 +57,7 @@ export default function PricingPage() {
         })}
 
         <SanctuaryText variant="muted" style={{ textAlign: 'center' }}>
-          Journal writing, crisis support, and data export are always available on every tier.
+          Entry writing, crisis support, and data export are always available on every tier.
         </SanctuaryText>
         <Link href="/privacy-policy/" style={{ ...subtleLinkStyle, textAlign: 'center' }}>Privacy Policy</Link>
         <Link href="/terms/" style={{ ...subtleLinkStyle, textAlign: 'center' }}>Terms of Service</Link>

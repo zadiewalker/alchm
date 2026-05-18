@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Home' },
-  { href: '/journal', label: 'Journal' },
+  { href: '/dashboard', label: 'Dashboard' },
   { href: '/containers', label: 'Containers' },
-  { href: '/insights', label: 'Insights' },
+  { href: '/journal', label: 'Entries' },
+  { href: '/insights', label: 'Mirror' },
   { href: '/settings', label: 'Settings' },
 ] as const;
 
