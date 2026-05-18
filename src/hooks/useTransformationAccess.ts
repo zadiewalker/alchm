@@ -46,14 +46,14 @@ export function useTransformationAccess({
       hasOffering,
     });
 
-    navigate('/upgrade', { source, surface });
+    navigate('/pricing', { source, surface });
   }, [hasAccess, hasOffering, navigate, route, source, surface]);
 
   return {
     hasAccess,
     hasOffering,
     isOpening: false,
-    label: hasAccess ? 'Open Continuity' : 'Open Continuity',
+    label: hasAccess ? 'Open Transformation' : 'Open Transformation',
     openTransformation,
     statusMessage: null,
   };

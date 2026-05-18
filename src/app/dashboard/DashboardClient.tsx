@@ -16,8 +16,6 @@ import { DESIGN } from '@/lib/design';
 import type { JournalEntry } from '@/lib/dataService';
 import { getSessionCount, incrementSessionCountOncePerAppOpen } from '@/lib/onboarding';
 import { getReflectionUsageSummary } from '@/lib/subscription';
-import { getSettings } from '@/lib/settings';
-import { getActivePathway, getPathwayById } from '@/lib/pathways';
 import {
   dismissContinuityCardForSession,
   generateContinuityCard,
@@ -37,9 +35,9 @@ function greetingLabel() {
 const primaryButtonStyle: React.CSSProperties = {
   height: '44px',
   width: '100%',
-  border: `1px solid ${DESIGN.colors.border}`,
-  borderRadius: DESIGN.radius.md,
-  backgroundColor: DESIGN.colors.bgElevated,
+  border: `1px solid ${DESIGN.colors.goldDim}`,
+  borderRadius: DESIGN.radius.full,
+  backgroundColor: DESIGN.colors.goldDim,
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
@@ -58,9 +56,6 @@ export default function DashboardClient() {
   const [reflectionSummary, setReflectionSummary] = useState(() => getReflectionUsageSummary());
   const [continuityCard, setContinuityCard] = useState<ContinuityCard | null>(null);
   const [greeting, setGreeting] = useState(greetingLabel());
-  const [showCheckIn, setShowCheckIn] = useState(false);
-  const [activePathwayId, setActivePathwayId] = useState('');
-  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     incrementSessionCountOncePerAppOpen();
@@ -72,12 +67,6 @@ export default function DashboardClient() {
     if (card && !isContinuityCardDismissedForSession(card.type)) {
       setContinuityCard(card);
     }
-    const hour = new Date().getHours();
-    const settings = getSettings();
-    setShowCheckIn(settings.eveningCheckInEnabled && hour >= 18);
-    const active = getActivePathway();
-    setActivePathwayId(active?.pathwayId || '');
-    setActiveStep(active?.currentStep || 0);
   }, []);
 
   useEffect(() => {
@@ -105,7 +94,7 @@ export default function DashboardClient() {
 
   if (!isInitialized) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Dashboard" />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="ALCHM" />}>
         <LoadingState message="Preparing ALCHM..." variant="page" />
       </SanctuaryLayout>
     );
@@ -115,27 +104,7 @@ export default function DashboardClient() {
     <SanctuaryLayout
       header={
         <SanctuaryHeader
-          title="Dashboard"
-          rightAction={
-            <Link
-              href="/settings/"
-              aria-label="Open settings"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '44px',
-                height: '44px',
-                borderRadius: DESIGN.radius.full,
-                border: `1px solid ${DESIGN.colors.border}`,
-                color: DESIGN.colors.textPrimary,
-                textDecoration: 'none',
-                fontFamily: DESIGN.typography.sansSerif,
-              }}
-            >
-              ⚙
-            </Link>
-          }
+          title="ALCHM"
         />
       }
     >
@@ -181,46 +150,34 @@ export default function DashboardClient() {
           </SanctuaryCard>
         ) : null}
 
-        <SanctuaryCard elevated>
-          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>
-            What's present for you today?
+        <section>
+          <SanctuaryText variant="display" as="h2" style={{ marginBottom: DESIGN.spacing.sm }}>
+            Begin from what is here.
           </SanctuaryText>
+          <SanctuaryText variant="body">
+            Write, return to entries, and keep containers and Khepera reflections close without any need to hurry.
+          </SanctuaryText>
+        </section>
+
+        <SanctuaryCard elevated style={{ padding: DESIGN.spacing.xl }}>
           {sessionCount >= 3 && sessionCount <= 5 ? (
             <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.xs }}>
-              Try today&apos;s prompt and let Khepera mirror back what it notices.
+              Today&apos;s opening
             </SanctuaryText>
           ) : null}
-          <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.md }}>
-            — Khepera
+          <SanctuaryText variant="display" as="p" style={{ marginBottom: DESIGN.spacing.lg }}>
+            What are you trying to figure out that you can&apos;t quite hold still long enough to see?
+          </SanctuaryText>
+          <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.lg }}>
+            — Khepera is here.
           </SanctuaryText>
           <button
             type="button"
             onClick={() => router.push('/journal/new/')}
-            style={{
-              minHeight: '44px',
-              borderRadius: DESIGN.radius.md,
-              border: `1px solid ${DESIGN.colors.border}`,
-              padding: '10px 18px',
-              background: DESIGN.colors.bgElevated,
-              color: DESIGN.colors.textPrimary,
-              fontFamily: DESIGN.typography.sansSerif,
-              fontSize: DESIGN.typography.sizes.sm,
-            }}
+            style={primaryButtonStyle}
           >
             Begin writing
           </button>
-          {showCheckIn ? (
-            <button
-              type="button"
-              onClick={() => router.push('/checkin/')}
-              style={{
-                marginTop: DESIGN.spacing.sm,
-                ...secondaryButtonStyle,
-              }}
-            >
-              Check in
-            </button>
-          ) : null}
           {reflectionSummary.tier === 'free' ? (
             <button
               type="button"
@@ -253,26 +210,7 @@ export default function DashboardClient() {
           </div>
         </SanctuaryCard>
 
-        {activePathwayId ? (
-          <SanctuaryCard style={{ borderColor: DESIGN.colors.goldDim }}>
-            <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.xs }}>
-              Active pathway
-            </SanctuaryText>
-            <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
-              Day {activeStep + 1} of {getPathwayById(activePathwayId)?.duration || 1}:{' '}
-              {getPathwayById(activePathwayId)?.steps[activeStep]?.title || 'Current step'}
-            </SanctuaryText>
-            <button
-              type="button"
-              onClick={() => router.push(`/journal/new/?pathway=${activePathwayId}&step=${activeStep}`)}
-              style={primaryButtonStyle}
-            >
-              Continue path
-            </button>
-          </SanctuaryCard>
-        ) : null}
-
-        {loadingEntries ? <LoadingState message="Loading recent reflections..." variant="inline" /> : null}
+        {loadingEntries ? <LoadingState message="Loading recent entries..." variant="inline" /> : null}
         {!loadingEntries && error ? <ErrorState variant="inline" message={error} /> : null}
         {!loadingEntries && !error && !entries.length ? (
           <EmptyState
@@ -312,17 +250,6 @@ export default function DashboardClient() {
     </SanctuaryLayout>
   );
 }
-
-const secondaryButtonStyle: React.CSSProperties = {
-  minHeight: '44px',
-  borderRadius: DESIGN.radius.full,
-  border: `1px solid ${DESIGN.colors.border}`,
-  padding: '10px 18px',
-  background: DESIGN.colors.cardBg,
-  color: DESIGN.colors.textSecondary,
-  fontFamily: DESIGN.typography.sansSerif,
-  fontSize: DESIGN.typography.sizes.sm,
-};
 
 function DashboardNav({ href, title, subtitle }: { href: string; title: string; subtitle: string }) {
   return (

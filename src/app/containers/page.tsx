@@ -214,7 +214,7 @@ export default function ContainersPage() {
           className="containers-journal-link"
         >
           <AppText variant="caption" as="span">
-            Container entries appear in your journal with container labels.
+            Container entries appear in Entries with container labels.
           </AppText>
         </button>
       </div>

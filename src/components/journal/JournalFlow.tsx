@@ -134,7 +134,7 @@ export function JournalFlow({
     ? 'Begin from what came back.'
     : isContainerEntry
     ? 'Enter today’s writing.'
-    : isQuickStartEntry
+    : isQuickStartEntry && !isFirstEntryExperience
     ? 'Begin with this opening.'
     : 'Write what is here.';
 
@@ -142,8 +142,10 @@ export function JournalFlow({
     ? 'Not a reminder. A return. This can stay with the earlier words, or stand on its own.'
     : isContainerEntry
     ? 'Let this stay with the thread you are already in.'
-    : isQuickStartEntry
+    : isQuickStartEntry && !isFirstEntryExperience
     ? 'Use the prompt if it helps. Leave it if it does not.'
+    : isFirstEntryExperience
+    ? 'One entry begins this. Khepera answers in three parts.'
     : 'There is no right way to begin.';
 
   const pauseCopy = result?.isCrisis
@@ -346,7 +348,7 @@ export function JournalFlow({
             You’ve reached the Sanctuary reflection limit.
           </AppText>
           <AppText variant="secondary" as="p" className="journal-reflection-limit-copy">
-            Transformation includes unlimited Khepera reflections.
+            Transformation keeps Khepera reflections available when you need more room.
           </AppText>
           <OpenTransformationButton
             surface="journal_limit"
