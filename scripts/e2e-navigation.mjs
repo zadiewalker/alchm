@@ -242,7 +242,8 @@ async function expectDashboard(page) {
     timeout: NAV_TIMEOUT_MS,
     waitUntil: 'domcontentloaded',
   });
-  await page.getByRole('heading', { name: 'Dashboard' }).waitFor({ timeout: NAV_TIMEOUT_MS });
+  await page.getByRole('heading', { name: 'ALCHM' }).waitFor({ timeout: NAV_TIMEOUT_MS });
+  await page.getByRole('heading', { name: 'Begin from what is here.' }).waitFor({ timeout: NAV_TIMEOUT_MS });
 }
 
 async function runCase(name, runFn) {
