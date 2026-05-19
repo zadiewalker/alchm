@@ -1,8 +1,23 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { DESIGN } from '@/lib/design';
 
+const HIDDEN_FOOTER_PATHS = new Set(['/', '/onboarding']);
+
+function shouldHideFooter(pathname: string | null): boolean {
+  if (!pathname) return false;
+  const normalized = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  return HIDDEN_FOOTER_PATHS.has(normalized);
+}
+
 export function CrisisFooter() {
+  const pathname = usePathname();
+
+  if (shouldHideFooter(pathname)) {
+    return <></>;
+  }
+
   return (
     <footer
       style={{

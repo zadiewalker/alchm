@@ -199,9 +199,7 @@ function findEvent(events, predicate) {
 
 async function openSplash(page) {
   await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
-  const cta = page.getByRole('button', { name: /open alchm/i });
-  await cta.waitFor({ timeout: NAV_TIMEOUT_MS });
-  return cta;
+  await page.getByText('Protecting your writing…').waitFor({ timeout: NAV_TIMEOUT_MS });
 }
 
 async function clickNavigation(locator) {
@@ -271,9 +269,8 @@ async function run() {
       await runCase('splash_to_dashboard_happy_path', async () => {
         const context = await newNavigationContext(browser);
         const page = await context.newPage();
-        const cta = await openSplash(page);
         await attachTelemetryCapture(page);
-        await clickNavigation(cta);
+        await openSplash(page);
         await expectDashboard(page);
         await delay(250);
         const telemetry = await readTelemetry(page);
@@ -298,15 +295,12 @@ async function run() {
     results.push(
       await runCase('splash_fallback_forced_stall', async () => {
         const context = await newNavigationContext(browser);
-        const page = await context.newPage();
-        const cta = await openSplash(page);
-        await attachTelemetryCapture(page);
-
-        await page.evaluate(() => {
+        await context.addInitScript(() => {
           globalThis.__ALCHM_TEST_BLOCK_CLIENT_NAV__ = true;
         });
-
-        await clickNavigation(cta);
+        const page = await context.newPage();
+        await attachTelemetryCapture(page);
+        await openSplash(page);
         await delay(2200);
         await expectDashboard(page);
 
@@ -314,7 +308,7 @@ async function run() {
         const events = telemetry.events;
         const complete = findEvent(
           events,
-          (event) => event.phase === 'complete' && event.toPath === '/dashboard' && event.source === 'splash-cta'
+          (event) => event.phase === 'complete' && event.toPath === '/dashboard' && event.source === 'splash-auto'
         );
 
         const reachedDashboardViaFallback = /\/dashboard\/?$/.test(new URL(page.url()).pathname);
@@ -366,9 +360,8 @@ async function run() {
       await runCase('dashboard_primary_links', async () => {
         const context = await newNavigationContext(browser);
         const page = await context.newPage();
-        const cta = await openSplash(page);
         await attachTelemetryCapture(page);
-        await clickNavigation(cta);
+        await openSplash(page);
         await expectDashboard(page);
 
         const linkCases = [
@@ -422,21 +415,11 @@ async function run() {
     );
 
     results.push(
-      await runCase('splash_double_click_blocked_event', async () => {
+      await runCase('splash_repeated_startup_stable', async () => {
         const context = await newNavigationContext(browser);
         const page = await context.newPage();
         await openSplash(page);
         await attachTelemetryCapture(page);
-
-        await page.evaluate(() => {
-          const button = document.querySelector('button[aria-label="Open ALCHM"]');
-          if (!(button instanceof HTMLButtonElement)) {
-            throw new Error('Splash CTA button not found for double-click check');
-          }
-          button.click();
-          button.click();
-        });
-
         await expectDashboard(page);
         await delay(250);
         const telemetry = await readTelemetry(page);
@@ -445,7 +428,7 @@ async function run() {
         const summary = {
           currentUrl: page.url(),
           checks: {
-            duplicateClickDidNotFreeze: true,
+            startupDidNotFreeze: true,
             flowStillCompletes: /\/dashboard\/?$/.test(new URL(page.url()).pathname),
           },
           events,

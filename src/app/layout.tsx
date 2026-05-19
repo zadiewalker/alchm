@@ -10,7 +10,7 @@ import { QueueReplayBootstrap } from '@/components/QueueReplayBootstrap';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
-  description: 'A private space for quiet reflection.',
+  description: 'A calm space for private writing.',
 };
 
 export const viewport: Viewport = {
