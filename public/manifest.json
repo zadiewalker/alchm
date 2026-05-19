@@ -1,7 +1,7 @@
 {
   "name": "ALCHM",
   "short_name": "ALCHM",
-  "description": "A private space for quiet reflection and writing.",
+  "description": "A calm space for private writing.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#A8B5A0",
