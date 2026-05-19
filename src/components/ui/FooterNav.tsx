@@ -20,7 +20,7 @@ function isActive(pathname: string | null, href: string): boolean {
 }
 
 function shouldHideNav(pathname: string | null): boolean {
-  if (!pathname) return false;
+  if (!pathname) return true;
   const normalized = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
   return HIDDEN_NAV_PATHS.has(normalized);
 }

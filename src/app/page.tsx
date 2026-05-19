@@ -3,60 +3,56 @@
 import { useEffect, useRef } from 'react';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 import { isFirstTimeUser } from '@/lib/onboarding';
-import { DESIGN } from '@/lib/design';
+
+const STARTUP_DECISION_DELAY_MS = 900;
+const STARTUP_HARD_TIMEOUT_MS = 2400;
+
+function normalizePath(path: string): string {
+  return path.length > 1 && path.endsWith('/') ? path.slice(0, -1) : path;
+}
+
+function resolveStartupDestination(): string {
+  try {
+    return isFirstTimeUser() ? '/onboarding/' : '/dashboard/';
+  } catch {
+    return '/onboarding/';
+  }
+}
 
 export default function SplashPage() {
-  const { navigate } = useSafeNavigation(1200);
+  const { navigate } = useSafeNavigation(900);
   const hasStartedNavigation = useRef(false);
 
   useEffect(() => {
     if (hasStartedNavigation.current) return;
     hasStartedNavigation.current = true;
 
-    const timer = window.setTimeout(() => {
-      const destination = isFirstTimeUser() ? '/onboarding/' : '/dashboard/';
-      navigate(destination, { source: 'splash-auto', replace: true });
-    }, 650);
+    const destination = resolveStartupDestination();
+    const normalizedDestination = normalizePath(destination);
+
+    const navigationTimer = window.setTimeout(() => {
+      navigate(destination, { source: 'splash-auto', replace: true, fallbackMs: 900 });
+    }, STARTUP_DECISION_DELAY_MS);
+
+    const hardTimeout = window.setTimeout(() => {
+      const currentPath = normalizePath(window.location.pathname || '/');
+      if (currentPath === '/' || currentPath !== normalizedDestination) {
+        window.location.replace(normalizedDestination);
+      }
+    }, STARTUP_HARD_TIMEOUT_MS);
 
     return () => {
-      window.clearTimeout(timer);
+      window.clearTimeout(navigationTimer);
+      window.clearTimeout(hardTimeout);
     };
   }, [navigate]);
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center px-8 relative"
-      style={{
-        background: 'var(--color-bg-app)',
-        color: DESIGN.colors.textPrimary,
-        fontFamily: DESIGN.typography.sansSerif,
-        paddingTop: 'env(safe-area-inset-top, 0px)',
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-      }}
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.15)_0%,_transparent_50%)]" />
-
-      <div className="relative flex flex-col items-center" aria-live="polite">
-        <h1
-          className="text-[52px] font-light"
-          style={{
-            color: 'rgba(255, 255, 255, 0.92)',
-            fontFamily: DESIGN.typography.serif,
-            letterSpacing: 0,
-            lineHeight: 1,
-            margin: 0,
-          }}
-        >
-          ALCHM
-        </h1>
-
-        <p
-          className="mt-8 text-center text-[18px] font-light leading-relaxed max-w-[280px]"
-          style={{ color: 'rgba(255, 255, 255, 0.84)' }}
-        >
-          Protecting your writing…
-        </p>
+    <main className="launch-splash" aria-label="ALCHM is opening">
+      <div className="launch-splash__center" aria-live="polite">
+        <h1 className="launch-splash__wordmark">ALCHM</h1>
+        <p className="launch-splash__subtitle">Protecting your writing…</p>
       </div>
-    </div>
+    </main>
   );
 }
