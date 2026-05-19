@@ -94,7 +94,7 @@ export default function OpeningRitualClient() {
         disabled={loading}
         aria-label="Enter the container and begin writing"
       >
-        {loading ? 'Opening...' : 'Enter the container'}
+        {loading ? 'Entering...' : 'Enter the container'}
       </button>
 
     </div>

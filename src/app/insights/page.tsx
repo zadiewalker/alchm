@@ -44,7 +44,7 @@ export default function InsightsPage() {
   if (!isInitialized || loading) {
     return (
       <SanctuaryLayout header={<SanctuaryHeader title="Mirror" showBack />}>
-        <LoadingState message="Opening Mirror..." variant="page" />
+        <LoadingState message="Preparing Mirror..." variant="page" />
       </SanctuaryLayout>
     );
   }

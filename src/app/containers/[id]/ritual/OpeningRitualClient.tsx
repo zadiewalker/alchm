@@ -91,7 +91,7 @@ export function OpeningRitualClient(): React.JSX.Element | null {
         disabled={loading}
         aria-label="Enter the container and begin writing"
       >
-        {loading ? 'Opening...' : 'Enter the container'}
+        {loading ? 'Entering...' : 'Enter the container'}
       </button>
 
     </div>

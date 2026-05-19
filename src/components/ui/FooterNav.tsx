@@ -12,13 +12,25 @@ const NAV_ITEMS = [
   { href: '/settings', label: 'Settings' },
 ] as const;
 
+const HIDDEN_NAV_PATHS = new Set(['/', '/onboarding']);
+
 function isActive(pathname: string | null, href: string): boolean {
   if (!pathname) return false;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function shouldHideNav(pathname: string | null): boolean {
+  if (!pathname) return false;
+  const normalized = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  return HIDDEN_NAV_PATHS.has(normalized);
+}
+
 export function FooterNav(): React.JSX.Element {
   const pathname = usePathname();
+
+  if (shouldHideNav(pathname)) {
+    return <></>;
+  }
 
   return (
     <nav
