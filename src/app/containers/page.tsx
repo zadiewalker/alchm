@@ -12,9 +12,9 @@ import { SectionIntro } from '@/components/ui/SectionIntro';
 import { ContainerCatalogCard } from '@/components/containers/ContainerCatalogCard';
 import { CONTAINER_DEFINITIONS } from '@/config/containerDefinitions';
 import { useAuth } from '@/hooks/useAuth';
-import { useData } from '@/hooks/useData';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useInternalNavigation } from '@/hooks/useInternalNavigation';
+import { getUserContainersForUser } from '@/services/containers/containerService';
 import type { UserContainer } from '@/types/container';
 
 // ALCHM_IDENTITY_ROLE: supporting-screen
@@ -25,7 +25,6 @@ export default function ContainersPage() {
   const pathname = usePathname();
   const { user } = useAuth();
   const subscription = useSubscription();
-  const { getUserContainers } = useData();
   const [userContainers, setUserContainers] = useState<UserContainer[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +37,7 @@ export default function ContainersPage() {
       }
 
       try {
-        const containers = await getUserContainers();
+        const containers = await getUserContainersForUser(user.uid);
         setUserContainers(containers);
       } catch (error) {
         console.error('Error loading user containers:', error);
@@ -48,7 +47,7 @@ export default function ContainersPage() {
     };
 
     loadContainers();
-  }, [user, getUserContainers]);
+  }, [user]);
 
   // Process container states
   type ActiveContainer = {
@@ -76,7 +75,7 @@ export default function ContainersPage() {
           containerId: activeContainer.containerId,
           userContainerId: activeContainer.id,
           hasWrittenToday: activeContainer.lastEntryAt
-            ? new Date(activeContainer.lastEntryAt.toDate()).toDateString() === new Date().toDateString()
+            ? toSafeDate(activeContainer.lastEntryAt).toDateString() === new Date().toDateString()
             : false,
         };
       }
@@ -200,7 +199,7 @@ export default function ContainersPage() {
                 const container = CONTAINER_DEFINITIONS.find(c => c.id === item.containerId);
                 return (
                   <AppText key={`${item.containerId}-${item.completedAt}`} variant="body">
-                    {container?.name || item.containerId} · {new Date((item.completedAt || item.startedAt).toDate()).toLocaleDateString()}
+                    {container?.name || item.containerId} · {toSafeDate(item.completedAt || item.startedAt).toLocaleDateString()}
                   </AppText>
                 );
               })}
@@ -220,4 +219,28 @@ export default function ContainersPage() {
       </div>
     </AppLayout>
   );
+}
+
+function toSafeDate(value: unknown): Date {
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    'toDate' in value &&
+    typeof (value as { toDate: () => Date }).toDate === 'function'
+  ) {
+    return (value as { toDate: () => Date }).toDate();
+  }
+
+  if (typeof value === 'string' || typeof value === 'number') {
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+  }
+
+  return new Date();
 }

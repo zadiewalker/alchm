@@ -37,7 +37,7 @@ export function JournalFlow({
   const { navigate } = useInternalNavigation();
   const auth = useAuth();
   const userId = auth.user?.uid;
-  const { activeContainer, containerContext } = useContainer();
+  const { activeContainer, containerContext, recordEntry } = useContainer();
   const { view, entryText, result, error, setEntryText, submit, reset } = useJournal();
   useSafeAsync();
   const prefersReducedMotion = useReducedMotionPreference();
@@ -51,6 +51,7 @@ export function JournalFlow({
     () => getStorageItemWithFallback(STORAGE_KEYS.FIRST_ENTRY_COMPLETED) !== 'true'
   );
   const hasRecordedStart = useRef(false);
+  const recordedContainerEntryIdRef = useRef<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   void completionContext;
@@ -125,6 +126,23 @@ export function JournalFlow({
     setShowKheperaCard(false);
     setReceivingInteractive(false);
   }, [phase, result, isFirstEntryExperience, prefersReducedMotion]);
+
+  useEffect(() => {
+    if (
+      !result?.entryId ||
+      result.isCrisis ||
+      result.submissionState !== 'completed' ||
+      !containerOriginContext ||
+      recordedContainerEntryIdRef.current === result.entryId
+    ) {
+      return;
+    }
+
+    recordedContainerEntryIdRef.current = result.entryId;
+    void recordEntry(result.entryId).catch(() => {
+      // The entry is already saved; container state can be recovered on the next visit.
+    });
+  }, [containerOriginContext, recordEntry, result]);
 
   const promptContext = containerPrompt ?? containerContext?.todayPrompt ?? quickStartContext?.prompt;
   const writingPrompt = promptContext
