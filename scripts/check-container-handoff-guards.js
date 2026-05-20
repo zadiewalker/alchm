@@ -19,6 +19,12 @@ const journalFlowSource = read('src/components/journal/JournalFlow.tsx');
 const containerDefinitionsSource = read('src/config/containerDefinitions.ts');
 const containerCatalogCardSource = read('src/components/containers/ContainerCatalogCard.tsx');
 const containerPageSource = read('src/app/containers/page.tsx');
+const containerDetailPageSource = read('src/app/containers/[id]/page.tsx');
+const containerTodayPageSource = read('src/app/containers/[id]/today/page.tsx');
+const containerThresholdPageSource = read('src/app/containers/[id]/threshold/page.tsx');
+const containerOpeningPageSource = read('src/app/containers/[id]/opening/page.tsx');
+const containerRitualPageSource = read('src/app/containers/[id]/ritual/page.tsx');
+const containerCeremonyPageSource = read('src/app/containers/[id]/ceremony/page.tsx');
 const containerTodaySource = read('src/app/containers/[id]/today/DailyThresholdClient.tsx');
 const containerThresholdSource = read('src/app/containers/[id]/threshold/DailyThresholdClient.tsx');
 const containerOpeningSource = read('src/app/containers/[id]/opening/OpeningRitualClient.tsx');
@@ -74,6 +80,7 @@ function assertNoContainerPressureLanguage(label, source) {
   ['container definitions', containerDefinitionsSource],
   ['container catalog card', containerCatalogCardSource],
   ['containers page', containerPageSource],
+  ['container detail page', containerDetailPageSource],
   ['container today screen', containerTodaySource],
   ['container threshold screen', containerThresholdSource],
   ['container opening screen', containerOpeningSource],
@@ -81,6 +88,17 @@ function assertNoContainerPressureLanguage(label, source) {
   ['container ceremony screen', containerCeremonySource],
   ['legacy container ceremony component', legacyCompletionCeremonySource],
 ].forEach(([label, source]) => assertNoContainerPressureLanguage(label, source));
+
+[
+  ['container detail route', containerDetailPageSource],
+  ['container opening route', containerOpeningPageSource],
+  ['container today route', containerTodayPageSource],
+  ['container threshold route', containerThresholdPageSource],
+  ['container ceremony route', containerCeremonyPageSource],
+  ['container ritual route', containerRitualPageSource],
+].forEach(([label, source]) => {
+  assert(source.includes('generateStaticParams'), `${label} must be statically generated for export`);
+});
 
 assert(
   todayClientSource.includes("onClick={() => router.push(`/journal/new?container=${containerId}&day=${currentDay}`)}"),
@@ -117,6 +135,14 @@ assert(
 assert(
   journalFlowSource.includes('containerContext: containerContext ?? undefined'),
   'JournalFlow must pass canonical ContainerContext into submission'
+);
+assert(
+  journalFlowSource.includes('recordEntry(result.entryId)'),
+  'JournalFlow must record completed non-crisis container entries after successful submission'
+);
+assert(
+  containerPageSource.includes('getUserContainersForUser(user.uid)'),
+  'containers page must load containers through the canonical container service with the current user id'
 );
 
 console.log('Container handoff regression guards passed.');

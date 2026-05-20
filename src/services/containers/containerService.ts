@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, limit, query, setDoc, updateDoc, serverTimestamp, Timestamp, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, setDoc, updateDoc, serverTimestamp, Timestamp, where } from 'firebase/firestore';
 import { getFirestoreDb } from '@/services/firebase/firebaseService';
 import { getContainerDefinition } from '@/config/containerDefinitions';
 import { getContainerPhase, CONTAINER_PHASES } from '@/config/containerArc';
@@ -60,7 +60,7 @@ export async function getActiveContainerState(
   if (!definition) return null;
 
   // Advance day if needed (new calendar day since last entry)
-  const advancedDay = computeCurrentDay(uc);
+  const advancedDay = computeCurrentDay(uc, definition.totalDays);
   if (advancedDay !== uc.currentDay) {
     await advanceDay(userId, userContainerId, uc.currentDay, advancedDay);
     uc.currentDay = advancedDay;
@@ -73,7 +73,7 @@ export async function getActiveContainerState(
   const phaseConfig = phase ? CONTAINER_PHASES[phase.lunarPhase as keyof typeof CONTAINER_PHASES] : CONTAINER_PHASES.grounding;
 
   const hasWrittenToday = uc.lastEntryAt
-    ? isToday(uc.lastEntryAt.toDate())
+    ? isToday(toDate(uc.lastEntryAt))
     : false;
 
   return {
@@ -104,6 +104,20 @@ export async function getActiveContainerStateForUser(userId: string): Promise<Ac
   if (!activeContainerId) return null;
 
   return getActiveContainerState(userId, activeContainerId);
+}
+
+export async function getUserContainersForUser(userId: string): Promise<UserContainer[]> {
+  const db = getFirestoreDb();
+  const containersQuery = query(
+    collection(db, 'users', userId, 'containers'),
+    orderBy('startedAt', 'desc')
+  );
+  const containersSnapshot = await getDocs(containersQuery);
+
+  return containersSnapshot.docs.map(containerDoc => ({
+    id: containerDoc.id,
+    ...containerDoc.data(),
+  }) as UserContainer);
 }
 
 export function buildContainerContext(state: ActiveContainerState): ContainerContext {
@@ -154,12 +168,11 @@ export async function completeContainer(
 }
 
 // Private helpers
-function computeCurrentDay(uc: UserContainer): number {
+function computeCurrentDay(uc: UserContainer, totalDays: number): number {
   if (!uc.lastEntryAt) return uc.currentDay;
-  if (isToday(uc.lastEntryAt.toDate())) return uc.currentDay;
+  if (isToday(toDate(uc.lastEntryAt))) return uc.currentDay;
 
   // New calendar day — advance by 1 (never more)
-  const totalDays = 21; // Default to 21, should get from definition
   const next = Math.min(uc.currentDay + 1, totalDays);
   return next;
 }
@@ -179,4 +192,28 @@ function isToday(date: Date): boolean {
   return date.getFullYear() === now.getFullYear()
     && date.getMonth() === now.getMonth()
     && date.getDate() === now.getDate();
+}
+
+function toDate(value: unknown): Date {
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    'toDate' in value &&
+    typeof (value as { toDate: () => Date }).toDate === 'function'
+  ) {
+    return (value as { toDate: () => Date }).toDate();
+  }
+
+  if (typeof value === 'string' || typeof value === 'number') {
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+  }
+
+  return new Date();
 }
