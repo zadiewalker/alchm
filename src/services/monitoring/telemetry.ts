@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
 import { assertNoRawTextLeak, redactMonitoringPayload } from '@/services/privacy/assertNoRawTextLeak';
+import { APP_VERSION, IOS_BUILD_NUMBER } from '@/config/releaseInfo';
 
 export type OperationalEvent =
   | 'app_startup_started'
@@ -62,6 +63,14 @@ export interface OperationalPayload {
   duration_ms?: number;
   timeoutMs?: number;
   configured?: boolean;
+  releaseId?: string;
+  gitCommit?: string;
+  buildTimestamp?: string;
+  appVersion?: string;
+  iosBuildNumber?: string;
+  platform?: 'web' | 'capacitor-ios' | 'unknown';
+  deploymentTarget?: string;
+  online?: boolean;
 }
 
 export interface SubscriptionAccessTelemetry {
@@ -97,6 +106,30 @@ export const SOURCE_MAP_PROCESS = {
   releaseEnv: 'NEXT_PUBLIC_APP_VERSION',
   environmentEnv: 'NEXT_PUBLIC_ENV',
 } as const;
+
+function getRuntimePlatform(): OperationalPayload['platform'] {
+  if (typeof navigator === 'undefined') {
+    return 'unknown';
+  }
+
+  const userAgent = navigator.userAgent || '';
+  return /Capacitor|iPhone|iPad|iPod/.test(userAgent) && typeof window !== 'undefined'
+    ? 'capacitor-ios'
+    : 'web';
+}
+
+function getReleaseContext(): OperationalPayload {
+  return {
+    releaseId: process.env.NEXT_PUBLIC_APP_VERSION || process.env.NEXT_PUBLIC_RELEASE_ID || 'local-unattributed',
+    gitCommit: process.env.NEXT_PUBLIC_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
+    buildTimestamp: process.env.NEXT_PUBLIC_BUILD_TIMESTAMP || 'unknown',
+    appVersion: APP_VERSION,
+    iosBuildNumber: IOS_BUILD_NUMBER,
+    platform: getRuntimePlatform(),
+    deploymentTarget: process.env.NEXT_PUBLIC_DEPLOYMENT_TARGET || (process.env.VERCEL ? 'vercel' : 'unknown'),
+    online: typeof navigator === 'undefined' ? undefined : navigator.onLine,
+  };
+}
 
 function withSafeScope(run: (scope: Sentry.Scope) => void, fallbackMessage: string, fallbackError?: Error): void {
   if (typeof Sentry.withScope !== 'function') {
@@ -143,16 +176,21 @@ function normalizeOperationalPayload(
   event: OperationalEvent,
   payload: OperationalPayload,
 ): OperationalPayload {
+  const withReleaseContext: OperationalPayload = {
+    ...getReleaseContext(),
+    ...payload,
+  };
+
   if (event !== 'subscription_access') {
-    return payload;
+    return withReleaseContext;
   }
 
   const normalized: OperationalPayload = {
-    ...payload,
-    result: normalizeSubscriptionAccessResult(payload),
-    source: normalizeSubscriptionAccessSource(payload),
-    duration_ms: payload.duration_ms ?? payload.durationMs ?? 0,
-    hasAccess: payload.hasAccess ?? false,
+    ...withReleaseContext,
+    result: normalizeSubscriptionAccessResult(withReleaseContext),
+    source: normalizeSubscriptionAccessSource(withReleaseContext),
+    duration_ms: withReleaseContext.duration_ms ?? withReleaseContext.durationMs ?? 0,
+    hasAccess: withReleaseContext.hasAccess ?? false,
   };
 
   return normalized;
@@ -165,6 +203,10 @@ export function recordOperationalEvent(event: OperationalEvent, payload: Operati
   withSafeScope((scope) => {
     scope.setTag('app', 'alchm');
     scope.setTag('event', event);
+    if (safePayload.releaseId) scope.setTag('release_id', safePayload.releaseId);
+    if (safePayload.gitCommit) scope.setTag('git_commit', safePayload.gitCommit);
+    if (safePayload.platform) scope.setTag('platform', safePayload.platform);
+    if (safePayload.deploymentTarget) scope.setTag('deployment_target', safePayload.deploymentTarget);
     if (safePayload.state) scope.setTag('state', safePayload.state);
     if (safePayload.issue) scope.setTag('issue', safePayload.issue);
     scope.setContext('operational', safePayload as Record<string, unknown>);
@@ -173,13 +215,21 @@ export function recordOperationalEvent(event: OperationalEvent, payload: Operati
 }
 
 export function recordOperationalException(event: OperationalEvent, error: unknown, payload: OperationalPayload = {}): void {
-  assertNoRawTextLeak(payload, `telemetry_error:${event}`);
-  const safePayload = redactMonitoringPayload(payload);
+  const payloadWithRelease = {
+    ...getReleaseContext(),
+    ...payload,
+  };
+  assertNoRawTextLeak(payloadWithRelease, `telemetry_error:${event}`);
+  const safePayload = redactMonitoringPayload(payloadWithRelease);
   const safeError = error instanceof Error ? error : new Error(String(error));
 
   withSafeScope((scope) => {
     scope.setTag('app', 'alchm');
     scope.setTag('event', event);
+    if (safePayload.releaseId) scope.setTag('release_id', safePayload.releaseId);
+    if (safePayload.gitCommit) scope.setTag('git_commit', safePayload.gitCommit);
+    if (safePayload.platform) scope.setTag('platform', safePayload.platform);
+    if (safePayload.deploymentTarget) scope.setTag('deployment_target', safePayload.deploymentTarget);
     if (safePayload.state) scope.setTag('state', safePayload.state);
     if (safePayload.issue) scope.setTag('issue', safePayload.issue);
     scope.setContext('operational', safePayload as Record<string, unknown>);
@@ -193,8 +243,12 @@ export function recordOperationalBreadcrumb(
   category: string,
   payload: OperationalPayload = {},
 ): void {
-  assertNoRawTextLeak(payload, `telemetry_breadcrumb:${category}`);
-  const safePayload = redactMonitoringPayload(payload);
+  const payloadWithRelease = {
+    ...getReleaseContext(),
+    ...payload,
+  };
+  assertNoRawTextLeak(payloadWithRelease, `telemetry_breadcrumb:${category}`);
+  const safePayload = redactMonitoringPayload(payloadWithRelease);
 
   if (typeof Sentry.addBreadcrumb !== 'function') {
     return;

@@ -14,6 +14,7 @@ out
 out *
 out.__trash__*
 out 2
+release-artifacts/
 node_modules
 functions/node_modules
 functions/lib

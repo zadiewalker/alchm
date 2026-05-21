@@ -2,7 +2,9 @@ import { setDoc } from 'firebase/firestore';
 import type { DocumentReference } from 'firebase/firestore';
 import {
   claimQueueEntry,
+  getAllQueuedEntries,
   getPendingEntries,
+  MAX_SYNC_ATTEMPTS,
   releaseQueueEntry,
   updateQueueEntry,
 } from '@/services/offline/localQueue';
@@ -114,6 +116,25 @@ export async function replayPendingJournalQueue(reason = 'startup'): Promise<voi
 
   try {
     const pendingEntries = await getPendingEntries();
+    const allEntries = await getAllQueuedEntries();
+    const exhaustedEntries = allEntries.filter((entry) =>
+      entry.status !== 'complete' && entry.syncAttempts >= MAX_SYNC_ATTEMPTS
+    );
+
+    recordOperationalEvent('sync_issue', {
+      state: 'queue_replay_backlog',
+      source: reason,
+      issue: String(pendingEntries.length),
+    });
+
+    for (const exhaustedEntry of exhaustedEntries) {
+      recordOperationalEvent('sync_issue', {
+        localId: exhaustedEntry.localId,
+        state: 'queue_replay_exhausted',
+        issue: exhaustedEntry.lastSyncError ?? 'max_attempts_reached',
+      });
+    }
+
     const replayEntries = pendingEntries.slice(0, MAX_REPLAY_BATCH_SIZE);
 
     if (replayEntries.length === 0) {

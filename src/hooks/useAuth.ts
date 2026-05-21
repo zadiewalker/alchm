@@ -56,10 +56,27 @@ export function useAuth(): AuthState & {
   useEffect(() => {
     let unsubscribe = () => {};
     let cancelled = false;
+    const startedAt = Date.now();
+
+    void import('@/services/monitoring/telemetry')
+      .then(({ recordOperationalEvent }) => {
+        recordOperationalEvent('auth_bootstrap_started', {
+          state: 'auth_import_started',
+        });
+      })
+      .catch(() => {});
 
     void import('@/services/auth/authService')
       .then(async ({ getCurrentAuthUser, onAuthChanged, resolvePendingAuthRedirect }) => {
         if (!getCurrentAuthUser.authAvailable) {
+          void import('@/services/monitoring/telemetry')
+            .then(({ recordOperationalEvent }) => {
+              recordOperationalEvent('auth_bootstrap_fallback', {
+                state: 'auth_unavailable',
+                durationMs: Date.now() - startedAt,
+              });
+            })
+            .catch(() => {});
           if (isMounted()) {
             setStateSafe(prev => ({ ...prev, isLoading: false }));
           }
@@ -74,6 +91,15 @@ export function useAuth(): AuthState & {
 
         if (cancelled) return;
         unsubscribe = onAuthChanged((user) => {
+          void import('@/services/monitoring/telemetry')
+            .then(({ recordOperationalEvent }) => {
+              recordOperationalEvent('auth_bootstrap_ready', {
+                state: user ? 'user_present' : 'user_absent',
+                hasFirebaseUser: Boolean(user),
+                durationMs: Date.now() - startedAt,
+              });
+            })
+            .catch(() => {});
           if (user) {
             void loadProfile(user);
             return;
@@ -90,7 +116,15 @@ export function useAuth(): AuthState & {
           }
         });
       })
-      .catch(() => {
+      .catch((error) => {
+        void import('@/services/monitoring/telemetry')
+          .then(({ recordOperationalException }) => {
+            recordOperationalException('auth_bootstrap_error', error, {
+              state: 'auth_import_failed',
+              durationMs: Date.now() - startedAt,
+            });
+          })
+          .catch(() => {});
         if (isMounted()) {
           setStateSafe(prev => ({ ...prev, isLoading: false }));
         }

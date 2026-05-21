@@ -7,7 +7,10 @@
   },
   "scripts": {
     "build": "node scripts/prepare-next-build.js && next build && node scripts/copy-static-export.js",
+    "build:ios-release": "npm run build && npx cap sync ios && npm run verify:native-bundle",
     "build:safe": "bash scripts/safe-clean-build.sh",
+    "cap:sync": "npx cap sync ios",
+    "certify:release": "npm run qa:governance && npm run lint && npm run typecheck && npm run verify:manifest-assets && npm run build:ios-release && npm run release:manifest && npm run verify:release-manifest && npm run verify:deployment-topology && npm run test:offline-replay",
     "design:check": "npm run design:validate --silent",
     "design:enforce": "npm run design:validate && npm run build",
     "design:validate": "node scripts/validate-design.js",
@@ -18,8 +21,16 @@
     "qa:khepera-guards": "node scripts/check-khepera-invariants.js",
     "qa:repository-coherence": "node scripts/check-repository-coherence.js",
     "qa:return-restraint-guards": "node scripts/check-resurfacing-guardrails.js",
+    "release:manifest": "node scripts/generate-release-manifest.mjs",
+    "test:offline-replay": "node scripts/test-offline-replay-integrity.mjs",
     "lint": "eslint",
     "prepare": "husky",
+    "typecheck": "tsc --noEmit",
+    "verify:branch-protection": "bash scripts/check-branch-protection.sh",
+    "verify:deployment-topology": "node scripts/verify-deployment-topology.mjs",
+    "verify:manifest-assets": "node scripts/verify-manifest-assets.mjs",
+    "verify:native-bundle": "node scripts/verify-native-bundle.mjs",
+    "verify:release-manifest": "node scripts/verify-release-manifest.mjs",
     "start": "next start",
     "sync:ios": "npm run sync:ios:bundle",
     "sync:ios:bundle": "npm run build && npx cap sync ios",
@@ -69,7 +80,11 @@
     "glob": "^13.0.0",
     "husky": "^9.1.7",
     "playwright": "^1.58.2",
-    "postcss": "^8.5.6",
+    "postcss": "8.5.14",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@tootallnate/once": "^3.0.1",
+    "postcss": "$postcss"
   }
 }

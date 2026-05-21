@@ -7,6 +7,9 @@
 
 const mockStore = new Map<string, unknown>();
 
+export const queueStorageMode = 'memory';
+export const queueStorageDurability = 'non_durable';
+
 export async function get<T = unknown>(key: string | IDBKeyRange): Promise<T | undefined> {
   return mockStore.get(String(key)) as T | undefined;
 }
