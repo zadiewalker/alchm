@@ -1,10 +1,10 @@
 # ALCHM Deployment Topology
 
-Authoritative production web target: Vercel.
+Authoritative production web target: Vercel project `alchm`.
 
 ## Active Targets
 
-- Vercel: authoritative production web deployment for the Next.js application.
+- Vercel project `alchm`: authoritative production web deployment for the Next.js application. Production URL: `https://alchm.vercel.app`.
 - Firebase Hosting site `alchmapp`: static export compatibility surface that serves `out/` and redirects app traffic to Vercel.
 - iOS Capacitor bundle: authoritative mobile runtime artifact built from `out/` and copied into `ios/App/App/public`.
 
@@ -25,6 +25,22 @@ It must not block release authority after one of these operator actions is compl
 2. Add an explicit `apphosting.yaml`, make App Hosting green, and update this topology document to make App Hosting authoritative or preview-only.
 
 GitHub workflows must not require Firebase App Hosting `studio` unless this document is updated and the backend is green.
+
+## Vercel Authority Verification
+
+Production certification requires Vercel evidence from project `alchm`, not any locally linked scratch or duplicate project.
+
+Before release, verify:
+
+```bash
+vercel project ls
+vercel ls alchm --yes
+vercel inspect <production-deployment-url>
+```
+
+The deployment must be `Ready`, target `production`, aliased to `https://alchm.vercel.app`, and traceable to the release commit.
+
+If local `.vercel/project.json` points to any project other than `alchm`, local Vercel inspection is not production-authoritative until the project link is corrected or commands explicitly target `alchm`.
 
 ## Firebase Hosting Contract
 

@@ -95,7 +95,7 @@ iOS:
 
 ## Current Authority Notes
 
-Authoritative production web target: Vercel.
+Authoritative production web target: Vercel project `alchm`.
 
 Firebase Hosting `alchmapp` is a static compatibility/redirect target that deploys `out/`.
 
@@ -117,7 +117,7 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
 | Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports `main` is not protected | External blocker | Yes |
 | Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | GitHub Checks API cannot verify local-only commits | External blocker | Yes |
 | Xcode Cloud archive | Green Archive - iOS for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Local workspace/scheme verified; external archive unproven | External blocker | Yes |
-| Vercel production deploy | Green Vercel production deployment for the release commit | Vercel CLI inspection found no deployments for the linked project during certification | External blocker | Yes |
+| Vercel production deploy | Green Vercel production deployment for the release commit on project `alchm` | Vercel account has project `alchm` with `https://alchm.vercel.app`; local `.vercel/project.json` points to `alchm-authoritative`, which has no deployments. Latest `alchm` production deployment was Ready but not traceable to the local-only release commit. | External blocker | Yes |
 | Firebase App Hosting `studio` | Backend disabled/removed, green and explicitly re-certified, or proven unable to affect production authority | Documented non-authoritative; App Hosting CLI inspection requires Firebase reauth | External blocker | Yes |
 | Sentry source-map proof | Sentry release exists for the release commit and source maps match deployed artifact | Source-map upload is configured when Sentry env vars exist; upload is not externally proven | External blocker unless exception approved | Yes |
 | Rollback procedure | Vercel, Firebase Hosting, and iOS rollback steps documented | Documented in this file and deployment topology doc | Documented | No |
@@ -139,5 +139,5 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
    - Action: Archive
    - Prebuild: lockfile install, `npm run build:ios-release`, native bundle verification, pod install where applicable
 4. Disable/remove Firebase App Hosting `studio`, or re-certify it and update `docs/operations/deployment-topology.md`.
-5. Prove Vercel production deploy green for the certified commit.
+5. Prove Vercel production deploy green for the certified commit on project `alchm`; do not use the locally linked `alchm-authoritative` project as production evidence.
 6. Prove Sentry release/source-map upload for the deployed artifact, or approve a formal observability exception.
