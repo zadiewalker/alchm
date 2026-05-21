@@ -103,23 +103,25 @@ Firebase App Hosting `studio` is non-authoritative until explicitly re-certified
 
 Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `App`.
 
-## External Checks Matrix
+## External Gate Matrix
 
-| Gate | Required Evidence | Current Status | Blocking? |
-|---|---|---|---|
-| Clean git tree | `git status --short` returns empty before release manifest verification | Required for release; local generated dirt must be removed or ignored | Yes if dirty |
-| Local release certification | `npm run certify:release` passes on the release commit | Passed locally for `fc8afd64f52532548d1076306a9910bca35b488a` | No |
-| npm production audit | `npm audit --omit=dev --audit-level=moderate` returns zero vulnerabilities | Passed locally | No |
-| Native/web bundle verification | `npm run verify:native-bundle` passes after `npm run build:ios-release` | Passed locally | No |
-| Release manifest verification | `npm run release:manifest` then `npm run verify:release-manifest` pass on a clean tree | Passed locally | No |
-| Xcode local build | `xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO clean build` passes | Passed locally | No |
-| Xcode Cloud external archive | Green archive for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Unproven for `fc8afd64f52532548d1076306a9910bca35b488a` | Yes |
-| Vercel production deploy | Green Vercel production deployment for the release commit | Unproven for `fc8afd64f52532548d1076306a9910bca35b488a` | Yes |
-| Firebase App Hosting `studio` | Backend disabled/removed, or green and explicitly re-certified | Documented non-authoritative; external disable/removal/re-certification unproven | Yes |
-| Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports branch not protected | Yes |
-| Sentry source-map upload | Sentry release exists for the release commit and source maps match deployed artifact | Configured, not externally proven | Yes unless exception approved |
-| Rollback procedure | Vercel, Firebase Hosting, and iOS rollback steps documented | Documented in this file and deployment topology doc | No |
-| Deployment topology verification | `npm run verify:deployment-topology` passes | Passed locally | No |
+| Gate | Evidence Required | Current Evidence | Status | Blocking |
+|---|---|---|---|---|
+| Clean git tree | `git status --short` returns empty before release manifest verification | Required for release; local generated dirt must be removed or ignored | Locally controllable | Yes if dirty |
+| Commit pushed to origin | `git merge-base --is-ancestor HEAD origin/main` succeeds or release PR exists for `HEAD` | Current certification work found `HEAD` local-only when GitHub returned no commit for the evaluated SHA | Unproven until push/PR | Yes |
+| Local release certification | `npm run certify:release` passes on the release commit | Passed locally during repository certification | Repository-certified | No |
+| npm production audit | `npm audit --omit=dev --audit-level=moderate` returns zero vulnerabilities | Must pass in CI and locally; transitive advisories must be fixed or risk-accepted before release | Repository-certified only when command passes | Yes if failing |
+| Native/web bundle verification | `npm run verify:native-bundle` passes after `npm run build:ios-release` | Passed locally during repository certification | Repository-certified | No |
+| Release manifest verification | `npm run release:manifest` then `npm run verify:release-manifest` pass on a clean tree | Passed locally during repository certification | Repository-certified | No |
+| Xcode local build | `xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO clean build` passes | Passed locally | Local-only evidence | No |
+| Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports `main` is not protected | External blocker | Yes |
+| Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | GitHub Checks API cannot verify local-only commits | External blocker | Yes |
+| Xcode Cloud archive | Green Archive - iOS for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Local workspace/scheme verified; external archive unproven | External blocker | Yes |
+| Vercel production deploy | Green Vercel production deployment for the release commit | Vercel CLI inspection found no deployments for the linked project during certification | External blocker | Yes |
+| Firebase App Hosting `studio` | Backend disabled/removed, green and explicitly re-certified, or proven unable to affect production authority | Documented non-authoritative; App Hosting CLI inspection requires Firebase reauth | External blocker | Yes |
+| Sentry source-map proof | Sentry release exists for the release commit and source maps match deployed artifact | Source-map upload is configured when Sentry env vars exist; upload is not externally proven | External blocker unless exception approved | Yes |
+| Rollback procedure | Vercel, Firebase Hosting, and iOS rollback steps documented | Documented in this file and deployment topology doc | Documented | No |
+| Deployment topology verification | `npm run verify:deployment-topology` passes | Passed locally during repository certification | Repository-certified | No |
 
 ## Required Operator Actions
 
