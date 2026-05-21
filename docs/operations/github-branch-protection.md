@@ -18,8 +18,8 @@ Required checks:
 - `Navigation E2E`
 - `CodeQL`
 - `Operational Certification`
-- Xcode Cloud archive check, or approved equivalent native archive check
-- Authoritative deployment check: Vercel production deployment
+- `ALCHM | Default | Archive - iOS`, or the exact Xcode Cloud/native archive context configured for this repository
+- `Vercel`, or the exact authoritative Vercel production deployment context configured for this repository
 
 Read-only verification:
 
@@ -34,8 +34,20 @@ The script currently verifies:
 - protection exists for `main`
 - pull request review or equivalent protected linear-history policy exists
 - strict required status checks are enabled
-- `Validate`, `Navigation E2E`, `CodeQL`, and `Operational Certification` are present
+- required status contexts are present
 - force pushes are disabled
 - branch deletion is disabled
 
-External checks that cannot be normalized through the GitHub protection API, such as Xcode Cloud and Vercel deployment status names, must still be confirmed in the GitHub branch protection UI before production certification.
+By default the script requires:
+
+```text
+Validate,Navigation E2E,CodeQL,Operational Certification,ALCHM | Default | Archive - iOS,Vercel
+```
+
+If GitHub uses different exact status names, pass them explicitly:
+
+```bash
+REQUIRED_BRANCH_CHECKS="Validate,Navigation E2E,CodeQL,Operational Certification,<xcode context>,<vercel context>" npm run verify:branch-protection
+```
+
+External checks must still be green for the certified commit before production certification.

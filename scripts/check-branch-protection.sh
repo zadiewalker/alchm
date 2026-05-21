@@ -3,6 +3,7 @@ set -euo pipefail
 
 REPO="${GITHUB_REPOSITORY:-zadiewalker/alchm}"
 BRANCH="${1:-main}"
+REQUIRED_CHECKS="${REQUIRED_BRANCH_CHECKS:-Validate,Navigation E2E,CodeQL,Operational Certification,ALCHM | Default | Archive - iOS,Vercel}"
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "GitHub CLI is required to verify branch protection." >&2
@@ -18,9 +19,7 @@ Branch protection is not enabled for ${REPO}:${BRANCH}.
 
 Required production settings:
 - require pull requests before merge
-- require status checks: Validate, Navigation E2E, CodeQL, Operational Certification
-- include Xcode Cloud or approved native archive equivalent
-- include authoritative deploy target status
+- require strict status checks: ${REQUIRED_CHECKS}
 - block force pushes and branch deletion
 EOF
   exit 1
@@ -58,10 +57,13 @@ require_json '(.allow_force_pushes.enabled // false) == false' \
 require_json '(.allow_deletions.enabled // false) == false' \
   "branch deletion must be disabled."
 
-require_check "Validate"
-require_check "Navigation E2E"
-require_check "CodeQL"
-require_check "Operational Certification"
+IFS=',' read -r -a required_checks <<<"${REQUIRED_CHECKS}"
+for check in "${required_checks[@]}"; do
+  trimmed="$(echo "${check}" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+  if [ -n "${trimmed}" ]; then
+    require_check "${trimmed}"
+  fi
+done
 
 if [ "${failures}" -gt 0 ]; then
   cat >&2 <<EOF
@@ -69,9 +71,7 @@ if [ "${failures}" -gt 0 ]; then
 Required production settings:
 - protect ${BRANCH}
 - require pull requests before merge
-- require strict status checks: Validate, Navigation E2E, CodeQL, Operational Certification
-- include Xcode Cloud or approved native archive equivalent
-- include authoritative deploy target status
+- require strict status checks: ${REQUIRED_CHECKS}
 - block force pushes and branch deletion
 EOF
   exit 1

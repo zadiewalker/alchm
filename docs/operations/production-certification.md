@@ -102,3 +102,40 @@ Firebase Hosting `alchmapp` is a static compatibility/redirect target that deplo
 Firebase App Hosting `studio` is non-authoritative until explicitly re-certified.
 
 Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `App`.
+
+## External Checks Matrix
+
+| Gate | Required Evidence | Current Status | Blocking? |
+|---|---|---|---|
+| Clean git tree | `git status --short` returns empty before release manifest verification | Required for release; local generated dirt must be removed or ignored | Yes if dirty |
+| Local release certification | `npm run certify:release` passes on the release commit | Passed locally for `fc8afd64f52532548d1076306a9910bca35b488a` | No |
+| npm production audit | `npm audit --omit=dev --audit-level=moderate` returns zero vulnerabilities | Passed locally | No |
+| Native/web bundle verification | `npm run verify:native-bundle` passes after `npm run build:ios-release` | Passed locally | No |
+| Release manifest verification | `npm run release:manifest` then `npm run verify:release-manifest` pass on a clean tree | Passed locally | No |
+| Xcode local build | `xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO clean build` passes | Passed locally | No |
+| Xcode Cloud external archive | Green archive for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Unproven for `fc8afd64f52532548d1076306a9910bca35b488a` | Yes |
+| Vercel production deploy | Green Vercel production deployment for the release commit | Unproven for `fc8afd64f52532548d1076306a9910bca35b488a` | Yes |
+| Firebase App Hosting `studio` | Backend disabled/removed, or green and explicitly re-certified | Documented non-authoritative; external disable/removal/re-certification unproven | Yes |
+| Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports branch not protected | Yes |
+| Sentry source-map upload | Sentry release exists for the release commit and source maps match deployed artifact | Configured, not externally proven | Yes unless exception approved |
+| Rollback procedure | Vercel, Firebase Hosting, and iOS rollback steps documented | Documented in this file and deployment topology doc | No |
+| Deployment topology verification | `npm run verify:deployment-topology` passes | Passed locally | No |
+
+## Required Operator Actions
+
+1. Push the certified commit to the protected release branch or merge it through a PR.
+2. Enable `main` branch protection and require these checks, using exact context names from GitHub:
+   - `Validate`
+   - `Navigation E2E`
+   - `CodeQL`
+   - `Operational Certification`
+   - Xcode Cloud/native archive check
+   - Vercel production deployment check
+3. Correct Xcode Cloud if needed:
+   - Workspace: `ios/App/App.xcworkspace`
+   - Scheme: `App`
+   - Action: Archive
+   - Prebuild: lockfile install, `npm run build:ios-release`, native bundle verification, pod install where applicable
+4. Disable/remove Firebase App Hosting `studio`, or re-certify it and update `docs/operations/deployment-topology.md`.
+5. Prove Vercel production deploy green for the certified commit.
+6. Prove Sentry release/source-map upload for the deployed artifact, or approve a formal observability exception.
