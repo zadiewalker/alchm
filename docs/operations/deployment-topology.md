@@ -33,6 +33,7 @@ Production certification requires Vercel evidence from project `alchm`, not any 
 Before release, verify:
 
 ```bash
+npm run verify:vercel-authority
 vercel project ls
 vercel ls alchm --yes
 vercel inspect <production-deployment-url>
@@ -41,6 +42,8 @@ vercel inspect <production-deployment-url>
 The deployment must be `Ready`, target `production`, aliased to `https://alchm.vercel.app`, and traceable to the release commit.
 
 If local `.vercel/project.json` points to any project other than `alchm`, local Vercel inspection is not production-authoritative until the project link is corrected or commands explicitly target `alchm`.
+
+`npm run verify:vercel-authority` fails on the known non-authoritative `alchm-authoritative` project link and is included in release certification through `npm run verify:deployment-topology`.
 
 ## Firebase Hosting Contract
 

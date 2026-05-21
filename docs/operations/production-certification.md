@@ -21,6 +21,7 @@ npm run lint
 npm run typecheck
 npm run verify:manifest-assets
 npm run verify:deployment-topology
+npm run verify:vercel-authority
 npm run test:offline-replay
 npm run build:ios-release
 npm run verify:native-bundle
@@ -117,6 +118,7 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
 | Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports `main` is not protected | External blocker | Yes |
 | Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | GitHub Checks API cannot verify local-only commits | External blocker | Yes |
 | Xcode Cloud archive | Green Archive - iOS for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Local workspace/scheme verified; external archive unproven | External blocker | Yes |
+| Vercel project authority | `npm run verify:vercel-authority` passes and Vercel evidence comes from project `alchm` | Repository verifier rejects the known non-authoritative `alchm-authoritative` local link; `.vercel` must remain ignored or explicitly match the production project id in CI | Repository guardrail | Yes if failing |
 | Vercel production deploy | Green Vercel production deployment for the release commit on project `alchm` | Vercel account has project `alchm` with `https://alchm.vercel.app`; local `.vercel/project.json` points to `alchm-authoritative`, which has no deployments. Latest `alchm` production deployment was Ready but not traceable to the local-only release commit. | External blocker | Yes |
 | Firebase App Hosting `studio` | Backend disabled/removed, green and explicitly re-certified, or proven unable to affect production authority | Documented non-authoritative; App Hosting CLI inspection requires Firebase reauth | External blocker | Yes |
 | Sentry source-map proof | Sentry release exists for the release commit and source maps match deployed artifact | Source-map upload is configured when Sentry env vars exist; upload is not externally proven | External blocker unless exception approved | Yes |
