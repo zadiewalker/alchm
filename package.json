@@ -6,7 +6,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "node scripts/prepare-next-build.js && next build",
+    "build": "node scripts/prepare-next-build.js && next build && rsync -a --delete .next-launch/ out/",
     "build:safe": "bash scripts/safe-clean-build.sh",
     "design:check": "npm run design:validate --silent",
     "design:enforce": "npm run design:validate && npm run build",

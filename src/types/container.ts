@@ -1,5 +1,5 @@
-import type { Timestamp } from 'firebase/firestore';
 import type { Container, ContainerState } from '@/services/containers/localContainersService';
+import type { FirestoreTimestampLike } from './journal';
 
 export type ContainerCategory =
   | 'body-based awareness'
@@ -44,10 +44,10 @@ export interface UserContainer {
   containerName: string;
   tier: ContainerTier;
   status: ContainerStatus;
-  startedAt: Timestamp;
-  completedAt?: Timestamp;
+  startedAt: FirestoreTimestampLike | Date;
+  completedAt?: FirestoreTimestampLike | Date;
   currentDay: number;
-  lastEntryAt?: Timestamp;
+  lastEntryAt?: FirestoreTimestampLike | Date;
   missedDays: number[];
   sessionIds: string[];
   completionCeremonyViewed: boolean;

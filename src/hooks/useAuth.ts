@@ -1,10 +1,8 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import type { User } from 'firebase/auth';
-import { getFirebaseAuthOrNull } from '@/services/firebase/firebaseService';
 import { useSafeAsync } from './useSafeAsync';
-import type { AuthState, UserProfile, AppTier } from '@/types/user';
+import type { AuthState, UserProfile, AppTier, AuthUser } from '@/types/user';
 import type { AuthFlowResult, AuthProfileSeed } from '@/types/auth';
 
 export function useAuth(): AuthState & {
@@ -28,10 +26,10 @@ export function useAuth(): AuthState & {
 
   const setStateSafe = safeDispatch(setState);
 
-  const loadProfile = useCallback(async (user: User) => {
+  const loadProfile = useCallback(async (user: AuthUser) => {
     try {
       const { loadUserProfile } = await import('@/services/auth/authService');
-      const profile: UserProfile | null = await loadUserProfile(user);
+      const profile: UserProfile | null = await loadUserProfile(user as Parameters<typeof loadUserProfile>[0]);
 
       if (isMounted()) {
         setStateSafe({
@@ -56,19 +54,18 @@ export function useAuth(): AuthState & {
   }, [isMounted, setStateSafe]);
 
   useEffect(() => {
-    const auth = getFirebaseAuthOrNull();
-    if (!auth) {
-      if (isMounted()) {
-        setStateSafe(prev => ({ ...prev, isLoading: false }));
-      }
-      return;
-    }
-
     let unsubscribe = () => {};
     let cancelled = false;
 
     void import('@/services/auth/authService')
-      .then(async ({ onAuthChanged, resolvePendingAuthRedirect }) => {
+      .then(async ({ getCurrentAuthUser, onAuthChanged, resolvePendingAuthRedirect }) => {
+        if (!getCurrentAuthUser.authAvailable) {
+          if (isMounted()) {
+            setStateSafe(prev => ({ ...prev, isLoading: false }));
+          }
+          return;
+        }
+
         try {
           await resolvePendingAuthRedirect();
         } catch {

@@ -213,7 +213,7 @@ async function clickNavigation(locator) {
 
 async function clickLinkNavigation(page, locator, expectedPath) {
   const href = await locator.getAttribute('href');
-  await locator.click();
+  await clickNavigation(locator);
   try {
     await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(expectedPath)}/?$`), {
       timeout: 2500,

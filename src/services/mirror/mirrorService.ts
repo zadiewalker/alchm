@@ -29,15 +29,15 @@ export async function loadMirrorData(userId: string): Promise<MirrorData> {
   const memSnap = await getDoc(memRef);
   const mem = memSnap.exists() ? sanitizeKheperaMemoryDoc(memSnap.data()) : null;
   const delayedReturn = await loadMirrorReturnState(userId).catch(() => ({ state: 'empty' as const }));
-  const sessionCount = mem?.sessionCount ?? 0;
-
-  if (sessionCount < 3) {
-    return buildEmptyMirrorData(sessionCount, delayedReturn);
-  }
 
   const sessionsRef = collection(db, 'users', userId, 'sessions');
   const q = query(sessionsRef, orderBy('createdAt', 'desc'), limit(10));
   const sessionsSnap = await getDocs(q);
+  const sessionCount = sessionsSnap.docs.length;
+
+  if (sessionCount < 3) {
+    return buildEmptyMirrorData(sessionCount, delayedReturn);
+  }
 
   const arc: ArcPoint[] = sessionsSnap.docs
     .map(d => ({

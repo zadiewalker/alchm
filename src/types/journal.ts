@@ -1,5 +1,8 @@
-import type { Timestamp } from 'firebase/firestore';
 import type { ContainerContext } from './container';
+
+export type FirestoreTimestampLike = {
+  toDate: () => Date;
+};
 
 export type EmotionalTone =
   | 'processing'
@@ -39,7 +42,7 @@ export interface JournalEntry {
   themes: ThemeTag[];
   containerId?: string;
   containerDay?: number;
-  createdAt: Timestamp;
+  createdAt: FirestoreTimestampLike;
   isCrisis: boolean;
 }
 
