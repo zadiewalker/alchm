@@ -24,7 +24,7 @@ import {
   checkNotificationPermission,
   requestNotificationPermission,
   scheduleDailyReminder,
-} from '@/lib/notifications';
+} from '@/services/notifications/legacyNotificationService';
 
 export default function SettingsPage() {
   const router = useRouter();

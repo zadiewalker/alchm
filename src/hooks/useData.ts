@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Capacitor } from '@capacitor/core';
-import { useAuth } from '@/lib/auth';
-import { dataService, UserProfile, JournalEntry, DreamEntry, PathwayProgress, ShadowWorkProgress } from '@/lib/dataService';
+import { useAuth } from '@/hooks/useAuth';
+import { getPlatform } from '@/services/platform/platformService';
+import { dataService, UserProfile, JournalEntry, DreamEntry, PathwayProgress, ShadowWorkProgress } from '@/services/data/legacyDataService';
 import { dataService as containerDataService } from '@/services/data/dataService';
 import type { UserContainer } from '@/types/container';
 
@@ -29,7 +29,7 @@ function createUseDataReturn() {
 }
 
 export const useData = (): UseDataReturn => {
-  const { user, loading: authLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const [isInitialized, setIsInitialized] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [migrationStatus, setMigrationStatus] = useState<'none' | 'pending' | 'running' | 'completed' | 'error'>('none');
@@ -78,7 +78,7 @@ export const useData = (): UseDataReturn => {
 
   // iOS-specific fallback: Force initialization immediately for iOS to prevent blank screen
   useEffect(() => {
-    const platform = Capacitor.getPlatform();
+    const platform = getPlatform();
     const isIOS = platform === 'ios';
     
     const fallbackTimer = setTimeout(() => {

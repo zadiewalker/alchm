@@ -78,6 +78,12 @@ export function getCachedUID(): string | null {
   return cachedUid;
 }
 
+export const getCurrentAuthUser = {
+  get authAvailable(): boolean {
+    return Boolean(getFirebaseAuthOrNull());
+  },
+};
+
 export function clearLocalAuthState(): void {
   cachedUid = null;
   LOCAL_STATE_KEYS_TO_CLEAR.forEach((key) => removeStorageItemNormalized(key));

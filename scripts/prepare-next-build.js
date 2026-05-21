@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const repoRoot = path.join(__dirname, '..');
-const buildArtifacts = ['.next', 'out'];
+const buildArtifacts = ['.next-launch', 'out'];
 
 for (const artifact of buildArtifacts) {
   const target = path.join(repoRoot, artifact);

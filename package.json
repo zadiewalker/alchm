@@ -6,7 +6,7 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "build": "node scripts/prepare-next-build.js && next build",
+    "build": "node scripts/prepare-next-build.js && next build && node scripts/copy-static-export.js",
     "build:safe": "bash scripts/safe-clean-build.sh",
     "design:check": "npm run design:validate --silent",
     "design:enforce": "npm run design:validate && npm run build",

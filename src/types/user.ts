@@ -41,8 +41,16 @@ export interface UserProfile {
   anonymousUid?: string;       // original anonymous UID, for debugging
 }
 
+export interface AuthUser {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  isAnonymous: boolean;
+  getIdToken?: (forceRefresh?: boolean) => Promise<string>;
+}
+
 export interface AuthState {
-  user: import('firebase/auth').User | null;
+  user: AuthUser | null;
   profile: UserProfile | null;
   isLoading: boolean;
   isAuthenticated: boolean;

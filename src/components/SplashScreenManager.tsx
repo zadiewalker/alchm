@@ -44,18 +44,13 @@ export function SplashScreenManager() {
 
     const hideSplashScreen = async () => {
       try {
-        if (typeof window !== 'undefined' && (window as any).Capacitor) {
-          const { SplashScreen } = await import('@capacitor/splash-screen');
-          
-          await new Promise(resolve => setTimeout(resolve, 200));
-          
-          try {
-            await SplashScreen.hide({ 
-              fadeOutDuration: 500
-            });
-          } catch (e) {
-            console.warn('🌅 SplashScreen.hide() failed (non-critical):', e);
-          }
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        try {
+          const { hideNativeSplashScreen } = await import('@/services/platform/splashScreenService');
+          await hideNativeSplashScreen(500);
+        } catch (e) {
+          console.warn('🌅 SplashScreen.hide() failed (non-critical):', e);
         }
       } catch (error) {
         console.error('🌅 SplashScreenManager: Critical error:', error);
