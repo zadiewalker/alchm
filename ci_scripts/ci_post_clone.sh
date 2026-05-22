@@ -10,6 +10,9 @@ if [ ! -f package-lock.json ]; then
   exit 1
 fi
 
+npm install -g npm@11.4.2
+echo "Pinned npm: $(npm --version)"
+
 npm ci
 npm run build
 npx cap sync ios --deployment
