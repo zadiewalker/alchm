@@ -7,9 +7,9 @@
   },
   "scripts": {
     "build": "node scripts/prepare-next-build.js && next build && node scripts/copy-static-export.js",
-    "build:ios-release": "npm run build && npx cap sync ios && npm run verify:native-bundle",
+    "build:ios-release": "npm run build && npx cap sync ios --deployment && npm run verify:native-bundle",
     "build:safe": "bash scripts/safe-clean-build.sh",
-    "cap:sync": "npx cap sync ios",
+    "cap:sync": "npx cap sync ios --deployment",
     "certify:release": "npm run qa:governance && npm run lint && npm run typecheck && npm run verify:manifest-assets && npm run build:ios-release && npm run release:manifest && npm run verify:release-manifest && npm run verify:deployment-topology && npm run test:offline-replay",
     "design:check": "npm run design:validate --silent",
     "design:enforce": "npm run design:validate && npm run build",

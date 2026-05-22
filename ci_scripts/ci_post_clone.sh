@@ -12,7 +12,7 @@ fi
 
 npm ci
 npm run build
-npx cap sync ios
+npx cap sync ios --deployment
 
 cd ios/App
-pod install
+pod install --deployment
