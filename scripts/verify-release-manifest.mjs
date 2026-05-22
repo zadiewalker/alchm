@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { hashDirectory, isGitDirty, repoRoot } from './release-utils.mjs';
+import { hashDirectory, isGitDirty, repoRoot, runGit } from './release-utils.mjs';
 
 const manifestPath = resolve(repoRoot, process.argv[2] || 'release-artifacts/release-manifest.json');
 const allowDirty = process.env.ALLOW_DIRTY_RELEASE_MANIFEST === 'true';
@@ -47,7 +47,8 @@ for (const path of requiredPaths) {
 }
 
 if (isGitDirty() && !allowDirty) {
-  fail('working tree is dirty. Set ALLOW_DIRTY_RELEASE_MANIFEST=true only for non-release diagnostics.');
+  const status = runGit(['status', '--short'], '').trim();
+  fail(`working tree is dirty:\n${status}\nSet ALLOW_DIRTY_RELEASE_MANIFEST=true only for non-release diagnostics.`);
 }
 
 const outHash = hashDirectory(resolve(repoRoot, 'out')).aggregateHash;
