@@ -42,6 +42,20 @@ function getReleaseInfo() {
   }
 }
 
+function getGitBranch() {
+  const localBranch = runGit(['branch', '--show-current'], '');
+  if (localBranch) {
+    return localBranch;
+  }
+
+  return process.env.GITHUB_HEAD_REF
+    || process.env.GITHUB_REF_NAME
+    || process.env.VERCEL_GIT_COMMIT_REF
+    || process.env.GITHUB_REF?.replace(/^refs\/heads\//, '')
+    || process.env.GITHUB_REF?.replace(/^refs\/pull\//, 'pull/')
+    || 'detached';
+}
+
 const outHash = hashDirectory(resolve(repoRoot, 'out'));
 const iosPublicHash = hashDirectory(resolve(repoRoot, 'ios/App/App/public'), {
   ignoreRelativePaths: capacitorOnlyFiles,
@@ -52,7 +66,7 @@ const manifest = {
   schemaVersion: 1,
   generatedAt: new Date().toISOString(),
   git: {
-    branch: runGit(['branch', '--show-current'], 'unknown'),
+    branch: getGitBranch(),
     commit: runGit(['rev-parse', 'HEAD'], 'unknown'),
     dirty: isGitDirty(),
   },
