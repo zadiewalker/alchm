@@ -1,0 +1,66 @@
+name: Operational Certification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  release-integrity:
+    runs-on: macos-15-intel
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.8'
+
+      - name: Pin CocoaPods
+        run: gem install cocoapods -v 1.16.2 --no-document
+
+      - name: Pin npm
+        run: npm install -g npm@11.4.2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Report release toolchain
+        run: |
+          ruby --version
+          pod --version
+          npm --version
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=moderate
+
+      - name: Run release certification
+        run: npm run certify:release
+
+      - name: Verify branch protection configuration
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: npm run verify:branch-protection
+
+      - name: Upload release manifest
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-manifest
+          path: release-artifacts/release-manifest.json
+          if-no-files-found: warn
+
+      - name: Upload static export
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: static-export-out
+          path: out
+          if-no-files-found: warn

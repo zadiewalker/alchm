@@ -7,6 +7,8 @@ if (SENTRY_DSN && !SENTRY_DSN.includes('ADD_YOUR_SENTRY_DSN_HERE')) {
   Sentry.init({
   dsn: SENTRY_DSN,
   environment: process.env.NODE_ENV,
+  release: process.env.NEXT_PUBLIC_RELEASE_ID || process.env.NEXT_PUBLIC_APP_VERSION,
+  dist: process.env.NEXT_PUBLIC_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA,
   
   // Performance Monitoring for server
   tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
@@ -47,6 +49,8 @@ if (SENTRY_DSN && !SENTRY_DSN.includes('ADD_YOUR_SENTRY_DSN_HERE')) {
     tags: {
       component: 'server',
       app: 'alchm',
+      git_commit: process.env.NEXT_PUBLIC_GIT_COMMIT || process.env.VERCEL_GIT_COMMIT_SHA || 'unknown',
+      deployment_target: process.env.NEXT_PUBLIC_DEPLOYMENT_TARGET || 'unknown',
     },
   },
   });

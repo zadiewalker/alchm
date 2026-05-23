@@ -29,14 +29,39 @@ export default function SplashPage() {
 
     const destination = resolveStartupDestination();
     const normalizedDestination = normalizePath(destination);
+    void import('@/services/monitoring/telemetry')
+      .then(({ recordOperationalEvent }) => {
+        recordOperationalEvent('app_startup_started', {
+          route: '/',
+          state: 'splash_route_loaded',
+        });
+      })
+      .catch(() => {});
 
     const navigationTimer = window.setTimeout(() => {
+      void import('@/services/monitoring/telemetry')
+        .then(({ recordOperationalEvent }) => {
+          recordOperationalEvent('app_startup_ready', {
+            route: normalizedDestination,
+            state: 'route_resolved',
+          });
+        })
+        .catch(() => {});
       navigate(destination, { source: 'splash-auto', replace: true, fallbackMs: 900 });
     }, STARTUP_DECISION_DELAY_MS);
 
     const hardTimeout = window.setTimeout(() => {
       const currentPath = normalizePath(window.location.pathname || '/');
       if (currentPath === '/' || currentPath !== normalizedDestination) {
+        void import('@/services/monitoring/telemetry')
+          .then(({ recordOperationalEvent }) => {
+            recordOperationalEvent('app_startup_fallback', {
+              route: normalizedDestination,
+              state: 'startup_hard_timeout',
+              timeoutMs: STARTUP_HARD_TIMEOUT_MS,
+            });
+          })
+          .catch(() => {});
         window.location.replace(normalizedDestination);
       }
     }, STARTUP_HARD_TIMEOUT_MS);

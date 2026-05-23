@@ -8,12 +8,38 @@ type QueueStorage = {
   keys(): Promise<unknown[]>;
 };
 
+const QUEUE_DURABILITY_WARNING_KEY = 'alchm_queue_durability_warning';
+
+function recordQueueDurabilityWarning(reason: string): void {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    window.localStorage.setItem(
+      QUEUE_DURABILITY_WARNING_KEY,
+      JSON.stringify({
+        reason,
+        storageMode: 'memory',
+        durability: 'non_durable',
+        recordedAt: new Date().toISOString(),
+      }),
+    );
+  } catch {
+    // Telemetry carries the degradation signal; avoid throwing during queue init.
+  }
+}
+
 // Dynamic import with fallback to mock implementation
 async function getIDBKeyval(): Promise<QueueStorage> {
   try {
     return await import('idb-keyval') as QueueStorage;
-  } catch {
-    recordOperationalException('sync_issue', new Error('queue_idb_unavailable'), { state: 'queue_fallback_mock' });
+  } catch (error) {
+    recordQueueDurabilityWarning('queue_idb_unavailable');
+    recordOperationalException('sync_issue', error, {
+      state: 'queue_durability_warning',
+      issue: 'durable_persistence_unavailable',
+    });
     return await import('./idbKeyvalMock') as QueueStorage;
   }
 }

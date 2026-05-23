@@ -14,7 +14,16 @@ export function QueueReplayBootstrap(): null {
           }
           return undefined;
         })
-        .catch(() => {});
+        .catch((error) => {
+          void import('@/services/monitoring/telemetry')
+            .then(({ recordOperationalException }) => {
+              recordOperationalException('sync_issue', error, {
+                state: 'queue_replay_bootstrap_import_failed',
+                source: reason,
+              });
+            })
+            .catch(() => {});
+        });
     };
 
     const onOnline = () => replay('online');

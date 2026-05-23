@@ -15,6 +15,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm audit --omit=dev --audit-level=moderate
       - run: npm run qa:governance
       - run: npx tsc --noEmit --skipLibCheck -p tsconfig.json
+      - run: npm run verify:manifest-assets
+      - run: npm run verify:deployment-topology
+      - run: npm run test:offline-replay
       - run: npm run build
