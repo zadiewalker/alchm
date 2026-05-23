@@ -109,37 +109,37 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
 | Gate | Evidence Required | Current Evidence | Status | Blocking |
 |---|---|---|---|---|
 | Clean git tree | `git status --short` returns empty before release manifest verification | Required for release; local generated dirt must be removed or ignored | Locally controllable | Yes if dirty |
-| Commit pushed to origin | `git merge-base --is-ancestor HEAD origin/main` succeeds or release PR exists for `HEAD` | Current certification work found `HEAD` local-only when GitHub returned no commit for the evaluated SHA | Unproven until push/PR | Yes |
-| Local release certification | `npm run certify:release` passes on the release commit | Passed locally during repository certification | Repository-certified | No |
-| npm production audit | `npm audit --omit=dev --audit-level=moderate` returns zero vulnerabilities | Must pass in CI and locally; transitive advisories must be fixed or risk-accepted before release | Repository-certified only when command passes | Yes if failing |
+| Commit pushed to origin | `git merge-base --is-ancestor HEAD origin/main` succeeds or release PR exists for `HEAD` | PR #27 contains the promotion branch and exposes the candidate SHA to external checks | Pushed PR provenance established | No for PR candidate |
+| Local release certification | `npm run certify:release` passes on the release commit | Passed locally on the promotion branch after release-integrity remediation | Repository-certified | No |
+| npm production audit | `npm audit --omit=dev --audit-level=moderate` returns zero vulnerabilities | Passed locally and in GitHub Operational Certification after the `qs` lockfile remediation | Repository-certified and externally checked | No |
+| Release integrity | GitHub Operational Certification `release-integrity` passes with the pinned native toolchain | PR #27 established a green external run after pinning supported Intel runner, Ruby `3.4.8`, CocoaPods `1.16.2`, and npm `11.4.2`; recheck current PR head after every new commit | External check required per candidate | Yes if absent/failing |
 | Native/web bundle verification | `npm run verify:native-bundle` passes after `npm run build:ios-release` | Passed locally during repository certification | Repository-certified | No |
 | Release manifest verification | `npm run release:manifest` then `npm run verify:release-manifest` pass on a clean tree | Passed locally during repository certification | Repository-certified | No |
 | Xcode local build | `xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO clean build` passes | Passed locally | Local-only evidence | No |
 | Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports `main` is not protected | External blocker | Yes |
-| Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | GitHub Checks API cannot verify local-only commits | External blocker | Yes |
+| Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | PR #27 exposes GitHub/Vercel preview checks; Xcode archive and production deploy checks are still absent/unproven | Partially proven; external blocker remains | Yes |
 | Xcode Cloud archive | Green Archive - iOS for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Local workspace/scheme verified; external archive unproven | External blocker | Yes |
 | Vercel project authority | `npm run verify:vercel-authority` passes and Vercel evidence comes from project `alchm` | Repository verifier rejects the known non-authoritative `alchm-authoritative` local link; `.vercel` must remain ignored or explicitly match the production project id in CI | Repository guardrail | Yes if failing |
-| Vercel production deploy | Green Vercel production deployment for the release commit on project `alchm` | Vercel account has project `alchm` with `https://alchm.vercel.app`; local `.vercel/project.json` points to `alchm-authoritative`, which has no deployments. Latest `alchm` production deployment was Ready but not traceable to the local-only release commit. | External blocker | Yes |
-| Firebase App Hosting `studio` | Backend disabled/removed, green and explicitly re-certified, or proven unable to affect production authority | Documented non-authoritative; App Hosting CLI inspection requires Firebase reauth | External blocker | Yes |
+| Vercel production deploy | Green Vercel production deployment for the release commit on project `alchm` | `alchm` production alias is Ready, but its current production deployment was created on May 21, 2026; PR #27 Vercel results are Preview and do not attest a production deployment for the promotion candidate | External blocker | Yes |
+| Firebase App Hosting `studio` | Backend disabled/removed, green and explicitly re-certified, or proven unable to affect production authority | External CLI query on May 23, 2026 confirms active backend `studio` in `us-central1`, last updated May 22, 2026; it remains documented non-authoritative but not externally disabled | External blocker | Yes |
 | Sentry source-map proof | Sentry release exists for the release commit and source maps match deployed artifact | Source-map upload is configured when Sentry env vars exist; upload is not externally proven | External blocker unless exception approved | Yes |
 | Rollback procedure | Vercel, Firebase Hosting, and iOS rollback steps documented | Documented in this file and deployment topology doc | Documented | No |
 | Deployment topology verification | `npm run verify:deployment-topology` passes | Passed locally during repository certification | Repository-certified | No |
 
 ## Required Operator Actions
 
-1. Push the certified commit to the protected release branch or merge it through a PR.
-2. Enable `main` branch protection and require these checks, using exact context names from GitHub:
+1. Enable `main` branch protection and require these checks, using exact context names from GitHub:
    - `Validate`
    - `Navigation E2E`
    - `CodeQL`
    - `Operational Certification`
    - Xcode Cloud/native archive check
    - Vercel production deployment check
-3. Correct Xcode Cloud if needed:
+2. Correct Xcode Cloud if needed:
    - Workspace: `ios/App/App.xcworkspace`
    - Scheme: `App`
    - Action: Archive
    - Prebuild: lockfile install, `npm run build:ios-release`, native bundle verification, pod install where applicable
-4. Disable/remove Firebase App Hosting `studio`, or re-certify it and update `docs/operations/deployment-topology.md`.
-5. Prove Vercel production deploy green for the certified commit on project `alchm`; do not use the locally linked `alchm-authoritative` project as production evidence.
-6. Prove Sentry release/source-map upload for the deployed artifact, or approve a formal observability exception.
+3. Disable/remove Firebase App Hosting `studio`, or re-certify it and update `docs/operations/deployment-topology.md`.
+4. Prove Vercel production deploy green for the certified commit on project `alchm`; PR preview success is not production deploy evidence.
+5. Prove Sentry release/source-map upload for the deployed artifact, or approve a formal observability exception.
