@@ -14,12 +14,14 @@ Required settings:
 
 Required checks:
 
-- `Validate`
-- `Navigation E2E`
+- `validate` (workflow display name: `Validate`)
+- `navigation-e2e` (workflow display name: `Navigation E2E`)
 - `CodeQL`
-- `Operational Certification`
+- `release-integrity` (workflow display name: `Operational Certification`)
 - `ALCHM | Default | Archive - iOS`, or the exact Xcode Cloud/native archive context configured for this repository
 - `Vercel`, or the exact authoritative Vercel production deployment context configured for this repository
+
+GitHub branch protection must use emitted check-run context names. Workflow display names are not enforceable status contexts unless GitHub emits them as check runs.
 
 Read-only verification:
 
@@ -41,13 +43,13 @@ The script currently verifies:
 By default the script requires:
 
 ```text
-Validate,Navigation E2E,CodeQL,Operational Certification,ALCHM | Default | Archive - iOS,Vercel
+validate,navigation-e2e,CodeQL,release-integrity,ALCHM | Default | Archive - iOS,Vercel
 ```
 
 If GitHub uses different exact status names, pass them explicitly:
 
 ```bash
-REQUIRED_BRANCH_CHECKS="Validate,Navigation E2E,CodeQL,Operational Certification,<xcode context>,<vercel context>" npm run verify:branch-protection
+REQUIRED_BRANCH_CHECKS="validate,navigation-e2e,CodeQL,release-integrity,<xcode context>,<vercel context>" npm run verify:branch-protection
 ```
 
 External checks must still be green for the certified commit before production certification.

@@ -37,10 +37,10 @@ npm run certify:release
 Production certification requires:
 
 - GitHub `main` branch protection enabled and passing `npm run verify:branch-protection`.
-- Validate green.
-- Navigation E2E green.
+- `validate` green (workflow display name: Validate).
+- `navigation-e2e` green (workflow display name: Navigation E2E).
 - CodeQL green.
-- Operational Certification green.
+- `release-integrity` green (workflow display name: Operational Certification).
 - Vercel production deployment green for the release commit.
 - Xcode Cloud Archive - iOS green, or an approved native archive equivalent.
 - Firebase App Hosting `studio` disabled, removed, or explicitly re-certified.
@@ -89,7 +89,7 @@ iOS:
 
 ## Known Blockers
 
-- Branch protection must be enabled externally if `npm run verify:branch-protection` fails.
+- Branch protection must remain enabled and pass `npm run verify:branch-protection` for the candidate commit.
 - Xcode Cloud must be corrected externally if it still references `ios/ALCHM/ALCHM.xcworkspace`.
 - Firebase App Hosting `studio` must be disabled, removed, or re-certified externally.
 - Sentry source-map upload requires production credentials and CI evidence.
@@ -116,8 +116,8 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
 | Native/web bundle verification | `npm run verify:native-bundle` passes after `npm run build:ios-release` | Passed locally during repository certification | Repository-certified | No |
 | Release manifest verification | `npm run release:manifest` then `npm run verify:release-manifest` pass on a clean tree | Passed locally during repository certification | Repository-certified | No |
 | Xcode local build | `xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO clean build` passes | Passed locally | Local-only evidence | No |
-| Branch protection | `npm run verify:branch-protection` passes with required status checks | Fails when GitHub reports `main` is not protected | External blocker | Yes |
-| Required GitHub checks | Validate, Navigation E2E, CodeQL, Operational Certification, Xcode/native archive, and Vercel/deploy checks green for the release commit | PR #27 exposes GitHub/Vercel preview checks; Xcode archive and production deploy checks are still absent/unproven | Partially proven; external blocker remains | Yes |
+| Branch protection | `npm run verify:branch-protection` passes with required status checks | Enabled on May 23, 2026 with strict `validate`, `navigation-e2e`, `CodeQL`, `release-integrity`, `ALCHM | Default | Archive - iOS`, and `Vercel` contexts; force pushes and deletions disabled; approving PR review and admin enforcement required | Externally enforced | No |
+| Required GitHub checks | `validate`, `navigation-e2e`, `CodeQL`, `release-integrity`, Xcode/native archive, and Vercel/deploy check contexts green for the release commit | PR #27 emits and passes `validate`, `navigation-e2e`, `CodeQL`, and `release-integrity`; Xcode archive and production deploy checks are still absent/unproven | Partially proven; external blocker remains | Yes |
 | Xcode Cloud archive | Green Archive - iOS for the release commit using `ios/App/App.xcworkspace`, scheme `App` | Local workspace/scheme verified; external archive unproven | External blocker | Yes |
 | Vercel project authority | `npm run verify:vercel-authority` passes and Vercel evidence comes from project `alchm` | Repository verifier rejects the known non-authoritative `alchm-authoritative` local link; `.vercel` must remain ignored or explicitly match the production project id in CI | Repository guardrail | Yes if failing |
 | Vercel production deploy | Green Vercel production deployment for the release commit on project `alchm` | `alchm` production alias is Ready, but its current production deployment was created on May 21, 2026; PR #27 Vercel results are Preview and do not attest a production deployment for the promotion candidate | External blocker | Yes |
@@ -128,11 +128,11 @@ Xcode Cloud authority requires workspace `ios/App/App.xcworkspace` and scheme `A
 
 ## Required Operator Actions
 
-1. Enable `main` branch protection and require these checks, using exact context names from GitHub:
-   - `Validate`
-   - `Navigation E2E`
+1. Keep `main` branch protection enabled and retain these exact GitHub contexts:
+   - `validate` (workflow display name: Validate)
+   - `navigation-e2e` (workflow display name: Navigation E2E)
    - `CodeQL`
-   - `Operational Certification`
+   - `release-integrity` (workflow display name: Operational Certification)
    - Xcode Cloud/native archive check
    - Vercel production deployment check
 2. Correct Xcode Cloud if needed:

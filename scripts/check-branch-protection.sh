@@ -3,7 +3,8 @@ set -euo pipefail
 
 REPO="${GITHUB_REPOSITORY:-zadiewalker/alchm}"
 BRANCH="${1:-main}"
-REQUIRED_CHECKS="${REQUIRED_BRANCH_CHECKS:-Validate,Navigation E2E,CodeQL,Operational Certification,ALCHM | Default | Archive - iOS,Vercel}"
+# Require GitHub status context names, not workflow display labels.
+REQUIRED_CHECKS="${REQUIRED_BRANCH_CHECKS:-validate,navigation-e2e,CodeQL,release-integrity,ALCHM | Default | Archive - iOS,Vercel}"
 
 if ! command -v gh >/dev/null 2>&1; then
   echo "GitHub CLI is required to verify branch protection." >&2
@@ -26,6 +27,10 @@ EOF
 fi
 
 failures=0
+STATUS_CONTEXTS="$(
+  gh api "repos/${REPO}/branches/${BRANCH}/protection" \
+    --jq '.required_status_checks.contexts[]?, .required_status_checks.checks[]?.context'
+)"
 
 require_json() {
   local jq_filter="$1"
@@ -40,9 +45,7 @@ require_json() {
 require_check() {
   local expected="$1"
 
-  if ! gh api "repos/${REPO}/branches/${BRANCH}/protection" \
-    --jq '.required_status_checks.contexts[]?, .required_status_checks.checks[]?.context' \
-    | grep -Fxq "${expected}"; then
+  if ! grep -Fxq "${expected}" <<<"${STATUS_CONTEXTS}"; then
     echo "Branch protection verification failed: missing required status check '${expected}'." >&2
     failures=$((failures + 1))
   fi
