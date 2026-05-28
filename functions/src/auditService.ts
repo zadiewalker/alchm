@@ -1,7 +1,7 @@
 // Audit Trail Service for ALCHM - Comprehensive logging of privacy-related activities
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
-import { PrivacyAuditLog } from './privacyTypes';
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import { PrivacyAuditLog } from "./privacyTypes";
 
 const db = admin.firestore();
 
@@ -18,7 +18,7 @@ export async function logPrivacyAction(auditData: {
   userAgent?: string;
   adminUserId?: string;
   dataCategories?: string[];
-  riskLevel?: 'low' | 'medium' | 'high';
+  riskLevel?: "low" | "medium" | "high";
   complianceNotes?: string;
 }) {
   try {
@@ -39,10 +39,10 @@ export async function logPrivacyAction(auditData: {
     logEntry.complianceTags = generateComplianceTags(auditData.action, auditData.legalBasis);
     
     // Store in audit log collection
-    const auditRef = await db.collection('privacyAuditLog').add(logEntry);
+    const auditRef = await db.collection("privacyAuditLog").add(logEntry);
     
     // For high-risk actions, create immediate alerts
-    if (logEntry.riskLevel === 'high') {
+    if (logEntry.riskLevel === "high") {
       await createHighRiskAlert(auditRef.id, auditData);
     }
     
@@ -52,7 +52,7 @@ export async function logPrivacyAction(auditData: {
     return auditRef.id;
     
   } catch (error) {
-    console.error('Error logging privacy action:', error);
+    console.error("Error logging privacy action:", error);
     // Audit logging failures are critical - attempt backup logging
     await attemptBackupAuditLog(auditData, error);
     throw error;
@@ -62,46 +62,46 @@ export async function logPrivacyAction(auditData: {
 /**
  * Assess risk level of privacy-related actions
  */
-function assessActionRisk(action: string): 'low' | 'medium' | 'high' {
+function assessActionRisk(action: string): "low" | "medium" | "high" {
   const highRiskActions = [
-    'account_deletion_completed',
-    'data_breach_detected',
-    'unauthorized_access_attempt',
-    'admin_data_access',
-    'legal_request_fulfilled',
-    'data_shared_externally'
+    "account_deletion_completed",
+    "data_breach_detected",
+    "unauthorized_access_attempt",
+    "admin_data_access",
+    "legal_request_fulfilled",
+    "data_shared_externally"
   ];
   
   const mediumRiskActions = [
-    'account_deletion_requested',
-    'data_exported',
-    'consent_withdrawn',
-    'privacy_settings_updated',
-    'admin_account_created'
+    "account_deletion_requested",
+    "data_exported",
+    "consent_withdrawn",
+    "privacy_settings_updated",
+    "admin_account_created"
   ];
   
-  if (highRiskActions.includes(action)) return 'high';
-  if (mediumRiskActions.includes(action)) return 'medium';
-  return 'low';
+  if (highRiskActions.includes(action)) return "high";
+  if (mediumRiskActions.includes(action)) return "medium";
+  return "low";
 }
 
 /**
  * Generate compliance tags for audit entries
  */
 function generateComplianceTags(action: string, legalBasis: string): string[] {
-  const tags = ['privacy_audit'];
+  const tags = ["privacy_audit"];
   
   // Add GDPR-specific tags
-  if (legalBasis === 'consent') tags.push('gdpr_article_6_1_a');
-  if (legalBasis === 'legitimate_interest') tags.push('gdpr_article_6_1_f');
-  if (legalBasis === 'vital_interests') tags.push('gdpr_article_6_1_d');
-  if (legalBasis === 'legal_obligation') tags.push('gdpr_article_6_1_c');
+  if (legalBasis === "consent") tags.push("gdpr_article_6_1_a");
+  if (legalBasis === "legitimate_interest") tags.push("gdpr_article_6_1_f");
+  if (legalBasis === "vital_interests") tags.push("gdpr_article_6_1_d");
+  if (legalBasis === "legal_obligation") tags.push("gdpr_article_6_1_c");
   
   // Add action-specific tags
-  if (action.includes('data_export')) tags.push('gdpr_article_20', 'data_portability');
-  if (action.includes('deletion')) tags.push('gdpr_article_17', 'right_to_erasure');
-  if (action.includes('consent')) tags.push('gdpr_article_7', 'consent_management');
-  if (action.includes('breach')) tags.push('gdpr_article_33', 'breach_notification');
+  if (action.includes("data_export")) tags.push("gdpr_article_20", "data_portability");
+  if (action.includes("deletion")) tags.push("gdpr_article_17", "right_to_erasure");
+  if (action.includes("consent")) tags.push("gdpr_article_7", "consent_management");
+  if (action.includes("breach")) tags.push("gdpr_article_33", "breach_notification");
   
   return tags;
 }
@@ -110,14 +110,14 @@ function generateComplianceTags(action: string, legalBasis: string): string[] {
  * Create high-risk alerts for immediate attention
  */
 async function createHighRiskAlert(auditId: string, auditData: any) {
-  await db.collection('privacyAlerts').add({
+  await db.collection("privacyAlerts").add({
     auditId,
-    alertType: 'high_risk_action',
+    alertType: "high_risk_action",
     action: auditData.action,
     userId: auditData.userId,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    status: 'open',
-    severity: 'high',
+    status: "open",
+    severity: "high",
     requiresReview: true,
     details: auditData.details
   });
@@ -127,7 +127,7 @@ async function createHighRiskAlert(auditId: string, auditData: any) {
  * Update user's audit activity summary
  */
 async function updateUserAuditSummary(userId: string, action: string) {
-  const summaryRef = db.collection('userAuditSummaries').doc(userId);
+  const summaryRef = db.collection("userAuditSummaries").doc(userId);
   
   await summaryRef.set({
     lastActivity: admin.firestore.FieldValue.serverTimestamp(),
@@ -142,14 +142,14 @@ async function updateUserAuditSummary(userId: string, action: string) {
  */
 async function attemptBackupAuditLog(auditData: any, error: any) {
   try {
-    await db.collection('auditLogBackup').add({
+    await db.collection("auditLogBackup").add({
       ...auditData,
       originalError: error.message,
       backupTimestamp: admin.firestore.FieldValue.serverTimestamp(),
       requiresManualReview: true
     });
   } catch (backupError) {
-    console.error('Backup audit logging also failed:', backupError);
+    console.error("Backup audit logging also failed:", backupError);
     // In a production system, you might want to write to a different system or alert administrators
   }
 }
@@ -159,7 +159,7 @@ async function attemptBackupAuditLog(auditData: any, error: any) {
  */
 export const getUserAuditTrail = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
 
   const requestingUserId = context.auth.uid;
@@ -167,21 +167,21 @@ export const getUserAuditTrail = functions.https.onCall(async (data, context) =>
 
   // Users can only view their own audit trail, unless they're admins
   if (userId !== requestingUserId && !await isAdmin(requestingUserId)) {
-    throw new functions.https.HttpsError('permission-denied', 'Can only access own audit trail');
+    throw new functions.https.HttpsError("permission-denied", "Can only access own audit trail");
   }
 
   try {
-    let query = db.collection('privacyAuditLog')
-      .where('userId', '==', userId)
-      .orderBy('timestamp', 'desc')
+    let query = db.collection("privacyAuditLog")
+      .where("userId", "==", userId)
+      .orderBy("timestamp", "desc")
       .limit(Math.min(limit, 1000)); // Cap at 1000 records
 
     // Apply date filters if provided
     if (startDate) {
-      query = query.where('timestamp', '>=', new Date(startDate));
+      query = query.where("timestamp", ">=", new Date(startDate));
     }
     if (endDate) {
-      query = query.where('timestamp', '<=', new Date(endDate));
+      query = query.where("timestamp", "<=", new Date(endDate));
     }
 
     const auditSnapshot = await query.get();
@@ -206,7 +206,7 @@ export const getUserAuditTrail = functions.https.onCall(async (data, context) =>
       auditTrail;
 
     // Get audit summary
-    const summaryDoc = await db.collection('userAuditSummaries').doc(userId).get();
+    const summaryDoc = await db.collection("userAuditSummaries").doc(userId).get();
     const summary = summaryDoc.exists ? summaryDoc.data() : {};
 
     return {
@@ -223,8 +223,8 @@ export const getUserAuditTrail = functions.https.onCall(async (data, context) =>
     };
 
   } catch (error) {
-    console.error('Error getting audit trail:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to retrieve audit trail');
+    console.error("Error getting audit trail:", error);
+    throw new functions.https.HttpsError("internal", "Failed to retrieve audit trail");
   }
 });
 
@@ -233,18 +233,18 @@ export const getUserAuditTrail = functions.https.onCall(async (data, context) =>
  */
 export const generateComplianceAuditReport = functions.https.onCall(async (data, context) => {
   if (!context.auth || !await isAdmin(context.auth.uid)) {
-    throw new functions.https.HttpsError('permission-denied', 'Admin access required');
+    throw new functions.https.HttpsError("permission-denied", "Admin access required");
   }
 
   const { startDate, endDate } = data;
 
   try {
     // Get audit logs for the specified period
-    let query = db.collection('privacyAuditLog')
-      .orderBy('timestamp', 'desc');
+    let query = db.collection("privacyAuditLog")
+      .orderBy("timestamp", "desc");
 
-    if (startDate) query = query.where('timestamp', '>=', new Date(startDate));
-    if (endDate) query = query.where('timestamp', '<=', new Date(endDate));
+    if (startDate) query = query.where("timestamp", ">=", new Date(startDate));
+    if (endDate) query = query.where("timestamp", "<=", new Date(endDate));
 
     const auditSnapshot = await query.get();
     const auditLogs = auditSnapshot.docs.map(doc => doc.data());
@@ -255,13 +255,13 @@ export const generateComplianceAuditReport = functions.https.onCall(async (data,
       overview: {
         totalAuditEntries: auditLogs.length,
         uniqueUsers: new Set(auditLogs.map(log => log.userId)).size,
-        highRiskActions: auditLogs.filter(log => log.riskLevel === 'high').length
+        highRiskActions: auditLogs.filter(log => log.riskLevel === "high").length
       },
       gdprCompliance: {
-        consentActions: auditLogs.filter(log => log.complianceTags?.includes('consent_management')).length,
-        dataPortabilityRequests: auditLogs.filter(log => log.complianceTags?.includes('data_portability')).length,
-        erasureRequests: auditLogs.filter(log => log.complianceTags?.includes('right_to_erasure')).length,
-        breachNotifications: auditLogs.filter(log => log.complianceTags?.includes('breach_notification')).length
+        consentActions: auditLogs.filter(log => log.complianceTags?.includes("consent_management")).length,
+        dataPortabilityRequests: auditLogs.filter(log => log.complianceTags?.includes("data_portability")).length,
+        erasureRequests: auditLogs.filter(log => log.complianceTags?.includes("right_to_erasure")).length,
+        breachNotifications: auditLogs.filter(log => log.complianceTags?.includes("breach_notification")).length
       },
       actionBreakdown: getActionBreakdown(auditLogs),
       legalBasisAnalysis: getLegalBasisAnalysis(auditLogs),
@@ -272,34 +272,34 @@ export const generateComplianceAuditReport = functions.https.onCall(async (data,
     // Log the report generation
     await logPrivacyAction({
       userId: context.auth.uid,
-      action: 'compliance_audit_report_generated',
+      action: "compliance_audit_report_generated",
       details: {
-        message: 'Generated compliance audit report',
+        message: "Generated compliance audit report",
         startDate,
         endDate,
-        reportType: 'compliance_audit'
+        reportType: "compliance_audit"
       },
-      legalBasis: 'legal_obligation'
+      legalBasis: "legal_obligation"
     });
 
     return complianceReport;
 
   } catch (error) {
-    console.error('Error generating compliance audit report:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to generate audit report');
+    console.error("Error generating compliance audit report:", error);
+    throw new functions.https.HttpsError("internal", "Failed to generate audit report");
   }
 });
 
 /**
  * Detect anomalous privacy-related activities
  */
-export const detectAuditAnomalies = functions.pubsub.schedule('0 6 * * *').onRun(async () => {
+export const detectAuditAnomalies = functions.pubsub.schedule("0 6 * * *").onRun(async () => {
   try {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     
-    const recentAuditsSnapshot = await db.collection('privacyAuditLog')
-      .where('timestamp', '>=', yesterday)
+    const recentAuditsSnapshot = await db.collection("privacyAuditLog")
+      .where("timestamp", ">=", yesterday)
       .get();
     
     const auditLogs = recentAuditsSnapshot.docs.map(doc => doc.data());
@@ -308,19 +308,19 @@ export const detectAuditAnomalies = functions.pubsub.schedule('0 6 * * *').onRun
     const anomalies = [];
     
     // Unusual deletion request patterns
-    const deletionRequests = auditLogs.filter(log => log.action === 'account_deletion_requested');
+    const deletionRequests = auditLogs.filter(log => log.action === "account_deletion_requested");
     if (deletionRequests.length > 10) { // Threshold for unusual deletion activity
       anomalies.push({
-        type: 'unusual_deletion_volume',
-        severity: 'medium',
+        type: "unusual_deletion_volume",
+        severity: "medium",
         count: deletionRequests.length,
-        description: 'Higher than normal account deletion requests'
+        description: "Higher than normal account deletion requests"
       });
     }
     
     // Multiple export requests from same IP
     const exportsByIP: Record<string, number> = {};
-    auditLogs.filter(log => log.action === 'data_exported' && log.ipAddress)
+    auditLogs.filter(log => log.action === "data_exported" && log.ipAddress)
       .forEach(log => {
         exportsByIP[log.ipAddress!] = (exportsByIP[log.ipAddress!] || 0) + 1;
       });
@@ -328,18 +328,18 @@ export const detectAuditAnomalies = functions.pubsub.schedule('0 6 * * *').onRun
     Object.entries(exportsByIP).forEach(([ip, count]) => {
       if (count > 5) {
         anomalies.push({
-          type: 'multiple_exports_same_ip',
-          severity: 'high',
+          type: "multiple_exports_same_ip",
+          severity: "high",
           ip: maskIP(ip),
           count,
-          description: 'Multiple data export requests from same IP address'
+          description: "Multiple data export requests from same IP address"
         });
       }
     });
     
     // Rapid consent changes
     const consentChanges = auditLogs.filter(log => 
-      log.action.includes('consent_') && (log.action.includes('withdrawn') || log.action.includes('updated'))
+      log.action.includes("consent_") && (log.action.includes("withdrawn") || log.action.includes("updated"))
     );
     
     const userConsentChanges: Record<string, number> = {};
@@ -347,33 +347,33 @@ export const detectAuditAnomalies = functions.pubsub.schedule('0 6 * * *').onRun
       userConsentChanges[log.userId] = (userConsentChanges[log.userId] || 0) + 1;
     });
     
-    Object.entries(userConsentChanges).forEach(([userId, count]) => {
+    Object.entries(userConsentChanges).forEach(([, count]) => {
       if (count > 3) {
         anomalies.push({
-          type: 'rapid_consent_changes',
-          severity: 'medium',
-          userId: '[REDACTED]', // Don't include actual user ID in alerts
+          type: "rapid_consent_changes",
+          severity: "medium",
+          userId: "[REDACTED]", // Don't include actual user ID in alerts
           count,
-          description: 'User made multiple consent changes in short period'
+          description: "User made multiple consent changes in short period"
         });
       }
     });
     
     // Store anomaly detection results
     if (anomalies.length > 0) {
-      await db.collection('auditAnomalies').add({
+      await db.collection("auditAnomalies").add({
         detectionDate: admin.firestore.FieldValue.serverTimestamp(),
         period: yesterday.toISOString(),
         anomaliesDetected: anomalies,
         totalAuditLogs: auditLogs.length,
-        requiresReview: anomalies.some(a => a.severity === 'high')
+        requiresReview: anomalies.some(a => a.severity === "high")
       });
       
       console.log(`Detected ${anomalies.length} audit anomalies for ${yesterday.toISOString()}`);
     }
     
   } catch (error) {
-    console.error('Error in anomaly detection:', error);
+    console.error("Error in anomaly detection:", error);
   }
 });
 
@@ -400,31 +400,31 @@ function getLegalBasisAnalysis(auditLogs: any[]) {
 
 function getRiskAssessment(auditLogs: any[]) {
   return {
-    low: auditLogs.filter(log => log.riskLevel === 'low').length,
-    medium: auditLogs.filter(log => log.riskLevel === 'medium').length,
-    high: auditLogs.filter(log => log.riskLevel === 'high').length
+    low: auditLogs.filter(log => log.riskLevel === "low").length,
+    medium: auditLogs.filter(log => log.riskLevel === "medium").length,
+    high: auditLogs.filter(log => log.riskLevel === "high").length
   };
 }
 
 function generateComplianceRecommendations(auditLogs: any[]): string[] {
   const recommendations = [];
   
-  const highRiskCount = auditLogs.filter(log => log.riskLevel === 'high').length;
+  const highRiskCount = auditLogs.filter(log => log.riskLevel === "high").length;
   if (highRiskCount > auditLogs.length * 0.1) { // More than 10% high risk
-    recommendations.push('Review high-risk activities - unusually high proportion of high-risk privacy actions');
+    recommendations.push("Review high-risk activities - unusually high proportion of high-risk privacy actions");
   }
   
-  const consentWithdrawals = auditLogs.filter(log => log.action.includes('consent_withdrawn')).length;
+  const consentWithdrawals = auditLogs.filter(log => log.action.includes("consent_withdrawn")).length;
   if (consentWithdrawals > 20) {
-    recommendations.push('Investigate consent withdrawal patterns - consider improving consent experience');
+    recommendations.push("Investigate consent withdrawal patterns - consider improving consent experience");
   }
   
-  const deletionRequests = auditLogs.filter(log => log.action.includes('deletion_requested')).length;
+  const deletionRequests = auditLogs.filter(log => log.action.includes("deletion_requested")).length;
   if (deletionRequests > 10) {
-    recommendations.push('Review account deletion trends - may indicate user experience issues');
+    recommendations.push("Review account deletion trends - may indicate user experience issues");
   }
   
-  return recommendations.length > 0 ? recommendations : ['No compliance concerns identified'];
+  return recommendations.length > 0 ? recommendations : ["No compliance concerns identified"];
 }
 
 /**
@@ -432,7 +432,7 @@ function generateComplianceRecommendations(auditLogs: any[]): string[] {
  */
 async function isAdmin(userId: string): Promise<boolean> {
   try {
-    const adminDoc = await db.collection('adminUsers').doc(userId).get();
+    const adminDoc = await db.collection("adminUsers").doc(userId).get();
     return adminDoc.exists && adminDoc.data()?.verified === true;
   } catch (error) {
     return false;
@@ -440,9 +440,9 @@ async function isAdmin(userId: string): Promise<boolean> {
 }
 
 function maskIP(ip: string): string {
-  const parts = ip.split('.');
+  const parts = ip.split(".");
   if (parts.length === 4) {
     return `${parts[0]}.${parts[1]}.xxx.xxx`;
   }
-  return 'xxx.xxx.xxx.xxx';
+  return "xxx.xxx.xxx.xxx";
 }

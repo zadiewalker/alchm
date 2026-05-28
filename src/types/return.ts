@@ -1,4 +1,5 @@
 import type { EmotionalTone, ThemeTag } from '@/types/journal';
+import type { ResurfacingToneMode } from './resurfacingTone';
 
 export type ReturnType = 'seed' | 'pattern' | 'contrast';
 
@@ -7,6 +8,7 @@ export interface ReturnNavigationState {
   returnType: ReturnType;
   surfacedAt?: number;
   daysElapsed?: number;
+  resurfacingTone?: ResurfacingToneMode;
 }
 
 export interface ParsedReturnSearchParams {
@@ -14,6 +16,7 @@ export interface ParsedReturnSearchParams {
   returnType: ReturnType;
   surfacedAt?: number;
   daysElapsed?: number;
+  resurfacingTone?: ResurfacingToneMode;
 }
 
 export interface ReturnThresholdData {
@@ -34,9 +37,9 @@ export interface ReturnHistoryMetadata extends ReturnCandidateMetadata {
   returnType: ReturnType;
 }
 
-export interface RankedReturnCandidate extends ReturnCandidateMetadata {
+export interface RelevantReturnCandidate extends ReturnCandidateMetadata {
   returnType: ReturnType;
-  score: number;
+  relevance: number;
 }
 
 export interface ReturnSelectionResult {
@@ -48,5 +51,6 @@ export interface ReturnSelectionResult {
     | 'missing_entry_context'
     | 'weak_current_metadata'
     | 'recent_return_spacing';
-  candidate?: RankedReturnCandidate;
+  candidate?: RelevantReturnCandidate;
+  resurfacingTone?: ResurfacingToneMode;
 }

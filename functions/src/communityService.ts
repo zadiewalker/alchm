@@ -1,5 +1,5 @@
 // Community Healing Service for ALCHM
-import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { getFirestore, FieldValue, Timestamp } from "firebase-admin/firestore";
 import { 
   CommunityStory, 
   HealingCircle, 
@@ -11,8 +11,8 @@ import {
   CreateStoryRequest,
   CreateWisdomEntryRequest,
   JoinCircleRequest
-} from './communityTypes';
-import { aiModerationCheck, generateAnonymousId } from './utils/communityUtils';
+} from "./communityTypes";
+import { aiModerationCheck, generateAnonymousId } from "./utils/communityUtils";
 
 const db = getFirestore();
 
@@ -22,10 +22,10 @@ export class CommunityHealingService {
   async createStory(userId: string, storyData: CreateStoryRequest): Promise<string> {
     try {
       // Generate anonymous ID for this story
-      const anonymousId = generateAnonymousId(userId, 'story');
+      const anonymousId = generateAnonymousId(userId, "story");
       
       // AI moderation check
-      const moderationResult = await aiModerationCheck(storyData.content, 'story');
+      const moderationResult = await aiModerationCheck(storyData.content, "story");
       
       const story: Partial<CommunityStory> = {
         anonymousId,
@@ -33,7 +33,7 @@ export class CommunityHealingService {
         title: storyData.title,
         healingStage: storyData.healingStage as any,
         wisdomTags: storyData.wisdomTags,
-        contentModerationStatus: moderationResult.isApproved ? 'approved' : 'flagged',
+        contentModerationStatus: moderationResult.isApproved ? "approved" : "flagged",
         moderationScore: moderationResult.score,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
@@ -47,13 +47,13 @@ export class CommunityHealingService {
         location: storyData.location
       };
 
-      const docRef = await db.collection('communityStories').add(story);
+      const docRef = await db.collection("communityStories").add(story);
       
       // Log moderation action
       await this.logModerationAction({
-        contentType: 'story',
+        contentType: "story",
         contentId: docRef.id,
-        action: story.contentModerationStatus === 'approved' ? 'approved' : 'flagged',
+        action: story.contentModerationStatus === "approved" ? "approved" : "flagged",
         aiModerationScore: moderationResult.score,
         humanReviewRequired: !moderationResult.isApproved,
         timestamp: Timestamp.now()
@@ -61,42 +61,42 @@ export class CommunityHealingService {
 
       // If flagged for crisis content, escalate
       if (moderationResult.crisisIndicators) {
-        await this.handleCrisisEscalation(userId, docRef.id, 'story', moderationResult.crisisLevel);
+        await this.handleCrisisEscalation(userId, docRef.id, "story", moderationResult.crisisLevel);
       }
 
       return docRef.id;
     } catch (error) {
-      console.error('Error creating community story:', error);
-      throw new Error('Failed to create community story');
+      console.error("Error creating community story:", error);
+      throw new Error("Failed to create community story");
     }
   }
 
   async getStoriesByHealingStage(stage: string, limit: number = 10): Promise<CommunityStory[]> {
     try {
-      const snapshot = await db.collection('communityStories')
-        .where('healingStage', '==', stage)
-        .where('contentModerationStatus', '==', 'approved')
-        .orderBy('createdAt', 'desc')
+      const snapshot = await db.collection("communityStories")
+        .where("healingStage", "==", stage)
+        .where("contentModerationStatus", "==", "approved")
+        .orderBy("createdAt", "desc")
         .limit(limit)
         .get();
 
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as CommunityStory));
     } catch (error) {
-      console.error('Error fetching stories by healing stage:', error);
-      throw new Error('Failed to fetch stories');
+      console.error("Error fetching stories by healing stage:", error);
+      throw new Error("Failed to fetch stories");
     }
   }
 
   async addStoryReaction(userId: string, storyId: string, reactionType: string): Promise<void> {
     try {
-      const anonymousUserId = generateAnonymousId(userId, 'reaction');
+      const anonymousUserId = generateAnonymousId(userId, "reaction");
       const batch = db.batch();
       
       // Check if user already reacted to prevent duplicate reactions
-      const existingReaction = await db.collection('storyReactions')
-        .where('storyId', '==', storyId)
-        .where('anonymousUserId', '==', anonymousUserId)
-        .where('reactionType', '==', reactionType)
+      const existingReaction = await db.collection("storyReactions")
+        .where("storyId", "==", storyId)
+        .where("anonymousUserId", "==", anonymousUserId)
+        .where("reactionType", "==", reactionType)
         .limit(1)
         .get();
 
@@ -105,7 +105,7 @@ export class CommunityHealingService {
       }
 
       // Add reaction document
-      const reactionRef = db.collection('storyReactions').doc();
+      const reactionRef = db.collection("storyReactions").doc();
       batch.set(reactionRef, {
         storyId,
         anonymousUserId,
@@ -114,15 +114,15 @@ export class CommunityHealingService {
       });
 
       // Increment reaction count on story
-      const storyRef = db.collection('communityStories').doc(storyId);
+      const storyRef = db.collection("communityStories").doc(storyId);
       batch.update(storyRef, {
         [`reactions.${reactionType}`]: FieldValue.increment(1)
       });
 
       await batch.commit();
     } catch (error) {
-      console.error('Error adding story reaction:', error);
-      throw new Error('Failed to add reaction');
+      console.error("Error adding story reaction:", error);
+      throw new Error("Failed to add reaction");
     }
   }
 
@@ -140,27 +140,28 @@ export class CommunityHealingService {
         lastActivityAt: Timestamp.now()
       };
 
-      const docRef = await db.collection('healingCircles').add(circle);
+      const docRef = await db.collection("healingCircles").add(circle);
       return docRef.id;
     } catch (error) {
-      console.error('Error creating healing circle:', error);
-      throw new Error('Failed to create healing circle');
+      console.error("Error creating healing circle:", error);
+      throw new Error("Failed to create healing circle");
     }
   }
 
-  async joinHealingCircle(userId: string, circleId: string, joinData: JoinCircleRequest): Promise<void> {
+  async joinHealingCircle(userId: string, circleId: string, _joinData: JoinCircleRequest): Promise<void> {
     try {
-      const circleRef = db.collection('healingCircles').doc(circleId);
+      void _joinData;
+      const circleRef = db.collection("healingCircles").doc(circleId);
       const circle = await circleRef.get();
       
       if (!circle.exists) {
-        throw new Error('Healing circle not found');
+        throw new Error("Healing circle not found");
       }
 
       const circleData = circle.data() as HealingCircle;
       
       if (circleData.currentCapacity >= circleData.maxCapacity) {
-        throw new Error('Healing circle is at capacity');
+        throw new Error("Healing circle is at capacity");
       }
 
       const anonymousId = generateAnonymousId(userId, `circle_${circleId}`);
@@ -168,7 +169,7 @@ export class CommunityHealingService {
       const participant: AnonymousParticipant = {
         anonymousId,
         joinedAt: Timestamp.now(),
-        role: 'participant',
+        role: "participant",
         isActive: true
       };
 
@@ -179,36 +180,36 @@ export class CommunityHealingService {
       });
 
     } catch (error) {
-      console.error('Error joining healing circle:', error);
-      throw new Error('Failed to join healing circle');
+      console.error("Error joining healing circle:", error);
+      throw new Error("Failed to join healing circle");
     }
   }
 
   async getActiveHealingCircles(topic?: string): Promise<HealingCircle[]> {
     try {
-      let query = db.collection('healingCircles')
-        .where('isActive', '==', true)
-        .where('isPublic', '==', true);
+      let query = db.collection("healingCircles")
+        .where("isActive", "==", true)
+        .where("isPublic", "==", true);
 
       if (topic) {
-        query = query.where('topic', '==', topic);
+        query = query.where("topic", "==", topic);
       }
 
-      const snapshot = await query.orderBy('lastActivityAt', 'desc').get();
+      const snapshot = await query.orderBy("lastActivityAt", "desc").get();
       return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as HealingCircle));
     } catch (error) {
-      console.error('Error fetching healing circles:', error);
-      throw new Error('Failed to fetch healing circles');
+      console.error("Error fetching healing circles:", error);
+      throw new Error("Failed to fetch healing circles");
     }
   }
 
   // === COMMUNITY WISDOM LIBRARY ===
   async createWisdomEntry(userId: string, wisdomData: CreateWisdomEntryRequest): Promise<string> {
     try {
-      const anonymousId = generateAnonymousId(userId, 'wisdom');
+      const anonymousId = generateAnonymousId(userId, "wisdom");
       
       // AI moderation for wisdom content
-      const moderationResult = await aiModerationCheck(wisdomData.content, 'wisdom');
+      const moderationResult = await aiModerationCheck(wisdomData.content, "wisdom");
       
       const wisdom: Partial<WisdomEntry> = {
         contributorAnonymousId: anonymousId,
@@ -229,12 +230,12 @@ export class CommunityHealingService {
         sourceType: wisdomData.sourceType as any
       };
 
-      const docRef = await db.collection('communityWisdom').add(wisdom);
+      const docRef = await db.collection("communityWisdom").add(wisdom);
       
       await this.logModerationAction({
-        contentType: 'wisdom_entry',
+        contentType: "wisdom_entry",
         contentId: docRef.id,
-        action: 'approved',
+        action: "approved",
         aiModerationScore: moderationResult.score,
         humanReviewRequired: moderationResult.score < 0.8,
         timestamp: Timestamp.now()
@@ -242,25 +243,25 @@ export class CommunityHealingService {
 
       return docRef.id;
     } catch (error) {
-      console.error('Error creating wisdom entry:', error);
-      throw new Error('Failed to create wisdom entry');
+      console.error("Error creating wisdom entry:", error);
+      throw new Error("Failed to create wisdom entry");
     }
   }
 
   async searchWisdomEntries(query: string, category?: string, tags?: string[]): Promise<WisdomEntry[]> {
     try {
-      let firestoreQuery: any = db.collection('communityWisdom');
+      let firestoreQuery: any = db.collection("communityWisdom");
 
       if (category) {
-        firestoreQuery = firestoreQuery.where('category', '==', category);
+        firestoreQuery = firestoreQuery.where("category", "==", category);
       }
 
       if (tags && tags.length > 0) {
-        firestoreQuery = firestoreQuery.where('tags', 'array-contains-any', tags);
+        firestoreQuery = firestoreQuery.where("tags", "array-contains-any", tags);
       }
 
       const snapshot = await firestoreQuery
-        .orderBy('createdAt', 'desc')
+        .orderBy("createdAt", "desc")
         .limit(20)
         .get();
 
@@ -268,7 +269,7 @@ export class CommunityHealingService {
 
       // Simple text search if query provided
       if (query) {
-        const searchTerms = query.toLowerCase().split(' ');
+        const searchTerms = query.toLowerCase().split(" ");
         results = results.filter((entry: WisdomEntry) => 
           searchTerms.some((term: string) => 
             entry.title.toLowerCase().includes(term) || 
@@ -280,20 +281,20 @@ export class CommunityHealingService {
 
       return results;
     } catch (error) {
-      console.error('Error searching wisdom entries:', error);
-      throw new Error('Failed to search wisdom entries');
+      console.error("Error searching wisdom entries:", error);
+      throw new Error("Failed to search wisdom entries");
     }
   }
 
-  async voteOnWisdomEntry(userId: string, entryId: string, vote: 'helpful' | 'somewhat_helpful' | 'not_helpful'): Promise<void> {
+  async voteOnWisdomEntry(userId: string, entryId: string, vote: "helpful" | "somewhat_helpful" | "not_helpful"): Promise<void> {
     try {
-      const anonymousUserId = generateAnonymousId(userId, 'vote');
+      const anonymousUserId = generateAnonymousId(userId, "vote");
       const batch = db.batch();
 
       // Check for existing vote
-      const existingVote = await db.collection('wisdomVotes')
-        .where('entryId', '==', entryId)
-        .where('voterAnonymousId', '==', anonymousUserId)
+      const existingVote = await db.collection("wisdomVotes")
+        .where("entryId", "==", entryId)
+        .where("voterAnonymousId", "==", anonymousUserId)
         .limit(1)
         .get();
 
@@ -305,14 +306,14 @@ export class CommunityHealingService {
         batch.update(voteDoc.ref, { vote, createdAt: Timestamp.now() });
         
         // Update counters
-        const entryRef = db.collection('communityWisdom').doc(entryId);
+        const entryRef = db.collection("communityWisdom").doc(entryId);
         batch.update(entryRef, {
           [`effectiveness_votes.${oldVote}`]: FieldValue.increment(-1),
           [`effectiveness_votes.${vote}`]: FieldValue.increment(1)
         });
       } else {
         // Create new vote
-        const voteRef = db.collection('wisdomVotes').doc();
+        const voteRef = db.collection("wisdomVotes").doc();
         batch.set(voteRef, {
           entryId,
           voterAnonymousId: anonymousUserId,
@@ -321,7 +322,7 @@ export class CommunityHealingService {
         });
 
         // Increment counter
-        const entryRef = db.collection('communityWisdom').doc(entryId);
+        const entryRef = db.collection("communityWisdom").doc(entryId);
         batch.update(entryRef, {
           [`effectiveness_votes.${vote}`]: FieldValue.increment(1)
         });
@@ -329,8 +330,8 @@ export class CommunityHealingService {
 
       await batch.commit();
     } catch (error) {
-      console.error('Error voting on wisdom entry:', error);
-      throw new Error('Failed to vote on wisdom entry');
+      console.error("Error voting on wisdom entry:", error);
+      throw new Error("Failed to vote on wisdom entry");
     }
   }
 
@@ -348,7 +349,7 @@ export class CommunityHealingService {
         anonymousParticipants: [],
         prompts: experienceData.prompts.map((prompt: any, index: number) => ({
           id: `prompt_${index}`,
-          experienceId: '', // Will be set after document creation
+          experienceId: "", // Will be set after document creation
           ...prompt,
           responses: []
         })),
@@ -356,11 +357,11 @@ export class CommunityHealingService {
         facilitatorId
       };
 
-      const docRef = await db.collection('collectiveExperiences').add(experience);
+      const docRef = await db.collection("collectiveExperiences").add(experience);
       
       // Update prompts with experience ID
       await docRef.update({
-        'prompts': experience.prompts?.map(prompt => ({
+        "prompts": experience.prompts?.map(prompt => ({
           ...prompt,
           experienceId: docRef.id
         }))
@@ -368,8 +369,8 @@ export class CommunityHealingService {
 
       return docRef.id;
     } catch (error) {
-      console.error('Error creating collective experience:', error);
-      throw new Error('Failed to create collective experience');
+      console.error("Error creating collective experience:", error);
+      throw new Error("Failed to create collective experience");
     }
   }
 
@@ -377,21 +378,21 @@ export class CommunityHealingService {
     try {
       const anonymousId = generateAnonymousId(userId, `experience_${experienceId}`);
       
-      const experienceRef = db.collection('collectiveExperiences').doc(experienceId);
+      const experienceRef = db.collection("collectiveExperiences").doc(experienceId);
       await experienceRef.update({
         anonymousParticipants: FieldValue.arrayUnion(anonymousId),
         participantCount: FieldValue.increment(1)
       });
     } catch (error) {
-      console.error('Error joining collective experience:', error);
-      throw new Error('Failed to join collective experience');
+      console.error("Error joining collective experience:", error);
+      throw new Error("Failed to join collective experience");
     }
   }
 
   // === PEER MATCHING ===
   async createPeerMatchProfile(userId: string, profileData: any): Promise<void> {
     try {
-      const anonymousId = generateAnonymousId(userId, 'peer_profile');
+      const anonymousId = generateAnonymousId(userId, "peer_profile");
       
       const profile: Partial<PeerMatchProfile> = {
         anonymousId,
@@ -407,17 +408,17 @@ export class CommunityHealingService {
         lastActiveAt: Timestamp.now()
       };
 
-      await db.collection('peerMatchProfiles').doc(anonymousId).set(profile);
+      await db.collection("peerMatchProfiles").doc(anonymousId).set(profile);
     } catch (error) {
-      console.error('Error creating peer match profile:', error);
-      throw new Error('Failed to create peer match profile');
+      console.error("Error creating peer match profile:", error);
+      throw new Error("Failed to create peer match profile");
     }
   }
 
   // === SAFETY & MODERATION ===
   async reportContent(userId: string, contentId: string, contentType: string, reason: string, description?: string): Promise<void> {
     try {
-      const reporterAnonymousId = generateAnonymousId(userId, 'report');
+      const reporterAnonymousId = generateAnonymousId(userId, "report");
       
       const report = {
         contentId,
@@ -426,10 +427,10 @@ export class CommunityHealingService {
         reason,
         description,
         createdAt: Timestamp.now(),
-        status: 'pending'
+        status: "pending"
       };
 
-      await db.collection('contentReports').add(report);
+      await db.collection("contentReports").add(report);
 
       // Increment report count on content
       const contentCollection = this.getContentCollectionName(contentType);
@@ -442,45 +443,45 @@ export class CommunityHealingService {
       const contentData = contentDoc.data();
       
       if (contentData && contentData.reportCount >= 3) {
-        await this.flagContentForReview(contentId, contentType, 'multiple_reports');
+        await this.flagContentForReview(contentId, contentType, "multiple_reports");
       }
     } catch (error) {
-      console.error('Error reporting content:', error);
-      throw new Error('Failed to report content');
+      console.error("Error reporting content:", error);
+      throw new Error("Failed to report content");
     }
   }
 
   private async logModerationAction(logData: Partial<CommunityModerationLog>): Promise<void> {
     try {
-      await db.collection('communityModerationLogs').add(logData);
+      await db.collection("communityModerationLogs").add(logData);
     } catch (error) {
-      console.error('Error logging moderation action:', error);
+      console.error("Error logging moderation action:", error);
     }
   }
 
   private async handleCrisisEscalation(userId: string, contentId: string, contentType: string, crisisLevel?: string): Promise<void> {
     try {
       // Create crisis alert
-      await db.collection('crisisAlerts').add({
+      await db.collection("crisisAlerts").add({
         userId,
         contentId,
         contentType,
-        crisisLevel: crisisLevel || 'medium',
+        crisisLevel: crisisLevel || "medium",
         timestamp: Timestamp.now(),
-        status: 'active'
+        status: "active"
       });
 
       // Log escalation
       await this.logModerationAction({
         contentType: contentType as any,
         contentId,
-        action: 'escalated',
-        escalationLevel: (crisisLevel as any) || 'medium',
+        action: "escalated",
+        escalationLevel: (crisisLevel as any) || "medium",
         timestamp: Timestamp.now(),
         humanReviewRequired: true
       });
     } catch (error) {
-      console.error('Error handling crisis escalation:', error);
+      console.error("Error handling crisis escalation:", error);
     }
   }
 
@@ -488,29 +489,29 @@ export class CommunityHealingService {
     try {
       const contentCollection = this.getContentCollectionName(contentType);
       await db.collection(contentCollection).doc(contentId).update({
-        contentModerationStatus: 'flagged'
+        contentModerationStatus: "flagged"
       });
 
       await this.logModerationAction({
         contentType: contentType as any,
         contentId,
-        action: 'flagged',
+        action: "flagged",
         reason,
         timestamp: Timestamp.now(),
         humanReviewRequired: true
       });
     } catch (error) {
-      console.error('Error flagging content for review:', error);
+      console.error("Error flagging content for review:", error);
     }
   }
 
   private getContentCollectionName(contentType: string): string {
     const mapping: { [key: string]: string } = {
-      'story': 'communityStories',
-      'wisdom_entry': 'communityWisdom',
-      'contribution': 'healingSessions',
-      'response': 'collectiveExperiences'
+      "story": "communityStories",
+      "wisdom_entry": "communityWisdom",
+      "contribution": "healingSessions",
+      "response": "collectiveExperiences"
     };
-    return mapping[contentType] || 'unknown';
+    return mapping[contentType] || "unknown";
   }
 }

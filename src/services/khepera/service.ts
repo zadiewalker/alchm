@@ -1,13 +1,13 @@
-import { hasExternalApiBaseUrl, getApiUrl } from '@/utils/api';
 import { isEnhancedKheperaEnabledForUser } from '@/services/featureFlags';
-import { isCrisisSignalPresent, CRISIS_RESPONSE } from './crisisDetection';
+import { detectCrisisSignals, CRISIS_RESPONSE } from './crisisDetection';
 import { generateKheperaResponse } from './generateResponse';
 import { generateEnhancedKheperaResponse } from './enhancedGeneration';
 import { extractThemesFromEntry } from './extractThemes';
+import { requestPersistedKheperaReflection } from '@/services/ai/modelProvider';
 import type { KheperaResponse, KheperaUserContext } from '@/types/khepera';
 import type { ReflectionTiming } from '@/types/khepera';
 import type { EmotionalTone, ThemeTag } from '@/types/journal';
-import type { CompanionTextRequest, CompanionTextResult } from './generateResponse';
+import type { CanonicalSessionPersistenceRequest } from '@/services/ai/types';
 
 export interface GenerateKheperaInput {
   entryText: string;
@@ -16,6 +16,7 @@ export interface GenerateKheperaInput {
   useEnhanced?: boolean;
   userId?: string | null;
   reflectionTiming?: ReflectionTiming;
+  canonicalSession?: CanonicalSessionPersistenceRequest;
 }
 
 export interface OnboardingKheperaResult {
@@ -28,8 +29,12 @@ export async function generateSafeKheperaResponse(
 ): Promise<KheperaResponse> {
   const { entryText, userContext, signal, useEnhanced, userId } = input;
 
-  if (isCrisisSignalPresent(entryText)) {
+  if (detectCrisisSignals(entryText)) {
     return CRISIS_RESPONSE;
+  }
+
+  if (input.canonicalSession) {
+    return requestPersistedKheperaReflection(entryText, input.canonicalSession);
   }
 
   const effectiveUseEnhanced = useEnhanced ?? (userId ? isEnhancedKheperaEnabledForUser(userId) : false);
@@ -56,33 +61,17 @@ export async function generateJournalKheperaResponse(
 
 export async function generateSafeOnboardingKheperaResponse(
   entry: string,
-  options: { abortSignal?: AbortSignal } = {}
+  _options: { abortSignal?: AbortSignal } = {}
 ): Promise<OnboardingKheperaResult> {
-  if (isCrisisSignalPresent(entry)) {
+  if (detectCrisisSignals(entry)) {
     return {
       response: `${CRISIS_RESPONSE.witness}\n\n${CRISIS_RESPONSE.perspective}`,
       seed: CRISIS_RESPONSE.seed,
     };
   }
 
-  if (!hasExternalApiBaseUrl()) {
-    return buildOnboardingFallback();
-  }
-
-  const response = await fetch(getApiUrl('/api/khepera/onboarding'), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ entry }),
-    signal: options.abortSignal,
-  });
-
-  if (!response.ok) {
-    throw new Error(`Onboarding response failed: ${response.status}`);
-  }
-
-  return response.json() as Promise<OnboardingKheperaResult>;
+  // Onboarding remains local until it is covered by the authenticated gateway contract.
+  return buildOnboardingFallback();
 }
 
 export async function generateOnboardingKheperaResponse(
@@ -96,7 +85,7 @@ export async function extractThemesForKheperaEntry(
   entryText: string,
   kheperaResponse: string
 ): Promise<{ themes: ThemeTag[]; tone: EmotionalTone }> {
-  if (isCrisisSignalPresent(entryText)) {
+  if (detectCrisisSignals(entryText)) {
     return {
       themes: [],
       tone: 'processing',
@@ -104,13 +93,6 @@ export async function extractThemesForKheperaEntry(
   }
 
   return extractThemesFromEntry(entryText, kheperaResponse);
-}
-
-export async function generateCompanionText(
-  request: CompanionTextRequest
-): Promise<CompanionTextResult> {
-  const { createModelText } = await import('./generateResponse');
-  return createModelText(request);
 }
 
 export function buildOnboardingFallback(): OnboardingKheperaResult {

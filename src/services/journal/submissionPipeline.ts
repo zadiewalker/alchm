@@ -1,18 +1,16 @@
-import { setDoc } from 'firebase/firestore';
-import type { DocumentReference } from 'firebase/firestore';
-import { isCrisisSignalPresent, CRISIS_RESPONSE } from '@/services/khepera/crisisDetection';
+import { detectCrisisSignals, CRISIS_RESPONSE } from '@/services/khepera/crisisDetection';
 import {
   claimQueueEntry,
   getQueuedEntry,
   releaseQueueEntry,
   saveToQueue,
   updateQueueEntry,
+  verifyQueueClaim,
 } from '@/services/offline/localQueue';
 import { getOfflineResponse } from '@/services/offline/offlineResponses';
-import { extractThemesForKheperaEntry, generateSafeKheperaResponse } from '@/services/khepera/service';
+import { generateSafeKheperaResponse } from '@/services/khepera/service';
 import { processQueuedEntry } from '@/services/journal/processQueuedEntry';
-import type { JournalSubmissionInput, JournalSubmissionResult, QueuedEntry } from '@/types/journal';
-import type { ThemeTag } from '@/types/journal';
+import type { JournalSubmissionInput, JournalSubmissionResult, QueuedEntry, ThemeTag } from '@/types/journal';
 import { combineKheperaResponse, splitKheperaResponse } from '@/utils/khepera';
 import { normalizeContainerContext } from '@/utils/khepera/containerContext';
 import { recordOperationalEvent, recordOperationalException } from '@/services/monitoring/telemetry';
@@ -36,17 +34,9 @@ type SubmissionDeps = {
   updateQueueEntry: typeof updateQueueEntry;
   claimQueueEntry: typeof claimQueueEntry;
   releaseQueueEntry: typeof releaseQueueEntry;
-  isCrisisSignalPresent: typeof isCrisisSignalPresent;
+  verifyQueueClaim: typeof verifyQueueClaim;
+  detectCrisisSignals: typeof detectCrisisSignals;
   generateSafeKheperaResponse: typeof generateSafeKheperaResponse;
-  extractThemesForKheperaEntry: typeof extractThemesForKheperaEntry;
-  setDoc: typeof setDoc;
-  makeSessionRef: (userId: string, localId: string) => Promise<DocumentReference>;
-  updateKheperaMemory: (
-    userId: string,
-    themes: string[],
-    tone: string,
-    metadata?: { stance?: string; styleProfile?: string; lastReturnType?: 'immediate' | 'delayed' }
-  ) => Promise<void>;
   getOfflineResponse: typeof getOfflineResponse;
   onTransition?: (transition: SubmissionTransition, payload: { localId: string }) => void | Promise<void>;
 };
@@ -58,22 +48,9 @@ const defaultSubmissionDeps: SubmissionDeps = {
   updateQueueEntry,
   claimQueueEntry,
   releaseQueueEntry,
-  isCrisisSignalPresent,
+  verifyQueueClaim,
+  detectCrisisSignals,
   generateSafeKheperaResponse,
-  extractThemesForKheperaEntry,
-  setDoc,
-  makeSessionRef: async (userId: string, localId: string) => {
-    const [{ doc }, { getFirestoreDb }] = await Promise.all([
-      import('firebase/firestore'),
-      import('@/services/firebase/firebaseService'),
-    ]);
-    const db = getFirestoreDb();
-    return doc(db, 'users', userId, 'sessions', localId);
-  },
-  updateKheperaMemory: async (userId: string, themes: string[], tone: string, metadata?: { stance?: string; styleProfile?: string; lastReturnType?: 'immediate' | 'delayed' }) => {
-    const { updateKheperaMemory } = await import('@/services/khepera/memory');
-    await updateKheperaMemory(userId, themes as never[], tone as never, metadata as never);
-  },
   getOfflineResponse,
 };
 
@@ -96,6 +73,30 @@ function getSyncIssue(error: unknown): 'auth_required' | 'remote_unavailable' {
   return /permission|auth|unauth|token|credential/.test(message)
     ? 'auth_required'
     : 'remote_unavailable';
+}
+
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === 'AbortError';
+}
+
+function sanitizeThemeTags(themes: string[]): ThemeTag[] {
+  return themes.filter((theme): theme is ThemeTag => (
+    theme === 'grief_loss'
+    || theme === 'relationship_tension'
+    || theme === 'self_worth'
+    || theme === 'identity'
+    || theme === 'work_purpose'
+    || theme === 'fear_uncertainty'
+    || theme === 'anger_injustice'
+    || theme === 'body_health'
+    || theme === 'creativity_expression'
+    || theme === 'spirituality_meaning'
+    || theme === 'rest_recovery'
+    || theme === 'joy_gratitude'
+    || theme === 'transition_change'
+    || theme === 'boundary_setting'
+    || theme === 'childhood_origin'
+  ));
 }
 
 function mapExistingQueuedEntry(existing: QueuedEntry): JournalSubmissionResult {
@@ -214,10 +215,22 @@ export async function submitJournalEntry(
     if (existing) {
       return mapExistingQueuedEntry(existing);
     }
+    return {
+      success: false,
+      entryId: null,
+      localId,
+      witness: '',
+      perspective: '',
+      kheperaResponse: '',
+      seed: '',
+      isCrisis: false,
+      submissionState: 'aborted',
+      error: 'queue_claim_failed',
+    };
   }
 
   try {
-    if (deps.isCrisisSignalPresent(text)) {
+    if (deps.detectCrisisSignals(text)) {
       await deps.releaseQueueEntry(localId, processingOwner, {
         witness: CRISIS_RESPONSE.witness,
         perspective: CRISIS_RESPONSE.perspective,
@@ -247,18 +260,15 @@ export async function submitJournalEntry(
   try {
     // The shared processor preserves the canonical remainder of the pipeline:
     // await deps.generateSafeKheperaResponse({
-    // await deps.setDoc(entryRef, {
+    // server gateway persistence confirms the completed reflection
     // status: 'complete'
     const processed = await processQueuedEntry(
       {
         updateQueueEntry: deps.updateQueueEntry,
         releaseQueueEntry: deps.releaseQueueEntry,
+        verifyQueueClaim: deps.verifyQueueClaim,
         generateSafeKheperaResponse: deps.generateSafeKheperaResponse,
-        extractThemesForKheperaEntry: deps.extractThemesForKheperaEntry,
-        updateKheperaMemory: deps.updateKheperaMemory,
-        isCrisisSignalPresent: deps.isCrisisSignalPresent,
-        setDoc: deps.setDoc,
-        makeSessionRef: deps.makeSessionRef,
+        detectCrisisSignals: deps.detectCrisisSignals,
       },
       {
         entry: queuedEntry,
@@ -354,7 +364,7 @@ export async function submitJournalEntry(
       syncIssue: processed.syncIssue,
     };
   } catch (apiErr) {
-    if ((apiErr as Error)?.name === 'AbortError') {
+    if (isAbortError(apiErr)) {
       await deps.releaseQueueEntry(localId, processingOwner, {
         status: 'pending_khepera',
       });
@@ -401,7 +411,7 @@ export async function submitJournalEntry(
 function buildUserContext(input: JournalSubmissionInput) {
   return {
     sessionCount: input.sessionCount,
-    recurringThemes: input.recurringThemes as ThemeTag[],
+    recurringThemes: sanitizeThemeTags(input.recurringThemes),
     dominantTone: input.dominantTone,
     arrivalReason: input.arrivalReason,
     containerContext: normalizeContainerContext(input),

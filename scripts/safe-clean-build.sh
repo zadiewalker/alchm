@@ -41,4 +41,3 @@ for route in "" dashboard journal journal/new settings onboarding pricing privac
     echo "  ❌ /$route (missing)"
   fi
 done
-

@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
         <SanctuaryCard elevated>
           <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Your privacy matters</SanctuaryText>
-          <SanctuaryText variant="body">Control your data and privacy settings in your healing sanctuary.</SanctuaryText>
+          <SanctuaryText variant="body">Review privacy information and settings for your writing space.</SanctuaryText>
         </SanctuaryCard>
 
         <SanctuaryCard>

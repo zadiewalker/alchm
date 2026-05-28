@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import '@/styles/tokens.css';
 import { SplashScreenManager } from '@/components/SplashScreenManager';
 import { PageTransition } from '@/components/ui/PageTransition';
 import { CrisisFooter } from '@/components/CrisisFooter';
 import { FooterNav } from '@/components/ui/FooterNav';
-import StorageMigrationBootstrap from '@/components/StorageMigrationBootstrap';
 import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
+import { BootstrapBoundary } from '@/components/BootstrapBoundary';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
-  description: 'Your digital sanctuary for healing and transformation.',
+  description: 'A private space for writing and reflection.',
 };
 
 export const viewport: Viewport = {
@@ -38,13 +39,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-touch-fullscreen" content="yes" />
       </head>
       <body>
-        <StorageMigrationBootstrap />
-        <SplashScreenManager />
-        <SubscriptionProvider>
-          <PageTransition>{children}</PageTransition>
-        </SubscriptionProvider>
-        <FooterNav />
-        <CrisisFooter />
+        <BootstrapBoundary>
+          <SplashScreenManager />
+          <SubscriptionProvider>
+            <PageTransition>{children}</PageTransition>
+          </SubscriptionProvider>
+          <FooterNav />
+          <CrisisFooter />
+        </BootstrapBoundary>
       </body>
     </html>
   );

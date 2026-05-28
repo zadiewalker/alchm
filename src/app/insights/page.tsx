@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useData } from '@/hooks/useData';
-import type { JournalEntry } from '@/lib/dataService';
+import type { JournalEntry } from '@/services/data/dataService';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
 import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
@@ -29,7 +29,7 @@ export default function InsightsPage() {
       })
       .catch(() => {
         if (!mounted) return;
-        setError('Unable to load insights right now.');
+        setError('Unable to load reflections right now.');
       })
       .finally(() => {
         if (!mounted) return;

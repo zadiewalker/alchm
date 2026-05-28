@@ -30,6 +30,8 @@ import { selectReturn } from '@/services/returns/selectReturn';
 import { assertNoRawTextLeak } from '@/services/privacy/assertNoRawTextLeak';
 import { recordOperationalEvent, recordOperationalException } from '@/services/monitoring/telemetry';
 
+const RETURN_NOTIFICATION_SCHEDULING_ENABLED = false;
+
 // Capacitor imports (will be available after plugin installation)
 declare global {
   interface Window {
@@ -200,6 +202,13 @@ class NotificationService {
     context: NotificationContext,
     customDeliveryTime?: Date
   ): Promise<{ success: boolean; notificationId?: string; error?: string }> {
+    if (!RETURN_NOTIFICATION_SCHEDULING_ENABLED) {
+      return {
+        success: false,
+        error: 'Return notifications are unavailable until explicit user-choice handling is verified.',
+      };
+    }
+
     try {
       // Check permissions
       const permissions = await this.checkPermissions();
@@ -246,6 +255,7 @@ class NotificationService {
           ? new Date(returnSelection.candidate.createdAt).toISOString()
           : context.entryDate,
         returnType: returnSelection.returnType,
+        resurfacingTone: returnSelection.resurfacingTone,
       };
       
       // Generate copy
@@ -277,6 +287,7 @@ class NotificationService {
           containerId: resolvedContext.containerId,
           action: 'open',
           returnType: resolvedContext.returnType,
+          resurfacingTone: resolvedContext.resurfacingTone,
         },
         context: resolvedContext
       };
@@ -437,6 +448,7 @@ class NotificationService {
     return context?.entryId ? buildReturnHref({
       entryId: context.entryId,
       returnType: context.returnType || 'seed',
+      resurfacingTone: context.resurfacingTone,
     }) : '/journal/new/';
   }
   
@@ -457,6 +469,7 @@ class NotificationService {
         containerId: notification.notification.data.containerId,
         action: notification.notification.data.action || 'open',
         returnType: notification.notification.data.returnType,
+        resurfacingTone: notification.notification.data.resurfacingTone,
       };
       
       window.dispatchEvent(new CustomEvent('alchm-notification-tap', {

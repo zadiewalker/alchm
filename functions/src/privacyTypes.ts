@@ -32,8 +32,8 @@ export interface DataExportRequest {
   id: string;
   userId: string;
   requestedAt: Date;
-  status: 'pending' | 'processing' | 'ready' | 'completed' | 'failed';
-  formats: ('json' | 'csv' | 'pdf')[];
+  status: "pending" | "processing" | "ready" | "completed" | "failed";
+  formats: ("json" | "csv" | "pdf")[];
   includeAnalyses: boolean;
   includeMetadata: boolean;
   downloadUrl?: string;
@@ -50,7 +50,7 @@ export interface AccountDeletionRequest {
   verificationToken: string;
   verified: boolean;
   verifiedAt?: Date;
-  status: 'pending_verification' | 'verified' | 'processing' | 'completed' | 'cancelled';
+  status: "pending_verification" | "verified" | "processing" | "completed" | "cancelled";
   scheduledDeletionDate: Date;
   completedAt?: Date;
   retainForLegal: boolean;
@@ -70,6 +70,11 @@ export interface UserDataSnapshot {
     content: string;
     createdAt: Date;
     wordCount: number;
+    kheperaResponse?: string;
+    seed?: string;
+    emotionalTone?: string;
+    themes?: string[];
+    reflectionTiming?: string;
   }>;
   aiAnalyses: Array<{
     id: string;
@@ -97,23 +102,23 @@ export interface UserDataSnapshot {
 export interface PrivacyAuditLog {
   id: string;
   userId: string;
-  action: 'consent_given' | 'consent_withdrawn' | 'data_exported' | 'data_deleted' | 
-          'privacy_settings_updated' | 'account_deletion_requested' | 'data_breach_notified' |
-          'data_access_requested' | 'data_correction_made' | 'data_portability_exercised';
+  action: "consent_given" | "consent_withdrawn" | "data_exported" | "data_deleted" |
+          "privacy_settings_updated" | "account_deletion_requested" | "data_breach_notified" |
+          "data_access_requested" | "data_correction_made" | "data_portability_exercised";
   timestamp: Date;
   details: Record<string, any>;
   ipAddress?: string;
   userAgent?: string;
-  legalBasis: 'consent' | 'legitimate_interest' | 'legal_obligation' | 'vital_interests' | 
-             'public_task' | 'contract';
-  riskLevel?: 'low' | 'medium' | 'high';
+  legalBasis: "consent" | "legitimate_interest" | "legal_obligation" | "vital_interests" |
+             "public_task" | "contract";
+  riskLevel?: "low" | "medium" | "high";
   complianceTags?: string[];
 }
 
 export interface DataProcessingRecord {
   id: string;
-  dataCategory: 'user_profile' | 'journal_content' | 'ai_analysis' | 'crisis_data' | 
-                'system_analytics' | 'communication_preferences';
+  dataCategory: "user_profile" | "journal_content" | "ai_analysis" | "crisis_data" |
+                "system_analytics" | "communication_preferences";
   processingPurpose: string;
   legalBasis: string;
   dataTypes: string[];
@@ -128,11 +133,11 @@ export interface DataProcessingRecord {
 export interface ConsentRecord {
   id: string;
   userId: string;
-  consentType: 'initial_signup' | 'ai_analysis' | 'crisis_monitoring' | 'analytics' | 
-               'marketing' | 'research_participation';
+  consentType: "initial_signup" | "ai_analysis" | "crisis_monitoring" | "analytics" |
+               "marketing" | "research_participation";
   granted: boolean;
   timestamp: Date;
-  consentMethod: 'signup_form' | 'privacy_dashboard' | 'email_confirmation' | 'in_app_popup';
+  consentMethod: "signup_form" | "privacy_dashboard" | "email_confirmation" | "in_app_popup";
   consentText: string;
   consentVersion: string;
   withdrawnAt?: Date;
@@ -149,7 +154,7 @@ export interface DataBreachNotification {
   authorityReportDate?: Date;
   affectedUsers: number;
   dataCategories: string[];
-  riskLevel: 'low' | 'medium' | 'high';
+  riskLevel: "low" | "medium" | "high";
   mitigationSteps: string[];
   userNotificationRequired: boolean;
   userNotificationDate?: Date;
@@ -163,7 +168,7 @@ export interface PrivacyImpactAssessment {
   assessmentDate: Date;
   dataTypes: string[];
   processingOperations: string[];
-  riskLevel: 'low' | 'medium' | 'high';
+  riskLevel: "low" | "medium" | "high";
   riskMitigations: string[];
   legalBasis: string;
   reviewDate: Date;
@@ -184,7 +189,7 @@ export interface DataMinimizationRule {
   anonymization: {
     enabled: boolean;
     anonymizeAfterDays: number;
-    method: 'hash' | 'aggregate' | 'remove';
+    method: "hash" | "aggregate" | "remove";
   };
   lastReviewed: Date;
 }

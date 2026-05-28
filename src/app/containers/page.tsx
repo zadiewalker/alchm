@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import type React from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AppLayout } from '@/components/ui/AppLayout';
 import { AppHeader } from '@/components/ui/AppHeader';
 import { AppCard } from '@/components/ui/AppCard';
@@ -22,7 +22,6 @@ import type { UserContainer } from '@/types/container';
 export default function ContainersPage() {
   const router = useRouter();
   const { navigate } = useInternalNavigation();
-  const pathname = usePathname();
   const { user } = useAuth();
   const subscription = useSubscription();
   const { getUserContainers } = useData();
@@ -53,8 +52,6 @@ export default function ContainersPage() {
   // Process container states
   type ActiveContainer = {
     containerName: string;
-    currentDay: number;
-    totalDays: number;
     containerId: string;
     userContainerId: string;
     hasWrittenToday: boolean;
@@ -71,8 +68,6 @@ export default function ContainersPage() {
       if (containerDef) {
         activeData = {
           containerName: activeContainer.containerName,
-          currentDay: activeContainer.currentDay,
-          totalDays: containerDef.totalDays,
           containerId: activeContainer.containerId,
           userContainerId: activeContainer.id,
           hasWrittenToday: activeContainer.lastEntryAt
@@ -88,12 +83,6 @@ export default function ContainersPage() {
       completedSet: completedIds
     };
   }, [userContainers]);
-
-  useEffect(() => {
-    if (pathname?.startsWith('/pathways')) {
-      router.replace('/containers');
-    }
-  }, [pathname, router]);
 
   if (loading) {
     return (
@@ -132,9 +121,6 @@ export default function ContainersPage() {
               </AppText>
               <AppText variant="title" className="containers-active-title">
                 {activeContainer.containerName || 'Current container'}
-              </AppText>
-              <AppText variant="secondary" className="containers-active-subtitle">
-                Day {activeContainer.currentDay} of {activeContainer.totalDays}
               </AppText>
               <button
                 className="btn-primary"

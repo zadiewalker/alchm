@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useContainer } from '@/hooks/useContainer';
+import { CONTAINER_TRANSITIONS_AVAILABLE } from '@/config/containerAuthority';
 import { MoonPhaseIndicator } from '@/components/MoonPhaseIndicator';
 import { BackButton } from '@/components/ui/BackButton';
 import { getContainerDefinition } from '@/config/containerDefinitions';
@@ -18,6 +19,7 @@ export default function OpeningRitualClient() {
   if (!definition) { router.replace('/containers'); return null; }
 
   const handleEnter = async () => {
+    if (!CONTAINER_TRANSITIONS_AVAILABLE) return;
     setLoading(true);
     try {
       await begin(containerId);
@@ -91,11 +93,17 @@ export default function OpeningRitualClient() {
         className="btn-primary"
         style={{ width: '220px' }}
         onClick={handleEnter}
-        disabled={loading}
+        disabled={loading || !CONTAINER_TRANSITIONS_AVAILABLE}
         aria-label="Enter the container and begin writing"
       >
-        {loading ? 'Opening...' : 'Enter the container'}
+        {loading ? 'Opening...' : CONTAINER_TRANSITIONS_AVAILABLE ? 'Enter the container' : 'Unavailable in this build'}
       </button>
+
+      {!CONTAINER_TRANSITIONS_AVAILABLE ? (
+        <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'var(--text-tertiary)', marginTop: '16px' }}>
+          Container transitions are not available while secure continuity handling is being verified.
+        </p>
+      ) : null}
 
     </div>
   );

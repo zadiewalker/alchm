@@ -1,18 +1,74 @@
 /** @type {import('next').NextConfig} */
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+let serverBuildSnapshotDir = null;
+let restoreInterval = null;
+
+function copyDirectory(source, destination) {
+  fs.rmSync(destination, { recursive: true, force: true });
+  fs.mkdirSync(path.dirname(destination), { recursive: true });
+  fs.cpSync(source, destination, { recursive: true });
+}
+
+function serverBuildPath(fileName = '') {
+  return path.join(__dirname, '.next/server', fileName);
+}
+
+function hasRequiredServerBuildFiles() {
+  return fs.existsSync(serverBuildPath('pages-manifest.json'))
+    && fs.existsSync(serverBuildPath('app-paths-manifest.json'))
+    && fs.existsSync(serverBuildPath('pages/_document.js'));
+}
+
+function restoreServerBuildSnapshot() {
+  if (
+    serverBuildSnapshotDir
+    && !hasRequiredServerBuildFiles()
+    && fs.existsSync(serverBuildSnapshotDir)
+  ) {
+    copyDirectory(serverBuildSnapshotDir, serverBuildPath());
+  }
+}
+
 const nextConfig = {
   output: 'export',
-  trailingSlash: true,
-  // Static export in Capacitor doesn't need server output tracing. Disabling avoids
-  // intermittent .next/server/*.nft.json ENOENT errors seen during build traces.
   outputFileTracing: false,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
+  trailingSlash: true,
+  experimental: {
+    webpackBuildWorker: false,
   },
   images: {
     unoptimized: true,
+  },
+  webpack: (config, { isServer }) => {
+    config.plugins.push({
+      apply(compiler) {
+        compiler.hooks.done.tap('ALCHMServerBuildSnapshotPlugin', () => {
+          const serverDir = serverBuildPath();
+          const hasRequiredServerFiles = hasRequiredServerBuildFiles();
+
+          if (isServer && hasRequiredServerFiles) {
+            serverBuildSnapshotDir = path.join(os.tmpdir(), `alchm-next-server-${process.pid}`);
+            copyDirectory(serverDir, serverBuildSnapshotDir);
+          }
+
+          if (!isServer && serverBuildSnapshotDir && !hasRequiredServerFiles) {
+            restoreServerBuildSnapshot();
+            if (!restoreInterval) {
+              restoreInterval = setInterval(restoreServerBuildSnapshot, 100);
+              setTimeout(() => {
+                clearInterval(restoreInterval);
+                restoreInterval = null;
+              }, 15000);
+            }
+          }
+        });
+      },
+    });
+    config.output.clean = false;
+    return config;
   },
 };
 

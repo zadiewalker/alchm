@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "attestationStatus": "NOT ATTESTED",
+  "runtimeEnablementAuthorized": false,
+  "candidateSha": null,
+  "deploymentEnvironment": null,
+  "verifiedAt": null,
+  "verificationAuthority": null,
+  "receipt": null,
+  "consumedReceiptIds": [],
+  "evidence": {
+    "cleanCandidate": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "releaseScope": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "firestoreEmulatorAuthorization": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "functionsDeployment": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "firestoreRulesDeployment": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "providerSecretPresence": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "deploymentAuthority": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    },
+    "rollbackAuthority": {
+      "verified": false,
+      "sha": null,
+      "reference": null
+    }
+  }
+}

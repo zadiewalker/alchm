@@ -5,7 +5,7 @@ import type React from 'react';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useData } from '@/hooks/useData';
-import type { JournalEntry } from '@/lib/dataService';
+import type { JournalEntry } from '@/services/data/dataService';
 import { searchEntries, getAvailableMoods, getAvailableTags, getDateRange, type SearchFilters } from '@/lib/journalSearch';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
@@ -127,7 +127,6 @@ function JournalContent() {
                   <span key={tag} style={tagPillStyle}>#{tag}</span>
                 ))}
                 {selectedEntry.type === 'checkin' ? <span style={tagPillStyle}>🌙 check-in</span> : null}
-                {selectedEntry.pathwayId ? <span style={tagPillStyle}>🧭 {selectedEntry.pathwayId}</span> : null}
               </div>
             ) : null}
           </SanctuaryCard>
@@ -137,7 +136,7 @@ function JournalContent() {
               Khepera
             </SanctuaryText>
             <SanctuaryText variant="body">
-              {selectedEntry.insights?.[0] || "I'm still here with what you wrote. Return whenever you want to go deeper."}
+              {selectedEntry.insights?.[0] || 'Your writing remains here. Return only if and when you choose.'}
             </SanctuaryText>
           </SanctuaryCard>
         </div>
@@ -261,7 +260,6 @@ function JournalContent() {
                       <span key={tag} style={tagPillStyle}>#{tag}</span>
                     ))}
                     {entry.type === 'checkin' ? <span style={tagPillStyle}>🌙 check-in</span> : null}
-                    {entry.pathwayId ? <span style={tagPillStyle}>🧭 {entry.pathwayId}</span> : null}
                   </div>
                   {entry.insights?.length ? <SanctuaryText variant="khepera">Khepera reflected ✦</SanctuaryText> : null}
                 </SanctuaryCard>

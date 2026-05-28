@@ -1,65 +1,8 @@
 /**
  * Safe browser API utilities for Capacitor + SSG compatibility
  */
-import { getStorageItemWithFallback, removeStorageItemNormalized, setStorageItemNormalized } from '@/lib/storageKeys';
 
 export const isBrowser = typeof window !== 'undefined';
-
-export const safeLocalStorage = {
-  getItem: (key: string): string | null => {
-    if (!isBrowser) return null;
-    try {
-      return getStorageItemWithFallback(key);
-    } catch {
-      return null;
-    }
-  },
-  
-  setItem: (key: string, value: string): void => {
-    if (!isBrowser) return;
-    try {
-      setStorageItemNormalized(key, value);
-    } catch {
-      // Storage full or blocked
-    }
-  },
-  
-  removeItem: (key: string): void => {
-    if (!isBrowser) return;
-    try {
-      removeStorageItemNormalized(key);
-    } catch {
-      // Ignore
-    }
-  },
-};
-
-export const safeSessionStorage = {
-  getItem: (key: string): string | null => {
-    if (!isBrowser) return null;
-    try {
-      return sessionStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  },
-  setItem: (key: string, value: string): void => {
-    if (!isBrowser) return;
-    try {
-      sessionStorage.setItem(key, value);
-    } catch {
-      // Storage full or blocked
-    }
-  },
-  removeItem: (key: string): void => {
-    if (!isBrowser) return;
-    try {
-      sessionStorage.removeItem(key);
-    } catch {
-      // Ignore
-    }
-  },
-};
 
 export const safeWindow = {
   location: isBrowser ? window.location : { pathname: '/', search: '', href: '' },
@@ -75,4 +18,19 @@ export const safeNavigator = {
   language: isBrowser ? navigator.language : 'en',
   cookieEnabled: isBrowser ? navigator.cookieEnabled : false,
   onLine: isBrowser ? navigator.onLine : true,
+};
+
+export const safeSessionStorage = {
+  getItem: (key: string): string | null => {
+    if (!isBrowser) return null;
+    return window.sessionStorage.getItem(key);
+  },
+  setItem: (key: string, value: string): void => {
+    if (!isBrowser) return;
+    window.sessionStorage.setItem(key, value);
+  },
+  removeItem: (key: string): void => {
+    if (!isBrowser) return;
+    window.sessionStorage.removeItem(key);
+  },
 };

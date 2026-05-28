@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: VAR_WIDTHpx;
+    height: VAR_HEIGHTpx;
+    background: #8A9B76;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .content {
+    text-align: center;
+    padding: 0 100px;
+    max-width: 1000px;
+  }
+
+  .never-block {
+    margin-bottom: 100px;
+  }
+
+  .never-item {
+    font-family: Georgia, serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.5;
+    opacity: 0.88;
+  }
+
+  .never-item.struck {
+    text-decoration: line-through;
+    text-decoration-color: rgba(245,240,232,0.35);
+    opacity: 0.40;
+  }
+
+  .divider {
+    width: 60px;
+    height: 0.5px;
+    background: rgba(212,184,106,0.40);
+    margin: 60px auto;
+  }
+
+  .tagline {
+    font-family: Georgia, serif;
+    font-size: 76px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  .sub {
+    font-size: 36px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+  }
+
+  .wordmark {
+    position: absolute;
+    bottom: 110px;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.30);
+    letter-spacing: 0.22em;
+  }
+
+  .small-scarab {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 50px;
+    opacity: 0.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="content">
+  <div class="never-block">
+    <p class="never-item struck">No streaks.</p>
+    <p class="never-item struck">No guilt.</p>
+    <p class="never-item struck">No selling your data.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <svg class="small-scarab" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="18" r="18" fill="#D4B86A"/>
+    <ellipse cx="100" cy="42" rx="9" ry="12" fill="rgba(245,240,232,0.75)"/>
+    <ellipse cx="100" cy="110" rx="36" ry="50" fill="rgba(245,240,232,0.82)"/>
+    <ellipse cx="55" cy="115" rx="28" ry="40" fill="rgba(245,240,232,0.65)" transform="rotate(-15, 55, 115)"/>
+    <ellipse cx="145" cy="115" rx="28" ry="40" fill="rgba(245,240,232,0.65)" transform="rotate(15, 145, 115)"/>
+  </svg>
+
+  <p class="tagline">Just your space.<br>Your words.<br>Your pace.</p>
+  <p class="sub">Built for the inner life<br>that doesn't fit anywhere else.</p>
+</div>
+
+<p class="wordmark">ALCHM</p>
+
+</body>
+</html>

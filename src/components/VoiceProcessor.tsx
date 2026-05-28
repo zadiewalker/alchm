@@ -12,6 +12,37 @@ interface VoiceProcessorProps {
   className?: string;
 }
 
+type SpeechRecognitionEventLike = {
+  resultIndex: number;
+  results: ArrayLike<{
+    isFinal: boolean;
+    0: {
+      transcript: string;
+    };
+  }>;
+};
+
+type SpeechRecognitionErrorLike = {
+  error: string;
+};
+
+type SpeechRecognitionLike = {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorLike) => void) | null;
+  start: () => void;
+  stop: () => void;
+};
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+
+type SpeechRecognitionWindow = Window & {
+  SpeechRecognition?: SpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+};
+
 export default function VoiceProcessor({ 
   onTranscript, 
   onEmotionalAnalysis, 
@@ -26,19 +57,20 @@ export default function VoiceProcessor({
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   useEffect(() => {
     // Initialize Speech Recognition
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    const speechWindow: SpeechRecognitionWindow = window;
+    const SpeechRecognition = speechWindow.webkitSpeechRecognition ?? speechWindow.SpeechRecognition;
+    if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
       
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
       recognitionRef.current.lang = 'en-US';
 
-      recognitionRef.current.onresult = (event: any) => {
+      recognitionRef.current.onresult = (event) => {
         let finalTranscript = '';
         
         for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -53,7 +85,7 @@ export default function VoiceProcessor({
         }
       };
 
-      recognitionRef.current.onerror = (event: any) => {
+      recognitionRef.current.onerror = (event) => {
         setError(`Speech recognition error: ${event.error}`);
         setIsRecording(false);
       };
@@ -193,8 +225,11 @@ export default function VoiceProcessor({
 
     const updateLevel = () => {
       if (!isRecording) return;
-      
-      analyserRef.current!.getByteFrequencyData(dataArray);
+
+      const analyser = analyserRef.current;
+      if (!analyser) return;
+
+      analyser.getByteFrequencyData(dataArray);
       const average = bufferLength > 0 ? dataArray.reduce((acc, val) => acc + val, 0) / bufferLength : 0;
       const level = Math.max(0, Math.min(100, (average / 255) * 100));
       setAudioLevel(isNaN(level) ? 0 : level);

@@ -1,47 +1,87 @@
-import { collection, doc, getDoc, getDocs, limit, query, setDoc, updateDoc, serverTimestamp, Timestamp, where } from 'firebase/firestore';
-import { getFirestoreDb } from '@/services/firebase/firebaseService';
+import { httpsCallable } from 'firebase/functions';
+import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
+import { getFirebaseFunctions, getFirestoreDb } from '@/services/firebase/firebaseService';
 import { getContainerDefinition } from '@/config/containerDefinitions';
 import { getContainerPhase, CONTAINER_PHASES } from '@/config/containerArc';
-import type { UserContainer, ActiveContainerState, ContainerContext } from '@/types/container';
+import { CONTAINER_TRANSITIONS_UNAVAILABLE } from '@/config/containerAuthority';
+import type { UserContainer, ActiveContainerState, ContainerContext, ContainerStatus, ContainerTier, PersistedTimestamp } from '@/types/container';
+
+function parseActivationResponse(value: unknown): { userContainerId: string } {
+  if (
+    !isRecord(value)
+    || typeof value.userContainerId !== 'string'
+    || value.userContainerId.length === 0
+  ) {
+    throw new Error('Container activation returned an invalid response.');
+  }
+
+  return { userContainerId: value.userContainerId };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isPersistedTimestamp(value: unknown): value is PersistedTimestamp {
+  return isRecord(value) && typeof value.toDate === 'function';
+}
+
+function isContainerStatus(value: unknown): value is ContainerStatus {
+  return value === 'active' || value === 'paused' || value === 'completed' || value === 'abandoned';
+}
+
+function isContainerTier(value: unknown): value is ContainerTier {
+  return value === 'sanctuary' || value === 'transformation';
+}
+
+function parseUserContainer(id: string, value: unknown): UserContainer | null {
+  if (!isRecord(value)
+    || typeof value.userId !== 'string'
+    || typeof value.containerId !== 'string'
+    || typeof value.containerName !== 'string'
+    || !isContainerTier(value.tier)
+    || !isContainerStatus(value.status)
+    || !isPersistedTimestamp(value.startedAt)
+    || typeof value.currentDay !== 'number'
+    || !Array.isArray(value.sessionIds)
+    || !value.sessionIds.every((sessionId) => typeof sessionId === 'string')
+    || typeof value.completionCeremonyViewed !== 'boolean'
+    || (value.completedAt !== undefined && !isPersistedTimestamp(value.completedAt))
+    || (value.lastEntryAt !== undefined && !isPersistedTimestamp(value.lastEntryAt))
+    || (value.carryForward !== undefined && typeof value.carryForward !== 'string')
+    || (value.leavingBehind !== undefined && typeof value.leavingBehind !== 'string')) {
+    return null;
+  }
+
+  return {
+    id,
+    userId: value.userId,
+    containerId: value.containerId,
+    containerName: value.containerName,
+    tier: value.tier,
+    status: value.status,
+    startedAt: value.startedAt,
+    completedAt: value.completedAt,
+    currentDay: value.currentDay,
+    lastEntryAt: value.lastEntryAt,
+    sessionIds: value.sessionIds,
+    completionCeremonyViewed: value.completionCeremonyViewed,
+    carryForward: value.carryForward,
+    leavingBehind: value.leavingBehind,
+  };
+}
 
 export async function startContainer(
-  userId: string,
+  _userId: string,
   containerId: string,
-  options: { hasTransformation?: boolean } = {}
+  _options: { hasTransformation?: boolean } = {}
 ): Promise<{ userContainerId: string }> {
-  const db = getFirestoreDb();
-  const definition = getContainerDefinition(containerId);
-  if (!definition) throw new Error(`Container not found: ${containerId}`);
-  if (definition.tier === 'transformation' && !options.hasTransformation) {
-    throw new Error('Transformation required');
-  }
-
-  const activeContainersQuery = query(
-    collection(db, 'users', userId, 'containers'),
-    where('status', '==', 'active'),
-    limit(1)
+  const invokeActivation = httpsCallable<{ containerId: string }, unknown>(
+    getFirebaseFunctions(),
+    'activateContainer',
   );
-  const activeContainersSnapshot = await getDocs(activeContainersQuery);
-  if (!activeContainersSnapshot.empty) {
-    throw new Error('An active container already exists');
-  }
-
-  const containerRef = doc(db, 'users', userId, 'containers', crypto.randomUUID());
-  const userContainer: Omit<UserContainer, 'id'> = {
-    userId,
-    containerId,
-    containerName: definition.name,
-    tier: definition.tier,
-    status: 'active',
-    startedAt: serverTimestamp() as Timestamp,
-    currentDay: 1,
-    missedDays: [],
-    sessionIds: [],
-    completionCeremonyViewed: false,
-  };
-
-  await setDoc(containerRef, userContainer);
-  return { userContainerId: containerRef.id };
+  const result = await invokeActivation({ containerId });
+  return parseActivationResponse(result.data);
 }
 
 export async function getActiveContainerState(
@@ -53,18 +93,12 @@ export async function getActiveContainerState(
   const snap = await getDoc(containerRef);
   if (!snap.exists()) return null;
 
-  const uc = { id: snap.id, ...snap.data() } as UserContainer;
+  const uc = parseUserContainer(snap.id, snap.data());
+  if (!uc) return null;
   if (uc.status !== 'active') return null;
 
   const definition = getContainerDefinition(uc.containerId);
   if (!definition) return null;
-
-  // Advance day if needed (new calendar day since last entry)
-  const advancedDay = computeCurrentDay(uc);
-  if (advancedDay !== uc.currentDay) {
-    await advanceDay(userId, userContainerId, uc.currentDay, advancedDay);
-    uc.currentDay = advancedDay;
-  }
 
   const dayConfig = definition.days.find(d => d.day === uc.currentDay);
   if (!dayConfig) return null;
@@ -92,6 +126,14 @@ export async function getActiveContainerState(
 
 export async function getActiveContainerStateForUser(userId: string): Promise<ActiveContainerState | null> {
   const db = getFirestoreDb();
+  const activeState = await getDoc(doc(db, 'users', userId, 'containerState', 'active'));
+  if (activeState.exists() && activeState.data().status === 'active') {
+    const activeContainerId = activeState.data().userContainerId;
+    if (typeof activeContainerId === 'string') {
+      return getActiveContainerState(userId, activeContainerId);
+    }
+  }
+
   const activeContainersQuery = query(
     collection(db, 'users', userId, 'containers'),
     where('status', '==', 'active'),
@@ -122,56 +164,20 @@ export function buildContainerContext(state: ActiveContainerState): ContainerCon
 }
 
 export async function recordContainerEntry(
-  userId: string,
-  userContainerId: string,
-  entryId: string
+  _userId: string,
+  _userContainerId: string,
+  _entryId: string
 ): Promise<void> {
-  const db = getFirestoreDb();
-  const containerRef = doc(db, 'users', userId, 'containers', userContainerId);
-  const currentData = await getDoc(containerRef);
-  const sessionIds = currentData.data()?.sessionIds || [];
-  
-  await updateDoc(containerRef, {
-    lastEntryAt: serverTimestamp(),
-    sessionIds: [...sessionIds, entryId],
-  });
+  throw new Error(CONTAINER_TRANSITIONS_UNAVAILABLE);
 }
 
 export async function completeContainer(
-  userId: string,
-  userContainerId: string,
-  carryForward: string,
-  leavingBehind: string
+  _userId: string,
+  _userContainerId: string,
+  _carryForward: string,
+  _leavingBehind: string
 ): Promise<void> {
-  const db = getFirestoreDb();
-  const containerRef = doc(db, 'users', userId, 'containers', userContainerId);
-  await updateDoc(containerRef, {
-    status: 'completed',
-    completedAt: serverTimestamp(),
-    carryForward,
-    leavingBehind,
-  });
-}
-
-// Private helpers
-function computeCurrentDay(uc: UserContainer): number {
-  if (!uc.lastEntryAt) return uc.currentDay;
-  if (isToday(uc.lastEntryAt.toDate())) return uc.currentDay;
-
-  // New calendar day — advance by 1 (never more)
-  const totalDays = 21; // Default to 21, should get from definition
-  const next = Math.min(uc.currentDay + 1, totalDays);
-  return next;
-}
-
-async function advanceDay(userId: string, containerDocId: string, from: number, to: number): Promise<void> {
-  const db = getFirestoreDb();
-  const missed = Array.from({ length: to - from - 1 }, (_, i) => from + i + 1);
-  const containerRef = doc(db, 'users', userId, 'containers', containerDocId);
-  await updateDoc(containerRef, {
-    currentDay: to,
-    missedDays: missed.length ? missed : [],
-  });
+  throw new Error(CONTAINER_TRANSITIONS_UNAVAILABLE);
 }
 
 function isToday(date: Date): boolean {

@@ -12,23 +12,23 @@ export default function DisclaimerPage() {
       <SanctuaryCard elevated>
         <Section
           title="Not Medical Advice"
-          body="ALCHM supports reflection, mindfulness, and personal growth. It is not a substitute for professional medical advice, diagnosis, or treatment."
+          body="ALCHM offers space for reflection. It is not a substitute for professional medical advice, diagnosis, or treatment."
         />
         <Section
           title="Seek Professional Help"
-          body="If you are experiencing severe distress or thoughts of self-harm, contact a qualified mental health professional or emergency services immediately."
+          body="If immediate support is needed, crisis resources including 988 and emergency services are available."
         />
         <Section
           title="Crisis Resources"
           body="In the United States, call or text 988 for the Suicide & Crisis Lifeline, available 24/7."
         />
         <Section
-          title="AI Companion"
+          title="Khepera Reflections"
           body="Khepera provides supportive AI-generated reflections and is not a licensed therapist or clinical treatment provider."
         />
         <Section
-          title="Your Responsibility"
-          body="By using ALCHM, you acknowledge responsibility for your own wellbeing and understand this app complements, not replaces, professional care."
+          title="Scope of ALCHM"
+          body="ALCHM is available for reflection and does not replace professional care."
         />
       </SanctuaryCard>
     </SanctuaryLayout>

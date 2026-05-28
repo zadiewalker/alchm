@@ -1,5 +1,6 @@
 import type { Timestamp } from 'firebase/firestore';
 import type { ContainerContext } from './container';
+import type { ResurfacingToneMode } from './resurfacingTone';
 
 export type EmotionalTone =
   | 'processing'
@@ -217,6 +218,7 @@ export interface QueuedEntry {
   lastSyncError?: string;
   processingOwner?: string;
   processingLeaseExpiresAt?: string;
+  serverPersistenceConfirmed?: boolean;
 }
 
 export interface JournalEntryCompletePayload {
@@ -266,6 +268,7 @@ export interface JournalFlowProps {
     detail?: string;
     excerpt?: string | null;
     isUnavailable?: boolean;
+    resurfacingTone?: ResurfacingToneMode;
     metadata?: ReturnMetadata;
   } | null;
 }

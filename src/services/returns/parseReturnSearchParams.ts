@@ -2,6 +2,7 @@ import type {
   ParsedReturnSearchParams,
   ReturnType,
 } from '@/types/return';
+import type { ResurfacingToneMode } from '@/types/resurfacingTone';
 
 type SearchParamValue = string | string[] | undefined;
 
@@ -10,6 +11,7 @@ export interface ReturnPageSearchParams {
   returnType?: SearchParamValue;
   surfacedAt?: SearchParamValue;
   daysElapsed?: SearchParamValue;
+  resurfacingTone?: SearchParamValue;
 }
 
 function readSingle(value: SearchParamValue): string | null {
@@ -50,6 +52,22 @@ function parseReturnType(value: SearchParamValue): ReturnType {
   }
 }
 
+function parseResurfacingTone(value: SearchParamValue): ResurfacingToneMode | undefined {
+  const parsed = readSingle(value);
+
+  switch (parsed) {
+    case 'quiet_continuity':
+    case 'seasonal_return':
+    case 'emotional_echo':
+    case 'unresolved_warmth':
+    case 'parallel_texture':
+    case 'soft_recurrence':
+      return parsed;
+    default:
+      return undefined;
+  }
+}
+
 export function parseReturnSearchParams(
   searchParams?: ReturnPageSearchParams,
 ): ParsedReturnSearchParams {
@@ -58,5 +76,6 @@ export function parseReturnSearchParams(
     returnType: parseReturnType(searchParams?.returnType),
     surfacedAt: parseFiniteNumber(searchParams?.surfacedAt),
     daysElapsed: parseFiniteNumber(searchParams?.daysElapsed),
+    resurfacingTone: parseResurfacingTone(searchParams?.resurfacingTone),
   };
 }

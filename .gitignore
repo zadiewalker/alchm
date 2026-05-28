@@ -9,8 +9,13 @@ functions/firebase-debug.*.log
 .next
 out
 out 2
+.next */
+.next.__trash__*/
+out */
+out.__trash__*/
 node_modules
 functions/node_modules
+functions/lib/
 
 # Local Firebase cache/artifacts
 .firebase/
@@ -35,6 +40,8 @@ alchm-pwa*.zip
 ALCHM app icon*.png
 ALCHM app icon*.jpg
 ALCHM app icon*.jpeg
+assets/icons/generated/
+assets/screenshots/
 
 Clean
 alchm
@@ -43,3 +50,12 @@ test_localStorage.js
 
 # Surgery quarantine (local safety net; do not commit)
 _quarantine/
+
+# Copied Capacitor web output from local sync experiments
+ios/App/ios/
+ios/App/.next/
+ios/App/out/
+ios/App/alchm_*test*.png
+
+# Diagnostic evidence generated before a clean candidate exists
+docs/release/firestore-emulator-evidence.latest.json

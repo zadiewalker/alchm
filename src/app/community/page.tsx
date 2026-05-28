@@ -1,19 +1,16 @@
 'use client';
 
 import type React from 'react';
-import { useMemo, useState } from 'react';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
 import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
 import { SanctuaryText } from '@/components/ui/SanctuaryText';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { DESIGN } from '@/lib/design';
-import { listSharedReflections, resonateWithReflection } from '@/lib/community';
+import { useCommunityReflections } from '@/hooks/useCommunityReflections';
 
 export default function CommunityPage() {
-  const [tick, setTick] = useState(0);
-  const [status, setStatus] = useState('');
-  const reflections = useMemo(() => listSharedReflections(), [tick]);
+  const { reflections, status, resonate } = useCommunityReflections();
 
   return (
     <SanctuaryLayout header={<SanctuaryHeader title="Community" showBack />}>
@@ -32,7 +29,7 @@ export default function CommunityPage() {
         {!reflections.length ? (
           <EmptyState
             title="Community reflections are coming soon"
-            message="When community goes live, shared moments from people on similar journeys will appear here."
+            message="When community goes live, shared moments from similar writing spaces will appear here."
           />
         ) : (
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
@@ -56,13 +53,11 @@ export default function CommunityPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    const ok = resonateWithReflection(item.id);
-                    setStatus(ok ? 'Resonance sent.' : 'You already resonated with this reflection.');
-                    setTick((value) => value + 1);
+                    resonate(item.id);
                   }}
                   style={resonateButtonStyle}
                 >
-                  This resonates · {item.resonanceCount}
+                  This resonates
                 </button>
               </SanctuaryCard>
             ))}

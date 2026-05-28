@@ -1,5 +1,5 @@
 // Community Healing Types for ALCHM
-import { Timestamp } from 'firebase-admin/firestore';
+import { Timestamp } from "firebase-admin/firestore";
 
 // === ANONYMOUS STORY SHARING ===
 export interface CommunityStory {
@@ -7,9 +7,9 @@ export interface CommunityStory {
   anonymousId: string; // Generated unique ID for this story, not tied to user
   content: string;
   title?: string;
-  healingStage: 'beginning' | 'processing' | 'integrating' | 'thriving' | 'wisdom_sharing';
+  healingStage: "beginning" | "processing" | "integrating" | "thriving" | "wisdom_sharing";
   wisdomTags: string[]; // e.g., 'grief', 'trauma', 'anxiety', 'self_compassion'
-  contentModerationStatus: 'pending' | 'approved' | 'flagged' | 'rejected';
+  contentModerationStatus: "pending" | "approved" | "flagged" | "rejected";
   moderationScore: number; // 0-1 safety score from AI moderation
   createdAt: Timestamp;
   updatedAt: Timestamp;
@@ -30,7 +30,7 @@ export interface CommunityStory {
 export interface StoryReaction {
   storyId: string;
   anonymousUserId: string; // Hashed user ID for this reaction
-  reactionType: 'resonance' | 'gratitude' | 'strength' | 'solidarity';
+  reactionType: "resonance" | "gratitude" | "strength" | "solidarity";
   createdAt: Timestamp;
 }
 
@@ -38,10 +38,10 @@ export interface StoryReport {
   id: string;
   storyId: string;
   reporterAnonymousId: string;
-  reason: 'triggering_content' | 'inappropriate' | 'crisis_concern' | 'spam' | 'other';
+  reason: "triggering_content" | "inappropriate" | "crisis_concern" | "spam" | "other";
   description?: string;
   createdAt: Timestamp;
-  status: 'pending' | 'reviewed' | 'action_taken' | 'dismissed';
+  status: "pending" | "reviewed" | "action_taken" | "dismissed";
 }
 
 // === HEALING CIRCLES & GROUP SUPPORT ===
@@ -50,13 +50,13 @@ export interface HealingCircle {
   name: string;
   description: string;
   topic: string; // 'grief', 'trauma', 'anxiety', 'depression', 'self_compassion'
-  type: 'guided' | 'peer_led' | 'open_sharing' | 'meditation' | 'journaling';
+  type: "guided" | "peer_led" | "open_sharing" | "meditation" | "journaling";
   facilitatorId?: string; // Optional trained facilitator
   isActive: boolean;
   currentCapacity: number;
   maxCapacity: number;
   meetingSchedule: {
-    frequency: 'weekly' | 'biweekly' | 'monthly' | 'one_time';
+    frequency: "weekly" | "biweekly" | "monthly" | "one_time";
     dayOfWeek?: number; // 0-6, Sunday-Saturday
     timeUTC: string; // ISO time format
     duration: number; // minutes
@@ -67,13 +67,13 @@ export interface HealingCircle {
   createdAt: Timestamp;
   lastActivityAt: Timestamp;
   isPublic: boolean; // Open to all vs. invite-only
-  requiredHealingStage?: 'beginning' | 'processing' | 'integrating' | 'thriving';
+  requiredHealingStage?: "beginning" | "processing" | "integrating" | "thriving";
 }
 
 export interface AnonymousParticipant {
   anonymousId: string; // Generated for this circle
   joinedAt: Timestamp;
-  role: 'participant' | 'facilitator' | 'mentor';
+  role: "participant" | "facilitator" | "mentor";
   isActive: boolean;
   lastActiveAt?: Timestamp;
 }
@@ -86,8 +86,8 @@ export interface HealingSession {
   actualEndAt?: Timestamp;
   prompt?: string; // Guided question or theme
   participantCount: number;
-  sessionType: 'check_in' | 'guided_sharing' | 'meditation' | 'group_journaling';
-  status: 'scheduled' | 'active' | 'completed' | 'cancelled';
+  sessionType: "check_in" | "guided_sharing" | "meditation" | "group_journaling";
+  status: "scheduled" | "active" | "completed" | "cancelled";
   anonymousContributions: AnonymousContribution[];
 }
 
@@ -95,15 +95,15 @@ export interface AnonymousContribution {
   participantAnonymousId: string;
   content: string;
   timestamp: Timestamp;
-  type: 'sharing' | 'support' | 'reflection';
-  moderationStatus: 'approved' | 'pending' | 'flagged';
+  type: "sharing" | "support" | "reflection";
+  moderationStatus: "approved" | "pending" | "flagged";
 }
 
 // === COMMUNITY WISDOM LIBRARY ===
 export interface WisdomEntry {
   id: string;
   contributorAnonymousId: string;
-  type: 'coping_strategy' | 'healing_insight' | 'resource_recommendation' | 'practice' | 'affirmation';
+  type: "coping_strategy" | "healing_insight" | "resource_recommendation" | "practice" | "affirmation";
   title: string;
   content: string;
   category: string; // 'anxiety', 'grief', 'trauma', 'self_care', 'mindfulness'
@@ -118,13 +118,13 @@ export interface WisdomEntry {
   createdAt: Timestamp;
   lastUpdatedAt: Timestamp;
   reportCount: number;
-  sourceType: 'personal_experience' | 'professional_guidance' | 'research_based' | 'traditional_wisdom';
+  sourceType: "personal_experience" | "professional_guidance" | "research_based" | "traditional_wisdom";
 }
 
 export interface WisdomVote {
   entryId: string;
   voterAnonymousId: string;
-  vote: 'helpful' | 'somewhat_helpful' | 'not_helpful';
+  vote: "helpful" | "somewhat_helpful" | "not_helpful";
   createdAt: Timestamp;
 }
 
@@ -133,7 +133,7 @@ export interface CollectiveExperience {
   id: string;
   name: string;
   description: string;
-  type: 'meditation' | 'intention_setting' | 'gratitude_circle' | 'healing_challenge' | 'milestone_celebration';
+  type: "meditation" | "intention_setting" | "gratitude_circle" | "healing_challenge" | "milestone_celebration";
   startDate: Timestamp;
   endDate?: Timestamp; // For challenges/time-bound experiences
   isActive: boolean;
@@ -149,7 +149,7 @@ export interface CollectivePrompt {
   experienceId: string;
   dayNumber?: number; // For daily challenges
   prompt: string;
-  type: 'reflection' | 'action' | 'meditation_focus' | 'gratitude' | 'intention';
+  type: "reflection" | "action" | "meditation_focus" | "gratitude" | "intention";
   responses: AnonymousResponse[];
   scheduledFor?: Timestamp;
 }
@@ -164,15 +164,15 @@ export interface AnonymousResponse {
 // === SAFETY & MODERATION ===
 export interface CommunityModerationLog {
   id: string;
-  contentType: 'story' | 'contribution' | 'wisdom_entry' | 'response';
+  contentType: "story" | "contribution" | "wisdom_entry" | "response";
   contentId: string;
   moderatorId?: string; // Human moderator ID, if applicable
-  action: 'approved' | 'flagged' | 'removed' | 'escalated' | 'crisis_alert';
+  action: "approved" | "flagged" | "removed" | "escalated" | "crisis_alert";
   reason?: string;
   aiModerationScore: number;
   humanReviewRequired: boolean;
   timestamp: Timestamp;
-  escalationLevel?: 'low' | 'medium' | 'high' | 'crisis';
+  escalationLevel?: "low" | "medium" | "high" | "crisis";
 }
 
 export interface CommunityGuidelines {
@@ -189,7 +189,7 @@ export interface CommunityGuidelines {
 export interface TraumaInformedModeration {
   triggers: {
     keyword: string;
-    severity: 'low' | 'medium' | 'high';
+    severity: "low" | "medium" | "high";
     category: string;
   }[];
   safeguards: {
@@ -208,9 +208,9 @@ export interface TraumaInformedModeration {
 export interface PeerMatchProfile {
   anonymousId: string;
   healingTopics: string[];
-  healingStage: 'beginning' | 'processing' | 'integrating' | 'thriving' | 'wisdom_sharing';
-  supportType: 'seeking_support' | 'offering_support' | 'mutual_support';
-  communicationStyle: 'direct' | 'gentle' | 'structured' | 'creative';
+  healingStage: "beginning" | "processing" | "integrating" | "thriving" | "wisdom_sharing";
+  supportType: "seeking_support" | "offering_support" | "mutual_support";
+  communicationStyle: "direct" | "gentle" | "structured" | "creative";
   timeZone: string;
   availability: {
     daysOfWeek: number[];
@@ -228,8 +228,8 @@ export interface PeerMatch {
   participant2Id: string;
   matchScore: number; // Algorithm-generated compatibility score
   sharedTopics: string[];
-  matchType: 'mentor_mentee' | 'peer_support' | 'healing_buddy';
-  status: 'proposed' | 'accepted' | 'declined' | 'active' | 'paused' | 'completed';
+  matchType: "mentor_mentee" | "peer_support" | "healing_buddy";
+  status: "proposed" | "accepted" | "declined" | "active" | "paused" | "completed";
   createdAt: Timestamp;
   acceptedAt?: Timestamp;
   completedAt?: Timestamp;
@@ -239,8 +239,8 @@ export interface PeerMatch {
 export interface PeerCheckIn {
   matchId: string;
   checkInDate: Timestamp;
-  participant1Status: 'positive' | 'neutral' | 'concern';
-  participant2Status: 'positive' | 'neutral' | 'concern';
+  participant1Status: "positive" | "neutral" | "concern";
+  participant2Status: "positive" | "neutral" | "concern";
   notes?: string;
   escalationNeeded: boolean;
 }

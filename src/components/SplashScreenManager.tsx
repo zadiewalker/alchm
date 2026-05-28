@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useSplashScreenDismissal } from '@/hooks/useSplashScreenDismissal';
 
 export function SplashScreenManager() {
   const [isHydrated, setIsHydrated] = useState(false);
   const [isReady, setIsReady] = useState(false);
-  const hideAttempted = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  useSplashScreenDismissal(isReady);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -36,34 +37,6 @@ export function SplashScreenManager() {
       }
     };
   }, [isHydrated]);
-
-  useEffect(() => {
-    if (!isReady || hideAttempted.current) return;
-
-    hideAttempted.current = true;
-
-    const hideSplashScreen = async () => {
-      try {
-        if (typeof window !== 'undefined' && (window as any).Capacitor) {
-          const { SplashScreen } = await import('@capacitor/splash-screen');
-          
-          await new Promise(resolve => setTimeout(resolve, 200));
-          
-          try {
-            await SplashScreen.hide({ 
-              fadeOutDuration: 500
-            });
-          } catch (e) {
-            console.warn('🌅 SplashScreen.hide() failed (non-critical):', e);
-          }
-        }
-      } catch (error) {
-        console.error('🌅 SplashScreenManager: Critical error:', error);
-      }
-    };
-
-    hideSplashScreen();
-  }, [isReady]);
 
   return null;
 }

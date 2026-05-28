@@ -3,19 +3,21 @@
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { analyzeJournalEntry } from '@/lib/api/aiAnalysisApi';
-import { useData } from '@/hooks/useData';
-import { completeOnboarding, isFirstTimeUser } from '@/lib/onboarding';
 import { DESIGN } from '@/lib/design';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { HealthDisclaimer } from '@/components/HealthDisclaimer';
+import { useStandaloneJournalSubmission } from '@/hooks/useStandaloneJournalSubmission';
+import { useOnboarding } from '@/hooks/useOnboarding';
+import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
 
 const moods = ['anxious', 'heavy', 'numb', 'restless', 'tender', 'hopeful', 'alive', 'shattered', 'calm', 'burning'];
 const FIRST_PROMPT = 'What brought you here today?';
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { saveJournalEntry } = useData();
+  const { submitEntry } = useStandaloneJournalSubmission();
+  const { complete } = useOnboarding();
+  const { isFirstTimeUser } = useOnboardingStatus();
 
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [entry, setEntry] = useState('');
@@ -54,19 +56,21 @@ export default function OnboardingPage() {
     setError('');
 
     try {
-      const entryId = await saveJournalEntry({
-        content: entry.trim(),
-        title: 'First Reflection',
-        mood: 5,
-        emotions: selectedMoods,
-        tags: [],
-        isPrivate: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+      const result = await submitEntry({
+        entryText: entry.trim(),
+        userId: null,
+        sessionCount: 0,
+        recurringThemes: [],
+        dominantTone: 'processing',
       });
-
-      const ai = await analyzeJournalEntry(entry.trim(), 'anonymous', entryId);
-      setReflection(`${ai.analysis.emotionalRecognition}\n\n${ai.analysis.gentleInsight}`);
+      if (!result.success) {
+        throw new Error(result.error ?? 'submission_failed');
+      }
+      if (result.isCrisis) {
+        setReflection(result.perspective || 'Support is available now. You can call or text 988.');
+      } else {
+        setReflection([result.witness, result.perspective, result.seed].filter(Boolean).join('\n\n'));
+      }
       setStep(4);
     } catch {
       setError('Could not complete your first reflection. Please try again.');
@@ -76,7 +80,7 @@ export default function OnboardingPage() {
   };
 
   const finishOnboarding = () => {
-    completeOnboarding();
+    complete();
     router.push('/dashboard/');
   };
 
@@ -87,7 +91,7 @@ export default function OnboardingPage() {
           <section style={panelStyle}>
             <Scarab />
             <h1 style={titleStyle}>Welcome to ALCHM</h1>
-            <p style={bodyStyle}>A quiet space for reflection. No streaks. No scores. Just you and your words.</p>
+            <p style={bodyStyle}>A quiet space for reflection. Your words remain yours.</p>
             <HealthDisclaimer variant="onboarding" />
             <button type="button" style={primaryButtonStyle} onClick={() => setStep(2)}>Continue</button>
           </section>
@@ -98,10 +102,10 @@ export default function OnboardingPage() {
             <Scarab />
             <h2 style={titleStyle}>This is Khepera</h2>
             <p style={bodyStyle}>
-              Khepera is your companion in reflection. Not a therapist. Not a chatbot. A mirror to help you see yourself more clearly.
+              Khepera offers a restrained reflection on what you write. It is not a therapist, chatbot, or guide.
             </p>
             <p style={bodyStyle}>
-              Khepera listens through five lenses: how you think, your inner parts, what your body holds, your story, and what it all means.
+              It stays close to your words, offers a gentle perspective, and leaves one open question.
             </p>
             <button type="button" style={primaryButtonStyle} onClick={() => setStep(3)}>Continue</button>
           </section>

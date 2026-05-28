@@ -98,19 +98,17 @@ function hasAny(text: string, patterns: RegExp[]): boolean {
 
 function resolveTone(entryText: string, preferredTone?: string): EmotionalTone {
   const normalized = (preferredTone ?? '').toLowerCase().trim();
-  const supported: EmotionalTone[] = [
-    'processing',
-    'grief',
-    'anger',
-    'anxiety',
-    'clarity',
-    'numbness',
-    'tenderness',
-    'ambivalence',
-  ];
-
-  if (supported.includes(normalized as EmotionalTone) && normalized !== 'processing') {
-    return normalized as EmotionalTone;
+  switch (normalized) {
+    case 'grief':
+    case 'anger':
+    case 'anxiety':
+    case 'clarity':
+    case 'numbness':
+    case 'tenderness':
+    case 'ambivalence':
+      return normalized;
+    default:
+      break;
   }
 
   for (const signal of TONE_SIGNALS) {

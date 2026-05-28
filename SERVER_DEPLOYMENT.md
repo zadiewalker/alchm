@@ -1,11 +1,20 @@
-# ALCHM Server/API Deployment (Vercel)
+# ALCHM Split Deployment Authority
 
-This app now runs in **server/API mode**. Do not deploy static `out/` for iOS runtime.
+This release uses an intentional split deployment topology.
 
-## 1) Deploy Next.js server
+- Vercel hosts the exported Next.js web artifact.
+- Firebase Functions own server-authoritative callable/API behavior, including Khepera gateway behavior and sensitive continuity transitions.
+- Firestore rules own Firestore authorization.
+- Firebase Hosting may redirect to the Vercel hosting authority, but it is not the runtime authority for application behavior.
+
+Do not treat a static artifact alone as proof of server-authoritative Khepera,
+privacy, export, deletion, or continuity behavior.
+
+## 1) Deploy Next.js static artifact
 
 ```bash
 export PATH="/usr/local/opt/node@22/bin:$PATH"
+npm run build
 npx vercel login
 npx vercel --prod
 ```
@@ -30,28 +39,26 @@ Set these before production deploy:
 Optional:
 
 - `FIREBASE_FUNCTIONS_URL` (defaults to `https://us-central1-alchm-digital-sanctuary.cloudfunctions.net`)
-- `OPENAI_API_KEY` (only needed where AI analysis endpoint is enabled)
+- `OPENAI_API_KEY` (Firebase Functions/provider gateway only; never expose in client/static artifacts)
 
 ## 3) Validate the deployed server URL
 
 ```bash
 curl -I https://your-app.vercel.app/
 curl -I https://your-app.vercel.app/dashboard
-curl -I https://your-app.vercel.app/api/community/create-story
+curl -I https://your-app.vercel.app/
 ```
 
 Expected:
 
 - HTML routes return `200`
-- API routes return non-`404` status (often `405` for wrong method on `HEAD`, which is still valid existence)
+- Firebase callable Functions are validated through Firebase deployment evidence, not Vercel route existence.
 
 ## 4) Point Capacitor to the server URL
 
 ```bash
 export PATH="/usr/local/opt/node@22/bin:$PATH"
-export CAPACITOR_SERVER_URL="https://your-app.vercel.app"
-npm run sync:ios:server
+npm run sync:ios
 ```
 
 Then run from `ios/App/App.xcworkspace` in Xcode.
-

@@ -7,9 +7,6 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
 
   const handleAccept = () => {
     setHasAccepted(true);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('alchm_medical_disclaimer_accepted', 'true');
-    }
     onAccept();
   };
 
@@ -33,8 +30,7 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
                 🚨 This is not medical treatment
               </h3>
               <p>
-                ALCHM is a digital wellness tool designed to support your mental health journey 
-                through guided journaling and AI-powered insights. It is <strong>not</strong> a 
+                ALCHM is a private journaling space that can offer AI-generated reflections. It is <strong>not</strong> a
                 substitute for professional medical care, therapy, or psychiatric treatment.
               </p>
             </div>
@@ -48,7 +44,7 @@ export default function MedicalDisclaimer({ onAccept }: { onAccept: () => void }
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-blue-500 mt-1">•</span>
-                  <span>AI insights are for reflection purposes only, not medical guidance</span>
+                  <span>Khepera reflections are for reflection purposes only, not medical guidance</span>
                 </li>
                 <li className="flex items-start space-x-2">
                   <span className="text-blue-500 mt-1">•</span>

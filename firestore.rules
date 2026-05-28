@@ -2,6 +2,10 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
     // Helper function to check if user is an admin
     function isAdmin() {
       return request.auth != null && 
@@ -15,22 +19,54 @@ service cloud.firestore {
              permission in get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.permissions;
     }
     
-    // Allow users to read and write their own journal entries
+    // Legacy journal entries remain owner-scoped during migration.
     match /journal-entries/{document} {
-      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow read, delete: if request.auth != null && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.userId
+        && request.resource.data.userId == resource.data.userId;
     }
     
     // Allow users to read and write their own user profile data
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-      // Allow admins to read anonymized user data for demographics (without personal info)
-      allow read: if hasAdminPermission('view_crisis_events');
+      allow read, write: if isOwner(userId);
+    }
+
+    // Canonical reflection-bearing sessions are server-authored.
+    match /users/{userId}/sessions/{sessionId} {
+      allow read, delete: if isOwner(userId);
+      allow create, update: if false;
+    }
+
+    // Khepera memory is minimized and server-derived; raw journal text is never permitted.
+    match /users/{userId}/khepera/{documentId} {
+      allow read, delete: if isOwner(userId) && documentId == 'memory';
+      allow create, update: if false;
+    }
+
+    match /users/{userId}/kheperaDelayedReflections/{reflectionId} {
+      allow read, delete: if isOwner(userId);
+      allow create, update: if false;
+    }
+
+    match /users/{userId}/containers/{containerId} {
+      allow read: if isOwner(userId);
+      allow create, update, delete: if false;
+    }
+
+    match /users/{userId}/containerState/{stateId} {
+      allow read: if isOwner(userId) && stateId == 'active';
+      allow create, update, delete: if false;
+    }
+
+    match /users/{userId}/profile/{profileId} {
+      allow read, write: if isOwner(userId) && profileId == 'main';
     }
     
     // User analyses - allow users to read their own, admins can't access (privacy protection)
     match /users/{userId}/analyses/{analysisId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if isOwner(userId);
     }
     
     // Crisis events - admin access only with proper permissions

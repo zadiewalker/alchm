@@ -1,10 +1,7 @@
-import { setDoc, serverTimestamp } from 'firebase/firestore';
-import type { DocumentReference } from 'firebase/firestore';
-import { CRISIS_RESPONSE, type isCrisisSignalPresent as isCrisisSignalPresentType } from '@/services/khepera/crisisDetection';
-import type { extractThemesForKheperaEntry as extractThemesForKheperaEntryType, generateSafeKheperaResponse as generateSafeKheperaResponseType } from '@/services/khepera/service';
+import { CRISIS_RESPONSE, type detectCrisisSignals as detectCrisisSignalsType } from '@/services/khepera/crisisDetection';
+import type { generateSafeKheperaResponse as generateSafeKheperaResponseType } from '@/services/khepera/service';
 import { analyzeEntry } from '@/services/khepera/analyzeEntry';
 import { generateReflection } from '@/services/khepera/generateReflection';
-import { scheduleDelayedReflection } from '@/services/khepera/delayedReflectionQueue';
 import {
   buildKheperaPacingState,
   decideReflectionTiming,
@@ -17,11 +14,11 @@ import {
 } from '@/services/subscriptions/kheperaReflectionAccessService';
 import type { KheperaReflectionAccessState } from '@/services/subscriptions/kheperaReflectionAccessService';
 import type { KheperaResponse, KheperaUserContext } from '@/types/khepera';
-import type { KheperaStyleProfile, ResponseStance } from '@/types/khepera';
 import type { QueuedEntry, ThemeTag } from '@/types/journal';
 import { combineKheperaResponse } from '@/utils/khepera';
 import { normalizeContainerContext } from '@/utils/khepera/containerContext';
 import { triggerSupportFailure } from '@/services/support/triggerSupportFailure';
+import { buildCompletedQueueUpdate } from '@/services/offline/queueLease';
 
 export type QueuedEntryProcessTransition =
   | 'sending_to_model'
@@ -34,18 +31,9 @@ export type QueuedEntryProcessSyncIssue = 'auth_required' | 'remote_unavailable'
 type ProcessQueuedEntryDeps = {
   updateQueueEntry: (localId: string, updates: Partial<QueuedEntry>) => Promise<void>;
   releaseQueueEntry: (localId: string, owner: string, updates?: Partial<QueuedEntry>) => Promise<void>;
+  verifyQueueClaim?: (localId: string, owner: string) => Promise<boolean>;
   generateSafeKheperaResponse: typeof generateSafeKheperaResponseType;
-  extractThemesForKheperaEntry: typeof extractThemesForKheperaEntryType;
-  updateKheperaMemory: (
-    userId: string,
-    themes: string[],
-    tone: string,
-    metadata?: { stance?: ResponseStance; styleProfile?: KheperaStyleProfile; lastReturnType?: 'immediate' | 'delayed' }
-  ) => Promise<void>;
-  isCrisisSignalPresent: typeof isCrisisSignalPresentType;
-  setDoc: typeof setDoc;
-  makeSessionRef: (userId: string, localId: string) => Promise<DocumentReference>;
-  scheduleDelayedReflection?: typeof scheduleDelayedReflection;
+  detectCrisisSignals: typeof detectCrisisSignalsType;
   getKheperaReflectionAccessState?: (userId: string | null) => Promise<KheperaReflectionAccessState>;
 };
 
@@ -120,6 +108,26 @@ export type ProcessQueuedEntryResult =
       syncIssue?: QueuedEntryProcessSyncIssue;
     };
 
+function sanitizeThemeTags(themes: string[]): ThemeTag[] {
+  return themes.filter((theme): theme is ThemeTag => (
+    theme === 'grief_loss'
+    || theme === 'relationship_tension'
+    || theme === 'self_worth'
+    || theme === 'identity'
+    || theme === 'work_purpose'
+    || theme === 'fear_uncertainty'
+    || theme === 'anger_injustice'
+    || theme === 'body_health'
+    || theme === 'creativity_expression'
+    || theme === 'spirituality_meaning'
+    || theme === 'rest_recovery'
+    || theme === 'joy_gratitude'
+    || theme === 'transition_change'
+    || theme === 'boundary_setting'
+    || theme === 'childhood_origin'
+  ));
+}
+
 export async function processQueuedEntry(
   deps: ProcessQueuedEntryDeps,
   options: ProcessQueuedEntryOptions,
@@ -145,15 +153,18 @@ export async function processQueuedEntry(
   let seed = entry.seed ?? '';
   let isCrisis = entry.isCrisis ?? false;
   const resolvedUserId = entry.userId ?? fallbackUserId;
-  let delayedReturnScheduledAt = entry.delayedReflectionScheduledAt ?? '';
-  let isDelayedReturn = entry.status === 'delayed_return';
-  let delayedThemes: ThemeTag[] = [];
-  let delayedTone = entry.dominantTone ?? 'processing';
+  let serverPersistenceConfirmed = entry.serverPersistenceConfirmed === true;
+
+  async function assertClaimOwnership(): Promise<void> {
+    if (deps.verifyQueueClaim && !(await deps.verifyQueueClaim(entry.localId, processingOwner))) {
+      throw new Error('queue_claim_lost');
+    }
+  }
 
   if (!kheperaResponse) {
     let hasCrisisSignals = false;
     try {
-      hasCrisisSignals = deps.isCrisisSignalPresent(entry.entryText);
+      hasCrisisSignals = deps.detectCrisisSignals(entry.entryText);
     } catch (error) {
       triggerSupportFailure({ step: 'crisis', error });
       throw error;
@@ -233,34 +244,24 @@ export async function processQueuedEntry(
           pacingState: buildKheperaPacingState(userContext),
           seed: `${entry.localId}:${entry.writtenAt}`,
         });
-        const effectiveTiming = timing === 'delayed_return' && !resolvedUserId ? 'short_delay' : timing;
+        // Delayed generated output is disabled until it has a server-owned
+        // persistence path. Preserve paced delivery with a bounded delay.
+        const effectiveTiming = timing === 'delayed_return' ? 'short_delay' : timing;
+        await sleepForReflectionTiming(effectiveTiming, `${entry.localId}:${entry.writtenAt}`);
 
-        if (effectiveTiming === 'delayed_return') {
-          const scheduledAt = getDelayedReflectionScheduledAt(`${entry.localId}:${entry.writtenAt}`);
-          delayedReturnScheduledAt = scheduledAt.toISOString();
-          isDelayedReturn = true;
-          delayedThemes = reflection.currentThemes;
-          delayedTone = analysis.emotionalTone;
-          await deps.updateQueueEntry(entry.localId, {
-            reflectionTiming: 'delayed_return',
-            delayedReflectionScheduledAt: delayedReturnScheduledAt,
-            status: 'delayed_return',
-          });
-        } else {
-          await sleepForReflectionTiming(effectiveTiming, `${entry.localId}:${entry.writtenAt}`);
-        }
-
-        if (isDelayedReturn) {
-          witness = '';
-          perspective = '';
-          kheperaResponse = '';
-          seed = '';
-        } else {
+        await assertClaimOwnership();
         const response = await deps.generateSafeKheperaResponse({
           entryText: entry.entryText,
           userContext,
           userId: entry.userId,
           reflectionTiming: effectiveTiming,
+          ...(resolvedUserId ? {
+            canonicalSession: {
+              sessionId: entry.localId,
+              writtenAt: entry.writtenAt,
+              reflectionTiming: effectiveTiming,
+            },
+          } : {}),
         });
 
         witness = response.witness;
@@ -272,10 +273,14 @@ export async function processQueuedEntry(
           witness,
           perspective,
           reflectionTiming: effectiveTiming,
+          serverPersistenceConfirmed: Boolean(resolvedUserId),
         });
+        serverPersistenceConfirmed = Boolean(resolvedUserId);
         recordDeliveredKheperaReflection();
-        }
       } catch (error) {
+        if (error instanceof Error && error.message === 'queue_claim_lost') {
+          throw error;
+        }
         triggerSupportFailure({ step: 'anthropic', error });
         if (!allowOfflineFallback || !getOfflineResponse) {
           throw error;
@@ -301,15 +306,14 @@ export async function processQueuedEntry(
       }
     }
 
-    if (!isDelayedReturn) {
-      await deps.updateQueueEntry(entry.localId, {
-        kheperaResponse,
-        seed,
-        isCrisis,
-        status: 'pending_sync',
-      });
-      await onTransition?.('pending_sync', entry.localId);
-    }
+    await deps.updateQueueEntry(entry.localId, {
+      kheperaResponse,
+      seed,
+      isCrisis,
+      status: 'pending_sync',
+      serverPersistenceConfirmed,
+    });
+    await onTransition?.('pending_sync', entry.localId);
   }
   if (!resolvedUserId) {
     if (onMissingUserId === 'fail') {
@@ -341,85 +345,20 @@ export async function processQueuedEntry(
   await onTransition?.('persisting_remote', entry.localId);
 
   try {
-    const entryRef = await deps.makeSessionRef(resolvedUserId, entry.localId);
-    await deps.setDoc(entryRef, {
-      userId: resolvedUserId,
-      entryText: entry.entryText,
-      kheperaResponse,
-      seed,
-      emotionalTone: entry.dominantTone ?? 'processing',
-      themes: [],
-      isCrisis,
-      reflectionTiming: isDelayedReturn ? 'delayed_return' : entry.reflectionTiming ?? 'immediate',
-      delayedReflectionScheduledAt: delayedReturnScheduledAt || null,
-      containerId: entry.containerId ?? null,
-      userContainerId: entry.userContainerId ?? null,
-      containerDay: entry.containerDay ?? null,
-      createdAt: serverTimestamp(),
-      writtenAt: entry.writtenAt,
-      ...(includeSyncedAtOnRemotePersist ? { syncedAt: serverTimestamp() } : {}),
-    });
-
-    if (isDelayedReturn && delayedReturnScheduledAt) {
-      await (deps.scheduleDelayedReflection ?? scheduleDelayedReflection)(resolvedUserId, {
-        entryId: entry.localId,
-        emotionalTone: delayedTone,
-        themeTags: delayedThemes,
-        scheduledAt: new Date(delayedReturnScheduledAt),
-      });
+    await assertClaimOwnership();
+    if (isCrisis) {
+      throw new Error('crisis_remote_persistence_unavailable');
+    }
+    if (!serverPersistenceConfirmed) {
+      throw new Error('server_persistence_unconfirmed');
     }
 
-    if (kheperaResponse && seed) {
-      deps.extractThemesForKheperaEntry(entry.entryText, kheperaResponse)
-        .then(({ themes, tone }) => {
-          deps.makeSessionRef(resolvedUserId, entry.localId)
-            .then((resolvedEntryRef) => deps.setDoc(
-              resolvedEntryRef,
-              { emotionalTone: tone, themes },
-              { merge: true },
-            ))
-            .catch(() => {});
-          const analysis = analyzeEntry(entry.entryText, tone);
-          const reflection = generateReflection({
-            entryText: entry.entryText,
-            analysis,
-            context: userContext,
-            currentThemes: themes,
-          });
-          deps.updateKheperaMemory(
-            resolvedUserId,
-            themes,
-            tone,
-            {
-              stance: reflection.stance,
-              styleProfile: reflection.styleProfile,
-              lastReturnType: 'immediate',
-            },
-          ).catch(() => {});
-        })
-        .catch(() => {});
-    }
-
-    await deps.releaseQueueEntry(entry.localId, processingOwner, {
-      status: 'complete',
-      firestoreId: entry.localId,
-      syncedAt: new Date().toISOString(),
-      userId: resolvedUserId,
-    });
+    await deps.releaseQueueEntry(
+      entry.localId,
+      processingOwner,
+      buildCompletedQueueUpdate(entry, resolvedUserId, new Date().toISOString()),
+    );
     await onTransition?.('completed', entry.localId);
-
-    if (isDelayedReturn) {
-      return {
-        outcome: 'delayed_return',
-        witness: '',
-        perspective: '',
-        kheperaResponse: '',
-        seed: '',
-        isCrisis: false,
-        entryId: entry.localId,
-        scheduledAt: delayedReturnScheduledAt,
-      };
-    }
 
     return {
       outcome: 'processed',
@@ -460,7 +399,7 @@ export async function processQueuedEntry(
 export function buildQueuedEntryUserContext(entry: QueuedEntry): KheperaUserContext {
   return {
     sessionCount: entry.sessionCount,
-    recurringThemes: entry.recurringThemes as ThemeTag[],
+    recurringThemes: sanitizeThemeTags(entry.recurringThemes),
     dominantTone: entry.dominantTone,
     containerContext: normalizeContainerContext(entry),
   };

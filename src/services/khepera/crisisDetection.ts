@@ -20,13 +20,10 @@ const CRISIS_SIGNALS: readonly string[] = [
   'wish i could disappear forever',
 ] as const;
 
-export function isCrisisSignalPresent(text: string): boolean {
+export function detectCrisisSignals(text: string): boolean {
   const normalized = text.toLowerCase();
   return CRISIS_SIGNALS.some(signal => normalized.includes(signal));
 }
-
-// Backward-compatible alias for legacy imports.
-export const detectCrisisSignals = isCrisisSignalPresent;
 
 export const CRISIS_RESPONSE: KheperaResponse = {
   witness: `What you've written matters.`,

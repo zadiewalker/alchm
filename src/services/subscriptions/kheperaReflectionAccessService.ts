@@ -5,6 +5,7 @@ import { getCachedSubscriptionSnapshot } from '@/services/subscriptions/revenueC
 import { getStorageItemWithFallback, setStorageItemNormalized } from '@/utils/storage';
 
 export const SANCTUARY_KHEPERA_RESPONSE_LIMIT = 3;
+const MAX_OFFLINE_ENTITLEMENT_AGE_MS = 24 * 60 * 60 * 1000;
 
 export type KheperaReflectionAccessState = {
   allowed: boolean;
@@ -21,11 +22,9 @@ function readLocalReflectionCount(): number {
 
 function hasTransformationAccess(): boolean {
   const cached = getCachedSubscriptionSnapshot();
-  if (cached?.entitlement.hasTransformation) {
-    return true;
-  }
-
-  return getStorageItemWithFallback(STORAGE_KEYS.USER_TIER) === 'transformation';
+  if (!cached?.entitlement.hasTransformation || !cached.lastSyncedAt) return false;
+  if (cached.entitlement.expiresAt && cached.entitlement.expiresAt.getTime() <= Date.now()) return false;
+  return Date.now() - cached.lastSyncedAt.getTime() <= MAX_OFFLINE_ENTITLEMENT_AGE_MS;
 }
 
 async function getRemoteEntryCount(userId: string): Promise<number> {

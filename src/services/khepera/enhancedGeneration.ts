@@ -1,4 +1,4 @@
-import { isCrisisSignalPresent, CRISIS_RESPONSE } from './crisisDetection';
+import { detectCrisisSignals, CRISIS_RESPONSE } from './crisisDetection';
 import { generateKheperaResponse } from './generateResponse';
 import type { KheperaUserContext, KheperaResponse } from '@/types/khepera';
 import type { ReflectionTiming } from '@/types/khepera';
@@ -11,7 +11,7 @@ export async function generateEnhancedKheperaResponse(
   context?: KheperaUserContext,
   options: { abortSignal?: AbortSignal; reflectionTiming?: ReflectionTiming } = {}
 ): Promise<KheperaResponse> {
-  if (isCrisisSignalPresent(entryText)) {
+  if (detectCrisisSignals(entryText)) {
     return CRISIS_RESPONSE;
   }
 

@@ -5,6 +5,8 @@
  * Privacy-preserving local notifications that don't require server infrastructure
  */
 
+import type { ResurfacingToneMode } from '@/types/resurfacingTone';
+
 export type NotificationType = 'seedReturn';
 
 export interface NotificationContext {
@@ -12,6 +14,7 @@ export interface NotificationContext {
   entryDate?: string;
   containerId?: string;
   returnType?: 'seed' | 'pattern' | 'contrast';
+  resurfacingTone?: ResurfacingToneMode;
   userId: string;
   hasALCHM: boolean;
   timeZone: string;
@@ -42,6 +45,7 @@ export interface NotificationConfig {
     containerId?: string;
     action?: string;
     returnType?: 'seed' | 'pattern' | 'contrast';
+    resurfacingTone?: ResurfacingToneMode;
   };
   
   // Notification metadata

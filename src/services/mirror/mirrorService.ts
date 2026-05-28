@@ -1,6 +1,5 @@
 import { collection, query, orderBy, limit, getDocs, doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { getFirestoreDb } from '@/services/firebase/firebaseService';
-import { getApiUrl, hasExternalApiBaseUrl } from '@/utils/api';
 import { sanitizeKheperaMemoryDoc } from '@/services/khepera/memory';
 import { loadMirrorReturnState } from '@/services/khepera/delayedReflectionQueue';
 import type { MirrorData, ArcPoint, ThreadData, ToneShift } from '@/types/mirror';
@@ -28,16 +27,15 @@ export async function loadMirrorData(userId: string): Promise<MirrorData> {
   const memRef = doc(db, 'users', userId, 'khepera', 'memory');
   const memSnap = await getDoc(memRef);
   const mem = memSnap.exists() ? sanitizeKheperaMemoryDoc(memSnap.data()) : null;
+  const sessionsRef = collection(db, 'users', userId, 'sessions');
+  const q = query(sessionsRef, orderBy('createdAt', 'desc'), limit(10));
+  const sessionsSnap = await getDocs(q);
   const delayedReturn = await loadMirrorReturnState(userId).catch(() => ({ state: 'empty' as const }));
-  const sessionCount = mem?.sessionCount ?? 0;
+  const sessionCount = sessionsSnap.size;
 
   if (sessionCount < 3) {
     return buildEmptyMirrorData(sessionCount, delayedReturn);
   }
-
-  const sessionsRef = collection(db, 'users', userId, 'sessions');
-  const q = query(sessionsRef, orderBy('createdAt', 'desc'), limit(10));
-  const sessionsSnap = await getDocs(q);
 
   const arc: ArcPoint[] = sessionsSnap.docs
     .map(d => ({
@@ -74,7 +72,7 @@ export async function loadMirrorData(userId: string): Promise<MirrorData> {
 
   return {
     arc,
-    dominantTone: mem?.dominantTone ?? null,
+    dominantTone: mem?.emotionalTone ?? null,
     toneShift,
     recurringThemes,
     allThemes: Object.keys(themeCount),
@@ -95,7 +93,7 @@ export async function clearKheperaMemory(userId: string): Promise<void> {
 }
 
 export async function generateMirrorObservation(
-  userId: string,
+  _userId: string,
   cachedObservation: string | null,
   cachedAt: Date | null,
   mirrorData: {
@@ -113,38 +111,8 @@ export async function generateMirrorObservation(
     }
   }
 
-  if (!hasExternalApiBaseUrl()) {
-    return getFallbackObservation(mirrorData.dominantTone);
-  }
-
-  try {
-    const response = await fetch(getApiUrl('/api/khepera/mirror-observation'), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId,
-        context: {
-          sessionCount: mirrorData.sessionCount,
-          dominantTone: mirrorData.dominantTone,
-          toneTrajectory: mirrorData.toneShift,
-          recurringThemes: mirrorData.recurringThemes,
-          seedContext: mirrorData.openSeeds[0] ?? '',
-          dataWindow: `${mirrorData.sessionCount} sessions`,
-        },
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Mirror observation request failed: ${response.status}`);
-    }
-
-    const data = (await response.json()) as { observation?: string };
-    return data.observation?.trim() || getFallbackObservation(mirrorData.dominantTone);
-  } catch {
-    return getFallbackObservation(mirrorData.dominantTone);
-  }
+  // Mirror observation remains local until it is covered by the authenticated gateway contract.
+  return getFallbackObservation(mirrorData.dominantTone);
 }
 
 function buildEmptyMirrorData(
@@ -186,25 +154,25 @@ function modeOf(arr: string[]): string {
 
 function buildShiftMessage(from: string, to: string): string {
   const map: Record<string, Record<string, string>> = {
-    anxiety:    { clarity: 'Something has settled.', tenderness: 'Something has softened.' },
-    grief:      { clarity: 'Something is lifting.', processing: 'Something is moving again.' },
-    numbness:   { processing: 'Something is waking up.', anger: 'Something is finding its voice.' },
-    anger:      { tenderness: 'Something is gentling.', clarity: 'Something is clarifying.' },
-    processing: { clarity: 'Something has landed.', tenderness: 'Something has softened.' },
+    anxiety:    { clarity: 'Something feels quieter here.', tenderness: 'Something feels softer here.' },
+    grief:      { clarity: 'Something feels a little more spacious here.', processing: 'Something remains in motion here.' },
+    numbness:   { processing: 'Something has become more visible here.', anger: 'Something protective feels present here.' },
+    anger:      { tenderness: 'Something feels softer here.', clarity: 'Something feels clearer here.' },
+    processing: { clarity: 'Something feels more settled here.', tenderness: 'Something feels softer here.' },
   };
-  return map[from]?.[to] ?? 'Something has shifted.';
+  return map[from]?.[to] ?? 'Something feels different here.';
 }
 
 function getFallbackObservation(tone: string): string {
   const fallbacks: Record<string, string> = {
-    anxiety: 'There\'s a lot being carried here. Something keeps returning, and returning is its own kind of honesty.',
-    grief: 'Something tender lives in this writing. It hasn\'t resolved — but it has been witnessed.',
-    processing: 'There is movement in this writing. Not toward an answer, but toward something more honest than silence.',
-    clarity: 'Something has shifted in how this space is being used. The writing has changed texture.',
-    numbness: 'The writing is here even when feeling isn\'t. That means something.',
-    tenderness: 'Something soft keeps finding its way onto the page. That isn\'t accidental.',
-    anger: 'There is something alive in this writing. Something that knows it deserves more than it\'s gotten.',
-    ambivalence: 'Two things keep arriving together. Neither is winning. That\'s worth noticing.',
+    anxiety: 'A familiar heaviness seems to remain nearby.',
+    grief: 'Something tender remains close to this writing.',
+    processing: 'Something here still seems to be unfolding.',
+    clarity: 'The writing feels a little more spacious here.',
+    numbness: 'The writing remains here, even when feeling is quiet.',
+    tenderness: 'Something soft seems to stay near the page.',
+    anger: 'Something protective still seems present here.',
+    ambivalence: 'More than one feeling seems to be sharing the space.',
   };
-  return fallbacks[tone] ?? 'Something keeps returning to this space. That matters.';
+  return fallbacks[tone] ?? 'Something in this writing remains nearby.';
 }

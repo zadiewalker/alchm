@@ -102,19 +102,6 @@ function getDurationMs(startedAt: number): number {
   return Math.max(0, Date.now() - startedAt);
 }
 
-function fingerprintIdentifier(value: string | null | undefined): string | null {
-  const normalized = value?.trim() ?? '';
-  if (!normalized) {
-    return null;
-  }
-
-  if (normalized.length <= 10) {
-    return `${normalized.slice(0, 2)}…${normalized.slice(-2)}`;
-  }
-
-  return `${normalized.slice(0, 5)}…${normalized.slice(-4)}`;
-}
-
 function getCustomerInfoAppUserId(customerInfo: RevenueCatCustomerInfo | null | undefined): string | null {
   return customerInfo?.originalAppUserId ?? customerInfo?.originalAppUserID ?? null;
 }
@@ -678,7 +665,6 @@ export interface RevenueCatHealthCheck {
   isConfigured: boolean;
   apiKeyPresent: boolean;
   apiKeySource: 'static';
-  apiKeyFingerprint: string | null;
   configValid: boolean;
   configureAttempted: boolean;
   nativePluginCallSucceeded: boolean;
@@ -687,8 +673,6 @@ export interface RevenueCatHealthCheck {
   nativeConfigFound: boolean;
   plistKeyName: string | null;
   plistKeyFound: boolean;
-  nativeApiKeyPrefix: string | null;
-  nativeApiKeyFingerprint: string | null;
   nativeAppBundleId: string | null;
   nativeBundleVersion: string | null;
   nativeBundleShortVersion: string | null;
@@ -696,7 +680,6 @@ export interface RevenueCatHealthCheck {
   nativePluginRegistered: boolean;
   buildNumber: string;
   sdkAppUserIdPresent: boolean;
-  sdkAppUserIdFingerprint: string | null;
   offeringRequested: string;
   offeringsResultCategory: string | null;
   allOfferingIdsReturned: string[];
@@ -729,7 +712,6 @@ export async function getRevenueCatHealthCheck(
     isConfigured,
     apiKeyPresent: Boolean(revenueCatConfig.apiKey),
     apiKeySource: revenueCatConfig.apiKeySource,
-    apiKeyFingerprint: revenueCatConfigStatus.diagnostics.keyFingerprint,
     configValid: revenueCatConfigStatus.isValid,
     configureAttempted,
     nativePluginCallSucceeded: nativeDiagnostics.nativePluginCallSucceeded,
@@ -738,8 +720,6 @@ export async function getRevenueCatHealthCheck(
     nativeConfigFound: nativeDiagnostics.nativeConfigFound,
     plistKeyName: nativeDiagnostics.plistKeyName,
     plistKeyFound: nativeDiagnostics.plistKeyFound,
-    nativeApiKeyPrefix: nativeDiagnostics.apiKeyPrefix,
-    nativeApiKeyFingerprint: nativeDiagnostics.apiKeyFingerprint,
     nativeAppBundleId: nativeDiagnostics.appBundleId,
     nativeBundleVersion: nativeDiagnostics.bundleVersion,
     nativeBundleShortVersion: nativeDiagnostics.bundleShortVersion,
@@ -747,7 +727,6 @@ export async function getRevenueCatHealthCheck(
     nativePluginRegistered: nativeDiagnostics.pluginRegistered,
     buildNumber: IOS_BUILD_NUMBER,
     sdkAppUserIdPresent: false,
-    sdkAppUserIdFingerprint: null,
     offeringRequested: REVENUECAT_DEFAULT_OFFERING_ID,
     offeringsResultCategory: lastOfferingsResultCategory,
     allOfferingIdsReturned: lastOfferingIdsReturned,
@@ -800,7 +779,6 @@ export async function getRevenueCatHealthCheck(
     isConfigured: configured || isConfigured,
     configureAttempted,
     sdkAppUserIdPresent: Boolean(sdkAppUserId),
-    sdkAppUserIdFingerprint: fingerprintIdentifier(sdkAppUserId),
     offeringsResultCategory: lastOfferingsResultCategory,
     allOfferingIdsReturned: lastOfferingIdsReturned,
     currentOfferingIsNull: lastCurrentOfferingIsNull,

@@ -1,6 +1,6 @@
 'use client';
 
-import type { JournalEntry } from '@/lib/dataService';
+import type { JournalEntry } from '@/services/data/dataService';
 
 export interface ExportOptions {
   format: 'json' | 'csv' | 'txt';

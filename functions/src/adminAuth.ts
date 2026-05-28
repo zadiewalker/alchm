@@ -1,5 +1,5 @@
 import * as admin from "firebase-admin";
-import { AdminUser } from "./types";
+import { AdminUser, CrisisEvent } from "./types";
 import * as crypto from "crypto";
 
 // Admin role permissions mapping
@@ -36,6 +36,33 @@ const APPROVED_ADMIN_EMAILS = [
   "crisis@alchmapp.com",
   "supervisor@alchmapp.com"
 ];
+
+type CrisisDataForSanitization = {
+  id?: string;
+  userId: string;
+  analysisId?: string;
+  journalEntryId?: string;
+  confidenceLevel?: string;
+  reasoning?: string;
+  timestamp?: unknown;
+  escalated?: boolean;
+  resolved?: boolean;
+  resolvedAt?: unknown;
+  demographics?: {
+    ageRange?: string;
+    language?: string;
+  };
+  location?: {
+    country?: string;
+    region?: string;
+  };
+};
+
+type AuditDetails = Record<string, unknown>;
+
+function normalizeConfidenceLevel(value?: string): CrisisEvent["confidenceLevel"] {
+  return value === "medium" || value === "high" ? value : "low";
+}
 
 export async function verifyAdminToken(authHeader?: string): Promise<admin.auth.DecodedIdToken | null> {
   try {
@@ -148,23 +175,24 @@ export async function updateAdminLastAccess(uid: string): Promise<void> {
 // Privacy-preserving functions
 export function anonymizeUserId(userId: string): string {
   // Create a consistent hash of the user ID for privacy
-  const hash = crypto.createHash('sha256');
-  hash.update(userId + process.env.CRISIS_ANONYMIZATION_SALT || 'alchm-default-salt');
-  return hash.digest('hex').substring(0, 16);
+  const hash = crypto.createHash("sha256");
+  hash.update(userId + process.env.CRISIS_ANONYMIZATION_SALT || "alchm-default-salt");
+  return hash.digest("hex").substring(0, 16);
 }
 
-export function sanitizeCrisisData(crisisEvent: any): any {
+export function sanitizeCrisisData(crisisEvent: CrisisDataForSanitization): CrisisEvent {
   // Remove all personally identifiable information
-  const sanitized: any = {
-    id: crisisEvent.id,
+  const sanitized: CrisisEvent = {
+    id: crisisEvent.id ?? "",
     anonymizedId: anonymizeUserId(crisisEvent.userId),
-    analysisId: crisisEvent.analysisId,
-    confidenceLevel: crisisEvent.confidenceLevel,
-    reasoning: crisisEvent.reasoning,
-    timestamp: crisisEvent.timestamp,
-    escalated: crisisEvent.escalated,
+    analysisId: crisisEvent.analysisId ?? "",
+    journalEntryId: crisisEvent.journalEntryId ?? "",
+    confidenceLevel: normalizeConfidenceLevel(crisisEvent.confidenceLevel),
+    reasoning: crisisEvent.reasoning ?? "",
+    timestamp: crisisEvent.timestamp instanceof Date ? crisisEvent.timestamp : new Date(),
+    escalated: crisisEvent.escalated ?? false,
     resolved: crisisEvent.resolved,
-    resolvedAt: crisisEvent.resolvedAt
+    resolvedAt: crisisEvent.resolvedAt instanceof Date ? crisisEvent.resolvedAt : undefined
   };
 
   // Add non-identifying demographic info if available
@@ -175,7 +203,7 @@ export function sanitizeCrisisData(crisisEvent: any): any {
     };
   }
 
-  if (crisisEvent.location) {
+  if (crisisEvent.location?.country) {
     sanitized.location = {
       country: crisisEvent.location.country,
       region: crisisEvent.location.region
@@ -188,7 +216,7 @@ export function sanitizeCrisisData(crisisEvent: any): any {
 export async function logAdminAction(
   adminUid: string, 
   action: string, 
-  details: any = {}
+  details: AuditDetails = {}
 ): Promise<void> {
   try {
     const db = admin.firestore();
@@ -204,12 +232,12 @@ export async function logAdminAction(
   }
 }
 
-function sanitizeAuditDetails(details: any): any {
+function sanitizeAuditDetails(details: AuditDetails): AuditDetails {
   // Remove sensitive data from audit logs
   const sanitized = { ...details };
   
   // Remove user IDs and replace with anonymized versions
-  if (sanitized.userId) {
+  if (typeof sanitized.userId === "string") {
     sanitized.anonymizedUserId = anonymizeUserId(sanitized.userId);
     delete sanitized.userId;
   }

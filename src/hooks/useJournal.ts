@@ -1,10 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useSafeAsync } from './useSafeAsync';
-import { useFeatureAccess } from './useSubscription';
 import type { JournalSubmissionInput, JournalSubmissionResult } from '@/types/journal';
-import type { NotificationContext } from '@/types/notifications';
 import { STORAGE_KEYS } from '@/config/storageKeys';
-import { getStorageItemWithFallback, setStorageItemNormalized } from '@/utils/storage';
+import { clientStorageService } from '@/services/storage/clientStorageService';
 import { recordOperationalEvent } from '@/services/monitoring/telemetry';
 
 export type JournalView = 'writing' | 'loading' | 'receiving' | 'error';
@@ -25,7 +23,6 @@ export interface UseJournalReturn {
 
 export function useJournal(): UseJournalReturn {
   const { isMounted, safeDispatch } = useSafeAsync();
-  const { hasALCHM } = useFeatureAccess();
   const abortRef = useRef<AbortController | null>(null);
   const isSubmittingRef = useRef(false);
   const operationIdRef = useRef<string | null>(null);
@@ -37,23 +34,6 @@ export function useJournal(): UseJournalReturn {
   const setViewSafe = safeDispatch(setView);
   const setResultSafe = safeDispatch(setResult);
   const setErrorSafe = safeDispatch(setError);
-
-  useEffect(() => {
-    const persistedDraft = getStorageItemWithFallback(STORAGE_KEYS.JOURNAL_DRAFT);
-    if (persistedDraft && persistedDraft.trim().length > 0) {
-      setEntryText(persistedDraft);
-    }
-  }, []);
-
-  useEffect(() => {
-    const trimmed = entryText.trim();
-    if (trimmed.length === 0) {
-      setStorageItemNormalized(STORAGE_KEYS.JOURNAL_DRAFT, '');
-      return;
-    }
-
-    setStorageItemNormalized(STORAGE_KEYS.JOURNAL_DRAFT, entryText);
-  }, [entryText]);
 
   const submit = useCallback(async (baseInput: Omit<JournalSubmissionInput, 'entryText'>) => {
     if (entryText.trim().length < 3 || isSubmittingRef.current) return;
@@ -103,44 +83,25 @@ export function useJournal(): UseJournalReturn {
       return;
     }
 
-    if (submissionResult.submissionState !== 'reflection_limit') {
-      setStorageItemNormalized(STORAGE_KEYS.JOURNAL_DRAFT, '');
-    }
-
     if (submissionResult.entryId && !submissionResult.isCrisis && submissionResult.submissionState !== 'delayed_return') {
-      const isFirstEntry = getStorageItemWithFallback(STORAGE_KEYS.FIRST_ENTRY_COMPLETED) !== 'true';
+      const isFirstEntry = clientStorageService.get(STORAGE_KEYS.FIRST_ENTRY_COMPLETED) !== 'true';
       if (isFirstEntry) {
-        setStorageItemNormalized(STORAGE_KEYS.FIRST_ENTRY_COMPLETED, 'true');
+        clientStorageService.set(STORAGE_KEYS.FIRST_ENTRY_COMPLETED, 'true');
         recordOperationalEvent('first_khepera_received', {
           localId: submissionResult.localId,
           source: 'journal_new',
         });
       }
 
-      const notificationContext: NotificationContext = {
-        userId: baseInput.userId ?? 'anonymous',
-        hasALCHM,
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        preferredTime: 'afternoon',
-        entryId: submissionResult.entryId,
-        entryDate: new Date().toISOString(),
-        containerId: baseInput.containerId,
-        returnType: 'seed',
-      };
-
-      void import('@/services/notifications/notificationService')
-        .then(({ scheduleNotification }) => scheduleNotification('seedReturn', notificationContext))
-        .catch(() => {});
     }
 
     setResultSafe(submissionResult);
     setViewSafe('receiving');
-  }, [entryText, hasALCHM, isMounted, setViewSafe, setResultSafe, setErrorSafe]);
+  }, [entryText, isMounted, setViewSafe, setResultSafe, setErrorSafe]);
 
   const reset = useCallback(() => {
     isSubmittingRef.current = false;
     operationIdRef.current = null;
-    setStorageItemNormalized(STORAGE_KEYS.JOURNAL_DRAFT, '');
     setEntryText('');
     setResult(null);
     setError(null);

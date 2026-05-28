@@ -1,5 +1,5 @@
-import { doc, setDoc, getDoc, collection, addDoc, query, where, orderBy, limit, getDocs, updateDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
-import type { UserContainer, ContainerTier } from '@/types/container';
+import { doc, setDoc, getDoc, collection, query, orderBy, limit, getDocs, serverTimestamp } from 'firebase/firestore';
+import type { UserContainer } from '@/types/container';
 import { getFirestoreDb } from '@/services/firebase/firebaseService';
 import { STORAGE_KEYS } from '@/config/storageKeys';
 import { getStorageItemWithFallback, setStorageItemNormalized } from '@/utils/storage';
@@ -45,14 +45,11 @@ export interface JournalEntry {
   kheperaFrameworks?: string[];
   moodWords?: string[];
   emotionalTone?: EmotionalTone;
+  aiAnalysis?: {
+    emotionalTone?: unknown;
+  };
   themes?: ThemeTag[];
   insights?: string[];
-  aiAnalysis?: {
-    emotionalTone: number | string;
-    themes: string[];
-    suggestions: string[];
-    breakthroughDetected: boolean;
-  };
 }
 
 class DataService {
@@ -83,16 +80,6 @@ class DataService {
     }
   }
 
-  private updateEntryRhythmMetrics(entryDate: Date) {
-    try {
-      setStorageItemNormalized(STORAGE_KEYS.LAST_ENTRY_DATE, entryDate.toISOString());
-      const previousCount = Number.parseInt(getStorageItemWithFallback(STORAGE_KEYS.ENTRY_COUNT) || '0', 10) || 0;
-      setStorageItemNormalized(STORAGE_KEYS.ENTRY_COUNT, String(previousCount + 1));
-    } catch {
-      // no-op
-    }
-  }
-
   private toDate(value: unknown): Date {
     if (value && typeof value === 'object' && 'toDate' in (value as Record<string, unknown>) && typeof (value as { toDate: () => Date }).toDate === 'function') {
       return (value as { toDate: () => Date }).toDate();
@@ -114,6 +101,60 @@ class DataService {
 
   private toStringArray(value: unknown): string[] {
     return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
+  }
+
+  private toEmotionalTone(value: unknown): EmotionalTone | undefined {
+    switch (value) {
+      case 'processing':
+      case 'grief':
+      case 'anger':
+      case 'anxiety':
+      case 'clarity':
+      case 'numbness':
+      case 'tenderness':
+      case 'ambivalence':
+        return value;
+      default:
+        return undefined;
+    }
+  }
+
+  private toLegacyAiAnalysis(value: unknown): JournalEntry['aiAnalysis'] {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return undefined;
+    }
+
+    const emotionalTone = (value as Record<string, unknown>).emotionalTone;
+    return typeof emotionalTone === 'string' ? { emotionalTone } : undefined;
+  }
+
+  private toThemeTags(value: unknown): ThemeTag[] {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    return value.filter((theme): theme is ThemeTag => {
+      switch (theme) {
+        case 'grief_loss':
+        case 'relationship_tension':
+        case 'self_worth':
+        case 'identity':
+        case 'work_purpose':
+        case 'fear_uncertainty':
+        case 'anger_injustice':
+        case 'body_health':
+        case 'creativity_expression':
+        case 'spirituality_meaning':
+        case 'rest_recovery':
+        case 'joy_gratitude':
+        case 'transition_change':
+        case 'boundary_setting':
+        case 'childhood_origin':
+          return true;
+        default:
+          return false;
+      }
+    });
   }
 
   private mapSessionToJournalEntry(id: string, data: Record<string, unknown>): JournalEntry {
@@ -146,18 +187,9 @@ class DataService {
       kheperaReflection,
       insights: seed ? [seed] : [],
       moodWords: Array.isArray(data.moodWords) ? data.moodWords.filter((item): item is string => typeof item === 'string') : undefined,
-      emotionalTone: typeof data.emotionalTone === 'string' ? data.emotionalTone as EmotionalTone : undefined,
-      themes: this.toStringArray(data.themes) as ThemeTag[],
-      aiAnalysis: data.aiAnalysis && typeof data.aiAnalysis === 'object'
-        ? {
-          emotionalTone: typeof (data.aiAnalysis as { emotionalTone?: unknown }).emotionalTone === 'string' || typeof (data.aiAnalysis as { emotionalTone?: unknown }).emotionalTone === 'number'
-            ? (data.aiAnalysis as { emotionalTone: string | number }).emotionalTone
-            : 'processing',
-          themes: this.toStringArray((data.aiAnalysis as { themes?: unknown }).themes),
-          suggestions: this.toStringArray((data.aiAnalysis as { suggestions?: unknown }).suggestions),
-          breakthroughDetected: (data.aiAnalysis as { breakthroughDetected?: unknown }).breakthroughDetected === true,
-        }
-        : undefined,
+      emotionalTone: this.toEmotionalTone(data.emotionalTone),
+      aiAnalysis: this.toLegacyAiAnalysis(data.aiAnalysis),
+      themes: this.toThemeTags(data.themes),
     };
   }
 
@@ -177,7 +209,7 @@ class DataService {
       kheperaReflection: entry.kheperaResponse,
       insights: entry.seed ? [entry.seed] : [],
       emotionalTone: entry.dominantTone,
-      themes: entry.recurringThemes as ThemeTag[],
+      themes: this.toThemeTags(entry.recurringThemes),
     };
   }
 
@@ -280,49 +312,6 @@ class DataService {
     }
   }
 
-  async createUserContainer(data: {
-    containerId: string;
-    containerName: string;
-    tier: ContainerTier;
-    userId: string;
-  }): Promise<string> {
-    if (!this.userId) {
-      throw new Error('User must be authenticated to create containers');
-    }
-
-    try {
-      const db = this.getDb();
-      const activeContainersQuery = query(
-        collection(db, 'users', this.userId, 'containers'),
-        where('status', '==', 'active'),
-        limit(1)
-      );
-      const activeContainersSnapshot = await getDocs(activeContainersQuery);
-      if (!activeContainersSnapshot.empty) {
-        throw new Error('An active container already exists');
-      }
-
-      const userContainerRef = collection(db, 'users', this.userId, 'containers');
-      const docRef = await addDoc(userContainerRef, {
-        containerId: data.containerId,
-        containerName: data.containerName,
-        tier: data.tier,
-        status: 'active',
-        startedAt: serverTimestamp(),
-        currentDay: 1,
-        missedDays: [],
-        sessionIds: [],
-        completionCeremonyViewed: false,
-        userId: this.userId,
-      });
-
-      return docRef.id;
-    } catch (error) {
-      console.error('Error creating user container:', error);
-      throw error;
-    }
-  }
-
   async getUserContainers(): Promise<UserContainer[]> {
     if (!this.userId) {
       return [];
@@ -338,34 +327,11 @@ class DataService {
         return {
           id: containerDoc.id,
           ...data,
-          startedAt: data.startedAt?.toDate() || new Date(),
-          completedAt: data.completedAt?.toDate(),
-          lastEntryAt: data.lastEntryAt?.toDate(),
         } as UserContainer;
       });
     } catch (error) {
       console.error('Error getting user containers:', error);
       return [];
-    }
-  }
-
-  async updateUserContainer(id: string, updates: Partial<Omit<UserContainer, 'id'>>): Promise<void> {
-    if (!this.userId) {
-      throw new Error('User must be authenticated to update containers');
-    }
-
-    try {
-      const containerRef = doc(this.getDb(), 'users', this.userId, 'containers', id);
-      const updateData = { ...updates };
-
-      if (updateData.startedAt) updateData.startedAt = Timestamp.fromDate(updateData.startedAt as unknown as Date);
-      if (updateData.completedAt) updateData.completedAt = Timestamp.fromDate(updateData.completedAt as unknown as Date);
-      if (updateData.lastEntryAt) updateData.lastEntryAt = Timestamp.fromDate(updateData.lastEntryAt as unknown as Date);
-
-      await updateDoc(containerRef, updateData);
-    } catch (error) {
-      console.error('Error updating user container:', error);
-      throw error;
     }
   }
 

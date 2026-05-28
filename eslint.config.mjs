@@ -21,4 +21,14 @@ export default [
     ],
   },
   js.configs.recommended,
+  {
+    files: ['src/__tests__/**/*.mjs'],
+    languageOptions: {
+      globals: {
+        global: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+      },
+    },
+  },
 ];

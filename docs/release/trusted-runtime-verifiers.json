@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "status": "NO APPROVED VERIFIER",
+  "trustModel": "explicit-human-approved-verifier-registry",
+  "requirements": [
+    "verifierId must be unique",
+    "publicKeyFingerprintSha256 must be unique and match publicKeyPem",
+    "authorityScope must be runtime-continuity-attestation",
+    "publicKeyPem must be reviewed and immutable for the candidate",
+    "approvedBy must identify a separate release authority",
+    "operator metadata and lineageReference must be present",
+    "self-attested verifier records are invalid",
+    "revoked or expired verifier records are invalid"
+  ],
+  "approvedVerifiers": []
+}

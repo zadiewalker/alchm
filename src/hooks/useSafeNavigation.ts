@@ -11,6 +11,11 @@ function normalizePath(path: string): string {
   return path;
 }
 
+export function reconcilePendingNavigationForCurrentPath(): void {
+  // useSafeNavigation keeps pending state instance-local. This hook exists for root
+  // route-change reconciliation without introducing a global navigation store.
+}
+
 export function useSafeNavigation(defaultFallbackMs = 1200) {
   const router = useRouter();
   const inFlightRef = useRef(false);

@@ -1,0 +1,82 @@
+.page {
+  color: #e7efe8;
+  max-width: 920px;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 1.6rem;
+}
+
+.card {
+  background: #131816;
+  border: 1px solid #1f2723;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.label {
+  display: block;
+  margin: 0 0 8px;
+  color: #97a39c;
+  font-size: 0.9rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #2a3530;
+  background: #0f1311;
+  color: #e6eee7;
+  padding: 10px 12px;
+}
+
+.textarea {
+  min-height: 170px;
+  resize: vertical;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  border: 1px solid #2a3430;
+  background: #1a211d;
+  color: #dce8df;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.buttonPrimary {
+  border-color: #2f7d53;
+  background: #1e5136;
+}
+
+.storyTitle {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.storyMeta {
+  margin: 8px 0;
+  color: #90a098;
+  font-size: 0.86rem;
+}
+
+.storyText {
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.communityLink {
+  margin-top: 16px;
+  display: inline-block;
+  color: #71f2aa;
+  text-decoration: none;
+}

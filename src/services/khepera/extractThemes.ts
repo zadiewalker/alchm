@@ -30,6 +30,14 @@ const VALID_TONES: EmotionalTone[] = [
   'ambivalence',
 ];
 
+function isThemeTag(value: unknown): value is ThemeTag {
+  return typeof value === 'string' && VALID_THEMES.some((theme) => theme === value);
+}
+
+function isEmotionalTone(value: unknown): value is EmotionalTone {
+  return typeof value === 'string' && VALID_TONES.some((tone) => tone === value);
+}
+
 export async function extractThemesFromEntry(
   entryText: string,
   kheperaResponse: string
@@ -77,15 +85,16 @@ Return JSON only: {"themes": ["theme1", "theme2"], "tone": "tone"}`;
       };
     }
 
-    const parsed = JSON.parse(response.text);
+    const parsed: unknown = JSON.parse(response.text);
+    const result = typeof parsed === 'object' && parsed !== null ? parsed : {};
     
     // Validate and filter themes
-    const themes = (parsed.themes || [])
-      .filter((t: string) => VALID_THEMES.includes(t as ThemeTag))
-      .slice(0, 3) as ThemeTag[];
+    const themes = 'themes' in result && Array.isArray(result.themes)
+      ? result.themes.filter(isThemeTag).slice(0, 3)
+      : [];
     
     // Validate tone
-    const tone = VALID_TONES.includes(parsed.tone) ? parsed.tone : 'processing';
+    const tone = 'tone' in result && isEmotionalTone(result.tone) ? result.tone : 'processing';
 
     return { themes, tone };
 

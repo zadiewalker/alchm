@@ -7,61 +7,41 @@ import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
 import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
 import { SanctuaryText } from '@/components/ui/SanctuaryText';
-import { UpgradePrompt } from '@/components/ui/UpgradePrompt';
 import { DESIGN } from '@/lib/design';
-import { useData } from '@/hooks/useData';
-import { canAccessFeature } from '@/lib/subscription';
-import { cancelReminder } from '@/lib/notifications';
+import { useStandaloneJournalSubmission } from '@/hooks/useStandaloneJournalSubmission';
 
 const MOODS = ['anxious', 'heavy', 'numb', 'restless', 'tender', 'hopeful', 'alive', 'shattered', 'calm', 'burning'];
 const GOODNIGHT_LINES = [
   'You named what was true tonight. Let that be enough.',
-  'Even a brief check-in can soften the edges of a hard day.',
-  'You showed up for yourself tonight. Rest gently.',
+  'Your space is here when you want it.',
+  'You can continue whenever it feels right.',
   'Your words are safe here. Goodnight.',
-  'Khepera is here when morning comes.',
+  'No need to catch up.',
 ];
 
 export default function CheckInPage() {
   const router = useRouter();
-  const { saveJournalEntry } = useData();
+  const { submitCheckIn } = useStandaloneJournalSubmission();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [mood, setMood] = useState<string[]>([]);
   const [sentence, setSentence] = useState('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
-  const allowCheckin = canAccessFeature('eveningCheckIn');
   const goodnight = useMemo(() => GOODNIGHT_LINES[new Date().getDate() % GOODNIGHT_LINES.length], []);
-
-  if (!allowCheckin) {
-    return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Evening Check-in" showBack />}>
-        <UpgradePrompt
-          feature="Evening check-in"
-          message="Evening check-ins are available with Reflections. A gentle way to close each day."
-          recommendedTier="reflections"
-        />
-      </SanctuaryLayout>
-    );
-  }
 
   const completeCheckin = async (withText: string) => {
     setSaving(true);
     setError('');
     try {
-      await saveJournalEntry({
-        title: 'Evening check-in',
-        content: withText.trim() || 'Evening check-in completed.',
-        mood: 5,
-        emotions: mood,
-        tags: ['check-in'],
-        type: 'checkin',
-        isPrivate: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+      const result = await submitCheckIn({
+        entryText: withText.trim() || mood.join(', ') || 'Checking in tonight.',
+        userId: null,
+        sessionCount: 0,
+        recurringThemes: [],
+        dominantTone: 'processing',
       });
-      cancelReminder('return').catch(() => {});
+      if (!result.success) throw new Error(result.error ?? 'submission_failed');
       setStep(3);
     } catch {
       setError('Could not save your check-in. Please try again.');
@@ -155,7 +135,7 @@ export default function CheckInPage() {
               {goodnight}
             </SanctuaryText>
             <button type="button" onClick={() => router.push('/dashboard/')} style={primaryButtonStyle}>
-              Goodnight ✦
+              Close
             </button>
           </SanctuaryCard>
         ) : null}
@@ -170,7 +150,7 @@ const primaryButtonStyle: React.CSSProperties = {
   border: `1px solid ${DESIGN.colors.goldDim}`,
   padding: '10px 18px',
   background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

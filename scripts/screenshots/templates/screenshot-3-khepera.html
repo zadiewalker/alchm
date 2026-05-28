@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: VAR_WIDTHpx;
+    height: VAR_HEIGHTpx;
+    background: #8A9B76;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .headline-block {
+    padding: 90px 80px 50px;
+    text-align: center;
+  }
+
+  .kicker {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(245,240,232,0.50);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .headline {
+    font-family: Georgia, serif;
+    font-size: 88px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.1;
+  }
+
+  .phone {
+    width: 560px;
+    background: #7A8B67;
+    border-radius: 60px;
+    border: 2px solid rgba(245,240,232,0.15);
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.4);
+  }
+
+  .phone-inner {
+    padding: 50px 36px 36px;
+  }
+
+  /* Khepera response card */
+  .khepera-card {
+    background: rgba(0,0,0,0.16);
+    border: 0.5px solid rgba(245,240,232,0.18);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 16px;
+  }
+
+  .scarab-small {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 20px;
+    opacity: 0.55;
+  }
+
+  .response-text {
+    font-size: 28px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: rgba(212,184,106,0.35);
+    margin-bottom: 28px;
+  }
+
+  .seed-text {
+    font-family: Georgia, serif;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(245,240,232,0.88);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .close-text {
+    font-size: 22px;
+    color: rgba(245,240,232,0.35);
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn {
+    width: 100%;
+    height: 72px;
+    background: rgba(0,0,0,0.18);
+    border: 0.5px solid rgba(245,240,232,0.30);
+    border-radius: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 500;
+    color: #F5F0E8;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="headline-block">
+  <p class="kicker">Your AI companion</p>
+  <p class="headline">Someone is<br>listening.</p>
+</div>
+
+<div class="phone">
+  <div class="phone-inner">
+
+    <div class="khepera-card">
+      <!-- Small scarab SVG -->
+      <svg class="scarab-small" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="18" r="18" fill="#D4B86A"/>
+        <ellipse cx="100" cy="42" rx="9" ry="12" fill="rgba(245,240,232,0.75)"/>
+        <ellipse cx="100" cy="110" rx="36" ry="50" fill="rgba(245,240,232,0.82)"/>
+        <ellipse cx="55" cy="115" rx="28" ry="40" fill="rgba(245,240,232,0.65)" transform="rotate(-15, 55, 115)"/>
+        <ellipse cx="145" cy="115" rx="28" ry="40" fill="rgba(245,240,232,0.65)" transform="rotate(15, 145, 115)"/>
+      </svg>
+
+      <p class="response-text">
+        There's something in how you describe
+        it — "not grief exactly" — that holds
+        a kind of precision. You already know
+        it isn't the word. That noticing is the
+        work, even if nothing else moves yet.
+      </p>
+
+      <div class="divider"></div>
+
+      <p class="seed-text">
+        What would it mean to stop
+        waiting for the right word
+        and just let it be unnamed?
+      </p>
+
+      <p class="close-text">Close whenever you're ready.</p>
+    </div>
+
+    <div class="btn">Return to your space</div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -22,14 +22,14 @@ export default function TermsPage() {
         <SanctuaryCard>
           <Section title="What ALCHM Is">
             <P>
-              ALCHM is a self-reflection and journaling application. It includes an AI companion called Khepera that
+              ALCHM is a self-reflection and journaling application. It includes an AI reflection system called Khepera that
               reflects on what you write.
             </P>
           </Section>
 
           <Section title="What ALCHM Is Not">
             <P>
-              ALCHM is not a medical device or healthcare service. Khepera is an AI companion, not a therapist,
+              ALCHM is not a medical device or healthcare service. Khepera is an AI reflection system, not a therapist,
               counselor, psychologist, or medical professional. ALCHM does not diagnose, treat, cure, or prevent any
               condition.
             </P>
@@ -49,8 +49,9 @@ export default function TermsPage() {
 
           <Section title="Privacy">
             <P>
-              Your journal is stored locally on your device. When you request a reflection, the text you submit is sent
-              to our AI provider for processing. See the{' '}
+              Journal entries may be queued locally on your device and, when you are signed in, stored in ALCHM&apos;s
+              cloud data store. Requested reflections use an authenticated server-controlled gateway when that
+              service is deployed and configured. See the{' '}
               <Link href="/privacy-policy/" style={linkStyle}>Privacy Policy</Link>.
             </P>
           </Section>
@@ -92,4 +93,3 @@ const linkStyle: React.CSSProperties = {
   textDecoration: 'underline',
   fontFamily: DESIGN.typography.sansSerif,
 };
-

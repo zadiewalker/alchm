@@ -1,7 +1,12 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { getSettings, updateSettings, type AppSettings } from '@/lib/settings';
+import {
+  clearLegacyLocalSettingsData,
+  getSettings,
+  updateSettings,
+  type AppSettings,
+} from '@/services/settings/settingsService';
 
 export function useSettings() {
   const [settings, setSettings] = useState<AppSettings>(() => getSettings());
@@ -12,5 +17,11 @@ export function useSettings() {
     return updated;
   }, []);
 
-  return { settings, update };
+  const clearLocalData = useCallback(() => {
+    const reset = clearLegacyLocalSettingsData();
+    setSettings(reset);
+    return reset;
+  }, []);
+
+  return { settings, update, clearLocalData };
 }

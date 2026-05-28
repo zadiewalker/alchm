@@ -1,22 +1,5 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  query,
-  serverTimestamp,
-  setDoc,
-  Timestamp,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, limit, query, Timestamp, where } from 'firebase/firestore';
 import { getFirestoreDb } from '@/services/firebase/firebaseService';
-import { generateSafeKheperaResponse, extractThemesForKheperaEntry } from '@/services/khepera/service';
-import { analyzeEntry } from '@/services/khepera/analyzeEntry';
-import { generateReflection } from '@/services/khepera/generateReflection';
-import { updateKheperaMemory } from '@/services/khepera/memory';
-import { combineKheperaResponse } from '@/utils/khepera';
 import type { EmotionalTone, ThemeTag } from '@/types/journal';
 import type { KheperaResponse, KheperaUserContext } from '@/types/khepera';
 import type { MirrorReturnState } from '@/types/mirror';
@@ -52,17 +35,10 @@ function delayedReflectionRef(userId: string, entryId: string) {
 }
 
 export async function scheduleDelayedReflection(
-  userId: string,
-  job: PendingDelayedReflectionJob,
+  _userId: string,
+  _job: PendingDelayedReflectionJob,
 ): Promise<void> {
-  await setDoc(delayedReflectionRef(userId, job.entryId), {
-    entryId: job.entryId,
-    emotionalTone: job.emotionalTone,
-    themeTags: job.themeTags,
-    scheduledAt: Timestamp.fromDate(job.scheduledAt),
-    status: 'pending',
-    createdAt: serverTimestamp(),
-  });
+  throw new Error('Delayed reflections are unavailable until server-authoritative persistence is implemented.');
 }
 
 export async function loadMirrorReturnState(userId: string): Promise<MirrorReturnState> {
@@ -93,70 +69,11 @@ export async function loadMirrorReturnState(userId: string): Promise<MirrorRetur
 }
 
 export async function processReadyDelayedReflections(
-  userId: string,
-  context: KheperaUserContext,
-  now = new Date(),
+  _userId: string,
+  _context: KheperaUserContext,
+  _now = new Date(),
 ): Promise<number> {
-  const jobsRef = collection(getFirestoreDb(), 'users', userId, 'kheperaDelayedReflections');
-  const readySnapshot = await getDocs(query(
-    jobsRef,
-    where('status', '==', 'pending'),
-    where('scheduledAt', '<=', Timestamp.fromDate(now)),
-    limit(3),
-  ));
-  let completed = 0;
-
-  for (const jobDoc of readySnapshot.docs) {
-    const job = jobDoc.data();
-    const entryId = typeof job.entryId === 'string' ? job.entryId : jobDoc.id;
-    const sessionRef = doc(getFirestoreDb(), 'users', userId, 'sessions', entryId);
-    const sessionSnap = await getDoc(sessionRef);
-    if (!sessionSnap.exists()) {
-      continue;
-    }
-
-    const session = sessionSnap.data();
-    const entryText = typeof session.entryText === 'string' ? session.entryText : '';
-    if (!entryText.trim()) {
-      continue;
-    }
-
-    const response = await generateSafeKheperaResponse({
-      entryText,
-      userContext: context,
-      userId,
-      reflectionTiming: 'delayed_return',
-    });
-    const kheperaResponse = combineKheperaResponse(response);
-    await setDoc(sessionRef, {
-      kheperaResponse,
-      seed: response.seed,
-      delayedReflectionReturnedAt: serverTimestamp(),
-    }, { merge: true });
-
-    extractThemesForKheperaEntry(entryText, kheperaResponse)
-      .then(({ themes, tone }) => {
-        const analysis = analyzeEntry(entryText, tone);
-        const reflection = generateReflection({ entryText, analysis, context, currentThemes: themes });
-        return Promise.all([
-          setDoc(sessionRef, { emotionalTone: tone, themes }, { merge: true }),
-          updateKheperaMemory(userId, themes, tone, {
-            stance: reflection.stance,
-            styleProfile: reflection.styleProfile,
-            lastReturnType: 'delayed',
-          }),
-        ]);
-      })
-      .catch(() => {});
-
-    await updateDoc(jobDoc.ref, {
-      status: 'completed',
-      completedAt: serverTimestamp(),
-    });
-    completed += 1;
-  }
-
-  return completed;
+  throw new Error('Delayed reflections are unavailable until server-authoritative persistence is implemented.');
 }
 
 function splitStoredResponse(kheperaResponse: string, seed: string): KheperaResponse {

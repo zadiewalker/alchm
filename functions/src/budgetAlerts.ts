@@ -1,8 +1,8 @@
-import { onMessagePublished } from 'firebase-functions/v2/pubsub';
-import { onSchedule } from 'firebase-functions/v2/scheduler';
-import { logger } from 'firebase-functions';
-import { getFirestore } from 'firebase-admin/firestore';
-import * as admin from 'firebase-admin';
+import { onMessagePublished } from "firebase-functions/v2/pubsub";
+import { onSchedule } from "firebase-functions/v2/scheduler";
+import { logger } from "firebase-functions";
+import { getFirestore } from "firebase-admin/firestore";
+import * as admin from "firebase-admin";
 
 interface BudgetAlert {
   budgetDisplayName: string;
@@ -24,20 +24,20 @@ interface DailyCostSummary {
 
 // Process budget alerts from Google Cloud
 export const processBudgetAlert = onMessagePublished(
-  'firebase-budget-alerts',
+  "firebase-budget-alerts",
   async (event) => {
     try {
       const data = event.data.message.data;
       const alert: BudgetAlert = JSON.parse(
-        Buffer.from(data, 'base64').toString()
+        Buffer.from(data, "base64").toString()
       );
 
-      logger.info('Budget alert received:', alert);
+      logger.info("Budget alert received:", alert);
 
       const db = getFirestore();
       
       // Store alert for monitoring
-      await db.collection('budgetAlerts').add({
+      await db.collection("budgetAlerts").add({
         ...alert,
         timestamp: admin.firestore.Timestamp.now(),
         processed: true,
@@ -56,7 +56,7 @@ export const processBudgetAlert = onMessagePublished(
       }
 
     } catch (error) {
-      logger.error('Error processing budget alert:', error);
+      logger.error("Error processing budget alert:", error);
     }
   }
 );
@@ -66,7 +66,7 @@ async function emergencyBudgetResponse(alert: BudgetAlert) {
   
   try {
     // Temporarily disable high-cost features
-    await db.collection('systemConfig').doc('rateLimiting').set({
+    await db.collection("systemConfig").doc("rateLimiting").set({
       emergencyMode: true,
       reducedLimits: true,
       emergencyThreshold: 0.1, // Reduce limits to 10% of normal
@@ -75,7 +75,7 @@ async function emergencyBudgetResponse(alert: BudgetAlert) {
     }, { merge: true });
 
     // Log critical alert
-    logger.error('EMERGENCY: Budget exceeded 100%', {
+    logger.error("EMERGENCY: Budget exceeded 100%", {
       budgetName: alert.budgetDisplayName,
       costAmount: alert.costAmount,
       budgetAmount: alert.budgetAmount,
@@ -83,16 +83,16 @@ async function emergencyBudgetResponse(alert: BudgetAlert) {
     });
 
     // Store emergency event
-    await db.collection('emergencyEvents').add({
-      type: 'budget_exceeded',
-      severity: 'critical',
+    await db.collection("emergencyEvents").add({
+      type: "budget_exceeded",
+      severity: "critical",
       alert,
       timestamp: admin.firestore.Timestamp.now(),
-      actionsToken: ['rate_limiting_enabled', 'emergency_mode_activated'],
+      actionsToken: ["rate_limiting_enabled", "emergency_mode_activated"],
     });
 
   } catch (error) {
-    logger.error('Error in emergency budget response:', error);
+    logger.error("Error in emergency budget response:", error);
   }
 }
 
@@ -101,7 +101,7 @@ async function highBudgetWarning(alert: BudgetAlert) {
   
   try {
     // Reduce rate limits for Growth tier users
-    await db.collection('systemConfig').doc('rateLimiting').set({
+    await db.collection("systemConfig").doc("rateLimiting").set({
       warningMode: true,
       reducedLimits: true,
       growthTierReduction: 0.5, // Reduce Growth tier limits by 50%
@@ -109,14 +109,14 @@ async function highBudgetWarning(alert: BudgetAlert) {
       lastUpdated: admin.firestore.Timestamp.now(),
     }, { merge: true });
 
-    logger.warn('High budget usage: 90% threshold exceeded', {
+    logger.warn("High budget usage: 90% threshold exceeded", {
       budgetName: alert.budgetDisplayName,
       costAmount: alert.costAmount,
       budgetAmount: alert.budgetAmount,
     });
 
   } catch (error) {
-    logger.error('Error in high budget warning:', error);
+    logger.error("Error in high budget warning:", error);
   }
 }
 
@@ -124,36 +124,36 @@ async function moderateBudgetWarning(alert: BudgetAlert) {
   const db = getFirestore();
   
   try {
-    logger.warn('Moderate budget usage: 80% threshold exceeded', {
+    logger.warn("Moderate budget usage: 80% threshold exceeded", {
       budgetName: alert.budgetDisplayName,
       costAmount: alert.costAmount,
       budgetAmount: alert.budgetAmount,
     });
 
     // Store warning event
-    await db.collection('budgetWarnings').add({
-      type: 'moderate_warning',
+    await db.collection("budgetWarnings").add({
+      type: "moderate_warning",
       alert,
       timestamp: admin.firestore.Timestamp.now(),
     });
 
   } catch (error) {
-    logger.error('Error in moderate budget warning:', error);
+    logger.error("Error in moderate budget warning:", error);
   }
 }
 
 // Track daily costs and usage
 export const trackDailyCosts = onSchedule(
-  'every day 23:59',
+  "every day 23:59",
   async () => {
     try {
       const db = getFirestore();
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date().toISOString().split("T")[0];
       
       // Aggregate user costs for today
       const usageSnapshot = await db
-        .collection('userUsage')
-        .where('date', '==', today)
+        .collection("userUsage")
+        .where("date", "==", today)
         .get();
       
       let totalCost = 0;
@@ -188,7 +188,7 @@ export const trackDailyCosts = onSchedule(
       };
       
       // Store daily summary
-      await db.collection('dailyCostSummary').doc(today).set({
+      await db.collection("dailyCostSummary").doc(today).set({
         ...summary,
         timestamp: admin.firestore.Timestamp.now(),
         userCosts: Object.keys(userCosts).length > 0 ? userCosts : null,
@@ -197,10 +197,10 @@ export const trackDailyCosts = onSchedule(
       // Check for anomalies
       await checkCostAnomalies(summary, userCosts);
       
-      logger.info('Daily cost summary recorded', summary);
+      logger.info("Daily cost summary recorded", summary);
 
     } catch (error) {
-      logger.error('Error tracking daily costs:', error);
+      logger.error("Error tracking daily costs:", error);
     }
   }
 );
@@ -217,22 +217,22 @@ async function checkCostAnomalies(
     const VERY_HIGH_DAILY_COST_THRESHOLD = 25; // $25/day
     
     if (summary.totalCostUSD > VERY_HIGH_DAILY_COST_THRESHOLD) {
-      logger.error('VERY HIGH daily cost detected', summary);
+      logger.error("VERY HIGH daily cost detected", summary);
       
-      await db.collection('costAnomalies').add({
-        type: 'very_high_daily_cost',
-        severity: 'critical',
+      await db.collection("costAnomalies").add({
+        type: "very_high_daily_cost",
+        severity: "critical",
         summary,
         threshold: VERY_HIGH_DAILY_COST_THRESHOLD,
         timestamp: admin.firestore.Timestamp.now(),
       });
       
     } else if (summary.totalCostUSD > HIGH_DAILY_COST_THRESHOLD) {
-      logger.warn('High daily cost detected', summary);
+      logger.warn("High daily cost detected", summary);
       
-      await db.collection('costAnomalies').add({
-        type: 'high_daily_cost',
-        severity: 'warning',
+      await db.collection("costAnomalies").add({
+        type: "high_daily_cost",
+        severity: "warning",
         summary,
         threshold: HIGH_DAILY_COST_THRESHOLD,
         timestamp: admin.firestore.Timestamp.now(),
@@ -245,13 +245,13 @@ async function checkCostAnomalies(
       .filter(([, cost]) => cost > HIGH_USER_COST_THRESHOLD);
 
     if (anomalousUsers.length > 0) {
-      logger.warn('High-cost users detected', {
+      logger.warn("High-cost users detected", {
         users: anomalousUsers.length,
         totalCost: anomalousUsers.reduce((sum, [, cost]) => sum + cost, 0),
       });
 
-      await db.collection('userCostAnomalies').add({
-        type: 'high_individual_cost',
+      await db.collection("userCostAnomalies").add({
+        type: "high_individual_cost",
         date: summary.date,
         anomalousUsers: Object.fromEntries(anomalousUsers),
         threshold: HIGH_USER_COST_THRESHOLD,
@@ -260,24 +260,24 @@ async function checkCostAnomalies(
     }
 
   } catch (error) {
-    logger.error('Error checking cost anomalies:', error);
+    logger.error("Error checking cost anomalies:", error);
   }
 }
 
 // Clean up old usage data (run monthly)
 export const cleanupOldUsageData = onSchedule(
-  '0 2 1 * *', // 2 AM on 1st of every month
+  "0 2 1 * *", // 2 AM on 1st of every month
   async () => {
     try {
       const db = getFirestore();
       const sixMonthsAgo = new Date();
       sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-      const cutoffDate = sixMonthsAgo.toISOString().split('T')[0];
+      const cutoffDate = sixMonthsAgo.toISOString().split("T")[0];
 
       // Clean up user usage data older than 6 months
       const oldUsageQuery = db
-        .collection('userUsage')
-        .where('date', '<', cutoffDate)
+        .collection("userUsage")
+        .where("date", "<", cutoffDate)
         .limit(500);
 
       const snapshot = await oldUsageQuery.get();
@@ -295,11 +295,11 @@ export const cleanupOldUsageData = onSchedule(
       // Archive daily cost summaries older than 1 year
       const oneYearAgo = new Date();
       oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-      const archiveCutoff = oneYearAgo.toISOString().split('T')[0];
+      const archiveCutoff = oneYearAgo.toISOString().split("T")[0];
 
       const oldSummariesQuery = db
-        .collection('dailyCostSummary')
-        .where('date', '<', archiveCutoff)
+        .collection("dailyCostSummary")
+        .where("date", "<", archiveCutoff)
         .limit(100);
 
       const summariesSnapshot = await oldSummariesQuery.get();
@@ -309,7 +309,7 @@ export const cleanupOldUsageData = onSchedule(
         summariesSnapshot.docs.forEach(doc => {
           // Move to archive collection
           batch.set(
-            db.collection('archivedCostSummary').doc(doc.id),
+            db.collection("archivedCostSummary").doc(doc.id),
             doc.data()
           );
           batch.delete(doc.ref);
@@ -320,7 +320,7 @@ export const cleanupOldUsageData = onSchedule(
       }
 
     } catch (error) {
-      logger.error('Error cleaning up old usage data:', error);
+      logger.error("Error cleaning up old usage data:", error);
     }
   }
 );

@@ -753,8 +753,8 @@ export const CONTAINER_DEFINITIONS: ContainerDefinition[] = [
       {
         day: 15,
         phase: 'contact',
-        prompt: 'What version of yourself do you still speak to from habit?',
-        kheperaIntent: 'Reflect habit and self-address. Do not correct it.',
+        prompt: 'What version of yourself do you still speak to without thinking?',
+        kheperaIntent: 'Reflect self-address. Do not correct it.',
       },
       {
         day: 16,

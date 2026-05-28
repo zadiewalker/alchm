@@ -8,15 +8,15 @@ import { useContainer } from '@/hooks/useContainer';
 import { useAuth } from '@/hooks/useAuth';
 import { useInternalNavigation } from '@/hooks/useInternalNavigation';
 import { useReducedMotionPreference } from '@/hooks/useReducedMotionPreference';
+import { useFirstEntryExperience } from '@/hooks/useFirstEntryExperience';
+import { useOperationalEvents } from '@/hooks/useOperationalEvents';
+import { useSubmissionErrorMessage } from '@/hooks/useSubmissionErrorMessage';
 import { AppCard } from '@/components/ui/AppCard';
 import { AppText } from '@/components/ui/AppText';
 import { KheperaReceivingView } from '@/components/journal/KheperaReceivingView';
 import { OpenTransformationButton } from '@/components/subscriptions/OpenTransformationButton';
-import { recordOperationalEvent } from '@/services/monitoring/telemetry';
-import { getSubmissionErrorMessage } from '@/services/journal/submissionState';
 import { resolveSubmissionTone } from '@/utils/journalTone';
-import { getStorageItemWithFallback } from '@/utils/storage';
-import { STORAGE_KEYS } from '@/config/storageKeys';
+import { getResurfacingToneCopy } from '@/utils/resurfacingTone';
 import type {
   EmotionalCheckIn,
   JournalFlowProps,
@@ -41,15 +41,15 @@ export function JournalFlow({
   const { view, entryText, result, error, setEntryText, submit, reset } = useJournal();
   useSafeAsync();
   const prefersReducedMotion = useReducedMotionPreference();
+  const recordEvent = useOperationalEvents();
+  const getErrorMessage = useSubmissionErrorMessage();
 
   const [phase, setPhase] = useState<JournalPhase>('writing');
   const [checkIn, setCheckIn] = useState<EmotionalCheckIn | null>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [showKheperaCard, setShowKheperaCard] = useState(false);
   const [receivingInteractive, setReceivingInteractive] = useState(false);
-  const [isFirstEntryExperience] = useState(
-    () => getStorageItemWithFallback(STORAGE_KEYS.FIRST_ENTRY_COMPLETED) !== 'true'
-  );
+  const isFirstEntryExperience = useFirstEntryExperience();
   const hasRecordedStart = useRef(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -188,6 +188,11 @@ export function JournalFlow({
           <AppText variant="body" as="p" className="journal-status-card-copy">
             {returnContext.detail || 'Not a reminder. A return. This can stand on its own.'}
           </AppText>
+          {returnContext.resurfacingTone ? (
+            <AppText variant="caption" as="p" className="journal-status-card-copy">
+              {getResurfacingToneCopy(returnContext.resurfacingTone)}
+            </AppText>
+          ) : null}
           {returnContext.excerpt && !returnContext.isUnavailable ? (
             <AppText variant="caption" as="p" className="journal-status-card-copy">
               {returnContext.excerpt}
@@ -268,10 +273,9 @@ export function JournalFlow({
             value={entryText}
             onChange={(event) => {
               if (!hasRecordedStart.current && event.target.value.trim().length > 0) {
-                const isFirstEntry = getStorageItemWithFallback(STORAGE_KEYS.FIRST_ENTRY_COMPLETED) !== 'true';
-                if (isFirstEntry) {
+                if (isFirstEntryExperience) {
                   hasRecordedStart.current = true;
-                  recordOperationalEvent('first_write_started', { source: 'journal_new' });
+                  recordEvent('first_write_started', { source: 'journal_new' });
                 }
               }
               setEntryText(event.target.value);
@@ -288,7 +292,7 @@ export function JournalFlow({
           {view === 'error' && error ? (
             <AppCard className="journal-status-card journal-writing-status-card">
               <AppText variant="caption" as="p" className="journal-status-card-copy">
-                {getSubmissionErrorMessage(error)}
+                {getErrorMessage(error)}
               </AppText>
             </AppCard>
           ) : null}
@@ -308,7 +312,7 @@ export function JournalFlow({
               type="button"
               className="btn-ghost"
               onClick={() => {
-                recordOperationalEvent('crisis_resources_opened', { source: 'journal_new' });
+                recordEvent('crisis_resources_opened', { source: 'journal_new' });
                 navigate('/emergency', { source: 'journal_writing_crisis_resources', surface: 'journal_limit' });
               }}
             >

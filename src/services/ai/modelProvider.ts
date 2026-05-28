@@ -1,14 +1,75 @@
+import { httpsCallable } from 'firebase/functions';
+import { getFirebaseFunctions } from '@/services/firebase/firebaseService';
 import { detectCrisisSignals } from '@/services/khepera/crisisDetection';
-import { requestAnthropicText } from './anthropicProvider';
-import { requestOpenAIText } from './openAIProvider';
 import type {
+  CanonicalSessionPersistenceRequest,
   GuardedModelTextResponse,
   ModelProviderName,
   ModelProviderRequest,
 } from './types';
+import type { KheperaResponse } from '@/types/khepera';
 
-export function resolveAiProviderName(value = process.env.AI_PROVIDER): ModelProviderName {
-  return value === 'openai' ? 'openai' : 'anthropic';
+type GatewayResponse = GuardedModelTextResponse;
+
+function isGatewayResponse(value: unknown): value is GatewayResponse {
+  if (typeof value !== 'object' || value === null || !('blockedByCrisis' in value)) {
+    return false;
+  }
+
+  if (value.blockedByCrisis === true) {
+    return 'text' in value && value.text === null;
+  }
+
+  return value.blockedByCrisis === false
+    && 'text' in value
+    && typeof value.text === 'string'
+    && 'provider' in value
+    && value.provider === 'anthropic'
+    && 'model' in value
+    && typeof value.model === 'string';
+}
+
+export function resolveAiProviderName(): ModelProviderName {
+  return 'anthropic';
+}
+
+export async function requestPersistedKheperaReflection(
+  entryText: string,
+  session: CanonicalSessionPersistenceRequest,
+): Promise<KheperaResponse> {
+  if (detectCrisisSignals(entryText)) {
+    throw new Error('Crisis reflections are not persisted through the Khepera gateway.');
+  }
+
+  const invokeGateway = httpsCallable<{ entryText: string; session: CanonicalSessionPersistenceRequest }, unknown>(
+    getFirebaseFunctions(),
+    'generateKheperaReflection',
+  );
+  const result = await invokeGateway({ entryText, session });
+
+  if (!isGatewayResponse(result.data) || result.data.blockedByCrisis) {
+    throw new Error('Khepera gateway returned an invalid response.');
+  }
+
+  const parsed: unknown = JSON.parse(result.data.text);
+  if (
+    typeof parsed !== 'object'
+    || parsed === null
+    || !('witness' in parsed)
+    || !('perspective' in parsed)
+    || !('seed' in parsed)
+    || typeof parsed.witness !== 'string'
+    || typeof parsed.perspective !== 'string'
+    || typeof parsed.seed !== 'string'
+  ) {
+    throw new Error('Khepera gateway returned an invalid response.');
+  }
+
+  return {
+    witness: parsed.witness,
+    perspective: parsed.perspective,
+    seed: parsed.seed,
+  };
 }
 
 export async function requestModelText(
@@ -23,13 +84,19 @@ export async function requestModelText(
     };
   }
 
-  const provider = resolveAiProviderName();
-  const result = provider === 'openai'
-    ? await requestOpenAIText(request)
-    : await requestAnthropicText(request);
+  if (request.responseFormat !== 'khepera_json' || !request.inputTextForSafety) {
+    throw new Error('Server-authoritative secondary AI processing is unavailable in this build.');
+  }
 
-  return {
-    blockedByCrisis: false,
-    ...result,
-  };
+  const invokeGateway = httpsCallable<{ entryText: string }, unknown>(
+    getFirebaseFunctions(),
+    'generateKheperaReflection',
+  );
+  const result = await invokeGateway({ entryText: request.inputTextForSafety });
+
+  if (!isGatewayResponse(result.data)) {
+    throw new Error('Khepera gateway returned an invalid response.');
+  }
+
+  return result.data;
 }

@@ -2,7 +2,7 @@ import type { EmotionalTone } from '@/types/journal';
 import type { KheperaResponse } from '@/types/khepera';
 import { lintKheperaResponse } from './outputValidation';
 
-const SCORE_THRESHOLD = 8;
+const MINIMUM_SAFETY_FIT = 8;
 const NEUTRALITY_MIN_FLOOR = 4;
 
 const BLOCKING_CODES = new Set([
@@ -88,10 +88,10 @@ const HEAVY_TONES: readonly EmotionalTone[] = [
 ];
 
 export interface KheperaEvaluationResult {
-  resonance: number;
-  specificity: number;
-  neutrality: number;
-  score: number;
+  groundingFit: number;
+  specificityFit: number;
+  neutralityFit: number;
+  safetyFit: number;
   shouldRetry: boolean;
   blocked: boolean;
   safeCandidate: boolean;
@@ -137,8 +137,8 @@ function buildNgrams(words: string[], size: number): Set<string> {
   return ngrams;
 }
 
-function scoreResonance(entryText: string, response: KheperaResponse): {
-  score: number;
+function measureGroundingFit(entryText: string, response: KheperaResponse): {
+  fit: number;
   reason?: string;
   derivativeMirroring: boolean;
 } {
@@ -158,25 +158,25 @@ function scoreResonance(entryText: string, response: KheperaResponse): {
 
   if (derivativeMirroring) {
     return {
-      score: 1,
+      fit: 1,
       reason: 'response mirrors the entry too closely instead of showing attunement.',
       derivativeMirroring: true,
     };
   }
 
-  if (overlap >= 5 && overlapRatio <= 0.7) return { score: 4, derivativeMirroring: false };
-  if (overlap >= 3 && overlapRatio <= 0.72) return { score: 3, derivativeMirroring: false };
-  if (overlap >= 2) return { score: 2, derivativeMirroring: false };
+  if (overlap >= 5 && overlapRatio <= 0.7) return { fit: 4, derivativeMirroring: false };
+  if (overlap >= 3 && overlapRatio <= 0.72) return { fit: 3, derivativeMirroring: false };
+  if (overlap >= 2) return { fit: 2, derivativeMirroring: false };
   if (overlap >= 1) {
     return {
-      score: 1,
+      fit: 1,
       reason: 'resonance is thin and loosely grounded in the entry.',
       derivativeMirroring: false,
     };
   }
 
   return {
-    score: 0,
+    fit: 0,
     reason: 'response is too generic to feel specific to this entry.',
     derivativeMirroring: false,
   };
@@ -200,10 +200,10 @@ function getOpeningStem(text: string): string | null {
   return words.length ? words.join(' ') : null;
 }
 
-function scoreSpecificity(
+function measureSpecificityFit(
   response: KheperaResponse,
   entryTone: EmotionalTone,
-): { score: number; reason?: string; genericPhrases: string[]; templateLike: boolean } {
+): { fit: number; reason?: string; genericPhrases: string[]; templateLike: boolean } {
   const combined = `${response.witness} ${response.perspective} ${response.seed}`;
   const genericPhrases = collectGenericPhrases(combined);
   const templateRepeats = TEMPLATE_PATTERNS.reduce((count, pattern) => count + countPatternMatches(combined, pattern), 0);
@@ -220,60 +220,60 @@ function scoreSpecificity(
     .filter((value): value is string => Boolean(value));
   const repeatedOpeningCount = openingStems.length - new Set(openingStems).size;
 
-  let score = 4;
+  let fit = 4;
   const reasons: string[] = [];
 
   if (genericPhrases.length > 0) {
-    score -= 2;
+    fit -= 2;
     reasons.push('response contains generic phrasing');
   }
 
   const templateLike = templateRepeats >= 3 || somethingCount >= (HEAVY_TONES.includes(entryTone) ? 2 : 3);
   if (templateLike) {
-    score -= 1;
+    fit -= 1;
     reasons.push('response reads like a reusable template');
   }
 
   if (genericStarts >= 2) {
-    score -= 1;
+    fit -= 1;
     reasons.push('response repeats generic sentence frames');
   }
 
   if (repeatedOpeningCount > 0) {
-    score -= 1;
+    fit -= 1;
     reasons.push('response repeats its openings across sections');
   }
 
   if (vagueCount >= 4 && abstractionCount >= 2) {
-    score -= 1;
+    fit -= 1;
     reasons.push('response uses abstraction without enough concrete anchors');
   }
 
   if (anchorWordCount < 4) {
-    score -= 1;
+    fit -= 1;
     reasons.push('witness is not concrete enough');
   }
 
   if (wordCount < 10) {
-    score -= 1;
+    fit -= 1;
     reasons.push('response does not carry enough specific language');
   }
 
   return {
-    score: Math.max(0, score),
+    fit: Math.max(0, fit),
     reason: reasons[0],
     genericPhrases,
     templateLike,
   };
 }
 
-function scoreNeutrality(response: KheperaResponse, entryText: string): { score: number; reason?: string; blocked: boolean } {
+function measureNeutralityFit(response: KheperaResponse, entryText: string): { fit: number; reason?: string; blocked: boolean } {
   const issues = lintKheperaResponse(response, entryText);
   const blockingIssue = issues.find((issue) => BLOCKING_CODES.has(issue.code));
 
   if (blockingIssue) {
     return {
-      score: 0,
+      fit: 0,
       reason: blockingIssue.message,
       blocked: true,
     };
@@ -282,14 +282,14 @@ function scoreNeutrality(response: KheperaResponse, entryText: string): { score:
   const templateIssue = issues.find((issue) => issue.code === 'template_phrase');
   if (templateIssue) {
     return {
-      score: 3,
+      fit: 3,
       reason: templateIssue.message,
       blocked: false,
     };
   }
 
   return {
-    score: 4,
+    fit: 4,
     blocked: false,
   };
 }
@@ -335,34 +335,34 @@ export function evaluateKheperaResponse(params: {
   entryTone: EmotionalTone;
 }): KheperaEvaluationResult {
   const { response, entryText, entryTone } = params;
-  const resonance = scoreResonance(entryText, response);
-  const specificity = scoreSpecificity(response, entryTone);
-  const neutrality = scoreNeutrality(response, entryText);
+  const grounding = measureGroundingFit(entryText, response);
+  const specificity = measureSpecificityFit(response, entryTone);
+  const neutrality = measureNeutralityFit(response, entryText);
   const dosage = evaluateHeavyToneDosage(response, entryText, entryTone);
 
   const reasons = [
-    resonance.reason,
+    grounding.reason,
     specificity.reason,
     neutrality.reason,
     dosage.reason,
   ].filter((reason): reason is string => Boolean(reason));
 
-  const score = Math.max(0, resonance.score + specificity.score + neutrality.score - dosage.penalty);
+  const safetyFit = Math.max(0, grounding.fit + specificity.fit + neutrality.fit - dosage.penalty);
   const blocked = neutrality.blocked || dosage.blocked;
-  const safeCandidate = !blocked && neutrality.score >= NEUTRALITY_MIN_FLOOR;
+  const safeCandidate = !blocked && neutrality.fit >= NEUTRALITY_MIN_FLOOR;
 
   return {
-    resonance: resonance.score,
-    specificity: specificity.score,
-    neutrality: neutrality.score,
-    score,
+    groundingFit: grounding.fit,
+    specificityFit: specificity.fit,
+    neutralityFit: neutrality.fit,
+    safetyFit,
     blocked,
     safeCandidate,
-    shouldRetry: blocked || !safeCandidate || score < SCORE_THRESHOLD,
+    shouldRetry: blocked || !safeCandidate || safetyFit < MINIMUM_SAFETY_FIT,
     reasons,
     genericPhrases: specificity.genericPhrases,
     templateLike: specificity.templateLike,
-    derivativeMirroring: resonance.derivativeMirroring,
+    derivativeMirroring: grounding.derivativeMirroring,
     heavyToneDosageIssue: dosage.penalty > 0 || dosage.blocked,
   };
 }
@@ -374,7 +374,7 @@ export function buildEvaluationRetryFeedback(result: KheperaEvaluationResult): s
     feedback.push('Remove any directive, coaching, or diagnostic phrasing entirely.');
   }
 
-  if (result.resonance < 3) {
+  if (result.groundingFit < 3) {
     feedback.push('Anchor the response in concrete language already present in the entry.');
   }
 
@@ -382,7 +382,7 @@ export function buildEvaluationRetryFeedback(result: KheperaEvaluationResult): s
     feedback.push('Do not mirror the entry too closely; stay grounded without copying its phrasing.');
   }
 
-  if (result.specificity < 3) {
+  if (result.specificityFit < 3) {
     feedback.push('Avoid reusable phrasing, vague pronouns, and abstraction without concrete anchors.');
   }
 

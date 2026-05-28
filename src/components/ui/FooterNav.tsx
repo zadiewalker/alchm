@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { href: '/dashboard', label: 'Home' },
   { href: '/journal', label: 'Journal' },
   { href: '/containers', label: 'Containers' },
-  { href: '/insights', label: 'Insights' },
+  { href: '/insights', label: 'Reflections' },
   { href: '/settings', label: 'Settings' },
 ] as const;
 

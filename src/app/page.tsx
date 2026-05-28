@@ -2,10 +2,11 @@
 
 import { useCallback, useState } from 'react';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
-import { isFirstTimeUser } from '@/lib/onboarding';
+import { useOnboardingStatus } from '@/hooks/useOnboardingStatus';
 
 export default function SplashPage() {
   const { navigate } = useSafeNavigation(1200);
+  const { isFirstTimeUser } = useOnboardingStatus();
   const [isNavigating, setIsNavigating] = useState(false);
 
   const navigateToDashboard = useCallback(() => {
@@ -46,7 +47,7 @@ export default function SplashPage() {
         </h1>
 
         <p className="mt-4 text-center text-[18px] font-light leading-relaxed max-w-[280px]" style={{ color: 'rgba(255, 255, 255, 0.65)' }}>
-          Your digital sanctuary for healing and transformation
+          A private space for writing and reflection
         </p>
 
         <div className="px-8 mt-12 w-full">
@@ -55,19 +56,17 @@ export default function SplashPage() {
             onClick={navigateToDashboard}
             disabled={isNavigating}
             className="flex items-center justify-center w-full py-4 rounded-full bg-[#E5C97D] disabled:opacity-70 disabled:cursor-not-allowed"
-            aria-label="Begin your journey"
+            aria-label="Begin"
           >
             <span
               style={{
-                color: '#FFFFFF',
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
+                color: '#F4F1EA',
                 fontSize: '16px',
                 fontWeight: '500',
                 whiteSpace: 'nowrap',
               }}
             >
-              {isNavigating ? 'OPENING...' : 'BEGIN YOUR JOURNEY'}
+              {isNavigating ? 'Opening...' : 'Begin'}
             </span>
           </button>
         </div>

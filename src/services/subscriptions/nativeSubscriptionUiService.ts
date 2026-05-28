@@ -24,8 +24,6 @@ export interface NativeSubscriptionDiagnostics {
   nativeConfigFound: boolean;
   plistKeyName: string | null;
   plistKeyFound: boolean;
-  apiKeyPrefix: string | null;
-  apiKeyFingerprint: string | null;
   entitlementId: string | null;
   offeringId: string | null;
   appBundleId: string | null;
@@ -52,8 +50,6 @@ function getUnavailableNativeDiagnostics(
     nativeConfigFound: false,
     plistKeyName: null,
     plistKeyFound: false,
-    apiKeyPrefix: null,
-    apiKeyFingerprint: null,
     entitlementId: null,
     offeringId: null,
     appBundleId: null,

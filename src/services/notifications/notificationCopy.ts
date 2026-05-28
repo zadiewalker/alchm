@@ -9,17 +9,17 @@ export const NOTIFICATION_COPY_TEMPLATES: Record<NotificationType, NotificationC
     type: 'seedReturn',
     titles: [
       'This came back.',
-      'Something you wrote is here again.',
+      'Something you wrote is here.',
       'A return.',
     ],
     bodies: [
       'This came back from earlier.',
-      'Something you wrote is here again.',
+      'Something you wrote is here.',
       'A return is here.',
     ],
     contextualBodies: {
       hasEntry: [
-        'Something you wrote is here again.',
+        'Something you wrote is here.',
         'This came back from earlier.',
       ],
       hasContainer: [
@@ -32,7 +32,7 @@ export const NOTIFICATION_COPY_TEMPLATES: Record<NotificationType, NotificationC
       ],
       returning: [
         'This came back from earlier.',
-        'Something you wrote is here again.',
+        'Something you wrote is here.',
       ],
     },
     supportedTokens: ['entryDate', 'containerName'],

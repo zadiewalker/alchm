@@ -7,7 +7,7 @@ export interface ReturnEntryPreview {
 
 const FALLBACK_EXCERPT = 'Something in this writing stayed with you.';
 const MAX_EXCERPT_LENGTH = 140;
-const MIN_ACCEPTABLE_SCORE = 72;
+const MIN_ACCEPTABLE_FIT = 72;
 
 function normalizeWhitespace(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
@@ -54,7 +54,7 @@ function splitIntoCandidates(text: string): string[] {
   return [...candidates];
 }
 
-function scoreCandidate(text: string): number {
+function measureExcerptFit(text: string): number {
   const length = text.length;
   const wordCount = text.split(/\s+/).length;
   const hasFirstPerson = /\b(i|i'm|i’ve|i'd|me|my|mine|myself)\b/i.test(text);
@@ -73,22 +73,22 @@ function scoreCandidate(text: string): number {
   const hasHighAmbiguity = ambiguousPronouns >= 3 && !hasFirstPerson;
   const willNeedTruncation = length > MAX_EXCERPT_LENGTH;
 
-  let score = 0;
+  let fit = 0;
 
-  score += Math.max(0, 90 - Math.abs(92 - Math.min(length, 184)));
-  score += hasFirstPerson ? 24 : 0;
-  score += hasEmotionOrMovement ? 18 : 0;
-  score += hasSentenceEnding ? 12 : 0;
-  score -= looksLikeHeading ? 30 : 0;
-  score -= startsWithContinuation ? 24 : 0;
-  score -= hasQuotedDialogue ? 18 : 0;
-  score -= hasSensitiveDetails ? 34 : 0;
-  score -= hasHighAmbiguity ? 22 : 0;
-  score -= willNeedTruncation && !hasSentenceEnding ? 16 : 0;
-  score -= length < 24 ? 26 : 0;
-  score -= length > 220 ? 18 : 0;
+  fit += Math.max(0, 90 - Math.abs(92 - Math.min(length, 184)));
+  fit += hasFirstPerson ? 24 : 0;
+  fit += hasEmotionOrMovement ? 18 : 0;
+  fit += hasSentenceEnding ? 12 : 0;
+  fit -= looksLikeHeading ? 30 : 0;
+  fit -= startsWithContinuation ? 24 : 0;
+  fit -= hasQuotedDialogue ? 18 : 0;
+  fit -= hasSensitiveDetails ? 34 : 0;
+  fit -= hasHighAmbiguity ? 22 : 0;
+  fit -= willNeedTruncation && !hasSentenceEnding ? 16 : 0;
+  fit -= length < 24 ? 26 : 0;
+  fit -= length > 220 ? 18 : 0;
 
-  return score;
+  return fit;
 }
 
 export function selectReturnExcerpt(text: string): string {
@@ -99,16 +99,16 @@ export function selectReturnExcerpt(text: string): string {
   }
 
   const candidates = splitIntoCandidates(normalized);
-  const scoredCandidates = candidates
+  const fittedCandidates = candidates
     .map((candidate) => ({
       candidate,
-      score: scoreCandidate(candidate),
+      fit: measureExcerptFit(candidate),
     }))
-    .sort((left, right) => right.score - left.score);
+    .sort((left, right) => right.fit - left.fit);
 
-  const bestCandidate = scoredCandidates[0];
+  const bestCandidate = fittedCandidates[0];
 
-  if (!bestCandidate || bestCandidate.score < MIN_ACCEPTABLE_SCORE) {
+  if (!bestCandidate || bestCandidate.fit < MIN_ACCEPTABLE_FIT) {
     return FALLBACK_EXCERPT;
   }
 

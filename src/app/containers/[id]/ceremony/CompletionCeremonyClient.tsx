@@ -1,15 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useContainer } from '@/hooks/useContainer';
-import { useAuth } from '@/hooks/useAuth';
-import { useMirrorData } from '@/hooks/useMirrorData';
+import { useContainerClosingCopy } from '@/hooks/useContainerReflectionCopy';
 import { BackButton } from '@/components/ui/BackButton';
-import {
-  generateCompletionAcknowledgment,
-  generateClosingSeed,
-} from '@/services/containers/arcGeneration';
+import { CONTAINER_TRANSITIONS_AVAILABLE } from '@/config/containerAuthority';
 
 type CeremonyPart = 'arrival' | 'carry_forward' | 'closing';
 
@@ -18,50 +14,18 @@ export function CompletionCeremonyClient(): React.JSX.Element | null {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { activeContainer, complete } = useContainer();
-  const { userId } = useAuth();
-  const mirrorData = useMirrorData(userId || '');
   const fromJournal = searchParams.get('from') === 'journal';
 
   const [part, setPart] = useState<CeremonyPart>('arrival');
-  const [acknowledgment, setAcknowledgment] = useState('');
-  const [closingSeed, setClosingSeed] = useState('');
   const [carryForward, setCarryForward] = useState('');
   const [leavingBehind, setLeavingBehind] = useState('');
   const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const definition = activeContainer?.definition;
-
-  // Generate ceremony content on mount
-  useEffect(() => {
-    if (!definition) return;
-
-    const dominantTone = mirrorData.dominantTone ?? 'processing';
-    const themes = mirrorData.recurringThemes.map(t => t.label);
-
-    Promise.all([
-      generateCompletionAcknowledgment(
-        definition.name,
-        definition.totalDays,
-        dominantTone,
-        themes
-      ),
-      generateClosingSeed(definition.name),
-    ])
-      .then(([ack, seed]) => {
-        setAcknowledgment(ack);
-        setClosingSeed(seed);
-      })
-      .catch(() => {
-        setAcknowledgment(
-          `Something real happened here. What you brought to "${definition.name}" belongs to you now in a different way.`
-        );
-        setClosingSeed('What has changed in how you see yourself?');
-      })
-      .finally(() => setLoading(false));
-  }, [definition, mirrorData]);
+  const { acknowledgment, closingSeed, isLoading: loading } = useContainerClosingCopy(definition?.name);
 
   const handleComplete = async (): Promise<void> => {
+    if (!CONTAINER_TRANSITIONS_AVAILABLE) return;
     setSaving(true);
     try {
       await complete(carryForward, leavingBehind);
@@ -256,12 +220,18 @@ export function CompletionCeremonyClient(): React.JSX.Element | null {
         <button
           className="btn-primary"
           onClick={handleComplete}
-          disabled={saving}
+          disabled={saving || !CONTAINER_TRANSITIONS_AVAILABLE}
           style={{ opacity: saving ? 0.5 : 1 }}
           aria-label="Let these words rest here"
         >
-          {saving ? 'Holding this here...' : 'Let this rest here'}
+          {saving ? 'Holding this here...' : CONTAINER_TRANSITIONS_AVAILABLE ? 'Let this rest here' : 'Unavailable in this build'}
         </button>
+
+        {!CONTAINER_TRANSITIONS_AVAILABLE ? (
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: '14px', color: 'var(--text-tertiary)', marginTop: '16px' }}>
+            Container transitions are not available while secure continuity handling is being verified.
+          </p>
+        ) : null}
 
       </div>
     );
@@ -362,8 +332,6 @@ const arrivalBridgeEyebrowStyle: React.CSSProperties = {
   fontFamily: "'Jost', sans-serif",
   fontSize: '11px',
   fontWeight: 500,
-  letterSpacing: '0.10em',
-  textTransform: 'uppercase',
   color: 'var(--text-secondary)',
   margin: '0 0 8px',
 };

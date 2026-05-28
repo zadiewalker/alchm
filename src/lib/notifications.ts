@@ -49,9 +49,9 @@ const REMINDER_MESSAGES = [
   { title: 'ALCHM', body: 'Khepera is here whenever you are ready.', timeOfDay: 'evening' },
   { title: 'ALCHM', body: 'Even one sentence is enough tonight.', timeOfDay: 'evening' },
   { title: 'ALCHM', body: 'The quiet is yours tonight.', timeOfDay: 'evening' },
-  { title: 'ALCHM', body: 'No rush. Khepera is still here.', timeOfDay: 'return' },
-  { title: 'ALCHM', body: "Your sanctuary doesn't keep score.", timeOfDay: 'return' },
-  { title: 'ALCHM', body: 'Coming back is its own kind of courage.', timeOfDay: 'return' },
+  { title: 'ALCHM', body: 'Your space is here when you want it.', timeOfDay: 'return' },
+  { title: 'ALCHM', body: 'You can continue whenever it feels right.', timeOfDay: 'return' },
+  { title: 'ALCHM', body: 'No need to catch up.', timeOfDay: 'return' },
 ] as const;
 
 function pickMessage(type: ReminderType) {

@@ -1,0 +1,10 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Storage use has not been approved for release. Keep it closed until a scoped policy exists.
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}

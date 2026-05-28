@@ -30,7 +30,9 @@ function repeatsThreeTimes<T>(items: T[], candidate: T): boolean {
 export function buildKheperaPacingState(context?: KheperaUserContext): KheperaPacingState {
   return {
     recentStances: context?.recentStances ?? [],
-    recentTones: [context?.previousTone, context?.dominantTone].filter(Boolean) as EmotionalTone[],
+    recentTones: [context?.previousTone, context?.dominantTone].filter(
+      (tone): tone is EmotionalTone => tone !== undefined,
+    ),
     lastReturnType: context?.lastReturnType ?? 'immediate',
   };
 }

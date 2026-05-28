@@ -3,7 +3,8 @@
   "description": "Firebase Functions for ALCHM trauma-informed journaling platform",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.ts src",
+    "lint:trust-critical": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts src/kheperaGateway.ts src/kheperaGatewayCore.ts src/containerTransitions.ts src/containerTransitionsCore.ts src/continuityRuntimeGateCore.ts src/runtimeAttestationVerifierCore.ts src/privacyService.ts src/dataRetentionService.ts src/auth.ts src/adminAuth.ts src/index.ts",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
@@ -15,7 +16,7 @@
   "engines": {
     "node": "20"
   },
-  "main": "lib/index.js",
+  "main": "lib/functions/src/index.js",
   "dependencies": {
     "firebase-admin": "^12.0.0",
     "firebase-functions": "^5.1.1",

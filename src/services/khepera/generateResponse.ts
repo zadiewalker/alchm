@@ -104,7 +104,7 @@ export async function generateKheperaReviewReport(
       };
     }
 
-    let bestSafeCandidate: { response: KheperaResponse; score: number } | null = null;
+    let bestSafeCandidate: { response: KheperaResponse; safetyFit: number } | null = null;
     let evaluationFeedback = '';
 
     for (let attempt = 0; attempt < 2; attempt += 1) {
@@ -220,10 +220,10 @@ export async function generateKheperaReviewReport(
         blocked: evaluation.blocked,
         shouldRetry: evaluation.shouldRetry,
         safeCandidate: evaluation.safeCandidate,
-        score: evaluation.score,
-        resonance: evaluation.resonance,
-        specificity: evaluation.specificity,
-        neutrality: evaluation.neutrality,
+        safetyFit: evaluation.safetyFit,
+        groundingFit: evaluation.groundingFit,
+        specificityFit: evaluation.specificityFit,
+        neutralityFit: evaluation.neutralityFit,
         reasons: evaluation.reasons,
         templateLike: evaluation.templateLike,
         derivativeMirroring: evaluation.derivativeMirroring,
@@ -235,8 +235,8 @@ export async function generateKheperaReviewReport(
         evaluation,
       });
 
-      if (evaluation.safeCandidate && (!bestSafeCandidate || evaluation.score > bestSafeCandidate.score)) {
-        bestSafeCandidate = { response: parsed, score: evaluation.score };
+      if (evaluation.safeCandidate && (!bestSafeCandidate || evaluation.safetyFit > bestSafeCandidate.safetyFit)) {
+        bestSafeCandidate = { response: parsed, safetyFit: evaluation.safetyFit };
       }
 
       if (!evaluation.shouldRetry) {
@@ -298,17 +298,9 @@ export function parseStructuredKheperaResponse(
   const jsonCandidate = extractJsonObjectCandidate(fullText);
   if (jsonCandidate) {
     try {
-      const parsed = JSON.parse(jsonCandidate) as Partial<KheperaResponse>;
-      if (
-        typeof parsed.witness === 'string'
-        && typeof parsed.perspective === 'string'
-        && typeof parsed.seed === 'string'
-      ) {
-        return validateStructuredLengths({
-          witness: parsed.witness,
-          perspective: parsed.perspective,
-          seed: parsed.seed,
-        }, mode);
+      const parsed: unknown = JSON.parse(jsonCandidate);
+      if (isExactKheperaResponse(parsed)) {
+        return validateStructuredLengths(parsed, mode);
       }
     } catch {
       // Fall through to legacy label parsing.
@@ -330,6 +322,26 @@ export function parseStructuredKheperaResponse(
     perspective,
     seed: seedText,
   }, mode);
+}
+
+function isExactKheperaResponse(value: unknown): value is KheperaResponse {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return false;
+  }
+
+  const keys = Object.keys(value);
+  if (keys.length !== 3 || !keys.includes('witness') || !keys.includes('perspective') || !keys.includes('seed')) {
+    return false;
+  }
+
+  return (
+    'witness' in value
+    && typeof value.witness === 'string'
+    && 'perspective' in value
+    && typeof value.perspective === 'string'
+    && 'seed' in value
+    && typeof value.seed === 'string'
+  );
 }
 
 function extractJsonObjectCandidate(fullText: string): string | null {

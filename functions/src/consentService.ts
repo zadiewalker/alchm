@@ -1,6 +1,6 @@
 // Consent Management Service for ALCHM - Handles GDPR consent requirements
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 // ConsentRecord type is used in function implementations but not directly imported
 
 const db = admin.firestore();
@@ -12,7 +12,7 @@ const db = admin.firestore();
 export const checkUserConsent = async (userId: string, consentType: string): Promise<boolean> => {
   try {
     // Get user's current privacy settings
-    const privacyDoc = await db.collection('userPrivacySettings').doc(userId).get();
+    const privacyDoc = await db.collection("userPrivacySettings").doc(userId).get();
     
     if (!privacyDoc.exists) {
       return false; // No consent recorded
@@ -27,21 +27,21 @@ export const checkUserConsent = async (userId: string, consentType: string): Pro
     
     // Check specific consent types
     switch (consentType) {
-      case 'ai_analysis':
-        return consent.journalAnalysis === true;
-      case 'crisis_monitoring':
-        return consent.crisisMonitoring === true;
-      case 'analytics':
-        return consent.analyticsParticipation === true;
-      case 'research':
-        return consent.researchParticipation === true;
-      case 'communication':
-        return consent.communicationPreferences === true;
-      default:
-        return false;
+    case "ai_analysis":
+      return consent.journalAnalysis === true;
+    case "crisis_monitoring":
+      return consent.crisisMonitoring === true;
+    case "analytics":
+      return consent.analyticsParticipation === true;
+    case "research":
+      return consent.researchParticipation === true;
+    case "communication":
+      return consent.communicationPreferences === true;
+    default:
+      return false;
     }
   } catch (error) {
-    console.error('Error checking user consent:', error);
+    console.error("Error checking user consent:", error);
     return false; // Fail safe - deny if cannot verify
   }
 };
@@ -53,23 +53,23 @@ export const checkUserConsent = async (userId: string, consentType: string): Pro
 export async function validateConsentForAIAnalysisInternal(userId: string, journalEntryId: string) {
   try {
     // Check AI analysis consent
-    const hasAIConsent = await checkUserConsent(userId, 'ai_analysis');
+    const hasAIConsent = await checkUserConsent(userId, "ai_analysis");
     
     if (!hasAIConsent) {
       return {
         allowed: false,
-        reason: 'User has not consented to AI analysis of journal entries',
-        alternativeAction: 'offer_consent_update'
+        reason: "User has not consented to AI analysis of journal entries",
+        alternativeAction: "offer_consent_update"
       };
     }
 
     // Check crisis monitoring consent (separate from AI analysis)
-    const hasCrisisConsent = await checkUserConsent(userId, 'crisis_monitoring');
+    const hasCrisisConsent = await checkUserConsent(userId, "crisis_monitoring");
 
     // Log consent validation
-    await db.collection('consentValidationLog').add({
+    await db.collection("consentValidationLog").add({
       userId,
-      action: 'ai_analysis_consent_validated',
+      action: "ai_analysis_consent_validated",
       journalEntryId,
       aiAnalysisConsent: hasAIConsent,
       crisisMonitoringConsent: hasCrisisConsent,
@@ -84,7 +84,7 @@ export async function validateConsentForAIAnalysisInternal(userId: string, journ
     };
 
   } catch (error) {
-    console.error('Error validating consent for AI analysis:', error);
+    console.error("Error validating consent for AI analysis:", error);
     throw error;
   }
 }
@@ -95,7 +95,7 @@ export async function validateConsentForAIAnalysisInternal(userId: string, journ
  */
 export const validateConsentForAIAnalysis = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
 
   const userId = context.auth.uid;
@@ -103,23 +103,23 @@ export const validateConsentForAIAnalysis = functions.https.onCall(async (data, 
 
   try {
     // Check AI analysis consent
-    const hasAIConsent = await checkUserConsent(userId, 'ai_analysis');
+    const hasAIConsent = await checkUserConsent(userId, "ai_analysis");
     
     if (!hasAIConsent) {
       return {
         allowed: false,
-        reason: 'User has not consented to AI analysis of journal entries',
-        alternativeAction: 'offer_consent_update'
+        reason: "User has not consented to AI analysis of journal entries",
+        alternativeAction: "offer_consent_update"
       };
     }
 
     // Check crisis monitoring consent (separate from AI analysis)
-    const hasCrisisConsent = await checkUserConsent(userId, 'crisis_monitoring');
+    const hasCrisisConsent = await checkUserConsent(userId, "crisis_monitoring");
 
     // Log consent validation
-    await db.collection('consentValidationLog').add({
+    await db.collection("consentValidationLog").add({
       userId,
-      action: 'ai_analysis_consent_validated',
+      action: "ai_analysis_consent_validated",
       journalEntryId,
       aiAnalysisConsent: hasAIConsent,
       crisisMonitoringConsent: hasCrisisConsent,
@@ -134,8 +134,8 @@ export const validateConsentForAIAnalysis = functions.https.onCall(async (data, 
     };
 
   } catch (error) {
-    console.error('Error validating consent for AI analysis:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to validate consent');
+    console.error("Error validating consent for AI analysis:", error);
+    throw new functions.https.HttpsError("internal", "Failed to validate consent");
   }
 });
 
@@ -144,30 +144,30 @@ export const validateConsentForAIAnalysis = functions.https.onCall(async (data, 
  */
 export const withdrawConsent = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
 
   const userId = context.auth.uid;
   const { consentTypes, reason } = data;
 
   if (!consentTypes || !Array.isArray(consentTypes)) {
-    throw new functions.https.HttpsError('invalid-argument', 'consentTypes must be an array');
+    throw new functions.https.HttpsError("invalid-argument", "consentTypes must be an array");
   }
 
   try {
     // Record consent withdrawal for each type
     const withdrawalPromises = consentTypes.map((consentType: string) => {
-      return db.collection('consentRecords').add({
+      return db.collection("consentRecords").add({
         userId,
         consentType,
         granted: false,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        consentMethod: 'withdrawal_request',
+        consentMethod: "withdrawal_request",
         consentText: `User withdrew consent for ${consentType}`,
-        consentVersion: '1.1',
+        consentVersion: "1.1",
         withdrawnAt: admin.firestore.FieldValue.serverTimestamp(),
-        withdrawalMethod: 'user_interface',
-        withdrawalReason: reason || 'User requested'
+        withdrawalMethod: "user_interface",
+        withdrawalReason: reason || "User requested"
       });
     });
 
@@ -180,36 +180,36 @@ export const withdrawConsent = functions.https.onCall(async (data, context) => {
 
     consentTypes.forEach((consentType: string) => {
       switch (consentType) {
-        case 'ai_analysis':
-          settingsUpdate['dataProcessingConsent.journalAnalysis'] = false;
-          settingsUpdate['dataProcessingConsent.aiInsights'] = false;
-          break;
-        case 'crisis_monitoring':
-          settingsUpdate['dataProcessingConsent.crisisMonitoring'] = false;
-          break;
-        case 'analytics':
-          settingsUpdate['dataProcessingConsent.analyticsParticipation'] = false;
-          break;
-        case 'research':
-          settingsUpdate['dataProcessingConsent.researchParticipation'] = false;
-          break;
-        case 'communication':
-          settingsUpdate['dataProcessingConsent.communicationPreferences'] = false;
-          break;
+      case "ai_analysis":
+        settingsUpdate["dataProcessingConsent.journalAnalysis"] = false;
+        settingsUpdate["dataProcessingConsent.aiInsights"] = false;
+        break;
+      case "crisis_monitoring":
+        settingsUpdate["dataProcessingConsent.crisisMonitoring"] = false;
+        break;
+      case "analytics":
+        settingsUpdate["dataProcessingConsent.analyticsParticipation"] = false;
+        break;
+      case "research":
+        settingsUpdate["dataProcessingConsent.researchParticipation"] = false;
+        break;
+      case "communication":
+        settingsUpdate["dataProcessingConsent.communicationPreferences"] = false;
+        break;
       }
     });
 
-    await db.collection('userPrivacySettings').doc(userId).update(settingsUpdate);
+    await db.collection("userPrivacySettings").doc(userId).update(settingsUpdate);
 
     // Log the withdrawal in audit trail
-    await db.collection('privacyAuditLog').add({
+    await db.collection("privacyAuditLog").add({
       userId,
-      action: 'consent_withdrawn',
+      action: "consent_withdrawn",
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      details: `User withdrew consent for: ${consentTypes.join(', ')}. Reason: ${reason || 'Not specified'}`,
-      legalBasis: 'consent',
+      details: `User withdrew consent for: ${consentTypes.join(", ")}. Reason: ${reason || "Not specified"}`,
+      legalBasis: "consent",
       ipAddress: context.rawRequest?.ip,
-      userAgent: context.rawRequest?.headers?.['user-agent']
+      userAgent: context.rawRequest?.headers?.["user-agent"]
     });
 
     // Trigger immediate cessation of relevant data processing
@@ -217,14 +217,14 @@ export const withdrawConsent = functions.https.onCall(async (data, context) => {
 
     return {
       success: true,
-      message: 'Consent withdrawn successfully. Data processing has been stopped immediately.',
+      message: "Consent withdrawn successfully. Data processing has been stopped immediately.",
       withdrawnConsentTypes: consentTypes,
       effectiveDate: new Date().toISOString()
     };
 
   } catch (error) {
-    console.error('Error withdrawing consent:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to withdraw consent');
+    console.error("Error withdrawing consent:", error);
+    throw new functions.https.HttpsError("internal", "Failed to withdraw consent");
   }
 });
 
@@ -238,31 +238,31 @@ async function triggerDataProcessingCessation(userId: string, consentTypes: stri
       userId,
       cessationDate: admin.firestore.FieldValue.serverTimestamp(),
       affectedProcessing: consentTypes,
-      status: 'active'
+      status: "active"
     };
 
-    await db.collection('dataProcessingCessation').add(cessationDoc);
+    await db.collection("dataProcessingCessation").add(cessationDoc);
 
     // For AI analysis withdrawal, mark future analyses as disabled
-    if (consentTypes.includes('ai_analysis')) {
-      await db.collection('aiProcessingDisabled').doc(userId).set({
+    if (consentTypes.includes("ai_analysis")) {
+      await db.collection("aiProcessingDisabled").doc(userId).set({
         disabledAt: admin.firestore.FieldValue.serverTimestamp(),
-        reason: 'consent_withdrawn'
+        reason: "consent_withdrawn"
       });
     }
 
     // For analytics withdrawal, add to analytics opt-out list
-    if (consentTypes.includes('analytics')) {
-      await db.collection('analyticsOptOut').doc(userId).set({
+    if (consentTypes.includes("analytics")) {
+      await db.collection("analyticsOptOut").doc(userId).set({
         optedOutAt: admin.firestore.FieldValue.serverTimestamp(),
-        reason: 'consent_withdrawn'
+        reason: "consent_withdrawn"
       });
     }
 
-    console.log(`Data processing cessation triggered for user ${userId} for: ${consentTypes.join(', ')}`);
+    console.log(`Data processing cessation triggered for user ${userId} for: ${consentTypes.join(", ")}`);
 
   } catch (error) {
-    console.error('Error triggering data processing cessation:', error);
+    console.error("Error triggering data processing cessation:", error);
     throw error;
   }
 }
@@ -272,7 +272,7 @@ async function triggerDataProcessingCessation(userId: string, consentTypes: stri
  */
 export const regrantConsent = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
 
   const userId = context.auth.uid;
@@ -281,14 +281,14 @@ export const regrantConsent = functions.https.onCall(async (data, context) => {
   try {
     // Record new consent grants
     const consentPromises = consentTypes.map((consentType: string) => {
-      return db.collection('consentRecords').add({
+      return db.collection("consentRecords").add({
         userId,
         consentType,
         granted: true,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        consentMethod: 'regrant_request',
+        consentMethod: "regrant_request",
         consentText: consentDetails?.[consentType] || `User re-granted consent for ${consentType}`,
-        consentVersion: '1.1'
+        consentVersion: "1.1"
       });
     });
 
@@ -301,48 +301,48 @@ export const regrantConsent = functions.https.onCall(async (data, context) => {
 
     consentTypes.forEach((consentType: string) => {
       switch (consentType) {
-        case 'ai_analysis':
-          settingsUpdate['dataProcessingConsent.journalAnalysis'] = true;
-          settingsUpdate['dataProcessingConsent.aiInsights'] = true;
-          break;
-        case 'crisis_monitoring':
-          settingsUpdate['dataProcessingConsent.crisisMonitoring'] = true;
-          break;
-        case 'analytics':
-          settingsUpdate['dataProcessingConsent.analyticsParticipation'] = true;
-          break;
-        case 'research':
-          settingsUpdate['dataProcessingConsent.researchParticipation'] = true;
-          break;
-        case 'communication':
-          settingsUpdate['dataProcessingConsent.communicationPreferences'] = true;
-          break;
+      case "ai_analysis":
+        settingsUpdate["dataProcessingConsent.journalAnalysis"] = true;
+        settingsUpdate["dataProcessingConsent.aiInsights"] = true;
+        break;
+      case "crisis_monitoring":
+        settingsUpdate["dataProcessingConsent.crisisMonitoring"] = true;
+        break;
+      case "analytics":
+        settingsUpdate["dataProcessingConsent.analyticsParticipation"] = true;
+        break;
+      case "research":
+        settingsUpdate["dataProcessingConsent.researchParticipation"] = true;
+        break;
+      case "communication":
+        settingsUpdate["dataProcessingConsent.communicationPreferences"] = true;
+        break;
       }
     });
 
-    await db.collection('userPrivacySettings').doc(userId).update(settingsUpdate);
+    await db.collection("userPrivacySettings").doc(userId).update(settingsUpdate);
 
     // Remove cessation flags
     await removeDataProcessingCessation(userId, consentTypes);
 
     // Log the re-grant
-    await db.collection('privacyAuditLog').add({
+    await db.collection("privacyAuditLog").add({
       userId,
-      action: 'consent_regranted',
+      action: "consent_regranted",
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      details: `User re-granted consent for: ${consentTypes.join(', ')}`,
-      legalBasis: 'consent'
+      details: `User re-granted consent for: ${consentTypes.join(", ")}`,
+      legalBasis: "consent"
     });
 
     return {
       success: true,
-      message: 'Consent re-granted successfully. Data processing will resume.',
+      message: "Consent re-granted successfully. Data processing will resume.",
       regrantedConsentTypes: consentTypes
     };
 
   } catch (error) {
-    console.error('Error re-granting consent:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to re-grant consent');
+    console.error("Error re-granting consent:", error);
+    throw new functions.https.HttpsError("internal", "Failed to re-grant consent");
   }
 });
 
@@ -352,25 +352,25 @@ export const regrantConsent = functions.https.onCall(async (data, context) => {
 async function removeDataProcessingCessation(userId: string, consentTypes: string[]) {
   try {
     // Remove AI processing disabled flag
-    if (consentTypes.includes('ai_analysis')) {
-      await db.collection('aiProcessingDisabled').doc(userId).delete();
+    if (consentTypes.includes("ai_analysis")) {
+      await db.collection("aiProcessingDisabled").doc(userId).delete();
     }
 
     // Remove analytics opt-out
-    if (consentTypes.includes('analytics')) {
-      await db.collection('analyticsOptOut').doc(userId).delete();
+    if (consentTypes.includes("analytics")) {
+      await db.collection("analyticsOptOut").doc(userId).delete();
     }
 
     // Mark cessation records as resolved
-    const cessationSnapshot = await db.collection('dataProcessingCessation')
-      .where('userId', '==', userId)
-      .where('status', '==', 'active')
+    const cessationSnapshot = await db.collection("dataProcessingCessation")
+      .where("userId", "==", userId)
+      .where("status", "==", "active")
       .get();
 
     const batch = db.batch();
     cessationSnapshot.docs.forEach(doc => {
       batch.update(doc.ref, {
-        status: 'resolved',
+        status: "resolved",
         resolvedAt: admin.firestore.FieldValue.serverTimestamp(),
         resolvedConsentTypes: consentTypes
       });
@@ -379,7 +379,7 @@ async function removeDataProcessingCessation(userId: string, consentTypes: strin
     await batch.commit();
 
   } catch (error) {
-    console.error('Error removing data processing cessation:', error);
+    console.error("Error removing data processing cessation:", error);
     throw error;
   }
 }
@@ -389,16 +389,16 @@ async function removeDataProcessingCessation(userId: string, consentTypes: strin
  */
 export const getUserConsentHistory = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
 
   const userId = context.auth.uid;
 
   try {
     // Get consent records ordered by timestamp
-    const consentRecordsSnapshot = await db.collection('consentRecords')
-      .where('userId', '==', userId)
-      .orderBy('timestamp', 'desc')
+    const consentRecordsSnapshot = await db.collection("consentRecords")
+      .where("userId", "==", userId)
+      .orderBy("timestamp", "desc")
       .get();
 
     const consentHistory = consentRecordsSnapshot.docs.map(doc => {
@@ -416,7 +416,7 @@ export const getUserConsentHistory = functions.https.onCall(async (data, context
     });
 
     // Get current consent status
-    const currentSettingsDoc = await db.collection('userPrivacySettings').doc(userId).get();
+    const currentSettingsDoc = await db.collection("userPrivacySettings").doc(userId).get();
     const currentSettings = currentSettingsDoc.data()?.dataProcessingConsent || {};
 
     return {
@@ -433,8 +433,8 @@ export const getUserConsentHistory = functions.https.onCall(async (data, context
     };
 
   } catch (error) {
-    console.error('Error getting consent history:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to get consent history');
+    console.error("Error getting consent history:", error);
+    throw new functions.https.HttpsError("internal", "Failed to get consent history");
   }
 });
 
@@ -442,14 +442,14 @@ export const getUserConsentHistory = functions.https.onCall(async (data, context
  * Scheduled function to check for consent expiry (GDPR requires periodic re-consent)
  * Runs weekly to check for consents older than 24 months
  */
-export const checkConsentExpiry = functions.pubsub.schedule('0 9 * * MON').onRun(async () => {
+export const checkConsentExpiry = functions.pubsub.schedule("0 9 * * MON").onRun(async () => {
   const expiryThreshold = new Date();
   expiryThreshold.setMonth(expiryThreshold.getMonth() - 24); // 24 months ago
 
   try {
     // Find users with old consents that need renewal
-    const expiredConsentsSnapshot = await db.collection('userPrivacySettings')
-      .where('dataProcessingConsent.consentDate', '<', expiryThreshold)
+    const expiredConsentsSnapshot = await db.collection("userPrivacySettings")
+      .where("dataProcessingConsent.consentDate", "<", expiryThreshold)
       .get();
 
     let notificationsSent = 0;
@@ -479,7 +479,7 @@ export const checkConsentExpiry = functions.pubsub.schedule('0 9 * * MON').onRun
     console.log(`Consent expiry check completed. Notifications sent: ${notificationsSent}`);
 
   } catch (error) {
-    console.error('Error in consent expiry check:', error);
+    console.error("Error in consent expiry check:", error);
   }
 });
 
@@ -490,9 +490,9 @@ async function getUserRecentActivity(userId: string): Promise<boolean> {
   const recentThreshold = new Date();
   recentThreshold.setMonth(recentThreshold.getMonth() - 3); // 3 months
 
-  const recentJournalSnapshot = await db.collection('journal-entries')
-    .where('userId', '==', userId)
-    .where('createdAt', '>', recentThreshold)
+  const recentJournalSnapshot = await db.collection("journal-entries")
+    .where("userId", "==", userId)
+    .where("createdAt", ">", recentThreshold)
     .limit(1)
     .get();
 
@@ -503,22 +503,22 @@ async function getUserRecentActivity(userId: string): Promise<boolean> {
  * Create consent renewal notification
  */
 async function createConsentRenewalNotification(userId: string, lastConsentDate: any) {
-  await db.collection('consentRenewalNotifications').add({
+  await db.collection("consentRenewalNotifications").add({
     userId,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
     lastConsentDate: lastConsentDate,
-    status: 'pending',
+    status: "pending",
     reminderCount: 0,
     expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days to renew
   });
 
   // Log notification
-  await db.collection('privacyAuditLog').add({
+  await db.collection("privacyAuditLog").add({
     userId,
-    action: 'consent_renewal_notification_sent',
+    action: "consent_renewal_notification_sent",
     timestamp: admin.firestore.FieldValue.serverTimestamp(),
     details: `User notified that consent requires renewal (last consent: ${lastConsentDate.toDate().toISOString()})`,
-    legalBasis: 'legitimate_interest'
+    legalBasis: "legitimate_interest"
   });
 }
 
@@ -529,12 +529,12 @@ async function handleInactiveUserConsent(userId: string) {
   // For inactive users, we might want to automatically withdraw certain non-essential consents
   // This is a conservative approach to privacy protection
   
-  await db.collection('privacyAuditLog').add({
+  await db.collection("privacyAuditLog").add({
     userId,
-    action: 'inactive_user_consent_review',
+    action: "inactive_user_consent_review",
     timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    details: 'Inactive user flagged for consent review due to consent age',
-    legalBasis: 'legitimate_interest'
+    details: "Inactive user flagged for consent review due to consent age",
+    legalBasis: "legitimate_interest"
   });
 
   // Could implement automatic withdrawal of non-essential consents here

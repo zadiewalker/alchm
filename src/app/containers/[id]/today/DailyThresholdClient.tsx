@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useContainer } from '@/hooks/useContainer';
 import { useAuth } from '@/hooks/useAuth';
+import { useContainerArcReflection } from '@/hooks/useContainerReflectionCopy';
 import { MoonPhaseIndicator } from '@/components/MoonPhaseIndicator';
 import { ArcReflectionCard } from '@/components/ArcReflectionCard';
 import { AppCard } from '@/components/ui/AppCard';
@@ -11,7 +12,6 @@ import { AppText } from '@/components/ui/AppText';
 import { BackButton } from '@/components/ui/BackButton';
 import { getContainerPhase } from '@/config/containerArc';
 import type { LunarPhase } from '@/config/containerArc';
-import { generateArcReflection } from '@/services/containers/arcGeneration';
 import { DESIGN } from '@/utils/design';
 
 export default function DailyThresholdClient() {
@@ -21,9 +21,13 @@ export default function DailyThresholdClient() {
   const { activeContainer } = useContainer();
   const containerId = typeof params.id === 'string' ? params.id : '';
 
-  const [arcReflection, setArcReflection] = useState<string | null>(null);
   const [arcDismissed, setArcDismissed] = useState(false);
-  const [loadingArc, setLoadingArc] = useState(false);
+  const { reflection: arcReflection, isLoading: loadingArc } = useContainerArcReflection({
+    userId,
+    userContainerId: activeContainer?.userContainerId,
+    containerName: activeContainer?.definition.name,
+    day: activeContainer?.currentDay,
+  });
 
   // Redirect if no active container or wrong container
   useEffect(() => {
@@ -41,24 +45,6 @@ export default function DailyThresholdClient() {
       return;
     }
   }, [activeContainer, containerId, router]);
-
-  // Load arc reflection on days 7 and 14
-  useEffect(() => {
-    if (!activeContainer || !userId) return;
-    const day = activeContainer.currentDay;
-    if (day !== 7 && day !== 14) return;
-
-    setLoadingArc(true);
-    generateArcReflection(
-      userId,
-      activeContainer.userContainerId,
-      activeContainer.definition.name,
-      day
-    )
-      .then(text => setArcReflection(text))
-      .catch(() => setArcReflection(null))
-      .finally(() => setLoadingArc(false));
-  }, [activeContainer, userId]);
 
   if (!activeContainer) return null;
 

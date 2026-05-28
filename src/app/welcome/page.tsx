@@ -15,14 +15,14 @@ export default function WelcomePage() {
         <SanctuaryCard elevated>
           <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>Welcome to ALCHM</SanctuaryText>
           <SanctuaryText variant="body">
-            Your digital sanctuary for healing and transformation. Khepera is here to reflect what is true for you.
+            A private space for writing at your own pace. Khepera can offer a reflection when you request one.
           </SanctuaryText>
         </SanctuaryCard>
 
         <SanctuaryCard>
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
             <SanctuaryText variant="body">Safe & private reflection space</SanctuaryText>
-            <SanctuaryText variant="body">AI-guided insights without judgment</SanctuaryText>
+            <SanctuaryText variant="body">Khepera reflections when you request them</SanctuaryText>
             <SanctuaryText variant="body">Your pace, your way</SanctuaryText>
           </div>
         </SanctuaryCard>

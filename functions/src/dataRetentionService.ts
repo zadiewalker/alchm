@@ -1,16 +1,54 @@
 // Data Retention Service for ALCHM - Implements automated data lifecycle management
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
-import { UserPrivacySettings } from './privacyTypes';
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import { UserPrivacySettings } from "./privacyTypes";
 
 const db = admin.firestore();
+const AUTOMATED_RETENTION_ENFORCEMENT_ENABLED = false;
+
+type RetentionStats = {
+  journalEntriesDeleted: number;
+  analysesDeleted: number;
+  usersProcessed: number;
+  errors: number;
+};
+
+type RetentionPreferenceUpdates = {
+  "dataRetention.lastUpdated": admin.firestore.FieldValue;
+  "dataRetention.journalRetentionMonths"?: number;
+  "dataRetention.analysisRetentionMonths"?: number;
+  "dataRetention.automaticDeletion"?: boolean;
+};
+
+type RetentionActivity = RetentionStats & {
+  date: Date;
+};
+
+type MonthlyRetentionTrend = {
+  month: string;
+  journalEntriesDeleted: number;
+  analysesDeleted: number;
+  usersProcessed: number;
+};
+
+type RetentionComplianceMetrics = {
+  successRate: string | number;
+  totalUsersProcessed: number;
+  totalErrors: number;
+  lastRunDate: Date | null;
+};
 
 /**
  * Scheduled function to enforce data retention policies
  * Runs daily at 3 AM to clean up expired data
  */
-export const enforceDataRetentionPolicies = functions.pubsub.schedule('0 3 * * *').onRun(async () => {
-  console.log('Starting data retention policy enforcement...');
+export const enforceDataRetentionPolicies = functions.pubsub.schedule("0 3 * * *").onRun(async () => {
+  if (!AUTOMATED_RETENTION_ENFORCEMENT_ENABLED) {
+    console.info("Automatic retention enforcement is disabled pending verified policy and user controls.");
+    return null;
+  }
+
+  console.log("Starting data retention policy enforcement...");
   
   try {
     const retentionStats = {
@@ -21,7 +59,7 @@ export const enforceDataRetentionPolicies = functions.pubsub.schedule('0 3 * * *
     };
 
     // Get all users with privacy settings
-    const privacySettingsSnapshot = await db.collection('userPrivacySettings').get();
+    const privacySettingsSnapshot = await db.collection("userPrivacySettings").get();
     
     for (const settingsDoc of privacySettingsSnapshot.docs) {
       const settings = settingsDoc.data() as UserPrivacySettings;
@@ -42,9 +80,9 @@ export const enforceDataRetentionPolicies = functions.pubsub.schedule('0 3 * * *
           retentionStats.analysesDeleted += analysesDeleted;
         }
         
-        // Apply automatic deletion if enabled
+        // Inactivity-driven account deletion is disabled pending clinical and privacy approval.
         if (settings.dataRetention?.automaticDeletion) {
-          await applyAutomaticDeletionPolicy(userId, settings);
+          console.warn(`Automatic inactivity deletion is disabled for user ${userId}`);
         }
         
       } catch (error) {
@@ -56,10 +94,12 @@ export const enforceDataRetentionPolicies = functions.pubsub.schedule('0 3 * * *
     // Log retention statistics
     await logRetentionActivity(retentionStats);
     
-    console.log('Data retention policy enforcement completed:', retentionStats);
+    console.log("Data retention policy enforcement completed:", retentionStats);
+    return null;
     
   } catch (error) {
-    console.error('Error in data retention enforcement:', error);
+    console.error("Error in data retention enforcement:", error);
+    return null;
   }
 });
 
@@ -70,12 +110,16 @@ async function applyJournalRetentionPolicy(userId: string, retentionMonths: numb
   const cutoffDate = new Date();
   cutoffDate.setMonth(cutoffDate.getMonth() - retentionMonths);
   
-  const expiredEntriesSnapshot = await db.collection('journal-entries')
-    .where('userId', '==', userId)
-    .where('createdAt', '<', cutoffDate)
+  const expiredEntriesSnapshot = await db.collection("users").doc(userId)
+    .collection("sessions")
+    .where("createdAt", "<", cutoffDate)
+    .get();
+  const expiredLegacyEntriesSnapshot = await db.collection("journal-entries")
+    .where("userId", "==", userId)
+    .where("createdAt", "<", cutoffDate)
     .get();
   
-  if (expiredEntriesSnapshot.empty) {
+  if (expiredEntriesSnapshot.empty && expiredLegacyEntriesSnapshot.empty) {
     return 0;
   }
   
@@ -86,16 +130,20 @@ async function applyJournalRetentionPolicy(userId: string, retentionMonths: numb
     batch.delete(doc.ref);
     deletedCount++;
   });
+  expiredLegacyEntriesSnapshot.docs.forEach(doc => {
+    batch.delete(doc.ref);
+    deletedCount++;
+  });
   
   await batch.commit();
   
   // Log the deletion
-  await db.collection('privacyAuditLog').add({
+  await db.collection("privacyAuditLog").add({
     userId,
-    action: 'journal_entries_auto_deleted',
+    action: "journal_entries_auto_deleted",
     timestamp: admin.firestore.FieldValue.serverTimestamp(),
     details: `${deletedCount} journal entries deleted due to ${retentionMonths}-month retention policy`,
-    legalBasis: 'legitimate_interest'
+    legalBasis: "legitimate_interest"
   });
   
   return deletedCount;
@@ -108,9 +156,9 @@ async function applyAnalysisRetentionPolicy(userId: string, retentionMonths: num
   const cutoffDate = new Date();
   cutoffDate.setMonth(cutoffDate.getMonth() - retentionMonths);
   
-  const expiredAnalysesSnapshot = await db.collection('users').doc(userId)
-    .collection('analyses')
-    .where('analyzedAt', '<', cutoffDate)
+  const expiredAnalysesSnapshot = await db.collection("users").doc(userId)
+    .collection("analyses")
+    .where("analyzedAt", "<", cutoffDate)
     .get();
   
   if (expiredAnalysesSnapshot.empty) {
@@ -128,149 +176,22 @@ async function applyAnalysisRetentionPolicy(userId: string, retentionMonths: num
   await batch.commit();
   
   // Log the deletion
-  await db.collection('privacyAuditLog').add({
+  await db.collection("privacyAuditLog").add({
     userId,
-    action: 'ai_analyses_auto_deleted',
+    action: "ai_analyses_auto_deleted",
     timestamp: admin.firestore.FieldValue.serverTimestamp(),
     details: `${deletedCount} AI analyses deleted due to ${retentionMonths}-month retention policy`,
-    legalBasis: 'legitimate_interest'
+    legalBasis: "legitimate_interest"
   });
   
   return deletedCount;
 }
 
 /**
- * Apply automatic deletion policies for inactive accounts
- */
-async function applyAutomaticDeletionPolicy(userId: string, settings: UserPrivacySettings) {
-  try {
-    // Get user's last activity
-    const userLastActivity = await getUserLastActivity(userId);
-    const inactivityThreshold = new Date();
-    inactivityThreshold.setMonth(inactivityThreshold.getMonth() - 12); // 12 months of inactivity
-    
-    if (userLastActivity < inactivityThreshold) {
-      // Warn user before automatic deletion (would send email in production)
-      await createInactivityWarning(userId, userLastActivity);
-    }
-    
-    // Check for accounts that have been warned and are still inactive
-    const finalDeletionThreshold = new Date();
-    finalDeletionThreshold.setMonth(finalDeletionThreshold.getMonth() - 15); // 15 months total
-    
-    if (userLastActivity < finalDeletionThreshold) {
-      await scheduleAccountForAutomaticDeletion(userId);
-    }
-    
-  } catch (error) {
-    console.error(`Error applying automatic deletion policy for user ${userId}:`, error);
-  }
-}
-
-/**
- * Get user's last activity date
- */
-async function getUserLastActivity(userId: string): Promise<Date> {
-  // Check last journal entry
-  const lastJournalSnapshot = await db.collection('journal-entries')
-    .where('userId', '==', userId)
-    .orderBy('createdAt', 'desc')
-    .limit(1)
-    .get();
-  
-  if (!lastJournalSnapshot.empty) {
-    return lastJournalSnapshot.docs[0].data().createdAt.toDate();
-  }
-  
-  // Fallback to user auth record
-  try {
-    const userRecord = await admin.auth().getUser(userId);
-    return new Date(userRecord.metadata.lastSignInTime || userRecord.metadata.creationTime);
-  } catch (error) {
-    // If user record doesn't exist, return very old date
-    return new Date(0);
-  }
-}
-
-/**
- * Create inactivity warning for user
- */
-async function createInactivityWarning(userId: string, lastActivity: Date) {
-  const existingWarning = await db.collection('inactivityWarnings')
-    .where('userId', '==', userId)
-    .where('resolved', '==', false)
-    .limit(1)
-    .get();
-  
-  if (!existingWarning.empty) {
-    return; // Warning already exists
-  }
-  
-  await db.collection('inactivityWarnings').add({
-    userId,
-    lastActivity,
-    warningDate: admin.firestore.FieldValue.serverTimestamp(),
-    resolved: false,
-    finalDeletionDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000) // 90 days from warning
-  });
-  
-  // Log warning
-  await db.collection('privacyAuditLog').add({
-    userId,
-    action: 'inactivity_warning_issued',
-    timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    details: `User warned about account inactivity. Last activity: ${lastActivity.toISOString()}`,
-    legalBasis: 'legitimate_interest'
-  });
-  
-  // Send warning email (implement with your email service)
-  // await sendInactivityWarningEmail(userId);
-}
-
-/**
- * Schedule account for automatic deletion due to extended inactivity
- */
-async function scheduleAccountForAutomaticDeletion(userId: string) {
-  const existingDeletionRequest = await db.collection('accountDeletionRequests')
-    .where('userId', '==', userId)
-    .where('status', 'in', ['pending_verification', 'verified', 'processing'])
-    .limit(1)
-    .get();
-  
-  if (!existingDeletionRequest.empty) {
-    return; // Deletion already scheduled
-  }
-  
-  await db.collection('accountDeletionRequests').add({
-    userId,
-    userEmail: '', // Will be populated from auth record
-    requestedAt: admin.firestore.FieldValue.serverTimestamp(),
-    verificationToken: 'AUTO_DELETION',
-    verified: true,
-    verifiedAt: admin.firestore.FieldValue.serverTimestamp(),
-    status: 'verified',
-    scheduledDeletionDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days grace
-    cancellationDeadline: new Date(Date.now() + 29 * 24 * 60 * 60 * 1000),
-    retainForLegal: false,
-    automaticDeletion: true,
-    reason: 'Extended account inactivity (>15 months)'
-  });
-  
-  // Log automatic deletion scheduling
-  await db.collection('privacyAuditLog').add({
-    userId,
-    action: 'account_scheduled_for_auto_deletion',
-    timestamp: admin.firestore.FieldValue.serverTimestamp(),
-    details: 'Account scheduled for automatic deletion due to extended inactivity',
-    legalBasis: 'legitimate_interest'
-  });
-}
-
-/**
  * Log retention activity statistics
  */
-async function logRetentionActivity(stats: any) {
-  await db.collection('dataRetentionLogs').add({
+async function logRetentionActivity(stats: RetentionStats) {
+  await db.collection("dataRetentionLogs").add({
     date: admin.firestore.FieldValue.serverTimestamp(),
     stats,
     totalRecordsProcessed: stats.usersProcessed,
@@ -286,21 +207,28 @@ async function logRetentionActivity(stats: any) {
 export const enforceUserDataRetention = functions.https.onCall(async (data, context) => {
   // Verify admin authentication for manual enforcement
   if (!context.auth || !await isAdmin(context.auth.uid)) {
-    throw new functions.https.HttpsError('permission-denied', 'Admin access required');
+    throw new functions.https.HttpsError("permission-denied", "Admin access required");
   }
+
+  const adminUserId = context.auth.uid;
+
+  throw new functions.https.HttpsError(
+    "failed-precondition",
+    "Manual retention enforcement is unavailable pending verified user authorization and policy review"
+  );
   
   const { userId, forceRetention = false } = data;
   
   if (!userId) {
-    throw new functions.https.HttpsError('invalid-argument', 'User ID is required');
+    throw new functions.https.HttpsError("invalid-argument", "User ID is required");
   }
   
   try {
     // Get user's privacy settings
-    const settingsDoc = await db.collection('userPrivacySettings').doc(userId).get();
+    const settingsDoc = await db.collection("userPrivacySettings").doc(userId).get();
     
     if (!settingsDoc.exists) {
-      throw new functions.https.HttpsError('not-found', 'User privacy settings not found');
+      throw new functions.https.HttpsError("not-found", "User privacy settings not found");
     }
     
     const settings = settingsDoc.data() as UserPrivacySettings;
@@ -332,13 +260,13 @@ export const enforceUserDataRetention = functions.https.onCall(async (data, cont
     }
     
     // Log manual enforcement
-    await db.collection('privacyAuditLog').add({
+    await db.collection("privacyAuditLog").add({
       userId,
-      action: 'manual_retention_enforcement',
+      action: "manual_retention_enforcement",
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       details: `Manual data retention enforced by admin. Deleted: ${results.journalEntriesDeleted} journals, ${results.analysesDeleted} analyses`,
-      legalBasis: 'legitimate_interest',
-      adminUserId: context.auth.uid
+      legalBasis: "legitimate_interest",
+      adminUserId
     });
     
     return {
@@ -347,11 +275,11 @@ export const enforceUserDataRetention = functions.https.onCall(async (data, cont
     };
     
   } catch (error) {
-    console.error('Error in manual data retention enforcement:', error);
+    console.error("Error in manual data retention enforcement:", error);
     if (error instanceof functions.https.HttpsError) {
       throw error;
     }
-    throw new functions.https.HttpsError('internal', 'Failed to enforce data retention');
+    throw new functions.https.HttpsError("internal", "Failed to enforce data retention");
   }
 });
 
@@ -360,54 +288,61 @@ export const enforceUserDataRetention = functions.https.onCall(async (data, cont
  */
 export const updateDataRetentionPreferences = functions.https.onCall(async (data, context) => {
   if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+    throw new functions.https.HttpsError("unauthenticated", "User must be authenticated");
   }
   
   const userId = context.auth.uid;
   const { journalRetentionMonths, analysisRetentionMonths, automaticDeletion } = data;
+
+  if (automaticDeletion === true) {
+    throw new functions.https.HttpsError(
+      "failed-precondition",
+      "Automatic deletion is unavailable pending privacy and clinical review"
+    );
+  }
   
   // Validate retention periods (GDPR allows maximum 5 years for most data)
   if (journalRetentionMonths && (journalRetentionMonths < 0 || journalRetentionMonths > 60)) {
-    throw new functions.https.HttpsError('invalid-argument', 'Journal retention must be between 0-60 months');
+    throw new functions.https.HttpsError("invalid-argument", "Journal retention must be between 0-60 months");
   }
   
   if (analysisRetentionMonths && (analysisRetentionMonths < 1 || analysisRetentionMonths > 36)) {
-    throw new functions.https.HttpsError('invalid-argument', 'Analysis retention must be between 1-36 months');
+    throw new functions.https.HttpsError("invalid-argument", "Analysis retention must be between 1-36 months");
   }
   
   try {
-    const updates: any = {
-      'dataRetention.lastUpdated': admin.firestore.FieldValue.serverTimestamp()
+    const updates: RetentionPreferenceUpdates = {
+      "dataRetention.lastUpdated": admin.firestore.FieldValue.serverTimestamp()
     };
     
     if (journalRetentionMonths !== undefined) {
-      updates['dataRetention.journalRetentionMonths'] = journalRetentionMonths;
+      updates["dataRetention.journalRetentionMonths"] = journalRetentionMonths;
     }
     
     if (analysisRetentionMonths !== undefined) {
-      updates['dataRetention.analysisRetentionMonths'] = analysisRetentionMonths;
+      updates["dataRetention.analysisRetentionMonths"] = analysisRetentionMonths;
     }
     
     if (automaticDeletion !== undefined) {
-      updates['dataRetention.automaticDeletion'] = automaticDeletion;
+      updates["dataRetention.automaticDeletion"] = automaticDeletion;
     }
     
-    await db.collection('userPrivacySettings').doc(userId).update(updates);
+    await db.collection("userPrivacySettings").doc(userId).update(updates);
     
     // Log the preference update
-    await db.collection('privacyAuditLog').add({
+    await db.collection("privacyAuditLog").add({
       userId,
-      action: 'data_retention_preferences_updated',
+      action: "data_retention_preferences_updated",
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
       details: `Updated retention preferences: journal=${journalRetentionMonths}mo, analysis=${analysisRetentionMonths}mo, auto=${automaticDeletion}`,
-      legalBasis: 'consent'
+      legalBasis: "consent"
     });
     
-    return { success: true, message: 'Data retention preferences updated successfully' };
+    return { success: true, message: "Data retention preferences updated successfully" };
     
   } catch (error) {
-    console.error('Error updating data retention preferences:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to update retention preferences');
+    console.error("Error updating data retention preferences:", error);
+    throw new functions.https.HttpsError("internal", "Failed to update retention preferences");
   }
 });
 
@@ -416,13 +351,13 @@ export const updateDataRetentionPreferences = functions.https.onCall(async (data
  */
 export const getDataRetentionStats = functions.https.onCall(async (data, context) => {
   if (!context.auth || !await isAdmin(context.auth.uid)) {
-    throw new functions.https.HttpsError('permission-denied', 'Admin access required');
+    throw new functions.https.HttpsError("permission-denied", "Admin access required");
   }
   
   try {
     // Get recent retention logs
-    const recentLogsSnapshot = await db.collection('dataRetentionLogs')
-      .orderBy('date', 'desc')
+    const recentLogsSnapshot = await db.collection("dataRetentionLogs")
+      .orderBy("date", "desc")
       .limit(30)
       .get();
     
@@ -432,14 +367,14 @@ export const getDataRetentionStats = functions.https.onCall(async (data, context
     }));
     
     // Get overall statistics
-    const totalUsersWithSettings = await db.collection('userPrivacySettings').count().get();
-    const usersWithAutoDelete = await db.collection('userPrivacySettings')
-      .where('dataRetention.automaticDeletion', '==', true)
+    const totalUsersWithSettings = await db.collection("userPrivacySettings").count().get();
+    const usersWithAutoDelete = await db.collection("userPrivacySettings")
+      .where("dataRetention.automaticDeletion", "==", true)
       .count().get();
     
     // Get pending inactivity warnings
-    const pendingWarnings = await db.collection('inactivityWarnings')
-      .where('resolved', '==', false)
+    const pendingWarnings = await db.collection("inactivityWarnings")
+      .where("resolved", "==", false)
       .count().get();
     
     return {
@@ -456,8 +391,8 @@ export const getDataRetentionStats = functions.https.onCall(async (data, context
     };
     
   } catch (error) {
-    console.error('Error getting retention stats:', error);
-    throw new functions.https.HttpsError('internal', 'Failed to get retention statistics');
+    console.error("Error getting retention stats:", error);
+    throw new functions.https.HttpsError("internal", "Failed to get retention statistics");
   }
 });
 
@@ -466,7 +401,7 @@ export const getDataRetentionStats = functions.https.onCall(async (data, context
  */
 async function isAdmin(userId: string): Promise<boolean> {
   try {
-    const adminDoc = await db.collection('adminUsers').doc(userId).get();
+    const adminDoc = await db.collection("adminUsers").doc(userId).get();
     return adminDoc.exists && adminDoc.data()?.verified === true;
   } catch (error) {
     return false;
@@ -476,8 +411,8 @@ async function isAdmin(userId: string): Promise<boolean> {
 /**
  * Calculate monthly data deletion trends
  */
-function calculateMonthlyTrends(recentActivity: any[]): any[] {
-  const monthlyData: Record<string, any> = {};
+function calculateMonthlyTrends(recentActivity: RetentionActivity[]): MonthlyRetentionTrend[] {
+  const monthlyData: Record<string, MonthlyRetentionTrend> = {};
   
   recentActivity.forEach(activity => {
     const monthKey = activity.date.toISOString().substring(0, 7); // YYYY-MM
@@ -495,13 +430,13 @@ function calculateMonthlyTrends(recentActivity: any[]): any[] {
     monthlyData[monthKey].usersProcessed += activity.usersProcessed || 0;
   });
   
-  return Object.values(monthlyData).sort((a: any, b: any) => a.month.localeCompare(b.month));
+  return Object.values(monthlyData).sort((a, b) => a.month.localeCompare(b.month));
 }
 
 /**
  * Calculate retention compliance metrics
  */
-function calculateRetentionCompliance(recentActivity: any[]): any {
+function calculateRetentionCompliance(recentActivity: RetentionActivity[]): RetentionComplianceMetrics {
   const totalProcessed = recentActivity.reduce((sum, activity) => sum + (activity.usersProcessed || 0), 0);
   const totalErrors = recentActivity.reduce((sum, activity) => sum + (activity.errors || 0), 0);
   

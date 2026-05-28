@@ -111,7 +111,7 @@ export default function JournalSuccessCeremony({
                 Return to Sanctuary
               </Link>
               <Link
-                href="/pathways"
+                href="/containers"
                 className="block w-full py-3 bg-white/10 hover:bg-white/20 text-white text-center rounded-xl border border-white/20 font-medium transition-colors duration-200"
                 onClick={onComplete}
               >

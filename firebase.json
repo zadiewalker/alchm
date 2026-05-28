@@ -39,18 +39,6 @@
           "destination": "/mobile-emergency.html"
         },
         {
-          "source": "/api/khepera/**",
-          "function": "crisisDetection"
-        },
-        {
-          "source": "/api/crisis-detection",
-          "function": "crisisDetection"
-        },
-        {
-          "source": "/api/crisis-detection/**",
-          "function": "crisisDetection"
-        },
-        {
           "source": "/api/health",
           "function": "healthCheck"
         },
@@ -84,7 +72,7 @@
         },
         {
           "source": "/pathways",
-          "destination": "/en/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/pricing",
@@ -128,7 +116,7 @@
         },
         {
           "source": "/en/pathways",
-          "destination": "/en/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/en/pricing",
@@ -192,23 +180,23 @@
         },
         {
           "source": "/es/pathways",
-          "destination": "/es/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/pt/pathways",
-          "destination": "/pt/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/ko/pathways",
-          "destination": "/ko/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/hi/pathways",
-          "destination": "/hi/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/de/pathways",
-          "destination": "/de/pathways.html"
+          "destination": "/containers/"
         },
         {
           "source": "/es/pricing",
@@ -806,11 +794,12 @@
         "*.disabled",
         "src/**/*.disabled",
         "test/**",
+        "__tests__/**",
         "**/*.test.js",
         "**/*.spec.js"
       ],
       "predeploy": [
-        "cd functions && npm ci --only=production && npm run build"
+        "cd functions && npm ci && npm run build"
       ],
       "runtime": "nodejs20",
       "memory": "512MB",

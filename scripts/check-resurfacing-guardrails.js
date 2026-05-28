@@ -26,6 +26,7 @@ function collectStringLiterals(source) {
 }
 
 const userFacingResurfacingFiles = [
+  'src/config/resurfacingTone.ts',
   'src/components/journal/JournalFlow.tsx',
   'src/app/insights/page.tsx',
   'src/services/mirror/mirrorService.ts',
@@ -44,6 +45,7 @@ const forbiddenCopy = [
   /\bstreak\b/i,
   /\bmissed\b/i,
   /catch up/i,
+  /again and again/i,
 ];
 
 for (const file of userFacingResurfacingFiles) {
@@ -58,6 +60,8 @@ for (const file of userFacingResurfacingFiles) {
 const selectReturnSource = read('src/services/returns/selectReturn.ts');
 const suppressReturnsSource = read('src/services/returns/suppressReturns.ts');
 const dataServiceSource = read('src/services/data/dataService.ts');
+const resurfacingToneSource = read('src/config/resurfacingTone.ts');
+const resurfacingToneUtilSource = read('src/utils/resurfacingTone.ts');
 
 assert(
   !selectReturnSource.includes("return 'processing';\n}"),
@@ -88,12 +92,23 @@ assert(
   'return suppression must keep recent return spacing behavior'
 );
 assert(
-  dataServiceSource.includes('emotionalTone: typeof data.emotionalTone'),
+  dataServiceSource.includes('emotionalTone: this.toEmotionalTone(data.emotionalTone)'),
   'dataService must preserve persisted emotionalTone metadata for return selection'
 );
 assert(
-  dataServiceSource.includes('themes: this.toStringArray(data.themes)'),
+  dataServiceSource.includes('themes: this.toThemeTags(data.themes)'),
   'dataService must preserve persisted theme metadata for return selection'
+);
+assert(
+  resurfacingToneUtilSource.includes('deriveResurfacingToneMode'),
+  'resurfacing tone must remain a deterministic static helper'
+);
+assert(
+  !resurfacingToneUtilSource.includes('fetch(')
+    && !resurfacingToneUtilSource.includes('localStorage')
+    && !resurfacingToneSource.includes('fetch(')
+    && !resurfacingToneSource.includes('localStorage'),
+  'resurfacing tone must not introduce network, storage, or behavioral tracking'
 );
 
 console.log('Resurfacing restraint guardrails passed.');

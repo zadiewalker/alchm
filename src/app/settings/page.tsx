@@ -5,9 +5,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useSettings } from '@/hooks/useSettings';
-import { updateSettings } from '@/lib/settings';
 import { useData } from '@/hooks/useData';
-import type { JournalEntry } from '@/lib/dataService';
+import type { JournalEntry } from '@/services/data/dataService';
 import { exportJournalData, triggerDownload, type ExportOptions } from '@/lib/export';
 import { SanctuaryLayout } from '@/components/ui/SanctuaryLayout';
 import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
@@ -15,32 +14,21 @@ import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
 import { SanctuaryText } from '@/components/ui/SanctuaryText';
 import { CrisisModal } from '@/components/CrisisModal';
 import { DESIGN } from '@/lib/design';
-import { canAccessFeature } from '@/lib/subscription';
-import { UpgradePrompt } from '@/components/ui/UpgradePrompt';
-import { removeStorageItemNormalized } from '@/lib/storageKeys';
 import { HealthDisclaimer } from '@/components/HealthDisclaimer';
-import {
-  cancelReminder,
-  checkNotificationPermission,
-  requestNotificationPermission,
-  scheduleDailyReminder,
-} from '@/lib/notifications';
 
 export default function SettingsPage() {
   const router = useRouter();
   const { getJournalEntries } = useData();
-  const { settings, update } = useSettings();
+  const { settings, update, clearLocalData } = useSettings();
 
   const [savedField, setSavedField] = useState('');
   const [showCrisisModal, setShowCrisisModal] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
-  const [upgradeMessage, setUpgradeMessage] = useState('');
 
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [showExportSheet, setShowExportSheet] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportStatus, setExportStatus] = useState('');
-  const [notificationHint, setNotificationHint] = useState('');
   const [exportOptions, setExportOptions] = useState<ExportOptions>({
     format: 'json',
     includeReflections: true,
@@ -65,20 +53,6 @@ export default function SettingsPage() {
     };
   }, [getJournalEntries]);
 
-  useEffect(() => {
-    checkNotificationPermission()
-      .then((granted) => {
-        if (!granted) return;
-        if (settings.dailyReminderEnabled) {
-          scheduleDailyReminder(settings.dailyReminderTime, 'morning');
-        }
-        if (settings.eveningCheckInEnabled) {
-          scheduleDailyReminder(settings.eveningCheckInTime, 'evening');
-        }
-      })
-      .catch(() => {});
-  }, [settings.dailyReminderEnabled, settings.dailyReminderTime, settings.eveningCheckInEnabled, settings.eveningCheckInTime]);
-
   const onSave = (field: string, partial: Record<string, unknown>) => {
     update(partial);
     setSavedField(field);
@@ -87,25 +61,7 @@ export default function SettingsPage() {
 
   const clearData = () => {
     try {
-      removeStorageItemNormalized('journal_entries');
-      removeStorageItemNormalized('dream_entries');
-      removeStorageItemNormalized('alchm-settings');
-      removeStorageItemNormalized('alchm_settings');
-      removeStorageItemNormalized('userTier');
-      removeStorageItemNormalized('userEmail');
-      updateSettings({
-        theme: 'dark',
-        dailyReminderEnabled: false,
-        dailyReminderTime: '09:00',
-        eveningCheckInEnabled: false,
-        eveningCheckInTime: '21:00',
-        analyticsEnabled: true,
-        crashReportingEnabled: true,
-        autoSaveEnabled: true,
-        autoSaveIntervalMs: 10000,
-        preferredFramework: null,
-        lastExportDate: null,
-      });
+      clearLocalData();
       router.refresh();
     } catch {
       // no-op
@@ -141,81 +97,9 @@ export default function SettingsPage() {
     }
   };
 
-  const toggleDailyReminder = async (next: boolean) => {
-    if (next) {
-      const granted = await requestNotificationPermission();
-      if (!granted) {
-        setNotificationHint('To receive reminders, enable notifications for ALCHM in your device Settings.');
-        return;
-      }
-      setNotificationHint('');
-      await scheduleDailyReminder(settings.dailyReminderTime, 'morning');
-    } else {
-      await cancelReminder('morning');
-      setNotificationHint('');
-    }
-    onSave('dailyReminderEnabled', { dailyReminderEnabled: next });
-  };
-
-  const toggleEveningReminder = async (next: boolean) => {
-    if (next) {
-      if (!canAccessFeature('eveningCheckIn')) {
-        setUpgradeMessage('Evening check-in is available on the Reflections plan and above.');
-        return;
-      }
-      const granted = await requestNotificationPermission();
-      if (!granted) {
-        setNotificationHint('To receive reminders, enable notifications for ALCHM in your device Settings.');
-        return;
-      }
-      setNotificationHint('');
-      await scheduleDailyReminder(settings.eveningCheckInTime, 'evening');
-    } else {
-      await cancelReminder('evening');
-      setNotificationHint('');
-    }
-    onSave('eveningCheckInEnabled', { eveningCheckInEnabled: next });
-  };
-
   return (
     <SanctuaryLayout header={<SanctuaryHeader title="Settings" showBack />}>
       <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
-        <Section title="Reminders">
-          <ToggleRow
-            label="Daily reminder"
-            value={settings.dailyReminderEnabled}
-            onChange={toggleDailyReminder}
-            saved={savedField === 'dailyReminderEnabled'}
-          />
-          <TimeRow
-            label="Daily reminder time"
-            value={settings.dailyReminderTime}
-            onChange={async (value) => {
-              onSave('dailyReminderTime', { dailyReminderTime: value });
-              if (settings.dailyReminderEnabled) {
-                await scheduleDailyReminder(value, 'morning');
-              }
-            }}
-          />
-          <ToggleRow
-            label="Evening check-in"
-            value={settings.eveningCheckInEnabled}
-            onChange={toggleEveningReminder}
-            saved={savedField === 'eveningCheckInEnabled'}
-          />
-          <TimeRow
-            label="Evening check-in time"
-            value={settings.eveningCheckInTime}
-            onChange={async (value) => {
-              onSave('eveningCheckInTime', { eveningCheckInTime: value });
-              if (settings.eveningCheckInEnabled) {
-                await scheduleDailyReminder(value, 'evening');
-              }
-            }}
-          />
-          {notificationHint ? <SanctuaryText variant="caption">{notificationHint}</SanctuaryText> : null}
-        </Section>
-
         <Section title="Privacy">
           <ToggleRow
             label="Analytics"
@@ -243,18 +127,18 @@ export default function SettingsPage() {
             <SanctuaryText variant="caption">Last export: {new Date(settings.lastExportDate).toLocaleString()}</SanctuaryText>
           ) : null}
           {exportStatus ? <SanctuaryText variant="khepera">{exportStatus}</SanctuaryText> : null}
-          <ActionButton label="Clear all data" onClick={() => setConfirmClear(true)} destructive />
+          <ActionButton label="Reset local preferences" onClick={() => setConfirmClear(true)} destructive />
           {confirmClear ? (
             <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'rgba(196,122,106,0.18)' }}>
               <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
-                This will permanently delete all journal entries and settings. This cannot be undone.
+                This resets settings stored on this device only. It does not delete journal entries or account data.
               </SanctuaryText>
               <div style={{ display: 'flex', gap: DESIGN.spacing.sm }}>
                 <button type="button" onClick={() => setConfirmClear(false)} style={secondaryButtonStyle}>
                   Cancel
                 </button>
                 <button type="button" onClick={clearData} style={dangerButtonStyle}>
-                  Delete everything
+                  Reset preferences
                 </button>
               </div>
             </SanctuaryCard>
@@ -278,14 +162,6 @@ export default function SettingsPage() {
         </Section>
       </div>
 
-      {upgradeMessage ? (
-        <UpgradePrompt
-          feature="Evening check-in"
-          message={upgradeMessage}
-          recommendedTier="reflections"
-          onClose={() => setUpgradeMessage('')}
-        />
-      ) : null}
 
       {showExportSheet ? (
         <div style={sheetOverlayStyle} role="dialog" aria-modal="true">

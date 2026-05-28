@@ -50,6 +50,13 @@ export interface EmotionalThemes {
   supportiveNote: string;
 }
 
+export interface KheperaOnboardingResponse {
+  witness: string;
+  perspective: string;
+  seed: string;
+  source?: "fallback";
+}
+
 // Crisis Monitoring Dashboard Types
 export interface CrisisEvent {
   id: string;

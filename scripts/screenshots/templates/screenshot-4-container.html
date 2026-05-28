@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: VAR_WIDTHpx;
+    height: VAR_HEIGHTpx;
+    background: #8A9B76;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .headline-block {
+    padding: 90px 80px 50px;
+    text-align: center;
+  }
+
+  .kicker {
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(245,240,232,0.50);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .headline {
+    font-family: Georgia, serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.1;
+  }
+
+  .phone {
+    width: 560px;
+    background: #7A8B67;
+    border-radius: 60px;
+    border: 2px solid rgba(245,240,232,0.15);
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.4);
+  }
+
+  .phone-inner {
+    padding: 50px 32px 40px;
+  }
+
+  .screen-title {
+    font-family: Georgia, serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: #F5F0E8;
+    margin-bottom: 36px;
+  }
+
+  .container-card {
+    background: rgba(0,0,0,0.13);
+    border: 0.5px solid rgba(245,240,232,0.12);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .category {
+    font-size: 20px;
+    color: rgba(245,240,232,0.40);
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+  }
+
+  .badge {
+    font-size: 18px;
+    color: #D4B86A;
+    border: 0.5px solid rgba(212,184,106,0.35);
+    border-radius: 6px;
+    padding: 4px 12px;
+  }
+
+  .container-name {
+    font-family: Georgia, serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: #F5F0E8;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .container-tagline {
+    font-size: 24px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.60);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .moon {
+    font-size: 22px;
+    opacity: 0.6;
+  }
+
+  .days-text {
+    font-size: 20px;
+    color: rgba(245,240,232,0.40);
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<div class="headline-block">
+  <p class="kicker">21-day containers</p>
+  <p class="headline">One thing<br>at a time.</p>
+</div>
+
+<div class="phone">
+  <div class="phone-inner">
+
+    <p class="screen-title">Containers</p>
+
+    <!-- Sitting With Anxiety -->
+    <div class="container-card">
+      <div class="card-top">
+        <span class="category">body-based awareness</span>
+        <span class="badge">Transformation</span>
+      </div>
+      <p class="container-name">Sitting With<br>Anxiety</p>
+      <p class="container-tagline">For when the feeling won't
+        say its name — just lives in your chest.</p>
+      <div class="card-footer">
+        <span class="moon">◐</span>
+        <span class="days-text">21 days · 4 phases</span>
+      </div>
+    </div>
+
+    <!-- The Inner Critic -->
+    <div class="container-card">
+      <div class="card-top">
+        <span class="category">thought-feeling patterns</span>
+        <span class="badge">Transformation</span>
+      </div>
+      <p class="container-name">The Inner<br>Critic</p>
+      <p class="container-tagline">For the voice that turns
+        every mistake into a verdict.</p>
+      <div class="card-footer">
+        <span class="moon">🌑</span>
+        <span class="days-text">21 days · 4 phases</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

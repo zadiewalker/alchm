@@ -597,7 +597,11 @@ async function migrateAnonymousData(
       const snap = await getDocs(sourceRef);
       snap.docs.forEach(docSnap => {
         const destDoc = doc(destRef, docSnap.id);
-        batch.set(destDoc, docSnap.data(), { merge: true });
+        const data = docSnap.data();
+        const migratedData = collName === 'sessions' || collName === 'containers'
+          ? { ...data, userId: authenticatedUid }
+          : data;
+        batch.set(destDoc, migratedData, { merge: true });
       });
     } catch {
       // Continue with other collections — partial migration is better than none

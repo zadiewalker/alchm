@@ -36,16 +36,8 @@ export type EntryAnchor = {
 };
 
 export interface KheperaMemory {
-  userId: string;
-  sessionCount: number;
-  recurringThemes: ThemeTag[];
-  recentThemes: ThemeTag[];
-  dominantTone: EmotionalTone;
-  previousTone?: EmotionalTone;
-  recentStances: ResponseStance[];
-  recentStyles: KheperaStyleProfile[];
-  lastReturnType?: 'immediate' | 'delayed';
-  lastSessionDate: Date | null;
+  themeTags: ThemeTag[];
+  emotionalTone: EmotionalTone;
 }
 
 export interface TextStructureFeatures {

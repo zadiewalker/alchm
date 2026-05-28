@@ -1,0 +1,142 @@
+.page {
+  color: #e7efe8;
+  max-width: 920px;
+}
+
+.title {
+  margin: 0 0 18px;
+  font-size: 1.6rem;
+}
+
+.card {
+  background: #131816;
+  border: 1px solid #1f2723;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #98a39d;
+}
+
+.input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #2a3530;
+  background: #0f1311;
+  color: #e5eee7;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+.readOnly {
+  color: #94a29b;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid #2b3832;
+  border-radius: 999px;
+  background: #121715;
+  color: #a5b1aa;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 0.83rem;
+}
+
+.chipActive {
+  border-color: #2f7d53;
+  background: rgba(61, 220, 132, 0.15);
+  color: #74f4ad;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.saveButton {
+  border: 1px solid #2f7d53;
+  background: #1e5136;
+  color: #e8f3ec;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dangerTitle {
+  margin: 0 0 10px;
+  color: #ff91b3;
+  font-size: 0.95rem;
+}
+
+.deleteButton {
+  border: 1px solid #7f2948;
+  background: rgba(180, 43, 89, 0.16);
+  color: #ff9cbc;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 9, 8, 0.75);
+  display: grid;
+  place-items: center;
+  z-index: 90;
+  padding: 20px;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid #3d1830;
+  border-radius: 12px;
+  background: #170f14;
+  padding: 16px;
+}
+
+.modalTitle {
+  margin: 0 0 8px;
+}
+
+.modalText {
+  margin: 0;
+  color: #c8a5b4;
+}
+
+.modalActions {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.cancelButton {
+  border: 1px solid #2a3530;
+  background: #121715;
+  color: #d7e3db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.confirmDelete {
+  border: 1px solid #9b3458;
+  background: #6c1f3d;
+  color: #ffe1ec;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}

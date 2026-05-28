@@ -1,5 +1,11 @@
 export type ModelProviderName = 'openai' | 'anthropic';
 
+export type CanonicalSessionPersistenceRequest = {
+  sessionId: string;
+  writtenAt: string;
+  reflectionTiming: 'immediate' | 'short_delay';
+};
+
 export type ModelTextRequest = {
   system: string;
   prompt: string;

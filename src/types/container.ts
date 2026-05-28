@@ -1,5 +1,6 @@
-import type { Timestamp } from 'firebase/firestore';
-import type { Container, ContainerState } from '@/services/containers/localContainersService';
+export interface PersistedTimestamp {
+  toDate(): Date;
+}
 
 export type ContainerCategory =
   | 'body-based awareness'
@@ -44,11 +45,10 @@ export interface UserContainer {
   containerName: string;
   tier: ContainerTier;
   status: ContainerStatus;
-  startedAt: Timestamp;
-  completedAt?: Timestamp;
+  startedAt: PersistedTimestamp;
+  completedAt?: PersistedTimestamp;
   currentDay: number;
-  lastEntryAt?: Timestamp;
-  missedDays: number[];
+  lastEntryAt?: PersistedTimestamp;
   sessionIds: string[];
   completionCeremonyViewed: boolean;
   carryForward?: string;
@@ -81,16 +81,6 @@ export interface ContainerContext {
   kheperaIntent: string;
 }
 
-export interface ContainerCardProps {
-  container: Container;
-  state?: ContainerState;
-  isActive?: boolean;
-  isCompleted?: boolean;
-  canAccess?: boolean;
-  onEnroll?: () => void;
-  onContinue?: () => void;
-}
-
 export interface ContainerCatalogCardProps {
   container: ContainerDefinition;
   isActive?: boolean;
@@ -99,11 +89,4 @@ export interface ContainerCatalogCardProps {
   onView?: () => void;
   onStart?: () => void;
   onContinue?: () => void;
-}
-
-export interface ContainerCompletionCeremonyProps {
-  container: Container;
-  entryCount: number;
-  daysActive: number;
-  onComplete: () => void;
 }

@@ -14,5 +14,9 @@ export function buildReturnToJournalHref(state: ReturnNavigationState): string {
     params.set('daysElapsed', String(state.daysElapsed));
   }
 
+  if (state.resurfacingTone) {
+    params.set('resurfacingTone', state.resurfacingTone);
+  }
+
   return `/journal/new?${params.toString()}`;
 }

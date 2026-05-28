@@ -94,16 +94,3 @@ export type JournalSuccessCeremonyProps = {
   onComplete: () => void;
   hasKheperaResponse: boolean;
 };
-
-export type VoiceEmotionalAnalysis = {
-  emotions: string[];
-  intensity: number;
-  breakthrough: boolean;
-  patterns: string[];
-};
-
-export type VoiceProcessorProps = {
-  onTranscript: (text: string) => void;
-  onEmotionalAnalysis?: (analysis: VoiceEmotionalAnalysis) => void;
-  className?: string;
-};

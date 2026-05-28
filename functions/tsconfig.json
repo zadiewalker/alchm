@@ -4,13 +4,23 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
+    "rootDir": "..",
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": "..",
+    "paths": {
+      "@/types/khepera": [
+        "functions/src/kheperaGatewaySharedTypes"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "compileOnSave": true,
   "include": [

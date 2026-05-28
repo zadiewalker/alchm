@@ -1,4 +1,5 @@
 import { dataService, type JournalEntry } from '@/services/data/dataService';
+import { deriveResurfacingToneMode } from '@/utils/resurfacingTone';
 import type { EmotionalTone, ThemeTag } from '@/types/journal';
 import type { NotificationContext, ScheduledNotification } from '@/types/notifications';
 import type {
@@ -6,26 +7,11 @@ import type {
   ReturnHistoryMetadata,
   ReturnSelectionResult,
 } from '@/types/return';
-import { rankCandidates } from './rankCandidates';
+import { selectRelevantCandidates } from './selectRelevantCandidates';
 import { suppressReturns } from './suppressReturns';
 
-const ALLOWED_TONES = new Set<EmotionalTone>([
-  'processing',
-  'grief',
-  'anger',
-  'anxiety',
-  'clarity',
-  'numbness',
-  'tenderness',
-  'ambivalence',
-]);
-
 function toTimestamp(value: JournalEntry['createdAt']): number {
-  if (typeof (value as unknown as { toDate?: () => Date }).toDate === 'function') {
-    return (value as unknown as { toDate: () => Date }).toDate().getTime();
-  }
-
-  return new Date(value as unknown as string | number | Date).getTime();
+  return value.getTime();
 }
 
 function toCandidate(entry: JournalEntry): ReturnCandidateMetadata {
@@ -47,8 +33,7 @@ function toEmotionalTone(entry: JournalEntry): EmotionalTone {
 }
 
 function toThemes(entry: JournalEntry): ThemeTag[] {
-  const themes = entry.themes?.length ? entry.themes : entry.aiAnalysis?.themes || entry.tags;
-  return themes
+  return (entry.themes ?? [])
     .map((theme) => normalizeTheme(theme))
     .filter((theme): theme is ThemeTag => Boolean(theme));
 }
@@ -59,51 +44,59 @@ function normalizeEmotionalTone(value: unknown): EmotionalTone | null {
   }
 
   const normalized = value.toLowerCase().replace(/[\s-]+/g, '_');
-  const aliases: Record<string, EmotionalTone> = {
-    anxious: 'anxiety',
-    anxiety: 'anxiety',
-    angry: 'anger',
-    anger: 'anger',
-    grief: 'grief',
-    heavy: 'grief',
-    numb: 'numbness',
-    numbness: 'numbness',
-    tender: 'tenderness',
-    tenderness: 'tenderness',
-    okay: 'clarity',
-    clear: 'clarity',
-    clarity: 'clarity',
-    searching: 'ambivalence',
-    mixed: 'ambivalence',
-    ambivalence: 'ambivalence',
-    processing: 'processing',
-  };
-  const tone = aliases[normalized] ?? normalized;
-
-  return ALLOWED_TONES.has(tone as EmotionalTone) ? (tone as EmotionalTone) : null;
+  switch (normalized) {
+    case 'anxious':
+    case 'anxiety':
+      return 'anxiety';
+    case 'angry':
+    case 'anger':
+      return 'anger';
+    case 'grief':
+    case 'heavy':
+      return 'grief';
+    case 'numb':
+    case 'numbness':
+      return 'numbness';
+    case 'tender':
+    case 'tenderness':
+      return 'tenderness';
+    case 'okay':
+    case 'clear':
+    case 'clarity':
+      return 'clarity';
+    case 'searching':
+    case 'mixed':
+    case 'ambivalence':
+      return 'ambivalence';
+    case 'processing':
+      return 'processing';
+    default:
+      return null;
+  }
 }
 
 function normalizeTheme(theme: string): ThemeTag | null {
   const normalized = theme.toLowerCase().replace(/[\s-]+/g, '_');
-  const allowedThemes = new Set<ThemeTag>([
-    'grief_loss',
-    'relationship_tension',
-    'self_worth',
-    'identity',
-    'work_purpose',
-    'fear_uncertainty',
-    'anger_injustice',
-    'body_health',
-    'creativity_expression',
-    'spirituality_meaning',
-    'rest_recovery',
-    'joy_gratitude',
-    'transition_change',
-    'boundary_setting',
-    'childhood_origin',
-  ]);
-
-  return allowedThemes.has(normalized as ThemeTag) ? (normalized as ThemeTag) : null;
+  switch (normalized) {
+    case 'grief_loss':
+    case 'relationship_tension':
+    case 'self_worth':
+    case 'identity':
+    case 'work_purpose':
+    case 'fear_uncertainty':
+    case 'anger_injustice':
+    case 'body_health':
+    case 'creativity_expression':
+    case 'spirituality_meaning':
+    case 'rest_recovery':
+    case 'joy_gratitude':
+    case 'transition_change':
+    case 'boundary_setting':
+    case 'childhood_origin':
+      return normalized;
+    default:
+      return null;
+  }
 }
 
 function buildReturnHistory(
@@ -189,13 +182,13 @@ export async function selectReturn(
       };
     }
 
-    const rankedCandidates = rankCandidates({
+    const relevantCandidates = selectRelevantCandidates({
       currentEntry,
       candidates,
       recentReturns,
     });
 
-    const selectedCandidate = rankedCandidates[0];
+    const selectedCandidate = relevantCandidates[0];
 
     if (!selectedCandidate) {
       return buildFallbackSelection(context.entryId);
@@ -206,6 +199,17 @@ export async function selectReturn(
       returnType: selectedCandidate.returnType,
       suppressed: false,
       candidate: selectedCandidate,
+      resurfacingTone: deriveResurfacingToneMode({
+        returnType: selectedCandidate.returnType,
+        candidateAgeDays: Math.max(
+          0,
+          Math.floor((Date.now() - selectedCandidate.createdAt) / (1000 * 60 * 60 * 24)),
+        ),
+        candidateTone: selectedCandidate.emotionalTone,
+        currentTone: currentEntry.emotionalTone,
+        candidateThemes: selectedCandidate.themes,
+        currentThemes: currentEntry.themes,
+      }),
     };
   } catch {
     return buildFallbackSelection(context.entryId);

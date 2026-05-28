@@ -71,17 +71,17 @@ export class CrisisMonitoringService {
       let startDate: Date;
 
       switch (period) {
-        case "24h":
-          startDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-          break;
-        case "7d":
-          startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-          break;
-        case "30d":
-          startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-          break;
-        default:
-          startDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+      case "24h":
+        startDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+        break;
+      case "7d":
+        startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        break;
+      case "30d":
+        startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+        break;
+      default:
+        startDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
       }
 
       // Fetch crisis events for the period
@@ -258,7 +258,7 @@ export class CrisisMonitoringService {
     const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
-      const dateStr = currentDate.toISOString().split('T')[0];
+      const dateStr = currentDate.toISOString().split("T")[0];
       const dayStart = new Date(currentDate);
       const dayEnd = new Date(currentDate);
       dayEnd.setHours(23, 59, 59, 999);
@@ -350,22 +350,24 @@ export class CrisisMonitoringService {
     const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
 
     switch (rule.condition) {
-      case "high_confidence_spike":
-        const highConfidenceCount = await this.db.collection("crisisEvents")
-          .where("confidenceLevel", "==", "high")
-          .where("timestamp", ">=", oneHourAgo)
-          .get();
-        return highConfidenceCount.size > rule.threshold;
+    case "high_confidence_spike": {
+      const highConfidenceCount = await this.db.collection("crisisEvents")
+        .where("confidenceLevel", "==", "high")
+        .where("timestamp", ">=", oneHourAgo)
+        .get();
+      return highConfidenceCount.size > rule.threshold;
+    }
 
-      case "response_time_threshold":
-        const unresolved = await this.db.collection("crisisEvents")
-          .where("resolved", "==", false)
-          .where("timestamp", "<=", new Date(now.getTime() - rule.threshold * 60 * 1000))
-          .get();
-        return !unresolved.empty;
+    case "response_time_threshold": {
+      const unresolved = await this.db.collection("crisisEvents")
+        .where("resolved", "==", false)
+        .where("timestamp", "<=", new Date(now.getTime() - rule.threshold * 60 * 1000))
+        .get();
+      return !unresolved.empty;
+    }
 
-      default:
-        return false;
+    default:
+      return false;
     }
   }
 
