@@ -199,7 +199,7 @@ function findEvent(events, predicate) {
 
 async function openSplash(page) {
   await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
-  const cta = page.getByRole('button', { name: /begin your journey/i });
+  const cta = page.getByRole('button', { name: /^begin$/i });
   await cta.waitFor({ timeout: NAV_TIMEOUT_MS });
   return cta;
 }
@@ -232,7 +232,7 @@ async function clickLinkNavigation(page, locator, expectedPath) {
 async function newNavigationContext(browser) {
   const context = await browser.newContext();
   await context.addInitScript(() => {
-    window.localStorage.setItem('alchm-onboarding-complete', 'navigation-e2e');
+    window.localStorage.setItem('alchm_v1.0_onboarding_complete', 'true');
   });
   return context;
 }
@@ -373,7 +373,7 @@ async function run() {
         const linkCases = [
           { label: 'Journal', path: '/journal' },
           { label: 'Insights', path: '/insights' },
-          { label: 'Pathways', path: '/pathways' },
+          { label: 'Containers', path: '/containers' },
         ];
 
         const linkResults = [];
@@ -427,7 +427,7 @@ async function run() {
         await attachTelemetryCapture(page);
 
         await page.evaluate(() => {
-          const button = document.querySelector('button[aria-label="Begin your journey"]');
+          const button = document.querySelector('button[aria-label="Begin"]');
           if (!(button instanceof HTMLButtonElement)) {
             throw new Error('Splash CTA button not found for double-click check');
           }

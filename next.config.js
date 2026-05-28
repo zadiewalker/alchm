@@ -18,17 +18,30 @@ function serverBuildPath(fileName = '') {
 
 function hasRequiredServerBuildFiles() {
   return fs.existsSync(serverBuildPath('pages-manifest.json'))
-    && fs.existsSync(serverBuildPath('app-paths-manifest.json'))
-    && fs.existsSync(serverBuildPath('pages/_document.js'));
+    && fs.existsSync(serverBuildPath('app-paths-manifest.json'));
+}
+
+function hasSnapshotableServerBuildFiles() {
+  return fs.existsSync(serverBuildPath('app-paths-manifest.json'))
+    || fs.existsSync(serverBuildPath('pages-manifest.json'));
+}
+
+function ensureRequiredServerBuildFiles() {
+  fs.mkdirSync(serverBuildPath(), { recursive: true });
+  const pagesManifestPath = serverBuildPath('pages-manifest.json');
+  if (!fs.existsSync(pagesManifestPath)) {
+    fs.writeFileSync(pagesManifestPath, '{}\n');
+  }
 }
 
 function restoreServerBuildSnapshot() {
   if (
     serverBuildSnapshotDir
-    && !hasRequiredServerBuildFiles()
     && fs.existsSync(serverBuildSnapshotDir)
+    && !hasRequiredServerBuildFiles()
   ) {
     copyDirectory(serverBuildSnapshotDir, serverBuildPath());
+    ensureRequiredServerBuildFiles();
   }
 }
 
@@ -47,14 +60,14 @@ const nextConfig = {
       apply(compiler) {
         compiler.hooks.done.tap('ALCHMServerBuildSnapshotPlugin', () => {
           const serverDir = serverBuildPath();
-          const hasRequiredServerFiles = hasRequiredServerBuildFiles();
 
-          if (isServer && hasRequiredServerFiles) {
+          if (isServer && fs.existsSync(serverDir) && hasSnapshotableServerBuildFiles()) {
+            ensureRequiredServerBuildFiles();
             serverBuildSnapshotDir = path.join(os.tmpdir(), `alchm-next-server-${process.pid}`);
             copyDirectory(serverDir, serverBuildSnapshotDir);
           }
 
-          if (!isServer && serverBuildSnapshotDir && !hasRequiredServerFiles) {
+          if (!isServer && serverBuildSnapshotDir && !hasRequiredServerBuildFiles()) {
             restoreServerBuildSnapshot();
             if (!restoreInterval) {
               restoreInterval = setInterval(restoreServerBuildSnapshot, 100);
