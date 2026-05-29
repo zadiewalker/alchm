@@ -35,9 +35,9 @@
       "reference": null
     },
     "providerSecretPresence": {
-      "verified": false,
-      "sha": null,
-      "reference": null
+      "verified": true,
+      "sha": "a8d89db0606fa326af97f36962a90f59db8bb9c6",
+      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z"
     },
     "deploymentAuthority": {
       "verified": false,

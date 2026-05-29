@@ -2,10 +2,29 @@
 
 ## Status
 
-`MISSING - HUMAN SECRET AUTHORITY REQUIRED`
+`RECORDED - DEPLOYMENT AND RECEIPT BINDING STILL REQUIRED`
 
 No provider secret value is stored here. Certification requires redacted lineage
 evidence, not the secret itself.
+
+## Recorded Lineage
+
+| Field | Value |
+| --- | --- |
+| Provider | `anthropic` |
+| Secret reference | `ANTHROPIC_API_KEY` |
+| Secret version | `1` |
+| Deployment environment | `production` |
+| Firebase project | `alchm-463017` |
+| Candidate SHA | `a8d89db0606fa326af97f36962a90f59db8bb9c6` |
+| Functions hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
+| Rotation timestamp | `2026-05-29T02:54:13Z` |
+| providerSecretLineageDigest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
+
+This record does not include the secret value and does not by itself authorize
+runtime continuity. Certification still requires same-SHA Functions deployment
+evidence, rollback evidence, an approved verifier, and a signed production
+runtime attestation receipt binding this digest.
 
 ## Evidence Format
 
