@@ -30,10 +30,28 @@ transitions available in this build.
 
 `scripts/check-runtime-attestation-evidence.mjs` is an executable,
 candidate-bound preflight for the release evidence register at
-`docs/release/runtime-attestation-evidence.json`. That register is currently
-`NOT ATTESTED`, so the preflight fails. It validates recorded evidence; it
-does not convert local files or mutable environment values into deployed
-runtime authority.
+`docs/release/runtime-attestation-evidence.json`. It validates recorded
+evidence; it does not convert local files or mutable environment values into
+deployed runtime authority.
+
+## Source Candidate And Evidence Tail
+
+Runtime attestation evidence is allowed to live after the immutable source
+candidate on the release branch. This avoids a self-referential SHA loop where
+committing `docs/release/runtime-attestation-evidence.json` changes the same
+commit it is trying to attest.
+
+The checker accepts exactly two candidate-binding modes:
+
+- `direct-head`: `candidateSha` is the current `HEAD`.
+- `evidence-tail`: `candidateSha` is an ancestor of `HEAD` and every commit
+  after that candidate changes only release evidence/checker documentation
+  paths allowed by `scripts/check-runtime-attestation-evidence.mjs`.
+
+Any post-candidate application code, Functions code, rules, configuration, or
+runtime-trust source change invalidates the evidence-tail binding. In that
+case a new source candidate must be selected and all deployment/runtime
+evidence must be regenerated for that candidate.
 
 ## Evidence Required Before Enablement
 

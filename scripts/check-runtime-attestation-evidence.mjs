@@ -35,6 +35,10 @@ const deploymentEvidence = [
   'deploymentAuthority',
   'rollbackAuthority',
 ];
+const evidenceTailAllowedPaths = [
+  'docs/release/',
+  'scripts/check-runtime-attestation-evidence.mjs',
+];
 
 function fail(message) {
   console.error(`Runtime attestation evidence check failed: ${message}`);
@@ -181,6 +185,66 @@ function validateVerifierRegistry(verifierRegistry, nowMs) {
   return approved;
 }
 
+function git(args) {
+  return execFileSync('git', args, { cwd: repo, encoding: 'utf8' }).trim();
+}
+
+function isAncestor(ancestorSha, descendantSha) {
+  try {
+    execFileSync('git', ['merge-base', '--is-ancestor', ancestorSha, descendantSha], { cwd: repo });
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
+function isEvidenceTailPath(relativePath) {
+  return evidenceTailAllowedPaths.some((allowedPath) => (
+    allowedPath.endsWith('/')
+      ? relativePath.startsWith(allowedPath)
+      : relativePath === allowedPath
+  ));
+}
+
+function validateEvidenceTail(candidateSha, head) {
+  if (!fullShaPattern.test(candidateSha ?? '')) {
+    return {
+      accepted: false,
+      reason: 'candidate SHA is absent or malformed.',
+    };
+  }
+  if (candidateSha === head) {
+    return {
+      accepted: true,
+      mode: 'direct-head',
+      changedPaths: [],
+    };
+  }
+  if (!isAncestor(candidateSha, head)) {
+    return {
+      accepted: false,
+      reason: 'candidate SHA is not current HEAD and is not an ancestor of HEAD.',
+    };
+  }
+  const changedPaths = git(['diff', '--name-only', `${candidateSha}..${head}`])
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const disallowedPaths = changedPaths.filter((relativePath) => !isEvidenceTailPath(relativePath));
+  if (disallowedPaths.length > 0) {
+    return {
+      accepted: false,
+      reason: `post-candidate commits include non-evidence paths: ${disallowedPaths.join(', ')}.`,
+      changedPaths,
+    };
+  }
+  return {
+    accepted: true,
+    mode: 'evidence-tail',
+    changedPaths,
+  };
+}
+
 function verifyReceipt(attestation, verifierRegistry, candidateSha) {
   const receipt = attestation.receipt;
   if (!receipt || typeof receipt !== 'object' || !receipt.payload) {
@@ -248,10 +312,11 @@ if (!fs.existsSync(evidencePath) || !fs.existsSync(verifierRegistryPath)) {
 } else {
   const attestation = JSON.parse(fs.readFileSync(evidencePath, 'utf8'));
   const verifierRegistry = JSON.parse(fs.readFileSync(verifierRegistryPath, 'utf8'));
-  const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).trim();
-  const worktreeDirty = execFileSync('git', ['status', '--porcelain'], { cwd: repo, encoding: 'utf8' }).trim() !== '';
+  const head = git(['rev-parse', 'HEAD']);
+  const worktreeDirty = git(['status', '--porcelain']) !== '';
   const presentConflicts = conflictingPaths.filter((relativePath) => fs.existsSync(path.join(repo, relativePath)));
   const candidateSha = attestation.candidateSha;
+  const evidenceTail = validateEvidenceTail(candidateSha, head);
   const missingEvidence = requiredEvidence.filter((key) => {
     const item = attestation.evidence?.[key];
     return item?.verified !== true
@@ -262,6 +327,8 @@ if (!fs.existsSync(evidencePath) || !fs.existsSync(verifierRegistryPath)) {
 
   console.log(`Runtime attestation status: ${attestation.attestationStatus ?? 'INVALID'}`);
   console.log(`Current HEAD: ${head}`);
+  console.log(`Attested candidate: ${candidateSha ?? 'ABSENT'}`);
+  console.log(`Candidate binding mode: ${evidenceTail.accepted ? evidenceTail.mode : 'INVALID'}`);
   console.log(`Worktree: ${worktreeDirty ? 'dirty' : 'clean'}`);
   console.log(`Evidence incomplete: ${missingEvidence.join(', ') || 'none'}`);
   const approvedVerifiers = validateVerifierRegistry(verifierRegistry, Date.now());
@@ -272,8 +339,8 @@ if (!fs.existsSync(evidencePath) || !fs.existsSync(verifierRegistryPath)) {
   if (attestation.runtimeEnablementAuthorized !== true) {
     fail('runtime continuity enablement is not authorized.');
   }
-  if (!fullShaPattern.test(candidateSha ?? '') || candidateSha !== head) {
-    fail('candidate SHA is absent or does not match the inspected HEAD.');
+  if (!evidenceTail.accepted) {
+    fail(evidenceTail.reason ?? 'candidate SHA is absent or does not match the inspected HEAD.');
   }
   if (worktreeDirty) {
     fail('candidate checkout is dirty.');
