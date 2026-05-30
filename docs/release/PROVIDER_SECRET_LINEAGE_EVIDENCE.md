@@ -16,7 +16,7 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `a8d89db0606fa326af97f36962a90f59db8bb9c6` |
+| Candidate SHA | `31ba4820fc5c53bdf84e33e941675011c51aa824` |
 | Functions hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
@@ -24,7 +24,7 @@ evidence, not the secret itself.
 This record does not include the secret value and does not by itself authorize
 runtime continuity. Certification still requires same-SHA Functions deployment
 evidence, rollback evidence, an approved verifier, and a signed production
-runtime attestation receipt binding this digest.
+runtime attestation receipt binding this digest. Current receipt evidence targets `31ba4820fc5c53bdf84e33e941675011c51aa824` and remains fail-closed until accepted by `npm run check:runtime-attestation`.
 
 ## Evidence Format
 

@@ -12,14 +12,14 @@ does not accept source files as deployment evidence.
 
 | Authority | Required evidence for one fixed SHA | Current evidence |
 | --- | --- | --- |
-| Candidate source | Clean reviewed commit SHA and normalized release scope | Unavailable |
+| Candidate source | Clean reviewed commit SHA and normalized release scope | `31ba4820fc5c53bdf84e33e941675011c51aa824` |
 | CI validation | Green required checks for that identical SHA | Unavailable |
-| Functions | Deployed Khepera and continuity callable identities attributable to SHA | Unavailable |
-| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | Unavailable |
-| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Unavailable |
-| Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Deployment evidence unavailable |
+| Functions | Deployed Khepera and continuity callable identities attributable to SHA | functionsHash=`b6a7829da9eb0b4bbcb08d15a92ce635b5031a07`; crisisDetection=`ACTIVE`; healthCheck=`ACTIVE`; candidate=`31ba4820fc5c53bdf84e33e941675011c51aa824` |
+| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | rulesDigest=`e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`; emulator candidate-bound pass |
+| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | providerSecretLineageDigest=`ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a`; candidate=`31ba4820fc5c53bdf84e33e941675011c51aa824` |
+| Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Vercel production deployment `dpl_5wnejochTEuHLBMcSUcqL2dUcK2C`; source linkage evidence still required |
 | Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | In scope; archive evidence unavailable |
-| Rollback | Named prior deploy/archive authority and verified rollback procedure | Unavailable |
+| Rollback | Named prior deploy/archive authority and verified rollback procedure | `docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md`; owner=`zadiewalker-release-authority`; target=`31ba4820fc5c53bdf84e33e941675011c51aa824` |
 
 ## Reflective Integrity Expectation
 
