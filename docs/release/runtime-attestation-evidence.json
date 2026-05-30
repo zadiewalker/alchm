@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "attestationStatus": "ATTESTED",
   "runtimeEnablementAuthorized": true,
-  "candidateSha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
+  "candidateSha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-05-30T07:43:18.614Z",
+  "verifiedAt": "2026-05-30T17:07:11.050Z",
   "verificationAuthority": {
     "status": "verified",
     "verifierId": "alchm-release-owner-2026-05",
@@ -14,62 +14,62 @@
     "algorithm": "RSA-SHA256",
     "payload": {
       "schemaVersion": 1,
-      "receiptId": "prod-1bc5732e1826-2026-05-30T07-43-18-614Z",
+      "receiptId": "prod-f0bdb7d1fa5e-2026-05-30T17-07-11-050Z",
       "verifierId": "alchm-release-owner-2026-05",
-      "candidateSha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "evidenceDigest": "1af9cced74610a643d5c202173d3e3193a3b3e10bfc3cbedf8c748bebd585aa7",
+      "candidateSha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "evidenceDigest": "0cf9f7ec072031f22c2cce9e95a6fbc0f3cc0c82e30a6206c370a1315fb25dd3",
       "deploymentEnvironment": "production",
-      "functionsDeploymentSha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "firestoreRulesDeploymentSha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "deploymentEvidenceDigest": "afdc087ad1284e30fc6f0f6c93292b28b5c458fc397b058a76f8cc6d78cb8661",
-      "providerSecretLineageDigest": "1ae0d05fae9dcf68b2354968583b8522774451c48016a7aed044870c6a766535",
+      "functionsDeploymentSha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "firestoreRulesDeploymentSha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "deploymentEvidenceDigest": "24e9e54f7f27f5bad9da806b2bd44fcd67116ffd8c2518527c37c345fc0703e1",
+      "providerSecretLineageDigest": "665643e3735fd66c56bef852a1b80cd663a2577af2b10d4a757c10fcbde03000",
       "authorizationScope": "continuity-transitions",
-      "issuedAt": "2026-05-30T07:43:18.614Z",
-      "expiresAt": "2026-05-31T07:43:18.619Z"
+      "issuedAt": "2026-05-30T17:07:11.050Z",
+      "expiresAt": "2026-05-31T17:07:11.052Z"
     },
-    "signatureBase64": "XU+yX//53R7jmJLNrg49pEGWzaHCmB2a/Fm61EI7Xs2qiu/JF/88SJAMwKJNXslpIjY+i8LJh4xDqWKTPvXB9VcdruF+/Mg6DhLCOvnbE6XbM3GmPNhFDghwSUHNxWTYKm3mP0M6roKFzB1G76e0kwsJKCYFNs2XSb8XgqIUkBaMBZNQaH4xID8cTxMR8+q0CEpZtL3GvqCRovZccxkFvJn8RcMR/zCMUlKH9QjK7iOIqoToctf1uqSvXSzYuV5caoDmc2GjDv5B6r4k1tw/tfwH97mqlWlZcFkc0Vdn7f3oQH4PuWH4eNhigZeSg+xtg+bHpYmVjw75awFvLjJkDRyHF5Z3xbER06cbInialsglrRfXdgmTyOm4/SKmuY85GG6k66N8XEIgdpwz+z5JHeErWGfMmIJGE+XopP3Ps++UbnSCRg0+Bce/SqMhQqUmxRXzkwNbfI7qM+J3iUtlLdOgOtobw15W4zq4gd00ryn9fHghcNzkaEicnzxnuS4i"
+    "signatureBase64": "IPV0Bcsa22pMFZDGbDRYMJmtPGZv2RF84ogkkk5ehUDzpL/aylBn9gvkggQqtyQS6IBV8FttgGPk9PV1fzL8aXssTP1loyp8df6sspR4L0278xfsfTsxOBnLCuDTTsPHNvRtiBiwL8sbnYWb1Jnu3MyBdTdTT+VTtl9RZ3jfbtWm+n9iEi0tpf0a4SEMkN9sGy5p9CKPaQQE6iQtNWgRyU1zftsLsWDArAKwODgTByOzgp5R+TdnEqVcmGVF+0/h/0cLDIafbbd4atlu2BsgVb8GCXa66O53YKXqFk7x+h9tB82PXJ1QA072oXzTiMSSItSzproKzoBilQvE8Chqcuuvx4BDOshiHDoQL+M40a3Z3EoyZMUPjufDbv197XXa4uuyt7G4vInhTIWgw13QlswnTdoEZMj2VGaSx1At8hq28Veoj7gu2V1lgNjBwww7pr0mhoGL4w7sTplo1AuJr39SVD8/dYp/Xh9VqZWMFcVuU3lTxmsFJcQ+PFOZWBNw"
   },
   "consumedReceiptIds": [],
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "git status --porcelain was clean before current runtime-attestation evidence rebind; pushed branch release/clinical-architecture-integration at 1bc5732e182631e755d1eeb66f7cccafbe2c6ae2"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "git status --porcelain was clean before runtime-attestation evidence rebind; pushed branch release/clinical-architecture-integration at f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74"
     },
     "releaseScope": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
       "reference": "npm run check:release-scope passed; no authority-conflicting duplicate trees"
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2 tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74 tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
     },
     "functionsDeployment": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "Firebase Functions evidence marked by release authority: functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; crisisDetection=ACTIVE; healthCheck=ACTIVE; firebaseProject=alchm-463017; candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "Firebase Functions evidence marked by release authority: functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; crisisDetection=ACTIVE; healthCheck=ACTIVE; firebaseProject=alchm-463017; candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74"
     },
     "firestoreRulesDeployment": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "Firebase project alchm-463017 Firestore rules digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "Firebase project alchm-463017 Firestore rules digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74"
     },
     "providerSecretPresence": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74"
     },
     "deploymentAuthority": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "Vercel production deployment dpl_5wnejochTEuHLBMcSUcqL2dUcK2C; Firebase project alchm-463017; functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "Vercel production deployment dpl_5wnejochTEuHLBMcSUcqL2dUcK2C; Firebase project alchm-463017; functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74"
     },
     "rollbackAuthority": {
       "verified": true,
-      "sha": "1bc5732e182631e755d1eeb66f7cccafbe2c6ae2",
-      "reference": "docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md candidate=1bc5732e182631e755d1eeb66f7cccafbe2c6ae2; vercelRollbackTarget=dpl_5wnejochTEuHLBMcSUcqL2dUcK2C; firebaseProject=alchm-463017; functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a; owner=zadiewalker-release-authority"
+      "sha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
+      "reference": "docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md candidate=f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74; vercelRollbackTarget=dpl_5wnejochTEuHLBMcSUcqL2dUcK2C; firebaseProject=alchm-463017; functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a; owner=zadiewalker-release-authority"
     }
   },
   "recordedProviderSecretLineageDigest": "ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a"
