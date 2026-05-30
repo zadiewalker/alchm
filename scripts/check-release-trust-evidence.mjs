@@ -34,6 +34,17 @@ const requiredEvidenceKeys = [
   'iosArchiveSameSha',
   'rollbackAuthorityDocumented',
 ];
+const allowedCertificationStatuses = [
+  'NOT CERTIFIED',
+  'LOCALLY VALIDATED',
+  'ATTESTED RELEASE CANDIDATE, NOT CERTIFIED',
+  'RELEASE-CANDIDATE CERTIFIED',
+  'PRODUCTION CERTIFIED',
+];
+const completeEvidenceRequiredStatuses = new Set([
+  'RELEASE-CANDIDATE CERTIFIED',
+  'PRODUCTION CERTIFIED',
+]);
 
 function fail(message) {
   console.error(`Release trust evidence check failed: ${message}`);
@@ -52,8 +63,7 @@ if (!fs.existsSync(checklistPath) || !fs.existsSync(blockersPath) || !fs.existsS
   const worktreeDirty = execFileSync('git', ['status', '--porcelain'], { cwd: repo, encoding: 'utf8' }).trim() !== '';
   const missingEvidence = requiredEvidenceKeys.filter((key) => checklist.requiredEvidence?.[key] !== true);
 
-  if (!['NOT CERTIFIED', 'LOCALLY VALIDATED', 'RELEASE-CANDIDATE CERTIFIED', 'PRODUCTION CERTIFIED']
-    .includes(checklist.certificationStatus)) {
+  if (!allowedCertificationStatuses.includes(checklist.certificationStatus)) {
     fail('certificationStatus is not an approved status value.');
   }
 
@@ -61,7 +71,7 @@ if (!fs.existsSync(checklistPath) || !fs.existsSync(blockersPath) || !fs.existsS
     fail('a blocked integration state must not name an unfixed candidate SHA.');
   }
 
-  if (checklist.certificationStatus !== 'NOT CERTIFIED' && missingEvidence.length > 0) {
+  if (completeEvidenceRequiredStatuses.has(checklist.certificationStatus) && missingEvidence.length > 0) {
     fail('a certified status is claimed while required evidence is incomplete.');
   }
   if (

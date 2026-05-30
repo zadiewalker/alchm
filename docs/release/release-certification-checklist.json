@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "certificationStatus": "NOT CERTIFIED",
+  "certificationStatus": "ATTESTED RELEASE CANDIDATE, NOT CERTIFIED",
   "releaseBranch": "release/clinical-architecture-integration",
-  "inspectedHead": "a070dfd416a671d912a30826c67b2678847802ff",
-  "candidateSha": null,
+  "inspectedHead": "be409d01a2504ca976d286d22dc0575a124c4b72",
+  "candidateSha": "f0bdb7d1fa5ec4e3d3c0c1937c8678de3a48dc74",
   "inspectedOn": "2026-05-30",
   "blockerRegistry": "docs/release/RELEASE_BLOCKERS.md",
   "releaseScopeContract": "docs/release/RELEASE_SCOPE.md",
@@ -43,14 +43,14 @@
     "providerSecretsConfigured": true,
     "firestoreEmulatorAuthorization": true,
     "serverAuthoritativeSensitiveWrites": true,
-    "runtimeContinuityAttestation": false,
+    "runtimeContinuityAttestation": true,
     "deploymentLineageSameSha": false,
     "continuityExportDeletionVerified": false,
     "privacyClaimsMatchDeployment": false,
     "supportSurfaceApproved": false,
     "transparencySurfaceApproved": false,
     "iosArchiveSameSha": false,
-    "rollbackAuthorityDocumented": false
+    "rollbackAuthorityDocumented": true
   },
   "disabledOrUnavailableFeatures": [
     "secure data export delivery",
