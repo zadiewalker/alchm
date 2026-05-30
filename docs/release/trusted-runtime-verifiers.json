@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "NO APPROVED VERIFIER",
+  "status": "APPROVED VERIFIER REGISTERED",
   "trustModel": "explicit-human-approved-verifier-registry",
   "requirements": [
     "verifierId must be unique",
@@ -12,5 +12,26 @@
     "self-attested verifier records are invalid",
     "revoked or expired verifier records are invalid"
   ],
-  "approvedVerifiers": []
+  "approvedVerifiers": [
+    {
+      "verifierId": "alchm-release-owner-2026-05",
+      "keyId": "alchm-runtime-verifier-ed25519-2026-05",
+      "authorityScope": "runtime-continuity-attestation",
+      "status": "approved",
+      "approvedBy": "zadiewalker-release-authority",
+      "approvedAt": "2026-05-29T03:30:00Z",
+      "expiresAt": "2026-06-28T03:30:00Z",
+      "revokedAt": null,
+      "trustRootReference": "release-owner-controlled-local-key",
+      "lineageReference": "candidate-5c031327ca0cfde62c81748f0b8bf9a438835f0f",
+      "operator": {
+        "name": "Zadie Walker",
+        "contact": "zadiewalker@gmail.com"
+      },
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHCIoO0zOlcdmuPYGR730x/pJLY+A3tUkr+VcI5nWziU=\n-----END PUBLIC KEY-----",
+      "publicKeyFingerprintSha256": "8617cd4b8824fbaaf13ea3463d45a4da6d4c4713cae16d0430e9abc2ce40563e",
+      "sourcePublicKeyFile": "/tmp/alchm-runtime-verifier-public.pem",
+      "sourcePublicKeyFileSha256": "c62d062b216c5fd307c108eb6906a33b2ff48e8451b4faf33a8271866ec380b7"
+    }
+  ]
 }
