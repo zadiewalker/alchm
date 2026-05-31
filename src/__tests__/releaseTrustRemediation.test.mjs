@@ -208,18 +208,22 @@ test('release certification remains evidence-gated until required authorities ar
   const continuityRuntimeGate = read('functions/src/continuityRuntimeGateCore.ts');
   const runtimeAttestationVerifierCore = read('functions/src/runtimeAttestationVerifierCore.ts');
 
-  assert.equal(checklist.certificationStatus, 'NOT CERTIFIED');
-  assert.equal(checklist.candidateSha, null);
-  assert.equal(checklist.requiredEvidence.cleanWorktree, false);
+  assert.equal(checklist.certificationStatus, 'ATTESTED RELEASE CANDIDATE, NOT CERTIFIED');
+  assert.match(checklist.candidateSha, /^[0-9a-f]{40}$/);
+  assert.equal(checklist.requiredEvidence.cleanWorktree, true);
   assert.equal(checklist.requiredEvidence.releaseScopeNormalized, true);
   assert.equal(checklist.requiredEvidence.deploymentAuthorityResolved, true);
   assert.equal(checklist.requiredEvidence.nativeConfigReconciled, true);
   assert.equal(checklist.requiredEvidence.trustCriticalFunctionsLint, true);
-  assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, false);
+  assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, true);
   assert.equal(checklist.requiredEvidence.serverAuthoritativeSensitiveWrites, true);
-  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, false);
+  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, true);
   assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, false);
   assert.equal(checklist.requiredEvidence.continuityExportDeletionVerified, false);
+  assert.equal(checklist.requiredEvidence.privacyClaimsMatchDeployment, false);
+  assert.equal(checklist.requiredEvidence.supportSurfaceApproved, false);
+  assert.equal(checklist.requiredEvidence.transparencySurfaceApproved, false);
+  assert.equal(checklist.requiredEvidence.iosArchiveSameSha, false);
   assert.match(certification, /Dirty and not suitable for release certification/);
   assert.match(blockers, /Dirty integration worktree/);
   assert.match(blockers, /Firestore rules deployment and candidate-bound emulator authorization evidence absent/);
