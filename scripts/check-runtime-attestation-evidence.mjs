@@ -37,6 +37,7 @@ const deploymentEvidence = [
 ];
 const evidenceTailAllowedPaths = [
   'docs/release/',
+  'scripts/check-release-trust-evidence.mjs',
   'scripts/check-runtime-attestation-evidence.mjs',
 ];
 
