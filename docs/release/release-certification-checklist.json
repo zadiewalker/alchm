@@ -36,7 +36,7 @@
     "deploymentAuthorityResolved": true,
     "nativeConfigReconciled": true,
     "trustCriticalFunctionsLint": true,
-    "repositoryValidationSameSha": false,
+    "repositoryValidationSameSha": true,
     "githubChecksSameSha": true,
     "functionsDeploymentSameSha": true,
     "firestoreRulesDeploymentSameSha": true,
