@@ -46,9 +46,9 @@
     "runtimeContinuityAttestation": true,
     "deploymentLineageSameSha": false,
     "continuityExportDeletionVerified": false,
-    "privacyClaimsMatchDeployment": false,
-    "supportSurfaceApproved": false,
-    "transparencySurfaceApproved": false,
+    "privacyClaimsMatchDeployment": true,
+    "supportSurfaceApproved": true,
+    "transparencySurfaceApproved": true,
     "iosArchiveSameSha": false,
     "rollbackAuthorityDocumented": true
   },
