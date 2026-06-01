@@ -45,7 +45,7 @@
     "serverAuthoritativeSensitiveWrites": true,
     "runtimeContinuityAttestation": true,
     "deploymentLineageSameSha": false,
-    "continuityExportDeletionVerified": false,
+    "continuityExportDeletionVerified": true,
     "privacyClaimsMatchDeployment": true,
     "supportSurfaceApproved": true,
     "transparencySurfaceApproved": true,

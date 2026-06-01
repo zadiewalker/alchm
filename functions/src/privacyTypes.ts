@@ -84,6 +84,24 @@ export interface UserDataSnapshot {
     insights: string;
     crisisLevel: string;
   }>;
+  kheperaMemory: Array<{
+    id: string;
+    data: Record<string, unknown>;
+  }>;
+  delayedReflections: Array<{
+    id: string;
+    data: Record<string, unknown>;
+  }>;
+  continuityRecords: {
+    containers: Array<{
+      id: string;
+      data: Record<string, unknown>;
+    }>;
+    activeContainerState: Array<{
+      id: string;
+      data: Record<string, unknown>;
+    }>;
+  };
   privacySettings: UserPrivacySettings;
   systemInteractions: {
     totalSessions: number;

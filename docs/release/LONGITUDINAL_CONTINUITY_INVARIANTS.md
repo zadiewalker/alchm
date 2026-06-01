@@ -58,8 +58,8 @@ not erase history or silently revise continuity; it requires an explicit
 server-authoritative model and privacy review.
 
 Continuity records are user-owned data. Deletion source enumerates canonical
-container collections. Secure export collection and delivery do not yet cover
-continuity/provenance records and remain unavailable under RB-005.
+container collections. Export source collects continuity/provenance records,
+but secure export delivery remains unavailable under RB-005.
 
 ## Certification Evidence
 

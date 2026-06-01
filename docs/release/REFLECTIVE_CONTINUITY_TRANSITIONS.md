@@ -78,9 +78,9 @@ The source implementation for sanctuary day advancement must:
 
 Activation creates user-owned continuity records that must be covered by
 export/deletion mapping. Deletion source enumerates the canonical continuity
-subcollections; secure export collection and delivery do not yet cover this
-continuity/provenance state and remain unavailable. No new rollback operation
-is approved; before activation is exposed, rollback authority and
+subcollections; export source now collects continuity/provenance state, but
+secure export delivery remains unavailable. No new rollback operation is
+approved; before activation is exposed, rollback authority and deployed
 data-lifecycle execution must be reviewed.
 
 ## Certification Requirements

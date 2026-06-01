@@ -19,6 +19,10 @@ const CANONICAL_USER_SUBCOLLECTIONS = [
 
 type JournalExportEntry = UserDataSnapshot["journalEntries"][number];
 type AnalysisExportEntry = UserDataSnapshot["aiAnalyses"][number];
+type UserOwnedDocumentExport = {
+  id: string;
+  data: Record<string, unknown>;
+};
 
 /**
  * Generates a comprehensive user data export in multiple formats
@@ -237,6 +241,19 @@ async function collectUserData(
     });
   }
 
+  const userRef = db.collection("users").doc(userId);
+  const [
+    kheperaMemory,
+    delayedReflections,
+    containers,
+    activeContainerState
+  ] = await Promise.all([
+    collectUserOwnedDocuments(userRef.collection("khepera")),
+    collectUserOwnedDocuments(userRef.collection("kheperaDelayedReflections")),
+    collectUserOwnedDocuments(userRef.collection("containers")),
+    collectUserOwnedDocuments(userRef.collection("containerState")),
+  ]);
+
   // Get privacy settings
   const privacyDoc = await db.collection("userPrivacySettings").doc(userId).get();
   const privacySettings = privacyDoc.data() as UserPrivacySettings;
@@ -258,6 +275,12 @@ async function collectUserData(
     },
     journalEntries,
     aiAnalyses,
+    kheperaMemory,
+    delayedReflections,
+    continuityRecords: {
+      containers,
+      activeContainerState
+    },
     privacySettings: privacySettings || {} as UserPrivacySettings,
     systemInteractions,
     exportMetadata: {
@@ -267,6 +290,45 @@ async function collectUserData(
       retentionPolicies: "Data retained according to user privacy preferences and legal requirements"
     }
   };
+}
+
+async function collectUserOwnedDocuments(
+  collection: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>
+): Promise<UserOwnedDocumentExport[]> {
+  const snapshot = await collection.get();
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    data: serializeFirestoreDocument(doc.data()),
+  }));
+}
+
+function serializeFirestoreDocument(data: FirebaseFirestore.DocumentData): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [key, serializeFirestoreValue(value)])
+  );
+}
+
+function serializeFirestoreValue(value: unknown): unknown {
+  if (value instanceof admin.firestore.Timestamp) {
+    return value.toDate().toISOString();
+  }
+
+  if (value instanceof Date) {
+    return value.toISOString();
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(serializeFirestoreValue);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .map(([key, nestedValue]) => [key, serializeFirestoreValue(nestedValue)])
+    );
+  }
+
+  return value;
 }
 
 /**
@@ -320,6 +382,13 @@ AI ANALYSIS SUMMARY
 ===================
 Total Analyses: ${data.aiAnalyses.length}
 Most Common Emotions: ${getMostCommonEmotions(data.aiAnalyses)}
+
+CONTINUITY DATA
+===============
+Container Records: ${data.continuityRecords.containers.length}
+Active Container State Records: ${data.continuityRecords.activeContainerState.length}
+Delayed Reflection Records: ${data.delayedReflections.length}
+Khepera Memory Records: ${data.kheperaMemory.length}
 
 PRIVACY SETTINGS
 ================
