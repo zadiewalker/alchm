@@ -267,7 +267,8 @@ test('release certification remains evidence-gated until required authorities ar
   assert.match(longitudinalInvariants, /Replay rejection/);
   assert.match(continuityReplay, /expectedContinuityVersion/);
   assert.match(continuityReplay, /stale or repeated requests/);
-  assert.match(sameShaLineage, /TOPOLOGY DECIDED - DEPLOYMENT EVIDENCE REQUIRED/);
+  assert.match(sameShaLineage, /RECORDED FOR CANDIDATE/);
+  assert.match(sameShaLineage, /NATIVE EVIDENCE STILL REQUIRED/);
   assert.match(sameShaLineage, /Source provenance fields/);
   assert.match(runtimeAttestation, /evidence-tail/);
   assert.match(runtimeAttestation, /environment configuration is an assertion, not attestation evidence/i);
