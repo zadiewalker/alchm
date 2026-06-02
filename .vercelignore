@@ -1,0 +1,28 @@
+.git
+.github
+.firebase
+.vercel
+
+node_modules
+functions/node_modules
+functions/lib
+
+.next
+.next *
+.next.__trash__*
+out
+out *
+out.__trash__*
+dist
+build
+
+.alchm-clean-local
+_quarantine
+alchm-clean
+emergency-backups
+artifacts
+
+ios/App/.next
+ios/App/out
+ios/App/build
+ios/App/Pods
