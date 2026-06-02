@@ -806,7 +806,6 @@
       "timeout": "60s",
       "minInstances": 0,
       "maxInstances": 10,
-      "concurrency": 1000,
       "environmentVariables": {
         "NODE_ENV": "production",
         "CRISIS_ESCALATION_ENABLED": "true",
