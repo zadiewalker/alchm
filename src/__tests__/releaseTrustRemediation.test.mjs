@@ -227,7 +227,7 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, true);
   assert.equal(checklist.requiredEvidence.serverAuthoritativeSensitiveWrites, true);
   assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, true);
-  assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, false);
+  assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, true);
   assert.equal(checklist.requiredEvidence.continuityExportDeletionVerified, true);
   assert.equal(checklist.requiredEvidence.privacyClaimsMatchDeployment, true);
   assert.equal(checklist.requiredEvidence.supportSurfaceApproved, true);
