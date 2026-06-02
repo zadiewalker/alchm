@@ -309,7 +309,7 @@ test('release certification remains evidence-gated until required authorities ar
   assert.match(executableDeploymentAttestation, /providerSecretLineageDigest/);
   assert.match(executableReceiptLifecycle, /LIFECYCLE CONTRACT DEFINED - NO RECEIPT ISSUED/);
   assert.match(executableReceiptLifecycle, /Rollback And Supersession/);
-  assert.match(deploymentLineageVerification, /UNRESOLVED - RUNTIME EVIDENCE REQUIRED/);
+  assert.match(deploymentLineageVerification, /WEB\/FIREBASE LINEAGE RECORDED - NATIVE LINEAGE REQUIRED/);
   assert.match(deploymentLineageVerification, /same-SHA/i);
   assert.match(semanticAuthority, /UNRESOLVED SEMANTICS REMAIN UNAVAILABLE/);
   assert.match(semanticAuthority, /completion/i);
