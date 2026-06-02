@@ -807,7 +807,6 @@
       "minInstances": 0,
       "maxInstances": 10,
       "concurrency": 1000,
-      "cpu": 1,
       "environmentVariables": {
         "NODE_ENV": "production",
         "CRISIS_ESCALATION_ENABLED": "true",
