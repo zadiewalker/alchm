@@ -1,11 +1,11 @@
 import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
+import { onRequest } from "firebase-functions/v2/https";
 
 if (!admin.apps.length) {
   admin.initializeApp();
 }
 
-export const healthCheck = functions.https.onRequest((_req, res) => {
+export const healthCheck = onRequest((_req, res) => {
   res.status(200).json({
     status: "healthy",
     timestamp: new Date().toISOString(),
