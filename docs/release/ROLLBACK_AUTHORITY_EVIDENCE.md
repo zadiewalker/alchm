@@ -2,7 +2,7 @@
 
 ## Status
 
-`RECORDED FOR CANDIDATE 31ba4820fc5c53bdf84e33e941675011c51aa824`
+`RECORDED FOR CANDIDATE 16e3a5d19ceee278957a413fb01b69178dca97cf`
 
 This record identifies the rollback authority for the current production
 candidate evidence set. It does not expose secrets and does not authorize any
@@ -12,10 +12,12 @@ runtime continuity behavior outside the signed attestation gate.
 
 | Field | Evidence |
 | --- | --- |
-| Candidate SHA | `31ba4820fc5c53bdf84e33e941675011c51aa824` |
+| Candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
 | Firebase project | `alchm-463017` |
-| Vercel deployment target | `dpl_5wnejochTEuHLBMcSUcqL2dUcK2C` |
-| Firebase Functions target hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
+| Vercel deployment target | `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |
+| Firebase Functions local-source hash | `844a2fd3b1f71300511f93fc8ad121b4022ed1cb` |
+| Firebase healthCheck hash | `245c06b5cc9c46a4d8447cfd61b332f45af470a4` |
+| Preserved crisisDetection hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Firestore rules target digest | `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6` |
 | Provider secret lineage digest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
 
@@ -23,9 +25,9 @@ runtime continuity behavior outside the signed attestation gate.
 
 | Surface | Rollback authority |
 | --- | --- |
-| Vercel production | Promote or restore production to `dpl_5wnejochTEuHLBMcSUcqL2dUcK2C`. |
+| Vercel production | Promote or restore production to `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh`. |
 | Firestore rules | Re-deploy rules whose SHA-256 digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. |
-| Firebase Functions | Re-deploy Functions source matching hash `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` to project `alchm-463017`. |
+| Firebase Functions | Re-deploy candidate `16e3a5d19ceee278957a413fb01b69178dca97cf` explicit local function targets to project `alchm-463017`; preserve legacy `crisisDetection` unless release authority separately approves deletion. |
 | Provider secret | Any provider-secret rotation invalidates receipts not bound to lineage digest `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a`. |
 | Runtime receipt | Any rollback, new deployment, provider-secret rotation, or verifier change requires a new receipt ID and invalidates prior unconsumed receipts. |
 | Verifier | Revoke verifier `alchm-release-owner-2026-05` by setting `revokedAt` in `docs/release/trusted-runtime-verifiers.json` and issuing a replacement verifier record. |
@@ -37,9 +39,9 @@ runtime continuity behavior outside the signed attestation gate.
 ## Rollback Commands
 
 ```bash
-vercel rollback dpl_5wnejochTEuHLBMcSUcqL2dUcK2C
+vercel rollback dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh
 firebase deploy --only firestore:rules --project alchm-463017
-firebase deploy --only functions --project alchm-463017
+firebase deploy --only functions:activateContainer,functions:advanceSanctuaryContainer,functions:cancelAccountDeletion,functions:checkConsentExpiry,functions:cleanupOldUsageData,functions:detectAuditAnomalies,functions:enforceDataRetentionPolicies,functions:enforceUserDataRetention,functions:exportUserData,functions:generateComplianceAuditReport,functions:generateKheperaReflection,functions:getDataRetentionStats,functions:getUserAuditTrail,functions:getUserConsentHistory,functions:healthCheck,functions:processAccountDeletions,functions:processBudgetAlert,functions:regrantConsent,functions:requestAccountDeletion,functions:trackDailyCosts,functions:updateDataRetentionPreferences,functions:verifyAccountDeletion,functions:withdrawConsent --project alchm-463017
 npm run check:runtime-attestation
 npm run check:release-trust
 ```
