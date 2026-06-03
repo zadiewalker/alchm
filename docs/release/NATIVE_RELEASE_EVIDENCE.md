@@ -2,21 +2,24 @@
 
 ## Status
 
-`ARCHIVE PRODUCED - BUNDLE ID ALIGNED, RELEASE BLOCKED BY REVENUECAT EVIDENCE`
+`CANDIDATE ARCHIVE PRODUCED - BUNDLE ID ALIGNED, RELEASE BLOCKED BY REVENUECAT EVIDENCE`
 
-Native remains in scope. This record captures the local native build/archive
-attempt for the current release branch. It does not approve native release and
-does not close `iosArchiveSameSha`.
+Native remains in scope. This record captures a local native build/archive run
+from the attested candidate SHA
+`16e3a5d19ceee278957a413fb01b69178dca97cf`. It does not approve native
+release and does not close `iosArchiveSameSha` because external RevenueCat
+dashboard and sandbox/TestFlight entitlement evidence is still absent.
 
 ## Source Binding
 
 | Field | Evidence |
 | --- | --- |
-| Inspected HEAD | `88f7427639740972dc5958417dcc267e35e0ba99` |
+| Attested candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
+| Native archive worktree | Detached worktree at `/tmp/alchm-ios-candidate-16e3` |
 | Worktree before native run | Clean according to `git status --short --branch` |
-| Canonical Capacitor source ID | `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
-| Generated Capacitor config ID after sync | `ios/App/App/capacitor.config.json` declares `appId: "com.alchm.sanctuary"` |
-| Native Xcode target ID | `ios/App/App.xcodeproj/project.pbxproj` declares `PRODUCT_BUNDLE_IDENTIFIER = com.alchm.sanctuary` for Debug and Release |
+| Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
+| Generated Capacitor config ID after sync | Candidate sync generated `ios/App/App/capacitor.config.json` with `appId: "com.alchm.sanctuary"` |
+| Native Xcode target ID | Candidate `ios/App/App.xcodeproj/project.pbxproj` declares `PRODUCT_BUNDLE_IDENTIFIER = com.alchm.sanctuary` for Debug and Release |
 
 ## Bundle ID Decision
 
@@ -32,10 +35,13 @@ setting even though Capacitor and release authority already named
 ```bash
 npm run build
 npx cap sync ios
-xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-88f7427639740972dc5958417dcc267e35e0ba99.xcarchive archive
-npx cap sync ios
-xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-native-bundle-check.xcarchive archive
-/usr/libexec/PlistBuddy -c "Print :ApplicationProperties:CFBundleIdentifier" /tmp/alchm-native-bundle-check.xcarchive/Info.plist
+xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive archive
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleIdentifier' /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:SigningIdentity' /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:Team' /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive/Info.plist
+shasum -a 256 /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive/Products/Applications/App.app/App
+find /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive -type f -print0 | sort -z | xargs -0 shasum -a 256 | shasum -a 256
+/usr/bin/codesign -dv --verbose=4 /tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive/Products/Applications/App.app
 ```
 
 ## Build and Sync Evidence
@@ -49,9 +55,9 @@ xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release
 
 | Field | Evidence |
 | --- | --- |
-| Archive path | `/tmp/alchm-native-bundle-check.xcarchive` |
+| Archive path | `/tmp/alchm-16e3a5d19ceee278957a413fb01b69178dca97cf.xcarchive` |
 | Archive result | `** ARCHIVE SUCCEEDED **` |
-| Archive timestamp | `2026-06-01T22:02:43Z` |
+| Archive timestamp | `2026-06-03T04:16:31Z` |
 | Archive scheme | `App` |
 | Archive actor/signing identity | `Apple Development: zadiewalker@gmail.com (AH6CMKPLYH)` |
 | Team ID | `8J47J9Y3A7` |
@@ -60,7 +66,10 @@ xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release
 | Expected authority bundle ID | `com.alchm.sanctuary` |
 | Bundle short version | `1.0` |
 | Bundle version | `2` |
-| App binary SHA-256 | `f76fba2db0efb5899e74cb92d8c7f0813a053184931d6ec0d0a847f8af3f2aa2` |
+| App binary SHA-256 | `37668584456f4449a53dc0b9999fb0ec634f95da23972f43fd80c4c9fdb28398` |
+| Archive file-manifest SHA-256 | `74f474c2cf284801f8eb4f7032008302aabf43fba02a390bae4e33f295377a9d` |
+| Code signing identifier | `com.alchm.sanctuary` |
+| Code signing CDHash | `2c77600ccbe3701691462b6bf1311839646a4111` |
 
 ## RevenueCat Evidence
 
@@ -70,6 +79,8 @@ Source constants currently identify:
 | --- | --- |
 | Entitlement constant | `ALCHM - Transformation` |
 | Product constant | `alchm_transformation_monthly` |
+| Monthly package constant | `$rc_monthly` |
+| Default offering constant | `default` |
 | Apple public API key | Present in `src/config/revenueCat.ts` |
 
 Release approval still requires external RevenueCat evidence:
@@ -86,14 +97,17 @@ Release approval still requires external RevenueCat evidence:
 
 `iosArchiveSameSha` remains blocked because:
 
-1. RevenueCat entitlement/product evidence for the archived build is absent.
-2. Same-SHA linkage cannot be certified until RevenueCat dashboard/runtime
-   evidence agrees with the archived bundle ID and candidate source.
+1. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
+2. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,
+   product `alchm_transformation_monthly`, package `$rc_monthly`, and offering
+   `default` is absent.
+3. Sandbox/TestFlight purchase or restore evidence proving the archived build
+   receives the expected entitlement is absent.
 
 ## Exact Next Commands
 
 Before setting `iosArchiveSameSha` to `true`, collect RevenueCat evidence for
-the aligned archive:
+the candidate-bound archive:
 
 ```bash
 git status --short --branch
