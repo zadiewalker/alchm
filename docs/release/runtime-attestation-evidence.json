@@ -1,76 +1,63 @@
 {
   "schemaVersion": 1,
-  "attestationStatus": "ATTESTED",
-  "runtimeEnablementAuthorized": true,
-  "candidateSha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
+  "attestationStatus": "NOT_ATTESTED",
+  "runtimeEnablementAuthorized": false,
+  "candidateSha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-02T17:55:18.250Z",
+  "verifiedAt": "2026-06-03T05:31:01.760Z",
   "verificationAuthority": {
     "status": "verified",
     "verifierId": "alchm-release-owner-2026-05",
     "reference": "docs/release/trusted-runtime-verifiers.json approvedVerifiers[verifierId=alchm-release-owner-2026-05]; receiptAlgorithm=RSA-SHA256"
   },
-  "receipt": {
-    "algorithm": "RSA-SHA256",
-    "payload": {
-      "schemaVersion": 1,
-      "receiptId": "prod-16e3a5d19cee-2026-06-02T17-55-18-250Z",
-      "verifierId": "alchm-release-owner-2026-05",
-      "candidateSha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "evidenceDigest": "a520df7bb094b208e7177d0cf7d219d1705cb7bdc5a60ed25b0fa85e0a287972",
-      "deploymentEnvironment": "production",
-      "functionsDeploymentSha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "firestoreRulesDeploymentSha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "deploymentEvidenceDigest": "b95b99e591b081f864ee7e7fa161c62cb2166ba74df166b1407381be08b5f2e3",
-      "providerSecretLineageDigest": "118451c6e24495a7b5b4fcad8f07cbb6c2ccf4a47647ef3187d7c1eab25321ee",
-      "authorizationScope": "continuity-transitions",
-      "issuedAt": "2026-06-02T17:55:18.250Z",
-      "expiresAt": "2026-06-03T17:55:18.252Z"
-    },
-    "signatureBase64": "E5ugooruzhIIwLriim3ghYgCQ8E45iy68tqfmoqqp+4dwCg09L5BtWEDWM3um/dSi9IB/5LAh7mWDb1c0jd+T9WV9WyE2x1i+KTAaBBZef1dbH4HnRrTg/vynse+vZd+PBOfx67vaxasriLN9p9rj18kpn64eHCXNBbGr1i9zGg01Ww5Li/omID1v9rATbPBtQPUM8cynZw+WXoORZXwh9u6fROUrCO0BpCd7gBAp457khHZP3keiRdo/yHwsz+KFLOl9sCjGDFrx4+1wWQ6b8xTohkJeSi2/e7c8QvBiNU8xZCRRz16dATNZLOoj9bEwaaWz2Lv/NLKSuXHUqk37VvGwIVlLWhwtkaOs9Y9rQ8Ri5hDS/AHc4Nyn9Mf6koNTsyVMuibn7TuNu2unCq+1wZG6n/WXxgFO4F0/I3tuyZQEoirmGnsjl/F4bBNkgkoqasy2ZbKyuPKCfGCb52Z1NJDpjQB/O9E3jCl5pkvUtPWlSqEPbxk6YEazYJbF5SQ"
-  },
+  "receipt": null,
   "consumedReceiptIds": [],
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "git status --porcelain was clean before candidate-bound emulator and runtime-attestation evidence regeneration; branch release/clinical-architecture-integration at 16e3a5d19ceee278957a413fb01b69178dca97cf"
+      "sha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
+      "reference": "git status --porcelain clean after Khepera cognition commit; branch release/clinical-architecture-integration at fcf06d42757136c1693afb3c1447d80df7d32ce6"
     },
     "releaseScope": {
       "verified": true,
-      "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "npm run check:release-scope expected for candidate 16e3a5d19ceee278957a413fb01b69178dca97cf; no authority-conflicting duplicate trees present in clean candidate checkout"
+      "sha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
+      "reference": "npm run check:release-scope passes for candidate fcf06d42757136c1693afb3c1447d80df7d32ce6; no authority-conflicting duplicate trees present"
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS candidate=16e3a5d19ceee278957a413fb01b69178dca97cf tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
+      "sha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
+      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS candidate=fcf06d42757136c1693afb3c1447d80df7d32ce6 tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
     },
     "functionsDeployment": {
-      "verified": true,
+      "verified": false,
       "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "Firebase project alchm-463017 deployed by zadiewalker@gmail.com on 2026-06-02; local callable/scheduled functions ACTIVE hash=844a2fd3b1f71300511f93fc8ad121b4022ed1cb; healthCheck ACTIVE Gen2 hash=245c06b5cc9c46a4d8447cfd61b332f45af470a4 generation=1780375038812683; preserved crisisDetection ACTIVE Gen2 hash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 generation=1780027273287952; candidate=16e3a5d19ceee278957a413fb01b69178dca97cf"
+      "reference": "STALE: Firebase Functions deployment evidence is bound to previous candidate 16e3a5d19ceee278957a413fb01b69178dca97cf; redeploy Functions from fcf06d42757136c1693afb3c1447d80df7d32ce6 and capture function hashes/revisions before attestation can pass"
     },
     "firestoreRulesDeployment": {
-      "verified": true,
+      "verified": false,
       "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "Firebase project alchm-463017 Firestore rules deployed by zadiewalker@gmail.com on 2026-06-02; digest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=16e3a5d19ceee278957a413fb01b69178dca97cf"
+      "reference": "STALE: Firestore rules deployment record is bound to previous candidate 16e3a5d19ceee278957a413fb01b69178dca97cf; deploy/verify rules for fcf06d42757136c1693afb3c1447d80df7d32ce6 or capture explicit unchanged-rules same-SHA authority before attestation can pass"
     },
     "providerSecretPresence": {
       "verified": true,
-      "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 functionsHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=16e3a5d19ceee278957a413fb01b69178dca97cf"
+      "sha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
+      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=fcf06d42757136c1693afb3c1447d80df7d32ce6; deployment binding remains pending same-SHA Functions deployment"
     },
     "deploymentAuthority": {
-      "verified": true,
+      "verified": false,
       "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "Vercel production deployment dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh url=https://alchm-oz7m9ozjg-zadie-walkers-projects.vercel.app actor=zadiewalker created=2026-06-02T08:07:27Z status=Ready; Firebase project alchm-463017 actor=zadiewalker@gmail.com; functionsHash=844a2fd3b1f71300511f93fc8ad121b4022ed1cb; healthCheckHash=245c06b5cc9c46a4d8447cfd61b332f45af470a4; crisisDetectionHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; candidate=16e3a5d19ceee278957a413fb01b69178dca97cf"
+      "reference": "STALE: Vercel/Firebase deployment lineage points to previous candidate 16e3a5d19ceee278957a413fb01b69178dca97cf; deploy Vercel/static export and Firebase surfaces from fcf06d42757136c1693afb3c1447d80df7d32ce6 before issuing a new receipt"
     },
     "rollbackAuthority": {
-      "verified": true,
+      "verified": false,
       "sha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
-      "reference": "docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md candidate=16e3a5d19ceee278957a413fb01b69178dca97cf; vercelRollbackTarget=dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh; firebaseProject=alchm-463017; functionsHash=844a2fd3b1f71300511f93fc8ad121b4022ed1cb; healthCheckHash=245c06b5cc9c46a4d8447cfd61b332f45af470a4; crisisDetectionHash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a; owner=zadiewalker-release-authority"
+      "reference": "STALE: rollback record targets previous candidate 16e3a5d19ceee278957a413fb01b69178dca97cf; update rollback targets after same-SHA deployments for fcf06d42757136c1693afb3c1447d80df7d32ce6"
     }
   },
-  "recordedProviderSecretLineageDigest": "ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a"
+  "recordedProviderSecretLineageDigest": "ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a",
+  "previousAttestedCandidate": {
+    "candidateSha": "16e3a5d19ceee278957a413fb01b69178dca97cf",
+    "supersededBy": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
+    "reason": "Khepera adaptive cognition source/test/docs commit promoted to authoritative release candidate; prior receipt cannot authorize the new source-bearing candidate."
+  }
 }
