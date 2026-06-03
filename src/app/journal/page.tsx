@@ -149,12 +149,12 @@ function JournalContent() {
       <SanctuaryLayout
         header={
           <SanctuaryHeader
-            title="Journal"
+            title="Archive"
             showBack
             rightAction={
               <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>
                 <Link href="/settings/" style={newLinkStyle}>Export</Link>
-                <Link href="/journal/new/" style={newLinkStyle}>New</Link>
+                <Link href="/journal/new/" style={newLinkStyle}>Write</Link>
               </div>
             }
           />
@@ -176,12 +176,12 @@ function JournalContent() {
     <SanctuaryLayout
       header={
         <SanctuaryHeader
-          title="Journal"
+          title="Archive"
           showBack
           rightAction={
             <div style={{ display: 'flex', gap: DESIGN.spacing.xs }}>
-              <Link href="/settings/" style={newLinkStyle}>Export</Link>
-              <Link href="/journal/new/" style={newLinkStyle}>New</Link>
+                <Link href="/settings/" style={newLinkStyle}>Export</Link>
+                <Link href="/journal/new/" style={newLinkStyle}>Write</Link>
             </div>
           }
         />
@@ -192,7 +192,7 @@ function JournalContent() {
           <input
             value={queryInput}
             onChange={(event) => setQueryInput(event.target.value)}
-            placeholder="Search entries"
+            placeholder="Search the archive"
             style={searchInputStyle}
           />
           <div style={{ marginTop: DESIGN.spacing.sm, display: 'flex', gap: DESIGN.spacing.xs, flexWrap: 'wrap', overflowX: 'auto' }}>
@@ -208,7 +208,7 @@ function JournalContent() {
               <FilterChip key={tag} label={`#${tag}`} active={(filters.tags || []).includes(tag)} onClick={() => toggleTag(tag)} />
             ))}
             <FilterChip
-              label="Has reflection"
+              label="Returned reflection"
               active={Boolean(filters.hasReflection)}
               onClick={() => setFilters((prev) => ({ ...prev, hasReflection: !prev.hasReflection }))}
             />
@@ -238,12 +238,12 @@ function JournalContent() {
             </label>
           </div>
           <SanctuaryText variant="caption" style={{ marginTop: DESIGN.spacing.sm }}>
-            {searchResult.totalCount} entries match
+            {searchResult.totalCount} preserved entries
           </SanctuaryText>
         </SanctuaryCard>
 
         {!searchResult.entries.length ? (
-          <EmptyState title="No matches" message="No entries match. Try a different search or filter." />
+          <EmptyState title="Nothing surfaced" message="Nothing in the archive matches this view right now." />
         ) : (
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
             {searchResult.entries.map((entry) => (
@@ -281,7 +281,7 @@ function FilterChip({ label, active, onClick }: { label: string; active: boolean
         minHeight: '34px',
         borderRadius: DESIGN.radius.full,
         border: `1px solid ${active ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
-        background: active ? 'rgba(232,197,109,0.2)' : DESIGN.colors.cardBg,
+  background: active ? 'rgba(185,151,78,0.16)' : DESIGN.colors.cardBg,
         color: active ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary,
         fontFamily: DESIGN.typography.sansSerif,
         fontSize: DESIGN.typography.sizes.sm,
@@ -304,8 +304,8 @@ const newLinkStyle: React.CSSProperties = {
   justifyContent: 'center',
   textDecoration: 'none',
   border: `1px solid ${DESIGN.colors.goldDim}`,
-  background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  background: 'rgba(31,42,27,0.3)',
+  color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

@@ -29,8 +29,8 @@ export function EmptyState({ icon = '☾', title, message, actionLabel, onAction
             minHeight: '44px',
             borderRadius: DESIGN.radius.full,
             border: `1px solid ${DESIGN.colors.goldDim}`,
-            background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-            color: '#fff',
+            background: 'rgba(31,42,27,0.3)',
+            color: DESIGN.colors.textPrimary,
             padding: '10px 18px',
             fontFamily: DESIGN.typography.sansSerif,
           }}

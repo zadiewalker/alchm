@@ -23,7 +23,7 @@ function getCategoryIcon(category: string): string {
 }
 
 function getRhythmLabel(totalDays: number): string {
-  return `${totalDays}-day reflection rhythm`;
+  return `${totalDays} openings held here`;
 }
 
 export function ContainerCatalogCard({
@@ -43,7 +43,7 @@ export function ContainerCatalogCard({
     ? 'Current'
     : isCompleted
     ? 'Resting here'
-    : 'Available to begin';
+    : 'Available to enter';
 
   const handleAction = (): void => {
     if (isCompleted) {
@@ -109,7 +109,7 @@ export function ContainerCatalogCard({
       <div className="container-card__status-row">
         <span aria-hidden="true" className={['container-card__status-dot', isActive ? 'is-active' : ''].filter(Boolean).join(' ')} />
         <span className="container-card__status-text">
-          {!canAccess ? '🔒 ' : ''}
+          {!canAccess ? '' : ''}
           {statusText}
         </span>
       </div>
@@ -136,9 +136,9 @@ export function ContainerCatalogCard({
             !isCompleted ? 'container-card__action--primary' : '',
           ].filter(Boolean).join(' ')}
         >
-          {isCompleted ? 'Revisit ceremony' :
-           isActive ? 'Enter today\'s writing' :
-           'Open container'}
+          {isCompleted ? 'Revisit the space' :
+           isActive ? 'Enter the chamber' :
+           'Enter container'}
         </button>
       )}
     </article>

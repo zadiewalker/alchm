@@ -2,31 +2,31 @@ import type React from 'react';
 
 export const DESIGN = {
   colors: {
-    bgDeep: '#1a1f16',
-    bgSurface: '#242b1e',
-    bgElevated: '#2d3527',
-    bgWarm: '#2a2520',
-    sageMuted: '#6b7a5e',
-    sage: '#8B9A7C',
-    sageLight: '#A8B5A0',
-    sageBright: '#c2d1b8',
-    goldDim: '#b89d4a',
-    gold: '#E8C56D',
-    goldBright: '#f5dfa0',
-    textPrimary: 'rgba(255, 255, 255, 0.92)',
-    textSecondary: 'rgba(255, 255, 255, 0.65)',
-    textMuted: 'rgba(255, 255, 255, 0.40)',
-    textKhepera: '#E8C56D',
+    bgDeep: '#1f2a1b',
+    bgSurface: '#2d3a25',
+    bgElevated: '#445339',
+    bgWarm: '#2d3a25',
+    sageMuted: '#445339',
+    sage: '#879774',
+    sageLight: '#a8b993',
+    sageBright: '#f3e7c8',
+    goldDim: '#b9974e',
+    gold: '#b9974e',
+    goldBright: '#c7a967',
+    textPrimary: '#fff3d6',
+    textSecondary: 'rgba(243, 231, 200, 0.78)',
+    textMuted: 'rgba(168, 185, 147, 0.72)',
+    textKhepera: '#f3e7c8',
     error: '#c47a6a',
     success: '#8ba88a',
-    border: 'rgba(255, 255, 255, 0.10)',
-    borderLight: 'rgba(255, 255, 255, 0.06)',
-    cardBg: 'rgba(255, 255, 255, 0.06)',
-    cardBgHover: 'rgba(255, 255, 255, 0.10)',
+    border: 'rgba(185, 151, 78, 0.22)',
+    borderLight: 'rgba(185, 151, 78, 0.16)',
+    cardBg: 'rgba(45, 58, 37, 0.72)',
+    cardBgHover: 'rgba(68, 83, 57, 0.82)',
   },
   typography: {
-    sansSerif: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif",
-    serif: "'New York', 'Georgia', serif",
+    sansSerif: "var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+    serif: "var(--font-family-heading), 'Georgia', serif",
     sizes: {
       xs: '11px',
       sm: '13px',
@@ -34,7 +34,7 @@ export const DESIGN = {
       lg: '18px',
       xl: '22px',
       xxl: '28px',
-      display: '36px',
+      display: 'clamp(52px, 12vw, 96px)',
     },
     weights: {
       light: 300,
@@ -61,14 +61,14 @@ export const DESIGN = {
   radius: {
     sm: '8px',
     md: '12px',
-    lg: '16px',
-    xl: '24px',
+    lg: '28px 28px 10px 10px',
+    xl: '44px 44px 12px 12px',
     full: '9999px',
   },
   shadows: {
-    card: '0 2px 12px rgba(0, 0, 0, 0.3)',
-    elevated: '0 8px 32px rgba(0, 0, 0, 0.4)',
-    glow: '0 0 20px rgba(232, 197, 109, 0.15)',
+    card: '0 24px 70px rgba(31, 42, 27, 0.24)',
+    elevated: '0 34px 110px rgba(31, 42, 27, 0.32)',
+    glow: '0 0 28px rgba(185, 151, 78, 0.14)',
   },
   transitions: {
     fast: '150ms ease',
@@ -78,7 +78,9 @@ export const DESIGN = {
 } as const;
 
 export const cardStyle = (elevated = false): React.CSSProperties => ({
-  backgroundColor: elevated ? DESIGN.colors.bgElevated : DESIGN.colors.cardBg,
+  background: elevated
+    ? 'linear-gradient(180deg, rgba(255,243,214,0.1), rgba(68,83,57,0.68))'
+    : 'linear-gradient(180deg, rgba(255,243,214,0.07), rgba(45,58,37,0.72))',
   borderRadius: DESIGN.radius.lg,
   border: `1px solid ${DESIGN.colors.border}`,
   padding: DESIGN.spacing.lg,
@@ -88,7 +90,7 @@ export const cardStyle = (elevated = false): React.CSSProperties => ({
 
 export const pageContainerStyle: React.CSSProperties = {
   minHeight: '100vh',
-  background: `linear-gradient(to bottom, ${DESIGN.colors.sage}, ${DESIGN.colors.sageLight})`,
+  background: `linear-gradient(to bottom, ${DESIGN.colors.bgDeep}, ${DESIGN.colors.bgSurface})`,
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   paddingLeft: DESIGN.spacing.pagePadding,

@@ -59,7 +59,7 @@ export default function DashboardClient() {
 
   if (!isInitialized) {
     return (
-      <SanctuaryLayout header={<SanctuaryHeader title="Dashboard" />}>
+      <SanctuaryLayout header={<SanctuaryHeader title="ALCHM" />}>
         <LoadingState message="Preparing your sanctuary..." variant="page" />
       </SanctuaryLayout>
     );
@@ -69,7 +69,7 @@ export default function DashboardClient() {
     <SanctuaryLayout
       header={
         <SanctuaryHeader
-          title="Dashboard"
+          title="ALCHM"
           rightAction={
             <Link
               href="/settings/"
@@ -100,10 +100,10 @@ export default function DashboardClient() {
 
         <SanctuaryCard elevated>
           <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>
-            What's present for you today?
+            What wants to be held here?
           </SanctuaryText>
           <SanctuaryText variant="khepera" style={{ marginBottom: DESIGN.spacing.md }}>
-            — Khepera
+            A private archive of writing, return, and reflection.
           </SanctuaryText>
           <button
             type="button"
@@ -113,22 +113,21 @@ export default function DashboardClient() {
               borderRadius: DESIGN.radius.full,
               border: `1px solid ${DESIGN.colors.goldDim}`,
               padding: '10px 18px',
-              background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
+              background: 'rgba(31,42,27,0.28)',
               color: DESIGN.colors.textPrimary,
               fontFamily: DESIGN.typography.sansSerif,
               fontSize: DESIGN.typography.sizes.sm,
             }}
           >
-            Begin writing
+            Enter the writing chamber
           </button>
         </SanctuaryCard>
 
         <SanctuaryCard>
           <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
-            <DashboardNav href="/journal/" title="Journal" subtitle="Your past reflections" />
-            <DashboardNav href="/insights/" title="Reflections" subtitle="Themes that have gathered" />
-            <DashboardNav href="/containers/" title="Containers" subtitle="Guided writing spaces" />
-            <DashboardNav href="/community/" title="Community" subtitle="Anonymous wisdom moments" />
+            <DashboardNav href="/journal/" title="Archive" subtitle="Where your entries remain preserved" />
+            <DashboardNav href="/insights/" title="Mirror" subtitle="Themes that have gathered slowly" />
+            <DashboardNav href="/containers/" title="Containers" subtitle="Spaces that change what becomes visible" />
           </div>
         </SanctuaryCard>
 
@@ -146,7 +145,7 @@ export default function DashboardClient() {
         {!loadingEntries && !error && entries.length ? (
           <SanctuaryCard>
             <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
-              Recent entries
+              Recently preserved
             </SanctuaryText>
             <div style={{ display: 'grid', gap: DESIGN.spacing.sm }}>
               {entries.map((entry) => (

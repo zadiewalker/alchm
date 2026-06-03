@@ -19,6 +19,8 @@ export function SanctuaryCard({ children, elevated = false, onClick, style }: Sa
         ...cardStyle(elevated),
         cursor: onClick ? 'pointer' : 'default',
         minHeight: '44px',
+        position: 'relative',
+        overflow: 'hidden',
         ...(onClick ? { WebkitTapHighlightColor: 'transparent' } : {}),
         ...style,
       }}

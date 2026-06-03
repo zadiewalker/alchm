@@ -108,8 +108,8 @@ export default function ContainersPage() {
     <AppLayout className="page-enter" header={<AppHeader title="Containers" />}>
       <div className="containers-stack">
         <SectionIntro
-          title="Choose the space you want to enter."
-          body="Only one container stays active at a time, so each one can remain deliberate."
+          title="Enter a space of attention."
+          body="A container changes what becomes visible. It waits without asking you to keep pace."
         />
 
         {active ? (() => {
@@ -117,7 +117,7 @@ export default function ContainersPage() {
           return (
             <AppCard elevated className="containers-active-card">
               <AppText variant="caption" className="containers-active-meta">
-                your current container
+                current chamber
               </AppText>
               <AppText variant="title" className="containers-active-title">
                 {activeContainer.containerName || 'Current container'}
@@ -131,7 +131,7 @@ export default function ContainersPage() {
                     : `/containers/${activeContainer.containerId}/today`
                 )}
               >
-                {activeContainer.hasWrittenToday ? 'Return to your container' : 'Enter today\'s writing'}
+                {activeContainer.hasWrittenToday ? 'Return to the chamber' : 'Enter the writing'}
               </button>
             </AppCard>
           );
@@ -179,7 +179,7 @@ export default function ContainersPage() {
         {completed.length ? (
           <AppCard>
             <AppText variant="caption" className="containers-completed-label">
-              Containers resting here
+              Spaces resting here
             </AppText>
             <div className="containers-completed-list">
               {completed.slice(0, 5).map((item) => {

@@ -21,8 +21,8 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
         zIndex: 20,
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 18px)',
         paddingBottom: DESIGN.spacing.md,
-        background: `linear-gradient(to bottom, ${DESIGN.colors.sageLight}, rgba(168,181,160,0.92))`,
-        backdropFilter: 'blur(8px)',
+        background: 'linear-gradient(180deg, rgba(31,42,27,0.96), rgba(31,42,27,0.72), rgba(31,42,27,0))',
+        backdropFilter: 'blur(14px)',
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', gap: DESIGN.spacing.sm }}>
@@ -36,7 +36,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             height: '44px',
             borderRadius: DESIGN.radius.full,
             border: `1px solid ${DESIGN.colors.border}`,
-            background: DESIGN.colors.cardBg,
+            background: 'rgba(31,42,27,0.46)',
             color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: DESIGN.typography.sizes.base,
@@ -49,9 +49,10 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             margin: 0,
             textAlign: 'center',
             color: DESIGN.colors.textPrimary,
-            fontFamily: DESIGN.typography.sansSerif,
+            fontFamily: DESIGN.typography.serif,
             fontSize: DESIGN.typography.sizes.xl,
             fontWeight: DESIGN.typography.weights.light,
+            letterSpacing: '-0.02em',
           }}
         >
           {title}
