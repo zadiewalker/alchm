@@ -2,7 +2,7 @@ import type React from 'react';
 
 export const DESIGN = {
   colors: {
-    primary: '#A4B792',
+    primary: 'var(--poster-muted-gold)',
     bgDeep: '#6B7A5C',
     bgSurface: '#6B7A5C',
     bgElevated: '#8B9A7C',
@@ -11,19 +11,19 @@ export const DESIGN = {
     sage: '#8b9a7c',
     sageLight: '#A4B792',
     sageBright: '#F2D99D',
-    goldDim: '#A4B792',
-    gold: '#A4B792',
+    goldDim: 'var(--color-gold-600)',
+    gold: 'var(--poster-muted-gold)',
     goldBright: '#E5C97D',
     textPrimary: '#F2D99D',
-    textSecondary: 'rgba(255,255,255,0.8)',
-    textMuted: 'rgba(255,255,255,0.8)',
+    textSecondary: 'var(--text-secondary)',
+    textMuted: 'var(--text-muted)',
     textKhepera: '#F2D99D',
     error: '#B91C1C',
     success: '#A4B792',
     border: 'color-mix(in srgb, #A4B792 42%, transparent)',
     borderLight: 'color-mix(in srgb, #A4B792 28%, transparent)',
-    cardBg: 'color-mix(in srgb, #A4B792 18%, transparent)',
-    cardBgHover: 'color-mix(in srgb, #A4B792 28%, transparent)',
+    cardBg: 'var(--surface-color)',
+    cardBgHover: 'var(--surface-soft-hover)',
   },
   typography: {
     sansSerif: "var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
@@ -57,7 +57,7 @@ export const DESIGN = {
     xl: '32px',
     xxl: '48px',
     pagePadding: '20px',
-    safeBottom: '100px',
+    safeBottom: '124px',
   },
   radius: {
     sm: '8px',
@@ -67,9 +67,9 @@ export const DESIGN = {
     full: '9999px',
   },
   shadows: {
-    card: '0 24px 70px color-mix(in srgb, #A4B792 22%, transparent)',
-    elevated: '0 34px 110px color-mix(in srgb, #A4B792 28%, transparent)',
-    glow: '0 0 28px color-mix(in srgb, #A4B792 28%, transparent)',
+    card: 'var(--shadow-soft)',
+    elevated: 'var(--shadow-strong)',
+    glow: '0 0 28px color-mix(in srgb, var(--primary-sage) 18%, transparent)',
   },
   transitions: {
     fast: '150ms ease',
@@ -80,8 +80,8 @@ export const DESIGN = {
 
 export const cardStyle = (elevated = false): React.CSSProperties => ({
   background: elevated
-    ? 'linear-gradient(180deg, color-mix(in srgb, #A4B792 28%, transparent), color-mix(in srgb, #A4B792 16%, transparent))'
-    : 'linear-gradient(180deg, color-mix(in srgb, #A4B792 18%, transparent), rgba(255,255,255,0.1))',
+    ? 'linear-gradient(180deg, var(--surface-elevated), var(--surface-soft))'
+    : 'linear-gradient(180deg, var(--surface-color), var(--surface-soft))',
   borderRadius: DESIGN.radius.lg,
   border: `1px solid ${DESIGN.colors.border}`,
   padding: DESIGN.spacing.lg,

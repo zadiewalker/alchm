@@ -68,17 +68,20 @@ function applyCSSTokens(): void {
   const root = document.documentElement;
 
   root.style.setProperty('--bg-base', '#6B7A5C');
-  root.style.setProperty('--bg-surface', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--bg-surface', 'color-mix(in srgb, #A4B792 16%, transparent)');
   root.style.setProperty('--bg-surface-deep', '#6B7A5C');
-  root.style.setProperty('--bg-inset', 'rgba(255,255,255,0.15)');
-  root.style.setProperty('--bg-nav', 'rgba(255,255,255,0.9)');
+  root.style.setProperty('--bg-inset', 'color-mix(in srgb, #A4B792 12%, transparent)');
+  root.style.setProperty('--bg-nav', 'color-mix(in srgb, #A4B792 82%, #6B7A5C)');
   root.style.setProperty('--bg-overlay', 'rgba(255,255,255,0.2)');
 
   root.style.setProperty('--background-primary', '#6B7A5C');
-  root.style.setProperty('--surface-color', 'rgba(255,255,255,0.8)');
-  root.style.setProperty('--surface-elevated', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--surface-input', 'rgba(255,255,255,0.15)');
-  root.style.setProperty('--surface-nav', 'rgba(255,255,255,0.9)');
+  root.style.setProperty('--surface-color', 'color-mix(in srgb, #A4B792 16%, transparent)');
+  root.style.setProperty('--surface-elevated', 'color-mix(in srgb, #A4B792 21%, transparent)');
+  root.style.setProperty('--surface-input', 'color-mix(in srgb, #A4B792 16%, transparent)');
+  root.style.setProperty('--surface-nav', 'color-mix(in srgb, #A4B792 82%, #6B7A5C)');
+  root.style.setProperty('--surface-journal-paper', 'color-mix(in srgb, #F2D99D 14%, #6B7A5C)');
+  root.style.setProperty('--surface-chip', 'color-mix(in srgb, #F2D99D 5%, transparent)');
+  root.style.setProperty('--surface-chip-selected', 'color-mix(in srgb, #F2D99D 10%, transparent)');
 
   root.style.setProperty('--text-primary', '#F2D99D');
   root.style.setProperty('--text-secondary', 'rgba(255,255,255,0.8)');
@@ -99,9 +102,9 @@ function applyCSSTokens(): void {
   root.style.setProperty('--khepera-measure', '32ch');
   root.style.setProperty('--khepera-seed-measure', '24ch');
   root.style.setProperty('--khepera-inset', '28px');
-  root.style.setProperty('--khepera-block-gap', '16px');
-  root.style.setProperty('--khepera-paragraph-gap', '18px');
-  root.style.setProperty('--khepera-section-gap', '26px');
+  root.style.setProperty('--khepera-block-gap', '18px');
+  root.style.setProperty('--khepera-paragraph-gap', '20px');
+  root.style.setProperty('--khepera-section-gap', '28px');
   root.style.setProperty('--scarab-logo-size-sm', '36px');
   root.style.setProperty('--scarab-logo-size-md', '52px');
   root.style.setProperty('--scarab-logo-size-lg', '88px');
@@ -113,24 +116,24 @@ function applyCSSTokens(): void {
   root.style.setProperty('--gold-border', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--gold-subtle', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--accent-primary', '#E5C97D');
-  root.style.setProperty('--accent-hover', '#E5C97D');
+  root.style.setProperty('--accent-hover', '#D4B76A');
 
   root.style.setProperty('--border-subtle', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--border-normal', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--border-strong', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--border-divider', 'rgba(255,255,255,0.2)');
   root.style.setProperty('--border-visible', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--surface-focus', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--surface-soft-hover', 'rgba(255,255,255,0.15)');
-  root.style.setProperty('--surface-soft-selected', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--surface-nav-halo', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--surface-nav-active', 'rgba(255,255,255,0.1)');
-  root.style.setProperty('--border-selected', 'rgba(255,255,255,0.1)');
+  root.style.setProperty('--surface-focus', 'color-mix(in srgb, #A4B792 28%, transparent)');
+  root.style.setProperty('--surface-soft-hover', 'color-mix(in srgb, #A4B792 18%, transparent)');
+  root.style.setProperty('--surface-soft-selected', 'color-mix(in srgb, #A4B792 24%, transparent)');
+  root.style.setProperty('--surface-nav-halo', 'color-mix(in srgb, #A4B792 28%, transparent)');
+  root.style.setProperty('--surface-nav-active', 'color-mix(in srgb, #A4B792 26%, transparent)');
+  root.style.setProperty('--border-selected', 'color-mix(in srgb, #A4B792 36%, transparent)');
   root.style.setProperty('--focus-ring-soft', 'rgba(255,255,255,0.05)');
   root.style.setProperty('--shadow-input-rest', 'inset 0 1px 0 rgba(255,255,255,0.1)');
   root.style.setProperty('--shadow-input-focus', '0 0 0 1px rgba(255,255,255,0.05)');
   root.style.setProperty('--gradient-writing-shelf', 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.9) 100%)');
-  root.style.setProperty('--shadow-nav', '0 -10px 38px rgba(255,255,255,0.2)');
+  root.style.setProperty('--shadow-nav', '0 -10px 34px color-mix(in srgb, #6B7A5C 18%, transparent)');
   root.style.setProperty('--font-family-serif', '"Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Noto Serif", Georgia, serif');
   root.style.setProperty('--font-family-heading', 'var(--font-family-serif)');
   root.style.setProperty('--font-family-khepera', 'var(--font-family-serif)');

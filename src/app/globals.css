@@ -31,13 +31,13 @@
   --archive-cream: #F2D99D;
   --archive-paper: #F2D99D;
   --archive-gold: #E5C97D;
-  --archive-line: rgba(255,255,255,0.2);
-  --archive-line-strong: rgba(255,255,255,0.2);
-  --archive-chamber: rgba(255,255,255,0.8);
-  --archive-chamber-deep: rgba(255,255,255,0.8);
-  --archive-sage-plaster: rgba(255,255,255,0.2);
-  --archive-paper-wash: rgba(255,255,255,0.1);
-  --archive-light: rgba(255,255,255,0.1);
+  --archive-line: color-mix(in srgb, var(--archive-cream) 10%, transparent);
+  --archive-line-strong: color-mix(in srgb, var(--archive-cream) 16%, transparent);
+  --archive-chamber: color-mix(in srgb, var(--primary-sage) 16%, transparent);
+  --archive-chamber-deep: color-mix(in srgb, var(--primary-sage) 22%, transparent);
+  --archive-sage-plaster: color-mix(in srgb, var(--primary-sage) 12%, transparent);
+  --archive-paper-wash: color-mix(in srgb, var(--archive-cream) 8%, transparent);
+  --archive-light: color-mix(in srgb, var(--archive-cream) 8%, transparent);
   
   /* Surface Opacities */
   --glass-subtle: rgba(255,255,255,0.05);
@@ -103,7 +103,7 @@ html {
 body {
   height: 100%;
   margin: 0;
-  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 4.75rem);
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 5.75rem);
   font-family: var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
   background:
     radial-gradient(circle at 50% -10%, rgba(255,255,255,0.2), transparent 30rem),
@@ -309,7 +309,7 @@ textarea {
 
 .app-shell-field::before,
 .page-container::before {
-  opacity: 0.42;
+  opacity: 0.34;
   background-image:
     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
@@ -323,7 +323,7 @@ textarea {
     radial-gradient(circle at 50% 18%, transparent 0, transparent 34%, rgba(255,255,255,0.2) 100%),
     repeating-radial-gradient(circle at 50% 12%, rgba(255,255,255,0.05) 0 1px, transparent 1px 18px);
   mix-blend-mode: normal;
-  opacity: 0.48;
+  opacity: 0.36;
 }
 
 .screen-atmosphere,
@@ -336,8 +336,8 @@ textarea {
 
 .screen-atmosphere {
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.8), transparent 18%, transparent 82%, rgba(255,255,255,0.8)),
-    radial-gradient(circle at 50% 8%, rgba(255,255,255,0.2), transparent 30rem);
+    linear-gradient(90deg, color-mix(in srgb, var(--archive-cream) 18%, transparent), transparent 18%, transparent 82%, color-mix(in srgb, var(--archive-cream) 18%, transparent)),
+    radial-gradient(circle at 50% 8%, color-mix(in srgb, var(--archive-cream) 16%, transparent), transparent 30rem);
 }
 
 .alchm-presence {
@@ -355,8 +355,8 @@ main {
 }
 
 .app-header-shell {
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8), rgba(255,255,255,0.05)) !important;
-  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--archive-cream) 16%, transparent), color-mix(in srgb, var(--archive-cream) 12%, transparent), transparent) !important;
+  backdrop-filter: blur(12px);
 }
 
 .app-header-title {
@@ -373,12 +373,12 @@ main {
   border: 1px solid var(--archive-line) !important;
   border-radius: 28px 28px 10px 10px !important;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05) 42%, rgba(255,255,255,0.2)),
+    linear-gradient(180deg, color-mix(in srgb, var(--archive-cream) 8%, transparent), color-mix(in srgb, var(--archive-cream) 3%, transparent) 42%, color-mix(in srgb, var(--archive-cream) 9%, transparent)),
     var(--archive-chamber) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -28px 50px rgba(255,255,255,0.2),
-    0 28px 80px rgba(255,255,255,0.2) !important;
+    inset 0 1px 0 color-mix(in srgb, var(--archive-cream) 8%, transparent),
+    inset 0 -24px 44px color-mix(in srgb, var(--archive-cream) 8%, transparent),
+    0 20px 54px color-mix(in srgb, var(--primary-sage) 11%, transparent) !important;
 }
 
 .card::before,
@@ -389,7 +389,7 @@ main {
   height: 34px;
   border-top: 1px solid var(--archive-line);
   border-radius: 999px 999px 0 0;
-  opacity: 0.7;
+  opacity: 0.44;
   pointer-events: none;
 }
 
@@ -400,9 +400,9 @@ main {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15), transparent 42%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 7px);
-  opacity: 0.78;
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--archive-cream) 7%, transparent), transparent 42%),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--archive-cream) 2%, transparent) 0 1px, transparent 1px 7px);
+  opacity: 0.42;
 }
 
 .card > *,
@@ -436,8 +436,8 @@ a[class*="btn"] {
     linear-gradient(180deg, color-mix(in srgb, var(--accent-primary) 84%, #F2D99D), var(--accent-primary)) !important;
   color: var(--btn-primary-text) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 18px 46px color-mix(in srgb, var(--accent-primary) 26%, transparent) !important;
+    inset 0 1px 0 color-mix(in srgb, var(--archive-cream) 16%, transparent),
+    0 10px 26px color-mix(in srgb, var(--accent-primary) 12%, transparent) !important;
 }
 
 .btn-primary:hover,
@@ -483,8 +483,9 @@ a[class*="btn"] {
 .journal-writing-support,
 .journal-khepera-orientation {
   max-width: 28rem;
-  margin: 18px auto 0 !important;
-  color: rgba(255,255,255,0.8) !important;
+  margin: 20px auto 0 !important;
+  color: var(--text-secondary) !important;
+  line-height: var(--line-height-relaxed) !important;
 }
 
 .journal-input-shell {
@@ -494,13 +495,13 @@ a[class*="btn"] {
   border: 1px solid var(--archive-line);
   border-radius: 54px 54px 12px 12px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.2), transparent 32%),
-    linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.7)),
-    rgba(255,255,255,0.7);
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--archive-cream) 12%, transparent), transparent 32%),
+    linear-gradient(180deg, color-mix(in srgb, var(--archive-cream) 8%, transparent), color-mix(in srgb, var(--primary-sage) 10%, transparent)),
+    var(--surface-journal-paper);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -38px 80px rgba(255,255,255,0.2),
-    0 36px 100px rgba(255,255,255,0.2);
+    inset 0 1px 0 color-mix(in srgb, var(--archive-cream) 10%, transparent),
+    inset 0 -38px 80px color-mix(in srgb, var(--archive-cream) 12%, transparent),
+    0 24px 70px color-mix(in srgb, var(--primary-sage) 12%, transparent);
 }
 
 .journal-input-shell::before {
@@ -510,7 +511,7 @@ a[class*="btn"] {
   height: 58px;
   border-top: 1px solid var(--archive-line-strong);
   border-radius: 999px 999px 0 0;
-  opacity: 0.62;
+  opacity: 0.48;
   pointer-events: none;
 }
 
@@ -522,13 +523,13 @@ a[class*="btn"] {
   color: var(--archive-cream);
   font-family: var(--font-family-serif);
   font-size: clamp(25px, 6vw, 38px);
-  line-height: 1.42;
+  line-height: 1.48;
   letter-spacing: -0.015em;
   caret-color: var(--archive-gold);
 }
 
 .journal-textarea::placeholder {
-  color: rgba(255,255,255,0.2);
+  color: color-mix(in srgb, var(--archive-cream) 34%, transparent);
 }
 
 .journal-writing-shelf,
@@ -549,7 +550,7 @@ a[class*="btn"] {
 
 .khepera-reading-block {
   display: grid;
-  gap: 30px;
+  gap: 32px;
 }
 
 .khepera-reading-divider {
@@ -569,9 +570,9 @@ a[class*="btn"] {
   border: 1px solid var(--archive-line) !important;
   border-radius: 44px 44px 10px 10px !important;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.2), transparent 38%),
-    linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.7)) !important;
-  box-shadow: 0 26px 74px rgba(255,255,255,0.2);
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--archive-cream) 12%, transparent), transparent 38%),
+    linear-gradient(180deg, var(--archive-chamber-deep), var(--archive-chamber)) !important;
+  box-shadow: 0 18px 52px color-mix(in srgb, var(--primary-sage) 11%, transparent);
 }
 
 .entry-card-link {
@@ -605,10 +606,11 @@ a[class*="btn"] {
 
 .entry-card-tag,
 .entry-card-mood-chip {
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid var(--archive-line);
   border-radius: 999px;
-  padding: 3px 8px;
-  background: rgba(255,255,255,0.2) !important;
+  padding: 4px 10px;
+  background: var(--surface-chip) !important;
+  color: var(--text-secondary) !important;
 }
 
 .entry-card-khepera-dot {
@@ -617,6 +619,15 @@ a[class*="btn"] {
   border-radius: 999px;
   background: var(--archive-gold);
   box-shadow: 0 0 18px rgba(255,255,255,0.2);
+}
+
+.dashboard-empty-whisper {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin: 10px auto 0;
+  padding: 8px 0 18px;
+  text-align: center;
 }
 
 .container-card {
@@ -637,7 +648,7 @@ a[class*="btn"] {
 .container-card__meta,
 .container-card__status-text,
 .container-card__category {
-  color: rgba(255,255,255,0.8);
+  color: var(--text-secondary);
 }
 
 .container-card__meta-row,
@@ -687,7 +698,7 @@ a[class*="btn"] {
   background:
     repeating-radial-gradient(circle at 50% 38%, rgba(255,255,255,0.1) 0 1px, transparent 1px 24px),
     linear-gradient(90deg, rgba(255,255,255,0.8), transparent 18%, transparent 82%, rgba(255,255,255,0.8));
-  opacity: 0.5;
+  opacity: 0.38;
 }
 
 .alchm-poster-home::after {
@@ -695,7 +706,7 @@ a[class*="btn"] {
     linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 64px 64px;
-  opacity: 0.34;
+  opacity: 0.24;
 }
 
 .alchm-poster-geometry {
@@ -721,12 +732,12 @@ a[class*="btn"] {
   border: 1px solid var(--archive-line-strong);
   border-radius: 180px 180px 18px 18px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.2), transparent 36%),
-    linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.8));
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--archive-cream) 12%, transparent), transparent 36%),
+    linear-gradient(180deg, var(--archive-chamber-deep), var(--archive-chamber));
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    inset 0 -80px 120px rgba(255,255,255,0.2),
-    0 40px 120px rgba(255,255,255,0.2);
+    inset 0 1px 0 color-mix(in srgb, var(--archive-cream) 10%, transparent),
+    inset 0 -80px 120px color-mix(in srgb, var(--archive-cream) 10%, transparent),
+    0 28px 84px color-mix(in srgb, var(--primary-sage) 12%, transparent);
 }
 
 .alchm-home-mark {
@@ -744,8 +755,8 @@ a[class*="btn"] {
   font-family: var(--font-family-heading);
   font-size: clamp(72px, 19vw, 120px);
   font-weight: 400;
-  line-height: 0.82;
-  letter-spacing: -0.06em;
+  line-height: 0.86;
+  letter-spacing: -0.052em;
 }
 
 .alchm-home-copy,
@@ -755,7 +766,7 @@ a[class*="btn"] {
   margin: 0;
   color: rgba(255,255,255,0.8);
   font-family: var(--font-family-body);
-  line-height: 1.6;
+  line-height: 1.68;
 }
 
 .alchm-home-copy {
@@ -791,4 +802,59 @@ a[class*="btn"] {
   .containers-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.alchm-footer-nav {
+  border-top: 1px solid var(--archive-line);
+  background: color-mix(in srgb, var(--surface-nav) 88%, transparent);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-nav);
+}
+
+.alchm-footer-nav__link {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.alchm-footer-nav__link:hover {
+  color: var(--text-primary);
+}
+
+.alchm-footer-nav__link--active {
+  background: var(--surface-chip-selected);
+  color: var(--btn-primary-text);
+}
+
+.tab-bar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  padding: 10px 12px calc(env(safe-area-inset-bottom, 0px) + 12px);
+  border-top: 1px solid var(--archive-line);
+  background: color-mix(in srgb, var(--surface-nav) 92%, transparent);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-nav);
+}
+
+.tab-bar-link {
+  min-height: 48px;
+  gap: 3px;
+  padding: 6px 8px !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tab-bar-link[aria-current="page"] {
+  background: var(--surface-chip-selected) !important;
+  color: var(--text-primary) !important;
+}
+
+.tab-bar-label,
+.tab-bar-label-active {
+  font-size: 11px !important;
+  line-height: 1.15 !important;
 }

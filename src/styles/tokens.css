@@ -10,18 +10,21 @@
   --poster-paper: #F2D99D;
   --poster-muted-gold: #E5C97D;
   --background-primary: var(--poster-deep-olive);
-  --surface-color: color-mix(in srgb, var(--primary-sage) 18%, transparent);
-  --surface-elevated: color-mix(in srgb, var(--primary-sage) 24%, transparent);
+  --surface-color: color-mix(in srgb, var(--primary-sage) 16%, transparent);
+  --surface-elevated: color-mix(in srgb, var(--primary-sage) 21%, transparent);
   --surface-soft: color-mix(in srgb, var(--primary-sage) 14%, transparent);
-  --surface-strong: color-mix(in srgb, var(--primary-sage) 32%, transparent);
+  --surface-strong: color-mix(in srgb, var(--primary-sage) 28%, transparent);
   --surface-input: color-mix(in srgb, var(--primary-sage) 16%, transparent);
+  --surface-journal-paper: color-mix(in srgb, var(--poster-warm-cream) 14%, var(--poster-deep-olive));
+  --surface-chip: color-mix(in srgb, var(--poster-warm-cream) 5%, transparent);
+  --surface-chip-selected: color-mix(in srgb, var(--poster-warm-cream) 10%, transparent);
   --surface-overlay: rgba(255,255,255,0.2);
-  --surface-nav: color-mix(in srgb, var(--primary-sage) 92%, transparent);
+  --surface-nav: color-mix(in srgb, var(--primary-sage) 82%, var(--poster-deep-olive));
   --text-primary: var(--poster-warm-cream);
-  --text-secondary: rgba(255,255,255,0.8);
-  --text-muted: rgba(255,255,255,0.8);
-  --accent-primary: var(--primary-sage);
-  --accent-hover: #A8B5A0;
+  --text-secondary: color-mix(in srgb, var(--poster-warm-cream) 78%, transparent);
+  --text-muted: color-mix(in srgb, var(--poster-warm-cream) 66%, transparent);
+  --accent-primary: var(--poster-muted-gold);
+  --accent-hover: #D4B76A;
   --border-divider: color-mix(in srgb, var(--primary-sage) 38%, transparent);
   --transparent-none: transparent;
   --khepera-reflection-text: #F2D99D;
@@ -32,9 +35,9 @@
   --khepera-measure: 32ch;
   --khepera-seed-measure: 24ch;
   --khepera-inset: 28px;
-  --khepera-block-gap: 16px;
-  --khepera-paragraph-gap: 18px;
-  --khepera-section-gap: 26px;
+  --khepera-block-gap: 18px;
+  --khepera-paragraph-gap: 20px;
+  --khepera-section-gap: 28px;
   --scarab-logo-size-sm: 36px;
   --scarab-logo-size-md: 52px;
   --scarab-logo-size-lg: 88px;
@@ -51,7 +54,7 @@
   --shadow-input-rest: inset 0 1px 0 rgba(255,255,255,0.1);
   --shadow-input-focus: 0 0 0 1px rgba(255,255,255,0.05);
   --gradient-writing-shelf: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.9) 100%);
-  --shadow-nav: 0 -10px 38px rgba(255,255,255,0.2);
+  --shadow-nav: 0 -10px 34px color-mix(in srgb, var(--poster-deep-olive) 18%, transparent);
 
   --font-family-serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Noto Serif", Georgia, serif;
   --font-family-heading: var(--font-family-serif);
@@ -75,8 +78,8 @@
   --font-weight-bold: 500;
 
   --line-height-tight: 1.15;
-  --line-height-base: 1.5;
-  --line-height-relaxed: 1.6;
+  --line-height-base: 1.55;
+  --line-height-relaxed: 1.68;
 
   --letter-spacing-wide: 0.12em;
   --letter-spacing-base: 0;
@@ -98,7 +101,7 @@
   --screen-top-padding: var(--space-5);
   --screen-horizontal-padding: var(--space-5);
   --card-padding: var(--space-4);
-  --section-gap: 28px;
+  --section-gap: 30px;
   --list-item-gap: var(--space-4);
   --chip-gap: var(--space-2);
 
@@ -110,8 +113,8 @@
   --radius-pill: 9999px;
 
   --shadow-none: none;
-  --shadow-soft: 0 2px 10px rgba(255,255,255,0.05);
-  --shadow-strong: 0 20px 60px rgba(255,255,255,0.15);
+  --shadow-soft: 0 16px 44px color-mix(in srgb, var(--poster-deep-olive) 14%, transparent);
+  --shadow-strong: 0 24px 72px color-mix(in srgb, var(--poster-deep-olive) 18%, transparent);
   --shadow-scrim: 0 2px 8px rgba(255,255,255,0.2);
   --shadow-scrim-lg: 0 4px 16px rgba(255,255,255,0.15);
   --overlay-scrim: rgba(255,255,255,0.15);

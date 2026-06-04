@@ -22,7 +22,7 @@ export function FooterNav(): React.JSX.Element {
   return (
     <nav
       aria-label="Primary navigation"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[rgba(255,255,255,0.2)] bg-[#A4B792]/95 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] pt-2 backdrop-blur-xl"
+      className="alchm-footer-nav fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] pt-2"
     >
       <ul className="mx-auto grid max-w-md grid-cols-5 gap-1">
         {NAV_ITEMS.map((item) => {
@@ -36,8 +36,8 @@ export function FooterNav(): React.JSX.Element {
                 className={[
                   'flex min-h-11 items-center justify-center rounded-2xl px-2 text-sm transition-colors',
                   active
-                    ? 'bg-[rgba(255,255,255,0.2)] text-[#1f2937]'
-                    : 'text-[#F2D99D]/70 hover:text-[#F2D99D]',
+                    ? 'alchm-footer-nav__link alchm-footer-nav__link--active'
+                    : 'alchm-footer-nav__link',
                 ].join(' ')}
               >
                 {item.label}

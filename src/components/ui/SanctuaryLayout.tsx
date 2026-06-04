@@ -27,7 +27,7 @@ export function SanctuaryLayout({ children, header, showCrisisFooter = false, no
     >
       <div className="screen-atmosphere" aria-hidden="true" />
       {header}
-      <main style={{ flex: 1, paddingBottom: DESIGN.spacing.lg }}>{children}</main>
+      <main style={{ flex: 1, paddingBottom: DESIGN.spacing.safeBottom }}>{children}</main>
       {showCrisisFooter ? <CrisisFooter /> : null}
     </div>
   );
