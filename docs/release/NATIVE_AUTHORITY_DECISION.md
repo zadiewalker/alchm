@@ -7,7 +7,7 @@
 The native archive produced for previous candidate
 `16e3a5d19ceee278957a413fb01b69178dca97cf` confirmed the archive bundle
 identifier was `com.alchm.sanctuary`. That archive is stale for new candidate
-`fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+`3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 
 Native scope decision: `NATIVE_IN_SCOPE`
 
@@ -23,7 +23,7 @@ Native scope decision: `NATIVE_IN_SCOPE`
 
 - Attach RevenueCat dashboard proof for bundle `com.alchm.sanctuary`.
 - Build a new iOS archive from candidate
-  `fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+  `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 - Attach RevenueCat entitlement/product/offering proof for
   `ALCHM - Transformation`, `alchm_transformation_monthly`, `$rc_monthly`, and
   `default`.

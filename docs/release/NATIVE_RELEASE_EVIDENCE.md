@@ -6,7 +6,7 @@
 
 Native remains in scope. This record preserves historical archive evidence for
 previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf`. It is stale for
-new authoritative candidate `fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+new authoritative candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 `iosArchiveSameSha` remains false until a new archive is built from the new
 candidate and external RevenueCat dashboard plus sandbox/TestFlight entitlement
 evidence is attached.
@@ -16,7 +16,7 @@ evidence is attached.
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `fcf06d42757136c1693afb3c1447d80df7d32ce6` |
+| New authoritative candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
 | Native archive worktree | Detached worktree at `/tmp/alchm-ios-candidate-16e3` |
 | Worktree before native run | Clean according to `git status --short --branch` |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
@@ -101,7 +101,7 @@ Release approval still requires external RevenueCat evidence:
 
 1. The archive evidence in this file is bound to previous candidate
    `16e3a5d19ceee278957a413fb01b69178dca97cf`, not new candidate
-   `fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+   `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 2. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
 3. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,
    product `alchm_transformation_monthly`, package `$rc_monthly`, and offering

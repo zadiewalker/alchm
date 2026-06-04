@@ -18,12 +18,12 @@ Signed receipt and digest binding semantics are specified in
 
 | Authority | Current observation | Required lineage evidence |
 | --- | --- | --- |
-| Firebase Functions | Previous deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Stale for candidate `fcf06d42757136c1693afb3c1447d80df7d32ce6`; redeploy Functions and capture hashes/revisions |
-| Firestore rules | Previous rules deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Local emulator result is `CANDIDATE_BOUND_PASS` for `fcf06d42757136c1693afb3c1447d80df7d32ce6`; production rules deployment evidence for the new candidate is still required |
+| Firebase Functions | Previous deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Stale for candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; redeploy Functions and capture hashes/revisions |
+| Firestore rules | Previous rules deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Local emulator result is `CANDIDATE_BOUND_PASS` for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; production rules deployment evidence for the new candidate is still required |
 | Hosting | Firebase Hosting is retained as redirect edge to Vercel | Deployed redirect configuration identity and rollback target |
-| Vercel/static export | Previous Vercel production deployment `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` is `Ready` | Stale for candidate `fcf06d42757136c1693afb3c1447d80df7d32ce6`; redeploy or provide source/artifact proof for the new candidate |
+| Vercel/static export | Previous Vercel production deployment `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` is `Ready` | Stale for candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; redeploy or provide source/artifact proof for the new candidate |
 | Provider secret | Khepera reads `ANTHROPIC_API_KEY` server-side | Redacted lineage digest remains recorded; deployment binding must be reattached to new same-SHA Functions evidence |
-| Native runtime | Capacitor and generated iOS identifiers are reconciled to `com.alchm.sanctuary` | New sync/archive identity and RevenueCat entitlement evidence tied to `fcf06d42757136c1693afb3c1447d80df7d32ce6` required |
+| Native runtime | Capacitor and generated iOS identifiers are reconciled to `com.alchm.sanctuary` | New sync/archive identity and RevenueCat entitlement evidence tied to `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` required |
 | RevenueCat | Native plugin and subscription source exist | Approved entitlement/runtime verification tied to native candidate |
 
 ## Candidate-Bound Verification Chain
@@ -48,5 +48,5 @@ Continuity transition exposure must remain denied while any lineage element is
 absent, conflicting, or only asserted through environment configuration.
 `docs/release/RUNTIME_ATTESTATION_MODEL.md` defines that fail-closed runtime
 contract. Runtime attestation cannot be reissued for
-`fcf06d42757136c1693afb3c1447d80df7d32ce6` until deployment lineage, rollback,
+`3a7c6d93140527de77c2fcc91ea3a9f73013b9da` until deployment lineage, rollback,
 and native evidence are rebuilt for that candidate.

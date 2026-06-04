@@ -16,7 +16,7 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `fcf06d42757136c1693afb3c1447d80df7d32ce6` |
+| Candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
 | Functions hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
@@ -26,7 +26,7 @@ runtime continuity. Certification still requires same-SHA Functions deployment
 evidence, rollback evidence, an approved verifier, and a signed production
 runtime attestation receipt binding this digest. Previous receipt evidence
 targeted `16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the
-new source-bearing candidate `fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+new source-bearing candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 
 ## Evidence Format
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-`STALE DEPLOYMENT LINEAGE FOR NEW CANDIDATE fcf06d42757136c1693afb3c1447d80df7d32ce6`
+`STALE DEPLOYMENT LINEAGE FOR NEW CANDIDATE 3a7c6d93140527de77c2fcc91ea3a9f73013b9da`
 
 This record states the evidence required to connect reflective provenance in
 source to an actually deployed runtime. It does not authorize deployment and
@@ -12,11 +12,11 @@ does not accept source files as deployment evidence.
 
 | Authority | Required evidence for one fixed SHA | Current evidence |
 | --- | --- | --- |
-| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `fcf06d42757136c1693afb3c1447d80df7d32ce6`; release scope check passes locally |
-| CI validation | Green required checks for that identical SHA | Not yet captured for `fcf06d42757136c1693afb3c1447d80df7d32ce6`; GitHub checks must be rerun after push |
+| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; release scope check passes locally |
+| CI validation | Green required checks for that identical SHA | Not yet captured for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; GitHub checks must be rerun after push |
 | Functions | Deployed Khepera and continuity callable identities attributable to SHA | Stale: Firebase deployment evidence is bound to previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | Emulator evidence is refreshed for `fcf06d42757136c1693afb3c1447d80df7d32ce6`; production rules deployment evidence is still stale from previous candidate |
-| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Redacted lineage digest remains recorded, but deployment binding must be reattached to the new Functions/deployment evidence for `fcf06d42757136c1693afb3c1447d80df7d32ce6` |
+| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | Emulator evidence is refreshed for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; production rules deployment evidence is still stale from previous candidate |
+| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Redacted lineage digest remains recorded, but deployment binding must be reattached to the new Functions/deployment evidence for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
 | Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Stale: Vercel production deployment `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` was recorded for previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf` |
 | Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | Stale: existing archive evidence is bound to previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf`; new archive required |
 | Rollback | Named prior deploy/archive authority and verified rollback procedure | Stale: rollback target names previous candidate/deployment; new rollback evidence required after redeploy |
@@ -32,7 +32,7 @@ clean candidate SHA.
 ## Certification Consequence
 
 The previous web and Firebase deployment lineage chain is superseded by the
-new authoritative candidate `fcf06d42757136c1693afb3c1447d80df7d32ce6`.
+new authoritative candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 ALCHM is not currently same-SHA deployment certified for this candidate.
 
 The executable runtime gate remains fail closed as described in
