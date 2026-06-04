@@ -2,11 +2,11 @@
 
 ## Status
 
-`DECIDED - SOURCE IDENTITY RECONCILED, NEW CANDIDATE ARCHIVE REQUIRED`
+`DECIDED - SOURCE IDENTITY RECONCILED, REVENUECAT EVIDENCE REQUIRED`
 
-The native archive produced for previous candidate
-`16e3a5d19ceee278957a413fb01b69178dca97cf` confirmed the archive bundle
-identifier was `com.alchm.sanctuary`. That archive is stale for new candidate
+The native archive produced for pushed evidence-tail
+`fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` confirmed the archive bundle
+identifier was `com.alchm.sanctuary`. The attested product candidate remains
 `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
 
 Native scope decision: `NATIVE_IN_SCOPE`
@@ -22,8 +22,8 @@ Native scope decision: `NATIVE_IN_SCOPE`
 ## Required Decision and Evidence
 
 - Attach RevenueCat dashboard proof for bundle `com.alchm.sanctuary`.
-- Build a new iOS archive from candidate
-  `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
+- Preserve the current archive evidence in
+  `docs/release/NATIVE_RELEASE_EVIDENCE.md`.
 - Attach RevenueCat entitlement/product/offering proof for
   `ALCHM - Transformation`, `alchm_transformation_monthly`, `$rc_monthly`, and
   `default`.
