@@ -72,12 +72,12 @@ export default function CheckInPage() {
                     style={{
                       minHeight: '44px',
                       borderRadius: DESIGN.radius.full,
-                      border: `1px solid ${active ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
-                      background: active ? 'rgba(255,255,255,0.2)' : DESIGN.colors.cardBg,
+                      border: `1px solid ${active ? 'var(--archive-line-strong)' : 'var(--archive-line)'}`,
+                      background: active ? 'var(--surface-chip-selected)' : 'var(--surface-chip)',
                       color: active ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary,
                       fontFamily: DESIGN.typography.sansSerif,
                       fontSize: DESIGN.typography.sizes.sm,
-                      padding: '8px 12px',
+                      padding: '8px 14px',
                       whiteSpace: 'nowrap',
                     }}
                   >

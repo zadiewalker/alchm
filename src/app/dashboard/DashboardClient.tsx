@@ -10,7 +10,6 @@ import { SanctuaryHeader } from '@/components/ui/SanctuaryHeader';
 import { SanctuaryCard } from '@/components/ui/SanctuaryCard';
 import { SanctuaryText } from '@/components/ui/SanctuaryText';
 import { LoadingState } from '@/components/ui/LoadingState';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { DESIGN } from '@/lib/design';
 import type { JournalEntry } from '@/services/data/dataService';
@@ -134,12 +133,14 @@ export default function DashboardClient() {
         {loadingEntries ? <LoadingState message="Loading recent reflections..." variant="inline" /> : null}
         {!loadingEntries && error ? <ErrorState variant="inline" message={error} /> : null}
         {!loadingEntries && !error && !entries.length ? (
-          <EmptyState
-            title="Welcome to your sanctuary"
-            message="This is where your words will live. There's no right way to begin."
-            actionLabel="Begin"
-            onAction={() => router.push('/journal/new/')}
-          />
+          <div className="dashboard-empty-whisper">
+            <SanctuaryText variant="caption" as="p" style={{ marginBottom: DESIGN.spacing.xs }}>
+              ☾
+            </SanctuaryText>
+            <SanctuaryText variant="caption" as="p">
+              This space is ready when you are.
+            </SanctuaryText>
+          </div>
         ) : null}
 
         {!loadingEntries && !error && entries.length ? (

@@ -278,14 +278,14 @@ function FilterChip({ label, active, onClick }: { label: string; active: boolean
       type="button"
       onClick={onClick}
       style={{
-        minHeight: '34px',
+        minHeight: '44px',
         borderRadius: DESIGN.radius.full,
-        border: `1px solid ${active ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
-  background: active ? 'rgba(255,255,255,0.15)' : DESIGN.colors.cardBg,
+        border: `1px solid ${active ? 'var(--archive-line-strong)' : 'var(--archive-line)'}`,
+        background: active ? 'var(--surface-chip-selected)' : 'var(--surface-chip)',
         color: active ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary,
         fontFamily: DESIGN.typography.sansSerif,
         fontSize: DESIGN.typography.sizes.sm,
-        padding: '6px 10px',
+        padding: '8px 14px',
         whiteSpace: 'nowrap',
       }}
     >
@@ -304,7 +304,7 @@ const newLinkStyle: React.CSSProperties = {
   justifyContent: 'center',
   textDecoration: 'none',
   border: `1px solid ${DESIGN.colors.goldDim}`,
-  background: 'rgba(255,255,255,0.2)',
+  background: 'var(--surface-chip-selected)',
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
@@ -314,8 +314,8 @@ const searchInputStyle: React.CSSProperties = {
   width: '100%',
   minHeight: '44px',
   borderRadius: DESIGN.radius.md,
-  border: `1px solid ${DESIGN.colors.border}`,
-  background: DESIGN.colors.cardBg,
+  border: '1px solid var(--archive-line)',
+  background: 'var(--surface-chip)',
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.base,
@@ -324,7 +324,8 @@ const searchInputStyle: React.CSSProperties = {
 
 const tagPillStyle: React.CSSProperties = {
   borderRadius: DESIGN.radius.full,
-  border: `1px solid ${DESIGN.colors.border}`,
+  border: '1px solid var(--archive-line)',
+  background: 'var(--surface-chip)',
   color: DESIGN.colors.textSecondary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.xs,
@@ -342,8 +343,8 @@ const labelStyle: React.CSSProperties = {
 const dateInputStyle: React.CSSProperties = {
   minHeight: '36px',
   borderRadius: DESIGN.radius.md,
-  border: `1px solid ${DESIGN.colors.border}`,
-  background: DESIGN.colors.cardBg,
+  border: '1px solid var(--archive-line)',
+  background: 'var(--surface-chip)',
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
