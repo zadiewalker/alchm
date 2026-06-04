@@ -113,8 +113,8 @@ export default function DashboardClient() {
               borderRadius: DESIGN.radius.full,
               border: `1px solid ${DESIGN.colors.goldDim}`,
               padding: '10px 18px',
-              background: 'rgba(255,255,255,0.2)',
-              color: DESIGN.colors.textPrimary,
+              background: DESIGN.colors.primary,
+              color: '#1f2937',
               fontFamily: DESIGN.typography.sansSerif,
               fontSize: DESIGN.typography.sizes.sm,
             }}

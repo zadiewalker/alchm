@@ -32,13 +32,13 @@ export const TONE_DISPLAY_CONFIG: Record<ToneKey, ToneConfig> = {
   },
   anxiety: {
     label: 'Anxiety',
-    color: '#A8B5A0', // Light sage - uncertain
+    color: '#A4B792', // Primary sage - unsettled but held
     description: 'Unsettled energy',
     icon: '⚡'
   },
   clarity: {
     label: 'Clarity',
-    color: '#E5C97D', // Gold - illumination
+    color: '#A4B792', // Primary sage - illumination
     description: 'Seeing clearly',
     icon: '✨'
   },
@@ -50,13 +50,13 @@ export const TONE_DISPLAY_CONFIG: Record<ToneKey, ToneConfig> = {
   },
   tenderness: {
     label: 'Tenderness',
-    color: '#A8B5A0', // Soft earth - gentle
+    color: '#A4B792', // Primary sage - gentle
     description: 'Soft and open',
     icon: '🌸'
   },
   ambivalence: {
     label: 'Ambivalence',
-    color: '#A8B5A0', // Muted sage - uncertain
+    color: '#A4B792', // Primary sage - uncertain
     description: 'Mixed feelings',
     icon: '⚖️'
   },

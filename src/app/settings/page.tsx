@@ -332,7 +332,7 @@ const primaryButtonStyle: React.CSSProperties = {
   border: `1px solid ${DESIGN.colors.goldDim}`,
   padding: '10px 12px',
   background: DESIGN.colors.gold,
-  color: '#fff',
+  color: '#1f2937',
   fontFamily: DESIGN.typography.sansSerif,
 };
 

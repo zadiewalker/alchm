@@ -42,7 +42,7 @@ const primaryActionStyle: React.CSSProperties = {
   borderRadius: DESIGN.radius.full,
   border: `1px solid ${DESIGN.colors.goldDim}`,
   background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  color: '#1f2937',
   textDecoration: 'none',
   fontFamily: DESIGN.typography.sansSerif,
 };

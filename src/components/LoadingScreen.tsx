@@ -2,7 +2,7 @@
 
 export default function LoadingScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#8B9A7C] to-[#A8B5A0] 
+    <div className="min-h-screen bg-gradient-to-b from-[#A4B792] to-[#8B9A7C]
                     flex items-center justify-center">
       <div className="text-center">
         <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm 

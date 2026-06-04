@@ -102,7 +102,7 @@ export default function OnboardingPage() {
             <Scarab />
             <h2 style={titleStyle}>This is Khepera</h2>
             <p style={bodyStyle}>
-              Khepera offers a restrained reflection on what you write. It is not a therapist, chatbot, or guide.
+              Khepera is a steady reflection presence for what you write. It is not a therapist or chatbot.
             </p>
             <p style={bodyStyle}>
               It stays close to your words, offers a gentle perspective, and leaves one open question.
@@ -232,7 +232,7 @@ const primaryButtonStyle: React.CSSProperties = {
   border: `1px solid ${DESIGN.colors.goldDim}`,
   padding: '10px 16px',
   background: `linear-gradient(180deg, ${DESIGN.colors.gold}, ${DESIGN.colors.goldDim})`,
-  color: '#fff',
+  color: '#1f2937',
   fontFamily: DESIGN.typography.sansSerif,
   fontSize: DESIGN.typography.sizes.sm,
 };

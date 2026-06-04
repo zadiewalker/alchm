@@ -18,15 +18,16 @@
   --sal: env(safe-area-inset-left);
   
   /* Sanctuary Colors */
+  --primary-sage: #A4B792;
   --sage-deep: #6B7A5C;
   --sage-light: #6B7A5C;
-  --sage-whisper: #A8B5A0;
+  --sage-whisper: var(--primary-sage);
   --archive-olive-deep: #6B7A5C;
   --archive-olive-dark: #6B7A5C;
   --archive-olive-muted: #6B7A5C;
   --archive-light-sage: #8B9A7C;
   --archive-sage: #8B9A7C;
-  --archive-soft-sage: #A8B5A0;
+  --archive-soft-sage: var(--primary-sage);
   --archive-cream: #F2D99D;
   --archive-paper: #F2D99D;
   --archive-gold: #E5C97D;
@@ -429,10 +430,27 @@ a[class*="btn"] {
   transition: opacity 240ms ease, border-color 240ms ease, background 240ms ease, transform 240ms ease;
 }
 
+.btn-primary {
+  border-color: var(--accent-primary) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-primary) 84%, #F2D99D), var(--accent-primary)) !important;
+  color: var(--btn-primary-text) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 18px 46px color-mix(in srgb, var(--accent-primary) 26%, transparent) !important;
+}
+
 .btn-primary:hover,
+.motion-button.btn-primary:hover,
+.container-card__action.btn-primary:hover {
+  border-color: #A8B5A0 !important;
+  background:
+    linear-gradient(180deg, #A8B5A0, var(--accent-primary)) !important;
+}
+
 .btn-ghost:hover,
-.motion-button:hover,
-.container-card__action:hover {
+.motion-button:hover:not(.btn-primary),
+.container-card__action:hover:not(.btn-primary) {
   border-color: rgba(255,255,255,0.7) !important;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)),

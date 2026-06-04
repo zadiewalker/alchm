@@ -34,7 +34,7 @@ export interface AppStoreExportProfile {
 
 export const APP_STORE_SCREENSHOT_TOKENS = {
   background:
-    'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15), transparent 36%), linear-gradient(180deg, #A8B5A0 0%, #8B9A7C 42%, #8B9A7C 100%)',
+    'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15), transparent 36%), linear-gradient(180deg, #A4B792 0%, #8B9A7C 42%, #8B9A7C 100%)',
   surface:
     'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 100%)',
   screenshotBorder: '1px solid rgba(255,255,255,0.2)',

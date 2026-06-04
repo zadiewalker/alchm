@@ -12,7 +12,7 @@ export function BlockInProduction() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(to bottom, #8B9A7C, #A8B5A0)',
+        background: 'linear-gradient(to bottom, #A4B792, #8B9A7C)',
         color: 'rgba(255,255,255,0.9)',
         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif',
         textAlign: 'center',

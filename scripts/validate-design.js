@@ -17,7 +17,7 @@ const glob = require('glob');
 
 // Sacred color palette - ONLY these colors are allowed
 const SACRED_COLORS = {
-  sage: ['#8B9A7C', '#A8B5A0', '#6B7A5C'],
+  sage: ['#A4B792', '#8B9A7C', '#A8B5A0', '#6B7A5C'],
   gold: ['#E5C97D', '#F2D99D', '#D4B76A'],
   glass: [
     'rgba(255, 255, 255, 0.1)',
@@ -269,7 +269,7 @@ class DesignValidator {
     
     this.log('💡 SOLUTION:', 'info');
     this.log('   Replace unauthorized colors with sacred alternatives:', 'info');
-    this.log('   • Sage: #8B9A7C, #A8B5A0', 'info');
+    this.log('   • Sage: #A4B792, #8B9A7C, #A8B5A0', 'info');
     this.log('   • Gold: #E5C97D, #F2D99D', 'info');
     this.log('   • Glass: rgba(255, 255, 255, 0.1-0.2)', 'info');
     this.log('   • Pathways: #D4A574, #7BB3D4, #D4A77B, #B395D4, #95A7D4 (pathway files only)', 'info');
