@@ -14,55 +14,55 @@ export interface ToneConfig {
 export const TONE_DISPLAY_CONFIG: Record<ToneKey, ToneConfig> = {
   processing: {
     label: 'Processing',
-    color: '#B8A082', // Neutral earth - working through
+    color: '#E5C97D', // Neutral earth - working through
     description: 'Making sense of experience',
     icon: '🔄'
   },
   grief: {
     label: 'Grief',
-    color: '#8B7A6B', // Warm earth - supportive
+    color: '#8B9A7C', // Warm earth - supportive
     description: 'Honoring loss',
     icon: '🌧️'
   },
   anger: {
     label: 'Anger',
-    color: '#C87B6A', // Warm red-brown
+    color: '#B91C1C', // Warm red-brown
     description: 'Feeling stirred up',
     icon: '🔥'
   },
   anxiety: {
     label: 'Anxiety',
-    color: '#9CA486', // Light sage - uncertain
+    color: '#A8B5A0', // Light sage - uncertain
     description: 'Unsettled energy',
     icon: '⚡'
   },
   clarity: {
     label: 'Clarity',
-    color: '#D4B86A', // Gold - illumination
+    color: '#E5C97D', // Gold - illumination
     description: 'Seeing clearly',
     icon: '✨'
   },
   numbness: {
     label: 'Numbness',
-    color: '#A59B8C', // Neutral - disconnected
+    color: '#A8B5A0', // Neutral - disconnected
     description: 'Feeling distant',
     icon: '🌫️'
   },
   tenderness: {
     label: 'Tenderness',
-    color: '#B5A394', // Soft earth - gentle
+    color: '#A8B5A0', // Soft earth - gentle
     description: 'Soft and open',
     icon: '🌸'
   },
   ambivalence: {
     label: 'Ambivalence',
-    color: '#97A388', // Muted sage - uncertain
+    color: '#A8B5A0', // Muted sage - uncertain
     description: 'Mixed feelings',
     icon: '⚖️'
   },
   neutral: {
     label: 'Entry',
-    color: 'rgba(255, 255, 255, 0.6)', // Subtle - no specific tone
+    color: 'rgba(255,255,255,0.7)', // Subtle - no specific tone
     description: 'Journal entry',
     icon: '📝'
   }

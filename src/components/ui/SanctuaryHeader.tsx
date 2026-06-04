@@ -21,7 +21,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
         zIndex: 20,
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 18px)',
         paddingBottom: DESIGN.spacing.md,
-        background: 'linear-gradient(180deg, rgba(31,42,27,0.96), rgba(31,42,27,0.72), rgba(31,42,27,0))',
+        background: 'linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8), rgba(255,255,255,0.05))',
         backdropFilter: 'blur(14px)',
       }}
     >
@@ -36,7 +36,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             height: '44px',
             borderRadius: DESIGN.radius.full,
             border: `1px solid ${DESIGN.colors.border}`,
-            background: 'rgba(31,42,27,0.46)',
+            background: 'rgba(255,255,255,0.7)',
             color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: DESIGN.typography.sizes.base,

@@ -18,7 +18,7 @@ export function ErrorState({ title = 'Something went wrong', message, retryLabel
         padding: variant === 'inline' ? DESIGN.spacing.md : DESIGN.spacing.xl,
         borderRadius: DESIGN.radius.lg,
         border: `1px solid ${DESIGN.colors.error}`,
-        background: 'rgba(196,122,106,0.14)',
+        background: 'rgba(255,255,255,0.15)',
         color: DESIGN.colors.textPrimary,
         fontFamily: DESIGN.typography.sansSerif,
       }}

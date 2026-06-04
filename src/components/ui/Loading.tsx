@@ -23,10 +23,10 @@ export default function Loading({ message = "Loading...", size = 'md' }: Loading
           <ellipse cx="50" cy="55" rx="16" ry="24" fill="white" fillOpacity="0.7" />
           
           {/* Body stripes */}
-          <line x1="37" y1="42" x2="63" y2="42" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="1.5" />
-          <line x1="36" y1="50" x2="64" y2="50" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="1.5" />
-          <line x1="36" y1="58" x2="64" y2="58" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="1.5" />
-          <line x1="37" y1="66" x2="63" y2="66" stroke="rgba(255, 255, 255, 0.8)" strokeWidth="1.5" />
+          <line x1="37" y1="42" x2="63" y2="42" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
+          <line x1="36" y1="50" x2="64" y2="50" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
+          <line x1="36" y1="58" x2="64" y2="58" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
+          <line x1="37" y1="66" x2="63" y2="66" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
           
           {/* Wings */}
           <path d="M34 48 Q18 40 22 60 Q24 70 34 65 Z" fill="white" fillOpacity="0.7" />

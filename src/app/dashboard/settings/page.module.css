@@ -1,5 +1,5 @@
 .page {
-  color: #e7efe8;
+  color: #F2D99D;
   max-width: 920px;
 }
 
@@ -9,8 +9,8 @@
 }
 
 .card {
-  background: #131816;
-  border: 1px solid #1f2723;
+  background: #6B7A5C;
+  border: 1px solid #6B7A5C;
   border-radius: 14px;
   padding: 16px;
   margin-bottom: 12px;
@@ -20,21 +20,21 @@
   display: block;
   margin-bottom: 8px;
   font-size: 0.9rem;
-  color: #98a39d;
+  color: #A8B5A0;
 }
 
 .input {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid #2a3530;
-  background: #0f1311;
-  color: #e5eee7;
+  border: 1px solid #6B7A5C;
+  background: #6B7A5C;
+  color: #F2D99D;
   padding: 10px 12px;
   font-size: 0.95rem;
 }
 
 .readOnly {
-  color: #94a29b;
+  color: #A8B5A0;
 }
 
 .chipRow {
@@ -44,19 +44,19 @@
 }
 
 .chip {
-  border: 1px solid #2b3832;
+  border: 1px solid #6B7A5C;
   border-radius: 999px;
-  background: #121715;
-  color: #a5b1aa;
+  background: #6B7A5C;
+  color: #A8B5A0;
   padding: 7px 10px;
   cursor: pointer;
   font-size: 0.83rem;
 }
 
 .chipActive {
-  border-color: #2f7d53;
-  background: rgba(61, 220, 132, 0.15);
-  color: #74f4ad;
+  border-color: #8B9A7C;
+  background: rgba(255,255,255,0.15);
+  color: #F2D99D;
 }
 
 .footer {
@@ -65,9 +65,9 @@
 }
 
 .saveButton {
-  border: 1px solid #2f7d53;
-  background: #1e5136;
-  color: #e8f3ec;
+  border: 1px solid #8B9A7C;
+  background: #6B7A5C;
+  color: #F2D99D;
   border-radius: 10px;
   padding: 10px 14px;
   font-weight: 600;
@@ -76,14 +76,14 @@
 
 .dangerTitle {
   margin: 0 0 10px;
-  color: #ff91b3;
+  color: #B91C1C;
   font-size: 0.95rem;
 }
 
 .deleteButton {
-  border: 1px solid #7f2948;
-  background: rgba(180, 43, 89, 0.16);
-  color: #ff9cbc;
+  border: 1px solid #B91C1C;
+  background: rgba(255,255,255,0.15);
+  color: #B91C1C;
   border-radius: 10px;
   padding: 10px 14px;
   cursor: pointer;
@@ -92,7 +92,7 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(7, 9, 8, 0.75);
+  background: rgba(255,255,255,0.8);
   display: grid;
   place-items: center;
   z-index: 90;
@@ -102,9 +102,9 @@
 .modal {
   width: 100%;
   max-width: 420px;
-  border: 1px solid #3d1830;
+  border: 1px solid #B91C1C;
   border-radius: 12px;
-  background: #170f14;
+  background: #6B7A5C;
   padding: 16px;
 }
 
@@ -114,7 +114,7 @@
 
 .modalText {
   margin: 0;
-  color: #c8a5b4;
+  color: #A8B5A0;
 }
 
 .modalActions {
@@ -124,18 +124,18 @@
 }
 
 .cancelButton {
-  border: 1px solid #2a3530;
-  background: #121715;
-  color: #d7e3db;
+  border: 1px solid #6B7A5C;
+  background: #6B7A5C;
+  color: #F2D99D;
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;
 }
 
 .confirmDelete {
-  border: 1px solid #9b3458;
-  background: #6c1f3d;
-  color: #ffe1ec;
+  border: 1px solid #B91C1C;
+  background: #B91C1C;
+  color: #F2D99D;
   border-radius: 8px;
   padding: 8px 12px;
   cursor: pointer;

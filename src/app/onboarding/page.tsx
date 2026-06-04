@@ -132,7 +132,7 @@ export default function OnboardingPage() {
                     ...moodChipStyle,
                     border: `1px solid ${selected ? DESIGN.colors.goldDim : DESIGN.colors.border}`,
                     color: selected ? DESIGN.colors.textKhepera : DESIGN.colors.textSecondary,
-                    background: selected ? 'rgba(232,197,109,0.2)' : DESIGN.colors.cardBg,
+                    background: selected ? 'rgba(255,255,255,0.2)' : DESIGN.colors.cardBg,
                   }}
                 >
                   {mood}
@@ -180,10 +180,10 @@ function Scarab() {
   return (
     <svg viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" style={{ width: 44, height: 56, marginBottom: 8 }} aria-hidden="true">
       <circle cx="32" cy="6" r="5.5" fill="#E5C97D" />
-      <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#EAE5D9" />
-      <ellipse cx="12" cy="36" rx="10" ry="9" fill="#EAE5D9" opacity="0.92" />
-      <ellipse cx="52" cy="36" rx="10" ry="9" fill="#EAE5D9" opacity="0.92" />
-      <ellipse cx="32" cy="44" rx="14" ry="24" fill="#EAE5D9" />
+      <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#F2D99D" />
+      <ellipse cx="12" cy="36" rx="10" ry="9" fill="#F2D99D" opacity="0.92" />
+      <ellipse cx="52" cy="36" rx="10" ry="9" fill="#F2D99D" opacity="0.92" />
+      <ellipse cx="32" cy="44" rx="14" ry="24" fill="#F2D99D" />
     </svg>
   );
 }

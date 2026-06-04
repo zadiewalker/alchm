@@ -67,35 +67,35 @@ export function bootstrap(): BootstrapResult {
 function applyCSSTokens(): void {
   const root = document.documentElement;
 
-  root.style.setProperty('--bg-base', '#1F2A1B');
-  root.style.setProperty('--bg-surface', 'rgba(68, 83, 57, 0.82)');
-  root.style.setProperty('--bg-surface-deep', '#2D3A25');
-  root.style.setProperty('--bg-inset', 'rgba(168, 185, 147, 0.16)');
-  root.style.setProperty('--bg-nav', 'rgba(31, 42, 27, 0.92)');
-  root.style.setProperty('--bg-overlay', 'rgba(31, 42, 27, 0.32)');
+  root.style.setProperty('--bg-base', '#6B7A5C');
+  root.style.setProperty('--bg-surface', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--bg-surface-deep', '#6B7A5C');
+  root.style.setProperty('--bg-inset', 'rgba(255,255,255,0.15)');
+  root.style.setProperty('--bg-nav', 'rgba(255,255,255,0.9)');
+  root.style.setProperty('--bg-overlay', 'rgba(255,255,255,0.2)');
 
-  root.style.setProperty('--background-primary', '#1F2A1B');
-  root.style.setProperty('--surface-color', 'rgba(68, 83, 57, 0.82)');
-  root.style.setProperty('--surface-elevated', 'rgba(139, 154, 124, 0.34)');
-  root.style.setProperty('--surface-input', 'rgba(168, 185, 147, 0.16)');
-  root.style.setProperty('--surface-nav', 'rgba(31, 42, 27, 0.92)');
+  root.style.setProperty('--background-primary', '#6B7A5C');
+  root.style.setProperty('--surface-color', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--surface-elevated', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--surface-input', 'rgba(255,255,255,0.15)');
+  root.style.setProperty('--surface-nav', 'rgba(255,255,255,0.9)');
 
-  root.style.setProperty('--text-primary', '#FFF3D6');
-  root.style.setProperty('--text-secondary', 'rgba(243, 231, 200, 0.78)');
-  root.style.setProperty('--text-muted', 'rgba(168, 185, 147, 0.72)');
-  root.style.setProperty('--text-tertiary', 'rgba(168, 185, 147, 0.72)');
-  root.style.setProperty('--text-hint', 'rgba(168, 185, 147, 0.62)');
+  root.style.setProperty('--text-primary', '#F2D99D');
+  root.style.setProperty('--text-secondary', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--text-muted', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--text-tertiary', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--text-hint', 'rgba(255,255,255,0.7)');
 
-  root.style.setProperty('--khepera-text', '#FFF3D6');
-  root.style.setProperty('--khepera-seed', '#F3E7C8');
-  root.style.setProperty('--khepera-attr', 'rgba(168, 185, 147, 0.72)');
-  root.style.setProperty('--khepera-card-bg', 'rgba(139, 154, 124, 0.26)');
-  root.style.setProperty('--khepera-card-border', 'rgba(185,151,78,0.2)');
-  root.style.setProperty('--khepera-reflection-text', '#FFF3D6');
-  root.style.setProperty('--khepera-perspective-text', '#F3E7C8');
-  root.style.setProperty('--khepera-seed-text', '#FFF3D6');
-  root.style.setProperty('--khepera-support-text', 'rgba(243, 231, 200, 0.78)');
-  root.style.setProperty('--khepera-label-text', 'rgba(168, 185, 147, 0.72)');
+  root.style.setProperty('--khepera-text', '#F2D99D');
+  root.style.setProperty('--khepera-seed', '#F2D99D');
+  root.style.setProperty('--khepera-attr', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--khepera-card-bg', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--khepera-card-border', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--khepera-reflection-text', '#F2D99D');
+  root.style.setProperty('--khepera-perspective-text', '#F2D99D');
+  root.style.setProperty('--khepera-seed-text', '#F2D99D');
+  root.style.setProperty('--khepera-support-text', 'rgba(255,255,255,0.8)');
+  root.style.setProperty('--khepera-label-text', 'rgba(255,255,255,0.8)');
   root.style.setProperty('--khepera-measure', '32ch');
   root.style.setProperty('--khepera-seed-measure', '24ch');
   root.style.setProperty('--khepera-inset', '28px');
@@ -109,28 +109,28 @@ function applyCSSTokens(): void {
   root.style.setProperty('--scarab-logo-space-md', '20px');
   root.style.setProperty('--scarab-logo-space-lg', '28px');
 
-  root.style.setProperty('--gold', '#B9974E');
-  root.style.setProperty('--gold-border', 'rgba(185, 151, 78, 0.42)');
-  root.style.setProperty('--gold-subtle', 'rgba(185, 151, 78, 0.18)');
-  root.style.setProperty('--accent-primary', '#B9974E');
-  root.style.setProperty('--accent-hover', '#C7A967');
+  root.style.setProperty('--gold', '#E5C97D');
+  root.style.setProperty('--gold-border', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--gold-subtle', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--accent-primary', '#E5C97D');
+  root.style.setProperty('--accent-hover', '#E5C97D');
 
-  root.style.setProperty('--border-subtle', 'rgba(185,151,78,0.2)');
-  root.style.setProperty('--border-normal', 'rgba(185,151,78,0.2)');
-  root.style.setProperty('--border-strong', 'rgba(185,151,78,0.42)');
-  root.style.setProperty('--border-divider', 'rgba(185,151,78,0.2)');
-  root.style.setProperty('--border-visible', 'rgba(185,151,78,0.42)');
-  root.style.setProperty('--surface-focus', 'rgba(168, 185, 147, 0.28)');
-  root.style.setProperty('--surface-soft-hover', 'rgba(168, 185, 147, 0.16)');
-  root.style.setProperty('--surface-soft-selected', 'rgba(168, 185, 147, 0.22)');
-  root.style.setProperty('--surface-nav-halo', 'rgba(198, 168, 94, 0.22)');
-  root.style.setProperty('--surface-nav-active', 'rgba(255, 255, 255, 0.08)');
-  root.style.setProperty('--border-selected', 'rgba(255, 255, 255, 0.12)');
-  root.style.setProperty('--focus-ring-soft', 'rgba(255,255,255,0.04)');
-  root.style.setProperty('--shadow-input-rest', 'inset 0 1px 0 rgba(255,255,255,0.08)');
-  root.style.setProperty('--shadow-input-focus', '0 0 0 1px rgba(255,255,255,0.04)');
-  root.style.setProperty('--gradient-writing-shelf', 'linear-gradient(180deg, rgba(31, 42, 27, 0) 0%, rgba(31, 42, 27, 0.88) 30%, rgba(31, 42, 27, 0.98) 100%)');
-  root.style.setProperty('--shadow-nav', '0 -10px 38px rgba(31, 42, 27, 0.34)');
+  root.style.setProperty('--border-subtle', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--border-normal', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--border-strong', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--border-divider', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--border-visible', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--surface-focus', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--surface-soft-hover', 'rgba(255,255,255,0.15)');
+  root.style.setProperty('--surface-soft-selected', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--surface-nav-halo', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--surface-nav-active', 'rgba(255,255,255,0.1)');
+  root.style.setProperty('--border-selected', 'rgba(255,255,255,0.1)');
+  root.style.setProperty('--focus-ring-soft', 'rgba(255,255,255,0.05)');
+  root.style.setProperty('--shadow-input-rest', 'inset 0 1px 0 rgba(255,255,255,0.1)');
+  root.style.setProperty('--shadow-input-focus', '0 0 0 1px rgba(255,255,255,0.05)');
+  root.style.setProperty('--gradient-writing-shelf', 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.9) 100%)');
+  root.style.setProperty('--shadow-nav', '0 -10px 38px rgba(255,255,255,0.2)');
   root.style.setProperty('--font-family-serif', '"Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Noto Serif", Georgia, serif');
   root.style.setProperty('--font-family-heading', 'var(--font-family-serif)');
   root.style.setProperty('--font-family-khepera', 'var(--font-family-serif)');
@@ -145,10 +145,10 @@ function applyCSSTokens(): void {
   root.style.setProperty('--motion-slow', '240ms');
   root.style.setProperty('--motion-easing', 'cubic-bezier(0.22, 1, 0.36, 1)');
 
-  root.style.setProperty('--btn-primary-bg', '#B9974E');
-  root.style.setProperty('--btn-primary-border', 'rgba(185,151,78,0.42)');
-  root.style.setProperty('--btn-primary-text', '#FFF3D6');
-  root.style.setProperty('--btn-primary-active', '#C7A967');
+  root.style.setProperty('--btn-primary-bg', '#E5C97D');
+  root.style.setProperty('--btn-primary-border', 'rgba(255,255,255,0.2)');
+  root.style.setProperty('--btn-primary-text', '#F2D99D');
+  root.style.setProperty('--btn-primary-active', '#E5C97D');
 
   document.body.style.backgroundColor = 'var(--background-primary)';
 }

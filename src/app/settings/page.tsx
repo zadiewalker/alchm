@@ -129,7 +129,7 @@ export default function SettingsPage() {
           {exportStatus ? <SanctuaryText variant="khepera">{exportStatus}</SanctuaryText> : null}
           <ActionButton label="Reset local preferences" onClick={() => setConfirmClear(true)} destructive />
           {confirmClear ? (
-            <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'rgba(196,122,106,0.18)' }}>
+            <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'rgba(255,255,255,0.2)' }}>
               <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
                 This resets settings stored on this device only. It does not delete journal entries or account data.
               </SanctuaryText>
@@ -362,7 +362,7 @@ const resourceLinkStyle: React.CSSProperties = {
 const sheetOverlayStyle: React.CSSProperties = {
   position: 'fixed',
   inset: 0,
-  background: 'rgba(0,0,0,0.55)',
+  background: 'rgba(255,255,255,0.7)',
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'center',

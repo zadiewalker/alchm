@@ -34,19 +34,19 @@ export interface AppStoreExportProfile {
 
 export const APP_STORE_SCREENSHOT_TOKENS = {
   background:
-    'radial-gradient(circle at 50% 0%, rgba(248,245,238,0.14), transparent 36%), linear-gradient(180deg, #93a183 0%, #859374 42%, #78856a 100%)',
+    'radial-gradient(circle at 50% 0%, rgba(255,255,255,0.15), transparent 36%), linear-gradient(180deg, #A8B5A0 0%, #8B9A7C 42%, #8B9A7C 100%)',
   surface:
-    'linear-gradient(180deg, rgba(236,231,221,0.06) 0%, rgba(70,80,58,0.14) 100%)',
-  screenshotBorder: '1px solid rgba(248,245,238,0.18)',
-  screenshotShadow: '0 36px 72px rgba(55, 63, 47, 0.18)',
+    'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 100%)',
+  screenshotBorder: '1px solid rgba(255,255,255,0.2)',
+  screenshotShadow: '0 36px 72px rgba(255,255,255,0.2)',
   screenRadius: 44,
   textGap: 20,
   headlineFamily: 'var(--font-display)',
   bodyFamily: 'var(--font-ui)',
   headlineColor: 'var(--color-text-primary)',
-  sublineColor: 'rgba(236, 231, 221, 0.82)',
-  noteColor: 'rgba(236, 231, 221, 0.5)',
-  eyebrowColor: 'rgba(236, 231, 221, 0.58)',
+  sublineColor: 'rgba(255,255,255,0.8)',
+  noteColor: 'rgba(255,255,255,0.7)',
+  eyebrowColor: 'rgba(255,255,255,0.7)',
 } as const;
 
 export const APP_STORE_EXPORT_PROFILES: readonly AppStoreExportProfile[] = [

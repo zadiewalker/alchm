@@ -28,17 +28,17 @@ export default function SplashPage() {
             className="w-14 h-[72px]"
             aria-label="Khepera scarab"
           >
-            <circle cx="32" cy="6" r="5.5" fill="#B9974E" />
-            <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#FFF3D6" />
-            <path d="M28,15 Q24,8 22,6" stroke="#FFF3D6" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-            <path d="M36,15 Q40,8 42,6" stroke="#FFF3D6" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-            <ellipse cx="12" cy="36" rx="10" ry="9" fill="#F3E7C8" opacity="0.92" />
-            <ellipse cx="52" cy="36" rx="10" ry="9" fill="#F3E7C8" opacity="0.92" />
-            <ellipse cx="32" cy="44" rx="14" ry="24" fill="#FFF3D6" />
-            <path d="M20,33 Q32,30 44,33" stroke="#B9974E" strokeWidth="0.8" fill="none" />
-            <path d="M19,40 Q32,37 45,40" stroke="#B9974E" strokeWidth="0.8" fill="none" />
-            <path d="M20,47 Q32,44 44,47" stroke="#B9974E" strokeWidth="0.8" fill="none" />
-            <path d="M22,54 Q32,51 42,54" stroke="#B9974E" strokeWidth="0.8" fill="none" />
+            <circle cx="32" cy="6" r="5.5" fill="#E5C97D" />
+            <path d="M26,22 Q26,13 32,12 Q38,13 38,22 Z" fill="#F2D99D" />
+            <path d="M28,15 Q24,8 22,6" stroke="#F2D99D" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+            <path d="M36,15 Q40,8 42,6" stroke="#F2D99D" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+            <ellipse cx="12" cy="36" rx="10" ry="9" fill="#F2D99D" opacity="0.92" />
+            <ellipse cx="52" cy="36" rx="10" ry="9" fill="#F2D99D" opacity="0.92" />
+            <ellipse cx="32" cy="44" rx="14" ry="24" fill="#F2D99D" />
+            <path d="M20,33 Q32,30 44,33" stroke="#E5C97D" strokeWidth="0.8" fill="none" />
+            <path d="M19,40 Q32,37 45,40" stroke="#E5C97D" strokeWidth="0.8" fill="none" />
+            <path d="M20,47 Q32,44 44,47" stroke="#E5C97D" strokeWidth="0.8" fill="none" />
+            <path d="M22,54 Q32,51 42,54" stroke="#E5C97D" strokeWidth="0.8" fill="none" />
           </svg>
         </div>
 

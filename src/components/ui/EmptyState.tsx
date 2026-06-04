@@ -29,7 +29,7 @@ export function EmptyState({ icon = '☾', title, message, actionLabel, onAction
             minHeight: '44px',
             borderRadius: DESIGN.radius.full,
             border: `1px solid ${DESIGN.colors.goldDim}`,
-            background: 'rgba(31,42,27,0.3)',
+            background: 'rgba(255,255,255,0.2)',
             color: DESIGN.colors.textPrimary,
             padding: '10px 18px',
             fontFamily: DESIGN.typography.sansSerif,

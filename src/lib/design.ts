@@ -2,27 +2,27 @@ import type React from 'react';
 
 export const DESIGN = {
   colors: {
-    bgDeep: '#1f2a1b',
-    bgSurface: '#2d3a25',
-    bgElevated: '#5e6f4e',
-    bgWarm: '#2d3a25',
-    sageMuted: '#445339',
+    bgDeep: '#6B7A5C',
+    bgSurface: '#6B7A5C',
+    bgElevated: '#8B9A7C',
+    bgWarm: '#6B7A5C',
+    sageMuted: '#6B7A5C',
     sage: '#8b9a7c',
-    sageLight: '#a8b993',
-    sageBright: '#f3e7c8',
-    goldDim: '#b9974e',
-    gold: '#b9974e',
-    goldBright: '#c7a967',
-    textPrimary: '#fff3d6',
-    textSecondary: 'rgba(243, 231, 200, 0.78)',
-    textMuted: 'rgba(168, 185, 147, 0.72)',
-    textKhepera: '#f3e7c8',
-    error: '#c47a6a',
-    success: '#8ba88a',
-    border: 'rgba(185, 151, 78, 0.22)',
-    borderLight: 'rgba(185, 151, 78, 0.16)',
-    cardBg: 'rgba(68, 83, 57, 0.72)',
-    cardBgHover: 'rgba(94, 111, 78, 0.82)',
+    sageLight: '#A8B5A0',
+    sageBright: '#F2D99D',
+    goldDim: '#E5C97D',
+    gold: '#E5C97D',
+    goldBright: '#E5C97D',
+    textPrimary: '#F2D99D',
+    textSecondary: 'rgba(255,255,255,0.8)',
+    textMuted: 'rgba(255,255,255,0.8)',
+    textKhepera: '#F2D99D',
+    error: '#B91C1C',
+    success: '#A8B5A0',
+    border: 'rgba(255,255,255,0.2)',
+    borderLight: 'rgba(255,255,255,0.15)',
+    cardBg: 'rgba(255,255,255,0.8)',
+    cardBgHover: 'rgba(255,255,255,0.8)',
   },
   typography: {
     sansSerif: "var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
@@ -66,9 +66,9 @@ export const DESIGN = {
     full: '9999px',
   },
   shadows: {
-    card: '0 24px 70px rgba(31, 42, 27, 0.24)',
-    elevated: '0 34px 110px rgba(31, 42, 27, 0.32)',
-    glow: '0 0 28px rgba(185, 151, 78, 0.14)',
+    card: '0 24px 70px rgba(255,255,255,0.2)',
+    elevated: '0 34px 110px rgba(255,255,255,0.2)',
+    glow: '0 0 28px rgba(255,255,255,0.15)',
   },
   transitions: {
     fast: '150ms ease',
@@ -79,8 +79,8 @@ export const DESIGN = {
 
 export const cardStyle = (elevated = false): React.CSSProperties => ({
   background: elevated
-    ? 'linear-gradient(180deg, rgba(168,185,147,0.2), rgba(68,83,57,0.68))'
-    : 'linear-gradient(180deg, rgba(168,185,147,0.13), rgba(45,58,37,0.72))',
+    ? 'linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.8))'
+    : 'linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.8))',
   borderRadius: DESIGN.radius.lg,
   border: `1px solid ${DESIGN.colors.border}`,
   padding: DESIGN.spacing.lg,

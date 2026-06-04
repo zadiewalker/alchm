@@ -42,7 +42,7 @@ const actionStyle: React.CSSProperties = {
   minHeight: '44px',
   borderRadius: DESIGN.radius.md,
   border: `1px solid ${DESIGN.colors.goldDim}`,
-  background: 'rgba(232,197,109,0.15)',
+  background: 'rgba(255,255,255,0.15)',
   color: DESIGN.colors.textPrimary,
   fontFamily: DESIGN.typography.sansSerif,
   padding: '12px 14px',

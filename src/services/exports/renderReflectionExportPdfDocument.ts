@@ -59,8 +59,8 @@ export function renderReflectionExportPdfDocument(
         margin: 0;
         padding: 56px 64px 72px;
         font-family: "Jost", "Avenir Next", "Segoe UI", sans-serif;
-        color: #2d3728;
-        background: #f6f2eb;
+        color: #6B7A5C;
+        background: #F2D99D;
         line-height: 1.75;
       }
       article {
@@ -75,19 +75,19 @@ export function renderReflectionExportPdfDocument(
       }
       .trust-line {
         margin: 0 0 28px;
-        color: rgba(45, 55, 40, 0.72);
+        color: rgba(255,255,255,0.8);
         font-size: 13px;
       }
       .kicker {
         margin: 0 0 14px;
-        color: rgba(45, 55, 40, 0.68);
+        color: rgba(255,255,255,0.8);
         font-size: 12px;
         text-transform: none;
       }
       h1, h2 {
         font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Noto Serif", Georgia, serif;
         font-weight: 500;
-        color: #283022;
+        color: #6B7A5C;
       }
       h1 {
         margin: 0 0 12px;
@@ -102,7 +102,7 @@ export function renderReflectionExportPdfDocument(
       h2 {
         margin: 42px 0 14px;
         padding-top: 22px;
-        border-top: 1px solid rgba(45, 55, 40, 0.1);
+        border-top: 1px solid rgba(255,255,255,0.1);
         font-size: 25px;
         line-height: 1.2;
       }
@@ -123,9 +123,9 @@ export function renderReflectionExportPdfDocument(
       blockquote {
         margin: 0;
         padding: 18px 22px;
-        border-left: 2px solid rgba(45, 55, 40, 0.18);
-        background: rgba(45, 55, 40, 0.035);
-        color: #24301f;
+        border-left: 2px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.05);
+        color: #6B7A5C;
         white-space: pre-wrap;
         font-size: 17px;
         line-height: 1.8;
@@ -133,7 +133,7 @@ export function renderReflectionExportPdfDocument(
       .meta {
         margin-top: 10px;
         margin-bottom: 22px;
-        color: rgba(45, 55, 40, 0.72);
+        color: rgba(255,255,255,0.8);
         font-size: 13px;
       }
       .excerpt-block + .excerpt-block {
@@ -142,8 +142,8 @@ export function renderReflectionExportPdfDocument(
       .footer-note {
         margin-top: 36px;
         padding-top: 20px;
-        border-top: 1px solid rgba(45, 55, 40, 0.1);
-        color: rgba(45, 55, 40, 0.8);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.8);
         font-size: 13px;
       }
     </style>

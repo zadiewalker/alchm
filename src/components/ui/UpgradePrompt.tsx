@@ -19,7 +19,7 @@ export function UpgradePrompt({ feature, message, recommendedTier, onClose }: Up
       style={{
         borderRadius: DESIGN.radius.lg,
         border: `1px solid ${DESIGN.colors.goldDim}`,
-        background: 'rgba(232,197,109,0.12)',
+        background: 'rgba(255,255,255,0.1)',
         padding: DESIGN.spacing.md,
         display: 'grid',
         gap: DESIGN.spacing.sm,

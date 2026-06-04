@@ -1,5 +1,5 @@
 .page {
-  color: #e7efe8;
+  color: #F2D99D;
   max-width: 920px;
 }
 
@@ -9,8 +9,8 @@
 }
 
 .card {
-  background: #131816;
-  border: 1px solid #1f2723;
+  background: #6B7A5C;
+  border: 1px solid #6B7A5C;
   border-radius: 14px;
   padding: 16px;
 }
@@ -18,7 +18,7 @@
 .label {
   display: block;
   margin: 0 0 8px;
-  color: #97a39c;
+  color: #A8B5A0;
   font-size: 0.9rem;
 }
 
@@ -26,9 +26,9 @@
 .textarea {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid #2a3530;
-  background: #0f1311;
-  color: #e6eee7;
+  border: 1px solid #6B7A5C;
+  background: #6B7A5C;
+  color: #F2D99D;
   padding: 10px 12px;
 }
 
@@ -44,17 +44,17 @@
 }
 
 .button {
-  border: 1px solid #2a3430;
-  background: #1a211d;
-  color: #dce8df;
+  border: 1px solid #6B7A5C;
+  background: #6B7A5C;
+  color: #F2D99D;
   border-radius: 10px;
   padding: 10px 12px;
   cursor: pointer;
 }
 
 .buttonPrimary {
-  border-color: #2f7d53;
-  background: #1e5136;
+  border-color: #8B9A7C;
+  background: #6B7A5C;
 }
 
 .storyTitle {
@@ -64,7 +64,7 @@
 
 .storyMeta {
   margin: 8px 0;
-  color: #90a098;
+  color: #A8B5A0;
   font-size: 0.86rem;
 }
 
@@ -77,6 +77,6 @@
 .communityLink {
   margin-top: 16px;
   display: inline-block;
-  color: #71f2aa;
+  color: #F2D99D;
   text-decoration: none;
 }
