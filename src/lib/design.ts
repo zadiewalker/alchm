@@ -4,10 +4,10 @@ export const DESIGN = {
   colors: {
     bgDeep: '#1f2a1b',
     bgSurface: '#2d3a25',
-    bgElevated: '#445339',
+    bgElevated: '#5e6f4e',
     bgWarm: '#2d3a25',
     sageMuted: '#445339',
-    sage: '#879774',
+    sage: '#8b9a7c',
     sageLight: '#a8b993',
     sageBright: '#f3e7c8',
     goldDim: '#b9974e',
@@ -21,8 +21,8 @@ export const DESIGN = {
     success: '#8ba88a',
     border: 'rgba(185, 151, 78, 0.22)',
     borderLight: 'rgba(185, 151, 78, 0.16)',
-    cardBg: 'rgba(45, 58, 37, 0.72)',
-    cardBgHover: 'rgba(68, 83, 57, 0.82)',
+    cardBg: 'rgba(68, 83, 57, 0.72)',
+    cardBgHover: 'rgba(94, 111, 78, 0.82)',
   },
   typography: {
     sansSerif: "var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
@@ -79,8 +79,8 @@ export const DESIGN = {
 
 export const cardStyle = (elevated = false): React.CSSProperties => ({
   background: elevated
-    ? 'linear-gradient(180deg, rgba(255,243,214,0.1), rgba(68,83,57,0.68))'
-    : 'linear-gradient(180deg, rgba(255,243,214,0.07), rgba(45,58,37,0.72))',
+    ? 'linear-gradient(180deg, rgba(168,185,147,0.2), rgba(68,83,57,0.68))'
+    : 'linear-gradient(180deg, rgba(168,185,147,0.13), rgba(45,58,37,0.72))',
   borderRadius: DESIGN.radius.lg,
   border: `1px solid ${DESIGN.colors.border}`,
   padding: DESIGN.spacing.lg,

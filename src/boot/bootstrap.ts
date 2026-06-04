@@ -68,16 +68,16 @@ function applyCSSTokens(): void {
   const root = document.documentElement;
 
   root.style.setProperty('--bg-base', '#1F2A1B');
-  root.style.setProperty('--bg-surface', 'rgba(45, 58, 37, 0.82)');
+  root.style.setProperty('--bg-surface', 'rgba(68, 83, 57, 0.82)');
   root.style.setProperty('--bg-surface-deep', '#2D3A25');
-  root.style.setProperty('--bg-inset', 'rgba(243, 231, 200, 0.1)');
+  root.style.setProperty('--bg-inset', 'rgba(168, 185, 147, 0.16)');
   root.style.setProperty('--bg-nav', 'rgba(31, 42, 27, 0.92)');
   root.style.setProperty('--bg-overlay', 'rgba(31, 42, 27, 0.32)');
 
   root.style.setProperty('--background-primary', '#1F2A1B');
-  root.style.setProperty('--surface-color', 'rgba(45, 58, 37, 0.82)');
-  root.style.setProperty('--surface-elevated', 'rgba(68, 83, 57, 0.62)');
-  root.style.setProperty('--surface-input', 'rgba(243, 231, 200, 0.1)');
+  root.style.setProperty('--surface-color', 'rgba(68, 83, 57, 0.82)');
+  root.style.setProperty('--surface-elevated', 'rgba(139, 154, 124, 0.34)');
+  root.style.setProperty('--surface-input', 'rgba(168, 185, 147, 0.16)');
   root.style.setProperty('--surface-nav', 'rgba(31, 42, 27, 0.92)');
 
   root.style.setProperty('--text-primary', '#FFF3D6');
@@ -89,7 +89,7 @@ function applyCSSTokens(): void {
   root.style.setProperty('--khepera-text', '#FFF3D6');
   root.style.setProperty('--khepera-seed', '#F3E7C8');
   root.style.setProperty('--khepera-attr', 'rgba(168, 185, 147, 0.72)');
-  root.style.setProperty('--khepera-card-bg', 'rgba(68, 83, 57, 0.62)');
+  root.style.setProperty('--khepera-card-bg', 'rgba(139, 154, 124, 0.26)');
   root.style.setProperty('--khepera-card-border', 'rgba(185,151,78,0.2)');
   root.style.setProperty('--khepera-reflection-text', '#FFF3D6');
   root.style.setProperty('--khepera-perspective-text', '#F3E7C8');
@@ -120,9 +120,9 @@ function applyCSSTokens(): void {
   root.style.setProperty('--border-strong', 'rgba(185,151,78,0.42)');
   root.style.setProperty('--border-divider', 'rgba(185,151,78,0.2)');
   root.style.setProperty('--border-visible', 'rgba(185,151,78,0.42)');
-  root.style.setProperty('--surface-focus', 'rgba(168, 185, 147, 0.24)');
-  root.style.setProperty('--surface-soft-hover', 'rgba(243, 231, 200, 0.08)');
-  root.style.setProperty('--surface-soft-selected', 'rgba(243, 231, 200, 0.14)');
+  root.style.setProperty('--surface-focus', 'rgba(168, 185, 147, 0.28)');
+  root.style.setProperty('--surface-soft-hover', 'rgba(168, 185, 147, 0.16)');
+  root.style.setProperty('--surface-soft-selected', 'rgba(168, 185, 147, 0.22)');
   root.style.setProperty('--surface-nav-halo', 'rgba(198, 168, 94, 0.22)');
   root.style.setProperty('--surface-nav-active', 'rgba(255, 255, 255, 0.08)');
   root.style.setProperty('--border-selected', 'rgba(255, 255, 255, 0.12)');
