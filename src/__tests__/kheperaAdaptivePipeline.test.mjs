@@ -18,6 +18,7 @@ import { extractEntryAnchors } from '../services/khepera/extractEntryAnchors.ts'
 import { KHEPERA_LANGUAGE_PROFILES } from '../services/khepera/languageProfiles.ts';
 import { buildKheperaPacingState, decideReflectionTiming } from '../services/khepera/timing.ts';
 import { processQueuedEntry } from '../services/journal/processQueuedEntry.ts';
+import { handleKheperaGenerationRequest } from '../../functions/src/kheperaGatewayCore.ts';
 
 const fixtures = [
   {
@@ -478,6 +479,339 @@ test('repair prompt includes familiar Khepera cadence warning after language dif
   assert.equal(prompts.length, 2);
   assert.match(prompts[1], /familiar Khepera cadence/i);
   assert.match(prompts[1], /different sentence shape/i);
+});
+
+test('queued entry with existing fallback response persists without duplicate generation', async () => {
+  let modelCalls = 0;
+  let persisted = null;
+  const queueUpdates = [];
+  let completion = null;
+
+  const result = await processQueuedEntry(
+    {
+      updateQueueEntry: async (_localId, updates) => {
+        queueUpdates.push(updates);
+      },
+      releaseQueueEntry: async (_localId, _owner, updates) => {
+        completion = updates;
+      },
+      generateSafeKheperaResponse: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'This should not be generated.',
+          perspective: 'This should not be used.',
+          seed: 'What should not happen here?',
+        };
+      },
+      persistPrecomputedKheperaReflection: async (entryText, response, session) => {
+        persisted = { entryText, response, session };
+      },
+      detectCrisisSignals: () => false,
+      getKheperaReflectionAccessState: async () => ({
+        allowed: true,
+        hasTransformation: true,
+        used: 0,
+        limit: null,
+      }),
+    },
+    {
+      entry: {
+        localId: 'entry-existing',
+        entryText: 'I wrote while offline and the local reflection arrived.',
+        sessionCount: 3,
+        recurringThemes: [],
+        dominantTone: 'processing',
+        userId: 'user-1',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        status: 'pending_sync',
+        syncAttempts: 1,
+        kheperaResponse: 'The offline words are here.\n\nThe response can be carried forward without being remade.',
+        seed: 'What feels most present in these words?',
+        serverPersistenceConfirmed: false,
+      },
+      processingOwner: 'test',
+      userContext: {
+        sessionCount: 3,
+        recurringThemes: [],
+        dominantTone: 'processing',
+      },
+      stopAfterCrisis: false,
+      allowOfflineFallback: false,
+      includeSyncedAtOnRemotePersist: true,
+      onPersistFailure: 'throw',
+      onMissingUserId: 'fail',
+    },
+  );
+
+  assert.equal(result.outcome, 'processed');
+  assert.equal(result.entryId, 'entry-existing');
+  assert.equal(modelCalls, 0);
+  assert.deepEqual(persisted.response, {
+    witness: 'The offline words are here.',
+    perspective: 'The response can be carried forward without being remade.',
+    seed: 'What feels most present in these words?',
+  });
+  assert.deepEqual(persisted.session, {
+    sessionId: 'entry-existing',
+    writtenAt: '2026-05-01T00:00:00.000Z',
+    reflectionTiming: 'immediate',
+  });
+  assert.equal(queueUpdates.some((update) => update.serverPersistenceConfirmed === true), true);
+  assert.equal(completion.status, 'complete');
+});
+
+test('queued entry with incomplete stored response regenerates before persistence', async () => {
+  let modelCalls = 0;
+  let precomputedPersistCalls = 0;
+  const queueUpdates = [];
+  let completion = null;
+
+  const result = await processQueuedEntry(
+    {
+      updateQueueEntry: async (_localId, updates) => {
+        queueUpdates.push(updates);
+      },
+      releaseQueueEntry: async (_localId, _owner, updates) => {
+        completion = updates;
+      },
+      generateSafeKheperaResponse: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'The server witness has been remade.',
+          perspective: 'The server perspective is now complete.',
+          seed: 'What feels most present in the remade reflection?',
+        };
+      },
+      persistPrecomputedKheperaReflection: async () => {
+        precomputedPersistCalls += 1;
+      },
+      detectCrisisSignals: () => false,
+      getKheperaReflectionAccessState: async () => ({
+        allowed: true,
+        hasTransformation: true,
+        used: 0,
+        limit: null,
+      }),
+    },
+    {
+      entry: {
+        localId: 'entry-incomplete-existing',
+        entryText: 'This older queued row has an incomplete stored response.',
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+        userId: 'user-1',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        status: 'pending_sync',
+        syncAttempts: 1,
+        kheperaResponse: 'A witness exists without a complete paired response.',
+        serverPersistenceConfirmed: false,
+      },
+      processingOwner: 'test',
+      userContext: {
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+      },
+      stopAfterCrisis: false,
+      allowOfflineFallback: false,
+      includeSyncedAtOnRemotePersist: true,
+      onPersistFailure: 'throw',
+      onMissingUserId: 'fail',
+    },
+  );
+
+  assert.equal(result.outcome, 'processed');
+  assert.equal(result.entryId, 'entry-incomplete-existing');
+  assert.equal(modelCalls, 1);
+  assert.equal(precomputedPersistCalls, 0);
+  assert.equal(queueUpdates.some((update) => update.kheperaResponse === 'The server witness has been remade.\n\nThe server perspective is now complete.'), true);
+  assert.equal(completion.status, 'complete');
+});
+
+test('precomputed gateway persistence remains authorized and does not call the model', async () => {
+  let rateLimitUser = null;
+  let modelCalls = 0;
+  let persisted = null;
+
+  const result = await handleKheperaGenerationRequest(
+    {
+      entryText: 'A complete local reflection is ready to be persisted after reconnecting.',
+      session: {
+        sessionId: 'entry-precomputed',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        reflectionTiming: 'immediate',
+      },
+      precomputedResponse: {
+        witness: 'The complete local witness is present.',
+        perspective: 'The complete local perspective is present.',
+        seed: 'What feels most present in this completed reflection?',
+      },
+    },
+    'user-1',
+    {
+      consumeRateLimit: async (userId) => {
+        rateLimitUser = userId;
+      },
+      requestReflection: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'This should not be generated.',
+          perspective: 'This should not be used.',
+          seed: 'What should not happen here?',
+        };
+      },
+      persistGeneratedSession: async (userId, entryText, response, session, source) => {
+        persisted = { userId, entryText, response, session, source };
+      },
+    },
+  );
+
+  assert.deepEqual(result, {
+    blockedByCrisis: false,
+    response: {
+      witness: 'The complete local witness is present.',
+      perspective: 'The complete local perspective is present.',
+      seed: 'What feels most present in this completed reflection?',
+    },
+    sessionId: 'entry-precomputed',
+  });
+  assert.equal(rateLimitUser, 'user-1');
+  assert.equal(modelCalls, 0);
+  assert.equal(persisted.source, 'precomputed');
+  assert.equal(persisted.userId, 'user-1');
+});
+
+test('queued entry without response still generates and completes through server persistence', async () => {
+  let modelCalls = 0;
+  let precomputedPersistCalls = 0;
+  let completion = null;
+
+  const result = await processQueuedEntry(
+    {
+      updateQueueEntry: async () => {},
+      releaseQueueEntry: async (_localId, _owner, updates) => {
+        completion = updates;
+      },
+      generateSafeKheperaResponse: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'The generated witness is here.',
+          perspective: 'The generated perspective is held server-side.',
+          seed: 'What feels most present in the generated reflection?',
+        };
+      },
+      persistPrecomputedKheperaReflection: async () => {
+        precomputedPersistCalls += 1;
+      },
+      detectCrisisSignals: () => false,
+      getKheperaReflectionAccessState: async () => ({
+        allowed: true,
+        hasTransformation: true,
+        used: 0,
+        limit: null,
+      }),
+    },
+    {
+      entry: {
+        localId: 'entry-generated',
+        entryText: 'This entry needs a fresh reflection.',
+        sessionCount: 1,
+        recurringThemes: [],
+        dominantTone: 'processing',
+        userId: 'user-1',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        status: 'pending_khepera',
+        syncAttempts: 0,
+      },
+      processingOwner: 'test',
+      userContext: {
+        sessionCount: 1,
+        recurringThemes: [],
+        dominantTone: 'processing',
+      },
+      stopAfterCrisis: false,
+      allowOfflineFallback: false,
+      includeSyncedAtOnRemotePersist: true,
+      onPersistFailure: 'throw',
+      onMissingUserId: 'fail',
+    },
+  );
+
+  assert.equal(result.outcome, 'processed');
+  assert.equal(result.entryId, 'entry-generated');
+  assert.equal(modelCalls, 1);
+  assert.equal(precomputedPersistCalls, 0);
+  assert.equal(completion.status, 'complete');
+});
+
+test('unavailable persistence keeps an existing response retryable', async () => {
+  let modelCalls = 0;
+  let pendingRelease = null;
+
+  const result = await processQueuedEntry(
+    {
+      updateQueueEntry: async () => {},
+      releaseQueueEntry: async (_localId, _owner, updates) => {
+        pendingRelease = updates;
+      },
+      generateSafeKheperaResponse: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'This should not be generated.',
+          perspective: 'This should not be used.',
+          seed: 'What should not happen here?',
+        };
+      },
+      persistPrecomputedKheperaReflection: async () => {
+        throw new Error('network_unavailable');
+      },
+      detectCrisisSignals: () => false,
+      getKheperaReflectionAccessState: async () => ({
+        allowed: true,
+        hasTransformation: true,
+        used: 0,
+        limit: null,
+      }),
+    },
+    {
+      entry: {
+        localId: 'entry-retryable',
+        entryText: 'The response exists, but the server is unavailable.',
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+        userId: 'user-1',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        status: 'pending_sync',
+        syncAttempts: 2,
+        witness: 'This local witness remains.',
+        perspective: 'This local perspective remains.',
+        kheperaResponse: 'This local witness remains.\n\nThis local perspective remains.',
+        seed: 'What feels most present while this waits?',
+        serverPersistenceConfirmed: false,
+      },
+      processingOwner: 'test',
+      userContext: {
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+      },
+      stopAfterCrisis: false,
+      allowOfflineFallback: false,
+      includeSyncedAtOnRemotePersist: true,
+      onPersistFailure: 'return_pending_sync',
+      onMissingUserId: 'fail',
+      getSyncIssue: () => 'remote_unavailable',
+    },
+  );
+
+  assert.equal(result.outcome, 'processed');
+  assert.equal(result.entryId, null);
+  assert.equal(result.syncIssue, 'remote_unavailable');
+  assert.equal(modelCalls, 0);
+  assert.equal(pendingRelease.status, 'pending_sync');
+  assert.equal(pendingRelease.lastSyncError, 'remote_unavailable');
 });
 
 test('delayed_return schedules a metadata-only job and does not call the model immediately', async () => {

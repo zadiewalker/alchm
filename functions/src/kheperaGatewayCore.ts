@@ -25,6 +25,7 @@ export type KheperaGatewayDependencies = {
     entryText: string,
     response: KheperaGatewayResponse,
     session: KheperaSessionPersistenceRequest,
+    source: "generated" | "precomputed",
   ) => Promise<void>;
 };
 
@@ -142,6 +143,14 @@ function parseKheperaResponse(value: unknown): KheperaGatewayResponse {
   };
 }
 
+function parsePrecomputedResponse(data: unknown): KheperaGatewayResponse | null {
+  if (typeof data !== "object" || data === null || !("precomputedResponse" in data) || data.precomputedResponse == null) {
+    return null;
+  }
+
+  return parseKheperaResponse((data as { precomputedResponse: unknown }).precomputedResponse);
+}
+
 export async function handleKheperaGenerationRequest(
   data: unknown,
   authenticatedUserId: string | undefined,
@@ -153,14 +162,19 @@ export async function handleKheperaGenerationRequest(
 
   const entryText = parseEntryText(data);
   const session = parseSessionPersistence(data);
+  const precomputedResponse = parsePrecomputedResponse(data);
 
   if (detectCrisisSignals(entryText)) {
     return { blockedByCrisis: true, response: null, sessionId: null };
   }
 
+  if (precomputedResponse && !session) {
+    throw new KheperaGatewayError("invalid-argument", "precomputed response persistence requires session data");
+  }
+
   await dependencies.consumeRateLimit(authenticatedUserId);
-  const rawResponse = await dependencies.requestReflection(entryText);
-  const response = parseKheperaResponse(rawResponse);
+
+  const response = precomputedResponse ?? parseKheperaResponse(await dependencies.requestReflection(entryText));
   const validation = validateKheperaOutput(response);
 
   if (!validation.ok) {
@@ -171,7 +185,13 @@ export async function handleKheperaGenerationRequest(
     if (!dependencies.persistGeneratedSession) {
       throw new KheperaGatewayError("unavailable", "Session persistence is unavailable");
     }
-    await dependencies.persistGeneratedSession(authenticatedUserId, entryText, response, session);
+    await dependencies.persistGeneratedSession(
+      authenticatedUserId,
+      entryText,
+      response,
+      session,
+      precomputedResponse ? "precomputed" : "generated",
+    );
   }
 
   return { blockedByCrisis: false, response, sessionId: session?.sessionId ?? null };

@@ -6,6 +6,7 @@ import type {
   GuardedModelTextResponse,
   ModelProviderName,
   ModelProviderRequest,
+  PrecomputedKheperaPersistenceRequest,
 } from './types';
 import type { KheperaResponse } from '@/types/khepera';
 
@@ -70,6 +71,30 @@ export async function requestPersistedKheperaReflection(
     perspective: parsed.perspective,
     seed: parsed.seed,
   };
+}
+
+export async function persistPrecomputedKheperaReflection(
+  entryText: string,
+  response: PrecomputedKheperaPersistenceRequest,
+  session: CanonicalSessionPersistenceRequest,
+): Promise<void> {
+  if (detectCrisisSignals(entryText)) {
+    throw new Error('Crisis reflections are not persisted through the Khepera gateway.');
+  }
+
+  const invokeGateway = httpsCallable<{
+    entryText: string;
+    session: CanonicalSessionPersistenceRequest;
+    precomputedResponse: PrecomputedKheperaPersistenceRequest;
+  }, unknown>(
+    getFirebaseFunctions(),
+    'generateKheperaReflection',
+  );
+  const result = await invokeGateway({ entryText, session, precomputedResponse: response });
+
+  if (!isGatewayResponse(result.data) || result.data.blockedByCrisis) {
+    throw new Error('Khepera gateway returned an invalid persistence response.');
+  }
 }
 
 export async function requestModelText(

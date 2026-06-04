@@ -2,6 +2,7 @@ import { CRISIS_RESPONSE, type detectCrisisSignals as detectCrisisSignalsType } 
 import type { generateSafeKheperaResponse as generateSafeKheperaResponseType } from '@/services/khepera/service';
 import { analyzeEntry } from '@/services/khepera/analyzeEntry';
 import { generateReflection } from '@/services/khepera/generateReflection';
+import { persistPrecomputedKheperaReflection } from '@/services/ai/modelProvider';
 import {
   buildKheperaPacingState,
   decideReflectionTiming,
@@ -15,7 +16,7 @@ import {
 import type { KheperaReflectionAccessState } from '@/services/subscriptions/kheperaReflectionAccessService';
 import type { KheperaResponse, KheperaUserContext } from '@/types/khepera';
 import type { QueuedEntry, ThemeTag } from '@/types/journal';
-import { combineKheperaResponse } from '@/utils/khepera';
+import { combineKheperaResponse, splitKheperaResponse } from '@/utils/khepera';
 import { normalizeContainerContext } from '@/utils/khepera/containerContext';
 import { triggerSupportFailure } from '@/services/support/triggerSupportFailure';
 import { buildCompletedQueueUpdate } from '@/services/offline/queueLease';
@@ -33,6 +34,7 @@ type ProcessQueuedEntryDeps = {
   releaseQueueEntry: (localId: string, owner: string, updates?: Partial<QueuedEntry>) => Promise<void>;
   verifyQueueClaim?: (localId: string, owner: string) => Promise<boolean>;
   generateSafeKheperaResponse: typeof generateSafeKheperaResponseType;
+  persistPrecomputedKheperaReflection?: typeof persistPrecomputedKheperaReflection;
   detectCrisisSignals: typeof detectCrisisSignalsType;
   getKheperaReflectionAccessState?: (userId: string | null) => Promise<KheperaReflectionAccessState>;
 };
@@ -147,13 +149,22 @@ export async function processQueuedEntry(
     onTransition,
   } = options;
 
-  let witness = entry.witness ?? '';
-  let perspective = entry.perspective ?? '';
   let kheperaResponse = entry.kheperaResponse ?? '';
-  let seed = entry.seed ?? '';
+  const existingSplit = splitKheperaResponse(kheperaResponse, entry.seed);
+  let witness = entry.witness ?? existingSplit.witness;
+  let perspective = entry.perspective ?? existingSplit.perspective;
+  let seed = entry.seed ?? existingSplit.seed;
   let isCrisis = entry.isCrisis ?? false;
   const resolvedUserId = entry.userId ?? fallbackUserId;
   let serverPersistenceConfirmed = entry.serverPersistenceConfirmed === true;
+
+  if (kheperaResponse && (!witness.trim() || !perspective.trim() || !seed.trim())) {
+    kheperaResponse = '';
+    witness = '';
+    perspective = '';
+    seed = '';
+    serverPersistenceConfirmed = false;
+  }
 
   async function assertClaimOwnership(): Promise<void> {
     if (deps.verifyQueueClaim && !(await deps.verifyQueueClaim(entry.localId, processingOwner))) {
@@ -350,7 +361,19 @@ export async function processQueuedEntry(
       throw new Error('crisis_remote_persistence_unavailable');
     }
     if (!serverPersistenceConfirmed) {
-      throw new Error('server_persistence_unconfirmed');
+      await (deps.persistPrecomputedKheperaReflection ?? persistPrecomputedKheperaReflection)(
+        entry.entryText,
+        { witness, perspective, seed },
+        {
+          sessionId: entry.localId,
+          writtenAt: entry.writtenAt,
+          reflectionTiming: entry.reflectionTiming === 'short_delay' ? 'short_delay' : 'immediate',
+        },
+      );
+      serverPersistenceConfirmed = true;
+      await deps.updateQueueEntry(entry.localId, {
+        serverPersistenceConfirmed: true,
+      });
     }
 
     await deps.releaseQueueEntry(

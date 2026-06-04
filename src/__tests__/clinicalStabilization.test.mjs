@@ -50,6 +50,10 @@ test('queue completion requires confirmed server persistence and redacts local r
   assert.ok(persistenceProof !== -1 && completion !== -1);
   assert.ok(persistenceProof < completion);
   assert.doesNotMatch(source, /deps\.setDoc|deps\.updateKheperaMemory/);
+  assert.match(source, /splitKheperaResponse/);
+  assert.match(source, /persistPrecomputedKheperaReflection/);
+  assert.match(source, /serverPersistenceConfirmed = true/);
+  assert.doesNotMatch(source, /server_persistence_unconfirmed/);
   assert.match(completionSource, /status: 'complete'/);
   assert.match(completionSource, /entryText: ''/);
 });

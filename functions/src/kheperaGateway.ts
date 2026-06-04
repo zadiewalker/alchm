@@ -111,8 +111,10 @@ async function persistGeneratedSession(
   entryText: string,
   response: KheperaGatewayResponse,
   session: KheperaSessionPersistenceRequest,
+  source: "generated" | "precomputed",
 ): Promise<void> {
   const model = process.env.ANTHROPIC_KHEPERA_MODEL || DEFAULT_KHEPERA_MODEL;
+  const isPrecomputed = source === "precomputed";
   await admin.firestore()
     .collection("users")
     .doc(userId)
@@ -128,11 +130,11 @@ async function persistGeneratedSession(
       isCrisis: false,
       reflectionTiming: session.reflectionTiming,
       generatedBy: "server",
-      source: "kheperaGateway",
+      source: isPrecomputed ? "queuedPrecomputedReflectionGateway" : "kheperaGateway",
       gatewayVersion: KHEPERA_GATEWAY_VERSION,
       schemaVersion: KHEPERA_SESSION_SCHEMA_VERSION,
-      modelProvider: "anthropic",
-      modelIdentifier: model,
+      modelProvider: isPrecomputed ? "local" : "anthropic",
+      modelIdentifier: isPrecomputed ? "precomputed-khepera-response" : model,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       validatedAt: admin.firestore.FieldValue.serverTimestamp(),
       writtenAt: session.writtenAt,

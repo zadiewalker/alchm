@@ -6,6 +6,12 @@ export type CanonicalSessionPersistenceRequest = {
   reflectionTiming: 'immediate' | 'short_delay';
 };
 
+export type PrecomputedKheperaPersistenceRequest = {
+  witness: string;
+  perspective: string;
+  seed: string;
+};
+
 export type ModelTextRequest = {
   system: string;
   prompt: string;
