@@ -122,9 +122,9 @@ export default function MirrorPage() {
   );
   const featuredReturn = longRangeReturns[0] ?? null;
   const supportingReturn = longRangeReturns[1] ?? null;
-  const mirrorLead = 'Mirror gathers selected returns over time.';
-  const mirrorSupport = 'Delayed reflections, recurring themes, and long-range returns can appear here when there is enough writing to show them.';
-  const mirrorQuietLine = 'Until then, your journal remains available.';
+  const mirrorLead = 'Mirror shows what keeps returning.';
+  const mirrorSupport = 'When enough has gathered, old questions and quiet themes can surface here without turning your journal into a feed.';
+  const mirrorQuietLine = 'Until then, nothing needs to be forced.';
   const showSupportingSections = Boolean(
     featuredReturn ||
     supportingReturn ||
@@ -149,8 +149,8 @@ export default function MirrorPage() {
           </div>
           <MirrorStatePanel
             label="Gathering"
-            title="Checking for returns."
-            body="Mirror is looking for delayed reflections, recurring themes, and long-range returns that are ready to show."
+            title="Letting returns gather."
+            body="Mirror waits for delayed reflections, recurring themes, and long-range returns to become clear enough to show."
             note={mirrorQuietLine}
           />
         </div>
@@ -221,8 +221,8 @@ export default function MirrorPage() {
           </div>
           <MirrorStatePanel
             label="Gathering"
-            title="Checking for returns."
-            body="Mirror is looking for delayed reflections, recurring themes, and long-range returns that are ready to show."
+            title="Letting returns gather."
+            body="Mirror waits for delayed reflections, recurring themes, and long-range returns to become clear enough to show."
             note={mirrorQuietLine}
           />
         </div>
@@ -309,7 +309,7 @@ export default function MirrorPage() {
                 Nothing has returned yet.
               </AppText>
               <AppText variant="secondary" as="p" className="mirror-empty-body">
-                Mirror can hold delayed reflections, recurring themes, and long-range returns when there is enough writing to show them.
+                When enough has gathered, old questions and quiet themes can surface here without turning your journal into a feed.
               </AppText>
               <AppText variant="caption" as="p" className="mirror-empty-note">
                 {mirrorQuietLine}

@@ -162,7 +162,7 @@ export default function UpgradeClient(): React.JSX.Element {
         <AppCard>
           <div style={{ display: 'grid', gap: 'var(--space-3)' }}>
             <AppText variant="secondary" as="p">
-              Open subscription options here at any time.
+              Transformation is available if you want longer returns to stay closer.
             </AppText>
             <div>
               <button
@@ -181,7 +181,7 @@ export default function UpgradeClient(): React.JSX.Element {
                   openSubscriptionOptions();
                 }}
               >
-                Open subscription options
+                View Transformation options
               </button>
             </div>
           </div>

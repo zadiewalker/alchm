@@ -39,7 +39,7 @@ export const SUBSCRIPTION_COPY = {
       features: string[];
     }
   >,
-  restoreLabel: 'Restore Purchase',
+  restoreLabel: 'Restore purchase',
   restoreSuccess: 'Transformation is active.',
   restoreFailure: 'We couldn’t restore purchases right now.\nPlease try again.',
   restoreNotFound: 'No previous purchase was found for this Apple ID.',
