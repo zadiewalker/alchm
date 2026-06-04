@@ -2,7 +2,7 @@
 
 ## Status
 
-`STALE FOR NEW CANDIDATE - SAME-SHA DEPLOYMENT EVIDENCE REQUIRED`
+`SAME-SHA DEPLOYMENT EVIDENCE RECORDED`
 
 This record identifies the same-SHA evidence that must connect source
 provenance to deployed reflective behavior. It does not choose the deployment
@@ -18,11 +18,11 @@ Signed receipt and digest binding semantics are specified in
 
 | Authority | Current observation | Required lineage evidence |
 | --- | --- | --- |
-| Firebase Functions | Previous deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Stale for candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; redeploy Functions and capture hashes/revisions |
-| Firestore rules | Previous rules deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-02 | Local emulator result is `CANDIDATE_BOUND_PASS` for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; production rules deployment evidence for the new candidate is still required |
+| Firebase Functions | Targeted deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-04 | Deployed local-source functions without deleting legacy `crisisDetection`; `generateKheperaReflection` hash `ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f`; container callables hash `b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2`; v2 utility hash `76124a2dccc52dd8955508ccb60ba280ddf41a70`; `crisisDetection` remains ACTIVE with hash `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
+| Firestore rules | Rules deployment to project `alchm-463017` by `zadiewalker@gmail.com` on 2026-06-04 | Local emulator result is `CANDIDATE_BOUND_PASS` for `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; production CLI reported rules compiled successfully and released to `cloud.firestore`; rules digest `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6` |
 | Hosting | Firebase Hosting is retained as redirect edge to Vercel | Deployed redirect configuration identity and rollback target |
-| Vercel/static export | Previous Vercel production deployment `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` is `Ready` | Stale for candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; redeploy or provide source/artifact proof for the new candidate |
-| Provider secret | Khepera reads `ANTHROPIC_API_KEY` server-side | Redacted lineage digest remains recorded; deployment binding must be reattached to new same-SHA Functions evidence |
+| Vercel/static export | Vercel production deployment `dpl_585R7gTNomY8BozMZ5z1WFThWHxD` is `Ready` | Deployment URL `https://alchm-c4mq20g29-zadie-walkers-projects.vercel.app`; aliases include `https://alchm.vercel.app`; Vercel status is attached to evidence-tail `8e08b691b1e6efe9f15a271b312960b0297e385d`, whose diff from product candidate is limited to `docs/release/` |
+| Provider secret | Khepera reads `ANTHROPIC_API_KEY` server-side | Verified: deployed `generateKheperaReflection` metadata reports `ANTHROPIC_API_KEY`; runtime receipt binds checker-derived provider-secret lineage evidence digest |
 | Native runtime | Capacitor and generated iOS identifiers are reconciled to `com.alchm.sanctuary` | New sync/archive identity and RevenueCat entitlement evidence tied to `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` required |
 | RevenueCat | Native plugin and subscription source exist | Approved entitlement/runtime verification tied to native candidate |
 

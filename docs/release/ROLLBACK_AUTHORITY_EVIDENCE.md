@@ -2,35 +2,37 @@
 
 ## Status
 
-`STALE FOR NEW CANDIDATE 3a7c6d93140527de77c2fcc91ea3a9f73013b9da`
+`RECORDED FOR NEW CANDIDATE`
 
-This record preserves rollback authority for the previous candidate evidence
-set. It is not valid rollback evidence for new candidate
-`3a7c6d93140527de77c2fcc91ea3a9f73013b9da` until deployment targets are rebuilt
-or explicitly verified for that candidate.
+This record preserves rollback authority for the current candidate deployment
+lineage.
 
 ## Candidate Binding
 
 | Field | Evidence |
 | --- | --- |
 | Historical candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
+| Authoritative candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
+| Evidence-tail SHA | `8e08b691b1e6efe9f15a271b312960b0297e385d` |
 | Firebase project | `alchm-463017` |
-| Vercel deployment target | `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |
-| Firebase Functions local-source hash | `844a2fd3b1f71300511f93fc8ad121b4022ed1cb` |
-| Firebase healthCheck hash | `245c06b5cc9c46a4d8447cfd61b332f45af470a4` |
+| Current Vercel production deployment | `dpl_585R7gTNomY8BozMZ5z1WFThWHxD` |
+| Vercel rollback target | `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |
+| Firebase generateKheperaReflection hash | `ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f` |
+| Firebase container callable hash | `b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2` |
+| Firebase healthCheck/v2 utility hash | `76124a2dccc52dd8955508ccb60ba280ddf41a70` |
 | Preserved crisisDetection hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Firestore rules target digest | `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6` |
 | Provider secret lineage digest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
+| Provider secret deployment binding | `VERIFIED - deployed generateKheperaReflection metadata shows ANTHROPIC_API_KEY` |
 
 ## Rollback Coverage
 
 | Surface | Rollback authority |
 | --- | --- |
-| Vercel production | Promote or restore production to `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh`. |
+| Vercel production | Current production is `dpl_585R7gTNomY8BozMZ5z1WFThWHxD`; rollback target is `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh`. |
 | Firestore rules | Re-deploy rules whose SHA-256 digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. |
-| Firebase Functions | Stale for new candidate; deploy `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` explicit local function targets to project `alchm-463017`; preserve legacy `crisisDetection` unless release authority separately approves deletion. |
-| Provider secret | Any provider-secret rotation invalidates receipts not bound to lineage digest `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a`. |
+| Firebase Functions | Re-deploy explicit local function targets to project `alchm-463017`; preserve legacy `crisisDetection` unless release authority separately approves deletion. |
+| Provider secret | Any future provider-secret configuration or rotation invalidates receipts not bound to lineage digest `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a`. |
 | Runtime receipt | Any rollback, new deployment, provider-secret rotation, or verifier change requires a new receipt ID and invalidates prior unconsumed receipts. |
 | Verifier | Revoke verifier `alchm-release-owner-2026-05` by setting `revokedAt` in `docs/release/trusted-runtime-verifiers.json` and issuing a replacement verifier record. |
 
@@ -43,7 +45,7 @@ or explicitly verified for that candidate.
 ```bash
 vercel rollback dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh
 firebase deploy --only firestore:rules --project alchm-463017
-firebase deploy --only functions:activateContainer,functions:advanceSanctuaryContainer,functions:cancelAccountDeletion,functions:checkConsentExpiry,functions:cleanupOldUsageData,functions:detectAuditAnomalies,functions:enforceDataRetentionPolicies,functions:enforceUserDataRetention,functions:exportUserData,functions:generateComplianceAuditReport,functions:generateKheperaReflection,functions:getDataRetentionStats,functions:getUserAuditTrail,functions:getUserConsentHistory,functions:healthCheck,functions:processAccountDeletions,functions:processBudgetAlert,functions:regrantConsent,functions:requestAccountDeletion,functions:trackDailyCosts,functions:updateDataRetentionPreferences,functions:verifyAccountDeletion,functions:withdrawConsent --project alchm-463017
+firebase deploy --only functions:healthCheck,functions:exportUserData,functions:requestAccountDeletion,functions:verifyAccountDeletion,functions:cancelAccountDeletion,functions:processAccountDeletions,functions:enforceUserDataRetention,functions:updateDataRetentionPreferences,functions:getDataRetentionStats,functions:enforceDataRetentionPolicies,functions:withdrawConsent,functions:regrantConsent,functions:getUserConsentHistory,functions:checkConsentExpiry,functions:getUserAuditTrail,functions:generateComplianceAuditReport,functions:detectAuditAnomalies,functions:processBudgetAlert,functions:trackDailyCosts,functions:cleanupOldUsageData,functions:generateKheperaReflection,functions:activateContainer,functions:advanceSanctuaryContainer --project alchm-463017
 npm run check:runtime-attestation
 npm run check:release-trust
 ```
