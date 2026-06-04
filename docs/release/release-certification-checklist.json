@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "certificationStatus": "LOCALLY VALIDATED",
+  "certificationStatus": "ATTESTED RELEASE CANDIDATE, NOT CERTIFIED",
   "releaseBranch": "release/clinical-architecture-integration",
   "inspectedHead": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
   "candidateSha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
