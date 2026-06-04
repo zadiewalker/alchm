@@ -199,7 +199,7 @@ function findEvent(events, predicate) {
 
 async function openSplash(page) {
   await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
-  const cta = page.getByRole('button', { name: /^begin$/i });
+  const cta = page.getByRole('button', { name: /^(begin|enter|enter alchm)$/i });
   await cta.waitFor({ timeout: NAV_TIMEOUT_MS });
   return cta;
 }
@@ -242,7 +242,7 @@ async function expectDashboard(page) {
     timeout: NAV_TIMEOUT_MS,
     waitUntil: 'domcontentloaded',
   });
-  await page.getByRole('heading', { name: 'Dashboard' }).waitFor({ timeout: NAV_TIMEOUT_MS });
+  await page.getByText('What wants to be held here?').waitFor({ timeout: NAV_TIMEOUT_MS });
 }
 
 async function runCase(name, runFn) {
@@ -427,7 +427,7 @@ async function run() {
         await attachTelemetryCapture(page);
 
         await page.evaluate(() => {
-          const button = document.querySelector('button[aria-label="Begin"]');
+          const button = document.querySelector('button[aria-label="Begin"], button[aria-label="Enter ALCHM"]');
           if (!(button instanceof HTMLButtonElement)) {
             throw new Error('Splash CTA button not found for double-click check');
           }
