@@ -2,7 +2,7 @@
 
 ## Status
 
-`DEPLOYMENT LINEAGE RECORDED - NATIVE AND GITHUB CHECKS STILL BLOCK CERTIFICATION`
+`DEPLOYMENT LINEAGE RECORDED - NATIVE EVIDENCE STILL BLOCKS CERTIFICATION`
 
 This record states the evidence required to connect reflective provenance in
 source to an actually deployed runtime. It does not authorize deployment and
@@ -12,13 +12,13 @@ does not accept source files as deployment evidence.
 
 | Authority | Required evidence for one fixed SHA | Current evidence |
 | --- | --- | --- |
-| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; release scope check passes locally |
-| CI validation | Green required checks for that identical SHA | Local validation suite passed on pushed evidence-tail `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` at `2026-06-04T16:05:25Z`; GitHub Navigation E2E run `26963482032` for the same pushed SHA failed twice in `Run Navigation E2E Suite` while waiting for `getByRole('button', { name: /^begin$/i })`, so GitHub checks remain blocked |
+| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `d255aded50d97a5325b56c7db431969249546f85`; release scope check passes locally |
+| CI validation | Green required checks for that identical SHA | Local validation suite passed for `d255aded50d97a5325b56c7db431969249546f85`; GitHub Navigation E2E run `26965018822` completed successfully for the exact same SHA |
 | Functions | Deployed Khepera and continuity callable identities attributable to SHA | Targeted Firebase deploy completed 2026-06-04 to project `alchm-463017`; deployed `generateKheperaReflection` hash `ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f` with `ANTHROPIC_API_KEY` env key present; `activateContainer` and `advanceSanctuaryContainer` hash `b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2`; `healthCheck` hash `76124a2dccc52dd8955508ccb60ba280ddf41a70`; legacy `crisisDetection` preserved as ACTIVE with hash `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | Firestore rules deployed 2026-06-04 to project `alchm-463017`; local authoritative rules digest `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`; CLI reported rules compiled successfully and released to `cloud.firestore` |
 | Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Verified: `firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017` succeeded without printing the secret; deployed `generateKheperaReflection` metadata includes `ANTHROPIC_API_KEY`; source reads `process.env.ANTHROPIC_API_KEY` |
 | Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Vercel production deployment `dpl_585R7gTNomY8BozMZ5z1WFThWHxD` is Ready at `https://alchm-c4mq20g29-zadie-walkers-projects.vercel.app`; aliases include `https://alchm.vercel.app`; prior production rollback target is `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |
-| Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | Local archive for pushed evidence-tail `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` succeeded at `/tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive`; bundle ID `com.alchm.sanctuary`; product candidate remains `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`; external RevenueCat dashboard and sandbox/TestFlight entitlement proof remain required before native certification |
+| Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | Historical local archive for pushed evidence-tail `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` succeeded at `/tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive`; bundle ID `com.alchm.sanctuary`; new product candidate is `d255aded50d97a5325b56c7db431969249546f85`; external RevenueCat dashboard and sandbox/TestFlight entitlement proof remain required before native certification |
 | Rollback | Named prior deploy/archive authority and verified rollback procedure | Stale: rollback target names previous candidate/deployment; new rollback evidence required after redeploy |
 
 ## Reflective Integrity Expectation
@@ -31,12 +31,13 @@ clean candidate SHA.
 
 ## Certification Consequence
 
-The previous web and Firebase deployment lineage chain is superseded by the
-new authoritative candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
-ALCHM has same-SHA deployment evidence for this candidate lineage, but final
-release certification remains blocked by GitHub check failure on the pushed
-evidence-tail and missing native RevenueCat/TestFlight proof. Local repository
-validation for the pushed evidence-tail is complete.
+The previous candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` is
+superseded by the navigation-validated candidate
+`d255aded50d97a5325b56c7db431969249546f85`. ALCHM has same-SHA deployment
+evidence for this candidate lineage because the candidate delta is limited to
+`scripts/e2e-navigation.mjs` plus release evidence and does not alter deployed
+runtime surfaces. Final release certification remains blocked by missing native
+RevenueCat/TestFlight proof.
 
 The executable runtime gate remains fail closed as described in
 `docs/release/RUNTIME_ATTESTATION_MODEL.md`. The evidence collection contract

@@ -16,7 +16,7 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
+| Candidate SHA | `d255aded50d97a5325b56c7db431969249546f85` |
 | Functions hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
@@ -34,8 +34,8 @@ then redeployed with that secret material bound to `ANTHROPIC_API_KEY`, and
 `generateKheperaReflection` environment keys including `ANTHROPIC_API_KEY`.
 
 Previous receipt evidence targeted
-`16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the new
-source-bearing candidate `3a7c6d93140527de77c2fcc91ea3a9f73013b9da`.
+`16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the current
+source-bearing candidate `d255aded50d97a5325b56c7db431969249546f85`.
 
 ## Evidence Format
 

@@ -6,19 +6,19 @@
 
 Native remains in scope. This record preserves historical archive evidence for
 previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf` and records the
-current local archive produced from pushed evidence-tail
-`fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a`, whose attested product candidate is
-`3a7c6d93140527de77c2fcc91ea3a9f73013b9da`. `iosArchiveSameSha` remains false
+historical local archive produced from pushed evidence-tail
+`fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a`. The current product candidate is
+`d255aded50d97a5325b56c7db431969249546f85`. `iosArchiveSameSha` remains false
 until external RevenueCat dashboard plus sandbox/TestFlight entitlement evidence
-is attached for the archived build.
+is attached for the current candidate's archived build.
 
 ## Source Binding
 
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
-| Current archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
+| New authoritative candidate SHA | `d255aded50d97a5325b56c7db431969249546f85` |
+| Historical archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
 | Native archive worktree | `/Users/zadiewalker/Desktop/alchm` |
 | Worktree before native run | Clean according to `git status --short --branch` |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
@@ -69,7 +69,7 @@ find /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive -type f -prin
 | --- | --- |
 | Next build | Passed; static export generated 36 app routes |
 | Capacitor sync | Passed; copied `out` to `ios/App/App/public`, created `ios/App/App/capacitor.config.json`, updated iOS plugins, and ran `pod install` |
-| Repository validation | Passed on pushed evidence-tail `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` with clean worktree at `2026-06-04T16:05:25Z` |
+| Repository validation | Passed on current candidate `d255aded50d97a5325b56c7db431969249546f85` with clean worktree at `2026-06-04T18:31:17Z` |
 
 ## Archive Evidence
 
@@ -115,7 +115,8 @@ Release approval still requires external RevenueCat evidence:
 
 ## Certification Consequence
 
-`iosArchiveSameSha` remains blocked because:
+`iosArchiveSameSha` remains blocked for current candidate
+`d255aded50d97a5325b56c7db431969249546f85` because:
 
 1. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
 2. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,
@@ -127,7 +128,7 @@ Release approval still requires external RevenueCat evidence:
 ## Exact Next Commands
 
 Before setting `iosArchiveSameSha` to `true`, collect RevenueCat evidence for
-the candidate-bound archive:
+the current candidate-bound archive:
 
 ```bash
 git status --short --branch

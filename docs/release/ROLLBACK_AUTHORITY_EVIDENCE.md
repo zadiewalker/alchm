@@ -12,8 +12,8 @@ lineage.
 | Field | Evidence |
 | --- | --- |
 | Historical candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| Authoritative candidate SHA | `3a7c6d93140527de77c2fcc91ea3a9f73013b9da` |
-| Evidence-tail SHA | `8e08b691b1e6efe9f15a271b312960b0297e385d` |
+| Authoritative candidate SHA | `d255aded50d97a5325b56c7db431969249546f85` |
+| Evidence-tail SHA | Runtime-attestation evidence commit containing this record |
 | Firebase project | `alchm-463017` |
 | Current Vercel production deployment | `dpl_585R7gTNomY8BozMZ5z1WFThWHxD` |
 | Vercel rollback target | `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |

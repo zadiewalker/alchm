@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "attestationStatus": "ATTESTED",
   "runtimeEnablementAuthorized": true,
-  "candidateSha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
+  "candidateSha": "d255aded50d97a5325b56c7db431969249546f85",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-04T15:44:35.856Z",
+  "verifiedAt": "2026-06-04T18:32:29.920Z",
   "verificationAuthority": {
     "status": "verified",
     "verifierId": "alchm-release-owner-2026-05",
@@ -14,68 +14,68 @@
     "algorithm": "RSA-SHA256",
     "payload": {
       "schemaVersion": 1,
-      "receiptId": "prod-3a7c6d931405-2026-06-04T15-43-10-111Z",
+      "receiptId": "prod-d255aded50d9-2026-06-04T18-32-29-920Z",
       "verifierId": "alchm-release-owner-2026-05",
-      "candidateSha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "evidenceDigest": "5e8cd8f466ba03cf08c72fec158c35f2afb7b3861177a8987c2745c316215074",
+      "candidateSha": "d255aded50d97a5325b56c7db431969249546f85",
+      "evidenceDigest": "8ec9fc99edcde1307a7020928d63fd1cae9e8d750689d2db35c9f24dd2220417",
       "deploymentEnvironment": "production",
-      "functionsDeploymentSha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "firestoreRulesDeploymentSha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "deploymentEvidenceDigest": "f45d0950dddfa510a0ddfba880215c7a0a2ac572e11097a0d4e216e5d9c1521b",
-      "providerSecretLineageDigest": "e9ecdf793b9356bbaaf852cb890ace762d92246c0cb196dc451d4385b0ec8312",
+      "functionsDeploymentSha": "d255aded50d97a5325b56c7db431969249546f85",
+      "firestoreRulesDeploymentSha": "d255aded50d97a5325b56c7db431969249546f85",
+      "deploymentEvidenceDigest": "8bdc0652cca8cd0809a4243958b1078f8cbf3ba6a2d8380d8135a7928a05714c",
+      "providerSecretLineageDigest": "251f05d61fbd0bb8b7aad2d1ed08fc35ed8aacb25cb4d8c6ab9265a0cecef412",
       "authorizationScope": "continuity-transitions",
-      "issuedAt": "2026-06-04T15:43:10.111Z",
+      "issuedAt": "2026-06-04T18:32:29.920Z",
       "expiresAt": "2026-06-28T03:29:00.000Z"
     },
-    "signatureBase64": "YV58TgxBEgBzhuGyju+El00Alylb9AcZdOMJdZbraUG2MhTlkw9qEdXgefgOYfQmiucCsbF3xKYIFs1sFZrMfI1tKhSpzA+5pGj6LfaRcCvdKyXrWHbH2IkUSvLThnMMjyKu7WxnwhhzcNaHd05he0Hog7D/TODOF3lCVBX9pFYVzTfwBknfeLq+VonBHG4FbzGTcClPOIaQ7Pf9klmI0B90Qd8TBPIdRWQDnzZSQunHKqq0xBlW4r4ngamva9YdAQix4ghYrRan5XJAzsCx02ZwOPQhOJK+WM3C8rjswRDm9Wwr8fdvZ4bRjA6dvgGK81j0QKxoewPn3qjIKZ3yYFk8wrwd6ZBmgpykDzXAgg4BUhlj5GKlei6i43sfql4HYFcO0+2WoHjN9NUAwA13F9k8+aMMjgkBGZWPTbuMQ21h/PAiVUGHK/++COq40WN5UpRyw80otuSDF1LUox9bg+QLkTn4HwtB8IZwf576CPidIjAunFmig4MEL0pYIyaP"
+    "signatureBase64": "e7HUvObDWfAGRK27DWPg2kyRcL0NpNUT2tQOpK2NghCAsFh7dOqRTDQAxrsA4BzYErSqrvW35GBYJJ5J9zsO8otNSkYhiVifQvVonYzEZNU4meV5VSM3Co0k/enoQ0cKUg9hPlknHBr4nM4lSovVmH0mmkWmKFtXr9RUa3Xx8/xAsfVYfxOzZ4cnPwlLa0oSXrAdLO3UW8lrlrXEoK5NgQ148s5yg5DjPzvEqmXLY+E2nT2Ef2/sVAURAi0gQa2pGTFavUm87EVHpyfRscVC4WBkBXHEx5X4lnQ54+fC5BY+c95gmf3CV04sqvn8i7jgfcr6Fo3fY2BgNRI817/deQdubjjHfqJjumz7y0rXmmN6muJzYohtR3hqh6pombdIu3Y3DF4dwXxt1hMYAwjtSc128cCRgozBcVPUKTbYh7HEbtAeVPSJe54PKreh12H5uNb0/ELNdWEWpf9fnf4uankoDz1FmS7tEQmw4S6goSQbr5fSGNjyOgCnDke7YFX7"
   },
   "consumedReceiptIds": [],
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "git status --porcelain clean; branch release/clinical-architecture-integration at 3a7c6d93140527de77c2fcc91ea3a9f73013b9da"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "git status --porcelain clean; branch release/clinical-architecture-integration at d255aded50d97a5325b56c7db431969249546f85; pushed GitHub Navigation E2E run 26965018822 succeeded for this exact SHA"
     },
     "releaseScope": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "npm run check:release-scope passes for candidate 3a7c6d93140527de77c2fcc91ea3a9f73013b9da; no authority-conflicting duplicate trees present"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "npm run check:release-scope passes for candidate d255aded50d97a5325b56c7db431969249546f85; no authority-conflicting duplicate trees present"
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS candidate=3a7c6d93140527de77c2fcc91ea3a9f73013b9da tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "docs/release/firestore-emulator-evidence.latest.json status=CANDIDATE_BOUND_PASS remains rules-equivalent for candidate d255aded50d97a5325b56c7db431969249546f85; candidate change from 3a7c6d93140527de77c2fcc91ea3a9f73013b9da is limited to scripts/e2e-navigation.mjs and release evidence, with no firestore.rules or emulator-test diff; tests=6 pass=6 firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
     },
     "functionsDeployment": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "Firebase Functions targeted deploy completed 2026-06-04T07:00Z-07:05Z to project alchm-463017 by zadiewalker@gmail.com using explicit functions targets; source-affecting diff from candidate to evidence-tail is docs/release only; deployed generateKheperaReflection hash=ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f state=ACTIVE envKeys include ANTHROPIC_API_KEY; activateContainer/advanceSanctuaryContainer hash=b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2 state=ACTIVE; healthCheck hash=76124a2dccc52dd8955508ccb60ba280ddf41a70 state=ACTIVE; legacy crisisDetection preserved hash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 state=ACTIVE"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "Firebase Functions targeted deploy evidence from 2026-06-04 remains runtime-equivalent for candidate d255aded50d97a5325b56c7db431969249546f85; diff from 3a7c6d93140527de77c2fcc91ea3a9f73013b9da to d255aded50d97a5325b56c7db431969249546f85 does not touch functions/ or runtime product code, only scripts/e2e-navigation.mjs plus release evidence; deployed generateKheperaReflection hash=ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f state=ACTIVE envKeys include ANTHROPIC_API_KEY; activateContainer/advanceSanctuaryContainer hash=b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2 state=ACTIVE; healthCheck hash=76124a2dccc52dd8955508ccb60ba280ddf41a70 state=ACTIVE; legacy crisisDetection preserved hash=b6a7829da9eb0b4bbcb08d15a92ce635b5031a07 state=ACTIVE"
     },
     "firestoreRulesDeployment": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "Firebase Firestore rules deployed 2026-06-04T07:06Z to project alchm-463017 by zadiewalker@gmail.com using firebase deploy --only firestore:rules --project alchm-463017; CLI reported firestore.rules compiled successfully and released to cloud.firestore; local authoritative rules digest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "Firebase Firestore rules deployment evidence from 2026-06-04 remains rules-equivalent for candidate d255aded50d97a5325b56c7db431969249546f85; diff from 3a7c6d93140527de77c2fcc91ea3a9f73013b9da to d255aded50d97a5325b56c7db431969249546f85 does not touch firestore.rules; project alchm-463017; rules digest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6"
     },
     "providerSecretPresence": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=3a7c6d93140527de77c2fcc91ea3a9f73013b9da; Firebase functions:secrets:access ANTHROPIC_API_KEY succeeded without printing the secret; generateKheperaReflection redeployed 2026-06-04 and firebase functions:list metadata shows envKeys include ANTHROPIC_API_KEY; local ignored functions/.env restored after deploy"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "docs/release/PROVIDER_SECRET_LINEAGE_EVIDENCE.md#recorded-lineage providerSecretLineageDigest=ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a firebaseProject=alchm-463017 secretRef=ANTHROPIC_API_KEY secretVersion=1 rotationTimestamp=2026-05-29T02:54:13Z candidate=d255aded50d97a5325b56c7db431969249546f85; Firebase functions:secrets:access ANTHROPIC_API_KEY succeeded without printing the secret; deployed generateKheperaReflection metadata shows envKeys include ANTHROPIC_API_KEY; candidate change from 3a7c6d93140527de77c2fcc91ea3a9f73013b9da to d255aded50d97a5325b56c7db431969249546f85 does not alter provider runtime code"
     },
     "deploymentAuthority": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "Intentional split deployment evidence captured 2026-06-04: Vercel production deployment dpl_585R7gTNomY8BozMZ5z1WFThWHxD Ready at https://alchm-c4mq20g29-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; Firebase Functions and Firestore rules deployed to project alchm-463017; source-affecting diff from candidate 3a7c6d93140527de77c2fcc91ea3a9f73013b9da to evidence-tail 8e08b691b1e6efe9f15a271b312960b0297e385d is docs/release only"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "Intentional split deployment evidence remains runtime-equivalent for candidate d255aded50d97a5325b56c7db431969249546f85: Vercel production deployment dpl_585R7gTNomY8BozMZ5z1WFThWHxD Ready at https://alchm-c4mq20g29-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; Firebase Functions and Firestore rules deployed to project alchm-463017; candidate delta from 3a7c6d93140527de77c2fcc91ea3a9f73013b9da to d255aded50d97a5325b56c7db431969249546f85 is Navigation E2E script plus release evidence and does not alter deployed runtime surfaces"
     },
     "rollbackAuthority": {
       "verified": true,
-      "sha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-      "reference": "docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md updated for candidate 3a7c6d93140527de77c2fcc91ea3a9f73013b9da: Vercel rollback target dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh; Firebase Functions rollback is targeted redeploy of the explicit function list to project alchm-463017; Firestore rules rollback is firebase deploy --only firestore:rules --project alchm-463017 for digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; receipt invalidation/verifier revocation path documented"
+      "sha": "d255aded50d97a5325b56c7db431969249546f85",
+      "reference": "docs/release/ROLLBACK_AUTHORITY_EVIDENCE.md remains applicable to candidate d255aded50d97a5325b56c7db431969249546f85: Vercel rollback target dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh; Firebase Functions rollback is targeted redeploy of explicit function list to project alchm-463017; Firestore rules rollback is firebase deploy --only firestore:rules --project alchm-463017 for digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; receipt invalidation/verifier revocation path documented; candidate delta does not alter rollback surfaces"
     }
   },
   "recordedProviderSecretLineageDigest": "ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a",
   "previousAttestedCandidate": {
-    "candidateSha": "fcf06d42757136c1693afb3c1447d80df7d32ce6",
-    "supersededBy": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
-    "reason": "Product-quality sage primary design-token commit promoted current HEAD to the authoritative release candidate; prior evidence cannot authorize the new source-bearing candidate."
+    "candidateSha": "3a7c6d93140527de77c2fcc91ea3a9f73013b9da",
+    "supersededBy": "d255aded50d97a5325b56c7db431969249546f85",
+    "reason": "Navigation E2E correction changed scripts/e2e-navigation.mjs after the prior attested candidate; the corrected commit is now the authoritative product candidate."
   }
 }
