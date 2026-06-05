@@ -27,9 +27,9 @@
       "reference": "npm run check:release-scope passed for candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa"
     },
     "firestoreEmulatorAuthorization": {
-      "verified": false,
+      "verified": true,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Firestore emulator evidence passed on evidence-tail 17b2c4316ca382b0ff0f21828cd1d459247cd748 with rules digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, but the artifact is not directly candidate-bound to 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa. Runtime attestation remains NOT_ATTESTED."
+      "reference": "npm run check:firestore-emulator-evidence passed from clean temporary worktree /private/tmp/alchm-candidate-7aecc5a at product candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-05T05:25:09.356Z."
     },
     "functionsDeployment": {
       "verified": true,
@@ -44,7 +44,7 @@
     "providerSecretPresence": {
       "verified": false,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Provider-secret binding is not proven. firebase functions:list --project alchm-463017 --json for deployed generateKheperaReflection does not show ANTHROPIC_API_KEY in environmentVariables; local functions/.env does not contain ANTHROPIC_API_KEY; firebase functions:secrets:access ANTHROPIC_API_KEY failed; gcloud secrets describe ANTHROPIC_API_KEY failed because gcloud auth token refresh returned invalid_grant. No secret value was printed."
+      "reference": "Provider-secret binding is blocked. firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017 succeeded with output redirected to /dev/null, proving access without printing the secret. However firebase functions:list --project alchm-463017 --json for deployed generateKheperaReflection does not show ANTHROPIC_API_KEY in environmentVariables. Source inspection shows functions/src/kheperaGateway.ts reads process.env.ANTHROPIC_API_KEY, but there is no defineSecret/runWith secrets binding or other source-level Firebase secret declaration. Binding the Firebase secret to this function requires a source/config change and a new product candidate."
     },
     "deploymentAuthority": {
       "verified": true,

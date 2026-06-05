@@ -30,11 +30,13 @@ does not verify the expected Anthropic secret binding.
 `firebase functions:list --project alchm-463017 --json` reports deployed
 `generateKheperaReflection` as ACTIVE with hash
 `1dc3db804da29d30c9bae70ee4ae58d8e61cca68`, but its environment metadata does
-not show `ANTHROPIC_API_KEY`. Local `functions/.env` does not contain
-`ANTHROPIC_API_KEY`. `firebase functions:secrets:access ANTHROPIC_API_KEY
---project alchm-463017` failed without printing the secret value. `gcloud
-secrets describe ANTHROPIC_API_KEY --project alchm-463017 --format=json`
-failed because the current gcloud auth token refresh returned `invalid_grant`.
+not show `ANTHROPIC_API_KEY`. `firebase functions:secrets:access
+ANTHROPIC_API_KEY --project alchm-463017` succeeded with output redirected to
+`/dev/null`, proving access without printing the secret value. Source
+inspection shows `functions/src/kheperaGateway.ts` reads
+`process.env.ANTHROPIC_API_KEY`, but the Functions source contains no
+`defineSecret`, `runWith` secret binding, or equivalent Firebase secret
+declaration for `generateKheperaReflection`.
 
 Previous receipt evidence targeted
 `16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the current
@@ -69,11 +71,11 @@ environment without storing or printing the secret value.
 
 | Field | Evidence |
 | --- | --- |
-| Secret access check | Failed without printing the secret value |
+| Secret access check | Succeeded with output redirected to `/dev/null`; no secret value printed |
 | Bound function | `generateKheperaReflection(us-central1)` |
 | Deployed function hash after deployment | `1dc3db804da29d30c9bae70ee4ae58d8e61cca68` |
 | Deployed environment key evidence | `firebase functions:list --project alchm-463017 --json` does not show `ANTHROPIC_API_KEY` for `generateKheperaReflection` |
-| Local secret cleanup | `functions/.env` does not contain `ANTHROPIC_API_KEY` |
+| Source binding evidence | Blocked: no Firebase secret declaration or binding exists in `functions/src` |
 
 ## Prohibited Evidence
 

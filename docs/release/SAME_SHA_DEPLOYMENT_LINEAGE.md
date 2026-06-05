@@ -15,8 +15,8 @@ does not accept source files as deployment evidence.
 | Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; release scope check passes locally |
 | CI validation | Green required checks for that identical SHA | Local validation suite passed for `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; GitHub Navigation E2E run `26996367445` completed successfully for the exact same SHA |
 | Functions | Deployed Khepera and continuity callable identities attributable to SHA | `firebase deploy --only functions:generateKheperaReflection --project alchm-463017` completed on 2026-06-05; `firebase functions:list --project alchm-463017 --json` reports `generateKheperaReflection(us-central1)` ACTIVE with hash `1dc3db804da29d30c9bae70ee4ae58d8e61cca68`. |
-| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | `firebase deploy --only firestore:rules --project alchm-463017` completed on 2026-06-05; `firestore.rules` digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. The emulator evidence artifact passed at evidence-tail `17b2c4316ca382b0ff0f21828cd1d459247cd748`, not directly at product candidate SHA. |
-| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Blocked. Deployed `generateKheperaReflection` metadata does not show `ANTHROPIC_API_KEY`; Firebase secret access failed; gcloud secret metadata access failed due invalid auth token. |
+| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | `firebase deploy --only firestore:rules --project alchm-463017` completed on 2026-06-05; `firestore.rules` digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. Direct product-candidate emulator evidence passed from clean temporary worktree `/private/tmp/alchm-candidate-7aecc5a`; tests=6 pass=6. |
+| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Blocked. Secret access succeeds without printing the value, but deployed `generateKheperaReflection` metadata does not show `ANTHROPIC_API_KEY`, and source inspection shows no Firebase secret declaration or binding. |
 | Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Candidate preview `dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV` cloned commit `7aecc5a`; it was promoted to production deployment `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`, ready at `https://alchm-ntuqgyn5i-zadie-walkers-projects.vercel.app` with alias `https://alchm.vercel.app`. |
 | Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | `npx cap sync ios` passed for `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; no same-SHA archive, RevenueCat dashboard proof, distribution signing proof, or TestFlight entitlement proof was recorded. |
 | Rollback | Named prior deploy/archive authority and verified rollback procedure | Current Vercel production deployment is `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`; previous production rollback target is `dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e`; Firebase rollback remains targeted redeploy to project `alchm-463017`. |
@@ -38,7 +38,7 @@ validated locally, verified by GitHub Navigation E2E run `26996367445`,
 deployed to Firebase Functions and Firestore rules, and promoted to Vercel
 production deployment `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`.
 Final certification remains blocked because provider-secret binding is not
-proven, no verifier-issued runtime attestation receipt is available, and native
+configured on the deployed function, no verifier-issued runtime attestation receipt is available, and native
 archive, RevenueCat dashboard proof, and TestFlight entitlement proof remain
 absent.
 

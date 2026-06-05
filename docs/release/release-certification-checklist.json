@@ -41,7 +41,7 @@
     "functionsDeploymentSameSha": true,
     "firestoreRulesDeploymentSameSha": true,
     "providerSecretsConfigured": false,
-    "firestoreEmulatorAuthorization": false,
+    "firestoreEmulatorAuthorization": true,
     "serverAuthoritativeSensitiveWrites": true,
     "runtimeContinuityAttestation": false,
     "deploymentLineageSameSha": true,
