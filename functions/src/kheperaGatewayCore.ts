@@ -40,11 +40,14 @@ export type KheperaRateLimitDecision =
   | { allowed: false };
 
 export class KheperaGatewayError extends Error {
+  readonly code: "unauthenticated" | "invalid-argument" | "failed-precondition" | "resource-exhausted" | "unavailable";
+
   constructor(
-    readonly code: "unauthenticated" | "invalid-argument" | "failed-precondition" | "resource-exhausted" | "unavailable",
+    code: "unauthenticated" | "invalid-argument" | "failed-precondition" | "resource-exhausted" | "unavailable",
     message: string,
   ) {
     super(message);
+    this.code = code;
     this.name = "KheperaGatewayError";
   }
 }

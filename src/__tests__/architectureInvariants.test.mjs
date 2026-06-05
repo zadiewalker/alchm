@@ -116,8 +116,14 @@ test('queue claims are transactional and ownership is verified before generation
   const queue = read('src/services/offline/localQueue.ts');
   const processor = read('src/services/journal/processQueuedEntry.ts');
   const lease = read('src/services/offline/queueLease.ts');
+  assert.match(queue, /const LEGACY_DATABASE_NAME = 'keyval-store'/);
+  assert.match(queue, /const LEGACY_STORE_NAME = 'keyval'/);
+  assert.match(queue, /migrateLegacyQueueEntries[\s\S]*readLegacyKeys[\s\S]*writeValue\(queueKey, legacyEntry\)/);
+  assert.match(queue, /export async function getAllQueuedEntries\(\)[\s\S]*await ensureLegacyQueueMigrated\(\)/);
   assert.match(queue, /claimQueueEntry[\s\S]*transaction\(STORE_NAME, 'readwrite'\)/);
   assert.match(queue, /export async function verifyQueueClaim/);
+  assert.doesNotMatch(processor, /crisis_remote_persistence_unavailable/);
+  assert.match(processor, /if \(isCrisis\) \{[\s\S]*buildCompletedQueueUpdate\(entry, resolvedUserId/);
   const assertion = processor.indexOf('await assertClaimOwnership();');
   const model = processor.indexOf('await deps.generateSafeKheperaResponse({');
   assert.ok(assertion !== -1 && model !== -1 && assertion < model);

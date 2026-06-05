@@ -358,7 +358,22 @@ export async function processQueuedEntry(
   try {
     await assertClaimOwnership();
     if (isCrisis) {
-      throw new Error('crisis_remote_persistence_unavailable');
+      await deps.releaseQueueEntry(
+        entry.localId,
+        processingOwner,
+        buildCompletedQueueUpdate(entry, resolvedUserId, new Date().toISOString()),
+      );
+      await onTransition?.('completed', entry.localId);
+
+      return {
+        outcome: 'processed',
+        witness,
+        perspective,
+        kheperaResponse,
+        seed,
+        isCrisis,
+        entryId: entry.localId,
+      };
     }
     if (!serverPersistenceConfirmed) {
       await (deps.persistPrecomputedKheperaReflection ?? persistPrecomputedKheperaReflection)(

@@ -5,10 +5,13 @@ import { buildQueueClaim, isQueueLeaseActive } from './queueLease';
 const DATABASE_NAME = 'alchm_submission_queue';
 const DATABASE_VERSION = 1;
 const STORE_NAME = 'entries';
+const LEGACY_DATABASE_NAME = 'keyval-store';
+const LEGACY_STORE_NAME = 'keyval';
 const QUEUE_PREFIX = 'alchm_queue_';
 const MAX_QUEUE_SIZE = 50;
 export const MAX_SYNC_ATTEMPTS = 5;
 const RETRY_BACKOFF_MS = 5_000;
+let legacyQueueMigrationPromise: Promise<void> | null = null;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -66,6 +69,30 @@ function openDatabase(): Promise<IDBDatabase> {
   });
 }
 
+function openLegacyDatabase(): Promise<IDBDatabase | null> {
+  if (typeof indexedDB === 'undefined') {
+    return Promise.reject(new Error('indexeddb_unavailable'));
+  }
+
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(LEGACY_DATABASE_NAME);
+    let createdDuringOpen = false;
+    request.onerror = () => reject(request.error ?? new Error('legacy_indexeddb_open_failed'));
+    request.onupgradeneeded = () => {
+      createdDuringOpen = true;
+    };
+    request.onsuccess = () => {
+      const db = request.result;
+      if (createdDuringOpen || !db.objectStoreNames.contains(LEGACY_STORE_NAME)) {
+        db.close();
+        resolve(null);
+        return;
+      }
+      resolve(db);
+    };
+  });
+}
+
 async function readValue(key: string): Promise<unknown> {
   const db = await openDatabase();
   return new Promise<unknown>((resolve, reject) => {
@@ -73,6 +100,22 @@ async function readValue(key: string): Promise<unknown> {
     request.onerror = () => reject(request.error ?? new Error('indexeddb_read_failed'));
     request.onsuccess = () => resolve(request.result);
   }).finally(() => db.close());
+}
+
+function readLegacyKeys(db: IDBDatabase): Promise<IDBValidKey[]> {
+  return new Promise<IDBValidKey[]>((resolve, reject) => {
+    const request = db.transaction(LEGACY_STORE_NAME, 'readonly').objectStore(LEGACY_STORE_NAME).getAllKeys();
+    request.onerror = () => reject(request.error ?? new Error('legacy_indexeddb_keys_failed'));
+    request.onsuccess = () => resolve(request.result);
+  });
+}
+
+function readLegacyValue(db: IDBDatabase, key: string): Promise<unknown> {
+  return new Promise<unknown>((resolve, reject) => {
+    const request = db.transaction(LEGACY_STORE_NAME, 'readonly').objectStore(LEGACY_STORE_NAME).get(key);
+    request.onerror = () => reject(request.error ?? new Error('legacy_indexeddb_read_failed'));
+    request.onsuccess = () => resolve(request.result);
+  });
 }
 
 async function readQueueEntry(key: string): Promise<QueuedEntry | undefined> {
@@ -107,6 +150,35 @@ async function readKeys(): Promise<IDBValidKey[]> {
   }).finally(() => db.close());
 }
 
+async function migrateLegacyQueueEntries(): Promise<void> {
+  try {
+    const legacyDb = await openLegacyDatabase();
+    if (!legacyDb) return;
+
+    try {
+      const keys = (await readLegacyKeys(legacyDb)).filter((key) => String(key).startsWith(QUEUE_PREFIX));
+      for (const key of keys) {
+        const queueKey = String(key);
+        const legacyEntry = await readLegacyValue(legacyDb, queueKey);
+        if (!isQueuedEntry(legacyEntry)) continue;
+        const existing = await readQueueEntry(queueKey);
+        if (!existing) await writeValue(queueKey, legacyEntry);
+      }
+    } finally {
+      legacyDb.close();
+    }
+  } catch (error) {
+    recordOperationalException('sync_issue', error, { state: 'legacy_queue_migration_failed' });
+  }
+}
+
+async function ensureLegacyQueueMigrated(): Promise<void> {
+  if (!legacyQueueMigrationPromise) {
+    legacyQueueMigrationPromise = migrateLegacyQueueEntries();
+  }
+  await legacyQueueMigrationPromise;
+}
+
 function getBackoffMs(syncAttempts: number): number {
   const exponent = Math.max(0, Math.min(syncAttempts, 4));
   return RETRY_BACKOFF_MS * (2 ** exponent);
@@ -120,6 +192,7 @@ function isRetryReady(entry: QueuedEntry): boolean {
 }
 
 export async function saveToQueue(entry: QueuedEntry): Promise<void> {
+  await ensureLegacyQueueMigrated();
   const existing = await readQueueEntry(`${QUEUE_PREFIX}${entry.localId}`);
   if (!existing && await isQueueOverLimit()) {
     throw new Error('queue_capacity_reached');
@@ -129,6 +202,7 @@ export async function saveToQueue(entry: QueuedEntry): Promise<void> {
 
 export async function claimQueueEntry(localId: string, owner: string): Promise<QueuedEntry | null> {
   try {
+    await ensureLegacyQueueMigrated();
     const key = `${QUEUE_PREFIX}${localId}`;
     const db = await openDatabase();
     return await new Promise<QueuedEntry | null>((resolve, reject) => {
@@ -161,6 +235,7 @@ export async function claimQueueEntry(localId: string, owner: string): Promise<Q
 
 export async function verifyQueueClaim(localId: string, owner: string): Promise<boolean> {
   try {
+    await ensureLegacyQueueMigrated();
     const entry = await readQueueEntry(`${QUEUE_PREFIX}${localId}`);
     return Boolean(entry && entry.processingOwner === owner && isQueueLeaseActive(entry));
   } catch (error) {
@@ -171,6 +246,7 @@ export async function verifyQueueClaim(localId: string, owner: string): Promise<
 
 export async function releaseQueueEntry(localId: string, owner: string, updates: Partial<QueuedEntry> = {}): Promise<void> {
   try {
+    await ensureLegacyQueueMigrated();
     const key = `${QUEUE_PREFIX}${localId}`;
     const db = await openDatabase();
     await new Promise<void>((resolve, reject) => {
@@ -200,6 +276,7 @@ export async function releaseQueueEntry(localId: string, owner: string, updates:
 
 export async function updateQueueEntry(localId: string, updates: Partial<QueuedEntry>): Promise<void> {
   try {
+    await ensureLegacyQueueMigrated();
     const key = `${QUEUE_PREFIX}${localId}`;
     const existing = await readQueueEntry(key);
     if (existing) await writeValue(key, { ...existing, ...updates });
@@ -211,6 +288,7 @@ export async function updateQueueEntry(localId: string, updates: Partial<QueuedE
 
 export async function removeFromQueue(localId: string): Promise<void> {
   try {
+    await ensureLegacyQueueMigrated();
     await deleteValue(`${QUEUE_PREFIX}${localId}`);
   } catch (error) {
     recordOperationalException('sync_issue', error, { localId, state: 'queue_remove_failed' });
@@ -219,6 +297,7 @@ export async function removeFromQueue(localId: string): Promise<void> {
 
 export async function getQueuedEntry(localId: string): Promise<QueuedEntry | null> {
   try {
+    await ensureLegacyQueueMigrated();
     return await readQueueEntry(`${QUEUE_PREFIX}${localId}`) ?? null;
   } catch {
     return null;
@@ -227,6 +306,7 @@ export async function getQueuedEntry(localId: string): Promise<QueuedEntry | nul
 
 export async function getAllQueuedEntries(): Promise<QueuedEntry[]> {
   try {
+    await ensureLegacyQueueMigrated();
     const keys = (await readKeys()).filter((key) => String(key).startsWith(QUEUE_PREFIX));
     const entries = await Promise.all(keys.map((key) => readQueueEntry(String(key))));
     return entries

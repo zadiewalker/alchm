@@ -1,24 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { analyzeEntry } from '../services/khepera/analyzeEntry.ts';
-import { generateReflection, mapStanceToStyleProfile } from '../services/khepera/generateReflection.ts';
-import { buildKheperaMemorySignal, inferThemeTags, selectContinuityMode } from '../services/khepera/memoryProfile.ts';
-import { buildStanceFallback, getStyleDefinition } from '../services/khepera/styleEngine.ts';
-import { detectInsufficientEntryGrounding, validateKheperaOutput, validateSeed } from '../services/khepera/qualityGuards.ts';
-import { selectStance } from '../services/khepera/selectStance.ts';
-import { selectReflectionMode } from '../services/khepera/selectReflectionMode.ts';
-import { validateGeneratedKheperaResponse } from '../services/khepera/validateKheperaResponse.ts';
-import { buildKheperaPrompt } from '../services/khepera/buildKheperaPrompt.ts';
-import { resolveAiProviderName } from '../services/ai/modelProvider.ts';
-import { extractOpenAIResponseText } from '../services/ai/openAIProvider.ts';
-import { createModelText, generateKheperaReviewReport, parseStructuredKheperaResponse } from '../services/khepera/generateResponse.ts';
-import { lintKheperaResponse } from '../services/khepera/outputValidation.ts';
-import { extractEntryAnchors } from '../services/khepera/extractEntryAnchors.ts';
-import { KHEPERA_LANGUAGE_PROFILES } from '../services/khepera/languageProfiles.ts';
-import { buildKheperaPacingState, decideReflectionTiming } from '../services/khepera/timing.ts';
-import { processQueuedEntry } from '../services/journal/processQueuedEntry.ts';
-import { handleKheperaGenerationRequest } from '../../functions/src/kheperaGatewayCore.ts';
+import { register } from 'node:module';
+
+register(new URL('./nodeTsResolveLoader.mjs', import.meta.url));
+
+const { analyzeEntry } = await import('../services/khepera/analyzeEntry.ts');
+const { generateReflection, mapStanceToStyleProfile } = await import('../services/khepera/generateReflection.ts');
+const { buildKheperaMemorySignal, inferThemeTags, selectContinuityMode } = await import('../services/khepera/memoryProfile.ts');
+const { buildStanceFallback, getStyleDefinition } = await import('../services/khepera/styleEngine.ts');
+const { detectInsufficientEntryGrounding, validateKheperaOutput, validateSeed } = await import('../services/khepera/qualityGuards.ts');
+const { selectStance } = await import('../services/khepera/selectStance.ts');
+const { selectReflectionMode } = await import('../services/khepera/selectReflectionMode.ts');
+const { validateGeneratedKheperaResponse } = await import('../services/khepera/validateKheperaResponse.ts');
+const { buildKheperaPrompt } = await import('../services/khepera/buildKheperaPrompt.ts');
+const { CRISIS_RESPONSE } = await import('../services/khepera/crisisDetection.ts');
+const { resolveAiProviderName } = await import('../services/ai/modelProvider.ts');
+const { extractOpenAIResponseText } = await import('../services/ai/openAIProvider.ts');
+const { createModelText, generateKheperaReviewReport, parseStructuredKheperaResponse } = await import('../services/khepera/generateResponse.ts');
+const { lintKheperaResponse } = await import('../services/khepera/outputValidation.ts');
+const { extractEntryAnchors } = await import('../services/khepera/extractEntryAnchors.ts');
+const { KHEPERA_LANGUAGE_PROFILES } = await import('../services/khepera/languageProfiles.ts');
+const { buildKheperaPacingState, decideReflectionTiming } = await import('../services/khepera/timing.ts');
+const { processQueuedEntry } = await import('../services/journal/processQueuedEntry.ts');
+const { handleKheperaGenerationRequest } = await import('../../functions/src/kheperaGatewayCore.ts');
 
 const fixtures = [
   {
@@ -643,9 +648,9 @@ test('precomputed gateway persistence remains authorized and does not call the m
         reflectionTiming: 'immediate',
       },
       precomputedResponse: {
-        witness: 'The complete local witness is present.',
-        perspective: 'The complete local perspective is present.',
-        seed: 'What feels most present in this completed reflection?',
+        witness: 'The reconnecting reflection is already present.',
+        perspective: 'Its shape can be carried forward without being remade.',
+        seed: 'What feels most present in this reflection?',
       },
     },
     'user-1',
@@ -670,9 +675,9 @@ test('precomputed gateway persistence remains authorized and does not call the m
   assert.deepEqual(result, {
     blockedByCrisis: false,
     response: {
-      witness: 'The complete local witness is present.',
-      perspective: 'The complete local perspective is present.',
-      seed: 'What feels most present in this completed reflection?',
+      witness: 'The reconnecting reflection is already present.',
+      perspective: 'Its shape can be carried forward without being remade.',
+      seed: 'What feels most present in this reflection?',
     },
     sessionId: 'entry-precomputed',
   });
@@ -814,7 +819,87 @@ test('unavailable persistence keeps an existing response retryable', async () =>
   assert.equal(pendingRelease.lastSyncError, 'remote_unavailable');
 });
 
-test('delayed_return schedules a metadata-only job and does not call the model immediately', async () => {
+test('queued crisis entry completes locally instead of retrying remote persistence', async () => {
+  let modelCalls = 0;
+  let remotePersistCalls = 0;
+  let completion = null;
+  const transitions = [];
+
+  const result = await processQueuedEntry(
+    {
+      updateQueueEntry: async () => {},
+      releaseQueueEntry: async (_localId, _owner, updates) => {
+        completion = updates;
+      },
+      generateSafeKheperaResponse: async () => {
+        modelCalls += 1;
+        return {
+          witness: 'This should not be generated.',
+          perspective: 'This should not be used.',
+          seed: 'What should not happen here?',
+        };
+      },
+      persistPrecomputedKheperaReflection: async () => {
+        remotePersistCalls += 1;
+      },
+      detectCrisisSignals: () => {
+        throw new Error('stored_crisis_response_should_not_be_rechecked');
+      },
+      getKheperaReflectionAccessState: async () => ({
+        allowed: true,
+        hasTransformation: true,
+        used: 0,
+        limit: null,
+      }),
+    },
+    {
+      entry: {
+        localId: 'entry-crisis-retry',
+        entryText: 'Raw crisis text should be redacted when completed.',
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+        userId: 'user-1',
+        writtenAt: '2026-05-01T00:00:00.000Z',
+        status: 'pending_sync',
+        syncAttempts: 2,
+        witness: CRISIS_RESPONSE.witness,
+        perspective: CRISIS_RESPONSE.perspective,
+        kheperaResponse: `${CRISIS_RESPONSE.witness}\n\n${CRISIS_RESPONSE.perspective}`,
+        seed: CRISIS_RESPONSE.seed,
+        isCrisis: true,
+        serverPersistenceConfirmed: false,
+      },
+      processingOwner: 'test',
+      userContext: {
+        sessionCount: 2,
+        recurringThemes: [],
+        dominantTone: 'processing',
+      },
+      stopAfterCrisis: false,
+      allowOfflineFallback: false,
+      includeSyncedAtOnRemotePersist: true,
+      onPersistFailure: 'return_pending_sync',
+      onMissingUserId: 'fail',
+      getSyncIssue: () => 'remote_unavailable',
+      onTransition: (transition) => {
+        transitions.push(transition);
+      },
+    },
+  );
+
+  assert.equal(result.outcome, 'processed');
+  assert.equal(result.entryId, 'entry-crisis-retry');
+  assert.equal(result.isCrisis, true);
+  assert.equal(modelCalls, 0);
+  assert.equal(remotePersistCalls, 0);
+  assert.equal(completion.status, 'complete');
+  assert.equal(completion.entryText, '');
+  assert.equal(completion.firestoreId, 'entry-crisis-retry');
+  assert.deepEqual(transitions, ['persisting_remote', 'completed']);
+});
+
+test('delayed_return timing is bounded to short_delay until server-owned scheduling exists', async () => {
   let modelCalls = 0;
   let scheduledJob = null;
   let remoteWrite = null;
@@ -878,13 +963,12 @@ test('delayed_return schedules a metadata-only job and does not call the model i
     },
   );
 
-  assert.equal(result.outcome, 'delayed_return');
-  assert.equal(modelCalls, 0);
-  assert.ok(scheduledJob);
-  assert.deepEqual(Object.keys(scheduledJob).sort(), ['emotionalTone', 'entryId', 'scheduledAt', 'themeTags']);
-  assert.equal(JSON.stringify(scheduledJob).includes('unfinished'), false);
-  assert.equal(remoteWrite.reflectionTiming, 'delayed_return');
-  assert.equal(queueUpdates.some((update) => update.status === 'delayed_return'), true);
+  assert.equal(result.outcome, 'processed');
+  assert.equal(modelCalls, 1);
+  assert.equal(scheduledJob, null);
+  assert.equal(remoteWrite, null);
+  assert.equal(queueUpdates.some((update) => update.reflectionTiming === 'short_delay'), true);
+  assert.equal(queueUpdates.some((update) => update.status === 'delayed_return'), false);
 });
 
 test('temporal surveillance language is rejected', () => {
@@ -1169,10 +1253,10 @@ test('quality guards reject OpenAI-style helper phrasing', () => {
   assert.ok(result.flags.includes('coaching_language'));
 });
 
-test('provider selection defaults to anthropic and switches to openai when configured', () => {
+test('provider selection remains on the server gateway authority', () => {
   assert.equal(resolveAiProviderName(undefined), 'anthropic');
   assert.equal(resolveAiProviderName('anthropic'), 'anthropic');
-  assert.equal(resolveAiProviderName('openai'), 'openai');
+  assert.equal(resolveAiProviderName('openai'), 'anthropic');
   assert.equal(resolveAiProviderName('unknown'), 'anthropic');
 });
 
