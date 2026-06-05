@@ -4,11 +4,9 @@
 
 `CURRENT LOCAL ARCHIVE RECORDED - REVENUECAT EVIDENCE REQUIRED`
 
-Native remains in scope. This record preserves historical archive evidence for
-previous candidate `16e3a5d19ceee278957a413fb01b69178dca97cf` and records the
-historical local archive produced from pushed evidence-tail
-`fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a`. The current product candidate is
-`d255aded50d97a5325b56c7db431969249546f85`. `iosArchiveSameSha` remains false
+Native remains in scope. This record preserves historical archive evidence and
+records the current local archive produced from product candidate
+`cf92af3579e9736665f2876a3a44c31032805a42`. `iosArchiveSameSha` remains false
 until external RevenueCat dashboard plus sandbox/TestFlight entitlement evidence
 is attached for the current candidate's archived build.
 
@@ -17,8 +15,9 @@ is attached for the current candidate's archived build.
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `d255aded50d97a5325b56c7db431969249546f85` |
+| New authoritative candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
 | Historical archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
+| Current archive candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
 | Native archive worktree | `/Users/zadiewalker/Desktop/alchm` |
 | Worktree before native run | Clean according to `git status --short --branch` |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
@@ -54,13 +53,14 @@ npm run check:khepera-gateway
 npm run check:container-transitions
 npm run check:sensitive-write-authority
 git diff --check
-xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive archive
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleIdentifier' /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:SigningIdentity' /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:Team' /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive/Info.plist
-shasum -a 256 /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive/Products/Applications/App.app/App
-find /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive -type f -print0 | sort -z | xargs -0 shasum -a 256 | shasum -a 256
-/usr/bin/codesign -dv --verbose=4 /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive/Products/Applications/App.app
+xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive archive
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleIdentifier' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleShortVersionString' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleVersion' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:SigningIdentity' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
+/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:Team' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
+shasum -a 256 /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Products/Applications/App.app/App
+find /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive -name "*.dSYM" -maxdepth 5
 ```
 
 ## Build and Sync Evidence
@@ -69,15 +69,15 @@ find /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive -type f -prin
 | --- | --- |
 | Next build | Passed; static export generated 36 app routes |
 | Capacitor sync | Passed; copied `out` to `ios/App/App/public`, created `ios/App/App/capacitor.config.json`, updated iOS plugins, and ran `pod install` |
-| Repository validation | Passed on current candidate `d255aded50d97a5325b56c7db431969249546f85` with clean worktree at `2026-06-04T18:31:17Z` |
+| Repository validation | Passed on current candidate `cf92af3579e9736665f2876a3a44c31032805a42` with clean pre-evidence worktree at `2026-06-05T00:18:11Z` |
 
 ## Archive Evidence
 
 | Field | Evidence |
 | --- | --- |
-| Archive path | `/tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive` |
+| Archive path | `/tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive` |
 | Archive result | `** ARCHIVE SUCCEEDED **` |
-| Archive timestamp | `2026-06-04T11:04:27Z` |
+| Archive timestamp | `2026-06-05T00:20:24Z` |
 | Archive scheme | `App` |
 | Archive actor/signing identity | `Apple Development: zadiewalker@gmail.com (AH6CMKPLYH)` |
 | Team ID | `8J47J9Y3A7` |
@@ -86,10 +86,9 @@ find /tmp/alchm-fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a.xcarchive -type f -prin
 | Expected authority bundle ID | `com.alchm.sanctuary` |
 | Bundle short version | `1.0` |
 | Bundle version | `2` |
-| App binary SHA-256 | `bbca891d2b4fb503439ffe56f036bc497456b68cfd80c8ea7e4d44b35dbe3375` |
-| Archive file-manifest SHA-256 | `6384ad49fedf80d253156dc2b97ed5869064d3e6a89afcb9665ac3f8234b5a91` |
+| App binary SHA-256 | `c2b5552fd15e7ee82462d028e3cd1d86b9dfb841ab30211104c409bcea69db7a` |
+| dSYM presence | Present, including `App.app.dSYM` and Capacitor framework dSYMs |
 | Code signing identifier | `com.alchm.sanctuary` |
-| Code signing CDHash | `20972f2d179b67063bc14406323ebe7b871e4a36` |
 
 ## RevenueCat Evidence
 
@@ -116,7 +115,7 @@ Release approval still requires external RevenueCat evidence:
 ## Certification Consequence
 
 `iosArchiveSameSha` remains blocked for current candidate
-`d255aded50d97a5325b56c7db431969249546f85` because:
+`cf92af3579e9736665f2876a3a44c31032805a42` because:
 
 1. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
 2. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,

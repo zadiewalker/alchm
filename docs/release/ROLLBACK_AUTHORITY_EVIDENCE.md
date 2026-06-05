@@ -12,10 +12,10 @@ lineage.
 | Field | Evidence |
 | --- | --- |
 | Historical candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| Authoritative candidate SHA | `d255aded50d97a5325b56c7db431969249546f85` |
+| Authoritative candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
 | Evidence-tail SHA | Runtime-attestation evidence commit containing this record |
 | Firebase project | `alchm-463017` |
-| Current Vercel production deployment | `dpl_585R7gTNomY8BozMZ5z1WFThWHxD` |
+| Current Vercel production deployment | `dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e` |
 | Vercel rollback target | `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh` |
 | Firebase generateKheperaReflection hash | `ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f` |
 | Firebase container callable hash | `b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2` |
@@ -29,7 +29,7 @@ lineage.
 
 | Surface | Rollback authority |
 | --- | --- |
-| Vercel production | Current production is `dpl_585R7gTNomY8BozMZ5z1WFThWHxD`; rollback target is `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh`. |
+| Vercel production | Current production is `dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e`; rollback target is `dpl_B8FUdpb8N3CbwsTzZ79ZBQ6Ev4vh`. |
 | Firestore rules | Re-deploy rules whose SHA-256 digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. |
 | Firebase Functions | Re-deploy explicit local function targets to project `alchm-463017`; preserve legacy `crisisDetection` unless release authority separately approves deletion. |
 | Provider secret | Any future provider-secret configuration or rotation invalidates receipts not bound to lineage digest `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a`. |

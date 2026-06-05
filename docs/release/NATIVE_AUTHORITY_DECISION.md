@@ -4,10 +4,9 @@
 
 `DECIDED - SOURCE IDENTITY RECONCILED, REVENUECAT EVIDENCE REQUIRED`
 
-The native archive produced for historical pushed evidence-tail
-`fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` confirmed the archive bundle
-identifier was `com.alchm.sanctuary`. The current product candidate is
-`d255aded50d97a5325b56c7db431969249546f85`.
+The native archive produced for current product candidate
+`cf92af3579e9736665f2876a3a44c31032805a42` confirmed the archive bundle
+identifier was `com.alchm.sanctuary`, with version/build `1.0 / 2`.
 
 Native scope decision: `NATIVE_IN_SCOPE`
 
