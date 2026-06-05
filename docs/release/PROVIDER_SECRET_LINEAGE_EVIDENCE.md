@@ -2,7 +2,7 @@
 
 ## Status
 
-`RECORDED FOR NEW CANDIDATE - DEPLOYED PROVIDER SECRET BINDING VERIFIED`
+`DEPLOYMENT CHECKED - PROVIDER SECRET BINDING NOT VERIFIED`
 
 No provider secret value is stored here. Certification requires redacted lineage
 evidence, not the secret itself.
@@ -16,26 +16,31 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
-| Functions hash | `b6a7829da9eb0b4bbcb08d15a92ce635b5031a07` |
+| Candidate SHA | `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` |
+| Functions hash | `1dc3db804da29d30c9bae70ee4ae58d8e61cca68` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
-| providerSecretLineageDigest | `ee5a09c29733523f48c39d3524f492b4c5d201d4f8909b966d987886e7dacd7a` |
+| providerSecretLineageDigest | Not recorded for current candidate |
 
 This record does not include the secret value and does not by itself authorize
 runtime continuity. Targeted Firebase Functions deployment was completed for
-the current candidate lineage on 2026-06-04, and post-deploy provider metadata
-now verifies the expected Anthropic secret binding.
+the current candidate lineage on 2026-06-05, but post-deploy provider metadata
+does not verify the expected Anthropic secret binding.
 
 `functions/src/kheperaGateway.ts` reads `process.env.ANTHROPIC_API_KEY`.
-`firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017`
-succeeded without printing the secret value. `generateKheperaReflection` was
-then redeployed with that secret material bound to `ANTHROPIC_API_KEY`, and
 `firebase functions:list --project alchm-463017 --json` reports deployed
-`generateKheperaReflection` environment keys including `ANTHROPIC_API_KEY`.
+`generateKheperaReflection` as ACTIVE with hash
+`1dc3db804da29d30c9bae70ee4ae58d8e61cca68`, but its environment metadata does
+not show `ANTHROPIC_API_KEY`. Local `functions/.env` does not contain
+`ANTHROPIC_API_KEY`. `firebase functions:secrets:access ANTHROPIC_API_KEY
+--project alchm-463017` failed without printing the secret value. `gcloud
+secrets describe ANTHROPIC_API_KEY --project alchm-463017 --format=json`
+failed because the current gcloud auth token refresh returned `invalid_grant`.
 
 Previous receipt evidence targeted
 `16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the current
 source-bearing candidate `cf92af3579e9736665f2876a3a44c31032805a42`.
+It is also invalid for source-bearing candidate
+`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`.
 
 ## Evidence Format
 
@@ -64,11 +69,11 @@ environment without storing or printing the secret value.
 
 | Field | Evidence |
 | --- | --- |
-| Secret access check | `firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017` exited successfully without printing the secret value |
+| Secret access check | Failed without printing the secret value |
 | Bound function | `generateKheperaReflection(us-central1)` |
-| Deployed function hash after rebinding | `ea67e160fcd9a01e3d8ea587d67a63bb207c2c3f` |
-| Deployed environment key evidence | `firebase functions:list --project alchm-463017 --json` shows `ANTHROPIC_API_KEY` in `envKeys` for `generateKheperaReflection` |
-| Local secret cleanup | ignored `functions/.env` was restored after deploy and no `ANTHROPIC_API_KEY` remained in the local file |
+| Deployed function hash after deployment | `1dc3db804da29d30c9bae70ee4ae58d8e61cca68` |
+| Deployed environment key evidence | `firebase functions:list --project alchm-463017 --json` does not show `ANTHROPIC_API_KEY` for `generateKheperaReflection` |
+| Local secret cleanup | `functions/.env` does not contain `ANTHROPIC_API_KEY` |
 
 ## Prohibited Evidence
 

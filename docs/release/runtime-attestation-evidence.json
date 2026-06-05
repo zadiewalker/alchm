@@ -3,8 +3,8 @@
   "attestationStatus": "NOT_ATTESTED",
   "runtimeEnablementAuthorized": false,
   "candidateSha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-  "deploymentEnvironment": null,
-  "verifiedAt": "2026-06-05T05:01:22.000Z",
+  "deploymentEnvironment": "production",
+  "verifiedAt": "2026-06-05T05:14:57.953Z",
   "verificationAuthority": {
     "status": "unavailable",
     "verifierId": null,
@@ -29,32 +29,32 @@
     "firestoreEmulatorAuthorization": {
       "verified": false,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Not rerun for this candidate in this attestation pass; runtime attestation remains NOT_ATTESTED."
+      "reference": "Firestore emulator evidence passed on evidence-tail 17b2c4316ca382b0ff0f21828cd1d459247cd748 with rules digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, but the artifact is not directly candidate-bound to 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa. Runtime attestation remains NOT_ATTESTED."
     },
     "functionsDeployment": {
-      "verified": false,
+      "verified": true,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Not deployed or verified for this exact SHA. Candidate changes include functions/src/kheperaGatewayCore.ts, so previous Functions deployment evidence cannot be carried forward as same-SHA evidence."
+      "reference": "firebase deploy --only functions:generateKheperaReflection --project alchm-463017 completed successfully on 2026-06-05. firebase functions:list --project alchm-463017 --json reports generateKheperaReflection(us-central1) ACTIVE with hash 1dc3db804da29d30c9bae70ee4ae58d8e61cca68, sourceUploadUrl ending a5908b3b-6f2e-46d0-b9aa-ba53a8bf8e52.zip, runtime nodejs20, callable trigger, and project alchm-463017. Current HEAD is evidence-tail only; deployed Functions source matches product candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa."
     },
     "firestoreRulesDeployment": {
-      "verified": false,
+      "verified": true,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "No Firestore rules deployment evidence was regenerated for this exact SHA in this attestation pass."
+      "reference": "firebase deploy --only firestore:rules --project alchm-463017 completed successfully on 2026-06-05; CLI reported firestore.rules compiled successfully and released to cloud.firestore. Local firestore.rules SHA-256 digest is e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6."
     },
     "providerSecretPresence": {
       "verified": false,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "No provider-secret lineage receipt was regenerated for this exact SHA in this attestation pass."
+      "reference": "Provider-secret binding is not proven. firebase functions:list --project alchm-463017 --json for deployed generateKheperaReflection does not show ANTHROPIC_API_KEY in environmentVariables; local functions/.env does not contain ANTHROPIC_API_KEY; firebase functions:secrets:access ANTHROPIC_API_KEY failed; gcloud secrets describe ANTHROPIC_API_KEY failed because gcloud auth token refresh returned invalid_grant. No secret value was printed."
     },
     "deploymentAuthority": {
-      "verified": false,
+      "verified": true,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "No production deployment promotion or deployment authority evidence was created for this exact SHA in this attestation pass."
+      "reference": "Vercel deployment dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV built preview https://alchm-ajcu61cn5-zadie-walkers-projects.vercel.app from branch release/clinical-architecture-integration commit 7aecc5a. vercel promote dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV --scope zadie-walkers-projects --yes created production deployment dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd at https://alchm-ntuqgyn5i-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app. Production build logs show cloning github.com/zadiewalker/alchm branch release/clinical-architecture-integration commit 7aecc5a."
     },
     "rollbackAuthority": {
-      "verified": false,
+      "verified": true,
       "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Rollback authority was not rebound to a production deployment for this exact SHA in this attestation pass."
+      "reference": "Current Vercel production deployment is dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd; previous known-good production rollback target is dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Runtime receipt remains absent, so rollback requires a new verifier-issued receipt before runtime continuity attestation can be accepted."
     }
   },
   "recordedProviderSecretLineageDigest": null,
