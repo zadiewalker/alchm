@@ -2,24 +2,25 @@
 
 ## Status
 
-`CURRENT LOCAL ARCHIVE RECORDED - REVENUECAT EVIDENCE REQUIRED`
+`CAPACITOR SYNC RECORDED - ARCHIVE AND REVENUECAT EVIDENCE REQUIRED`
 
-Native remains in scope. This record preserves historical archive evidence and
-records the current local archive produced from product candidate
-`cf92af3579e9736665f2876a3a44c31032805a42`. `iosArchiveSameSha` remains false
-until external RevenueCat dashboard plus sandbox/TestFlight entitlement evidence
-is attached for the current candidate's archived build.
+Native remains in scope. This record preserves historical archive evidence for
+prior candidates and records that Capacitor sync passed for product candidate
+`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`. `iosArchiveSameSha` remains false
+until a same-SHA archive, external RevenueCat dashboard proof, and
+sandbox/TestFlight entitlement evidence are attached for the current candidate's
+archived build.
 
 ## Source Binding
 
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
+| New authoritative candidate SHA | `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` |
 | Historical archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
-| Current archive candidate SHA | `cf92af3579e9736665f2876a3a44c31032805a42` |
+| Current archive candidate SHA | Not recorded for `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` |
 | Native archive worktree | `/Users/zadiewalker/Desktop/alchm` |
-| Worktree before native run | Clean according to `git status --short --branch` |
+| Worktree before native run | Clean according to `git status --short --branch` before evidence updates |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
 | Generated Capacitor config ID after sync | Candidate sync generated `ios/App/App/capacitor.config.json` with `appId: "com.alchm.sanctuary"` |
 | Native Xcode target ID | Candidate `ios/App/App.xcodeproj/project.pbxproj` declares `PRODUCT_BUNDLE_IDENTIFIER = com.alchm.sanctuary` for Debug and Release |
@@ -46,21 +47,14 @@ npm run build
 npm --prefix functions run build
 npm --prefix functions run lint
 npx cap sync ios
-npm run check:invariants
+node --test src/__tests__/architectureInvariants.test.mjs
+node --test src/__tests__/kheperaAdaptivePipeline.test.mjs
 npm run check:firestore-rules
 npm run check:integrity
 npm run check:khepera-gateway
 npm run check:container-transitions
 npm run check:sensitive-write-authority
 git diff --check
-xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Release -archivePath /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive archive
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleIdentifier' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleShortVersionString' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:CFBundleVersion' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:SigningIdentity' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
-/usr/libexec/PlistBuddy -c 'Print :ApplicationProperties:Team' /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Info.plist
-shasum -a 256 /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive/Products/Applications/App.app/App
-find /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive -name "*.dSYM" -maxdepth 5
 ```
 
 ## Build and Sync Evidence
@@ -69,26 +63,26 @@ find /tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive -name "*.dSYM
 | --- | --- |
 | Next build | Passed; static export generated 36 app routes |
 | Capacitor sync | Passed; copied `out` to `ios/App/App/public`, created `ios/App/App/capacitor.config.json`, updated iOS plugins, and ran `pod install` |
-| Repository validation | Passed on current candidate `cf92af3579e9736665f2876a3a44c31032805a42` with clean pre-evidence worktree at `2026-06-05T00:18:11Z` |
+| Repository validation | Passed on current candidate `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` with clean pre-evidence worktree |
 
 ## Archive Evidence
 
 | Field | Evidence |
 | --- | --- |
-| Archive path | `/tmp/alchm-cf92af3579e9736665f2876a3a44c31032805a42.xcarchive` |
-| Archive result | `** ARCHIVE SUCCEEDED **` |
-| Archive timestamp | `2026-06-05T00:20:24Z` |
-| Archive scheme | `App` |
-| Archive actor/signing identity | `Apple Development: zadiewalker@gmail.com (AH6CMKPLYH)` |
-| Team ID | `8J47J9Y3A7` |
-| Architectures | `arm64` |
-| Archived bundle ID | `com.alchm.sanctuary` |
+| Archive path | Not recorded for candidate `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` |
+| Archive result | Not recorded for current candidate |
+| Archive timestamp | Not recorded for current candidate |
+| Archive scheme | Not recorded for current candidate |
+| Archive actor/signing identity | Not recorded for current candidate |
+| Team ID | Not recorded for current candidate |
+| Architectures | Not recorded for current candidate |
+| Archived bundle ID | Not recorded for current candidate |
 | Expected authority bundle ID | `com.alchm.sanctuary` |
-| Bundle short version | `1.0` |
-| Bundle version | `2` |
-| App binary SHA-256 | `c2b5552fd15e7ee82462d028e3cd1d86b9dfb841ab30211104c409bcea69db7a` |
-| dSYM presence | Present, including `App.app.dSYM` and Capacitor framework dSYMs |
-| Code signing identifier | `com.alchm.sanctuary` |
+| Bundle short version | Not recorded for current candidate |
+| Bundle version | Not recorded for current candidate |
+| App binary SHA-256 | Not recorded for current candidate |
+| dSYM presence | Not recorded for current candidate |
+| Code signing identifier | Not recorded for current candidate |
 
 ## RevenueCat Evidence
 
@@ -115,13 +109,14 @@ Release approval still requires external RevenueCat evidence:
 ## Certification Consequence
 
 `iosArchiveSameSha` remains blocked for current candidate
-`cf92af3579e9736665f2876a3a44c31032805a42` because:
+`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` because:
 
-1. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
-2. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,
+1. A same-SHA archive has not been recorded for this candidate.
+2. RevenueCat dashboard evidence for bundle `com.alchm.sanctuary` is absent.
+3. RevenueCat dashboard evidence for entitlement `ALCHM - Transformation`,
    product `alchm_transformation_monthly`, package `$rc_monthly`, and offering
    `default` is absent.
-3. Sandbox/TestFlight purchase or restore evidence proving the archived build
+4. Sandbox/TestFlight purchase or restore evidence proving the archived build
    receives the expected entitlement is absent.
 
 ## Exact Next Commands

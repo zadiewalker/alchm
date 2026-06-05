@@ -2,11 +2,13 @@
 
 ## Status
 
-`DECIDED - SOURCE IDENTITY RECONCILED, REVENUECAT EVIDENCE REQUIRED`
+`DECIDED - SOURCE IDENTITY RECONCILED, CURRENT ARCHIVE REQUIRED`
 
-The native archive produced for current product candidate
-`cf92af3579e9736665f2876a3a44c31032805a42` confirmed the archive bundle
-identifier was `com.alchm.sanctuary`, with version/build `1.0 / 2`.
+Capacitor sync passed for current product candidate
+`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`, and the canonical source
+identifier remains `com.alchm.sanctuary`. A same-SHA archive, distribution
+signing proof, RevenueCat dashboard proof, and TestFlight entitlement proof
+remain required before native release certification.
 
 Native scope decision: `NATIVE_IN_SCOPE`
 
@@ -21,7 +23,7 @@ Native scope decision: `NATIVE_IN_SCOPE`
 ## Required Decision and Evidence
 
 - Attach RevenueCat dashboard proof for bundle `com.alchm.sanctuary`.
-- Preserve the current archive evidence in
+- Preserve candidate-bound archive evidence in
   `docs/release/NATIVE_RELEASE_EVIDENCE.md`.
 - Attach RevenueCat entitlement/product/offering proof for
   `ALCHM - Transformation`, `alchm_transformation_monthly`, `$rc_monthly`, and
