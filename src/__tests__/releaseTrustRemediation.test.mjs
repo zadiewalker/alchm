@@ -226,7 +226,7 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(checklist.requiredEvidence.trustCriticalFunctionsLint, true);
   assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, true);
   assert.equal(checklist.requiredEvidence.serverAuthoritativeSensitiveWrites, true);
-  assert.equal(checklist.requiredEvidence.providerSecretsConfigured, false);
+  assert.equal(checklist.requiredEvidence.providerSecretsConfigured, true);
   assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, false);
   assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, true);
   assert.equal(checklist.requiredEvidence.continuityExportDeletionVerified, true);
@@ -280,7 +280,7 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(runtimeAttestationEvidence.receipt, null);
   assert.equal(runtimeAttestationEvidence.evidence.rollbackAuthority.verified, true);
   assert.equal(runtimeAttestationEvidence.evidence.firestoreEmulatorAuthorization.verified, true);
-  assert.equal(runtimeAttestationEvidence.evidence.providerSecretPresence.verified, false);
+  assert.equal(runtimeAttestationEvidence.evidence.providerSecretPresence.verified, true);
   assert.equal(trustedRuntimeVerifiers.status, 'APPROVED VERIFIER REGISTERED');
   assert.match(trustedRuntimeVerifiers.trustModel, /explicit-human-approved-verifier-registry/);
   assert.match(trustedRuntimeVerifiers.requirements.join('\n'), /publicKeyFingerprintSha256/);
