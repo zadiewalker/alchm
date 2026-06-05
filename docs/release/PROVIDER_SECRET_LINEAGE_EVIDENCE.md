@@ -2,7 +2,7 @@
 
 ## Status
 
-`DEPLOYMENT CHECKED - PROVIDER SECRET BINDING NOT VERIFIED`
+`DEPLOYMENT CHECKED - PROVIDER SECRET BINDING VERIFIED`
 
 No provider secret value is stored here. Certification requires redacted lineage
 evidence, not the secret itself.
@@ -16,33 +16,35 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa` |
-| Functions hash | `1dc3db804da29d30c9bae70ee4ae58d8e61cca68` |
+| Candidate SHA | `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` |
+| Functions hash | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | Not recorded for current candidate |
 
 This record does not include the secret value and does not by itself authorize
 runtime continuity. Targeted Firebase Functions deployment was completed for
-the current candidate lineage on 2026-06-05, but post-deploy provider metadata
-does not verify the expected Anthropic secret binding.
+the current candidate lineage on 2026-06-05, and post-deploy provider metadata
+verifies the expected Anthropic secret binding.
 
 `functions/src/kheperaGateway.ts` reads `process.env.ANTHROPIC_API_KEY`.
 `firebase functions:list --project alchm-463017 --json` reports deployed
 `generateKheperaReflection` as ACTIVE with hash
-`1dc3db804da29d30c9bae70ee4ae58d8e61cca68`, but its environment metadata does
-not show `ANTHROPIC_API_KEY`. `firebase functions:secrets:access
-ANTHROPIC_API_KEY --project alchm-463017` succeeded with output redirected to
-`/dev/null`, proving access without printing the secret value. Source
-inspection shows `functions/src/kheperaGateway.ts` reads
-`process.env.ANTHROPIC_API_KEY`, but the Functions source contains no
-`defineSecret`, `runWith` secret binding, or equivalent Firebase secret
-declaration for `generateKheperaReflection`.
+`4f7568b4d268d26b06f6d6725982ed3c02fdbd33`; its
+`secretEnvironmentVariables` metadata includes key `ANTHROPIC_API_KEY`, secret
+`ANTHROPIC_API_KEY`, version `1`. `firebase functions:secrets:access
+ANTHROPIC_API_KEY --project alchm-463017` previously succeeded with output
+redirected to `/dev/null`, proving access without printing the secret value.
+Source inspection shows `generateKheperaReflection` is bound with
+`functions.runWith({ secrets: ["ANTHROPIC_API_KEY"] })` and still reads
+`process.env.ANTHROPIC_API_KEY`.
 
 Previous receipt evidence targeted
 `16e3a5d19ceee278957a413fb01b69178dca97cf` and is invalid for the current
 source-bearing candidate `cf92af3579e9736665f2876a3a44c31032805a42`.
 It is also invalid for source-bearing candidate
 `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`.
+It is also invalid for source-bearing candidate
+`62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`.
 
 ## Evidence Format
 
@@ -73,9 +75,9 @@ environment without storing or printing the secret value.
 | --- | --- |
 | Secret access check | Succeeded with output redirected to `/dev/null`; no secret value printed |
 | Bound function | `generateKheperaReflection(us-central1)` |
-| Deployed function hash after deployment | `1dc3db804da29d30c9bae70ee4ae58d8e61cca68` |
-| Deployed environment key evidence | `firebase functions:list --project alchm-463017 --json` does not show `ANTHROPIC_API_KEY` for `generateKheperaReflection` |
-| Source binding evidence | Blocked: no Firebase secret declaration or binding exists in `functions/src` |
+| Deployed function hash after deployment | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
+| Deployed environment key evidence | `firebase functions:list --project alchm-463017 --json` shows `secretEnvironmentVariables` key `ANTHROPIC_API_KEY` for `generateKheperaReflection` |
+| Source binding evidence | `functions.runWith({ secrets: ["ANTHROPIC_API_KEY"] })` on `generateKheperaReflection` |
 
 ## Prohibited Evidence
 

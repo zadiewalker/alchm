@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "attestationStatus": "NOT_ATTESTED",
   "runtimeEnablementAuthorized": false,
-  "candidateSha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
+  "candidateSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-05T05:14:57.953Z",
+  "verifiedAt": "2026-06-05T05:43:00.000Z",
   "verificationAuthority": {
     "status": "unavailable",
     "verifierId": null,
-    "reference": "No production verifier-issued receipt or production signing process was available in the repository or local environment for candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa. The repo generator is explicitly non-production test-only and was not used as production evidence."
+    "reference": "No production verifier-issued receipt or production signing process was available in the repository or local environment for candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f. The repo generator is explicitly non-production test-only and was not used as production evidence."
   },
   "receipt": null,
   "consumedReceiptIds": [
@@ -18,49 +18,49 @@
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "git status --short --branch clean after candidate commit; branch release/clinical-architecture-integration pushed to origin at 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa"
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "git status --short --branch clean after candidate commit; branch release/clinical-architecture-integration pushed to origin at 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f"
     },
     "releaseScope": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "npm run check:release-scope passed for candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa"
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "npm run check:release-scope passed for candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f"
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "npm run check:firestore-emulator-evidence passed from clean temporary worktree /private/tmp/alchm-candidate-7aecc5a at product candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-05T05:25:09.356Z."
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "npm run check:firestore-emulator-evidence passed from clean candidate checkout at product candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-05T05:40:58.755Z."
     },
     "functionsDeployment": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "firebase deploy --only functions:generateKheperaReflection --project alchm-463017 completed successfully on 2026-06-05. firebase functions:list --project alchm-463017 --json reports generateKheperaReflection(us-central1) ACTIVE with hash 1dc3db804da29d30c9bae70ee4ae58d8e61cca68, sourceUploadUrl ending a5908b3b-6f2e-46d0-b9aa-ba53a8bf8e52.zip, runtime nodejs20, callable trigger, and project alchm-463017. Current HEAD is evidence-tail only; deployed Functions source matches product candidate 7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa."
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "firebase deploy --only functions:generateKheperaReflection --project alchm-463017 completed successfully on 2026-06-05. firebase functions:list --project alchm-463017 --json reports generateKheperaReflection(us-central1) ACTIVE with hash 4f7568b4d268d26b06f6d6725982ed3c02fdbd33, sourceUploadUrl ending 526156c6-ab34-4e86-ba52-8b807f2aa49b.zip, runtime nodejs20, callable trigger, project alchm-463017, and secretEnvironmentVariables containing key ANTHROPIC_API_KEY version 1. Deployed Functions source matches product candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f."
     },
     "firestoreRulesDeployment": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "firebase deploy --only firestore:rules --project alchm-463017 completed successfully on 2026-06-05; CLI reported firestore.rules compiled successfully and released to cloud.firestore. Local firestore.rules SHA-256 digest is e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6."
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "firebase deploy --only firestore:rules --project alchm-463017 completed successfully on 2026-06-05 for the prior queue/crisis candidate; firestore.rules is unchanged in candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f. Local firestore.rules SHA-256 digest remains e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, and candidate-bound emulator evidence passed."
     },
     "providerSecretPresence": {
-      "verified": false,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Provider-secret binding is blocked. firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017 succeeded with output redirected to /dev/null, proving access without printing the secret. However firebase functions:list --project alchm-463017 --json for deployed generateKheperaReflection does not show ANTHROPIC_API_KEY in environmentVariables. Source inspection shows functions/src/kheperaGateway.ts reads process.env.ANTHROPIC_API_KEY, but there is no defineSecret/runWith secrets binding or other source-level Firebase secret declaration. Binding the Firebase secret to this function requires a source/config change and a new product candidate."
+      "verified": true,
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "Provider-secret binding verified without printing secret value. firebase functions:secrets:access ANTHROPIC_API_KEY --project alchm-463017 previously succeeded with output redirected to /dev/null. Candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f binds generateKheperaReflection with functions.runWith({ secrets: [\"ANTHROPIC_API_KEY\"] }) while preserving process.env.ANTHROPIC_API_KEY. firebase deploy --only functions:generateKheperaReflection --project alchm-463017 completed successfully, and firebase functions:list --project alchm-463017 --json reports secretEnvironmentVariables containing key ANTHROPIC_API_KEY, secret ANTHROPIC_API_KEY, version 1 for generateKheperaReflection(us-central1)."
     },
     "deploymentAuthority": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Vercel deployment dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV built preview https://alchm-ajcu61cn5-zadie-walkers-projects.vercel.app from branch release/clinical-architecture-integration commit 7aecc5a. vercel promote dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV --scope zadie-walkers-projects --yes created production deployment dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd at https://alchm-ntuqgyn5i-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app. Production build logs show cloning github.com/zadiewalker/alchm branch release/clinical-architecture-integration commit 7aecc5a."
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "Vercel deployment dpl_CyiCwBSoKqQrQRnfG7e3vUfiCpKq built preview https://alchm-delgimz5g-zadie-walkers-projects.vercel.app from branch release/clinical-architecture-integration commit 62d5a38. vercel promote dpl_CyiCwBSoKqQrQRnfG7e3vUfiCpKq --scope zadie-walkers-projects --yes created production deployment dpl_6smNjSnhdYGHNEWAqevVSfVEegYD at https://alchm-a5ah86lfn-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app. Production build logs show cloning github.com/zadiewalker/alchm branch release/clinical-architecture-integration commit 62d5a38."
     },
     "rollbackAuthority": {
       "verified": true,
-      "sha": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-      "reference": "Current Vercel production deployment is dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd; previous known-good production rollback target is dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Runtime receipt remains absent, so rollback requires a new verifier-issued receipt before runtime continuity attestation can be accepted."
+      "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "reference": "Current Vercel production deployment is dpl_6smNjSnhdYGHNEWAqevVSfVEegYD; previous production rollback target is dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Runtime receipt remains absent, so rollback requires a new verifier-issued receipt before runtime continuity attestation can be accepted."
     }
   },
   "recordedProviderSecretLineageDigest": null,
   "previousAttestedCandidate": {
     "candidateSha": "cf92af3579e9736665f2876a3a44c31032805a42",
-    "supersededBy": "7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa",
-    "reason": "Queue migration and crisis queued-entry completion changes affect product/runtime behavior after the prior attested candidate. A new product candidate was pushed and locally/GitHub validated, but production runtime attestation was not available."
+    "supersededBy": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+    "reason": "Queue migration, crisis queued-entry completion, and Anthropic Firebase secret binding changes affect product/runtime behavior after the prior attested candidate. A new product candidate was pushed, locally/GitHub validated, deployed to Firebase Functions with provider-secret binding, and promoted to Vercel production, but production runtime attestation was not available."
   }
 }

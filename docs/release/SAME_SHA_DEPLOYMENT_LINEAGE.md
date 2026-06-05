@@ -2,7 +2,7 @@
 
 ## Status
 
-`DEPLOYMENT LINEAGE RECORDED - PROVIDER SECRET AND RUNTIME RECEIPT BLOCKED`
+`DEPLOYMENT LINEAGE RECORDED - RUNTIME RECEIPT BLOCKED`
 
 This record states the evidence required to connect reflective provenance in
 source to an actually deployed runtime. It does not authorize deployment and
@@ -12,14 +12,14 @@ does not accept source files as deployment evidence.
 
 | Authority | Required evidence for one fixed SHA | Current evidence |
 | --- | --- | --- |
-| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; release scope check passes locally |
-| CI validation | Green required checks for that identical SHA | Local validation suite passed for `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; GitHub Navigation E2E run `26996367445` completed successfully for the exact same SHA |
-| Functions | Deployed Khepera and continuity callable identities attributable to SHA | `firebase deploy --only functions:generateKheperaReflection --project alchm-463017` completed on 2026-06-05; `firebase functions:list --project alchm-463017 --json` reports `generateKheperaReflection(us-central1)` ACTIVE with hash `1dc3db804da29d30c9bae70ee4ae58d8e61cca68`. |
-| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | `firebase deploy --only firestore:rules --project alchm-463017` completed on 2026-06-05; `firestore.rules` digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. Direct product-candidate emulator evidence passed from clean temporary worktree `/private/tmp/alchm-candidate-7aecc5a`; tests=6 pass=6. |
-| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Blocked. Secret access succeeds without printing the value, but deployed `generateKheperaReflection` metadata does not show `ANTHROPIC_API_KEY`, and source inspection shows no Firebase secret declaration or binding. |
-| Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Candidate preview `dpl_79TqCW4Hu7Wg5y2zYBCnDVutcTbV` cloned commit `7aecc5a`; it was promoted to production deployment `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`, ready at `https://alchm-ntuqgyn5i-zadie-walkers-projects.vercel.app` with alias `https://alchm.vercel.app`. |
-| Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | `npx cap sync ios` passed for `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`; no same-SHA archive, RevenueCat dashboard proof, distribution signing proof, or TestFlight entitlement proof was recorded. |
-| Rollback | Named prior deploy/archive authority and verified rollback procedure | Current Vercel production deployment is `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`; previous production rollback target is `dpl_CedM7rCY51RCDnrMNwcR8GDVdY7e`; Firebase rollback remains targeted redeploy to project `alchm-463017`. |
+| Candidate source | Clean reviewed commit SHA and normalized release scope | New authoritative candidate is `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`; release scope check passes locally |
+| CI validation | Green required checks for that identical SHA | Local validation suite passed for `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`; GitHub Navigation E2E run `26997610335` completed successfully for the exact same SHA |
+| Functions | Deployed Khepera and continuity callable identities attributable to SHA | `firebase deploy --only functions:generateKheperaReflection --project alchm-463017` completed on 2026-06-05; `firebase functions:list --project alchm-463017 --json` reports `generateKheperaReflection(us-central1)` ACTIVE with hash `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` and secretEnvironmentVariables key `ANTHROPIC_API_KEY`. |
+| Firestore rules | Deployed rules version attributable to SHA and emulator-tested candidate rules | `firebase deploy --only firestore:rules --project alchm-463017` completed on 2026-06-05 for the prior queue/crisis candidate; `firestore.rules` is unchanged in candidate `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`, digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`, and direct product-candidate emulator evidence passed with tests=6 pass=6. |
+| Provider secret | Presence of server-side provider secret in selected Functions environment, without exposing value | Verified. Secret access succeeds without printing the value, deployed `generateKheperaReflection` metadata shows `ANTHROPIC_API_KEY` under `secretEnvironmentVariables`, and source inspection shows `functions.runWith({ secrets: ["ANTHROPIC_API_KEY"] })`. |
+| Hosting runtime | Vercel-hosted exported Next artifact; Firebase Hosting redirect edge only | Candidate preview `dpl_CyiCwBSoKqQrQRnfG7e3vUfiCpKq` cloned commit `62d5a38`; it was promoted to production deployment `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD`, ready at `https://alchm-a5ah86lfn-zadie-walkers-projects.vercel.app` with alias `https://alchm.vercel.app`. |
+| Native archive | Reconciled app identity, sync and archive evidence attributable to SHA | No same-SHA archive, RevenueCat dashboard proof, distribution signing proof, or TestFlight entitlement proof was recorded for candidate `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`. |
+| Rollback | Named prior deploy/archive authority and verified rollback procedure | Current Vercel production deployment is `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD`; previous production rollback target is `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`; Firebase rollback remains targeted redeploy to project `alchm-463017`. |
 
 ## Reflective Integrity Expectation
 
@@ -33,14 +33,15 @@ clean candidate SHA.
 
 The previous attested candidate `cf92af3579e9736665f2876a3a44c31032805a42` is
 superseded by the queue/crisis reliability candidate
-`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`. This candidate was pushed,
-validated locally, verified by GitHub Navigation E2E run `26996367445`,
-deployed to Firebase Functions and Firestore rules, and promoted to Vercel
-production deployment `dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd`.
-Final certification remains blocked because provider-secret binding is not
-configured on the deployed function, no verifier-issued runtime attestation receipt is available, and native
-archive, RevenueCat dashboard proof, and TestFlight entitlement proof remain
-absent.
+`7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`, which is superseded by the
+Anthropic-bound Khepera candidate
+`62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`. This candidate was pushed,
+validated locally, verified by GitHub Navigation E2E run `26997610335`,
+deployed to Firebase Functions with `ANTHROPIC_API_KEY` bound, and promoted to
+Vercel production deployment `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD`.
+Final certification remains blocked because no verifier-issued runtime
+attestation receipt is available, and native archive, RevenueCat dashboard
+proof, and TestFlight entitlement proof remain absent.
 
 The executable runtime gate remains fail closed as described in
 `docs/release/RUNTIME_ATTESTATION_MODEL.md`. The evidence collection contract
