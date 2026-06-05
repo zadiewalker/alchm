@@ -112,6 +112,15 @@ test('Khepera memory and crisis implementation remain narrow', () => {
   );
 });
 
+test('Khepera gateway binds Anthropic provider secret without changing request contract', () => {
+  const gateway = read('functions/src/kheperaGateway.ts');
+  const core = read('functions/src/kheperaGatewayCore.ts');
+  assert.match(gateway, /runWith\(\{\s*secrets:\s*\[\s*["']ANTHROPIC_API_KEY["']\s*\]\s*\}\)/);
+  assert.match(gateway, /process\.env\.ANTHROPIC_API_KEY/);
+  assert.match(core, /if \(detectCrisisSignals\(entryText\)\) \{[\s\S]*blockedByCrisis: true/);
+  assert.match(core, /keys\.length !== 3[\s\S]*witness[\s\S]*perspective[\s\S]*seed/);
+});
+
 test('queue claims are transactional and ownership is verified before generation', () => {
   const queue = read('src/services/offline/localQueue.ts');
   const processor = read('src/services/journal/processQueuedEntry.ts');

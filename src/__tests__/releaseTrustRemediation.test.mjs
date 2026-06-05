@@ -217,7 +217,7 @@ test('release certification remains evidence-gated until required authorities ar
   const continuityRuntimeGate = read('functions/src/continuityRuntimeGateCore.ts');
   const runtimeAttestationVerifierCore = read('functions/src/runtimeAttestationVerifierCore.ts');
 
-  assert.equal(checklist.certificationStatus, 'ATTESTED RELEASE CANDIDATE, NOT CERTIFIED');
+  assert.equal(checklist.certificationStatus, 'LOCALLY VALIDATED');
   assert.match(checklist.candidateSha, /^[0-9a-f]{40}$/);
   assert.equal(checklist.requiredEvidence.cleanWorktree, true);
   assert.equal(checklist.requiredEvidence.releaseScopeNormalized, true);
@@ -226,7 +226,8 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(checklist.requiredEvidence.trustCriticalFunctionsLint, true);
   assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, true);
   assert.equal(checklist.requiredEvidence.serverAuthoritativeSensitiveWrites, true);
-  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, true);
+  assert.equal(checklist.requiredEvidence.providerSecretsConfigured, false);
+  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, false);
   assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, true);
   assert.equal(checklist.requiredEvidence.continuityExportDeletionVerified, true);
   assert.equal(checklist.requiredEvidence.privacyClaimsMatchDeployment, true);
@@ -268,18 +269,18 @@ test('release certification remains evidence-gated until required authorities ar
   assert.match(continuityReplay, /expectedContinuityVersion/);
   assert.match(continuityReplay, /stale or repeated requests/);
   assert.match(sameShaLineage, /DEPLOYMENT LINEAGE RECORDED/);
-  assert.match(sameShaLineage, /final\s+release certification remains blocked/i);
+  assert.match(sameShaLineage, /final\s+certification remains blocked/i);
   assert.match(sameShaLineage, /Source provenance fields/);
   assert.match(runtimeAttestation, /evidence-tail/);
   assert.match(runtimeAttestation, /environment configuration is an assertion, not attestation evidence/i);
-  assert.equal(runtimeAttestationEvidence.attestationStatus, 'ATTESTED');
-  assert.equal(runtimeAttestationEvidence.runtimeEnablementAuthorized, true);
+  assert.equal(runtimeAttestationEvidence.attestationStatus, 'NOT_ATTESTED');
+  assert.equal(runtimeAttestationEvidence.runtimeEnablementAuthorized, false);
   assert.match(runtimeAttestationEvidence.candidateSha, /^[0-9a-f]{40}$/);
   assert.equal(runtimeAttestationEvidence.deploymentEnvironment, 'production');
-  assert.equal(runtimeAttestationEvidence.receipt.algorithm, 'RSA-SHA256');
+  assert.equal(runtimeAttestationEvidence.receipt, null);
   assert.equal(runtimeAttestationEvidence.evidence.rollbackAuthority.verified, true);
   assert.equal(runtimeAttestationEvidence.evidence.firestoreEmulatorAuthorization.verified, true);
-  assert.equal(runtimeAttestationEvidence.evidence.providerSecretPresence.verified, true);
+  assert.equal(runtimeAttestationEvidence.evidence.providerSecretPresence.verified, false);
   assert.equal(trustedRuntimeVerifiers.status, 'APPROVED VERIFIER REGISTERED');
   assert.match(trustedRuntimeVerifiers.trustModel, /explicit-human-approved-verifier-registry/);
   assert.match(trustedRuntimeVerifiers.requirements.join('\n'), /publicKeyFingerprintSha256/);

@@ -141,35 +141,37 @@ async function persistGeneratedSession(
     });
 }
 
-export const generateKheperaReflection = functions.https.onCall(async (data, context) => {
-  try {
-    const result = await handleKheperaGenerationRequest(data, context.auth?.uid, {
-      consumeRateLimit,
-      requestReflection,
-      persistGeneratedSession,
-    });
+export const generateKheperaReflection = functions
+  .runWith({ secrets: ["ANTHROPIC_API_KEY"] })
+  .https.onCall(async (data, context) => {
+    try {
+      const result = await handleKheperaGenerationRequest(data, context.auth?.uid, {
+        consumeRateLimit,
+        requestReflection,
+        persistGeneratedSession,
+      });
 
-    if (result.blockedByCrisis) {
+      if (result.blockedByCrisis) {
+        return {
+          blockedByCrisis: true,
+          text: null,
+          provider: null,
+          model: null,
+          sessionId: null,
+        };
+      }
+
       return {
-        blockedByCrisis: true,
-        text: null,
-        provider: null,
-        model: null,
-        sessionId: null,
+        blockedByCrisis: false,
+        text: JSON.stringify(result.response satisfies KheperaGatewayResponse),
+        provider: "anthropic",
+        model: process.env.ANTHROPIC_KHEPERA_MODEL || DEFAULT_KHEPERA_MODEL,
+        sessionId: result.sessionId,
       };
+    } catch (error) {
+      if (error instanceof KheperaGatewayError) {
+        throw new functions.https.HttpsError(error.code, error.message);
+      }
+      throw new functions.https.HttpsError("internal", "Reflection generation failed");
     }
-
-    return {
-      blockedByCrisis: false,
-      text: JSON.stringify(result.response satisfies KheperaGatewayResponse),
-      provider: "anthropic",
-      model: process.env.ANTHROPIC_KHEPERA_MODEL || DEFAULT_KHEPERA_MODEL,
-      sessionId: result.sessionId,
-    };
-  } catch (error) {
-    if (error instanceof KheperaGatewayError) {
-      throw new functions.https.HttpsError(error.code, error.message);
-    }
-    throw new functions.https.HttpsError("internal", "Reflection generation failed");
-  }
-});
+  });
