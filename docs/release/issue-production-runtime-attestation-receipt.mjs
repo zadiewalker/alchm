@@ -6,12 +6,13 @@ import { createHash, createPrivateKey, createPublicKey, sign } from 'node:crypto
 import { fileURLToPath } from 'node:url';
 
 const expectedCandidateSha = '62d5a383e5404633dc5ab3d04e813b3cdeeedb4f';
-const expectedEvidenceTailSha = 'b67dc13759412d5c65c29f94c8a6fefbfd127e6e';
+const expectedEvidenceTailSha = 'cc5725543bc1d6d2ce2e4c00d3af27c5f96ec443';
 const expectedVerifierId = process.env.ALCHM_RUNTIME_ATTESTATION_VERIFIER_ID
   ?? 'alchm-release-owner-2026-05';
 const privateKeyPath = process.env.ALCHM_RUNTIME_ATTESTATION_PRIVATE_KEY_PATH;
 const receiptId = process.env.ALCHM_RUNTIME_ATTESTATION_RECEIPT_ID;
 const receiptTtlHours = Number(process.env.ALCHM_RUNTIME_ATTESTATION_RECEIPT_TTL_HOURS ?? '24');
+const replaceExistingReceipt = process.env.ALCHM_RUNTIME_ATTESTATION_REPLACE_RECEIPT === 'true';
 
 const releaseDir = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(releaseDir, '../..');
@@ -183,8 +184,8 @@ if (attestation.candidateSha !== expectedCandidateSha) {
 if (attestation.deploymentEnvironment !== 'production') {
   fail('runtime evidence must target production.');
 }
-if (attestation.receipt !== null) {
-  fail('runtime evidence already contains a receipt; rotate through an explicit new evidence pass.');
+if (attestation.receipt !== null && !replaceExistingReceipt) {
+  fail('runtime evidence already contains a receipt; set ALCHM_RUNTIME_ATTESTATION_REPLACE_RECEIPT=true for an explicit rotation pass.');
 }
 const incompleteEvidence = requiredEvidence.filter((key) => {
   const item = attestation.evidence?.[key];

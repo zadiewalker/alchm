@@ -2,11 +2,12 @@
 
 ## Status
 
-`GOVERNANCE CONTRACT IMPLEMENTED - NO VERIFIER APPROVED`
+`GOVERNANCE CONTRACT IMPLEMENTED - APPROVED VERIFIER REGISTERED`
 
-This record defines how ALCHM may trust a runtime attestation verifier. It does
-not approve a verifier, issue a receipt, authorize runtime continuity, or close
-RB-017.
+This record defines how ALCHM trusts a runtime attestation verifier. The
+approved public verifier metadata is recorded in
+`docs/release/trusted-runtime-verifiers.json`; private key custody remains
+external to the repository.
 
 ## Verifier Governance
 
@@ -23,9 +24,10 @@ A verifier is trusted only when all of the following are true:
 - the verifier public key was reviewed as part of the same release candidate
   scope.
 
-The current approved-verifier registry is intentionally empty. Environment
-variables, deployment configuration, or a verifier-controlled private key cannot
-approve verifier trust. Self-attested verifier records are invalid.
+The current approved-verifier registry contains
+`alchm-release-owner-2026-05`. Environment variables, deployment
+configuration, or a verifier-controlled private key cannot approve verifier
+trust. Self-attested verifier records are invalid.
 
 ## Receipt Semantics
 

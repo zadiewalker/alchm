@@ -217,7 +217,7 @@ test('release certification remains evidence-gated until required authorities ar
   const continuityRuntimeGate = read('functions/src/continuityRuntimeGateCore.ts');
   const runtimeAttestationVerifierCore = read('functions/src/runtimeAttestationVerifierCore.ts');
 
-  assert.equal(checklist.certificationStatus, 'LOCALLY VALIDATED');
+  assert.equal(checklist.certificationStatus, 'ATTESTED RELEASE CANDIDATE, NOT CERTIFIED');
   assert.match(checklist.candidateSha, /^[0-9a-f]{40}$/);
   assert.equal(checklist.requiredEvidence.cleanWorktree, true);
   assert.equal(checklist.requiredEvidence.releaseScopeNormalized, true);
@@ -227,7 +227,7 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(checklist.requiredEvidence.firestoreEmulatorAuthorization, true);
   assert.equal(checklist.requiredEvidence.serverAuthoritativeSensitiveWrites, true);
   assert.equal(checklist.requiredEvidence.providerSecretsConfigured, true);
-  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, false);
+  assert.equal(checklist.requiredEvidence.runtimeContinuityAttestation, true);
   assert.equal(checklist.requiredEvidence.deploymentLineageSameSha, true);
   assert.equal(checklist.requiredEvidence.continuityExportDeletionVerified, true);
   assert.equal(checklist.requiredEvidence.privacyClaimsMatchDeployment, true);
@@ -273,11 +273,11 @@ test('release certification remains evidence-gated until required authorities ar
   assert.match(sameShaLineage, /Source provenance fields/);
   assert.match(runtimeAttestation, /evidence-tail/);
   assert.match(runtimeAttestation, /environment configuration is an assertion, not attestation evidence/i);
-  assert.equal(runtimeAttestationEvidence.attestationStatus, 'NOT_ATTESTED');
-  assert.equal(runtimeAttestationEvidence.runtimeEnablementAuthorized, false);
+  assert.equal(runtimeAttestationEvidence.attestationStatus, 'ATTESTED');
+  assert.equal(runtimeAttestationEvidence.runtimeEnablementAuthorized, true);
   assert.match(runtimeAttestationEvidence.candidateSha, /^[0-9a-f]{40}$/);
   assert.equal(runtimeAttestationEvidence.deploymentEnvironment, 'production');
-  assert.equal(runtimeAttestationEvidence.receipt, null);
+  assert.equal(runtimeAttestationEvidence.receipt.algorithm, 'RSA-SHA256');
   assert.equal(runtimeAttestationEvidence.evidence.rollbackAuthority.verified, true);
   assert.equal(runtimeAttestationEvidence.evidence.firestoreEmulatorAuthorization.verified, true);
   assert.equal(runtimeAttestationEvidence.evidence.providerSecretPresence.verified, true);
@@ -291,12 +291,12 @@ test('release certification remains evidence-gated until required authorities ar
   assert.equal(trustedRuntimeVerifiers.approvedVerifiers[0].receiptAlgorithm, 'RSA-SHA256');
   assert.match(candidateBoundLineage, /EXECUTABLE CHECK PRESENT - NO ATTESTATION ACCEPTED/);
   assert.match(candidateBoundLineage, /check:runtime-attestation/);
-  assert.match(executableVerifierModel, /VERIFIER CONTRACT IMPLEMENTED - NO APPROVED VERIFIER OR RECEIPT/);
+  assert.match(executableVerifierModel, /VERIFIER CONTRACT IMPLEMENTED - APPROVED VERIFIER AND RECEIPT RECORDED/);
   assert.match(executableVerifierModel, /RSA-SHA256/);
   assert.match(executableSameSha, /STRUCTURAL VERIFICATION IMPLEMENTED - LINEAGE NOT ESTABLISHED/);
   assert.match(executableSameSha, /evidence digest/i);
   assert.match(executableSemanticAuthority, /UNRESOLVED MEANING-BEARING TRANSITIONS REMAIN UNAVAILABLE/);
-  assert.match(trustedVerifierAuthority, /GOVERNANCE CONTRACT IMPLEMENTED - NO VERIFIER APPROVED/);
+  assert.match(trustedVerifierAuthority, /GOVERNANCE CONTRACT IMPLEMENTED - APPROVED VERIFIER REGISTERED/);
   assert.match(trustedVerifierAuthority, /self-attested verifier records are invalid/i);
   assert.match(deploymentBoundAttestation, /RECEIPT BINDING CONTRACT IMPLEMENTED - DEPLOYMENT LINEAGE NOT ESTABLISHED/);
   assert.match(deploymentBoundAttestation, /deployment evidence digest/i);

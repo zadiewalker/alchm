@@ -39,9 +39,10 @@ Anthropic-bound Khepera candidate
 validated locally, verified by GitHub Navigation E2E run `26997610335`,
 deployed to Firebase Functions with `ANTHROPIC_API_KEY` bound, and promoted to
 Vercel production deployment `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD`.
-Final certification remains blocked because no verifier-issued runtime
-attestation receipt is available, and native archive, RevenueCat dashboard
-proof, and TestFlight entitlement proof remain absent.
+Runtime attestation receipt
+`prod-62d5a383e540-2026-06-06T16-13-52-665Z` is recorded for the candidate.
+Final certification remains blocked because native archive, RevenueCat
+dashboard proof, and TestFlight entitlement proof remain absent.
 
 The executable runtime gate remains fail closed as described in
 `docs/release/RUNTIME_ATTESTATION_MODEL.md`. The evidence collection contract

@@ -1,16 +1,34 @@
 {
   "schemaVersion": 1,
-  "attestationStatus": "NOT_ATTESTED",
-  "runtimeEnablementAuthorized": false,
+  "attestationStatus": "ATTESTED",
+  "runtimeEnablementAuthorized": true,
   "candidateSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-05T05:43:00.000Z",
+  "verifiedAt": "2026-06-06T16:17:55.028Z",
   "verificationAuthority": {
-    "status": "unavailable",
-    "verifierId": null,
-    "reference": "No production verifier-issued receipt or production signing process was available in the repository or local environment for candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f. The repo generator is explicitly non-production test-only and was not used as production evidence."
+    "status": "verified",
+    "verifierId": "alchm-release-owner-2026-05",
+    "reference": "External RSA verifier alchm-release-owner-2026-05 signed receipt prod-62d5a383e540-2026-06-06T16-17-55-028Z. Evidence-tail cc5725543bc1d6d2ce2e4c00d3af27c5f96ec443. Private key path remained outside the repository and was not recorded."
   },
-  "receipt": null,
+  "receipt": {
+    "algorithm": "RSA-SHA256",
+    "payload": {
+      "schemaVersion": 1,
+      "receiptId": "prod-62d5a383e540-2026-06-06T16-17-55-028Z",
+      "verifierId": "alchm-release-owner-2026-05",
+      "candidateSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "evidenceDigest": "10d2feb4cf44e7ab6542990ca49e7451fe54a0c6e70c4a6134f1e3c21f300cf9",
+      "deploymentEnvironment": "production",
+      "functionsDeploymentSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "firestoreRulesDeploymentSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
+      "deploymentEvidenceDigest": "333c24888743ea844f897ebe9b5a3f28af01920dc7244c4960e8faccfd4420b6",
+      "providerSecretLineageDigest": "226dc50e4c848316480967b2f72bd260fa752f28f55ad3937e147a468eb0fd23",
+      "authorizationScope": "continuity-transitions",
+      "issuedAt": "2026-06-06T16:17:55.028Z",
+      "expiresAt": "2026-06-07T16:17:55.028Z"
+    },
+    "signatureBase64": "kGzpMim7kX6Pd9KGd1R6rXCAcZ0Rnm9GLq6/saIQaetAob1wC0Fr7Kg7LZxALOSECeusvtZN4cSkGXH0Ce+XYX29H4Rd+N2cCk1PYRq1oVxXw4yRHw4QiDBMQSk7ZEjyrBpE1PWSSG+xtgsrR1o2HHfXDn1wtZ6zdye5vJGXlvz723ZvBwL2nidAlxmIHPfnDvImSOldYQnpvLqDvzTJRyZY87wnNBLkbZXKw/KbqG7xSg+dbl4CbliOQuVQ5CWvcvvyp4ETzrmd12pvww5Y6Oy7HT3vaXb+MRMJcJOKpLrjyVFI61kSE2oTsCo2zgCSX5ypoEmTPtegMSgs6iqCvDe21s3y57aDgqkLSdKwiasqWO7CTvIre1xCuL3Gpl/SwN7lJ5CXxjU5/++KbIPCkCGqi6i+6L5gCrw4HwC6VukuAKUa++MB6t4djdZC81c+IeH+HV4qMMCEYPqOJdJ5QRZaHZMppHEu4dv5mMCDPCz/eom8iBI4Wt0iBENTAAF2Wl009ogikLpz1pYtNsATJSzZGfs0yh0r7yIw8u0jpVNp414nvp7qkbvdDX/g2lHfD3TzQIVzG1OPN7au5WkYhGPw+l4QgfdxVB+1s44A7ym6o0wxgG6DoJpBaMxr+uPFQO1eYvqLNgR+nWadD5JnLGsxUfYUDZtu1Dc7fY2O9E4="
+  },
   "consumedReceiptIds": [
     "prod-d255aded50d9-2026-06-04T18-32-29-920Z",
     "prod-cf92af3579e9-2026-06-05T00-21-24-796Z"
@@ -54,7 +72,7 @@
     "rollbackAuthority": {
       "verified": true,
       "sha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
-      "reference": "Current Vercel production deployment is dpl_6smNjSnhdYGHNEWAqevVSfVEegYD; previous production rollback target is dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Runtime receipt remains absent, so rollback requires a new verifier-issued receipt before runtime continuity attestation can be accepted."
+      "reference": "Current Vercel production deployment is dpl_6smNjSnhdYGHNEWAqevVSfVEegYD; previous production rollback target is dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. The runtime receipt is candidate-bound; rollback, provider-secret rotation, verifier rotation, or deployment changes require a fresh verifier-issued receipt."
     }
   },
   "recordedProviderSecretLineageDigest": null,

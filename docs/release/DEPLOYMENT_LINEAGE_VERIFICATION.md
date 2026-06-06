@@ -49,7 +49,8 @@ Record provenance fields such as `generatedBy`, `transitionedBy`, and
 Continuity transition exposure must remain denied while any lineage element is
 absent, conflicting, or only asserted through environment configuration.
 `docs/release/RUNTIME_ATTESTATION_MODEL.md` defines that fail-closed runtime
-contract. Runtime attestation has not been accepted for
-`62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` because no verifier-issued runtime
-receipt is available. Final certification also remains blocked by native
-RevenueCat/TestFlight entitlement evidence while `iosArchiveSameSha` is false.
+contract. Runtime attestation receipt
+`prod-62d5a383e540-2026-06-06T16-13-52-665Z` is recorded for
+`62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`. Final certification remains
+blocked by native RevenueCat/TestFlight entitlement evidence while
+`iosArchiveSameSha` is false.

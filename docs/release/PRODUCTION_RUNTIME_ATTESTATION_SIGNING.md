@@ -15,7 +15,8 @@ material and does not authorize native release evidence.
 | Verifier ID | `alchm-release-owner-2026-05` |
 | Receipt algorithm | `RSA-SHA256` |
 | Product candidate | `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` |
-| Evidence-tail input | `b67dc13759412d5c65c29f94c8a6fefbfd127e6e` |
+| Evidence-tail input | `cc5725543bc1d6d2ce2e4c00d3af27c5f96ec443` |
+| Public key fingerprint | `02382b8c6fa145385e8a44d6337425921bbb7e19a88b071f65511c2a6f463de0` |
 | Function hash binding | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
 | Vercel deployment binding | `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD` |
 | Provider secret binding | `ANTHROPIC_API_KEY` version `1` |
@@ -26,7 +27,7 @@ Run from the evidence-tail checkout, or from a later clean evidence-only
 descendant that contains this signing process:
 
 ```bash
-ALCHM_RUNTIME_ATTESTATION_PRIVATE_KEY_PATH=/external/path/alchm-runtime-verifier-rsa-private.pem \
+ALCHM_RUNTIME_ATTESTATION_PRIVATE_KEY_PATH=$HOME/.alchm/release-keys/alchm-release-owner-2026-05.private.pem \
 node docs/release/issue-production-runtime-attestation-receipt.mjs
 ```
 
@@ -36,6 +37,7 @@ Optional environment:
 ALCHM_RUNTIME_ATTESTATION_RECEIPT_ID=prod-unique-id
 ALCHM_RUNTIME_ATTESTATION_RECEIPT_TTL_HOURS=24
 ALCHM_RUNTIME_ATTESTATION_VERIFIER_ID=alchm-release-owner-2026-05
+ALCHM_RUNTIME_ATTESTATION_REPLACE_RECEIPT=true
 ```
 
 ## Safety Rules
@@ -51,6 +53,8 @@ ALCHM_RUNTIME_ATTESTATION_VERIFIER_ID=alchm-release-owner-2026-05
 - The product candidate must be an ancestor of current HEAD.
 - The evidence-tail may contain only allowed release-evidence paths.
 - The script refuses to overwrite an existing receipt.
+- Existing receipt replacement requires
+  `ALCHM_RUNTIME_ATTESTATION_REPLACE_RECEIPT=true`.
 - Secret values and private key material are never logged.
 
 ## Output

@@ -23,15 +23,15 @@
       "expiresAt": "2026-06-28T03:30:00Z",
       "revokedAt": null,
       "trustRootReference": "release-owner-controlled-local-key",
-      "lineageReference": "candidate-31ba4820fc5c53bdf84e33e941675011c51aa824",
+      "lineageReference": "candidate-62d5a383e5404633dc5ab3d04e813b3cdeeedb4f-key-rotation-2026-06-06",
       "operator": {
         "name": "Zadie Walker",
         "contact": "zadiewalker@gmail.com"
       },
-      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAk9aWPs7KBlswbhdXDNW5\n0R9vsSWAHcix+jPgzClM8iIVkaM3mu9ImQHp8navWMEqkJgoUUHYSheX0qj4T/yu\nOO1q9m64talDPI2Ux8w8xrmvBC1BrEKgQwQdgL+Tt0SxwjBSkFAO5Cc0tsmBmWzU\n6JPa5GvouNegmgahYRFPMwsWM70iqD2WIIHdSFFdN8u1hYlI+SrGXSljL0qIh8i8\nKxf7FA4lsRIM/gyOzG5WuT9VxSK7gNrglHL++p+GSHU18oPVPaqDDePgwUKJw7Il\nPr+F2igIqS/gMVcGjkpnGsTVTbGEJ7T5Gbs/E3diyVGytbY4YAKiEaLqvOzHkQnt\n4MF3ztLfQl49bMLdm0myrct5kNSLm6M3tAqY+dgcCuqTOr84lWPbUu9ZCdaRF14m\n0O100RjQAhJBgo5mS15E6Pfoyc88hqYgBJEWvyb4fPVV6obRAa8MPi/q2WS5n4OY\ncsJxwQqKVvEAQAmAqMtRjXDYWsXiV5nSexALbBJN5EUXAgMBAAE=\n-----END PUBLIC KEY-----",
-      "publicKeyFingerprintSha256": "759ef3041ed64b8e39224031d54a69174178c73861ace9c32050914979b8ef3c",
-      "sourcePublicKeyFile": "/tmp/alchm-runtime-verifier-rsa-public.pem",
-      "sourcePublicKeyFileSha256": "e58e25abba919ec29b62aefb630cd9a4083cfd4be8b20437aaa241320807fcbd",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvSLxtJuch/wDPVDMQTjU\nHNk5QdCPX8zX8CVVKZz7VWNZAtfEVvr1ep8X1+dUuEJETnPANno6Pk/PLG3dpxKy\n8PRJz7zu9gRWLftcVbwtYBOgxLWbXTMwuPhqqvWeLRn5sTrRVL/HXWLEzKNkUS7c\nBX7nMuBQcJijcBsJT7cHLCcdlIQCQK90Ixx4WC6Gft6wW8azu/ITghTSsOVsXnlq\nmzNqxzLlmBf6rfi2l9fDLG7fv4a9Wijk7HkLFPVKCEJlYNRw7msxJCNCx5/Bnd+u\nIs1Q7FeVUcYbVWPrqbZd5XnsNTwILxIBi086lWrs3KoJqAFjXusKmo+Gw1K9chnL\nT9CSauklic1NeZFw6Z+3RCPprpa651UeDWqAWWRbbb2PbNM2mF26borU4rulqtyv\nGy1jkGZKCyqwb/5G7Mr8vKKQ+FNF8oE25RRNF/RrVb/BnSW66N7tsFnUomppdx1t\nmtB2rELheAYrrkD1xdR0Fu89Z5U0fqgz4ZwTvQ5sdAf+jbZ0ccu2smAnnhPDdF+d\nv3phUNVPauXLEvpvTDXF91pNldZqZZCAbrllyQDclQrY8W77MjFnIW1NwbteyfgI\nTzN5lU2Zewv64uvI3SQC4EcDOj/6rR3ki4MmS0fjowNQdgTqRNwF00TXAyA2bJyH\nyKnJnuTraTwWS6i/1VbBGnECAwEAAQ==\n-----END PUBLIC KEY-----",
+      "publicKeyFingerprintSha256": "02382b8c6fa145385e8a44d6337425921bbb7e19a88b071f65511c2a6f463de0",
+      "sourcePublicKeyFile": "~/.alchm/release-keys/alchm-release-owner-2026-05.public.pem",
+      "sourcePublicKeyFileSha256": "9d219f59ac5ed5636a84deeda30863d1450b717328ce3777e56ded61cd3bfeb0",
       "receiptAlgorithm": "RSA-SHA256"
     }
   ]

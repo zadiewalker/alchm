@@ -2,7 +2,7 @@
 
 ## Status
 
-`VERIFIER CONTRACT IMPLEMENTED - NO APPROVED VERIFIER OR RECEIPT`
+`VERIFIER CONTRACT IMPLEMENTED - APPROVED VERIFIER AND RECEIPT RECORDED`
 
 This record defines the source-level verifier contract for continuity runtime
 authorization. It does not approve a verifier, accept an attestation, or
@@ -16,10 +16,10 @@ receipt. Its public key must be recorded in
 scope; the corresponding private key must remain outside the repository and
 outside mutable application environment configuration.
 
-The current registry contains no approved verifier. This is intentional.
-Verifier records are invalid if duplicated, expired, revoked, incomplete, or
-self-attested. `approvedBy` must identify a separate release authority rather
-than the verifier ID or key ID.
+The current registry contains approved verifier
+`alchm-release-owner-2026-05`. Verifier records are invalid if duplicated,
+expired, revoked, incomplete, or self-attested. `approvedBy` must identify a
+separate release authority rather than the verifier ID or key ID.
 
 ## Signed Receipt Contract
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "certificationStatus": "LOCALLY VALIDATED",
+  "certificationStatus": "ATTESTED RELEASE CANDIDATE, NOT CERTIFIED",
   "releaseBranch": "release/clinical-architecture-integration",
   "inspectedHead": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
   "candidateSha": "62d5a383e5404633dc5ab3d04e813b3cdeeedb4f",
@@ -43,7 +43,7 @@
     "providerSecretsConfigured": true,
     "firestoreEmulatorAuthorization": true,
     "serverAuthoritativeSensitiveWrites": true,
-    "runtimeContinuityAttestation": false,
+    "runtimeContinuityAttestation": true,
     "deploymentLineageSameSha": true,
     "continuityExportDeletionVerified": true,
     "privacyClaimsMatchDeployment": true,
