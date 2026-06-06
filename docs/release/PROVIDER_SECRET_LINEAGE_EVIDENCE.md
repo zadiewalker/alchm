@@ -16,15 +16,19 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` |
+| Candidate SHA | `23f2eac9506c49601403bacf85ffa4196d6734d2` |
 | Functions hash | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | Not recorded for current candidate |
 
 This record does not include the secret value and does not by itself authorize
 runtime continuity. Targeted Firebase Functions deployment was completed for
-the current candidate lineage on 2026-06-05, and post-deploy provider metadata
-verifies the expected Anthropic secret binding.
+candidate `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` on 2026-06-05, and
+post-deploy provider metadata verifies the expected Anthropic secret binding.
+Product candidate `23f2eac9506c49601403bacf85ffa4196d6734d2` changes native
+RevenueCat subscription integration only; Functions source and Firebase secret
+binding are unchanged, so provider-secret lineage carries forward without
+printing or rotating secret material.
 
 `functions/src/kheperaGateway.ts` reads `process.env.ANTHROPIC_API_KEY`.
 `firebase functions:list --project alchm-463017 --json` reports deployed
@@ -45,6 +49,9 @@ It is also invalid for source-bearing candidate
 `7aecc5afc7885f4c1ff43a0b5342cc9a7be361aa`.
 It is also invalid for source-bearing candidate
 `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`.
+It is also invalid for native subscription candidate
+`23f2eac9506c49601403bacf85ffa4196d6734d2`; a new receipt is recorded in
+`docs/release/runtime-attestation-evidence.json`.
 
 ## Evidence Format
 
