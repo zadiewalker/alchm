@@ -21,6 +21,31 @@ export interface UseJournalReturn {
   dismiss: () => void;
 }
 
+const JOURNAL_SUBMISSION_UI_RECOVERY_MS = 18000;
+
+function buildSubmissionTimeoutResult(localId: string): JournalSubmissionResult {
+  return {
+    success: false,
+    entryId: null,
+    localId,
+    witness: '',
+    perspective: '',
+    kheperaResponse: '',
+    seed: '',
+    isCrisis: false,
+    submissionState: 'aborted',
+    error: 'submission_timeout',
+  };
+}
+
+function waitForSubmissionRecovery(localId: string): Promise<JournalSubmissionResult> {
+  return new Promise((resolve) => {
+    window.setTimeout(() => {
+      resolve(buildSubmissionTimeoutResult(localId));
+    }, JOURNAL_SUBMISSION_UI_RECOVERY_MS);
+  });
+}
+
 export function useJournal(): UseJournalReturn {
   const { isMounted, safeDispatch } = useSafeAsync();
   const abortRef = useRef<AbortController | null>(null);
@@ -39,7 +64,7 @@ export function useJournal(): UseJournalReturn {
     if (entryText.trim().length < 3 || isSubmittingRef.current) return;
 
     isSubmittingRef.current = true;
-    operationIdRef.current = crypto.randomUUID();
+    operationIdRef.current = operationIdRef.current ?? crypto.randomUUID();
     abortRef.current = new AbortController();
     recordOperationalEvent('first_write_submitted', { localId: operationIdRef.current, source: 'journal_new' });
 
@@ -53,7 +78,8 @@ export function useJournal(): UseJournalReturn {
     };
     const { submitJournalEntry } = await import('@/services/journal/submissionPipeline');
 
-    const submissionResult = await submitJournalEntry(fullInput, abortRef.current.signal)
+    const activeOperationId = operationIdRef.current;
+    const submission = submitJournalEntry(fullInput, abortRef.current.signal)
       .catch((err) => {
         if (err?.name === 'AbortError') return null;
         const submissionState: JournalSubmissionResult['submissionState'] =
@@ -63,7 +89,7 @@ export function useJournal(): UseJournalReturn {
         return {
           success: false,
           entryId: null,
-          localId: operationIdRef.current ?? Date.now().toString(),
+          localId: activeOperationId,
           kheperaResponse: '',
           seed: '',
           isCrisis: false,
@@ -71,15 +97,29 @@ export function useJournal(): UseJournalReturn {
           error: err?.message ?? 'submission_failed',
         };
       });
+    const submissionResult = await Promise.race([
+      submission,
+      waitForSubmissionRecovery(activeOperationId),
+    ]);
 
     isSubmittingRef.current = false;
-    operationIdRef.current = null;
 
     if (!isMounted() || !submissionResult) return;
 
     if (!submissionResult.success) {
       setErrorSafe(submissionResult.error ?? 'submission_failed');
       setViewSafe('error');
+      submission.then((settledResult) => {
+        if (!isMounted() || !settledResult || operationIdRef.current !== activeOperationId) return;
+        isSubmittingRef.current = false;
+        if (!settledResult.success) return;
+        setResultSafe(settledResult);
+        setErrorSafe(null);
+        setViewSafe('receiving');
+        operationIdRef.current = null;
+      }).catch(() => {
+        // The visible error state already preserves the draft and retry affordance.
+      });
       return;
     }
 
@@ -97,6 +137,7 @@ export function useJournal(): UseJournalReturn {
 
     setResultSafe(submissionResult);
     setViewSafe('receiving');
+    operationIdRef.current = null;
   }, [entryText, isMounted, setViewSafe, setResultSafe, setErrorSafe]);
 
   const reset = useCallback(() => {

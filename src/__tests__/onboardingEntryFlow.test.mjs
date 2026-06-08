@@ -49,6 +49,21 @@ test('submit path preserves local save, crisis detection, then model call', () =
   assert.ok(processorCrisisIndex < modelIndex);
 });
 
+test('journal submit UI has bounded recovery without clearing draft text', () => {
+  const journalHook = read('hooks/useJournal.ts');
+  const journalFlow = read('components/journal/JournalFlow.tsx');
+  const submissionState = read('services/journal/submissionState.ts');
+
+  assert.ok(journalHook.includes('JOURNAL_SUBMISSION_UI_RECOVERY_MS'));
+  assert.ok(journalHook.includes('Promise.race'));
+  assert.ok(journalHook.includes('waitForSubmissionRecovery(activeOperationId)'));
+  assert.ok(journalHook.includes("error: 'submission_timeout'"));
+  assert.ok(journalHook.includes('operationIdRef.current = operationIdRef.current ?? crypto.randomUUID()'));
+  assert.ok(journalHook.includes('operationIdRef.current !== activeOperationId'));
+  assert.equal(journalFlow.includes('setEntryText(\'\')'), false);
+  assert.match(submissionState, /submission_timeout/);
+});
+
 test('submission tone resolves to a valid EmotionalTone and fallback is not user-facing', () => {
   const journalFlow = read('components/journal/JournalFlow.tsx');
 

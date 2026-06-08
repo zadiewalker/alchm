@@ -250,6 +250,9 @@ test('mobile shell only shows footer navigation on main app routes', () => {
   assert.match(chrome, /\/journal/);
   assert.match(chrome, /\/containers/);
   assert.match(chrome, /\/mirror/);
+  assert.match(chrome, /\/upgrade/);
+  assert.match(chrome, /MainShellBackButton/);
+  assert.match(chrome, /resolveBackFallback/);
   assert.match(footer, /useInternalNavigation/);
   assert.doesNotMatch(footer, /from 'next\/link'/);
 });

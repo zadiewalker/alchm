@@ -1,8 +1,10 @@
 'use client';
 
 import type React from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { DESIGN } from '@/lib/design';
+import { useSafeBackNavigation } from '@/hooks/useSafeBackNavigation';
+import { resolveBackFallback } from '@/utils/navigation';
 
 interface SanctuaryHeaderProps {
   title: string;
@@ -11,7 +13,8 @@ interface SanctuaryHeaderProps {
 }
 
 export function SanctuaryHeader({ title, showBack = false, rightAction }: SanctuaryHeaderProps) {
-  const router = useRouter();
+  const pathname = usePathname();
+  const { goBack } = useSafeBackNavigation({ fallback: resolveBackFallback(pathname) });
 
   return (
     <header
@@ -28,7 +31,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
     >
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', gap: DESIGN.spacing.sm }}>
         <button
-          onClick={() => router.back()}
+          onClick={goBack}
           type="button"
           aria-label="Go back"
           style={{

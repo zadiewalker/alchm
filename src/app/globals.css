@@ -366,6 +366,33 @@ main {
   color: var(--archive-cream) !important;
 }
 
+.alchm-shell-back-button {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
+  left: max(0.875rem, env(safe-area-inset-left, 0px));
+  z-index: 45;
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--poster-warm-cream) 18%, transparent);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--primary-sage) 28%, transparent), color-mix(in srgb, var(--poster-deep-olive) 82%, transparent)),
+    color-mix(in srgb, var(--surface-nav) 88%, var(--poster-deep-olive));
+  color: var(--poster-warm-cream);
+  box-shadow:
+    0 12px 28px color-mix(in srgb, var(--poster-deep-olive) 28%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--poster-warm-cream) 10%, transparent);
+  backdrop-filter: blur(16px) saturate(1.05);
+}
+
+.alchm-shell-back-button:focus-visible {
+  outline: 2px solid var(--poster-muted-gold);
+  outline-offset: 3px;
+}
+
 .card,
 .glass-card,
 .reflective-surface {

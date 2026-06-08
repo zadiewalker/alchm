@@ -28,6 +28,8 @@ export function getSubmissionErrorMessage(error: string | null): string | null {
       return 'Write a little more before sending this to Khepera.';
     case 'submission_failed':
       return 'Something interrupted this before it finished.';
+    case 'submission_timeout':
+      return 'This is taking longer than expected. Your words are still here; try again when the connection settles.';
     default:
       return error;
   }

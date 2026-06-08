@@ -1,6 +1,7 @@
 'use client';
 
 import type { TabId } from '@/types/shell';
+import type { RoutePath } from '@/types/navigation';
 
 export type TabRoute = {
   id: TabId;
@@ -67,7 +68,7 @@ export function isRootDestination(pathname: string | null | undefined): boolean 
   return TAB_ROUTES.some((route) => normalizedPathname === route.path);
 }
 
-export function resolveBackFallback(pathname: string | null | undefined): string {
+export function resolveBackFallback(pathname: string | null | undefined): RoutePath {
   const normalizedPathname = stripSearch(pathname);
 
   if (normalizedPathname.startsWith('/settings/disclaimer')) {

@@ -245,6 +245,25 @@ async function expectDashboard(page) {
   await page.getByText('What wants to be held here?').waitFor({ timeout: NAV_TIMEOUT_MS });
 }
 
+async function expectFooterVisible(page) {
+  await page.getByRole('navigation', { name: /primary navigation/i }).waitFor({ timeout: NAV_TIMEOUT_MS });
+}
+
+async function expectFooterHidden(page) {
+  const footerCount = await page.getByRole('navigation', { name: /primary navigation/i }).count();
+  assert(footerCount === 0, 'Expected footer navigation to be hidden');
+}
+
+async function clickBackAndExpect(page, expectedPath) {
+  const backButton = page.getByRole('button', { name: /^back$/i }).first();
+  await backButton.waitFor({ timeout: NAV_TIMEOUT_MS });
+  await clickNavigation(backButton);
+  await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(expectedPath)}/?$`), {
+    timeout: NAV_TIMEOUT_MS,
+    waitUntil: 'domcontentloaded',
+  });
+}
+
 async function runCase(name, runFn) {
   const startedAt = Date.now();
   const result = await runFn();
@@ -271,9 +290,11 @@ async function run() {
         const context = await newNavigationContext(browser);
         const page = await context.newPage();
         const cta = await openSplash(page);
+        await expectFooterHidden(page);
         await attachTelemetryCapture(page);
         await clickNavigation(cta);
         await expectDashboard(page);
+        await expectFooterVisible(page);
         await delay(250);
         const telemetry = await readTelemetry(page);
         const events = telemetry.events;
@@ -369,6 +390,7 @@ async function run() {
         await attachTelemetryCapture(page);
         await clickNavigation(cta);
         await expectDashboard(page);
+        await expectFooterVisible(page);
 
         const linkCases = [
           { label: 'Journal', path: '/journal' },
@@ -461,6 +483,7 @@ async function run() {
         await attachTelemetryCapture(page);
         await clickNavigation(cta);
         await expectDashboard(page);
+        await expectFooterVisible(page);
 
         const footerTargets = [
           { label: /journal/i, path: '/journal' },
@@ -469,7 +492,6 @@ async function run() {
           { label: /settings/i, path: '/settings' },
           { label: /home/i, path: '/dashboard' },
           { label: /journal/i, path: '/journal' },
-          { label: /home/i, path: '/dashboard' },
         ];
 
         for (const target of footerTargets) {
@@ -481,7 +503,12 @@ async function run() {
             waitUntil: 'domcontentloaded',
           });
           await page.locator('body').waitFor({ timeout: NAV_TIMEOUT_MS });
+          await expectFooterVisible(page);
         }
+
+        await clickBackAndExpect(page, '/dashboard');
+        await expectFooterVisible(page);
+        await expectDashboard(page);
 
         const telemetry = await readTelemetry(page);
         const events = telemetry.events;
@@ -492,6 +519,44 @@ async function run() {
             telemetryCaptured: events.length > 0,
           },
           events,
+        };
+        await context.close();
+        return summary;
+      })
+    );
+
+    results.push(
+      await runCase('direct_route_back_fallbacks_recover_home', async () => {
+        const context = await newNavigationContext(browser);
+        const directRoutes = [
+          { path: '/journal', fallback: '/dashboard' },
+          { path: '/containers', fallback: '/dashboard' },
+          { path: '/upgrade', fallback: '/settings' },
+        ];
+        const routeResults = [];
+
+        for (const route of directRoutes) {
+          const page = await context.newPage();
+          await page.goto(`${BASE_URL}${route.path}`, { waitUntil: 'domcontentloaded' });
+          await expectFooterVisible(page);
+          await clickBackAndExpect(page, route.fallback);
+          await expectFooterVisible(page);
+          routeResults.push({
+            path: route.path,
+            fallback: route.fallback,
+            checks: {
+              backFallbackReached: true,
+            },
+          });
+          await page.close();
+        }
+
+        const summary = {
+          currentUrl: `${BASE_URL}/settings`,
+          checks: {
+            directBackFallbacksComplete: true,
+          },
+          routeResults,
         };
         await context.close();
         return summary;
