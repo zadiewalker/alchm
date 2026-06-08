@@ -16,7 +16,7 @@ evidence, not the secret itself.
 | Secret version | `1` |
 | Deployment environment | `production` |
 | Firebase project | `alchm-463017` |
-| Candidate SHA | `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` |
+| Candidate SHA | `ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` |
 | Functions hash | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
 | Rotation timestamp | `2026-05-29T02:54:13Z` |
 | providerSecretLineageDigest | Not recorded for current candidate |
@@ -25,7 +25,7 @@ This record does not include the secret value and does not by itself authorize
 runtime continuity. Targeted Firebase Functions deployment was completed for
 candidate `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` on 2026-06-05, and
 post-deploy provider metadata verifies the expected Anthropic secret binding.
-Product candidate `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` changes native
+Product candidate `ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` changes native
 RevenueCat subscription integration only; Functions source and Firebase secret
 binding are unchanged, so provider-secret lineage carries forward without
 printing or rotating secret material.
@@ -50,7 +50,7 @@ It is also invalid for source-bearing candidate
 It is also invalid for source-bearing candidate
 `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f`.
 It is also invalid for native subscription candidate
-`8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6`; a new receipt is recorded in
+`ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30`; a new receipt is recorded in
 `docs/release/runtime-attestation-evidence.json`.
 
 ## Evidence Format

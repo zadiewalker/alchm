@@ -2,85 +2,86 @@
   "schemaVersion": 1,
   "attestationStatus": "ATTESTED",
   "runtimeEnablementAuthorized": true,
-  "candidateSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
+  "candidateSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-08T05:02:31.930Z",
+  "verifiedAt": "2026-06-08T08:23:18.117Z",
   "verificationAuthority": {
     "status": "verified",
     "verifierId": "alchm-release-owner-2026-05",
-    "reference": "External RSA verifier alchm-release-owner-2026-05 signed receipt prod-8f62cffe7a3f-2026-06-08T05-02-31-930Z. Evidence-tail 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6. Private key path remained outside the repository and was not recorded."
+    "reference": "External RSA verifier alchm-release-owner-2026-05 signed receipt prod-ba21195ad0b7-2026-06-08T08-23-18-117Z. Evidence-tail ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Private key path remained outside the repository and was not recorded."
   },
   "receipt": {
     "algorithm": "RSA-SHA256",
     "payload": {
       "schemaVersion": 1,
-      "receiptId": "prod-8f62cffe7a3f-2026-06-08T05-02-31-930Z",
+      "receiptId": "prod-ba21195ad0b7-2026-06-08T08-23-18-117Z",
       "verifierId": "alchm-release-owner-2026-05",
-      "candidateSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "evidenceDigest": "ed1f7b4f80053ad699926f006a79cb535491896dd901726cc752bf44bf9cbfb0",
+      "candidateSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "evidenceDigest": "5a61fc0496856db2cd9491cf7414be553235a9a6585744ea93b8b8719489ae2e",
       "deploymentEnvironment": "production",
-      "functionsDeploymentSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "firestoreRulesDeploymentSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "deploymentEvidenceDigest": "73bdac8b165db0c73b31eea20d8ed4b6ef0180ff9bb9b8a0800cb0a6c96f58cb",
-      "providerSecretLineageDigest": "84114f144b18984caf63e8119c3880395bb865a95dd0a8ca80822185c2913982",
+      "functionsDeploymentSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "firestoreRulesDeploymentSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "deploymentEvidenceDigest": "34e47a8bc356bd71f90c5ecd287d0fa5b8f7e88a17120f5fa6bed18968cf4f5c",
+      "providerSecretLineageDigest": "a763df886c96a9968eacd2ba614d619f137db962e026b020a6a0392db115cde9",
       "authorizationScope": "continuity-transitions",
-      "issuedAt": "2026-06-08T05:02:31.930Z",
-      "expiresAt": "2026-06-09T05:02:31.930Z"
+      "issuedAt": "2026-06-08T08:23:18.117Z",
+      "expiresAt": "2026-06-09T08:23:18.117Z"
     },
-    "signatureBase64": "MiyGwwJnBb46ipN/59iYzcuBN3J8ZeJE8j8Rgt/H0i6v5RlmaobjEtkMxwcqaXS5TuLjeQGBkrUNpGD9226MufYNOZa/OKDFsaZxFO+Y9IweUiBwmuJDyoAumNupYJYY636Pkh+wwvCi3r5AAbc5MWIbtzG08iyYOjg+Pvz8XZd5lt7+9x+8Bq+dRXsPB5QeWkkQX/YZvRV5B9rLcBL0sAM0FsKAAaJ/OAkLfttrLfQgvSAOL2CphBojqv/+4OcJ7JcV/MxTG3HUbXKwGX4Cpp8gL/l2EQyBAIUJBI6BqvBcxGvkiBCCuZIwTkN/tcT4/fWE8jQ/WNLWQ5Uqw9lIanxVN0cjHnIBluaUKDGvjunybCszmjB4NFC72EjceBSEL8OiANYI8JSc12R8ZIACnifIMOQpeQrXDh4uz6YtUl9GrOx1r37wQjFGhs/iX524hNdg0xoEpNDPkR5ugjkTBDF5qLgHURNZLfCvyArGG4NV6+4lDllpGmc0+Q5Jgy84ZQMYt6HPxcPI34/K4G3vjfT/CV+zjSW6lJHhuFfh+KLRFol1Ksg0QouDgS8JaG1RiT4cesJ9EtNQw+yY4WW9n4jDptXo8U35ZrKffNYO2amp22GpGg3mtZhCff6XtNGQ+PDlKTTGW9b/9+Y5kgtXIlSV8q1hOXjAaJQLydoVQ3Y="
+    "signatureBase64": "Jl6jzhSvVNLZknbptbq4IDjOPihIMjeRxp0HY3B2nOPSEtZvmKxZEftOyssqBq0aw+zGRC1J0LSm5U5l7hlIHOSEnsdFcTjU359W/UQrx4EfjfsY9NkqLltK8Zb/aRC5p9v5MhWUow7muxc+9fD6mPSS1o+CMqXzTskd7HXK03IumlANM/3F+JGoUn2FIS2NQuNuUhz49SxU0Wh1oBQ+9RdAEoV+nfhPZvjouikrAK0/EEaUdJeS6M367MPwTUZ7gXAkIrAl/yhZXuYsu/fAfHrxjR3srW8W3tYqht74jAfVnces8txaEHaEK4ZaoXqNrgsqrrd6VD1eMfA6y2IeLBoNmPyK4ELW9ozu6VPJSyruPZgW7+T9Fbb6/Gcp7M/fNvhOFqqNfVvEdJByLOO6noHfHCIE3nYCY/4uMf8ff47LxN0MOQQEuEBFxhJ58GqGHdl91VQj9cIBrFUXPG96FenSxAdHT6tvFRj4j3Z/hxONehiR1Jn4fsf9oW28fynbGhVPKvs0QOKVCtEZq4i/t92CQfbyV28Nx5ww6L9zXkz3SP0/dQQG1NtkE3G3Esm6EogapHe/yas+MR44ztAi4Ku7gxqyagoRTr0ZYfcFJEeIKBnRWarREYh6gi7tD+6VLGXQB+0Xlbx2iCREmGvtMeXZ7+HO0Xnvpsr7bsSDea8="
   },
   "consumedReceiptIds": [
     "prod-d255aded50d9-2026-06-04T18-32-29-920Z",
     "prod-cf92af3579e9-2026-06-05T00-21-24-796Z",
     "prod-62d5a383e540-2026-06-06T16-17-55-028Z",
-    "prod-23f2eac9506c-2026-06-06T17-22-12-840Z"
+    "prod-23f2eac9506c-2026-06-06T17-22-12-840Z",
+    "prod-8f62cffe7a3f-2026-06-08T05-02-31-930Z"
   ],
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "git status --short --branch clean after candidate commit; branch release/clinical-architecture-integration pushed to origin at 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "git status --short --branch clean in detached release worktree /tmp/alchm-release-ba21195 at product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; branch release/clinical-architecture-integration pushed to origin at ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Main checkout retained unrelated untracked local iOS files and was not used for release evidence."
     },
     "releaseScope": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "npm run validate preflight reached the expected stale-attestation blocker before evidence rebinding; npm run design:validate, npm run typecheck, npm run lint, npm test, npm run build, npm --prefix functions run build, npm --prefix functions run lint, and npm run e2e:navigation passed locally. GitHub Navigation E2E run 27116669389 completed successfully for exact headSha 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6; job 80024879327."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "npm run design:validate, npm run typecheck, npm run lint, npm test, npm run build, npm --prefix functions run build, npm --prefix functions run lint, npm run e2e:navigation, and git diff --check passed locally for ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. GitHub Navigation E2E run 27123588249 completed successfully for exact headSha ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; job 80046373752."
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "npm run check:firestore-emulator-evidence passed for clean candidate checkout 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-08T05:00:30.624Z."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "npm run check:firestore-emulator-evidence passed for clean candidate checkout ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-08T08:21:24.074Z."
     },
     "functionsDeployment": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "No functions source or Firebase deployment configuration changed between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6. Existing Firebase Functions deployment for generateKheperaReflection remains ACTIVE in project alchm-463017 with source hash 4f7568b4d268d26b06f6d6725982ed3c02fdbd33, runtime nodejs20, callable trigger, and candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6 contains the same deployed functions source."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "No functions source or Firebase deployment configuration changed between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Existing Firebase Functions deployment for generateKheperaReflection remains ACTIVE in project alchm-463017 with source hash 4f7568b4d268d26b06f6d6725982ed3c02fdbd33, runtime nodejs20, callable trigger, and candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30 contains the same deployed functions source."
     },
     "firestoreRulesDeployment": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "No firestore.rules changes occurred between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6. Deployed Firestore rules remain represented by local firestore.rules SHA-256 digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, and direct product-candidate emulator evidence passed for 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "No firestore.rules changes occurred between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Deployed Firestore rules remain represented by local firestore.rules SHA-256 digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, and direct product-candidate emulator evidence passed for ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30."
     },
     "providerSecretPresence": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "Provider-secret binding carries forward for candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6. generateKheperaReflection still binds ANTHROPIC_API_KEY via Firebase Functions secret configuration from 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f; deployed metadata previously verified secretEnvironmentVariables containing key ANTHROPIC_API_KEY, secret ANTHROPIC_API_KEY, version 1, and no functions source changed in 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6. Secret values were not printed."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "Provider-secret binding carries forward for candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. generateKheperaReflection still binds ANTHROPIC_API_KEY via Firebase Functions secret configuration from 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f; deployed metadata previously verified secretEnvironmentVariables containing key ANTHROPIC_API_KEY, secret ANTHROPIC_API_KEY, version 1, and no functions source changed in ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Secret values were not printed."
     },
     "deploymentAuthority": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "Vercel preview deployment dpl_Bo3TChAG7xuXXpjDupvFRgoNcffH built branch release/clinical-architecture-integration commit 8f62cff from github.com/zadiewalker/alchm at https://alchm-jmcxl6q1e-zadie-walkers-projects.vercel.app. vercel promote dpl_Bo3TChAG7xuXXpjDupvFRgoNcffH --scope zadie-walkers-projects --yes created production deployment dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A at https://alchm-5qvfnc30x-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; production logs show commit 8f62cff."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "Vercel preview deployment dpl_H22B7K11pihP2yX35L6AZrBhQAho built branch release/clinical-architecture-integration commit ba21195 from github.com/zadiewalker/alchm at https://alchm-prpuc0le2-zadie-walkers-projects.vercel.app. vercel promote dpl_H22B7K11pihP2yX35L6AZrBhQAho --scope zadie-walkers-projects --yes created production deployment dpl_AcCFEEPfBALMwWLsf783dmUf5E9E at https://alchm-5v31jsisl-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; production logs show commit ba21195."
     },
     "rollbackAuthority": {
       "verified": true,
-      "sha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-      "reference": "Current Vercel production deployment is dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A for candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6; previous production rollback target is dpl_ApmU15DALoCc4w9q5WdbBdBkbt98. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Native rollback is reverting product candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6 or archiving prior candidate 23f2eac9506c49601403bacf85ffa4196d6734d2."
+      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+      "reference": "Current Vercel production deployment is dpl_AcCFEEPfBALMwWLsf783dmUf5E9E for candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; previous production rollback target is dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Native rollback is reverting product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30 or archiving prior candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6."
     }
   },
   "recordedProviderSecretLineageDigest": null,
   "previousAttestedCandidate": {
-    "candidateSha": "23f2eac9506c49601403bacf85ffa4196d6734d2",
-    "supersededBy": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-    "reason": "Mobile navigation shell, startup recovery, visual contrast, and Transformation access gating changed runtime UI behavior after the prior attested candidate. The new candidate was pushed, GitHub-validated, locally validated, archived with RevenueCat native frameworks still present, promoted to Vercel production, and is being re-attested with a production verifier receipt. iosArchiveSameSha remains false pending external TestFlight purchase/restore proof."
+    "candidateSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
+    "supersededBy": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+    "reason": "Footer visibility, journal submit recovery, and back navigation changed runtime UI behavior after the prior attested candidate. The new candidate was pushed, GitHub-validated, locally validated, archived with RevenueCat native frameworks still present, promoted to Vercel production, and is being re-attested with a production verifier receipt. iosArchiveSameSha remains false pending external TestFlight purchase/restore proof."
   }
 }

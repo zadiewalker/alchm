@@ -6,9 +6,9 @@ import { createHash, createPrivateKey, createPublicKey, sign } from 'node:crypto
 import { fileURLToPath } from 'node:url';
 
 const expectedCandidateSha = process.env.ALCHM_RUNTIME_ATTESTATION_CANDIDATE_SHA
-  ?? '8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6';
+  ?? 'ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30';
 const expectedEvidenceTailSha = process.env.ALCHM_RUNTIME_ATTESTATION_EVIDENCE_TAIL_SHA
-  ?? '8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6';
+  ?? 'ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30';
 const expectedVerifierId = process.env.ALCHM_RUNTIME_ATTESTATION_VERIFIER_ID
   ?? 'alchm-release-owner-2026-05';
 const privateKeyPath = process.env.ALCHM_RUNTIME_ATTESTATION_PRIVATE_KEY_PATH;
@@ -49,8 +49,8 @@ const requiredBindings = [
   ['firestoreRulesDeployment', 'e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6'],
   ['providerSecretPresence', 'ANTHROPIC_API_KEY'],
   ['providerSecretPresence', 'version 1'],
-  ['deploymentAuthority', 'dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A'],
-  ['rollbackAuthority', 'dpl_ApmU15DALoCc4w9q5WdbBdBkbt98'],
+  ['deploymentAuthority', 'dpl_AcCFEEPfBALMwWLsf783dmUf5E9E'],
+  ['rollbackAuthority', 'dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A'],
 ];
 
 function fail(message) {
