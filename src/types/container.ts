@@ -86,6 +86,7 @@ export interface ContainerCatalogCardProps {
   isActive?: boolean;
   isCompleted?: boolean;
   canAccess?: boolean;
+  isFree?: boolean;
   onView?: () => void;
   onStart?: () => void;
   onContinue?: () => void;

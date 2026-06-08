@@ -236,3 +236,41 @@ test('subscription diagnostics omit key-derived and user-derived identifiers', (
     /apiKeyFingerprint|apiKeyPrefix|nativeApiKeyFingerprint|nativeApiKeyPrefix|sdkAppUserIdFingerprint/,
   );
 });
+
+test('mobile shell only shows footer navigation on main app routes', () => {
+  const rootLayout = read('src/app/layout.tsx');
+  const chrome = read('src/components/ui/MainAppChrome.tsx');
+  const footer = read('src/components/ui/FooterNav.tsx');
+
+  assert.match(rootLayout, /<MainAppChrome>/);
+  assert.doesNotMatch(rootLayout, /<FooterNav \/>/);
+  assert.match(chrome, /MAIN_SHELL_ROUTES/);
+  assert.doesNotMatch(chrome, /'\/onboarding'|'\/welcome'|'\/paywall'/);
+  assert.match(chrome, /\/dashboard/);
+  assert.match(chrome, /\/journal/);
+  assert.match(chrome, /\/containers/);
+  assert.match(chrome, /\/mirror/);
+  assert.match(footer, /useInternalNavigation/);
+  assert.doesNotMatch(footer, /from 'next\/link'/);
+});
+
+test('container and mirror access gates preserve one free container and Transformation locks', () => {
+  const containerAccess = read('src/config/containerAccess.ts');
+  const containersPage = read('src/app/containers/page.tsx');
+  const containerCard = read('src/components/containers/ContainerCatalogCard.tsx');
+  const mirror = read('src/app/mirror/page.tsx');
+  const insights = read('src/app/insights/page.tsx');
+  const definitions = read('src/config/containerDefinitions.ts');
+
+  assert.match(containerAccess, /FREE_CONTAINER_ID = 'seven-days-of-noticing'/);
+  assert.match(containerAccess, /isFreeContainer/);
+  assert.equal((definitions.match(/,\n {4}tier: 'sanctuary',/g) ?? []).length, 1);
+  assert.match(containersPage, /isFreeContainer\(container\.id\)/);
+  assert.match(containersPage, /isFree \|\| subscription\.hasTransformation/);
+  assert.match(containerCard, /Transformation only/);
+  assert.match(containerCard, /OpenTransformationButton/);
+  assert.match(mirror, /Mirror is part of Transformation/);
+  assert.doesNotMatch(mirror, /PaywallRedirect/);
+  assert.match(insights, /Reflections are part of Transformation/);
+  assert.match(insights, /OpenTransformationButton/);
+});

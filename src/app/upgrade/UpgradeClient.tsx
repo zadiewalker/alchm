@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { SUBSCRIPTION_COPY, TRANSFORMATION_FALLBACK_PRICE } from '@/config/subscriptions';
 import { useSubscription } from '@/hooks/useSubscription';
 import { AppLayout } from '@/components/ui/AppLayout';
@@ -17,7 +17,6 @@ export default function UpgradeClient(): React.JSX.Element {
   const subscription = useSubscription();
   const recordEvent = useOperationalEvents();
   const { goBack } = useSafeBackNavigation({ fallback: '/settings' });
-  const optionsRef = useRef<HTMLDivElement | null>(null);
   const [localStatus, setLocalStatus] = useState<string | null>(null);
 
   const transformationPrice =
@@ -29,42 +28,6 @@ export default function UpgradeClient(): React.JSX.Element {
     localStatus,
     subscription.hasTransformation ? subscription.statusMessage : null,
   ].filter((message): message is string => Boolean(message))));
-  const openSubscriptionOptions = (): void => {
-    recordEvent('upgrade_options_tap', {
-      surface: 'upgrade',
-      route: '/upgrade',
-      hasAccess: subscription.hasTransformation,
-      hasOffering: subscription.offerings.length > 0,
-    });
-    recordEvent('subscription_options_scroll_requested', {
-      surface: 'upgrade',
-      route: '/upgrade',
-      hasAccess: subscription.hasTransformation,
-      hasOffering: subscription.offerings.length > 0,
-    });
-
-    if (optionsRef.current) {
-      optionsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      recordEvent('subscription_options_scroll_success', {
-        surface: 'upgrade',
-        route: '/upgrade',
-        hasAccess: subscription.hasTransformation,
-        hasOffering: subscription.offerings.length > 0,
-      });
-      setLocalStatus(null);
-      return;
-    }
-
-    setLocalStatus('Subscription options could not move into view. They are available below.');
-    recordEvent('subscription_options_scroll_failed', {
-      surface: 'upgrade',
-      route: '/upgrade',
-      hasAccess: subscription.hasTransformation,
-      hasOffering: subscription.offerings.length > 0,
-      errorCode: 'pricing_ref_unavailable',
-    });
-  };
-
   const purchaseTransformation = async (): Promise<void> => {
     recordEvent('purchase_cta_tap', {
       surface: 'upgrade',
@@ -159,36 +122,7 @@ export default function UpgradeClient(): React.JSX.Element {
           </AppText>
         </div>
 
-        <AppCard>
-          <div style={{ display: 'grid', gap: 'var(--space-3)' }}>
-            <AppText variant="secondary" as="p">
-              Transformation is available if you want longer returns to stay closer.
-            </AppText>
-            <div>
-              <button
-                type="button"
-                className="btn-primary"
-                onPointerDown={() => {
-                  recordEvent('upgrade_options_tap', {
-                    surface: 'upgrade',
-                    route: '/upgrade',
-                    hasAccess: subscription.hasTransformation,
-                    hasOffering: subscription.offerings.length > 0,
-                    step: 'pointerdown',
-                  });
-                }}
-                onClick={() => {
-                  openSubscriptionOptions();
-                }}
-              >
-                View Transformation options
-              </button>
-            </div>
-          </div>
-        </AppCard>
-
         <div
-          ref={optionsRef}
           id="subscription-options"
           className="subscription-options-section"
           style={{ display: 'grid', gap: 'var(--space-4)', scrollMarginTop: 'calc(var(--safe-top) + var(--space-8))' }}
@@ -223,7 +157,7 @@ export default function UpgradeClient(): React.JSX.Element {
             }}
             variant="transformation"
             active={subscription.hasTransformation}
-            disabled={subscription.isPurchasing || subscription.hasTransformation}
+            disabled={subscription.isPurchasing || subscription.hasTransformation || (subscription.isLoading && !subscription.isReady)}
             helper={
               subscription.isLoading && !subscription.isReady
                 ? 'Loading subscription options.'

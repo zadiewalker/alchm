@@ -35,7 +35,7 @@ export function AppLayout({
           paddingLeft: noPadding ? 0 : 'var(--screen-padding-horizontal)',
           paddingRight: noPadding ? 0 : 'var(--screen-padding-horizontal)',
           paddingTop: noPadding ? 0 : 'var(--screen-top-padding)',
-          paddingBottom: noPadding ? 0 : 'calc(var(--space-6) + var(--safe-bottom))',
+          paddingBottom: noPadding ? 0 : 'calc(var(--space-8) + var(--safe-bottom) + var(--tab-bar-height) + var(--crisis-footer-height))',
           width: '100%',
           maxWidth: 'var(--content-max-width)',
           margin: '0 auto',

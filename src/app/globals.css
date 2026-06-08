@@ -103,7 +103,7 @@ html {
 body {
   height: 100%;
   margin: 0;
-  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 5.75rem);
+  padding: 0;
   font-family: var(--font-family-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
   background:
     radial-gradient(circle at 50% -10%, rgba(255,255,255,0.2), transparent 30rem),
@@ -355,13 +355,14 @@ main {
 }
 
 .app-header-shell {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--archive-cream) 16%, transparent), color-mix(in srgb, var(--archive-cream) 12%, transparent), transparent) !important;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--poster-deep-olive) 92%, transparent), color-mix(in srgb, var(--primary-sage) 32%, var(--poster-deep-olive)), transparent) !important;
   backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--archive-cream) 10%, transparent);
 }
 
 .app-header-title {
   font-family: var(--font-family-heading) !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: 0 !important;
   color: var(--archive-cream) !important;
 }
 
@@ -443,18 +444,33 @@ a[class*="btn"] {
 .btn-primary:hover,
 .motion-button.btn-primary:hover,
 .container-card__action.btn-primary:hover {
-  border-color: #A8B5A0 !important;
+  border-color: var(--primary-sage) !important;
   background:
-    linear-gradient(180deg, #A8B5A0, var(--accent-primary)) !important;
+    linear-gradient(180deg, var(--primary-sage), var(--accent-primary)) !important;
 }
 
 .btn-ghost:hover,
 .motion-button:hover:not(.btn-primary),
 .container-card__action:hover:not(.btn-primary) {
-  border-color: rgba(255,255,255,0.7) !important;
+  border-color: color-mix(in srgb, var(--archive-cream) 42%, transparent) !important;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)),
-    rgba(255,255,255,0.7) !important;
+    linear-gradient(180deg, color-mix(in srgb, var(--archive-cream) 12%, transparent), color-mix(in srgb, var(--archive-cream) 8%, transparent)),
+    var(--surface-elevated) !important;
+}
+
+.btn-primary:disabled,
+.btn-ghost:disabled,
+.motion-button:disabled,
+.container-card__action:disabled,
+button[aria-busy="true"] {
+  cursor: not-allowed;
+  opacity: 0.68;
+  border-color: var(--border-divider) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--primary-sage) 20%, transparent), color-mix(in srgb, var(--poster-deep-olive) 18%, transparent)),
+    var(--surface-color) !important;
+  color: var(--text-muted) !important;
+  box-shadow: none !important;
 }
 
 .journal-writing-screen,
@@ -632,6 +648,14 @@ a[class*="btn"] {
 
 .container-card {
   padding: clamp(22px, 6vw, 34px);
+  min-height: 100%;
+}
+
+.container-card--locked {
+  border-color: color-mix(in srgb, var(--poster-warm-cream) 18%, transparent) !important;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--primary-sage) 12%, transparent), color-mix(in srgb, var(--poster-deep-olive) 18%, transparent)),
+    var(--surface-color) !important;
 }
 
 .container-card__title {
@@ -805,15 +829,22 @@ a[class*="btn"] {
 }
 
 .alchm-footer-nav {
-  border-top: 1px solid var(--archive-line);
-  background: color-mix(in srgb, var(--surface-nav) 88%, transparent);
-  backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-nav);
+  border-top: 1px solid color-mix(in srgb, var(--poster-warm-cream) 16%, transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--primary-sage) 28%, transparent), color-mix(in srgb, var(--poster-deep-olive) 88%, transparent)),
+    color-mix(in srgb, var(--surface-nav) 92%, var(--poster-deep-olive));
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow:
+    0 -18px 38px color-mix(in srgb, var(--poster-deep-olive) 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--poster-warm-cream) 10%, transparent);
 }
 
 .alchm-footer-nav__link {
+  gap: 2px;
   color: var(--text-secondary);
   font-weight: 400;
+  border: 1px solid transparent;
+  background: transparent;
 }
 
 .alchm-footer-nav__link:hover {
@@ -821,8 +852,20 @@ a[class*="btn"] {
 }
 
 .alchm-footer-nav__link--active {
-  background: var(--surface-chip-selected);
-  color: var(--btn-primary-text);
+  border-color: color-mix(in srgb, var(--poster-muted-gold) 44%, transparent);
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--poster-muted-gold) 24%, transparent), transparent 72%),
+    color-mix(in srgb, var(--primary-sage) 24%, var(--poster-deep-olive));
+  color: var(--poster-warm-cream);
+}
+
+.alchm-footer-nav__label {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 10.5px;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tab-bar {

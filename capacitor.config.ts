@@ -71,9 +71,8 @@ const config: CapacitorConfig = {
   },
   plugins: {
     SplashScreen: {
-      // Prevent indefinite black-screen/splash lock if remote app load stalls.
-      launchAutoHide: true,
-      launchShowDuration: 1200,
+      launchAutoHide: false,
+      launchShowDuration: 0,
       backgroundColor: '#8B9A7C',
       androidSplashResourceName: 'splash',
       androidScaleType: 'CENTER_CROP',

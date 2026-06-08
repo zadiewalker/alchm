@@ -7,7 +7,6 @@ import { AppCard } from '@/components/ui/AppCard';
 import { AppText } from '@/components/ui/AppText';
 import { CalmCard } from '@/components/ui/CalmCard';
 import { KheperaCard } from '@/components/ui/KheperaCard';
-import { PaywallRedirect } from '@/components/subscription/PaywallRedirect';
 import { OpenTransformationButton } from '@/components/subscriptions/OpenTransformationButton';
 import { useAuth } from '@/hooks/useAuth';
 import { useData } from '@/hooks/useData';
@@ -207,7 +206,33 @@ export default function MirrorPage() {
           </CalmCard>
         </div>
       ) : !hasLongRangeAccess ? (
-        <PaywallRedirect source="mirror_paywall_gate" />
+        <div className="mirror-stack">
+          <div className="mirror-arrival-copy">
+            <div className="mirror__accent" aria-hidden="true" />
+            <AppText variant="title" as="h2" className="mirror-arrival-title">
+              Mirror is part of Transformation.
+            </AppText>
+            <AppText variant="secondary" as="p" className="mirror-arrival-body">
+              Mirror waits until Transformation is active. Your journal remains available in Sanctuary, and nothing from memory is shown here before access is confirmed.
+            </AppText>
+          </div>
+          <CalmCard
+            eyebrow="Transformation"
+            title="Open the space when access is active."
+            body="Mirror can hold longer returns and recurring themes without turning your journal into a feed."
+            tone="strong"
+          >
+            <div style={{ marginTop: 'var(--space-4)' }}>
+              <OpenTransformationButton
+                surface="mirror"
+                source="mirror_transformation_gate"
+                route="/mirror"
+                className="btn-primary mirror-feature-cta"
+                label="Open Transformation"
+              />
+            </div>
+          </CalmCard>
+        </div>
       ) : isMirrorLoading ? (
         <div className="mirror-stack">
           <div className="mirror-arrival-copy">

@@ -10,6 +10,10 @@ import { ArcReflectionCard } from '@/components/ArcReflectionCard';
 import { AppCard } from '@/components/ui/AppCard';
 import { AppText } from '@/components/ui/AppText';
 import { BackButton } from '@/components/ui/BackButton';
+import { OpenTransformationButton } from '@/components/subscriptions/OpenTransformationButton';
+import { isFreeContainer } from '@/config/containerAccess';
+import { getContainerDefinition } from '@/config/containerDefinitions';
+import { useSubscription } from '@/hooks/useSubscription';
 import { getContainerPhase } from '@/config/containerArc';
 import type { LunarPhase } from '@/config/containerArc';
 import { DESIGN } from '@/utils/design';
@@ -18,8 +22,11 @@ export default function DailyThresholdClient() {
   const params = useParams();
   const router = useRouter();
   const { userId } = useAuth();
+  const subscription = useSubscription();
   const { activeContainer } = useContainer();
   const containerId = typeof params.id === 'string' ? params.id : '';
+  const definition = getContainerDefinition(containerId);
+  const canAccess = Boolean(definition && (isFreeContainer(definition.id) || subscription.hasTransformation));
 
   const [arcDismissed, setArcDismissed] = useState(false);
   const { reflection: arcReflection, isLoading: loadingArc } = useContainerArcReflection({
@@ -31,6 +38,10 @@ export default function DailyThresholdClient() {
 
   // Redirect if no active container or wrong container
   useEffect(() => {
+    if (!canAccess) {
+      return;
+    }
+
     if (!activeContainer) {
       router.replace(`/containers/${containerId}`);
       return;
@@ -44,7 +55,34 @@ export default function DailyThresholdClient() {
       router.replace(`/containers/${containerId}`);
       return;
     }
-  }, [activeContainer, containerId, router]);
+  }, [activeContainer, canAccess, containerId, router]);
+
+  if (definition && !canAccess) {
+    return (
+      <div data-container-atmosphere={definition.atmosphere} style={{ minHeight: '100vh', padding: '72px 24px 120px' }}>
+        <BackButton navigation={{ fallback: '/containers' }} label="Back" />
+        <AppCard style={{ marginTop: 'var(--space-6)' }}>
+          <AppText variant="caption" as="p">
+            Transformation only
+          </AppText>
+          <AppText variant="title" as="h1">
+            {definition.name}
+          </AppText>
+          <AppText variant="secondary" as="p">
+            This container opens when Transformation is active.
+          </AppText>
+          <div style={{ marginTop: 'var(--space-5)' }}>
+            <OpenTransformationButton
+              surface="containers"
+              source="container_today_transformation_gate"
+              route={`/containers/${definition.id}/today`}
+              label="Open Transformation"
+            />
+          </div>
+        </AppCard>
+      </div>
+    );
+  }
 
   if (!activeContainer) return null;
 

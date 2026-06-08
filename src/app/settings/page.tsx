@@ -99,7 +99,7 @@ export default function SettingsPage() {
 
   return (
     <SanctuaryLayout header={<SanctuaryHeader title="Settings" showBack />}>
-      <div style={{ display: 'grid', gap: DESIGN.spacing.md }}>
+      <div style={{ display: 'grid', gap: DESIGN.spacing.md, paddingBottom: DESIGN.spacing.safeBottom }}>
         <Section title="Privacy">
           <ToggleRow
             label="Analytics"
@@ -129,11 +129,11 @@ export default function SettingsPage() {
           {exportStatus ? <SanctuaryText variant="khepera">{exportStatus}</SanctuaryText> : null}
           <ActionButton label="Reset local preferences" onClick={() => setConfirmClear(true)} destructive />
           {confirmClear ? (
-            <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'rgba(255,255,255,0.2)' }}>
+            <SanctuaryCard style={{ marginTop: DESIGN.spacing.sm, background: 'var(--surface-elevated)' }}>
               <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.sm }}>
                 This resets settings stored on this device only. It does not delete journal entries or account data.
               </SanctuaryText>
-              <div style={{ display: 'flex', gap: DESIGN.spacing.sm }}>
+              <div style={{ display: 'flex', gap: DESIGN.spacing.sm, flexWrap: 'wrap' }}>
                 <button type="button" onClick={() => setConfirmClear(false)} style={secondaryButtonStyle}>
                   Cancel
                 </button>
@@ -273,7 +273,7 @@ function ToggleRow({ label, value, onChange, saved = false }: { label: string; v
             width: 22,
             height: 22,
             borderRadius: '50%',
-            background: '#fff',
+            background: value ? 'var(--btn-primary-text)' : 'var(--text-secondary)',
             position: 'absolute',
             top: 3,
             left: value ? 26 : 4,
@@ -324,6 +324,7 @@ const rowStyle: React.CSSProperties = {
   justifyContent: 'space-between',
   alignItems: 'center',
   gap: DESIGN.spacing.sm,
+  flexWrap: 'wrap',
 };
 
 const primaryButtonStyle: React.CSSProperties = {
@@ -362,7 +363,7 @@ const resourceLinkStyle: React.CSSProperties = {
 const sheetOverlayStyle: React.CSSProperties = {
   position: 'fixed',
   inset: 0,
-  background: 'rgba(255,255,255,0.7)',
+  background: 'color-mix(in srgb, var(--poster-deep-olive) 82%, transparent)',
   display: 'flex',
   alignItems: 'flex-end',
   justifyContent: 'center',

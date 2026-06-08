@@ -7,16 +7,50 @@ import { CONTAINER_TRANSITIONS_AVAILABLE } from '@/config/containerAuthority';
 import { MoonPhaseIndicator } from '@/components/MoonPhaseIndicator';
 import { BackButton } from '@/components/ui/BackButton';
 import { getContainerDefinition } from '@/config/containerDefinitions';
+import { isFreeContainer } from '@/config/containerAccess';
+import { OpenTransformationButton } from '@/components/subscriptions/OpenTransformationButton';
+import { AppCard } from '@/components/ui/AppCard';
+import { AppText } from '@/components/ui/AppText';
+import { useSubscription } from '@/hooks/useSubscription';
 
 export default function OpeningRitualClient() {
   const params = useParams();
   const router = useRouter();
   const containerId = typeof params.id === 'string' ? params.id : '';
   const { begin } = useContainer();
+  const subscription = useSubscription();
   const [loading, setLoading] = useState(false);
 
   const definition = getContainerDefinition(containerId);
   if (!definition) { router.replace('/containers'); return null; }
+  const canAccess = isFreeContainer(definition.id) || subscription.hasTransformation;
+
+  if (!canAccess) {
+    return (
+      <div data-container-atmosphere={definition.atmosphere} style={{ minHeight: '100vh', padding: '72px 24px 120px' }}>
+        <BackButton navigation={{ fallback: '/containers' }} label="Back" />
+        <AppCard style={{ marginTop: 'var(--space-6)' }}>
+          <AppText variant="caption" as="p">
+            Transformation only
+          </AppText>
+          <AppText variant="title" as="h1">
+            {definition.name}
+          </AppText>
+          <AppText variant="secondary" as="p">
+            This container opens when Transformation is active.
+          </AppText>
+          <div style={{ marginTop: 'var(--space-5)' }}>
+            <OpenTransformationButton
+              surface="containers"
+              source="container_opening_transformation_gate"
+              route={`/containers/${definition.id}/opening`}
+              label="Open Transformation"
+            />
+          </div>
+        </AppCard>
+      </div>
+    );
+  }
 
   const handleEnter = async () => {
     if (!CONTAINER_TRANSITIONS_AVAILABLE) return;

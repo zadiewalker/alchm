@@ -7,6 +7,7 @@ import { CrisisFooter } from '@/components/CrisisFooter';
 import { FooterNav } from '@/components/ui/FooterNav';
 import { SubscriptionProvider } from '@/components/subscriptions/SubscriptionProvider';
 import { BootstrapBoundary } from '@/components/BootstrapBoundary';
+import { MainAppChrome } from '@/components/ui/MainAppChrome';
 
 export const metadata: Metadata = {
   title: 'ALCHM',
@@ -42,10 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <BootstrapBoundary>
           <SplashScreenManager />
           <SubscriptionProvider>
-            <PageTransition>{children}</PageTransition>
+            <MainAppChrome>
+              <PageTransition>{children}</PageTransition>
+            </MainAppChrome>
           </SubscriptionProvider>
-          <FooterNav />
-          <CrisisFooter />
         </BootstrapBoundary>
       </body>
     </html>

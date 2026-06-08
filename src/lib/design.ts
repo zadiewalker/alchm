@@ -57,7 +57,7 @@ export const DESIGN = {
     xl: '32px',
     xxl: '48px',
     pagePadding: '20px',
-    safeBottom: '124px',
+    safeBottom: 'calc(140px + env(safe-area-inset-bottom, 0px))',
   },
   radius: {
     sm: '8px',

@@ -31,6 +31,7 @@ export function ContainerCatalogCard({
   isActive = false,
   isCompleted = false,
   canAccess = true,
+  isFree = false,
   onView,
   onStart,
   onContinue
@@ -43,6 +44,8 @@ export function ContainerCatalogCard({
     ? 'Current'
     : isCompleted
     ? 'Resting here'
+    : isFree
+    ? 'Available in Sanctuary'
     : 'Available to enter';
 
   const handleAction = (): void => {

@@ -453,6 +453,51 @@ async function run() {
       })
     );
 
+    results.push(
+      await runCase('footer_repeat_navigation_recovers', async () => {
+        const context = await newNavigationContext(browser);
+        const page = await context.newPage();
+        const cta = await openSplash(page);
+        await attachTelemetryCapture(page);
+        await clickNavigation(cta);
+        await expectDashboard(page);
+
+        const footerTargets = [
+          { label: /journal/i, path: '/journal' },
+          { label: /containers/i, path: '/containers' },
+          { label: /reflections/i, path: '/mirror' },
+          { label: /settings/i, path: '/settings' },
+          { label: /home/i, path: '/dashboard' },
+          { label: /journal/i, path: '/journal' },
+          { label: /home/i, path: '/dashboard' },
+        ];
+
+        for (const target of footerTargets) {
+          const button = page.getByRole('button', { name: target.label });
+          await button.waitFor({ timeout: NAV_TIMEOUT_MS });
+          await button.click();
+          await page.waitForURL(new RegExp(`${escapeRegExp(BASE_URL)}${escapeRegExp(target.path)}/?$`), {
+            timeout: NAV_TIMEOUT_MS,
+            waitUntil: 'domcontentloaded',
+          });
+          await page.locator('body').waitFor({ timeout: NAV_TIMEOUT_MS });
+        }
+
+        const telemetry = await readTelemetry(page);
+        const events = telemetry.events;
+        const summary = {
+          currentUrl: page.url(),
+          checks: {
+            footerRepeatNavigationComplete: /\/dashboard\/?$/.test(new URL(page.url()).pathname),
+            telemetryCaptured: events.length > 0,
+          },
+          events,
+        };
+        await context.close();
+        return summary;
+      })
+    );
+
     const payload = {
       baseUrl: BASE_URL,
       serverMode: SERVER_MODE,

@@ -150,7 +150,7 @@ function applyCSSTokens(): void {
 
   root.style.setProperty('--btn-primary-bg', '#E5C97D');
   root.style.setProperty('--btn-primary-border', 'rgba(255,255,255,0.2)');
-  root.style.setProperty('--btn-primary-text', '#F2D99D');
+  root.style.setProperty('--btn-primary-text', '#1f2937');
   root.style.setProperty('--btn-primary-active', '#E5C97D');
 
   document.body.style.backgroundColor = 'var(--background-primary)';

@@ -58,7 +58,9 @@ export function AppHeader({ title, children, showBack = false, backNavigation, r
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'transparent',
+              color: 'var(--text-primary)',
+              background: 'color-mix(in srgb, var(--primary-sage) 24%, var(--poster-deep-olive))',
+              border: '1px solid var(--border-divider)',
             }}
           />
         )}

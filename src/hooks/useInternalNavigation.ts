@@ -21,6 +21,7 @@ type InternalNavigationStep =
 type NavigationEventName = 'internal_nav_tap' | 'footer_nav_tap';
 const INTERNAL_NAVIGATION_LOCK_MS = 900;
 const INTERNAL_NAVIGATION_STALE_LOCK_MS = 1200;
+const INTERNAL_NAVIGATION_RECOVERY_MS = 1400;
 
 function getNavigationEventName(source: string): NavigationEventName {
   return source.startsWith('tab:') ? 'footer_nav_tap' : 'internal_nav_tap';
@@ -178,7 +179,7 @@ export function useInternalNavigation(): {
       } else {
         recordInternalNavigationTap(route, options, 'transition_in_flight');
         logNavigationDiagnostic(route, options, 'transition_in_flight');
-        return;
+        clearPendingNavigation('transition_released');
       }
     }
 
@@ -191,8 +192,15 @@ export function useInternalNavigation(): {
         globalThis.clearTimeout(releaseTimerRef.current);
       }
       releaseTimerRef.current = globalThis.setTimeout(() => {
+        const currentPath = typeof window !== 'undefined'
+          ? stripSearch(window.location.pathname)
+          : targetRoute;
+        if (currentPath !== targetRoute && typeof window !== 'undefined') {
+          window.location.assign(route);
+          return;
+        }
         clearPendingNavigation();
-      }, INTERNAL_NAVIGATION_LOCK_MS);
+      }, INTERNAL_NAVIGATION_RECOVERY_MS);
       router.push(route);
       routePushStarted = true;
       recordInternalNavigationTap(route, options, 'route_push');

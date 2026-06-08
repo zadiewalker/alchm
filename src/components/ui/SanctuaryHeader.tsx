@@ -21,8 +21,9 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
         zIndex: 20,
         paddingTop: 'calc(env(safe-area-inset-top, 0px) + 18px)',
         paddingBottom: DESIGN.spacing.md,
-        background: 'linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8), rgba(255,255,255,0.05))',
+        background: 'linear-gradient(180deg, color-mix(in srgb, var(--poster-deep-olive) 92%, transparent), color-mix(in srgb, var(--primary-sage) 32%, var(--poster-deep-olive)), transparent)',
         backdropFilter: 'blur(14px)',
+        borderBottom: '1px solid color-mix(in srgb, var(--poster-warm-cream) 10%, transparent)',
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: '44px 1fr 44px', alignItems: 'center', gap: DESIGN.spacing.sm }}>
@@ -36,7 +37,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             height: '44px',
             borderRadius: DESIGN.radius.full,
             border: `1px solid ${DESIGN.colors.border}`,
-            background: 'rgba(255,255,255,0.7)',
+            background: 'color-mix(in srgb, var(--primary-sage) 24%, var(--poster-deep-olive))',
             color: DESIGN.colors.textPrimary,
             fontFamily: DESIGN.typography.sansSerif,
             fontSize: DESIGN.typography.sizes.base,
@@ -52,7 +53,7 @@ export function SanctuaryHeader({ title, showBack = false, rightAction }: Sanctu
             fontFamily: DESIGN.typography.serif,
             fontSize: DESIGN.typography.sizes.xl,
             fontWeight: DESIGN.typography.weights.light,
-            letterSpacing: '-0.02em',
+            letterSpacing: 0,
           }}
         >
           {title}

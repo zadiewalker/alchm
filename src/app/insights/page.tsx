@@ -10,15 +10,23 @@ import { SanctuaryText } from '@/components/ui/SanctuaryText';
 import { LoadingState } from '@/components/ui/LoadingState';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ErrorState } from '@/components/ui/ErrorState';
+import { OpenTransformationButton } from '@/components/subscriptions/OpenTransformationButton';
+import { useSubscription } from '@/hooks/useSubscription';
 import { DESIGN } from '@/lib/design';
 
 export default function InsightsPage() {
   const { isInitialized, getJournalEntries } = useData();
+  const subscription = useSubscription();
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    if (!subscription.hasTransformation) {
+      setLoading(false);
+      return;
+    }
+
     let mounted = true;
     setLoading(true);
     getJournalEntries()
@@ -39,12 +47,44 @@ export default function InsightsPage() {
     return () => {
       mounted = false;
     };
-  }, [getJournalEntries]);
+  }, [getJournalEntries, subscription.hasTransformation]);
 
   const recentlyNamedTones = useMemo(() => {
     const tones = entries.flatMap((entry) => entry.emotions || []);
     return Array.from(new Set(tones.filter(Boolean))).slice(0, 5);
   }, [entries]);
+
+  if (subscription.isLoading && !subscription.isReady) {
+    return (
+      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+        <LoadingState message="Letting the reflections gather..." variant="page" />
+      </SanctuaryLayout>
+    );
+  }
+
+  if (!subscription.hasTransformation) {
+    return (
+      <SanctuaryLayout header={<SanctuaryHeader title="Reflections" showBack />}>
+        <SanctuaryCard>
+          <SanctuaryText variant="caption" style={{ marginBottom: DESIGN.spacing.sm }}>
+            Transformation
+          </SanctuaryText>
+          <SanctuaryText variant="title" style={{ marginBottom: DESIGN.spacing.sm }}>
+            Reflections are part of Transformation.
+          </SanctuaryText>
+          <SanctuaryText variant="body" style={{ marginBottom: DESIGN.spacing.md }}>
+            Mirror and Reflections open when Transformation is active. Your journal remains private and available in Sanctuary.
+          </SanctuaryText>
+          <OpenTransformationButton
+            surface="mirror"
+            source="reflections_transformation_gate"
+            route="/insights"
+            label="Open Transformation"
+          />
+        </SanctuaryCard>
+      </SanctuaryLayout>
+    );
+  }
 
   if (!isInitialized || loading) {
     return (

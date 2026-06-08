@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { SectionIntro } from '@/components/ui/SectionIntro';
 import { ContainerCatalogCard } from '@/components/containers/ContainerCatalogCard';
 import { CONTAINER_DEFINITIONS } from '@/config/containerDefinitions';
+import { isFreeContainer } from '@/config/containerAccess';
 import { useAuth } from '@/hooks/useAuth';
 import { useData } from '@/hooks/useData';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -141,7 +142,8 @@ export default function ContainersPage() {
           {CONTAINER_DEFINITIONS.filter((container) => container.id !== (active as ActiveContainer | null)?.containerId).map((container) => {
             const isCompleted = completedSet.has(container.id);
             const isActive = (active as ActiveContainer | null)?.containerId === container.id;
-            const canAccess = container.tier !== 'transformation' || subscription.hasTransformation;
+            const isFree = isFreeContainer(container.id);
+            const canAccess = isFree || subscription.hasTransformation;
 
             const handleBeginContainer = () => {
               if (!canAccess) {
@@ -157,6 +159,7 @@ export default function ContainersPage() {
                 isActive={isActive}
                 isCompleted={isCompleted}
                 canAccess={canAccess}
+                isFree={isFree}
                 onView={() => {
                   if (!canAccess) {
                     return;

@@ -13,6 +13,21 @@ function dispatchFatal(message: string): void {
   }
 }
 
+function describeError(error: unknown): { name: string; message: string; stack?: string } {
+  if (error instanceof Error) {
+    return {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    };
+  }
+
+  return {
+    name: typeof error,
+    message: typeof error === 'string' ? error : 'Unknown runtime error',
+  };
+}
+
 export function installGlobalErrorHandlers(): void {
   // Handle unhandled Promise rejections
   window.addEventListener('unhandledrejection', (event) => {
@@ -43,10 +58,7 @@ export function installGlobalErrorHandlers(): void {
       return;
     }
 
-    console.error('[FATAL unhandledrejection]', {
-      reason: error,
-      stack: error?.stack,
-    });
+    console.error('[FATAL unhandledrejection]', describeError(error));
     dispatchFatal(
       error instanceof Error
         ? error.message
@@ -79,8 +91,7 @@ export function installGlobalErrorHandlers(): void {
       filename: event.filename,
       lineno: event.lineno,
       colno: event.colno,
-      error: event.error,
-      stack: event.error?.stack,
+      error: describeError(event.error),
     });
     dispatchFatal(event.message || 'A JavaScript error occurred during startup.');
   });
