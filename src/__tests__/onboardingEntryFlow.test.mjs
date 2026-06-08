@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { resolveSubmissionTone } from '../utils/journalTone.ts';
+import { importTypeScriptModule } from './nodeTsResolveLoader.mjs';
+
+const { resolveSubmissionTone } = await importTypeScriptModule('../utils/journalTone.ts', import.meta.url);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

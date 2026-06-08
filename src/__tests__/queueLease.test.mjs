@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildCompletedQueueUpdate, buildQueueClaim, isQueueLeaseActive } from '../services/offline/queueLease.ts';
+import { importTypeScriptModule } from './nodeTsResolveLoader.mjs';
+
+const {
+  buildCompletedQueueUpdate,
+  buildQueueClaim,
+  isQueueLeaseActive,
+} = await importTypeScriptModule('../services/offline/queueLease.ts', import.meta.url);
 
 function pendingEntry() {
   return {
