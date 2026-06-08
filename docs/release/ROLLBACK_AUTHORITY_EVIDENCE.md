@@ -12,10 +12,10 @@ lineage.
 | Field | Evidence |
 | --- | --- |
 | Historical candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| Authoritative candidate SHA | `c151f23afc4a69a281acfc20b29b16917729052f` |
+| Authoritative candidate SHA | `f9c925d707263479953d271eadef69339a5a41bb` |
 | Evidence-tail SHA | Runtime-attestation evidence commit containing this record |
 | Firebase project | `alchm-463017` |
-| Current Vercel production deployment | `dpl_A4M7zB7xqw3VjzmVmzA9jcwSTVh3` |
+| Current Vercel production deployment | `dpl_GbFxz3jiBzFJWZvaKxvwBzKfJnbW` |
 | Vercel rollback target | `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD` |
 | Firebase generateKheperaReflection hash | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
 | Firebase container callable hash | `b6ae89d0c7f968ce75e274cbcbc754b7ec7c9ca2` |
@@ -29,11 +29,11 @@ lineage.
 
 | Surface | Rollback authority |
 | --- | --- |
-| Vercel production | Current production is `dpl_A4M7zB7xqw3VjzmVmzA9jcwSTVh3`; rollback target is `dpl_AcCFEEPfBALMwWLsf783dmUf5E9E`. |
+| Vercel production | Current production is `dpl_GbFxz3jiBzFJWZvaKxvwBzKfJnbW`; rollback target is `dpl_AcCFEEPfBALMwWLsf783dmUf5E9E`. |
 | Firestore rules | Re-deploy rules whose SHA-256 digest is `e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6`. |
 | Firebase Functions | Re-deploy explicit local function targets to project `alchm-463017`; preserve legacy `crisisDetection` unless release authority separately approves deletion. |
 | Provider secret | Provider-secret binding is carried forward for this candidate because Functions source did not change. Any future provider-secret configuration or rotation requires a new lineage digest and verifier receipt. |
-| Native RevenueCat | Revert product candidate `c151f23afc4a69a281acfc20b29b16917729052f` or archive a prior candidate without `@revenuecat/purchases-capacitor`. |
+| Native RevenueCat | Revert product candidate `f9c925d707263479953d271eadef69339a5a41bb` or archive a prior candidate without `@revenuecat/purchases-capacitor`. |
 | Runtime receipt | Any rollback, new deployment, provider-secret rotation, or verifier change requires a new receipt ID and invalidates prior unconsumed receipts. |
 | Verifier | Revoke verifier `alchm-release-owner-2026-05` by setting `revokedAt` in `docs/release/trusted-runtime-verifiers.json` and issuing a replacement verifier record. |
 

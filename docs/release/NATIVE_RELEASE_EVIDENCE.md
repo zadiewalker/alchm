@@ -2,12 +2,12 @@
 
 ## Status
 
-`FOOTER SUBMIT NAVIGATION ARCHIVE RECORDED - TESTFLIGHT ENTITLEMENT PROOF REQUIRED`
+`RETURN FLOW CANDIDATE ARCHIVE RECORDED - TESTFLIGHT ENTITLEMENT PROOF REQUIRED`
 
 Native remains in scope. This record preserves historical archive evidence for
-prior candidates and records a same-SHA local archive for product candidate
-`ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` after adding the official
-RevenueCat Capacitor Purchases native plugin. `iosArchiveSameSha` remains false
+prior candidates and records a local archive for product candidate
+`f9c925d707263479953d271eadef69339a5a41bb` after the return-flow reliability
+fix. `iosArchiveSameSha` remains false
 until external RevenueCat dashboard proof and sandbox/TestFlight purchase or
 restore evidence are attached for the archived build.
 
@@ -16,10 +16,10 @@ restore evidence are attached for the archived build.
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` |
+| New authoritative candidate SHA | `f9c925d707263479953d271eadef69339a5a41bb` |
 | Historical archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
-| Current archive candidate SHA | `ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` |
-| Native archive worktree | `/tmp/alchm-release-ba21195` |
+| Current archive candidate SHA | `f9c925d707263479953d271eadef69339a5a41bb` |
+| Native archive worktree | `/Users/zadiewalker/Desktop/alchm` |
 | Worktree before native run | Clean according to `git status --short --branch` before evidence updates |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
 | Generated Capacitor config ID after sync | Candidate sync generated `ios/App/App/capacitor.config.json` with `appId: "com.alchm.sanctuary"` |
@@ -63,13 +63,13 @@ git diff --check
 | --- | --- |
 | Next build | Passed; static export generated 36 app routes |
 | Capacitor sync | Passed; copied `out` to `ios/App/App/public`, created `ios/App/App/capacitor.config.json`, updated iOS plugins, ran `pod install`, and reported `@revenuecat/purchases-capacitor@13.1.5` among 9 iOS plugins |
-| Repository validation | Passed on current candidate `ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` with clean pre-evidence worktree |
+| Repository validation | Passed on current candidate `f9c925d707263479953d271eadef69339a5a41bb` with clean pre-evidence worktree |
 
 ## Archive Evidence
 
 | Field | Evidence |
 | --- | --- |
-| Archive path | `/tmp/alchm-footer-submit-back-candidate.xcarchive` |
+| Archive path | `/tmp/alchm-return-flow-candidate.xcarchive` |
 | Archive result | `ARCHIVE SUCCEEDED` |
 | Archive timestamp | 2026-06-08 local run |
 | Archive scheme | `App` |
@@ -80,8 +80,8 @@ git diff --check
 | Expected authority bundle ID | `com.alchm.sanctuary` |
 | Bundle short version | `1.0` |
 | Bundle version | `2` |
-| App binary SHA-256 | `a443664259faa4b337e5a20cf4996425c6ec849020c3bb63bce9d8d0336e6a6c` |
-| dSYM presence | `/tmp/alchm-footer-submit-back-candidate.xcarchive/dSYMs/App.app.dSYM` |
+| App binary SHA-256 | Not recorded in this pass; archive identity was verified by bundle ID, version/build, frameworks, forbidden-file absence, and dSYM presence |
+| dSYM presence | `/tmp/alchm-return-flow-candidate.xcarchive/dSYMs/App.app.dSYM` |
 | Code signing identifier | `com.alchm.sanctuary` |
 
 ## RevenueCat Evidence
@@ -101,9 +101,9 @@ Native archive evidence currently identifies:
 | Field | Evidence |
 | --- | --- |
 | Capacitor Purchases plugin | `@revenuecat/purchases-capacitor@13.1.5` |
-| RevenueCat plugin framework | `/tmp/alchm-footer-submit-back-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenuecatPurchasesCapacitor.framework` |
-| Purchases hybrid framework | `/tmp/alchm-footer-submit-back-candidate.xcarchive/Products/Applications/App.app/Frameworks/PurchasesHybridCommon.framework` |
-| RevenueCat framework | `/tmp/alchm-footer-submit-back-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenueCat.framework` |
+| RevenueCat plugin framework | `/tmp/alchm-return-flow-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenuecatPurchasesCapacitor.framework` |
+| Purchases hybrid framework | `/tmp/alchm-return-flow-candidate.xcarchive/Products/Applications/App.app/Frameworks/PurchasesHybridCommon.framework` |
+| RevenueCat framework | `/tmp/alchm-return-flow-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenueCat.framework` |
 | `debug.html` in archive | Absent |
 | `test.html` in archive | Absent |
 
@@ -120,7 +120,7 @@ Release approval still requires external RevenueCat evidence:
 ## Certification Consequence
 
 `iosArchiveSameSha` remains blocked for current candidate
-`ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30` because:
+`f9c925d707263479953d271eadef69339a5a41bb` because:
 
 1. A same-SHA local archive has been recorded, but TestFlight/App Store Connect
    distribution proof for this exact archive is absent.
