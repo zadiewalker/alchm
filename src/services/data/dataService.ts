@@ -312,6 +312,29 @@ class DataService {
     }
   }
 
+  async getJournalEntryById(entryId: string): Promise<JournalEntry | null> {
+    if (!this.userId) {
+      return null;
+    }
+
+    try {
+      const entryRef = doc(this.getDb(), 'users', this.userId, 'sessions', entryId);
+      const entrySnap = await getDoc(entryRef);
+
+      if (!entrySnap.exists()) {
+        return null;
+      }
+
+      return this.mapSessionToJournalEntry(
+        entrySnap.id,
+        entrySnap.data() as Record<string, unknown>,
+      );
+    } catch (error) {
+      console.error('Error getting journal entry:', error);
+      return null;
+    }
+  }
+
   async getUserContainers(): Promise<UserContainer[]> {
     if (!this.userId) {
       return [];

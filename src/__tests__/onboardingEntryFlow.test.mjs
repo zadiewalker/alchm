@@ -30,7 +30,8 @@ test('/journal/new remains safe without an active container', () => {
   const journalFlow = read('components/journal/JournalFlow.tsx');
 
   assert.ok(entryPage.includes("import { JournalFlow }"));
-  assert.ok(entryPage.includes('<JournalFlow />'));
+  assert.ok(entryPage.includes('<JournalFlow returnContext={returnContext} />'));
+  assert.ok(entryPage.includes('return null;'));
   assert.ok(journalFlow.includes('useJournal()'));
   assert.ok(journalFlow.includes('thresholdQuestion'));
 });
