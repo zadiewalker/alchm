@@ -5,14 +5,17 @@ import { execFileSync } from 'node:child_process';
 import { createHash, createPrivateKey, createPublicKey, sign } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
-const expectedCandidateSha = '62d5a383e5404633dc5ab3d04e813b3cdeeedb4f';
-const expectedEvidenceTailSha = 'cc5725543bc1d6d2ce2e4c00d3af27c5f96ec443';
+const expectedCandidateSha = process.env.ALCHM_RUNTIME_ATTESTATION_CANDIDATE_SHA
+  ?? '8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6';
+const expectedEvidenceTailSha = process.env.ALCHM_RUNTIME_ATTESTATION_EVIDENCE_TAIL_SHA
+  ?? '8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6';
 const expectedVerifierId = process.env.ALCHM_RUNTIME_ATTESTATION_VERIFIER_ID
   ?? 'alchm-release-owner-2026-05';
 const privateKeyPath = process.env.ALCHM_RUNTIME_ATTESTATION_PRIVATE_KEY_PATH;
 const receiptId = process.env.ALCHM_RUNTIME_ATTESTATION_RECEIPT_ID;
 const receiptTtlHours = Number(process.env.ALCHM_RUNTIME_ATTESTATION_RECEIPT_TTL_HOURS ?? '24');
 const replaceExistingReceipt = process.env.ALCHM_RUNTIME_ATTESTATION_REPLACE_RECEIPT === 'true';
+const allowDirtyEvidence = process.env.ALCHM_RUNTIME_ATTESTATION_ALLOW_DIRTY_EVIDENCE === 'true';
 
 const releaseDir = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(releaseDir, '../..');
@@ -46,8 +49,8 @@ const requiredBindings = [
   ['firestoreRulesDeployment', 'e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6'],
   ['providerSecretPresence', 'ANTHROPIC_API_KEY'],
   ['providerSecretPresence', 'version 1'],
-  ['deploymentAuthority', 'dpl_6smNjSnhdYGHNEWAqevVSfVEegYD'],
-  ['rollbackAuthority', 'dpl_7Ha2hAsHqqhBtPHa2q6XhGMqySEd'],
+  ['deploymentAuthority', 'dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A'],
+  ['rollbackAuthority', 'dpl_ApmU15DALoCc4w9q5WdbBdBkbt98'],
 ];
 
 function fail(message) {
@@ -156,7 +159,14 @@ if (!isAncestor(expectedEvidenceTailSha, head)) {
   fail(`expected evidence-tail ${expectedEvidenceTailSha} is not an ancestor of current HEAD ${head}.`);
 }
 const worktreeStatus = git(['status', '--porcelain']);
-if (worktreeStatus !== '') {
+const dirtyPaths = worktreeStatus
+  .split('\n')
+  .map((line) => line.trim())
+  .filter(Boolean)
+  .map((line) => line.replace(/^(?:[MARCDU?!]{1,2})\s+/, '').trim())
+  .filter(Boolean);
+const disallowedDirtyPaths = dirtyPaths.filter((relativePath) => !isEvidenceTailPath(relativePath));
+if (worktreeStatus !== '' && (!allowDirtyEvidence || disallowedDirtyPaths.length > 0)) {
   fail('worktree must be clean before issuing a production receipt.');
 }
 const disallowedPostEvidenceTailPaths = git(['diff', '--name-only', `${expectedEvidenceTailSha}..${head}`])

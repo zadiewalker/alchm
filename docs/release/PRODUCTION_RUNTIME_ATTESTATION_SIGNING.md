@@ -14,11 +14,11 @@ material and does not authorize native release evidence.
 | --- | --- |
 | Verifier ID | `alchm-release-owner-2026-05` |
 | Receipt algorithm | `RSA-SHA256` |
-| Product candidate | `62d5a383e5404633dc5ab3d04e813b3cdeeedb4f` |
-| Evidence-tail input | `cc5725543bc1d6d2ce2e4c00d3af27c5f96ec443` |
+| Product candidate | `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` |
+| Evidence-tail input | `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` |
 | Public key fingerprint | `02382b8c6fa145385e8a44d6337425921bbb7e19a88b071f65511c2a6f463de0` |
 | Function hash binding | `4f7568b4d268d26b06f6d6725982ed3c02fdbd33` |
-| Vercel deployment binding | `dpl_6smNjSnhdYGHNEWAqevVSfVEegYD` |
+| Vercel deployment binding | `dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A` |
 | Provider secret binding | `ANTHROPIC_API_KEY` version `1` |
 
 ## Command

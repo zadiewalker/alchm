@@ -6,7 +6,7 @@
 
 Native remains in scope. This record preserves historical archive evidence for
 prior candidates and records a same-SHA local archive for product candidate
-`23f2eac9506c49601403bacf85ffa4196d6734d2` after adding the official
+`8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` after adding the official
 RevenueCat Capacitor Purchases native plugin. `iosArchiveSameSha` remains false
 until external RevenueCat dashboard proof and sandbox/TestFlight purchase or
 restore evidence are attached for the archived build.
@@ -16,9 +16,9 @@ restore evidence are attached for the archived build.
 | Field | Evidence |
 | --- | --- |
 | Historical archived candidate SHA | `16e3a5d19ceee278957a413fb01b69178dca97cf` |
-| New authoritative candidate SHA | `23f2eac9506c49601403bacf85ffa4196d6734d2` |
+| New authoritative candidate SHA | `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` |
 | Historical archive evidence-tail SHA | `fe0bf5ee342f1be5177b2a1a843c48c1c8306d3a` |
-| Current archive candidate SHA | `23f2eac9506c49601403bacf85ffa4196d6734d2` |
+| Current archive candidate SHA | `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` |
 | Native archive worktree | `/Users/zadiewalker/Desktop/alchm` |
 | Worktree before native run | Clean according to `git status --short --branch` before evidence updates |
 | Canonical Capacitor source ID | Candidate `capacitor.config.ts` declares `appId: 'com.alchm.sanctuary'` |
@@ -63,13 +63,13 @@ git diff --check
 | --- | --- |
 | Next build | Passed; static export generated 36 app routes |
 | Capacitor sync | Passed; copied `out` to `ios/App/App/public`, created `ios/App/App/capacitor.config.json`, updated iOS plugins, ran `pod install`, and reported `@revenuecat/purchases-capacitor@13.1.5` among 9 iOS plugins |
-| Repository validation | Passed on current candidate `23f2eac9506c49601403bacf85ffa4196d6734d2` with clean pre-evidence worktree |
+| Repository validation | Passed on current candidate `8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` with clean pre-evidence worktree |
 
 ## Archive Evidence
 
 | Field | Evidence |
 | --- | --- |
-| Archive path | `/tmp/alchm-revenuecat-candidate.xcarchive` |
+| Archive path | `/tmp/alchm-footer-gating-candidate.xcarchive` |
 | Archive result | `ARCHIVE SUCCEEDED` |
 | Archive timestamp | 2026-06-06 local run |
 | Archive scheme | `App` |
@@ -81,7 +81,7 @@ git diff --check
 | Bundle short version | `1.0` |
 | Bundle version | `2` |
 | App binary SHA-256 | `15fcde7f36092f83bd496ed212829b4538144aac7c5e86569fdd74fdf7a4c06b` |
-| dSYM presence | `/tmp/alchm-revenuecat-candidate.xcarchive/dSYMs/App.app.dSYM` |
+| dSYM presence | `/tmp/alchm-footer-gating-candidate.xcarchive/dSYMs/App.app.dSYM` |
 | Code signing identifier | `com.alchm.sanctuary` |
 
 ## RevenueCat Evidence
@@ -101,9 +101,9 @@ Native archive evidence currently identifies:
 | Field | Evidence |
 | --- | --- |
 | Capacitor Purchases plugin | `@revenuecat/purchases-capacitor@13.1.5` |
-| RevenueCat plugin framework | `/tmp/alchm-revenuecat-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenuecatPurchasesCapacitor.framework` |
-| Purchases hybrid framework | `/tmp/alchm-revenuecat-candidate.xcarchive/Products/Applications/App.app/Frameworks/PurchasesHybridCommon.framework` |
-| RevenueCat framework | `/tmp/alchm-revenuecat-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenueCat.framework` |
+| RevenueCat plugin framework | `/tmp/alchm-footer-gating-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenuecatPurchasesCapacitor.framework` |
+| Purchases hybrid framework | `/tmp/alchm-footer-gating-candidate.xcarchive/Products/Applications/App.app/Frameworks/PurchasesHybridCommon.framework` |
+| RevenueCat framework | `/tmp/alchm-footer-gating-candidate.xcarchive/Products/Applications/App.app/Frameworks/RevenueCat.framework` |
 | `debug.html` in archive | Absent |
 | `test.html` in archive | Absent |
 
@@ -120,7 +120,7 @@ Release approval still requires external RevenueCat evidence:
 ## Certification Consequence
 
 `iosArchiveSameSha` remains blocked for current candidate
-`23f2eac9506c49601403bacf85ffa4196d6734d2` because:
+`8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6` because:
 
 1. A same-SHA local archive has been recorded, but TestFlight/App Store Connect
    distribution proof for this exact archive is absent.
