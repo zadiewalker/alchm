@@ -2,86 +2,87 @@
   "schemaVersion": 1,
   "attestationStatus": "ATTESTED",
   "runtimeEnablementAuthorized": true,
-  "candidateSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+  "candidateSha": "c151f23afc4a69a281acfc20b29b16917729052f",
   "deploymentEnvironment": "production",
-  "verifiedAt": "2026-06-08T08:23:18.117Z",
+  "verifiedAt": "2026-06-08T08:46:24.909Z",
   "verificationAuthority": {
     "status": "verified",
     "verifierId": "alchm-release-owner-2026-05",
-    "reference": "External RSA verifier alchm-release-owner-2026-05 signed receipt prod-ba21195ad0b7-2026-06-08T08-23-18-117Z. Evidence-tail ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Private key path remained outside the repository and was not recorded."
+    "reference": "External RSA verifier alchm-release-owner-2026-05 signed receipt prod-c151f23afc4a-2026-06-08T08-46-24-909Z. Evidence-tail c151f23afc4a69a281acfc20b29b16917729052f. Private key path remained outside the repository and was not recorded."
   },
   "receipt": {
     "algorithm": "RSA-SHA256",
     "payload": {
       "schemaVersion": 1,
-      "receiptId": "prod-ba21195ad0b7-2026-06-08T08-23-18-117Z",
+      "receiptId": "prod-c151f23afc4a-2026-06-08T08-46-24-909Z",
       "verifierId": "alchm-release-owner-2026-05",
-      "candidateSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "evidenceDigest": "5a61fc0496856db2cd9491cf7414be553235a9a6585744ea93b8b8719489ae2e",
+      "candidateSha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "evidenceDigest": "add28a6a2d173e953e8b7f7e9e0a4c7c086a35b3a5e3105d8d9b4626c7190086",
       "deploymentEnvironment": "production",
-      "functionsDeploymentSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "firestoreRulesDeploymentSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "deploymentEvidenceDigest": "34e47a8bc356bd71f90c5ecd287d0fa5b8f7e88a17120f5fa6bed18968cf4f5c",
-      "providerSecretLineageDigest": "a763df886c96a9968eacd2ba614d619f137db962e026b020a6a0392db115cde9",
+      "functionsDeploymentSha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "firestoreRulesDeploymentSha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "deploymentEvidenceDigest": "a62715317703ce9aeb8c22733ece61d52988251450c81a5b30de77f3b89af97d",
+      "providerSecretLineageDigest": "2fbdff174e6ae22286d4e6fc56bd88992538232868dff5d2e9c12dc2a75e9e1b",
       "authorizationScope": "continuity-transitions",
-      "issuedAt": "2026-06-08T08:23:18.117Z",
-      "expiresAt": "2026-06-09T08:23:18.117Z"
+      "issuedAt": "2026-06-08T08:46:24.909Z",
+      "expiresAt": "2026-06-09T08:46:24.909Z"
     },
-    "signatureBase64": "Jl6jzhSvVNLZknbptbq4IDjOPihIMjeRxp0HY3B2nOPSEtZvmKxZEftOyssqBq0aw+zGRC1J0LSm5U5l7hlIHOSEnsdFcTjU359W/UQrx4EfjfsY9NkqLltK8Zb/aRC5p9v5MhWUow7muxc+9fD6mPSS1o+CMqXzTskd7HXK03IumlANM/3F+JGoUn2FIS2NQuNuUhz49SxU0Wh1oBQ+9RdAEoV+nfhPZvjouikrAK0/EEaUdJeS6M367MPwTUZ7gXAkIrAl/yhZXuYsu/fAfHrxjR3srW8W3tYqht74jAfVnces8txaEHaEK4ZaoXqNrgsqrrd6VD1eMfA6y2IeLBoNmPyK4ELW9ozu6VPJSyruPZgW7+T9Fbb6/Gcp7M/fNvhOFqqNfVvEdJByLOO6noHfHCIE3nYCY/4uMf8ff47LxN0MOQQEuEBFxhJ58GqGHdl91VQj9cIBrFUXPG96FenSxAdHT6tvFRj4j3Z/hxONehiR1Jn4fsf9oW28fynbGhVPKvs0QOKVCtEZq4i/t92CQfbyV28Nx5ww6L9zXkz3SP0/dQQG1NtkE3G3Esm6EogapHe/yas+MR44ztAi4Ku7gxqyagoRTr0ZYfcFJEeIKBnRWarREYh6gi7tD+6VLGXQB+0Xlbx2iCREmGvtMeXZ7+HO0Xnvpsr7bsSDea8="
+    "signatureBase64": "DujiTZODHZBwc8k9g/uuxCMMc06AkSv1kTg/KaI3Yvq2jyC3T3fYuPF1jlE1alINOdS6ZoFRPlCN5WspmTHCF9ukUJpxs8mhuxAwXEeqxe3/Q6N3tdwqztK/THk2f4wxYMZ5KdbWzEuXuuL/YXBJyFrwrP5jh2vjPFNA4yw18PSiQqenRC8pAp9cthwyYtUfktFL0E60cw+KADoIo/hX1njMxB5tvY9EEXMHElJG46Wzgt+lx1fizNV3tNIlxeiRPLLSmHQN+mSMiT8iVP2jpfeVCj+AUxhUShlYov318FlhW5Wxv36F7gBOp7c3vWKSuigNu6eGUgWa7wP5iWAuMuTAfvOi9eN5xw7K6clGmWeH0OZzUxXe/vsB9fMdXj8wVcAq/t7q2qE9mNsadUfH1qF6JfsVJM/zK+b6OwE0O9+vs3Fy4iN2z/XdvHbpCaKfql6dYakshuQXzMQf57uIFUezAvUMc9oyyqQzxrS1YFandgXMoyGbkWejgRADHdHK0kdKrX6DXfslmAA4hCiIY1FecVxDUFW3ohFIY8dfH4B53MNCL8lIPV5zyiQP/abKoPp3zwDmJvBzjZx8q0rWwSm4c7NnIjMLd4rSWLDfBWfSohzyM6nUUEsPDs6AdrXvVw1EFzgGF2eZiC6StNz9kj3er4nSl4HtBF9+1UuCjJo="
   },
   "consumedReceiptIds": [
     "prod-d255aded50d9-2026-06-04T18-32-29-920Z",
     "prod-cf92af3579e9-2026-06-05T00-21-24-796Z",
     "prod-62d5a383e540-2026-06-06T16-17-55-028Z",
     "prod-23f2eac9506c-2026-06-06T17-22-12-840Z",
-    "prod-8f62cffe7a3f-2026-06-08T05-02-31-930Z"
+    "prod-8f62cffe7a3f-2026-06-08T05-02-31-930Z",
+    "prod-ba21195ad0b7-2026-06-08T08-23-18-117Z"
   ],
   "evidence": {
     "cleanCandidate": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "git status --short --branch clean in detached release worktree /tmp/alchm-release-ba21195 at product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; branch release/clinical-architecture-integration pushed to origin at ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Main checkout retained unrelated untracked local iOS files and was not used for release evidence."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "git status --short --branch clean in detached release worktree /tmp/alchm-release-ba21195 at validation-normalized candidate c151f23afc4a69a281acfc20b29b16917729052f; branch release/clinical-architecture-integration pushed to origin at c151f23afc4a69a281acfc20b29b16917729052f. Product/runtime behavior is unchanged from ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; this candidate contains test-harness normalization only after the previous evidence tail."
     },
     "releaseScope": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "npm run design:validate, npm run typecheck, npm run lint, npm test, npm run build, npm --prefix functions run build, npm --prefix functions run lint, npm run e2e:navigation, and git diff --check passed locally for ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. GitHub Navigation E2E run 27123588249 completed successfully for exact headSha ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; job 80046373752."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "npm test, npm run typecheck, npm run lint, npm run build, npm run e2e:navigation, and git diff --check passed locally for c151f23afc4a69a281acfc20b29b16917729052f; npm run validate is being rerun after this evidence rebinding. GitHub Navigation E2E run 27126000613 completed successfully for exact headSha c151f23afc4a69a281acfc20b29b16917729052f; job 80054634373."
     },
     "firestoreEmulatorAuthorization": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "npm run check:firestore-emulator-evidence passed for clean candidate checkout ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-08T08:21:24.074Z."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "npm run check:firestore-emulator-evidence passed for clean candidate checkout c151f23afc4a69a281acfc20b29b16917729052f; artifact status CANDIDATE_BOUND_PASS; tests=6 pass=6 fail=0; firestoreRulesDigest=e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6; completedAt=2026-06-08T08:45:21.463Z."
     },
     "functionsDeployment": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "No functions source or Firebase deployment configuration changed between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Existing Firebase Functions deployment for generateKheperaReflection remains ACTIVE in project alchm-463017 with source hash 4f7568b4d268d26b06f6d6725982ed3c02fdbd33, runtime nodejs20, callable trigger, and candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30 contains the same deployed functions source."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "No functions source or Firebase deployment configuration changed between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and validation-normalized candidate c151f23afc4a69a281acfc20b29b16917729052f. Existing Firebase Functions deployment for generateKheperaReflection remains ACTIVE in project alchm-463017 with source hash 4f7568b4d268d26b06f6d6725982ed3c02fdbd33, runtime nodejs20, callable trigger, and candidate c151f23afc4a69a281acfc20b29b16917729052f contains the same deployed functions source."
     },
     "firestoreRulesDeployment": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "No firestore.rules changes occurred between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Deployed Firestore rules remain represented by local firestore.rules SHA-256 digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, and direct product-candidate emulator evidence passed for ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "No firestore.rules changes occurred between previously deployed candidate 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f and validation-normalized candidate c151f23afc4a69a281acfc20b29b16917729052f. Deployed Firestore rules remain represented by local firestore.rules SHA-256 digest e142868652eeb0d0f876491cc540357c08f870198d9b2253485e6467a6a982e6, and direct product-candidate emulator evidence passed for c151f23afc4a69a281acfc20b29b16917729052f."
     },
     "providerSecretPresence": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "Provider-secret binding carries forward for candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. generateKheperaReflection still binds ANTHROPIC_API_KEY via Firebase Functions secret configuration from 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f; deployed metadata previously verified secretEnvironmentVariables containing key ANTHROPIC_API_KEY, secret ANTHROPIC_API_KEY, version 1, and no functions source changed in ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30. Secret values were not printed."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "Provider-secret binding carries forward for candidate c151f23afc4a69a281acfc20b29b16917729052f. generateKheperaReflection still binds ANTHROPIC_API_KEY via Firebase Functions secret configuration from 62d5a383e5404633dc5ab3d04e813b3cdeeedb4f; deployed metadata previously verified secretEnvironmentVariables containing key ANTHROPIC_API_KEY, secret ANTHROPIC_API_KEY, version 1, and no functions source changed in c151f23afc4a69a281acfc20b29b16917729052f. Secret values were not printed."
     },
     "deploymentAuthority": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "Vercel preview deployment dpl_H22B7K11pihP2yX35L6AZrBhQAho built branch release/clinical-architecture-integration commit ba21195 from github.com/zadiewalker/alchm at https://alchm-prpuc0le2-zadie-walkers-projects.vercel.app. vercel promote dpl_H22B7K11pihP2yX35L6AZrBhQAho --scope zadie-walkers-projects --yes created production deployment dpl_AcCFEEPfBALMwWLsf783dmUf5E9E at https://alchm-5v31jsisl-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; production logs show commit ba21195."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "Vercel preview deployment dpl_HvriP7N9J3kJLX13KRCoWbE8sGux built branch release/clinical-architecture-integration commit c151f23 from github.com/zadiewalker/alchm at https://alchm-m74r1nmcw-zadie-walkers-projects.vercel.app. vercel promote dpl_HvriP7N9J3kJLX13KRCoWbE8sGux --scope zadie-walkers-projects --yes created production deployment dpl_A4M7zB7xqw3VjzmVmzA9jcwSTVh3 at https://alchm-j61y80bp2-zadie-walkers-projects.vercel.app with aliases https://alchm.vercel.app and https://alchm-zadie-walkers-projects.vercel.app; production logs show commit c151f23."
     },
     "rollbackAuthority": {
       "verified": true,
-      "sha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-      "reference": "Current Vercel production deployment is dpl_AcCFEEPfBALMwWLsf783dmUf5E9E for candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30; previous production rollback target is dpl_ED8GSN71szSE7TYq6pCLtAiDKA9A. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Native rollback is reverting product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30 or archiving prior candidate 8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6."
+      "sha": "c151f23afc4a69a281acfc20b29b16917729052f",
+      "reference": "Current Vercel production deployment is dpl_A4M7zB7xqw3VjzmVmzA9jcwSTVh3 for candidate c151f23afc4a69a281acfc20b29b16917729052f; previous production rollback target is dpl_AcCFEEPfBALMwWLsf783dmUf5E9E. Firebase rollback remains targeted redeploy of explicit Functions and firestore.rules to project alchm-463017. Native rollback is reverting product candidate ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30 or archiving a prior candidate; c151f23afc4a69a281acfc20b29b16917729052f contains test-harness normalization only."
     }
   },
   "recordedProviderSecretLineageDigest": null,
   "previousAttestedCandidate": {
-    "candidateSha": "8f62cffe7a3f8d5bb0daec3a1e580730bf00fdd6",
-    "supersededBy": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
-    "reason": "Footer visibility, journal submit recovery, and back navigation changed runtime UI behavior after the prior attested candidate. The new candidate was pushed, GitHub-validated, locally validated, archived with RevenueCat native frameworks still present, promoted to Vercel production, and is being re-attested with a production verifier receipt. iosArchiveSameSha remains false pending external TestFlight purchase/restore proof."
+    "candidateSha": "ba21195ad0b7feff7e3cd8aeb7e04966ad8ccf30",
+    "supersededBy": "c151f23afc4a69a281acfc20b29b16917729052f",
+    "reason": "Default Node validation failed because two tests imported TypeScript modules directly without a harness. This candidate changes only test-harness imports, preserves product/runtime behavior from the footer submit navigation candidate, was pushed, GitHub-validated, locally validated, promoted to Vercel production, and is being re-attested with a production verifier receipt. iosArchiveSameSha remains false pending external TestFlight purchase/restore proof."
   }
 }
